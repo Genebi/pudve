@@ -18,7 +18,6 @@ namespace PuntoDeVentaV2
 
         public int venta_cancelada = 0;
 
-
         public Ventana_cancelar_venta()
         {
             InitializeComponent();
@@ -47,7 +46,6 @@ namespace PuntoDeVentaV2
                 if (validarFechaVenta > validarFechaCorte)
                 {
                     var folio = numFolio.Trim();
-
                     if (!string.IsNullOrWhiteSpace(folio))
                     {
                         var consulta = $"SELECT ID FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Folio = {folio}";
@@ -69,7 +67,7 @@ namespace PuntoDeVentaV2
                                 // Cancelar la venta
                                 var resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
 
-                                bool seCancelaLaVenta = false;
+                                //bool seCancelaLaVenta = false;
 
                                 if (resultado > 0)
                                 {
@@ -144,7 +142,7 @@ namespace PuntoDeVentaV2
                                                 //cn.EjecutarConsulta(cs.OperacionCaja(datos));
                                             }
 
-                                            seCancelaLaVenta = true;
+                                            //seCancelaLaVenta = true;
                                         }
                                         else if (estatusVenta.Equals(4))
                                         {
@@ -154,74 +152,112 @@ namespace PuntoDeVentaV2
 
                                     venta_cancelada = 1;
 
-                                    if (seCancelaLaVenta)
+                                    //if (seCancelaLaVenta)
+                                    //{
+                                    // Obtiene el id del combo cancelado
+                                    DataTable d_prod_venta = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM ProductosVenta WHERE IDVenta='{idVenta}'");
+                                    //var productos = cn.ObtenerProductosVenta(idVenta);
+
+                                    if (d_prod_venta.Rows.Count > 0)
                                     {
-                                        // Obtiene el id del combo cancelado
-                                        DataTable d_prod_venta = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM ProductosVenta WHERE IDVenta='{idVenta}'");
-                                        //var productos = cn.ObtenerProductosVenta(idVenta);
+                                        DataRow r_prod_venta = d_prod_venta.Rows[0];
+                                        int id_prod = Convert.ToInt32(r_prod_venta["IDProducto"]);
+                                        decimal cantidad_combo = Convert.ToDecimal(r_prod_venta["Cantidad"]);
 
-                                        if (d_prod_venta.Rows.Count > 0)
+                                        // Busca los productos relacionados al combo y trae la cantidad para aumentar el stock
+                                        //DataTable dtprod_relacionados = cn.CargarDatos(cs.productos_relacionados(id_prod));
+
+                                        //if (dtprod_relacionados.Rows.Count > 0)//Este caso entra cuando solo se cancelan combos
+                                        //{
+                                        //    foreach (DataRow drprod_relacionados in dtprod_relacionados.Rows)
+                                        //    {
+                                        //        decimal cantidad_prod_rel = Convert.ToDecimal(drprod_relacionados["Cantidad"]);
+                                        //        decimal cantidad_prod_rel_canc = cantidad_combo * cantidad_prod_rel;
+
+                                        //        cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad_prod_rel_canc} WHERE ID = {drprod_relacionados["IDProducto"]} AND IDUsuario = {FormPrincipal.userID}");
+                                        //    }
+                                        //}
+                                        ////else if (dtprod_relacionados.Rows.Count.Equals(0))
+                                        //{
+                                        using (DataTable dtProdVenta = cn.CargarDatos(cs.ObtenerProdDeLaVenta(idVenta)))
                                         {
-                                            DataRow r_prod_venta = d_prod_venta.Rows[0];
-                                            int id_prod = Convert.ToInt32(r_prod_venta["IDProducto"]);
-                                            decimal cantidad_combo = Convert.ToDecimal(r_prod_venta["Cantidad"]);
-
-                                            // Busca los productos relacionados al combo y trae la cantidad para aumentar el stock
-                                            DataTable dtprod_relacionados = cn.CargarDatos(cs.productos_relacionados(id_prod));
-
-                                            if (dtprod_relacionados.Rows.Count > 0)
+                                            if (!dtProdVenta.Rows.Count.Equals(0))
                                             {
-                                                foreach (DataRow drprod_relacionados in dtprod_relacionados.Rows)
+                                                foreach (DataRow drProdVenta in dtProdVenta.Rows)
                                                 {
-                                                    decimal cantidad_prod_rel = Convert.ToDecimal(drprod_relacionados["Cantidad"]);
-                                                    decimal cantidad_prod_rel_canc = cantidad_combo * cantidad_prod_rel;
 
-                                                    cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad_prod_rel_canc} WHERE ID = {drprod_relacionados["IDProducto"]} AND IDUsuario = {FormPrincipal.userID}");
-                                                }
-                                            }
-                                            else if (dtprod_relacionados.Rows.Count.Equals(0))
-                                            {
-                                                using (DataTable dtProdVenta = cn.CargarDatos(cs.ObtenerProdDeLaVenta(idVenta)))
-                                                {
-                                                    if (!dtProdVenta.Rows.Count.Equals(0))
+                                                    var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                                    var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
+                                                    var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
+                                                    decimal stockActual = Convert.ToDecimal(drProdVenta["Stock"].ToString());
+                                                    decimal stockNuevo = stockActual + Convert.ToDecimal(drProdVenta["Cantidad"]);
+                                                    decimal cantidad = Convert.ToDecimal(dtProdVenta.Rows[0]["Cantidad"]);
+                                                    var idProd = drProdVenta["ID"].ToString();
+                                                    var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                                                    var consultarComboProductoServicio = cn.CargarDatos($"SELECT Tipo FROM productos WHERE ID = '{idProd}'");
+                                                    var comboServicioProducto = consultarComboProductoServicio.Rows[0]["Tipo"].ToString();
+
+                                                    if (comboServicioProducto.Equals("P"))
                                                     {
-                                                        foreach (DataRow drProdVenta in dtProdVenta.Rows)
+                                                        cn.EjecutarConsulta($"UPDATE Productos SET Stock = {stockNuevo} WHERE ID = {idProd} AND IDUsuario = {FormPrincipal.userID}");
+                                                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idProd}','Venta Cancelada Folio: {folio}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','+{cantidad}','{"P"}',{"0"})");
+                                                    }
+                                                    else
+                                                    {
+                                                        if (comboServicioProducto.Equals("PQ"))
                                                         {
+                                                            var productosDePaquete = cn.CargarDatos($"SELECT * FROM productosdeservicios WHERE IDServicio = '{idProd}'");
+                                                            foreach (DataRow item in productosDePaquete.Rows)
+                                                            {
 
-                                                            var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                                            var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
-                                                            var FolioDeCancelacion = datoFolio.Rows[0]["Folio"]; 
-                                                            decimal stockActual = Convert.ToDecimal(drProdVenta["Stock"].ToString());
-                                                            decimal stockNuevo = stockActual + Convert.ToDecimal(drProdVenta["Cantidad"]);
+                                                                var nuevoStock = cantidad * Convert.ToDecimal(item[5]);
+                                                                var consultaStock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {item[3]}");
+                                                                var StockProdActual = consultaStock.Rows[0]["Stock"].ToString();
+                                                                var stockProdNuevo = Convert.ToDecimal(StockProdActual) + Convert.ToDecimal(nuevoStock);
 
-                                                            cn.EjecutarConsulta(cs.aumentarStockVentaCancelada(Convert.ToInt32(drProdVenta["ID"].ToString()), (float)(Convert.ToDecimal(drProdVenta["Stock"].ToString()) + Convert.ToDecimal(drProdVenta["Cantidad"].ToString()))));
+                                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{item[3]}','Venta Cancelada de combo Folio: {folio}','{StockProdActual}','{stockProdNuevo.ToString("N")}','{FechaOperacion}','{FormPrincipal.userNickName}','+{nuevoStock.ToString("N")}','{"P"}',{"0"})");
+
+                                                                cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {nuevoStock} WHERE ID = {item[3]} AND IDUsuario = {FormPrincipal.userID}");
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            var productosDePaquete = cn.CargarDatos($"SELECT * FROM productosdeservicios WHERE IDServicio = '{idProd}'");
+                                                            foreach (DataRow item in productosDePaquete.Rows)
+                                                            {
+
+                                                                var nuevoStock = cantidad * Convert.ToDecimal(item[5]);
+                                                                var consultaStock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {item[3]}");
+                                                                var StockProdActual = consultaStock.Rows[0]["Stock"].ToString();
+                                                                var stockProdNuevo = Convert.ToDecimal(StockProdActual) + Convert.ToDecimal(nuevoStock);
+
+                                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{item[3]}','Venta Cancelada de servicio Folio: {folio}','{StockProdActual}','{stockProdNuevo.ToString("N")}','{FechaOperacion}','{FormPrincipal.userNickName}','+{nuevoStock.ToString("N")}','{"P"}',{"0"})");
+
+                                                                cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {nuevoStock} WHERE ID = {item[3]} AND IDUsuario = {FormPrincipal.userID}");
+                                                            }
+
                                                         }
                                                     }
+
                                                 }
                                             }
-
-                                            /* foreach (var producto in productos)
-                                             {
-                                                 var info = producto.Split('|');
-                                                 var idProducto = info[0];
-                                                 var cantidad = Convert.ToDecimal(info[2]);
-
-                                                 cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
-                                             }*/
                                         }
+                                        //}
+
+                                        /* foreach (var producto in productos)
+                                         {
+                                             var info = producto.Split('|');
+                                             var idProducto = info[0];
+                                             var cantidad = Convert.ToDecimal(info[2]);
+
+                                             cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                                         }*/
+                                        //}
                                     }
                                 }
-
-
-
-
-                                //cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','Venta Cancelada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
-
-
-
-
                                 this.Close();
-                            }                            
+                            }
                         }
                         else
                         {
@@ -261,8 +297,8 @@ namespace PuntoDeVentaV2
             }
 
             return result;
-        } 
-             
+        }
+
         private void solo_digitos(object sender, KeyPressEventArgs e)
         {
             if (!char.IsNumber(e.KeyChar) && (e.KeyChar != (char)Keys.Back))
@@ -439,7 +475,7 @@ namespace PuntoDeVentaV2
                     // Agregamos marca de agua al PDF del ticket de la venta cancelada
                     Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
 
-                    
+
                 }
             }
             return result;
