@@ -179,6 +179,7 @@ namespace PuntoDeVentaV2
 
         string idprodCombo = string.Empty;
         int cantidadCombo = 0;
+        int ventaGuardadappt = 0;
 
         Dictionary<int, string> listaMensajesEnviados = new Dictionary<int, string>();
 
@@ -262,6 +263,7 @@ namespace PuntoDeVentaV2
 
         private void Ventas_Load(object sender, EventArgs e)
         {
+            ventaGuardadappt = 0;
             if (string.IsNullOrEmpty(lbDatosCliente.Text))
             {
                 etiqeutaCliente = "vacio";
@@ -3310,12 +3312,12 @@ namespace PuntoDeVentaV2
                                         cn.EjecutarConsulta(cs.GuardarProductosVenta(guardar));
                                     }
                                 }
-                                if (tipoDeVenta.Equals("PQ") || tipoDeVenta.Equals("S"))
+                                if (tipoDeVenta.Equals("PQ") || tipoDeVenta.Equals("S") )
                                 {
                                     var tipoDeVentaComboServicio = string.Empty;
                                     var consulta = cn.CargarDatos($"SELECT * FROM productosdeservicios WHERE IDServicio = '{IDProducto}'");
                                     // faltaba esa validacion de si no tenia nada la consulta
-                                    if (!consulta.Rows.Count.Equals(0))
+                                    if (!consulta.Rows.Count.Equals(0) && ventaGuardadappt == 0)
                                     {
                                         idprodCombo = consulta.Rows[0]["IDProducto"].ToString();
                                         var consulta2 = cn.CargarDatos($"SELECT Cantidad FROM productosdeservicios WHERE IDServicio = '{IDProducto}' AND IDProducto = '{idprodCombo}'");
@@ -3324,7 +3326,7 @@ namespace PuntoDeVentaV2
 
                                         var dato = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {idprodCombo}");
                                         // faltaba esa validacion de si no tenia nada la consulta
-                                        if (!dato.Rows.Count.Equals(0))
+                                        if (!dato.Rows.Count.Equals(0) && ventaGuardadappt == 0)
                                         {
                                             decimal stockActual = Convert.ToDecimal(dato.Rows[0]["Stock"]);
                                             decimal stockNuevo = stockActual - cantidadCombo * Convert.ToDecimal(guardar[3]);
@@ -3345,7 +3347,7 @@ namespace PuntoDeVentaV2
                                 {
                                     var dato = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {guardar[1]}");
                                     // faltaba esa validacion de si no tenia nada la consulta
-                                    if (!dato.Rows.Count.Equals(0))
+                                    if (!dato.Rows.Count.Equals(0) && ventaGuardadappt == 0)
                                     {
                                         decimal stockActual = Convert.ToDecimal(dato.Rows[0]["Stock"]);
                                         decimal stockNuevo = stockActual - Convert.ToDecimal(guardar[3]);
@@ -6541,12 +6543,12 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo4_Click(object sender, EventArgs e)
         {
+            ventaGuardadappt = 1;
             if (opcion10 == 0)
             {
                 Utilidades.MensajePermiso();
                 return;
             }
-
 
             if (DGVentas.RowCount > 0)
             {
