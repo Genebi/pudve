@@ -915,19 +915,19 @@ namespace PuntoDeVentaV2
                 var cantidad = txtCantidadCompra.Text;
                 if (!string.IsNullOrWhiteSpace(mensaje) && !string.IsNullOrWhiteSpace(cantidad) || stateChkEliminarMensajes.Equals(true))
                 {
-                    MensajePorFavorEspere porFavorEspere = new MensajePorFavorEspere();
+                    //MensajePorFavorEspere porFavorEspere = new MensajePorFavorEspere();
 
                     // Mostrar formulario sin modo
-                    porFavorEspere.tiempoDeEspera = 150;
-                    porFavorEspere.propiedadCambiar = propiedad;
-                    porFavorEspere.ShowDialog();
+                    //porFavorEspere.tiempoDeEspera = 150;
+                    //porFavorEspere.propiedadCambiar = propiedad;
+                    //porFavorEspere.ShowDialog();
 
                     OperacionBoton();
 
-                    // Permita que el hilo principal de la interfaz de usuario se muestre correctamente, espere el formulario.
-                    Application.DoEvents();
+                    //// Permita que el hilo principal de la interfaz de usuario se muestre correctamente, espere el formulario.
+                    //Application.DoEvents();
 
-                    porFavorEspere.Dispose();
+                    //porFavorEspere.Dispose();
                 }
                 else
                 {
@@ -941,17 +941,16 @@ namespace PuntoDeVentaV2
                 var mensaje = txtMensaje.Text;
                 if (!string.IsNullOrWhiteSpace(mensaje) || rbEliminarMensaje.Checked.Equals(true))
                 {
-                    MensajePorFavorEspere porFavorEspere = new MensajePorFavorEspere();
+                    //MensajePorFavorEspere porFavorEspere = new MensajePorFavorEspere();
 
                     // Mostrar formulario sin modo
-                    porFavorEspere.tiempoDeEspera = 150;
-                    porFavorEspere.propiedadCambiar = propiedad;
-                    porFavorEspere.ShowDialog();
+                    //porFavorEspere.tiempoDeEspera = 150;
+                    //porFavorEspere.propiedadCambiar = propiedad;
+                    //porFavorEspere.ShowDialog();
+                    //// Permita que el hilo principal de la interfaz de usuario se muestre correctamente, espere el formulario.
+                    //Application.DoEvents();
+                    //porFavorEspere.Dispose();
                     OperacionBoton();
-
-                    // Permita que el hilo principal de la interfaz de usuario se muestre correctamente, espere el formulario.
-                    Application.DoEvents();
-                    porFavorEspere.Dispose();
                 }
                 else
                 {
@@ -1071,7 +1070,7 @@ namespace PuntoDeVentaV2
                 }
                 
             }
-            else if (propiedad == "MensajeInventario")/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            else if (propiedad == "MensajeInventario")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
 
                 TextBox txtMensaje = (TextBox)this.Controls.Find("tbMensajeInventario", true)[0];
