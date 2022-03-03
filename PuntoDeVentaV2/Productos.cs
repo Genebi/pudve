@@ -965,7 +965,6 @@ namespace PuntoDeVentaV2
                     };
                 }
             }
-
             //if (HighlightedRowIndex >= 0)
             //{
             //    SetRowStyle(DGVProductos.Rows[HighlightedRowIndex], null);
