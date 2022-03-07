@@ -184,8 +184,35 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                cbFiltroAdminEmpleado.Visible = false;
+                cbFiltroAdminEmpleado.Visible = true;
+                llenarComboBoxTipoDeEmpleado();
             }
+        }
+
+        private void llenarComboBoxTipoDeEmpleado()
+        {
+            Dictionary<string, string> tipoUsuario = new Dictionary<string, string>();
+            tipoUsuario.Add("Admin", $"{FormPrincipal.userNickName} (ADMIN)");
+
+            using (DataTable dtEmpleados = cn.CargarDatos(cs.obtenerEmpleados(FormPrincipal.userID)))
+            {
+                if (!dtEmpleados.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in dtEmpleados.Rows)
+                    {
+                        var nombreEmpleado = $"{item["nombre"].ToString()} (EMP)";
+                        var idEmpleado = item["ID"].ToString();
+                        tipoUsuario.Add(idEmpleado, nombreEmpleado);
+                    }
+                }
+            }
+            tipoUsuario.Add("All", "TODOS");
+
+            cbFiltroAdminEmpleado.DataSource = tipoUsuario.ToArray();
+            cbFiltroAdminEmpleado.DisplayMember = "Value";
+            cbFiltroAdminEmpleado.ValueMember = "Key";
+
+            cbFiltroAdminEmpleado.SelectedIndex = 0;
         }
 
         private void actualizar()

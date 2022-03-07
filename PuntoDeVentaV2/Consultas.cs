@@ -3329,5 +3329,12 @@ namespace PuntoDeVentaV2
             return consulta;
         }
         #endregion
+
+        public string obtenerEmpleados(int idAdmin)
+        {
+            var consulta = $"SELECT Emp.ID, Emp.nombre FROM empleados AS Emp WHERE Emp.IDUsuario = '{idAdmin}' AND Emp.p_venta = '1' AND Emp.estatus = '1' ORDER BY Emp.nombre ASC";
+
+            return consulta;
+        }
     }
 }  
