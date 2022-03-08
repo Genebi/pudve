@@ -1617,7 +1617,7 @@ namespace PuntoDeVentaV2
 
                                             }
                                             else //En caso de ser un producto
-                                            {
+                                            { 
                                                 var stock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = '{idprod}'");
                                                 var stockOriginal = stock.Rows[0]["Stock"].ToString();
                                                 var stockActual = Convert.ToDecimal(stockOriginal) + Convert.ToDecimal(cantidad);
