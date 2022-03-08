@@ -1263,7 +1263,7 @@ namespace PuntoDeVentaV2
         }
 
         private void validarRespaldoBaseDeDatos()
-        {
+       { 
             if (backUpDB.RespaldarDBAlCerrarSesion())
             {
                 MessageBox.Show("Este proceso tardara unos segundos por favor espere.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);

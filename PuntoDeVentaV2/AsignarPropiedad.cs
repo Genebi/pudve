@@ -1127,7 +1127,7 @@ namespace PuntoDeVentaV2
                                     {
                                         status = 0;
                                     }
-                                    cn.EjecutarConsulta($"INSERT INTO mensajesinventario (IDProducto,Mensaje,Activo,IDUsuario) VALUES ('{producto.Key}','{mensaje}','{status}','{FormPrincipal.userID}'");
+                                    cn.EjecutarConsulta($"INSERT INTO mensajesinventario (IDProducto,Mensaje,Activo,IDUsuario) VALUES ('{producto.Key}','{mensaje}','{status}','{FormPrincipal.userID}')");
                                 }
                             }
                         }
