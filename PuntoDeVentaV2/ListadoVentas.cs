@@ -3819,6 +3819,12 @@ namespace PuntoDeVentaV2
                 txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
             }
         }
-        //}
+
+        private void cbFiltroAdminEmpleado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var opcion = cbFiltroAdminEmpleado.SelectedValue.ToString();
+
+            
+        }
     }
 }

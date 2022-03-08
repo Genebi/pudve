@@ -300,6 +300,7 @@
             this.cbFiltroAdminEmpleado.Name = "cbFiltroAdminEmpleado";
             this.cbFiltroAdminEmpleado.Size = new System.Drawing.Size(170, 24);
             this.cbFiltroAdminEmpleado.TabIndex = 15;
+            this.cbFiltroAdminEmpleado.SelectedIndexChanged += new System.EventHandler(this.cbFiltroAdminEmpleado_SelectedIndexChanged);
             // 
             // label2
             // 
