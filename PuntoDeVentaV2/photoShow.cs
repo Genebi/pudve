@@ -78,15 +78,25 @@ namespace PuntoDeVentaV2
             dt = cn.CargarDatos(buscar);
             idEditarProducto = dt.Rows[index]["ID"].ToString();
             imgPath = dt.Rows[index]["ProdImage"].ToString();
-            lblNombreProducto.Text = NombreProdFinal;
+            
 
             if (System.IO.File.Exists(pathString + imgPath))
             {
                 using (File = new FileStream(pathString + imgPath, FileMode.Open, FileAccess.Read))
                 {
                     // cargamos la imagen en el PictureBox
+                    lblNombreProducto.Text = NombreProdFinal;
                     pictureBoxProducto.Image = Image.FromStream(File);
                 }
+            }//En caso de que no exista la imagen por cualquier caso
+            else if (!System.IO.File.Exists(pathString + imgPath))
+            {
+                pictureBoxProducto.Image = null;
+                lblNombreProducto.Text = string.Empty;
+                btnImagen.Enabled = false;
+                MessageBox.Show("No se encontro la imagen para este producto\nfavor de agregarla desde editar","Aviso de sistema",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                cn.EjecutarConsulta($"UPDATE productos SET ProdImage = '{string.Empty}' WHERE ID = {idEditarProducto}");
+                this.Close();
             }
         }
 
