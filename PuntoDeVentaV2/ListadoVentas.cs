@@ -95,6 +95,8 @@ namespace PuntoDeVentaV2
         string extra = string.Empty;
         int yaValidado = 0;
 
+        string opcionComboBoxFiltroAdminEmp = string.Empty;
+
         public ListadoVentas()
         {
             InitializeComponent();
@@ -3822,9 +3824,9 @@ namespace PuntoDeVentaV2
 
         private void cbFiltroAdminEmpleado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var opcion = cbFiltroAdminEmpleado.SelectedValue.ToString();
+            opcionComboBoxFiltroAdminEmp = cbFiltroAdminEmpleado.SelectedValue.ToString();
 
-            
+            //MessageBox.Show($"Opción seleccionada.. {opcionComboBoxFiltroAdminEmp}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
