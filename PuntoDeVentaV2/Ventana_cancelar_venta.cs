@@ -191,7 +191,7 @@ namespace PuntoDeVentaV2
                                                     var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
                                                     decimal stockActual = Convert.ToDecimal(drProdVenta["Stock"].ToString());
                                                     decimal stockNuevo = stockActual + Convert.ToDecimal(drProdVenta["Cantidad"]);
-                                                    decimal cantidad = Convert.ToDecimal(dtProdVenta.Rows[0]["Cantidad"]);
+                                                    decimal cantidad = Convert.ToDecimal(drProdVenta["Cantidad"]);
                                                     var idProd = drProdVenta["ID"].ToString();
                                                     var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -218,7 +218,7 @@ namespace PuntoDeVentaV2
 
                                                                 cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{item[3]}','Venta Cancelada de combo Folio: {folio}','{StockProdActual}','{stockProdNuevo.ToString("N")}','{FechaOperacion}','{FormPrincipal.userNickName}','+{nuevoStock.ToString("N")}','{"P"}',{"0"})");
 
-                                                                cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {nuevoStock} WHERE ID = {item[3]} AND IDUsuario = {FormPrincipal.userID}");
+                                                                cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {nuevoStock} WHERE ID = {item[3]} AND IDUsuario = {FormPrincipal.userID}");//Aqui se hace la devolucion de Combo
                                                             }
                                                         }
                                                         else
@@ -234,7 +234,7 @@ namespace PuntoDeVentaV2
 
                                                                 cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{item[3]}','Venta Cancelada de servicio Folio: {folio}','{StockProdActual}','{stockProdNuevo.ToString("N")}','{FechaOperacion}','{FormPrincipal.userNickName}','+{nuevoStock.ToString("N")}','{"P"}',{"0"})");
 
-                                                                cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {nuevoStock} WHERE ID = {item[3]} AND IDUsuario = {FormPrincipal.userID}");
+                                                                cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {nuevoStock} WHERE ID = {item[3]} AND IDUsuario = {FormPrincipal.userID}");//Aqui se hace la devolucion del Servicio
                                                             }
 
                                                         }
@@ -243,17 +243,6 @@ namespace PuntoDeVentaV2
                                                 }
                                             }
                                         }
-                                        //}
-
-                                        /* foreach (var producto in productos)
-                                         {
-                                             var info = producto.Split('|');
-                                             var idProducto = info[0];
-                                             var cantidad = Convert.ToDecimal(info[2]);
-
-                                             cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
-                                         }*/
-                                        //}
                                     }
                                 }
                                 this.Close();
@@ -435,15 +424,6 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
-
-                        /* foreach (var producto in productos)
-                         {
-                             var info = producto.Split('|');
-                             var idProducto = info[0];
-                             var cantidad = Convert.ToDecimal(info[2]);
-
-                             cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad} WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
-                         }*/
                     }
 
                     var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
