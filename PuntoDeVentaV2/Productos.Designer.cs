@@ -891,6 +891,7 @@
             this.lbCantidadSeleccionada.Size = new System.Drawing.Size(99, 13);
             this.lbCantidadSeleccionada.TabIndex = 27;
             this.lbCantidadSeleccionada.Text = "Cantidad productos";
+            this.lbCantidadSeleccionada.Visible = false;
             // 
             // lbCapital
             // 

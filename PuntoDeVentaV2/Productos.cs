@@ -269,6 +269,7 @@ namespace PuntoDeVentaV2
                         if (!productosSeleccionados.ContainsKey(id))
                         {
                             productosSeleccionados.Add(id, tipo);
+                            
                         }
 
                         if (!productosSeleccionadosParaHistorialPrecios.ContainsKey(id))
@@ -276,6 +277,9 @@ namespace PuntoDeVentaV2
                             productosSeleccionadosParaHistorialPrecios.Add(id, precioActual);
                         }
                     }
+
+                    NumeroProductosMarcados();
+
                 }
                 else
                 {
@@ -304,14 +308,8 @@ namespace PuntoDeVentaV2
 
                     DGVProductos.SelectedRows[e.ColumnIndex].Cells["CheckProducto"].Value = false;
 
-                    //Contar los productos seleccionados 1 por 1
-                    //if (contarProductosSeleccionados.ContainsKey(id))
-                    //{
-                    //    contarProductosSeleccionados.Remove(id);
-                    //}
+                    NumeroProductosMarcados();
                 }
-
-                mostrarCantidadProductos();
             }
         }
 
@@ -2805,7 +2803,9 @@ namespace PuntoDeVentaV2
                 MarcarCheckBoxes(filtroConSinFiltroAvanzado);
 
                 lbPaginasSeleccionadas.Visible = true;
+                lbCantidadSeleccionada.Visible = true;
                 lbPaginasSeleccionadas.Text = $"Páginas seleccionadas: {p.countPag()}";
+                lbCantidadSeleccionada.Text = $"Productos seleccionados: {p.countRow()}";
 
                 //CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
                 //headerBox.Checked = true;
@@ -2817,7 +2817,9 @@ namespace PuntoDeVentaV2
 
                 checkboxMarcados.Clear();
                 lbPaginasSeleccionadas.Visible = false;
+                lbCantidadSeleccionada.Visible = false;
                 lbPaginasSeleccionadas.Text = string.Empty;
+                lbCantidadSeleccionada.Text = string.Empty;
 
                 MarcarCheckBoxes(filtroConSinFiltroAvanzado);
 
@@ -2839,6 +2841,14 @@ namespace PuntoDeVentaV2
             contarProductosSeleccionados.Clear();
 
             //validarCabeceraCheckBox();
+        }
+
+        private void NumeroProductosMarcados()
+        {
+            if (lbCantidadSeleccionada.Visible)
+            {
+                lbCantidadSeleccionada.Text = $"Productos seleccionados: {checkboxMarcados.Count()}";
+            }
         }
 
         private void btnRightSetUpDinamico_Click(object sender, EventArgs e)
@@ -4215,6 +4225,8 @@ namespace PuntoDeVentaV2
                         checkboxMarcados.Add(id, tipo);
                     }
                 }
+
+                NumeroProductosMarcados();
             }
             else
             {
@@ -4227,6 +4239,8 @@ namespace PuntoDeVentaV2
                     if (productosSeleccionados.ContainsKey(id))
                     {
                         productosSeleccionados.Remove(id);
+
+                        
                     }
 
                     if (checkboxMarcados.ContainsKey(id))
@@ -4235,10 +4249,10 @@ namespace PuntoDeVentaV2
                     }
                 }
 
+                NumeroProductosMarcados();
+
                 checkBoxMasterUtilizado = true;
             }
-
-            mostrarCantidadProductos();
         }
 
         private void CambiarCheckBoxMaster(bool estado = false)
@@ -4247,19 +4261,6 @@ namespace PuntoDeVentaV2
             master.CheckedChanged -= checkBoxMaster_CheckedChanged;
             master.Checked = estado;
             master.CheckedChanged += checkBoxMaster_CheckedChanged;
-        }
-
-        private void mostrarCantidadProductos()
-        {
-            //Muestra la cantidad de productos seleccionados
-            if (contador > 0)
-            {
-                lbCantidadSeleccionada.Text = $"Productos seleccionados: {p.countRow()}";
-            }
-            else
-            {
-                lbCantidadSeleccionada.Text = string.Empty;
-            }
         }
 
         private void LimpiarAplicandoConsultaFiltros()
@@ -4972,7 +4973,6 @@ namespace PuntoDeVentaV2
             {
                 lbPaginasSeleccionadas.Visible = true;
                 lbPaginasSeleccionadas.Text = $"Páginas seleccionadas: {p.countPag()}";
-                mostrarCantidadProductos();
             }
 
             clickBoton = 0;
@@ -5053,9 +5053,6 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
-            mostrarCantidadProductos();
-
         }
 
         // metodo que recibe un diccionario
