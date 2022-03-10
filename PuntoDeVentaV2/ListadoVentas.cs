@@ -517,7 +517,7 @@ namespace PuntoDeVentaV2
                             }
                             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                             {
-
+                                consulta = cs.filtroMostrarTodasLasVentasPagadasEnAdministrador(estado, fechaInicial, fechaFinal);
                             }
                             else
                             {
@@ -526,7 +526,18 @@ namespace PuntoDeVentaV2
                         }
                         else if (estado.Equals(2)) // Ventas guardadas
                         {
-                            consulta = cs.VerComoAdministradorTodasLasVentasGuardadas(estado, fechaInicial, fechaFinal);
+                            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                            {
+                                consulta = cs.verComoAdministradorTodasMisVentasGuardadas(estado, fechaInicial, fechaFinal);
+                            }
+                            else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                            {
+                                consulta = cs.VerComoAdministradorTodasLasVentasGuardadas(estado, fechaInicial, fechaFinal);
+                            }
+                            else
+                            {
+                                consulta = cs.verComoAdministradorTodasVentasGuardadasPorEmpleado(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
+                            }
                         }
                         else if (estado.Equals(3)) // Ventas canceladas
                         {
