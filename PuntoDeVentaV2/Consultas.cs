@@ -3337,6 +3337,34 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string obtenerDatosDeAdministrador(int idAdmin)
+        {
+            var consulta = $"SELECT ID, Usuario, RazonSocial FROM usuarios WHERE ID = '{idAdmin}'";
 
+            return consulta;
+        }
+
+        public string obtenerDatosDeEmpleado(int idEmpleado)
+        {
+            var consulta = $"SELECT ID, IDUsuario, nombre FROM empleados WHERE ID = '{idEmpleado}' AND estatus = '1'";
+
+            return consulta;
+        }
+
+
+        /// <summary>
+        /// Consulta para mostrar ventas pagadas por empleado
+        /// </summary>
+        /// <param name="estado">ventas pagadas</param>
+        /// <param name="idEmpleado">id del empleado</param>
+        /// <param name="ultimaFechaDeCorte">ultima Fecha del corte de caja</param>
+        /// <param name="rangoFechaLimite">rango de la fecha puesta por el usuario</param>
+        /// <returns>retorna la consulta para mostar por usuario</returns>
+        public string filtroPorEmpleadoDesdeAdministrador(int estado, int idEmpleado, string ultimaFechaDeCorte, string rangoFechaLimite)
+        {
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF( Emp.nombre IS NULL, CONCAT( Usr.Usuario, ' (ADMIN)' ), CONCAT( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{estado}' AND Vent.IDEmpleado = '{idEmpleado}' AND Vent.FechaOperacion BETWEEN '{ultimaFechaDeCorte}.999999' AND '{rangoFechaLimite}.999999' ORDER BY ID DESC";
+
+            return consulta;
+        }
     }
 }  

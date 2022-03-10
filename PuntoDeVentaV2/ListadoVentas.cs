@@ -16,6 +16,7 @@ using System.Drawing.Printing;
 using System.IO.Compression;
 using System.Threading;
 using System.Globalization;
+using System.Collections;
 
 namespace PuntoDeVentaV2
 {
@@ -97,6 +98,10 @@ namespace PuntoDeVentaV2
 
         string opcionComboBoxFiltroAdminEmp = string.Empty;
 
+        int idAdministradorOrUsuario = 0;
+        string nombreDeUsuario = string.Empty;
+        string razonSocialUsuario = string.Empty;
+
         public ListadoVentas()
         {
             InitializeComponent();
@@ -132,6 +137,8 @@ namespace PuntoDeVentaV2
             cbTipoVentas.SelectedIndex = 0;
 
             //fechaUltimoCorte = Convert.ToDateTime(mb.UltimaFechaCorte());
+
+            verComboBoxAdministradorEmpleado();
 
             clickBoton = 0;
 
@@ -174,8 +181,6 @@ namespace PuntoDeVentaV2
             //cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo ) VALUES('retiro', '0.00', '0.00', '', '{fechaCreacion}', '{FormPrincipal.userID}', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00' )");
 
             txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
-
-            verComboBoxAdministradorEmpleado();
         }
 
         private void verComboBoxAdministradorEmpleado()
@@ -502,9 +507,22 @@ namespace PuntoDeVentaV2
                     else
                     {
                         //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY ID DESC";
+                        clasificarTipoDeUsuario();
+
                         if (estado.Equals(1)) // Ventas pagadas
                         {
-                            consulta = cs.VerComoAdministradorTodasLasVentasPagadas(estado, fechaInicial, fechaFinal);
+                            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                            {
+                                consulta = cs.VerComoAdministradorTodasLasVentasPagadas(estado, fechaInicial, fechaFinal);
+                            }
+                            else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                            {
+
+                            }
+                            else
+                            {
+                                consulta = cs.filtroPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
+                            }
                         }
                         else if (estado.Equals(2)) // Ventas guardadas
                         {
@@ -3824,9 +3842,55 @@ namespace PuntoDeVentaV2
 
         private void cbFiltroAdminEmpleado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            opcionComboBoxFiltroAdminEmp = cbFiltroAdminEmpleado.SelectedValue.ToString();
+            var tipoDeBusqueda = 0;
 
-            //MessageBox.Show($"Opción seleccionada.. {opcionComboBoxFiltroAdminEmp}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            tipoDeBusqueda = verTipoDeBusqueda();
+
+            clasificarTipoDeUsuario();
+
+            CargarDatos(tipoDeBusqueda);
+        }
+
+        private void clasificarTipoDeUsuario()
+        {
+            //opcionComboBoxFiltroAdminEmp = (string)cbFiltroAdminEmpleado.SelectedValue;
+            opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
+            
+            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+            {
+                using (DataTable dtAdmin = cn.CargarDatos(cs.obtenerDatosDeAdministrador(FormPrincipal.userID)))
+                {
+                    if (!dtAdmin.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow drAdmin in dtAdmin.Rows)
+                        {
+                            idAdministradorOrUsuario = Convert.ToInt32(drAdmin["ID"].ToString());
+                            nombreDeUsuario = drAdmin["Usuario"].ToString();
+                            razonSocialUsuario = drAdmin["RazonSocial"].ToString();
+
+                            //MessageBox.Show($"Datos del Usuario\n\nID: {idAdministradorOrUsuario}\nNombre: {nombreDeUsuario}\nRazón social: {razonSocialUsuario}");
+                        }
+                    }
+                }
+            }
+            else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+            {
+
+            }
+            else
+            {
+                using (DataTable dtEmpleado = cn.CargarDatos(cs.obtenerDatosDeEmpleado(Convert.ToInt32(opcionComboBoxFiltroAdminEmp))))
+                {
+                    if (!dtEmpleado.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow drEmpleado in dtEmpleado.Rows)
+                        {
+                            idAdministradorOrUsuario = Convert.ToInt32(drEmpleado["ID"].ToString());
+                            nombreDeUsuario = drEmpleado["nombre"].ToString();
+                        }
+                    }
+                }
+            }
         }
     }
 }
