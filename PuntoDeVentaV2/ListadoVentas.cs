@@ -560,7 +560,7 @@ namespace PuntoDeVentaV2
                                 consulta = cs.VerComoAdministradorTodasLasVentasCanceladas(estado, fechaInicial, fechaFinal);
                             }
                             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
-                            {
+                            { 
                                 consulta = cs.verVentasCanceladasDeTodosDesdeAdministrador(estado, fechaInicial, fechaFinal);
                             }
                             else
