@@ -400,7 +400,7 @@ namespace PuntoDeVentaV2
                                     buscarSoloEmpleado(buscador, fechaInicial, fechaFinal);
                                 }
                                 else if (opcionFiltrado == "VCC") //Ventas a credito
-                                {
+                                { 
                                     buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
                                 }
                             }
