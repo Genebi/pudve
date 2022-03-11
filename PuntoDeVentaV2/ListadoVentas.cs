@@ -1190,7 +1190,7 @@ namespace PuntoDeVentaV2
                 }
 
                 //Cancelar
-                if (e.ColumnIndex == 11)
+                  if (e.ColumnIndex == 11)
                 {
                     var Folio = string.Empty;
                     var Serie = string.Empty;
@@ -1688,11 +1688,15 @@ namespace PuntoDeVentaV2
                                                         var cantidadNuevoStock = Convert.ToDecimal(stockAnterior2) + multiplicacionComboServicio;
 
                                                         cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{products[3]}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior2}','{cantidadNuevoStock}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{multiplicacionComboServicio.ToString("N")}')");
+
+                                                        cn.EjecutarConsulta($"UPDATE Productos SET Stock = {cantidadNuevoStock} WHERE ID = {products[3]} AND IDUsuario = {FormPrincipal.userID}");
                                                     }
                                                 }
                                                 else
                                                 {
                                                     cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProd}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidadR.ToString("N")}')");
+
+                                                    cn.EjecutarConsulta($"UPDATE Productos SET Stock ={stockNuevo} WHERE ID = {idprod} AND IDUsuario = {FormPrincipal.userID}");
                                                 }
 
                                             }
@@ -1710,6 +1714,8 @@ namespace PuntoDeVentaV2
 
                                                 cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idprod}','Venta Cancelada folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidad}')");
 
+                                                cn.EjecutarConsulta($"UPDATE Productos SET Stock ={stockNuevo} WHERE ID = {idprod} AND IDUsuario = {FormPrincipal.userID}");
+
                                             }
                                         }
                                     } 
@@ -1717,40 +1723,40 @@ namespace PuntoDeVentaV2
 
                                     if (d_prod_venta.Rows.Count > 0)
                                     {
-                                        foreach (DataRow prods in d_prod_venta.Rows)
-                                        {
+                                    //    foreach (DataRow prods in d_prod_venta.Rows)
+                                    //    {
                                         
-                                            var id_prod = Convert.ToInt32(prods[0]);
-                                            decimal cantidad_combo = Convert.ToDecimal(prods[1]);
+                                    //        var id_prod = Convert.ToInt32(prods[0]);
+                                    //        decimal cantidad_combo = Convert.ToDecimal(prods[1]);
 
-                                            // Busca los productos relacionados al combo y trae la cantidad para aumentar el stock
-                                            DataTable dtprod_relacionados = cn.CargarDatos(cs.productos_relacionados(id_prod));
+                                    //        // Busca los productos relacionados al combo y trae la cantidad para aumentar el stock
+                                    //        DataTable dtprod_relacionados = cn.CargarDatos(cs.productos_relacionados(id_prod));
                                         
-                                        if(dtprod_relacionados.Rows.Count > 0)
-                                        {
-                                            foreach(DataRow drprod_relacionados in dtprod_relacionados.Rows)
-                                            {
-                                                decimal cantidad_prod_rel = Convert.ToDecimal(drprod_relacionados["Cantidad"]);
-                                                decimal cantidad_prod_rel_canc = cantidad_combo * cantidad_prod_rel;
+                                    //    if(dtprod_relacionados.Rows.Count > 0)
+                                    //    {
+                                    //        foreach(DataRow drprod_relacionados in dtprod_relacionados.Rows)
+                                    //        {
+                                    //            decimal cantidad_prod_rel = Convert.ToDecimal(drprod_relacionados["Cantidad"]);
+                                    //            decimal cantidad_prod_rel_canc = cantidad_combo * cantidad_prod_rel;
 
-                                                cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad_prod_rel_canc} WHERE ID = {drprod_relacionados["IDProducto"]} AND IDUsuario = {FormPrincipal.userID}");
-                                            }
-                                        }
-                                        else if (dtprod_relacionados.Rows.Count.Equals(0))
-                                        {
-                                            using (DataTable dtProdVenta = cn.CargarDatos(cs.ObtenerProdDeLaVenta(idVenta)))
-                                            {
-                                                if (!dtProdVenta.Rows.Count.Equals(0))
-                                                {
-                                                    foreach (DataRow drProdVenta in dtProdVenta.Rows)
-                                                    {
-                                                        cn.EjecutarConsulta(cs.aumentarStockVentaCancelada(Convert.ToInt32(drProdVenta["ID"].ToString()), (float)(Convert.ToDecimal(drProdVenta["Stock"].ToString()) + Convert.ToDecimal(drProdVenta["Cantidad"].ToString()))));
-                                                    }
-                                                }
-                                            }
-                                        }
+                                    //            cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad_prod_rel_canc} WHERE ID = {drprod_relacionados["IDProducto"]} AND IDUsuario = {FormPrincipal.userID}");
+                                    //        }
+                                    //    }
+                                    //    else if (dtprod_relacionados.Rows.Count.Equals(0))
+                                    //    {
+                                    //        using (DataTable dtProdVenta = cn.CargarDatos(cs.ObtenerProdDeLaVenta(idVenta)))
+                                    //        {
+                                    //            if (!dtProdVenta.Rows.Count.Equals(0))
+                                    //            {
+                                    //                foreach (DataRow drProdVenta in dtProdVenta.Rows)
+                                    //                {
+                                    //                    cn.EjecutarConsulta(cs.aumentarStockVentaCancelada(Convert.ToInt32(drProdVenta["ID"].ToString()), (float)(Convert.ToDecimal(drProdVenta["Stock"].ToString()) + Convert.ToDecimal(drProdVenta["Cantidad"].ToString()))));
+                                    //                }
+                                    //            }
+                                    //        }
+                                    //    }
 
-                                    }
+                                    //}
                                     
                                     var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
