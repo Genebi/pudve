@@ -416,11 +416,11 @@ namespace PuntoDeVentaV2
                                     }
                                     else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                                     {
-
+                                        buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
                                     }
                                     else
                                     {
-                                        buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
+                                        buscarSoloEmpleado(buscador, fechaInicial, fechaFinal);
                                     }
                                 }
                                 else if (opcionFiltrado == "VG") //Ventas guardadas
