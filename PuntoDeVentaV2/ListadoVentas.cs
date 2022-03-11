@@ -534,7 +534,7 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                consulta = cs.filtroPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
+                                consulta = cs.filtroPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal); 
                             }
                         }
                         else if (estado.Equals(2)) // Ventas guardadas
