@@ -556,19 +556,17 @@ namespace PuntoDeVentaV2
                         }
                         else if (estado.Equals(4)) // Ventas a credito
                         {
-                            consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
-
                             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                             {
-
+                                consulta = cs.verVentasCreditoDelAdministrador(estado, fechaInicial, fechaFinal);
                             }
                             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                             {
-
+                                consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
                             }
                             else
                             {
-
+                                consulta = cs.verVentasCreditoPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
                             }
                         }
                     }
