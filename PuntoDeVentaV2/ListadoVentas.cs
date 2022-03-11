@@ -550,7 +550,7 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                consulta = cs.verComoAdministradorTodasVentasGuardadasPorEmpleado(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
+                                consulta = cs.verComoAdministradorTodasVentasGuardadasPorEmpleado(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal); 
                             }
                         }
                         else if (estado.Equals(3)) // Ventas canceladas
