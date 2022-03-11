@@ -576,7 +576,7 @@ namespace PuntoDeVentaV2
                                 consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
                             }
                             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
-                            {
+                            { 
                                 consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
                             }
                             else
