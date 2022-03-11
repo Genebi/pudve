@@ -459,6 +459,19 @@ namespace PuntoDeVentaV2
                             if (estado.Equals(1)) // Ventas pagadas
                             {
                                 consulta = cs.VerComoAdministradorTodasLaVentasPagadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+
+                                if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                                {
+
+                                }
+                                else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                                {
+
+                                }
+                                else
+                                {
+
+                                }
                             }
                             else if (estado.Equals(2)) // Ventas guardadas
                             {
@@ -513,7 +526,7 @@ namespace PuntoDeVentaV2
                         {
                             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                             {
-                                consulta = cs.VerComoAdministradorTodasLasVentasPagadas(estado, fechaInicial, fechaFinal);
+                                consulta = cs.VerComoAdministradorTodasLasVentasPagadas(estado, fechaInicial, fechaFinal); 
                             }
                             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                             {
