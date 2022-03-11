@@ -420,7 +420,7 @@ namespace PuntoDeVentaV2
                                     }
                                     else
                                     {
-
+                                        buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
                                     }
                                 }
                                 else if (opcionFiltrado == "VG") //Ventas guardadas
