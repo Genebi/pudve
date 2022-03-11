@@ -298,8 +298,9 @@
             "Todos"});
             this.cbFiltroAdminEmpleado.Location = new System.Drawing.Point(222, 10);
             this.cbFiltroAdminEmpleado.Name = "cbFiltroAdminEmpleado";
-            this.cbFiltroAdminEmpleado.Size = new System.Drawing.Size(156, 24);
+            this.cbFiltroAdminEmpleado.Size = new System.Drawing.Size(185, 24);
             this.cbFiltroAdminEmpleado.TabIndex = 15;
+            this.cbFiltroAdminEmpleado.SelectedIndexChanged += new System.EventHandler(this.cbFiltroAdminEmpleado_SelectedIndexChanged);
             // 
             // label2
             // 
