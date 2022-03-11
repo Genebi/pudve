@@ -541,11 +541,35 @@ namespace PuntoDeVentaV2
                         }
                         else if (estado.Equals(3)) // Ventas canceladas
                         {
-                            consulta = cs.VerComoAdministradorTodasLasVentasCanceladas(estado, fechaInicial, fechaFinal);
+                            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                            {
+                                consulta = cs.VerComoAdministradorTodasLasVentasCanceladas(estado, fechaInicial, fechaFinal);
+                            }
+                            else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                            {
+                                consulta = cs.verVentasCanceladasDeTodosDesdeAdministrador(estado, fechaInicial, fechaFinal);
+                            }
+                            else
+                            {
+                                consulta = cs.verVentasCanceladasDelEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
+                            }
                         }
                         else if (estado.Equals(4)) // Ventas a credito
                         {
                             consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
+
+                            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                            {
+
+                            }
+                            else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                            {
+
+                            }
+                            else
+                            {
+
+                            }
                         }
                     }
                     
