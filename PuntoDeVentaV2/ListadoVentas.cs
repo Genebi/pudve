@@ -556,7 +556,7 @@ namespace PuntoDeVentaV2
                         else if (estado.Equals(3)) // Ventas canceladas
                         {
                             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
-                            {
+                            { 
                                 consulta = cs.VerComoAdministradorTodasLasVentasCanceladas(estado, fechaInicial, fechaFinal);
                             }
                             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
