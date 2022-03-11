@@ -530,7 +530,7 @@ namespace PuntoDeVentaV2
                             }
                             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                             {
-                                consulta = cs.filtroMostrarTodasLasVentasPagadasEnAdministrador(estado, fechaInicial, fechaFinal);
+                                consulta = cs.filtroMostrarTodasLasVentasPagadasEnAdministrador(estado, fechaInicial, fechaFinal); 
                             }
                             else
                             {
