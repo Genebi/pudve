@@ -406,9 +406,22 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
+                                clasificarTipoDeUsuario();
+
                                 if (opcionFiltrado == "VP") //Ventas pagadas
                                 {
-                                    buscarSoloAdministrador(buscador, fechaInicial, fechaFinal);
+                                    if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                                    {
+                                        buscarSoloAdministrador(buscador, fechaInicial, fechaFinal);
+                                    }
+                                    else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                                    {
+
+                                    }
+                                    else
+                                    {
+
+                                    }
                                 }
                                 else if (opcionFiltrado == "VG") //Ventas guardadas
                                 {
