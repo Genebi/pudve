@@ -318,7 +318,13 @@ namespace PuntoDeVentaV2
                                             reporte.GetFilterNumActiveRecord = NumRevActivo;
                                             reporte.limpiarTabla = limpiarTabla;
                                             limpiarTabla = false;
-                                            reporte.ShowDialog();
+                                            if (RevisarInventario.mensajeInventario == 1)
+                                            {
+                                            }
+                                            else
+                                            {
+                                                reporte.ShowDialog();
+                                            }
                                         }
                                     };
                                     revisar.ShowDialog();
