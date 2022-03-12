@@ -55,7 +55,8 @@ namespace PuntoDeVentaV2
         }
 
         private void FiltroRevisarInventario_Load(object sender, EventArgs e)
-        {   
+        {
+            RevisarInventario.mensajeInventario = 0;
             //Esta condicion es para que solo se muestren todos los tipos de filtros para los primeros usuarios y para los demas solo tenga el filtro normal
             //if (FormPrincipal.clave == 1 )
             //{
