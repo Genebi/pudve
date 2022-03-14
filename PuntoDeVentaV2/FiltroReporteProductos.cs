@@ -280,7 +280,10 @@ namespace PuntoDeVentaV2
                                     MessageBox.Show($"Es necesario agregar cantidad para el campo {checkCustom.Text}", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     return;
                                 }
-
+                                if (txtCustom.Text.Equals("."))
+                                {
+                                    txtCustom.Text = "0.0";
+                                }
                                 var cantidad = float.Parse(txtCustom.Text);
 
                                 filtros.Add(nombreCB, new Tuple<string, float>(opcion, cantidad));
