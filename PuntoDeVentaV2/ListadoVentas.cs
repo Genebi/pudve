@@ -340,7 +340,6 @@ namespace PuntoDeVentaV2
                                 {
                                     consulta = cs.filtroPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
                                 }
-
                             }
                             else if (estado.Equals(2)) // Ventas guardadas
                             {
@@ -359,7 +358,18 @@ namespace PuntoDeVentaV2
                             }
                             else if (estado.Equals(3)) // Ventas canceladas
                             {
-                                consulta = cs.VerComoAdministradorTodasLaVentasCanceladasMiasPorFechas(estado, fechaInicial, fechaFinal);
+                                if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLaVentasCanceladasMiasPorFechas(estado, fechaInicial, fechaFinal);
+                                }
+                                else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                                {
+                                    consulta = cs.verVentasCanceladasDeTodosDesdeAdministrador(estado, fechaInicial, fechaFinal);
+                                }
+                                else
+                                {
+                                    consulta = cs.VerComoEmpleadoTodasMisVentasCanceladas(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
+                                }
                             }
                             else if (estado.Equals(4)) // Ventas a credito
                             {
@@ -452,7 +462,19 @@ namespace PuntoDeVentaV2
                                 }
                                 else if (opcionFiltrado == "VC") //Ventas canceladas
                                 {
-                                    buscarSoloAdministrador(buscador, fechaInicial, fechaFinal);
+                                    //buscarSoloAdministrador(buscador, fechaInicial, fechaFinal);
+                                    if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                                    {
+                                        buscarSoloAdministrador(buscador, fechaInicial, fechaFinal);
+                                    }
+                                    else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                                    {
+                                        buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
+                                    }
+                                    else
+                                    {
+                                        buscarSoloEmpleado(buscador, fechaInicial, fechaFinal);
+                                    }
                                 }
                                 else if (opcionFiltrado == "VCC") //Ventas a credito
                                 {
@@ -524,7 +546,18 @@ namespace PuntoDeVentaV2
                             }
                             else if (estado.Equals(3)) // Ventas canceladas
                             {
-                                consulta = cs.VerComoAdministradorTodasLaVentasCanceladasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLaVentasCanceladasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                }
+                                else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLasVentasCanceladasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                }
+                                else
+                                {
+                                    consulta = cs.VerComoEmpleadoTodasMisVentasCanceladasPorFechasYBusqueda(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra);
+                                }
                             }
                             else if (estado.Equals(4)) // Ventas a credito
                             {
