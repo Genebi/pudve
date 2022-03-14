@@ -373,7 +373,19 @@ namespace PuntoDeVentaV2
                             }
                             else if (estado.Equals(4)) // Ventas a credito
                             {
-                                consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal);
+                                //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal);
+                                if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
+                                }
+                                else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
+                                }
+                                else
+                                {
+                                    consulta = cs.verVentasCreditoPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
+                                }
                             }
                         }
                     }
@@ -561,7 +573,19 @@ namespace PuntoDeVentaV2
                             }
                             else if (estado.Equals(4)) // Ventas a credito
                             {
-                                consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                }
+                                else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                }
+                                else
+                                {
+                                    consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra);
+                                }
                             }
                         }
 
