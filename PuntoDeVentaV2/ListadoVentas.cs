@@ -328,7 +328,19 @@ namespace PuntoDeVentaV2
                             //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY ID DESC";
                             if (estado.Equals(1)) // Ventas pagadas
                             {
-                                consulta = cs.VerComoAdministradorTodasLaVentasMiasPagadasPorFechas(estado, fechaInicial, fechaFinal);
+                                if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLaVentasMiasPagadasPorFechas(estado, fechaInicial, fechaFinal);
+                                }
+                                else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                                {
+                                    consulta = cs.filtroMostrarTodasLasVentasPagadasEnAdministrador(estado, fechaInicial, fechaFinal);
+                                }
+                                else
+                                {
+                                    consulta = cs.filtroPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
+                                }
+
                             }
                             else if (estado.Equals(2)) // Ventas guardadas
                             {
@@ -347,7 +359,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         int n;
-                        
+
                         esNumero = int.TryParse(buscador, out n);
 
                         if (esNumero)
@@ -373,7 +385,7 @@ namespace PuntoDeVentaV2
                             //}
 
                             validacionSiEstaVaciaLaCadenaExtra();
-                            
+
                             using (DataTable dtCliete = cn.CargarDatos(cs.getDatosClienteVentas(buscador, fechaInicial, fechaFinal)))
                             {
                                 if (!dtCliete.Rows.Count.Equals(0))
@@ -400,7 +412,7 @@ namespace PuntoDeVentaV2
                                     buscarSoloEmpleado(buscador, fechaInicial, fechaFinal);
                                 }
                                 else if (opcionFiltrado == "VCC") //Ventas a credito
-                                { 
+                                {
                                     buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
                                 }
                             }
@@ -471,19 +483,17 @@ namespace PuntoDeVentaV2
 
                             if (estado.Equals(1)) // Ventas pagadas
                             {
-                                consulta = cs.VerComoAdministradorTodasLaVentasPagadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
-
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                 {
-
+                                    consulta = cs.VerComoAdministradorTodasLaVentasPagadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
                                 }
                                 else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                                 {
-
+                                    consulta = cs.filtroMostrarTodasLasVentasPagadasEnAdministradorConParametro(estado, fechaInicial, fechaFinal, extra);
                                 }
                                 else
                                 {
-
+                                    consulta = cs.filtroPorEmpleadoDesdeAdministradorConParamettro(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra);
                                 }
                             }
                             else if (estado.Equals(2)) // Ventas guardadas
@@ -499,7 +509,7 @@ namespace PuntoDeVentaV2
                                 consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
                             }
                         }
-                        
+
                         txtBuscador.Text = string.Empty;
                     }
                 }
@@ -957,7 +967,10 @@ namespace PuntoDeVentaV2
 
             tipoDeBusqueda = verTipoDeBusqueda();
 
+            clasificarTipoDeUsuario();
+
             CargarDatos(tipoDeBusqueda, busqueda: true);
+
             btnPrimeraPagina.PerformClick();
             //+++btnUltimaPagina.PerformClick();
         }
@@ -3929,8 +3942,6 @@ namespace PuntoDeVentaV2
                             idAdministradorOrUsuario = Convert.ToInt32(drAdmin["ID"].ToString());
                             nombreDeUsuario = drAdmin["Usuario"].ToString();
                             razonSocialUsuario = drAdmin["RazonSocial"].ToString();
-
-                            //MessageBox.Show($"Datos del Usuario\n\nID: {idAdministradorOrUsuario}\nNombre: {nombreDeUsuario}\nRazón social: {razonSocialUsuario}");
                         }
                     }
                 }
