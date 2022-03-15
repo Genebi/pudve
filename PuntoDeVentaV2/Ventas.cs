@@ -1444,15 +1444,21 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+                if (!DGVentas.Rows.Count.Equals(0))
+                {
 
-                if (noSeBorroFila)
-                {
-                    DGVentas.ClearSelection();
-                    DGVentas.Rows[celdaCellClick].Selected = true;
                 }
-                else
+                if (!DGVentas.Rows.Count.Equals(0))
                 {
-                    limpiarImagenDelProducto();
+                    if (noSeBorroFila)
+                    {
+                        DGVentas.Rows[celdaCellClick].Selected = true;
+                        DGVentas.ClearSelection();
+                    }
+                    else
+                    {
+                        limpiarImagenDelProducto();
+                    }
                 }
 
                 CalculoMayoreo();
