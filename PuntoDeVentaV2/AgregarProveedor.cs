@@ -80,8 +80,24 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Ingrese un nombre para el proveedor", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+            var cantidadCamposRFC = rfc.Length;
 
-                string[] datos = new string[] { FormPrincipal.userID.ToString(), nombre, rfc, calle, noExt, noInt, colonia, municipio, estado, cp, email, telefono, fechaOperacion, idProveedor.ToString() };
+            if (cantidadCamposRFC > 0 && cantidadCamposRFC < 12)
+            {
+                txtRFC.Focus();
+                MessageBox.Show("El RFC no tiene el formato correcto", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtRFC.ForeColor = Color.Red;
+                txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Bold);
+                return;
+            }
+            else
+            {
+                txtRFC.ForeColor = Color.Black;
+                txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Regular);
+
+            }
+
+            string[] datos = new string[] { FormPrincipal.userID.ToString(), nombre, rfc, calle, noExt, noInt, colonia, municipio, estado, cp, email, telefono, fechaOperacion, idProveedor.ToString() };
 
                 if (tipo == 1)
                 {
@@ -103,6 +119,7 @@ namespace PuntoDeVentaV2
                         Close();
                     }
                 }
+            
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -155,23 +172,34 @@ namespace PuntoDeVentaV2
                 }else if (Char.IsNumber(e.KeyChar))
                 {
                     e.Handled = true;
-                }
+
+                }          
             }
             else
             {
-                e.Handled = false;
+                e.Handled = false;                
             }
+            
+            
         }
 
         private void txtRFC_Leave(object sender, EventArgs e)
         {
-            var cantidadCamposRFC = txtRFC.Text.Length;
+            ////var cantidadCamposRFC = txtRFC.Text.Length;
 
-            if (cantidadCamposRFC > 0 && cantidadCamposRFC < 12)
-            {
-                txtRFC.Focus();
-                MessageBox.Show("El RFC no tiene el formato correcto", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            ////if (cantidadCamposRFC > 0 && cantidadCamposRFC < 12)
+            ////{
+            ////    txtRFC.Focus();
+            ////    MessageBox.Show("El RFC no tiene el formato correcto", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            ////    txtRFC.ForeColor = Color.Red;
+            ////    txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Bold);
+            ////}
+            ////else
+            ////{
+            ////    txtRFC.ForeColor = Color.Black;
+            ////    txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Regular);
+
+            ////}
         }
 
         private void AgregarProveedor_KeyDown(object sender, KeyEventArgs e)
@@ -179,6 +207,28 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+        }
+
+        private void txtRFC_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtRFC_TextChanged_1(object sender, EventArgs e)
+        {
+            var cantidadCamposRFC = txtRFC.Text.Length;
+
+
+            if (cantidadCamposRFC > 11 )
+            {
+                txtRFC.ForeColor = Color.Black;
+                txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Regular);
+            }
+            else
+            {
+                txtRFC.ForeColor = Color.Red;
+                txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Bold);
             }
         }
     }

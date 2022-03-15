@@ -129,6 +129,7 @@
             this.txtRFC.Size = new System.Drawing.Size(181, 22);
             this.txtRFC.TabIndex = 2;
             this.txtRFC.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRFC.TextChanged += new System.EventHandler(this.txtRFC_TextChanged_1);
             this.txtRFC.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRFC_KeyPress);
             this.txtRFC.Leave += new System.EventHandler(this.txtRFC_Leave);
             // 
@@ -158,9 +159,9 @@
             this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(41, 30);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 17);
+            this.label1.Size = new System.Drawing.Size(149, 17);
             this.label1.TabIndex = 29;
-            this.label1.Text = "Nombre";
+            this.label1.Text = "Nombre/Razon Social";
             // 
             // tituloSeccion
             // 
@@ -331,7 +332,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.Red;
-            this.label12.Location = new System.Drawing.Point(98, 33);
+            this.label12.Location = new System.Drawing.Point(184, 30);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(14, 17);
             this.label12.TabIndex = 55;
