@@ -3238,7 +3238,7 @@ namespace PuntoDeVentaV2
 
         public string ParametroDeBusquedaFolioSiendoAdministrador(string campoFolio)
         {
-            var consulta = $"AND Folio = {campoFolio} ";
+            var consulta = $"AND Folio LIKE '%{campoFolio}%' ";
 
             return consulta;
         }

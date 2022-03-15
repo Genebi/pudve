@@ -502,6 +502,7 @@ namespace PuntoDeVentaV2
 
                             extra += " ) ";
                         }
+
                         if (FormPrincipal.userNickName.Contains("@"))
                         {
                             //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' {extra} ORDER BY ID DESC";
