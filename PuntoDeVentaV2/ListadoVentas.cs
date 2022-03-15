@@ -1047,7 +1047,10 @@ namespace PuntoDeVentaV2
 
             tipoDeBusqueda = verTipoDeBusqueda();
 
-            clasificarTipoDeUsuario();
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                clasificarTipoDeUsuario();
+            }
 
             CargarDatos(tipoDeBusqueda, busqueda: true);
 
@@ -4001,7 +4004,10 @@ namespace PuntoDeVentaV2
 
             tipoDeBusqueda = verTipoDeBusqueda();
 
-            clasificarTipoDeUsuario();
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                clasificarTipoDeUsuario();
+            }
 
             CargarDatos(tipoDeBusqueda);
         }
