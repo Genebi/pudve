@@ -406,6 +406,7 @@ namespace PuntoDeVentaV2
         {
             bool result = false; 
             bool respuesta = false;
+            
 
 
             if (opcion1 == 0 || opcion4 == 0)
@@ -512,11 +513,19 @@ namespace PuntoDeVentaV2
 
         private bool ActualizarDatos(int tipo = 0)
         {
+            bool validarDatos = true;
             if (txtNombre.Text.Trim() == "")
             {
                 MessageBox.Show("El nombre no debe estar vacío.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                validarDatos = false;
+                return validarDatos;
             }
+
+            validarDatos = validarRfc();
+
+
+            
+
             //if (txtRFC.Text.Trim() == "")
             //{
             //    MessageBox.Show("El RFC no debe estar vacío.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -573,19 +582,46 @@ namespace PuntoDeVentaV2
             // Llamamos a la Funcion consulta
             consulta();
 
-            return true;
+            return validarDatos;
+        }
+
+        private bool validarRfc()
+        {
+           
+            var cantidadCamposRFC = txtRFC.Text.Length;
+            bool validacion = true;
+
+            if (cantidadCamposRFC < 12)
+            {
+                txtRFC.Focus();
+                MessageBox.Show("El RFC no tiene el formato correcto", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtRFC.ForeColor = Color.Red;
+                txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Bold);
+                return false;
+            }
+            else
+            {
+                txtRFC.ForeColor = Color.Black;
+                txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Regular);
+
+            }
+            return validacion;
         }
 
         private bool ValidarDatos()
         {
+            bool validar = true;
+
             if (string.IsNullOrWhiteSpace(txtNombre.Text))
             {
                 MessageBox.Show("Ingrese el nombre completo", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 txtNombre.Focus();
+                validar = false;
 
-                return false;
+                return validar;
             }
+            validar = validarRfc();
 
             //if (!VerificarRFC(txtRFC.Text))
             //{
@@ -632,8 +668,8 @@ namespace PuntoDeVentaV2
                 }
 
                 txtEmail.Focus();
-
-                return false;
+                validar = false;
+                return validar;
             }
 
             //if (string.IsNullOrWhiteSpace(LblRegimenActual.Text))
@@ -646,7 +682,7 @@ namespace PuntoDeVentaV2
             //    }
             //}
 
-            return true;
+            return validar;
         }
 
         private bool VerificarRFC(string rfc)
@@ -1105,6 +1141,23 @@ namespace PuntoDeVentaV2
             else
             {
                 LblRegimenActual.Text = cbRegimen.Text;
+            }
+        }
+
+        private void txtRFC_TextChanged(object sender, EventArgs e)
+        {
+            var cantidadCamposRFC = txtRFC.Text.Length;
+
+
+            if (cantidadCamposRFC > 11 )
+            {
+                txtRFC.ForeColor = Color.Black;
+                txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Regular);
+            }
+            else
+            {
+                txtRFC.ForeColor = Color.Red;
+                txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Bold);
             }
         }
 

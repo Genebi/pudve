@@ -584,6 +584,7 @@
             this.txtRFC.Name = "txtRFC";
             this.txtRFC.Size = new System.Drawing.Size(234, 23);
             this.txtRFC.TabIndex = 3;
+            this.txtRFC.TextChanged += new System.EventHandler(this.txtRFC_TextChanged);
             this.txtRFC.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRFC_KeyDown);
             // 
             // label3
