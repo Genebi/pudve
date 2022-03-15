@@ -166,6 +166,22 @@ namespace PuntoDeVentaV2
                 {
                     int idCliente = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND RFC = '{rfc}' ORDER BY FechaOperacion DESC LIMIT 1", 1));
                 }
+                var cantidadCamposRFC = rfc.Length;
+
+                if (cantidadCamposRFC > 0 && cantidadCamposRFC < 12)
+                {
+                    txtRFC.Focus();
+                    MessageBox.Show("El RFC no tiene el formato correcto", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtRFC.ForeColor = Color.Red;
+                    txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Bold);
+                    return;
+                }
+                else
+                {
+                    txtRFC.ForeColor = Color.Black;
+                    txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Regular);
+
+                }
 
                 if (string.IsNullOrWhiteSpace(razon))
                 {
@@ -598,6 +614,23 @@ namespace PuntoDeVentaV2
             if (e.KeyCode.Equals(Keys.Escape))
             {
                 this.Close(); 
+            }
+        }
+
+        private void txtRFC_TextChanged(object sender, EventArgs e)
+        {
+            var cantidadCamposRFC = txtRFC.Text.Length;
+
+
+            if (cantidadCamposRFC > 11)
+            {
+                txtRFC.ForeColor = Color.Black;
+                txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Regular);
+            }
+            else
+            {
+                txtRFC.ForeColor = Color.Red;
+                txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Bold);
             }
         }
     }
