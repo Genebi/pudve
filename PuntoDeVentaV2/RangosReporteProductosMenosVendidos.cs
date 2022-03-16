@@ -102,7 +102,7 @@ namespace PuntoDeVentaV2
                     {
                         if (!dtProductosMasVendidos.Rows.Count.Equals(0))
                         {
-                            MessageBoxTemporal.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema",3,true);
+                            MessageBoxTemporal.Show("Procesando la solicitud de generar reporte", "Aviso del sistema",3,true);
                             generarReporteMenosVendidos(dtProductosMasVendidos);
                         }
                         else
@@ -119,7 +119,7 @@ namespace PuntoDeVentaV2
                         {
                             if (!dtProductosMenosVendidos.Rows.Count.Equals(0))
                             {
-                                MessageBoxTemporal.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema", 3,true);
+                                MessageBoxTemporal.Show("Procesando la solicitud de generar reporte" , "Aviso del sistema", 3,true);
                                 generarReporteMenosVendidos(dtProductosMenosVendidos);
                             }
                             else
@@ -134,7 +134,7 @@ namespace PuntoDeVentaV2
                         {
                             if (!dtProductosMenosVendidos.Rows.Count.Equals(0))
                             {
-                                MessageBoxTemporal.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema", 3,true);
+                                MessageBoxTemporal.Show("Procesando la solicitud de generar reporte", "Aviso del sistema", 3,true);
                                 generarReporteMenosVendidos(dtProductosMenosVendidos);
                             }
                             else

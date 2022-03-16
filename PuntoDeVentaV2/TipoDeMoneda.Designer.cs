@@ -251,7 +251,7 @@
             this.KeyPreview = true;
             this.Name = "TipoDeMoneda";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "TipoDeMoneda";
+            this.Text = "Tipo De Moneda";
             this.Load += new System.EventHandler(this.TipoDeMoneda_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TipoDeMoneda_KeyDown);
             this.ResumeLayout(false);

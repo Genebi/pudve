@@ -316,7 +316,7 @@
             this.MinimizeBox = false;
             this.Name = "ConfiguracionGeneral";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = " CONFIGURACION GENERAL";
+            this.Text = " Configuración General";
             this.Load += new System.EventHandler(this.ConfiguracionGeneral_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConfiguracionGeneral_KeyDown);
             this.groupBox2.ResumeLayout(false);
