@@ -596,7 +596,7 @@ namespace PuntoDeVentaV2
                 txtRFC.Focus();
                 MessageBox.Show("El RFC no tiene el formato correcto", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtRFC.ForeColor = Color.Red;
-                txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Bold);
+                //txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Bold);
                 return false;
             }
             else
@@ -1157,7 +1157,7 @@ namespace PuntoDeVentaV2
             else
             {
                 txtRFC.ForeColor = Color.Red;
-                txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Bold);
+                //txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Bold);
             }
         }
 

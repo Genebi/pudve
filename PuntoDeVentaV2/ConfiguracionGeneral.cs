@@ -1492,5 +1492,20 @@ namespace PuntoDeVentaV2
             MessageBox.Show("Configuracion Guardada con exito");
             this.Close();
         }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkMensajeRealizarInventario_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkMensajeVenderProducto_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
