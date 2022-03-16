@@ -102,7 +102,7 @@ namespace PuntoDeVentaV2
                     {
                         if (!dtProductosMasVendidos.Rows.Count.Equals(0))
                         {
-                            MessageBox.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBoxTemporal.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema",3,true);
                             generarReporteMenosVendidos(dtProductosMasVendidos);
                         }
                         else
