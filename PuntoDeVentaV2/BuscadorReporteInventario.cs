@@ -1495,7 +1495,7 @@ namespace PuntoDeVentaV2
             subTitulo.Alignment = Element.ALIGN_CENTER;
             numeroFolio.Alignment = Element.ALIGN_CENTER;
 
-            float[] anchoColumnas = new float[] { 30f, 270f, 80f, 80f, 80f, 80f, 90f, 70f, 70f/*, 80f, 100f*/ };
+            float[] anchoColumnas = new float[] { 30f, 270f, 80f, 80f, 80f, 80f, 90f, 70f, 70f, 100f/*, 80f, 100f*/ };
 
             // Linea serapadora
             Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
@@ -1504,7 +1504,7 @@ namespace PuntoDeVentaV2
             //=== TABLA DE INVENTARIO  ===
             //============================
 
-            PdfPTable tablaInventario = new PdfPTable(9);
+            PdfPTable tablaInventario = new PdfPTable(10);
             tablaInventario.WidthPercentage = 100;
             tablaInventario.SetWidths(anchoColumnas);
 
@@ -1561,6 +1561,12 @@ namespace PuntoDeVentaV2
             colPrecio.Padding = 3;
             colPrecio.BackgroundColor = new BaseColor(Color.SkyBlue);
 
+            PdfPCell colComentario = new PdfPCell(new Phrase("COMENTARIO", fuenteTotales));
+            colComentario.BorderWidth = 1;
+            colComentario.HorizontalAlignment = Element.ALIGN_CENTER;
+            colComentario.Padding = 3;
+            colComentario.BackgroundColor = new BaseColor(Color.SkyBlue);
+
             //PdfPCell colPerdida = new PdfPCell(new Phrase("CANTIDAD PERDIDA", fuenteTotales));
             //colPerdida.BorderWidth = 1;
             //colPerdida.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -1582,6 +1588,7 @@ namespace PuntoDeVentaV2
             tablaInventario.AddCell(colFecha);
             tablaInventario.AddCell(colDiferencia);
             tablaInventario.AddCell(colPrecio);
+            tablaInventario.AddCell(colComentario);
             //tablaInventario.AddCell(colPerdida);
             //tablaInventario.AddCell(colRecuperada);
 
@@ -1597,6 +1604,7 @@ namespace PuntoDeVentaV2
                 var fecha = row["Fecha"].ToString();
                 var diferencia = row["DiferenciaUnidades"].ToString();
                 var precio = float.Parse(row["Precio"].ToString());
+                var comentarios = row["Comentarios"].ToString();
                 //var folio = row["Folio"].ToString();
                 var perdida = string.Empty;
                 var recuperada = string.Empty;
@@ -1662,6 +1670,10 @@ namespace PuntoDeVentaV2
                 colPrecioTmp.BorderWidth = 1;
                 colPrecioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                PdfPCell colComentarioTmp = new PdfPCell(new Phrase(comentarios, fuenteNormal));
+                colPrecioTmp.BorderWidth = 1;
+                colPrecioTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+
                 //PdfPCell colPerdidaTmp = new PdfPCell(new Phrase(.ToString("0.00"), fuenteNormal));
                 //if (!perdida.Equals("---"))
                 //{
@@ -1687,6 +1699,7 @@ namespace PuntoDeVentaV2
                 tablaInventario.AddCell(colFechaTmp);
                 tablaInventario.AddCell(colDiferenciaTmp);
                 tablaInventario.AddCell(colPrecioTmp);
+                tablaInventario.AddCell(colComentarioTmp);
                 //tablaInventario.AddCell(colPerdidaTmp);
                 //tablaInventario.AddCell(colRecuperadaTmp);
             }
@@ -1761,6 +1774,10 @@ namespace PuntoDeVentaV2
                 colRecuperadaTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
                 colRecuperadaTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
 
+                PdfPCell colComentarioTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+                colNoConceptoTmpExtra.BorderWidth = 0;
+                colNoConceptoTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+
                 tablaInventario.AddCell(colNoConceptoTmpExtra);
                 tablaInventario.AddCell(colNombreTmpExtra);
                 tablaInventario.AddCell(colClaveTmpExtra);
@@ -1772,6 +1789,7 @@ namespace PuntoDeVentaV2
                 tablaInventario.AddCell(colPrecioTmpExtra);
                 tablaInventario.AddCell(colPerdidaTmpExtra);
                 tablaInventario.AddCell(colRecuperadaTmpExtra);
+                tablaInventario.AddCell(colComentarioTmpExtra);
             }
 
             reporte.Add(titulo);
