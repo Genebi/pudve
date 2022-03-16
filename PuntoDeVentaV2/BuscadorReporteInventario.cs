@@ -1699,7 +1699,7 @@ namespace PuntoDeVentaV2
                 tablaInventario.AddCell(colFechaTmp);
                 tablaInventario.AddCell(colDiferenciaTmp);
                 tablaInventario.AddCell(colPrecioTmp);
-                tablaInventario.AddCell(colComentarioTmp);
+                tablaInventario.AddCell(colComentarioTmp); 
                 //tablaInventario.AddCell(colPerdidaTmp);
                 //tablaInventario.AddCell(colRecuperadaTmp);
             }
