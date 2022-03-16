@@ -1495,7 +1495,7 @@ namespace PuntoDeVentaV2
             subTitulo.Alignment = Element.ALIGN_CENTER;
             numeroFolio.Alignment = Element.ALIGN_CENTER;
 
-            float[] anchoColumnas = new float[] { 30f, 270f, 80f, 80f, 80f, 80f, 90f, 70f, 70f, 100f/*, 80f, 100f*/ };
+            float[] anchoColumnas = new float[] { 30f, 270f, 80f, 80f, 80f, 80f, 90f, 70f, 70f, 100f };
 
             // Linea serapadora
             Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
@@ -1758,25 +1758,25 @@ namespace PuntoDeVentaV2
                 colPrecioTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
                 colPrecioTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colPerdidaTmpExtra = new PdfPCell(new Phrase(CantidadPerdida.ToString("N2"), fuenteNormal));
-                colPerdidaTmpExtra.BorderWidthTop = 0;
-                colPerdidaTmpExtra.BorderWidthLeft = 0;
-                colPerdidaTmpExtra.BorderWidthRight = 0;
-                colPerdidaTmpExtra.BorderWidthBottom = 1;
-                colPerdidaTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
-                colPerdidaTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+                //PdfPCell colPerdidaTmpExtra = new PdfPCell(new Phrase(CantidadPerdida.ToString("N2"), fuenteNormal));
+                //colPerdidaTmpExtra.BorderWidthTop = 0;
+                //colPerdidaTmpExtra.BorderWidthLeft = 0;
+                //colPerdidaTmpExtra.BorderWidthRight = 0;
+                //colPerdidaTmpExtra.BorderWidthBottom = 1;
+                //colPerdidaTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                //colPerdidaTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                PdfPCell colRecuperadaTmpExtra = new PdfPCell(new Phrase(CantidadRecuperada.ToString("N2"), fuenteNormal));
-                colRecuperadaTmpExtra.BorderWidthTop = 0;
-                colRecuperadaTmpExtra.BorderWidthLeft = 0;
-                colRecuperadaTmpExtra.BorderWidthRight = 0;
-                colRecuperadaTmpExtra.BorderWidthBottom = 1;
-                colRecuperadaTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
-                colRecuperadaTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+                //PdfPCell colRecuperadaTmpExtra = new PdfPCell(new Phrase(CantidadRecuperada.ToString("N2"), fuenteNormal));
+                //colRecuperadaTmpExtra.BorderWidthTop = 0;
+                //colRecuperadaTmpExtra.BorderWidthLeft = 0;
+                //colRecuperadaTmpExtra.BorderWidthRight = 0;
+                //colRecuperadaTmpExtra.BorderWidthBottom = 1;
+                //colRecuperadaTmpExtra.BackgroundColor = new BaseColor(Color.SkyBlue);
+                //colRecuperadaTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 PdfPCell colComentarioTmpExtra = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
-                colNoConceptoTmpExtra.BorderWidth = 0;
-                colNoConceptoTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
+                colComentarioTmpExtra.BorderWidth = 0;
+                colComentarioTmpExtra.HorizontalAlignment = Element.ALIGN_CENTER;
 
                 tablaInventario.AddCell(colNoConceptoTmpExtra);
                 tablaInventario.AddCell(colNombreTmpExtra);
@@ -1787,9 +1787,9 @@ namespace PuntoDeVentaV2
                 tablaInventario.AddCell(colFechaTmpExtra);
                 tablaInventario.AddCell(colDiferenciaTmpExtra);
                 tablaInventario.AddCell(colPrecioTmpExtra);
-                tablaInventario.AddCell(colPerdidaTmpExtra);
-                tablaInventario.AddCell(colRecuperadaTmpExtra);
                 tablaInventario.AddCell(colComentarioTmpExtra);
+                //tablaInventario.AddCell(colPerdidaTmpExtra);
+                //tablaInventario.AddCell(colRecuperadaTmpExtra);
             }
 
             reporte.Add(titulo);
