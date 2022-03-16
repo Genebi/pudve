@@ -35,22 +35,25 @@
             this.chTicketVentas = new System.Windows.Forms.CheckBox();
             this.checkCBVenta = new System.Windows.Forms.CheckBox();
             this.pagWeb = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.cbMostrarCB = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.cbMostrarPrecio = new System.Windows.Forms.CheckBox();
-            this.txtNoVendidos = new System.Windows.Forms.TextBox();
             this.cbStockNegativo = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtNoVendidos = new System.Windows.Forms.TextBox();
             this.checkNoVendidos = new System.Windows.Forms.CheckBox();
             this.checkMayoreo = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMinimoMayoreo = new System.Windows.Forms.TextBox();
+            this.btnAceptar = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox2.Controls.Add(this.btnAceptar);
             this.groupBox2.Controls.Add(this.chkMensajeRealizarInventario);
             this.groupBox2.Controls.Add(this.chkMensajeVenderProducto);
             this.groupBox2.Controls.Add(this.chkCerrarSesionCorte);
@@ -63,14 +66,14 @@
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(8, 31);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(581, 161);
+            this.groupBox2.Size = new System.Drawing.Size(581, 194);
             this.groupBox2.TabIndex = 130;
             this.groupBox2.TabStop = false;
             // 
             // chkMensajeRealizarInventario
             // 
             this.chkMensajeRealizarInventario.AutoSize = true;
-            this.chkMensajeRealizarInventario.Location = new System.Drawing.Point(299, 134);
+            this.chkMensajeRealizarInventario.Location = new System.Drawing.Point(149, 134);
             this.chkMensajeRealizarInventario.Name = "chkMensajeRealizarInventario";
             this.chkMensajeRealizarInventario.Size = new System.Drawing.Size(267, 21);
             this.chkMensajeRealizarInventario.TabIndex = 131;
@@ -141,18 +144,6 @@
             this.pagWeb.CheckedChanged += new System.EventHandler(this.pagWeb_CheckedChanged);
             this.pagWeb.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pagWeb_MouseClick);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label3.Location = new System.Drawing.Point(90, 6);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 17);
-            this.label3.TabIndex = 127;
-            this.label3.Text = "días";
-            this.label3.Visible = false;
-            // 
             // cbMostrarCB
             // 
             this.cbMostrarCB.AutoSize = true;
@@ -165,18 +156,6 @@
             this.cbMostrarCB.UseVisualStyleBackColor = true;
             this.cbMostrarCB.CheckedChanged += new System.EventHandler(this.cbMostrarCB_CheckedChanged);
             this.cbMostrarCB.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbMostrarCB_MouseClick);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label2.Location = new System.Drawing.Point(90, 5);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 17);
-            this.label2.TabIndex = 126;
-            this.label2.Text = "- Cada";
-            this.label2.Visible = false;
             // 
             // cbMostrarPrecio
             // 
@@ -191,18 +170,6 @@
             this.cbMostrarPrecio.CheckedChanged += new System.EventHandler(this.cbMostrarPrecio_CheckedChanged);
             this.cbMostrarPrecio.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbMostrarPrecio_MouseClick);
             // 
-            // txtNoVendidos
-            // 
-            this.txtNoVendidos.Enabled = false;
-            this.txtNoVendidos.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNoVendidos.Location = new System.Drawing.Point(168, 2);
-            this.txtNoVendidos.Name = "txtNoVendidos";
-            this.txtNoVendidos.Size = new System.Drawing.Size(69, 21);
-            this.txtNoVendidos.TabIndex = 125;
-            this.txtNoVendidos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtNoVendidos.Visible = false;
-            this.txtNoVendidos.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtNoVendidos_KeyUp);
-            // 
             // cbStockNegativo
             // 
             this.cbStockNegativo.AutoSize = true;
@@ -215,6 +182,42 @@
             this.cbStockNegativo.UseVisualStyleBackColor = true;
             this.cbStockNegativo.CheckedChanged += new System.EventHandler(this.cbStockNegativo_CheckedChanged);
             this.cbStockNegativo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbStockNegativo_MouseClick);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label3.Location = new System.Drawing.Point(90, 6);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(34, 17);
+            this.label3.TabIndex = 127;
+            this.label3.Text = "días";
+            this.label3.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label2.Location = new System.Drawing.Point(90, 5);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(54, 17);
+            this.label2.TabIndex = 126;
+            this.label2.Text = "- Cada";
+            this.label2.Visible = false;
+            // 
+            // txtNoVendidos
+            // 
+            this.txtNoVendidos.Enabled = false;
+            this.txtNoVendidos.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNoVendidos.Location = new System.Drawing.Point(168, 2);
+            this.txtNoVendidos.Name = "txtNoVendidos";
+            this.txtNoVendidos.Size = new System.Drawing.Size(69, 21);
+            this.txtNoVendidos.TabIndex = 125;
+            this.txtNoVendidos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtNoVendidos.Visible = false;
+            this.txtNoVendidos.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtNoVendidos_KeyUp);
             // 
             // checkNoVendidos
             // 
@@ -237,7 +240,7 @@
             this.checkMayoreo.AutoSize = true;
             this.checkMayoreo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkMayoreo.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.checkMayoreo.Location = new System.Drawing.Point(73, 5);
+            this.checkMayoreo.Location = new System.Drawing.Point(40, 7);
             this.checkMayoreo.Name = "checkMayoreo";
             this.checkMayoreo.Size = new System.Drawing.Size(273, 21);
             this.checkMayoreo.TabIndex = 121;
@@ -253,7 +256,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label1.Location = new System.Drawing.Point(90, 9);
+            this.label1.Location = new System.Drawing.Point(105, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(132, 17);
             this.label1.TabIndex = 123;
@@ -272,11 +275,39 @@
             this.txtMinimoMayoreo.Visible = false;
             this.txtMinimoMayoreo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtMinimoMayoreo_KeyUp);
             // 
+            // btnAceptar
+            // 
+            this.btnAceptar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAceptar.BackColor = System.Drawing.Color.Green;
+            this.btnAceptar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAceptar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen;
+            this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAceptar.ForeColor = System.Drawing.Color.White;
+            this.btnAceptar.Location = new System.Drawing.Point(8, 160);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(564, 28);
+            this.btnAceptar.TabIndex = 132;
+            this.btnAceptar.Text = "Guardar";
+            this.btnAceptar.UseVisualStyleBackColor = false;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(205, 10);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(171, 13);
+            this.label4.TabIndex = 131;
+            this.label4.Text = "CONFIGURACION GENERAL";
+            // 
             // ConfiguracionGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 204);
+            this.ClientSize = new System.Drawing.Size(600, 235);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.checkMayoreo);
             this.Controls.Add(this.label1);
@@ -285,7 +316,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtNoVendidos);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -320,5 +351,7 @@
         private System.Windows.Forms.CheckBox chkCerrarSesionCorte;
         private System.Windows.Forms.CheckBox chkMensajeRealizarInventario;
         private System.Windows.Forms.CheckBox chkMensajeVenderProducto;
+        private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Label label4;
     }
 }

@@ -1486,5 +1486,11 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Configuracion Guardada con exito");
+            this.Close();
+        }
     }
 }
