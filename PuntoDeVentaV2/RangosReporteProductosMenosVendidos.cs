@@ -39,10 +39,14 @@ namespace PuntoDeVentaV2
         {
             dtpInicio.Format = DateTimePickerFormat.Custom;
             dtpInicio.CustomFormat = personalizada;
-            dtpInicio.Text = DateTime.Parse(dtpInicio.Text).AddMonths(-1).ToString();
+            var year = Convert.ToInt32(DateTime.Now.Year.ToString());
+            var month = Convert.ToInt32(DateTime.Now.Month.ToString());
+            var day = 1;
+            dtpInicio.Value = new DateTime(year, month-1, day);
 
             dtpFin.Format = DateTimePickerFormat.Custom;
             dtpFin.CustomFormat = personalizada;
+            dtpFin.Value = DateTime.Now;
         }
 
         private void txtCantidadMostar_KeyPress(object sender, KeyPressEventArgs e)
@@ -633,8 +637,9 @@ namespace PuntoDeVentaV2
 
         private void reiniciarValoresDateTimeTextBox()
         {
-            dtpInicio.Text = DateTime.Parse(DateTime.Now.ToString(personalizada)).AddMonths(-1).ToString();
-            dtpFin.Text = DateTime.Now.ToString(personalizada);
+            //dtpInicio.Text = DateTime.Parse(DateTime.Now.ToString(personalizada)).AddMonths(-1).ToString();
+            //dtpFin.Text = DateTime.Now.ToString(personalizada);
+            configurarDateTimePicker();
             txtCantidadMostar.Clear();
             txtCantidadMostar.Text = "0";
         }
@@ -645,18 +650,6 @@ namespace PuntoDeVentaV2
             {
                 this.Close();
             }
-        }
-
-        private void dtpInicio_ValueChanged(object sender, EventArgs e)
-        {
-            DateTime date = DateTime.Now;
-            DateTime PrimerDia = new DateTime(date.Year, date.Month, 1);
-            dtpInicio.Value = PrimerDia;
-        }
-
-        private void dtpFin_ValueChanged(object sender, EventArgs e)
-        {
-            dtpFin.Value = DateTime.Now;
         }
     }
 }
