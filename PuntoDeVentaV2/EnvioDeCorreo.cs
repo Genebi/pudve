@@ -1136,5 +1136,11 @@ namespace PuntoDeVentaV2
                 this.Close();
             }
         }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Configuracion Guardada con Exito", "Mensaje de sistema", MessageBoxButtons.OK,MessageBoxIcon.Information);
+            this.Close();
+        }
     }
 }

@@ -62,10 +62,10 @@
             this.groupBox2.Controls.Add(this.cbMostrarCB);
             this.groupBox2.Controls.Add(this.cbMostrarPrecio);
             this.groupBox2.Controls.Add(this.cbStockNegativo);
-            this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(8, 31);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(581, 195);
+            this.groupBox2.Size = new System.Drawing.Size(637, 195);
             this.groupBox2.TabIndex = 130;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CONFIGURACION GENERAL";
@@ -79,7 +79,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(400, 161);
+            this.btnAceptar.Location = new System.Drawing.Point(456, 161);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(176, 28);
             this.btnAceptar.TabIndex = 132;
@@ -90,7 +90,8 @@
             // chkMensajeRealizarInventario
             // 
             this.chkMensajeRealizarInventario.AutoSize = true;
-            this.chkMensajeRealizarInventario.Location = new System.Drawing.Point(153, 136);
+            this.chkMensajeRealizarInventario.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkMensajeRealizarInventario.Location = new System.Drawing.Point(175, 136);
             this.chkMensajeRealizarInventario.Name = "chkMensajeRealizarInventario";
             this.chkMensajeRealizarInventario.Size = new System.Drawing.Size(267, 21);
             this.chkMensajeRealizarInventario.TabIndex = 131;
@@ -102,7 +103,8 @@
             // chkMensajeVenderProducto
             // 
             this.chkMensajeVenderProducto.AutoSize = true;
-            this.chkMensajeVenderProducto.Location = new System.Drawing.Point(303, 109);
+            this.chkMensajeVenderProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkMensajeVenderProducto.Location = new System.Drawing.Point(325, 109);
             this.chkMensajeVenderProducto.Name = "chkMensajeVenderProducto";
             this.chkMensajeVenderProducto.Size = new System.Drawing.Size(262, 21);
             this.chkMensajeVenderProducto.TabIndex = 130;
@@ -115,7 +117,7 @@
             // 
             this.chkCerrarSesionCorte.AutoSize = true;
             this.chkCerrarSesionCorte.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkCerrarSesionCorte.Location = new System.Drawing.Point(15, 109);
+            this.chkCerrarSesionCorte.Location = new System.Drawing.Point(37, 109);
             this.chkCerrarSesionCorte.Name = "chkCerrarSesionCorte";
             this.chkCerrarSesionCorte.Size = new System.Drawing.Size(258, 21);
             this.chkCerrarSesionCorte.TabIndex = 129;
@@ -128,7 +130,7 @@
             // 
             this.chTicketVentas.AutoSize = true;
             this.chTicketVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chTicketVentas.Location = new System.Drawing.Point(303, 80);
+            this.chTicketVentas.Location = new System.Drawing.Point(325, 80);
             this.chTicketVentas.Name = "chTicketVentas";
             this.chTicketVentas.Size = new System.Drawing.Size(232, 21);
             this.chTicketVentas.TabIndex = 128;
@@ -141,7 +143,7 @@
             // 
             this.checkCBVenta.AutoSize = true;
             this.checkCBVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkCBVenta.Location = new System.Drawing.Point(15, 26);
+            this.checkCBVenta.Location = new System.Drawing.Point(37, 26);
             this.checkCBVenta.Name = "checkCBVenta";
             this.checkCBVenta.Size = new System.Drawing.Size(245, 21);
             this.checkCBVenta.TabIndex = 110;
@@ -154,7 +156,7 @@
             // 
             this.pagWeb.AutoSize = true;
             this.pagWeb.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pagWeb.Location = new System.Drawing.Point(15, 53);
+            this.pagWeb.Location = new System.Drawing.Point(37, 53);
             this.pagWeb.Name = "pagWeb";
             this.pagWeb.Size = new System.Drawing.Size(267, 21);
             this.pagWeb.TabIndex = 115;
@@ -167,7 +169,7 @@
             // 
             this.cbMostrarCB.AutoSize = true;
             this.cbMostrarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbMostrarCB.Location = new System.Drawing.Point(15, 80);
+            this.cbMostrarCB.Location = new System.Drawing.Point(37, 80);
             this.cbMostrarCB.Name = "cbMostrarCB";
             this.cbMostrarCB.Size = new System.Drawing.Size(283, 21);
             this.cbMostrarCB.TabIndex = 117;
@@ -180,7 +182,7 @@
             // 
             this.cbMostrarPrecio.AutoSize = true;
             this.cbMostrarPrecio.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbMostrarPrecio.Location = new System.Drawing.Point(303, 26);
+            this.cbMostrarPrecio.Location = new System.Drawing.Point(325, 26);
             this.cbMostrarPrecio.Name = "cbMostrarPrecio";
             this.cbMostrarPrecio.Size = new System.Drawing.Size(277, 21);
             this.cbMostrarPrecio.TabIndex = 116;
@@ -193,7 +195,7 @@
             // 
             this.cbStockNegativo.AutoSize = true;
             this.cbStockNegativo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbStockNegativo.Location = new System.Drawing.Point(303, 53);
+            this.cbStockNegativo.Location = new System.Drawing.Point(325, 53);
             this.cbStockNegativo.Name = "cbStockNegativo";
             this.cbStockNegativo.Size = new System.Drawing.Size(177, 21);
             this.cbStockNegativo.TabIndex = 1;
@@ -299,7 +301,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(598, 238);
+            this.ClientSize = new System.Drawing.Size(657, 238);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.checkMayoreo);
             this.Controls.Add(this.label1);
