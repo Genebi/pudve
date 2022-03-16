@@ -76,6 +76,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.chTodos = new System.Windows.Forms.CheckBox();
             this.btnReportes = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.datagv_facturas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -255,7 +257,7 @@
             "Facturas abonadas",
             "Facturas pagadas",
             "Facturas canceladas"});
-            this.cmb_bx_tipo_factura.Location = new System.Drawing.Point(3, 37);
+            this.cmb_bx_tipo_factura.Location = new System.Drawing.Point(3, 52);
             this.cmb_bx_tipo_factura.Name = "cmb_bx_tipo_factura";
             this.cmb_bx_tipo_factura.Size = new System.Drawing.Size(199, 25);
             this.cmb_bx_tipo_factura.TabIndex = 2;
@@ -266,24 +268,26 @@
             // 
             this.datetp_fecha_inicial.CustomFormat = "yyyy-MM-dd";
             this.datetp_fecha_inicial.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datetp_fecha_inicial.Location = new System.Drawing.Point(211, 38);
+            this.datetp_fecha_inicial.Location = new System.Drawing.Point(211, 53);
             this.datetp_fecha_inicial.MaxDate = new System.DateTime(3000, 12, 31, 0, 0, 0, 0);
             this.datetp_fecha_inicial.MinDate = new System.DateTime(1960, 1, 1, 0, 0, 0, 0);
             this.datetp_fecha_inicial.Name = "datetp_fecha_inicial";
             this.datetp_fecha_inicial.Size = new System.Drawing.Size(112, 22);
             this.datetp_fecha_inicial.TabIndex = 3;
             this.datetp_fecha_inicial.Value = new System.DateTime(2020, 2, 13, 0, 0, 0, 0);
+            this.datetp_fecha_inicial.ValueChanged += new System.EventHandler(this.datetp_fecha_inicial_ValueChanged);
             // 
             // datetp_fecha_final
             // 
             this.datetp_fecha_final.CustomFormat = "yyyy-MM-dd";
             this.datetp_fecha_final.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datetp_fecha_final.Location = new System.Drawing.Point(329, 38);
+            this.datetp_fecha_final.Location = new System.Drawing.Point(329, 53);
             this.datetp_fecha_final.MaxDate = new System.DateTime(3000, 12, 31, 0, 0, 0, 0);
             this.datetp_fecha_final.MinDate = new System.DateTime(1960, 1, 1, 0, 0, 0, 0);
             this.datetp_fecha_final.Name = "datetp_fecha_final";
             this.datetp_fecha_final.Size = new System.Drawing.Size(112, 22);
             this.datetp_fecha_final.TabIndex = 4;
+            this.datetp_fecha_final.ValueChanged += new System.EventHandler(this.datetp_fecha_final_ValueChanged);
             // 
             // btn_buscar
             // 
@@ -292,7 +296,7 @@
             this.btn_buscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_buscar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_buscar.ForeColor = System.Drawing.Color.White;
-            this.btn_buscar.Location = new System.Drawing.Point(460, 33);
+            this.btn_buscar.Location = new System.Drawing.Point(460, 48);
             this.btn_buscar.Name = "btn_buscar";
             this.btn_buscar.Size = new System.Drawing.Size(105, 30);
             this.btn_buscar.TabIndex = 5;
@@ -337,14 +341,16 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.btn_buscar);
+            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.datetp_fecha_final);
             this.panel1.Controls.Add(this.txt_buscar_por);
             this.panel1.Controls.Add(this.datetp_fecha_inicial);
             this.panel1.Controls.Add(this.cmb_bx_tipo_factura);
-            this.panel1.Location = new System.Drawing.Point(12, 83);
+            this.panel1.Location = new System.Drawing.Point(12, 70);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(585, 67);
+            this.panel1.Size = new System.Drawing.Size(585, 80);
             this.panel1.TabIndex = 8;
             // 
             // txt_buscar_por
@@ -641,6 +647,26 @@
             this.btnReportes.UseVisualStyleBackColor = false;
             this.btnReportes.Click += new System.EventHandler(this.btnReportes_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(354, 36);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(62, 13);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "Fecha Final";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(234, 37);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(67, 13);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Fecha Inicial";
+            // 
             // Facturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -728,5 +754,7 @@
         private System.Windows.Forms.TextBox txt_buscar_por;
         private System.Windows.Forms.CheckBox chTodos;
         private System.Windows.Forms.Button btnReportes;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }

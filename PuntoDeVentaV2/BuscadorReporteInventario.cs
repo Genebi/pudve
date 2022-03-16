@@ -2343,5 +2343,17 @@ namespace PuntoDeVentaV2
                 DGVInventario.Cursor = Cursors.Default;
             }
         }
+
+        private void primerDatePicker_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime date = DateTime.Now;
+            DateTime PrimerDia = new DateTime(date.Year, date.Month, 1);
+            primerDatePicker.Value = PrimerDia;
+        }
+
+        private void segundoDatePicker_ValueChanged(object sender, EventArgs e)
+        {
+            segundoDatePicker.Value = DateTime.Now;
+        }
     }
 }

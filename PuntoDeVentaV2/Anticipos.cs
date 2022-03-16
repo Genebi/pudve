@@ -581,5 +581,19 @@ namespace PuntoDeVentaV2
         {
             txtBuscarAnticipo.CharacterCasing = CharacterCasing.Upper;
         }
+
+        private void dpFechaInicial_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime date = DateTime.Now;
+            DateTime PrimerDia  = new DateTime(date.Year, date.Month, 1);
+            dpFechaInicial.Value = PrimerDia;
+           
+
+        }
+
+        private void dpFechaFinal_ValueChanged(object sender, EventArgs e)
+        {
+            dpFechaFinal.Value = DateTime.Now;
+        }
     }
 }

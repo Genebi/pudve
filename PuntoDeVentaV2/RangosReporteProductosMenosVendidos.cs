@@ -119,7 +119,7 @@ namespace PuntoDeVentaV2
                         {
                             if (!dtProductosMenosVendidos.Rows.Count.Equals(0))
                             {
-                                MessageBox.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBoxTemporal.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema", 3,true);
                                 generarReporteMenosVendidos(dtProductosMenosVendidos);
                             }
                             else
@@ -134,7 +134,7 @@ namespace PuntoDeVentaV2
                         {
                             if (!dtProductosMenosVendidos.Rows.Count.Equals(0))
                             {
-                                MessageBox.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBoxTemporal.Show("Procesando la solicitud de generar reporte,\neste proceso puede tardar un momento en completarse.", "Aviso del sistema", 3,true);
                                 generarReporteMenosVendidos(dtProductosMenosVendidos);
                             }
                             else
@@ -645,6 +645,18 @@ namespace PuntoDeVentaV2
             {
                 this.Close();
             }
+        }
+
+        private void dtpInicio_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime date = DateTime.Now;
+            DateTime PrimerDia = new DateTime(date.Year, date.Month, 1);
+            dtpInicio.Value = PrimerDia;
+        }
+
+        private void dtpFin_ValueChanged(object sender, EventArgs e)
+        {
+            dtpFin.Value = DateTime.Now;
         }
     }
 }
