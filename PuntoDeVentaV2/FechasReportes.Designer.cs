@@ -30,13 +30,13 @@
         {
             this.primerDatePicker = new System.Windows.Forms.DateTimePicker();
             this.segundoDatePicker = new System.Windows.Forms.DateTimePicker();
-            this.lbPrimerDP = new System.Windows.Forms.Label();
-            this.lbSegundoDP = new System.Windows.Forms.Label();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.primerSeparador = new System.Windows.Forms.Label();
             this.cbConceptos = new System.Windows.Forms.ComboBox();
             this.cbEmpleados = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // primerDatePicker
@@ -49,6 +49,7 @@
             this.primerDatePicker.Name = "primerDatePicker";
             this.primerDatePicker.Size = new System.Drawing.Size(181, 23);
             this.primerDatePicker.TabIndex = 0;
+            this.primerDatePicker.ValueChanged += new System.EventHandler(this.primerDatePicker_ValueChanged);
             // 
             // segundoDatePicker
             // 
@@ -60,26 +61,7 @@
             this.segundoDatePicker.Name = "segundoDatePicker";
             this.segundoDatePicker.Size = new System.Drawing.Size(181, 23);
             this.segundoDatePicker.TabIndex = 1;
-            // 
-            // lbPrimerDP
-            // 
-            this.lbPrimerDP.AutoSize = true;
-            this.lbPrimerDP.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPrimerDP.Location = new System.Drawing.Point(60, 61);
-            this.lbPrimerDP.Name = "lbPrimerDP";
-            this.lbPrimerDP.Size = new System.Drawing.Size(39, 20);
-            this.lbPrimerDP.TabIndex = 2;
-            this.lbPrimerDP.Text = "DEL:";
-            // 
-            // lbSegundoDP
-            // 
-            this.lbSegundoDP.AutoSize = true;
-            this.lbSegundoDP.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSegundoDP.Location = new System.Drawing.Point(60, 94);
-            this.lbSegundoDP.Name = "lbSegundoDP";
-            this.lbSegundoDP.Size = new System.Drawing.Size(57, 20);
-            this.lbSegundoDP.TabIndex = 3;
-            this.lbSegundoDP.Text = "HASTA:";
+            this.segundoDatePicker.ValueChanged += new System.EventHandler(this.segundoDatePicker_ValueChanged);
             // 
             // btnCancelar
             // 
@@ -148,18 +130,38 @@
             this.cbEmpleados.TabIndex = 116;
             this.cbEmpleados.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cbEmpleados_DrawItem);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(63, 99);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(62, 13);
+            this.label2.TabIndex = 118;
+            this.label2.Text = "Fecha Final";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(61, 66);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.TabIndex = 117;
+            this.label1.Text = "Fecha Inicial";
+            // 
             // FechasReportes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(374, 236);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.cbEmpleados);
             this.Controls.Add(this.cbConceptos);
             this.Controls.Add(this.primerSeparador);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.lbSegundoDP);
-            this.Controls.Add(this.lbPrimerDP);
             this.Controls.Add(this.segundoDatePicker);
             this.Controls.Add(this.primerDatePicker);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -180,12 +182,12 @@
 
         private System.Windows.Forms.DateTimePicker primerDatePicker;
         private System.Windows.Forms.DateTimePicker segundoDatePicker;
-        private System.Windows.Forms.Label lbPrimerDP;
-        private System.Windows.Forms.Label lbSegundoDP;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Label primerSeparador;
         private System.Windows.Forms.ComboBox cbConceptos;
         private System.Windows.Forms.ComboBox cbEmpleados;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
