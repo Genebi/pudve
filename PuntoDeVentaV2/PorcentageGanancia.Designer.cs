@@ -84,7 +84,7 @@
             this.MinimizeBox = false;
             this.Name = "PorcentageGanancia";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PorcentageGanancia";
+            this.Text = "Porcentage Ganancia";
             this.Load += new System.EventHandler(this.PorcentageGanancia_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PorcentageGanancia_KeyDown);
             this.ResumeLayout(false);

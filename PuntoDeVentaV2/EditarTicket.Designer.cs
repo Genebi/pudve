@@ -916,7 +916,7 @@
             this.MinimizeBox = false;
             this.Name = "EditarTicket";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "EditarTicket";
+            this.Text = "Editar Ticket";
             this.Load += new System.EventHandler(this.EditarTicket_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditarTicket_KeyDown);
             this.panel1.ResumeLayout(false);

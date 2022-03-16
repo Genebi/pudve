@@ -118,7 +118,7 @@
             this.MinimizeBox = false;
             this.Name = "EscogerTipoRespaldo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "EscogerTipoRespaldo";
+            this.Text = "Escoger Tipo Respaldo";
             this.Load += new System.EventHandler(this.EscogerTipoRespaldo_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EscogerTipoRespaldo_KeyDown);
             this.ResumeLayout(false);
