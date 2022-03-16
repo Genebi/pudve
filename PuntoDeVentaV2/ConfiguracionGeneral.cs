@@ -1489,7 +1489,7 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Configuracion Guardada con exito");
+            MessageBox.Show("Configuracion Guardada con exito", "Mensaje de sistema", MessageBoxButtons.OK,MessageBoxIcon.Information);
             this.Close();
         }
 
