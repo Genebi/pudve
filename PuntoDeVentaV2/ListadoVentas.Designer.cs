@@ -305,7 +305,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(518, 26);
+            this.label2.Location = new System.Drawing.Point(531, 26);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 13);
             this.label2.TabIndex = 14;
@@ -314,7 +314,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(412, 26);
+            this.label1.Location = new System.Drawing.Point(422, 26);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 13;
@@ -385,7 +385,7 @@
             this.dpFechaFinal.CustomFormat = "yyyy-MM-dd";
             this.dpFechaFinal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dpFechaFinal.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dpFechaFinal.Location = new System.Drawing.Point(500, 45);
+            this.dpFechaFinal.Location = new System.Drawing.Point(510, 45);
             this.dpFechaFinal.Name = "dpFechaFinal";
             this.dpFechaFinal.Size = new System.Drawing.Size(100, 23);
             this.dpFechaFinal.TabIndex = 7;
@@ -395,7 +395,7 @@
             this.dpFechaInicial.CustomFormat = "yyyy-MM-dd";
             this.dpFechaInicial.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dpFechaInicial.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dpFechaInicial.Location = new System.Drawing.Point(394, 45);
+            this.dpFechaInicial.Location = new System.Drawing.Point(404, 45);
             this.dpFechaInicial.Name = "dpFechaInicial";
             this.dpFechaInicial.Size = new System.Drawing.Size(100, 23);
             this.dpFechaInicial.TabIndex = 6;
@@ -429,7 +429,7 @@
             this.btnBuscarVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscarVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscarVentas.ForeColor = System.Drawing.Color.White;
-            this.btnBuscarVentas.Location = new System.Drawing.Point(606, 45);
+            this.btnBuscarVentas.Location = new System.Drawing.Point(616, 45);
             this.btnBuscarVentas.Name = "btnBuscarVentas";
             this.btnBuscarVentas.Size = new System.Drawing.Size(75, 24);
             this.btnBuscarVentas.TabIndex = 4;
