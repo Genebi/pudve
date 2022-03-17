@@ -27,13 +27,18 @@ namespace PuntoDeVentaV2
         public FechasReportes(string origen = "")
         {
             InitializeComponent();
+            
 
             this.origen = origen;
         }
 
         private void FechasReportes_Load(object sender, EventArgs e)
         {
+
             primerDatePicker.Value = DateTime.Today.AddDays(-30);
+            DateTime date = DateTime.Now;
+            DateTime PrimerDia = new DateTime(date.Year, date.Month, 1);
+            primerDatePicker.Value = PrimerDia;
 
             if (!string.IsNullOrEmpty(origen))
             {
@@ -200,14 +205,19 @@ namespace PuntoDeVentaV2
 
         private void primerDatePicker_ValueChanged(object sender, EventArgs e)
         {
-            DateTime date = DateTime.Now;
-            DateTime PrimerDia = new DateTime(date.Year, date.Month, 1);
-            primerDatePicker.Value = PrimerDia;
+
         }
 
-        private void segundoDatePicker_ValueChanged(object sender, EventArgs e)
-        {
-            segundoDatePicker.Value = DateTime.Now;
-        }
+        //private void primerDatePicker_ValueChanged(object sender, EventArgs e)
+        //{
+        //    DateTime date = DateTime.Now;
+        //    DateTime PrimerDia = new DateTime(date.Year, date.Month, 1);
+        //    primerDatePicker.Value = PrimerDia;
+        //}
+
+        //private void segundoDatePicker_ValueChanged(object sender, EventArgs e)
+        //{
+        //    segundoDatePicker.Value = DateTime.Now;
+        //}
     }
 }

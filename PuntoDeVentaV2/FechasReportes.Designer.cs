@@ -61,7 +61,6 @@
             this.segundoDatePicker.Name = "segundoDatePicker";
             this.segundoDatePicker.Size = new System.Drawing.Size(181, 23);
             this.segundoDatePicker.TabIndex = 1;
-            this.segundoDatePicker.ValueChanged += new System.EventHandler(this.segundoDatePicker_ValueChanged);
             // 
             // btnCancelar
             // 

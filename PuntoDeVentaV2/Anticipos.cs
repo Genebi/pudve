@@ -50,7 +50,10 @@ namespace PuntoDeVentaV2
         {
             //Se crea el directorio para almacenar los tickets y otros archivos relacionados con ventas
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Anticipos\Tickets");
-
+            DateTime date = DateTime.Now;
+            DateTime PrimerDia = new DateTime(date.Year, date.Month, 1);
+            dpFechaInicial.Value = PrimerDia;
+            dpFechaFinal.Value = DateTime.Now;
             cbAnticipos.DropDownStyle = ComboBoxStyle.DropDownList;
             CargarDatos(1);
 
@@ -66,7 +69,7 @@ namespace PuntoDeVentaV2
             }
 
             txtBuscarAnticipo.Focus();
-            dpFechaInicial.Value = DateTime.Today.AddDays(-7);
+           
         }
 
         private void CargarDatos(int estado = 1, int tipo = 0)
@@ -105,6 +108,7 @@ namespace PuntoDeVentaV2
             //if (tipo == 1)
             //{
                 var fechaInicio = dpFechaInicial.Text;
+                 
                 var fechaFinal = dpFechaFinal.Text;
 
                 if (string.IsNullOrEmpty(txtBuscarAnticipo.Text))//Busqueda sin Cliente/Empleado
@@ -582,18 +586,16 @@ namespace PuntoDeVentaV2
             txtBuscarAnticipo.CharacterCasing = CharacterCasing.Upper;
         }
 
-        private void dpFechaInicial_ValueChanged(object sender, EventArgs e)
-        {
-            DateTime date = DateTime.Now;
-            DateTime PrimerDia  = new DateTime(date.Year, date.Month, 1);
-            dpFechaInicial.Value = PrimerDia;
-           
 
-        }
 
-        private void dpFechaFinal_ValueChanged(object sender, EventArgs e)
-        {
-            dpFechaFinal.Value = DateTime.Now;
-        }
+        //private void dpFechaFinal_ValueChanged(object sender, EventArgs e)
+        //{
+        //    dpFechaFinal.Value = DateTime.Now;
+        //}
+
+        //private void dpFechaFinal_ValueChanged_1(object sender, EventArgs e)
+        //{
+
+        //}
     }
 }

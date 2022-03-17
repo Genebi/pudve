@@ -275,7 +275,7 @@
             this.datetp_fecha_inicial.Size = new System.Drawing.Size(112, 22);
             this.datetp_fecha_inicial.TabIndex = 3;
             this.datetp_fecha_inicial.Value = new System.DateTime(2020, 2, 13, 0, 0, 0, 0);
-            this.datetp_fecha_inicial.ValueChanged += new System.EventHandler(this.datetp_fecha_inicial_ValueChanged);
+            //this.datetp_fecha_inicial.ValueChanged += new System.EventHandler(this.datetp_fecha_inicial_ValueChanged);
             // 
             // datetp_fecha_final
             // 
@@ -287,7 +287,7 @@
             this.datetp_fecha_final.Name = "datetp_fecha_final";
             this.datetp_fecha_final.Size = new System.Drawing.Size(112, 22);
             this.datetp_fecha_final.TabIndex = 4;
-            this.datetp_fecha_final.ValueChanged += new System.EventHandler(this.datetp_fecha_final_ValueChanged);
+            //this.datetp_fecha_final.ValueChanged += new System.EventHandler(this.datetp_fecha_final_ValueChanged);
             // 
             // btn_buscar
             // 
