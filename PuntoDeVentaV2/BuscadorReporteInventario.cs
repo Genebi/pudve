@@ -66,7 +66,9 @@ namespace PuntoDeVentaV2
             }
 
             cargarDatosDGV();
-            primerDatePicker.Value = DateTime.Today.AddDays(-7);
+            DateTime date = DateTime.Now;
+            DateTime PrimerDia = new DateTime(date.Year, date.Month -1, 1);
+            primerDatePicker.Value = PrimerDia;
             segundoDatePicker.Value = DateTime.Now;
         }
 
