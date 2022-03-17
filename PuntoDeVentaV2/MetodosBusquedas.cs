@@ -1167,6 +1167,7 @@ namespace PuntoDeVentaV2
                     valesInicial = float.Parse(info["Vales"].ToString());
                     chequeInicial = float.Parse(info["Cheque"].ToString());
                     transInicial = float.Parse(info["Transferencia"].ToString());
+                    
                     totalSInicial = (efectivoInicial + tarjetaInicial + valesInicial + chequeInicial + transInicial);
 
                     saldo += float.Parse(info["Efectivo"].ToString());
