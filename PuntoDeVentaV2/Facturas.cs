@@ -61,7 +61,7 @@ namespace PuntoDeVentaV2
         private void Facturas_Load(object sender, EventArgs e)
         {
             DateTime date = DateTime.Now;
-            DateTime PrimerDia = new DateTime(date.Year, date.Month, 1);
+            DateTime PrimerDia = new DateTime(date.Year, date.Month -1, 1);
             datetp_fecha_inicial.Value = PrimerDia;
             datetp_fecha_final.Value = DateTime.Now;
             /*Dictionary<int, string> t_factura = new Dictionary<int, string>();
