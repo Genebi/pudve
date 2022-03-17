@@ -111,11 +111,11 @@ namespace PuntoDeVentaV2
 
             if (FormPrincipal.userNickName.Contains("@"))
             {
-                consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IdEmpleado = '{FormPrincipal.id_empleado}' AND FechaOperacion > '{fechaDefault.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY FechaOperacion ASC";
+                consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IdEmpleado = '{FormPrincipal.id_empleado}' AND IdEmpleado != 0 AND FechaOperacion > '{fechaDefault.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY FechaOperacion ASC";
             }
             else
             {
-                consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaDefault.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY FechaOperacion ASC";
+                consulta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IdEmpleado = 0 AND FechaOperacion > '{fechaDefault.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY FechaOperacion ASC";
             }
 
             consultaDos = new MySqlCommand(consulta, sql_con);

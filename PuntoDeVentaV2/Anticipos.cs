@@ -152,12 +152,22 @@ namespace PuntoDeVentaV2
                     int rowId = DGVAnticipos.Rows.Add();
 
                     DataGridViewRow row = DGVAnticipos.Rows[rowId];
-
+                    var empleado = string.Empty;
+                    var empAdm = string.Empty;
+                    empleado = dr.GetValue(dr.GetOrdinal("IDEmpleado")).ToString();
+                    if (!empleado.Equals("0"))
+                    {
+                        empAdm = "Empleado";
+                    }
+                    else
+                    {
+                        empAdm = "Administrador";
+                    }
                     row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
                     row.Cells["Concepto"].Value = dr.GetValue(dr.GetOrdinal("Concepto"));
                     row.Cells["Importe"].Value = dr.GetValue(dr.GetOrdinal("Importe"));
                     row.Cells["Cliente"].Value = dr.GetValue(dr.GetOrdinal("Cliente"));
-                    row.Cells["Empleado"].Value = "Administrador";
+                    row.Cells["Empleado"].Value = empAdm;
                     row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("Fecha"))).ToString("yyyy-MM-dd HH:mm:ss");
                     row.Cells["IDVenta"].Value = dr.GetValue(dr.GetOrdinal("IDVenta"));
                     row.Cells["FormaPago"].Value = dr.GetValue(dr.GetOrdinal("FormaPago"));
