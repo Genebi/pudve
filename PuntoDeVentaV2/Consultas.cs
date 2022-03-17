@@ -234,7 +234,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     tablaBusqueda = "dgvdisminuirinventario";
-                    consulta = $"SELECT NoRevision, NombreProducto, NameUse, IDEmpleado, Fecha, Folio FROM {tablaBusqueda} WHERE IDUsuario = '{FormPrincipal.userID}'AND Folio != 0 AND NameUse LIKE '%{datoBuscado}%' AND (Fecha BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) GROUP BY NoRevision ORDER BY Fecha DESC";
+                    consulta = $"SELECT NoRevision, NombreProducto, IF ( NameUse IS NULL, 'ADMINISTRADOR', NameUse ) AS 'NameUse', IDEmpleado, Fecha, Folio FROM {tablaBusqueda} WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0 AND ( NameUse LIKE '%{datoBuscado}%' OR NameUse IS NULL ) AND ( Fecha BETWEEN CAST( '{primerFecha}' AS DATE ) AND CAST( '{segundaFecha}' AS DATE ) ) GROUP BY NoRevision ORDER BY Fecha DESC";
                 }
 
                 //consulta = $"SELECT NoRevision, NombreProducto, NameUse, IDEmpleado, Fecha, Folio FROM {tablaBusqueda} WHERE IDUsuario = '{FormPrincipal.userID}'AND Folio != 0 AND NameUse LIKE '%{datoBuscado}%' AND (Fecha BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) GROUP BY NoRevision ORDER BY Fecha DESC";
