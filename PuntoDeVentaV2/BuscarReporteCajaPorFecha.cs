@@ -50,6 +50,22 @@ namespace PuntoDeVentaV2
             DateTime PrimerDia = new DateTime(date.Year, date.Month -1, 1);
             primerDatePicker.Value = PrimerDia;
             segundoDatePicker.Value = DateTime.Now;
+            DGVReporteCaja.Rows.Clear();
+
+            conBusqueda = true;
+
+            var datoBuscar = txtBuscador.Text.ToString().Replace("\r\n", string.Empty);
+            var primerFecha = primerDatePicker.Value.ToString("yyyy/MM/dd");
+            var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy/MM/dd");
+
+            var cantidadCortes = validarNewCuentas();
+            var primerId = obtenerPrimerCorte();
+            var name = string.Empty; var fecha = string.Empty; var empleado = string.Empty; var idCorte = string.Empty; var idEmpleado = 0;
+            var nombreUser = string.Empty;          
+            filtroConSinFiltroAvanzado = cs.BuscadorDeReportesCaja(datoBuscar, primerFecha, segundaFecha, primerId);       
+            txtBuscador.Text = string.Empty;
+            txtBuscador.Focus();            
+            CargarDatos();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)

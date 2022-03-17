@@ -1138,7 +1138,7 @@ namespace PuntoDeVentaV2
                 var idEmpleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
                 if (string.IsNullOrEmpty(idEmpleado)) { idEmpleado = "0"; }
 
-                string[] datosDisminuirInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString(), idEmpleado };
+                string[] datosDisminuirInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString(), idEmpleado, FormPrincipal.userNickName.ToString()};
 
                     var insertarDisminuirInventario = cs.InsertarIntoDisminuirInventario(datosDisminuirInventario);
                     cn.EjecutarConsulta(insertarDisminuirInventario);

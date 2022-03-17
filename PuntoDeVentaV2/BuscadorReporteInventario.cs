@@ -37,6 +37,8 @@ namespace PuntoDeVentaV2
         string tipoDatoReporte = string.Empty;
 
         string mensajeParaMostrar = string.Empty;
+        
+        string TipoUser = string.Empty;
 
         //Revisar Inventario               = RInventario
         //Actualizar Inventario Aumentar   = AIAumentar
@@ -55,14 +57,17 @@ namespace PuntoDeVentaV2
             if (tipoDatoReporte.Equals("RInventario"))
             {
                 label3.Text = "Reportes Revisar Inventario";
+                TipoUser = "NameUsr";
             }
             else if (tipoDatoReporte.Equals("AIAumentar"))
             {
                 label3.Text = "Reportes Actualizar Inventario (Aumentar)";
+                TipoUser = "NameUsr";
             }
             else if (tipoDatoReporte.Equals("AIDisminuir"))
             {
                 label3.Text = "Reportes Actualizar Inventario (Disminuir)";
+                TipoUser = "NameUse";
             }
 
             cargarDatosDGV();
@@ -70,6 +75,26 @@ namespace PuntoDeVentaV2
             DateTime PrimerDia = new DateTime(date.Year, date.Month -1, 1);
             primerDatePicker.Value = PrimerDia;
             segundoDatePicker.Value = DateTime.Now;
+            
+            conBusqueda = true;
+            DGVInventario.Rows.Clear();
+
+            var datoBuscar = txtBuscador.Text.ToString().Replace("\r\n", string.Empty);
+            var primerFecha = primerDatePicker.Value.ToString("yyyy/MM/dd");
+            var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy/MM/dd");
+
+
+            var rev = string.Empty; var name = string.Empty; var fecha = string.Empty;
+            
+
+            filtroConSinFiltroAvanzado = cs.BuscadorDeInventario(datoBuscar, primerFecha, segundaFecha, tipoDatoReporte);
+
+            
+            txtBuscador.Text = string.Empty;
+            txtBuscador.Focus();
+            
+            CargarDatos();
+
         }
 
         private void cargarDatosDGV()
@@ -2021,6 +2046,7 @@ namespace PuntoDeVentaV2
                     var fecha = string.Empty;
                     var usr = string.Empty;
                     var nameUsuario = string.Empty;
+                    
                     var idObtenido = 0;
 
                     foreach (DataRow filaDatos in dtDatos.Rows)
@@ -2044,7 +2070,8 @@ namespace PuntoDeVentaV2
                             rev = filaDatos["Folio"].ToString();
                             idObtenido = Convert.ToInt32(filaDatos["IDEmpleado"].ToString());
                             fecha = filaDatos["Fecha"].ToString();
-                            nameUsuario = filaDatos["NameUsr"].ToString();
+                            nameUsuario = filaDatos[TipoUser].ToString();
+                            
 
                             usr = cs.BuscarEmpleadoCaja(Convert.ToInt32(idObtenido));
 
