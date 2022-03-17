@@ -149,7 +149,6 @@
             this.primerDatePicker.Name = "primerDatePicker";
             this.primerDatePicker.Size = new System.Drawing.Size(114, 23);
             this.primerDatePicker.TabIndex = 8;
-            this.primerDatePicker.ValueChanged += new System.EventHandler(this.primerDatePicker_ValueChanged);
             // 
             // segundoDatePicker
             // 
@@ -161,7 +160,6 @@
             this.segundoDatePicker.Name = "segundoDatePicker";
             this.segundoDatePicker.Size = new System.Drawing.Size(114, 23);
             this.segundoDatePicker.TabIndex = 9;
-            this.segundoDatePicker.ValueChanged += new System.EventHandler(this.segundoDatePicker_ValueChanged);
             // 
             // txtBuscador
             // 
