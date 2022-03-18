@@ -581,12 +581,12 @@ namespace PuntoDeVentaV2
         private void btnCrearCuenta_Click(object sender, EventArgs e)
         {
             Registro ventanaRegistro = new Registro();
-        
+
             this.Hide();
 
             ventanaRegistro.ShowDialog();
 
-            this.Close();
+            this.Visible = false;
         }
 
         private void createDir(string[] path)

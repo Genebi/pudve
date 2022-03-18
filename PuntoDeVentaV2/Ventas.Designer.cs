@@ -102,8 +102,6 @@
             this.timer_img_producto = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.btnBascula = new System.Windows.Forms.Button();
-            this.lblPesoRecibido = new System.Windows.Forms.Label();
             this.btnAbrirCaja = new PuntoDeVentaV2.BotonRedondo();
             this.btnAnticipos = new PuntoDeVentaV2.BotonRedondo();
             this.btnUltimoTicket = new PuntoDeVentaV2.BotonRedondo();
@@ -111,6 +109,8 @@
             this.btnGuardarVenta = new PuntoDeVentaV2.BotonRedondo();
             this.btnVentasGuardadas = new PuntoDeVentaV2.BotonRedondo();
             this.btn_cancelar_venta = new PuntoDeVentaV2.BotonRedondo();
+            this.btnBascula = new System.Windows.Forms.Button();
+            this.lblPesoRecibido = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -140,11 +140,11 @@
             this.btnEliminarAnticipos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(183)))), ((int)(((byte)(149)))), ((int)(((byte)(11)))));
             this.btnEliminarAnticipos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEliminarAnticipos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEliminarAnticipos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminarAnticipos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminarAnticipos.ForeColor = System.Drawing.Color.White;
             this.btnEliminarAnticipos.Location = new System.Drawing.Point(289, 316);
             this.btnEliminarAnticipos.Name = "btnEliminarAnticipos";
-            this.btnEliminarAnticipos.Size = new System.Drawing.Size(122, 25);
+            this.btnEliminarAnticipos.Size = new System.Drawing.Size(122, 31);
             this.btnEliminarAnticipos.TabIndex = 10;
             this.btnEliminarAnticipos.Text = "Eliminar anticipos";
             this.tituloBoton.SetToolTip(this.btnEliminarAnticipos, "Eliminar todos los anticipos de esta venta");
@@ -184,10 +184,10 @@
             // txtBuscadorProducto
             // 
             this.txtBuscadorProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBuscadorProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBuscadorProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBuscadorProducto.Location = new System.Drawing.Point(94, 29);
             this.txtBuscadorProducto.Name = "txtBuscadorProducto";
-            this.txtBuscadorProducto.Size = new System.Drawing.Size(790, 23);
+            this.txtBuscadorProducto.Size = new System.Drawing.Size(790, 26);
             this.txtBuscadorProducto.TabIndex = 41;
             this.txtBuscadorProducto.Text = "BUSCAR PRODUCTO O SERVICIO...";
             this.txtBuscadorProducto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyDown);
@@ -389,7 +389,7 @@
             // 
             this.btnCancelarVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancelarVenta.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancelarVenta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelarVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarVenta.Image = global::PuntoDeVentaV2.Properties.Resources.reply1;
             this.btnCancelarVenta.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCancelarVenta.Location = new System.Drawing.Point(127, 20);
@@ -404,12 +404,12 @@
             // 
             // listaProductos
             // 
-            this.listaProductos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listaProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listaProductos.FormattingEnabled = true;
-            this.listaProductos.ItemHeight = 17;
-            this.listaProductos.Location = new System.Drawing.Point(94, 51);
+            this.listaProductos.ItemHeight = 20;
+            this.listaProductos.Location = new System.Drawing.Point(94, 57);
             this.listaProductos.Name = "listaProductos";
-            this.listaProductos.Size = new System.Drawing.Size(790, 21);
+            this.listaProductos.Size = new System.Drawing.Size(790, 20);
             this.listaProductos.TabIndex = 9;
             this.listaProductos.Visible = false;
             this.listaProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listaProductos_KeyDown);
@@ -419,10 +419,10 @@
             // lbNumeroArticulos
             // 
             this.lbNumeroArticulos.AutoSize = true;
-            this.lbNumeroArticulos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbNumeroArticulos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbNumeroArticulos.Location = new System.Drawing.Point(7, 240);
             this.lbNumeroArticulos.Name = "lbNumeroArticulos";
-            this.lbNumeroArticulos.Size = new System.Drawing.Size(198, 22);
+            this.lbNumeroArticulos.Size = new System.Drawing.Size(154, 20);
             this.lbNumeroArticulos.TabIndex = 20;
             this.lbNumeroArticulos.Text = "Número de artículos:";
             // 
@@ -430,10 +430,10 @@
             // 
             this.lbSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbSubtotal.AutoSize = true;
-            this.lbSubtotal.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSubtotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbSubtotal.Location = new System.Drawing.Point(7, 279);
             this.lbSubtotal.Name = "lbSubtotal";
-            this.lbSubtotal.Size = new System.Drawing.Size(91, 22);
+            this.lbSubtotal.Size = new System.Drawing.Size(73, 20);
             this.lbSubtotal.TabIndex = 21;
             this.lbSubtotal.Text = "Subtotal:";
             // 
@@ -441,10 +441,10 @@
             // 
             this.lbIVA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbIVA.AutoSize = true;
-            this.lbIVA.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbIVA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbIVA.Location = new System.Drawing.Point(7, 324);
             this.lbIVA.Name = "lbIVA";
-            this.lbIVA.Size = new System.Drawing.Size(92, 22);
+            this.lbIVA.Size = new System.Drawing.Size(76, 20);
             this.lbIVA.TabIndex = 22;
             this.lbIVA.Text = "IVA 16%:";
             // 
@@ -452,10 +452,10 @@
             // 
             this.lbAnticipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbAnticipo.AutoSize = true;
-            this.lbAnticipo.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAnticipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbAnticipo.Location = new System.Drawing.Point(7, 438);
             this.lbAnticipo.Name = "lbAnticipo";
-            this.lbAnticipo.Size = new System.Drawing.Size(171, 22);
+            this.lbAnticipo.Size = new System.Drawing.Size(129, 20);
             this.lbAnticipo.TabIndex = 23;
             this.lbAnticipo.Text = "Anticipo recibido:";
             this.lbAnticipo.Visible = false;
@@ -464,10 +464,10 @@
             // 
             this.lbDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbDescuento.AutoSize = true;
-            this.lbDescuento.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDescuento.Location = new System.Drawing.Point(7, 301);
             this.lbDescuento.Name = "lbDescuento";
-            this.lbDescuento.Size = new System.Drawing.Size(115, 22);
+            this.lbDescuento.Size = new System.Drawing.Size(91, 20);
             this.lbDescuento.TabIndex = 24;
             this.lbDescuento.Text = "Descuento:";
             this.lbDescuento.Visible = false;
@@ -476,20 +476,20 @@
             // 
             this.lbTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTotal.AutoSize = true;
-            this.lbTotal.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotal.Location = new System.Drawing.Point(7, 494);
             this.lbTotal.Name = "lbTotal";
-            this.lbTotal.Size = new System.Drawing.Size(125, 39);
+            this.lbTotal.Size = new System.Drawing.Size(125, 37);
             this.lbTotal.TabIndex = 25;
             this.lbTotal.Text = "Total $:";
             // 
             // cNumeroArticulos
             // 
             this.cNumeroArticulos.AutoSize = true;
-            this.cNumeroArticulos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cNumeroArticulos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cNumeroArticulos.Location = new System.Drawing.Point(226, 242);
             this.cNumeroArticulos.Name = "cNumeroArticulos";
-            this.cNumeroArticulos.Size = new System.Drawing.Size(21, 22);
+            this.cNumeroArticulos.Size = new System.Drawing.Size(18, 20);
             this.cNumeroArticulos.TabIndex = 26;
             this.cNumeroArticulos.Text = "0";
             this.cNumeroArticulos.Click += new System.EventHandler(this.cNumeroArticulos_Click);
@@ -498,10 +498,10 @@
             // 
             this.cSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cSubtotal.AutoSize = true;
-            this.cSubtotal.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cSubtotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cSubtotal.Location = new System.Drawing.Point(225, 279);
             this.cSubtotal.Name = "cSubtotal";
-            this.cSubtotal.Size = new System.Drawing.Size(48, 22);
+            this.cSubtotal.Size = new System.Drawing.Size(40, 20);
             this.cSubtotal.TabIndex = 27;
             this.cSubtotal.Text = "0.00";
             this.cSubtotal.Click += new System.EventHandler(this.cSubtotal_Click);
@@ -510,10 +510,10 @@
             // 
             this.cIVA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cIVA.AutoSize = true;
-            this.cIVA.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cIVA.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cIVA.Location = new System.Drawing.Point(225, 324);
             this.cIVA.Name = "cIVA";
-            this.cIVA.Size = new System.Drawing.Size(48, 22);
+            this.cIVA.Size = new System.Drawing.Size(40, 20);
             this.cIVA.TabIndex = 28;
             this.cIVA.Text = "0.00";
             this.cIVA.Click += new System.EventHandler(this.cIVA_Click);
@@ -522,10 +522,10 @@
             // 
             this.cAnticipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cAnticipo.AutoSize = true;
-            this.cAnticipo.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cAnticipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cAnticipo.Location = new System.Drawing.Point(225, 438);
             this.cAnticipo.Name = "cAnticipo";
-            this.cAnticipo.Size = new System.Drawing.Size(48, 22);
+            this.cAnticipo.Size = new System.Drawing.Size(40, 20);
             this.cAnticipo.TabIndex = 29;
             this.cAnticipo.Text = "0.00";
             this.cAnticipo.Visible = false;
@@ -535,10 +535,10 @@
             // 
             this.cDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cDescuento.AutoSize = true;
-            this.cDescuento.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cDescuento.Location = new System.Drawing.Point(225, 301);
             this.cDescuento.Name = "cDescuento";
-            this.cDescuento.Size = new System.Drawing.Size(48, 22);
+            this.cDescuento.Size = new System.Drawing.Size(40, 20);
             this.cDescuento.TabIndex = 30;
             this.cDescuento.Text = "0.00";
             this.cDescuento.Visible = false;
@@ -547,10 +547,10 @@
             // 
             this.cTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cTotal.AutoSize = true;
-            this.cTotal.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cTotal.Location = new System.Drawing.Point(151, 494);
             this.cTotal.Name = "cTotal";
-            this.cTotal.Size = new System.Drawing.Size(80, 39);
+            this.cTotal.Size = new System.Drawing.Size(80, 37);
             this.cTotal.TabIndex = 31;
             this.cTotal.Text = "0.00";
             // 
@@ -558,10 +558,10 @@
             // 
             this.lbIVA8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbIVA8.AutoSize = true;
-            this.lbIVA8.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbIVA8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbIVA8.Location = new System.Drawing.Point(7, 348);
             this.lbIVA8.Name = "lbIVA8";
-            this.lbIVA8.Size = new System.Drawing.Size(81, 22);
+            this.lbIVA8.Size = new System.Drawing.Size(67, 20);
             this.lbIVA8.TabIndex = 32;
             this.lbIVA8.Text = "IVA 8%:";
             this.lbIVA8.Visible = false;
@@ -570,10 +570,10 @@
             // 
             this.cIVA8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cIVA8.AutoSize = true;
-            this.cIVA8.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cIVA8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cIVA8.Location = new System.Drawing.Point(225, 348);
             this.cIVA8.Name = "cIVA8";
-            this.cIVA8.Size = new System.Drawing.Size(48, 22);
+            this.cIVA8.Size = new System.Drawing.Size(40, 20);
             this.cIVA8.TabIndex = 33;
             this.cIVA8.Text = "0.00";
             this.cIVA8.Visible = false;
@@ -622,7 +622,7 @@
             this.panel3.Controls.Add(this.btnEliminarDescuentos);
             this.panel3.Location = new System.Drawing.Point(423, 307);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(353, 40);
+            this.panel3.Size = new System.Drawing.Size(353, 55);
             this.panel3.TabIndex = 58;
             // 
             // btnAplicarDescuento
@@ -630,11 +630,11 @@
             this.btnAplicarDescuento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(65)))), ((int)(((byte)(131)))));
             this.btnAplicarDescuento.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAplicarDescuento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAplicarDescuento.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAplicarDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicarDescuento.ForeColor = System.Drawing.Color.White;
             this.btnAplicarDescuento.Location = new System.Drawing.Point(113, 7);
             this.btnAplicarDescuento.Name = "btnAplicarDescuento";
-            this.btnAplicarDescuento.Size = new System.Drawing.Size(114, 25);
+            this.btnAplicarDescuento.Size = new System.Drawing.Size(114, 33);
             this.btnAplicarDescuento.TabIndex = 43;
             this.btnAplicarDescuento.Text = "Aplicar (Alt + 3)";
             this.btnAplicarDescuento.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -643,11 +643,11 @@
             // 
             // txtDescuentoGeneral
             // 
-            this.txtDescuentoGeneral.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDescuentoGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDescuentoGeneral.Location = new System.Drawing.Point(8, 8);
             this.txtDescuentoGeneral.Multiline = true;
             this.txtDescuentoGeneral.Name = "txtDescuentoGeneral";
-            this.txtDescuentoGeneral.Size = new System.Drawing.Size(100, 23);
+            this.txtDescuentoGeneral.Size = new System.Drawing.Size(100, 32);
             this.txtDescuentoGeneral.TabIndex = 35;
             this.txtDescuentoGeneral.Text = "% descuento";
             this.txtDescuentoGeneral.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -660,11 +660,11 @@
             this.btnEliminarDescuentos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(57)))), ((int)(((byte)(83)))), ((int)(((byte)(136)))));
             this.btnEliminarDescuentos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEliminarDescuentos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEliminarDescuentos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminarDescuentos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminarDescuentos.ForeColor = System.Drawing.Color.White;
             this.btnEliminarDescuentos.Location = new System.Drawing.Point(233, 7);
             this.btnEliminarDescuentos.Name = "btnEliminarDescuentos";
-            this.btnEliminarDescuentos.Size = new System.Drawing.Size(113, 25);
+            this.btnEliminarDescuentos.Size = new System.Drawing.Size(113, 33);
             this.btnEliminarDescuentos.TabIndex = 44;
             this.btnEliminarDescuentos.Text = "Eliminar (Alt + 1)";
             this.btnEliminarDescuentos.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -690,39 +690,40 @@
             // 
             this.lbDatosCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDatosCliente.ForeColor = System.Drawing.Color.Red;
-            this.lbDatosCliente.Location = new System.Drawing.Point(32, 357);
+            this.lbDatosCliente.Location = new System.Drawing.Point(32, 350);
             this.lbDatosCliente.Name = "lbDatosCliente";
-            this.lbDatosCliente.Size = new System.Drawing.Size(621, 23);
+            this.lbDatosCliente.Size = new System.Drawing.Size(621, 30);
             this.lbDatosCliente.TabIndex = 45;
             this.lbDatosCliente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbMayoreo
             // 
-            this.lbMayoreo.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbMayoreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbMayoreo.ForeColor = System.Drawing.Color.DarkGreen;
             this.lbMayoreo.Image = global::PuntoDeVentaV2.Properties.Resources.check1;
             this.lbMayoreo.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lbMayoreo.Location = new System.Drawing.Point(13, 309);
+            this.lbMayoreo.Location = new System.Drawing.Point(7, 309);
             this.lbMayoreo.Name = "lbMayoreo";
-            this.lbMayoreo.Size = new System.Drawing.Size(138, 16);
+            this.lbMayoreo.Size = new System.Drawing.Size(138, 19);
             this.lbMayoreo.TabIndex = 45;
             this.lbMayoreo.Text = "Mayoreo aplicado";
             this.lbMayoreo.Visible = false;
+            this.lbMayoreo.Click += new System.EventHandler(this.lbMayoreo_Click);
             // 
             // lbPS
             // 
             this.lbPS.AutoSize = true;
-            this.lbPS.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbPS.Location = new System.Drawing.Point(91, 9);
             this.lbPS.Name = "lbPS";
-            this.lbPS.Size = new System.Drawing.Size(121, 17);
+            this.lbPS.Size = new System.Drawing.Size(137, 20);
             this.lbPS.TabIndex = 41;
             this.lbPS.Text = "Producto / servicio";
             // 
             // nudCantidadPS
             // 
             this.nudCantidadPS.DecimalPlaces = 2;
-            this.nudCantidadPS.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nudCantidadPS.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudCantidadPS.Location = new System.Drawing.Point(7, 29);
             this.nudCantidadPS.Maximum = new decimal(new int[] {
             999999,
@@ -735,7 +736,7 @@
             0,
             -2147483648});
             this.nudCantidadPS.Name = "nudCantidadPS";
-            this.nudCantidadPS.Size = new System.Drawing.Size(71, 22);
+            this.nudCantidadPS.Size = new System.Drawing.Size(71, 26);
             this.nudCantidadPS.TabIndex = 40;
             this.nudCantidadPS.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nudCantidadPS.Value = new decimal(new int[] {
@@ -748,30 +749,30 @@
             // lbCantidad
             // 
             this.lbCantidad.AutoSize = true;
-            this.lbCantidad.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCantidad.Location = new System.Drawing.Point(7, 9);
             this.lbCantidad.Name = "lbCantidad";
-            this.lbCantidad.Size = new System.Drawing.Size(64, 17);
+            this.lbCantidad.Size = new System.Drawing.Size(73, 20);
             this.lbCantidad.TabIndex = 39;
             this.lbCantidad.Text = "Cantidad";
             // 
             // lb_cant_impuestos_retenidos
             // 
             this.lb_cant_impuestos_retenidos.AutoSize = true;
-            this.lb_cant_impuestos_retenidos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_cant_impuestos_retenidos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_cant_impuestos_retenidos.Location = new System.Drawing.Point(224, 415);
             this.lb_cant_impuestos_retenidos.Name = "lb_cant_impuestos_retenidos";
-            this.lb_cant_impuestos_retenidos.Size = new System.Drawing.Size(48, 22);
+            this.lb_cant_impuestos_retenidos.Size = new System.Drawing.Size(40, 20);
             this.lb_cant_impuestos_retenidos.TabIndex = 61;
             this.lb_cant_impuestos_retenidos.Text = "0.00";
             // 
             // lb_impuestos_retenidos
             // 
             this.lb_impuestos_retenidos.AutoSize = true;
-            this.lb_impuestos_retenidos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_impuestos_retenidos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_impuestos_retenidos.Location = new System.Drawing.Point(7, 415);
             this.lb_impuestos_retenidos.Name = "lb_impuestos_retenidos";
-            this.lb_impuestos_retenidos.Size = new System.Drawing.Size(196, 22);
+            this.lb_impuestos_retenidos.Size = new System.Drawing.Size(158, 20);
             this.lb_impuestos_retenidos.TabIndex = 60;
             this.lb_impuestos_retenidos.Text = "Impuestos retenidos:";
             this.lb_impuestos_retenidos.Visible = false;
@@ -780,10 +781,10 @@
             // 
             this.cOtrosImpuestos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cOtrosImpuestos.AutoSize = true;
-            this.cOtrosImpuestos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cOtrosImpuestos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cOtrosImpuestos.Location = new System.Drawing.Point(225, 393);
             this.cOtrosImpuestos.Name = "cOtrosImpuestos";
-            this.cOtrosImpuestos.Size = new System.Drawing.Size(48, 22);
+            this.cOtrosImpuestos.Size = new System.Drawing.Size(40, 20);
             this.cOtrosImpuestos.TabIndex = 59;
             this.cOtrosImpuestos.Text = "0.00";
             this.cOtrosImpuestos.Visible = false;
@@ -793,10 +794,10 @@
             // 
             this.lbOtrosImpuestos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbOtrosImpuestos.AutoSize = true;
-            this.lbOtrosImpuestos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbOtrosImpuestos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbOtrosImpuestos.Location = new System.Drawing.Point(7, 371);
             this.lbOtrosImpuestos.Name = "lbOtrosImpuestos";
-            this.lbOtrosImpuestos.Size = new System.Drawing.Size(154, 44);
+            this.lbOtrosImpuestos.Size = new System.Drawing.Size(125, 40);
             this.lbOtrosImpuestos.TabIndex = 58;
             this.lbOtrosImpuestos.Text = "Otros impuestos\r\ntraslados:";
             this.lbOtrosImpuestos.Visible = false;
@@ -805,10 +806,10 @@
             // 
             this.cAnticipoUtilizado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cAnticipoUtilizado.AutoSize = true;
-            this.cAnticipoUtilizado.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cAnticipoUtilizado.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cAnticipoUtilizado.Location = new System.Drawing.Point(225, 461);
             this.cAnticipoUtilizado.Name = "cAnticipoUtilizado";
-            this.cAnticipoUtilizado.Size = new System.Drawing.Size(48, 22);
+            this.cAnticipoUtilizado.Size = new System.Drawing.Size(40, 20);
             this.cAnticipoUtilizado.TabIndex = 56;
             this.cAnticipoUtilizado.Text = "0.00";
             this.cAnticipoUtilizado.Visible = false;
@@ -817,10 +818,10 @@
             // 
             this.lbAnticipoUtilizado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbAnticipoUtilizado.AutoSize = true;
-            this.lbAnticipoUtilizado.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAnticipoUtilizado.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbAnticipoUtilizado.Location = new System.Drawing.Point(7, 461);
             this.lbAnticipoUtilizado.Name = "lbAnticipoUtilizado";
-            this.lbAnticipoUtilizado.Size = new System.Drawing.Size(171, 22);
+            this.lbAnticipoUtilizado.Size = new System.Drawing.Size(132, 20);
             this.lbAnticipoUtilizado.TabIndex = 55;
             this.lbAnticipoUtilizado.Text = "Anticipo utilizado:";
             this.lbAnticipoUtilizado.Visible = false;
@@ -861,10 +862,10 @@
             // checkCancelar
             // 
             this.checkCancelar.AutoSize = true;
-            this.checkCancelar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkCancelar.Location = new System.Drawing.Point(724, 579);
             this.checkCancelar.Name = "checkCancelar";
-            this.checkCancelar.Size = new System.Drawing.Size(123, 21);
+            this.checkCancelar.Size = new System.Drawing.Size(116, 19);
             this.checkCancelar.TabIndex = 35;
             this.checkCancelar.Text = "Cancelar VENTA";
             this.checkCancelar.UseVisualStyleBackColor = true;
@@ -874,7 +875,7 @@
             // btnConsultar
             // 
             this.btnConsultar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConsultar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConsultar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConsultar.Image = global::PuntoDeVentaV2.Properties.Resources.search1;
             this.btnConsultar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnConsultar.Location = new System.Drawing.Point(12, 20);
@@ -972,29 +973,6 @@
             this.panel5.Size = new System.Drawing.Size(881, 95);
             this.panel5.TabIndex = 63;
             this.panel5.Click += new System.EventHandler(this.panel5_Click);
-            // 
-            // btnBascula
-            // 
-            this.btnBascula.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBascula.Image = global::PuntoDeVentaV2.Properties.Resources.peso;
-            this.btnBascula.Location = new System.Drawing.Point(253, 20);
-            this.btnBascula.Name = "btnBascula";
-            this.btnBascula.Size = new System.Drawing.Size(105, 40);
-            this.btnBascula.TabIndex = 0;
-            this.btnBascula.Text = "Tomar Peso Ctrl + T";
-            this.btnBascula.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnBascula.UseVisualStyleBackColor = true;
-            this.btnBascula.Click += new System.EventHandler(this.btnBascula_Click);
-            // 
-            // lblPesoRecibido
-            // 
-            this.lblPesoRecibido.AutoSize = true;
-            this.lblPesoRecibido.Location = new System.Drawing.Point(364, 26);
-            this.lblPesoRecibido.Name = "lblPesoRecibido";
-            this.lblPesoRecibido.Size = new System.Drawing.Size(13, 13);
-            this.lblPesoRecibido.TabIndex = 64;
-            this.lblPesoRecibido.Text = "0";
-            this.lblPesoRecibido.Visible = false;
             // 
             // btnAbrirCaja
             // 
@@ -1145,6 +1123,30 @@
             this.btn_cancelar_venta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btn_cancelar_venta.UseVisualStyleBackColor = false;
             this.btn_cancelar_venta.Click += new System.EventHandler(this.botonRedondo6_Click);
+            // 
+            // btnBascula
+            // 
+            this.btnBascula.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBascula.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBascula.Image = global::PuntoDeVentaV2.Properties.Resources.peso;
+            this.btnBascula.Location = new System.Drawing.Point(253, 20);
+            this.btnBascula.Name = "btnBascula";
+            this.btnBascula.Size = new System.Drawing.Size(105, 40);
+            this.btnBascula.TabIndex = 0;
+            this.btnBascula.Text = "Tomar Peso Ctrl + T";
+            this.btnBascula.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnBascula.UseVisualStyleBackColor = true;
+            this.btnBascula.Click += new System.EventHandler(this.btnBascula_Click);
+            // 
+            // lblPesoRecibido
+            // 
+            this.lblPesoRecibido.AutoSize = true;
+            this.lblPesoRecibido.Location = new System.Drawing.Point(364, 26);
+            this.lblPesoRecibido.Name = "lblPesoRecibido";
+            this.lblPesoRecibido.Size = new System.Drawing.Size(13, 13);
+            this.lblPesoRecibido.TabIndex = 64;
+            this.lblPesoRecibido.Text = "0";
+            this.lblPesoRecibido.Visible = false;
             // 
             // Ventas
             // 

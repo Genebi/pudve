@@ -31,6 +31,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btn_agregar_empleado = new System.Windows.Forms.Button();
             this.dgv_empleados = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.editar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.permisos = new System.Windows.Forms.DataGridViewImageColumn();
+            this.deshabilitar = new System.Windows.Forms.DataGridViewImageColumn();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.cboMostrados = new System.Windows.Forms.ComboBox();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -51,12 +57,6 @@
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.editar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.permisos = new System.Windows.Forms.DataGridViewImageColumn();
-            this.deshabilitar = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_empleados)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -82,7 +82,7 @@
             this.btn_agregar_empleado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btn_agregar_empleado.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_agregar_empleado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_agregar_empleado.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_agregar_empleado.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_agregar_empleado.ForeColor = System.Drawing.Color.White;
             this.btn_agregar_empleado.Location = new System.Drawing.Point(703, 68);
             this.btn_agregar_empleado.Name = "btn_agregar_empleado";
@@ -118,6 +118,46 @@
             this.dgv_empleados.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.cursor_en_icono);
             this.dgv_empleados.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.cursor_no_icono);
             this.dgv_empleados.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_empleados_KeyDown);
+            // 
+            // id
+            // 
+            this.id.HeaderText = "ID";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            // 
+            // nombre
+            // 
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            this.nombre.ReadOnly = true;
+            // 
+            // usuario
+            // 
+            this.usuario.HeaderText = "Usuario";
+            this.usuario.Name = "usuario";
+            this.usuario.ReadOnly = true;
+            // 
+            // editar
+            // 
+            this.editar.HeaderText = "Editar";
+            this.editar.Name = "editar";
+            this.editar.ReadOnly = true;
+            this.editar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.editar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // permisos
+            // 
+            this.permisos.HeaderText = "Permisos";
+            this.permisos.Name = "permisos";
+            this.permisos.ReadOnly = true;
+            this.permisos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.permisos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // deshabilitar
+            // 
+            this.deshabilitar.HeaderText = "Deshabilitar";
+            this.deshabilitar.Name = "deshabilitar";
+            this.deshabilitar.ReadOnly = true;
             // 
             // txtBuscar
             // 
@@ -315,11 +355,11 @@
             this.btnActualizarMaximoProductos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnActualizarMaximoProductos.FlatAppearance.BorderSize = 0;
             this.btnActualizarMaximoProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnActualizarMaximoProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnActualizarMaximoProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnActualizarMaximoProductos.ForeColor = System.Drawing.Color.Black;
             this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(608, 21);
             this.btnActualizarMaximoProductos.Name = "btnActualizarMaximoProductos";
-            this.btnActualizarMaximoProductos.Size = new System.Drawing.Size(80, 23);
+            this.btnActualizarMaximoProductos.Size = new System.Drawing.Size(91, 27);
             this.btnActualizarMaximoProductos.TabIndex = 41;
             this.btnActualizarMaximoProductos.Text = "Actualizar";
             this.btnActualizarMaximoProductos.UseVisualStyleBackColor = false;
@@ -340,6 +380,7 @@
             // label7
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(380, 5);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(121, 56);
@@ -364,9 +405,10 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(3, 16);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(129, 34);
+            this.label4.Size = new System.Drawing.Size(133, 32);
             this.label4.TabIndex = 37;
             this.label4.Text = "Total de empleados \r\nencontrados:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -375,51 +417,12 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(18, 60);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 17);
+            this.label2.Size = new System.Drawing.Size(59, 18);
             this.label2.TabIndex = 40;
             this.label2.Text = "Buscar:";
-            // 
-            // id
-            // 
-            this.id.HeaderText = "ID";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            // 
-            // nombre
-            // 
-            this.nombre.HeaderText = "Nombre";
-            this.nombre.Name = "nombre";
-            this.nombre.ReadOnly = true;
-            // 
-            // usuario
-            // 
-            this.usuario.HeaderText = "Usuario";
-            this.usuario.Name = "usuario";
-            this.usuario.ReadOnly = true;
-            // 
-            // editar
-            // 
-            this.editar.HeaderText = "Editar";
-            this.editar.Name = "editar";
-            this.editar.ReadOnly = true;
-            this.editar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.editar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // permisos
-            // 
-            this.permisos.HeaderText = "Permisos";
-            this.permisos.Name = "permisos";
-            this.permisos.ReadOnly = true;
-            this.permisos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.permisos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // deshabilitar
-            // 
-            this.deshabilitar.HeaderText = "Deshabilitar";
-            this.deshabilitar.Name = "deshabilitar";
-            this.deshabilitar.ReadOnly = true;
             // 
             // Empleados
             // 
