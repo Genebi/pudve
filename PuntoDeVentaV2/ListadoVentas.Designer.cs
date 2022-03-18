@@ -310,7 +310,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(699, 32);
+            this.label2.Location = new System.Drawing.Point(710, 32);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(73, 16);
@@ -321,7 +321,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(552, 32);
+            this.label1.Location = new System.Drawing.Point(565, 32);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(80, 16);
@@ -532,7 +532,7 @@
             this.btnActualizarMaximoProductos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnActualizarMaximoProductos.FlatAppearance.BorderSize = 0;
             this.btnActualizarMaximoProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnActualizarMaximoProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualizarMaximoProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizarMaximoProductos.ForeColor = System.Drawing.Color.Black;
             this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(1061, 31);
             this.btnActualizarMaximoProductos.Margin = new System.Windows.Forms.Padding(4);
@@ -559,12 +559,12 @@
             // label7
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(769, 23);
+            this.label7.Location = new System.Drawing.Point(758, 23);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(196, 47);
+            this.label7.Size = new System.Drawing.Size(207, 47);
             this.label7.TabIndex = 27;
             this.label7.Text = "Cantidad de ventas para mostrar: ";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
