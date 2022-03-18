@@ -62,13 +62,13 @@
             this.groupBox2.Controls.Add(this.cbMostrarCB);
             this.groupBox2.Controls.Add(this.cbMostrarPrecio);
             this.groupBox2.Controls.Add(this.cbStockNegativo);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(8, 31);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(637, 195);
             this.groupBox2.TabIndex = 130;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Configuración General";
+            this.groupBox2.Text = "CONFIGURACION GENERAL";
             // 
             // btnAceptar
             // 
@@ -90,10 +90,10 @@
             // chkMensajeRealizarInventario
             // 
             this.chkMensajeRealizarInventario.AutoSize = true;
-            this.chkMensajeRealizarInventario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkMensajeRealizarInventario.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkMensajeRealizarInventario.Location = new System.Drawing.Point(175, 136);
             this.chkMensajeRealizarInventario.Name = "chkMensajeRealizarInventario";
-            this.chkMensajeRealizarInventario.Size = new System.Drawing.Size(249, 20);
+            this.chkMensajeRealizarInventario.Size = new System.Drawing.Size(267, 21);
             this.chkMensajeRealizarInventario.TabIndex = 131;
             this.chkMensajeRealizarInventario.Text = "Mostrar mensaje al realizar inventario";
             this.chkMensajeRealizarInventario.UseVisualStyleBackColor = true;
@@ -103,10 +103,10 @@
             // chkMensajeVenderProducto
             // 
             this.chkMensajeVenderProducto.AutoSize = true;
-            this.chkMensajeVenderProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkMensajeVenderProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkMensajeVenderProducto.Location = new System.Drawing.Point(325, 109);
             this.chkMensajeVenderProducto.Name = "chkMensajeVenderProducto";
-            this.chkMensajeVenderProducto.Size = new System.Drawing.Size(242, 20);
+            this.chkMensajeVenderProducto.Size = new System.Drawing.Size(262, 21);
             this.chkMensajeVenderProducto.TabIndex = 130;
             this.chkMensajeVenderProducto.Text = "Mostrar mensaje al vender producto";
             this.chkMensajeVenderProducto.UseVisualStyleBackColor = true;
@@ -116,10 +116,10 @@
             // chkCerrarSesionCorte
             // 
             this.chkCerrarSesionCorte.AutoSize = true;
-            this.chkCerrarSesionCorte.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkCerrarSesionCorte.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chkCerrarSesionCorte.Location = new System.Drawing.Point(37, 109);
             this.chkCerrarSesionCorte.Name = "chkCerrarSesionCorte";
-            this.chkCerrarSesionCorte.Size = new System.Drawing.Size(239, 20);
+            this.chkCerrarSesionCorte.Size = new System.Drawing.Size(258, 21);
             this.chkCerrarSesionCorte.TabIndex = 129;
             this.chkCerrarSesionCorte.Text = "Cerrar sesion al hacer corte de caja";
             this.chkCerrarSesionCorte.UseVisualStyleBackColor = true;
@@ -129,10 +129,10 @@
             // chTicketVentas
             // 
             this.chTicketVentas.AutoSize = true;
-            this.chTicketVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chTicketVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.chTicketVentas.Location = new System.Drawing.Point(325, 80);
             this.chTicketVentas.Name = "chTicketVentas";
-            this.chTicketVentas.Size = new System.Drawing.Size(214, 20);
+            this.chTicketVentas.Size = new System.Drawing.Size(232, 21);
             this.chTicketVentas.TabIndex = 128;
             this.chTicketVentas.Text = "Generar ticket al realizar ventas";
             this.chTicketVentas.UseVisualStyleBackColor = true;
@@ -142,10 +142,10 @@
             // checkCBVenta
             // 
             this.checkCBVenta.AutoSize = true;
-            this.checkCBVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkCBVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkCBVenta.Location = new System.Drawing.Point(37, 26);
             this.checkCBVenta.Name = "checkCBVenta";
-            this.checkCBVenta.Size = new System.Drawing.Size(221, 20);
+            this.checkCBVenta.Size = new System.Drawing.Size(245, 21);
             this.checkCBVenta.TabIndex = 110;
             this.checkCBVenta.Text = "Código de barras ticket de venta";
             this.checkCBVenta.UseVisualStyleBackColor = true;
@@ -155,10 +155,10 @@
             // pagWeb
             // 
             this.pagWeb.AutoSize = true;
-            this.pagWeb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pagWeb.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pagWeb.Location = new System.Drawing.Point(37, 53);
             this.pagWeb.Name = "pagWeb";
-            this.pagWeb.Size = new System.Drawing.Size(240, 20);
+            this.pagWeb.Size = new System.Drawing.Size(267, 21);
             this.pagWeb.TabIndex = 115;
             this.pagWeb.Text = "Habilitar información en página web";
             this.pagWeb.UseVisualStyleBackColor = true;
@@ -168,10 +168,10 @@
             // cbMostrarCB
             // 
             this.cbMostrarCB.AutoSize = true;
-            this.cbMostrarCB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbMostrarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbMostrarCB.Location = new System.Drawing.Point(37, 80);
             this.cbMostrarCB.Name = "cbMostrarCB";
-            this.cbMostrarCB.Size = new System.Drawing.Size(260, 20);
+            this.cbMostrarCB.Size = new System.Drawing.Size(283, 21);
             this.cbMostrarCB.TabIndex = 117;
             this.cbMostrarCB.Text = "Mostrar código de productos en ventas";
             this.cbMostrarCB.UseVisualStyleBackColor = true;
@@ -181,10 +181,10 @@
             // cbMostrarPrecio
             // 
             this.cbMostrarPrecio.AutoSize = true;
-            this.cbMostrarPrecio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbMostrarPrecio.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbMostrarPrecio.Location = new System.Drawing.Point(325, 26);
             this.cbMostrarPrecio.Name = "cbMostrarPrecio";
-            this.cbMostrarPrecio.Size = new System.Drawing.Size(256, 20);
+            this.cbMostrarPrecio.Size = new System.Drawing.Size(277, 21);
             this.cbMostrarPrecio.TabIndex = 116;
             this.cbMostrarPrecio.Text = "Mostrar precio de productos en ventas";
             this.cbMostrarPrecio.UseVisualStyleBackColor = true;
@@ -194,10 +194,10 @@
             // cbStockNegativo
             // 
             this.cbStockNegativo.AutoSize = true;
-            this.cbStockNegativo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbStockNegativo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbStockNegativo.Location = new System.Drawing.Point(325, 53);
             this.cbStockNegativo.Name = "cbStockNegativo";
-            this.cbStockNegativo.Size = new System.Drawing.Size(164, 20);
+            this.cbStockNegativo.Size = new System.Drawing.Size(177, 21);
             this.cbStockNegativo.TabIndex = 1;
             this.cbStockNegativo.Text = "Permitir Stock negativo";
             this.cbStockNegativo.UseVisualStyleBackColor = true;

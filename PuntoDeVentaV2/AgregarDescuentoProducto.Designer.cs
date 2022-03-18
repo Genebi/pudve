@@ -122,10 +122,10 @@
             // rbCliente
             // 
             this.rbCliente.AutoSize = true;
-            this.rbCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbCliente.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbCliente.Location = new System.Drawing.Point(173, 412);
             this.rbCliente.Name = "rbCliente";
-            this.rbCliente.Size = new System.Drawing.Size(200, 24);
+            this.rbCliente.Size = new System.Drawing.Size(208, 24);
             this.rbCliente.TabIndex = 31;
             this.rbCliente.TabStop = true;
             this.rbCliente.Text = "Descuento por Producto";
@@ -136,10 +136,10 @@
             // rbMayoreo
             // 
             this.rbMayoreo.AutoSize = true;
-            this.rbMayoreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbMayoreo.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbMayoreo.Location = new System.Drawing.Point(404, 412);
             this.rbMayoreo.Name = "rbMayoreo";
-            this.rbMayoreo.Size = new System.Drawing.Size(197, 24);
+            this.rbMayoreo.Size = new System.Drawing.Size(208, 24);
             this.rbMayoreo.TabIndex = 32;
             this.rbMayoreo.TabStop = true;
             this.rbMayoreo.Text = "Descuento por Mayoreo";

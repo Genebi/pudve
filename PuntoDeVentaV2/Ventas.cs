@@ -6839,11 +6839,6 @@ namespace PuntoDeVentaV2
             limpiarImagenDelProducto();
         }
 
-        private void lbMayoreo_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void DGVentas_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             var celda = e.RowIndex;

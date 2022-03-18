@@ -110,7 +110,6 @@
             this.PCategoria.SuspendLayout();
             this.PConteidoProducto.SuspendLayout();
             this.PDetalle.SuspendLayout();
-            this.tLPServicio.SuspendLayout();
             this.PAccion.SuspendLayout();
             this.PType.SuspendLayout();
             this.fLPType.SuspendLayout();
@@ -613,6 +612,9 @@
             this.PDetalle.Controls.Add(this.lbStockMaximo);
             this.PDetalle.Controls.Add(this.lbPrecioCompra);
             this.PDetalle.Controls.Add(this.lblStockMinimo);
+            this.PDetalle.Controls.Add(this.tLPServicio);
+            this.PDetalle.Controls.Add(this.tLPCombo);
+            this.PDetalle.Controls.Add(this.tLPProducto);
             this.PDetalle.Controls.Add(this.label12);
             this.PDetalle.Controls.Add(this.txtStockMinimo);
             this.PDetalle.Controls.Add(this.label1);
@@ -634,7 +636,6 @@
             this.PDetalle.Controls.Add(this.txtStockMaximo);
             this.PDetalle.Controls.Add(this.PImagen);
             this.PDetalle.Controls.Add(this.label2);
-            this.PDetalle.Controls.Add(this.tLPProducto);
             this.PDetalle.Location = new System.Drawing.Point(2, 2);
             this.PDetalle.Margin = new System.Windows.Forms.Padding(2);
             this.PDetalle.Name = "PDetalle";
@@ -748,12 +749,11 @@
             // 
             this.tLPServicio.ColumnCount = 1;
             this.tLPServicio.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPServicio.Controls.Add(this.tLPCombo, 0, 0);
-            this.tLPServicio.Location = new System.Drawing.Point(35, 45);
+            this.tLPServicio.Location = new System.Drawing.Point(20, -1);
             this.tLPServicio.Name = "tLPServicio";
             this.tLPServicio.RowCount = 1;
             this.tLPServicio.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPServicio.Size = new System.Drawing.Size(859, 252);
+            this.tLPServicio.Size = new System.Drawing.Size(870, 258);
             this.tLPServicio.TabIndex = 36;
             this.tLPServicio.Visible = false;
             this.tLPServicio.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tLPServicio_CellPaint);
@@ -762,11 +762,11 @@
             // 
             this.tLPCombo.ColumnCount = 1;
             this.tLPCombo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPCombo.Location = new System.Drawing.Point(3, 3);
+            this.tLPCombo.Location = new System.Drawing.Point(20, -2);
             this.tLPCombo.Name = "tLPCombo";
             this.tLPCombo.RowCount = 1;
             this.tLPCombo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPCombo.Size = new System.Drawing.Size(853, 246);
+            this.tLPCombo.Size = new System.Drawing.Size(865, 258);
             this.tLPCombo.TabIndex = 35;
             this.tLPCombo.Visible = false;
             this.tLPCombo.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tLPCombo_CellPaint);
@@ -776,11 +776,11 @@
             this.tLPProducto.BackColor = System.Drawing.SystemColors.Control;
             this.tLPProducto.ColumnCount = 1;
             this.tLPProducto.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPProducto.Location = new System.Drawing.Point(45, 25);
+            this.tLPProducto.Location = new System.Drawing.Point(20, -3);
             this.tLPProducto.Name = "tLPProducto";
             this.tLPProducto.RowCount = 1;
             this.tLPProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPProducto.Size = new System.Drawing.Size(847, 240);
+            this.tLPProducto.Size = new System.Drawing.Size(865, 258);
             this.tLPProducto.TabIndex = 23;
             this.tLPProducto.Visible = false;
             this.tLPProducto.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tableLayoutPanel1_CellPaint);
@@ -892,7 +892,6 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.tLPServicio);
             this.groupBox2.Controls.Add(this.lblMsgSinSelecDetalles);
             this.groupBox2.Controls.Add(this.flowLayoutPanel3);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1097,7 +1096,6 @@
             this.PConteidoProducto.ResumeLayout(false);
             this.PDetalle.ResumeLayout(false);
             this.PDetalle.PerformLayout();
-            this.tLPServicio.ResumeLayout(false);
             this.PAccion.ResumeLayout(false);
             this.PType.ResumeLayout(false);
             this.PType.PerformLayout();

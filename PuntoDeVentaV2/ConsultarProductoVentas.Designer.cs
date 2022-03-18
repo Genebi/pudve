@@ -182,7 +182,7 @@
             this.panel5.Controls.Add(this.label4);
             this.panel5.Location = new System.Drawing.Point(12, 484);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1208, 61);
+            this.panel5.Size = new System.Drawing.Size(1208, 43);
             this.panel5.TabIndex = 38;
             // 
             // panel4
@@ -342,11 +342,11 @@
             this.btnActualizarMaximoProductos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnActualizarMaximoProductos.FlatAppearance.BorderSize = 0;
             this.btnActualizarMaximoProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnActualizarMaximoProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnActualizarMaximoProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnActualizarMaximoProductos.ForeColor = System.Drawing.Color.Black;
-            this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(859, 13);
+            this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(856, 11);
             this.btnActualizarMaximoProductos.Name = "btnActualizarMaximoProductos";
-            this.btnActualizarMaximoProductos.Size = new System.Drawing.Size(96, 29);
+            this.btnActualizarMaximoProductos.Size = new System.Drawing.Size(80, 23);
             this.btnActualizarMaximoProductos.TabIndex = 41;
             this.btnActualizarMaximoProductos.Text = "Actualizar";
             this.btnActualizarMaximoProductos.UseVisualStyleBackColor = false;
@@ -355,7 +355,7 @@
             // txtMaximoPorPagina
             // 
             this.txtMaximoPorPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtMaximoPorPagina.Location = new System.Drawing.Point(790, 15);
+            this.txtMaximoPorPagina.Location = new System.Drawing.Point(790, 12);
             this.txtMaximoPorPagina.Name = "txtMaximoPorPagina";
             this.txtMaximoPorPagina.Size = new System.Drawing.Size(56, 20);
             this.txtMaximoPorPagina.TabIndex = 40;
@@ -367,10 +367,9 @@
             // label7
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(651, 10);
+            this.label7.Location = new System.Drawing.Point(663, 6);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(131, 32);
+            this.label7.Size = new System.Drawing.Size(116, 32);
             this.label7.TabIndex = 39;
             this.label7.Text = "Cantidad de productos para mostrar: ";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -391,10 +390,10 @@
             // label4
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(262, 3);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(283, 9);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(132, 48);
+            this.label4.Size = new System.Drawing.Size(99, 26);
             this.label4.TabIndex = 37;
             this.label4.Text = "Total de productos \r\nencontrados:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -404,7 +403,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1232, 555);
+            this.ClientSize = new System.Drawing.Size(1232, 540);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.tituloSeccion);
             this.Controls.Add(this.txtBuscar);

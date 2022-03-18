@@ -421,12 +421,5 @@ namespace PuntoDeVentaV2
                 return;
             }
         }
-
-        private void btnRegresar_Click(object sender, EventArgs e)
-        {
-            Login FrmLogin = new Login();
-            FrmLogin.Show();
-            this.Close();
-        }
     }
 }

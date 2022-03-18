@@ -47,7 +47,7 @@
             // 
             // lbProducto
             // 
-            this.lbProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbProducto.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbProducto.Location = new System.Drawing.Point(18, 21);
             this.lbProducto.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbProducto.Name = "lbProducto";
@@ -58,7 +58,7 @@
             // 
             // lbPrecio
             // 
-            this.lbPrecio.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPrecio.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbPrecio.Location = new System.Drawing.Point(18, 47);
             this.lbPrecio.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbPrecio.Name = "lbPrecio";
@@ -70,11 +70,10 @@
             // lbDescuento
             // 
             this.lbDescuento.AutoSize = true;
-            this.lbDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDescuento.Location = new System.Drawing.Point(77, 177);
             this.lbDescuento.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbDescuento.Name = "lbDescuento";
-            this.lbDescuento.Size = new System.Drawing.Size(114, 16);
+            this.lbDescuento.Size = new System.Drawing.Size(127, 17);
             this.lbDescuento.TabIndex = 2;
             this.lbDescuento.Text = "Descuento total $:";
             this.lbDescuento.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -93,7 +92,6 @@
             // 
             // lbCantidad
             // 
-            this.lbCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCantidad.Location = new System.Drawing.Point(21, 107);
             this.lbCantidad.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbCantidad.Name = "lbCantidad";
@@ -104,7 +102,6 @@
             // 
             // lbPorcentaje
             // 
-            this.lbPorcentaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbPorcentaje.Location = new System.Drawing.Point(236, 107);
             this.lbPorcentaje.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbPorcentaje.Name = "lbPorcentaje";
@@ -120,7 +117,7 @@
             this.btnAceptar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAceptar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen;
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
             this.btnAceptar.Location = new System.Drawing.Point(224, 251);
             this.btnAceptar.Name = "btnAceptar";
@@ -143,7 +140,6 @@
             // 
             // lbTotalDescuento
             // 
-            this.lbTotalDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotalDescuento.Location = new System.Drawing.Point(201, 177);
             this.lbTotalDescuento.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbTotalDescuento.Name = "lbTotalDescuento";
@@ -155,18 +151,16 @@
             // lbTotal
             // 
             this.lbTotal.AutoSize = true;
-            this.lbTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotal.Location = new System.Drawing.Point(49, 204);
             this.lbTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbTotal.Name = "lbTotal";
-            this.lbTotal.Size = new System.Drawing.Size(143, 16);
+            this.lbTotal.Size = new System.Drawing.Size(155, 17);
             this.lbTotal.TabIndex = 31;
             this.lbTotal.Text = "Total con descuento $:";
             this.lbTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbTotalFinal
             // 
-            this.lbTotalFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotalFinal.Location = new System.Drawing.Point(201, 204);
             this.lbTotalFinal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbTotalFinal.Name = "lbTotalFinal";
@@ -188,7 +182,7 @@
             // 
             // lbCantidadProducto
             // 
-            this.lbCantidadProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCantidadProducto.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCantidadProducto.Location = new System.Drawing.Point(18, 70);
             this.lbCantidadProducto.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbCantidadProducto.Name = "lbCantidadProducto";
@@ -205,7 +199,7 @@
             this.btnEliminar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEliminar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
             this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEliminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminar.ForeColor = System.Drawing.Color.White;
             this.btnEliminar.Location = new System.Drawing.Point(17, 251);
             this.btnEliminar.Name = "btnEliminar";

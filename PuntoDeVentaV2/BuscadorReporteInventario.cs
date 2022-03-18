@@ -75,7 +75,7 @@ namespace PuntoDeVentaV2
             DateTime PrimerDia = new DateTime(date.Year, date.Month -1, 1);
             primerDatePicker.Value = PrimerDia;
             segundoDatePicker.Value = DateTime.Now;
-
+            
             conBusqueda = true;
             DGVInventario.Rows.Clear();
 
@@ -85,14 +85,14 @@ namespace PuntoDeVentaV2
 
 
             var rev = string.Empty; var name = string.Empty; var fecha = string.Empty;
-
+            
 
             filtroConSinFiltroAvanzado = cs.BuscadorDeInventario(datoBuscar, primerFecha, segundaFecha, tipoDatoReporte);
 
-
+            
             txtBuscador.Text = string.Empty;
             txtBuscador.Focus();
-
+            
             CargarDatos();
 
         }
