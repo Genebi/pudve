@@ -249,6 +249,8 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cboTipoMoneda);
             this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "TipoDeMoneda";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tipo De Moneda";
