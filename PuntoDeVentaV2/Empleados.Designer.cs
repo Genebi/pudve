@@ -31,6 +31,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btn_agregar_empleado = new System.Windows.Forms.Button();
             this.dgv_empleados = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.editar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.permisos = new System.Windows.Forms.DataGridViewImageColumn();
+            this.deshabilitar = new System.Windows.Forms.DataGridViewImageColumn();
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.cboMostrados = new System.Windows.Forms.ComboBox();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -51,12 +57,6 @@
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.editar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.permisos = new System.Windows.Forms.DataGridViewImageColumn();
-            this.deshabilitar = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_empleados)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -119,6 +119,46 @@
             this.dgv_empleados.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.cursor_no_icono);
             this.dgv_empleados.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgv_empleados_KeyDown);
             // 
+            // id
+            // 
+            this.id.HeaderText = "ID";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            // 
+            // nombre
+            // 
+            this.nombre.HeaderText = "Nombre";
+            this.nombre.Name = "nombre";
+            this.nombre.ReadOnly = true;
+            // 
+            // usuario
+            // 
+            this.usuario.HeaderText = "Usuario";
+            this.usuario.Name = "usuario";
+            this.usuario.ReadOnly = true;
+            // 
+            // editar
+            // 
+            this.editar.HeaderText = "Editar";
+            this.editar.Name = "editar";
+            this.editar.ReadOnly = true;
+            this.editar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.editar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // permisos
+            // 
+            this.permisos.HeaderText = "Permisos";
+            this.permisos.Name = "permisos";
+            this.permisos.ReadOnly = true;
+            this.permisos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.permisos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // deshabilitar
+            // 
+            this.deshabilitar.HeaderText = "Deshabilitar";
+            this.deshabilitar.Name = "deshabilitar";
+            this.deshabilitar.ReadOnly = true;
+            // 
             // txtBuscar
             // 
             this.txtBuscar.Location = new System.Drawing.Point(18, 79);
@@ -153,7 +193,7 @@
             this.panel5.Controls.Add(this.label7);
             this.panel5.Controls.Add(this.lblCantidadRegistros);
             this.panel5.Controls.Add(this.label4);
-            this.panel5.Location = new System.Drawing.Point(18, 448);
+            this.panel5.Location = new System.Drawing.Point(16, 452);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(845, 65);
             this.panel5.TabIndex = 39;
@@ -380,46 +420,6 @@
             this.label2.Size = new System.Drawing.Size(50, 17);
             this.label2.TabIndex = 40;
             this.label2.Text = "Buscar:";
-            // 
-            // id
-            // 
-            this.id.HeaderText = "ID";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            // 
-            // nombre
-            // 
-            this.nombre.HeaderText = "Nombre";
-            this.nombre.Name = "nombre";
-            this.nombre.ReadOnly = true;
-            // 
-            // usuario
-            // 
-            this.usuario.HeaderText = "Usuario";
-            this.usuario.Name = "usuario";
-            this.usuario.ReadOnly = true;
-            // 
-            // editar
-            // 
-            this.editar.HeaderText = "Editar";
-            this.editar.Name = "editar";
-            this.editar.ReadOnly = true;
-            this.editar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.editar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // permisos
-            // 
-            this.permisos.HeaderText = "Permisos";
-            this.permisos.Name = "permisos";
-            this.permisos.ReadOnly = true;
-            this.permisos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.permisos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // deshabilitar
-            // 
-            this.deshabilitar.HeaderText = "Deshabilitar";
-            this.deshabilitar.Name = "deshabilitar";
-            this.deshabilitar.ReadOnly = true;
             // 
             // Empleados
             // 
