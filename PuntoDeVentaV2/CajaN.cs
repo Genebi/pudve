@@ -151,6 +151,7 @@ namespace PuntoDeVentaV2
             saldoInicial = cdc.CargarSaldoInicial();
 
             tituloSeccion.Text = "SALDO INICIAL: \r\n" + moneda + cdc.CargarSaldoInicial().ToString("0.00");
+            btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + cdc.CargarSaldoInicial().ToString("0.00");
         }
 
         private void btnReporteAgregar_Click(object sender, EventArgs e)
@@ -840,15 +841,6 @@ namespace PuntoDeVentaV2
             var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
 
             //// Apartado VENTAS
-            ////lbTEfectivo.Text = moneda + vEfectivo.ToString("0.00");
-            ////lbTTarjeta.Text = moneda + vTarjeta.ToString("0.00");
-            ////lbTVales.Text = moneda + vVales.ToString("0.00");
-            ////lbTCheque.Text = moneda + vCheque.ToString("0.00");
-            ////lbTTrans.Text = moneda + vTrans.ToString("0.00");
-            ////lbTCredito.Text = moneda + credi.ToString("0.00");
-            //////lbTAnticipos.Text = "$" + vAnticipos.ToString("0.00");
-            ////lbTAnticipos.Text = moneda + anticiposAplicados.ToString("0.00");
-            ////lbTVentas.Text = moneda + (vEfectivo + vTarjeta + vVales + vCheque + vTrans + (credi) + /*vAnticipos*/anticiposAplicados).ToString("0.00");
             lbTEfectivo.Text = moneda + float.Parse(datos[0]).ToString("0.00");
             lbTTarjeta.Text = moneda + float.Parse(datos[1]).ToString("0.00");
             lbTVales.Text = moneda + float.Parse(datos[2]).ToString("0.00");
@@ -2755,6 +2747,206 @@ namespace PuntoDeVentaV2
         {
             //this.Refresh();
             //Application.DoEvents();
+        }
+
+        private void btnRedondoAgregarDinero_Click(object sender, EventArgs e)
+        {
+            if (opcion1 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
+            if (Application.OpenForms.OfType<AgregarRetirarDinero>().Count() == 1)
+            {
+                Application.OpenForms.OfType<AgregarRetirarDinero>().First().BringToFront();
+            }
+            else
+            {
+                AgregarRetirarDinero agregar = new AgregarRetirarDinero();
+
+                agregar.FormClosed += delegate
+                {
+                    CargarSaldoInicial();
+                    CargarSaldo();
+                };
+
+                agregar.Show();
+            }
+        }
+
+        private void btnRedondoRetirarDinero_Click(object sender, EventArgs e)
+        {
+            if (opcion3 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
+            if (Application.OpenForms.OfType<AgregarRetirarDinero>().Count() == 1)
+            {
+                Application.OpenForms.OfType<AgregarRetirarDinero>().First().BringToFront();
+            }
+            else
+            {
+                AgregarRetirarDinero retirar = new AgregarRetirarDinero(1);
+
+                retirar.FormClosed += delegate
+                {
+                    CargarSaldoInicial();
+                    CargarSaldo();
+                };
+
+                retirar.Show();
+            }
+        }
+
+        private void btnRedondoCorteCaja_Click(object sender, EventArgs e)
+        {
+            corteCaja = 1;
+
+            var f = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            date = f;
+            if (opcion6 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
+            if (Application.OpenForms.OfType<AgregarRetirarDinero>().Count() == 1)
+            {
+                Application.OpenForms.OfType<AgregarRetirarDinero>().First().BringToFront();
+            }
+            else
+            {
+                cantidadesReporte = ObtenerCantidades();
+
+                AgregarRetirarDinero corte = new AgregarRetirarDinero(2);
+
+                corte.FormClosed += delegate
+                {
+                    if (botones == true)
+                    {
+                        tipoDeMovimiento = corte.operacion;
+
+                        cn.EjecutarConsulta($"UPDATE Anticipos Set AnticipoAplicado = 0 WHERE IDUsuario = '{FormPrincipal.userID}'");
+
+                        if (Utilidades.AdobeReaderInstalado())
+                        {
+                            GenerarReporte();
+                            using (DataTable dtCerrarSesionDesdeCorteCaja = cn.CargarDatos(cs.validarCerrarSesionCorteCaja()))
+                            {
+                                if (!dtCerrarSesionDesdeCorteCaja.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow item in dtCerrarSesionDesdeCorteCaja.Rows)
+                                    {
+                                        if (item["CerrarSesionAuto"].ToString().Equals("1"))
+                                        {
+                                            recargarDatos = true;
+                                            clickBotonCorteDeCaja = 1;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            Utilidades.MensajeAdobeReader();
+                        }
+
+                        botones = false;
+
+                        var correo = mb.correoUsuario();
+                        var correoCantidades = cargarDatosCorteCaja();
+
+                        // Ejecutar hilo para enviar notificación
+                        var datosConfig = mb.ComprobarConfiguracion();
+
+                        if (datosConfig.Count > 0)
+                        {
+                            if (Convert.ToInt32(datosConfig[20]).Equals(1))
+                            {
+                                Thread mandarCorreo = new Thread(
+                                    () => Utilidades.enviarCorreoCorteCaja(correo, correoCantidades, obtenerRutaPDF)
+                                );
+                                mandarCorreo.Start();
+                            }
+                        }
+                    }
+
+                    CargarSaldoInicial();
+                    CargarSaldo();
+
+                    //var correo = mb.correoUsuario();
+                    //var correoCantidades = cargarDatosCorteCaja();
+
+                    //// Ejecutar hilo para enviar notificación
+                    //var datosConfig = mb.ComprobarConfiguracion();
+
+                    //if (datosConfig.Count > 0)
+                    //{
+                    //    if (Convert.ToInt32(datosConfig[20]).Equals(1))
+                    //    {
+                    //        Thread mandarCorreo = new Thread(
+                    //            () => Utilidades.enviarCorreoCorteCaja(correo, correoCantidades, obtenerRutaPDF)
+                    //        );
+                    //        mandarCorreo.Start();
+                    //    }
+                    //} 
+
+                    this.Refresh();
+                    Application.DoEvents();
+                };
+
+                corte.Show();
+
+                //GenerarTicket();
+            }
+            abonos = 0;
+        }
+
+        private void btnRedondoAbrirCaja_Click(object sender, EventArgs e)
+        {
+            if (opcion5 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
+            if (!Utilidades.AdobeReaderInstalado())
+            {
+                Utilidades.MensajeAdobeReader();
+                return;
+            }
+
+            var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            var datos = new string[] { FormPrincipal.userID.ToString(), "0", "0", "0", "0", "0", "0", "0", "0", "0", "N/A", "1", FechaOperacion, "Apertura de Caja", FormPrincipal.id_empleado.ToString(), "N/A" };
+            cn.EjecutarConsulta(cs.GuardarAperturaDeCaja(datos));
+
+            Utilidades.GenerarTicketCaja();
+        }
+
+        private void lbSaldoInicialInfo_Click(object sender, EventArgs e)
+        {
+            CajaAbonos mostrarAbonosCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
+
+            var validarSaldoInicial = "Saldo Inicial";
+
+            if (mostrarAbonosCaja == null)
+            {
+                abonos_devoluciones = "Saldo Inicial";
+                CajaAbonos mostrarAbonos = new CajaAbonos();
+                mostrarAbonos.ShowDialog();
+            }
+
+            if (mostrarAbonosCaja != null)
+            {
+                if (mostrarAbonosCaja.WindowState == FormWindowState.Minimized || mostrarAbonosCaja.WindowState == FormWindowState.Normal)
+                {
+                    mostrarAbonosCaja.BringToFront();
+                }
+            }
         }
     }
 }
