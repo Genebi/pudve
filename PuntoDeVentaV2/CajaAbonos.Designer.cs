@@ -236,6 +236,7 @@
             this.Controls.Add(this.lbEfectivo);
             this.Controls.Add(this.tituloAbonos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CajaAbonos";
@@ -243,6 +244,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Información";
             this.Load += new System.EventHandler(this.CajaAbonos_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CajaAbonos_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -237,5 +237,13 @@ namespace PuntoDeVentaV2
             lbTransferenciaAbonos.Text = moneda + transferenciaI.ToString("0.00");
             lbTCreditoC.Text = moneda + /*abonos*/(efectivoI + tarjetaI + valesI + chequeI + transferenciaI).ToString("0.00");
         }
+
+        private void CajaAbonos_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Escape))
+            {
+                this.Close();
+            }
+        }
     }
 }
