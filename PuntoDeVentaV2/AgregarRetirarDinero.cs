@@ -295,50 +295,16 @@ namespace PuntoDeVentaV2
 
             string[] datos;
 
-
-
             if (operacion.Equals(2))
             {
+                efectivo = (totalEfectivo - efectivo);// - CajaN.retiroEfectivo;
+                tarjeta = (totalTarjeta - tarjeta);// - CajaN.retiroTarjeta;
+                cheque = (totalCheque - cheque);// - CajaN.retiroCheque;
+                vales = (totalVales - vales);// - CajaN.retiroVales;
+                trans = (totalTransferencia - trans);// - CajaN.retiroTrans;
+                credito = totalCredito - credito;
 
-                //if (CajaN.totCorte != "0") //Cuando hay devoluciones
-                //{
-                //    efectivo = (totalEfectivo - efectivo - convertEfectivo);// - CajaN.retiroEfectivo;
-                //    tarjeta = (totalTarjeta - tarjeta - convertTarjeta);// - CajaN.retiroTarjeta;
-                //    cheque = (totalCheque - cheque - convertCheque);// - CajaN.retiroCheque;
-                //    vales = (totalVales - vales - convertVales);// - CajaN.retiroVales;
-                //    trans = (totalTransferencia - trans - convertTrans);// - CajaN.retiroTrans;
-                //    credito = totalCredito - credito;
-                //}
-                //else//Cuando no hay devoluciones
-                //{
-                //    efectivo = (totalEfectivo - efectivo);// - CajaN.retiroEfectivo;
-                //    tarjeta = (totalTarjeta - tarjeta);// - CajaN.retiroTarjeta;
-                //    cheque = (totalCheque - cheque);// - CajaN.retiroCheque;
-                //    vales = (totalVales - vales);// - CajaN.retiroVales;
-                //    trans = (totalTransferencia - trans);// - CajaN.retiroTrans;
-                //    credito = totalCredito - credito;
-                //}
-
-                //if (CajaN.totCorte != "0") //Cuando hay devoluciones
-                //{
-                //    efectivo = (totalEfectivo - efectivo - convertEfectivo);// - CajaN.retiroEfectivo;
-                //    tarjeta = (totalTarjeta - tarjeta - convertTarjeta);// - CajaN.retiroTarjeta;
-                //    cheque = (totalCheque - cheque - convertCheque);// - CajaN.retiroCheque;
-                //    vales = (totalVales - vales - convertVales);// - CajaN.retiroVales;
-                //    trans = (totalTransferencia - trans - convertTrans);// - CajaN.retiroTrans;
-                //    credito = totalCredito - credito;
-                //}
-                //else//Cuando no hay devoluciones
-                //{
-                    efectivo = (totalEfectivo - efectivo);// - CajaN.retiroEfectivo;
-                    tarjeta = (totalTarjeta - tarjeta);// - CajaN.retiroTarjeta;
-                    cheque = (totalCheque - cheque);// - CajaN.retiroCheque;
-                    vales = (totalVales - vales);// - CajaN.retiroVales;
-                    trans = (totalTransferencia - trans);// - CajaN.retiroTrans;
-                    credito = totalCredito - credito;
-                    //}
-
-                    if (efectivo < 1) { efectivo = 0; }
+                if (efectivo < 1) { efectivo = 0; }
                 if (tarjeta < 1) { tarjeta = 0; }
                 if (cheque < 1) { cheque = 0; }
                 if (vales < 1) { vales = 0; }
@@ -351,10 +317,10 @@ namespace PuntoDeVentaV2
                 fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
                 datos = new string[] {
-                        "corte", cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
-                        efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"),
-                        trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
-                    };
+                    "corte", cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
+                    efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"),
+                    trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                };
 
                 CajaN.botones = true;
             }
@@ -437,7 +403,14 @@ namespace PuntoDeVentaV2
                     // Solo cuando es corte se hace esta resta, al total de cada forma de pago
                     // se le resta lo que el usuario quiere retirar menos el total retirado de cada
                     // forma de pago antes de que se haga el corte de caja
-                    var efectivoobtenido = 0f; var tarjetaobtenido = 0f; var chequeobtenido = 0f; var valesobtenido = 0f; var transobtenido = 0f; var creditoobtenido = 0f; var cantidadObtenido = 0f;
+                    var efectivoobtenido = 0f; 
+                    var tarjetaobtenido = 0f; 
+                    var chequeobtenido = 0f; 
+                    var valesobtenido = 0f; 
+                    var transobtenido = 0f; 
+                    var creditoobtenido = 0f; 
+                    var cantidadObtenido = 0f;
+                    
                     if (CajaN.totCorte != "0")
                     {
                         efectivoobtenido = (totalEfectivo - efectivoRetirar - (convertEfectivo - CajaN.totalEfectivoAbono));// - CajaN.retiroEfectivo;

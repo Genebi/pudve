@@ -121,6 +121,26 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AbrirCajaRegistradora {
+            get {
+                object obj = ResourceManager.GetObject("AbrirCajaRegistradora", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AbrirCajaRegistradora1 {
+            get {
+                object obj = ResourceManager.GetObject("AbrirCajaRegistradora1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
         ///&lt;xsl:stylesheet version=&quot;2.0&quot; xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:fn=&quot;http://www.w3.org/2005/xpath-functions&quot; xmlns:aieps=&quot;http://www.sat.gob.mx/acreditamiento&quot;&gt;
         ///  &lt;xsl:template match=&quot;aieps:acreditamientoIEPS&quot;&gt;
@@ -162,6 +182,26 @@ namespace PuntoDeVentaV2.Properties {
         internal static System.Drawing.Bitmap add_32 {
             get {
                 object obj = ResourceManager.GetObject("add_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AddMoney {
+            get {
+                object obj = ResourceManager.GetObject("AddMoney", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap AddMoney1 {
+            get {
+                object obj = ResourceManager.GetObject("AddMoney1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -2883,6 +2923,26 @@ namespace PuntoDeVentaV2.Properties {
         internal static System.Drawing.Bitmap cash_back1 {
             get {
                 object obj = ResourceManager.GetObject("cash_back1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cash_machine {
+            get {
+                object obj = ResourceManager.GetObject("cash_machine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap cash_machine1 {
+            get {
+                object obj = ResourceManager.GetObject("cash_machine1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -9049,6 +9109,26 @@ namespace PuntoDeVentaV2.Properties {
         internal static System.Drawing.Bitmap lemon_o1 {
             get {
                 object obj = ResourceManager.GetObject("lemon_o1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LessMoney {
+            get {
+                object obj = ResourceManager.GetObject("LessMoney", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LessMoney1 {
+            get {
+                object obj = ResourceManager.GetObject("LessMoney1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
