@@ -2926,5 +2926,27 @@ namespace PuntoDeVentaV2
 
             Utilidades.GenerarTicketCaja();
         }
+
+        private void lbSaldoInicialInfo_Click(object sender, EventArgs e)
+        {
+            CajaAbonos mostrarAbonosCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
+
+            var validarSaldoInicial = "Saldo Inicial";
+
+            if (mostrarAbonosCaja == null)
+            {
+                abonos_devoluciones = "Saldo Inicial";
+                CajaAbonos mostrarAbonos = new CajaAbonos();
+                mostrarAbonos.ShowDialog();
+            }
+
+            if (mostrarAbonosCaja != null)
+            {
+                if (mostrarAbonosCaja.WindowState == FormWindowState.Minimized || mostrarAbonosCaja.WindowState == FormWindowState.Normal)
+                {
+                    mostrarAbonosCaja.BringToFront();
+                }
+            }
+        }
     }
 }

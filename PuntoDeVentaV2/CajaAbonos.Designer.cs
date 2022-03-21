@@ -235,8 +235,11 @@
             this.Controls.Add(this.lbTarjeta);
             this.Controls.Add(this.lbEfectivo);
             this.Controls.Add(this.tituloAbonos);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "CajaAbonos";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Información";
             this.Load += new System.EventHandler(this.CajaAbonos_Load);
