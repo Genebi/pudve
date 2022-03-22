@@ -929,7 +929,7 @@
             this.btnCsv.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
             this.btnCsv.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCsv.ForeColor = System.Drawing.Color.White;
-            this.btnCsv.Image = global::PuntoDeVentaV2.Properties.Resources.cinema_ticket;
+            this.btnCsv.Image = global::PuntoDeVentaV2.Properties.Resources.file_excel_o1;
             this.btnCsv.Location = new System.Drawing.Point(387, 120);
             this.btnCsv.Name = "btnCsv";
             this.btnCsv.Size = new System.Drawing.Size(134, 87);

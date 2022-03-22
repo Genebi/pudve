@@ -31,7 +31,7 @@ namespace PuntoDeVentaV2
         {
             this.btnImportar = new PuntoDeVentaV2.BotonRedondo();
             this.btnExportar = new PuntoDeVentaV2.BotonRedondo();
-            this.btnAceptar = new System.Windows.Forms.Button();
+            this.btnTerminar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnImportar
@@ -84,29 +84,29 @@ namespace PuntoDeVentaV2
             this.btnExportar.UseVisualStyleBackColor = false;
             this.btnExportar.Click += new System.EventHandler(this.btnCsv_Click);
             // 
-            // btnAceptar
+            // btnTerminar
             // 
-            this.btnAceptar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAceptar.BackColor = System.Drawing.Color.Green;
-            this.btnAceptar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAceptar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen;
-            this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(179, 132);
-            this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(130, 28);
-            this.btnAceptar.TabIndex = 135;
-            this.btnAceptar.Text = "Terminar";
-            this.btnAceptar.UseVisualStyleBackColor = false;
-            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            this.btnTerminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTerminar.BackColor = System.Drawing.Color.Green;
+            this.btnTerminar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTerminar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen;
+            this.btnTerminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTerminar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTerminar.ForeColor = System.Drawing.Color.White;
+            this.btnTerminar.Location = new System.Drawing.Point(179, 132);
+            this.btnTerminar.Name = "btnTerminar";
+            this.btnTerminar.Size = new System.Drawing.Size(130, 28);
+            this.btnTerminar.TabIndex = 135;
+            this.btnTerminar.Text = "Terminar";
+            this.btnTerminar.UseVisualStyleBackColor = false;
+            this.btnTerminar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // ImportarExportarCSV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(326, 172);
-            this.Controls.Add(this.btnAceptar);
+            this.Controls.Add(this.btnTerminar);
             this.Controls.Add(this.btnExportar);
             this.Controls.Add(this.btnImportar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -124,6 +124,6 @@ namespace PuntoDeVentaV2
         #endregion
         private BotonRedondo btnImportar;
         private BotonRedondo btnExportar;
-        private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Button btnTerminar;
     }
 }

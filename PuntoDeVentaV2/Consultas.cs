@@ -3446,5 +3446,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+        
+        public string ExportarTodosLosDatosDeProductosACSV()
+        {
+            var consulta = $"SELECT ID AS 'Identificador URL', Nombre, Stock, Precio, CodigoBarras AS 'Codigo de barras' FROM productos WHERE IDUsuario	= '{FormPrincipal.userID}' AND	`Status`=	'1' AND Tipo = 'P'";
+
+            return consulta;
+        }
     }
 }  
