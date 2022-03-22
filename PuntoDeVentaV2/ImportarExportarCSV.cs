@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,7 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+        int index=0;
 
         public ImportarExportarCSV()
         {
@@ -63,6 +65,80 @@ namespace PuntoDeVentaV2
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnImportar_Click(object sender, EventArgs e)
+        {
+            abrirArchivoCSV();
+        }
+
+        private void leerArchivoCSV(string directorio)
+        {
+            using (StreamReader sr = new StreamReader(directorio))
+            {
+                List<string> productos = new List<string>();
+                string line = string.Empty;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    productos.Add(line);
+
+                }
+                //foreach (var item in sr.ReadLine())
+                //{
+                //try
+                //{
+
+                //}
+                //catch (MySqlException ex)
+                //{
+                //    MessageBox.Show($"Error: {ex.Message}");
+                //}
+
+                //List<string> productos = new List<string>();
+                //string line = string.Empty;
+                //while ((line = sr.ReadLine())!=null)
+                //{
+                //    productos.Add(line);
+                //}
+                //}
+                actualizacionStock(productos);
+            }
+        }
+
+        private void actualizacionStock(List<string> productos)
+        {
+            if (!productos.Count.Equals(0))
+            {
+                for (int i = 0; i < productos.Count; i++)
+                {
+                    if (i.Equals(0))
+                    {
+                        string[] conceptos = productos[i].ToString().Split(';');
+                        index = Array.IndexOf(conceptos,"Stock");
+                    }
+                    else
+                    {
+                        string[] conceptos = productos[i].ToString().Split(';');
+                        MessageBox.Show($"ID: {conceptos[0]}, Nombre: {conceptos[1]} Stock: {conceptos[index]}");
+                    }
+                    
+                }
+            }
+        }
+
+        private void abrirArchivoCSV()
+        {
+            string fileName = string.Empty;
+
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Title = "Abrir Archivo CSV";
+            dialog.Filter = "CSV Files (*.csv)|*.csv";
+
+            if (dialog.ShowDialog().Equals(DialogResult.OK))
+            {
+                fileName = dialog.FileName;
+                leerArchivoCSV(fileName);
+            }
         }
     }
 }

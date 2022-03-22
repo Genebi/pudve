@@ -57,7 +57,7 @@ namespace PuntoDeVentaV2
             this.btnImportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnImportar.UseMnemonic = false;
             this.btnImportar.UseVisualStyleBackColor = false;
-            this.btnImportar.Click += new System.EventHandler(this.btnCsv_Click);
+            this.btnImportar.Click += new System.EventHandler(this.btnImportar_Click);
             // 
             // btnExportar
             // 
