@@ -24,5 +24,15 @@ namespace PuntoDeVentaV2
                 this.Close();
             }
         }
+
+        private void btnCsv_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

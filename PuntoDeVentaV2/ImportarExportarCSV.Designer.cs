@@ -29,13 +29,86 @@ namespace PuntoDeVentaV2
         /// </summary>
         private void InitializeComponent()
         {
+            this.btnImportar = new PuntoDeVentaV2.BotonRedondo();
+            this.btnExportar = new PuntoDeVentaV2.BotonRedondo();
+            this.btnAceptar = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // btnImportar
+            // 
+            this.btnImportar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.btnImportar.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.btnImportar.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnImportar.BorderRadius = 40;
+            this.btnImportar.BorderSize = 0;
+            this.btnImportar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImportar.FlatAppearance.BorderSize = 0;
+            this.btnImportar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.btnImportar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.btnImportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImportar.ForeColor = System.Drawing.Color.White;
+            this.btnImportar.Image = global::PuntoDeVentaV2.Properties.Resources.cloud_download1;
+            this.btnImportar.Location = new System.Drawing.Point(12, 12);
+            this.btnImportar.Name = "btnImportar";
+            this.btnImportar.Size = new System.Drawing.Size(134, 87);
+            this.btnImportar.TabIndex = 134;
+            this.btnImportar.Text = "Importar";
+            this.btnImportar.TextColor = System.Drawing.Color.White;
+            this.btnImportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnImportar.UseMnemonic = false;
+            this.btnImportar.UseVisualStyleBackColor = false;
+            this.btnImportar.Click += new System.EventHandler(this.btnCsv_Click);
+            // 
+            // btnExportar
+            // 
+            this.btnExportar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.btnExportar.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.btnExportar.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnExportar.BorderRadius = 40;
+            this.btnExportar.BorderSize = 0;
+            this.btnExportar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnExportar.FlatAppearance.BorderSize = 0;
+            this.btnExportar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.btnExportar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.btnExportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnExportar.ForeColor = System.Drawing.Color.White;
+            this.btnExportar.Image = global::PuntoDeVentaV2.Properties.Resources.cloud_upload2;
+            this.btnExportar.Location = new System.Drawing.Point(175, 12);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(134, 87);
+            this.btnExportar.TabIndex = 134;
+            this.btnExportar.Text = "Exportar";
+            this.btnExportar.TextColor = System.Drawing.Color.White;
+            this.btnExportar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnExportar.UseMnemonic = false;
+            this.btnExportar.UseVisualStyleBackColor = false;
+            this.btnExportar.Click += new System.EventHandler(this.btnCsv_Click);
+            // 
+            // btnAceptar
+            // 
+            this.btnAceptar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAceptar.BackColor = System.Drawing.Color.Green;
+            this.btnAceptar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAceptar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen;
+            this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAceptar.ForeColor = System.Drawing.Color.White;
+            this.btnAceptar.Location = new System.Drawing.Point(179, 132);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(130, 28);
+            this.btnAceptar.TabIndex = 135;
+            this.btnAceptar.Text = "Terminar";
+            this.btnAceptar.UseVisualStyleBackColor = false;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // ImportarExportarCSV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(463, 320);
+            this.ClientSize = new System.Drawing.Size(326, 172);
+            this.Controls.Add(this.btnAceptar);
+            this.Controls.Add(this.btnExportar);
+            this.Controls.Add(this.btnImportar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
             this.MaximizeBox = false;
@@ -49,5 +122,8 @@ namespace PuntoDeVentaV2
         }
 
         #endregion
+        private BotonRedondo btnImportar;
+        private BotonRedondo btnExportar;
+        private System.Windows.Forms.Button btnAceptar;
     }
 }
