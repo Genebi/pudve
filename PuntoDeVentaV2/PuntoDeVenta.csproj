@@ -662,6 +662,12 @@
     <Compile Include="FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImportarExportarCSV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportarExportarCSV.Designer.cs">
+      <DependentUpon>ImportarExportarCSV.cs</DependentUpon>
+    </Compile>
     <Compile Include="GenerarEtiqueta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1331,6 +1337,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportarExportarCSV.resx">
+      <DependentUpon>ImportarExportarCSV.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GenerarEtiqueta.resx">
       <DependentUpon>GenerarEtiqueta.cs</DependentUpon>
