@@ -3446,5 +3446,19 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string fechaUltimoCorteDecaja()
+        {
+            var consulta = $"SELECT ID FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1";
+
+            return consulta;
+        }
+
+        public string totalEfectivoVentasAdministrador(string idUltimoCorteDeCaja)
+        {
+            var consulta = $"SELECT ID, Operacion, SUM(Cantidad) AS 'Efectivo', SUM(Saldo) AS 'Saldo' FROM caja WHERE ID > '{idUltimoCorteDeCaja}' AND Operacion = 'venta' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0'";
+
+            return consulta;
+        }
     }
 }  

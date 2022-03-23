@@ -104,6 +104,12 @@ namespace PuntoDeVentaV2
 
         public static int corteCaja = 0;
 
+        string opcionComboBoxFiltroAdminEmp = string.Empty;
+
+        int idAdministradorOrUsuario = 0;
+        string nombreDeUsuario = string.Empty;
+        string razonSocialUsuario = string.Empty;
+
         public CajaN()
         {
             InitializeComponent();
@@ -112,6 +118,8 @@ namespace PuntoDeVentaV2
 
         private void CajaN_Load(object sender, EventArgs e)
         {
+            verComboBoxAdministradorEmpleado();
+
             // Obtener saldo inicial
             CargarSaldoInicial();
             
@@ -142,6 +150,45 @@ namespace PuntoDeVentaV2
 
         }
 
+        private void verComboBoxAdministradorEmpleado()
+        {
+            if (FormPrincipal.userNickName.Contains("@"))
+            {
+                cbFiltroAdminEmpleado.Visible = false;
+            }
+            else
+            {
+                cbFiltroAdminEmpleado.Visible = true;
+                llenarComboBoxTipoDeEmpleado();
+            }
+        }
+
+        private void llenarComboBoxTipoDeEmpleado()
+        {
+            Dictionary<string, string> tipoUsuario = new Dictionary<string, string>();
+            tipoUsuario.Add("Admin", $"{FormPrincipal.userNickName} (ADMIN)");
+
+            using (DataTable dtEmpleados = cn.CargarDatos(cs.obtenerEmpleados(FormPrincipal.userID)))
+            {
+                if (!dtEmpleados.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in dtEmpleados.Rows)
+                    {
+                        var nombreEmpleado = $"{item["nombre"].ToString()} (EMP)";
+                        var idEmpleado = item["ID"].ToString();
+                        tipoUsuario.Add(idEmpleado, nombreEmpleado);
+                    }
+                }
+            }
+            tipoUsuario.Add("All", "TODOS");
+
+            cbFiltroAdminEmpleado.DataSource = tipoUsuario.ToArray();
+            cbFiltroAdminEmpleado.DisplayMember = "Value";
+            cbFiltroAdminEmpleado.ValueMember = "Key";
+
+            cbFiltroAdminEmpleado.SelectedIndex = 0;
+        }
+
         private void CargarSaldoInicial()
         {
             var tipodeMoneda = FormPrincipal.Moneda.Split('-');
@@ -150,7 +197,7 @@ namespace PuntoDeVentaV2
             //saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
             saldoInicial = cdc.CargarSaldoInicial();
 
-            tituloSeccion.Text = "SALDO INICIAL: \r\n" + moneda + cdc.CargarSaldoInicial().ToString("0.00");
+            //tituloSeccion.Text = "SALDO INICIAL: \r\n" + moneda + cdc.CargarSaldoInicial().ToString("0.00");
             btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + cdc.CargarSaldoInicial().ToString("0.00");
         }
 
@@ -213,7 +260,7 @@ namespace PuntoDeVentaV2
                 agregar.FormClosed += delegate
                 {
                     CargarSaldoInicial();
-                    CargarSaldo();
+                    //CargarSaldo();
                 };
 
                 agregar.Show();
@@ -239,7 +286,7 @@ namespace PuntoDeVentaV2
                 retirar.FormClosed += delegate
                 {
                     CargarSaldoInicial();
-                    CargarSaldo();
+                    //CargarSaldo();
                 };
 
                 retirar.Show();
@@ -335,7 +382,7 @@ namespace PuntoDeVentaV2
                     }
 
                     CargarSaldoInicial();
-                    CargarSaldo();
+                    //CargarSaldo();
 
                     //var correo = mb.correoUsuario();
                     //var correoCantidades = cargarDatosCorteCaja();
@@ -1003,7 +1050,7 @@ namespace PuntoDeVentaV2
             if (recargarDatos)
             {
                 CargarSaldoInicial();
-                CargarSaldo();
+                //CargarSaldo();
                 recargarDatos = false;
 
                 if (clickBotonCorteDeCaja.Equals(1))
@@ -2768,7 +2815,7 @@ namespace PuntoDeVentaV2
                 agregar.FormClosed += delegate
                 {
                     CargarSaldoInicial();
-                    CargarSaldo();
+                    //CargarSaldo();
                 };
 
                 agregar.Show();
@@ -2794,7 +2841,7 @@ namespace PuntoDeVentaV2
                 retirar.FormClosed += delegate
                 {
                     CargarSaldoInicial();
-                    CargarSaldo();
+                    //CargarSaldo();
                 };
 
                 retirar.Show();
@@ -2876,7 +2923,7 @@ namespace PuntoDeVentaV2
                     }
 
                     CargarSaldoInicial();
-                    CargarSaldo();
+                    //CargarSaldo();
 
                     //var correo = mb.correoUsuario();
                     //var correoCantidades = cargarDatosCorteCaja();
@@ -2945,6 +2992,107 @@ namespace PuntoDeVentaV2
                 if (mostrarAbonosCaja.WindowState == FormWindowState.Minimized || mostrarAbonosCaja.WindowState == FormWindowState.Normal)
                 {
                     mostrarAbonosCaja.BringToFront();
+                }
+            }
+        }
+
+        private void cbFiltroAdminEmpleado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                clasificarTipoDeUsuario();
+                filtrarInformacionSeleccionada();
+            }
+        }
+
+        private void filtrarInformacionSeleccionada()
+        {
+            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+            {
+                seccionAdminCaja();
+            }
+            else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+            {
+                
+            }
+            else
+            {
+                
+            }
+        }
+
+        private void seccionAdminCaja()
+        {
+            seccionAdminVentas();
+        }
+
+        private void seccionAdminVentas()
+        {
+            using (DataTable dtUltimoCorteDeCaja = cn.CargarDatos(cs.fechaUltimoCorteDecaja()))
+            {
+                if (!dtUltimoCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    var idCajaUltimoCorte = string.Empty;
+
+                    foreach (DataRow item in dtUltimoCorteDeCaja.Rows)
+                    {
+                        idCajaUltimoCorte = item["ID"].ToString();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(idCajaUltimoCorte))
+                    {
+                        using (DataTable dtEfectivoAcomulado = cn.CargarDatos(cs.totalEfectivoVentasAdministrador(idCajaUltimoCorte)))
+                        {
+                            if (!dtEfectivoAcomulado.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtEfectivoAcomulado.Rows)
+                                {
+                                    var cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                    lbTEfectivo.Text = cantidadEfectivo.ToString("C2");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void clasificarTipoDeUsuario()
+        {
+            //opcionComboBoxFiltroAdminEmp = (string)cbFiltroAdminEmpleado.SelectedValue;
+            opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
+
+            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+            {
+                using (DataTable dtAdmin = cn.CargarDatos(cs.obtenerDatosDeAdministrador(FormPrincipal.userID)))
+                {
+                    if (!dtAdmin.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow drAdmin in dtAdmin.Rows)
+                        {
+                            idAdministradorOrUsuario = Convert.ToInt32(drAdmin["ID"].ToString());
+                            nombreDeUsuario = drAdmin["Usuario"].ToString();
+                            razonSocialUsuario = drAdmin["RazonSocial"].ToString();
+                        }
+                    }
+                }
+            }
+            else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+            {
+
+            }
+            else
+            {
+                using (DataTable dtEmpleado = cn.CargarDatos(cs.obtenerDatosDeEmpleado(Convert.ToInt32(opcionComboBoxFiltroAdminEmp))))
+                {
+                    if (!dtEmpleado.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow drEmpleado in dtEmpleado.Rows)
+                        {
+                            idAdministradorOrUsuario = Convert.ToInt32(drEmpleado["ID"].ToString());
+                            nombreDeUsuario = drEmpleado["nombre"].ToString();
+                        }
+                    }
                 }
             }
         }
