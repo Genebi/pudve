@@ -305,6 +305,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(531, 29);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 13);
             this.label2.TabIndex = 14;
@@ -313,6 +314,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(422, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 13;
@@ -514,7 +516,7 @@
             this.btnActualizarMaximoProductos.ForeColor = System.Drawing.Color.Black;
             this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(796, 25);
             this.btnActualizarMaximoProductos.Name = "btnActualizarMaximoProductos";
-            this.btnActualizarMaximoProductos.Size = new System.Drawing.Size(80, 23);
+            this.btnActualizarMaximoProductos.Size = new System.Drawing.Size(89, 23);
             this.btnActualizarMaximoProductos.TabIndex = 29;
             this.btnActualizarMaximoProductos.Text = "Actualizar";
             this.btnActualizarMaximoProductos.UseVisualStyleBackColor = false;
@@ -537,8 +539,9 @@
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(577, 10);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(147, 38);
+            this.label7.Size = new System.Drawing.Size(147, 51);
             this.label7.TabIndex = 27;
             this.label7.Text = "Cantidad de ventas para mostrar: ";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

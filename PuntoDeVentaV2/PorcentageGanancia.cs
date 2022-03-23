@@ -86,5 +86,52 @@ namespace PuntoDeVentaV2
                 this.Close();
             }
         }
+
+        private void txtPorcentajeProducto_TextChanged(object sender, EventArgs e)
+        {
+
+            float porcentaje,procedimiento, resultado;
+            bool porcent = false;
+            porcent = float.TryParse(txtPorcentajeProducto.Text, out porcentaje);
+            
+            if (porcent)
+            {
+                txtPorcentaje.Text = porcentaje.ToString();
+                if (txtPorcentajeProducto.Text == ".")
+                {
+                    txtPorcentaje.Text = "";
+                    lblResultado.Text = "";
+                }
+                else
+                {
+                    procedimiento = (porcentaje * 100) / 100;
+                    resultado = procedimiento +100;
+                    lblResultado.Text = resultado.ToString();
+                }
+
+            }
+            else
+            {
+                txtPorcentaje.Text = "";
+                lblResultado.Text = "";
+            }
+                    
+
+        }
+
+        private void txtPorcentajeProducto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //Solo numeros enteros
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // solo 1 punto decimal
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }
