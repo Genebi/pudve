@@ -135,24 +135,31 @@ namespace PuntoDeVentaV2
                 
                 for (int i = 0; i < ventas.Count; i++)
                 {
+                    List<int> indices = new List<int>();
                     if (i.Equals(0))
                     {
+                        string[] conceptos = ventas[i].ToString().Split(';');
+                        
+                        indices.Add(Array.IndexOf(conceptos, "SKU"));
+                        indices.Add(Array.IndexOf(conceptos, "Stock"));
+                        indices.Add(Array.IndexOf(conceptos, "Precio del producto"));
+                        indices.Add(Array.IndexOf(conceptos, "tipo de descuento?"));
+                        indices.Add(Array.IndexOf(conceptos, "TIPO PS?"));
+                        indices.Add(Array.IndexOf(conceptos, "Cantidad del producto"));
+                        indices.Add(Array.IndexOf(conceptos, "Precio del producto"));
+                        indices.Add(Array.IndexOf(conceptos, "Descripción?"));
+                        indices.Add(Array.IndexOf(conceptos, "Descuento"));
+                        indices.Add(Array.IndexOf(conceptos, "importe?"));
                     }
                     else
                     {
                         string[] conceptos = ventas[i].ToString().Split(';');
-                        dtVentas.Rows.Add(
-                            conceptos[Array.IndexOf(conceptos, "SKU")],
-                            conceptos[Array.IndexOf(conceptos, "Stock")],
-                            conceptos[Array.IndexOf(conceptos, "Precio del producto")],
-                            conceptos[Array.IndexOf(conceptos, "tipo de descuento?")],
-                            conceptos[Array.IndexOf(conceptos, "TIPO PS?")],
-                            conceptos[Array.IndexOf(conceptos, "Cantidad del producto")],
-                            conceptos[Array.IndexOf(conceptos, "Precio del producto")],
-                            conceptos[Array.IndexOf(conceptos, "Descripción?")],
-                            conceptos[Array.IndexOf(conceptos, "Descuento")],
-                            conceptos[Array.IndexOf(conceptos, "importe?")]
-                            );
+                        for (int n = 0; n < 11; n++)
+                        {
+                            dtVentas.Rows.Add(conceptos[indices[n]]);
+                        }
+                        
+                            
                     }
                 }
             }
