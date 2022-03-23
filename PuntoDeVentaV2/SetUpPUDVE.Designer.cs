@@ -74,7 +74,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnConfiguracionGeneral = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo4 = new PuntoDeVentaV2.BotonRedondo();
-            this.btnCsv = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             this.btnRespaldarInformacion = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo5 = new PuntoDeVentaV2.BotonRedondo();
@@ -862,14 +861,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.btnConfiguracionGeneral);
             this.panel1.Controls.Add(this.botonRedondo4);
-            this.panel1.Controls.Add(this.btnCsv);
             this.panel1.Controls.Add(this.botonRedondo1);
             this.panel1.Controls.Add(this.btnRespaldarInformacion);
             this.panel1.Controls.Add(this.botonRedondo5);
             this.panel1.Controls.Add(this.btnEnvioCorreo);
             this.panel1.Location = new System.Drawing.Point(133, 83);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(977, 212);
+            this.panel1.Size = new System.Drawing.Size(977, 114);
             this.panel1.TabIndex = 137;
             // 
             // btnConfiguracionGeneral
@@ -915,31 +913,6 @@
             this.botonRedondo4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.botonRedondo4.UseVisualStyleBackColor = false;
             this.botonRedondo4.Click += new System.EventHandler(this.botonRedondo4_Click);
-            // 
-            // btnCsv
-            // 
-            this.btnCsv.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
-            this.btnCsv.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
-            this.btnCsv.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnCsv.BorderRadius = 40;
-            this.btnCsv.BorderSize = 0;
-            this.btnCsv.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCsv.FlatAppearance.BorderSize = 0;
-            this.btnCsv.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.btnCsv.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.btnCsv.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCsv.ForeColor = System.Drawing.Color.White;
-            this.btnCsv.Image = global::PuntoDeVentaV2.Properties.Resources.file_excel_o1;
-            this.btnCsv.Location = new System.Drawing.Point(387, 120);
-            this.btnCsv.Name = "btnCsv";
-            this.btnCsv.Size = new System.Drawing.Size(134, 87);
-            this.btnCsv.TabIndex = 133;
-            this.btnCsv.Text = "Importar/Exportar CSV";
-            this.btnCsv.TextColor = System.Drawing.Color.White;
-            this.btnCsv.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnCsv.UseMnemonic = false;
-            this.btnCsv.UseVisualStyleBackColor = false;
-            this.btnCsv.Click += new System.EventHandler(this.btnCsv_Click);
             // 
             // botonRedondo1
             // 
@@ -1122,6 +1095,5 @@
         private BotonRedondo btnConfiguracionGeneral;
         private BotonRedondo botonRedondo4;
         private System.Windows.Forms.Panel panel1;
-        private BotonRedondo btnCsv;
     }
 }

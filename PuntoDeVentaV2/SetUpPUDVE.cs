@@ -1306,10 +1306,5 @@ namespace PuntoDeVentaV2
             
         }
 
-        private void btnCsv_Click(object sender, EventArgs e)
-        {
-            ImportarExportarCSV frmCsv = new ImportarExportarCSV();
-            frmCsv.ShowDialog();
-        }
     }
 }
