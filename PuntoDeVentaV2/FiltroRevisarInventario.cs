@@ -152,8 +152,10 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                
                 var operador = cbOperadores.SelectedValue.ToString();
                 var cantidad = txtCantidad.Text.Trim();
+                txtCantidad.MaxLength = 10;
 
 
                 if (operador == "NA")

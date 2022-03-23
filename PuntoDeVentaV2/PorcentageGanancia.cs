@@ -96,23 +96,23 @@ namespace PuntoDeVentaV2
             
             if (porcent)
             {
-                txtPorcentaje.Text = porcentaje.ToString();
+                lblPorcentaje.Text = porcentaje.ToString() + "%";
                 if (txtPorcentajeProducto.Text == ".")
                 {
-                    txtPorcentaje.Text = "";
+                    lblPorcentaje.Text = "";
                     lblResultado.Text = "";
                 }
                 else
                 {
                     procedimiento = (porcentaje * 100) / 100;
                     resultado = procedimiento +100;
-                    lblResultado.Text = resultado.ToString();
+                    lblResultado.Text = "$"+resultado.ToString();
                 }
 
             }
             else
             {
-                txtPorcentaje.Text = "";
+                lblPorcentaje.Text = "";
                 lblResultado.Text = "";
             }
                     
