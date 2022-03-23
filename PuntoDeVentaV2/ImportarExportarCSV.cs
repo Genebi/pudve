@@ -17,6 +17,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         int index=0;
+        DataTable dtVentas = new DataTable("Ventas a importar desde la página");
 
         public ImportarExportarCSV()
         {
@@ -107,31 +108,31 @@ namespace PuntoDeVentaV2
                 actualizacionVentas(ventas);
             }
         }
-        private void actualizacionVentas(List<string> ventas)
+        private DataTable actualizacionVentas(List<string> ventas)
         {
+            DataColumn column1 = new DataColumn("IDProducto");
+            DataColumn column2 = new DataColumn("Stock");
+            DataColumn column3 = new DataColumn("PrecioOriginal");
+            DataColumn column4 = new DataColumn("DescuentoTipo");
+            DataColumn column5 = new DataColumn("TipoPs");
+            DataColumn column6 = new DataColumn("Cantidad");
+            DataColumn column7 = new DataColumn("Precio");
+            DataColumn column8 = new DataColumn("Descripción");
+            DataColumn column9 = new DataColumn("Descuento");
+            DataColumn column10 = new DataColumn("Importe");
+            dtVentas.Columns.Add(column1);
+            dtVentas.Columns.Add(column2);
+            dtVentas.Columns.Add(column3);
+            dtVentas.Columns.Add(column4);
+            dtVentas.Columns.Add(column5);
+            dtVentas.Columns.Add(column6);
+            dtVentas.Columns.Add(column7);
+            dtVentas.Columns.Add(column8);
+            dtVentas.Columns.Add(column9);
+            dtVentas.Columns.Add(column10);
             if (!ventas.Count.Equals(0))
             {
-                DataTable dtVentas = new DataTable("Ventas a importar desde la página");
-                DataColumn column1 = new DataColumn("IDProducto");
-                DataColumn column2 = new DataColumn("Stock");
-                DataColumn column3 = new DataColumn("PrecioOriginal");
-                DataColumn column4 = new DataColumn("DescuentoTipo");
-                DataColumn column5 = new DataColumn("TipoPs");
-                DataColumn column6 = new DataColumn("Cantidad");
-                DataColumn column7 = new DataColumn("Precio");
-                DataColumn column8 = new DataColumn("Descripción");
-                DataColumn column9 = new DataColumn("Descuento");
-                DataColumn column10 = new DataColumn("Importe");
-                dtVentas.Columns.Add(column1);
-                dtVentas.Columns.Add(column2);
-                dtVentas.Columns.Add(column3);
-                dtVentas.Columns.Add(column4);
-                dtVentas.Columns.Add(column5);
-                dtVentas.Columns.Add(column6);
-                dtVentas.Columns.Add(column7);
-                dtVentas.Columns.Add(column8);
-                dtVentas.Columns.Add(column9);
-                dtVentas.Columns.Add(column10);
+                
                 for (int i = 0; i < ventas.Count; i++)
                 {
                     if (i.Equals(0))
@@ -155,6 +156,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            return dtVentas;
         }
 
         private void actualizacionStock(List<string> productos)
