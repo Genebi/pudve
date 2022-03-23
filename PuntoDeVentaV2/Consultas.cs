@@ -3453,5 +3453,11 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string ImportarProductosDeCSV( string id, string stock)
+        {
+            var consulta = $"UPDATE productos SET Stock = {stock} WHERE ID = {id} AND IDUsuario	= '{FormPrincipal.userID}' AND	`Status`=	'1' AND Tipo = 'P'";
+            return consulta;
+        }
     }
 }  

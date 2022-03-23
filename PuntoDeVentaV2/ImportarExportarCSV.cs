@@ -120,8 +120,8 @@ namespace PuntoDeVentaV2
                     {
                         string[] conceptos = productos[i].ToString().Split(';');
                         MessageBox.Show($"ID: {conceptos[0]}, Nombre: {conceptos[1]} Stock: {conceptos[index]}");
+                        cn.EjecutarConsulta(cs.ImportarProductosDeCSV(conceptos[0], conceptos[index]));
                     }
-                    
                 }
             }
         }
