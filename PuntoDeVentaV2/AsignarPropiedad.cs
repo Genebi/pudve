@@ -1415,7 +1415,7 @@ namespace PuntoDeVentaV2
 
                         notificacion.Start();
                     }
-                    MessageBox.Show("ASIGNACION MULTIPLE REALIZADA CON EXIT", "Mensajes del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {

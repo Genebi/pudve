@@ -8604,6 +8604,7 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioCompra_KeyDown(object sender, KeyEventArgs e)
         {
+            float procedimiento;
             if (e.KeyCode == Keys.Enter)
             {
                 string[] words;
@@ -8629,6 +8630,7 @@ namespace PuntoDeVentaV2
                     }
                 }
                 precioOriginalConIVA = (float)Convert.ToDouble(txtPrecioCompra.Text);
+                procedimiento = (porcentajeGanancia / 100) + 1;
                 PrecioRecomendado = precioOriginalConIVA * porcentajeGanancia;
 
                 decimal cantidadPrecioProducto = 0;
@@ -8651,6 +8653,7 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioCompra_Leave(object sender, EventArgs e)
         {
+            float procedimiento;
             string[] words;
 
             if (txtPrecioCompra.Text.Equals(""))
@@ -8674,7 +8677,8 @@ namespace PuntoDeVentaV2
                 }
             }
             precioOriginalConIVA = (float)Convert.ToDouble(txtPrecioCompra.Text);
-            PrecioRecomendado = precioOriginalConIVA * porcentajeGanancia;
+            procedimiento = (porcentajeGanancia / 100) + 1;
+            PrecioRecomendado = precioOriginalConIVA * procedimiento;
 
             decimal cantidadPrecioProducto = 0;
             bool siEsNumero = false;
