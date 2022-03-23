@@ -69,10 +69,17 @@ namespace PuntoDeVentaV2
 
         private void btnImportar_Click(object sender, EventArgs e)
         {
-            abrirArchivoCSV();
+            try
+            {
+
+                leerArchivoCSVInventario(abrirArchivoCSV());
+            }
+            catch (Exception)
+            {
+            }
         }
 
-        private void leerArchivoCSV(string directorio)
+        private void leerArchivoCSVInventario(string directorio)
         {
             using (StreamReader sr = new StreamReader(directorio))
             {
@@ -83,25 +90,70 @@ namespace PuntoDeVentaV2
                     productos.Add(line);
 
                 }
-                //foreach (var item in sr.ReadLine())
-                //{
-                //try
-                //{
-
-                //}
-                //catch (MySqlException ex)
-                //{
-                //    MessageBox.Show($"Error: {ex.Message}");
-                //}
-
-                //List<string> productos = new List<string>();
-                //string line = string.Empty;
-                //while ((line = sr.ReadLine())!=null)
-                //{
-                //    productos.Add(line);
-                //}
-                //}
                 actualizacionStock(productos);
+            }
+        }
+        private void leerArchivoCSVVenta(string directorio)
+        {
+            using (StreamReader sr = new StreamReader(directorio))
+            {
+                List<string> ventas = new List<string>();
+                string line = string.Empty;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    ventas.Add(line);
+
+                }
+                actualizacionVentas(ventas);
+            }
+        }
+        private void actualizacionVentas(List<string> ventas)
+        {
+            if (!ventas.Count.Equals(0))
+            {
+                DataTable dtVentas = new DataTable("Ventas a importar desde la página");
+                DataColumn column1 = new DataColumn("IDProducto");
+                DataColumn column2 = new DataColumn("Stock");
+                DataColumn column3 = new DataColumn("PrecioOriginal");
+                DataColumn column4 = new DataColumn("DescuentoTipo");
+                DataColumn column5 = new DataColumn("TipoPs");
+                DataColumn column6 = new DataColumn("Cantidad");
+                DataColumn column7 = new DataColumn("Precio");
+                DataColumn column8 = new DataColumn("Descripción");
+                DataColumn column9 = new DataColumn("Descuento");
+                DataColumn column10 = new DataColumn("Importe");
+                dtVentas.Columns.Add(column1);
+                dtVentas.Columns.Add(column2);
+                dtVentas.Columns.Add(column3);
+                dtVentas.Columns.Add(column4);
+                dtVentas.Columns.Add(column5);
+                dtVentas.Columns.Add(column6);
+                dtVentas.Columns.Add(column7);
+                dtVentas.Columns.Add(column8);
+                dtVentas.Columns.Add(column9);
+                dtVentas.Columns.Add(column10);
+                for (int i = 0; i < ventas.Count; i++)
+                {
+                    if (i.Equals(0))
+                    {
+                    }
+                    else
+                    {
+                        string[] conceptos = ventas[i].ToString().Split(';');
+                        dtVentas.Rows.Add(
+                            conceptos[Array.IndexOf(conceptos, "SKU")],
+                            conceptos[Array.IndexOf(conceptos, "Stock")],
+                            conceptos[Array.IndexOf(conceptos, "Precio del producto")],
+                            conceptos[Array.IndexOf(conceptos, "tipo de descuento?")],
+                            conceptos[Array.IndexOf(conceptos, "TIPO PS?")],
+                            conceptos[Array.IndexOf(conceptos, "Cantidad del producto")],
+                            conceptos[Array.IndexOf(conceptos, "Precio del producto")],
+                            conceptos[Array.IndexOf(conceptos, "Descripción?")],
+                            conceptos[Array.IndexOf(conceptos, "Descuento")],
+                            conceptos[Array.IndexOf(conceptos, "importe?")]
+                            );
+                    }
+                }
             }
         }
 
@@ -119,14 +171,13 @@ namespace PuntoDeVentaV2
                     else
                     {
                         string[] conceptos = productos[i].ToString().Split(';');
-                        MessageBox.Show($"ID: {conceptos[0]}, Nombre: {conceptos[1]} Stock: {conceptos[index]}");
                         cn.EjecutarConsulta(cs.ImportarProductosDeCSV(conceptos[0], conceptos[index]));
                     }
                 }
             }
         }
 
-        private void abrirArchivoCSV()
+        private string abrirArchivoCSV()
         {
             string fileName = string.Empty;
 
@@ -137,7 +188,20 @@ namespace PuntoDeVentaV2
             if (dialog.ShowDialog().Equals(DialogResult.OK))
             {
                 fileName = dialog.FileName;
-                leerArchivoCSV(fileName);
+                
+            }return fileName;
+        }
+
+        private void botonRedondo1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                leerArchivoCSVVenta(abrirArchivoCSV());
+            }
+            catch (Exception)
+            {
+
             }
         }
     }

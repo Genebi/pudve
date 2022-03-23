@@ -32,7 +32,7 @@ namespace PuntoDeVentaV2
             this.btnImportar = new PuntoDeVentaV2.BotonRedondo();
             this.btnExportar = new PuntoDeVentaV2.BotonRedondo();
             this.btnTerminar = new System.Windows.Forms.Button();
-            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
+            this.btnImportarVentas = new PuntoDeVentaV2.BotonRedondo();
             this.SuspendLayout();
             // 
             // btnImportar
@@ -102,30 +102,30 @@ namespace PuntoDeVentaV2
             this.btnTerminar.UseVisualStyleBackColor = false;
             this.btnTerminar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
-            // botonRedondo1
+            // btnImportarVentas
             // 
-            this.botonRedondo1.BackColor = System.Drawing.Color.Red;
-            this.botonRedondo1.BackGroundColor = System.Drawing.Color.Red;
-            this.botonRedondo1.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.botonRedondo1.BorderRadius = 40;
-            this.botonRedondo1.BorderSize = 0;
-            this.botonRedondo1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.botonRedondo1.FlatAppearance.BorderSize = 0;
-            this.botonRedondo1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.botonRedondo1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.botonRedondo1.ForeColor = System.Drawing.Color.White;
-            this.botonRedondo1.Image = global::PuntoDeVentaV2.Properties.Resources.cloud_download1;
-            this.botonRedondo1.Location = new System.Drawing.Point(12, 12);
-            this.botonRedondo1.Name = "botonRedondo1";
-            this.botonRedondo1.Size = new System.Drawing.Size(276, 54);
-            this.botonRedondo1.TabIndex = 134;
-            this.botonRedondo1.Text = "Importar ventas";
-            this.botonRedondo1.TextColor = System.Drawing.Color.White;
-            this.botonRedondo1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.botonRedondo1.UseMnemonic = false;
-            this.botonRedondo1.UseVisualStyleBackColor = false;
-            this.botonRedondo1.Click += new System.EventHandler(this.btnImportar_Click);
+            this.btnImportarVentas.BackColor = System.Drawing.Color.Red;
+            this.btnImportarVentas.BackGroundColor = System.Drawing.Color.Red;
+            this.btnImportarVentas.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnImportarVentas.BorderRadius = 40;
+            this.btnImportarVentas.BorderSize = 0;
+            this.btnImportarVentas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImportarVentas.FlatAppearance.BorderSize = 0;
+            this.btnImportarVentas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.btnImportarVentas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.btnImportarVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImportarVentas.ForeColor = System.Drawing.Color.White;
+            this.btnImportarVentas.Image = global::PuntoDeVentaV2.Properties.Resources.cloud_download1;
+            this.btnImportarVentas.Location = new System.Drawing.Point(12, 12);
+            this.btnImportarVentas.Name = "btnImportarVentas";
+            this.btnImportarVentas.Size = new System.Drawing.Size(276, 54);
+            this.btnImportarVentas.TabIndex = 134;
+            this.btnImportarVentas.Text = "Importar ventas";
+            this.btnImportarVentas.TextColor = System.Drawing.Color.White;
+            this.btnImportarVentas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnImportarVentas.UseMnemonic = false;
+            this.btnImportarVentas.UseVisualStyleBackColor = false;
+            this.btnImportarVentas.Click += new System.EventHandler(this.botonRedondo1_Click);
             // 
             // ImportarExportarCSV
             // 
@@ -134,7 +134,7 @@ namespace PuntoDeVentaV2
             this.ClientSize = new System.Drawing.Size(305, 198);
             this.Controls.Add(this.btnTerminar);
             this.Controls.Add(this.btnExportar);
-            this.Controls.Add(this.botonRedondo1);
+            this.Controls.Add(this.btnImportarVentas);
             this.Controls.Add(this.btnImportar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.KeyPreview = true;
@@ -152,6 +152,6 @@ namespace PuntoDeVentaV2
         private BotonRedondo btnImportar;
         private BotonRedondo btnExportar;
         private System.Windows.Forms.Button btnTerminar;
-        private BotonRedondo botonRedondo1;
+        private BotonRedondo btnImportarVentas;
     }
 }
