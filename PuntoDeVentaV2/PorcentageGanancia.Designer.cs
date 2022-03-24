@@ -41,7 +41,7 @@
             this.btnGuardarPorcentaje.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gainsboro;
             this.btnGuardarPorcentaje.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
             this.btnGuardarPorcentaje.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnGuardarPorcentaje.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardarPorcentaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarPorcentaje.ForeColor = System.Drawing.Color.Black;
             this.btnGuardarPorcentaje.Location = new System.Drawing.Point(211, 61);
             this.btnGuardarPorcentaje.Name = "btnGuardarPorcentaje";
@@ -53,20 +53,20 @@
             // 
             // txtPorcentajeProducto
             // 
-            this.txtPorcentajeProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPorcentajeProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPorcentajeProducto.Location = new System.Drawing.Point(15, 61);
             this.txtPorcentajeProducto.Name = "txtPorcentajeProducto";
-            this.txtPorcentajeProducto.Size = new System.Drawing.Size(190, 23);
+            this.txtPorcentajeProducto.Size = new System.Drawing.Size(190, 22);
             this.txtPorcentajeProducto.TabIndex = 122;
             this.txtPorcentajeProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lbPorcentajeProducto
             // 
             this.lbPorcentajeProducto.AutoSize = true;
-            this.lbPorcentajeProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPorcentajeProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbPorcentajeProducto.Location = new System.Drawing.Point(73, 28);
             this.lbPorcentajeProducto.Name = "lbPorcentajeProducto";
-            this.lbPorcentajeProducto.Size = new System.Drawing.Size(180, 17);
+            this.lbPorcentajeProducto.Size = new System.Drawing.Size(166, 16);
             this.lbPorcentajeProducto.TabIndex = 121;
             this.lbPorcentajeProducto.Text = "Porcentaje % de ganancia";
             // 
@@ -74,7 +74,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 116);
+            this.ClientSize = new System.Drawing.Size(330, 174);
             this.Controls.Add(this.btnGuardarPorcentaje);
             this.Controls.Add(this.txtPorcentajeProducto);
             this.Controls.Add(this.lbPorcentajeProducto);
