@@ -3459,5 +3459,11 @@ namespace PuntoDeVentaV2
             var consulta = $"UPDATE productos SET Stock = {stock} WHERE ID = {id} AND IDUsuario	= '{FormPrincipal.userID}' AND	`Status`=	'1' AND Tipo = 'P'";
             return consulta;
         }
+
+        public string LLamarDatosNoIncluidosEnElArchivoCSVExportableDeVentas(string ID)
+        {
+            var consulta = $"SELECT Nombre, Precio, Stock  FROM productos WHERE IDUsuario = {FormPrincipal.userID} AND id = {ID}";
+            return consulta;
+        }
     }
 }  

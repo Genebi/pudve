@@ -96,30 +96,43 @@ namespace PuntoDeVentaV2
         }
         private void leerArchivoCSVVenta(string directorio)
         {
-            using (StreamReader sr = new StreamReader(directorio))
+            try
             {
-                List<string> ventas = new List<string>();
-                string line = string.Empty;
-                while ((line = sr.ReadLine()) != null)
+                using (StreamReader sr = new StreamReader(directorio))
                 {
-                    ventas.Add(line);
+                    List<string> ventas = new List<string>();
+                    string line = string.Empty;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        ventas.Add(line);
 
+                    }
+                    actualizacionVentas(ventas);
                 }
-                actualizacionVentas(ventas);
             }
+            catch (Exception)
+            {
+
+            }
+            
         }
-        private DataTable actualizacionVentas(List<string> ventas)
+        private void actualizacionVentas(List<string> ventas)
         {
-            DataColumn column1 = new DataColumn("IDProducto");
-            DataColumn column2 = new DataColumn("Stock");
-            DataColumn column3 = new DataColumn("PrecioOriginal");
-            DataColumn column4 = new DataColumn("DescuentoTipo");
-            DataColumn column5 = new DataColumn("TipoPs");
-            DataColumn column6 = new DataColumn("Cantidad");
-            DataColumn column7 = new DataColumn("Precio");
-            DataColumn column8 = new DataColumn("Descripción");
-            DataColumn column9 = new DataColumn("Descuento");
-            DataColumn column10 = new DataColumn("Importe");
+            DataColumn column1 = new DataColumn("ID");
+            DataColumn column2 = new DataColumn("Nombre");
+            DataColumn column3 = new DataColumn("Precio");
+            DataColumn column4 = new DataColumn("Descuento Tipo");
+            DataColumn column5 = new DataColumn("Stock");
+            DataColumn column6 = new DataColumn("Tipo PS");
+            DataColumn column7 = new DataColumn("Cantidad");
+            DataColumn column8 = new DataColumn("7");
+            DataColumn column9 = new DataColumn("8");
+            DataColumn column10 = new DataColumn("9");
+            DataColumn column11 = new DataColumn("10");
+            DataColumn column15 = new DataColumn("11");
+            DataColumn column12 = new DataColumn("PrecioMayoreo");
+            DataColumn column13 = new DataColumn("Impuesto");
+            DataColumn column14 = new DataColumn("Descuento");
             dtVentas.Columns.Add(column1);
             dtVentas.Columns.Add(column2);
             dtVentas.Columns.Add(column3);
@@ -130,40 +143,65 @@ namespace PuntoDeVentaV2
             dtVentas.Columns.Add(column8);
             dtVentas.Columns.Add(column9);
             dtVentas.Columns.Add(column10);
+            dtVentas.Columns.Add(column11);
+            dtVentas.Columns.Add(column15);
+            dtVentas.Columns.Add(column12);
+            dtVentas.Columns.Add(column13);
+            dtVentas.Columns.Add(column14);
             if (!ventas.Count.Equals(0))
             {
-                
+                 List<int> indices = new List<int>();
                 for (int i = 0; i < ventas.Count; i++)
                 {
-                    List<int> indices = new List<int>();
+                   
                     if (i.Equals(0))
                     {
                         string[] conceptos = ventas[i].ToString().Split(';');
+
+
                         
                         indices.Add(Array.IndexOf(conceptos, "SKU"));
-                        indices.Add(Array.IndexOf(conceptos, "Stock"));
-                        indices.Add(Array.IndexOf(conceptos, "Precio del producto"));
-                        indices.Add(Array.IndexOf(conceptos, "tipo de descuento?"));
-                        indices.Add(Array.IndexOf(conceptos, "TIPO PS?"));
-                        indices.Add(Array.IndexOf(conceptos, "Cantidad del producto"));
-                        indices.Add(Array.IndexOf(conceptos, "Precio del producto"));
-                        indices.Add(Array.IndexOf(conceptos, "Descripción?"));
+                        indices.Add(Array.IndexOf(conceptos, "SKU")-1); //Cantidad
+                        //indices.Add(Array.IndexOf(conceptos, "Stock"));
+                        //indices.Add(Array.IndexOf(conceptos, "Precio del producto"));
+                        //indices.Add(Array.IndexOf(conceptos, "tipo de descuento?"));
+                        //indices.Add(Array.IndexOf(conceptos, "TIPO PS?"));
+                        //indices.Add(Array.IndexOf(conceptos, '"\"Cantidad del producto\""'));
+                        //indices.Add(Array.IndexOf(conceptos, "Precio del producto"));
+                        //indices.Add(Array.IndexOf(conceptos, "Descripción?"));
                         indices.Add(Array.IndexOf(conceptos, "Descuento"));
-                        indices.Add(Array.IndexOf(conceptos, "importe?"));
+                        //indices.Add(Array.IndexOf(conceptos, "importe?"));
+
                     }
                     else
                     {
                         string[] conceptos = ventas[i].ToString().Split(';');
-                        for (int n = 0; n < 11; n++)
+                        using (DataTable dtDatosProductos = cn.CargarDatos(cs.LLamarDatosNoIncluidosEnElArchivoCSVExportableDeVentas(conceptos[indices[0]])))
                         {
-                            dtVentas.Rows.Add(conceptos[indices[n]]);
-                        }
-                        
-                            
+                            var stringArr = dtDatosProductos.Rows[0].ItemArray.Select(x => x.ToString()).ToArray();
+
+                            dtVentas.Rows.Add(
+                                conceptos[indices[0]],
+                                stringArr[0],
+                                stringArr[1],
+                                0,
+                                stringArr[2],
+                                "P",
+                                conceptos[indices[1]],
+                                "",
+                                "",
+                                "",
+                                "",
+                                "",
+                                0,
+                                0,
+                                0
+                                );}
                     }
                 }
             }
-            return dtVentas;
+            MessageBox.Show("Se leyó correctamente el CSV! Cargando los productos...");
+            this.Close();
         }
 
         private void actualizacionStock(List<string> productos)
@@ -182,6 +220,8 @@ namespace PuntoDeVentaV2
                         string[] conceptos = productos[i].ToString().Split(';');
                         cn.EjecutarConsulta(cs.ImportarProductosDeCSV(conceptos[0], conceptos[index]));
                     }
+
+                    MessageBox.Show($"Sincronizado el inventario de {i} producto/s");
                 }
             }
         }
@@ -203,15 +243,11 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo1_Click(object sender, EventArgs e)
         {
-            try
-            {
+            
 
                 leerArchivoCSVVenta(abrirArchivoCSV());
-            }
-            catch (Exception)
-            {
-
+            
             }
         }
     }
-}
+
