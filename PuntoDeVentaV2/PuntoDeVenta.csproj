@@ -981,6 +981,12 @@
     <Compile Include="SeleccionarConceptosReporteActualizarInventario.Designer.cs">
       <DependentUpon>SeleccionarConceptosReporteActualizarInventario.cs</DependentUpon>
     </Compile>
+    <Compile Include="SeleccionDeProductosParaExportarCSV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeleccionDeProductosParaExportarCSV.Designer.cs">
+      <DependentUpon>SeleccionDeProductosParaExportarCSV.cs</DependentUpon>
+    </Compile>
     <Compile Include="Service References\ServiceReferenceTPrueba\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1492,6 +1498,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SeleccionarConceptosReporteActualizarInventario.resx">
       <DependentUpon>SeleccionarConceptosReporteActualizarInventario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeleccionDeProductosParaExportarCSV.resx">
+      <DependentUpon>SeleccionDeProductosParaExportarCSV.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="setNombreConceptoDinamico.resx">
       <DependentUpon>setNombreConceptoDinamico.cs</DependentUpon>

@@ -263,6 +263,8 @@ namespace PuntoDeVentaV2
 
         private void Ventas_Load(object sender, EventArgs e)
         {
+            mostrarBotonCSV();
+
             ventaGuardadappt = 0;
             if (string.IsNullOrEmpty(lbDatosCliente.Text))
             {
@@ -337,6 +339,18 @@ namespace PuntoDeVentaV2
 
             iniciarBasculaPredeterminada();
             txtBuscadorProducto.Focus();
+        }
+
+        private void mostrarBotonCSV()
+        {
+            if (FormPrincipal.userNickName.Equals("HOUSEDEPOTAUTLAN")|| FormPrincipal.userNickName.Equals("HOUSEDEPOTREPARTO"))
+            {
+                btnCSV.Visible = true;
+            }
+            else
+            {
+                btnCSV.Visible = false;
+            }
         }
 
         private void BuscarTieneFoco(object sender, EventArgs e)

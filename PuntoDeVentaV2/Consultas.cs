@@ -3465,5 +3465,12 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT Nombre, Precio, Stock  FROM productos WHERE IDUsuario = {FormPrincipal.userID} AND id = {ID}";
             return consulta;
         }
+
+        public string ProductosParaFiltrarCSV()
+        {
+            var consulta = $"SELECT ID, Nombre, Stock FROM productos WHERE IDUsuario	= '{FormPrincipal.userID}' AND	`Status`=	'1' AND Tipo = 'P'";
+
+            return consulta;
+        }
     }
 }  
