@@ -139,7 +139,7 @@
             this.btn_cancelar.Location = new System.Drawing.Point(12, 225);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(119, 30);
-            this.btn_cancelar.TabIndex = 10;
+            this.btn_cancelar.TabIndex = 11;
             this.btn_cancelar.Text = "Cancelar";
             this.btn_cancelar.UseVisualStyleBackColor = false;
             this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
@@ -149,7 +149,7 @@
             this.lbContraseñaParaConfirmar.Location = new System.Drawing.Point(1, 231);
             this.lbContraseñaParaConfirmar.Name = "lbContraseñaParaConfirmar";
             this.lbContraseñaParaConfirmar.Size = new System.Drawing.Size(323, 38);
-            this.lbContraseñaParaConfirmar.TabIndex = 11;
+            this.lbContraseñaParaConfirmar.TabIndex = 10;
             this.lbContraseñaParaConfirmar.Text = "Ingresar Contraseña del Usuario:";
             this.lbContraseñaParaConfirmar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbContraseñaParaConfirmar.Visible = false;
@@ -175,7 +175,7 @@
             this.txt_autorizar.Name = "txt_autorizar";
             this.txt_autorizar.PasswordChar = '*';
             this.txt_autorizar.Size = new System.Drawing.Size(190, 22);
-            this.txt_autorizar.TabIndex = 14;
+            this.txt_autorizar.TabIndex = 9;
             this.txt_autorizar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txt_autorizar.Visible = false;
             this.txt_autorizar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_autorizar_KeyDown);
@@ -198,7 +198,7 @@
             this.txtConfirmeSuPassword.Name = "txtConfirmeSuPassword";
             this.txtConfirmeSuPassword.PasswordChar = '*';
             this.txtConfirmeSuPassword.Size = new System.Drawing.Size(190, 22);
-            this.txtConfirmeSuPassword.TabIndex = 17;
+            this.txtConfirmeSuPassword.TabIndex = 8;
             this.txtConfirmeSuPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtConfirmeSuPassword.Visible = false;
             // 

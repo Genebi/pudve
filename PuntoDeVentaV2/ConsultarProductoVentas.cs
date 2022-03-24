@@ -682,7 +682,7 @@ namespace PuntoDeVentaV2
 
                 inputMessageBoxVentas inputMessageBox = new inputMessageBoxVentas(mensajeMostrar, tituloVentana, mensajeDefault);
 
-                inputMessageBox.ShowDialog();
+                inputMessageBox.Show();
                 multiplesProductosSeleccionados();
                 newObtenerDatoProductoSeleccionado();
             }
@@ -775,12 +775,20 @@ namespace PuntoDeVentaV2
                                 MessageBox.Show("Uno de los productos a disminuir es menor a la                 cantidad indicada", "Aviso del sistema", MessageBoxButtons.OK,          MessageBoxIcon.Information);
                                 cancelarResta = "return";
                                 return;
+
                             }
                         }
                     }
                     
                 }
-                this.Close();
+                if (cantidadPedida=="Cancelar")
+                {
+                    
+                }
+                else
+                {
+                    this.Close();
+                }
             }
         }
 
