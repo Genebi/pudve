@@ -3024,6 +3024,79 @@ namespace PuntoDeVentaV2
         private void seccionTodosCaja()
         {
             seccionTodosVentas();
+            seccionTodosAnticipos();
+        }
+
+        private void seccionTodosAnticipos()
+        {
+            using (DataTable dtUltimoCorteDeCaja = cn.CargarDatos(cs.fechaUltimoCorteDecaja()))
+            {
+                if (!dtUltimoCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    var idCajaUltimoCorte = string.Empty;
+
+                    foreach (DataRow item in dtUltimoCorteDeCaja.Rows)
+                    {
+                        idCajaUltimoCorte = item["ID"].ToString();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(idCajaUltimoCorte))
+                    {
+                        using (DataTable dtSeccionAnticposTodos = cn.CargarDatos(cs.totalCantidadesAnticposTodos(idCajaUltimoCorte)))
+                        {
+                            if (!dtSeccionAnticposTodos.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtSeccionAnticposTodos.Rows)
+                                {
+                                    decimal cantidadEfectivo = 0,
+                                            cantidadTarjeta = 0,
+                                            cantidadVales = 0,
+                                            cantidadCheque = 0,
+                                            cantidadTransferencia = 0,
+                                            cantidadTotalAnticipos = 0;
+
+                                    if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                    {
+                                        cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
+                                    {
+                                        cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
+                                    {
+                                        cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
+                                    {
+                                        cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
+                                    {
+                                        cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["TotalAnticipos"].ToString()))
+                                    {
+                                        cantidadTotalAnticipos = Convert.ToDecimal(item["TotalAnticipos"].ToString());
+                                    }
+
+                                    lbTEfectivoA.Text = cantidadEfectivo.ToString("C2");
+                                    lbTTarjetaA.Text = cantidadTarjeta.ToString("C2");
+                                    lbTValesA.Text = cantidadVales.ToString("C2");
+                                    lbTChequeA.Text = cantidadCheque.ToString("C2");
+                                    lbTTransA.Text = cantidadTransferencia.ToString("C2");
+                                    lbTAnticiposA.Text = cantidadTotalAnticipos.ToString("C2");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void seccionTodosVentas()
@@ -3121,6 +3194,79 @@ namespace PuntoDeVentaV2
         private void seccionEmpleadoCaja(string idEmpleado)
         {
             seccionEmpleadoVentas(idEmpleado);
+            seccionEmpleadoAnticipos(idEmpleado);
+        }
+
+        private void seccionEmpleadoAnticipos(string idEmpleado)
+        {
+            using (DataTable dtUltimoCorteDeCaja = cn.CargarDatos(cs.fechaUltimoCorteDecaja()))
+            {
+                if (!dtUltimoCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    var idCajaUltimoCorte = string.Empty;
+
+                    foreach (DataRow item in dtUltimoCorteDeCaja.Rows)
+                    {
+                        idCajaUltimoCorte = item["ID"].ToString();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(idCajaUltimoCorte))
+                    {
+                        using (DataTable dtSeccionAnticiposEpleado = cn.CargarDatos(cs.totalCantiadesAnticiposEmpleado(idCajaUltimoCorte, idEmpleado)))
+                        {
+                            if (!dtSeccionAnticiposEpleado.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtSeccionAnticiposEpleado.Rows)
+                                {
+                                    decimal cantidadEfectivo = 0,
+                                            cantidadTarjeta = 0,
+                                            cantidadVales = 0,
+                                            cantidadCheque = 0,
+                                            cantidadTransferencia = 0,
+                                            cantidadTotalAnticipos = 0;
+
+                                    if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                    {
+                                        cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
+                                    {
+                                        cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
+                                    {
+                                        cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
+                                    {
+                                        cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
+                                    {
+                                        cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["TotalAnticipos"].ToString()))
+                                    {
+                                        cantidadTotalAnticipos = Convert.ToDecimal(item["TotalAnticipos"].ToString());
+                                    }
+
+                                    lbTEfectivoA.Text = cantidadEfectivo.ToString("C2");
+                                    lbTTarjetaA.Text = cantidadTarjeta.ToString("C2");
+                                    lbTValesA.Text = cantidadVales.ToString("C2");
+                                    lbTChequeA.Text = cantidadCheque.ToString("C2");
+                                    lbTTransA.Text = cantidadTransferencia.ToString("C2");
+                                    lbTAnticiposA.Text = cantidadTotalAnticipos.ToString("C2");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void seccionEmpleadoVentas(string idEmpleado)
@@ -3218,6 +3364,80 @@ namespace PuntoDeVentaV2
         private void seccionAdminCaja()
         {
             seccionAdminVentas();
+            seccionAdminAnticipos();
+        }
+
+        private void seccionAdminAnticipos()
+        {
+            // Total de Anticipos
+            using (DataTable dtUltimoCorteDeCaja = cn.CargarDatos(cs.fechaUltimoCorteDecaja()))
+            {
+                if (!dtUltimoCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    var idCajaUltimoCorte = string.Empty;
+
+                    foreach (DataRow item in dtUltimoCorteDeCaja.Rows)
+                    {
+                        idCajaUltimoCorte = item["ID"].ToString();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(idCajaUltimoCorte))
+                    {
+                        using (DataTable dtSeccionAnticiposAdministrador = cn.CargarDatos(cs.totalCantidadesAnticiposAdministrador(idCajaUltimoCorte)))
+                        {
+                            if (!dtSeccionAnticiposAdministrador.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtSeccionAnticiposAdministrador.Rows)
+                                {
+                                    decimal cantidadEfectivo = 0,
+                                            cantidadTarjeta = 0,
+                                            cantidadVales = 0,
+                                            cantidadCheque = 0,
+                                            cantidadTransferencia = 0,
+                                            cantidadTotalAnticipos = 0;
+
+                                    if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                    {
+                                        cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
+                                    {
+                                        cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
+                                    {
+                                        cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
+                                    {
+                                        cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
+                                    {
+                                        cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["TotalAnticipos"].ToString()))
+                                    {
+                                        cantidadTotalAnticipos = Convert.ToDecimal(item["TotalAnticipos"].ToString());
+                                    }
+
+                                    lbTEfectivoA.Text = cantidadEfectivo.ToString("C2");
+                                    lbTTarjetaA.Text = cantidadTarjeta.ToString("C2");
+                                    lbTValesA.Text = cantidadVales.ToString("C2");
+                                    lbTChequeA.Text = cantidadCheque.ToString("C2");
+                                    lbTTransA.Text = cantidadTransferencia.ToString("C2");
+                                    lbTAnticiposA.Text = cantidadTotalAnticipos.ToString("C2");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         private void seccionAdminVentas()

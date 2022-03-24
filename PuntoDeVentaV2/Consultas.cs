@@ -3481,5 +3481,26 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string totalCantidadesAnticiposAdministrador(string idUltimoCorteDeCaja)
+        {
+            var consulta = $"SELECT ID, Operacion, IDUsuario, IdEmpleado, SUM( Efectivo ) AS 'Efectivo', SUM( Tarjeta ) AS 'Tarjeta', SUM( Vales ) AS 'Vales', SUM( Cheque ) AS 'Cheque', SUM( Transferencia ) AS 'Transferencia', (  SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) AS 'TotalAnticipos' FROM caja WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0' AND ID > '{idUltimoCorteDeCaja}' AND Operacion = 'anticipo'";
+
+            return consulta;
+        }
+
+        public string totalCantiadesAnticiposEmpleado(string idUltimoCorteDeCaja, string idEmpleado)
+        {
+            var consulta = $"SELECT ID, Operacion, IDUsuario, IdEmpleado, SUM( Efectivo ) AS 'Efectivo', SUM( Tarjeta ) AS 'Tarjeta', SUM( Vales ) AS 'Vales', SUM( Cheque ) AS 'Cheque', SUM( Transferencia ) AS 'Transferencia', (  SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) AS 'TotalAnticipos' FROM caja WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{idEmpleado}' AND ID > '{idUltimoCorteDeCaja}' AND Operacion = 'anticipo'";
+
+            return consulta;
+        }
+
+        public string totalCantidadesAnticposTodos(string idUltimoCorteDeCaja)
+        {
+            var consulta = $"SELECT ID, Operacion, IDUsuario, IdEmpleado, SUM( Efectivo ) AS 'Efectivo', SUM( Tarjeta ) AS 'Tarjeta', SUM( Vales ) AS 'Vales', SUM( Cheque ) AS 'Cheque', SUM( Transferencia ) AS 'Transferencia', (  SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) AS 'TotalAnticipos' FROM caja WHERE IDUsuario = '{FormPrincipal.userID}' AND ID > '{idUltimoCorteDeCaja}' AND Operacion = 'anticipo'";
+
+            return consulta;
+        }
     }
 }  
