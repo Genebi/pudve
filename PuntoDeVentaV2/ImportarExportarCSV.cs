@@ -17,7 +17,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         int index=0;
-        DataTable dtVentas = new DataTable("Ventas a importar desde la página");
+        public DataTable dtVentas = new DataTable("Ventas a importar desde la página");
 
         public ImportarExportarCSV()
         {

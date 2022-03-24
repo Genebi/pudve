@@ -6855,6 +6855,20 @@ namespace PuntoDeVentaV2
         private void btnCSV_Click(object sender, EventArgs e)
         {
             ImportarExportarCSV frmCsv = new ImportarExportarCSV();
+            frmCsv.FormClosed += delegate
+            {
+                if (0 < frmCsv.dtVentas.Rows.Count)
+                {
+                    for (int i = 0; i < frmCsv.dtVentas.Rows.Count; i++)
+                    {
+                        var stringArr = frmCsv.dtVentas.Rows[i].ItemArray.Select(x => x.ToString()).ToArray();
+                        decimal d = decimal.Parse(stringArr[6]);
+                        AgregarProductoLista(stringArr, d);
+
+                    }
+                }
+                
+            };
             frmCsv.ShowDialog();
 
         }
