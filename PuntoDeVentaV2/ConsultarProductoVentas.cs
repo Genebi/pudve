@@ -682,7 +682,7 @@ namespace PuntoDeVentaV2
 
                 inputMessageBoxVentas inputMessageBox = new inputMessageBoxVentas(mensajeMostrar, tituloVentana, mensajeDefault);
 
-                inputMessageBox.Show();
+                inputMessageBox.ShowDialog();
                 multiplesProductosSeleccionados();
                 newObtenerDatoProductoSeleccionado();
             }
@@ -781,14 +781,14 @@ namespace PuntoDeVentaV2
                     }
                     
                 }
-                //if (cantidadPedida=="Cancelar")
-                //{
-                    
-                //}
-                //else
-                //{
-                 this.Close();
-                //}
+                if (cantidadPedida == "Cancelar")
+                {
+
+                }
+                else
+                {
+                    this.Close();
+                }
             }
         }
 
