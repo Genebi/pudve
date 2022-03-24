@@ -41,7 +41,7 @@
             this.txt_correo.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.txt_correo.Location = new System.Drawing.Point(19, 21);
             this.txt_correo.Name = "txt_correo";
-            this.txt_correo.Size = new System.Drawing.Size(273, 22);
+            this.txt_correo.Size = new System.Drawing.Size(273, 21);
             this.txt_correo.TabIndex = 0;
             // 
             // btn_agregar
@@ -65,7 +65,7 @@
             this.btn_cancelar.BackColor = System.Drawing.Color.Red;
             this.btn_cancelar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_cancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_cancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar.ForeColor = System.Drawing.Color.White;
             this.btn_cancelar.Location = new System.Drawing.Point(158, 228);
             this.btn_cancelar.Name = "btn_cancelar";
@@ -81,7 +81,7 @@
             this.btn_enviar.BackColor = System.Drawing.Color.Green;
             this.btn_enviar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_enviar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_enviar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_enviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_enviar.ForeColor = System.Drawing.Color.White;
             this.btn_enviar.Location = new System.Drawing.Point(284, 228);
             this.btn_enviar.Name = "btn_enviar";
@@ -106,10 +106,10 @@
             // 
             this.lb_titulo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.lb_titulo.AutoSize = true;
-            this.lb_titulo.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_titulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_titulo.Location = new System.Drawing.Point(1, 5);
             this.lb_titulo.Name = "lb_titulo";
-            this.lb_titulo.Size = new System.Drawing.Size(81, 15);
+            this.lb_titulo.Size = new System.Drawing.Size(87, 13);
             this.lb_titulo.TabIndex = 7;
             this.lb_titulo.Text = "Enviar factura";
             this.lb_titulo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -117,7 +117,7 @@
             // 
             // Enviar_correo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(413, 269);
             this.Controls.Add(this.lb_titulo);
@@ -126,7 +126,7 @@
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_agregar);
             this.Controls.Add(this.txt_correo);
-            this.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);

@@ -3396,7 +3396,7 @@ namespace PuntoDeVentaV2
                                         var datosProductoTmp = cn.BuscarProducto(Convert.ToInt32(IDProducto), FormPrincipal.userID);
 
                                         // Correo de stock minimo
-                                        if (configProducto[2] == 1)
+                                        if (configProducto[2] == 1 && correoStockMinimo == 1)
                                         {
                                             // Obtener el stock minimo del producto
                                             var stockMinimo = Convert.ToInt32(datosProductoTmp[10]);
@@ -6926,13 +6926,15 @@ namespace PuntoDeVentaV2
             var asuntoAdicional = string.Empty;
             var html = string.Empty;
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            var correoMultiple = 0;
 
             if (!string.IsNullOrWhiteSpace(correo))
             {
                 // Comprobar stock minimo
                 if (enviarStockMinimo.Count > 0)
                 {
-                    asunto = "¡AVISO! Stock mínimo alcanzado por ventas.";
+                    correoMultiple ++;
+                    asunto = "¡AVISO! STOCK MINIMO ALCANZADO POR VENTAS.";
 
                     html = @"
                     <div style='margin-bottom: 50px;'>
@@ -6972,7 +6974,8 @@ namespace PuntoDeVentaV2
                 // Comprobar venta producto
                 if (enviarVentaProducto.Count > 0)
                 {
-                    asunto = "Información estado de Productos";
+                    correoMultiple ++;
+                    asunto = "INFORMACION DE ESTADO DE PRODUCTOS";
 
                     html += @"
                     <div>
@@ -7071,6 +7074,7 @@ namespace PuntoDeVentaV2
 
                     if (FormPrincipal.id_empleado > 0)
                     {
+                        correoMultiple ++;
                         var datosEmpleado = mb.obtener_permisos_empleado(FormPrincipal.id_empleado, FormPrincipal.userID);
 
                         string nombreEmpleado = datosEmpleado[15];
@@ -7132,11 +7136,12 @@ namespace PuntoDeVentaV2
                         html += cadenaDatos;
                         html += $"<p style='font-size: 12px;'>La venta fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
 
-                        asunto = $"Venta Realizada - {infoEmpleado[0]}@{infoEmpleado[1]}";
+                        asunto = $"VENTA REALIZADA - {infoEmpleado[0]}@{infoEmpleado[1]}";
                         asuntoAdicional = $"Venta realizada con descuento - {infoEmpleado[0]}@{infoEmpleado[1]}";
                     }
                     else
                     {
+                        correoMultiple ++;
                         if (!string.IsNullOrWhiteSpace(descuentoVenta) && !descuentoVenta.Equals("0.00"))
                         {
                             html += $@"
@@ -7191,12 +7196,17 @@ namespace PuntoDeVentaV2
                         html += cadenaDatos;
                         html += $"<p style='font-size: 12px;'>La venta fue realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
 
-                        asunto = $"Venta Realizada - {FormPrincipal.userNickName}";
+                        asunto = $"VENTA REALIZADA - {FormPrincipal.userNickName}";
                         asuntoAdicional = $"Venta realizada con descuento - {FormPrincipal.userNickName}";
                     }
 
                     if (correoVenta == 1 && correoDescuento == 1)
                     {
+                        if (correoMultiple >= 2)
+                        {
+                            asunto = $"MODIFICACION REALIZADA - {FormPrincipal.userNickName}";
+                        }
+
                         if (!string.IsNullOrWhiteSpace(html))
                         {
                             Utilidades.EnviarEmail(html, asunto, correo);
@@ -7210,6 +7220,11 @@ namespace PuntoDeVentaV2
 
                     if (correoVenta == 1 && correoDescuento == 0)
                     {
+                        if (correoMultiple >= 2)
+                        {
+                            asunto = $"MODIFICACION REALIZADA - {FormPrincipal.userNickName}";
+                        }
+
                         if (!string.IsNullOrWhiteSpace(html))
                         {
                             Utilidades.EnviarEmail(html, asunto, correo);
@@ -7220,6 +7235,11 @@ namespace PuntoDeVentaV2
                     {
                         if (!string.IsNullOrWhiteSpace(html))
                         {
+                            if (correoMultiple >= 2)
+                            {
+                                asunto = $"MODIFICACION REALIZADA - {FormPrincipal.userNickName}";
+                            }
+
                             if (!string.IsNullOrWhiteSpace(descuentoVenta) && !descuentoVenta.Equals("0.00"))
                             {
                                 Utilidades.EnviarEmail(html, asuntoAdicional, correo);
@@ -7232,6 +7252,10 @@ namespace PuntoDeVentaV2
 
                 if (!string.IsNullOrWhiteSpace(html))
                 {
+                    if (correoMultiple >= 2)
+                    {
+                        asunto = $"MODIFICACION REALIZADA - {FormPrincipal.userNickName}";
+                    }
                     Utilidades.EnviarEmail(html, asunto, correo);
                 }
             }

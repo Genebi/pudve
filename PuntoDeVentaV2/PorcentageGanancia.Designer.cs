@@ -51,9 +51,9 @@
             this.btnGuardarPorcentaje.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gainsboro;
             this.btnGuardarPorcentaje.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro;
             this.btnGuardarPorcentaje.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnGuardarPorcentaje.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGuardarPorcentaje.ForeColor = System.Drawing.Color.White;
-            this.btnGuardarPorcentaje.Location = new System.Drawing.Point(211, 60);
+            this.btnGuardarPorcentaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGuardarPorcentaje.ForeColor = System.Drawing.Color.Black;
+            this.btnGuardarPorcentaje.Location = new System.Drawing.Point(211, 61);
             this.btnGuardarPorcentaje.Name = "btnGuardarPorcentaje";
             this.btnGuardarPorcentaje.Size = new System.Drawing.Size(90, 25);
             this.btnGuardarPorcentaje.TabIndex = 123;
@@ -63,10 +63,10 @@
             // 
             // txtPorcentajeProducto
             // 
-            this.txtPorcentajeProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPorcentajeProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPorcentajeProducto.Location = new System.Drawing.Point(15, 61);
             this.txtPorcentajeProducto.Name = "txtPorcentajeProducto";
-            this.txtPorcentajeProducto.Size = new System.Drawing.Size(190, 23);
+            this.txtPorcentajeProducto.Size = new System.Drawing.Size(190, 22);
             this.txtPorcentajeProducto.TabIndex = 122;
             this.txtPorcentajeProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPorcentajeProducto.TextChanged += new System.EventHandler(this.txtPorcentajeProducto_TextChanged);
@@ -75,26 +75,26 @@
             // lbPorcentajeProducto
             // 
             this.lbPorcentajeProducto.AutoSize = true;
-            this.lbPorcentajeProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbPorcentajeProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbPorcentajeProducto.Location = new System.Drawing.Point(73, 28);
             this.lbPorcentajeProducto.Name = "lbPorcentajeProducto";
-            this.lbPorcentajeProducto.Size = new System.Drawing.Size(181, 16);
+            this.lbPorcentajeProducto.Size = new System.Drawing.Size(166, 16);
             this.lbPorcentajeProducto.TabIndex = 121;
             this.lbPorcentajeProducto.Text = "Porcentaje % de ganancia";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(75, 103);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(169, 16);
+            this.label1.Size = new System.Drawing.Size(183, 16);
             this.label1.TabIndex = 124;
             this.label1.Text = "Ejemplo de Porcentaje %";
             // 
             // label3
             // 
-            this.label3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(10, 142);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(94, 36);
@@ -104,7 +104,7 @@
             // 
             // label4
             // 
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(114, 141);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(104, 36);
@@ -114,7 +114,7 @@
             // 
             // label5
             // 
-            this.label5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(226, 142);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(94, 36);
@@ -181,7 +181,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(330, 211);
+            this.ClientSize = new System.Drawing.Size(330, 219);
             this.Controls.Add(this.lblResultado);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblPorcentaje);
