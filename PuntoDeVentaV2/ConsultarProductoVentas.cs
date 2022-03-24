@@ -781,14 +781,14 @@ namespace PuntoDeVentaV2
                     }
                     
                 }
-                if (cantidadPedida=="Cancelar")
-                {
+                //if (cantidadPedida=="Cancelar")
+                //{
                     
-                }
-                else
-                {
-                    this.Close();
-                }
+                //}
+                //else
+                //{
+                 this.Close();
+                //}
             }
         }
 
