@@ -208,7 +208,8 @@ namespace PuntoDeVentaV2
         {
             if (!productos.Count.Equals(0))
             {
-                for (int i = 0; i < productos.Count; i++)
+                int i;
+                for (i = 0; i < productos.Count; i++)
                 {
                     if (i.Equals(0))
                     {
@@ -221,8 +222,9 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta(cs.ImportarProductosDeCSV(conceptos[0], conceptos[index]));
                     }
 
-                    MessageBox.Show($"Sincronizado el inventario de {i} producto/s");
+                   
                 }
+                MessageBox.Show($"Sincronizado el inventario de {i-1} producto/s");
             }
         }
 

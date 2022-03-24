@@ -6866,6 +6866,7 @@ namespace PuntoDeVentaV2
                         AgregarProductoLista(stringArr, d);
 
                     }
+                    btnCSV.Enabled = false;
                 }
                 
             };
