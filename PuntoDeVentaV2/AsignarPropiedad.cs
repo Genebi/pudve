@@ -1060,7 +1060,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-                    MessageBox.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema",3,true);
                 }
                 else
                 {
@@ -1152,7 +1152,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-                    MessageBox.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
                 }
                 
             }
@@ -1237,7 +1237,7 @@ namespace PuntoDeVentaV2
 
                         notificacion.Start();
                     }
-                    MessageBox.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema",3,true);
                 }
                 else
                 {
@@ -1273,7 +1273,7 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(consulta);
                     }
-                    MessageBox.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema",3,true);
                 }
                 else
                 {
@@ -1309,7 +1309,7 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(consulta);
                     }
-                    MessageBox.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema",3,true);
                 }
                 else
                 {
@@ -1415,7 +1415,7 @@ namespace PuntoDeVentaV2
 
                         notificacion.Start();
                     }
-                    MessageBox.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema",3,true);
                 }
                 else
                 {
@@ -1449,7 +1449,7 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(consulta);
                     }
-                    MessageBox.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
                 }
                 else
                 {
@@ -1479,7 +1479,7 @@ namespace PuntoDeVentaV2
                     consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), Impuesto = VALUES(Impuesto);";
 
                     cn.EjecutarConsulta(consulta);
-                    MessageBox.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
                 }
             }
             else if (propiedad == "ClaveProducto")
@@ -1506,7 +1506,7 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(consulta);
                     }
-                    MessageBox.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
                 }
                 else
                 {
@@ -1540,7 +1540,7 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(consulta);
                     }
-                    MessageBox.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
                 }
                 else
                 {
@@ -1585,7 +1585,7 @@ namespace PuntoDeVentaV2
                     consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDUsuario = VALUES(IDUsuario), IDProducto = VALUES(IDProducto), CorreoVentaProducto = VALUES(CorreoVentaProducto);";
 
                     cn.EjecutarConsulta(consulta);
-                    MessageBox.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
                 }
             }
             else if (propiedad == "Proveedor")
@@ -1623,7 +1623,7 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(consulta);
                     }
-                    MessageBox.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
                 }
                 else
                 {
@@ -1675,7 +1675,7 @@ namespace PuntoDeVentaV2
                     consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDProducto = VALUES(IDProducto), IDUsuario = VALUES(IDUsuario), IDDetalleGral = VALUES(IDDetalleGral), StatusDetalleGral = VALUES(StatusDetalleGral), panelContenido = VALUES(panelContenido);";
 
                     cn.EjecutarConsulta(consulta);
-                    MessageBox.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
                 }
             }
         }

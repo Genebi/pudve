@@ -54,7 +54,7 @@ namespace PuntoDeVentaV2
 
             if (contador)
             {
-                DialogResult ResultadoMensaje = MessageBox.Show($"{texto} \r\nEste mensaje se cerrará dentro de {TiempoMaximo.ToString("00")} segundos ...", titulo, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                DialogResult ResultadoMensaje = MessageBox.Show($"{texto} \r", titulo, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 IntervaloTiempo.Dispose();
             }
             else
