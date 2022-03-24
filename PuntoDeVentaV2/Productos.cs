@@ -5246,7 +5246,6 @@ namespace PuntoDeVentaV2
             {
                 //actualizarDatosDespuesDeAgregarProducto();
                 //linkLblPaginaActual_Click_1(sender, e);
-                //MessageBox.Show("Super mega Dislike");
                 //recargarDGV();
                 AgregarEditarProducto.stockNecesario = "0";
                 clickBoton = 0;
@@ -5255,6 +5254,14 @@ namespace PuntoDeVentaV2
                 //CargarDatos();
                 //btnUltimaPagina.PerformClick();
                 Utilidades.remplazarComillasSimplesEnLaTablaProductos();
+
+
+                p.primerPagina();
+                clickBoton = 1;
+                CargarDatos(EstadoProductosListados());
+                actualizar();
+                CambiarCheckBoxMaster();
+
             };
 
             if (!FormAgregar.Visible)
@@ -5414,6 +5421,8 @@ namespace PuntoDeVentaV2
             {
                 FormAgregar.DatosSource = 1;
                 FormAgregar.Titulo = "Agregar Combo";
+                FormAgregar.idProductoCambio = idProductoCambio;
+                FormAgregar.cambioProducto = cambioProducto;
             }
             else if (origenDeLosDatos == 2)
             {
@@ -5429,9 +5438,19 @@ namespace PuntoDeVentaV2
             FormAgregar.FormClosed += delegate
             {
                 //actualizarDatosDespuesDeAgregarProducto();
-                linkLblPaginaActual_Click_1(sender, e);
+                //linkLblPaginaActual_Click_1(sender, e);
+                AgregarEditarProducto.stockNecesario = "0";
+                clickBoton = 0;
+                agregarEspacioAlFinal();
+                
                 txtBusqueda.Focus();
                 Utilidades.remplazarComillasSimplesEnLaTablaProductos();
+                p.primerPagina();
+                clickBoton = 1;
+                CargarDatos(EstadoProductosListados());
+                //actualizarDatosDespuesDeAgregarProducto();
+                actualizar();
+                CambiarCheckBoxMaster();
             };
 
             if (!FormAgregar.Visible)
@@ -5506,7 +5525,13 @@ namespace PuntoDeVentaV2
             timer1.Start();
             lAtajo.Visible = true;
             lAtajo.Text = "Ctrl + S";
-            ///
+
+            p.primerPagina();
+            clickBoton = 1;
+            CargarDatos(EstadoProductosListados());
+            //actualizarDatosDespuesDeAgregarProducto();
+            actualizar();
+            CambiarCheckBoxMaster();
 
             if (opcion12 == 0)
             {
@@ -5517,6 +5542,12 @@ namespace PuntoDeVentaV2
             if (Application.OpenForms.OfType<AgregarEditarProducto>().Count() == 1)
             {
                 Application.OpenForms.OfType<AgregarEditarProducto>().First().Close();
+                p.primerPagina();
+                clickBoton = 0;
+                CargarDatos(EstadoProductosListados());
+                //actualizarDatosDespuesDeAgregarProducto();
+                actualizar();
+                CambiarCheckBoxMaster();
             }
 
             var FormAgregar = new AgregarEditarProducto("Agregar");
@@ -5542,9 +5573,20 @@ namespace PuntoDeVentaV2
             FormAgregar.FormClosed += delegate
             {
                 //actualizarDatosDespuesDeAgregarProducto();
-                linkLblPaginaActual_Click_1(sender, e);
+                //linkLblPaginaActual_Click_1(sender, e);
+                AgregarEditarProducto.stockNecesario = "0";
+                clickBoton = 0;
+                agregarEspacioAlFinal();
                 txtBusqueda.Focus();
                 Utilidades.remplazarComillasSimplesEnLaTablaProductos();
+
+                p.primerPagina();
+                clickBoton = 1;
+                CargarDatos(EstadoProductosListados());
+                //actualizarDatosDespuesDeAgregarProducto();
+                actualizar();
+                CambiarCheckBoxMaster();
+
             };
 
             if (!FormAgregar.Visible)
@@ -5552,7 +5594,7 @@ namespace PuntoDeVentaV2
                 if (seleccionadoDato == 0)
                 {
                     FormAgregar.ProdNombre = "";
-                    FormAgregar.Show();
+                    FormAgregar.ShowDialog();
                 }
                 else if (seleccionadoDato == 1)
                 {

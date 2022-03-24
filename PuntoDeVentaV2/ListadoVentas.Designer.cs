@@ -68,7 +68,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnActualizarMaximoProductos = new System.Windows.Forms.Button();
             this.txtMaximoPorPagina = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnSiguiente = new System.Windows.Forms.Button();
             this.btnUltimaPagina = new System.Windows.Forms.Button();
@@ -78,6 +77,7 @@
             this.linkLblPaginaSiguiente = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaActual = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaAnterior = new System.Windows.Forms.LinkLabel();
+            this.label7 = new System.Windows.Forms.Label();
             this.elegir_carpeta_descarga = new System.Windows.Forms.FolderBrowserDialog();
             this.pBar_descarga_verpdf = new System.Windows.Forms.ProgressBar();
             this.lb_texto_descarga_verpdf = new System.Windows.Forms.Label();
@@ -491,12 +491,12 @@
             // 
             this.panel1.Controls.Add(this.btnActualizarMaximoProductos);
             this.panel1.Controls.Add(this.txtMaximoPorPagina);
-            this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.linkLblPaginaSiguiente);
             this.panel1.Controls.Add(this.linkLblPaginaActual);
             this.panel1.Controls.Add(this.linkLblPaginaAnterior);
+            this.panel1.Controls.Add(this.label7);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.panel1.ForeColor = System.Drawing.Color.Red;
@@ -512,7 +512,7 @@
             this.btnActualizarMaximoProductos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnActualizarMaximoProductos.FlatAppearance.BorderSize = 0;
             this.btnActualizarMaximoProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnActualizarMaximoProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualizarMaximoProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizarMaximoProductos.ForeColor = System.Drawing.Color.Black;
             this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(796, 25);
             this.btnActualizarMaximoProductos.Name = "btnActualizarMaximoProductos";
@@ -533,18 +533,6 @@
             this.txtMaximoPorPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMaximoPorPagina.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMaximoPorPagina_KeyDown);
             this.txtMaximoPorPagina.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMaximoPorPagina_KeyPress);
-            // 
-            // label7
-            // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(577, 10);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(147, 51);
-            this.label7.TabIndex = 27;
-            this.label7.Text = "Cantidad de ventas para mostrar: ";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel4
             // 
@@ -671,6 +659,18 @@
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "1";
             this.linkLblPaginaAnterior.Click += new System.EventHandler(this.linkLblPaginaAnterior_Click);
+            // 
+            // label7
+            // 
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(568, 9);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(166, 51);
+            this.label7.TabIndex = 27;
+            this.label7.Text = "Cantidad de ventas para mostrar: ";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pBar_descarga_verpdf
             // 
