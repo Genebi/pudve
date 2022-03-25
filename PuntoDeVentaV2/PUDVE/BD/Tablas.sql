@@ -1850,3 +1850,4 @@ ALTER TABLE historialstock ADD COLUMN IF NOT EXISTS tipoDeVenta varchar (2);
 
 ALTER TABLE historialstock ADD COLUMN IF NOT EXISTS idComboServicio  int;
 
+ALTER TABLE productos ADD COLUMN IF NOT EXISTS EnWeb text;
