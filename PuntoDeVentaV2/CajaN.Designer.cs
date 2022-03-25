@@ -1299,9 +1299,9 @@
             this.lbCredito.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCredito.Location = new System.Drawing.Point(11, 205);
             this.lbCredito.Name = "lbCredito";
-            this.lbCredito.Size = new System.Drawing.Size(53, 17);
+            this.lbCredito.Size = new System.Drawing.Size(85, 17);
             this.lbCredito.TabIndex = 5;
-            this.lbCredito.Text = "Crédito";
+            this.lbCredito.Text = "Total Crédito";
             // 
             // lbTrans
             // 

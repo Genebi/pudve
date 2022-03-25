@@ -118,6 +118,14 @@ namespace PuntoDeVentaV2
 
             // Obtener saldo inicial
             CargarSaldoInicial();
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
+            }
+            else
+            {
+                seccionEmpleadoCaja(FormPrincipal.id_empleado.ToString());
+            }
 
             if (FormPrincipal.id_empleado > 0)
             {
@@ -2811,11 +2819,32 @@ namespace PuntoDeVentaV2
                 agregar.FormClosed += delegate
                 {
                     CargarSaldoInicial();
+                    if (!FormPrincipal.userNickName.Contains("@"))
+                    {
+                        cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
+                    }
+                    else
+                    {
+                        seccionEmpleadoCaja(FormPrincipal.id_empleado.ToString());
+                    }
+                    //filtradoInicial(sender, e);
                     //CargarSaldo();
                 };
 
                 agregar.Show();
             }
+        }
+
+        private void filtradoInicial(object sender)
+        {
+            //if (!FormPrincipal.userNickName.Contains("@"))
+            //{
+            //    cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
+            //}
+            //else
+            //{
+            //    seccionEmpleadoCaja(FormPrincipal.id_empleado.ToString());
+            //}
         }
 
         private void btnRedondoRetirarDinero_Click(object sender, EventArgs e)
@@ -2837,6 +2866,14 @@ namespace PuntoDeVentaV2
                 retirar.FormClosed += delegate
                 {
                     CargarSaldoInicial();
+                    if (!FormPrincipal.userNickName.Contains("@"))
+                    {
+                        cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
+                    }
+                    else
+                    {
+                        seccionEmpleadoCaja(FormPrincipal.id_empleado.ToString());
+                    }
                     //CargarSaldo();
                 };
 
@@ -2919,6 +2956,14 @@ namespace PuntoDeVentaV2
                     }
 
                     CargarSaldoInicial();
+                    if (!FormPrincipal.userNickName.Contains("@"))
+                    {
+                        cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
+                    }
+                    else
+                    {
+                        seccionEmpleadoCaja(FormPrincipal.id_empleado.ToString());
+                    }
                     //CargarSaldo();
 
                     //var correo = mb.correoUsuario();
