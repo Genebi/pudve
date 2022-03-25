@@ -25,15 +25,14 @@ namespace PuntoDeVentaV2
         {
             dgvProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-
-            using (DataTable dtDatosProductos = cn.CargarDatos(cs.ProductosParaFiltrarCSV()))
+            using (DataTable dtDatosProductos = cn.CargarDatos(cs.ProductosParaFiltrarCSV("AND EnWeb = 'Si'")))
             {
                 if (!dtDatosProductos.Rows.Count.Equals(0))
                 {
                     dgvProductos.DataSource = dtDatosProductos;
                     
                     foreach (DataGridViewColumn column in dgvProductos.Columns)
-                        dt.Columns.Add(column.Name); 
+                        dt.Columns.Add(column.Name);
                     
                 }
             }
@@ -54,5 +53,47 @@ namespace PuntoDeVentaV2
             this.Close();
         }
 
+        private void chbVerTodos_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chbVerTodos.Checked)
+            {
+                using (DataTable dtDatosProductos = cn.CargarDatos(cs.ProductosParaFiltrarCSV("")))
+                {
+                    if (!dtDatosProductos.Rows.Count.Equals(0))
+                    {
+                        dgvProductos.DataSource = dtDatosProductos;
+
+                    }
+                }
+            }
+            else
+            {
+                using (DataTable dtDatosProductos = cn.CargarDatos(cs.ProductosParaFiltrarCSV("AND EnWeb = 'Si'")))
+                {
+                    if (!dtDatosProductos.Rows.Count.Equals(0))
+                    {
+                        dgvProductos.DataSource = dtDatosProductos;
+
+                    }
+                }
+            }
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            SeleccionarLosProductosDadosDeAltaEnLaWeb frmshowProductos = new SeleccionarLosProductosDadosDeAltaEnLaWeb();
+            frmshowProductos.FormClosed += delegate
+            {
+                using (DataTable dtDatosProductos = cn.CargarDatos(cs.ProductosParaFiltrarCSV("AND EnWeb = 'Si'")))
+                {
+                    if (!dtDatosProductos.Rows.Count.Equals(0))
+                    {
+                        dgvProductos.DataSource = dtDatosProductos;
+
+                    }
+                }
+            };
+                frmshowProductos.ShowDialog();
+        }
     }
 }

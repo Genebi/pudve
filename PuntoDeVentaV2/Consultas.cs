@@ -3466,9 +3466,16 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string ProductosParaFiltrarCSV()
+        public string ProductosParaFiltrarCSV(string EnWeb)
         {
-            var consulta = $"SELECT ID, Nombre, Stock FROM productos WHERE IDUsuario	= '{FormPrincipal.userID}' AND	`Status`=	'1' AND Tipo = 'P', AND EnWeb = 'Si'";
+            var consulta = $"SELECT ID AS 'Identificador URL', ID AS 'SKU', Nombre, Stock, Precio, CodigoBarras AS 'Codigo de barras' FROM productos WHERE IDUsuario	= '{FormPrincipal.userID}' AND	`Status`= '1' AND Tipo = 'P' {EnWeb}";
+
+            return consulta;
+        }
+
+        public string EstadoDeRegistroDeProductoComoEnWeb(string ID, string estadoWeb)
+        {
+            var consulta = $"UPDATE productos SET EnWeb = {estadoWeb} WHERE ID = {ID} AND IDUsuario = '{FormPrincipal.userID}'";
 
             return consulta;
         }

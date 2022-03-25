@@ -62,6 +62,7 @@ namespace PuntoDeVentaV2
                         MessageBox.Show($@"Guardado satisfactoriamente en: {directorio}Productos.csv");
                     
                 }
+                this.Close();
             };
             frmFiltradoParaExportar.ShowDialog();
         }
