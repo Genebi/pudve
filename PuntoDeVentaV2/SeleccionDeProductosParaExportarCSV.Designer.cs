@@ -30,7 +30,8 @@ namespace PuntoDeVentaV2
         private void InitializeComponent()
         {
             this.dgvProductos = new System.Windows.Forms.DataGridView();
-            this.Seleccion = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.Cancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProductos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -42,31 +43,40 @@ namespace PuntoDeVentaV2
             this.dgvProductos.AllowUserToResizeRows = false;
             this.dgvProductos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvProductos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvProductos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Seleccion});
-            this.dgvProductos.Location = new System.Drawing.Point(23, 25);
+            this.dgvProductos.Location = new System.Drawing.Point(23, 27);
             this.dgvProductos.Name = "dgvProductos";
             this.dgvProductos.ReadOnly = true;
             this.dgvProductos.RowHeadersVisible = false;
-            this.dgvProductos.Size = new System.Drawing.Size(577, 323);
+            this.dgvProductos.Size = new System.Drawing.Size(577, 303);
             this.dgvProductos.TabIndex = 0;
             // 
-            // Seleccion
+            // btnOK
             // 
-            this.Seleccion.FalseValue = "0";
-            this.Seleccion.HeaderText = "Seleccion";
-            this.Seleccion.IndeterminateValue = "0";
-            this.Seleccion.Name = "Seleccion";
-            this.Seleccion.ReadOnly = true;
-            this.Seleccion.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Seleccion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Seleccion.TrueValue = "1";
+            this.btnOK.Location = new System.Drawing.Point(413, 354);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(186, 28);
+            this.btnOK.TabIndex = 1;
+            this.btnOK.Text = "ok";
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            // 
+            // Cancel
+            // 
+            this.Cancel.Location = new System.Drawing.Point(23, 354);
+            this.Cancel.Name = "Cancel";
+            this.Cancel.Size = new System.Drawing.Size(186, 28);
+            this.Cancel.TabIndex = 1;
+            this.Cancel.Text = "Cancelar";
+            this.Cancel.UseVisualStyleBackColor = true;
+            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
             // SeleccionDeProductosParaExportarCSV
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(622, 394);
+            this.Controls.Add(this.Cancel);
+            this.Controls.Add(this.btnOK);
             this.Controls.Add(this.dgvProductos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -83,6 +93,7 @@ namespace PuntoDeVentaV2
         #endregion
 
         private System.Windows.Forms.DataGridView dgvProductos;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Seleccion;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button Cancel;
     }
 }
