@@ -34,6 +34,8 @@ namespace PuntoDeVentaV2
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.Cancel = new System.Windows.Forms.Button();
+            this.txtBusquedaTodos = new System.Windows.Forms.TextBox();
+            this.txtBusquedaEnWeb = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSis)).BeginInit();
             this.SuspendLayout();
@@ -46,7 +48,7 @@ namespace PuntoDeVentaV2
             this.dgvNel.AllowUserToResizeRows = false;
             this.dgvNel.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvNel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvNel.Location = new System.Drawing.Point(12, 35);
+            this.dgvNel.Location = new System.Drawing.Point(12, 63);
             this.dgvNel.MultiSelect = false;
             this.dgvNel.Name = "dgvNel";
             this.dgvNel.RowHeadersVisible = false;
@@ -62,7 +64,7 @@ namespace PuntoDeVentaV2
             this.dgvSis.AllowUserToResizeRows = false;
             this.dgvSis.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvSis.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSis.Location = new System.Drawing.Point(414, 35);
+            this.dgvSis.Location = new System.Drawing.Point(414, 63);
             this.dgvSis.MultiSelect = false;
             this.dgvSis.Name = "dgvSis";
             this.dgvSis.RowHeadersVisible = false;
@@ -90,7 +92,7 @@ namespace PuntoDeVentaV2
             // 
             // Cancel
             // 
-            this.Cancel.Location = new System.Drawing.Point(12, 444);
+            this.Cancel.Location = new System.Drawing.Point(12, 472);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(186, 28);
             this.Cancel.TabIndex = 2;
@@ -98,11 +100,33 @@ namespace PuntoDeVentaV2
             this.Cancel.UseVisualStyleBackColor = true;
             this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
+            // txtBusquedaTodos
+            // 
+            this.txtBusquedaTodos.Location = new System.Drawing.Point(12, 37);
+            this.txtBusquedaTodos.Name = "txtBusquedaTodos";
+            this.txtBusquedaTodos.Size = new System.Drawing.Size(374, 20);
+            this.txtBusquedaTodos.TabIndex = 3;
+            this.txtBusquedaTodos.Text = "Filtrar por nombre";
+            this.txtBusquedaTodos.TextChanged += new System.EventHandler(this.txtBusquedaTodos_TextChanged);
+            this.txtBusquedaTodos.MouseDown += new System.Windows.Forms.MouseEventHandler(this.txtBusquedaTodos_MouseDown);
+            // 
+            // txtBusquedaEnWeb
+            // 
+            this.txtBusquedaEnWeb.Location = new System.Drawing.Point(414, 37);
+            this.txtBusquedaEnWeb.Name = "txtBusquedaEnWeb";
+            this.txtBusquedaEnWeb.Size = new System.Drawing.Size(374, 20);
+            this.txtBusquedaEnWeb.TabIndex = 3;
+            this.txtBusquedaEnWeb.Text = "Filtrar por nombre";
+            this.txtBusquedaEnWeb.TextChanged += new System.EventHandler(this.txtBusquedaEnWeb_TextChanged);
+            this.txtBusquedaEnWeb.MouseDown += new System.Windows.Forms.MouseEventHandler(this.txtBusquedaEnWeb_MouseDown);
+            // 
             // SeleccionarLosProductosDadosDeAltaEnLaWeb
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 482);
+            this.ClientSize = new System.Drawing.Size(800, 524);
+            this.Controls.Add(this.txtBusquedaEnWeb);
+            this.Controls.Add(this.txtBusquedaTodos);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -111,11 +135,13 @@ namespace PuntoDeVentaV2
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SeleccionarLosProductosDadosDeAltaEnLaWeb";
-            this.Text = "SeleccionarLosProductosDadosDeAltaEnLaWeb";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Productos en la Página";
             this.Load += new System.EventHandler(this.SeleccionarLosProductosDadosDeAltaEnLaWeb_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvNel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSis)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -126,5 +152,7 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button Cancel;
+        private System.Windows.Forms.TextBox txtBusquedaTodos;
+        private System.Windows.Forms.TextBox txtBusquedaEnWeb;
     }
 }

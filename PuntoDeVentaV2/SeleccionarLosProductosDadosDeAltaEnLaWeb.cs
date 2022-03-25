@@ -31,7 +31,7 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
-                cn.EjecutarConsulta(cs.EstadoDeRegistroDeProductoComoEnWeb(dgvNel.Rows[e.RowIndex].Cells["SKU"].Value.ToString(), "'Si'"));
+                cn.EjecutarConsulta(cs.EstadoDeRegistroDeProductoComoEnWeb(dgvNel.Rows[e.RowIndex].Cells["ID"].Value.ToString(), "'Si'"));
                 actualizarDGV();
             }
             
@@ -41,7 +41,7 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
-                cn.EjecutarConsulta(cs.EstadoDeRegistroDeProductoComoEnWeb(dgvSis.Rows[e.RowIndex].Cells["SKU"].Value.ToString(), "'No'"));
+                cn.EjecutarConsulta(cs.EstadoDeRegistroDeProductoComoEnWeb(dgvSis.Rows[e.RowIndex].Cells["ID"].Value.ToString(), "'No'"));
                 actualizarDGV();
             }
             
@@ -50,7 +50,7 @@ namespace PuntoDeVentaV2
         private void actualizarDGV()
         {
 
-            using (DataTable dtDatosProductos = cn.CargarDatos(cs.ProductosParaFiltrarCSV("AND EnWeb = 'Si'")))
+            using (DataTable dtDatosProductos = cn.CargarDatos(cs.ProductosParaFiltrarCSVFiltroSiEstaEnWeb("AND EnWeb = 'Si'")))
             {
                 if (!dtDatosProductos.Rows.Count.Equals(0))
                 {
@@ -58,7 +58,7 @@ namespace PuntoDeVentaV2
                     dgvSis.ClearSelection();
                 }
             }
-            using (DataTable dtDatosProductos = cn.CargarDatos(cs.ProductosParaFiltrarCSV("")))
+            using (DataTable dtDatosProductos = cn.CargarDatos(cs.ProductosParaFiltrarCSVFiltroSiEstaEnWeb("")))
             {
                 if (!dtDatosProductos.Rows.Count.Equals(0))
                 {
@@ -72,6 +72,32 @@ namespace PuntoDeVentaV2
         private void Cancel_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void txtBusquedaTodos_TextChanged(object sender, EventArgs e)
+        {
+            var concepto = txtBusquedaTodos.Text.Trim();
+            var consulta = $"Nombre LIKE '%{concepto}%'";
+            (dgvNel.DataSource as DataTable).DefaultView.RowFilter = string.Format(consulta);
+            dgvNel.ClearSelection();
+        }
+
+        private void txtBusquedaEnWeb_TextChanged(object sender, EventArgs e)
+        {
+            var concepto = txtBusquedaEnWeb.Text.Trim();
+            var consulta = $"Nombre LIKE '%{concepto}%'";
+            (dgvSis.DataSource as DataTable).DefaultView.RowFilter = string.Format(consulta);
+            dgvSis.ClearSelection();
+        }
+
+        private void txtBusquedaTodos_MouseDown(object sender, MouseEventArgs e)
+        {
+            txtBusquedaTodos.Clear();
+        }
+
+        private void txtBusquedaEnWeb_MouseDown(object sender, MouseEventArgs e)
+        {
+            txtBusquedaEnWeb.Text = "";
         }
     }
 }
