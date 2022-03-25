@@ -261,7 +261,6 @@ namespace PuntoDeVentaV2
                         var precioActual = (float)Convert.ToDecimal(valor[1]);
 
 
-                        if (!checkboxMarcados.ContainsKey(id))
                         {
                             checkboxMarcados.Add(id, tipo);
                         }
@@ -509,6 +508,7 @@ namespace PuntoDeVentaV2
                         obtenerDatosDGVProductos(numerofila, idProducto);
                         origenDeLosDatos = 2;
                     }
+
 
                     var producto = cn.BuscarProducto(Convert.ToInt32(idProducto), Convert.ToInt32(id));
 
