@@ -29,14 +29,22 @@ namespace PuntoDeVentaV2
 
         private void dgvNel_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            cn.EjecutarConsulta(cs.EstadoDeRegistroDeProductoComoEnWeb(dgvNel.Rows[e.RowIndex].Cells["SKU"].Value.ToString(), "'Si'"));
-            actualizarDGV();
+            if (e.RowIndex >= 0)
+            {
+                cn.EjecutarConsulta(cs.EstadoDeRegistroDeProductoComoEnWeb(dgvNel.Rows[e.RowIndex].Cells["SKU"].Value.ToString(), "'Si'"));
+                actualizarDGV();
+            }
+            
         }
 
         private void dgvSis_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            cn.EjecutarConsulta(cs.EstadoDeRegistroDeProductoComoEnWeb(dgvSis.Rows[e.RowIndex].Cells["SKU"].Value.ToString(), "'No'"));
-            actualizarDGV();
+            if (e.RowIndex >= 0)
+            {
+                cn.EjecutarConsulta(cs.EstadoDeRegistroDeProductoComoEnWeb(dgvSis.Rows[e.RowIndex].Cells["SKU"].Value.ToString(), "'No'"));
+                actualizarDGV();
+            }
+            
         }
 
         private void actualizarDGV()
@@ -47,7 +55,7 @@ namespace PuntoDeVentaV2
                 if (!dtDatosProductos.Rows.Count.Equals(0))
                 {
                     dgvSis.DataSource = dtDatosProductos;
-
+                    dgvSis.ClearSelection();
                 }
             }
             using (DataTable dtDatosProductos = cn.CargarDatos(cs.ProductosParaFiltrarCSV("")))
@@ -55,9 +63,10 @@ namespace PuntoDeVentaV2
                 if (!dtDatosProductos.Rows.Count.Equals(0))
                 {
                     dgvNel.DataSource = dtDatosProductos;
-
+                    dgvNel.ClearSelection();
                 }
             }
+            
         }
 
         private void Cancel_Click(object sender, EventArgs e)
