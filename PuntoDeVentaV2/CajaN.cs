@@ -4,15 +4,11 @@ using iTextSharp.text.pdf.draw;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PuntoDeVentaV2
@@ -26,7 +22,7 @@ namespace PuntoDeVentaV2
         CargarDatosCaja cdc = new CargarDatosCaja();
 
         int clickBotonCorteDeCaja = 0;
-        
+
         public static bool recargarDatos = false;
         public static bool botones = false;
 
@@ -122,7 +118,7 @@ namespace PuntoDeVentaV2
 
             // Obtener saldo inicial
             CargarSaldoInicial();
-            
+
             if (FormPrincipal.id_empleado > 0)
             {
                 var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Caja");
@@ -312,7 +308,7 @@ namespace PuntoDeVentaV2
             corteCaja = 1;
 
             var f = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            
+
             date = f;
             if (opcion6 == 0)
             {
@@ -404,13 +400,13 @@ namespace PuntoDeVentaV2
                     this.Refresh();
                     Application.DoEvents();
                 };
-                
+
                 corte.Show();
 
                 //GenerarTicket();
             }
             abonos = 0;
-           
+
         }
 
         private void cerrarSesionEnCorteDeCaja()
@@ -791,7 +787,7 @@ namespace PuntoDeVentaV2
             //                transCorte = devolucionTrans.ToString();
             //                totCorte = devoluciones.ToString();
 
-            efectivoCorte = datos[57].ToString(); 
+            efectivoCorte = datos[57].ToString();
             tarjetaCorte = datos[58].ToString();
             valesCorte = datos[59].ToString();
             chequeCorte = datos[60].ToString();
@@ -1224,7 +1220,7 @@ namespace PuntoDeVentaV2
             // Cantidades de las columnas
             var cantidades = cantidadesReporte;
 
-            float[] anchoColumnas = new float[] { 120f, 80f, 100f, 100f, 100f, 100f, 100f, 100f ,120f, 80f };
+            float[] anchoColumnas = new float[] { 120f, 80f, 100f, 100f, 100f, 100f, 100f, 100f, 120f, 80f };
 
             // Linea serapadora
             Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
@@ -2096,12 +2092,12 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colTotalDineroR);
             tabla.AddCell(colTotalFinal);
             tabla.AddCell(colTotalFinalC);
-            
+
             #endregion
             //===========================================
             //===    FIN  TABLAS DE CORTE DE CAJA     ===
             //===========================================
-            
+
             reporte.Add(tabla);
             reporte.Add(linea);
 
@@ -2193,42 +2189,42 @@ namespace PuntoDeVentaV2
                     //var fecha = Convert.ToDateTime(item["FechaOperacion"]).ToString("0.00");
 
                     PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase("ADMIN", fuenteNormal));
-                        colEmpleadoTmp.BorderWidth = 0;
-                        colEmpleadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colEmpleadoTmp.BorderWidth = 0;
+                    colEmpleadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoEfectivoTmp = new PdfPCell(new Phrase("$" + efectivo, fuenteNormal));
-                        colDepositoEfectivoTmp.BorderWidth = 0;
-                        colDepositoEfectivoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoEfectivoTmp = new PdfPCell(new Phrase("$" + efectivo, fuenteNormal));
+                    colDepositoEfectivoTmp.BorderWidth = 0;
+                    colDepositoEfectivoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoTarjetaTmp = new PdfPCell(new Phrase("$" + tarjeta, fuenteNormal));
-                        colDepositoTarjetaTmp.BorderWidth = 0;
-                        colDepositoTarjetaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoTarjetaTmp = new PdfPCell(new Phrase("$" + tarjeta, fuenteNormal));
+                    colDepositoTarjetaTmp.BorderWidth = 0;
+                    colDepositoTarjetaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoValesTmp = new PdfPCell(new Phrase("$" + vales, fuenteNormal));
-                        colDepositoValesTmp.BorderWidth = 0;
-                        colDepositoValesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoValesTmp = new PdfPCell(new Phrase("$" + vales, fuenteNormal));
+                    colDepositoValesTmp.BorderWidth = 0;
+                    colDepositoValesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoChequeTmp = new PdfPCell(new Phrase("$" + cheque, fuenteNormal));
-                        colDepositoChequeTmp.BorderWidth = 0;
-                        colDepositoChequeTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoChequeTmp = new PdfPCell(new Phrase("$" + cheque, fuenteNormal));
+                    colDepositoChequeTmp.BorderWidth = 0;
+                    colDepositoChequeTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoTransTmp = new PdfPCell(new Phrase("$" + trans, fuenteNormal));
-                        colDepositoTransTmp.BorderWidth = 0;
-                        colDepositoTransTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoTransTmp = new PdfPCell(new Phrase("$" + trans, fuenteNormal));
+                    colDepositoTransTmp.BorderWidth = 0;
+                    colDepositoTransTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoFechaTmp = new PdfPCell(new Phrase(fecha, fuenteNormal));
-                        colDepositoFechaTmp.BorderWidth = 0;
-                        colDepositoFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoFechaTmp = new PdfPCell(new Phrase(fecha, fuenteNormal));
+                    colDepositoFechaTmp.BorderWidth = 0;
+                    colDepositoFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        tablaDepositos.AddCell(colEmpleadoTmp);
-                        tablaDepositos.AddCell(colDepositoEfectivoTmp);
-                        tablaDepositos.AddCell(colDepositoTarjetaTmp);
-                        tablaDepositos.AddCell(colDepositoValesTmp);
-                        tablaDepositos.AddCell(colDepositoChequeTmp);
-                        tablaDepositos.AddCell(colDepositoTransTmp);
-                        tablaDepositos.AddCell(colDepositoFechaTmp);
+                    tablaDepositos.AddCell(colEmpleadoTmp);
+                    tablaDepositos.AddCell(colDepositoEfectivoTmp);
+                    tablaDepositos.AddCell(colDepositoTarjetaTmp);
+                    tablaDepositos.AddCell(colDepositoValesTmp);
+                    tablaDepositos.AddCell(colDepositoChequeTmp);
+                    tablaDepositos.AddCell(colDepositoTransTmp);
+                    tablaDepositos.AddCell(colDepositoFechaTmp);
                     //}
-                    
+
                 }
 
                 reporte.Add(tituloDepositos);
@@ -2245,7 +2241,7 @@ namespace PuntoDeVentaV2
             //===============================
             //=== FIN TABLA DE DEPOSITOS  ===
             //===============================
-            
+
             //=========================
             //=== TABLA DE RETIROS  ===
             //=========================
@@ -2339,45 +2335,45 @@ namespace PuntoDeVentaV2
                     //var fecha = Convert.ToDateTime(item["FechaOperacion"]).ToString("0.00");
 
                     PdfPCell colEmpleadoTmpR = new PdfPCell(new Phrase("ADMIN", fuenteNormal));
-                        colEmpleadoTmpR.BorderWidth = 0;
-                        colEmpleadoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colEmpleadoTmpR.BorderWidth = 0;
+                    colEmpleadoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoEfectivoTmpR = new PdfPCell(new Phrase("$" + efectivo, fuenteNormal));
-                        colDepositoEfectivoTmpR.BorderWidth = 0;
-                        colDepositoEfectivoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoEfectivoTmpR = new PdfPCell(new Phrase("$" + efectivo, fuenteNormal));
+                    colDepositoEfectivoTmpR.BorderWidth = 0;
+                    colDepositoEfectivoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoTarjetaTmpR = new PdfPCell(new Phrase("$" + tarjeta, fuenteNormal));
-                        colDepositoTarjetaTmpR.BorderWidth = 0;
-                        colDepositoTarjetaTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoTarjetaTmpR = new PdfPCell(new Phrase("$" + tarjeta, fuenteNormal));
+                    colDepositoTarjetaTmpR.BorderWidth = 0;
+                    colDepositoTarjetaTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoValesTmpR = new PdfPCell(new Phrase("$" + vales, fuenteNormal));
-                        colDepositoValesTmpR.BorderWidth = 0;
-                        colDepositoValesTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoValesTmpR = new PdfPCell(new Phrase("$" + vales, fuenteNormal));
+                    colDepositoValesTmpR.BorderWidth = 0;
+                    colDepositoValesTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoChequeTmpR = new PdfPCell(new Phrase("$" + cheque, fuenteNormal));
-                        colDepositoChequeTmpR.BorderWidth = 0;
-                        colDepositoChequeTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoChequeTmpR = new PdfPCell(new Phrase("$" + cheque, fuenteNormal));
+                    colDepositoChequeTmpR.BorderWidth = 0;
+                    colDepositoChequeTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoTransTmpR = new PdfPCell(new Phrase("$" + trans, fuenteNormal));
-                        colDepositoTransTmpR.BorderWidth = 0;
-                        colDepositoTransTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoTransTmpR = new PdfPCell(new Phrase("$" + trans, fuenteNormal));
+                    colDepositoTransTmpR.BorderWidth = 0;
+                    colDepositoTransTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        //PdfPCell colDepositoCreditoTmpR = new PdfPCell(new Phrase("$" + credito, fuenteNormal));
-                        //colDepositoCreditoTmpR.BorderWidth = 0;
-                        //colDepositoCreditoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                    //PdfPCell colDepositoCreditoTmpR = new PdfPCell(new Phrase("$" + credito, fuenteNormal));
+                    //colDepositoCreditoTmpR.BorderWidth = 0;
+                    //colDepositoCreditoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoFechaTmpR = new PdfPCell(new Phrase(fecha, fuenteNormal));
-                        colDepositoFechaTmpR.BorderWidth = 0;
-                        colDepositoFechaTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoFechaTmpR = new PdfPCell(new Phrase(fecha, fuenteNormal));
+                    colDepositoFechaTmpR.BorderWidth = 0;
+                    colDepositoFechaTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        tablaRetiros.AddCell(colEmpleadoTmpR);
-                        tablaRetiros.AddCell(colDepositoEfectivoTmpR);
-                        tablaRetiros.AddCell(colDepositoTarjetaTmpR);
-                        tablaRetiros.AddCell(colDepositoValesTmpR);
-                        tablaRetiros.AddCell(colDepositoChequeTmpR);
-                        tablaRetiros.AddCell(colDepositoTransTmpR);
-                        //tablaRetiros.AddCell(colDepositoCreditoTmpR);
-                        tablaRetiros.AddCell(colDepositoFechaTmpR);
+                    tablaRetiros.AddCell(colEmpleadoTmpR);
+                    tablaRetiros.AddCell(colDepositoEfectivoTmpR);
+                    tablaRetiros.AddCell(colDepositoTarjetaTmpR);
+                    tablaRetiros.AddCell(colDepositoValesTmpR);
+                    tablaRetiros.AddCell(colDepositoChequeTmpR);
+                    tablaRetiros.AddCell(colDepositoTransTmpR);
+                    //tablaRetiros.AddCell(colDepositoCreditoTmpR);
+                    tablaRetiros.AddCell(colDepositoFechaTmpR);
                     //}
 
                 }
@@ -2390,7 +2386,7 @@ namespace PuntoDeVentaV2
             }
 
 
-            
+
             #endregion
             //=============================
             //=== FIN TABLA DE RETIROS  ===
@@ -2416,7 +2412,7 @@ namespace PuntoDeVentaV2
                 result = Convert.ToInt32(query.Rows[0]["NumFolio"].ToString());
             }
 
-            return result; 
+            return result;
         }
 
         private void GenerarTicket()
@@ -2538,7 +2534,7 @@ namespace PuntoDeVentaV2
             var datos = new string[] { FormPrincipal.userID.ToString(), "0", "0", "0", "0", "0", "0", "0", "0", "0", "N/A", "1", FechaOperacion, "Apertura de Caja", FormPrincipal.id_empleado.ToString(), "N/A" };
             cn.EjecutarConsulta(cs.GuardarAperturaDeCaja(datos));
 
-            Utilidades.GenerarTicketCaja(); 
+            Utilidades.GenerarTicketCaja();
         }
 
         private void btnCambioAbonos_Click(object sender, EventArgs e)
@@ -3586,21 +3582,21 @@ namespace PuntoDeVentaV2
                             {
                                 foreach (DataRow item in dtSeccionVentaEmpleado.Rows)
                                 {
-                                    decimal cantidadEfectivo = 0, 
-                                            cantidadTarjeta = 0, 
-                                            cantidadVales = 0, 
-                                            cantidadCheque = 0, 
-                                            cantidadTransferencia = 0, 
-                                            cantidadCredito = 0, 
-                                            cantidadAbonos = 0, 
-                                            cantidadAnticipos = 0, 
+                                    decimal cantidadEfectivo = 0,
+                                            cantidadTarjeta = 0,
+                                            cantidadVales = 0,
+                                            cantidadCheque = 0,
+                                            cantidadTransferencia = 0,
+                                            cantidadCredito = 0,
+                                            cantidadAbonos = 0,
+                                            cantidadAnticipos = 0,
                                             cantidadTotalVentas = 0;
 
                                     if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
                                     {
                                         cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
                                     }
-                                    
+
                                     if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
                                     {
                                         cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
