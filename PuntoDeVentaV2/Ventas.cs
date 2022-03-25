@@ -263,6 +263,8 @@ namespace PuntoDeVentaV2
 
         private void Ventas_Load(object sender, EventArgs e)
         {
+            mostrarBotonCSV();
+
             ventaGuardadappt = 0;
             if (string.IsNullOrEmpty(lbDatosCliente.Text))
             {
@@ -337,6 +339,18 @@ namespace PuntoDeVentaV2
 
             iniciarBasculaPredeterminada();
             txtBuscadorProducto.Focus();
+        }
+
+        private void mostrarBotonCSV()
+        {
+            if (FormPrincipal.userNickName.Equals("HOUSEDEPOTAUTLAN")|| FormPrincipal.userNickName.Equals("HOUSEDEPOTREPARTO"))
+            {
+                btnCSV.Visible = true;
+            }
+            else
+            {
+                btnCSV.Visible = false;
+            }
         }
 
         private void BuscarTieneFoco(object sender, EventArgs e)
@@ -1354,6 +1368,11 @@ namespace PuntoDeVentaV2
 
                             DGVentas.Rows.RemoveAt(celdaCellClick);
 
+                            if (DGVentas.Rows.Count==0)
+                            {
+                                btnCSV.Enabled = true;
+                            }
+
                             if (productosDescuentoG.ContainsKey(idProducto))
                             {
                                 productosDescuentoG.Remove(idProducto);
@@ -1442,6 +1461,10 @@ namespace PuntoDeVentaV2
                         {
                             descuentosDirectos.Remove(idProducto);
                         }
+                    }
+                    if (DGVentas.Rows.Count == 0)
+                    {
+                        btnCSV.Enabled = true;
                     }
                 }
                 if (!DGVentas.Rows.Count.Equals(0))
@@ -5865,6 +5888,10 @@ namespace PuntoDeVentaV2
                     mostrarDatosTraidosBuscador();
                     reproducirProductoAgregado();
                     contadorMensaje = 0;
+                    if (DGVentas.Rows.Count >0)
+                    {
+                        btnCSV.Enabled = false;
+                    }
                 };
 
                 //listProductos.Add(datosProducto[0] + "|" + cantidad.ToString());
@@ -6837,6 +6864,28 @@ namespace PuntoDeVentaV2
         private void panel2_Click(object sender, EventArgs e)
         {
             limpiarImagenDelProducto();
+        }
+
+        private void btnCSV_Click(object sender, EventArgs e)
+        {
+            ImportarExportarCSV frmCsv = new ImportarExportarCSV();
+            frmCsv.FormClosed += delegate
+            {
+                if (0 < frmCsv.dtVentas.Rows.Count)
+                {
+                    for (int i = 0; i < frmCsv.dtVentas.Rows.Count; i++)
+                    {
+                        var stringArr = frmCsv.dtVentas.Rows[i].ItemArray.Select(x => x.ToString()).ToArray();
+                        decimal d = decimal.Parse(stringArr[6]);
+                        AgregarProductoLista(stringArr, d);
+
+                    }
+                    btnCSV.Enabled = false;
+                }
+                
+            };
+            frmCsv.ShowDialog();
+
         }
 
         private void DGVentas_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)

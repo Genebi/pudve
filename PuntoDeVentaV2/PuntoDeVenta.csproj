@@ -662,6 +662,12 @@
     <Compile Include="FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImportarExportarCSV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportarExportarCSV.Designer.cs">
+      <DependentUpon>ImportarExportarCSV.cs</DependentUpon>
+    </Compile>
     <Compile Include="GenerarEtiqueta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -974,6 +980,18 @@
     </Compile>
     <Compile Include="SeleccionarConceptosReporteActualizarInventario.Designer.cs">
       <DependentUpon>SeleccionarConceptosReporteActualizarInventario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SeleccionarLosProductosDadosDeAltaEnLaWeb.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeleccionarLosProductosDadosDeAltaEnLaWeb.Designer.cs">
+      <DependentUpon>SeleccionarLosProductosDadosDeAltaEnLaWeb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SeleccionDeProductosParaExportarCSV.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SeleccionDeProductosParaExportarCSV.Designer.cs">
+      <DependentUpon>SeleccionDeProductosParaExportarCSV.cs</DependentUpon>
     </Compile>
     <Compile Include="Service References\ServiceReferenceTPrueba\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -1332,6 +1350,9 @@
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ImportarExportarCSV.resx">
+      <DependentUpon>ImportarExportarCSV.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GenerarEtiqueta.resx">
       <DependentUpon>GenerarEtiqueta.cs</DependentUpon>
     </EmbeddedResource>
@@ -1483,6 +1504,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SeleccionarConceptosReporteActualizarInventario.resx">
       <DependentUpon>SeleccionarConceptosReporteActualizarInventario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeleccionarLosProductosDadosDeAltaEnLaWeb.resx">
+      <DependentUpon>SeleccionarLosProductosDadosDeAltaEnLaWeb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeleccionDeProductosParaExportarCSV.resx">
+      <DependentUpon>SeleccionDeProductosParaExportarCSV.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="setNombreConceptoDinamico.resx">
       <DependentUpon>setNombreConceptoDinamico.cs</DependentUpon>

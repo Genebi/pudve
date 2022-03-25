@@ -867,7 +867,7 @@
             this.panel1.Controls.Add(this.btnEnvioCorreo);
             this.panel1.Location = new System.Drawing.Point(133, 83);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(977, 100);
+            this.panel1.Size = new System.Drawing.Size(977, 114);
             this.panel1.TabIndex = 137;
             // 
             // btnConfiguracionGeneral

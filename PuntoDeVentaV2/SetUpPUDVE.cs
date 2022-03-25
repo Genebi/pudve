@@ -1305,5 +1305,6 @@ namespace PuntoDeVentaV2
             }
             
         }
+
     }
 }

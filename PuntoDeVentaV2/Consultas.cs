@@ -3446,5 +3446,46 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+        
+        public string ExportarTodosLosDatosDeProductosACSV()
+        {
+            var consulta = $"SELECT ID AS 'Identificador URL', ID AS 'SKU', Nombre, Stock, Precio, CodigoBarras AS 'Codigo de barras' FROM productos WHERE IDUsuario	= '{FormPrincipal.userID}' AND	`Status`=	'1' AND Tipo = 'P'";
+
+            return consulta;
+        }
+
+        public string ImportarProductosDeCSV( string id, string stock)
+        {
+            var consulta = $"UPDATE productos SET Stock = {stock} WHERE ID = {id} AND IDUsuario	= '{FormPrincipal.userID}' AND	`Status`=	'1' AND Tipo = 'P'";
+            return consulta;
+        }
+
+        public string LLamarDatosNoIncluidosEnElArchivoCSVExportableDeVentas(string ID)
+        {
+            var consulta = $"SELECT Nombre, Precio, Stock  FROM productos WHERE IDUsuario = {FormPrincipal.userID} AND id = {ID}";
+            return consulta;
+        }
+
+        public string ProductosParaFiltrarCSV(string EnWeb)
+        {
+            var consulta = $"SELECT ID AS 'Identificador URL', ID AS 'SKU', Nombre, Stock, Precio, CodigoBarras AS 'Codigo de barras' FROM productos WHERE IDUsuario	= '{FormPrincipal.userID}' AND	`Status`= '1' AND Tipo = 'P' {EnWeb}";
+
+            return consulta;
+        }
+
+        public string EstadoDeRegistroDeProductoComoEnWeb(string ID, string estadoWeb)
+        {
+            var consulta = $"UPDATE productos SET EnWeb = {estadoWeb} WHERE ID = {ID} AND IDUsuario = '{FormPrincipal.userID}'";
+
+            return consulta;
+        }
+
+        public string ProductosParaFiltrarCSVFiltroSiEstaEnWeb(string EnWeb)
+        {
+            var consulta = $"SELECT ID, Nombre, Stock FROM productos WHERE IDUsuario	= '{FormPrincipal.userID}' AND	`Status`= '1' AND Tipo = 'P' {EnWeb}";
+
+            return consulta;
+        }
+
     }
 }  
