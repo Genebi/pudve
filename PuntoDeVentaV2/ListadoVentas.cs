@@ -3833,38 +3833,73 @@ namespace PuntoDeVentaV2
         private void checkBoxMaster_CheckedChanged(object sender, EventArgs e)
         {
             var incremento = -1;
+            
 
             CheckBox headerBox = ((CheckBox)DGVListadoVentas.Controls.Find("checkBoxMaster", true)[0]);
 
-            foreach (DataGridViewRow dgv in DGVListadoVentas.Rows)
+            var renglones = DGVListadoVentas.Rows.Count;
+            renglones = renglones-2;
+            if (renglones >0)
             {
-                incremento += 1;
 
-                try
+                for (int i = 0; i < renglones; i++)
                 {
-                    //var recorrerCheckBox = Convert.ToBoolean(DGVListadoVentas.Rows[incremento].Cells["col_checkbox"].Value);
-
-                    var idRevision = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
-
-                    if (headerBox.Checked)
+                    try
                     {
-                        if (!idVentas.ContainsKey(idRevision))
+                        var idRevision = Convert.ToInt32(DGVListadoVentas.Rows[i].Cells["ID"].Value.ToString());
+                        if (headerBox.Checked)
                         {
-                            idVentas.Add(idRevision, string.Empty);
-                            DGVListadoVentas.Rows[incremento].Cells["col_checkbox"].Value = true;
+                            if (!idVentas.ContainsKey(idRevision))
+                            {
+                                idVentas.Add(idRevision, string.Empty);
+                                DGVListadoVentas.Rows[i].Cells["col_checkbox"].Value = true;
+                                 
+                            }
+                        }
+                        else if (!headerBox.Checked)
+                        {
+                            idVentas.Remove(idRevision);
+                            DGVListadoVentas.Rows[i].Cells["col_checkbox"].Value = false;
                         }
                     }
-                    else if (!headerBox.Checked)
+                    catch (Exception)
                     {
-                        idVentas.Remove(idRevision);
-                        DGVListadoVentas.Rows[incremento].Cells["col_checkbox"].Value = false;
+
+                        
                     }
                 }
-                catch (Exception ex)
-                {
-
-                }
             }
+
+            //foreach (DataGridViewRow dgv in DGVListadoVentas.Rows)
+            //{
+            //    incremento += 1;
+
+            //    try
+            //    {
+            //        //var recorrerCheckBox = Convert.ToBoolean(DGVListadoVentas.Rows[incremento].Cells["col_checkbox"].Value);
+                         
+            //        var idRevision = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
+                    
+                    
+            //        if (headerBox.Checked)
+            //        {
+            //            if (!idVentas.ContainsKey(idRevision))
+            //            {
+            //                idVentas.Add(idRevision, string.Empty);
+            //                DGVListadoVentas.Rows[incremento].Cells["col_checkbox"].Value = true;
+            //            }
+            //        }
+            //        else if (!headerBox.Checked)
+            //        {
+            //            idVentas.Remove(idRevision);
+            //            DGVListadoVentas.Rows[incremento].Cells["col_checkbox"].Value = false;
+            //        }
+            //    }
+            //    catch (Exception ex)
+            //    {
+
+            //    }
+            //}
         }
 
 
