@@ -269,10 +269,12 @@ namespace PuntoDeVentaV2
             if (string.IsNullOrEmpty(lbDatosCliente.Text))
             {
                 etiqeutaCliente = "vacio";
+                this.Visible = false;
             }
             else
             {
                 etiqeutaCliente = "lleno";
+                this.Visible = true;
             }
 
             label1.BackColor = Color.FromArgb(229, 231, 233);
@@ -2671,10 +2673,12 @@ namespace PuntoDeVentaV2
                 if (string.IsNullOrEmpty(lbDatosCliente.Text))
                 {
                     etiqeutaCliente = "vacio";
+                    this.Visible = false;
                 }
                 else
                 {
                     etiqeutaCliente = "lleno";
+                    this.Visible = true;
                 }
 
                 if (opcion20 == 0)
@@ -6018,9 +6022,13 @@ namespace PuntoDeVentaV2
                             CantidadesFinalesVenta();
                         }
                     }
-
-                    lbDatosCliente.Text = cliente;
-                    lbEliminarCliente.Visible = true;
+                    
+                        lbDatosCliente.Text = cliente;
+                        lbDatosCliente.Visible = true;
+                        lbEliminarCliente.Visible = true;
+                    
+                    
+                    
                 }
             }
         }
@@ -6443,6 +6451,7 @@ namespace PuntoDeVentaV2
             descuentoCliente = 0;
             CantidadesFinalesVenta();
             lbDatosCliente.Text = string.Empty;
+            lbDatosCliente.Visible = false;
             lbEliminarCliente.Visible = false;
             btnEliminarDescuentos.PerformClick();
         }
@@ -6569,6 +6578,7 @@ namespace PuntoDeVentaV2
                     }
 
                     lbDatosCliente.Text = cliente;
+                    lbDatosCliente.Visible = true;
                     lbEliminarCliente.Visible = true;
                 }
             }
@@ -6865,7 +6875,6 @@ namespace PuntoDeVentaV2
         {
             limpiarImagenDelProducto();
         }
-
         private void btnCSV_Click(object sender, EventArgs e)
         {
             ImportarExportarCSV frmCsv = new ImportarExportarCSV();
@@ -6882,9 +6891,19 @@ namespace PuntoDeVentaV2
                     }
                     btnCSV.Enabled = false;
                 }
-                
+
             };
             frmCsv.ShowDialog();
+        }
+
+        private void lbDatosCliente_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
 
         }
 
