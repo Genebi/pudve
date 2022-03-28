@@ -443,7 +443,7 @@ namespace PuntoDeVentaV2
 
                     if (indice == 0)
                     {
-                        var respuesta = MessageBox.Show("¿Estás seguro de realizar esta acción?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        var respuesta = MessageBox.Show("¿Está seguro de devolver el Anticipo?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                         if (respuesta == DialogResult.Yes)
                         {
