@@ -3097,15 +3097,34 @@ namespace PuntoDeVentaV2
             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
             {
                 seccionAdminCaja();
+                activarBotonesDeCaja();
             }
             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
             {
                 seccionTodosCaja();
+                desactivarBotonesDeCaja();
             }
             else
             {
                 seccionEmpleadoCaja(opcionComboBoxFiltroAdminEmp);
+                desactivarBotonesDeCaja();
             }
+        }
+
+        private void activarBotonesDeCaja()
+        {
+            btnRedondoAgregarDinero.Enabled = true;
+            btnRedondoRetirarDinero.Enabled = true;
+            btnRedondoCorteCaja.Enabled = true;
+            btnRedondoAbrirCaja.Enabled = true;
+        }
+
+        private void desactivarBotonesDeCaja()
+        {
+            btnRedondoAgregarDinero.Enabled = false;
+            btnRedondoRetirarDinero.Enabled = false;
+            btnRedondoCorteCaja.Enabled = false;
+            btnRedondoAbrirCaja.Enabled = false;
         }
 
         private void limpiarVariablesParaTotales()
