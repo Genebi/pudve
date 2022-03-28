@@ -137,6 +137,8 @@ namespace PuntoDeVentaV2
 
         private void CajaN_Load(object sender, EventArgs e)
         {
+            recargarDatos = true;
+
             verComboBoxAdministradorEmpleado();
 
             // Obtener saldo inicial
