@@ -6938,8 +6938,8 @@ namespace PuntoDeVentaV2
 
                     html = @"
                     <div style='margin-bottom: 50px;'>
-                        <h4 style='text-align: center;'>PRODUCTOS CON STOCK MINIMO</h4><hr>
-                        <ul style='color: red; font-size: 0.8em;'>";
+                        <h3 style='text-align: center;'>PRODUCTOS CON STOCK MINIMO</h3><hr>
+                        <ul style='color: red; font-size: 0.9em;'>";
 
                     foreach (var producto in enviarStockMinimo)
                     {
@@ -6958,11 +6958,11 @@ namespace PuntoDeVentaV2
 
                         var infoEmpleado = usuarioEmpleado.Split('@');
 
-                        footerCorreo = $"<p style='font-size: 12px;'>En la venta con folio <span style='color: red;'>{FolioVentaCorreo}</span> realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b>, los siguientes productos llegaron al stock mínimo con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                        footerCorreo = $"<p style='font-size: 14px;'>En la venta con folio <span style='color: red;'>{FolioVentaCorreo}</span> realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b>, los siguientes productos llegaron al stock mínimo con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
                     }
                     else
                     {
-                        footerCorreo = $"<p style='font-size: 12px;'>En la venta con folio <span style='color: red;'>{FolioVentaCorreo}</span> realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b>, los siguientes productos llegaron al stock mínimo con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                        footerCorreo = $"<p style='font-size: 14px;'>En la venta con folio <span style='color: red;'>{FolioVentaCorreo}</span> realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b>, los siguientes productos llegaron al stock mínimo con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
                     }
 
                     html += $@"
@@ -6979,8 +6979,9 @@ namespace PuntoDeVentaV2
 
                     html += @"
                     <div>
-                        <h4 style='text-align: center;'>LISTADO PRODUCTOS VENDIDOS</h4><hr>
-                        <ul style='color: red; font-size: 0.8em;'>";
+                        <h3 style='text-align: center;'>VENTA DE PRODUCTOS SELECCIONADOS</h3>
+                        <hr>
+                        <ul style='color: red; font-size: 0.9em;'>";
 
                     foreach (var producto in enviarVentaProducto)
                     {
@@ -6989,9 +6990,19 @@ namespace PuntoDeVentaV2
 
                     html += @"
                         </ul>
-                        <p style='font-size: 0.8em; text-align: center;'><b>NOTA:</b> Es posible que se hayan vendido otros artículos junto a estos productos en la misma venta,
+                        <p style='font-size: 0.9em; text-align: center;'><b>NOTA:</b> Es posible que se hayan vendido otros artículos junto a estos productos en la misma venta,
                         los productos aquí listados son sólo los que el usuario configuró para recibir notificaciones a través de correo electrónico.</p>
                     </div>";
+                    html += "<hr>";
+                    var usuarioEmpleado = FormPrincipal.userNickName.ToString();
+                    if (usuarioEmpleado.Contains("@"))
+                    {
+                        html += $"La venta fue realizada por el <b>EMPLEADO</b> del usuario <b>{FormPrincipal.userNickName}</b> <span style='color: red;'> Fecha de Modificación: {DateTime.Now}</span></span></p></div>";
+                    }
+                    else
+                    {
+                        html += $"La venta fue realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> <span style='color: red;'> Fecha de Modificación: {DateTime.Now}</span></span></p></div>";
+                    }
                 }
 
                 if (enviarVenta.Count > 0)
