@@ -111,6 +111,7 @@ namespace PuntoDeVentaV2
 
         private void ListadoVentas_Load(object sender, EventArgs e)
         {
+            recargarDatos = true;
             // Se crea el directorio para almacenar los tickets y otros archivos relacionados con ventas
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Ventas\Tickets");
 
