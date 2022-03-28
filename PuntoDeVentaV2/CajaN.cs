@@ -1080,7 +1080,19 @@ namespace PuntoDeVentaV2
         {
             if (recargarDatos)
             {
+                verComboBoxAdministradorEmpleado();
+
                 CargarSaldoInicial();
+                
+                if (!FormPrincipal.userNickName.Contains("@"))
+                {
+                    cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
+                }
+                else
+                {
+                    seccionEmpleadoCaja(FormPrincipal.id_empleado.ToString());
+                }
+
                 //CargarSaldo();
                 recargarDatos = false;
 
