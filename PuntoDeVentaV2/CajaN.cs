@@ -143,13 +143,16 @@ namespace PuntoDeVentaV2
 
             // Obtener saldo inicial
             CargarSaldoInicial();
+            limpiarVariablesParaTotales();
             if (!FormPrincipal.userNickName.Contains("@"))
             {
                 cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
+                mostrarTotalEnCaja();
             }
             else
             {
                 seccionEmpleadoCaja(FormPrincipal.id_empleado.ToString());
+                mostrarTotalEnCaja();
             }
 
             if (FormPrincipal.id_empleado > 0)
@@ -1083,14 +1086,16 @@ namespace PuntoDeVentaV2
                 verComboBoxAdministradorEmpleado();
 
                 CargarSaldoInicial();
-                
+                limpiarVariablesParaTotales();
                 if (!FormPrincipal.userNickName.Contains("@"))
                 {
                     cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
+                    mostrarTotalEnCaja();
                 }
                 else
                 {
                     seccionEmpleadoCaja(FormPrincipal.id_empleado.ToString());
+                    mostrarTotalEnCaja();
                 }
 
                 //CargarSaldo();
@@ -3080,14 +3085,15 @@ namespace PuntoDeVentaV2
         {
             if (!FormPrincipal.userNickName.Contains("@"))
             {
+                limpiarVariablesParaTotales();
                 clasificarTipoDeUsuario();
                 filtrarInformacionSeleccionada();
+                mostrarTotalEnCaja();
             }
         }
 
         private void filtrarInformacionSeleccionada()
         {
-            limpiarVariablesParaTotales();
             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
             {
                 seccionAdminCaja();
@@ -3100,7 +3106,6 @@ namespace PuntoDeVentaV2
             {
                 seccionEmpleadoCaja(opcionComboBoxFiltroAdminEmp);
             }
-            mostrarTotalEnCaja();
         }
 
         private void limpiarVariablesParaTotales()
