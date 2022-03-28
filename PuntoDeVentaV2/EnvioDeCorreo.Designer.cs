@@ -103,7 +103,6 @@
             this.chRespaldo.Text = "Enviar respaldo al cerrar sesion";
             this.chRespaldo.UseVisualStyleBackColor = true;
             this.chRespaldo.Visible = false;
-            this.chRespaldo.CheckedChanged += new System.EventHandler(this.chRespaldo_CheckedChanged);
             this.chRespaldo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chRespaldo_MouseClick);
             // 
             // cbCorreoDescuento
@@ -116,7 +115,6 @@
             this.cbCorreoDescuento.TabIndex = 125;
             this.cbCorreoDescuento.Text = "Al hacer venta con descuento";
             this.cbCorreoDescuento.UseVisualStyleBackColor = true;
-            this.cbCorreoDescuento.CheckedChanged += new System.EventHandler(this.cbCorreoDescuento_CheckedChanged);
             this.cbCorreoDescuento.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoDescuento_MouseClick);
             // 
             // cbCorreoIniciar
@@ -129,7 +127,6 @@
             this.cbCorreoIniciar.TabIndex = 124;
             this.cbCorreoIniciar.Text = "Al iniciar sesión";
             this.cbCorreoIniciar.UseVisualStyleBackColor = true;
-            this.cbCorreoIniciar.CheckedChanged += new System.EventHandler(this.cbCorreoIniciar_CheckedChanged);
             this.cbCorreoIniciar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoIniciar_MouseClick);
             // 
             // cbCorreoVenta
@@ -142,7 +139,6 @@
             this.cbCorreoVenta.TabIndex = 123;
             this.cbCorreoVenta.Text = "Al hacer una venta";
             this.cbCorreoVenta.UseVisualStyleBackColor = true;
-            this.cbCorreoVenta.CheckedChanged += new System.EventHandler(this.cbCorreoVenta_CheckedChanged);
             this.cbCorreoVenta.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoVenta_MouseClick);
             // 
             // label4
@@ -168,7 +164,6 @@
             this.cbCorreoCorteCaja.TabIndex = 121;
             this.cbCorreoCorteCaja.Text = "Al hacer corte de caja";
             this.cbCorreoCorteCaja.UseVisualStyleBackColor = true;
-            this.cbCorreoCorteCaja.CheckedChanged += new System.EventHandler(this.cbCorreoCorteCaja_CheckedChanged);
             this.cbCorreoCorteCaja.Click += new System.EventHandler(this.cbCorreoCorteCaja_Click);
             this.cbCorreoCorteCaja.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoCorteCaja_MouseClick);
             // 
@@ -182,7 +177,6 @@
             this.cbCorreoEliminarListaProductosVentas.TabIndex = 120;
             this.cbCorreoEliminarListaProductosVentas.Text = "Al eliminar producto de ventas";
             this.cbCorreoEliminarListaProductosVentas.UseVisualStyleBackColor = true;
-            this.cbCorreoEliminarListaProductosVentas.CheckedChanged += new System.EventHandler(this.cbCorreoEliminarListaProductosVentas_CheckedChanged);
             this.cbCorreoEliminarListaProductosVentas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoEliminarListaProductosVentas_MouseClick);
             // 
             // cbCorreoCerrarVentanaVentas
@@ -195,7 +189,6 @@
             this.cbCorreoCerrarVentanaVentas.TabIndex = 116;
             this.cbCorreoCerrarVentanaVentas.Text = "Al cerrar la ventana de ventas cuando tiene productos";
             this.cbCorreoCerrarVentanaVentas.UseVisualStyleBackColor = true;
-            this.cbCorreoCerrarVentanaVentas.CheckedChanged += new System.EventHandler(this.cbCorreoCerrarVentanaVentas_CheckedChanged);
             this.cbCorreoCerrarVentanaVentas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoCerrarVentanaVentas_MouseClick);
             // 
             // cbCorreoRetirarDineroCaja
@@ -208,7 +201,6 @@
             this.cbCorreoRetirarDineroCaja.TabIndex = 115;
             this.cbCorreoRetirarDineroCaja.Text = "Al retirar dinero en caja";
             this.cbCorreoRetirarDineroCaja.UseVisualStyleBackColor = true;
-            this.cbCorreoRetirarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoRetirarDineroCaja_CheckedChanged);
             this.cbCorreoRetirarDineroCaja.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoRetirarDineroCaja_MouseClick);
             // 
             // cbCorreoAgregarDineroCaja
@@ -221,7 +213,6 @@
             this.cbCorreoAgregarDineroCaja.TabIndex = 0;
             this.cbCorreoAgregarDineroCaja.Text = "Al agregar dinero en caja";
             this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
-            this.cbCorreoAgregarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoAgregarDineroCaja_CheckedChanged);
             this.cbCorreoAgregarDineroCaja.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoAgregarDineroCaja_MouseClick);
             // 
             // cbCorreoPrecioProducto
@@ -235,7 +226,6 @@
             this.cbCorreoPrecioProducto.TabIndex = 111;
             this.cbCorreoPrecioProducto.Text = "Al modificar precio";
             this.cbCorreoPrecioProducto.UseVisualStyleBackColor = true;
-            this.cbCorreoPrecioProducto.CheckedChanged += new System.EventHandler(this.cbCorreoPrecioProducto_CheckedChanged);
             this.cbCorreoPrecioProducto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoPrecioProducto_MouseClick);
             // 
             // cbCorreoStockProducto
@@ -249,7 +239,6 @@
             this.cbCorreoStockProducto.TabIndex = 112;
             this.cbCorreoStockProducto.Text = "Al modificar stock";
             this.cbCorreoStockProducto.UseVisualStyleBackColor = true;
-            this.cbCorreoStockProducto.CheckedChanged += new System.EventHandler(this.cbCorreoStockProducto_CheckedChanged);
             this.cbCorreoStockProducto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoStockProducto_MouseClick);
             // 
             // cbCorreoStockMinimo
@@ -263,7 +252,6 @@
             this.cbCorreoStockMinimo.TabIndex = 113;
             this.cbCorreoStockMinimo.Text = "Al llegar stock mínimo";
             this.cbCorreoStockMinimo.UseVisualStyleBackColor = true;
-            this.cbCorreoStockMinimo.CheckedChanged += new System.EventHandler(this.cbCorreoStockMinimo_CheckedChanged);
             this.cbCorreoStockMinimo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoStockMinimo_MouseClick);
             // 
             // cbCorreoVenderProducto
@@ -277,13 +265,13 @@
             this.cbCorreoVenderProducto.TabIndex = 114;
             this.cbCorreoVenderProducto.Text = "Al venderse producto";
             this.cbCorreoVenderProducto.UseVisualStyleBackColor = true;
-            this.cbCorreoVenderProducto.CheckedChanged += new System.EventHandler(this.cbCorreoVenderProducto_CheckedChanged);
             this.cbCorreoVenderProducto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoVenderProducto_MouseClick);
             // 
             // EnvioDeCorreo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(949, 308);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -293,6 +281,8 @@
             this.Name = "EnvioDeCorreo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Envio De Correo";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EnvioDeCorreo_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.EnvioDeCorreo_FormClosed);
             this.Load += new System.EventHandler(this.EnvioDeCorreo_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EnvioDeCorreo_KeyDown);
             this.groupBox1.ResumeLayout(false);
