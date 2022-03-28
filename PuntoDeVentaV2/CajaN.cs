@@ -4,15 +4,11 @@ using iTextSharp.text.pdf.draw;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PuntoDeVentaV2
@@ -26,7 +22,7 @@ namespace PuntoDeVentaV2
         CargarDatosCaja cdc = new CargarDatosCaja();
 
         int clickBotonCorteDeCaja = 0;
-        
+
         public static bool recargarDatos = false;
         public static bool botones = false;
 
@@ -104,6 +100,35 @@ namespace PuntoDeVentaV2
 
         public static int corteCaja = 0;
 
+        string opcionComboBoxFiltroAdminEmp = string.Empty;
+
+        int idAdministradorOrUsuario = 0;
+        string nombreDeUsuario = string.Empty;
+        string razonSocialUsuario = string.Empty;
+
+        decimal totalEfectivoVentaEnCaja = 0, 
+                totalTarjetaVentaEnCaja = 0,
+                totalValesEnVentaCaja = 0,
+                totalChequesVentaEnCaja = 0,
+                totalTransferenciaVentaEnCaja = 0,
+                totalSaldoInicialVentaEnCaja = 0,
+                totalEfectivoAnticiposEnCaja = 0,
+                totalTarjetaAnticiposEnCaja = 0,
+                totalValesAnticiposEnCaja = 0,
+                totalChequesAnticipoEnCaja = 0,
+                totalTransferenciaAnticiposEnCaja = 0,
+                totalEfectivoDepsitosEnCaja = 0,
+                totalTarjetaDepositosEnCaja = 0,
+                totalValesDepositosEnCaja = 0,
+                totalChequesDepsoitosEnCaja = 0,
+                totalTransferenciasDepositosEnCaja = 0,
+                totalEfectivoRetiroEnCaja = 0,
+                totalTarjetaRetiroEnCaja = 0,
+                totalValesRetiroEnCaja = 0,
+                totalChequesRetiroEnCaja = 0,
+                totalTransferenciaRetiroEnCaja = 0,
+                totalSaldoInicial = 0;
+
         public CajaN()
         {
             InitializeComponent();
@@ -112,9 +137,19 @@ namespace PuntoDeVentaV2
 
         private void CajaN_Load(object sender, EventArgs e)
         {
+            verComboBoxAdministradorEmpleado();
+
             // Obtener saldo inicial
             CargarSaldoInicial();
-            
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
+            }
+            else
+            {
+                seccionEmpleadoCaja(FormPrincipal.id_empleado.ToString());
+            }
+
             if (FormPrincipal.id_empleado > 0)
             {
                 var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Caja");
@@ -142,6 +177,45 @@ namespace PuntoDeVentaV2
 
         }
 
+        private void verComboBoxAdministradorEmpleado()
+        {
+            if (FormPrincipal.userNickName.Contains("@"))
+            {
+                cbFiltroAdminEmpleado.Visible = false;
+            }
+            else
+            {
+                cbFiltroAdminEmpleado.Visible = true;
+                llenarComboBoxTipoDeEmpleado();
+            }
+        }
+
+        private void llenarComboBoxTipoDeEmpleado()
+        {
+            Dictionary<string, string> tipoUsuario = new Dictionary<string, string>();
+            tipoUsuario.Add("Admin", $"{FormPrincipal.userNickName} (ADMIN)");
+
+            using (DataTable dtEmpleados = cn.CargarDatos(cs.obtenerEmpleados(FormPrincipal.userID)))
+            {
+                if (!dtEmpleados.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in dtEmpleados.Rows)
+                    {
+                        var nombreEmpleado = $"{item["nombre"].ToString()} (EMP)";
+                        var idEmpleado = item["ID"].ToString();
+                        tipoUsuario.Add(idEmpleado, nombreEmpleado);
+                    }
+                }
+            }
+            tipoUsuario.Add("All", "TODOS");
+
+            cbFiltroAdminEmpleado.DataSource = tipoUsuario.ToArray();
+            cbFiltroAdminEmpleado.DisplayMember = "Value";
+            cbFiltroAdminEmpleado.ValueMember = "Key";
+
+            cbFiltroAdminEmpleado.SelectedIndex = 0;
+        }
+
         private void CargarSaldoInicial()
         {
             var tipodeMoneda = FormPrincipal.Moneda.Split('-');
@@ -150,7 +224,9 @@ namespace PuntoDeVentaV2
             //saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
             saldoInicial = cdc.CargarSaldoInicial();
 
-            tituloSeccion.Text = "SALDO INICIAL: \r\n" + moneda + cdc.CargarSaldoInicial().ToString("0.00");
+            totalSaldoInicial = (decimal)saldoInicial;
+
+            //tituloSeccion.Text = "SALDO INICIAL: \r\n" + moneda + cdc.CargarSaldoInicial().ToString("0.00");
             btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + cdc.CargarSaldoInicial().ToString("0.00");
         }
 
@@ -213,7 +289,7 @@ namespace PuntoDeVentaV2
                 agregar.FormClosed += delegate
                 {
                     CargarSaldoInicial();
-                    CargarSaldo();
+                    //CargarSaldo();
                 };
 
                 agregar.Show();
@@ -239,7 +315,7 @@ namespace PuntoDeVentaV2
                 retirar.FormClosed += delegate
                 {
                     CargarSaldoInicial();
-                    CargarSaldo();
+                    //CargarSaldo();
                 };
 
                 retirar.Show();
@@ -265,7 +341,7 @@ namespace PuntoDeVentaV2
             corteCaja = 1;
 
             var f = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            
+
             date = f;
             if (opcion6 == 0)
             {
@@ -335,7 +411,7 @@ namespace PuntoDeVentaV2
                     }
 
                     CargarSaldoInicial();
-                    CargarSaldo();
+                    //CargarSaldo();
 
                     //var correo = mb.correoUsuario();
                     //var correoCantidades = cargarDatosCorteCaja();
@@ -357,13 +433,13 @@ namespace PuntoDeVentaV2
                     this.Refresh();
                     Application.DoEvents();
                 };
-                
+
                 corte.Show();
 
                 //GenerarTicket();
             }
             abonos = 0;
-           
+
         }
 
         private void cerrarSesionEnCorteDeCaja()
@@ -744,7 +820,7 @@ namespace PuntoDeVentaV2
             //                transCorte = devolucionTrans.ToString();
             //                totCorte = devoluciones.ToString();
 
-            efectivoCorte = datos[57].ToString(); 
+            efectivoCorte = datos[57].ToString();
             tarjetaCorte = datos[58].ToString();
             valesCorte = datos[59].ToString();
             chequeCorte = datos[60].ToString();
@@ -1003,7 +1079,7 @@ namespace PuntoDeVentaV2
             if (recargarDatos)
             {
                 CargarSaldoInicial();
-                CargarSaldo();
+                //CargarSaldo();
                 recargarDatos = false;
 
                 if (clickBotonCorteDeCaja.Equals(1))
@@ -1177,7 +1253,7 @@ namespace PuntoDeVentaV2
             // Cantidades de las columnas
             var cantidades = cantidadesReporte;
 
-            float[] anchoColumnas = new float[] { 120f, 80f, 100f, 100f, 100f, 100f, 100f, 100f ,120f, 80f };
+            float[] anchoColumnas = new float[] { 120f, 80f, 100f, 100f, 100f, 100f, 100f, 100f, 120f, 80f };
 
             // Linea serapadora
             Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
@@ -2049,12 +2125,12 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colTotalDineroR);
             tabla.AddCell(colTotalFinal);
             tabla.AddCell(colTotalFinalC);
-            
+
             #endregion
             //===========================================
             //===    FIN  TABLAS DE CORTE DE CAJA     ===
             //===========================================
-            
+
             reporte.Add(tabla);
             reporte.Add(linea);
 
@@ -2146,42 +2222,42 @@ namespace PuntoDeVentaV2
                     //var fecha = Convert.ToDateTime(item["FechaOperacion"]).ToString("0.00");
 
                     PdfPCell colEmpleadoTmp = new PdfPCell(new Phrase("ADMIN", fuenteNormal));
-                        colEmpleadoTmp.BorderWidth = 0;
-                        colEmpleadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colEmpleadoTmp.BorderWidth = 0;
+                    colEmpleadoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoEfectivoTmp = new PdfPCell(new Phrase("$" + efectivo, fuenteNormal));
-                        colDepositoEfectivoTmp.BorderWidth = 0;
-                        colDepositoEfectivoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoEfectivoTmp = new PdfPCell(new Phrase("$" + efectivo, fuenteNormal));
+                    colDepositoEfectivoTmp.BorderWidth = 0;
+                    colDepositoEfectivoTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoTarjetaTmp = new PdfPCell(new Phrase("$" + tarjeta, fuenteNormal));
-                        colDepositoTarjetaTmp.BorderWidth = 0;
-                        colDepositoTarjetaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoTarjetaTmp = new PdfPCell(new Phrase("$" + tarjeta, fuenteNormal));
+                    colDepositoTarjetaTmp.BorderWidth = 0;
+                    colDepositoTarjetaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoValesTmp = new PdfPCell(new Phrase("$" + vales, fuenteNormal));
-                        colDepositoValesTmp.BorderWidth = 0;
-                        colDepositoValesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoValesTmp = new PdfPCell(new Phrase("$" + vales, fuenteNormal));
+                    colDepositoValesTmp.BorderWidth = 0;
+                    colDepositoValesTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoChequeTmp = new PdfPCell(new Phrase("$" + cheque, fuenteNormal));
-                        colDepositoChequeTmp.BorderWidth = 0;
-                        colDepositoChequeTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoChequeTmp = new PdfPCell(new Phrase("$" + cheque, fuenteNormal));
+                    colDepositoChequeTmp.BorderWidth = 0;
+                    colDepositoChequeTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoTransTmp = new PdfPCell(new Phrase("$" + trans, fuenteNormal));
-                        colDepositoTransTmp.BorderWidth = 0;
-                        colDepositoTransTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoTransTmp = new PdfPCell(new Phrase("$" + trans, fuenteNormal));
+                    colDepositoTransTmp.BorderWidth = 0;
+                    colDepositoTransTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoFechaTmp = new PdfPCell(new Phrase(fecha, fuenteNormal));
-                        colDepositoFechaTmp.BorderWidth = 0;
-                        colDepositoFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoFechaTmp = new PdfPCell(new Phrase(fecha, fuenteNormal));
+                    colDepositoFechaTmp.BorderWidth = 0;
+                    colDepositoFechaTmp.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        tablaDepositos.AddCell(colEmpleadoTmp);
-                        tablaDepositos.AddCell(colDepositoEfectivoTmp);
-                        tablaDepositos.AddCell(colDepositoTarjetaTmp);
-                        tablaDepositos.AddCell(colDepositoValesTmp);
-                        tablaDepositos.AddCell(colDepositoChequeTmp);
-                        tablaDepositos.AddCell(colDepositoTransTmp);
-                        tablaDepositos.AddCell(colDepositoFechaTmp);
+                    tablaDepositos.AddCell(colEmpleadoTmp);
+                    tablaDepositos.AddCell(colDepositoEfectivoTmp);
+                    tablaDepositos.AddCell(colDepositoTarjetaTmp);
+                    tablaDepositos.AddCell(colDepositoValesTmp);
+                    tablaDepositos.AddCell(colDepositoChequeTmp);
+                    tablaDepositos.AddCell(colDepositoTransTmp);
+                    tablaDepositos.AddCell(colDepositoFechaTmp);
                     //}
-                    
+
                 }
 
                 reporte.Add(tituloDepositos);
@@ -2198,7 +2274,7 @@ namespace PuntoDeVentaV2
             //===============================
             //=== FIN TABLA DE DEPOSITOS  ===
             //===============================
-            
+
             //=========================
             //=== TABLA DE RETIROS  ===
             //=========================
@@ -2292,45 +2368,45 @@ namespace PuntoDeVentaV2
                     //var fecha = Convert.ToDateTime(item["FechaOperacion"]).ToString("0.00");
 
                     PdfPCell colEmpleadoTmpR = new PdfPCell(new Phrase("ADMIN", fuenteNormal));
-                        colEmpleadoTmpR.BorderWidth = 0;
-                        colEmpleadoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                    colEmpleadoTmpR.BorderWidth = 0;
+                    colEmpleadoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoEfectivoTmpR = new PdfPCell(new Phrase("$" + efectivo, fuenteNormal));
-                        colDepositoEfectivoTmpR.BorderWidth = 0;
-                        colDepositoEfectivoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoEfectivoTmpR = new PdfPCell(new Phrase("$" + efectivo, fuenteNormal));
+                    colDepositoEfectivoTmpR.BorderWidth = 0;
+                    colDepositoEfectivoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoTarjetaTmpR = new PdfPCell(new Phrase("$" + tarjeta, fuenteNormal));
-                        colDepositoTarjetaTmpR.BorderWidth = 0;
-                        colDepositoTarjetaTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoTarjetaTmpR = new PdfPCell(new Phrase("$" + tarjeta, fuenteNormal));
+                    colDepositoTarjetaTmpR.BorderWidth = 0;
+                    colDepositoTarjetaTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoValesTmpR = new PdfPCell(new Phrase("$" + vales, fuenteNormal));
-                        colDepositoValesTmpR.BorderWidth = 0;
-                        colDepositoValesTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoValesTmpR = new PdfPCell(new Phrase("$" + vales, fuenteNormal));
+                    colDepositoValesTmpR.BorderWidth = 0;
+                    colDepositoValesTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoChequeTmpR = new PdfPCell(new Phrase("$" + cheque, fuenteNormal));
-                        colDepositoChequeTmpR.BorderWidth = 0;
-                        colDepositoChequeTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoChequeTmpR = new PdfPCell(new Phrase("$" + cheque, fuenteNormal));
+                    colDepositoChequeTmpR.BorderWidth = 0;
+                    colDepositoChequeTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoTransTmpR = new PdfPCell(new Phrase("$" + trans, fuenteNormal));
-                        colDepositoTransTmpR.BorderWidth = 0;
-                        colDepositoTransTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoTransTmpR = new PdfPCell(new Phrase("$" + trans, fuenteNormal));
+                    colDepositoTransTmpR.BorderWidth = 0;
+                    colDepositoTransTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        //PdfPCell colDepositoCreditoTmpR = new PdfPCell(new Phrase("$" + credito, fuenteNormal));
-                        //colDepositoCreditoTmpR.BorderWidth = 0;
-                        //colDepositoCreditoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                    //PdfPCell colDepositoCreditoTmpR = new PdfPCell(new Phrase("$" + credito, fuenteNormal));
+                    //colDepositoCreditoTmpR.BorderWidth = 0;
+                    //colDepositoCreditoTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        PdfPCell colDepositoFechaTmpR = new PdfPCell(new Phrase(fecha, fuenteNormal));
-                        colDepositoFechaTmpR.BorderWidth = 0;
-                        colDepositoFechaTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
+                    PdfPCell colDepositoFechaTmpR = new PdfPCell(new Phrase(fecha, fuenteNormal));
+                    colDepositoFechaTmpR.BorderWidth = 0;
+                    colDepositoFechaTmpR.HorizontalAlignment = Element.ALIGN_CENTER;
 
-                        tablaRetiros.AddCell(colEmpleadoTmpR);
-                        tablaRetiros.AddCell(colDepositoEfectivoTmpR);
-                        tablaRetiros.AddCell(colDepositoTarjetaTmpR);
-                        tablaRetiros.AddCell(colDepositoValesTmpR);
-                        tablaRetiros.AddCell(colDepositoChequeTmpR);
-                        tablaRetiros.AddCell(colDepositoTransTmpR);
-                        //tablaRetiros.AddCell(colDepositoCreditoTmpR);
-                        tablaRetiros.AddCell(colDepositoFechaTmpR);
+                    tablaRetiros.AddCell(colEmpleadoTmpR);
+                    tablaRetiros.AddCell(colDepositoEfectivoTmpR);
+                    tablaRetiros.AddCell(colDepositoTarjetaTmpR);
+                    tablaRetiros.AddCell(colDepositoValesTmpR);
+                    tablaRetiros.AddCell(colDepositoChequeTmpR);
+                    tablaRetiros.AddCell(colDepositoTransTmpR);
+                    //tablaRetiros.AddCell(colDepositoCreditoTmpR);
+                    tablaRetiros.AddCell(colDepositoFechaTmpR);
                     //}
 
                 }
@@ -2343,7 +2419,7 @@ namespace PuntoDeVentaV2
             }
 
 
-            
+
             #endregion
             //=============================
             //=== FIN TABLA DE RETIROS  ===
@@ -2369,7 +2445,7 @@ namespace PuntoDeVentaV2
                 result = Convert.ToInt32(query.Rows[0]["NumFolio"].ToString());
             }
 
-            return result; 
+            return result;
         }
 
         private void GenerarTicket()
@@ -2491,7 +2567,7 @@ namespace PuntoDeVentaV2
             var datos = new string[] { FormPrincipal.userID.ToString(), "0", "0", "0", "0", "0", "0", "0", "0", "0", "N/A", "1", FechaOperacion, "Apertura de Caja", FormPrincipal.id_empleado.ToString(), "N/A" };
             cn.EjecutarConsulta(cs.GuardarAperturaDeCaja(datos));
 
-            Utilidades.GenerarTicketCaja(); 
+            Utilidades.GenerarTicketCaja();
         }
 
         private void btnCambioAbonos_Click(object sender, EventArgs e)
@@ -2768,11 +2844,32 @@ namespace PuntoDeVentaV2
                 agregar.FormClosed += delegate
                 {
                     CargarSaldoInicial();
-                    CargarSaldo();
+                    if (!FormPrincipal.userNickName.Contains("@"))
+                    {
+                        cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
+                    }
+                    else
+                    {
+                        seccionEmpleadoCaja(FormPrincipal.id_empleado.ToString());
+                    }
+                    //filtradoInicial(sender, e);
+                    //CargarSaldo();
                 };
 
                 agregar.Show();
             }
+        }
+
+        private void filtradoInicial(object sender)
+        {
+            //if (!FormPrincipal.userNickName.Contains("@"))
+            //{
+            //    cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
+            //}
+            //else
+            //{
+            //    seccionEmpleadoCaja(FormPrincipal.id_empleado.ToString());
+            //}
         }
 
         private void btnRedondoRetirarDinero_Click(object sender, EventArgs e)
@@ -2794,7 +2891,15 @@ namespace PuntoDeVentaV2
                 retirar.FormClosed += delegate
                 {
                     CargarSaldoInicial();
-                    CargarSaldo();
+                    if (!FormPrincipal.userNickName.Contains("@"))
+                    {
+                        cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
+                    }
+                    else
+                    {
+                        seccionEmpleadoCaja(FormPrincipal.id_empleado.ToString());
+                    }
+                    //CargarSaldo();
                 };
 
                 retirar.Show();
@@ -2876,7 +2981,15 @@ namespace PuntoDeVentaV2
                     }
 
                     CargarSaldoInicial();
-                    CargarSaldo();
+                    if (!FormPrincipal.userNickName.Contains("@"))
+                    {
+                        cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
+                    }
+                    else
+                    {
+                        seccionEmpleadoCaja(FormPrincipal.id_empleado.ToString());
+                    }
+                    //CargarSaldo();
 
                     //var correo = mb.correoUsuario();
                     //var correoCantidades = cargarDatosCorteCaja();
@@ -2945,6 +3058,1116 @@ namespace PuntoDeVentaV2
                 if (mostrarAbonosCaja.WindowState == FormWindowState.Minimized || mostrarAbonosCaja.WindowState == FormWindowState.Normal)
                 {
                     mostrarAbonosCaja.BringToFront();
+                }
+            }
+        }
+
+        private void cbFiltroAdminEmpleado_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                clasificarTipoDeUsuario();
+                filtrarInformacionSeleccionada();
+            }
+        }
+
+        private void filtrarInformacionSeleccionada()
+        {
+            limpiarVariablesParaTotales();
+            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+            {
+                seccionAdminCaja();
+            }
+            else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+            {
+                seccionTodosCaja();
+            }
+            else
+            {
+                seccionEmpleadoCaja(opcionComboBoxFiltroAdminEmp);
+            }
+            mostrarTotalEnCaja();
+        }
+
+        private void limpiarVariablesParaTotales()
+        {
+            totalEfectivoVentaEnCaja = totalTarjetaVentaEnCaja = totalValesEnVentaCaja = totalChequesVentaEnCaja = totalTransferenciaVentaEnCaja = totalSaldoInicialVentaEnCaja = totalEfectivoAnticiposEnCaja = totalTarjetaAnticiposEnCaja = totalValesAnticiposEnCaja = totalChequesAnticipoEnCaja = totalTransferenciaAnticiposEnCaja = totalEfectivoDepsitosEnCaja = totalTarjetaDepositosEnCaja = totalValesDepositosEnCaja = totalChequesDepsoitosEnCaja = totalTransferenciasDepositosEnCaja = totalEfectivoRetiroEnCaja = totalTarjetaRetiroEnCaja = totalValesRetiroEnCaja = totalChequesRetiroEnCaja = totalTransferenciaRetiroEnCaja = 0;
+        }
+
+        private void mostrarTotalEnCaja()
+        {
+            var cantidadTotalEfectivoEnCaja = ((totalEfectivoVentaEnCaja + totalEfectivoAnticiposEnCaja + totalEfectivoDepsitosEnCaja) - totalEfectivoRetiroEnCaja);
+            var cantidadTotalTarjetaEnCaja = ((totalTarjetaVentaEnCaja + totalTarjetaAnticiposEnCaja + totalTarjetaDepositosEnCaja) - totalTarjetaRetiroEnCaja);
+            var cantidadTotalValesEnCaja = ((totalValesEnVentaCaja + totalValesAnticiposEnCaja + totalValesDepositosEnCaja) - totalValesRetiroEnCaja);
+            var cantidadTotalCehqueEnCaja = ((totalChequesVentaEnCaja + totalChequesAnticipoEnCaja + totalChequesDepsoitosEnCaja) - totalChequesRetiroEnCaja);
+            var cantidadTotalTransferenciaEnCaja = ((totalTransferenciaVentaEnCaja + totalTransferenciaAnticiposEnCaja + totalTransferenciasDepositosEnCaja) - totalTransferenciaRetiroEnCaja);
+
+            lbTEfectivoC.Text = cantidadTotalEfectivoEnCaja.ToString("C2");
+            lbTTarjetaC.Text = cantidadTotalTarjetaEnCaja.ToString("C2");
+            lbTValesC.Text = cantidadTotalValesEnCaja.ToString("C2");
+            lbTChequeC.Text = cantidadTotalCehqueEnCaja.ToString("C2");
+            lbTTransC.Text = cantidadTotalTransferenciaEnCaja.ToString("C2");
+            lbTSaldoInicial.Text = totalSaldoInicial.ToString("C2");
+
+            var sumaDeTotalesEnCaja = cantidadTotalEfectivoEnCaja + cantidadTotalTarjetaEnCaja + cantidadTotalValesEnCaja + cantidadTotalCehqueEnCaja + cantidadTotalTransferenciaEnCaja + totalSaldoInicial;
+
+            lbTTotalCaja.Text = sumaDeTotalesEnCaja.ToString("C2");
+        }
+
+        private void seccionTodosCaja()
+        {
+            seccionTodosVentas();
+            seccionTodosAnticipos();
+            seccionTodosDineroAgregado();
+            seccionTodosDineroRetirado();
+        }
+
+        private void seccionTodosDineroRetirado()
+        {
+            // Total de Dinero Retirado
+            using (DataTable dtUltimoCorteDeCaja = cn.CargarDatos(cs.fechaUltimoCorteDecaja()))
+            {
+                if (!dtUltimoCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    var idCajaUltimoCorte = string.Empty;
+
+                    foreach (DataRow item in dtUltimoCorteDeCaja.Rows)
+                    {
+                        idCajaUltimoCorte = item["ID"].ToString();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(idCajaUltimoCorte))
+                    {
+                        using (DataTable dtSeccionDineroRetiradoTodos = cn.CargarDatos(cs.totalCantidadesRetirosTodos(idCajaUltimoCorte)))
+                        {
+                            if (!dtSeccionDineroRetiradoTodos.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtSeccionDineroRetiradoTodos.Rows)
+                                {
+                                    decimal cantidadEfectivo = 0,
+                                            cantidadTarjeta = 0,
+                                            cantidadVales = 0,
+                                            cantidadCheque = 0,
+                                            cantidadTransferencia = 0,
+                                            cantidadTotalDineroRetirado = 0;
+
+                                    if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                    {
+                                        cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoRetiroEnCaja += cantidadEfectivo;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
+                                    {
+                                        cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaRetiroEnCaja += cantidadTarjeta;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
+                                    {
+                                        cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesRetiroEnCaja += cantidadVales;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
+                                    {
+                                        cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesRetiroEnCaja += cantidadCheque;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
+                                    {
+                                        cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaRetiroEnCaja += cantidadTransferencia;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["TotalRetiros"].ToString()))
+                                    {
+                                        cantidadTotalDineroRetirado = Convert.ToDecimal(item["TotalRetiros"].ToString());
+                                    }
+
+                                    lbEfectivoR.Text = cantidadEfectivo.ToString("C2");
+                                    lbTarjetaR.Text = cantidadTarjeta.ToString("C2");
+                                    lbValesR.Text = cantidadVales.ToString("C2");
+                                    lbChequeR.Text = cantidadCheque.ToString("C2");
+                                    lbTransferenciaR.Text = cantidadTransferencia.ToString("C2");
+                                    lbTRetirado.Text = cantidadTotalDineroRetirado.ToString("C2");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void seccionTodosDineroAgregado()
+        {
+            // Total de Dinero Agregado
+            using (DataTable dtUltimoCorteDeCaja = cn.CargarDatos(cs.fechaUltimoCorteDecaja()))
+            {
+                if (!dtUltimoCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    var idCajaUltimoCorte = string.Empty;
+
+                    foreach (DataRow item in dtUltimoCorteDeCaja.Rows)
+                    {
+                        idCajaUltimoCorte = item["ID"].ToString();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(idCajaUltimoCorte))
+                    {
+                        using (DataTable dtSeccionDineroAgregadoTodos = cn.CargarDatos(cs.totalCantidadesDepositosTodos(idCajaUltimoCorte)))
+                        {
+                            if (!dtSeccionDineroAgregadoTodos.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtSeccionDineroAgregadoTodos.Rows)
+                                {
+                                    decimal cantidadEfectivo = 0,
+                                            cantidadTarjeta = 0,
+                                            cantidadVales = 0,
+                                            cantidadCheque = 0,
+                                            cantidadTransferencia = 0,
+                                            cantidadTotalDineroAgregado = 0;
+
+                                    if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                    {
+                                        cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoDepsitosEnCaja += cantidadEfectivo;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
+                                    {
+                                        cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaDepositosEnCaja += cantidadTarjeta;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
+                                    {
+                                        cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesDepositosEnCaja += cantidadVales;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
+                                    {
+                                        cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesDepsoitosEnCaja += cantidadCheque;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
+                                    {
+                                        cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciasDepositosEnCaja += cantidadTransferencia;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["TotalDepositos"].ToString()))
+                                    {
+                                        cantidadTotalDineroAgregado = Convert.ToDecimal(item["TotalDepositos"].ToString());
+                                    }
+
+                                    lbTEfectivoD.Text = cantidadEfectivo.ToString("C2");
+                                    lbTTarjetaD.Text = cantidadTarjeta.ToString("C2");
+                                    lbTValesD.Text = cantidadVales.ToString("C2");
+                                    lbTChequeD.Text = cantidadCheque.ToString("C2");
+                                    lbTTransD.Text = cantidadTransferencia.ToString("C2");
+                                    lbTAgregado.Text = cantidadTotalDineroAgregado.ToString("C2");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void seccionTodosAnticipos()
+        {
+            using (DataTable dtUltimoCorteDeCaja = cn.CargarDatos(cs.fechaUltimoCorteDecaja()))
+            {
+                if (!dtUltimoCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    var idCajaUltimoCorte = string.Empty;
+
+                    foreach (DataRow item in dtUltimoCorteDeCaja.Rows)
+                    {
+                        idCajaUltimoCorte = item["ID"].ToString();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(idCajaUltimoCorte))
+                    {
+                        using (DataTable dtSeccionAnticposTodos = cn.CargarDatos(cs.totalCantidadesAnticposTodos(idCajaUltimoCorte)))
+                        {
+                            if (!dtSeccionAnticposTodos.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtSeccionAnticposTodos.Rows)
+                                {
+                                    decimal cantidadEfectivo = 0,
+                                            cantidadTarjeta = 0,
+                                            cantidadVales = 0,
+                                            cantidadCheque = 0,
+                                            cantidadTransferencia = 0,
+                                            cantidadTotalAnticipos = 0;
+
+                                    if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                    {
+                                        cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoAnticiposEnCaja += cantidadEfectivo;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
+                                    {
+                                        cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaAnticiposEnCaja += cantidadTarjeta;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
+                                    {
+                                        cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesAnticiposEnCaja += cantidadVales;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
+                                    {
+                                        cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesAnticipoEnCaja += cantidadCheque;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
+                                    {
+                                        cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaAnticiposEnCaja += cantidadTransferencia;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["TotalAnticipos"].ToString()))
+                                    {
+                                        cantidadTotalAnticipos = Convert.ToDecimal(item["TotalAnticipos"].ToString());
+                                    }
+
+                                    lbTEfectivoA.Text = cantidadEfectivo.ToString("C2");
+                                    lbTTarjetaA.Text = cantidadTarjeta.ToString("C2");
+                                    lbTValesA.Text = cantidadVales.ToString("C2");
+                                    lbTChequeA.Text = cantidadCheque.ToString("C2");
+                                    lbTTransA.Text = cantidadTransferencia.ToString("C2");
+                                    lbTAnticiposA.Text = cantidadTotalAnticipos.ToString("C2");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void seccionTodosVentas()
+        {
+            using (DataTable dtUltimoCorteDeCaja = cn.CargarDatos(cs.fechaUltimoCorteDecaja()))
+            {
+                if (!dtUltimoCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    var idCajaUltimoCorte = string.Empty;
+
+                    foreach (DataRow item in dtUltimoCorteDeCaja.Rows)
+                    {
+                        idCajaUltimoCorte = item["ID"].ToString();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(idCajaUltimoCorte))
+                    {
+                        using (DataTable dtSeccionVentasTodos = cn.CargarDatos(cs.totalCantidadesVentasTodos(idCajaUltimoCorte)))
+                        {
+                            if (!dtSeccionVentasTodos.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtSeccionVentasTodos.Rows)
+                                {
+                                    decimal cantidadEfectivo = 0,
+                                            cantidadTarjeta = 0,
+                                            cantidadVales = 0,
+                                            cantidadCheque = 0,
+                                            cantidadTransferencia = 0,
+                                            cantidadCredito = 0,
+                                            cantidadAbonos = 0,
+                                            cantidadAnticipos = 0,
+                                            cantidadTotalVentas = 0;
+
+                                    if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                    {
+                                        cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoVentaEnCaja += cantidadEfectivo;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
+                                    {
+                                        cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaVentaEnCaja += cantidadTarjeta;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
+                                    {
+                                        cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesEnVentaCaja += cantidadVales;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
+                                    {
+                                        cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesVentaEnCaja += cantidadCheque;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
+                                    {
+                                        cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaVentaEnCaja += cantidadTransferencia;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Credito"].ToString()))
+                                    {
+                                        cantidadCredito = Convert.ToDecimal(item["Credito"].ToString());
+                                    }
+                                    if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
+                                    {
+                                        cantidadAbonos = Convert.ToDecimal(item["Anticipo"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
+                                    {
+                                        cantidadAnticipos = Convert.ToDecimal(item["Anticipo"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["TotalVentas"].ToString()))
+                                    {
+                                        cantidadTotalVentas = Convert.ToDecimal(item["TotalVentas"].ToString());
+                                    }
+
+                                    lbTEfectivo.Text = cantidadEfectivo.ToString("C2");
+                                    lbTTarjeta.Text = cantidadTarjeta.ToString("C2");
+                                    lbTVales.Text = cantidadVales.ToString("C2");
+                                    lbTCheque.Text = cantidadCheque.ToString("C2");
+                                    lbTTrans.Text = cantidadTransferencia.ToString("C2");
+                                    lbTCredito.Text = cantidadCredito.ToString("C2");
+                                    lbTCreditoC.Text = cantidadAbonos.ToString("C2");
+                                    lbTAnticipos.Text = cantidadAnticipos.ToString("C2");
+                                    lbTVentas.Text = cantidadTotalVentas.ToString("C2");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void seccionEmpleadoCaja(string idEmpleado)
+        {
+            seccionEmpleadoVentas(idEmpleado);
+            seccionEmpleadoAnticipos(idEmpleado);
+            seccionEmpleadoDineroAgregado(idEmpleado);
+            seccionEmpleadoDineroRetirado(idEmpleado);
+        }
+
+        private void seccionEmpleadoDineroRetirado(string idEmpleado)
+        {
+            // Total de Dinero Retirado
+            using (DataTable dtUltimoCorteDeCaja = cn.CargarDatos(cs.fechaUltimoCorteDecaja()))
+            {
+                if (!dtUltimoCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    var idCajaUltimoCorte = string.Empty;
+
+                    foreach (DataRow item in dtUltimoCorteDeCaja.Rows)
+                    {
+                        idCajaUltimoCorte = item["ID"].ToString();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(idCajaUltimoCorte))
+                    {
+                        using (DataTable dtSeccionDineroRetiradoEmpleado = cn.CargarDatos(cs.totalCantiadesRetirosEmpleado(idCajaUltimoCorte, idEmpleado)))
+                        {
+                            if (!dtSeccionDineroRetiradoEmpleado.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtSeccionDineroRetiradoEmpleado.Rows)
+                                {
+                                    decimal cantidadEfectivo = 0,
+                                            cantidadTarjeta = 0,
+                                            cantidadVales = 0,
+                                            cantidadCheque = 0,
+                                            cantidadTransferencia = 0,
+                                            cantidadTotalDineroRetirado = 0;
+
+                                    if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                    {
+                                        cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoRetiroEnCaja += cantidadEfectivo;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
+                                    {
+                                        cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaRetiroEnCaja += cantidadTarjeta;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
+                                    {
+                                        cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesRetiroEnCaja += cantidadVales;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
+                                    {
+                                        cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesRetiroEnCaja += cantidadCheque;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
+                                    {
+                                        cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaRetiroEnCaja += cantidadTransferencia;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["TotalRetiros"].ToString()))
+                                    {
+                                        cantidadTotalDineroRetirado = Convert.ToDecimal(item["TotalRetiros"].ToString());
+                                    }
+
+                                    lbEfectivoR.Text = cantidadEfectivo.ToString("C2");
+                                    lbTarjetaR.Text = cantidadTarjeta.ToString("C2");
+                                    lbValesR.Text = cantidadVales.ToString("C2");
+                                    lbChequeR.Text = cantidadCheque.ToString("C2");
+                                    lbTransferenciaR.Text = cantidadTransferencia.ToString("C2");
+                                    lbTRetirado.Text = cantidadTotalDineroRetirado.ToString("C2");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void seccionEmpleadoDineroAgregado(string idEmpleado)
+        {
+            // Total de Dinero Agregado
+            using (DataTable dtUltimoCorteDeCaja = cn.CargarDatos(cs.fechaUltimoCorteDecaja()))
+            {
+                if (!dtUltimoCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    var idCajaUltimoCorte = string.Empty;
+
+                    foreach (DataRow item in dtUltimoCorteDeCaja.Rows)
+                    {
+                        idCajaUltimoCorte = item["ID"].ToString();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(idCajaUltimoCorte))
+                    {
+                        using (DataTable dtSeccionDineroAgregadoEpleado = cn.CargarDatos(cs.totalCantiadesDepositosEmpleado(idCajaUltimoCorte, idEmpleado)))
+                        {
+                            if (!dtSeccionDineroAgregadoEpleado.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtSeccionDineroAgregadoEpleado.Rows)
+                                {
+                                    decimal cantidadEfectivo = 0,
+                                            cantidadTarjeta = 0,
+                                            cantidadVales = 0,
+                                            cantidadCheque = 0,
+                                            cantidadTransferencia = 0,
+                                            cantidadTotalDineroAgregado = 0;
+
+                                    if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                    {
+                                        cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoDepsitosEnCaja += cantidadEfectivo;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
+                                    {
+                                        cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaDepositosEnCaja += cantidadTarjeta;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
+                                    {
+                                        cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesDepositosEnCaja += cantidadVales;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
+                                    {
+                                        cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesDepsoitosEnCaja += cantidadCheque;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
+                                    {
+                                        cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciasDepositosEnCaja += cantidadTransferencia;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["TotalDepositos"].ToString()))
+                                    {
+                                        cantidadTotalDineroAgregado = Convert.ToDecimal(item["TotalDepositos"].ToString());
+                                    }
+
+                                    lbTEfectivoD.Text = cantidadEfectivo.ToString("C2");
+                                    lbTTarjetaD.Text = cantidadTarjeta.ToString("C2");
+                                    lbTValesD.Text = cantidadVales.ToString("C2");
+                                    lbTChequeD.Text = cantidadCheque.ToString("C2");
+                                    lbTTransD.Text = cantidadTransferencia.ToString("C2");
+                                    lbTAgregado.Text = cantidadTotalDineroAgregado.ToString("C2");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void seccionEmpleadoAnticipos(string idEmpleado)
+        {
+            using (DataTable dtUltimoCorteDeCaja = cn.CargarDatos(cs.fechaUltimoCorteDecaja()))
+            {
+                if (!dtUltimoCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    var idCajaUltimoCorte = string.Empty;
+
+                    foreach (DataRow item in dtUltimoCorteDeCaja.Rows)
+                    {
+                        idCajaUltimoCorte = item["ID"].ToString();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(idCajaUltimoCorte))
+                    {
+                        using (DataTable dtSeccionAnticiposEpleado = cn.CargarDatos(cs.totalCantiadesAnticiposEmpleado(idCajaUltimoCorte, idEmpleado)))
+                        {
+                            if (!dtSeccionAnticiposEpleado.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtSeccionAnticiposEpleado.Rows)
+                                {
+                                    decimal cantidadEfectivo = 0,
+                                            cantidadTarjeta = 0,
+                                            cantidadVales = 0,
+                                            cantidadCheque = 0,
+                                            cantidadTransferencia = 0,
+                                            cantidadTotalAnticipos = 0;
+
+                                    if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                    {
+                                        cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoAnticiposEnCaja += cantidadEfectivo;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
+                                    {
+                                        cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaAnticiposEnCaja += cantidadTarjeta;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
+                                    {
+                                        cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesAnticiposEnCaja += cantidadVales;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
+                                    {
+                                        cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesAnticipoEnCaja += cantidadCheque;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
+                                    {
+                                        cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaAnticiposEnCaja += cantidadTransferencia;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["TotalAnticipos"].ToString()))
+                                    {
+                                        cantidadTotalAnticipos = Convert.ToDecimal(item["TotalAnticipos"].ToString());
+                                    }
+
+                                    lbTEfectivoA.Text = cantidadEfectivo.ToString("C2");
+                                    lbTTarjetaA.Text = cantidadTarjeta.ToString("C2");
+                                    lbTValesA.Text = cantidadVales.ToString("C2");
+                                    lbTChequeA.Text = cantidadCheque.ToString("C2");
+                                    lbTTransA.Text = cantidadTransferencia.ToString("C2");
+                                    lbTAnticiposA.Text = cantidadTotalAnticipos.ToString("C2");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void seccionEmpleadoVentas(string idEmpleado)
+        {
+            using (DataTable dtUltimoCorteDeCaja = cn.CargarDatos(cs.fechaUltimoCorteDecaja()))
+            {
+                if (!dtUltimoCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    var idCajaUltimoCorte = string.Empty;
+
+                    foreach (DataRow item in dtUltimoCorteDeCaja.Rows)
+                    {
+                        idCajaUltimoCorte = item["ID"].ToString();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(idCajaUltimoCorte))
+                    {
+                        using (DataTable dtSeccionVentaEmpleado = cn.CargarDatos(cs.totalCantidadesVentasEmpleado(idCajaUltimoCorte, idEmpleado)))
+                        {
+                            if (!dtSeccionVentaEmpleado.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtSeccionVentaEmpleado.Rows)
+                                {
+                                    decimal cantidadEfectivo = 0,
+                                            cantidadTarjeta = 0,
+                                            cantidadVales = 0,
+                                            cantidadCheque = 0,
+                                            cantidadTransferencia = 0,
+                                            cantidadCredito = 0,
+                                            cantidadAbonos = 0,
+                                            cantidadAnticipos = 0,
+                                            cantidadTotalVentas = 0;
+
+                                    if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                    {
+                                        cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoVentaEnCaja += cantidadEfectivo;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
+                                    {
+                                        cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaVentaEnCaja += cantidadTarjeta;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
+                                    {
+                                        cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesEnVentaCaja += cantidadVales;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
+                                    {
+                                        cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesVentaEnCaja += cantidadCheque;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
+                                    {
+                                        cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaVentaEnCaja += cantidadTransferencia;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Credito"].ToString()))
+                                    {
+                                        cantidadCredito = Convert.ToDecimal(item["Credito"].ToString());
+                                    }
+                                    if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
+                                    {
+                                        cantidadAbonos = Convert.ToDecimal(item["Anticipo"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
+                                    {
+                                        cantidadAnticipos = Convert.ToDecimal(item["Anticipo"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["TotalVentas"].ToString()))
+                                    {
+                                        cantidadTotalVentas = Convert.ToDecimal(item["TotalVentas"].ToString());
+                                    }
+
+                                    lbTEfectivo.Text = cantidadEfectivo.ToString("C2");
+                                    lbTTarjeta.Text = cantidadTarjeta.ToString("C2");
+                                    lbTVales.Text = cantidadVales.ToString("C2");
+                                    lbTCheque.Text = cantidadCheque.ToString("C2");
+                                    lbTTrans.Text = cantidadTransferencia.ToString("C2");
+                                    lbTCredito.Text = cantidadCredito.ToString("C2");
+                                    lbTCreditoC.Text = cantidadAbonos.ToString("C2");
+                                    lbTAnticipos.Text = cantidadAnticipos.ToString("C2");
+                                    lbTVentas.Text = cantidadTotalVentas.ToString("C2");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void seccionAdminCaja()
+        {
+            seccionAdminVentas();
+            seccionAdminAnticipos();
+            seccionAdminDineroAgregado();
+            seccionAdminDineroRetirado();
+        }
+
+        private void seccionAdminDineroRetirado()
+        {
+            // Total de Dinero Retirado
+            using (DataTable dtUltimoCorteDeCaja = cn.CargarDatos(cs.fechaUltimoCorteDecaja()))
+            {
+                if (!dtUltimoCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    var idCajaUltimoCorte = string.Empty;
+
+                    foreach (DataRow item in dtUltimoCorteDeCaja.Rows)
+                    {
+                        idCajaUltimoCorte = item["ID"].ToString();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(idCajaUltimoCorte))
+                    {
+                        using (DataTable dtSeccionDineroRetiradoAdministrador = cn.CargarDatos(cs.totalCantidadesRetirosAdministrador(idCajaUltimoCorte)))
+                        {
+                            if (!dtSeccionDineroRetiradoAdministrador.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtSeccionDineroRetiradoAdministrador.Rows)
+                                {
+                                    decimal cantidadEfectivo = 0,
+                                            cantidadTarjeta = 0,
+                                            cantidadVales = 0,
+                                            cantidadCheque = 0,
+                                            cantidadTransferencia = 0,
+                                            cantidadTotalDineroRetirado = 0;
+
+                                    if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                    {
+                                        cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoRetiroEnCaja += cantidadEfectivo;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
+                                    {
+                                        cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaRetiroEnCaja += cantidadTarjeta;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
+                                    {
+                                        cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesRetiroEnCaja += cantidadVales;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
+                                    {
+                                        cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesRetiroEnCaja += cantidadCheque;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
+                                    {
+                                        cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaRetiroEnCaja += cantidadTransferencia;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["TotalRetiros"].ToString()))
+                                    {
+                                        cantidadTotalDineroRetirado = Convert.ToDecimal(item["TotalRetiros"].ToString());
+                                    }
+
+                                    lbEfectivoR.Text = cantidadEfectivo.ToString("C2");
+                                    lbTarjetaR.Text = cantidadTarjeta.ToString("C2");
+                                    lbValesR.Text = cantidadVales.ToString("C2");
+                                    lbChequeR.Text = cantidadCheque.ToString("C2");
+                                    lbTransferenciaR.Text = cantidadTransferencia.ToString("C2");
+                                    lbTRetirado.Text = cantidadTotalDineroRetirado.ToString("C2");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void seccionAdminDineroAgregado()
+        {
+            // Total de Dinero Agregado
+            using (DataTable dtUltimoCorteDeCaja = cn.CargarDatos(cs.fechaUltimoCorteDecaja()))
+            {
+                if (!dtUltimoCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    var idCajaUltimoCorte = string.Empty;
+
+                    foreach (DataRow item in dtUltimoCorteDeCaja.Rows)
+                    {
+                        idCajaUltimoCorte = item["ID"].ToString();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(idCajaUltimoCorte))
+                    {
+                        using (DataTable dtSeccionDineroAgregadoAdministrador = cn.CargarDatos(cs.totalCantidadesDepositosAdministrador(idCajaUltimoCorte)))
+                        {
+                            if (!dtSeccionDineroAgregadoAdministrador.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtSeccionDineroAgregadoAdministrador.Rows)
+                                {
+                                    decimal cantidadEfectivo = 0,
+                                            cantidadTarjeta = 0,
+                                            cantidadVales = 0,
+                                            cantidadCheque = 0,
+                                            cantidadTransferencia = 0,
+                                            cantidadTotalDineroAgregado = 0;
+
+                                    if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                    {
+                                        cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoDepsitosEnCaja += cantidadEfectivo;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
+                                    {
+                                        cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaDepositosEnCaja += cantidadTarjeta;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
+                                    {
+                                        cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesDepositosEnCaja += cantidadVales;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
+                                    {
+                                        cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesDepsoitosEnCaja += cantidadCheque;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
+                                    {
+                                        cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciasDepositosEnCaja += cantidadTransferencia;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["TotalDepositos"].ToString()))
+                                    {
+                                        cantidadTotalDineroAgregado = Convert.ToDecimal(item["TotalDepositos"].ToString());
+                                    }
+
+                                    lbTEfectivoD.Text = cantidadEfectivo.ToString("C2");
+                                    lbTTarjetaD.Text = cantidadTarjeta.ToString("C2");
+                                    lbTValesD.Text = cantidadVales.ToString("C2");
+                                    lbTChequeD.Text = cantidadCheque.ToString("C2");
+                                    lbTTransD.Text = cantidadTransferencia.ToString("C2");
+                                    lbTAgregado.Text = cantidadTotalDineroAgregado.ToString("C2");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void seccionAdminAnticipos()
+        {
+            // Total de Anticipos
+            using (DataTable dtUltimoCorteDeCaja = cn.CargarDatos(cs.fechaUltimoCorteDecaja()))
+            {
+                if (!dtUltimoCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    var idCajaUltimoCorte = string.Empty;
+
+                    foreach (DataRow item in dtUltimoCorteDeCaja.Rows)
+                    {
+                        idCajaUltimoCorte = item["ID"].ToString();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(idCajaUltimoCorte))
+                    {
+                        using (DataTable dtSeccionAnticiposAdministrador = cn.CargarDatos(cs.totalCantidadesAnticiposAdministrador(idCajaUltimoCorte)))
+                        {
+                            if (!dtSeccionAnticiposAdministrador.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtSeccionAnticiposAdministrador.Rows)
+                                {
+                                    decimal cantidadEfectivo = 0,
+                                            cantidadTarjeta = 0,
+                                            cantidadVales = 0,
+                                            cantidadCheque = 0,
+                                            cantidadTransferencia = 0,
+                                            cantidadTotalAnticipos = 0;
+
+                                    if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                    {
+                                        cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoAnticiposEnCaja += cantidadEfectivo;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
+                                    {
+                                        cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaAnticiposEnCaja += cantidadTarjeta;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
+                                    {
+                                        cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesAnticiposEnCaja += cantidadVales;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
+                                    {
+                                        cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesAnticipoEnCaja += cantidadCheque;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
+                                    {
+                                        cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaAnticiposEnCaja += cantidadTransferencia;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["TotalAnticipos"].ToString()))
+                                    {
+                                        cantidadTotalAnticipos = Convert.ToDecimal(item["TotalAnticipos"].ToString());
+                                    }
+
+                                    lbTEfectivoA.Text = cantidadEfectivo.ToString("C2");
+                                    lbTTarjetaA.Text = cantidadTarjeta.ToString("C2");
+                                    lbTValesA.Text = cantidadVales.ToString("C2");
+                                    lbTChequeA.Text = cantidadCheque.ToString("C2");
+                                    lbTTransA.Text = cantidadTransferencia.ToString("C2");
+                                    lbTAnticiposA.Text = cantidadTotalAnticipos.ToString("C2");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void seccionAdminVentas()
+        {
+            // Total de Efectivo
+            using (DataTable dtUltimoCorteDeCaja = cn.CargarDatos(cs.fechaUltimoCorteDecaja()))
+            {
+                if (!dtUltimoCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    var idCajaUltimoCorte = string.Empty;
+
+                    foreach (DataRow item in dtUltimoCorteDeCaja.Rows)
+                    {
+                        idCajaUltimoCorte = item["ID"].ToString();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(idCajaUltimoCorte))
+                    {
+                        using (DataTable dtSeccionVentaAdministrador = cn.CargarDatos(cs.totalCantidadesVentasAdministrador(idCajaUltimoCorte)))
+                        {
+                            if (!dtSeccionVentaAdministrador.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtSeccionVentaAdministrador.Rows)
+                                {
+                                    decimal cantidadEfectivo = 0,
+                                            cantidadTarjeta = 0,
+                                            cantidadVales = 0,
+                                            cantidadCheque = 0,
+                                            cantidadTransferencia = 0,
+                                            cantidadCredito = 0,
+                                            cantidadAbonos = 0,
+                                            cantidadAnticipos = 0,
+                                            cantidadTotalVentas = 0;
+
+                                    if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                    {
+                                        cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoVentaEnCaja += cantidadEfectivo;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
+                                    {
+                                        cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaVentaEnCaja += cantidadTarjeta;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
+                                    {
+                                        cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesEnVentaCaja += cantidadVales;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
+                                    {
+                                        cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesVentaEnCaja += cantidadCheque;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
+                                    {
+                                        cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaVentaEnCaja += cantidadTransferencia;
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Credito"].ToString()))
+                                    {
+                                        cantidadCredito = Convert.ToDecimal(item["Credito"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
+                                    {
+                                        cantidadAbonos = Convert.ToDecimal(item["Anticipo"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
+                                    {
+                                        cantidadAnticipos = Convert.ToDecimal(item["Anticipo"].ToString());
+                                    }
+
+                                    if (!string.IsNullOrWhiteSpace(item["TotalVentas"].ToString()))
+                                    {
+                                        cantidadTotalVentas = Convert.ToDecimal(item["TotalVentas"].ToString());
+                                    }
+
+
+                                    lbTEfectivo.Text = cantidadEfectivo.ToString("C2");
+                                    lbTTarjeta.Text = cantidadTarjeta.ToString("C2");
+                                    lbTVales.Text = cantidadVales.ToString("C2");
+                                    lbTCheque.Text = cantidadCheque.ToString("C2");
+                                    lbTTrans.Text = cantidadTransferencia.ToString("C2");
+                                    lbTCredito.Text = cantidadCredito.ToString("C2");
+                                    lbTCreditoC.Text = cantidadAbonos.ToString("C2");
+                                    lbTAnticipos.Text = cantidadAnticipos.ToString("C2");
+                                    lbTVentas.Text = cantidadTotalVentas.ToString("C2");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void clasificarTipoDeUsuario()
+        {
+            //opcionComboBoxFiltroAdminEmp = (string)cbFiltroAdminEmpleado.SelectedValue;
+            opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
+
+            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+            {
+                using (DataTable dtAdmin = cn.CargarDatos(cs.obtenerDatosDeAdministrador(FormPrincipal.userID)))
+                {
+                    if (!dtAdmin.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow drAdmin in dtAdmin.Rows)
+                        {
+                            idAdministradorOrUsuario = Convert.ToInt32(drAdmin["ID"].ToString());
+                            nombreDeUsuario = drAdmin["Usuario"].ToString();
+                            razonSocialUsuario = drAdmin["RazonSocial"].ToString();
+                        }
+                    }
+                }
+            }
+            else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+            {
+
+            }
+            else
+            {
+                using (DataTable dtEmpleado = cn.CargarDatos(cs.obtenerDatosDeEmpleado(Convert.ToInt32(opcionComboBoxFiltroAdminEmp))))
+                {
+                    if (!dtEmpleado.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow drEmpleado in dtEmpleado.Rows)
+                        {
+                            idAdministradorOrUsuario = Convert.ToInt32(drEmpleado["ID"].ToString());
+                            nombreDeUsuario = drEmpleado["nombre"].ToString();
+                        }
+                    }
                 }
             }
         }

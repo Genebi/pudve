@@ -132,6 +132,7 @@
             this.lbSaldoInicialInfo = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbFiltroAdminEmpleado = new System.Windows.Forms.ComboBox();
             this.btnRedondoAbrirCaja = new PuntoDeVentaV2.BotonRedondo();
             this.btnRedondoCorteCaja = new PuntoDeVentaV2.BotonRedondo();
             this.btnRedondoRetirarDinero = new PuntoDeVentaV2.BotonRedondo();
@@ -888,6 +889,7 @@
             this.lbTCreditoTotal.Size = new System.Drawing.Size(39, 17);
             this.lbTCreditoTotal.TabIndex = 18;
             this.lbTCreditoTotal.Text = "$0.00";
+            this.lbTCreditoTotal.Visible = false;
             // 
             // lbCreditoTotal
             // 
@@ -899,6 +901,7 @@
             this.lbCreditoTotal.Size = new System.Drawing.Size(85, 17);
             this.lbCreditoTotal.TabIndex = 17;
             this.lbCreditoTotal.Text = "Total Crédito";
+            this.lbCreditoTotal.Visible = false;
             // 
             // lbTSaldoInicial
             // 
@@ -1298,9 +1301,9 @@
             this.lbCredito.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCredito.Location = new System.Drawing.Point(11, 205);
             this.lbCredito.Name = "lbCredito";
-            this.lbCredito.Size = new System.Drawing.Size(53, 17);
+            this.lbCredito.Size = new System.Drawing.Size(85, 17);
             this.lbCredito.TabIndex = 5;
-            this.lbCredito.Text = "Crédito";
+            this.lbCredito.Text = "Total Crédito";
             // 
             // lbTrans
             // 
@@ -1376,7 +1379,7 @@
             this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnImprimir.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImprimir.ForeColor = System.Drawing.Color.White;
-            this.btnImprimir.Location = new System.Drawing.Point(505, 47);
+            this.btnImprimir.Location = new System.Drawing.Point(700, 56);
             this.btnImprimir.Name = "btnImprimir";
             this.btnImprimir.Size = new System.Drawing.Size(160, 32);
             this.btnImprimir.TabIndex = 112;
@@ -1421,6 +1424,16 @@
             this.panel1.TabIndex = 114;
             this.panel1.Visible = false;
             // 
+            // cbFiltroAdminEmpleado
+            // 
+            this.cbFiltroAdminEmpleado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFiltroAdminEmpleado.FormattingEnabled = true;
+            this.cbFiltroAdminEmpleado.Location = new System.Drawing.Point(395, 55);
+            this.cbFiltroAdminEmpleado.Name = "cbFiltroAdminEmpleado";
+            this.cbFiltroAdminEmpleado.Size = new System.Drawing.Size(200, 21);
+            this.cbFiltroAdminEmpleado.TabIndex = 121;
+            this.cbFiltroAdminEmpleado.SelectedIndexChanged += new System.EventHandler(this.cbFiltroAdminEmpleado_SelectedIndexChanged);
+            // 
             // btnRedondoAbrirCaja
             // 
             this.btnRedondoAbrirCaja.BackColor = System.Drawing.Color.Green;
@@ -1461,7 +1474,7 @@
             this.btnRedondoCorteCaja.Name = "btnRedondoCorteCaja";
             this.btnRedondoCorteCaja.Size = new System.Drawing.Size(179, 48);
             this.btnRedondoCorteCaja.TabIndex = 117;
-            this.btnRedondoCorteCaja.Text = "Corte de Caja";
+            this.btnRedondoCorteCaja.Text = "Realizar Corte de Caja";
             this.btnRedondoCorteCaja.TextColor = System.Drawing.Color.White;
             this.btnRedondoCorteCaja.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRedondoCorteCaja.UseVisualStyleBackColor = false;
@@ -1539,6 +1552,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1135, 661);
+            this.Controls.Add(this.cbFiltroAdminEmpleado);
             this.Controls.Add(this.lbSaldoInicialInfo);
             this.Controls.Add(this.btnRedondoAbrirCaja);
             this.Controls.Add(this.btnRedondoCorteCaja);
@@ -1688,5 +1702,6 @@
         private BotonRedondo btnRedondoAbrirCaja;
         private BotonRedondo btnRedondoSaldoInicial;
         private System.Windows.Forms.Label lbSaldoInicialInfo;
+        private System.Windows.Forms.ComboBox cbFiltroAdminEmpleado;
     }
 }
