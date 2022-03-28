@@ -889,6 +889,7 @@
             this.lbTCreditoTotal.Size = new System.Drawing.Size(39, 17);
             this.lbTCreditoTotal.TabIndex = 18;
             this.lbTCreditoTotal.Text = "$0.00";
+            this.lbTCreditoTotal.Visible = false;
             // 
             // lbCreditoTotal
             // 
@@ -900,6 +901,7 @@
             this.lbCreditoTotal.Size = new System.Drawing.Size(85, 17);
             this.lbCreditoTotal.TabIndex = 17;
             this.lbCreditoTotal.Text = "Total Crédito";
+            this.lbCreditoTotal.Visible = false;
             // 
             // lbTSaldoInicial
             // 

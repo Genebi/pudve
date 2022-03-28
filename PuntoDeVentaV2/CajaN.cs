@@ -106,6 +106,29 @@ namespace PuntoDeVentaV2
         string nombreDeUsuario = string.Empty;
         string razonSocialUsuario = string.Empty;
 
+        decimal totalEfectivoVentaEnCaja = 0, 
+                totalTarjetaVentaEnCaja = 0,
+                totalValesEnVentaCaja = 0,
+                totalChequesVentaEnCaja = 0,
+                totalTransferenciaVentaEnCaja = 0,
+                totalSaldoInicialVentaEnCaja = 0,
+                totalEfectivoAnticiposEnCaja = 0,
+                totalTarjetaAnticiposEnCaja = 0,
+                totalValesAnticiposEnCaja = 0,
+                totalChequesAnticipoEnCaja = 0,
+                totalTransferenciaAnticiposEnCaja = 0,
+                totalEfectivoDepsitosEnCaja = 0,
+                totalTarjetaDepositosEnCaja = 0,
+                totalValesDepositosEnCaja = 0,
+                totalChequesDepsoitosEnCaja = 0,
+                totalTransferenciasDepositosEnCaja = 0,
+                totalEfectivoRetiroEnCaja = 0,
+                totalTarjetaRetiroEnCaja = 0,
+                totalValesRetiroEnCaja = 0,
+                totalChequesRetiroEnCaja = 0,
+                totalTransferenciaRetiroEnCaja = 0,
+                totalSaldoInicial = 0;
+
         public CajaN()
         {
             InitializeComponent();
@@ -200,6 +223,8 @@ namespace PuntoDeVentaV2
 
             //saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
             saldoInicial = cdc.CargarSaldoInicial();
+
+            totalSaldoInicial = (decimal)saldoInicial;
 
             //tituloSeccion.Text = "SALDO INICIAL: \r\n" + moneda + cdc.CargarSaldoInicial().ToString("0.00");
             btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + cdc.CargarSaldoInicial().ToString("0.00");
@@ -3048,6 +3073,7 @@ namespace PuntoDeVentaV2
 
         private void filtrarInformacionSeleccionada()
         {
+            limpiarVariablesParaTotales();
             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
             {
                 seccionAdminCaja();
@@ -3060,6 +3086,32 @@ namespace PuntoDeVentaV2
             {
                 seccionEmpleadoCaja(opcionComboBoxFiltroAdminEmp);
             }
+            mostrarTotalEnCaja();
+        }
+
+        private void limpiarVariablesParaTotales()
+        {
+            totalEfectivoVentaEnCaja = totalTarjetaVentaEnCaja = totalValesEnVentaCaja = totalChequesVentaEnCaja = totalTransferenciaVentaEnCaja = totalSaldoInicialVentaEnCaja = totalEfectivoAnticiposEnCaja = totalTarjetaAnticiposEnCaja = totalValesAnticiposEnCaja = totalChequesAnticipoEnCaja = totalTransferenciaAnticiposEnCaja = totalEfectivoDepsitosEnCaja = totalTarjetaDepositosEnCaja = totalValesDepositosEnCaja = totalChequesDepsoitosEnCaja = totalTransferenciasDepositosEnCaja = totalEfectivoRetiroEnCaja = totalTarjetaRetiroEnCaja = totalValesRetiroEnCaja = totalChequesRetiroEnCaja = totalTransferenciaRetiroEnCaja = 0;
+        }
+
+        private void mostrarTotalEnCaja()
+        {
+            var cantidadTotalEfectivoEnCaja = ((totalEfectivoVentaEnCaja + totalEfectivoAnticiposEnCaja + totalEfectivoDepsitosEnCaja) - totalEfectivoRetiroEnCaja);
+            var cantidadTotalTarjetaEnCaja = ((totalTarjetaVentaEnCaja + totalTarjetaAnticiposEnCaja + totalTarjetaDepositosEnCaja) - totalTarjetaRetiroEnCaja);
+            var cantidadTotalValesEnCaja = ((totalValesEnVentaCaja + totalValesAnticiposEnCaja + totalValesDepositosEnCaja) - totalValesRetiroEnCaja);
+            var cantidadTotalCehqueEnCaja = ((totalChequesVentaEnCaja + totalChequesAnticipoEnCaja + totalChequesDepsoitosEnCaja) - totalChequesRetiroEnCaja);
+            var cantidadTotalTransferenciaEnCaja = ((totalTransferenciaVentaEnCaja + totalTransferenciaAnticiposEnCaja + totalTransferenciasDepositosEnCaja) - totalTransferenciaRetiroEnCaja);
+
+            lbTEfectivoC.Text = cantidadTotalEfectivoEnCaja.ToString("C2");
+            lbTTarjetaC.Text = cantidadTotalTarjetaEnCaja.ToString("C2");
+            lbTValesC.Text = cantidadTotalValesEnCaja.ToString("C2");
+            lbTChequeC.Text = cantidadTotalCehqueEnCaja.ToString("C2");
+            lbTTransC.Text = cantidadTotalTransferenciaEnCaja.ToString("C2");
+            lbTSaldoInicial.Text = totalSaldoInicial.ToString("C2");
+
+            var sumaDeTotalesEnCaja = cantidadTotalEfectivoEnCaja + cantidadTotalTarjetaEnCaja + cantidadTotalValesEnCaja + cantidadTotalCehqueEnCaja + cantidadTotalTransferenciaEnCaja + totalSaldoInicial;
+
+            lbTTotalCaja.Text = sumaDeTotalesEnCaja.ToString("C2");
         }
 
         private void seccionTodosCaja()
@@ -3102,26 +3154,31 @@ namespace PuntoDeVentaV2
                                     if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
                                     {
                                         cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoRetiroEnCaja += cantidadEfectivo;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
                                     {
                                         cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaRetiroEnCaja += cantidadTarjeta;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
                                     {
                                         cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesRetiroEnCaja += cantidadVales;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
                                     {
                                         cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesRetiroEnCaja += cantidadCheque;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
                                     {
                                         cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaRetiroEnCaja += cantidadTransferencia;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["TotalRetiros"].ToString()))
@@ -3175,26 +3232,31 @@ namespace PuntoDeVentaV2
                                     if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
                                     {
                                         cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoDepsitosEnCaja += cantidadEfectivo;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
                                     {
                                         cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaDepositosEnCaja += cantidadTarjeta;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
                                     {
                                         cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesDepositosEnCaja += cantidadVales;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
                                     {
                                         cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesDepsoitosEnCaja += cantidadCheque;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
                                     {
                                         cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciasDepositosEnCaja += cantidadTransferencia;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["TotalDepositos"].ToString()))
@@ -3247,26 +3309,31 @@ namespace PuntoDeVentaV2
                                     if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
                                     {
                                         cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoAnticiposEnCaja += cantidadEfectivo;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
                                     {
                                         cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaAnticiposEnCaja += cantidadTarjeta;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
                                     {
                                         cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesAnticiposEnCaja += cantidadVales;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
                                     {
                                         cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesAnticipoEnCaja += cantidadCheque;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
                                     {
                                         cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaAnticiposEnCaja += cantidadTransferencia;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["TotalAnticipos"].ToString()))
@@ -3322,26 +3389,31 @@ namespace PuntoDeVentaV2
                                     if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
                                     {
                                         cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoVentaEnCaja += cantidadEfectivo;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
                                     {
                                         cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaVentaEnCaja += cantidadTarjeta;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
                                     {
                                         cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesEnVentaCaja += cantidadVales;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
                                     {
                                         cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesVentaEnCaja += cantidadCheque;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
                                     {
                                         cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaVentaEnCaja += cantidadTransferencia;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Credito"].ToString()))
@@ -3420,26 +3492,31 @@ namespace PuntoDeVentaV2
                                     if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
                                     {
                                         cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoRetiroEnCaja += cantidadEfectivo;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
                                     {
                                         cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaRetiroEnCaja += cantidadTarjeta;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
                                     {
                                         cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesRetiroEnCaja += cantidadVales;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
                                     {
                                         cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesRetiroEnCaja += cantidadCheque;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
                                     {
                                         cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaRetiroEnCaja += cantidadTransferencia;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["TotalRetiros"].ToString()))
@@ -3493,26 +3570,31 @@ namespace PuntoDeVentaV2
                                     if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
                                     {
                                         cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoDepsitosEnCaja += cantidadEfectivo;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
                                     {
                                         cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaDepositosEnCaja += cantidadTarjeta;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
                                     {
                                         cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesDepositosEnCaja += cantidadVales;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
                                     {
                                         cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesDepsoitosEnCaja += cantidadCheque;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
                                     {
                                         cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciasDepositosEnCaja += cantidadTransferencia;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["TotalDepositos"].ToString()))
@@ -3565,26 +3647,31 @@ namespace PuntoDeVentaV2
                                     if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
                                     {
                                         cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoAnticiposEnCaja += cantidadEfectivo;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
                                     {
                                         cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaAnticiposEnCaja += cantidadTarjeta;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
                                     {
                                         cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesAnticiposEnCaja += cantidadVales;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
                                     {
                                         cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesAnticipoEnCaja += cantidadCheque;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
                                     {
                                         cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaAnticiposEnCaja += cantidadTransferencia;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["TotalAnticipos"].ToString()))
@@ -3640,26 +3727,31 @@ namespace PuntoDeVentaV2
                                     if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
                                     {
                                         cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoVentaEnCaja += cantidadEfectivo;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
                                     {
                                         cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaVentaEnCaja += cantidadTarjeta;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
                                     {
                                         cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesEnVentaCaja += cantidadVales;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
                                     {
                                         cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesVentaEnCaja += cantidadCheque;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
                                     {
                                         cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaVentaEnCaja += cantidadTransferencia;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Credito"].ToString()))
@@ -3738,26 +3830,31 @@ namespace PuntoDeVentaV2
                                     if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
                                     {
                                         cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoRetiroEnCaja += cantidadEfectivo;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
                                     {
                                         cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaRetiroEnCaja += cantidadTarjeta;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
                                     {
                                         cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesRetiroEnCaja += cantidadVales;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
                                     {
                                         cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesRetiroEnCaja += cantidadCheque;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
                                     {
                                         cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaRetiroEnCaja += cantidadTransferencia;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["TotalRetiros"].ToString()))
@@ -3811,26 +3908,31 @@ namespace PuntoDeVentaV2
                                     if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
                                     {
                                         cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoDepsitosEnCaja += cantidadEfectivo;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
                                     {
                                         cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaDepositosEnCaja += cantidadTarjeta;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
                                     {
                                         cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesDepositosEnCaja += cantidadVales;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
                                     {
                                         cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesDepsoitosEnCaja += cantidadCheque;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
                                     {
                                         cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciasDepositosEnCaja += cantidadTransferencia;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["TotalDepositos"].ToString()))
@@ -3884,26 +3986,31 @@ namespace PuntoDeVentaV2
                                     if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
                                     {
                                         cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoAnticiposEnCaja += cantidadEfectivo;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
                                     {
                                         cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaAnticiposEnCaja += cantidadTarjeta;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
                                     {
                                         cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesAnticiposEnCaja += cantidadVales;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
                                     {
                                         cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesAnticipoEnCaja += cantidadCheque;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
                                     {
                                         cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaAnticiposEnCaja += cantidadTransferencia;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["TotalAnticipos"].ToString()))
@@ -3960,32 +4067,38 @@ namespace PuntoDeVentaV2
                                     if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
                                     {
                                         cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoVentaEnCaja += cantidadEfectivo;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
                                     {
                                         cantidadTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        totalTarjetaVentaEnCaja += cantidadTarjeta;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
                                     {
                                         cantidadVales = Convert.ToDecimal(item["Vales"].ToString());
+                                        totalValesEnVentaCaja += cantidadVales;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
                                     {
                                         cantidadCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                        totalChequesVentaEnCaja += cantidadCheque;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
                                     {
                                         cantidadTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        totalTransferenciaVentaEnCaja += cantidadTransferencia;
                                     }
 
                                     if (!string.IsNullOrWhiteSpace(item["Credito"].ToString()))
                                     {
                                         cantidadCredito = Convert.ToDecimal(item["Credito"].ToString());
                                     }
+
                                     if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
                                     {
                                         cantidadAbonos = Convert.ToDecimal(item["Anticipo"].ToString());
