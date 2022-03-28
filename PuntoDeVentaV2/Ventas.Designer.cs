@@ -601,6 +601,7 @@
             this.panel1.Size = new System.Drawing.Size(890, 389);
             this.panel1.TabIndex = 34;
             this.panel1.Click += new System.EventHandler(this.panel1_Click);
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // panel4
             // 
@@ -673,28 +674,32 @@
             // 
             // lbEliminarCliente
             // 
-            this.lbEliminarCliente.AutoSize = true;
+            this.lbEliminarCliente.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lbEliminarCliente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbEliminarCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbEliminarCliente.ForeColor = System.Drawing.Color.Red;
-            this.lbEliminarCliente.Location = new System.Drawing.Point(17, 360);
+            this.lbEliminarCliente.ForeColor = System.Drawing.Color.Black;
+            this.lbEliminarCliente.Location = new System.Drawing.Point(10, 358);
             this.lbEliminarCliente.Name = "lbEliminarCliente";
-            this.lbEliminarCliente.Size = new System.Drawing.Size(17, 16);
+            this.lbEliminarCliente.Size = new System.Drawing.Size(24, 23);
             this.lbEliminarCliente.TabIndex = 57;
             this.lbEliminarCliente.Text = "X";
-            this.lbEliminarCliente.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lbEliminarCliente.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbEliminarCliente.Visible = false;
             this.lbEliminarCliente.Click += new System.EventHandler(this.lbEliminarCliente_Click);
             // 
             // lbDatosCliente
             // 
-            this.lbDatosCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbDatosCliente.ForeColor = System.Drawing.Color.Red;
-            this.lbDatosCliente.Location = new System.Drawing.Point(32, 357);
+            this.lbDatosCliente.AutoSize = true;
+            this.lbDatosCliente.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbDatosCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbDatosCliente.ForeColor = System.Drawing.Color.Black;
+            this.lbDatosCliente.Location = new System.Drawing.Point(43, 361);
             this.lbDatosCliente.Name = "lbDatosCliente";
-            this.lbDatosCliente.Size = new System.Drawing.Size(621, 23);
+            this.lbDatosCliente.Size = new System.Drawing.Size(2, 18);
             this.lbDatosCliente.TabIndex = 45;
             this.lbDatosCliente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbDatosCliente.Visible = false;
+            this.lbDatosCliente.Click += new System.EventHandler(this.lbDatosCliente_Click);
             // 
             // lbMayoreo
             // 
