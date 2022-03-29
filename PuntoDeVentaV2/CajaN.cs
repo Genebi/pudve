@@ -143,13 +143,16 @@ namespace PuntoDeVentaV2
 
             // Obtener saldo inicial
             CargarSaldoInicial();
+            limpiarVariablesParaTotales();
             if (!FormPrincipal.userNickName.Contains("@"))
             {
                 cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
+                mostrarTotalEnCaja();
             }
             else
             {
                 seccionEmpleadoCaja(FormPrincipal.id_empleado.ToString());
+                mostrarTotalEnCaja();
             }
 
             if (FormPrincipal.id_empleado > 0)
@@ -1080,7 +1083,21 @@ namespace PuntoDeVentaV2
         {
             if (recargarDatos)
             {
+                verComboBoxAdministradorEmpleado();
+
                 CargarSaldoInicial();
+                limpiarVariablesParaTotales();
+                if (!FormPrincipal.userNickName.Contains("@"))
+                {
+                    cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
+                    mostrarTotalEnCaja();
+                }
+                else
+                {
+                    seccionEmpleadoCaja(FormPrincipal.id_empleado.ToString());
+                    mostrarTotalEnCaja();
+                }
+
                 //CargarSaldo();
                 recargarDatos = false;
 
@@ -3068,27 +3085,46 @@ namespace PuntoDeVentaV2
         {
             if (!FormPrincipal.userNickName.Contains("@"))
             {
+                limpiarVariablesParaTotales();
                 clasificarTipoDeUsuario();
                 filtrarInformacionSeleccionada();
+                mostrarTotalEnCaja();
             }
         }
 
         private void filtrarInformacionSeleccionada()
         {
-            limpiarVariablesParaTotales();
             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
             {
                 seccionAdminCaja();
+                activarBotonesDeCaja();
             }
             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
             {
                 seccionTodosCaja();
+                desactivarBotonesDeCaja();
             }
             else
             {
                 seccionEmpleadoCaja(opcionComboBoxFiltroAdminEmp);
+                desactivarBotonesDeCaja();
             }
-            mostrarTotalEnCaja();
+        }
+
+        private void activarBotonesDeCaja()
+        {
+            btnRedondoAgregarDinero.Enabled = true;
+            btnRedondoRetirarDinero.Enabled = true;
+            btnRedondoCorteCaja.Enabled = true;
+            btnRedondoAbrirCaja.Enabled = true;
+        }
+
+        private void desactivarBotonesDeCaja()
+        {
+            btnRedondoAgregarDinero.Enabled = false;
+            btnRedondoRetirarDinero.Enabled = false;
+            btnRedondoCorteCaja.Enabled = false;
+            btnRedondoAbrirCaja.Enabled = false;
         }
 
         private void limpiarVariablesParaTotales()
