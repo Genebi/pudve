@@ -63,7 +63,10 @@ namespace PuntoDeVentaV2
         bool check23 = false;
         bool check26 = false;
 
+        List<String> confiGeneral;
+
         bool valorCambioCheckBox = false;
+        int guardado = 0;
 
         int contador = 0;
 
@@ -603,6 +606,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            confiGeneral = new List<string>();
         }
 
         private void chkCerrarSesionCorte_CheckedChanged(object sender, EventArgs e)
@@ -644,7 +648,8 @@ namespace PuntoDeVentaV2
                         ticketVenta = 0;
                     }
 
-                    cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}");
+                    var consulta = $"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiGeneral.Add(consulta);
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
                 {
@@ -671,7 +676,9 @@ namespace PuntoDeVentaV2
                                 ticketVenta = 0;
                             }
 
-                            cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}");
+                            var consulta = $"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiGeneral.Add(consulta);
+
                         }
                         else
                         {
@@ -716,7 +723,8 @@ namespace PuntoDeVentaV2
                         habilitado = 0;
                     }
 
-                    cn.EjecutarConsulta($"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                    var consulta = $"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiGeneral.Add(consulta);
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
                 {
@@ -738,7 +746,8 @@ namespace PuntoDeVentaV2
                                 habilitado = 0;
                             }
 
-                            cn.EjecutarConsulta($"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                            var consulta = $"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiGeneral.Add(consulta);
 
                         }
                         else
@@ -790,7 +799,8 @@ namespace PuntoDeVentaV2
                         habilitado = 0;
                     }
 
-                    cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                    var consulta = $"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiGeneral.Add(consulta);
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
                 {
@@ -818,8 +828,8 @@ namespace PuntoDeVentaV2
                                 habilitado = 0;
                             }
 
-                            cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-
+                            string consulta =$"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiGeneral.Add(consulta);
                         }
                         else
                         {
@@ -870,7 +880,8 @@ namespace PuntoDeVentaV2
                         habilitado = 0;
                     }
 
-                    cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                    var consulta = $"UPDATE Configuracion SET MostrarPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiGeneral.Add(consulta);
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
                 {
@@ -898,7 +909,8 @@ namespace PuntoDeVentaV2
                                 habilitado = 0;
                             }
 
-                            cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                            string consulta =$"UPDATE Configuracion SET MostrarPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiGeneral.Add(consulta);
 
                         }
                         else
@@ -950,7 +962,8 @@ namespace PuntoDeVentaV2
                         habilitado = 0;
                     }
 
-                    cn.EjecutarConsulta($"UPDATE Configuracion SET StockNegativo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                    string consulta=$"UPDATE Configuracion SET StockNegativo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiGeneral.Add(consulta);
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
                 {
@@ -978,8 +991,8 @@ namespace PuntoDeVentaV2
                                 habilitado = 0;
                             }
 
-                            cn.EjecutarConsulta($"UPDATE Configuracion SET StockNegativo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-
+                            string consulta = $"UPDATE Configuracion SET StockNegativo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiGeneral.Add(consulta);
                         }
                         else
                         {
@@ -1024,7 +1037,8 @@ namespace PuntoDeVentaV2
                         habilitado = false;
                     }
 
-                    cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                    string consulta =$"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiGeneral.Add(consulta);
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
                 {
@@ -1046,7 +1060,8 @@ namespace PuntoDeVentaV2
                                 habilitado = false;
                             }
 
-                            cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                            string consulta = $"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiGeneral.Add(consulta);
 
                         }
                         else
@@ -1102,7 +1117,8 @@ namespace PuntoDeVentaV2
                         txtMinimoMayoreo.Text = string.Empty;
                     }
 
-                    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                    string consulta = $"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiGeneral.Add(consulta );
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
                 {
@@ -1134,7 +1150,8 @@ namespace PuntoDeVentaV2
                                 txtMinimoMayoreo.Text = string.Empty;
                             }
 
-                            cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                            string consulta =$"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiGeneral.Add(consulta);
 
                         }
                         else
@@ -1209,14 +1226,17 @@ namespace PuntoDeVentaV2
                             {
                                 txtNoVendidos.Enabled = true;
                                 txtNoVendidos.Focus();
-                                cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 1 WHERE IDUsuario = {FormPrincipal.userID}");
+
+                                string consulta =$"UPDATE Configuracion SET checkNoVendidos = 1 WHERE IDUsuario = {FormPrincipal.userID}";
+                                confiGeneral.Add(consulta);
                                 FormPrincipal.checkNoVendidos = 1;
                             }
                             else
                             {
                                 txtNoVendidos.Enabled = false;
                                 txtNoVendidos.Text = string.Empty;
-                                cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 0, diasNoVendidos = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+                                string consulta =$"UPDATE Configuracion SET checkNoVendidos = 0, diasNoVendidos = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                                confiGeneral.Add(consulta);
                                 FormPrincipal.checkNoVendidos = 0;
                             }
 
@@ -1270,7 +1290,8 @@ namespace PuntoDeVentaV2
                         habilitado = 0;
                     }
 
-                    cn.EjecutarConsulta($"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                    string consulta = $"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiGeneral.Add(consulta);
                     FormPrincipal.pasar = habilitado;
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
@@ -1299,7 +1320,10 @@ namespace PuntoDeVentaV2
                                 habilitado = 0;
                             }
 
-                            cn.EjecutarConsulta($"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                            string consulta = $"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiGeneral.Add(consulta);
+
+
                             FormPrincipal.pasar = habilitado;
 
                         }
@@ -1329,9 +1353,27 @@ namespace PuntoDeVentaV2
 
         private void ConfiguracionGeneral_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
+            
+            if (confiGeneral.Count == 0)
             {
-                this.Close();
+                if (e.KeyCode == Keys.Escape)
+                {
+                    this.Close();
+                }
+            }
+            else
+            {
+                var result = MessageBox.Show("¿Desea guardar los cambios realizados?", "Aviso de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result.Equals(DialogResult.Yes))
+                {
+                    btnAceptar.PerformClick();
+
+                }
+                else
+                {
+                    guardado = 1;
+                    this.Close();
+                }
             }
         }
 
@@ -1354,7 +1396,8 @@ namespace PuntoDeVentaV2
                         habilitado = false;
                     }
 
-                    cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                    string consulta = $"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiGeneral.Add(consulta);
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
                 {
@@ -1376,7 +1419,9 @@ namespace PuntoDeVentaV2
                                 habilitado = false;
                             }
 
-                            cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                            var consulta = string.Empty;
+                            consulta = $"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiGeneral.Add(consulta);
 
                             if (chkMensajeVenderProducto.Checked == true)
                             {
@@ -1430,7 +1475,8 @@ namespace PuntoDeVentaV2
                         habilitado = false;
                     }
 
-                    cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                    string consultas = $"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiGeneral.Add(consultas);
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
                 {
@@ -1451,16 +1497,20 @@ namespace PuntoDeVentaV2
                             {
                                 habilitado = false;
                             }
+                            var consulta = string.Empty;
 
-                            cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
+                             consulta = $"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiGeneral.Add(consulta);
 
                             if (chkMensajeRealizarInventario.Checked == true)
                             {
-                                cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 1");
+                                consulta =$"UPDATE mensajesinventario SET Activo = 1";
+                                confiGeneral.Add(consulta);
                             }
                             else
                             {
-                                cn.EjecutarConsulta($"UPDATE mensajesinventario SET Activo = 0");
+                                consulta =$"UPDATE mensajesinventario SET Activo = 0";
+                                confiGeneral.Add(consulta);
                             }
                         }
                         else
@@ -1489,7 +1539,14 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Configuracion Guardada con exito", "Mensaje de sistema", MessageBoxButtons.OK,MessageBoxIcon.Information);
+
+            foreach (var item in confiGeneral)
+            {
+                cn.EjecutarConsulta(item);
+            }
+        
+            MessageBox.Show("Configuracion Guardada con exito", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            guardado = 1;
             this.Close();
         }
 
@@ -1506,6 +1563,30 @@ namespace PuntoDeVentaV2
         private void chkMensajeVenderProducto_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void ConfiguracionGeneral_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (guardado == 0)
+            {
+                if (confiGeneral.Count == 0)
+                {
+
+                }
+                else
+                {
+                    var result = MessageBox.Show("¿Desea guaradar los cambios realizados?", "Aviso de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result.Equals(DialogResult.Yes))
+                    {
+                        btnAceptar.PerformClick();
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
         }
     }
 }

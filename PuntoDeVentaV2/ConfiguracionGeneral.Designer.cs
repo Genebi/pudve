@@ -97,6 +97,7 @@
             this.chkMensajeRealizarInventario.TabIndex = 131;
             this.chkMensajeRealizarInventario.Text = "Mostrar mensaje al realizar inventario";
             this.chkMensajeRealizarInventario.UseVisualStyleBackColor = true;
+            this.chkMensajeRealizarInventario.Visible = false;
             this.chkMensajeRealizarInventario.CheckedChanged += new System.EventHandler(this.chkMensajeRealizarInventario_CheckedChanged);
             this.chkMensajeRealizarInventario.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkMensajeRealizarInventario_MouseClick);
             // 
@@ -110,6 +111,7 @@
             this.chkMensajeVenderProducto.TabIndex = 130;
             this.chkMensajeVenderProducto.Text = "Mostrar mensaje al vender producto";
             this.chkMensajeVenderProducto.UseVisualStyleBackColor = true;
+            this.chkMensajeVenderProducto.Visible = false;
             this.chkMensajeVenderProducto.CheckedChanged += new System.EventHandler(this.chkMensajeVenderProducto_CheckedChanged);
             this.chkMensajeVenderProducto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkMensajeVenderProducto_MouseClick);
             // 
@@ -317,6 +319,7 @@
             this.Name = "ConfiguracionGeneral";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = " Configuración General";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConfiguracionGeneral_FormClosing);
             this.Load += new System.EventHandler(this.ConfiguracionGeneral_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConfiguracionGeneral_KeyDown);
             this.groupBox2.ResumeLayout(false);

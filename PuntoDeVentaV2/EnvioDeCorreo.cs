@@ -947,6 +947,7 @@ namespace PuntoDeVentaV2
                             var consulta =$"UPDATE Configuracion SET CorreoVenta = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                             confiCorreo.Add(consulta);
 
+
                         }
                         else
                         {
