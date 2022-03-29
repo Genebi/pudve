@@ -1851,3 +1851,6 @@ ALTER TABLE historialstock ADD COLUMN IF NOT EXISTS tipoDeVenta varchar (2);
 ALTER TABLE historialstock ADD COLUMN IF NOT EXISTS idComboServicio  int;
 
 ALTER TABLE productos ADD COLUMN IF NOT EXISTS EnWeb text;
+
+-- Agregar Columna (IDEmpleado) a la tabla "abonos" para saber quien recibe ese abono en el sistema.
+ALTER TABLE Abonos ADD COLUMN IF NOT EXISTS IDEmpleado int DEFAULT 0;

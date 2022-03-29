@@ -3583,5 +3583,40 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string cargarFechaUltimoCorterealizado(string idUltimoCorte)
+        {
+            var consulta = $"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idUltimoCorte}' AND Operacion = 'corte'";
+
+            return consulta;
+        }
+
+        public string cargarAbonosDesdeUltimoCorteRealizadoAdministrador(string idUsuario, string ultimaFechaDeCorte)
+        {
+            var consulta = $"SELECT sum( Efectivo ) AS Efectivo, sum( Tarjeta ) AS Tarjeta, sum( Vales ) AS Vales, sum( Cheque ) AS Cheque, sum( Transferencia ) AS Transferencia, ( sum( Efectivo ) + sum( Tarjeta ) + sum( Vales ) + sum( Cheque ) + sum( Transferencia ) ) AS Total FROM Abonos WHERE IDUsuario = '{idUsuario}' AND FechaOperacion > '{ultimaFechaDeCorte}'";
+
+            return consulta;
+        }
+
+        public string cargarAbonosDesdeUltimoCorteRealizadoEmpleado(string idEmpleado, string ultimaFechaDeCorte)
+        {
+            var consulta = $"SELECT sum( Efectivo ) AS Efectivo, sum( Tarjeta ) AS Tarjeta, sum( Vales ) AS Vales, sum( Cheque ) AS Cheque, sum( Transferencia ) AS Transferencia, ( sum( Efectivo ) + sum( Tarjeta ) + sum( Vales ) + sum( Cheque ) + sum( Transferencia ) ) AS Total FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IDEmpleado = '{idEmpleado}' AND FechaOperacion > '{ultimaFechaDeCorte}'";
+
+            return consulta;
+        }
+
+        public string cargarAbonosDesdeUltimoCorteRealizadoTodos(string ultimaFechaDeCorte)
+        {
+            var consulta = $"SELECT sum( Efectivo ) AS Efectivo, sum( Tarjeta ) AS Tarjeta, sum( Vales ) AS Vales, sum( Cheque ) AS Cheque, sum( Transferencia ) AS Transferencia, ( sum( Efectivo ) + sum( Tarjeta ) + sum( Vales ) + sum( Cheque ) + sum( Transferencia ) ) AS Total FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimaFechaDeCorte}'";
+
+            return consulta;
+        }
+
+        public string cargarIDInicialDeAbonos(string ultimaFechaDeCorte)
+        {
+            var consulta = $"SELECT ID FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimaFechaDeCorte}' ORDER BY ID ASC LIMIT 1";
+
+            return consulta;
+        }
     }
 }  
