@@ -81,7 +81,6 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-
             if (sumarMetodosTemporal() > 0)
             {
                 float total = 0f;
@@ -134,14 +133,28 @@ namespace PuntoDeVentaV2
                 if (cheque > totalPendiente) { cheque = totalPendiente; }
                 if (transferencia > totalPendiente) { transferencia = totalPendiente; }
 
+                string[] datos;
+                int resultado = 0;
+
                 //Validar que se se guarde una cantidad mayor que el total pendiente
                 if (totalPendiente > total)
                 {
-                    string[] datos = new string[] {
-                idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(),
-                vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion
-            };
-                    int resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
+                    if (!FormPrincipal.userNickName.Contains("@"))
+                    {
+                        datos = new string[] {
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion
+                        };
+
+                        resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
+                    }
+                    else
+                    {
+                        datos = new string[] {
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString()
+                        };
+
+                        resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));
+                    }
 
                     if (resultado > 0)
                     {
@@ -159,11 +172,22 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    string[] datos = new string[] {
-                idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), efectiv.ToString(), tarjeta.ToString(),
-                vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion
-            };
-                    int resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
+                    if (!FormPrincipal.userNickName.Contains("@"))
+                    {
+                        datos = new string[] {
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion
+                        };
+
+                        resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
+                    }
+                    else
+                    {
+                        datos = new string[] {
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString()
+                        };
+
+                        resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));
+                    }
 
                     if (resultado > 0)
                     {

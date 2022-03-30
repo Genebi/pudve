@@ -2974,23 +2974,63 @@ namespace PuntoDeVentaV2
 
         private void lbCambioAbonos_Click(object sender, EventArgs e)
         {
-            CajaAbonos mostrarAbonosCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
+            CajaAbonos detalleAbonos = new CajaAbonos();
 
-            var validarAbono = "abono";
-            if (mostrarAbonosCaja == null)
-            {
-                abonos_devoluciones = "abonos";
-                CajaAbonos mostrarAbonos = new CajaAbonos();
-                mostrarAbonos.ShowDialog();
-            }
+            var IDUsuario = 0;
+            var IDEmpleado = 0;
+            var ultimaFechaDeCorte = string.Empty;
+            var todosLosAbonos = string.Empty;
 
-            if (mostrarAbonosCaja != null)
+            ultimaFechaDeCorte = fechaFormateadaCorteParaAbonos;
+            IDUsuario = FormPrincipal.userID;
+
+            if (!FormPrincipal.userNickName.Contains("@"))
             {
-                if (mostrarAbonosCaja.WindowState == FormWindowState.Minimized || mostrarAbonosCaja.WindowState == FormWindowState.Normal)
+                if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                 {
-                    mostrarAbonosCaja.BringToFront();
+                    todosLosAbonos = "No";
+                    IDEmpleado = 0;
+                }
+                else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                {
+                    todosLosAbonos = "Si";
+                    IDEmpleado = 0;
+                }
+                else
+                {
+                    todosLosAbonos = "No";
+                    IDEmpleado = Convert.ToInt32(opcionComboBoxFiltroAdminEmp);
                 }
             }
+            else
+            {
+                todosLosAbonos = "No";
+                IDEmpleado = FormPrincipal.id_empleado;
+            }
+
+            detalleAbonos.IDUsuario = IDUsuario;
+            detalleAbonos.IDEmpleado = IDEmpleado;
+            detalleAbonos.ultimaFechaDeCorteDeCaja = ultimaFechaDeCorte;
+            detalleAbonos.todosLosAbonos = todosLosAbonos;
+            detalleAbonos.ShowDialog();
+
+            //CajaAbonos mostrarAbonosCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
+
+            //var validarAbono = "abono";
+            //if (mostrarAbonosCaja == null)
+            //{
+            //    abonos_devoluciones = "abonos";
+            //    CajaAbonos mostrarAbonos = new CajaAbonos();
+            //    mostrarAbonos.ShowDialog();
+            //}
+
+            //if (mostrarAbonosCaja != null)
+            //{
+            //    if (mostrarAbonosCaja.WindowState == FormWindowState.Minimized || mostrarAbonosCaja.WindowState == FormWindowState.Normal)
+            //    {
+            //        mostrarAbonosCaja.BringToFront();
+            //    }
+            //}
         }
 
         private void lbCambioDevoluciones_Click(object sender, EventArgs e)
@@ -3696,10 +3736,11 @@ namespace PuntoDeVentaV2
                                     {
                                         cantidadCredito = Convert.ToDecimal(item["Credito"].ToString()) - totalAbonoRealizado;
                                     }
-                                    if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
-                                    {
-                                        cantidadAbonos = Convert.ToDecimal(item["Anticipo"].ToString());
-                                    }
+
+                                    //if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
+                                    //{
+                                    //    cantidadAbonos = Convert.ToDecimal(item["Anticipo"].ToString());
+                                    //}
 
                                     if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
                                     {
@@ -3717,7 +3758,7 @@ namespace PuntoDeVentaV2
                                     lbTCheque.Text = cantidadCheque.ToString("C2");
                                     lbTTrans.Text = cantidadTransferencia.ToString("C2");
                                     lbTCredito.Text = cantidadCredito.ToString("C2");
-                                    lbTCreditoC.Text = cantidadAbonos.ToString("C2");
+                                    //lbTCreditoC.Text = cantidadAbonos.ToString("C2");
                                     lbTAnticipos.Text = cantidadAnticipos.ToString("C2");
                                     lbTVentas.Text = cantidadTotalVentas.ToString("C2");
                                 }
@@ -4034,10 +4075,11 @@ namespace PuntoDeVentaV2
                                     {
                                         cantidadCredito = Convert.ToDecimal(item["Credito"].ToString()) - totalAbonoRealizado;
                                     }
-                                    if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
-                                    {
-                                        cantidadAbonos = Convert.ToDecimal(item["Anticipo"].ToString());
-                                    }
+
+                                    //if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
+                                    //{
+                                    //    cantidadAbonos = Convert.ToDecimal(item["Anticipo"].ToString());
+                                    //}
 
                                     if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
                                     {
@@ -4055,7 +4097,7 @@ namespace PuntoDeVentaV2
                                     lbTCheque.Text = cantidadCheque.ToString("C2");
                                     lbTTrans.Text = cantidadTransferencia.ToString("C2");
                                     lbTCredito.Text = cantidadCredito.ToString("C2");
-                                    lbTCreditoC.Text = cantidadAbonos.ToString("C2");
+                                    //lbTCreditoC.Text = cantidadAbonos.ToString("C2");
                                     lbTAnticipos.Text = cantidadAnticipos.ToString("C2");
                                     lbTVentas.Text = cantidadTotalVentas.ToString("C2");
                                 }
@@ -4375,10 +4417,10 @@ namespace PuntoDeVentaV2
                                         cantidadCredito = Convert.ToDecimal(item["Credito"].ToString()) - totalAbonoRealizado;
                                     }
 
-                                    if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
-                                    {
-                                        cantidadAbonos = Convert.ToDecimal(item["Anticipo"].ToString());
-                                    }
+                                    //if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
+                                    //{
+                                    //    cantidadAbonos = Convert.ToDecimal(item["Anticipo"].ToString());
+                                    //}
 
                                     if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
                                     {
@@ -4397,7 +4439,7 @@ namespace PuntoDeVentaV2
                                     lbTCheque.Text = cantidadCheque.ToString("C2");
                                     lbTTrans.Text = cantidadTransferencia.ToString("C2");
                                     lbTCredito.Text = cantidadCredito.ToString("C2");
-                                    lbTCreditoC.Text = cantidadAbonos.ToString("C2");
+                                    //lbTCreditoC.Text = cantidadAbonos.ToString("C2");
                                     lbTAnticipos.Text = cantidadAnticipos.ToString("C2");
                                     lbTVentas.Text = ( cantidadTotalVentas - totalAbonoRealizado ).ToString("C2");
                                 }
