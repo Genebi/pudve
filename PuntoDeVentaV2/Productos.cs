@@ -1423,7 +1423,7 @@ namespace PuntoDeVentaV2
 
         private void btnModificarEstado_Click(object sender, EventArgs e)
         {
-            var habilitadosOno = string.Empty;
+            DialogResult habilitadosOno;
             ///Mostrar Mensaje ne la etiqueta de atajos
             timer1.Start();
             lAtajo.Visible = true;
@@ -1435,13 +1435,14 @@ namespace PuntoDeVentaV2
                 Utilidades.MensajePermiso();
                 return;
             }
+
             if (cbMostrar.Text == "Habilitados")
             {
-                habilitadosOno = MessageBox.Show("¿Desea Deshabilitar este producto?", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question).ToString();
+                habilitadosOno = MessageBox.Show("¿Desea Deshabilitar este producto?", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             }
             else
             {
-                habilitadosOno = MessageBox.Show("¿Desea Habilitar este producto?", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question).ToString();
+                habilitadosOno = MessageBox.Show("¿Desea Habilitar este producto?", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             }
             
             // Cantidad de productos seleccionados
@@ -1449,6 +1450,7 @@ namespace PuntoDeVentaV2
 
             if (habilitadosOno.Equals(DialogResult.Yes))
             {
+
                 if (contador >= 50)
                 {
                     cargando.Start();
