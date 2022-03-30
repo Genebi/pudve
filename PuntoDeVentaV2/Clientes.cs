@@ -19,7 +19,7 @@ namespace PuntoDeVentaV2
 
         private Paginar paginar;
         string DataMemberDGV = "Clientes";
-        int maximo_x_pagina = 17;
+        int maximo_x_pagina = 14;
         int clickBoton = 0;
 
        public static int editarFor { get; set; } 
@@ -37,6 +37,10 @@ namespace PuntoDeVentaV2
         IEnumerable<AgregarCliente> FormCliente = Application.OpenForms.OfType<AgregarCliente>();
 
         public int llamadoDesdeListadoVentasParaFacturar { get; set; }
+
+        string mensajeParaMostrar = string.Empty;
+        
+
 
         public Clientes()
         {
@@ -549,6 +553,91 @@ namespace PuntoDeVentaV2
                     Crear_factura.procedencia = string.Empty;//Limpia la variable para evitar errores
                     this.Close();
                 }
+            }
+        }
+
+        private void btnActualizarMaximoProductos_Click(object sender, EventArgs e)
+        {
+            if (!txtMaximoPorPagina.Text.Equals(string.Empty))
+            {
+                var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
+
+                if (cantidadAMostrar <= 0)
+                {
+                    mensajeParaMostrar = "Catidad a mostrar debe ser mayor a 0";
+                    Utilidades.MensajeCuandoSeaCeroEnElListado(mensajeParaMostrar);
+                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                    return;
+                }
+
+                maximo_x_pagina = cantidadAMostrar;
+                paginar.actualizarTope(maximo_x_pagina);
+                string tipo = string.Empty;
+                if (cbStatus.Text == "Habilitados")
+                {
+                    tipo = "1";
+                }
+                else if (cbStatus.Text == "Deshabilitados")
+                {
+                    tipo = "0";
+                }
+                CargarDatos(tipo);
+                ActualizarPaginador();
+            }
+            else
+            {
+                txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+            }
+        }
+
+        private void txtMaximoPorPagina_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtMaximoPorPagina_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (!txtMaximoPorPagina.Text.Equals(String.Empty))
+                {
+                    var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
+
+                    if (cantidadAMostrar <= 0)
+                    {
+                        mensajeParaMostrar = "Catidad a mostrar debe ser mayor a 0";
+                        Utilidades.MensajeCuandoSeaCeroEnElListado(mensajeParaMostrar);
+                        txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                        return;
+                    }
+
+                    maximo_x_pagina = cantidadAMostrar;
+                    paginar.actualizarTope(maximo_x_pagina);
+                    string tipo = string.Empty;
+                    if (cbStatus.Text == "Habilitados")
+                    {
+                        tipo = "1";
+                    }
+                    else if (cbStatus.Text == "Deshabilitados")
+                    {
+                        tipo = "0";
+                    }
+                    CargarDatos(tipo);
+                    ActualizarPaginador();
+                }
+                else
+                {
+                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                }
+
             }
         }
     }

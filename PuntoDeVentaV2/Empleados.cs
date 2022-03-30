@@ -20,7 +20,7 @@ namespace PuntoDeVentaV2
         string filtro = string.Empty;
         private Paginar p;
         string DataMemberDGV = "empleados";
-        int maximo_x_pagina = 12;
+        int maximo_x_pagina = 14;
         int clickBoton = 0;
         private List<string> propiedades = new List<string>();
         string filtroConSinFiltroAvanzado = string.Empty;
@@ -691,6 +691,11 @@ namespace PuntoDeVentaV2
                 tipo = "0";
             }
             CargarDatos(Convert.ToInt32(tipo));
+        }
+
+        private void txtMaximoPorPagina_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

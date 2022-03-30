@@ -112,7 +112,7 @@
             this.dgv_empleados.Name = "dgv_empleados";
             this.dgv_empleados.ReadOnly = true;
             this.dgv_empleados.RowHeadersVisible = false;
-            this.dgv_empleados.Size = new System.Drawing.Size(845, 332);
+            this.dgv_empleados.Size = new System.Drawing.Size(845, 335);
             this.dgv_empleados.TabIndex = 2;
             this.dgv_empleados.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.click_en_icono);
             this.dgv_empleados.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.cursor_en_icono);
@@ -372,8 +372,10 @@
             this.txtMaximoPorPagina.Name = "txtMaximoPorPagina";
             this.txtMaximoPorPagina.Size = new System.Drawing.Size(91, 22);
             this.txtMaximoPorPagina.TabIndex = 40;
+            this.txtMaximoPorPagina.Text = "14";
             this.txtMaximoPorPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMaximoPorPagina.Click += new System.EventHandler(this.txtMaximoPorPagina_Click);
+            this.txtMaximoPorPagina.TextChanged += new System.EventHandler(this.txtMaximoPorPagina_TextChanged);
             this.txtMaximoPorPagina.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMaximoPorPagina_KeyDown);
             this.txtMaximoPorPagina.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMaximoPorPagina_KeyPress);
             // 
@@ -428,11 +430,11 @@
             this.ClientSize = new System.Drawing.Size(869, 522);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtBuscar);
-            this.Controls.Add(this.panel5);
             this.Controls.Add(this.cboMostrados);
             this.Controls.Add(this.dgv_empleados);
             this.Controls.Add(this.btn_agregar_empleado);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.panel5);
             this.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Empleados";
