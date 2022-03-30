@@ -262,7 +262,7 @@
             this.btnActualizarMaximoProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizarMaximoProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnActualizarMaximoProductos.ForeColor = System.Drawing.Color.Black;
-            this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(694, 34);
+            this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(763, 41);
             this.btnActualizarMaximoProductos.Name = "btnActualizarMaximoProductos";
             this.btnActualizarMaximoProductos.Size = new System.Drawing.Size(80, 23);
             this.btnActualizarMaximoProductos.TabIndex = 44;
@@ -273,7 +273,7 @@
             // txtMaximoPorPagina
             // 
             this.txtMaximoPorPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtMaximoPorPagina.Location = new System.Drawing.Point(553, 46);
+            this.txtMaximoPorPagina.Location = new System.Drawing.Point(663, 42);
             this.txtMaximoPorPagina.Name = "txtMaximoPorPagina";
             this.txtMaximoPorPagina.Size = new System.Drawing.Size(91, 20);
             this.txtMaximoPorPagina.TabIndex = 43;
@@ -285,11 +285,11 @@
             // label7
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label7.Location = new System.Drawing.Point(544, 1);
+            this.label7.Location = new System.Drawing.Point(536, 24);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(121, 56);
             this.label7.TabIndex = 42;
-            this.label7.Text = "Cantidad de empleados para mostrar: ";
+            this.label7.Text = "Cantidad de proveedores para mostrar: ";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel4
