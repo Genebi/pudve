@@ -3593,7 +3593,7 @@ namespace PuntoDeVentaV2
 
         public string cargarAbonosDesdeUltimoCorteRealizadoAdministrador(string idUsuario, string ultimaFechaDeCorte)
         {
-            var consulta = $"SELECT sum( Efectivo ) AS Efectivo, sum( Tarjeta ) AS Tarjeta, sum( Vales ) AS Vales, sum( Cheque ) AS Cheque, sum( Transferencia ) AS Transferencia, ( sum( Efectivo ) + sum( Tarjeta ) + sum( Vales ) + sum( Cheque ) + sum( Transferencia ) ) AS Total FROM Abonos WHERE IDUsuario = '{idUsuario}' AND FechaOperacion > '{ultimaFechaDeCorte}'";
+            var consulta = $"SELECT sum( Efectivo ) AS Efectivo, sum( Tarjeta ) AS Tarjeta, sum( Vales ) AS Vales, sum( Cheque ) AS Cheque, sum( Transferencia ) AS Transferencia, ( sum( Efectivo ) + sum( Tarjeta ) + sum( Vales ) + sum( Cheque ) + sum( Transferencia ) ) AS Total FROM Abonos WHERE IDUsuario = '{idUsuario}' AND IDEmpleado = '0' AND FechaOperacion > '{ultimaFechaDeCorte}'";
 
             return consulta;
         }
