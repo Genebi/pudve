@@ -630,15 +630,15 @@ namespace PuntoDeVentaV2
                         {
                             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                             {
-                                consulta = cs.VerComoAdministradorTodasLasVentasPagadas(estado, fechaInicial, fechaFinal); 
+                                consulta = cs.VerComoAdministradorTodasLasVentasPagadas(estado, fechaInicial, fechaFinal);
                             }
                             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                             {
-                                consulta = cs.filtroMostrarTodasLasVentasPagadasEnAdministrador(estado, fechaInicial, fechaFinal); 
+                                consulta = cs.filtroMostrarTodasLasVentasPagadasEnAdministrador(estado, fechaInicial, fechaFinal);
                             }
                             else
                             {
-                                consulta = cs.filtroPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal); 
+                                consulta = cs.filtroPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
                             }
                         }
                         else if (estado.Equals(2)) // Ventas guardadas
@@ -650,25 +650,25 @@ namespace PuntoDeVentaV2
                             }
                             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                             {
-                                consulta = cs.VerComoAdministradorTodasLasVentasGuardadas(estado, fechaInicial, fechaFinal); 
+                                consulta = cs.VerComoAdministradorTodasLasVentasGuardadas(estado, fechaInicial, fechaFinal);
                             }
                             else
                             {
-                                consulta = cs.verComoAdministradorTodasVentasGuardadasPorEmpleado(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal); 
+                                consulta = cs.verComoAdministradorTodasVentasGuardadasPorEmpleado(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
                             }
                         }
                         else if (estado.Equals(3)) // Ventas canceladas
                         {
                             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
-                            { 
+                            {
                                 consulta = cs.VerComoAdministradorTodasLasVentasCanceladas(estado, fechaInicial, fechaFinal);
                             }
                             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
-                            { 
+                            {
                                 consulta = cs.verVentasCanceladasDeTodosDesdeAdministrador(estado, fechaInicial, fechaFinal);
                             }
                             else
-                            { 
+                            {
                                 consulta = cs.verVentasCanceladasDelEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
                             }
                         }
@@ -680,16 +680,16 @@ namespace PuntoDeVentaV2
                                 consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
                             }
                             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
-                            { 
+                            {
                                 consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
                             }
                             else
-                            { 
+                            {
                                 consulta = cs.verVentasCreditoPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
                             }
                         }
                     }
-                    
+
                 }
 
                 FiltroAvanzado = consulta;
@@ -1311,11 +1311,12 @@ namespace PuntoDeVentaV2
                     }
                     else if (estado.Equals(true))//Se pone verdadero por que al dar click inicialmente esta en true
                     {
-                        idVentas.Remove(idVenta);                    }
+                        idVentas.Remove(idVenta);
+                    }
                 }
 
                 //Cancelar
-                  if (e.ColumnIndex == 11)
+                if (e.ColumnIndex == 11)
                 {
                     var Folio = string.Empty;
                     var Serie = string.Empty;
@@ -1763,7 +1764,7 @@ namespace PuntoDeVentaV2
                                 {
                                     // Miri. Modificado.
                                     // Obtiene el id del combo cancelado
-                                     DataTable d_prod_venta = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM ProductosVenta WHERE IDVenta='{idVenta}'");
+                                    DataTable d_prod_venta = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM ProductosVenta WHERE IDVenta='{idVenta}'");
                                     //var productos = cn.ObtenerProductosVenta(idVenta);
 
                                     if (!d_prod_venta.Rows.Equals(0))
@@ -1826,7 +1827,7 @@ namespace PuntoDeVentaV2
 
                                             }
                                             else //En caso de ser un producto
-                                            { 
+                                            {
                                                 var stock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = '{idprod}'");
                                                 var stockOriginal = stock.Rows[0]["Stock"].ToString();
                                                 var stockActual = Convert.ToDecimal(stockOriginal) + Convert.ToDecimal(cantidad);
@@ -1843,80 +1844,80 @@ namespace PuntoDeVentaV2
 
                                             }
                                         }
-                                    } 
-                                   
+                                    }
+
 
                                     if (d_prod_venta.Rows.Count > 0)
                                     {
-                                    //    foreach (DataRow prods in d_prod_venta.Rows)
-                                    //    {
-                                        
-                                    //        var id_prod = Convert.ToInt32(prods[0]);
-                                    //        decimal cantidad_combo = Convert.ToDecimal(prods[1]);
+                                        //    foreach (DataRow prods in d_prod_venta.Rows)
+                                        //    {
 
-                                    //        // Busca los productos relacionados al combo y trae la cantidad para aumentar el stock
-                                    //        DataTable dtprod_relacionados = cn.CargarDatos(cs.productos_relacionados(id_prod));
-                                        
-                                    //    if(dtprod_relacionados.Rows.Count > 0)
-                                    //    {
-                                    //        foreach(DataRow drprod_relacionados in dtprod_relacionados.Rows)
-                                    //        {
-                                    //            decimal cantidad_prod_rel = Convert.ToDecimal(drprod_relacionados["Cantidad"]);
-                                    //            decimal cantidad_prod_rel_canc = cantidad_combo * cantidad_prod_rel;
+                                        //        var id_prod = Convert.ToInt32(prods[0]);
+                                        //        decimal cantidad_combo = Convert.ToDecimal(prods[1]);
 
-                                    //            cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad_prod_rel_canc} WHERE ID = {drprod_relacionados["IDProducto"]} AND IDUsuario = {FormPrincipal.userID}");
-                                    //        }
-                                    //    }
-                                    //    else if (dtprod_relacionados.Rows.Count.Equals(0))
-                                    //    {
-                                    //        using (DataTable dtProdVenta = cn.CargarDatos(cs.ObtenerProdDeLaVenta(idVenta)))
-                                    //        {
-                                    //            if (!dtProdVenta.Rows.Count.Equals(0))
-                                    //            {
-                                    //                foreach (DataRow drProdVenta in dtProdVenta.Rows)
-                                    //                {
-                                    //                    cn.EjecutarConsulta(cs.aumentarStockVentaCancelada(Convert.ToInt32(drProdVenta["ID"].ToString()), (float)(Convert.ToDecimal(drProdVenta["Stock"].ToString()) + Convert.ToDecimal(drProdVenta["Cantidad"].ToString()))));
-                                    //                }
-                                    //            }
-                                    //        }
-                                    //    }
+                                        //        // Busca los productos relacionados al combo y trae la cantidad para aumentar el stock
+                                        //        DataTable dtprod_relacionados = cn.CargarDatos(cs.productos_relacionados(id_prod));
 
-                                    //}
-                                    
-                                    var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+                                        //    if(dtprod_relacionados.Rows.Count > 0)
+                                        //    {
+                                        //        foreach(DataRow drprod_relacionados in dtprod_relacionados.Rows)
+                                        //        {
+                                        //            decimal cantidad_prod_rel = Convert.ToDecimal(drprod_relacionados["Cantidad"]);
+                                        //            decimal cantidad_prod_rel_canc = cantidad_combo * cantidad_prod_rel;
 
-                                    var conceptoCreditoC = $"DELOLUVION CREDITO VENTA CANCELADA ID {idVenta}";
-                                    if (formasPago2.Length > 0)
-                                    {
-                                        var total1 = "0";
-                                        var efectivo1 = "0";
-                                        var tarjeta1 = "0";
-                                        var vales1 = "0";
-                                        var cheque1 = "0";
-                                        var transferencia1 = "0";
-                                        var credito1 = formasPago2[5].ToString();
-                                        //var anticipo1 = "0";
+                                        //            cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad_prod_rel_canc} WHERE ID = {drprod_relacionados["IDProducto"]} AND IDUsuario = {FormPrincipal.userID}");
+                                        //        }
+                                        //    }
+                                        //    else if (dtprod_relacionados.Rows.Count.Equals(0))
+                                        //    {
+                                        //        using (DataTable dtProdVenta = cn.CargarDatos(cs.ObtenerProdDeLaVenta(idVenta)))
+                                        //        {
+                                        //            if (!dtProdVenta.Rows.Count.Equals(0))
+                                        //            {
+                                        //                foreach (DataRow drProdVenta in dtProdVenta.Rows)
+                                        //                {
+                                        //                    cn.EjecutarConsulta(cs.aumentarStockVentaCancelada(Convert.ToInt32(drProdVenta["ID"].ToString()), (float)(Convert.ToDecimal(drProdVenta["Stock"].ToString()) + Convert.ToDecimal(drProdVenta["Cantidad"].ToString()))));
+                                        //                }
+                                        //            }
+                                        //        }
+                                        //    }
 
-                                        var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                        //}
 
-                                        if (!DevolverAnticipo.ventaCanceladaCredito.Equals(true))
+                                        var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+
+                                        var conceptoCreditoC = $"DELOLUVION CREDITO VENTA CANCELADA ID {idVenta}";
+                                        if (formasPago2.Length > 0)
                                         {
-                                            string[] datos = new string[] {
+                                            var total1 = "0";
+                                            var efectivo1 = "0";
+                                            var tarjeta1 = "0";
+                                            var vales1 = "0";
+                                            var cheque1 = "0";
+                                            var transferencia1 = "0";
+                                            var credito1 = formasPago2[5].ToString();
+                                            //var anticipo1 = "0";
+
+                                            var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                                            if (!DevolverAnticipo.ventaCanceladaCredito.Equals(true))
+                                            {
+                                                string[] datos = new string[] {
                                                         "retiro", total1, "0", conceptoCreditoC, fechaOperacion1, FormPrincipal.userID.ToString(),
                                                         efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0"
                                                     };
-                                            cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                                cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                            }
                                         }
-                                    }
 
-                                    // Agregamos marca de agua al PDF del ticket de la venta cancelada
-                                    Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
+                                        // Agregamos marca de agua al PDF del ticket de la venta cancelada
+                                        Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
 
-                                    // Agregamos marca de agua al PDF de la nota de venta cancelada
-                                    Utilidades.CrearMarcaDeAguaNota(idVenta, "CANCELADA");
+                                        // Agregamos marca de agua al PDF de la nota de venta cancelada
+                                        Utilidades.CrearMarcaDeAguaNota(idVenta, "CANCELADA");
 
-                                    //CargarDatos();
-                                    restaurarBusqueda();
+                                        //CargarDatos();
+                                        restaurarBusqueda();
                                     }
                                 }
                             }
@@ -2003,15 +2004,15 @@ namespace PuntoDeVentaV2
                     //pictureBox1.Visible = true;
                     if (!File.Exists(ruta_archivo) || File.Exists(ruta_archivo))
                     {// () => mnsj(),
-                        //Parallel.Invoke(() => mnsj(), () => verfactura(idVenta));
-                        
+                     //Parallel.Invoke(() => mnsj(), () => verfactura(idVenta));
+
                         //pBar_descarga_verpdf.Visible = true;
                         //lb_texto_descarga_verpdf.Visible = true;
                         //lb_texto_descarga_verpdf.Text = "Cargando PDF. (La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado.)";
                         ///Thread hilo = new Thread(() => RealizarProcesoProductos());
                         hilo = new Thread(() => mnsj());
                         hilo.Start();
-                        
+
                         hilo = new Thread(verfactura);
                         hilo.Start(idVenta);
 
@@ -2020,7 +2021,7 @@ namespace PuntoDeVentaV2
                         // Genera PDF
                         //ver_factura(idVenta);
                     }
-                    
+
                     // poner marca de agua a la nota si es presupuesto
                     using (var dtVentaRealizada = cn.CargarDatos(cs.consulta_dventa(1, idVenta)))
                     {
@@ -2052,7 +2053,7 @@ namespace PuntoDeVentaV2
 
                     //ver_nota.ShowDialog();
                 }
- 
+
                 //Ver ticket
                 if (e.ColumnIndex == 13)
                 {
@@ -2249,7 +2250,7 @@ namespace PuntoDeVentaV2
                     {
                         //MessageBox.Show("Las notas canceladas ya no pueden ser facturadas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
-                    } 
+                    }
 
                     // Se valida que la nota no tenga ya una factura creada
                     int r = Convert.ToInt32(cn.EjecutarSelect($"SELECT Timbrada FROM Ventas WHERE ID={idVenta}", 8));
@@ -2300,7 +2301,7 @@ namespace PuntoDeVentaV2
 
                     retomarVentasCanceladas = 0;
                 }
-   
+
                 DGVListadoVentas.ClearSelection();
             }
         }
@@ -2494,8 +2495,8 @@ namespace PuntoDeVentaV2
             //int n_filas = 0;
             int i = 1;
 
-            
-            
+
+
             // Obtiene el número de usuarios. 
 
             DataTable dt_usuarios = cn.CargarDatos("SELECT ID, Usuario FROM usuarios");
@@ -2527,7 +2528,7 @@ namespace PuntoDeVentaV2
             {
                 ruta_carpeta_csd = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD\";
 
-                if(cambia_nombre_carpeta == true)
+                if (cambia_nombre_carpeta == true)
                 {
                     ruta_carpeta_csd = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
                 }
@@ -3753,7 +3754,7 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-                
+
                 foreach (DataGridViewRow marcarDGV in DGVListadoVentas.Rows)
                 {
                     try
@@ -3785,7 +3786,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void llenarGDV ()
+        private void llenarGDV()
         {
             //Los try son para las finas que son para totales que no se marquen
 
@@ -3834,13 +3835,13 @@ namespace PuntoDeVentaV2
         private void checkBoxMaster_CheckedChanged(object sender, EventArgs e)
         {
             var incremento = -1;
-            
+
 
             CheckBox headerBox = ((CheckBox)DGVListadoVentas.Controls.Find("checkBoxMaster", true)[0]);
 
             var renglones = DGVListadoVentas.Rows.Count;
-            renglones = renglones-2;
-            if (renglones >0)
+            renglones = renglones - 2;
+            if (renglones > 0)
             {
 
                 for (int i = 0; i < renglones; i++)
@@ -3854,7 +3855,7 @@ namespace PuntoDeVentaV2
                             {
                                 idVentas.Add(idRevision, string.Empty);
                                 DGVListadoVentas.Rows[i].Cells["col_checkbox"].Value = true;
-                                 
+
                             }
                         }
                         else if (!headerBox.Checked)
@@ -3866,7 +3867,7 @@ namespace PuntoDeVentaV2
                     catch (Exception)
                     {
 
-                        
+
                     }
                 }
             }
@@ -3878,10 +3879,10 @@ namespace PuntoDeVentaV2
             //    try
             //    {
             //        //var recorrerCheckBox = Convert.ToBoolean(DGVListadoVentas.Rows[incremento].Cells["col_checkbox"].Value);
-                         
+
             //        var idRevision = Convert.ToInt32(dgv.Cells["ID"].Value.ToString());
-                    
-                    
+
+
             //        if (headerBox.Checked)
             //        {
             //            if (!idVentas.ContainsKey(idRevision))
@@ -4020,7 +4021,7 @@ namespace PuntoDeVentaV2
                     txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
                     return;
                 }
-                 
+
                 maximo_x_pagina = cantidadAMostrar;
                 p.actualizarTope(maximo_x_pagina);
                 var tipoDeBusqueda = 0;
@@ -4052,7 +4053,7 @@ namespace PuntoDeVentaV2
         {
             //opcionComboBoxFiltroAdminEmp = (string)cbFiltroAdminEmpleado.SelectedValue;
             opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
-            
+
             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
             {
                 using (DataTable dtAdmin = cn.CargarDatos(cs.obtenerDatosDeAdministrador(FormPrincipal.userID)))
