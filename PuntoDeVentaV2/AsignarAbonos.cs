@@ -61,20 +61,20 @@ namespace PuntoDeVentaV2
 
             var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
             totalPendiente = float.Parse(detalles[2]);
-            txtTotalOriginal.Text = "$" + totalOriginal.ToString("0.00");
+            txtTotalOriginal.Text = totalOriginal.ToString("C2");
 
             //Comprobamos que no existan abonos
             existenAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
 
             if (!existenAbonos)
             {
-                txtPendiente.Text = "$" + totalPendiente.ToString("0.00");
+                txtPendiente.Text = totalPendiente.ToString("C2");
             }
             else
             {
                 var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
                 var restante = totalPendiente - abonado;
-                txtPendiente.Text = "$" + restante.ToString("0.00");
+                txtPendiente.Text =restante.ToString("C2");
                 totalPendiente = restante;
             }
         }
@@ -585,5 +585,34 @@ namespace PuntoDeVentaV2
                 txtTransferencia.Select(txtTransferencia.Text.Length, 0);
             }
         }
+
+        private void txtEfectivo_TextChanged(object sender, EventArgs e)
+        {
+            var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
+            totalPendiente = float.Parse(detalles[2]);
+            txtTotalOriginal.Text = totalOriginal.ToString("C2");
+
+           
+            if (txtEfectivo.Text=="")
+            {
+                
+                var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
+                var restante = totalPendiente - abonado;
+                txtPendiente.Text = restante.ToString("C2");
+            }
+            else
+            {
+                txtPendiente.Text = totalPendiente.ToString("C2");
+                var abono = (float)Convert.ToDecimal(txtEfectivo.Text);
+                var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
+                var nuevoabono = abonado + abono;
+                var restante = totalPendiente - nuevoabono;
+                txtPendiente.Text = restante.ToString("C2");
+                totalPendiente = restante;
+            }
+               
+
+        }
+
     }
 }

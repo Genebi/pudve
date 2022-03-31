@@ -124,7 +124,6 @@
             this.dpFechaFinal.Name = "dpFechaFinal";
             this.dpFechaFinal.Size = new System.Drawing.Size(120, 23);
             this.dpFechaFinal.TabIndex = 7;
-           // this.dpFechaFinal.ValueChanged += new System.EventHandler(this.dpFechaFinal_ValueChanged_1);
             // 
             // dpFechaInicial
             // 
@@ -183,7 +182,8 @@
             "Por usar",
             "Inhabilitados",
             "Usados",
-            "Parciales"});
+            "Parciales",
+            "Devueltos"});
             this.cbAnticipos.Location = new System.Drawing.Point(12, 18);
             this.cbAnticipos.Name = "cbAnticipos";
             this.cbAnticipos.Size = new System.Drawing.Size(185, 24);
