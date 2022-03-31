@@ -203,6 +203,7 @@
             this.txtEfectivo.Size = new System.Drawing.Size(80, 22);
             this.txtEfectivo.TabIndex = 121;
             this.txtEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtEfectivo.TextChanged += new System.EventHandler(this.txtEfectivo_TextChanged);
             this.txtEfectivo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyUp);
             // 
             // txtPendiente
