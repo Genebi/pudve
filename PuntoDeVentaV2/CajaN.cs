@@ -147,18 +147,14 @@ namespace PuntoDeVentaV2
         private void CajaN_Load(object sender, EventArgs e)
         {
             recargarDatos = true;
-
             verComboBoxAdministradorEmpleado();
-
             // Obtener saldo inicial
             CargarSaldoInicial();
-
             recargarDatosConCantidades(sender, e);
             
             if (FormPrincipal.id_empleado > 0)
             {
                 var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Caja");
-
                 opcion1 = datos[0];
                 opcion2 = datos[1];
                 opcion3 = datos[2];
@@ -177,9 +173,7 @@ namespace PuntoDeVentaV2
             panelAnticipos.Visible = Convert.ToBoolean(opcion9);
             panelDineroAgregado.Visible = Convert.ToBoolean(opcion10);
             panelTotales.Visible = Convert.ToBoolean(opcion11);
-
             // verificarCantidadAbonos();
-
         }
 
         private void recargarDatosConCantidades(object sender, EventArgs e)
@@ -3734,7 +3728,16 @@ namespace PuntoDeVentaV2
 
                                     if (!string.IsNullOrWhiteSpace(item["Credito"].ToString()))
                                     {
-                                        cantidadCredito = Convert.ToDecimal(item["Credito"].ToString()) - totalAbonoRealizado;
+                                        var cantidadCreditoResultadoBaseDeDatos = Convert.ToDecimal(item["Credito"].ToString());
+
+                                        if (cantidadCreditoResultadoBaseDeDatos > 0)
+                                        {
+                                            cantidadCredito = cantidadCreditoResultadoBaseDeDatos - totalAbonoRealizado;
+                                        }
+                                        else if (cantidadCreditoResultadoBaseDeDatos.Equals(0))
+                                        {
+                                            cantidadCredito = 0;
+                                        }
                                     }
 
                                     //if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
@@ -4073,7 +4076,16 @@ namespace PuntoDeVentaV2
 
                                     if (!string.IsNullOrWhiteSpace(item["Credito"].ToString()))
                                     {
-                                        cantidadCredito = Convert.ToDecimal(item["Credito"].ToString()) - totalAbonoRealizado;
+                                        var cantidadCreditoResultadoBaseDeDatos = Convert.ToDecimal(item["Credito"].ToString());
+
+                                        if (cantidadCreditoResultadoBaseDeDatos > 0)
+                                        {
+                                            cantidadCredito = cantidadCreditoResultadoBaseDeDatos - totalAbonoRealizado;
+                                        }
+                                        else if (cantidadCreditoResultadoBaseDeDatos.Equals(0))
+                                        {
+                                            cantidadCredito = 0;
+                                        }
                                     }
 
                                     //if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
@@ -4414,7 +4426,16 @@ namespace PuntoDeVentaV2
 
                                     if (!string.IsNullOrWhiteSpace(item["Credito"].ToString()))
                                     {
-                                        cantidadCredito = Convert.ToDecimal(item["Credito"].ToString()) - totalAbonoRealizado;
+                                        var cantidadCreditoResultadoBaseDeDatos = Convert.ToDecimal(item["Credito"].ToString());
+
+                                        if (cantidadCreditoResultadoBaseDeDatos > 0)
+                                        {
+                                            cantidadCredito = cantidadCreditoResultadoBaseDeDatos - totalAbonoRealizado;
+                                        }
+                                        else if (cantidadCreditoResultadoBaseDeDatos.Equals(0))
+                                        {
+                                            cantidadCredito = 0;
+                                        }
                                     }
 
                                     //if (!string.IsNullOrWhiteSpace(item["Anticipo"].ToString()))
