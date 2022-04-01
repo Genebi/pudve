@@ -3625,5 +3625,13 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string cargarAbonosDeLaVentaACredito(int IDVentas)
+        {
+            var consulta = $"SELECT * FROM Abonos WHERE IDVenta = '{IDVentas}' AND IDUsuario = '{FormPrincipal.userID}'";
+
+
+            return consulta;
+        }
     }
 }  
