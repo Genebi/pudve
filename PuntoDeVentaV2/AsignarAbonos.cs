@@ -616,64 +616,46 @@ namespace PuntoDeVentaV2
         {
             var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
             totalPendiente = float.Parse(detalles[2]);
-            var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
+            
 
-            if (txtEfectivo.Text == "")
-            {
-                txtEfectivo.Text = "0";
-                txtEfectivo.Focus();
-                txtEfectivo.SelectAll();
-            }
-            else
-            {
 
-                if (abonado == null)
+
+            using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDeLaVentaACredito(idVenta)))
+            {
+                if (txtEfectivo.Text == "")
                 {
-                    abonado = 0;
-                var abono = (float)Convert.ToDecimal(txtEfectivo.Text);
-                var nuevoabono = abonado + abono;
-                var restante = totalPendiente - nuevoabono;
-                txtPendiente.Text = restante.ToString("C2");
+                    txtEfectivo.Text = "0";
+                    txtEfectivo.Focus();
+                    txtEfectivo.SelectAll();
                 }
-                
+                else
+                {
+                    if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Count.Equals(0))
+                    {
+                        var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
+                        var abono = (float)Convert.ToDecimal(txtEfectivo.Text);
+                        var nuevoabono = abonado + abono;
+                        var restante = totalPendiente - nuevoabono;
+                        txtPendiente.Text = restante.ToString("C2");
+
+                    }
+                    else
+                    {
+                        float abonado = 0;
+                        var abono = (float)Convert.ToDecimal(txtEfectivo.Text);
+                        var nuevoabono = abonado + abono;
+                        var restante = totalPendiente - nuevoabono;
+                        txtPendiente.Text = restante.ToString("C2");
+                    }
+                }
 
             }
 
-            //using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDeLaVentaACredito(idVenta)))
-            //{
-            //    if (txtEfectivo.Text=="")
-            //    {
-            //        txtEfectivo.Text = "0";
-            //        txtEfectivo.Focus();
-            //        txtEfectivo.SelectAll();
-            //    }
-            //    else
-            //    {
-            //        if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Count.Equals(0))
-            //        {
-            //            var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
-            //            var abono = (float)Convert.ToDecimal(txtEfectivo.Text);
-            //            var nuevoabono = abonado + abono;
-            //            var restante = totalPendiente - nuevoabono;
-            //            txtPendiente.Text = restante.ToString("C2");
-            //        }
-            //        else
-            //        {
-            //            float abonado = 0;
-            //            var abono = (float)Convert.ToDecimal(txtEfectivo.Text);
-            //            var nuevoabono = abonado + abono;
-            //            var restante = totalPendiente - nuevoabono;
-            //            txtPendiente.Text = restante.ToString("C2");
-            //        }
-            //    }
-               
-            //}
 
 
 
 
 
-           
 
         }
 
