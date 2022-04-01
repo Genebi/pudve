@@ -4004,6 +4004,7 @@ namespace PuntoDeVentaV2
 
             listaProductoToCombo.Clear();
             ProductosDeServicios.Clear();
+            AgregarEditarProducto.descuentos.Clear();
 
             listaProductoToCombo = new List<string>();
             ProductosDeServicios = new List<string>();

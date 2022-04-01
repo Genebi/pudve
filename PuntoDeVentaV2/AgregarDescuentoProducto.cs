@@ -222,7 +222,7 @@ namespace PuntoDeVentaV2
                     return;
                 }
             }
-
+            
             refrescarForm = false;
             this.Hide();
         }
@@ -237,7 +237,7 @@ namespace PuntoDeVentaV2
                 rbCliente.Checked = !estadoRadioCliente;
                 rbMayoreo.Checked = !estadoRadioMayoreo;
             }
-            
+
 
             if (rbCliente.Checked == true)
             {
@@ -770,12 +770,12 @@ namespace PuntoDeVentaV2
                             if (string.IsNullOrWhiteSpace(tb2.Text))
                             {
                                 textoCheckbox = $"De {tb1.Text} en adelante siempre costarán {tb3.Text}";
-                            } 
+                            }
                             else
                             {
                                 textoCheckbox = $"De entre {tb1.Text} a {tb2.Text} siempre costarán {tb3.Text}";
                             }
-                            
+
                         }
 
                         CheckBox cb1 = new CheckBox();
@@ -809,7 +809,7 @@ namespace PuntoDeVentaV2
                             panelHijo2.SetFlowBreak(bt, true);
                             panelHijo2.Controls.Add(cb1);
                         }
-                        
+
                         panelHijo2.FlowDirection = FlowDirection.LeftToRight;
                         panelContenedor.Controls.Add(panelHijo2);
                         panelContenedor.FlowDirection = FlowDirection.TopDown;
@@ -1006,9 +1006,9 @@ namespace PuntoDeVentaV2
                 txtTituloDescuento.Text = "Descuento por Mayoreo";
                 tipoDescuento = idGenerado = 2;
                 CargarFormularios(tipoDescuento);
-            } 
+            }
         }
-        
+
         private void rangoProductosTB(object sender, KeyEventArgs e)
         {
             //Se hace para obtener el numero de linea al que pertenece el TextBox
@@ -1060,7 +1060,7 @@ namespace PuntoDeVentaV2
                         return;
                     }
                 }
-                
+
 
                 tb1.Enabled = false;
                 tb2.Enabled = false;
@@ -1087,7 +1087,7 @@ namespace PuntoDeVentaV2
                 generarLineaMayoreo();
             }
         }
-        
+
         private void generarLineaMayoreo()
         {
             FlowLayoutPanel panelHijo = new FlowLayoutPanel();
@@ -1233,10 +1233,10 @@ namespace PuntoDeVentaV2
 
                     if (idGenerado > 2)
                     {
-                        Button btTmp   = (Button)this.Controls.Find($"btnEliminarD{idTmp}", true).FirstOrDefault();
+                        Button btTmp = (Button)this.Controls.Find($"btnEliminarD{idTmp}", true).FirstOrDefault();
                         TextBox tbTmp1 = (TextBox)this.Controls.Find($"tbMayoreo{idTmp}_2", true).FirstOrDefault();
                         TextBox tbTmp2 = (TextBox)this.Controls.Find($"tbMayoreo{idTmp}_3", true).FirstOrDefault();
-                        btTmp.Enabled  = true;
+                        btTmp.Enabled = true;
                         tbTmp1.Enabled = true;
                         tbTmp2.Enabled = true;
                         tbTmp2.ReadOnly = false;
@@ -1330,9 +1330,9 @@ namespace PuntoDeVentaV2
 
 
             generarLineaMayoreo();
-            
+
         }
-        
+
         //Seleccion de CheckBoxes para el descuento por Mayoreo
         private void seleccionCheckBoxes(object sender, EventArgs e)
         {
@@ -1411,7 +1411,7 @@ namespace PuntoDeVentaV2
             {
                 respuesta = MessageBox.Show("¿Estás seguro de eliminar los descuentos?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             }
-            
+
             if (respuesta == DialogResult.Yes)
             {
                 var idProducto = AgregarEditarProducto.idProductoFinal;
@@ -1455,19 +1455,23 @@ namespace PuntoDeVentaV2
                 int C = randomValue.Next(0, 255);
 
                 lblMensaje.ForeColor = System.Drawing.Color.FromArgb(A, B, C);
-                
+
                 vecesMostradas++;
             }
         }
 
         private void rbMayoreo_Click(object sender, EventArgs e)
         {
+            var productoNuevo = AgregarEditarProducto.DatosSourceFinal;
+            //cn.CargarDatos($"SELECT * FROM descuentomayoreo where IDProducto = {}");
+        if (productoNuevo == 2)
+        {
             if (AgregarEditarProducto.descuentos.Any())
             {
                 rbCliente.Checked = true;
 
                 var respuesta = MessageBox.Show("Este producto ya tiene asignado Descuento por Producto, si desea cambiar el tipo de descuento es necesario eliminar el descuento actual.\n\n¿Desea eliminarlo?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                
+
                 if (respuesta == DialogResult.Yes)
                 {
                     AgregarEditarProducto.descuentos.Clear();
@@ -1476,7 +1480,7 @@ namespace PuntoDeVentaV2
                     tipoDescuento = 2;
                     CargarFormularios(tipoDescuento);
                 }
-                
+
             }
 
             if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
@@ -1495,7 +1499,7 @@ namespace PuntoDeVentaV2
                 }
             }
         }
-
+    }
         private void rbCliente_Click(object sender, EventArgs e)
         {
             if (AgregarEditarProducto.descuentos.Any())
