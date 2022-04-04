@@ -44,6 +44,7 @@ namespace PuntoDeVentaV2
         public Anticipos()
         {
             InitializeComponent();
+
         }
 
         private void Anticipos_Load(object sender, EventArgs e)
