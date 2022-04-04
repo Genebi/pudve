@@ -219,6 +219,12 @@ namespace PuntoDeVentaV2
             var tipoOperacion = string.Empty;
             bool tipoCorte = true;
 
+            var siRetiroEfectivo = false;
+            var siRetiroTarjeta = false;
+            var siRetiroVales = false;
+            var siRetiroCheque = false;
+            var siRetiroTransferencia = false;
+
             FormPrincipal.condicionarMensaje = 1;
 
             // Depositar
@@ -276,6 +282,11 @@ namespace PuntoDeVentaV2
                 }
                 txtEfectivo.Text = efectivo.ToString();
             }
+            else
+            {
+                siRetiroEfectivo = true;
+            }
+
             if (tarjeta < 0 && tarjeta > (float)totalTarjeta)
             {
                 if (tarjeta < 0)
@@ -289,6 +300,11 @@ namespace PuntoDeVentaV2
                 }
                 txtTarjeta.Text = tarjeta.ToString();
             }
+            else
+            {
+                siRetiroTarjeta = true;
+            }
+
             if (cheque < 0 && cheque > (float)totalCheque)
             {
                 if (cheque < 0)
@@ -302,6 +318,11 @@ namespace PuntoDeVentaV2
                 }
                 txtCheque.Text = cheque.ToString();
             }
+            else
+            {
+                siRetiroCheque = true;
+            }
+
             if (vales < 0 && vales > (float)totalVales)
             {
                 if (vales < 0)
@@ -315,6 +336,11 @@ namespace PuntoDeVentaV2
                 }
                 txtVales.Text = vales.ToString();
             }
+            else
+            {
+                siRetiroVales = true;
+            }
+
             if (trans < 0 && trans > (float)totalTransferencia)
             {
                 if (trans < 0)
@@ -327,6 +353,10 @@ namespace PuntoDeVentaV2
                     MessageBox.Show($"El monto de transferencia tiene que ser menor o igual que el monto que hay en caja: {totalTransferencia.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 txtTrans.Text = trans.ToString();
+            }
+            else
+            {
+                siRetiroTransferencia = true;
             }
 
             cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
@@ -525,7 +555,26 @@ namespace PuntoDeVentaV2
                         cantidadObtenido = totalEnCaja;
                     }
 
-                    limpiarCantidadesDeCajaAlCorte();
+                    if (siRetiroEfectivo)
+                    {
+                        totalEfectivo -= (decimal)efectivo;
+                    }
+                    if (siRetiroTarjeta)
+                    {
+                        totalTarjeta -= (decimal)tarjeta;
+                    }
+                    if (siRetiroVales)
+                    {
+                        totalVales -= (decimal)vales;
+                    }
+                    if (siRetiroCheque)
+                    {
+                        totalCheque -= (decimal)cheque;
+                    }
+                    if (siRetiroTransferencia)
+                    {
+                        totalTransferencia -= (decimal)trans;
+                    }
 
                     fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -554,11 +603,6 @@ namespace PuntoDeVentaV2
                 }
                 this.Close();
             }
-        }
-
-        private void limpiarCantidadesDeCajaAlCorte()
-        {
-            totalEfectivo = totalTarjeta = totalVales = totalCheque = totalTransferencia = totalCredito = 0;
         }
 
         private void GenerarTicket(string[] info)

@@ -3417,7 +3417,7 @@ namespace PuntoDeVentaV2
             cantidadTotalValesEnCaja = ((totalValesEnVentaCaja + totalValesAnticiposEnCaja + totalValesDepositosEnCaja + totalAbonoVales) - totalValesRetiroEnCaja);
             cantidadTotalCehqueEnCaja = ((totalChequesVentaEnCaja + totalChequesAnticipoEnCaja + totalChequesDepsoitosEnCaja + totalAbonoCheque) - totalChequesRetiroEnCaja);
             cantidadTotalTransferenciaEnCaja = ((totalTransferenciaVentaEnCaja + totalTransferenciaAnticiposEnCaja + totalTransferenciasDepositosEnCaja + totalAbonoTransferencia) - totalTransferenciaRetiroEnCaja);
-            sumaDeTotalesEnCaja = cantidadTotalEfectivoEnCaja + cantidadTotalTarjetaEnCaja + cantidadTotalValesEnCaja + cantidadTotalCehqueEnCaja + cantidadTotalTransferenciaEnCaja + totalSaldoInicial;
+            sumaDeTotalesEnCaja = cantidadTotalEfectivoEnCaja + cantidadTotalTarjetaEnCaja + cantidadTotalValesEnCaja + cantidadTotalCehqueEnCaja + cantidadTotalTransferenciaEnCaja /*+ totalSaldoInicial*/;
 
             lbTEfectivoC.Text = cantidadTotalEfectivoEnCaja.ToString("C2");
             lbTTarjetaC.Text = cantidadTotalTarjetaEnCaja.ToString("C2");
