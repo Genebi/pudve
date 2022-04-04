@@ -65,10 +65,10 @@ namespace PuntoDeVentaV2
             txtTransferencia.KeyDown += new KeyEventHandler(TerminarVenta);
 
             //Suma de los metodos de pago excepto efectivo
-            txtTarjeta.KeyUp += new KeyEventHandler(SumaMetodosPago);
-            txtVales.KeyUp += new KeyEventHandler(SumaMetodosPago);
-            txtCheque.KeyUp += new KeyEventHandler(SumaMetodosPago);
-            txtTransferencia.KeyUp += new KeyEventHandler(SumaMetodosPago);
+            //txtTarjeta.KeyUp += new KeyEventHandler(SumaMetodosPago);
+            //txtVales.KeyUp += new KeyEventHandler(SumaMetodosPago);
+            //txtCheque.KeyUp += new KeyEventHandler(SumaMetodosPago);
+            //txtTransferencia.KeyUp += new KeyEventHandler(SumaMetodosPago);
 
             var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
             totalPendiente = float.Parse(detalles[2]);
