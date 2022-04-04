@@ -630,7 +630,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Count.Equals(0))
+                    if (!dtAbonos.Rows.Count.Equals(0))
                     {
                         var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
                         var abono = (float)Convert.ToDecimal(txtEfectivo.Text);
