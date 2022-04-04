@@ -162,6 +162,7 @@
             this.txtTransferencia.Size = new System.Drawing.Size(80, 22);
             this.txtTransferencia.TabIndex = 125;
             this.txtTransferencia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTransferencia.TextChanged += new System.EventHandler(this.txtTransferencia_TextChanged);
             this.txtTransferencia.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTransferencia_KeyUp);
             // 
             // txtCheque
@@ -172,6 +173,7 @@
             this.txtCheque.Size = new System.Drawing.Size(80, 22);
             this.txtCheque.TabIndex = 124;
             this.txtCheque.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCheque.TextChanged += new System.EventHandler(this.txtCheque_TextChanged);
             this.txtCheque.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCheque_KeyUp);
             // 
             // txtVales
@@ -182,6 +184,7 @@
             this.txtVales.Size = new System.Drawing.Size(80, 22);
             this.txtVales.TabIndex = 123;
             this.txtVales.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtVales.TextChanged += new System.EventHandler(this.txtVales_TextChanged);
             this.txtVales.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtVales_KeyUp);
             // 
             // txtTarjeta
@@ -192,6 +195,7 @@
             this.txtTarjeta.Size = new System.Drawing.Size(80, 22);
             this.txtTarjeta.TabIndex = 122;
             this.txtTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTarjeta.TextChanged += new System.EventHandler(this.txtTarjeta_TextChanged);
             this.txtTarjeta.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTarjeta_KeyUp);
             // 
             // txtEfectivo
@@ -216,6 +220,7 @@
             this.txtPendiente.TabIndex = 131;
             this.txtPendiente.Text = "$0.00";
             this.txtPendiente.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.txtPendiente.Click += new System.EventHandler(this.txtPendiente_Click);
             // 
             // tituloAbono
             // 
