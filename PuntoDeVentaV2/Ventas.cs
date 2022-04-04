@@ -976,7 +976,10 @@ namespace PuntoDeVentaV2
                 if (tipoDescuento > 0)
                 {
                     string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
-                    CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToInt32(cantidad), rowId);
+                    if (!datosDescuento.Length.Equals(0))
+                    {
+                        CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToInt32(cantidad), rowId);
+                    }
                 }
 
                 CantidadesFinalesVenta();
