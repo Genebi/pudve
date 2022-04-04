@@ -525,6 +525,8 @@ namespace PuntoDeVentaV2
                         cantidadObtenido = totalEnCaja;
                     }
 
+                    limpiarCantidadesDeCajaAlCorte();
+
                     fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
                     datos = new string[] {
@@ -552,6 +554,11 @@ namespace PuntoDeVentaV2
                 }
                 this.Close();
             }
+        }
+
+        private void limpiarCantidadesDeCajaAlCorte()
+        {
+            totalEfectivo = totalTarjeta = totalVales = totalCheque = totalTransferencia = totalCredito = 0;
         }
 
         private void GenerarTicket(string[] info)
