@@ -106,6 +106,14 @@ namespace PuntoDeVentaV2
         string nombreDeUsuario = string.Empty;
         string razonSocialUsuario = string.Empty;
 
+        public static decimal sumaDeTotalesEnCaja = 0,
+            cantidadTotalEfectivoEnCaja = 0,
+            cantidadTotalTarjetaEnCaja = 0,
+            cantidadTotalValesEnCaja = 0,
+            cantidadTotalCehqueEnCaja = 0,
+            cantidadTotalTransferenciaEnCaja = 0,
+            totalSaldoInicial = 0;
+
         decimal totalEfectivoVentaEnCaja = 0, 
                 totalTarjetaVentaEnCaja = 0,
                 totalValesEnVentaCaja = 0,
@@ -127,7 +135,6 @@ namespace PuntoDeVentaV2
                 totalValesRetiroEnCaja = 0,
                 totalChequesRetiroEnCaja = 0,
                 totalTransferenciaRetiroEnCaja = 0,
-                totalSaldoInicial = 0,
                 totalAbonoEfectivo = 0,
                 totalAbonoTarjeta = 0,
                 totalAbonoVales = 0,
@@ -141,7 +148,6 @@ namespace PuntoDeVentaV2
         public CajaN()
         {
             InitializeComponent();
-
         }
 
         private void CajaN_Load(object sender, EventArgs e)
@@ -232,7 +238,7 @@ namespace PuntoDeVentaV2
 
                                         using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoAdministrador(idUsuarioEmpleado, fechaFormateadaCorteParaAbonos)))
                                         {
-                                            if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Equals(0))
+                                            if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Count.Equals(0))
                                             {
                                                 lbCambioAbonos.Visible = true;
                                                 foreach (DataRow item in dtAbonos.Rows)
@@ -283,7 +289,7 @@ namespace PuntoDeVentaV2
 
                                         using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoTodos(fechaFormateadaCorteParaAbonos)))
                                         {
-                                            if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Equals(0))
+                                            if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Count.Equals(0))
                                             {
                                                 lbCambioAbonos.Visible = true;
                                                 foreach (DataRow item in dtAbonos.Rows)
@@ -339,7 +345,7 @@ namespace PuntoDeVentaV2
 
                                         using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoEmpleado(idUsuarioEmpleado, fechaFormateadaCorteParaAbonos)))
                                         {
-                                            if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Equals(0))
+                                            if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Count.Equals(0))
                                             {
                                                 lbCambioAbonos.Visible = true;
                                                 foreach (DataRow item in dtAbonos.Rows)
@@ -391,7 +397,7 @@ namespace PuntoDeVentaV2
 
                                         using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoEmpleado(idUsuarioEmpleado, fechaFormateadaCorteParaAbonos)))
                                         {
-                                            if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Equals(0))
+                                            if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Count.Equals(0))
                                             {
                                                 lbCambioAbonos.Visible = true;
                                                 foreach (DataRow item in dtAbonos.Rows)
@@ -3406,11 +3412,12 @@ namespace PuntoDeVentaV2
 
         private void mostrarTotalEnCaja()
         {
-            var cantidadTotalEfectivoEnCaja = ((totalEfectivoVentaEnCaja + totalEfectivoAnticiposEnCaja + totalEfectivoDepsitosEnCaja + totalAbonoEfectivo) - totalEfectivoRetiroEnCaja);
-            var cantidadTotalTarjetaEnCaja = ((totalTarjetaVentaEnCaja + totalTarjetaAnticiposEnCaja + totalTarjetaDepositosEnCaja + totalAbonoTarjeta) - totalTarjetaRetiroEnCaja);
-            var cantidadTotalValesEnCaja = ((totalValesEnVentaCaja + totalValesAnticiposEnCaja + totalValesDepositosEnCaja + totalAbonoVales) - totalValesRetiroEnCaja);
-            var cantidadTotalCehqueEnCaja = ((totalChequesVentaEnCaja + totalChequesAnticipoEnCaja + totalChequesDepsoitosEnCaja + totalAbonoCheque) - totalChequesRetiroEnCaja);
-            var cantidadTotalTransferenciaEnCaja = ((totalTransferenciaVentaEnCaja + totalTransferenciaAnticiposEnCaja + totalTransferenciasDepositosEnCaja + totalAbonoTransferencia) - totalTransferenciaRetiroEnCaja);
+            cantidadTotalEfectivoEnCaja = ((totalEfectivoVentaEnCaja + totalEfectivoAnticiposEnCaja + totalEfectivoDepsitosEnCaja + totalAbonoEfectivo) - totalEfectivoRetiroEnCaja);
+            cantidadTotalTarjetaEnCaja = ((totalTarjetaVentaEnCaja + totalTarjetaAnticiposEnCaja + totalTarjetaDepositosEnCaja + totalAbonoTarjeta) - totalTarjetaRetiroEnCaja);
+            cantidadTotalValesEnCaja = ((totalValesEnVentaCaja + totalValesAnticiposEnCaja + totalValesDepositosEnCaja + totalAbonoVales) - totalValesRetiroEnCaja);
+            cantidadTotalCehqueEnCaja = ((totalChequesVentaEnCaja + totalChequesAnticipoEnCaja + totalChequesDepsoitosEnCaja + totalAbonoCheque) - totalChequesRetiroEnCaja);
+            cantidadTotalTransferenciaEnCaja = ((totalTransferenciaVentaEnCaja + totalTransferenciaAnticiposEnCaja + totalTransferenciasDepositosEnCaja + totalAbonoTransferencia) - totalTransferenciaRetiroEnCaja);
+            sumaDeTotalesEnCaja = cantidadTotalEfectivoEnCaja + cantidadTotalTarjetaEnCaja + cantidadTotalValesEnCaja + cantidadTotalCehqueEnCaja + cantidadTotalTransferenciaEnCaja + totalSaldoInicial;
 
             lbTEfectivoC.Text = cantidadTotalEfectivoEnCaja.ToString("C2");
             lbTTarjetaC.Text = cantidadTotalTarjetaEnCaja.ToString("C2");
@@ -3418,8 +3425,6 @@ namespace PuntoDeVentaV2
             lbTChequeC.Text = cantidadTotalCehqueEnCaja.ToString("C2");
             lbTTransC.Text = cantidadTotalTransferenciaEnCaja.ToString("C2");
             lbTSaldoInicial.Text = totalSaldoInicial.ToString("C2");
-
-            var sumaDeTotalesEnCaja = cantidadTotalEfectivoEnCaja + cantidadTotalTarjetaEnCaja + cantidadTotalValesEnCaja + cantidadTotalCehqueEnCaja + cantidadTotalTransferenciaEnCaja + totalSaldoInicial;
 
             lbTTotalCaja.Text = sumaDeTotalesEnCaja.ToString("C2");
         }
