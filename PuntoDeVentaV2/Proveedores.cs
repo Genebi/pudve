@@ -450,6 +450,7 @@ namespace PuntoDeVentaV2
         {
             if (!txtMaximoPorPagina.Text.Equals(string.Empty))
             {
+                
                 var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
 
                 if (cantidadAMostrar <= 0)
@@ -459,19 +460,23 @@ namespace PuntoDeVentaV2
                     txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
                     return;
                 }
+                
 
                 maximo_x_pagina = cantidadAMostrar;
                 p.actualizarTope(maximo_x_pagina);
-                string tipo = string.Empty;
+                int tipo = 1;
+                string busqueda = txtBuscador.Text;
                 if (cbStatus.Text == "Habilitados")
                 {
-                    tipo = "1";
+                    tipo = 1;
                 }
                 else if (cbStatus.Text == "Deshabilitados")
                 {
-                    tipo = "0";
+                    tipo = 0;
                 }
-                CargarDatos(tipo);
+
+
+                CargarDatos(busqueda,tipo);
                 ActualizarPaginador();
             }
             else
@@ -482,38 +487,10 @@ namespace PuntoDeVentaV2
 
         private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
         {
+            
             if (e.KeyCode == Keys.Enter)
             {
-                if (!txtMaximoPorPagina.Text.Equals(String.Empty))
-                {
-                    var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
-
-                    if (cantidadAMostrar <= 0)
-                    {
-                        mensajeParaMostrar = "Catidad a mostrar debe ser mayor a 0";
-                        Utilidades.MensajeCuandoSeaCeroEnElListado(mensajeParaMostrar);
-                        txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
-                        return;
-                    }
-
-                    maximo_x_pagina = cantidadAMostrar;
-                    p.actualizarTope(maximo_x_pagina);
-                    string tipo = string.Empty;
-                    if (cbStatus.Text == "Habilitados")
-                    {
-                        tipo = "1";
-                    }
-                    else if (cbStatus.Text == "Deshabilitados")
-                    {
-                        tipo = "0";
-                    }
-                    CargarDatos(tipo);
-                    ActualizarPaginador();
-                }
-                else
-                {
-                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
-                }
+                btnActualizarMaximoProductos.PerformClick();
 
             }
         }
@@ -525,5 +502,7 @@ namespace PuntoDeVentaV2
                 e.Handled = true;
             }
         }
+
+       
     }
 }

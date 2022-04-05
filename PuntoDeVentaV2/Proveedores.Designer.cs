@@ -174,6 +174,7 @@
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(155, 25);
             this.cbStatus.TabIndex = 8;
+            
             this.cbStatus.SelectionChangeCommitted += new System.EventHandler(this.cbStatus_SelectionChangeCommitted);
             // 
             // btnBuscar
