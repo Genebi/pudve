@@ -213,6 +213,8 @@ namespace PuntoDeVentaV2
         int opcion21 = 1; // Opcion copiar
         int opcion22 = 1; // Opcion ajustar
 
+        int productosEncontrados = 0;
+
         List<string> usuarios = new List<string>()
         {
             "HOUSEDEPOTAUTLAN",
@@ -4402,13 +4404,15 @@ namespace PuntoDeVentaV2
 
         private string ManejandoCoincidenciasBusqueda(string busquedaEnProductos, List<string> listaCodigosExistentes)
         {
-            // Se crea solo si el usuario escribio algo en el buscador y no hay filtros aplicados
+            // Se crea solo si  el usuario escribio algo en el buscador y no hay filtros aplicados
             if (!string.IsNullOrWhiteSpace(busquedaEnProductos))
             {
                 bool fueronAsignados = false;
 
                 // retorna un diccionario con las coincidencias que hubo en la base de datos
-                var coincidencias = mb.BusquedaCoincidencias(busquedaEnProductos.Trim());
+                var status = cbMostrar.SelectedIndex;
+                var coincidencias = mb.BusquedaCoincidencias(busquedaEnProductos.Trim(),status);
+                productosEncontrados = Convert.ToInt32(coincidencias.Count);
 
                 if (coincidencias.Count == 0)
                 {
@@ -4423,7 +4427,6 @@ namespace PuntoDeVentaV2
                                 coincidencias.Add(Convert.ToInt32(codigo), 1);
                             }
                         }
-
                         fueronAsignados = true;
                     }
                 }
@@ -4700,8 +4703,26 @@ namespace PuntoDeVentaV2
             }
 
             LimpiarAplicandoConsultaFiltros();
-            
-            Console.WriteLine(consultaFiltro);
+
+            if (productosEncontrados > 0)
+            {
+                consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} AND Nombre LIKE '%{busquedaEnProductos}%'";
+            }
+            else
+            {
+                if (!busquedaEnProductos.Length.Equals(0))
+                {
+                    DGVProductos.Rows.Clear();
+                    consultaFiltro = "SELECT * FROM Productos WHERE ID = 0";
+                    MessageBox.Show($"No se encontro ninguna coincidencia con el producto: {busquedaEnProductos}","Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    consultaFiltro = "SELECT * FROM Productos AS P WHERE P.IDUsuario = 10 AND P.Status = 1";
+                }
+               
+            }
+           Console.WriteLine(consultaFiltro);
 
             //================================================================================================================================================
             //================================================================================================================================================

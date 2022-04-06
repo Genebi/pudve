@@ -16,7 +16,6 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
-
         private Paginar p;
         string DataMemberDGV = "Proveedores";
         int maximo_x_pagina = 14;
