@@ -214,6 +214,7 @@ namespace PuntoDeVentaV2
         int opcion22 = 1; // Opcion ajustar
 
         int productosEncontrados = 0;
+        public static int dobleClickProducto = 0;
 
         List<string> usuarios = new List<string>()
         {
@@ -478,6 +479,7 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            dobleClickProducto = 1;
             int pageNumber = p.numPag();
 
             var apartado = cbMostrar.SelectedItem.ToString();
