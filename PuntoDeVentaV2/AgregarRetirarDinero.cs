@@ -416,6 +416,7 @@ namespace PuntoDeVentaV2
             }
 
             string[] datos;
+            int resultado = 0;
 
             if (operacion.Equals(2))
             {
@@ -447,7 +448,7 @@ namespace PuntoDeVentaV2
                 };
             }
 
-            int resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
+            resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
             tipoCorte = false;
 
             // Ejecutr hilo para enviarnotificación
@@ -509,6 +510,59 @@ namespace PuntoDeVentaV2
 
                     decimal cantidadObtenido = 0;
 
+                    if (cantidad > 0)
+                    {
+                        cantidadObtenido = totalEnCaja - (decimal)cantidad;
+                    }
+                    else if (cantidad.Equals(0))
+                    {
+                        cantidadObtenido = totalEnCaja;
+                    }
+
+                    if (siRetiroEfectivo)
+                    {
+                        totalEfectivo -= (decimal)efectivo;
+                    }
+                    if (siRetiroTarjeta)
+                    {
+                        totalTarjeta -= (decimal)tarjeta;
+                    }
+                    if (siRetiroVales)
+                    {
+                        totalVales -= (decimal)vales;
+                    }
+                    if (siRetiroCheque)
+                    {
+                        totalCheque -= (decimal)cheque;
+                    }
+                    if (siRetiroTransferencia)
+                    {
+                        totalTransferencia -= (decimal)trans;
+                    }
+
+                    fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                    var ultimoIDCaja = string.Empty;
+
+                    using (DataTable dtUltimoIDCaja = cn.CargarDatos(cs.obtenerUltimoIDInsertadoEnCaja()))
+                    {
+                        if (!dtUltimoIDCaja.Rows[0][0].Equals(DBNull.Value) && !dtUltimoIDCaja.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtUltimoIDCaja.Rows)
+                            {
+                                ultimoIDCaja = item["ID"].ToString();
+                            }
+                        }
+                    }
+
+                    datos = new string[] {
+                        ultimoIDCaja, FormPrincipal.userID.ToString(), FormPrincipal.id_empleado.ToString(), fechaOperacion, totalEfectivo.ToString(), totalTarjeta.ToString(), totalVales.ToString(), totalCheque.ToString(), totalTransferencia.ToString(), totalCredito.ToString(), "0", cantidad.ToString()
+                    };
+
+                    cn.EjecutarConsulta(cs.guardarHistorialCorteDeCaja(datos));
+
+                    CajaN.botones = true;
+
                     //var efectivoRetirar = ValidarCampos(txtEfectivo.Text);
                     //var tarjetaRetirar = ValidarCampos(txtTarjeta.Text);
                     //var chequeRetirar = ValidarCampos(txtCheque.Text);
@@ -546,44 +600,44 @@ namespace PuntoDeVentaV2
                     //creditoobtenido = totalCredito - creditoRetirar;
                     //}
 
-                    if (cantidad > 0)
-                    {
-                        cantidadObtenido = totalEnCaja - (decimal)cantidad;
-                    }
-                    else if (cantidad.Equals(0))
-                    {
-                        cantidadObtenido = totalEnCaja;
-                    }
+                    //if (cantidad > 0)
+                    //{
+                    //    cantidadObtenido = totalEnCaja - (decimal)cantidad;
+                    //}
+                    //else if (cantidad.Equals(0))
+                    //{
+                    //    cantidadObtenido = totalEnCaja;
+                    //}
 
-                    if (siRetiroEfectivo)
-                    {
-                        totalEfectivo -= (decimal)efectivo;
-                    }
-                    if (siRetiroTarjeta)
-                    {
-                        totalTarjeta -= (decimal)tarjeta;
-                    }
-                    if (siRetiroVales)
-                    {
-                        totalVales -= (decimal)vales;
-                    }
-                    if (siRetiroCheque)
-                    {
-                        totalCheque -= (decimal)cheque;
-                    }
-                    if (siRetiroTransferencia)
-                    {
-                        totalTransferencia -= (decimal)trans;
-                    }
+                    //if (siRetiroEfectivo)
+                    //{
+                    //    totalEfectivo -= (decimal)efectivo;
+                    //}
+                    //if (siRetiroTarjeta)
+                    //{
+                    //    totalTarjeta -= (decimal)tarjeta;
+                    //}
+                    //if (siRetiroVales)
+                    //{
+                    //    totalVales -= (decimal)vales;
+                    //}
+                    //if (siRetiroCheque)
+                    //{
+                    //    totalCheque -= (decimal)cheque;
+                    //}
+                    //if (siRetiroTransferencia)
+                    //{
+                    //    totalTransferencia -= (decimal)trans;
+                    //}
 
-                    fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    //fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                    datos = new string[] {
-                        "venta", cantidadObtenido.ToString(), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
-                        totalEfectivo.ToString(), totalTarjeta.ToString(), totalVales.ToString(), totalCheque.ToString(), totalTransferencia.ToString(), totalCredito.ToString(), "0", FormPrincipal.id_empleado.ToString()
-                    };
+                    //datos = new string[] {
+                    //    "venta", cantidadObtenido.ToString(), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
+                    //    totalEfectivo.ToString(), totalTarjeta.ToString(), totalVales.ToString(), totalCheque.ToString(), totalTransferencia.ToString(), totalCredito.ToString(), "0", FormPrincipal.id_empleado.ToString()
+                    //};
 
-                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                    //cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
                     //Thread CorteDinero = new Thread(
                     //    () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
@@ -591,7 +645,7 @@ namespace PuntoDeVentaV2
 
                     //CorteDinero.Start();
 
-                    CajaN.botones = true;
+                    //CajaN.botones = true;
                     //if (Utilidades.AdobeReaderInstalado())
                     //{
                     //    GenerarTicket(datos);
