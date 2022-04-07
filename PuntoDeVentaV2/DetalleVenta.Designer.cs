@@ -270,11 +270,13 @@
             // 
             this.txtTransferencia.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTransferencia.Location = new System.Drawing.Point(204, 126);
+            this.txtTransferencia.MaxLength = 7;
             this.txtTransferencia.Name = "txtTransferencia";
             this.txtTransferencia.Size = new System.Drawing.Size(80, 22);
             this.txtTransferencia.TabIndex = 98;
             this.txtTransferencia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtTransferencia.Click += new System.EventHandler(this.txtTransferencia_Click);
+            this.txtTransferencia.TextChanged += new System.EventHandler(this.txtTransferencia_TextChanged);
             this.txtTransferencia.Enter += new System.EventHandler(this.txtTransferencia_Enter);
             this.txtTransferencia.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTransferencia_KeyUp);
             // 
@@ -282,11 +284,13 @@
             // 
             this.txtCheque.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCheque.Location = new System.Drawing.Point(299, 126);
+            this.txtCheque.MaxLength = 7;
             this.txtCheque.Name = "txtCheque";
             this.txtCheque.Size = new System.Drawing.Size(80, 22);
             this.txtCheque.TabIndex = 99;
             this.txtCheque.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCheque.Click += new System.EventHandler(this.txtCheque_Click);
+            this.txtCheque.TextChanged += new System.EventHandler(this.txtCheque_TextChanged);
             this.txtCheque.Enter += new System.EventHandler(this.txtCheque_Enter);
             this.txtCheque.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCheque_KeyUp);
             // 
@@ -294,11 +298,13 @@
             // 
             this.txtVales.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtVales.Location = new System.Drawing.Point(393, 126);
+            this.txtVales.MaxLength = 7;
             this.txtVales.Name = "txtVales";
             this.txtVales.Size = new System.Drawing.Size(80, 22);
             this.txtVales.TabIndex = 100;
             this.txtVales.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtVales.Click += new System.EventHandler(this.txtVales_Click);
+            this.txtVales.TextChanged += new System.EventHandler(this.txtVales_TextChanged);
             this.txtVales.Enter += new System.EventHandler(this.txtVales_Enter);
             this.txtVales.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtVales_KeyUp);
             // 
@@ -306,11 +312,13 @@
             // 
             this.txtTarjeta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTarjeta.Location = new System.Drawing.Point(109, 126);
+            this.txtTarjeta.MaxLength = 7;
             this.txtTarjeta.Name = "txtTarjeta";
             this.txtTarjeta.Size = new System.Drawing.Size(80, 22);
             this.txtTarjeta.TabIndex = 97;
             this.txtTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtTarjeta.Click += new System.EventHandler(this.txtTarjeta_Click);
+            this.txtTarjeta.TextChanged += new System.EventHandler(this.txtTarjeta_TextChanged);
             this.txtTarjeta.Enter += new System.EventHandler(this.txtTarjeta_Enter);
             this.txtTarjeta.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTarjeta_KeyUp);
             // 
@@ -318,11 +326,13 @@
             // 
             this.txtEfectivo.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEfectivo.Location = new System.Drawing.Point(13, 126);
+            this.txtEfectivo.MaxLength = 7;
             this.txtEfectivo.Name = "txtEfectivo";
             this.txtEfectivo.Size = new System.Drawing.Size(80, 22);
             this.txtEfectivo.TabIndex = 96;
             this.txtEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtEfectivo.Click += new System.EventHandler(this.txtEfectivo_Click);
+            this.txtEfectivo.TextChanged += new System.EventHandler(this.txtEfectivo_TextChanged);
             this.txtEfectivo.Enter += new System.EventHandler(this.txtEfectivo_Enter);
             this.txtEfectivo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyUp);
             // 

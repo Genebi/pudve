@@ -3173,6 +3173,10 @@ namespace PuntoDeVentaV2
                     var sumaEfectivo = Properties.Settings.Default.efectivoRecibido + Properties.Settings.Default.tarjetaRecibido + Properties.Settings.Default.transfRecibido + Properties.Settings.Default.chequeRecibido + Properties.Settings.Default.valesRecibido;
 
                     var cambio = sumaEfectivo - (float)Convert.ToDouble(Total);
+                    if (cambio < 0)
+                    {
+                        cambio = 0;
+                    }
                     cn.EjecutarConsulta(cs.actualizarDatosVenta(sumaEfectivo, cambio, Convert.ToInt32(idVenta)));
 
                     // Si la lista ventasGuardadas contiene elementos quiere decir que son ventas que deberian 
