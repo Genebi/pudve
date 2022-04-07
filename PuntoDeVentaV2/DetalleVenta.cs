@@ -664,9 +664,9 @@ namespace PuntoDeVentaV2
                     //actual = (TextBox)Controls.Find(textBoxActual, true)[0];
                     //siguiente = (TextBox)Controls.Find(textBoxSiguiente, true)[0];
 
-                    obtenerCantidad(actual.Text, textBoxSiguiente);
-                    siguiente.SelectAll();
-                    siguiente.Focus();
+                    //obtenerCantidad(actual.Text, textBoxSiguiente);
+                    //siguiente.SelectAll();
+                    //siguiente.Focus();
                 }
             }
             else if (e.KeyData.Equals(Keys.Left))
