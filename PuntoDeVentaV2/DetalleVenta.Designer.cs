@@ -278,6 +278,7 @@
             this.txtTransferencia.Click += new System.EventHandler(this.txtTransferencia_Click);
             this.txtTransferencia.TextChanged += new System.EventHandler(this.txtTransferencia_TextChanged);
             this.txtTransferencia.Enter += new System.EventHandler(this.txtTransferencia_Enter);
+            
             this.txtTransferencia.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTransferencia_KeyUp);
             // 
             // txtCheque
@@ -292,6 +293,7 @@
             this.txtCheque.Click += new System.EventHandler(this.txtCheque_Click);
             this.txtCheque.TextChanged += new System.EventHandler(this.txtCheque_TextChanged);
             this.txtCheque.Enter += new System.EventHandler(this.txtCheque_Enter);
+            
             this.txtCheque.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCheque_KeyUp);
             // 
             // txtVales
@@ -306,6 +308,7 @@
             this.txtVales.Click += new System.EventHandler(this.txtVales_Click);
             this.txtVales.TextChanged += new System.EventHandler(this.txtVales_TextChanged);
             this.txtVales.Enter += new System.EventHandler(this.txtVales_Enter);
+            
             this.txtVales.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtVales_KeyUp);
             // 
             // txtTarjeta
@@ -320,6 +323,7 @@
             this.txtTarjeta.Click += new System.EventHandler(this.txtTarjeta_Click);
             this.txtTarjeta.TextChanged += new System.EventHandler(this.txtTarjeta_TextChanged);
             this.txtTarjeta.Enter += new System.EventHandler(this.txtTarjeta_Enter);
+            
             this.txtTarjeta.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTarjeta_KeyUp);
             // 
             // txtEfectivo
@@ -334,6 +338,7 @@
             this.txtEfectivo.Click += new System.EventHandler(this.txtEfectivo_Click);
             this.txtEfectivo.TextChanged += new System.EventHandler(this.txtEfectivo_TextChanged);
             this.txtEfectivo.Enter += new System.EventHandler(this.txtEfectivo_Enter);
+            
             this.txtEfectivo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyUp);
             // 
             // txtTotalVenta

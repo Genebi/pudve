@@ -38,6 +38,7 @@ namespace PuntoDeVentaV2
         float transferencia;
         float restante;
         float cambio;
+        string nameOfControl = string.Empty;
 
 
         public AsignarAbonos(int idVenta, float totalOriginal)
@@ -922,9 +923,43 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void txtPendiente_Click(object sender, EventArgs e)
+        private void txtEfectivo_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode.Equals(Keys.Right))
+                SendKeys.Send("{TAB}");
+        }
 
+        private void txtTarjeta_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Right))
+                SendKeys.Send("{TAB}");
+
+            if (e.KeyCode.Equals(Keys.Left))
+                SendKeys.Send("+{TAB}");
+        }
+
+        private void txtCheque_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Right))
+                SendKeys.Send("{TAB}");
+
+            if (e.KeyCode.Equals(Keys.Left))
+                SendKeys.Send("+{TAB}");
+        }
+
+        private void txtTransferencia_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Left))
+                SendKeys.Send("+{TAB}");
+        }
+
+        private void txtVales_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Right))
+                SendKeys.Send("{TAB}");
+
+            if (e.KeyCode.Equals(Keys.Left))
+                SendKeys.Send("+{TAB}");
         }
     }
 }
