@@ -3618,5 +3618,19 @@ namespace PuntoDeVentaV2
         {
             MessageBox.Show(mensaje, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        public static int regresarNumeroMenor(int[] numeros)
+        {
+            var numeroMenor = numeros.Min();
+
+            return numeroMenor;
+        }
+
+        public static int regresarNumeroMayor(int[] numeros)
+        {
+            var numeroMayor = numeros.Max();
+
+            return numeroMayor;
+        }
     }
 }

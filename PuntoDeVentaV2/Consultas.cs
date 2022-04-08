@@ -3658,7 +3658,7 @@ namespace PuntoDeVentaV2
 
         public string cargarSaldoInicialTodos()
         {
-            var consulta = $"SELECT IDUsuario, IDEmpleado, IDCorteDeCaja AS 'IDCaja', SUM( SaldoInicialEfectivo ) AS 'Efectivo', SUM( SaldoInicialTarjeta ) AS 'Tarjeta', SUM( SaldoInicialVales ) AS 'Vales', SUM( SaldoInicialCheque ) AS 'Cheque', SUM( SaldoInicialTransferencia ) AS 'Transferencia', SUM( SaldoInicialCredito ) AS 'Credito', SUM( SaldoInicialAnticipo ) AS 'Anticipo', SUM( CantidadRetiradaDelCorte ) AS 'CantidadRetirada', ( SaldoInicialEfectivo + SaldoInicialTarjeta + SaldoInicialVales + SaldoInicialCheque + SaldoInicialTransferencia ) AS 'SaldoInicial' FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' GROUP BY IDEmpleado ORDER BY ID";
+            var consulta = $"SELECT IDUsuario, IDEmpleado, MAX(IDCorteDeCaja) AS 'IDCaja', SUM( SaldoInicialEfectivo ) AS 'Efectivo', SUM( SaldoInicialTarjeta ) AS 'Tarjeta', SUM( SaldoInicialVales ) AS 'Vales', SUM( SaldoInicialCheque ) AS 'Cheque', SUM( SaldoInicialTransferencia ) AS 'Transferencia', SUM( SaldoInicialCredito ) AS 'Credito', SUM( SaldoInicialAnticipo ) AS 'Anticipo', SUM( CantidadRetiradaDelCorte ) AS 'CantidadRetirada', ( SaldoInicialEfectivo + SaldoInicialTarjeta + SaldoInicialVales + SaldoInicialCheque + SaldoInicialTransferencia ) AS 'SaldoInicial' FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' GROUP BY IDEmpleado ORDER BY ID";
 
             return consulta;
         }
@@ -3666,6 +3666,23 @@ namespace PuntoDeVentaV2
         public string cargarSaldoInicialEmpleado(string idEmpleado)
         {
             var consulta = $"SELECT IDUsuario, IDEmpleado, IDCorteDeCaja AS 'IDCaja', FechaOperacion AS 'Fecha', SaldoInicialEfectivo AS 'Efectivo', SaldoInicialTarjeta AS 'Tarjeta', SaldoInicialVales AS 'Vales', SaldoInicialCheque AS 'Cheque', SaldoInicialTransferencia AS 'Transferencia', SaldoInicialCredito AS 'Credito', SaldoInicialAnticipo AS 'Anticipo', CantidadRetiradaDelCorte AS 'CantidadRetirada', ( SaldoInicialEfectivo + SaldoInicialTarjeta + SaldoInicialVales + SaldoInicialCheque + SaldoInicialTransferencia ) AS 'SaldoInicial' FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' AND IDEmpleado = '{idEmpleado}' ORDER BY IDCorteDeCaja DESC LIMIT 1";
+
+            return consulta;
+        }
+
+        public string resultadoConcentradooHistorialCorteDeCaja(int[] numerosIDCarteDeCaja)
+        {
+            var consulta = string.Empty;
+            var cadenaNumeros = String.Join(",", numerosIDCarteDeCaja);
+
+            consulta = $"SELECT SUM( SaldoInicialEfectivo ) AS 'Efectivo', SUM( SaldoInicialTarjeta ) AS 'Tarjeta', SUM( SaldoInicialVales ) AS 'Vales', SUM( SaldoInicialCheque ) AS 'Cheque', SUM( SaldoInicialTransferencia ) AS 'Transferencia', SUM( SaldoInicialCredito ) AS 'Credito', SUM( SaldoInicialAnticipo ) AS 'Anticipo', SUM( CantidadRetiradaDelCorte ) AS 'CantidadRetirada', ( SUM( SaldoInicialEfectivo ) + SUM( SaldoInicialTarjeta ) + SUM( SaldoInicialVales ) + SUM( SaldoInicialCheque ) + SUM( SaldoInicialTransferencia ) ) AS 'SaldoInicial' FROM historialcortesdecaja WHERE IDCorteDeCaja IN ( {cadenaNumeros} )";
+
+            return consulta;
+        }
+
+        public string corteHistorialCortesDeCaja(string idCodigoCaja)
+        {
+            var consulta = $"SELECT IDCorteDeCaja, FechaOperacion FROM historialcortesdecaja WHERE IDCorteDeCaja = '{idCodigoCaja}'";
 
             return consulta;
         }
