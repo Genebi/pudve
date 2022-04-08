@@ -2676,7 +2676,8 @@ namespace PuntoDeVentaV2
                 if (string.IsNullOrEmpty(lbDatosCliente.Text))
                 {
                     etiqeutaCliente = "vacio";
-                    this.Visible = false;
+                    //this.Visible = false;
+                    
                 }
                 else
                 {
@@ -2832,8 +2833,7 @@ namespace PuntoDeVentaV2
                                 DetalleVenta.cliente = string.Empty;
                                 AsignarCreditoVenta.idCliente = 0;
                                 AsignarCreditoVenta.cliente = string.Empty;
-                                this.Close();
-                                return;
+                                
                             }
                             noDuplicadoVentas = 0;
                         };
