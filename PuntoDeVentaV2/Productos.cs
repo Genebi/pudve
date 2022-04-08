@@ -215,6 +215,7 @@ namespace PuntoDeVentaV2
 
         int productosEncontrados = 0;
         public static int dobleClickProducto = 0;
+        public static int idprodDobleClick = 0;
 
         List<string> usuarios = new List<string>()
         {
@@ -432,7 +433,7 @@ namespace PuntoDeVentaV2
             var fila = DGVProductos.CurrentCell.RowIndex;
 
             int idProducto = Convert.ToInt32(DGVProductos.Rows[fila].Cells["_IDProducto"].Value);
-
+            
             //Esta condicion es para que no de error al momento que se haga click en el header de la columna por error
             if (e.RowIndex >= 0)
             {
@@ -492,7 +493,7 @@ namespace PuntoDeVentaV2
             var fila = DGVProductos.CurrentCell.RowIndex;
 
             int idProducto = Convert.ToInt32(DGVProductos.Rows[fila].Cells["_IDProducto"].Value);
-
+            idprodDobleClick = idProducto;
             //MessageBox.Show(idProducto.ToString());
 
             //Esta condicion es para que no de error al momento que se haga click en el header de la columna por error
@@ -2186,6 +2187,7 @@ namespace PuntoDeVentaV2
             if (txtBusqueda.Text.Trim().Equals(""))
             {
                 //CargarDatos();
+                //txtBusqueda.Clear();
                 busquedaDelUsuario();
             }
             else if (!txtBusqueda.Text.Trim().Equals(""))
@@ -4708,8 +4710,17 @@ namespace PuntoDeVentaV2
 
             if (productosEncontrados > 0)
             {
-                consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} AND Nombre LIKE '%{busquedaEnProductos}%'";
+                var busqueda = busquedaEnProductos.TrimEnd().Split(' ');
+                if (busqueda.Length > 1)
+                {
+
+                }
+                else
+                {
+                    consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} AND Nombre LIKE '%{busquedaEnProductos}%'";
+                }
             }
+               
             else
             {
                 if (!busquedaEnProductos.Length.Equals(0))
@@ -6145,17 +6156,20 @@ namespace PuntoDeVentaV2
                 auxWord.Clear();
                 for (int i = 0; i < palabras.Length; i++)
                 {
-                    if (auxWord.Count == 0)
-                    {
-                        auxWord.Add(palabras[i]);
-                    }
-                    else if (!auxWord.Contains(palabras[i]))
-                    {
-                        if (auxWord.Count != 0)
+                    //if (!palabras[i].Equals(string.Empty))
+                    //{
+                        if (auxWord.Count == 0)
                         {
                             auxWord.Add(palabras[i]);
                         }
-                    }
+                        else if (!auxWord.Contains(palabras[i]))
+                        {
+                            if (auxWord.Count != 0)
+                            {
+                                auxWord.Add(palabras[i]);
+                            }
+                        }
+                //}
                 }
                 crearEtiquetaDinamica();
             }

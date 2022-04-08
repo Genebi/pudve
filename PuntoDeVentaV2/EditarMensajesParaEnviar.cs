@@ -450,22 +450,46 @@ namespace PuntoDeVentaV2
                                     {
                                         if (textoMensaje.Name.Equals("txtCantidadCompra"))
                                         {
-                                           
-                                            var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.codProductoEditarVenta));
-                                            if (updateOinsert.Rows.Count.Equals(0))
+                                            if (Productos.dobleClickProducto == 1)
                                             {
-                                                var cantidadMinimaCompra = textoMensaje.Text;
-                                                if (!string.IsNullOrWhiteSpace(cantidadDeCompra))
+                                                var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.idprodDobleClick));
+
+                                                if (updateOinsert.Rows.Count.Equals(0))
                                                 {
-                                                    cn.EjecutarConsulta(cs.insertarCompraMinima(Productos.codProductoEditarVenta, Convert.ToInt32(cantidadMinimaCompra)));
+                                                    var cantidadMinimaCompra = textoMensaje.Text;
+                                                    if (!string.IsNullOrWhiteSpace(cantidadDeCompra))
+                                                    {
+                                                        cn.EjecutarConsulta(cs.insertarCompraMinima(Productos.idprodDobleClick, Convert.ToInt32(cantidadMinimaCompra)));
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    var cantidadMinimaCompra = textoMensaje.Text;
+                                                    if (!string.IsNullOrWhiteSpace(cantidadMinimaCompra))
+                                                    {
+                                                        cn.EjecutarConsulta(cs.actualizarCompraMinima(Productos.idprodDobleClick, cantidadMinimaCompra));
+                                                    }
                                                 }
                                             }
                                             else
                                             {
-                                                var cantidadMinimaCompra = textoMensaje.Text;
-                                                if (!string.IsNullOrWhiteSpace(cantidadMinimaCompra))
+                                                var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.codProductoEditarVenta));
+
+                                                if (updateOinsert.Rows.Count.Equals(0))
                                                 {
-                                                    cn.EjecutarConsulta(cs.actualizarCompraMinima(Productos.codProductoEditarVenta, cantidadMinimaCompra));
+                                                    var cantidadMinimaCompra = textoMensaje.Text;
+                                                    if (!string.IsNullOrWhiteSpace(cantidadDeCompra))
+                                                    {
+                                                        cn.EjecutarConsulta(cs.insertarCompraMinima(Productos.codProductoEditarVenta, Convert.ToInt32(cantidadMinimaCompra)));
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    var cantidadMinimaCompra = textoMensaje.Text;
+                                                    if (!string.IsNullOrWhiteSpace(cantidadMinimaCompra))
+                                                    {
+                                                        cn.EjecutarConsulta(cs.actualizarCompraMinima(Productos.codProductoEditarVenta, cantidadMinimaCompra));
+                                                    }
                                                 }
                                             }
                                         }
@@ -486,37 +510,103 @@ namespace PuntoDeVentaV2
                                         {
                                         if (textoMensaje.Name.Equals("txtMensaje"))
                                             {
-                                            var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.codProductoEditarVenta));
-                                            if (updateOinsert.Rows.Count.Equals(0))
+                                            if (Productos.dobleClickProducto == 1)
                                             {
-                                                var NuevoMensaje = textoMensaje.Text;
-                                                if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.idprodDobleClick));
+
+                                                if (updateOinsert.Rows.Count.Equals(0))
                                                 {
-                                                    var estado = 1;
-                                                    CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
-                                                    if (!txtCantidadCompra.Checked.Equals(true))
+                                                    var NuevoMensaje = textoMensaje.Text;
+                                                    if (!string.IsNullOrWhiteSpace(NuevoMensaje))
                                                     {
-                                                        estado = 0;
+                                                        var estado = 1;
+                                                        CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
+                                                        if (!txtCantidadCompra.Checked.Equals(true))
+                                                        {
+                                                            estado = 0;
+                                                        }
+                                                        if (Productos.dobleClickProducto == 1)
+                                                        {
+                                                            cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.idprodDobleClick, estado, NuevoMensaje));
+                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                        }
+                                                        else
+                                                        {
+                                                            cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.codProductoEditarVenta, estado, NuevoMensaje));
+                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                        }
+                                                        
                                                     }
-                                                    cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.codProductoEditarVenta, estado, NuevoMensaje));
-                                                    MessageBox.Show("Actualizado Correctamente.");
+                                                }
+                                                else
+                                                {
+                                                    var NuevoMensaje = textoMensaje.Text;
+                                                    if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                    {
+                                                        var estado = 1;
+                                                        CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
+                                                        if (!txtCantidadCompra.Checked.Equals(true))
+                                                        {
+                                                            estado = 0;
+                                                        }
+                                                        if (Productos.dobleClickProducto == 1)
+                                                        {
+                                                            cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.idprodDobleClick, NuevoMensaje, estado));
+                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                        }
+                                                        else
+                                                        {
+                                                            cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.codProductoEditarVenta, NuevoMensaje, estado));
+                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                        }
+                                                    }
                                                 }
                                             }
                                             else
                                             {
-                                                var NuevoMensaje = textoMensaje.Text;
-                                                if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.codProductoEditarVenta));
+
+                                                if (updateOinsert.Rows.Count.Equals(0))
                                                 {
-                                                    var estado = 1;
-                                                    CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
-                                                    if (!txtCantidadCompra.Checked.Equals(true))
+                                                    var NuevoMensaje = textoMensaje.Text;
+                                                    if (!string.IsNullOrWhiteSpace(NuevoMensaje))
                                                     {
-                                                        estado = 0;
+                                                        var estado = 1;
+                                                        CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
+                                                        if (!txtCantidadCompra.Checked.Equals(true))
+                                                        {
+                                                            estado = 0;
+                                                        }
+                                                        if (Productos.dobleClickProducto == 1)
+                                                        {
+                                                            cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.idprodDobleClick, estado, NuevoMensaje));
+                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                        }
+                                                        else
+                                                        {
+                                                            cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.codProductoEditarVenta, estado, NuevoMensaje));
+                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                        }
                                                     }
-                                                    cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.codProductoEditarVenta, NuevoMensaje, estado));
-                                                    MessageBox.Show("Actualizado Correctamente.");
+                                                }
+                                                else
+                                                {
+                                                    var NuevoMensaje = textoMensaje.Text;
+                                                    if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                    {
+                                                        var estado = 1;
+                                                        CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
+                                                        if (!txtCantidadCompra.Checked.Equals(true))
+                                                        {
+                                                            estado = 0;
+                                                        }
+                                                        cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.codProductoEditarVenta, NuevoMensaje, estado));
+                                                        MessageBox.Show("Actualizado Correctamente.");
+                                                    }
                                                 }
                                             }
+                                            
+                                            
                                                 
                                             }
                                         }
