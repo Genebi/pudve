@@ -3738,6 +3738,10 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            else
+            {
+                limpiarVariablesCantidadesDeVentas();
+            }
         }
 
         private void seccionEmpleadoCaja(string idEmpleado)
@@ -3813,6 +3817,27 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            else
+            {
+                limpiarVariablesCantidadesDeDineroRetirado();
+            }
+        }
+
+        private void limpiarVariablesCantidadesDeDineroRetirado()
+        {
+            decimal cantidadEfectivo = 0,
+                                    cantidadTarjeta = 0,
+                                    cantidadVales = 0,
+                                    cantidadCheque = 0,
+                                    cantidadTransferencia = 0,
+                                    cantidadTotalDineroRetirado = 0;
+
+            lbEfectivoR.Text = cantidadEfectivo.ToString("C2");
+            lbTarjetaR.Text = cantidadTarjeta.ToString("C2");
+            lbValesR.Text = cantidadVales.ToString("C2");
+            lbChequeR.Text = cantidadCheque.ToString("C2");
+            lbTransferenciaR.Text = cantidadTransferencia.ToString("C2");
+            lbTRetirado.Text = cantidadTotalDineroRetirado.ToString("C2");
         }
 
         private void seccionEmpleadoDineroAgregado(string idEmpleado)
@@ -3880,6 +3905,27 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            else
+            {
+                limpiarVariablesCantidadesDeDineroAgregado();
+            }
+        }
+
+        private void limpiarVariablesCantidadesDeDineroAgregado()
+        {
+            decimal cantidadEfectivo = 0,
+                                    cantidadTarjeta = 0,
+                                    cantidadVales = 0,
+                                    cantidadCheque = 0,
+                                    cantidadTransferencia = 0,
+                                    cantidadTotalDineroAgregado = 0;
+
+            lbTEfectivoD.Text = cantidadEfectivo.ToString("C2");
+            lbTTarjetaD.Text = cantidadTarjeta.ToString("C2");
+            lbTValesD.Text = cantidadVales.ToString("C2");
+            lbTChequeD.Text = cantidadCheque.ToString("C2");
+            lbTTransD.Text = cantidadTransferencia.ToString("C2");
+            lbTAgregado.Text = cantidadTotalDineroAgregado.ToString("C2");
         }
 
         private void seccionEmpleadoAnticipos(string idEmpleado)
@@ -3946,6 +3992,27 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            else
+            {
+                limpiarVariablesCantidadesDeAnticipos();
+            }
+        }
+
+        private void limpiarVariablesCantidadesDeAnticipos()
+        {
+            decimal cantidadEfectivo = 0,
+                                    cantidadTarjeta = 0,
+                                    cantidadVales = 0,
+                                    cantidadCheque = 0,
+                                    cantidadTransferencia = 0,
+                                    cantidadTotalAnticipos = 0;
+
+            lbTEfectivoA.Text = cantidadEfectivo.ToString("C2");
+            lbTTarjetaA.Text = cantidadTarjeta.ToString("C2");
+            lbTValesA.Text = cantidadVales.ToString("C2");
+            lbTChequeA.Text = cantidadCheque.ToString("C2");
+            lbTTransA.Text = cantidadTransferencia.ToString("C2");
+            lbTAnticiposA.Text = cantidadTotalAnticipos.ToString("C2");
         }
 
         private void seccionEmpleadoVentas(string idEmpleado)
@@ -4042,6 +4109,33 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            else
+            {
+                limpiarVariablesCantidadesDeVentas();
+            }
+        }
+
+        private void limpiarVariablesCantidadesDeVentas()
+        {
+            decimal cantidadEfectivo = 0,
+                                    cantidadTarjeta = 0,
+                                    cantidadVales = 0,
+                                    cantidadCheque = 0,
+                                    cantidadTransferencia = 0,
+                                    cantidadCredito = 0,
+                                    cantidadAbonos = 0,
+                                    cantidadAnticipos = 0,
+                                    cantidadTotalVentas = 0;
+
+            lbTEfectivo.Text = cantidadEfectivo.ToString("C2");
+            lbTTarjeta.Text = cantidadTarjeta.ToString("C2");
+            lbTVales.Text = cantidadVales.ToString("C2");
+            lbTCheque.Text = cantidadCheque.ToString("C2");
+            lbTTrans.Text = cantidadTransferencia.ToString("C2");
+            lbTCredito.Text = cantidadCredito.ToString("C2");
+            //lbTCreditoC.Text = cantidadAbonos.ToString("C2");
+            lbTAnticipos.Text = cantidadAnticipos.ToString("C2");
+            lbTVentas.Text = cantidadTotalVentas.ToString("C2");
         }
 
         private void seccionAdminCaja()
@@ -4117,6 +4211,10 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            else
+            {
+                limpiarVariablesCantidadesDeDineroRetirado();
+            }
         }
 
         private void seccionAdminDineroAgregado()
@@ -4184,6 +4282,10 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            else
+            {
+                limpiarVariablesCantidadesDeDineroAgregado();
+            }
         }
 
         private void seccionAdminAnticipos()
@@ -4250,6 +4352,10 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+            }
+            else
+            {
+                limpiarVariablesCantidadesDeAnticipos();
             }
         }
 
@@ -4348,6 +4454,10 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+            }
+            else
+            {
+                limpiarVariablesCantidadesDeVentas();
             }
         }
 
