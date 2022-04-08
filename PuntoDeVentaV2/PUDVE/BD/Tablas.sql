@@ -1854,3 +1854,24 @@ ALTER TABLE productos ADD COLUMN IF NOT EXISTS EnWeb text;
 
 -- Agregar Columna (IDEmpleado) a la tabla "abonos" para saber quien recibe ese abono en el sistema.
 ALTER TABLE Abonos ADD COLUMN IF NOT EXISTS IDEmpleado int DEFAULT 0;
+
+-- Agregamos tabla de Historial de Cortes de Caja en la base de datos
+CREATE TABLE
+IF
+	NOT EXISTS HistorialCortesDeCaja (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDCorteDeCaja INTEGER NOT NULL DEFAULT 0,
+		IDUsuario INTEGER NOT NULL DEFAULT 0,
+		IDEmpleado INTEGER DEFAULT 0,
+		FechaOperacion DATETIME NOT NULL,
+		SaldoInicialEfectivo DECIMAL ( 16, 2 ) NOT NULL DEFAULT 0,
+		SaldoInicialTarjeta DECIMAL ( 16, 2 ) NOT NULL DEFAULT 0,
+		SaldoInicialVales DECIMAL ( 16, 2 ) NOT NULL DEFAULT 0,
+		SaldoInicialCheque DECIMAL ( 16, 2 ) NOT NULL DEFAULT 0,
+		SaldoInicialTransferencia DECIMAL ( 16, 2 ) NOT NULL DEFAULT 0,
+		SaldoInicialCredito DECIMAL ( 16, 2 ) NOT NULL DEFAULT 0,
+		SaldoInicialAnticipo DECIMAL ( 16, 2 ) NOT NULL DEFAULT 0, 
+		CantidadRetiradaDelCorte DECIMAL ( 16, 2 ) NOT NULL DEFAULT 0,
+		FOREIGN KEY ( IDCorteDeCaja ) REFERENCES caja ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
+		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
+	);
