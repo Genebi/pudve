@@ -2832,6 +2832,8 @@ namespace PuntoDeVentaV2
                                 DetalleVenta.cliente = string.Empty;
                                 AsignarCreditoVenta.idCliente = 0;
                                 AsignarCreditoVenta.cliente = string.Empty;
+                                this.Close();
+                                return;
                             }
                             noDuplicadoVentas = 0;
                         };

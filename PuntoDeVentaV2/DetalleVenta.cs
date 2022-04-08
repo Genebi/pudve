@@ -638,10 +638,10 @@ namespace PuntoDeVentaV2
             //    btnAceptar.PerformClick();
             //}
 
-            //if (e.KeyData == Keys.Escape)
-            //{
-            //    Close();
-            //}
+            if (e.KeyData == Keys.Escape)
+            {
+                Close();
+            }
 
             //var campos = new string[] {
             //    "txtEfectivo",
@@ -971,26 +971,53 @@ namespace PuntoDeVentaV2
             
 
             CalcularCambio();
+            RestaPrecio();
+        }
+
+        private void RestaPrecio()
+        {
+            float efectivo = CantidadDecimal(txtEfectivo.Text);
+            float tarjeta = CantidadDecimal(txtTarjeta.Text);
+            float vales = CantidadDecimal(txtVales.Text);
+            float cheque = CantidadDecimal(txtCheque.Text);
+            float transferencia = CantidadDecimal(txtTransferencia.Text);
+
+            float suma = efectivo + tarjeta + vales + cheque + transferencia;
+            float restante = total - suma;
+
+            if (restante < 0)
+            {
+                txtTotalVenta.Text = "0.00";
+            }
+            else
+            {
+                txtTotalVenta.Text = restante.ToString("C2");
+            }
+
         }
 
         private void txtTransferencia_TextChanged(object sender, EventArgs e)
         {
             CalcularCambio();
+            RestaPrecio();
         }
 
         private void txtTarjeta_TextChanged(object sender, EventArgs e)
         {
             CalcularCambio();
+            RestaPrecio();
         }
 
         private void txtCheque_TextChanged(object sender, EventArgs e)
         {
             CalcularCambio();
+            RestaPrecio();
         }
 
         private void txtVales_TextChanged(object sender, EventArgs e)
         {
             CalcularCambio();
+            RestaPrecio();
         }
 
         private void txtEfectivo_KeyDown(object sender, KeyEventArgs e)
