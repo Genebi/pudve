@@ -633,60 +633,60 @@ namespace PuntoDeVentaV2
 
         private void DetalleVenta_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == Keys.End)
-            {
-                btnAceptar.PerformClick();
-            }
+            //if (e.KeyData == Keys.End)
+            //{
+            //    btnAceptar.PerformClick();
+            //}
 
-            if (e.KeyData == Keys.Escape)
-            {
-                Close();
-            }
+            //if (e.KeyData == Keys.Escape)
+            //{
+            //    Close();
+            //}
 
-            var campos = new string[] {
-                "txtEfectivo",
-                "txtTarjeta",
-                "txtTransferencia",
-                "txtCheque",
-                "txtVales"
-            };
+            //var campos = new string[] {
+            //    "txtEfectivo",
+            //    "txtTarjeta",
+            //    "txtTransferencia",
+            //    "txtCheque",
+            //    "txtVales"
+            //};
 
-            if (e.KeyData.Equals(Keys.Right))
-            {
-                var indexCampos = Array.IndexOf(campos, nameOfControl);
-                var indexAnteriorSiguiente = indexCampos + 1;
+            //if (e.KeyData.Equals(Keys.Right))
+            //{
+            //    var indexCampos = Array.IndexOf(campos, nameOfControl);
+            //    var indexAnteriorSiguiente = indexCampos + 1;
 
-                if (indexAnteriorSiguiente >= 0 && indexAnteriorSiguiente <= 4)
-                {
-                    TextBox actual, siguiente;
-                    var textBoxActual = campos[indexCampos].ToString();
-                    var textBoxSiguiente = campos[indexAnteriorSiguiente].ToString();
-                    actual = (TextBox)Controls.Find(textBoxActual, true)[0];
-                    siguiente = (TextBox)Controls.Find(textBoxSiguiente, true)[0];
+            //    if (indexAnteriorSiguiente >= 0 && indexAnteriorSiguiente <= 4)
+            //    {
+            //        TextBox actual, siguiente;
+            //        var textBoxActual = campos[indexCampos].ToString();
+            //        var textBoxSiguiente = campos[indexAnteriorSiguiente].ToString();
+            //        actual = (TextBox)Controls.Find(textBoxActual, true)[0];
+            //        siguiente = (TextBox)Controls.Find(textBoxSiguiente, true)[0];
 
-                    //obtenerCantidad(actual.Text, textBoxSiguiente);
-                    siguiente.SelectAll();
-                    siguiente.Focus();
-                }
-            }
-            else if (e.KeyData.Equals(Keys.Left))
-            {
-                var indexCampos = Array.IndexOf(campos, nameOfControl);
-                var indexAnteriorSiguiente = indexCampos - 1;
+            //        //obtenerCantidad(actual.Text, textBoxSiguiente);
+            //        siguiente.SelectAll();
+            //        siguiente.Focus();
+            //    }
+            //}
+            //else if (e.KeyData.Equals(Keys.Left))
+            //{
+            //    var indexCampos = Array.IndexOf(campos, nameOfControl);
+            //    var indexAnteriorSiguiente = indexCampos - 1;
 
-                if (indexAnteriorSiguiente >= 0 && indexAnteriorSiguiente <= 4)
-                {
-                    TextBox actual, anterior;
-                    var textBoxActual = campos[indexCampos].ToString();
-                    var textBoxAnterior = campos[indexAnteriorSiguiente].ToString();
-                    actual = (TextBox)Controls.Find(textBoxActual, true)[0];
-                    anterior = (TextBox)Controls.Find(textBoxAnterior, true)[0];
+            //    if (indexAnteriorSiguiente >= 0 && indexAnteriorSiguiente <= 4)
+            //    {
+            //        TextBox actual, anterior;
+            //        var textBoxActual = campos[indexCampos].ToString();
+            //        var textBoxAnterior = campos[indexAnteriorSiguiente].ToString();
+            //        actual = (TextBox)Controls.Find(textBoxActual, true)[0];
+            //        anterior = (TextBox)Controls.Find(textBoxAnterior, true)[0];
 
-                    //obtenerCantidad(actual.Text, textBoxAnterior);
-                    anterior.SelectAll();
-                    anterior.Focus();
-                }
-            }
+            //        //obtenerCantidad(actual.Text, textBoxAnterior);
+            //        anterior.SelectAll();
+            //        anterior.Focus();
+            //    }
+            //}
         }
 
         private void EventoTab(object sender, PreviewKeyDownEventArgs e)
@@ -993,6 +993,46 @@ namespace PuntoDeVentaV2
             CalcularCambio();
         }
 
-        
+        private void txtEfectivo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Right))
+                SendKeys.Send("{TAB}");
+
+            
+        }
+
+        private void txtTarjeta_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Right))
+                SendKeys.Send("{TAB}");
+
+            if (e.KeyCode.Equals(Keys.Left))
+                SendKeys.Send("+{TAB}");
+        }
+
+        private void txtTransferencia_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Right))
+                SendKeys.Send("{TAB}");
+
+            if (e.KeyCode.Equals(Keys.Left))
+                SendKeys.Send("+{TAB}");
+        }
+
+        private void txtCheque_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Right))
+                SendKeys.Send("{TAB}");
+
+            if (e.KeyCode.Equals(Keys.Left))
+                SendKeys.Send("+{TAB}");
+        }
+
+        private void txtVales_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.KeyCode.Equals(Keys.Left))
+                SendKeys.Send("+{TAB}");
+        }
     }
 }
