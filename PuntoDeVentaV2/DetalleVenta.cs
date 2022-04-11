@@ -982,17 +982,37 @@ namespace PuntoDeVentaV2
             float cheque = CantidadDecimal(txtCheque.Text);
             float transferencia = CantidadDecimal(txtTransferencia.Text);
 
-            float suma = efectivo + tarjeta + vales + cheque + transferencia;
-            float restante = total - suma;
-
-            if (restante < 0)
+            if (escredito == 1)
             {
-                txtTotalVenta.Text = "0.00";
+                float suma = efectivo + tarjeta + vales + cheque + transferencia + credito;
+                float restante = total - suma;
+
+                if (restante < 0)
+                {
+                    txtTotalVenta.Text = "0.00";
+                }
+                else
+                {
+                    txtTotalVenta.Text = restante.ToString("C2");
+                }
+
             }
             else
             {
-                txtTotalVenta.Text = restante.ToString("C2");
+                float suma = efectivo + tarjeta + vales + cheque + transferencia;
+                float restante = total - suma;
+                if (restante < 0)
+                {
+                    txtTotalVenta.Text = "0.00";
+                }
+                else
+                {
+                    txtTotalVenta.Text = restante.ToString("C2");
+                }
+
             }
+
+           
 
         }
 
