@@ -155,6 +155,7 @@ namespace PuntoDeVentaV2
         private void CajaN_Load(object sender, EventArgs e)
         {
             recargarDatos = true;
+            verificarSiExisteCorteDeCaja();
             verComboBoxAdministradorEmpleado();
             // Obtener saldo inicial
             CargarSaldoInicial();
@@ -182,6 +183,90 @@ namespace PuntoDeVentaV2
             panelDineroAgregado.Visible = Convert.ToBoolean(opcion10);
             panelTotales.Visible = Convert.ToBoolean(opcion11);
             // verificarCantidadAbonos();
+        }
+
+        private void verificarSiExisteCorteDeCaja()
+        {
+            using (DataTable dtVerificarSiTieneCorteDeCaja = cn.CargarDatos(cs.verificarSiTieneCorteDeCajaDesdeCaja(FormPrincipal.id_empleado)))
+            {
+                List<string> datos = new List<string>();
+                List<string> datosCorteCaja = new List<string>();
+                if (!dtVerificarSiTieneCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in dtVerificarSiTieneCorteDeCaja.Rows)
+                    {
+                        datos.Add(item["ID"].ToString());
+                        datos.Add(item["IDUsuario"].ToString());
+                        datos.Add(item["IdEmpleado"].ToString());
+                        var fechaOperacion = item["FechaOperacion"].ToString();
+                        datos.Add(Convert.ToDateTime(fechaOperacion).ToString("yyyy-MM-dd HH:mm:ss"));
+                        datos.Add(item["Efectivo"].ToString());
+                        datos.Add(item["Tarjeta"].ToString());
+                        datos.Add(item["Vales"].ToString());
+                        datos.Add(item["Cheque"].ToString());
+                        datos.Add(item["Transferencia"].ToString());
+                        datos.Add(item["Credito"].ToString());
+                        datos.Add(item["Anticipo"].ToString());
+                        datos.Add(item["CantidadRetiradaCorte"].ToString());
+                    }
+                    cn.EjecutarConsulta(cs.guardarHistorialCorteDeCaja(datos.ToArray()));
+                }
+                else
+                {
+                    var fechaDeCorteDeCaja = string.Empty;
+                    var ultimaIdDeCorteCaja = string.Empty;
+                    var IdUsuario = string.Empty;
+                    var IdEmpleado = string.Empty;
+
+                    fechaDeCorteDeCaja = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    IdUsuario = FormPrincipal.userID.ToString();
+                    IdEmpleado = FormPrincipal.id_empleado.ToString();
+
+                    datosCorteCaja.Add(IdUsuario);
+                    datosCorteCaja.Add(IdEmpleado);
+                    datosCorteCaja.Add(fechaDeCorteDeCaja);
+                    datosCorteCaja.Add("0");
+                    datosCorteCaja.Add("0");
+                    datosCorteCaja.Add("0");
+                    datosCorteCaja.Add("0");
+                    datosCorteCaja.Add("0");
+                    datosCorteCaja.Add("0");
+                    datosCorteCaja.Add("0");
+                    datosCorteCaja.Add("0");
+                    datosCorteCaja.Add("corte");
+
+                    var resultadoEjecutarConsulta = cn.EjecutarConsulta(cs.registroInicialCorteDeCaja(datosCorteCaja.ToArray()));
+
+                    if (resultadoEjecutarConsulta.Equals(1))
+                    {
+                        using (DataTable dtUltimaIdDeCorteDeCaja = cn.CargarDatos(cs.ultimaIdInsertadaDeCaja(FormPrincipal.id_empleado)))
+                        {
+                            if (!dtUltimaIdDeCorteDeCaja.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtUltimaIdDeCorteDeCaja.Rows)
+                                {
+                                    ultimaIdDeCorteCaja = item["ID"].ToString();
+                                }
+                            }
+                        }
+
+                        datos.Add(ultimaIdDeCorteCaja);
+                        datos.Add(IdUsuario);
+                        datos.Add(IdEmpleado);
+                        datos.Add(fechaDeCorteDeCaja);
+                        datos.Add("0");
+                        datos.Add("0");
+                        datos.Add("0");
+                        datos.Add("0");
+                        datos.Add("0");
+                        datos.Add("0");
+                        datos.Add("0");
+                        datos.Add("0");
+
+                        cn.EjecutarConsulta(cs.guardarHistorialCorteDeCaja(datos.ToArray()));
+                    }
+                }
+            }
         }
 
         private void recargarDatosConCantidades(object sender, EventArgs e)
