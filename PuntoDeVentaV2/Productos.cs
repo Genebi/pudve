@@ -4731,7 +4731,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    consultaFiltro = "SELECT * FROM Productos AS P WHERE P.IDUsuario = 10 AND P.Status = 1";
+                    consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1";
                 }
                
             }
