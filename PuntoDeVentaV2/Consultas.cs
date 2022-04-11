@@ -3686,5 +3686,26 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string verificarSiTieneCorteDeCajaDesdeCaja(int idEmpleado)
+        {
+            var consulta = $"SELECT * FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{idEmpleado}' ORDER BY ID DESC LIMIT 1";
+
+            return consulta;
+        }
+
+        public string registroInicialCorteDeCaja(string[] datos)
+        {
+            var consulta = $"INSERT INTO caja ( IDUsuario, IdEmpleado, FechaOperacion, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, CantidadRetiradaCorte, Operacion ) VALUES ( '{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}' )";
+
+            return consulta;
+        }
+
+        public string ultimaIdInsertadaDeCaja(int idEmpleado)
+        {
+            var consulta = $"SELECT ID AS ID FROM caja WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{idEmpleado}' ORDER BY ID DESC LIMIT 1";
+
+            return consulta;
+        }
     }
 }  
