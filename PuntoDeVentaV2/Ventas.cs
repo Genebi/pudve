@@ -244,7 +244,10 @@ namespace PuntoDeVentaV2
         public Ventas()
         {
             InitializeComponent();
+
             metodoCancelarVentaDesdeListadoVentas();
+
+            
         }
 
         private void metodoCancelarVentaDesdeListadoVentas()
@@ -341,6 +344,9 @@ namespace PuntoDeVentaV2
 
             iniciarBasculaPredeterminada();
             txtBuscadorProducto.Focus();
+
+            
+
         }
 
         private void mostrarBotonCSV()
@@ -827,6 +833,7 @@ namespace PuntoDeVentaV2
             CalculoMayoreo();
             CantidadesFinalesVenta();
             //validarStockDGV();
+
         }
 
         private void AgregarProductoLista(string[] datosProducto, decimal cantidad = 1, bool ignorar = false)
@@ -998,6 +1005,8 @@ namespace PuntoDeVentaV2
             DGVentas.Sort(DGVentas.Columns["NumeroColumna"], System.ComponentModel.ListSortDirection.Descending);
             DGVentas.ClearSelection();
             indiceColumna++;
+
+
         }
 
         private void validarStockDGV()
@@ -5547,24 +5556,32 @@ namespace PuntoDeVentaV2
                         e.Handled = true;
                     }
                 }
+
+               
+
+            }
+            if (e.KeyCode.Equals(Keys.End))
+            {
+                btnTerminarVenta.PerformClick();
+
             }
 
             // Tecla fin terminar venta
-            if (e.KeyData == Keys.End)
-            {
-                if (noDuplicadoVentas == 0)
-                {
-                    btnTerminarVenta.PerformClick();
-                }
-                else if (noDuplicadoVentas == 1)
-                {
+            //if (e.KeyData == Keys.End)
+            //{
+            //    if (noDuplicadoVentas == 0)
+            //    {
+            //        btnTerminarVenta.PerformClick();
+            //    }
+            //    else if (noDuplicadoVentas == 1)
+            //    {
 
-                }
-                else
-                {
-                    btnTerminarVenta.PerformClick();
-                }
-            }
+            //    }
+            //    else
+            //    {
+            //        btnTerminarVenta.PerformClick();
+            //    }
+            //}
 
             // Cuando presione la tecla escape debera cerrar la ventana
             if (e.KeyData == Keys.Escape)
@@ -6913,6 +6930,11 @@ namespace PuntoDeVentaV2
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+
+        }
+
+        private void Ventas_Layout(object sender, LayoutEventArgs e)
+        {
 
         }
 
