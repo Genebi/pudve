@@ -135,6 +135,11 @@ namespace PuntoDeVentaV2
                     cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 1, FormPrincipal.userID));
                 }
 
+                if (restante <= 0)
+                {
+                    cn.EjecutarConsulta(cs.estatusFinalizacionPagoCredito(idVenta));
+                }
+
                 //var pagoPendiente = txtPendiente.Text;
                 //var cantidadPendiente = float.Parse(pagoPendiente);
                 //var operacionTotal = (total - totalPendiente);
