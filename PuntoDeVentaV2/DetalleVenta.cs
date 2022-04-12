@@ -37,7 +37,7 @@ namespace PuntoDeVentaV2
 
         //mio pruebas a ver si jala xd
         int escredito = 0;
-        
+        int primer = 0;
 
         public DetalleVenta(float total, string idCliente = "")
         {
@@ -103,6 +103,11 @@ namespace PuntoDeVentaV2
             else
             {
                 lbCliente.Text = "Asignar cliente";
+            }
+
+            if (primer == 0)
+            {
+                txtTotalVenta.Text = total.ToString("C2");
             }
         }
 
@@ -953,25 +958,30 @@ namespace PuntoDeVentaV2
 
         private void txtEfectivo_TextChanged(object sender, EventArgs e)
         {
-            if (txtEfectivo.TextLength == 1 && txtEfectivo.Text.Equals("."))
-            {
-                //txtEfectivo.Text = string.Empty;
-                txtEfectivo.Text = "0.";
-                txtEfectivo.Select(txtEfectivo.Text.Length, 0);
-            }
-
-            var totalVenta = float.Parse(txtTotalVenta.Text.Remove(0, 1));
-            var totalEfectivo = 0f;
-
-            if (!string.IsNullOrWhiteSpace(txtEfectivo.Text.Trim()))
-            {
-                totalEfectivo = float.Parse(txtEfectivo.Text.Trim());
-            }
-
             
 
-            CalcularCambio();
-            RestaPrecio();
+            
+                if (txtEfectivo.TextLength == 1 && txtEfectivo.Text.Equals("."))
+                {
+                    //txtEfectivo.Text = string.Empty;
+                    txtEfectivo.Text = "0.";
+                    txtEfectivo.Select(txtEfectivo.Text.Length, 0);
+                }
+
+                var totalVenta = float.Parse(txtTotalVenta.Text.Remove(0, 1));
+                var totalEfectivo = 0f;
+
+                if (!string.IsNullOrWhiteSpace(txtEfectivo.Text.Trim()))
+                {
+                    totalEfectivo = float.Parse(txtEfectivo.Text.Trim());
+                }
+
+
+
+                CalcularCambio();
+                RestaPrecio();
+            
+            
         }
 
         private void RestaPrecio()
