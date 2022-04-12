@@ -313,10 +313,6 @@ namespace PuntoDeVentaV2
         {
             var idUltimoCorteDeCaja = ultimoCorteDeCaja;
             var idUsuarioEmpleado = string.Empty;
-            var esNumero = false;
-            var numeroIdEmpleado = 0;
-
-            esNumero = int.TryParse(opcionComboBoxFiltroAdminEmp, out numeroIdEmpleado);
 
             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
             {
@@ -355,11 +351,69 @@ namespace PuntoDeVentaV2
             }
             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
             {
-
+                if (!string.IsNullOrWhiteSpace(idUltimoCorteDeCaja))
+                {
+                    if (!string.IsNullOrWhiteSpace(fechaFormateadaCorteParaAbonos))
+                    {
+                        using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoTodos(fechaFormateadaCorteParaAbonos)))
+                        {
+                            if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Count.Equals(0))
+                            {
+                                lbCambioAbonos.Visible = true;
+                                foreach (DataRow item in dtAbonos.Rows)
+                                {
+                                    totalAbonoEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                    totalAbonoTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                    totalAbonoVales = Convert.ToDecimal(item["Vales"].ToString());
+                                    totalAbonoCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                    totalAbonoTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                    totalAbonoRealizado = Convert.ToDecimal(item["Total"].ToString());
+                                    lbTCreditoC.Text = totalAbonoRealizado.ToString("C2");
+                                }
+                            }
+                            else
+                            {
+                                lbCambioAbonos.Visible = false;
+                                limpirVariablesDeAbonos();
+                                lbTCreditoC.Text = totalAbonoRealizado.ToString("C2");
+                            }
+                        }
+                    }
+                }
             }
             else
             {
+                idUsuarioEmpleado = opcionComboBoxFiltroAdminEmp;
 
+                if (!string.IsNullOrWhiteSpace(idUltimoCorteDeCaja))
+                {
+                    if (!string.IsNullOrWhiteSpace(fechaFormateadaCorteParaAbonos))
+                    {
+                        using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoEmpleado(idUsuarioEmpleado, fechaFormateadaCorteParaAbonos)))
+                        {
+                            if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Count.Equals(0))
+                            {
+                                lbCambioAbonos.Visible = true;
+                                foreach (DataRow item in dtAbonos.Rows)
+                                {
+                                    totalAbonoEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                    totalAbonoTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                    totalAbonoVales = Convert.ToDecimal(item["Vales"].ToString());
+                                    totalAbonoCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                    totalAbonoTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                    totalAbonoRealizado = Convert.ToDecimal(item["Total"].ToString());
+                                    lbTCreditoC.Text = totalAbonoRealizado.ToString("C2");
+                                }
+                            }
+                            else
+                            {
+                                lbCambioAbonos.Visible = false;
+                                limpirVariablesDeAbonos();
+                                lbTCreditoC.Text = totalAbonoRealizado.ToString("C2");
+                            }
+                        }
+                    }
+                }
             }
         }
 
