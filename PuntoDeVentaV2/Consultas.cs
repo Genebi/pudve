@@ -3709,7 +3709,7 @@ namespace PuntoDeVentaV2
 
         public string ultimaIdInsertadaDeCaja(int idEmpleado)
         {
-            var consulta = $"SELECT ID AS ID FROM caja WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{idEmpleado}' ORDER BY ID DESC LIMIT 1";
+            var consulta = $"SELECT ID AS ID FROM caja WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{idEmpleado}' AND Operacion = 'corte' ORDER BY ID DESC LIMIT 1";
 
             return consulta;
         }

@@ -194,23 +194,31 @@ namespace PuntoDeVentaV2
                 List<string> datosCorteCaja = new List<string>();
                 if (!dtVerificarSiTieneCorteDeCaja.Rows.Count.Equals(0))
                 {
+                    bool siEstaHechoCorteEnHistorialCorteDeCaja = true;
                     foreach (DataRow item in dtVerificarSiTieneCorteDeCaja.Rows)
                     {
-                        datos.Add(item["ID"].ToString());
-                        datos.Add(item["IDUsuario"].ToString());
-                        datos.Add(item["IdEmpleado"].ToString());
-                        var fechaOperacion = item["FechaOperacion"].ToString();
-                        datos.Add(Convert.ToDateTime(fechaOperacion).ToString("yyyy-MM-dd HH:mm:ss"));
-                        datos.Add(item["Efectivo"].ToString());
-                        datos.Add(item["Tarjeta"].ToString());
-                        datos.Add(item["Vales"].ToString());
-                        datos.Add(item["Cheque"].ToString());
-                        datos.Add(item["Transferencia"].ToString());
-                        datos.Add(item["Credito"].ToString());
-                        datos.Add(item["Anticipo"].ToString());
-                        datos.Add(item["CantidadRetiradaCorte"].ToString());
+                        siEstaHechoCorteEnHistorialCorteDeCaja = verificarHistorialCorteDeCaja(item["ID"].ToString());
+                        if (siEstaHechoCorteEnHistorialCorteDeCaja.Equals(false))
+                        {
+                            datos.Add(item["ID"].ToString());
+                            datos.Add(item["IDUsuario"].ToString());
+                            datos.Add(item["IdEmpleado"].ToString());
+                            var fechaOperacion = item["FechaOperacion"].ToString();
+                            datos.Add(Convert.ToDateTime(fechaOperacion).ToString("yyyy-MM-dd HH:mm:ss"));
+                            datos.Add(item["Efectivo"].ToString());
+                            datos.Add(item["Tarjeta"].ToString());
+                            datos.Add(item["Vales"].ToString());
+                            datos.Add(item["Cheque"].ToString());
+                            datos.Add(item["Transferencia"].ToString());
+                            datos.Add(item["Credito"].ToString());
+                            datos.Add(item["Anticipo"].ToString());
+                            datos.Add(item["CantidadRetiradaCorte"].ToString());
+                        }
                     }
-                    cn.EjecutarConsulta(cs.guardarHistorialCorteDeCaja(datos.ToArray()));
+                    if (siEstaHechoCorteEnHistorialCorteDeCaja.Equals(false))
+                    {
+                        cn.EjecutarConsulta(cs.guardarHistorialCorteDeCaja(datos.ToArray()));
+                    }
                 }
                 else
                 {
@@ -268,6 +276,21 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private bool verificarHistorialCorteDeCaja(string idDeCaja)
+        {
+            var siSeEncuentraRegistrado = true;
+
+            using (DataTable dtHistorialCorteDeCaja = cn.CargarDatos(cs.corteHistorialCortesDeCaja(idDeCaja)))
+            {
+                if (dtHistorialCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    siSeEncuentraRegistrado = false;
+                }
+            }
+
+            return siSeEncuentraRegistrado;
         }
 
         private void verComboBoxAdministradorEmpleado()
