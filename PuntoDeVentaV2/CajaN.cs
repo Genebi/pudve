@@ -479,6 +479,7 @@ namespace PuntoDeVentaV2
                     {
                         if (!dtHistorialCorteDeCaja.Rows.Count.Equals(0))
                         {
+                            lbSaldoInicialInfo.Visible = true;
                             foreach (DataRow item in dtHistorialCorteDeCaja.Rows)
                             {
                                 fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());
@@ -495,6 +496,7 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
+                            lbSaldoInicialInfo.Visible = false;
                             limpiarVariablesCantidadesDeCaja();
                         }
                     }
@@ -517,6 +519,7 @@ namespace PuntoDeVentaV2
                             {
                                 if (!dtResultadoConcentradooHistorialCorteDeCaja.Rows.Count.Equals(0))
                                 {
+                                    lbSaldoInicialInfo.Visible = true;
                                     foreach (DataRow item in dtResultadoConcentradooHistorialCorteDeCaja.Rows)
                                     {
                                         cantidadTotalEfectivoEnCaja = Convert.ToDecimal(item["Efectivo"].ToString());
@@ -526,6 +529,10 @@ namespace PuntoDeVentaV2
                                         cantidadTotalTransferenciaEnCaja = Convert.ToDecimal(item["Transferencia"].ToString());
                                         saldoInicial = (float)Convert.ToDecimal(item["SaldoInicial"].ToString());
                                     }
+                                }
+                                else
+                                {
+                                    lbSaldoInicialInfo.Visible = false;
                                 }
                             }
                         }
@@ -558,6 +565,7 @@ namespace PuntoDeVentaV2
                     {
                         if (!dtHistorialCorteDeCaja.Rows.Count.Equals(0))
                         {
+                            lbSaldoInicialInfo.Visible = true;
                             foreach (DataRow item in dtHistorialCorteDeCaja.Rows)
                             {
                                 fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());
@@ -574,6 +582,7 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
+                            lbSaldoInicialInfo.Visible = true;
                             limpiarVariablesCantidadesDeCaja();
                         }
                     }
@@ -585,6 +594,7 @@ namespace PuntoDeVentaV2
                 {
                     if (!dtHistorialCorteDeCaja.Rows.Count.Equals(0))
                     {
+                        lbSaldoInicialInfo.Visible = true;
                         foreach (DataRow item in dtHistorialCorteDeCaja.Rows)
                         {
                             fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());
@@ -601,6 +611,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
+                        lbSaldoInicialInfo.Visible = true;
                         limpiarVariablesCantidadesDeCaja();
                     }
                 }
@@ -3243,6 +3254,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void lbSaldoInicialInfoBtn_Click(object sender, EventArgs e)
+        {
+            lbSaldoInicialInfo_Click(sender, e);
+        }
+
         private void label2_Click(object sender, EventArgs e)
         {
             CajaAbonos mostrarAbonosCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
@@ -3473,24 +3489,64 @@ namespace PuntoDeVentaV2
 
         private void lbSaldoInicialInfo_Click(object sender, EventArgs e)
         {
-            CajaAbonos mostrarAbonosCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
+            CajaSaldoInicial detalleSaldoInicial = new CajaSaldoInicial();
 
-            var validarSaldoInicial = "Saldo Inicial";
+            var IDUsuario = 0;
+            var IDEmpleado = 0;
+            var ultimaFechaDeCorte = string.Empty;
+            var todosLosAbonos = string.Empty;
 
-            if (mostrarAbonosCaja == null)
+            ultimaFechaDeCorte = fechaFormateadaCorteParaAbonos;
+            IDUsuario = FormPrincipal.userID;
+
+            if (!FormPrincipal.userNickName.Contains("@"))
             {
-                abonos_devoluciones = "Saldo Inicial";
-                CajaAbonos mostrarAbonos = new CajaAbonos();
-                mostrarAbonos.ShowDialog();
-            }
-
-            if (mostrarAbonosCaja != null)
-            {
-                if (mostrarAbonosCaja.WindowState == FormWindowState.Minimized || mostrarAbonosCaja.WindowState == FormWindowState.Normal)
+                if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                 {
-                    mostrarAbonosCaja.BringToFront();
+                    todosLosAbonos = "No";
+                    IDEmpleado = 0;
+                }
+                else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                {
+                    todosLosAbonos = "Si";
+                    IDEmpleado = 0;
+                }
+                else
+                {
+                    todosLosAbonos = "No";
+                    IDEmpleado = Convert.ToInt32(opcionComboBoxFiltroAdminEmp);
                 }
             }
+            else
+            {
+                todosLosAbonos = "No";
+                IDEmpleado = FormPrincipal.id_empleado;
+            }
+
+            detalleSaldoInicial.IDUsuario = IDUsuario;
+            detalleSaldoInicial.IDEmpleado = IDEmpleado;
+            detalleSaldoInicial.ultimaFechaDeCorteDeCaja = ultimaFechaDeCorte;
+            detalleSaldoInicial.todosLosAbonos = todosLosAbonos;
+            detalleSaldoInicial.ShowDialog();
+
+            //CajaAbonos mostrarAbonosCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
+
+            //var validarSaldoInicial = "Saldo Inicial";
+
+            //if (mostrarAbonosCaja == null)
+            //{
+            //    abonos_devoluciones = "Saldo Inicial";
+            //    CajaAbonos mostrarAbonos = new CajaAbonos();
+            //    mostrarAbonos.ShowDialog();
+            //}
+
+            //if (mostrarAbonosCaja != null)
+            //{
+            //    if (mostrarAbonosCaja.WindowState == FormWindowState.Minimized || mostrarAbonosCaja.WindowState == FormWindowState.Normal)
+            //    {
+            //        mostrarAbonosCaja.BringToFront();
+            //    }
+            //}
         }
 
         private void cbFiltroAdminEmpleado_SelectedIndexChanged(object sender, EventArgs e)

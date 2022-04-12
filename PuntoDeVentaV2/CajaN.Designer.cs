@@ -138,6 +138,7 @@
             this.btnRedondoRetirarDinero = new PuntoDeVentaV2.BotonRedondo();
             this.btnRedondoAgregarDinero = new PuntoDeVentaV2.BotonRedondo();
             this.btnRedondoSaldoInicial = new PuntoDeVentaV2.BotonRedondo();
+            this.lbSaldoInicialInfoBtn = new System.Windows.Forms.Label();
             this.tablaContenedor.SuspendLayout();
             this.panelDineroRetirado.SuspendLayout();
             this.panelDineroAgregado.SuspendLayout();
@@ -854,6 +855,7 @@
             // panelTotales
             // 
             this.panelTotales.Controls.Add(this.lbTCreditoTotal);
+            this.panelTotales.Controls.Add(this.lbSaldoInicialInfo);
             this.panelTotales.Controls.Add(this.lbCreditoTotal);
             this.panelTotales.Controls.Add(this.lbTSaldoInicial);
             this.panelTotales.Controls.Add(this.lbTDineroRetirado);
@@ -1392,10 +1394,10 @@
             // lbSaldoInicialInfo
             // 
             this.lbSaldoInicialInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbSaldoInicialInfo.BackColor = System.Drawing.Color.Green;
+            this.lbSaldoInicialInfo.BackColor = System.Drawing.SystemColors.Control;
             this.lbSaldoInicialInfo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbSaldoInicialInfo.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbSaldoInicialInfo.Location = new System.Drawing.Point(1082, 22);
+            this.lbSaldoInicialInfo.Location = new System.Drawing.Point(89, 199);
             this.lbSaldoInicialInfo.Name = "lbSaldoInicialInfo";
             this.lbSaldoInicialInfo.Size = new System.Drawing.Size(30, 26);
             this.lbSaldoInicialInfo.TabIndex = 120;
@@ -1548,13 +1550,27 @@
             this.btnRedondoSaldoInicial.TextColor = System.Drawing.Color.White;
             this.btnRedondoSaldoInicial.UseVisualStyleBackColor = false;
             // 
+            // lbSaldoInicialInfoBtn
+            // 
+            this.lbSaldoInicialInfoBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbSaldoInicialInfoBtn.BackColor = System.Drawing.Color.Green;
+            this.lbSaldoInicialInfoBtn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lbSaldoInicialInfoBtn.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
+            this.lbSaldoInicialInfoBtn.Location = new System.Drawing.Point(1072, 40);
+            this.lbSaldoInicialInfoBtn.Name = "lbSaldoInicialInfoBtn";
+            this.lbSaldoInicialInfoBtn.Size = new System.Drawing.Size(30, 26);
+            this.lbSaldoInicialInfoBtn.TabIndex = 122;
+            this.toolTip1.SetToolTip(this.lbSaldoInicialInfoBtn, "Mostrar Abonos");
+            this.lbSaldoInicialInfoBtn.Visible = false;
+            this.lbSaldoInicialInfoBtn.Click += new System.EventHandler(this.lbSaldoInicialInfoBtn_Click);
+            // 
             // CajaN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1135, 661);
+            this.Controls.Add(this.lbSaldoInicialInfoBtn);
             this.Controls.Add(this.cbFiltroAdminEmpleado);
-            this.Controls.Add(this.lbSaldoInicialInfo);
             this.Controls.Add(this.btnRedondoAbrirCaja);
             this.Controls.Add(this.btnRedondoCorteCaja);
             this.Controls.Add(this.btnRedondoRetirarDinero);
@@ -1704,5 +1720,6 @@
         private BotonRedondo btnRedondoSaldoInicial;
         private System.Windows.Forms.Label lbSaldoInicialInfo;
         private System.Windows.Forms.ComboBox cbFiltroAdminEmpleado;
+        private System.Windows.Forms.Label lbSaldoInicialInfoBtn;
     }
 }

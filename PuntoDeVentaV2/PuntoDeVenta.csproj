@@ -436,6 +436,12 @@
     <Compile Include="CajaN.Designer.cs">
       <DependentUpon>CajaN.cs</DependentUpon>
     </Compile>
+    <Compile Include="CajaSaldoInicial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CajaSaldoInicial.Designer.cs">
+      <DependentUpon>CajaSaldoInicial.cs</DependentUpon>
+    </Compile>
     <Compile Include="calculadora.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1247,6 +1253,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CajaN.resx">
       <DependentUpon>CajaN.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CajaSaldoInicial.resx">
+      <DependentUpon>CajaSaldoInicial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="calculadora.resx">
       <DependentUpon>calculadora.cs</DependentUpon>
