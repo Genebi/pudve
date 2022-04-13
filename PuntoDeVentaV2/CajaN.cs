@@ -112,7 +112,12 @@ namespace PuntoDeVentaV2
             cantidadTotalValesEnCaja = 0,
             cantidadTotalCehqueEnCaja = 0,
             cantidadTotalTransferenciaEnCaja = 0,
-            totalSaldoInicial = 0;
+            totalSaldoInicial = 0, 
+            cantidadEfectivoSaldoInicialEnCaja = 0, 
+            cantidadTarjetaSaldoInicialEnCaja = 0, 
+            cantidadValesSaldoInicialEnCaja = 0, 
+            cantidadChequeSaldoInicialEnCaja = 0, 
+            cantidadTransferenciaSaldoInicialEnCaja = 0;
 
         decimal totalEfectivoVentaEnCaja = 0,
                 totalTarjetaVentaEnCaja = 0,
@@ -485,11 +490,11 @@ namespace PuntoDeVentaV2
                                 fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());
                                 fechaFormateadaCorteParaAbonos = fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss");
                                 ultimoCorteDeCaja = fechaFormateadaCorteParaAbonos;
-                                cantidadTotalEfectivoEnCaja = Convert.ToDecimal(item["Efectivo"].ToString());
-                                cantidadTotalTarjetaEnCaja = Convert.ToDecimal(item["Tarjeta"].ToString());
-                                cantidadTotalValesEnCaja = Convert.ToDecimal(item["Vales"].ToString());
-                                cantidadTotalCehqueEnCaja = Convert.ToDecimal(item["Cheque"].ToString());
-                                cantidadTotalTransferenciaEnCaja = Convert.ToDecimal(item["Transferencia"].ToString());
+                                cantidadEfectivoSaldoInicialEnCaja = cantidadTotalEfectivoEnCaja = Convert.ToDecimal(item["Efectivo"].ToString());
+                                cantidadTarjetaSaldoInicialEnCaja = cantidadTotalTarjetaEnCaja = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                cantidadValesSaldoInicialEnCaja = cantidadTotalValesEnCaja = Convert.ToDecimal(item["Vales"].ToString());
+                                cantidadChequeSaldoInicialEnCaja = cantidadTotalCehqueEnCaja = Convert.ToDecimal(item["Cheque"].ToString());
+                                cantidadTransferenciaSaldoInicialEnCaja = cantidadTotalTransferenciaEnCaja = Convert.ToDecimal(item["Transferencia"].ToString());
                                 idUltimoCorteDeCaja = item["IDCaja"].ToString();
                                 saldoInicial = (float)Convert.ToDecimal(item["SaldoInicial"].ToString());
                                 if (saldoInicial <= 0)
@@ -526,11 +531,11 @@ namespace PuntoDeVentaV2
                                     lbSaldoInicialInfo.Visible = true;
                                     foreach (DataRow item in dtResultadoConcentradooHistorialCorteDeCaja.Rows)
                                     {
-                                        cantidadTotalEfectivoEnCaja = Convert.ToDecimal(item["Efectivo"].ToString());
-                                        cantidadTotalTarjetaEnCaja = Convert.ToDecimal(item["Tarjeta"].ToString());
-                                        cantidadTotalValesEnCaja = Convert.ToDecimal(item["Vales"].ToString());
-                                        cantidadTotalCehqueEnCaja = Convert.ToDecimal(item["Cheque"].ToString());
-                                        cantidadTotalTransferenciaEnCaja = Convert.ToDecimal(item["Transferencia"].ToString());
+                                        cantidadEfectivoSaldoInicialEnCaja = cantidadTotalEfectivoEnCaja = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        cantidadTarjetaSaldoInicialEnCaja = cantidadTotalTarjetaEnCaja = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                        cantidadValesSaldoInicialEnCaja = cantidadTotalValesEnCaja = Convert.ToDecimal(item["Vales"].ToString());
+                                        cantidadChequeSaldoInicialEnCaja = cantidadTotalCehqueEnCaja = Convert.ToDecimal(item["Cheque"].ToString());
+                                        cantidadTransferenciaSaldoInicialEnCaja = cantidadTotalTransferenciaEnCaja = Convert.ToDecimal(item["Transferencia"].ToString());
                                         saldoInicial = (float)Convert.ToDecimal(item["SaldoInicial"].ToString());
                                         if (saldoInicial <= 0)
                                         {
@@ -579,11 +584,11 @@ namespace PuntoDeVentaV2
                                 fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());
                                 fechaFormateadaCorteParaAbonos = fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss");
                                 ultimoCorteDeCaja = fechaFormateadaCorteParaAbonos;
-                                cantidadTotalEfectivoEnCaja = Convert.ToDecimal(item["Efectivo"].ToString());
-                                cantidadTotalTarjetaEnCaja = Convert.ToDecimal(item["Tarjeta"].ToString());
-                                cantidadTotalValesEnCaja = Convert.ToDecimal(item["Vales"].ToString());
-                                cantidadTotalCehqueEnCaja = Convert.ToDecimal(item["Cheque"].ToString());
-                                cantidadTotalTransferenciaEnCaja = Convert.ToDecimal(item["Transferencia"].ToString());
+                                cantidadEfectivoSaldoInicialEnCaja = cantidadTotalEfectivoEnCaja = Convert.ToDecimal(item["Efectivo"].ToString());
+                                cantidadTarjetaSaldoInicialEnCaja = cantidadTotalTarjetaEnCaja = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                cantidadValesSaldoInicialEnCaja = cantidadTotalValesEnCaja = Convert.ToDecimal(item["Vales"].ToString());
+                                cantidadChequeSaldoInicialEnCaja = cantidadTotalCehqueEnCaja = Convert.ToDecimal(item["Cheque"].ToString());
+                                cantidadTransferenciaSaldoInicialEnCaja = cantidadTotalTransferenciaEnCaja = Convert.ToDecimal(item["Transferencia"].ToString());
                                 idUltimoCorteDeCaja = item["IDCaja"].ToString();
                                 saldoInicial = (float)Convert.ToDecimal(item["SaldoInicial"].ToString());
                                 if (saldoInicial <= 0)
@@ -612,11 +617,11 @@ namespace PuntoDeVentaV2
                             fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());
                             fechaFormateadaCorteParaAbonos = fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss");
                             ultimoCorteDeCaja = fechaFormateadaCorteParaAbonos;
-                            cantidadTotalEfectivoEnCaja = Convert.ToDecimal(item["Efectivo"].ToString());
-                            cantidadTotalTarjetaEnCaja = Convert.ToDecimal(item["Tarjeta"].ToString());
-                            cantidadTotalValesEnCaja = Convert.ToDecimal(item["Vales"].ToString());
-                            cantidadTotalCehqueEnCaja = Convert.ToDecimal(item["Cheque"].ToString());
-                            cantidadTotalTransferenciaEnCaja = Convert.ToDecimal(item["Transferencia"].ToString());
+                            cantidadEfectivoSaldoInicialEnCaja = cantidadTotalEfectivoEnCaja = Convert.ToDecimal(item["Efectivo"].ToString());
+                            cantidadTarjetaSaldoInicialEnCaja = cantidadTotalTarjetaEnCaja = Convert.ToDecimal(item["Tarjeta"].ToString());
+                            cantidadValesSaldoInicialEnCaja = cantidadTotalValesEnCaja = Convert.ToDecimal(item["Vales"].ToString());
+                            cantidadChequeSaldoInicialEnCaja = cantidadTotalCehqueEnCaja = Convert.ToDecimal(item["Cheque"].ToString());
+                            cantidadTransferenciaSaldoInicialEnCaja = cantidadTotalTransferenciaEnCaja = Convert.ToDecimal(item["Transferencia"].ToString());
                             idUltimoCorteDeCaja = item["IDCaja"].ToString();
                             saldoInicial = (float)Convert.ToDecimal(item["SaldoInicial"].ToString());
                             if (saldoInicial <= 0)
@@ -3223,6 +3228,11 @@ namespace PuntoDeVentaV2
                 Ventas mostrarVentas = new Ventas();
                 mostrarVentas.Show();
             }
+
+            if (e.KeyCode == Keys.B && (e.Control))// Boton Tabulador
+            {
+                btnRedondoTabuladorDeDinero.PerformClick();
+            }
         }
 
         private void btnAgregarDinero_KeyDown(object sender, KeyEventArgs e)
@@ -3620,6 +3630,7 @@ namespace PuntoDeVentaV2
             btnRedondoRetirarDinero.Enabled = true;
             btnRedondoCorteCaja.Enabled = true;
             btnRedondoAbrirCaja.Enabled = true;
+            btnRedondoTabuladorDeDinero.Enabled = true;
         }
 
         private void desactivarBotonesDeCaja()
@@ -3628,6 +3639,7 @@ namespace PuntoDeVentaV2
             btnRedondoRetirarDinero.Enabled = false;
             btnRedondoCorteCaja.Enabled = false;
             btnRedondoAbrirCaja.Enabled = false;
+            btnRedondoTabuladorDeDinero.Enabled = false;
         }
 
         private void limpiarVariablesParaTotales()

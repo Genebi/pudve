@@ -1597,6 +1597,7 @@
             this.Controls.Add(this.btnRetirarDinero);
             this.Controls.Add(this.btnRedondoSaldoInicial);
             this.Controls.Add(this.panel1);
+            this.KeyPreview = true;
             this.Name = "CajaN";
             this.Text = "CajaN";
             this.Activated += new System.EventHandler(this.CajaN_Activated);

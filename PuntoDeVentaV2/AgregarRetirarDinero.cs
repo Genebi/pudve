@@ -39,6 +39,17 @@ namespace PuntoDeVentaV2
         private decimal totalSaldoInicial = 0;
         private decimal totalEnCaja = 0;
 
+        private decimal cantidadTotalEfectivoEnCaja = 0;
+        private decimal cantidadEfectivoSaldoInicialEnCaja = 0;
+        private decimal cantidadTotalTarjetaEnCaja = 0;
+        private decimal cantidadTarjetaSaldoInicialEnCaja = 0;
+        private decimal cantidadTotalValesEnCaja = 0;
+        private decimal cantidadValesSaldoInicialEnCaja = 0;
+        private decimal cantidadTotalCehqueEnCaja = 0;
+        private decimal cantidadChequeSaldoInicialEnCaja = 0;
+        private decimal cantidadTotalTransferenciaEnCaja = 0;
+        private decimal cantidadTransferenciaSaldoInicialEnCaja = 0;
+
         //Variables del corte de caja
         float convertEfectivo = 0f;
         float convertTarjeta = 0f;
@@ -104,11 +115,22 @@ namespace PuntoDeVentaV2
             // se tomaba en cuenta el saldo inicial en el apartado de totales del apartado Ventas
             //totalEfectivo = CajaN.totalEfectivo + CajaN.saldoInicial;
 
-            totalEfectivo = CajaN.cantidadTotalEfectivoEnCaja;
-            totalTarjeta = CajaN.cantidadTotalTarjetaEnCaja;
-            totalVales = CajaN.cantidadTotalValesEnCaja;
-            totalCheque = CajaN.cantidadTotalCehqueEnCaja;
-            totalTransferencia = CajaN.cantidadTotalTransferenciaEnCaja;
+            cantidadTotalEfectivoEnCaja = CajaN.cantidadTotalEfectivoEnCaja;
+            cantidadEfectivoSaldoInicialEnCaja = CajaN.cantidadEfectivoSaldoInicialEnCaja;
+            cantidadTotalTarjetaEnCaja = CajaN.cantidadTotalTarjetaEnCaja;
+            cantidadTarjetaSaldoInicialEnCaja = CajaN.cantidadTarjetaSaldoInicialEnCaja;
+            cantidadTotalValesEnCaja = CajaN.cantidadTotalValesEnCaja;
+            cantidadValesSaldoInicialEnCaja = CajaN.cantidadValesSaldoInicialEnCaja;
+            cantidadTotalCehqueEnCaja = CajaN.cantidadTotalCehqueEnCaja;
+            cantidadChequeSaldoInicialEnCaja = CajaN.cantidadChequeSaldoInicialEnCaja;
+            cantidadTotalTransferenciaEnCaja = CajaN.cantidadTotalTransferenciaEnCaja;
+            cantidadTransferenciaSaldoInicialEnCaja = CajaN.cantidadTransferenciaSaldoInicialEnCaja;
+
+            totalEfectivo = cantidadTotalEfectivoEnCaja + cantidadEfectivoSaldoInicialEnCaja;
+            totalTarjeta = cantidadTotalTarjetaEnCaja + cantidadTarjetaSaldoInicialEnCaja;
+            totalVales = cantidadTotalValesEnCaja + cantidadValesSaldoInicialEnCaja;
+            totalCheque = cantidadTotalCehqueEnCaja + cantidadChequeSaldoInicialEnCaja;
+            totalTransferencia = cantidadTotalTransferenciaEnCaja + cantidadTransferenciaSaldoInicialEnCaja;
             totalSaldoInicial = CajaN.totalSaldoInicial;
             totalEnCaja = CajaN.sumaDeTotalesEnCaja;
             //totalCredito = CajaN.totalCredito;
@@ -863,15 +885,17 @@ namespace PuntoDeVentaV2
             return valor;
         }
 
-        private void MensajeCantidad(float cantidad, object tb)
+        private void MensajeCantidad(decimal totalAParaRetirar, decimal cantidad, decimal saldoInicial, string tituloMensaje, object tb)
         {
             TextBox campo = tb as TextBox;
 
-            MessageBox.Show("La cantidad a retirar no puede ser mayor a $" + cantidad.ToString("N2"), "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show($"La cantidad a retirar no puede ser mayor a {totalAParaRetirar.ToString("C2")}\n\nTotal de ventas en {tituloMensaje} = {cantidad.ToString("C2")}\nTotal de saldo inicial en {tituloMensaje} = {saldoInicial.ToString("C2")}", "Cantidad a retirar de " + tituloMensaje, MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-            campo.Text = cantidad.ToString();
-            campo.SelectionStart = campo.Text.Length;
-            campo.SelectionLength = 0;
+            campo.Text = totalAParaRetirar.ToString();
+            campo.Focus();
+            campo.SelectAll();
+            //campo.SelectionStart = campo.Text.Length;
+            //campo.SelectionLength = 0;
         }
 
         private void txtEfectivo_KeyUp(object sender, KeyEventArgs e)
@@ -891,7 +915,7 @@ namespace PuntoDeVentaV2
 
                     if ((decimal)efectivo > totalEfectivo)
                     {
-                        MensajeCantidad((float)totalEfectivo, sender);
+                        MensajeCantidad(totalEfectivo, cantidadTotalEfectivoEnCaja, cantidadEfectivoSaldoInicialEnCaja, "Efectivo", sender);
                     }
 
                     //if (efectivo > (totalEfectivo/* - convertEfectivo*/) && operacion > 0)
@@ -920,7 +944,7 @@ namespace PuntoDeVentaV2
 
                     if ((decimal)tarjeta > totalTarjeta)
                     {
-                        MensajeCantidad((float)totalTarjeta, sender);
+                        MensajeCantidad(totalTarjeta, cantidadTotalTarjetaEnCaja, cantidadTarjetaSaldoInicialEnCaja, "Tarjeta", sender);
                     }
                     //if (tarjeta > (totalTarjeta /*- convertTarjeta*/) && operacion > 0)
                     //{
@@ -948,7 +972,7 @@ namespace PuntoDeVentaV2
 
                     if ((decimal)vales > totalVales)
                     {
-                        MensajeCantidad((float)totalVales, sender);
+                        MensajeCantidad(totalVales, cantidadTotalValesEnCaja, cantidadValesSaldoInicialEnCaja, "Vales", sender);
                     }
                     //if (vales > (totalVales /*- convertVales*/) && operacion > 0)
                     //{
@@ -976,7 +1000,7 @@ namespace PuntoDeVentaV2
 
                     if ((decimal)cheque > totalCheque)
                     {
-                        MensajeCantidad((float)totalCheque, sender);
+                        MensajeCantidad(totalCheque, cantidadTotalCehqueEnCaja, cantidadChequeSaldoInicialEnCaja, "Cheque", sender);
                     }
                     //if (cheque > (totalCheque /*- convertCheque*/) && operacion > 0)
                     //{
@@ -1004,7 +1028,7 @@ namespace PuntoDeVentaV2
 
                     if ((decimal)trans > totalTransferencia)
                     {
-                        MensajeCantidad((float)totalTransferencia, sender);
+                        MensajeCantidad(totalTransferencia, cantidadTotalTransferenciaEnCaja, cantidadTransferenciaSaldoInicialEnCaja, "Transferencia", sender);
                     }
                     //if (trans > (totalTransferencia /*- convertTrans*/) && operacion > 0)
                     //{
@@ -1016,30 +1040,30 @@ namespace PuntoDeVentaV2
 
         private void txtCredito_KeyUp(object sender, KeyEventArgs e)
         {
-            var obtenerTxt = string.Empty;
-            obtenerTxt = txtCredito.Text;
+            //var obtenerTxt = string.Empty;
+            //obtenerTxt = txtCredito.Text;
 
-            if (!string.IsNullOrWhiteSpace(txtCredito.Text))
-            {
-                if (obtenerTxt.Equals("."))
-                {
-                    txtCredito.Text = "0.";
-                    txtCredito.Select(txtCredito.Text.Length, 0);
-                }
-                else
-                {
-                    float credito = float.Parse(txtCredito.Text);
+            //if (!string.IsNullOrWhiteSpace(txtCredito.Text))
+            //{
+            //    if (obtenerTxt.Equals("."))
+            //    {
+            //        txtCredito.Text = "0.";
+            //        txtCredito.Select(txtCredito.Text.Length, 0);
+            //    }
+            //    else
+            //    {
+            //        float credito = float.Parse(txtCredito.Text);
 
-                    if ((decimal)credito > totalCredito)
-                    {
-                        MensajeCantidad((float)totalCredito, sender);
-                    }
-                    //if (credito > totalCredito && operacion > 0)
-                    //{
-                    //    MensajeCantidad(totalCredito, sender);
-                    //}
-                }
-            }
+            //        if ((decimal)credito > totalCredito)
+            //        {
+            //            MensajeCantidad(cantidadTotalCehqueEnCaja, cantidadChequeSaldoInicialEnCaja, "Crédito", sender);
+            //        }
+            //        //if (credito > totalCredito && operacion > 0)
+            //        //{
+            //        //    MensajeCantidad(totalCredito, sender);
+            //        //}
+            //    }
+            //}
         }
 
         private void cerrarSesion()
