@@ -492,6 +492,10 @@ namespace PuntoDeVentaV2
                                 cantidadTotalTransferenciaEnCaja = Convert.ToDecimal(item["Transferencia"].ToString());
                                 idUltimoCorteDeCaja = item["IDCaja"].ToString();
                                 saldoInicial = (float)Convert.ToDecimal(item["SaldoInicial"].ToString());
+                                if (saldoInicial <= 0)
+                                {
+                                    lbSaldoInicialInfo.Visible = false;
+                                }
                             }
                         }
                         else
@@ -528,6 +532,10 @@ namespace PuntoDeVentaV2
                                         cantidadTotalCehqueEnCaja = Convert.ToDecimal(item["Cheque"].ToString());
                                         cantidadTotalTransferenciaEnCaja = Convert.ToDecimal(item["Transferencia"].ToString());
                                         saldoInicial = (float)Convert.ToDecimal(item["SaldoInicial"].ToString());
+                                        if (saldoInicial <= 0)
+                                        {
+                                            lbSaldoInicialInfo.Visible = false;
+                                        }
                                     }
                                 }
                                 else
@@ -578,6 +586,10 @@ namespace PuntoDeVentaV2
                                 cantidadTotalTransferenciaEnCaja = Convert.ToDecimal(item["Transferencia"].ToString());
                                 idUltimoCorteDeCaja = item["IDCaja"].ToString();
                                 saldoInicial = (float)Convert.ToDecimal(item["SaldoInicial"].ToString());
+                                if (saldoInicial <= 0)
+                                {
+                                    lbSaldoInicialInfo.Visible = false;
+                                }
                             }
                         }
                         else
@@ -607,6 +619,10 @@ namespace PuntoDeVentaV2
                             cantidadTotalTransferenciaEnCaja = Convert.ToDecimal(item["Transferencia"].ToString());
                             idUltimoCorteDeCaja = item["IDCaja"].ToString();
                             saldoInicial = (float)Convert.ToDecimal(item["SaldoInicial"].ToString());
+                            if (saldoInicial <= 0)
+                            {
+                                lbSaldoInicialInfo.Visible = false;
+                            }
                         }
                     }
                     else
@@ -3256,7 +3272,7 @@ namespace PuntoDeVentaV2
 
         private void lbSaldoInicialInfoBtn_Click(object sender, EventArgs e)
         {
-            lbSaldoInicialInfo_Click(sender, e);
+            
         }
 
         private void btnRedondoTabuladorDeDinero_Click(object sender, EventArgs e)
@@ -3285,6 +3301,11 @@ namespace PuntoDeVentaV2
                     mostrarAbonosCaja.BringToFront();
                 }
             }
+        }
+
+        private void btnRedondoSaldoInicial_Click(object sender, EventArgs e)
+        {
+            mostrarSaldoInicialDezglozado();
         }
 
         private void CajaN_Shown(object sender, EventArgs e)
@@ -3496,6 +3517,30 @@ namespace PuntoDeVentaV2
 
         private void lbSaldoInicialInfo_Click(object sender, EventArgs e)
         {
+            mostrarSaldoInicialDezglozado();
+
+            //CajaAbonos mostrarAbonosCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
+
+            //var validarSaldoInicial = "Saldo Inicial";
+
+            //if (mostrarAbonosCaja == null)
+            //{
+            //    abonos_devoluciones = "Saldo Inicial";
+            //    CajaAbonos mostrarAbonos = new CajaAbonos();
+            //    mostrarAbonos.ShowDialog();
+            //}
+
+            //if (mostrarAbonosCaja != null)
+            //{
+            //    if (mostrarAbonosCaja.WindowState == FormWindowState.Minimized || mostrarAbonosCaja.WindowState == FormWindowState.Normal)
+            //    {
+            //        mostrarAbonosCaja.BringToFront();
+            //    }
+            //}
+        }
+
+        private void mostrarSaldoInicialDezglozado()
+        {
             CajaSaldoInicial detalleSaldoInicial = new CajaSaldoInicial();
 
             var IDUsuario = 0;
@@ -3535,25 +3580,6 @@ namespace PuntoDeVentaV2
             detalleSaldoInicial.ultimaFechaDeCorteDeCaja = ultimaFechaDeCorte;
             detalleSaldoInicial.todosLosAbonos = todosLosAbonos;
             detalleSaldoInicial.ShowDialog();
-
-            //CajaAbonos mostrarAbonosCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
-
-            //var validarSaldoInicial = "Saldo Inicial";
-
-            //if (mostrarAbonosCaja == null)
-            //{
-            //    abonos_devoluciones = "Saldo Inicial";
-            //    CajaAbonos mostrarAbonos = new CajaAbonos();
-            //    mostrarAbonos.ShowDialog();
-            //}
-
-            //if (mostrarAbonosCaja != null)
-            //{
-            //    if (mostrarAbonosCaja.WindowState == FormWindowState.Minimized || mostrarAbonosCaja.WindowState == FormWindowState.Normal)
-            //    {
-            //        mostrarAbonosCaja.BringToFront();
-            //    }
-            //}
         }
 
         private void cbFiltroAdminEmpleado_SelectedIndexChanged(object sender, EventArgs e)
