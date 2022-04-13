@@ -492,6 +492,10 @@ namespace PuntoDeVentaV2
                                 cantidadTotalTransferenciaEnCaja = Convert.ToDecimal(item["Transferencia"].ToString());
                                 idUltimoCorteDeCaja = item["IDCaja"].ToString();
                                 saldoInicial = (float)Convert.ToDecimal(item["SaldoInicial"].ToString());
+                                if (saldoInicial <= 0)
+                                {
+                                    lbSaldoInicialInfo.Visible = false;
+                                }
                             }
                         }
                         else
@@ -528,6 +532,10 @@ namespace PuntoDeVentaV2
                                         cantidadTotalCehqueEnCaja = Convert.ToDecimal(item["Cheque"].ToString());
                                         cantidadTotalTransferenciaEnCaja = Convert.ToDecimal(item["Transferencia"].ToString());
                                         saldoInicial = (float)Convert.ToDecimal(item["SaldoInicial"].ToString());
+                                        if (saldoInicial <= 0)
+                                        {
+                                            lbSaldoInicialInfo.Visible = false;
+                                        }
                                     }
                                 }
                                 else
@@ -578,6 +586,10 @@ namespace PuntoDeVentaV2
                                 cantidadTotalTransferenciaEnCaja = Convert.ToDecimal(item["Transferencia"].ToString());
                                 idUltimoCorteDeCaja = item["IDCaja"].ToString();
                                 saldoInicial = (float)Convert.ToDecimal(item["SaldoInicial"].ToString());
+                                if (saldoInicial <= 0)
+                                {
+                                    lbSaldoInicialInfo.Visible = false;
+                                }
                             }
                         }
                         else
@@ -607,6 +619,10 @@ namespace PuntoDeVentaV2
                             cantidadTotalTransferenciaEnCaja = Convert.ToDecimal(item["Transferencia"].ToString());
                             idUltimoCorteDeCaja = item["IDCaja"].ToString();
                             saldoInicial = (float)Convert.ToDecimal(item["SaldoInicial"].ToString());
+                            if (saldoInicial <= 0)
+                            {
+                                lbSaldoInicialInfo.Visible = false;
+                            }
                         }
                     }
                     else
