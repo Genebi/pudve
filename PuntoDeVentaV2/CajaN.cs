@@ -3259,6 +3259,13 @@ namespace PuntoDeVentaV2
             lbSaldoInicialInfo_Click(sender, e);
         }
 
+        private void btnRedondoTabuladorDeDinero_Click(object sender, EventArgs e)
+        {
+            TabuladorDeDinero tabDeDinero = new TabuladorDeDinero();
+
+            tabDeDinero.ShowDialog();
+        }
+
         private void label2_Click(object sender, EventArgs e)
         {
             CajaAbonos mostrarAbonosCaja = Application.OpenForms.OfType<CajaAbonos>().FirstOrDefault();
