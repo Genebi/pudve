@@ -20,8 +20,8 @@ namespace PuntoDeVentaV2
         //Para el ID de los controles generados dinamicamente
         int idGenerado = 2;
         //Guarda la cantidad del rango inicial del descuento por mayoreo
-        string rangoInicial = null;
-
+        //string rangoInicial = null;
+        float rangoInicial;
         int vecesMostradas = 0;
 
         private bool refrescarForm = true;
@@ -1042,8 +1042,10 @@ namespace PuntoDeVentaV2
                     TextBox tbCantidadFinalAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_2", true).FirstOrDefault();
                     TextBox tbPrecioAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_3", true).FirstOrDefault();
 
+
+
                     // Comparando cantidad final nueva con la linea anterior
-                    if (Convert.ToInt32(tbCantidadFinalAnterior.Text.Trim()) >= Convert.ToInt32(tb1.Text.Trim()))
+                    if (float.Parse(tbCantidadFinalAnterior.Text.Trim()) >= float.Parse(tb1.Text.Trim()))
                     {
                         refrescarForm = false;
                         MessageBox.Show("La cantidad limite nueva no puede ser menor o igual a la cantidad limite anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1052,12 +1054,23 @@ namespace PuntoDeVentaV2
                     }
 
                     // Comparando precio nuevo con la linea anterior
-                    if (float.Parse(tb2.Text.Trim()) >= float.Parse(tbPrecioAnterior.Text.Trim()))
+                    if (tb2.Text.Equals(""))
+                    {
+                        refrescarForm = false;
+                        MessageBox.Show("Agregue el nuevo precio", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        tb2.Focus();
+                        tb2.SelectAll();
+                    }
+                    else if (float.Parse(tb2.Text.Trim()) >= float.Parse(tbPrecioAnterior.Text.Trim()))
                     {
                         refrescarForm = false;
                         MessageBox.Show("El precio nuevo no puede ser mayor o igual al precio anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         tb2.Focus();
                         return;
+                    }
+                    else
+                    {
+
                     }
                 }
 
@@ -1082,7 +1095,7 @@ namespace PuntoDeVentaV2
                     bt.Enabled = false;
                 }
 
-                rangoInicial = tb1.Text;
+                rangoInicial = float.Parse(tb1.Text);
 
                 generarLineaMayoreo();
             }
@@ -1101,7 +1114,7 @@ namespace PuntoDeVentaV2
             tb1.Height = 20;
             tb1.Margin = new Padding(120, 5, 0, 0);
             tb1.TextAlign = HorizontalAlignment.Center;
-            tb1.Text = (Convert.ToInt32(rangoInicial) + 1).ToString();
+            tb1.Text = (Convert.ToInt32(rangoInicial) + 1).ToString();//111111111111111111111111
             tb1.ReadOnly = true;
             tb1.BackColor = Color.White;
 
@@ -1326,7 +1339,7 @@ namespace PuntoDeVentaV2
                 bt.Enabled = false;
             }
 
-            rangoInicial = tb1.Text;
+            rangoInicial =float.Parse(tb1.Text);
 
 
             generarLineaMayoreo();
