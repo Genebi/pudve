@@ -3713,5 +3713,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string obtenerUltimoIDSaldoInicialDelAdministrador()
+        {
+            var consulta = $"SELECT ID FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' AND IDEmpleado = '0' ORDER BY ID DESC LIMIT 1";
+
+            return consulta;
+        }
     }
 }  

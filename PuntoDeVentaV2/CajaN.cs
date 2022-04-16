@@ -100,7 +100,7 @@ namespace PuntoDeVentaV2
 
         public static int corteCaja = 0;
 
-        string opcionComboBoxFiltroAdminEmp = string.Empty;
+        public static string opcionComboBoxFiltroAdminEmp = string.Empty;
 
         int idAdministradorOrUsuario = 0;
         string nombreDeUsuario = string.Empty;
