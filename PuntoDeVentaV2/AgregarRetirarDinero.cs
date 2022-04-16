@@ -744,7 +744,16 @@ namespace PuntoDeVentaV2
             }
             else if (!opcionComboBoxFiltroAdminEmp.Equals("Admin"))
             {
-
+                using (DataTable dtIDUltimoSaldoInicial = cn.CargarDatos(cs.obtenerUltimoIDSaldoInicialDelEmpleado(opcionComboBoxFiltroAdminEmp)))
+                {
+                    if (!dtIDUltimoSaldoInicial.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow item in dtIDUltimoSaldoInicial.Rows)
+                        {
+                            IDHistorialCorteDeCaja = Convert.ToInt32(item["ID"].ToString());
+                        }
+                    }
+                }
             }
 
             return IDHistorialCorteDeCaja;
