@@ -656,6 +656,11 @@ namespace PuntoDeVentaV2
             cantidadTotalTransferenciaEnCaja = 0;
             idUltimoCorteDeCaja = string.Empty;
             saldoInicial = 0;
+            cantidadEfectivoSaldoInicialEnCaja = 0;
+            cantidadTarjetaSaldoInicialEnCaja = 0;
+            cantidadValesSaldoInicialEnCaja = 0;
+            cantidadChequeSaldoInicialEnCaja = 0;
+            cantidadTransferenciaSaldoInicialEnCaja = 0;
         }
 
         private void btnReporteAgregar_Click(object sender, EventArgs e)
@@ -3649,12 +3654,12 @@ namespace PuntoDeVentaV2
 
         private void mostrarTotalEnCaja()
         {
-            cantidadTotalEfectivoEnCaja = ((totalEfectivoVentaEnCaja + totalEfectivoAnticiposEnCaja + totalEfectivoDepsitosEnCaja + totalAbonoEfectivo) - totalEfectivoRetiroEnCaja);
-            cantidadTotalTarjetaEnCaja = ((totalTarjetaVentaEnCaja + totalTarjetaAnticiposEnCaja + totalTarjetaDepositosEnCaja + totalAbonoTarjeta) - totalTarjetaRetiroEnCaja);
-            cantidadTotalValesEnCaja = ((totalValesEnVentaCaja + totalValesAnticiposEnCaja + totalValesDepositosEnCaja + totalAbonoVales) - totalValesRetiroEnCaja);
-            cantidadTotalCehqueEnCaja = ((totalChequesVentaEnCaja + totalChequesAnticipoEnCaja + totalChequesDepsoitosEnCaja + totalAbonoCheque) - totalChequesRetiroEnCaja);
-            cantidadTotalTransferenciaEnCaja = ((totalTransferenciaVentaEnCaja + totalTransferenciaAnticiposEnCaja + totalTransferenciasDepositosEnCaja + totalAbonoTransferencia) - totalTransferenciaRetiroEnCaja);
-            sumaDeTotalesEnCaja = cantidadTotalEfectivoEnCaja + cantidadTotalTarjetaEnCaja + cantidadTotalValesEnCaja + cantidadTotalCehqueEnCaja + cantidadTotalTransferenciaEnCaja + totalSaldoInicial;
+            cantidadTotalEfectivoEnCaja = ((totalEfectivoVentaEnCaja + totalEfectivoAnticiposEnCaja + totalEfectivoDepsitosEnCaja + totalAbonoEfectivo) - totalEfectivoRetiroEnCaja) + cantidadEfectivoSaldoInicialEnCaja;
+            cantidadTotalTarjetaEnCaja = ((totalTarjetaVentaEnCaja + totalTarjetaAnticiposEnCaja + totalTarjetaDepositosEnCaja + totalAbonoTarjeta) - totalTarjetaRetiroEnCaja) + cantidadTarjetaSaldoInicialEnCaja;
+            cantidadTotalValesEnCaja = ((totalValesEnVentaCaja + totalValesAnticiposEnCaja + totalValesDepositosEnCaja + totalAbonoVales) - totalValesRetiroEnCaja) + cantidadValesSaldoInicialEnCaja;
+            cantidadTotalCehqueEnCaja = ((totalChequesVentaEnCaja + totalChequesAnticipoEnCaja + totalChequesDepsoitosEnCaja + totalAbonoCheque) - totalChequesRetiroEnCaja) + cantidadChequeSaldoInicialEnCaja;
+            cantidadTotalTransferenciaEnCaja = ((totalTransferenciaVentaEnCaja + totalTransferenciaAnticiposEnCaja + totalTransferenciasDepositosEnCaja + totalAbonoTransferencia) - totalTransferenciaRetiroEnCaja) + cantidadTransferenciaSaldoInicialEnCaja;
+            sumaDeTotalesEnCaja = cantidadTotalEfectivoEnCaja + cantidadTotalTarjetaEnCaja + cantidadTotalValesEnCaja + cantidadTotalCehqueEnCaja + cantidadTotalTransferenciaEnCaja;
 
             lbTEfectivoC.Text = cantidadTotalEfectivoEnCaja.ToString("C2");
             lbTTarjetaC.Text = cantidadTotalTarjetaEnCaja.ToString("C2");

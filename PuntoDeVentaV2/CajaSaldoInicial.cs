@@ -33,7 +33,7 @@ namespace PuntoDeVentaV2
 
                 using (DataTable dtTodosSaldoInicial = cn.CargarDatos(cs.cargarSaldoInicialTodos()))
                 {
-                    if (!dtTodosSaldoInicial.Rows[0][0].Equals(DBNull.Value) && !dtTodosSaldoInicial.Rows.Equals(0))
+                    if (!dtTodosSaldoInicial.Rows.Equals(0))
                     {
                         foreach (DataRow item in dtTodosSaldoInicial.Rows)
                         {
@@ -64,7 +64,7 @@ namespace PuntoDeVentaV2
                 {
                     using (DataTable dtEmpleadoSaldoInicial = cn.CargarDatos(cs.cargarSaldoInicialEmpleado(IDEmpleado.ToString())))
                     {
-                        if (!dtEmpleadoSaldoInicial.Rows[0][0].Equals(DBNull.Value) && !dtEmpleadoSaldoInicial.Rows.Equals(0))
+                        if (!dtEmpleadoSaldoInicial.Rows.Equals(0))
                         {
                             foreach (DataRow item in dtEmpleadoSaldoInicial.Rows)
                             {
@@ -82,7 +82,7 @@ namespace PuntoDeVentaV2
                 {
                     using (DataTable dtAdminstradorSaldoInicial = cn.CargarDatos(cs.cargarSaldoInicialAdministrador()))
                     {
-                        if (!dtAdminstradorSaldoInicial.Rows[0][0].Equals(DBNull.Value) && !dtAdminstradorSaldoInicial.Rows.Equals(0))
+                        if (!dtAdminstradorSaldoInicial.Rows.Equals(0))
                         {
                             foreach (DataRow item in dtAdminstradorSaldoInicial.Rows)
                             {

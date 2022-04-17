@@ -923,7 +923,7 @@
             // 
             this.lbTSaldoInicial.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTSaldoInicial.AutoSize = true;
-            this.lbTSaldoInicial.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
+            this.lbTSaldoInicial.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Italic);
             this.lbTSaldoInicial.Location = new System.Drawing.Point(143, 205);
             this.lbTSaldoInicial.Name = "lbTSaldoInicial";
             this.lbTSaldoInicial.Size = new System.Drawing.Size(39, 16);
@@ -958,10 +958,10 @@
             // 
             this.lbSaldoInicial.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbSaldoInicial.AutoSize = true;
-            this.lbSaldoInicial.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold);
+            this.lbSaldoInicial.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Italic);
             this.lbSaldoInicial.Location = new System.Drawing.Point(12, 205);
             this.lbSaldoInicial.Name = "lbSaldoInicial";
-            this.lbSaldoInicial.Size = new System.Drawing.Size(79, 16);
+            this.lbSaldoInicial.Size = new System.Drawing.Size(77, 16);
             this.lbSaldoInicial.TabIndex = 23;
             this.lbSaldoInicial.Text = "Saldo inicial";
             // 
