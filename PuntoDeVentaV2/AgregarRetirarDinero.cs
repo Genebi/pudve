@@ -536,7 +536,7 @@ namespace PuntoDeVentaV2
                 if (retirarValesDeSaldoInicial)
                 {
                     montoRestante = (Convert.ToDecimal(row["SaldoInicialVales"].ToString()) - (decimal)vales);
-                    resultado = cn.EjecutarConsulta(cs.actualizarSaldoInicialDeEfectivo(idHistorialCorteDeCaja, montoRestante));
+                    resultado = cn.EjecutarConsulta(cs.actualizarSaldoInicialDeVales(idHistorialCorteDeCaja, montoRestante));
                 }
                 if (retirarChequeDeSaldoInicial)
                 {
