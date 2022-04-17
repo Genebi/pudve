@@ -3755,5 +3755,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string actualizarSaldoInicialDeCheque(int idHistorialCorteDeCaja, decimal montoCheque)
+        {
+            var consulta = $"UPDATE historialcortesdecaja SET SaldoInicialCheque = '{montoCheque}' WHERE ID = '{idHistorialCorteDeCaja}' AND IDUsuario = '{FormPrincipal.userID}'";
+
+            return consulta;
+        }
     }
 }  
