@@ -437,12 +437,12 @@ namespace PuntoDeVentaV2
                 usuarioEmpleado = datosEmpleado[15];
             }
 
-            string[] datos;
+            string[] datos = new string[] { };
             int resultado = 0;
-            bool retirarEfectivoDeSaldoInicial = false, 
-                 retirarTarjetaDeSaldoInicial = false, 
-                 retirarValesDeSaldoInicial = false, 
-                 retirarChequeDeSaldoInicial = false, 
+            bool retirarEfectivoDeSaldoInicial = false,
+                 retirarTarjetaDeSaldoInicial = false,
+                 retirarValesDeSaldoInicial = false,
+                 retirarChequeDeSaldoInicial = false,
                  retirarTransferenciaDeSaldoInicial = false;
 
             if (operacion.Equals(1))
@@ -450,22 +450,48 @@ namespace PuntoDeVentaV2
                 if (cantidadTotalEfectivoEnCaja <= 0 && efectivo >= 1)
                 {
                     retirarEfectivoDeSaldoInicial = true;
+                    concepto += " Retiro de efectivo del Saldo Inicial";
+                    datos = new string[] {
+                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                    };
                 }
                 if (cantidadTotalTarjetaEnCaja <= 0 && tarjeta >= 1)
                 {
                     retirarTarjetaDeSaldoInicial = true;
+                    concepto += " Retiro de tarjeta del Saldo Inicial";
+                    datos = new string[] {
+                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                    };
                 }
                 if (cantidadTotalValesEnCaja <= 0 && vales >= 1)
                 {
                     retirarValesDeSaldoInicial = true;
+                    concepto += " Retiro de vales del Saldo Inicial";
+                    datos = new string[] {
+                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                    };
                 }
                 if (cantidadTotalCehqueEnCaja <= 0 && cheque >= 1)
                 {
                     retirarChequeDeSaldoInicial = true;
+                    concepto += " Retiro de cheque del Saldo Inicial";
+                    datos = new string[] {
+                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                    };
                 }
                 if (cantidadTotalTransferenciaEnCaja <= 0 && trans >= 1)
                 {
                     retirarTransferenciaDeSaldoInicial = true;
+                    concepto += " Retiro de transferencia del Saldo Inicial";
+                    datos = new string[] {
+                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                    };
+                }
+                else
+                {
+                    datos = new string[] {
+                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                    };
                 }
             }
             else
@@ -475,7 +501,7 @@ namespace PuntoDeVentaV2
                     fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
                     datos = new string[] {
-                    tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
                     };
 
                     CajaN.botones = true;
@@ -483,40 +509,56 @@ namespace PuntoDeVentaV2
                 else
                 {
                     datos = new string[] {
-                    tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
                     };
                 }
             }
-            
+
             tipoCorte = false;
 
             var idHistorialCorteDeCaja = obtenerIDHistorialCorteDeCaja(CajaN.opcionComboBoxFiltroAdminEmp);
+            decimal montoRestante = 0;
 
-            if (retirarEfectivoDeSaldoInicial)
+            using (DataTable dtMontosDeSaldoInicialAModificar = cn.CargarDatos(cs.obtenerSaldoInicialPorIDDelHistorialCorteDeCaja(idHistorialCorteDeCaja)))
             {
+                DataRow row = dtMontosDeSaldoInicialAModificar.Rows[0];
 
+                if (retirarEfectivoDeSaldoInicial)
+                {
+                    montoRestante = (Convert.ToDecimal(row["SaldoInicialEfectivo"].ToString()) - (decimal)efectivo);
+                    resultado = cn.EjecutarConsulta(cs.actualizarSaldoInicialDeEfectivo(idHistorialCorteDeCaja, montoRestante));
+                }
+                if (retirarTarjetaDeSaldoInicial)
+                {
+                    montoRestante = (Convert.ToDecimal(row["SaldoInicialTarjeta"].ToString()) - (decimal)tarjeta);
+                    resultado = cn.EjecutarConsulta(cs.actualizarSaldoInicialDeEfectivo(idHistorialCorteDeCaja, montoRestante));
+                }
+                if (retirarValesDeSaldoInicial)
+                {
+                    montoRestante = (Convert.ToDecimal(row["SaldoInicialVales"].ToString()) - (decimal)vales);
+                    resultado = cn.EjecutarConsulta(cs.actualizarSaldoInicialDeEfectivo(idHistorialCorteDeCaja, montoRestante));
+                }
+                if (retirarChequeDeSaldoInicial)
+                {
+                    montoRestante = (Convert.ToDecimal(row["SaldoInicialCheque"].ToString()) - (decimal)cheque);
+                    resultado = cn.EjecutarConsulta(cs.actualizarSaldoInicialDeEfectivo(idHistorialCorteDeCaja, montoRestante));
+                }
+                if (retirarTransferenciaDeSaldoInicial)
+                {
+                    montoRestante = (Convert.ToDecimal(row["SaldoInicialTransferencia"].ToString()) - (decimal)trans);
+                    resultado = cn.EjecutarConsulta(cs.actualizarSaldoInicialDeEfectivo(idHistorialCorteDeCaja, montoRestante));
+                }
             }
-            else if (retirarTarjetaDeSaldoInicial)
-            {
 
-            }
-            else if (retirarValesDeSaldoInicial)
-            {
-
-            }
-            else if (retirarChequeDeSaldoInicial)
-            {
-
-            }
-            else if (retirarTransferenciaDeSaldoInicial)
-            {
-
-            }
-            else
+            if (retirarEfectivoDeSaldoInicial.Equals(false) && 
+                retirarTarjetaDeSaldoInicial.Equals(false) && 
+                retirarValesDeSaldoInicial.Equals(false) && 
+                retirarChequeDeSaldoInicial.Equals(false) && 
+                retirarTransferenciaDeSaldoInicial.Equals(false))
             {
                 resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
             }
-            
+
             // Ejecutr hilo para enviarnotificación
             var datosConfig = mb.ComprobarConfiguracion();
 
@@ -735,10 +777,8 @@ namespace PuntoDeVentaV2
                 {
                     if (!dtIDUltimoSaldoInicial.Rows.Count.Equals(0))
                     {
-                        foreach (DataRow item in dtIDUltimoSaldoInicial.Rows)
-                        {
-                            IDHistorialCorteDeCaja = Convert.ToInt32(item["ID"].ToString());
-                        }
+                        DataRow row = dtIDUltimoSaldoInicial.Rows[0];
+                        IDHistorialCorteDeCaja = Convert.ToInt32(row["ID"].ToString());
                     }
                 }
             }
@@ -748,10 +788,8 @@ namespace PuntoDeVentaV2
                 {
                     if (!dtIDUltimoSaldoInicial.Rows.Count.Equals(0))
                     {
-                        foreach (DataRow item in dtIDUltimoSaldoInicial.Rows)
-                        {
-                            IDHistorialCorteDeCaja = Convert.ToInt32(item["ID"].ToString());
-                        }
+                        DataRow row = dtIDUltimoSaldoInicial.Rows[0];
+                        IDHistorialCorteDeCaja = Convert.ToInt32(row["ID"].ToString());
                     }
                 }
             }
@@ -1421,7 +1459,7 @@ namespace PuntoDeVentaV2
 
         private void AgregarRetirarDinero_FormClosed(object sender, FormClosedEventArgs e)
         {
-            
+
         }
 
         private void AgregarRetirarDinero_KeyDown(object sender, KeyEventArgs e)

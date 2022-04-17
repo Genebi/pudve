@@ -3727,5 +3727,19 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string obtenerSaldoInicialPorIDDelHistorialCorteDeCaja(int idHistorialCorteDeCaja)
+        {
+            var consulta = $"SELECT * FROM historialcortesdecaja WHERE ID = '{idHistorialCorteDeCaja}' AND IDUsuario = '{FormPrincipal.userID}'";
+
+            return consulta;
+        }
+
+        public string actualizarSaldoInicialDeEfectivo(int idHistorialCorteDeCaja, decimal montoEfectivo)
+        {
+            var consulta = $"UPDATE historialcortesdecaja SET SaldoInicialEfectivo = '{montoEfectivo}' WHERE ID = '{idHistorialCorteDeCaja}' AND IDUsuario = '{FormPrincipal.userID}'";
+
+            return consulta;
+        }
     }
 }  
