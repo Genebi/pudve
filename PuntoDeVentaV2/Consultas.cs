@@ -3762,5 +3762,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string actualizarSaldoInicialDeTransferencia(int idHistorialCorteDeCaja, decimal montoTransferencia)
+        {
+            var consulta = $"UPDATE historialcortesdecaja SET SaldoInicialTransferencia = '{montoTransferencia}' WHERE ID = '{idHistorialCorteDeCaja}' AND IDUsuario = '{FormPrincipal.userID}'";
+
+            return consulta;
+        }
     }
 }  
