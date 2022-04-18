@@ -291,110 +291,116 @@ namespace PuntoDeVentaV2
             //var cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
             float cantidad = 0;
 
-            if (efectivo < 0 && efectivo > (float)totalEfectivo)
+            if (operacion.Equals(1))
             {
-                if (efectivo < 0)
+                if (efectivo < 0 && efectivo > (float)totalEfectivo)
                 {
-                    efectivo = 0;
+                    if (efectivo < 0)
+                    {
+                        efectivo = 0;
+                    }
+                    else
+                    {
+                        efectivo = (float)totalEfectivo;
+                        MessageBox.Show($"El monto de efectivo tiene que ser menor o igual que el monto que hay en caja: {totalEfectivo.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    txtEfectivo.Text = efectivo.ToString();
                 }
                 else
                 {
-                    efectivo = (float)totalEfectivo;
-                    MessageBox.Show($"El monto de efectivo tiene que ser menor o igual que el monto que hay en caja: {totalEfectivo.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    siRetiroEfectivo = true;
                 }
-                txtEfectivo.Text = efectivo.ToString();
-            }
-            else
-            {
-                siRetiroEfectivo = true;
-            }
 
-            if (tarjeta < 0 && tarjeta > (float)totalTarjeta)
-            {
-                if (tarjeta < 0)
+                if (tarjeta < 0 && tarjeta > (float)totalTarjeta)
                 {
-                    tarjeta = 0;
+                    if (tarjeta < 0)
+                    {
+                        tarjeta = 0;
+                    }
+                    else
+                    {
+                        tarjeta = (float)totalTarjeta;
+                        MessageBox.Show($"El monto de tarjeta tiene que ser menor o igual que el monto que hay en caja: {totalTarjeta.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    txtTarjeta.Text = tarjeta.ToString();
                 }
                 else
                 {
-                    tarjeta = (float)totalTarjeta;
-                    MessageBox.Show($"El monto de tarjeta tiene que ser menor o igual que el monto que hay en caja: {totalTarjeta.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    siRetiroTarjeta = true;
                 }
-                txtTarjeta.Text = tarjeta.ToString();
-            }
-            else
-            {
-                siRetiroTarjeta = true;
-            }
 
-            if (cheque < 0 && cheque > (float)totalCheque)
-            {
-                if (cheque < 0)
+                if (cheque < 0 && cheque > (float)totalCheque)
                 {
-                    cheque = 0;
+                    if (cheque < 0)
+                    {
+                        cheque = 0;
+                    }
+                    else
+                    {
+                        cheque = (float)totalCheque;
+                        MessageBox.Show($"El monto de cheque tiene que ser menor o igual que el monto que hay en caja: {totalCheque.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    txtCheque.Text = cheque.ToString();
                 }
                 else
                 {
-                    cheque = (float)totalCheque;
-                    MessageBox.Show($"El monto de cheque tiene que ser menor o igual que el monto que hay en caja: {totalCheque.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    siRetiroCheque = true;
                 }
-                txtCheque.Text = cheque.ToString();
-            }
-            else
-            {
-                siRetiroCheque = true;
-            }
 
-            if (vales < 0 && vales > (float)totalVales)
-            {
-                if (vales < 0)
+                if (vales < 0 && vales > (float)totalVales)
                 {
-                    vales = 0;
+                    if (vales < 0)
+                    {
+                        vales = 0;
+                    }
+                    else
+                    {
+                        vales = (float)totalVales;
+                        MessageBox.Show($"El monto de vales tiene que ser menor o igual que el monto que hay en caja: {totalVales.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    txtVales.Text = vales.ToString();
                 }
                 else
                 {
-                    vales = (float)totalVales;
-                    MessageBox.Show($"El monto de vales tiene que ser menor o igual que el monto que hay en caja: {totalVales.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    siRetiroVales = true;
                 }
-                txtVales.Text = vales.ToString();
-            }
-            else
-            {
-                siRetiroVales = true;
-            }
 
-            if (trans < 0 && trans > (float)totalTransferencia)
-            {
-                if (trans < 0)
+                if (trans < 0 && trans > (float)totalTransferencia)
                 {
-                    trans = 0;
+                    if (trans < 0)
+                    {
+                        trans = 0;
+                    }
+                    else
+                    {
+                        trans = (float)totalTransferencia;
+                        MessageBox.Show($"El monto de transferencia tiene que ser menor o igual que el monto que hay en caja: {totalTransferencia.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    txtTrans.Text = trans.ToString();
                 }
                 else
                 {
-                    trans = (float)totalTransferencia;
-                    MessageBox.Show($"El monto de transferencia tiene que ser menor o igual que el monto que hay en caja: {totalTransferencia.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    siRetiroTransferencia = true;
                 }
-                txtTrans.Text = trans.ToString();
-            }
-            else
-            {
-                siRetiroTransferencia = true;
             }
 
             cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
 
             //if (cantidad < 0) { cantidad = 0; }
 
-            if (cantidad < 0 && cantidad > (float)totalEnCaja)
+            if (operacion.Equals(1))
             {
-                if (cantidad < 0)
+                if (cantidad < 0 && cantidad > (float)totalEnCaja)
                 {
-                    cantidad = 0;
-                }
-                else
-                {
-                    cantidad = (float)totalEnCaja;
-                    MessageBox.Show($"El monto de retirar tiene que ser menor o igual que el monto que hay en caja: {totalEnCaja.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (cantidad < 0)
+                    {
+                        cantidad = 0;
+                    }
+                    else
+                    {
+                        cantidad = (float)totalEnCaja;
+                        MessageBox.Show($"El monto de retirar tiene que ser menor o igual que el monto que hay en caja: {totalEnCaja.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
             }
 
@@ -1047,15 +1053,18 @@ namespace PuntoDeVentaV2
                 {
                     float efectivo = float.Parse(txtEfectivo.Text);
 
-                    if ((decimal)efectivo > totalEfectivo)
+                    if (operacion.Equals(1))
                     {
-                        MensajeCantidad(totalEfectivo, cantidadTotalEfectivoEnCaja, cantidadEfectivoSaldoInicialEnCaja, "Efectivo", sender);
-                    }
+                        if ((decimal)efectivo > totalEfectivo)
+                        {
+                            MensajeCantidad(totalEfectivo, cantidadTotalEfectivoEnCaja, cantidadEfectivoSaldoInicialEnCaja, "Efectivo", sender);
+                        }
 
-                    //if (efectivo > (totalEfectivo/* - convertEfectivo*/) && operacion > 0)
-                    //{
-                    //    MensajeCantidad((totalEfectivo/* - convertEfectivo*/), sender);
-                    //}
+                        //if (efectivo > (totalEfectivo/* - convertEfectivo*/) && operacion > 0)
+                        //{
+                        //    MensajeCantidad((totalEfectivo/* - convertEfectivo*/), sender);
+                        //}
+                    }
                 }
             }
         }
@@ -1076,14 +1085,17 @@ namespace PuntoDeVentaV2
                 {
                     float tarjeta = float.Parse(txtTarjeta.Text);
 
-                    if ((decimal)tarjeta > totalTarjeta)
+                    if (operacion.Equals(1))
                     {
-                        MensajeCantidad(totalTarjeta, cantidadTotalTarjetaEnCaja, cantidadTarjetaSaldoInicialEnCaja, "Tarjeta", sender);
+                        if ((decimal)tarjeta > totalTarjeta)
+                        {
+                            MensajeCantidad(totalTarjeta, cantidadTotalTarjetaEnCaja, cantidadTarjetaSaldoInicialEnCaja, "Tarjeta", sender);
+                        }
+                        //if (tarjeta > (totalTarjeta /*- convertTarjeta*/) && operacion > 0)
+                        //{
+                        //    MensajeCantidad((totalTarjeta /*- convertTarjeta*/), sender);
+                        //}
                     }
-                    //if (tarjeta > (totalTarjeta /*- convertTarjeta*/) && operacion > 0)
-                    //{
-                    //    MensajeCantidad((totalTarjeta /*- convertTarjeta*/), sender);
-                    //}
                 }
             }
         }
@@ -1104,14 +1116,17 @@ namespace PuntoDeVentaV2
                 {
                     float vales = float.Parse(txtVales.Text);
 
-                    if ((decimal)vales > totalVales)
+                    if (operacion.Equals(1))
                     {
-                        MensajeCantidad(totalVales, cantidadTotalValesEnCaja, cantidadValesSaldoInicialEnCaja, "Vales", sender);
+                        if ((decimal)vales > totalVales)
+                        {
+                            MensajeCantidad(totalVales, cantidadTotalValesEnCaja, cantidadValesSaldoInicialEnCaja, "Vales", sender);
+                        }
+                        //if (vales > (totalVales /*- convertVales*/) && operacion > 0)
+                        //{
+                        //    MensajeCantidad((totalVales /*- convertVales*/), sender);
+                        //}
                     }
-                    //if (vales > (totalVales /*- convertVales*/) && operacion > 0)
-                    //{
-                    //    MensajeCantidad((totalVales /*- convertVales*/), sender);
-                    //}
                 }
             }
         }
@@ -1132,14 +1147,17 @@ namespace PuntoDeVentaV2
                 {
                     float cheque = float.Parse(txtCheque.Text);
 
-                    if ((decimal)cheque > totalCheque)
+                    if (operacion.Equals(1))
                     {
-                        MensajeCantidad(totalCheque, cantidadTotalCehqueEnCaja, cantidadChequeSaldoInicialEnCaja, "Cheque", sender);
+                        if ((decimal)cheque > totalCheque)
+                        {
+                            MensajeCantidad(totalCheque, cantidadTotalCehqueEnCaja, cantidadChequeSaldoInicialEnCaja, "Cheque", sender);
+                        }
+                        //if (cheque > (totalCheque /*- convertCheque*/) && operacion > 0)
+                        //{
+                        //    MensajeCantidad((totalCheque /*- convertCheque*/), sender);
+                        //}
                     }
-                    //if (cheque > (totalCheque /*- convertCheque*/) && operacion > 0)
-                    //{
-                    //    MensajeCantidad((totalCheque /*- convertCheque*/), sender);
-                    //}
                 }
             }
         }
@@ -1160,14 +1178,17 @@ namespace PuntoDeVentaV2
                 {
                     float trans = float.Parse(txtTrans.Text);
 
-                    if ((decimal)trans > totalTransferencia)
+                    if (operacion.Equals(1))
                     {
-                        MensajeCantidad(totalTransferencia, cantidadTotalTransferenciaEnCaja, cantidadTransferenciaSaldoInicialEnCaja, "Transferencia", sender);
+                        if ((decimal)trans > totalTransferencia)
+                        {
+                            MensajeCantidad(totalTransferencia, cantidadTotalTransferenciaEnCaja, cantidadTransferenciaSaldoInicialEnCaja, "Transferencia", sender);
+                        }
+                        //if (trans > (totalTransferencia /*- convertTrans*/) && operacion > 0)
+                        //{
+                        //    MensajeCantidad((totalTransferencia /*- convertTrans*/), sender);
+                        //}
                     }
-                    //if (trans > (totalTransferencia /*- convertTrans*/) && operacion > 0)
-                    //{
-                    //    MensajeCantidad((totalTransferencia /*- convertTrans*/), sender);
-                    //}
                 }
             }
         }
