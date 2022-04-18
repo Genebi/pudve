@@ -516,7 +516,17 @@ namespace PuntoDeVentaV2
 
             tipoCorte = false;
 
-            var idHistorialCorteDeCaja = obtenerIDHistorialCorteDeCaja(CajaN.opcionComboBoxFiltroAdminEmp);
+            int idHistorialCorteDeCaja = 0;
+
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                idHistorialCorteDeCaja = obtenerIDHistorialCorteDeCaja(CajaN.opcionComboBoxFiltroAdminEmp);
+            }
+            else
+            {
+                idHistorialCorteDeCaja = obtenerIDHistorialCorteDeCaja(FormPrincipal.id_empleado.ToString());
+            }
+
             decimal montoRestante = 0;
 
             using (DataTable dtMontosDeSaldoInicialAModificar = cn.CargarDatos(cs.obtenerSaldoInicialPorIDDelHistorialCorteDeCaja(idHistorialCorteDeCaja)))
@@ -556,7 +566,15 @@ namespace PuntoDeVentaV2
                 retirarChequeDeSaldoInicial.Equals(false) && 
                 retirarTransferenciaDeSaldoInicial.Equals(false))
             {
-                resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
+                if (!FormPrincipal.userNickName.Contains("@"))
+                {
+                    resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
+                }
+                else
+                {
+                    tipoCorte = true;
+                    resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
+                }
             }
 
             // Ejecutr hilo para enviarnotificación
