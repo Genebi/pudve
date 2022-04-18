@@ -291,7 +291,7 @@ namespace PuntoDeVentaV2
             //var cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
             float cantidad = 0;
 
-            if (operacion.Equals(1))
+            if (!operacion.Equals(0))
             {
                 if (efectivo < 0 && efectivo > (float)totalEfectivo)
                 {
@@ -388,7 +388,7 @@ namespace PuntoDeVentaV2
 
             //if (cantidad < 0) { cantidad = 0; }
 
-            if (operacion.Equals(1))
+            if (!operacion.Equals(0))
             {
                 if (cantidad < 0 && cantidad > (float)totalEnCaja)
                 {
@@ -1053,7 +1053,7 @@ namespace PuntoDeVentaV2
                 {
                     float efectivo = float.Parse(txtEfectivo.Text);
 
-                    if (operacion.Equals(1))
+                    if (!operacion.Equals(0))
                     {
                         if ((decimal)efectivo > totalEfectivo)
                         {
@@ -1085,7 +1085,7 @@ namespace PuntoDeVentaV2
                 {
                     float tarjeta = float.Parse(txtTarjeta.Text);
 
-                    if (operacion.Equals(1))
+                    if (!operacion.Equals(0))
                     {
                         if ((decimal)tarjeta > totalTarjeta)
                         {
@@ -1116,7 +1116,7 @@ namespace PuntoDeVentaV2
                 {
                     float vales = float.Parse(txtVales.Text);
 
-                    if (operacion.Equals(1))
+                    if (!operacion.Equals(0))
                     {
                         if ((decimal)vales > totalVales)
                         {
@@ -1147,7 +1147,7 @@ namespace PuntoDeVentaV2
                 {
                     float cheque = float.Parse(txtCheque.Text);
 
-                    if (operacion.Equals(1))
+                    if (!operacion.Equals(0))
                     {
                         if ((decimal)cheque > totalCheque)
                         {
@@ -1178,7 +1178,7 @@ namespace PuntoDeVentaV2
                 {
                     float trans = float.Parse(txtTrans.Text);
 
-                    if (operacion.Equals(1))
+                    if (!operacion.Equals(0))
                     {
                         if ((decimal)trans > totalTransferencia)
                         {
