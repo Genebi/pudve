@@ -79,6 +79,7 @@ namespace PuntoDeVentaV2
             //{
             //    rbMayoreo.Visible = false;
             //}
+            
         }
 
         private void obtenerTipoDescuento()
@@ -1043,14 +1044,16 @@ namespace PuntoDeVentaV2
                     TextBox tbPrecioAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_3", true).FirstOrDefault();
 
 
-
+                    
                     // Comparando cantidad final nueva con la linea anterior
                     if (float.Parse(tbCantidadFinalAnterior.Text.Trim()) >= float.Parse(tb1.Text.Trim()))
                     {
+                        
                         refrescarForm = false;
                         MessageBox.Show("La cantidad limite nueva no puede ser menor o igual a la cantidad limite anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         tb1.Focus();
                         return;
+
                     }
 
                     // Comparando precio nuevo con la linea anterior
@@ -1068,10 +1071,8 @@ namespace PuntoDeVentaV2
                         tb2.Focus();
                         return;
                     }
-                    else
-                    {
-
-                    }
+                    
+                   
                 }
 
 
@@ -1114,7 +1115,7 @@ namespace PuntoDeVentaV2
             tb1.Height = 20;
             tb1.Margin = new Padding(120, 5, 0, 0);
             tb1.TextAlign = HorizontalAlignment.Center;
-            tb1.Text = (Convert.ToInt32(rangoInicial) + 1).ToString();//111111111111111111111111
+            tb1.Text = (Convert.ToInt32(rangoInicial) + 1).ToString();
             tb1.ReadOnly = true;
             tb1.BackColor = Color.White;
 
