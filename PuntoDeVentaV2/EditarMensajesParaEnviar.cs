@@ -33,29 +33,59 @@ namespace PuntoDeVentaV2
             var dato = MensajeVentasYMensajeInventario.enviarDato;
             if (dato == "mensajeVentas")
             {
-                using (var datos = cn.CargarDatos(cs.mensajeVentas(Productos.codProductoEditarVenta)))
+                if (Productos.dobleClickProducto == 1)
                 {
-                    if (!datos.Rows.Count.Equals(0))
+                    using (var datos = cn.CargarDatos(cs.mensajeVentas(Productos.idprodDobleClick)))
                     {
-                        mensaje = Convert.ToString(datos.Rows[0].ItemArray[0]);
+                        if (!datos.Rows.Count.Equals(0))
+                        {
+                            mensaje = Convert.ToString(datos.Rows[0].ItemArray[0]);
+                        }
+                        else
+                        {
+                            mensaje = "";
+                        }
                     }
-                    else
-                    {
-                        mensaje = "";
-                    }
-                }
 
-                using (var datos = cn.CargarDatos(cs.cantidadCompraMinima(Productos.codProductoEditarVenta)))
-                {
-                    if (!datos.Rows.Count.Equals(0))
+                    using (var datos = cn.CargarDatos(cs.cantidadCompraMinima(Productos.idprodDobleClick)))
                     {
-                        cantidadDeCompra = Convert.ToString(datos.Rows[0].ItemArray[0]);
-                    }
-                    else
-                    {
-                        cantidadDeCompra = "";
+                        if (!datos.Rows.Count.Equals(0))
+                        {
+                            cantidadDeCompra = Convert.ToString(datos.Rows[0].ItemArray[0]);
+                        }
+                        else
+                        {
+                            cantidadDeCompra = "";
+                        }
                     }
                 }
+                else
+                {
+                    using (var datos = cn.CargarDatos(cs.mensajeVentas(Productos.codProductoEditarVenta)))
+                    {
+                        if (!datos.Rows.Count.Equals(0))
+                        {
+                            mensaje = Convert.ToString(datos.Rows[0].ItemArray[0]);
+                        }
+                        else
+                        {
+                            mensaje = "";
+                        }
+                    }
+
+                    using (var datos = cn.CargarDatos(cs.cantidadCompraMinima(Productos.codProductoEditarVenta)))
+                    {
+                        if (!datos.Rows.Count.Equals(0))
+                        {
+                            cantidadDeCompra = Convert.ToString(datos.Rows[0].ItemArray[0]);
+                        }
+                        else
+                        {
+                            cantidadDeCompra = "";
+                        }
+                    }
+                }
+               
 
                 this.Height = 281;
 
@@ -175,13 +205,27 @@ namespace PuntoDeVentaV2
             }
             else if (dato == "mensajeInventario") //EN caso de dar en el boton mensaje inventario--------------------//Panel para el nombre del producto a modificar
             {
-                using (var datos = cn.CargarDatos(cs.mensajeInventario(Productos.codProductoEditarInventario)))
+                if (Productos.dobleClickProducto == 1)
                 {
-                    if (!datos.Rows.Count.Equals(0))
+                    using (var datos = cn.CargarDatos(cs.mensajeInventario(Productos.idprodDobleClick)))
                     {
-                        mensaje = Convert.ToString(datos.Rows[0].ItemArray[0]);
+                        if (!datos.Rows.Count.Equals(0))
+                        {
+                            mensaje = Convert.ToString(datos.Rows[0].ItemArray[0]);
+                        }
                     }
                 }
+                else
+                {
+                    using (var datos = cn.CargarDatos(cs.mensajeInventario(Productos.codProductoEditarInventario)))
+                    {
+                        if (!datos.Rows.Count.Equals(0))
+                        {
+                            mensaje = Convert.ToString(datos.Rows[0].ItemArray[0]);
+                        }
+                    }
+                }
+
                 
                 this.Height = 251;
 
@@ -333,25 +377,28 @@ namespace PuntoDeVentaV2
 
         private void cargarEstadoCheckboxMensaje()
         {
-            using (DataTable dtPermiso = cn.CargarDatos(cs.verificarEstadoCheckbox(Productos.codProductoEditarVenta)))
+            if (Productos.dobleClickProducto == 1)
             {
-                if (!dtPermiso.Rows.Count.Equals(0))
+                using (DataTable dtPermiso = cn.CargarDatos(cs.verificarEstadoCheckbox(Productos.idprodDobleClick)))
                 {
-                    foreach (DataRow dtDataRow in dtPermiso.Rows)
+                    if (!dtPermiso.Rows.Count.Equals(0))
                     {
-                        foreach (Control item in this.Controls)
+                        foreach (DataRow dtDataRow in dtPermiso.Rows)
                         {
-                            if (item is FlowLayoutPanel && item.Name.Equals("flpMensaje"))
+                            foreach (Control item in this.Controls)
                             {
-                                foreach (Control itemMensaje in item.Controls)
+                                if (item is FlowLayoutPanel && item.Name.Equals("flpMensaje"))
                                 {
-                                    if (itemMensaje is Panel && itemMensaje.Name.Equals("panelMensaje"))
+                                    foreach (Control itemMensaje in item.Controls)
                                     {
-                                        foreach (CheckBox chkMostrarMensaje in itemMensaje.Controls.OfType<CheckBox>())
+                                        if (itemMensaje is Panel && itemMensaje.Name.Equals("panelMensaje"))
                                         {
-                                            if (chkMostrarMensaje is CheckBox && chkMostrarMensaje.Name.Equals("chkMostrarMensajeVenta"))
+                                            foreach (CheckBox chkMostrarMensaje in itemMensaje.Controls.OfType<CheckBox>())
                                             {
-                                                chkMostrarMensaje.Checked = (Boolean)dtDataRow["ProductMessageActivated"];
+                                                if (chkMostrarMensaje is CheckBox && chkMostrarMensaje.Name.Equals("chkMostrarMensajeVenta"))
+                                                {
+                                                    chkMostrarMensaje.Checked = (Boolean)dtDataRow["ProductMessageActivated"];
+                                                }
                                             }
                                         }
                                     }
@@ -361,37 +408,72 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            else
+            {
+                using (DataTable dtPermiso = cn.CargarDatos(cs.verificarEstadoCheckbox(Productos.codProductoEditarVenta)))
+                {
+                    if (!dtPermiso.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow dtDataRow in dtPermiso.Rows)
+                        {
+                            foreach (Control item in this.Controls)
+                            {
+                                if (item is FlowLayoutPanel && item.Name.Equals("flpMensaje"))
+                                {
+                                    foreach (Control itemMensaje in item.Controls)
+                                    {
+                                        if (itemMensaje is Panel && itemMensaje.Name.Equals("panelMensaje"))
+                                        {
+                                            foreach (CheckBox chkMostrarMensaje in itemMensaje.Controls.OfType<CheckBox>())
+                                            {
+                                                if (chkMostrarMensaje is CheckBox && chkMostrarMensaje.Name.Equals("chkMostrarMensajeVenta"))
+                                                {
+                                                    chkMostrarMensaje.Checked = (Boolean)dtDataRow["ProductMessageActivated"];
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
 
             ///////////////////////////////-----------------------Inventario------------------------/////////////////////////////////////////
 
-            using (DataTable dtPermiso = cn.CargarDatos(cs.verificarEstadoCheckboxInventario(Productos.codProductoEditarVenta)))
+            if (Productos.dobleClickProducto == 1)
             {
-                if (!dtPermiso.Rows.Count.Equals(0))
+                using (DataTable dtPermiso = cn.CargarDatos(cs.verificarEstadoCheckboxInventario(Productos.idprodDobleClick)))
                 {
-                    foreach (DataRow dtDataRow in dtPermiso.Rows)
+                    if (!dtPermiso.Rows.Count.Equals(0))
                     {
-                        foreach (Control item in this.Controls)
+                        foreach (DataRow dtDataRow in dtPermiso.Rows)
                         {
-                            if (item is FlowLayoutPanel && item.Name.Equals("flplMensaje"))
+                            foreach (Control item in this.Controls)
                             {
-                                foreach (Control itemMensaje in item.Controls)
+                                if (item is FlowLayoutPanel && item.Name.Equals("flplMensaje"))
                                 {
-                                    if (itemMensaje is Panel && itemMensaje.Name.Equals("panelDatos"))
+                                    foreach (Control itemMensaje in item.Controls)
                                     {
-                                        foreach (CheckBox chkMostrarMensaje in itemMensaje.Controls.OfType<CheckBox>())
+                                        if (itemMensaje is Panel && itemMensaje.Name.Equals("panelDatos"))
                                         {
-                                            if (chkMostrarMensaje is CheckBox && chkMostrarMensaje.Name.Equals("chkMostrarMensajeInventario"))
+                                            foreach (CheckBox chkMostrarMensaje in itemMensaje.Controls.OfType<CheckBox>())
                                             {
-                                                string estado = dtPermiso.Rows[0]["Activo"].ToString();
-                                                if (estado == "1")
+                                                if (chkMostrarMensaje is CheckBox && chkMostrarMensaje.Name.Equals("chkMostrarMensajeInventario"))
                                                 {
-                                                    chkMostrarMensaje.Checked = true;
+                                                    string estado = dtPermiso.Rows[0]["Activo"].ToString();
+                                                    if (estado == "1")
+                                                    {
+                                                        chkMostrarMensaje.Checked = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        chkMostrarMensaje.Checked = false;
+                                                    }
+
                                                 }
-                                                else
-                                                {
-                                                    chkMostrarMensaje.Checked = false;
-                                                }
-                                               
                                             }
                                         }
                                     }
@@ -401,6 +483,47 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            else
+            {
+                using (DataTable dtPermiso = cn.CargarDatos(cs.verificarEstadoCheckboxInventario(Productos.codProductoEditarVenta)))
+                {
+                    if (!dtPermiso.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow dtDataRow in dtPermiso.Rows)
+                        {
+                            foreach (Control item in this.Controls)
+                            {
+                                if (item is FlowLayoutPanel && item.Name.Equals("flplMensaje"))
+                                {
+                                    foreach (Control itemMensaje in item.Controls)
+                                    {
+                                        if (itemMensaje is Panel && itemMensaje.Name.Equals("panelDatos"))
+                                        {
+                                            foreach (CheckBox chkMostrarMensaje in itemMensaje.Controls.OfType<CheckBox>())
+                                            {
+                                                if (chkMostrarMensaje is CheckBox && chkMostrarMensaje.Name.Equals("chkMostrarMensajeInventario"))
+                                                {
+                                                    string estado = dtPermiso.Rows[0]["Activo"].ToString();
+                                                    if (estado == "1")
+                                                    {
+                                                        chkMostrarMensaje.Checked = true;
+                                                    }
+                                                    else
+                                                    {
+                                                        chkMostrarMensaje.Checked = false;
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
         }
 
         private void botonConfirmar_click(object sender, EventArgs e)
@@ -636,32 +759,77 @@ namespace PuntoDeVentaV2
                                         {
                                             if (textoMensaje.Name.Equals("txtMensaje"))
                                             {
-                                                var updateOinsert = cn.CargarDatos(cs.viewMensajeInventario(Productos.codProductoEditarVenta));
-                                                if (updateOinsert.Rows.Count.Equals(0))
+                                                if (Productos.dobleClickProducto == 1)
                                                 {
-                                                    var NuevoMensaje = textoMensaje.Text;
-
-                                                    if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                    var updateOinsert = cn.CargarDatos(cs.viewMensajeInventario(Productos.idprodDobleClick));
+                                                    if (updateOinsert.Rows.Count.Equals(0))
                                                     {
-                                                        var estado = 1;
-                                                        CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeInventario", true)[0];
-                                                        if (!txtCantidadCompra.Checked.Equals(true))
+                                                        var NuevoMensaje = textoMensaje.Text;
+
+                                                        if (!string.IsNullOrWhiteSpace(NuevoMensaje))
                                                         {
-                                                            estado = 0;
+                                                            var estado = 1;
+                                                            CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeInventario", true)[0];
+                                                            if (!txtCantidadCompra.Checked.Equals(true))
+                                                            {
+                                                                estado = 0;
+                                                            }
+                                                            cn.EjecutarConsulta(cs.insertarMensajeInventario(Productos.idprodDobleClick, NuevoMensaje, estado));
+                                                            MessageBox.Show("Actualizado Correctamente.");
                                                         }
-                                                        cn.EjecutarConsulta(cs.insertarMensajeInventario(Productos.codProductoEditarInventario, NuevoMensaje, estado));
-                                                        MessageBox.Show("Actualizado Correctamente.");
+                                                    }
+                                                    else
+                                                    {
+                                                        var NuevoMensaje = textoMensaje.Text;
+                                                        if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                        {
+                                                            var estado = 1;
+                                                            CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeInventario", true)[0];
+                                                            if (!txtCantidadCompra.Checked.Equals(true))
+                                                            {
+                                                                estado = 0;
+                                                            }
+                                                            cn.EjecutarConsulta(cs.actualizarMensajeInventario(Productos.idprodDobleClick, NuevoMensaje, estado));
+                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                        }
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    var NuevoMensaje = textoMensaje.Text;
-                                                    if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                    var updateOinsert = cn.CargarDatos(cs.viewMensajeInventario(Productos.codProductoEditarVenta));
+                                                    if (updateOinsert.Rows.Count.Equals(0))
                                                     {
-                                                        cn.EjecutarConsulta(cs.actualizarMensajeInventario(Productos.codProductoEditarInventario, NuevoMensaje));
-                                                        MessageBox.Show("Actualizado Correctamente.");
+                                                        var NuevoMensaje = textoMensaje.Text;
+
+                                                        if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                        {
+                                                            var estado = 1;
+                                                            CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeInventario", true)[0];
+                                                            if (!txtCantidadCompra.Checked.Equals(true))
+                                                            {
+                                                                estado = 0;
+                                                            }
+                                                            cn.EjecutarConsulta(cs.insertarMensajeInventario(Productos.codProductoEditarInventario, NuevoMensaje, estado));
+                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        var NuevoMensaje = textoMensaje.Text;
+                                                        if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                        {
+                                                            var estado = 1;
+                                                            CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
+                                                            if (!txtCantidadCompra.Checked.Equals(true))
+                                                            {
+                                                                estado = 0;
+                                                            }
+                                                            cn.EjecutarConsulta(cs.actualizarMensajeInventario(Productos.codProductoEditarInventario, NuevoMensaje, estado));
+                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                        }
                                                     }
                                                 }
+                                                
                                             }
                                         }
                                     }
