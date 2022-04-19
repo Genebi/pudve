@@ -104,6 +104,15 @@ namespace PuntoDeVentaV2
                 //btnCancelar.Text = "Corte sin retiro";
             }
 
+            if (!operacion.Equals(0))
+            {
+                btnRetirarTodoElDinero.Visible = true;
+            }
+            else
+            {
+                btnRetirarTodoElDinero.Visible = false;
+            }
+
             txtEfectivo.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtCredito.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtTarjeta.KeyPress += new KeyPressEventHandler(SoloDecimales);
@@ -1507,6 +1516,21 @@ namespace PuntoDeVentaV2
             {
                 this.Close();
             }
+        }
+
+        private void btnRetirarTodoElDinero_Click(object sender, EventArgs e)
+        {
+            ritirarTodoElDineroDisponible();
+        }
+
+        private void ritirarTodoElDineroDisponible()
+        {
+            txtEfectivo.Text = totalEfectivo.ToString();
+            txtTarjeta.Text = totalTarjeta.ToString();
+            txtVales.Text = totalVales.ToString();
+            txtCheque.Text = totalCheque.ToString();
+            txtTrans.Text = totalTransferencia.ToString();
+            btnAceptar.Focus();
         }
     }
 }

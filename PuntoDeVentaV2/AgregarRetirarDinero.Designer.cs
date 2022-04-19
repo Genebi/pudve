@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.gbContenedor = new System.Windows.Forms.GroupBox();
+            this.cbConceptoConBusqueda = new CustomControlPUDVE.ComboBoxPUDVE();
             this.btnAgregarConcepto = new System.Windows.Forms.Button();
             this.cbConceptos = new System.Windows.Forms.ComboBox();
             this.lbCredito = new System.Windows.Forms.Label();
@@ -47,15 +48,15 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.txtCheque = new System.Windows.Forms.TextBox();
             this.lbTitulo = new System.Windows.Forms.Label();
-            this.cbConceptoConBusqueda = new CustomControlPUDVE.ComboBoxPUDVE();
+            this.btnRetirarTodoElDinero = new System.Windows.Forms.Button();
             this.gbContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbContenedor
             // 
+            this.gbContenedor.Controls.Add(this.btnRetirarTodoElDinero);
             this.gbContenedor.Controls.Add(this.cbConceptoConBusqueda);
             this.gbContenedor.Controls.Add(this.btnAgregarConcepto);
-            this.gbContenedor.Controls.Add(this.cbConceptos);
             this.gbContenedor.Controls.Add(this.lbCredito);
             this.gbContenedor.Controls.Add(this.label9);
             this.gbContenedor.Controls.Add(this.label7);
@@ -78,6 +79,15 @@
             this.gbContenedor.TabIndex = 0;
             this.gbContenedor.TabStop = false;
             // 
+            // cbConceptoConBusqueda
+            // 
+            this.cbConceptoConBusqueda.FormattingEnabled = true;
+            this.cbConceptoConBusqueda.Location = new System.Drawing.Point(56, 227);
+            this.cbConceptoConBusqueda.MaxDropDownItems = 12;
+            this.cbConceptoConBusqueda.Name = "cbConceptoConBusqueda";
+            this.cbConceptoConBusqueda.Size = new System.Drawing.Size(293, 21);
+            this.cbConceptoConBusqueda.TabIndex = 219;
+            // 
             // btnAgregarConcepto
             // 
             this.btnAgregarConcepto.BackColor = System.Drawing.SystemColors.ActiveBorder;
@@ -87,7 +97,7 @@
             this.btnAgregarConcepto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarConcepto.ForeColor = System.Drawing.Color.White;
             this.btnAgregarConcepto.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
-            this.btnAgregarConcepto.Location = new System.Drawing.Point(355, 220);
+            this.btnAgregarConcepto.Location = new System.Drawing.Point(355, 225);
             this.btnAgregarConcepto.Name = "btnAgregarConcepto";
             this.btnAgregarConcepto.Size = new System.Drawing.Size(28, 25);
             this.btnAgregarConcepto.TabIndex = 218;
@@ -99,7 +109,7 @@
             this.cbConceptos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbConceptos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbConceptos.FormattingEnabled = true;
-            this.cbConceptos.Location = new System.Drawing.Point(71, 154);
+            this.cbConceptos.Location = new System.Drawing.Point(0, 2);
             this.cbConceptos.Name = "cbConceptos";
             this.cbConceptos.Size = new System.Drawing.Size(293, 25);
             this.cbConceptos.TabIndex = 217;
@@ -110,7 +120,7 @@
             this.lbCredito.AutoSize = true;
             this.lbCredito.Enabled = false;
             this.lbCredito.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCredito.Location = new System.Drawing.Point(200, 128);
+            this.lbCredito.Location = new System.Drawing.Point(200, 116);
             this.lbCredito.Name = "lbCredito";
             this.lbCredito.Size = new System.Drawing.Size(57, 17);
             this.lbCredito.TabIndex = 216;
@@ -121,7 +131,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(200, 96);
+            this.label9.Location = new System.Drawing.Point(200, 81);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(91, 17);
             this.label9.TabIndex = 215;
@@ -131,7 +141,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(200, 62);
+            this.label7.Location = new System.Drawing.Point(200, 45);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(60, 17);
             this.label7.TabIndex = 214;
@@ -141,7 +151,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(9, 128);
+            this.label6.Location = new System.Drawing.Point(9, 116);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(42, 17);
             this.label6.TabIndex = 213;
@@ -151,7 +161,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(9, 96);
+            this.label5.Location = new System.Drawing.Point(9, 81);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 17);
             this.label5.TabIndex = 212;
@@ -161,7 +171,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(9, 62);
+            this.label4.Location = new System.Drawing.Point(9, 45);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 17);
             this.label4.TabIndex = 211;
@@ -170,7 +180,7 @@
             // txtVales
             // 
             this.txtVales.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVales.Location = new System.Drawing.Point(71, 125);
+            this.txtVales.Location = new System.Drawing.Point(71, 113);
             this.txtVales.Name = "txtVales";
             this.txtVales.Size = new System.Drawing.Size(103, 23);
             this.txtVales.TabIndex = 3;
@@ -182,7 +192,7 @@
             // txtTarjeta
             // 
             this.txtTarjeta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTarjeta.Location = new System.Drawing.Point(71, 93);
+            this.txtTarjeta.Location = new System.Drawing.Point(71, 78);
             this.txtTarjeta.Name = "txtTarjeta";
             this.txtTarjeta.Size = new System.Drawing.Size(103, 23);
             this.txtTarjeta.TabIndex = 2;
@@ -194,7 +204,7 @@
             // txtEfectivo
             // 
             this.txtEfectivo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEfectivo.Location = new System.Drawing.Point(71, 59);
+            this.txtEfectivo.Location = new System.Drawing.Point(71, 42);
             this.txtEfectivo.Name = "txtEfectivo";
             this.txtEfectivo.Size = new System.Drawing.Size(103, 23);
             this.txtEfectivo.TabIndex = 1;
@@ -207,7 +217,7 @@
             // 
             this.txtCredito.Enabled = false;
             this.txtCredito.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCredito.Location = new System.Drawing.Point(297, 125);
+            this.txtCredito.Location = new System.Drawing.Point(297, 113);
             this.txtCredito.Name = "txtCredito";
             this.txtCredito.Size = new System.Drawing.Size(103, 23);
             this.txtCredito.TabIndex = 6;
@@ -219,7 +229,7 @@
             // txtTrans
             // 
             this.txtTrans.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTrans.Location = new System.Drawing.Point(297, 93);
+            this.txtTrans.Location = new System.Drawing.Point(297, 78);
             this.txtTrans.Name = "txtTrans";
             this.txtTrans.Size = new System.Drawing.Size(103, 23);
             this.txtTrans.TabIndex = 5;
@@ -232,7 +242,7 @@
             // 
             this.lbSubtitulo.AutoSize = true;
             this.lbSubtitulo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSubtitulo.Location = new System.Drawing.Point(135, 185);
+            this.lbSubtitulo.Location = new System.Drawing.Point(135, 198);
             this.lbSubtitulo.Name = "lbSubtitulo";
             this.lbSubtitulo.Size = new System.Drawing.Size(160, 17);
             this.lbSubtitulo.TabIndex = 210;
@@ -273,7 +283,7 @@
             // txtCheque
             // 
             this.txtCheque.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheque.Location = new System.Drawing.Point(297, 58);
+            this.txtCheque.Location = new System.Drawing.Point(297, 41);
             this.txtCheque.Name = "txtCheque";
             this.txtCheque.Size = new System.Drawing.Size(103, 23);
             this.txtCheque.TabIndex = 4;
@@ -286,21 +296,28 @@
             // 
             this.lbTitulo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTitulo.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTitulo.Location = new System.Drawing.Point(111, 17);
+            this.lbTitulo.Location = new System.Drawing.Point(111, 11);
             this.lbTitulo.Name = "lbTitulo";
             this.lbTitulo.Size = new System.Drawing.Size(201, 20);
             this.lbTitulo.TabIndex = 209;
             this.lbTitulo.Text = "Cantidad a depositar";
             this.lbTitulo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // cbConceptoConBusqueda
+            // btnRetirarTodoElDinero
             // 
-            this.cbConceptoConBusqueda.FormattingEnabled = true;
-            this.cbConceptoConBusqueda.Location = new System.Drawing.Point(56, 222);
-            this.cbConceptoConBusqueda.MaxDropDownItems = 12;
-            this.cbConceptoConBusqueda.Name = "cbConceptoConBusqueda";
-            this.cbConceptoConBusqueda.Size = new System.Drawing.Size(293, 21);
-            this.cbConceptoConBusqueda.TabIndex = 219;
+            this.btnRetirarTodoElDinero.BackColor = System.Drawing.Color.Green;
+            this.btnRetirarTodoElDinero.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRetirarTodoElDinero.FlatAppearance.BorderSize = 0;
+            this.btnRetirarTodoElDinero.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRetirarTodoElDinero.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnRetirarTodoElDinero.ForeColor = System.Drawing.Color.White;
+            this.btnRetirarTodoElDinero.Location = new System.Drawing.Point(125, 162);
+            this.btnRetirarTodoElDinero.Name = "btnRetirarTodoElDinero";
+            this.btnRetirarTodoElDinero.Size = new System.Drawing.Size(160, 24);
+            this.btnRetirarTodoElDinero.TabIndex = 220;
+            this.btnRetirarTodoElDinero.Text = "Retirar Todo";
+            this.btnRetirarTodoElDinero.UseVisualStyleBackColor = false;
+            this.btnRetirarTodoElDinero.Click += new System.EventHandler(this.btnRetirarTodoElDinero_Click);
             // 
             // AgregarRetirarDinero
             // 
@@ -308,6 +325,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(434, 331);
             this.Controls.Add(this.gbContenedor);
+            this.Controls.Add(this.cbConceptos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.MaximizeBox = false;
@@ -345,5 +363,6 @@
         private System.Windows.Forms.Button btnAgregarConcepto;
         private System.Windows.Forms.ComboBox cbConceptos;
         private CustomControlPUDVE.ComboBoxPUDVE cbConceptoConBusqueda;
+        private System.Windows.Forms.Button btnRetirarTodoElDinero;
     }
 }
