@@ -161,8 +161,11 @@ namespace PuntoDeVentaV2
             this.txtbillete20.Name = "txtbillete20";
             this.txtbillete20.Size = new System.Drawing.Size(100, 20);
             this.txtbillete20.TabIndex = 11;
+            this.txtbillete20.Text = "0";
             this.txtbillete20.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtbillete20.Click += new System.EventHandler(this.txtbillete20_Click);
             this.txtbillete20.TextChanged += new System.EventHandler(this.txtbillete20_TextChanged);
+            this.txtbillete20.Enter += new System.EventHandler(this.txtbillete20_Enter);
             this.txtbillete20.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtbillete20_KeyPress);
             // 
             // txtBillete50
@@ -172,7 +175,9 @@ namespace PuntoDeVentaV2
             this.txtBillete50.Name = "txtBillete50";
             this.txtBillete50.Size = new System.Drawing.Size(100, 20);
             this.txtBillete50.TabIndex = 12;
+            this.txtBillete50.Text = "0";
             this.txtBillete50.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBillete50.Click += new System.EventHandler(this.txtBillete50_Click);
             this.txtBillete50.TextChanged += new System.EventHandler(this.txtBillete50_TextChanged);
             this.txtBillete50.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillete50_KeyPress);
             // 
@@ -183,7 +188,9 @@ namespace PuntoDeVentaV2
             this.txtBillete100.Name = "txtBillete100";
             this.txtBillete100.Size = new System.Drawing.Size(100, 20);
             this.txtBillete100.TabIndex = 13;
+            this.txtBillete100.Text = "0";
             this.txtBillete100.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBillete100.Click += new System.EventHandler(this.txtBillete100_Click);
             this.txtBillete100.TextChanged += new System.EventHandler(this.txtBillete100_TextChanged);
             this.txtBillete100.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillete100_KeyPress);
             // 
@@ -194,7 +201,9 @@ namespace PuntoDeVentaV2
             this.txtBillete200.Name = "txtBillete200";
             this.txtBillete200.Size = new System.Drawing.Size(100, 20);
             this.txtBillete200.TabIndex = 14;
+            this.txtBillete200.Text = "0";
             this.txtBillete200.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBillete200.Click += new System.EventHandler(this.txtBillete200_Click);
             this.txtBillete200.TextChanged += new System.EventHandler(this.txtBillete200_TextChanged);
             this.txtBillete200.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillete200_KeyPress);
             // 
@@ -205,7 +214,9 @@ namespace PuntoDeVentaV2
             this.txtBillete500.Name = "txtBillete500";
             this.txtBillete500.Size = new System.Drawing.Size(100, 20);
             this.txtBillete500.TabIndex = 15;
+            this.txtBillete500.Text = "0";
             this.txtBillete500.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBillete500.Click += new System.EventHandler(this.txtBillete500_Click);
             this.txtBillete500.TextChanged += new System.EventHandler(this.txtBillete500_TextChanged);
             this.txtBillete500.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillete500_KeyPress);
             // 
@@ -216,7 +227,9 @@ namespace PuntoDeVentaV2
             this.txtBillete1000.Name = "txtBillete1000";
             this.txtBillete1000.Size = new System.Drawing.Size(100, 20);
             this.txtBillete1000.TabIndex = 16;
+            this.txtBillete1000.Text = "0";
             this.txtBillete1000.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBillete1000.Click += new System.EventHandler(this.txtBillete1000_Click);
             this.txtBillete1000.TextChanged += new System.EventHandler(this.txtBillete1000_TextChanged);
             this.txtBillete1000.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBillete1000_KeyPress);
             // 
@@ -312,7 +325,9 @@ namespace PuntoDeVentaV2
             this.txt10centavo.Name = "txt10centavo";
             this.txt10centavo.Size = new System.Drawing.Size(100, 20);
             this.txt10centavo.TabIndex = 26;
+            this.txt10centavo.Text = "0";
             this.txt10centavo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt10centavo.Click += new System.EventHandler(this.txt10centavo_Click);
             this.txt10centavo.TextChanged += new System.EventHandler(this.txt10centavo_TextChanged);
             this.txt10centavo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt10centavo_KeyPress);
             // 
@@ -323,7 +338,9 @@ namespace PuntoDeVentaV2
             this.txt20centavos.Name = "txt20centavos";
             this.txt20centavos.Size = new System.Drawing.Size(100, 20);
             this.txt20centavos.TabIndex = 27;
+            this.txt20centavos.Text = "0";
             this.txt20centavos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt20centavos.Click += new System.EventHandler(this.txt20centavos_Click);
             this.txt20centavos.TextChanged += new System.EventHandler(this.txt20centavos_TextChanged);
             this.txt20centavos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt20centavos_KeyPress);
             // 
@@ -334,7 +351,9 @@ namespace PuntoDeVentaV2
             this.txt50centavos.Name = "txt50centavos";
             this.txt50centavos.Size = new System.Drawing.Size(100, 20);
             this.txt50centavos.TabIndex = 28;
+            this.txt50centavos.Text = "0";
             this.txt50centavos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt50centavos.Click += new System.EventHandler(this.txt50centavos_Click);
             this.txt50centavos.TextChanged += new System.EventHandler(this.txt50centavos_TextChanged);
             this.txt50centavos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt50centavos_KeyPress);
             // 
@@ -345,7 +364,9 @@ namespace PuntoDeVentaV2
             this.txt1peso.Name = "txt1peso";
             this.txt1peso.Size = new System.Drawing.Size(100, 20);
             this.txt1peso.TabIndex = 29;
+            this.txt1peso.Text = "0";
             this.txt1peso.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt1peso.Click += new System.EventHandler(this.txt1peso_Click);
             this.txt1peso.TextChanged += new System.EventHandler(this.txt1peso_TextChanged);
             this.txt1peso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt1peso_KeyPress);
             // 
@@ -356,7 +377,9 @@ namespace PuntoDeVentaV2
             this.txt2pesos.Name = "txt2pesos";
             this.txt2pesos.Size = new System.Drawing.Size(100, 20);
             this.txt2pesos.TabIndex = 30;
+            this.txt2pesos.Text = "0";
             this.txt2pesos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt2pesos.Click += new System.EventHandler(this.txt2pesos_Click);
             this.txt2pesos.TextChanged += new System.EventHandler(this.txt2pesos_TextChanged);
             this.txt2pesos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt2pesos_KeyPress);
             // 
@@ -367,7 +390,9 @@ namespace PuntoDeVentaV2
             this.txt5pesos.Name = "txt5pesos";
             this.txt5pesos.Size = new System.Drawing.Size(100, 20);
             this.txt5pesos.TabIndex = 31;
+            this.txt5pesos.Text = "0";
             this.txt5pesos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt5pesos.Click += new System.EventHandler(this.txt5pesos_Click);
             this.txt5pesos.TextChanged += new System.EventHandler(this.txt5pesos_TextChanged);
             this.txt5pesos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt5pesos_KeyPress);
             // 
@@ -438,18 +463,22 @@ namespace PuntoDeVentaV2
             this.txt10pesos.Name = "txt10pesos";
             this.txt10pesos.Size = new System.Drawing.Size(100, 20);
             this.txt10pesos.TabIndex = 38;
+            this.txt10pesos.Text = "0";
             this.txt10pesos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt10pesos.Click += new System.EventHandler(this.txt10pesos_Click);
             this.txt10pesos.TextChanged += new System.EventHandler(this.txt10pesos_TextChanged);
             this.txt10pesos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt10pesos_KeyPress);
             // 
             // txt20pesos
             // 
-            this.txt20pesos.Location = new System.Drawing.Point(125, 226);
+            this.txt20pesos.Location = new System.Drawing.Point(125, 227);
             this.txt20pesos.MaxLength = 7;
             this.txt20pesos.Name = "txt20pesos";
             this.txt20pesos.Size = new System.Drawing.Size(100, 20);
             this.txt20pesos.TabIndex = 39;
+            this.txt20pesos.Text = "0";
             this.txt20pesos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt20pesos.Click += new System.EventHandler(this.txt20pesos_Click);
             this.txt20pesos.TextChanged += new System.EventHandler(this.txt20pesos_TextChanged);
             this.txt20pesos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txt20pesos_KeyPress);
             // 
@@ -614,6 +643,7 @@ namespace PuntoDeVentaV2
             this.panel2.Controls.Add(this.label24);
             this.panel2.Controls.Add(this.label23);
             this.panel2.Controls.Add(this.label22);
+            this.panel2.Controls.Add(this.txt20pesos);
             this.panel2.Controls.Add(this.label21);
             this.panel2.Controls.Add(this.label7);
             this.panel2.Controls.Add(this.txt10centavo);
@@ -639,7 +669,6 @@ namespace PuntoDeVentaV2
             this.panel2.Controls.Add(this.lbl10centavos);
             this.panel2.Controls.Add(this.txt10pesos);
             this.panel2.Controls.Add(this.label15);
-            this.panel2.Controls.Add(this.txt20pesos);
             this.panel2.Location = new System.Drawing.Point(368, 39);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(345, 314);

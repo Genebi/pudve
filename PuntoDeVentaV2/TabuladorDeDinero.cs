@@ -240,7 +240,88 @@ namespace PuntoDeVentaV2
             }
         }
 
-        
+        private void txtbillete20_Enter(object sender, EventArgs e)
+        {
+            
+           
+        }
+
+        private void seleccionarCantidad(object sender, EventArgs e)
+        {
+            TextBox txtcantidad = (TextBox)sender;
+            txtcantidad.Focus();
+            txtcantidad.SelectAll();
+        }
+
+        private void txtbillete20_Click(object sender, EventArgs e)
+        {
+            seleccionarCantidad(sender, e);
+        }
+
+        private void txtBillete50_Click(object sender, EventArgs e)
+        {
+            seleccionarCantidad(sender, e);
+        }
+
+        private void txtBillete100_Click(object sender, EventArgs e)
+        {
+            seleccionarCantidad(sender, e);
+        }
+
+        private void txtBillete200_Click(object sender, EventArgs e)
+        {
+            seleccionarCantidad(sender, e);
+        }
+
+        private void txtBillete500_Click(object sender, EventArgs e)
+        {
+            seleccionarCantidad(sender, e);
+        }
+
+        private void txtBillete1000_Click(object sender, EventArgs e)
+        {
+            seleccionarCantidad(sender, e);
+        }
+
+        private void txt10centavo_Click(object sender, EventArgs e)
+        {
+            seleccionarCantidad(sender, e);
+        }
+
+        private void txt20centavos_Click(object sender, EventArgs e)
+        {
+            seleccionarCantidad(sender, e);
+        }
+
+        private void txt50centavos_Click(object sender, EventArgs e)
+        {
+            seleccionarCantidad(sender, e);
+        }
+
+        private void txt1peso_Click(object sender, EventArgs e)
+        {
+            seleccionarCantidad(sender, e);
+        }
+
+        private void txt2pesos_Click(object sender, EventArgs e)
+        {
+            seleccionarCantidad(sender, e);
+        }
+
+        private void txt5pesos_Click(object sender, EventArgs e)
+        {
+            seleccionarCantidad(sender, e);
+        }
+
+        private void txt10pesos_Click(object sender, EventArgs e)
+        {
+            seleccionarCantidad(sender, e);
+        }
+
+        private void txt20pesos_Click(object sender, EventArgs e)
+        {
+            seleccionarCantidad(sender, e);
+        }
 
         private void txt50centavos_TextChanged(object sender, EventArgs e)
         {
@@ -264,62 +345,62 @@ namespace PuntoDeVentaV2
 
         private void TabuladorDeDinero_Load(object sender, EventArgs e)
         {
-            if (txtbillete20.Text == "")
-            {
-                txtbillete20.Text = "0";
-            }
-            if (txtBillete50.Text == "")
-            {
-                txtBillete50.Text = "0";
-            }
-            if (txtBillete100.Text == "")
-            {
-                txtBillete100.Text = "0";
-            }
-            if (txtBillete200.Text == "")
-            {
-                txtBillete200.Text = "0";
-            }
-            if (txtBillete500.Text == "")
-            {
-                txtBillete500.Text = "0";
-            }
-            if (txtBillete1000.Text == "")
-            {
-                txtBillete1000.Text = "0";
-            }
-            if (txt10centavo.Text == "")
-            {
-                txt10centavo.Text = "0";
-            }
-            if (txt20centavos.Text == "")
-            {
-                txt20centavos.Text = "0";
-            }
-            if (txt50centavos.Text == "")
-            {
-                txt50centavos.Text = "0";
-            }
-            if (txt1peso.Text == "")
-            {
-                txt1peso.Text = "0";
-            }
-            if (txt2pesos.Text == "")
-            {
-                txt2pesos.Text = "0";
-            }
-            if (txt5pesos.Text == "")
-            {
-                txt5pesos.Text = "0";
-            }
-            if (txt10pesos.Text == "")
-            {
-                txt10pesos.Text = "0";
-            }
-            if (txt20pesos.Text== "")
-            {
-                txt20pesos.Text = "0";
-            }
+            //if (txtbillete20.Text == "")
+            //{
+            //    txtbillete20.Text = "0";
+            //}
+            //if (txtBillete50.Text == "")
+            //{
+            //    txtBillete50.Text = "0";
+            //}
+            //if (txtBillete100.Text == "")
+            //{
+            //    txtBillete100.Text = "0";
+            //}
+            //if (txtBillete200.Text == "")
+            //{
+            //    txtBillete200.Text = "0";
+            //}
+            //if (txtBillete500.Text == "")
+            //{
+            //    txtBillete500.Text = "0";
+            //}
+            //if (txtBillete1000.Text == "")
+            //{
+            //    txtBillete1000.Text = "0";
+            //}
+            //if (txt10centavo.Text == "")
+            //{
+            //    txt10centavo.Text = "0";
+            //}
+            //if (txt20centavos.Text == "")
+            //{
+            //    txt20centavos.Text = "0";
+            //}
+            //if (txt50centavos.Text == "")
+            //{
+            //    txt50centavos.Text = "0";
+            //}
+            //if (txt1peso.Text == "")
+            //{
+            //    txt1peso.Text = "0";
+            //}
+            //if (txt2pesos.Text == "")
+            //{
+            //    txt2pesos.Text = "0";
+            //}
+            //if (txt5pesos.Text == "")
+            //{
+            //    txt5pesos.Text = "0";
+            //}
+            //if (txt10pesos.Text == "")
+            //{
+            //    txt10pesos.Text = "0";
+            //}
+            //if (txt20pesos.Text== "")
+            //{
+            //    txt20pesos.Text = "0";
+            //}
         }
 
         private void txt10centavo_TextChanged(object sender, EventArgs e)
@@ -467,6 +548,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
+
                 billete100 = Convert.ToDecimal(txtBillete100.Text) * 100;
                 lbl100.Text = billete100.ToString("C2");
             }
