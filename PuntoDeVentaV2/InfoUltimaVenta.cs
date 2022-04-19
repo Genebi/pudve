@@ -32,7 +32,7 @@ namespace PuntoDeVentaV2
         }
 
         private void InfoUltimaVenta_Load(object sender, EventArgs e)
-        {
+                {
             var ticketTemporal = cn.CargarDatos("Select Total, DineroRecibido, CambioTotal FROM ventas WHERE ID ORDER BY ID DESC LIMIT 1");
 
             foreach (DataRow item in ticketTemporal.Rows)
@@ -54,7 +54,7 @@ namespace PuntoDeVentaV2
 
             
 
-            string resultado = oMoneda.Convertir(CambioTotal.ToString(), true, "PESOS");
+            string resultado = oMoneda.Convertir(DetalleVenta.cambio.ToString(), true, "PESOS");
             lbCambioTexto.Text = resultado;
 
             SendKeys.Send("{TAB}");

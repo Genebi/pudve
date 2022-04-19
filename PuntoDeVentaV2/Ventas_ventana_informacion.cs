@@ -10,8 +10,10 @@ using System.Windows.Forms;
 
 namespace PuntoDeVentaV2
 {
+
     public partial class Ventas_ventana_informacion : Form
     {
+
         Conexion cn = new Conexion();
         MetodosBusquedas mb = new MetodosBusquedas();
 
@@ -120,5 +122,7 @@ namespace PuntoDeVentaV2
         {
             this.Dispose();
         }
+
+        
     }
 }
