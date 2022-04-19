@@ -61,10 +61,10 @@
             // 
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
-            this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tituloSeccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tituloSeccion.Location = new System.Drawing.Point(388, 27);
             this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(122, 25);
+            this.tituloSeccion.Size = new System.Drawing.Size(132, 25);
             this.tituloSeccion.TabIndex = 5;
             this.tituloSeccion.Text = "ANTICIPOS";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -118,21 +118,21 @@
             // dpFechaFinal
             // 
             this.dpFechaFinal.CustomFormat = "yyyy-MM-dd";
-            this.dpFechaFinal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dpFechaFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dpFechaFinal.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dpFechaFinal.Location = new System.Drawing.Point(627, 59);
             this.dpFechaFinal.Name = "dpFechaFinal";
-            this.dpFechaFinal.Size = new System.Drawing.Size(120, 23);
+            this.dpFechaFinal.Size = new System.Drawing.Size(120, 22);
             this.dpFechaFinal.TabIndex = 7;
             // 
             // dpFechaInicial
             // 
             this.dpFechaInicial.CustomFormat = "yyyy-MM-dd";
-            this.dpFechaInicial.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dpFechaInicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dpFechaInicial.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dpFechaInicial.Location = new System.Drawing.Point(485, 59);
             this.dpFechaInicial.Name = "dpFechaInicial";
-            this.dpFechaInicial.Size = new System.Drawing.Size(120, 23);
+            this.dpFechaInicial.Size = new System.Drawing.Size(120, 22);
             this.dpFechaInicial.TabIndex = 6;
             // 
             // btnNuevoAnticipo
@@ -144,7 +144,7 @@
             this.btnNuevoAnticipo.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
             this.btnNuevoAnticipo.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
             this.btnNuevoAnticipo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNuevoAnticipo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNuevoAnticipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevoAnticipo.ForeColor = System.Drawing.Color.White;
             this.btnNuevoAnticipo.Location = new System.Drawing.Point(716, 9);
             this.btnNuevoAnticipo.Name = "btnNuevoAnticipo";
@@ -163,7 +163,7 @@
             this.btnBuscarAnticipos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
             this.btnBuscarAnticipos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
             this.btnBuscarAnticipos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscarAnticipos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarAnticipos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscarAnticipos.ForeColor = System.Drawing.Color.White;
             this.btnBuscarAnticipos.Location = new System.Drawing.Point(766, 59);
             this.btnBuscarAnticipos.Name = "btnBuscarAnticipos";
@@ -176,17 +176,17 @@
             // 
             // cbAnticipos
             // 
-            this.cbAnticipos.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbAnticipos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbAnticipos.FormattingEnabled = true;
             this.cbAnticipos.Items.AddRange(new object[] {
             "Por usar",
             "Inhabilitados",
             "Usados",
-            "Parciales",
-            "Devueltos"});
+            "Devueltos",
+            "Parciales"});
             this.cbAnticipos.Location = new System.Drawing.Point(12, 18);
             this.cbAnticipos.Name = "cbAnticipos";
-            this.cbAnticipos.Size = new System.Drawing.Size(185, 24);
+            this.cbAnticipos.Size = new System.Drawing.Size(185, 21);
             this.cbAnticipos.TabIndex = 0;
             this.cbAnticipos.SelectedIndexChanged += new System.EventHandler(this.cbAnticipos_SelectedIndexChanged);
             this.cbAnticipos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbAnticipos_KeyDown);

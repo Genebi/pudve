@@ -94,10 +94,10 @@ namespace PuntoDeVentaV2
 
             var consulta = string.Empty;
 
-            if (estado.Equals(4))
-            {
-                estado = 5;
-            }
+            //if (estado.Equals(4))
+            //{
+            //    estado = 5;
+            //}
 
             //Normal
             //if (tipo == 0)
@@ -338,8 +338,8 @@ namespace PuntoDeVentaV2
 
             if (opcion >= 0)
             {
-                if ((opcion + 1) == 4)
-                    opcion = opcion + 1;
+                //if ((opcion + 1) == 4)
+                //    opcion = opcion + 1;
 
                 CargarDatos(opcion + 1);
             }
