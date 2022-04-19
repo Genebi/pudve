@@ -2805,9 +2805,9 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string actualizarMensajeInventario(int idProductoSeleccionado, string mensaje)
+        public string actualizarMensajeInventario(int idProductoSeleccionado, string mensaje, int estado)
         {
-            var consulta = $"UPDATE mensajesInventario SET Mensaje = '{mensaje}' WHERE IDProducto = {idProductoSeleccionado}";
+            var consulta = $"UPDATE mensajesInventario SET Mensaje = '{mensaje}', Activo = '{estado}' WHERE IDProducto = {idProductoSeleccionado}";
 
             return consulta;
         }
