@@ -2314,7 +2314,7 @@ namespace PuntoDeVentaV2
                                         #endregion
 
                                         // Crear registro en tabla de correos para que por defecto se habilite la opcion de enviar correo al hacer venta
-                                        cn.EjecutarConsulta($"INSERT INTO CorreosProducto (IDUsuario, IDProducto, CorreoPrecioProducto, CorreoStockProducto, CorreoStockMinimo) VALUES ('{FormPrincipal.userID}', '{idProducto}', 1, 1, 1);");
+                                        cn.EjecutarConsulta($"INSERT INTO CorreosProducto (IDUsuario,IDEmpleado, IDProducto, CorreoPrecioProducto, CorreoStockProducto, CorreoStockMinimo) VALUES ('{FormPrincipal.userID}','{FormPrincipal.id_empleado}' ,'{idProducto}', 1, 1, 1);");
 
                                         #region Inicio de Datos de Impuestos
                                         //Se realiza el proceso para guardar los detalles de facturación del producto
@@ -5694,7 +5694,7 @@ namespace PuntoDeVentaV2
                                         #endregion
 
                                         // Crear registro en tabla de correos para que por defecto se habilite la opcion de enviar correo al hacer venta
-                                        cn.EjecutarConsulta($"INSERT INTO CorreosProducto (IDUsuario, IDProducto, CorreoPrecioProducto, CorreoStockProducto, CorreoStockMinimo) VALUES ('{FormPrincipal.userID}', '{idProducto}', 1, 1, 1);");
+                                        cn.EjecutarConsulta($"INSERT INTO CorreosProducto (IDUsuario,IDEmpleado, IDProducto, CorreoPrecioProducto, CorreoStockProducto, CorreoStockMinimo) VALUES ('{FormPrincipal.userID}','{FormPrincipal.id_empleado}', '{idProducto}', 1, 1, 1);");
 
                                         #region Inicio de Datos de Impuestos
                                         //Se realiza el proceso para guardar los detalles de facturación del producto

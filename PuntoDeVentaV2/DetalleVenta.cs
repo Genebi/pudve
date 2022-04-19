@@ -20,7 +20,8 @@ namespace PuntoDeVentaV2
         public static string nameClienteNameVenta = string.Empty;
         public static int idCliente = 0;
         public static float credito = 0f;
-
+        public static float cambio = 0f;
+        public static float restante = 0f;
         private float total = 0;
         private float totalMetodos = 0;
 
@@ -38,6 +39,8 @@ namespace PuntoDeVentaV2
         //mio pruebas a ver si jala xd
         int escredito = 0;
         int primer = 0;
+        bool dioClickEnCredito = false;
+       
 
         public DetalleVenta(float total, string idCliente = "")
         {
@@ -361,7 +364,10 @@ namespace PuntoDeVentaV2
             //    Properties.Settings.Default.Reload();
             //}
 
-
+            if (dioClickEnCredito.Equals(false))
+            {
+                restante = total;
+            }
         }
 
         private void lbCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -393,6 +399,7 @@ namespace PuntoDeVentaV2
 
         private void btnCredito_Click(object sender, EventArgs e)
         {
+            dioClickEnCredito = true;
             AsignarCreditoVenta agregarCredito = new AsignarCreditoVenta(total, SumaMetodos());
 
             agregarCredito.FormClosed += delegate
@@ -413,7 +420,8 @@ namespace PuntoDeVentaV2
                 {
                     lbEliminarCliente.Visible = true;
                 }
-                float restante = total - credito;
+                
+                restante = total - credito;
                 txtEfectivo.Text = restante.ToString();
                 
 
@@ -551,7 +559,7 @@ namespace PuntoDeVentaV2
 
         private void CalcularCambio()
         {
-            double cambio = 0;
+           
 
             //if (credito >= total)
             //{
@@ -579,7 +587,7 @@ namespace PuntoDeVentaV2
 
             if (escredito == 1)
             {
-                cambio = Convert.ToDouble((CantidadDecimal(txtEfectivo.Text) + suma + credito) - total);
+                cambio =(CantidadDecimal(txtEfectivo.Text) + suma + credito) - total;
 
                 if (cambio < 0)
                 {
@@ -590,7 +598,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                cambio = Convert.ToDouble((CantidadDecimal(txtEfectivo.Text) + suma + credito) - total);
+                cambio = (CantidadDecimal(txtEfectivo.Text) + suma + credito) - total;
 
                 if (cambio < 0)
                 {
@@ -599,7 +607,10 @@ namespace PuntoDeVentaV2
 
                 lbTotalCambio.Text =cambio.ToString("C2");
             }
-            
+
+            decimal mandar = Convert.ToDecimal(cambio);
+            InformacionVenta informacionVenta = new InformacionVenta(Convert.ToInt32(mandar));
+
         }
 
         private void lbEliminarCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

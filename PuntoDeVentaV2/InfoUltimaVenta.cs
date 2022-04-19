@@ -23,6 +23,7 @@ namespace PuntoDeVentaV2
         float Total;
         float DineroRecibido;
         float CambioTotal;
+       
         public InfoUltimaVenta()
         {
             InitializeComponent();
@@ -41,13 +42,17 @@ namespace PuntoDeVentaV2
                 CambioTotal = (float)Convert.ToDouble(item[2]);
             }
             lbSucambio.Text = "Su cambio es de:";
-            lbCambio.Text = CambioTotal.ToString("C");
+            lbCambio.Text = DetalleVenta.cambio.ToString("C2");
+            //lbCambio.Text = CambioTotal.ToString("C");
             lbTotalAPagar.Text = "El total a pagar es: " ;
             lbDineroRecibido.Text ="Recibio la cantidad de: ";
-            lbTotalAPagar2.Text = Total.ToString("C");
+            lbTotalAPagar2.Text = DetalleVenta.restante.ToString("C2");
+            //lbTotalAPagar2.Text = Total.ToString("C");
             lbDineroRecibido2.Text = DineroRecibido.ToString("C");
             lbUltimaCompra.Text = "Ultima venta realizada: ";
-            lbFechaVenta.Text = ""+DateTime.Now;
+            lbFechaVenta.Text = ""+DateTime.Now;        
+
+            
 
             string resultado = oMoneda.Convertir(CambioTotal.ToString(), true, "PESOS");
             lbCambioTexto.Text = resultado;
@@ -87,6 +92,9 @@ namespace PuntoDeVentaV2
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
+
+            
+
         }
 
         private void botonRedondo1_Click(object sender, EventArgs e)
@@ -97,6 +105,8 @@ namespace PuntoDeVentaV2
             {
                 ventas.btnUltimoTicket.PerformClick();
             }
+            
+
         }
 
         private void botonRedondo1_Enter(object sender, EventArgs e)

@@ -46,6 +46,8 @@ namespace PuntoDeVentaV2
 
         public static string tipoDeAsignacion = string.Empty;
 
+        
+
         public AsignarPropiedad(object propiedad)
         {
             InitializeComponent();
@@ -597,6 +599,8 @@ namespace PuntoDeVentaV2
                 //tercerCB.Width = 300;
                 //tercerCB.Font = fuenteChica;
 
+
+
                 CheckBox cuartoCB = new CheckBox
                 {
                     Text = "Correo al hacer venta de producto",
@@ -605,6 +609,27 @@ namespace PuntoDeVentaV2
                     Width = 300,
                     Font = fuenteChica
                 };
+
+
+                foreach (var producto in productos)
+                {
+
+
+                    var validar = cn.CargarDatos($"SELECT CorreoVentaProducto FROM CorreosProducto WHERE IDProducto = {producto.Key}");
+
+                    int Status = Convert.ToInt32(validar.Rows[0]["CorreoVentaProducto"]);
+
+                    if (Status.Equals(1))
+                    {
+                        cuartoCB.Checked = true;
+                    }
+                    else if (Status.Equals(0))
+                    {
+                        cuartoCB.Checked = false;
+                    }
+                }
+                    
+
 
                 var checkboxes = new CheckBox[] { cuartoCB };
 
@@ -1560,13 +1585,15 @@ namespace PuntoDeVentaV2
                 //var correoStockMinimo = Convert.ToInt16(checkTercero.Checked);
                 var correoVentaProducto = Convert.ToInt16(checkCuarto.Checked);
 
-                var consulta = "INSERT IGNORE INTO CorreosProducto (ID, IDUsuario, IDProducto, CorreoVentaProducto) VALUES";
+                var consulta = "INSERT IGNORE INTO CorreosProducto (ID, IDUsuario,IDProducto, CorreoVentaProducto) VALUES";
                 var valores = string.Empty;
 
                 foreach (var producto in productos)
                 {
                     // Comprobar si existe registro en la tabla de correos
                     var id = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM CorreosProducto WHERE IDProducto = {producto.Key}", 1));
+                    
+                       
 
                     if (id > 0)
                     {
