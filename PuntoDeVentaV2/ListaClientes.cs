@@ -49,7 +49,7 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
             {
-                sql_con = new MySqlConnection("datasource="+ Properties.Settings.Default.Hosting +";port=6666;username=root;password=;database=pudve;");
+                sql_con = new MySqlConnection("datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;");
             }
             else
             {
@@ -103,7 +103,7 @@ namespace PuntoDeVentaV2
 
         private void realizarMovimiento()
         {
-           
+
         }
 
         private void DGVClientes_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -136,7 +136,7 @@ namespace PuntoDeVentaV2
                             Ventas.ventaGuardada = true;
                         }
                     }
-                    
+
                     //Editar
                     if (tipo == 1)
                     {
@@ -226,7 +226,7 @@ namespace PuntoDeVentaV2
             }
             else if (e.KeyCode == Keys.Down && !DGVClientes.Rows.Count.Equals(0))
             {
-                
+
                 //DGVClientes.Rows[0].Cells["RFC"].Selected = true;
                 if (DGVClientes.Rows.Count != 0)
                 {
@@ -273,12 +273,12 @@ namespace PuntoDeVentaV2
 
         private void DGVClientes_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode==Keys.Up && DGVClientes.CurrentRow.Index == 0)
+            if (e.KeyCode == Keys.Up && DGVClientes.CurrentRow.Index == 0)
             {
                 DGVClientes.ClearSelection();
                 txtBuscador.Focus();
             }
-            else if (e.KeyCode==Keys.Enter && !DGVClientes.Rows.Count.Equals(0))
+            else if (e.KeyCode == Keys.Enter && !DGVClientes.Rows.Count.Equals(0))
             {
                 DGVClientes_CellClick(this, new DataGridViewCellEventArgs(4, DGVClientes.CurrentRow.Index));
 
@@ -288,6 +288,53 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Escape)
             {
                 Close();
+            }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            using (DataTable dtPublicoGeneral = cn.CargarDatos(cs.BuscarPublicaGeneral()))
+            {
+                if (!dtPublicoGeneral.Rows.Count.Equals(0))
+                {
+                    DataRow drPublicoGeneral = dtPublicoGeneral.Rows[0];
+                    var IDPublicoGeneral = Convert.ToInt32(drPublicoGeneral["ID"].ToString());
+                    var razonSocialPublicoGeneral = drPublicoGeneral["RazonSocial"].ToString();
+                    DetalleVenta.idCliente = IDPublicoGeneral;
+                    DetalleVenta.cliente = razonSocialPublicoGeneral;
+                    DetalleVenta.nameClienteNameVenta = razonSocialPublicoGeneral;
+                    AsignarCreditoVenta.idCliente = IDPublicoGeneral;
+                    AsignarCreditoVenta.cliente = razonSocialPublicoGeneral;
+                    Ventas.idCliente = IDPublicoGeneral.ToString();
+                    Ventas.statusVenta = "2";
+                    Ventas.ventaGuardada = true;
+                    this.Close();
+                }
+                else
+                {
+                    var resultado = cn.EjecutarConsulta(cs.AgregarPublicoGeneral());
+                    if (resultado.Equals(1))
+                    {
+                        using (DataTable dtNuevoClienteGeneral = cn.CargarDatos(cs.ObtenerDatosClientePublicoGeneral()))
+                        {
+                            if (!dtNuevoClienteGeneral.Rows.Count.Equals(0))
+                            {
+                                DataRow drNuevoPublicoGeneral = dtNuevoClienteGeneral.Rows[0];
+                                var IDPublicoGeneral = Convert.ToInt32(drNuevoPublicoGeneral["ID"].ToString());
+                                var razonSocialPublicoGeneral = drNuevoPublicoGeneral["RazonSocial"].ToString();
+                                DetalleVenta.idCliente = IDPublicoGeneral;
+                                DetalleVenta.cliente = razonSocialPublicoGeneral;
+                                DetalleVenta.nameClienteNameVenta = razonSocialPublicoGeneral;
+                                AsignarCreditoVenta.idCliente = IDPublicoGeneral;
+                                AsignarCreditoVenta.cliente = razonSocialPublicoGeneral;
+                                Ventas.idCliente = IDPublicoGeneral.ToString();
+                                Ventas.statusVenta = "2";
+                                Ventas.ventaGuardada = true;
+                                this.Close();
+                            }
+                        }
+                    }
+                }
             }
         }
     }

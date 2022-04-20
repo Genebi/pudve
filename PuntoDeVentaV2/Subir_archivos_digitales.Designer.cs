@@ -413,6 +413,7 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(759, 82);
             this.panel6.TabIndex = 17;
+            this.panel6.Paint += new System.Windows.Forms.PaintEventHandler(this.panel6_Paint);
             // 
             // label19
             // 
@@ -467,7 +468,7 @@
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(400, 17);
             this.label7.TabIndex = 0;
-            this.label7.Text = "Antes de subir sus archivos digitales, de clic en el siguinete enlace";
+            this.label7.Text = "Antes de subir sus archivos digitales, de clic en el siguiente enlace";
             // 
             // Subir_archivos_digitales
             // 

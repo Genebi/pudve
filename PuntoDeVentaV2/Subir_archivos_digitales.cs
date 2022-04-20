@@ -454,6 +454,11 @@ namespace PuntoDeVentaV2
             label19.Font = new Font(label19.Font, FontStyle.Underline);
         }
 
+        private void panel6_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         private void tipo_validacion(int opc, string ruta_destino)
         {
             if(opc == 1)

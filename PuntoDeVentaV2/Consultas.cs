@@ -3769,5 +3769,26 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string BuscarPublicaGeneral()
+        {
+            var consula = $"SELECT ID , RazonSocial FROM clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND RFC = 'XAXX010101000' AND RazonSocial = 'PUBLICO GENERAL'";
+
+            return consula;
+        }
+
+        public string AgregarPublicoGeneral()
+        {
+            var consulta = $"INSERT INTO clientes(IDUsuario,RazonSocial,RFC) VALUES ('{FormPrincipal.userID}', 'PUBLICO GENERAL', 'XAXX010101000')";
+
+            return consulta;
+        }
+
+        public string ObtenerDatosClientePublicoGeneral()
+        {
+            var consulta = $"SELECT ID, RazonSocial FROM clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND RFC = 'XAXX010101000' AND RazonSocial = 'PUBLICO GENERAL' ORDER BY ID DESC LIMIT 1";
+
+            return consulta;
+        }
     }
 }  
