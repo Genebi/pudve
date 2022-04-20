@@ -451,6 +451,7 @@ namespace PuntoDeVentaV2
         private void Subir_archivos_digitales_Load(object sender, EventArgs e)
         {
             cargar_datos();
+            label19.Font = new Font(label19.Font, FontStyle.Underline);
         }
 
         private void tipo_validacion(int opc, string ruta_destino)
