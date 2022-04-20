@@ -249,8 +249,23 @@ namespace PuntoDeVentaV2
         private void seleccionarCantidad(object sender, EventArgs e)
         {
             TextBox txtcantidad = (TextBox)sender;
-            txtcantidad.Focus();
-            txtcantidad.SelectAll();
+            bool esNum;
+            decimal cantidad = 0;
+            esNum = decimal.TryParse(txtcantidad.Text, out cantidad);
+            if (esNum)
+            {
+                if (cantidad.Equals(0))
+                {
+                    txtcantidad.Focus();
+                    txtcantidad.SelectAll();
+                }
+                else
+                {
+                    txtcantidad.Focus();
+                    
+                }
+            }
+           
         }
 
         private void txtbillete20_Click(object sender, EventArgs e)
