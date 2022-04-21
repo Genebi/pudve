@@ -46,6 +46,13 @@ namespace PuntoDeVentaV2
         static public List<string> detalleProductoBasico = new List<string>();
         static public List<string> detalleProductoGeneral = new List<string>();
 
+
+        //Miooooooooooo
+        static public int producto = 0;
+        static public int servicio = 0;
+        static public int combo = 0;
+
+
         List<string> prodServPaq = new List<string>();
 
         Conexion cn = new Conexion();
@@ -2554,24 +2561,31 @@ namespace PuntoDeVentaV2
 
                                         if (this.Text.Trim().Equals("AGREGAR PRODUCTO"))
                                         {
-                                            tituloVentana = "Se guardo exitosamente el producto....";
+                                            producto = 1;
+                                            //tituloVentana = "Se guardo exitosamente el producto....";
                                         }
                                         else if (this.Text.Trim().Equals("EDITAR PRODUCTO"))
                                         {
-                                            tituloVentana = "Se actualizo exitosamente el producto....";
+                                            producto = 2;
+                                            //tituloVentana = "Se actualizo exitosamente el producto....";
                                         }
                                         else if (this.Text.Trim().Equals("COPIAR PRODUCTO"))
                                         {
-                                            tituloVentana = "Se copio exitosamente el producto....";
+                                            producto = 3;
+                                           // tituloVentana = "Se copio exitosamente el producto....";
                                         }
 
                                         if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                                         {
-                                            MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
+                                            MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto();
+                                            MAECP.ShowDialog();
+                                            //MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                                         }
                                         else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                                         {
-                                            MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
+                                            MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto();
+                                            MAECP.ShowDialog();
+                                            //MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                                         }
 
                                         //Cierra la ventana donde se agregan los datos del producto
@@ -3110,36 +3124,46 @@ namespace PuntoDeVentaV2
 
                                     if (this.Text.Trim().Equals("AGREGAR COMBOS"))
                                     {
-                                        tituloVentana = "Se guardo exitosamente el combo....";
+                                        combo = 1;
+                                        //tituloVentana = "Se guardo exitosamente el combo....";
                                     }
                                     else if (this.Text.Trim().Equals("EDITAR COMBOS"))
                                     {
-                                        tituloVentana = "Se actualizo exitosamente el combo....";
+                                        combo = 2; 
+                                        //tituloVentana = "Se actualizo exitosamente el combo....";
                                     }
                                     else if (this.Text.Trim().Equals("COPIAR COMBOS"))
                                     {
-                                        tituloVentana = "Se copio exitosamente el combo....";
+                                        combo = 3;
+                                        //tituloVentana = "Se copio exitosamente el combo....";
                                     }
                                     else if (this.Text.Trim().Equals("AGREGAR SERVICIOS"))
                                     {
-                                        tituloVentana = "Se guardo exitosamente el servicio....";
+                                        servicio = 1;
+                                        //tituloVentana = "Se guardo exitosamente el servicio....";
                                     }
                                     else if (this.Text.Trim().Equals("EDITAR SERVICIOS"))
                                     {
-                                        tituloVentana = "Se actualizo exitosamente el servicio....";
+                                        servicio = 2;
+                                        //tituloVentana = "Se actualizo exitosamente el servicio....";
                                     }
                                     else if (this.Text.Trim().Equals("COPIAR SERVICIOS"))
                                     {
-                                        tituloVentana = "Se copio exitosamente el servicio....";
+                                        servicio = 3;
+                                        //tituloVentana = "Se copio exitosamente el servicio....";
                                     }
 
                                     if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                                     {
-                                        MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
+                                        MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto();
+                                        MAECP.ShowDialog();
+                                        //MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                                     }
                                     else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                                     {
-                                        MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
+                                        MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto();
+                                        MAECP.ShowDialog();
+                                      //  MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                                     }
 
                                     //Cierra la ventana donde se agregan los datos del producto

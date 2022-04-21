@@ -798,6 +798,12 @@
     <Compile Include="Login.Designer.cs">
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
+    <Compile Include="MensajeAgregarEditarCopiarProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MensajeAgregarEditarCopiarProducto.Designer.cs">
+      <DependentUpon>MensajeAgregarEditarCopiarProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="MensajePorFavorEspere.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1427,6 +1433,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MensajeAgregarEditarCopiarProducto.resx">
+      <DependentUpon>MensajeAgregarEditarCopiarProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MensajePorFavorEspere.resx">
       <DependentUpon>MensajePorFavorEspere.cs</DependentUpon>
