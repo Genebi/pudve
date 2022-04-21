@@ -3172,7 +3172,7 @@ namespace PuntoDeVentaV2
                         {
                             string[] datos = new string[] {
                             "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
-                            efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo
+                            efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo, FormPrincipal.id_empleado.ToString()
                         };
                             cn.EjecutarConsulta(cs.OperacionCaja(datos));
                         }
