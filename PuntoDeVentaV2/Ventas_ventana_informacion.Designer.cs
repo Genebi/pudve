@@ -34,7 +34,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btn_aceptar = new System.Windows.Forms.Button();
             this.pnl_info = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.SuspendLayout();
             // 
             // label1
@@ -42,7 +41,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(70, 23);
+            this.label1.Location = new System.Drawing.Point(116, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(219, 18);
             this.label1.TabIndex = 0;
@@ -52,13 +51,13 @@
             // 
             this.btn_aceptar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_aceptar.BackColor = System.Drawing.Color.MediumTurquoise;
+            this.btn_aceptar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(132)))), ((int)(((byte)(49)))));
             this.btn_aceptar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btn_aceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_aceptar.ForeColor = System.Drawing.Color.White;
-            this.btn_aceptar.Location = new System.Drawing.Point(132, 162);
+            this.btn_aceptar.Location = new System.Drawing.Point(141, 172);
             this.btn_aceptar.Name = "btn_aceptar";
-            this.btn_aceptar.Size = new System.Drawing.Size(95, 30);
+            this.btn_aceptar.Size = new System.Drawing.Size(144, 30);
             this.btn_aceptar.TabIndex = 7;
             this.btn_aceptar.Text = "Aceptar";
             this.btn_aceptar.UseVisualStyleBackColor = false;
@@ -68,35 +67,26 @@
             // 
             this.pnl_info.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnl_info.ForeColor = System.Drawing.Color.Black;
-            this.pnl_info.Location = new System.Drawing.Point(12, 57);
+            this.pnl_info.Location = new System.Drawing.Point(12, 45);
             this.pnl_info.Name = "pnl_info";
-            this.pnl_info.Size = new System.Drawing.Size(335, 99);
+            this.pnl_info.Size = new System.Drawing.Size(414, 111);
             this.pnl_info.TabIndex = 8;
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.BackColor = System.Drawing.Color.DarkGray;
-            this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(0, -2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(359, 216);
-            this.groupBox1.TabIndex = 9;
-            this.groupBox1.TabStop = false;
             // 
             // Ventas_ventana_informacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Beige;
-            this.ClientSize = new System.Drawing.Size(359, 216);
+            this.BackColor = System.Drawing.Color.MintCream;
+            this.ClientSize = new System.Drawing.Size(437, 216);
             this.Controls.Add(this.pnl_info);
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ForeColor = System.Drawing.Color.White;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.ForeColor = System.Drawing.Color.Black;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Ventas_ventana_informacion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Ventas_ventana_informacion";
@@ -110,6 +100,5 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_aceptar;
         private System.Windows.Forms.Panel pnl_info;
-        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
