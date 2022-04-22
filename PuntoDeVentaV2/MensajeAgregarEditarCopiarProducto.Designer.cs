@@ -38,16 +38,17 @@ namespace PuntoDeVentaV2
             // label1
             // 
             this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
-            this.label1.Location = new System.Drawing.Point(9, 31);
+            this.label1.Location = new System.Drawing.Point(26, 41);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 66);
+            this.label1.Size = new System.Drawing.Size(35, 35);
             this.label1.TabIndex = 0;
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // lblMensaje
             // 
             this.lblMensaje.AutoSize = true;
             this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMensaje.Location = new System.Drawing.Point(84, 56);
+            this.lblMensaje.Location = new System.Drawing.Point(67, 50);
             this.lblMensaje.Name = "lblMensaje";
             this.lblMensaje.Size = new System.Drawing.Size(112, 16);
             this.lblMensaje.TabIndex = 1;
@@ -58,7 +59,7 @@ namespace PuntoDeVentaV2
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(132)))), ((int)(((byte)(49)))));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.SystemColors.Control;
-            this.button1.Location = new System.Drawing.Point(260, 108);
+            this.button1.Location = new System.Drawing.Point(265, 93);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(101, 31);
             this.button1.TabIndex = 2;
@@ -70,8 +71,8 @@ namespace PuntoDeVentaV2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.ClientSize = new System.Drawing.Size(376, 150);
+            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.ClientSize = new System.Drawing.Size(376, 134);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lblMensaje);
             this.Controls.Add(this.label1);
