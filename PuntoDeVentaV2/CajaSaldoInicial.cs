@@ -29,30 +29,54 @@ namespace PuntoDeVentaV2
         {
             if (todosLosAbonos.Equals("Si"))
             {
-                List<int> numeros = new List<int>();
+                List<int> IDsDeCroteDeCaja = new List<int>();
+                List<int> IDEmpleados = new List<int>();
 
-                using (DataTable dtTodosSaldoInicial = cn.CargarDatos(cs.cargarSaldoInicialTodos()))
+                using (DataTable dtIDsEpleados = cn.CargarDatos(cs.cargarIDsDeEmpleados()))
                 {
-                    if (!dtTodosSaldoInicial.Rows.Equals(0))
+                    if (!dtIDsEpleados.Rows.Count.Equals(0))
                     {
-                        foreach (DataRow item in dtTodosSaldoInicial.Rows)
+                        foreach (DataRow item in dtIDsEpleados.Rows)
                         {
-                            numeros.Add(Convert.ToInt32(item["IDCaja"].ToString()));
+                            IDEmpleados.Add(Convert.ToInt32(item["ID"].ToString()));
                         }
+                    }
+                }
 
-                        using (DataTable dtResultadoConcentradooHistorialCorteDeCaja = cn.CargarDatos(cs.resultadoConcentradooHistorialCorteDeCaja(numeros.ToArray())))
+                var noEstaVacia = IsEmpty(IDEmpleados);
+
+                if (noEstaVacia)
+                {
+                    var resultadoIDEmpleados = string.Join(",", IDEmpleados);
+
+                    using (DataTable dtcargarNuevoSaldoInicial = cn.CargarDatos(cs.cargarNuevoSaldoInicial(resultadoIDEmpleados)))
+                    {
+                        if (!dtcargarNuevoSaldoInicial.Rows.Count.Equals(0))
                         {
-                            if (!dtResultadoConcentradooHistorialCorteDeCaja.Rows.Count.Equals(0))
+                            foreach (DataRow item in dtcargarNuevoSaldoInicial.Rows)
                             {
-                                foreach (DataRow item in dtResultadoConcentradooHistorialCorteDeCaja.Rows)
-                                {
-                                    lbEfectivoAbonos.Text = convertirCantidadHaciaDecimal(item["Efectivo"].ToString()).ToString("C2");
-                                    lbTarjetaAbonos.Text = convertirCantidadHaciaDecimal(item["Tarjeta"].ToString()).ToString("C2");
-                                    lbValesAbonos.Text = convertirCantidadHaciaDecimal(item["Vales"].ToString()).ToString("C2");
-                                    lbChequeAbonos.Text = convertirCantidadHaciaDecimal(item["Cheque"].ToString()).ToString("C2");
-                                    lbTransferenciaAbonos.Text = convertirCantidadHaciaDecimal(item["Transferencia"].ToString()).ToString("C2");
-                                    lbTCreditoC.Text = convertirCantidadHaciaDecimal(item["SaldoInicial"].ToString()).ToString("C2");
-                                }
+                                IDsDeCroteDeCaja.Add(Convert.ToInt32(item["IDCaja"].ToString()));
+                            }
+                        }
+                    }
+                }
+
+                noEstaVacia = IsEmpty(IDsDeCroteDeCaja);
+
+                if (noEstaVacia)
+                {
+                    using (DataTable dtResultadoConcentradooHistorialCorteDeCaja = cn.CargarDatos(cs.resultadoConcentradooHistorialCorteDeCaja(IDsDeCroteDeCaja.ToArray())))
+                    {
+                        if (!dtResultadoConcentradooHistorialCorteDeCaja.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtResultadoConcentradooHistorialCorteDeCaja.Rows)
+                            {
+                                lbEfectivoAbonos.Text = convertirCantidadHaciaDecimal(item["Efectivo"].ToString()).ToString("C2");
+                                lbTarjetaAbonos.Text = convertirCantidadHaciaDecimal(item["Tarjeta"].ToString()).ToString("C2");
+                                lbValesAbonos.Text = convertirCantidadHaciaDecimal(item["Vales"].ToString()).ToString("C2");
+                                lbChequeAbonos.Text = convertirCantidadHaciaDecimal(item["Cheque"].ToString()).ToString("C2");
+                                lbTransferenciaAbonos.Text = convertirCantidadHaciaDecimal(item["Transferencia"].ToString()).ToString("C2");
+                                lbTCreditoC.Text = convertirCantidadHaciaDecimal(item["SaldoInicial"].ToString()).ToString("C2");
                             }
                         }
                     }
@@ -97,6 +121,18 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private bool IsEmpty(List<int> iDEmpleados)
+        {
+            var isEmpty = true;
+
+            if (iDEmpleados.Equals(null))
+            {
+                isEmpty = false;
+            }
+
+            return isEmpty;
         }
 
         private decimal convertirCantidadHaciaDecimal(string cantidad)
