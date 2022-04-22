@@ -20,6 +20,10 @@ namespace PuntoDeVentaV2
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
+            AgregarEditarProducto.producto = 0;
+            AgregarEditarProducto.servicio = 0;
+            AgregarEditarProducto.combo = 0;
+
         }
 
         private void MensajeAgregarEditarCopiarProducto_Load(object sender, EventArgs e)
@@ -73,7 +77,10 @@ namespace PuntoDeVentaV2
         private void MensajeAgregarEditarCopiarProducto_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape) 
-            {                                
+            {
+                AgregarEditarProducto.producto = 0;
+                AgregarEditarProducto.servicio = 0;
+                AgregarEditarProducto.combo = 0;
                 this.Close(); 
             }                        
         }
@@ -81,6 +88,11 @@ namespace PuntoDeVentaV2
         private void botonRedondo1_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }   
 }
