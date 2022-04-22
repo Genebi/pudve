@@ -17,6 +17,9 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
+
+        
+
         public string[] datosCliente;
 
         private int idVenta = 0;
@@ -312,7 +315,47 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    var resultado = cn.EjecutarConsulta(cs.AgregarPublicoGeneral());
+                    var UltimoNumeroCliente = string.Empty;
+                    using (DataTable dtUltimocliente = cn.CargarDatos(cs.UltimoNumerodeCliente()))
+                    {
+                        if (!dtUltimocliente.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtUltimocliente.Rows)
+                            {
+                                var numCliente = Convert.ToInt32(item["NumeroCliente"]);
+                                var longitud = 6 - numCliente.ToString().Length;
+                                if (longitud.Equals(5))
+                                {
+                                    UltimoNumeroCliente = $"00000{numCliente+1}";
+                                }
+                                if (longitud.Equals(4))
+                                {
+                                    UltimoNumeroCliente = $"0000{numCliente+1}";
+                                }
+                                if (longitud.Equals(3))
+                                {
+                                    UltimoNumeroCliente = $"000{numCliente+1}";
+                                }
+                                if (longitud.Equals(2))
+                                {
+                                    UltimoNumeroCliente = $"00{numCliente+1}";
+                                }
+                                if (longitud.Equals(1))
+                                {
+                                    UltimoNumeroCliente = $"0{numCliente+1}";
+                                }
+                                if (longitud.Equals(0))
+                                {
+                                    UltimoNumeroCliente = $"{numCliente+1}";
+                                }
+                            }
+                        }
+                        else
+                        {
+                            UltimoNumeroCliente = "000001";     
+                        }
+                    }
+                    var resultado = cn.EjecutarConsulta(cs.AgregarPublicoGeneral(UltimoNumeroCliente));
                     if (resultado.Equals(1))
                     {
                         using (DataTable dtNuevoClienteGeneral = cn.CargarDatos(cs.ObtenerDatosClientePublicoGeneral()))

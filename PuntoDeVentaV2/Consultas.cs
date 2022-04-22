@@ -3777,9 +3777,9 @@ namespace PuntoDeVentaV2
             return consula;
         }
 
-        public string AgregarPublicoGeneral()
+        public string AgregarPublicoGeneral(string numeroCliente)
         {
-            var consulta = $"INSERT INTO clientes(IDUsuario,RazonSocial,RFC) VALUES ('{FormPrincipal.userID}', 'PUBLICO GENERAL', 'XAXX010101000')";
+            var consulta = $"INSERT INTO clientes (IDUsuario,RazonSocial,NombreComercial,RFC,UsoCFDI,Pais,Estado,Municipio,Localidad,CodigoPostal,Colonia,Calle,NoExterior,NoInterior,regimenfiscal,Email,Telefono,FormaPago,FechaOperacion,Status,TipoCliente,NumeroCliente )VALUES( '{FormPrincipal.userID}', 'PUBLICO GENERAL', '','XAXX010101000','G01', '','','','','','','','','','','','','01','{DateTime.Now.ToString("yyyy-mm-dd HH:mm:ss")}','1','0','{numeroCliente}' )";
 
             return consulta;
         }
@@ -3787,6 +3787,13 @@ namespace PuntoDeVentaV2
         public string ObtenerDatosClientePublicoGeneral()
         {
             var consulta = $"SELECT ID, RazonSocial FROM clientes WHERE IDUsuario = '{FormPrincipal.userID}' AND RFC = 'XAXX010101000' AND RazonSocial = 'PUBLICO GENERAL' ORDER BY ID DESC LIMIT 1";
+
+            return consulta;
+        }
+
+        public string UltimoNumerodeCliente()
+        {
+            var consulta = $"SELECT NumeroCliente FROM clientes WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY ID DESC LIMIT 1";
 
             return consulta;
         }

@@ -385,6 +385,7 @@
             this.cbStock.Name = "cbStock";
             this.cbStock.Size = new System.Drawing.Size(246, 24);
             this.cbStock.TabIndex = 28;
+            this.cbStock.SelectedIndexChanged += new System.EventHandler(this.cbStock_SelectedIndexChanged);
             // 
             // checkPrecio
             // 

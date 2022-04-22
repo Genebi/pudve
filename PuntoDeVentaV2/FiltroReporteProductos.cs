@@ -525,6 +525,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void cbStock_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
         //private void cbCustom_SelectionChangeCommitted(object sender, EventArgs e)
         //{
         //    var comboBoxCutom = (ComboBox)sender;
