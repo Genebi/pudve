@@ -3745,6 +3745,8 @@ namespace PuntoDeVentaV2
         private void limpiarVariablesParaTotales()
         {
             totalEfectivoVentaEnCaja = totalTarjetaVentaEnCaja = totalValesEnVentaCaja = totalChequesVentaEnCaja = totalTransferenciaVentaEnCaja = totalSaldoInicialVentaEnCaja = totalEfectivoAnticiposEnCaja = totalTarjetaAnticiposEnCaja = totalValesAnticiposEnCaja = totalChequesAnticipoEnCaja = totalTransferenciaAnticiposEnCaja = totalEfectivoDepsitosEnCaja = totalTarjetaDepositosEnCaja = totalValesDepositosEnCaja = totalChequesDepsoitosEnCaja = totalTransferenciasDepositosEnCaja = totalEfectivoRetiroEnCaja = totalTarjetaRetiroEnCaja = totalValesRetiroEnCaja = totalChequesRetiroEnCaja = totalTransferenciaRetiroEnCaja = totalAbonoEfectivo = totalAbonoTarjeta = totalAbonoVales = totalAbonoCheque = totalAbonoTransferencia = totalAbonoRealizado = cantidadEfectivoSaldoInicialEnCaja = cantidadTarjetaSaldoInicialEnCaja = cantidadValesSaldoInicialEnCaja = cantidadChequeSaldoInicialEnCaja = cantidadTransferenciaSaldoInicialEnCaja = 0;
+
+            cantidadEfectivoAgregado = cantidadTarjetaAgregado = cantidadValesAgregado = cantidadChequeAgregado = cantidadTransferenciaAgregado = cantidadTotalDineroAgregado = cantidadEfectivoRetirado = cantidadTarjetaRetirado = cantidadValesRetirado = cantidadChequeRetirado = cantidadTransferenciaRetirado = cantidadTotalDineroRetirado = 0;
         }
 
         private void mostrarTotalEnCaja()
@@ -4745,11 +4747,11 @@ namespace PuntoDeVentaV2
                                 cantidadTotalDineroRetirado = Convert.ToDecimal(item["TotalRetiros"].ToString());
                             }
 
-                            lbEfectivoR.Text = cantidadEfectivo.ToString("C2");
-                            lbTarjetaR.Text = cantidadTarjeta.ToString("C2");
-                            lbValesR.Text = cantidadVales.ToString("C2");
-                            lbChequeR.Text = cantidadCheque.ToString("C2");
-                            lbTransferenciaR.Text = cantidadTransferencia.ToString("C2");
+                            lbEfectivoR.Text = cantidadEfectivoRetirado.ToString("C2");
+                            lbTarjetaR.Text = cantidadTarjetaRetirado.ToString("C2");
+                            lbValesR.Text = cantidadValesRetirado.ToString("C2");
+                            lbChequeR.Text = cantidadChequeRetirado.ToString("C2");
+                            lbTransferenciaR.Text = cantidadTransferenciaRetirado.ToString("C2");
                             lbTRetirado.Text = cantidadTotalDineroRetirado.ToString("C2");
                         }
                     }
