@@ -1608,8 +1608,8 @@ namespace PuntoDeVentaV2
             {
                 verComboBoxAdministradorEmpleado();
 
-                CargarSaldoInicial();
                 limpiarVariablesParaTotales();
+                CargarSaldoInicial();
                 if (!FormPrincipal.userNickName.Contains("@"))
                 {
                     cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
