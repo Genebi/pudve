@@ -450,7 +450,6 @@ namespace PuntoDeVentaV2
                     {
                         //if ()
                         //{
-
                         //}
                         //var datoObtenido = "";
                         //var consultarVacio = cn.CargarDatos($"SELECT Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, FechaOperacion FROM Caja WHERE IDUsuario = {FormPrincipal.userID} ORDER BY FechaOperacion DESC LIMIT 1");
