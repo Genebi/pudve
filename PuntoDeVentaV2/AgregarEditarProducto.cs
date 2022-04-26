@@ -48,9 +48,9 @@ namespace PuntoDeVentaV2
 
 
         //Miooooooooooo
-        static public int producto = 0;
-        static public int servicio = 0;
-        static public int combo = 0;
+         public string titulo;
+         public string texto;
+         public string SeleccionaImagen;
 
 
         List<string> prodServPaq = new List<string>();
@@ -2561,29 +2561,34 @@ namespace PuntoDeVentaV2
 
                                         if (this.Text.Trim().Equals("AGREGAR PRODUCTO"))
                                         {
-                                            producto = 1;
-                                            //tituloVentana = "Se guardo exitosamente el producto....";
+                                            titulo = "Producto Agregado";
+                                           texto= "Se guardo exitosamente el producto....";
+                                            SeleccionaImagen = "correcto";
                                         }
                                         else if (this.Text.Trim().Equals("EDITAR PRODUCTO"))
                                         {
-                                            producto = 2;
-                                            //tituloVentana = "Se actualizo exitosamente el producto....";
+                                            titulo = "Producto Actualizado";
+                                            texto = "Se actualizo exitosamente el producto....";
+                                            SeleccionaImagen = "correcto";
                                         }
                                         else if (this.Text.Trim().Equals("COPIAR PRODUCTO"))
                                         {
-                                            producto = 3;
-                                           // tituloVentana = "Se copio exitosamente el producto....";
+                                            titulo = "Producto Copiado";
+                                            texto = "Se copio exitosamente el producto....";
+                                            SeleccionaImagen = "correcto";
                                         }
 
                                         if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                                         {
-                                            MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto();
+                                            
+                                            MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo , texto, SeleccionaImagen);
                                             MAECP.ShowDialog();
                                             //MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                                         }
                                         else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                                         {
-                                            MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto();
+                                            
+                                            MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo,texto,SeleccionaImagen);
                                             MAECP.ShowDialog();
                                             //MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                                         }
@@ -3124,44 +3129,51 @@ namespace PuntoDeVentaV2
 
                                     if (this.Text.Trim().Equals("AGREGAR COMBOS"))
                                     {
-                                        combo = 1;
-                                        //tituloVentana = "Se guardo exitosamente el combo....";
+                                        titulo = "Combo Guardado";
+                                        texto = "Se guardo exitosamente el combo....";
+                                        SeleccionaImagen = "correcto";
                                     }
                                     else if (this.Text.Trim().Equals("EDITAR COMBOS"))
                                     {
-                                        combo = 2; 
-                                        //tituloVentana = "Se actualizo exitosamente el combo....";
+                                        titulo = "Combo Actualizado"; 
+                                        texto = "Se actualizo exitosamente el combo....";
+                                        SeleccionaImagen = "correcto";
                                     }
                                     else if (this.Text.Trim().Equals("COPIAR COMBOS"))
                                     {
-                                        combo = 3;
-                                        //tituloVentana = "Se copio exitosamente el combo....";
+                                        titulo = "Combo Copiado";
+                                        texto = "Se copio exitosamente el combo....";
+                                        SeleccionaImagen = "correcto";
                                     }
                                     else if (this.Text.Trim().Equals("AGREGAR SERVICIOS"))
                                     {
-                                        servicio = 1;
-                                        //tituloVentana = "Se guardo exitosamente el servicio....";
+                                        titulo = "Servicio Agregado";
+                                        texto = "Se guardo exitosamente el servicio....";
+                                        SeleccionaImagen = "correcto";
                                     }
                                     else if (this.Text.Trim().Equals("EDITAR SERVICIOS"))
                                     {
-                                        servicio = 2;
-                                        //tituloVentana = "Se actualizo exitosamente el servicio....";
+                                        titulo = "Servicio Actualizado";
+                                        texto = "Se actualizo exitosamente el servicio....";
+                                        SeleccionaImagen = "correcto";
                                     }
                                     else if (this.Text.Trim().Equals("COPIAR SERVICIOS"))
                                     {
-                                        servicio = 3;
-                                        //tituloVentana = "Se copio exitosamente el servicio....";
+                                        titulo = "Servicio Copiado";
+                                        texto = "Se copio exitosamente el servicio....";
+                                        SeleccionaImagen = "correcto";
                                     }
 
                                     if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                                     {
-                                        MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto();
+                                        
+                                        MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo, texto,SeleccionaImagen);
                                         MAECP.ShowDialog();
                                         //MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                                     }
                                     else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                                     {
-                                        MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto();
+                                        MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo, texto,SeleccionaImagen);
                                         MAECP.ShowDialog();
                                       //  MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                                     }
@@ -3571,18 +3583,21 @@ namespace PuntoDeVentaV2
 
                             if (this.Text.Trim().Equals("AGREGAR PRODUCTO"))
                             {
-                                producto = 1;
-                                //tituloVentana = "Se guardo exitosamente el producto....";
+                                titulo = "Producto Agregado";
+                                texto = "Se guardo exitosamente el producto....";
+                                SeleccionaImagen = "correcto";
                             }
                             else if (this.Text.Trim().Equals("EDITAR PRODUCTO"))
                             {
-                                producto = 2;
-                                //tituloVentana = "Se actualizo exitosamente el producto....";
+                                titulo = "Producto Actualizado";
+                                texto = "Se actualizo exitosamente el producto....";
+                                SeleccionaImagen = "correcto";
                             }
                             else if (this.Text.Trim().Equals("COPIAR PRODUCTO"))
                             {
-                                producto = 3;
-                                //tituloVentana = "Se copio exitosamente el producto....";
+                                titulo = "Producto Copiado";
+                                texto = "Se copio exitosamente el producto....";
+                                SeleccionaImagen = "correcto";
                             }
 
                             #region Inicio de Seccion Combos y Servicios
@@ -3711,46 +3726,53 @@ namespace PuntoDeVentaV2
 
                                 if (this.Text.Trim().Equals("AGREGAR COMBOS"))
                                 {
-                                    combo = 1;
-                                    //tituloVentana = "Se guardo exitosamente el combo....";
+                                    titulo = "Combo Guardado";
+                                    texto = "Se guardo exitosamente el combo....";
+                                    SeleccionaImagen = "correcto";
                                 }
                                 else if (this.Text.Trim().Equals("EDITAR COMBOS"))
                                 {
-                                    combo = 2;
-                                    //tituloVentana = "Se actualizo exitosamente el combo....";
+                                    titulo = "Combo Actualizado";
+                                    texto = "Se actualizo exitosamente el combo....";
+                                    SeleccionaImagen = "correcto";
                                 }
+
                                 else if (this.Text.Trim().Equals("COPIAR COMBOS"))
                                 {
-                                    combo = 3;
-                                    //tituloVentana = "Se copio exitosamente el combo....";
+                                    titulo = "Combo Copiado";
+                                    texto = "Se copio exitosamente el combo....";
+                                    SeleccionaImagen = "correcto";
                                 }
                                 else if (this.Text.Trim().Equals("AGREGAR SERVICIOS"))
                                 {
-                                    servicio = 1;
-                                    //tituloVentana = "Se guardo exitosamente el servicio....";
+                                    titulo = "Servicio Agregado";
+                                    texto = "Se guardo exitosamente el servicio....";
+                                    SeleccionaImagen = "correcto";
                                 }
                                 else if (this.Text.Trim().Equals("EDITAR SERVICIOS"))
                                 {
-                                    servicio = 2;
-                                    //tituloVentana = "Se actualizo exitosamente el servicio....";
+                                    titulo = "Servicio Actualizado";
+                                    texto = "Se actualizo exitosamente el servicio....";
+                                    SeleccionaImagen = "correcto";
                                 }
                                 else if (this.Text.Trim().Equals("COPIAR SERVICIOS"))
                                 {
-                                    servicio = 3;
-                                    //tituloVentana = "Se copio exitosamente el servicio....";
+                                    titulo = "Servicio Copiado";
+                                    texto = "Se copio exitosamente el servicio....";
+                                    SeleccionaImagen = "correcto";
                                 }
                             }
                             #endregion Final de Seccion Combos y Servicios
 
                             if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                             {
-                                MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto();
+                                MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo, texto, SeleccionaImagen);
                                 MAECP.ShowDialog();
                                 //MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                             }
                             else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                             {
-                                MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto();
+                                MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo, texto, SeleccionaImagen);
                                 MAECP.ShowDialog();
                                 //MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                             }
@@ -5971,29 +5993,32 @@ namespace PuntoDeVentaV2
 
                                         if (this.Text.Trim().Equals("AGREGAR PRODUCTO"))
                                         {
-                                            producto = 1;
-                                            //tituloVentana = "Se guardo exitosamente el producto....";
+                                            titulo = "Producto Agregado";
+                                            texto = "Se guardo exitosamente el producto...."; 
+                                            SeleccionaImagen = "correcto";
                                         }
                                         else if (this.Text.Trim().Equals("EDITAR PRODUCTO"))
                                         {
-                                            producto = 2;
-                                            //tituloVentana = "Se actualizo exitosamente el producto....";
+                                            titulo = "Producto Actualizado";
+                                            texto = "Se actualizo exitosamente el producto....";
+                                            SeleccionaImagen = "correcto";
                                         }
                                         else if (this.Text.Trim().Equals("COPIAR PRODUCTO"))
                                         {
-                                            producto = 3;
-                                            //tituloVentana = "Se copio exitosamente el producto....";
+                                            titulo = "Producto Copiado";
+                                            texto = "Se copio exitosamente el producto....";
+                                            SeleccionaImagen = "correcto";
                                         }
 
                                         if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                                         {
-                                            MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto();
+                                            MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo, texto, SeleccionaImagen);
                                             MAECP.ShowDialog();
                                            // MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                                         }
                                         else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                                         {
-                                            MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto();
+                                            MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo, texto, SeleccionaImagen);
                                             MAECP.ShowDialog();
                                             //MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                                         }
@@ -6521,44 +6546,50 @@ namespace PuntoDeVentaV2
 
                                     if (this.Text.Trim().Equals("AGREGAR COMBOS"))
                                     {
-                                        combo = 1;
-                                        //tituloVentana = "Se guardo exitosamente el combo....";
+                                        titulo = "Combo Guardado";
+                                        texto = "Se guardo exitosamente el combo....";
+                                        SeleccionaImagen = "correcto";
                                     }
                                     else if (this.Text.Trim().Equals("EDITAR COMBOS"))
                                     {
-                                        combo = 2;
-                                        //tituloVentana = "Se actualizo exitosamente el combo....";
+                                        titulo = "Combo Actualizado";
+                                        texto = "Se actualizo exitosamente el combo....";
+                                        SeleccionaImagen = "correcto";
                                     }
                                     else if (this.Text.Trim().Equals("COPIAR COMBOS"))
                                     {
-                                        combo = 3;
-                                        //tituloVentana = "Se copio exitosamente el combo....";
+                                        titulo = "Combo Copiado";
+                                        texto = "Se copio exitosamente el combo....";
+                                        SeleccionaImagen = "correcto";
                                     }
                                     else if (this.Text.Trim().Equals("AGREGAR SERVICIOS"))
                                     {
-                                        servicio = 1;
-                                        //tituloVentana = "Se guardo exitosamente el servicio....";
+                                        titulo = "Servicio Agregado";
+                                        texto = "Se guardo exitosamente el servicio....";
+                                        SeleccionaImagen = "correcto";
                                     }
                                     else if (this.Text.Trim().Equals("EDITAR SERVICIOS"))
                                     {
-                                        servicio = 2;
-                                        //tituloVentana = "Se actualizo exitosamente el servicio....";
+                                        titulo = "Servicio Actualizado";
+                                        texto = "Se actualizo exitosamente el servicio....";
+                                        SeleccionaImagen = "correcto";
                                     }
                                     else if (this.Text.Trim().Equals("COPIAR SERVICIOS"))
                                     {
-                                        servicio = 3;
-                                        //tituloVentana = "Se copio exitosamente el servicio....";
+                                        titulo = "Servicio Copiado";
+                                        texto = "Se copio exitosamente el servicio....";
+                                        SeleccionaImagen = "correcto";
                                     }
 
                                     if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                                     {
-                                        MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto();
+                                        MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo, texto, SeleccionaImagen);
                                         MAECP.ShowDialog();
                                         //MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                                     }
                                     else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                                     {
-                                        MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto();
+                                        MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo, texto, SeleccionaImagen);
                                         MAECP.ShowDialog();
                                         //MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                                     }
@@ -6947,18 +6978,21 @@ namespace PuntoDeVentaV2
 
                             if (this.Text.Trim().Equals("AGREGAR PRODUCTO"))
                             {
-                                producto = 1;
-                                //tituloVentana = "Se guardo exitosamente el producto....";
+                                titulo = "Producto Agregado";
+                                texto = "Se guardo exitosamente el producto....";
+                                SeleccionaImagen = "correcto";
                             }
                             else if (this.Text.Trim().Equals("EDITAR PRODUCTO"))
                             {
-                                producto = 2;
-                                //tituloVentana = "Se actualizo exitosamente el producto....";
+                                titulo = "Producto Actualizado";
+                                texto = "Se actualizo exitosamente el producto....";
+                                SeleccionaImagen = "correcto";
                             }
                             else if (this.Text.Trim().Equals("COPIAR PRODUCTO"))
                             {
-                                producto = 3;
-                                //tituloVentana = "Se copio exitosamente el producto....";
+                                titulo = "Producto Copiado";
+                                texto = "Se copio exitosamente el producto....";
+                                SeleccionaImagen = "correcto";
                             }
 
                             #region Inicio de Seccion Combos y Servicios
@@ -7048,46 +7082,52 @@ namespace PuntoDeVentaV2
 
                                 if (this.Text.Trim().Equals("AGREGAR COMBOS"))
                                 {
-                                    combo = 1;
-                                    //tituloVentana = "Se guardo exitosamente el combo....";
+                                    titulo = "Combo Guardado";
+                                    texto = "Se guardo exitosamente el combo....";
+                                    SeleccionaImagen = "correcto";
                                 }
                                 else if (this.Text.Trim().Equals("EDITAR COMBOS"))
                                 {
-                                    combo = 2;
-                                    //tituloVentana = "Se actualizo exitosamente el combo....";
+                                    titulo = "Combo Actualizado";
+                                    texto = "Se actualizo exitosamente el combo....";
+                                    SeleccionaImagen = "correcto";
                                 }
                                 else if (this.Text.Trim().Equals("COPIAR COMBOS"))
                                 {
-                                    combo = 3;
-                                    //tituloVentana = "Se copio exitosamente el combo....";
+                                    titulo = "Combo Copiado";
+                                    texto = "Se copio exitosamente el combo....";
+                                    SeleccionaImagen = "correcto";
                                 }
                                 else if (this.Text.Trim().Equals("AGREGAR SERVICIOS"))
                                 {
-                                    servicio = 1;
-                                    //tituloVentana = "Se guardo exitosamente el servicio....";
+                                    titulo = "Servicio Agregado";
+                                    texto = "Se guardo exitosamente el servicio....";
+                                    SeleccionaImagen = "correcto";
                                 }
                                 else if (this.Text.Trim().Equals("EDITAR SERVICIOS"))
                                 {
-                                    servicio = 2;
-                                    //tituloVentana = "Se actualizo exitosamente el servicio....";
+                                    titulo = "Servicio Actualizado";
+                                    texto = "Se actualizo exitosamente el servicio....";
+                                    SeleccionaImagen = "correcto";
                                 }
                                 else if (this.Text.Trim().Equals("COPIAR SERVICIOS"))
                                 {
-                                    servicio = 3;
-                                    //tituloVentana = "Se copio exitosamente el servicio....";
+                                    titulo = "Servicio Copiado";
+                                    texto = "Se copio exitosamente el servicio....";
+                                    SeleccionaImagen = "correcto";
                                 }
                             }
                             #endregion Final de Seccion Combos y Servicios
 
                             if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                             {
-                                MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto();
+                                MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo,texto,SeleccionaImagen);
                                 MAECP.ShowDialog();
                                 //MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                             }
                             else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                             {
-                                MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto();
+                                MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo, texto, SeleccionaImagen);
                                 MAECP.ShowDialog();
                                 //MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                             }

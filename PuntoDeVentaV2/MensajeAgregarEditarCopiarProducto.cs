@@ -12,61 +12,29 @@ namespace PuntoDeVentaV2
 {
     public partial class MensajeAgregarEditarCopiarProducto : Form
     {
-        public MensajeAgregarEditarCopiarProducto()
+
+        private string mensaje = string.Empty;
+        private string imagen = string.Empty;
+        public MensajeAgregarEditarCopiarProducto(string _titulo, string _texto, string _imagen)
         {
             InitializeComponent();
+            this.Text = _titulo;
+            this.mensaje = _texto;            
+            this.imagen = _imagen;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             this.Close();
-            AgregarEditarProducto.producto = 0;
-            AgregarEditarProducto.servicio = 0;
-            AgregarEditarProducto.combo = 0;
+            
 
         }
 
         private void MensajeAgregarEditarCopiarProducto_Load(object sender, EventArgs e)
         {
-            if (AgregarEditarProducto.producto ==1)
-            {
-                lblMensaje.Text = "Se guardo exitosamente el producto....";
-            }
-            else if (AgregarEditarProducto.producto == 2)
-            {
-                lblMensaje.Text = "Se actualizo exitosamente el producto....";
-            }
-            else if (AgregarEditarProducto.producto ==3)
-            {
-                lblMensaje.Text = "Se copio exitosamente el producto....";
-            }
-
-            if (AgregarEditarProducto.servicio == 1)
-            {
-
-                lblMensaje.Text = "Se guardo exitosamente el servicio....";
-            }
-            else if (AgregarEditarProducto.servicio == 2)
-            {
-                lblMensaje.Text = "Se actualizo exitosamente el servicio....";
-            }
-            else if (AgregarEditarProducto.servicio == 3)
-            {
-                lblMensaje.Text = "Se copio exitosamente el servicio....";
-            }
-
-            if (AgregarEditarProducto.combo == 1)
-            {
-                lblMensaje.Text = "Se guardo exitosamente el combo....";
-            }
-            else if (AgregarEditarProducto.combo == 2)
-            {
-                lblMensaje.Text = "Se actualizo exitosamente el combo....";
-            }
-            else if (AgregarEditarProducto.combo == 3)
-            {
-                lblMensaje.Text = "Se copio exitosamente el combo....";
-            }
+            lblMensaje.Text = mensaje;
+            Image icono = Image.FromFile(Properties.Settings.Default.rutaDirectorio + $@"\PUDVE\icon\black\{imagen}.png");
+            pbImagen.Image = icono;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -78,9 +46,6 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode == Keys.Escape) 
             {
-                AgregarEditarProducto.producto = 0;
-                AgregarEditarProducto.servicio = 0;
-                AgregarEditarProducto.combo = 0;
                 this.Close(); 
             }                        
         }
@@ -90,9 +55,6 @@ namespace PuntoDeVentaV2
             this.Close();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
 
-        }
     }   
 }
