@@ -207,14 +207,6 @@ namespace PuntoDeVentaV2
 
         private void lbAgregarCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            AgregarCliente nuevo = new AgregarCliente();
-
-            nuevo.FormClosed += delegate
-            {
-                CargarDatos();
-            };
-
-            nuevo.ShowDialog();
         }
 
         private void txtBuscador_KeyDown(object sender, KeyEventArgs e)
@@ -294,7 +286,9 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        
+
+        private void btnPublicoGeneral_Click(object sender, EventArgs e)
         {
             using (DataTable dtPublicoGeneral = cn.CargarDatos(cs.BuscarPublicaGeneral()))
             {
@@ -326,33 +320,33 @@ namespace PuntoDeVentaV2
                                 var longitud = 6 - numCliente.ToString().Length;
                                 if (longitud.Equals(5))
                                 {
-                                    UltimoNumeroCliente = $"00000{numCliente+1}";
+                                    UltimoNumeroCliente = $"00000{numCliente + 1}";
                                 }
                                 if (longitud.Equals(4))
                                 {
-                                    UltimoNumeroCliente = $"0000{numCliente+1}";
+                                    UltimoNumeroCliente = $"0000{numCliente + 1}";
                                 }
                                 if (longitud.Equals(3))
                                 {
-                                    UltimoNumeroCliente = $"000{numCliente+1}";
+                                    UltimoNumeroCliente = $"000{numCliente + 1}";
                                 }
                                 if (longitud.Equals(2))
                                 {
-                                    UltimoNumeroCliente = $"00{numCliente+1}";
+                                    UltimoNumeroCliente = $"00{numCliente + 1}";
                                 }
                                 if (longitud.Equals(1))
                                 {
-                                    UltimoNumeroCliente = $"0{numCliente+1}";
+                                    UltimoNumeroCliente = $"0{numCliente + 1}";
                                 }
                                 if (longitud.Equals(0))
                                 {
-                                    UltimoNumeroCliente = $"{numCliente+1}";
+                                    UltimoNumeroCliente = $"{numCliente + 1}";
                                 }
                             }
                         }
                         else
                         {
-                            UltimoNumeroCliente = "000001";     
+                            UltimoNumeroCliente = "000001";
                         }
                     }
                     var resultado = cn.EjecutarConsulta(cs.AgregarPublicoGeneral(UltimoNumeroCliente));
@@ -379,6 +373,19 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+            AgregarCliente nuevo = new AgregarCliente();
+
+            nuevo.FormClosed += delegate
+            {
+                CargarDatos();
+            };
+
+            nuevo.ShowDialog();
         }
     }
 }

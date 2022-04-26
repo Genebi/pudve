@@ -46,6 +46,14 @@ namespace PuntoDeVentaV2
             Utilidades.EjecutarAtajoKeyPreviewDown(gbContenedor_PreviewKeyDown, form);
 
             DatosAgregarCliente();
+
+            using (DataTable dtPublicoGeneral = cn.CargarDatos(cs.BuscarPublicaGeneral()))
+            {
+                if (!dtPublicoGeneral.Rows.Count.Equals(0))
+                {
+                    btnPublicoGeneral.Visible = false;
+                }
+            }
         }
 
         public void DatosAgregarCliente()
@@ -632,6 +640,12 @@ namespace PuntoDeVentaV2
                 txtRFC.ForeColor = Color.Red;
                 //txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Bold);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            txtRazonSocial.Text = "PUBLICO GENERAL";
+            txtRFC.Text = "XAXX010101000";
         }
     }
 }

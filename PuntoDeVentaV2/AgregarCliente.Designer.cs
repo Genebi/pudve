@@ -69,6 +69,7 @@
             this.cbTipoCliente = new System.Windows.Forms.ComboBox();
             this.lAgregarClienteNuevo = new System.Windows.Forms.Label();
             this.gbContenedor = new System.Windows.Forms.GroupBox();
+            this.btnPublicoGeneral = new System.Windows.Forms.Button();
             this.gbContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -389,7 +390,7 @@
             // 
             this.cbCliente.AutoSize = true;
             this.cbCliente.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCliente.Location = new System.Drawing.Point(418, 110);
+            this.cbCliente.Location = new System.Drawing.Point(418, 114);
             this.cbCliente.Name = "cbCliente";
             this.cbCliente.Size = new System.Drawing.Size(176, 21);
             this.cbCliente.TabIndex = 4;
@@ -528,6 +529,7 @@
             // 
             // gbContenedor
             // 
+            this.gbContenedor.Controls.Add(this.btnPublicoGeneral);
             this.gbContenedor.Controls.Add(this.lAgregarClienteNuevo);
             this.gbContenedor.Controls.Add(this.cbTipoCliente);
             this.gbContenedor.Controls.Add(this.label17);
@@ -574,6 +576,23 @@
             this.gbContenedor.TabIndex = 0;
             this.gbContenedor.TabStop = false;
             this.gbContenedor.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.gbContenedor_PreviewKeyDown);
+            // 
+            // btnPublicoGeneral
+            // 
+            this.btnPublicoGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPublicoGeneral.BackColor = System.Drawing.Color.Green;
+            this.btnPublicoGeneral.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPublicoGeneral.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen;
+            this.btnPublicoGeneral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPublicoGeneral.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPublicoGeneral.ForeColor = System.Drawing.Color.White;
+            this.btnPublicoGeneral.Location = new System.Drawing.Point(454, 89);
+            this.btnPublicoGeneral.Name = "btnPublicoGeneral";
+            this.btnPublicoGeneral.Size = new System.Drawing.Size(106, 28);
+            this.btnPublicoGeneral.TabIndex = 86;
+            this.btnPublicoGeneral.Text = "Publico General";
+            this.btnPublicoGeneral.UseVisualStyleBackColor = false;
+            this.btnPublicoGeneral.Click += new System.EventHandler(this.button1_Click);
             // 
             // AgregarCliente
             // 
@@ -639,5 +658,6 @@
         private System.Windows.Forms.ComboBox cbTipoCliente;
         private System.Windows.Forms.Label lAgregarClienteNuevo;
         private System.Windows.Forms.GroupBox gbContenedor;
+        private System.Windows.Forms.Button btnPublicoGeneral;
     }
 }
