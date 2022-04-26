@@ -30,19 +30,11 @@ namespace PuntoDeVentaV2
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MensajeAgregarEditarCopiarProducto));
-            this.label1 = new System.Windows.Forms.Label();
             this.lblMensaje = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.pbImagen = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImagen)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.Image = ((System.Drawing.Image)(resources.GetObject("label1.Image")));
-            this.label1.Location = new System.Drawing.Point(26, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 35);
-            this.label1.TabIndex = 0;
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // lblMensaje
             // 
@@ -67,33 +59,41 @@ namespace PuntoDeVentaV2
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // pbImagen
+            // 
+            this.pbImagen.Image = ((System.Drawing.Image)(resources.GetObject("pbImagen.Image")));
+            this.pbImagen.Location = new System.Drawing.Point(26, 41);
+            this.pbImagen.Name = "pbImagen";
+            this.pbImagen.Size = new System.Drawing.Size(35, 35);
+            this.pbImagen.TabIndex = 3;
+            this.pbImagen.TabStop = false;
+            // 
             // MensajeAgregarEditarCopiarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(376, 134);
+            this.Controls.Add(this.pbImagen);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lblMensaje);
-            this.Controls.Add(this.label1);
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MensajeAgregarEditarCopiarProducto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Aviso del Sistema";
             this.Load += new System.EventHandler(this.MensajeAgregarEditarCopiarProducto_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MensajeAgregarEditarCopiarProducto_KeyDown);
+            ((System.ComponentModel.ISupportInitialize)(this.pbImagen)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblMensaje;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox pbImagen;
     }
 }
