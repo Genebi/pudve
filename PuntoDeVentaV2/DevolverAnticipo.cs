@@ -434,8 +434,8 @@ namespace PuntoDeVentaV2
 
             }
 
-            if (tipo == 1 && cbFormaPago.SelectedIndex == 0 && efe > efectivo1 || tipo == 1 && cbFormaPago.SelectedIndex == 1 && che > cheque1 || tipo == 1 && cbFormaPago.SelectedIndex == 2 && tra > trans1 || tipo == 1 && cbFormaPago.SelectedIndex == 3 && tar > tarjeta1 || tipo == 1 &&
-            cbFormaPago.SelectedIndex == 4 && val > vales1)
+            if (tipo == 1 && cbFormaPago.SelectedIndex == 0 && efe > totalCaja || tipo == 1 && cbFormaPago.SelectedIndex == 1 && che > totalCaja || tipo == 1 && cbFormaPago.SelectedIndex == 2 && tra > totalCaja || tipo == 1 && cbFormaPago.SelectedIndex == 3 && tar > totalCaja || tipo == 1 &&
+            cbFormaPago.SelectedIndex == 4 && val > totalCaja)
             {
                 MessageBox.Show("Dinero Insuficuente", "Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 cancel = 1;
