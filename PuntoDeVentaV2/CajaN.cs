@@ -3848,31 +3848,31 @@ namespace PuntoDeVentaV2
                                         if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
                                         {
                                             cantidadEfectivoRetirado += Convert.ToDecimal(item["Efectivo"].ToString());
-                                            totalEfectivoDepsitosEnCaja += cantidadEfectivoRetirado;
+                                            totalEfectivoRetiroEnCaja += cantidadEfectivoRetirado;
                                         }
 
                                         if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
                                         {
                                             cantidadTarjetaRetirado += Convert.ToDecimal(item["Tarjeta"].ToString());
-                                            totalTarjetaDepositosEnCaja += cantidadTarjetaRetirado;
+                                            totalTarjetaRetiroEnCaja += cantidadTarjetaRetirado;
                                         }
 
                                         if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
                                         {
                                             cantidadValesRetirado += Convert.ToDecimal(item["Vales"].ToString());
-                                            totalValesDepositosEnCaja += cantidadValesRetirado;
+                                            totalValesRetiroEnCaja += cantidadValesRetirado;
                                         }
 
                                         if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
                                         {
                                             cantidadChequeRetirado += Convert.ToDecimal(item["Cheque"].ToString());
-                                            totalChequesDepsoitosEnCaja += cantidadChequeRetirado;
+                                            totalChequesRetiroEnCaja += cantidadChequeRetirado;
                                         }
 
                                         if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
                                         {
                                             cantidadTransferenciaRetirado += Convert.ToDecimal(item["Transferencia"].ToString());
-                                            totalTransferenciasDepositosEnCaja += cantidadTransferenciaRetirado;
+                                            totalTransferenciaRetiroEnCaja += cantidadTransferenciaRetirado;
                                         }
 
                                         if (!string.IsNullOrWhiteSpace(item["TotalRetiros"].ToString()))
@@ -3880,12 +3880,12 @@ namespace PuntoDeVentaV2
                                             cantidadTotalDineroRetirado += Convert.ToDecimal(item["TotalRetiros"].ToString());
                                         }
 
-                                        lbTEfectivoD.Text = cantidadEfectivoRetirado.ToString("C2");
-                                        lbTTarjetaD.Text = cantidadTarjetaRetirado.ToString("C2");
-                                        lbTValesD.Text = cantidadValesRetirado.ToString("C2");
-                                        lbTChequeD.Text = cantidadChequeRetirado.ToString("C2");
-                                        lbTTransD.Text = cantidadTransferenciaRetirado.ToString("C2");
-                                        lbTAgregado.Text = cantidadTotalDineroRetirado.ToString("C2");
+                                        lbEfectivoR.Text = cantidadEfectivoRetirado.ToString("C2");
+                                        lbTarjetaR.Text = cantidadTarjetaRetirado.ToString("C2");
+                                        lbValesR.Text = cantidadValesRetirado.ToString("C2");
+                                        lbChequeR.Text = cantidadChequeRetirado.ToString("C2");
+                                        lbTransferenciaR.Text = cantidadTransferenciaRetirado.ToString("C2");
+                                        lbTRetirado.Text = cantidadTotalDineroRetirado.ToString("C2");
                                     }
                                 }
                                 else
