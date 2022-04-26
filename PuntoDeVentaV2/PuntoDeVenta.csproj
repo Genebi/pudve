@@ -4330,6 +4330,9 @@
     <Content Include="PUDVE\icon\black\adn.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\advertencia.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\align-center.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -4891,6 +4894,9 @@
     <Content Include="PUDVE\icon\black\copyright.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black\correcto.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PUDVE\icon\black\creative-commons.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -5030,6 +5036,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\eraser.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\icon\black\error.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PUDVE\icon\black\etsy.png">
