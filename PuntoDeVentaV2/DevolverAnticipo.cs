@@ -193,7 +193,7 @@ namespace PuntoDeVentaV2
             consultaDos = new MySqlCommand(consulta, sql_con);
             drDos = consultaDos.ExecuteReader();
 
-            int saltar = 0;
+            //int saltar = 0;
 
             while (drDos.Read())
             {
@@ -203,11 +203,12 @@ namespace PuntoDeVentaV2
 
                 if (operacion == "venta" && fechaOperacion > fechaDefault)
                 {
-                    if (saltar == 0)
-                    {
-                        saltar++;
-                        continue;
-                    }
+                    // Se comento esto por que no guardaba el efectivo de la primera venta.
+                    //if (saltar == 0) 
+                    //{
+                    //    saltar++;
+                    //    continue;
+                    //}
 
                     vEfectivo += float.Parse(drDos.GetValue(drDos.GetOrdinal("Efectivo")).ToString());
                     vTarjeta += float.Parse(drDos.GetValue(drDos.GetOrdinal("Tarjeta")).ToString());
