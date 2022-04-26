@@ -417,7 +417,7 @@ namespace PuntoDeVentaV2
                             //Cancela las ventas
                             string[] datos = new string[] {
                                             "retiro", total1, "0", concepto, fechaOperacion1, FormPrincipal.userID.ToString(),
-                                            efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1, anticipo1
+                                            efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1, anticipo1,FormPrincipal.id_empleado.ToString()
                                         };
 
                             cn.EjecutarConsulta(cs.OperacionCaja(datos));
@@ -467,7 +467,7 @@ namespace PuntoDeVentaV2
 
                         string[] datos = new string[] {
                     operacion, cantidad.ToString("0.00"), "0", comentario, fechaOperacion, FormPrincipal.userID.ToString(),
-                    efectivo, tarjeta, vales, cheque, transferencia, credito, "0"
+                    efectivo, tarjeta, vales, cheque, transferencia, credito, "0", FormPrincipal.id_empleado.ToString()
                 };
 
                         resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos));
@@ -561,7 +561,7 @@ namespace PuntoDeVentaV2
                                     {
                                         cancel = 2;
                                         string[] datos = new string[] {
-                                                        "retiro", resultadoConsultaAbonos, "0", conceptoCredito, fechaOperacion, FormPrincipal.userID.ToString(), efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver, chequeAbonadoADevolver, transAbonadoADevolver, /*credito*/"0.00", /*anticipo*/"0"
+                                                        "retiro", resultadoConsultaAbonos, "0", conceptoCredito, fechaOperacion, FormPrincipal.userID.ToString(), efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver, chequeAbonadoADevolver, transAbonadoADevolver, /*credito*/"0.00", /*anticipo*/"0",FormPrincipal.id_empleado.ToString()
                                                     };
                                         cn.EjecutarConsulta(cs.OperacionCaja(datos));
                                         this.Dispose();

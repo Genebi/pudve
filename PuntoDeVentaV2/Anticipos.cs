@@ -533,7 +533,7 @@ namespace PuntoDeVentaV2
 
             string[] datos = new string[] {
                 "retiro", cantidad.ToString("0.00"), "0", "anticipo deshabilitado", fechaOperacion, FormPrincipal.userID.ToString(),
-                efectivo, tarjeta, vales, cheque, transferencia, credito, "0"
+                efectivo, tarjeta, vales, cheque, transferencia, credito, "0", FormPrincipal.id_empleado.ToString()
             };
 
             cn.EjecutarConsulta(cs.OperacionCaja(datos));

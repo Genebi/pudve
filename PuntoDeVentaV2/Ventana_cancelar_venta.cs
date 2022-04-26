@@ -446,7 +446,7 @@ namespace PuntoDeVentaV2
                         {
                             string[] datos = new string[] {
                                                         "retiro", total1, "0", conceptoCreditoC, fechaOperacion1, FormPrincipal.userID.ToString(),
-                                                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0"
+                                                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0",FormPrincipal.id_empleado.ToString()
                                                     };
                             cn.EjecutarConsulta(cs.OperacionCaja(datos));
                         }

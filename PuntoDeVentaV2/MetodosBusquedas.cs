@@ -196,6 +196,7 @@ namespace PuntoDeVentaV2
                 lista.Add(float.Parse(dr["Cheque"].ToString()));
                 lista.Add(float.Parse(dr["Transferencia"].ToString()));
                 lista.Add(float.Parse(dr["Credito"].ToString()));
+                lista.Add(float.Parse(dr["Anticipo"].ToString()));
             }
 
             dr.Close();

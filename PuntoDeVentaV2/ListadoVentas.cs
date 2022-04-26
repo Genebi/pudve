@@ -1737,7 +1737,7 @@ namespace PuntoDeVentaV2
                                             var cheque1 = formasPago[3].ToString();
                                             var transferencia1 = formasPago[4].ToString();
                                             var credito1 = formasPago[5].ToString();
-                                            //var anticipo1 = "0";
+                                            var anticipo1 = formasPago[6].ToString();
 
                                             var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -1752,20 +1752,20 @@ namespace PuntoDeVentaV2
                                                 DateTime fechaDelCorteCaja = DateTime.Parse(ultimoDate);
 
                                                 //Se busca si se retiro dinero despues del corte
-                                                var dineroRetiradoCorte = cn.CargarDatos($"SELECT sum(Cantidad), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'retiro' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
+                                                var dineroRetiradoCorte = cn.CargarDatos($"SELECT IF ( SUM( Cantidad ) IS NULL, 0, SUM( Cantidad ) ) AS 'Cantidad', IF ( SUM( Efectivo ) IS NULL, 0, SUM( Efectivo ) ) AS 'Efectivo', IF ( SUM( Tarjeta ) IS NULL, 0, SUM( Tarjeta ) ) AS 'Tarjeta', IF ( SUM( Vales ) IS NULL, 0, SUM( Vales ) ) AS 'Vales', IF(SUM(Cheque) IS NULL, 0, SUM(Cheque)) AS 'Cheque', IF(SUM(Transferencia) IS NULL, 0, SUM(Transferencia)) AS 'Transferencia' FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'retiro' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
                                                 var rTotal = string.Empty; var rEfectivo = string.Empty; var rTarjeta = string.Empty; var rVales = string.Empty; var rCheque = string.Empty; var rTrans = string.Empty;
 
 
-                                                if (!dineroRetiradoCorte.Rows.Count.Equals(0)/* && !string.IsNullOrWhiteSpace(dineroRetiradoCorte.ToString())*/)
+                                                if (!dineroRetiradoCorte.Rows.Count.Equals(0) && !dineroRetiradoCorte.Equals(null)/* && !string.IsNullOrWhiteSpace(dineroRetiradoCorte.ToString())*/)
                                                 {
                                                     foreach (DataRow getRetirado in dineroRetiradoCorte.Rows)
                                                     {
-                                                        rTotal = getRetirado["sum(Cantidad)"].ToString();
-                                                        rEfectivo = getRetirado["sum(Cantidad)"].ToString();
-                                                        rTarjeta = getRetirado["sum(Cantidad)"].ToString();
-                                                        rVales = getRetirado["sum(Cantidad)"].ToString();
-                                                        rCheque = getRetirado["sum(Cantidad)"].ToString();
-                                                        rTrans = getRetirado["sum(Cantidad)"].ToString();
+                                                        rTotal = getRetirado["Cantidad"].ToString();
+                                                        rEfectivo = getRetirado["Efectivo"].ToString();
+                                                        rTarjeta = getRetirado["Tarjeta"].ToString();
+                                                        rVales = getRetirado["Vales"].ToString();
+                                                        rCheque = getRetirado["Cheque"].ToString();
+                                                        rTrans = getRetirado["Transferencia"].ToString();
 
                                                         if (string.IsNullOrEmpty(rTotal))
                                                         {
@@ -1840,7 +1840,7 @@ namespace PuntoDeVentaV2
                                             {
                                                 string[] datos = new string[] {
                                                         "retiro", total1, "0", conceptoCredito, fechaOperacion1, FormPrincipal.userID.ToString(),
-                                                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0",FormPrincipal.id_empleado.ToString()
+                                                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, anticipo1,FormPrincipal.id_empleado.ToString()
                                                     };
                                                 cn.EjecutarConsulta(cs.OperacionCaja(datos));
                                                 //string[] datos = new string[]
