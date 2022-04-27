@@ -2407,12 +2407,32 @@ namespace PuntoDeVentaV2
             {
                 lbIVA8.Visible = true;
                 cIVA8.Visible = true;
+                if (totalIVA16 >0)
+                {
+
+                }
+                else
+                {
+                    lbIVA.Visible = false;
+                    cIVA.Visible = false;
+                }
+                
             }
             else
             {
                 lbIVA8.Visible = false;
                 cIVA8.Visible = false;
+                lbIVA.Visible = true;
+                cIVA.Visible = true;
             }
+
+            if (totalIVA16 > 0)
+            {
+                lbIVA.Visible = true;
+                cIVA.Visible = true;
+                
+            }
+           
 
             cIVA.Text = totalIVA16.ToString("0.00");
             cIVA8.Text = totalIVA8.ToString("0.00");
