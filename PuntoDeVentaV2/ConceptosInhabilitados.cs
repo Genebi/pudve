@@ -40,6 +40,7 @@ namespace PuntoDeVentaV2
                     DGVConceptosInhabilitados.Rows.Clear();
                 }
             }
+
             notSortableDataGridView();
         }
 
