@@ -75,7 +75,15 @@ namespace PuntoDeVentaV2
                 if (idCliente > 0)
                 {
                     var infoCliente = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
-                    cliente = infoCliente[0];
+                    if (!infoCliente.Length.Equals(0))
+                    {
+                        cliente = infoCliente[0];
+                    }
+                    else
+                    {
+                        return;
+                    }
+                   
                     //rfc = infoCliente[1];
                 }
 
