@@ -76,7 +76,7 @@
             // 
             // menuVertical
             // 
-            this.menuVertical.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.menuVertical.BackColor = System.Drawing.Color.Navy;
             this.menuVertical.Controls.Add(this.btnImpresoras);
             this.menuVertical.Controls.Add(this.btnEmpleados);
             this.menuVertical.Controls.Add(this.btnReportes);
