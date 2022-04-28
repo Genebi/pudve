@@ -1466,10 +1466,71 @@ namespace PuntoDeVentaV2
                         var stopCancelar = false;
                         var preguntaCancelacion = string.Empty;
                         preguntaCancelacion = preguntarCancelacion();
+
                         var mensaje = MessageBox.Show(preguntaCancelacion, "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                         if (mensaje == DialogResult.Yes)
                         {
+                            var idUltimoCorteDeCaja = 0;
+                            var fechaUltimoCorteDeCaja = string.Empty;
+                            var EfectivoEnCaja = 0m;
+                            var TarjetaEnCaja = 0m;
+                            var ValesEnCaja = 0m;
+                            var ChequeEnCaja = 0m;
+                            var TransferenciaEnCaja = 0m;
+                            var CreditoEnCaja = 0m;
+                            var AnticipoEnCaja = 0m;
+
+                            using (DataTable dtSaldosInicialesDeCaja = cn.CargarDatos(cs.CargarSaldoInicialSinAbrirCaja(FormPrincipal.userID, FormPrincipal.id_empleado)))
+                            {
+                                if (!dtSaldosInicialesDeCaja.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow item in dtSaldosInicialesDeCaja.Rows)
+                                    {
+                                        idUltimoCorteDeCaja = Convert.ToInt32(item["IDCaja"].ToString());
+                                        var fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());
+                                        fechaUltimoCorteDeCaja = fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss");
+                                        EfectivoEnCaja += (decimal)Convert.ToDouble(item["Efectivo"].ToString());
+                                        TarjetaEnCaja += (decimal)Convert.ToDouble(item["Tarjeta"].ToString());
+                                        ValesEnCaja += (decimal)Convert.ToDouble(item["Vales"].ToString());
+                                        ChequeEnCaja += (decimal)Convert.ToDouble(item["Cheque"].ToString());
+                                        TransferenciaEnCaja += (decimal)Convert.ToDouble(item["Transferencia"].ToString());
+                                        CreditoEnCaja += (decimal)Convert.ToDouble(item["Credito"].ToString());
+                                        AnticipoEnCaja += (decimal)Convert.ToDouble(item["Anticipo"].ToString());
+                                    }
+
+                                    using (DataTable dtSaldosInicialVentasDepostos = cn.CargarDatos(cs.SaldoVentasDepositos(FormPrincipal.userID, FormPrincipal.id_empleado, idUltimoCorteDeCaja)))
+                                    {
+                                        if (!dtSaldosInicialVentasDepostos.Rows.Count.Equals(0))
+                                        {
+                                            foreach (DataRow item in dtSaldosInicialVentasDepostos.Rows)
+                                            {
+                                                EfectivoEnCaja += (decimal)Convert.ToDouble(item["Efectivo"].ToString());
+                                                TarjetaEnCaja += (decimal)Convert.ToDouble(item["Tarjeta"].ToString());
+                                                ValesEnCaja += (decimal)Convert.ToDouble(item["Vales"].ToString());
+                                                ChequeEnCaja += (decimal)Convert.ToDouble(item["Cheque"].ToString());
+                                                TransferenciaEnCaja += (decimal)Convert.ToDouble(item["Transferencia"].ToString());
+                                            }
+                                        }
+                                    }
+
+                                    using (DataTable dtSaldoInicialRetiros = cn.CargarDatos(cs.SaldoInicialRetiros(FormPrincipal.userID, FormPrincipal.id_empleado, idUltimoCorteDeCaja)))
+                                    {
+                                        if (!dtSaldoInicialRetiros.Rows.Count.Equals(0))
+                                        {
+                                            foreach (DataRow item in dtSaldoInicialRetiros.Rows)
+                                            {
+                                                EfectivoEnCaja -= (decimal)Convert.ToDouble(item["Efectivo"].ToString());
+                                                TarjetaEnCaja -= (decimal)Convert.ToDouble(item["Tarjeta"].ToString());
+                                                ValesEnCaja -= (decimal)Convert.ToDouble(item["Vales"].ToString());
+                                                ChequeEnCaja -= (decimal)Convert.ToDouble(item["Cheque"].ToString());
+                                                TransferenciaEnCaja -= (decimal)Convert.ToDouble(item["Transferencia"].ToString());
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
                             var obtenerValorSiSeAbono = cn.CargarDatos($"SELECT * FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IDVenta = '{idVenta}'");
                             var abonoObtenido = string.Empty;
 
