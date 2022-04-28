@@ -3810,5 +3810,26 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string CargarSaldoInicialSinAbrirCaja(int idUsario, int idEmpleado)
+        {
+            var consulta = $"SELECT IDCorteDeCaja AS 'IDCaja', FechaOperacion AS 'Fecha', IF ( SaldoInicialEfectivo IS NULL, 0, SaldoInicialEfectivo ) AS 'Efectivo', IF ( SaldoInicialTarjeta IS NULL, 0, SaldoInicialTarjeta ) AS 'Tarjeta', IF ( SaldoInicialVales IS NULL, 0, SaldoInicialVales ) AS 'Vales', IF ( SaldoInicialCheque IS NULL, 0, SaldoInicialCheque ) AS 'Cheque', IF ( SaldoInicialTransferencia IS NULL, 0, SaldoInicialTransferencia ) AS 'Transferencia', IF ( SaldoInicialCredito IS NULL, 0, SaldoInicialCredito ) AS 'Credito', IF ( SaldoInicialAnticipo IS NULL, 0, SaldoInicialAnticipo ) AS 'Anticipo', IF ( CantidadRetiradaDelCorte IS NULL, 0, CantidadRetiradaDelCorte ) AS 'CantidadRetirada', IF ( ( SaldoInicialEfectivo + SaldoInicialTarjeta + SaldoInicialVales + SaldoInicialCheque + SaldoInicialTransferencia ) IS NULL, 0, ( SaldoInicialEfectivo + SaldoInicialTarjeta + SaldoInicialVales + SaldoInicialCheque + SaldoInicialTransferencia ) ) AS 'SaldoInicial' FROM historialcortesdecaja WHERE IDUsuario = '{idUsario}' AND IDEmpleado = '{idEmpleado}' ORDER BY ID DESC LIMIT 1";
+
+            return consulta;
+        }
+
+        public string SaldoVentasDepositos(int idUsario, int idEmpleado, int idCorteDeCaja)
+        {
+            var consulta = $"SELECT ID, Operacion, IDUsuario, IdEmpleado, IF ( SUM( Efectivo ) IS NULL, 0, SUM( Efectivo ) ) AS 'Efectivo', IF ( SUM( Tarjeta ) IS NULL, 0, SUM( Tarjeta ) ) AS 'Tarjeta', IF ( SUM( Vales ) IS NULL, 0, SUM( Vales ) ) AS 'Vales', IF ( SUM( Cheque ) IS NULL, 0, SUM( Cheque ) ) AS 'Cheque', IF ( SUM( Transferencia ) IS NULL, 0, SUM( Transferencia ) ) AS 'Transferencia', IF ( SUM( Credito ) IS NULL, 0, SUM( Credito ) ) AS 'Credito', IF ( SUM( Anticipo ) IS NULL, 0, SUM( Anticipo ) ) AS 'Anticipo', IF ( ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) + SUM( Credito ) + SUM( Anticipo ) ) IS NULL, 0, ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) + SUM( Credito ) + SUM( Anticipo ) ) ) AS 'TotalVentas' FROM caja WHERE IDUsuario = '{idUsario}' AND IdEmpleado = '{idEmpleado}' AND ID > '{idCorteDeCaja}' AND ( Operacion = 'venta' OR Operacion = 'deposito' )";
+
+            return consulta;
+        }
+
+        public string SaldoInicialRetiros(int idUsario, int idEmpleado, int idCorteDeCaja)
+        {
+            var consulta = $"SELECT ID, Operacion, IDUsuario, IdEmpleado, IF ( SUM( Efectivo ) IS NULL, 0, SUM( Efectivo ) ) AS 'Efectivo', IF ( SUM( Tarjeta ) IS NULL, 0, SUM( Tarjeta ) ) AS 'Tarjeta', IF ( SUM( Vales ) IS NULL, 0, SUM( Vales ) ) AS 'Vales', IF ( SUM( Cheque ) IS NULL, 0, SUM( Cheque ) ) AS 'Cheque', IF ( SUM( Transferencia ) IS NULL, 0, SUM( Transferencia ) ) AS 'Transferencia', IF ( ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) IS NULL, 0, ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) ) AS 'TotalRetiros' FROM caja WHERE IDUsuario = '{idUsario}' AND IdEmpleado = '{idEmpleado}' AND ID > '{idCorteDeCaja}' AND Operacion = 'retiro'";
+
+            return consulta;
+        }
     }
 }  
