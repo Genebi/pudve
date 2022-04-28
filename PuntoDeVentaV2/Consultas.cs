@@ -3517,7 +3517,7 @@ namespace PuntoDeVentaV2
 
         public string totalCantidadesVentasTodos(string IDUsuario, string IDEmpleado, string IDCaja)
         {
-            var consulta = $"SELECT Operacion, IDUsuario, IdEmpleado, SUM( Efectivo ) AS 'Efectivo', SUM( Tarjeta ) AS 'Tarjeta', SUM( Vales ) AS 'Vales', SUM( Cheque ) AS 'Cheque', SUM( Transferencia ) AS 'Transferencia', SUM( Credito ) AS 'Credito', SUM( Anticipo ) AS 'Anticipo', ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) + SUM( Credito ) + SUM( Anticipo ) ) AS 'TotalVentas' FROM caja WHERE IDUsuario = '{IDUsuario}' AND IDEmpleado = '{IDEmpleado}' AND ID > '{IDCaja}' AND Operacion = 'venta'";
+            var consulta = $"SELECT Operacion, IDUsuario, IdEmpleado, IF ( SUM( Efectivo ) IS NULL, 0, SUM( Efectivo ) ) AS 'Efectivo', IF ( SUM( Tarjeta ) IS NULL, 0, SUM( Tarjeta ) ) AS 'Tarjeta', IF ( SUM( Vales ) IS NULL, 0, SUM( Vales ) ) AS 'Vales', IF ( SUM( Cheque ) IS NULL, 0, SUM( Cheque ) ) AS 'Cheque', IF ( SUM( Transferencia ) IS NULL, 0, SUM( Transferencia ) ) AS 'Transferencia', IF ( SUM( Credito ) IS NULL, 0, SUM( Credito ) ) AS 'Credito', IF ( SUM( Anticipo ) IS NULL, 0, SUM( Anticipo ) ) AS 'Anticipo', IF (  ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) + SUM( Credito ) + SUM( Anticipo ) ) IS NULL, 0, ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) + SUM( Credito ) + SUM( Anticipo ) ) ) AS 'TotalVentas' FROM caja WHERE IDUsuario = '{IDUsuario}' AND IDEmpleado = '{IDEmpleado}' AND ID > '{IDCaja}' AND Operacion = 'venta'";
 
             return consulta;
         }
@@ -3587,7 +3587,7 @@ namespace PuntoDeVentaV2
 
         public string totalCantidadesRetirosTodos(string IDUsuario, string IDEmpleado, string IDCaja)
         {
-            var consulta = $"SELECT ID, Operacion, IDUsuario, IdEmpleado, SUM( Efectivo ) AS 'Efectivo', SUM( Tarjeta ) AS 'Tarjeta', SUM( Vales ) AS 'Vales', SUM( Cheque ) AS 'Cheque', SUM( Transferencia ) AS 'Transferencia', (  SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) AS 'TotalRetiros' FROM caja WHERE IDUsuario = '{IDUsuario}' AND IdEmpleado = '{IDEmpleado}' AND ID > '{IDCaja}' AND Operacion = 'retiro'";
+            var consulta = $"SELECT ID, Operacion, IDUsuario, IdEmpleado, IF ( SUM( Efectivo ) IS NULL, 0, SUM( Efectivo ) ) AS 'Efectivo', IF ( SUM( Tarjeta ) IS NULL, 0, SUM( Tarjeta ) ) AS 'Tarjeta', IF ( SUM( Vales ) IS NULL, 0, SUM( Vales ) ) AS 'Vales', IF ( SUM( Cheque ) IS NULL, 0, SUM( Cheque ) ) AS 'Cheque', IF ( SUM( Transferencia ) IS NULL, 0, SUM( Transferencia ) ) AS 'Transferencia', IF ( ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) IS NULL, 0, ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) ) AS 'TotalRetiros' FROM caja WHERE IDUsuario = '{IDUsuario}'  AND IdEmpleado = '{IDEmpleado}' AND ID > '{IDCaja}' AND Operacion = 'retiro'";
 
             return consulta;
         }
