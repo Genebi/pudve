@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UsuariosGuardados));
             this.dgvUsuariosGuardados = new System.Windows.Forms.DataGridView();
             this._user = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._eliminar = new System.Windows.Forms.DataGridViewImageColumn();
@@ -72,6 +73,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(385, 208);
             this.Controls.Add(this.dgvUsuariosGuardados);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "UsuariosGuardados";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UsuariosGuardados";

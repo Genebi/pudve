@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TipoDeMoneda));
             this.label6 = new System.Windows.Forms.Label();
             this.cboTipoMoneda = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
@@ -248,6 +249,7 @@
             this.ClientSize = new System.Drawing.Size(324, 126);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cboTipoMoneda);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

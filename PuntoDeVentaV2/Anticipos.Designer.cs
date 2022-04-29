@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Anticipos));
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.panelBotones = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -321,8 +322,8 @@
             this.Controls.Add(this.DGVAnticipos);
             this.Controls.Add(this.panelBotones);
             this.Controls.Add(this.tituloSeccion);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Anticipos";
-            this.Text = "0";
             this.Load += new System.EventHandler(this.Anticipos_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Anticipos_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Anticipos_KeyDown);

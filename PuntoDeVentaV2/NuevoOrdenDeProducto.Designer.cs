@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NuevoOrdenDeProducto));
             this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo2 = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo3 = new PuntoDeVentaV2.BotonRedondo();
@@ -98,6 +99,7 @@
             this.Controls.Add(this.botonRedondo3);
             this.Controls.Add(this.botonRedondo2);
             this.Controls.Add(this.botonRedondo1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "NuevoOrdenDeProducto";
             this.Text = "NuevoOrdenDeProducto";
             this.ResumeLayout(false);

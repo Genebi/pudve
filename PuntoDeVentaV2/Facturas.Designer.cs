@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Facturas));
             this.datagv_facturas = new System.Windows.Forms.DataGridView();
             this.col_checkbox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.col_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,6 +54,8 @@
             this.btn_cpago = new System.Windows.Forms.Button();
             this.btn_enviar = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.txt_buscar_por = new System.Windows.Forms.TextBox();
             this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.pBar1 = new System.Windows.Forms.ProgressBar();
@@ -76,8 +79,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.chTodos = new System.Windows.Forms.CheckBox();
             this.btnReportes = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.datagv_facturas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -275,7 +276,6 @@
             this.datetp_fecha_inicial.Size = new System.Drawing.Size(112, 22);
             this.datetp_fecha_inicial.TabIndex = 3;
             this.datetp_fecha_inicial.Value = new System.DateTime(2020, 2, 13, 0, 0, 0, 0);
-            //this.datetp_fecha_inicial.ValueChanged += new System.EventHandler(this.datetp_fecha_inicial_ValueChanged);
             // 
             // datetp_fecha_final
             // 
@@ -287,7 +287,6 @@
             this.datetp_fecha_final.Name = "datetp_fecha_final";
             this.datetp_fecha_final.Size = new System.Drawing.Size(112, 22);
             this.datetp_fecha_final.TabIndex = 4;
-            //this.datetp_fecha_final.ValueChanged += new System.EventHandler(this.datetp_fecha_final_ValueChanged);
             // 
             // btn_buscar
             // 
@@ -352,6 +351,26 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(585, 80);
             this.panel1.TabIndex = 8;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(354, 36);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(62, 13);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "Fecha Final";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(234, 37);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(67, 13);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Fecha Inicial";
             // 
             // txt_buscar_por
             // 
@@ -647,26 +666,6 @@
             this.btnReportes.UseVisualStyleBackColor = false;
             this.btnReportes.Click += new System.EventHandler(this.btnReportes_Click);
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(354, 36);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(62, 13);
-            this.label3.TabIndex = 17;
-            this.label3.Text = "Fecha Final";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(234, 37);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 13);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "Fecha Inicial";
-            // 
             // Facturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -685,6 +684,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.datagv_facturas);
             this.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Facturas";
             this.Text = "Facturas";

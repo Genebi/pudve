@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListadoVentas));
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.DGVListadoVentas = new System.Windows.Forms.DataGridView();
             this.col_checkbox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -736,6 +737,7 @@
             this.Controls.Add(this.panelBotones);
             this.Controls.Add(this.DGVListadoVentas);
             this.Controls.Add(this.tituloSeccion);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ListadoVentas";
             this.Text = "ListadoVentas";
             this.Load += new System.EventHandler(this.ListadoVentas_Load);

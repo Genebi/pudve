@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CajaN));
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.btnReporteRetirar = new System.Windows.Forms.Button();
             this.btnReporteAgregar = new System.Windows.Forms.Button();
@@ -1597,6 +1598,7 @@
             this.Controls.Add(this.btnRetirarDinero);
             this.Controls.Add(this.btnRedondoSaldoInicial);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "CajaN";
             this.Text = "CajaN";

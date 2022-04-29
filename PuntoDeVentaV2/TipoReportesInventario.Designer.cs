@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TipoReportesInventario));
             this.label1 = new System.Windows.Forms.Label();
             this.btnActualizarInventarioDisminuir = new PuntoDeVentaV2.BotonRedondo();
             this.btnActualizarInventarioAumentar = new PuntoDeVentaV2.BotonRedondo();
@@ -129,6 +130,7 @@
             this.Controls.Add(this.btnActualizarInventarioAumentar);
             this.Controls.Add(this.btnActualizarInventarioNew);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

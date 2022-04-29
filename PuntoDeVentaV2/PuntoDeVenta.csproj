@@ -77,7 +77,7 @@
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>setup.ico</ApplicationIcon>
+    <ApplicationIcon>wande.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BarcodeLib, Version=1.0.0.20, Culture=neutral, processorArchitecture=MSIL">
@@ -6833,6 +6833,7 @@
     <Content Include="PUDVE\Sounds\sonido_alarma.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="wande.ico" />
     <None Include="Service References\ServiceReference_produccion\configuration91.svcinfo" />
     <None Include="Service References\ServiceReference_produccion\configuration.svcinfo" />
     <None Include="Service References\ServiceReference_produccion\Reference.svcmap">

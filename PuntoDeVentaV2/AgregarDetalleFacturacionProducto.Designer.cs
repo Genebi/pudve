@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarDetalleFacturacionProducto));
             this.btnAceptarDetalle = new System.Windows.Forms.Button();
             this.btnCancelarDetalle = new System.Windows.Forms.Button();
             this.cbLinea1_16 = new System.Windows.Forms.ComboBox();
@@ -524,6 +525,7 @@
             this.Controls.Add(this.btnAceptarDetalle);
             this.Controls.Add(this.btnCancelarDetalle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

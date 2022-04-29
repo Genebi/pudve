@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegistroIniciosDeSesiones));
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.linkLblUltimaPagina = new System.Windows.Forms.LinkLabel();
@@ -46,11 +47,11 @@
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.dgvInicios = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.correo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -309,19 +310,6 @@
             this.dgvInicios.Size = new System.Drawing.Size(866, 345);
             this.dgvInicios.TabIndex = 40;
             // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(305, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(294, 25);
-            this.label1.TabIndex = 42;
-            this.label1.Text = "Registro de inicios de sesión";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // id
             // 
             this.id.HeaderText = "ID";
@@ -347,6 +335,19 @@
             this.correo.Name = "correo";
             this.correo.ReadOnly = true;
             // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(305, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(294, 25);
+            this.label1.TabIndex = 42;
+            this.label1.Text = "Registro de inicios de sesión";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // RegistroIniciosDeSesiones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -355,6 +356,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.dgvInicios);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RegistroIniciosDeSesiones";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "RegistroIniciosDeSesiones";

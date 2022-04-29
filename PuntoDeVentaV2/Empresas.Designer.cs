@@ -31,6 +31,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Empresas));
             this.label1 = new System.Windows.Forms.Label();
             this.LblNombreUsr = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -140,7 +141,7 @@
             this.DGVListaEmpresas.DefaultCellStyle = dataGridViewCellStyle2;
             this.DGVListaEmpresas.EnableHeadersVisualStyles = false;
             this.DGVListaEmpresas.Location = new System.Drawing.Point(14, 254);
-            this.DGVListaEmpresas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.DGVListaEmpresas.Margin = new System.Windows.Forms.Padding(2);
             this.DGVListaEmpresas.Name = "DGVListaEmpresas";
             this.DGVListaEmpresas.ReadOnly = true;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -166,7 +167,7 @@
             this.btnNvaEmpresa.Font = new System.Drawing.Font("Century Gothic", 16.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNvaEmpresa.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnNvaEmpresa.Location = new System.Drawing.Point(893, 561);
-            this.btnNvaEmpresa.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnNvaEmpresa.Margin = new System.Windows.Forms.Padding(2);
             this.btnNvaEmpresa.Name = "btnNvaEmpresa";
             this.btnNvaEmpresa.Size = new System.Drawing.Size(158, 47);
             this.btnNvaEmpresa.TabIndex = 7;
@@ -188,7 +189,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.LblNombreUsr);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Empresas";
             this.Text = "Empresas";
             this.Load += new System.EventHandler(this.Empresas_Load);
