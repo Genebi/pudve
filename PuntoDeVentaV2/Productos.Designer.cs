@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Productos));
             this.btnAgregarProducto = new System.Windows.Forms.Button();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.tituloBusqueda = new System.Windows.Forms.Label();
@@ -1161,6 +1162,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelShowDGVProductosView);
             this.Controls.Add(this.panelShowPhotoView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Productos";
             this.Text = "Productos";
             this.Load += new System.EventHandler(this.Productos_Load);

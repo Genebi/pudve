@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TagMake));
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lblCodBarPrecio = new System.Windows.Forms.Label();
@@ -37,9 +38,10 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Century", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(8, 35);
+            this.label2.Location = new System.Drawing.Point(6, 28);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(253, 23);
+            this.label2.Size = new System.Drawing.Size(190, 19);
             this.label2.TabIndex = 8;
             this.label2.Text = "Punto de Venta Gratuito";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -47,9 +49,10 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Century", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(9, 7);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(249, 23);
+            this.label1.Size = new System.Drawing.Size(187, 19);
             this.label1.TabIndex = 7;
             this.label1.Text = "www.pudve.com";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -57,30 +60,34 @@
             // lblCodBarPrecio
             // 
             this.lblCodBarPrecio.Font = new System.Drawing.Font("Century", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCodBarPrecio.Location = new System.Drawing.Point(8, 141);
+            this.lblCodBarPrecio.Location = new System.Drawing.Point(6, 115);
+            this.lblCodBarPrecio.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCodBarPrecio.Name = "lblCodBarPrecio";
-            this.lblCodBarPrecio.Size = new System.Drawing.Size(261, 35);
+            this.lblCodBarPrecio.Size = new System.Drawing.Size(196, 28);
             this.lblCodBarPrecio.TabIndex = 10;
             this.lblCodBarPrecio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblNombreProd
             // 
             this.lblNombreProd.Font = new System.Drawing.Font("Century", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombreProd.Location = new System.Drawing.Point(10, 74);
+            this.lblNombreProd.Location = new System.Drawing.Point(8, 60);
+            this.lblNombreProd.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNombreProd.Name = "lblNombreProd";
-            this.lblNombreProd.Size = new System.Drawing.Size(257, 52);
+            this.lblNombreProd.Size = new System.Drawing.Size(193, 42);
             this.lblNombreProd.TabIndex = 9;
             this.lblNombreProd.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // TagMake
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(276, 184);
+            this.ClientSize = new System.Drawing.Size(207, 150);
             this.Controls.Add(this.lblCodBarPrecio);
             this.Controls.Add(this.lblNombreProd);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "TagMake";

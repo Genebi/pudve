@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AgregarDetalleProducto));
             this.separadorInicial = new System.Windows.Forms.Label();
             this.btnGuardarDetalles = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -369,6 +370,7 @@
             this.Controls.Add(this.chkMensajeInventario);
             this.Controls.Add(this.chkBoxProductMessage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.Name = "AgregarDetalleProducto";

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SetUpPUDVE));
             this.btnRespaldo = new System.Windows.Forms.Button();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.guardarArchivo = new System.Windows.Forms.SaveFileDialog();
@@ -1027,6 +1028,7 @@
             this.Controls.Add(this.tituloSeccion);
             this.Controls.Add(this.btnRespaldo);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "SetUpPUDVE";
             this.Text = "PUDVE - Configuración";

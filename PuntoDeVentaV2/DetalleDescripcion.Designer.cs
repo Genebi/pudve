@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DetalleDescripcion));
             this.DGVDetalle = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.DGVDetalle)).BeginInit();
             this.SuspendLayout();
@@ -35,18 +36,21 @@
             // DGVDetalle
             // 
             this.DGVDetalle.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVDetalle.Location = new System.Drawing.Point(22, 178);
+            this.DGVDetalle.Location = new System.Drawing.Point(16, 145);
+            this.DGVDetalle.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.DGVDetalle.Name = "DGVDetalle";
             this.DGVDetalle.RowTemplate.Height = 24;
-            this.DGVDetalle.Size = new System.Drawing.Size(599, 262);
+            this.DGVDetalle.Size = new System.Drawing.Size(449, 213);
             this.DGVDetalle.TabIndex = 0;
             // 
             // DetalleDescripcion
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(637, 494);
+            this.ClientSize = new System.Drawing.Size(478, 401);
             this.Controls.Add(this.DGVDetalle);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DetalleDescripcion";

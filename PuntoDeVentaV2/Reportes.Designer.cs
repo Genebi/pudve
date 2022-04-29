@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reportes));
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.primerSeparador = new System.Windows.Forms.Label();
             this.btnHistorialDineroAgregado = new System.Windows.Forms.Button();
@@ -290,6 +291,7 @@
             this.Controls.Add(this.Panel);
             this.Controls.Add(this.tituloSeccion);
             this.Controls.Add(this.primerSeparador);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Reportes";
             this.Text = "Reportes";
             this.Load += new System.EventHandler(this.Reportes_Load);

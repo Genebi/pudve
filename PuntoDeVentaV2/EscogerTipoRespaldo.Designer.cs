@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EscogerTipoRespaldo));
             this.rbRespaldarCerrarSesion = new System.Windows.Forms.RadioButton();
             this.rbNoRespaldar = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
@@ -113,6 +114,7 @@
             this.Controls.Add(this.rbNoRespaldar);
             this.Controls.Add(this.rbRespaldarCerrarSesion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

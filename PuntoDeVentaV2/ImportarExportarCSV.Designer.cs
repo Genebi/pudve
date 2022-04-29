@@ -29,6 +29,7 @@ namespace PuntoDeVentaV2
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportarExportarCSV));
             this.btnImportar = new PuntoDeVentaV2.BotonRedondo();
             this.btnExportar = new PuntoDeVentaV2.BotonRedondo();
             this.btnTerminar = new System.Windows.Forms.Button();
@@ -137,6 +138,7 @@ namespace PuntoDeVentaV2
             this.Controls.Add(this.btnImportarVentas);
             this.Controls.Add(this.btnImportar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Proveedores));
             this.DGVProveedores = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -174,7 +175,6 @@
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(155, 25);
             this.cbStatus.TabIndex = 8;
-            
             this.cbStatus.SelectionChangeCommitted += new System.EventHandler(this.cbStatus_SelectionChangeCommitted);
             // 
             // btnBuscar
@@ -452,6 +452,7 @@
             this.Controls.Add(this.DGVProveedores);
             this.Controls.Add(this.panelBotones);
             this.Controls.Add(this.tituloSeccion);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Proveedores";
             this.Text = "Proveedores";
             this.Load += new System.EventHandler(this.Proveedores_Load);

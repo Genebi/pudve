@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HistorialStockProductos));
             this.DGVHistorialStock = new System.Windows.Forms.DataGridView();
             this.txtNombreProducto = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -88,6 +89,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtNombreProducto);
             this.Controls.Add(this.DGVHistorialStock);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "HistorialStockProductos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

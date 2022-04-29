@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HistorialPrecioBuscador));
             this.txtBuscar = new System.Windows.Forms.TextBox();
             this.lbTitulo = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
@@ -502,6 +503,7 @@
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.DGVDatosEmpleados);
             this.Controls.Add(this.DGVDatosProductos);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "HistorialPrecioBuscador";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
