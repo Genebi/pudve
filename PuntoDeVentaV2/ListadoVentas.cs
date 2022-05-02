@@ -1945,8 +1945,9 @@ namespace PuntoDeVentaV2
                                             var cantidad = item["Cantidad"].ToString();
                                             var consulta = cn.CargarDatos($"SELECT * FROM productosdeservicios WHERE IDServicio = {idprod}");
                                             var consultaCombo = cn.CargarDatos($"SELECT IDProducto FROM productosdeservicios WHERE IDServicio = {idprod}");
+                                            var idproduct = consultaCombo.Rows[0]["IDProducto"].ToString();
 
-                                            if (!consulta.Rows.Count.Equals(0)) //En caso que el producto sea un combo o servicio
+                                            if (!consulta.Rows.Count.Equals(0) && idproduct != "0") //En caso que el producto sea un combo o servicio
                                             {
                                                 var cantidadCombo = consulta.Rows[0]["Cantidad"].ToString();
                                                 var idProd = consulta.Rows[0]["IDProducto"].ToString();
@@ -1995,6 +1996,10 @@ namespace PuntoDeVentaV2
                                                     cn.EjecutarConsulta($"UPDATE Productos SET Stock ={stockNuevo} WHERE ID = {idprod} AND IDUsuario = {FormPrincipal.userID}");
                                                 }
 
+                                            }
+                                            else if (idproduct == "0")
+                                            {
+                                         
                                             }
                                             else //En caso de ser un producto
                                             {
