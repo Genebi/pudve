@@ -411,9 +411,77 @@ namespace PuntoDeVentaV2
                         // Deshabilitar
                         if (indice == 0)
                         {
-                            cn.EjecutarConsulta(cs.CambiarStatusAnticipo(2, idAnticipo, FormPrincipal.userID));
-                            CajaDeshabilitar(formaPago, importe);
-                            CargarDatos(cbAnticipos.SelectedIndex + 1);
+                            var idUltimoCorteDeCaja = 0;
+                            var fechaUltimoCorteDeCaja = string.Empty;
+                            var EfectivoEnCaja = 0m;
+                            var TarjetaEnCaja = 0m;
+                            var ValesEnCaja = 0m;
+                            var ChequeEnCaja = 0m;
+                            var TransferenciaEnCaja = 0m;
+                            var CreditoEnCaja = 0m;
+                            var AnticipoEnCaja = 0m;
+
+                            using (DataTable dtSaldosInicialesDeCaja = cn.CargarDatos(cs.CargarSaldoInicialSinAbrirCaja(FormPrincipal.userID, FormPrincipal.id_empleado)))
+                            {
+                                if (!dtSaldosInicialesDeCaja.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow item in dtSaldosInicialesDeCaja.Rows)
+                                    {
+                                        idUltimoCorteDeCaja = Convert.ToInt32(item["IDCaja"].ToString());
+                                        var fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());
+                                        fechaUltimoCorteDeCaja = fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss");
+                                        EfectivoEnCaja += (decimal)Convert.ToDouble(item["Efectivo"].ToString());
+                                        TarjetaEnCaja += (decimal)Convert.ToDouble(item["Tarjeta"].ToString());
+                                        ValesEnCaja += (decimal)Convert.ToDouble(item["Vales"].ToString());
+                                        ChequeEnCaja += (decimal)Convert.ToDouble(item["Cheque"].ToString());
+                                        TransferenciaEnCaja += (decimal)Convert.ToDouble(item["Transferencia"].ToString());
+                                        CreditoEnCaja += (decimal)Convert.ToDouble(item["Credito"].ToString());
+                                        AnticipoEnCaja += (decimal)Convert.ToDouble(item["Anticipo"].ToString());
+                                    }
+
+                                    using (DataTable dtSaldosInicialVentasDepostos = cn.CargarDatos(cs.SaldoVentasDepositos(FormPrincipal.userID, FormPrincipal.id_empleado, idUltimoCorteDeCaja)))
+                                    {
+                                        if (!dtSaldosInicialVentasDepostos.Rows.Count.Equals(0))
+                                        {
+                                            foreach (DataRow item in dtSaldosInicialVentasDepostos.Rows)
+                                            {
+                                                EfectivoEnCaja += (decimal)Convert.ToDouble(item["Efectivo"].ToString());
+                                                TarjetaEnCaja += (decimal)Convert.ToDouble(item["Tarjeta"].ToString());
+                                                ValesEnCaja += (decimal)Convert.ToDouble(item["Vales"].ToString());
+                                                ChequeEnCaja += (decimal)Convert.ToDouble(item["Cheque"].ToString());
+                                                TransferenciaEnCaja += (decimal)Convert.ToDouble(item["Transferencia"].ToString());
+                                            }
+                                        }
+                                    }
+
+                                    using (DataTable dtSaldoInicialRetiros = cn.CargarDatos(cs.SaldoInicialRetiros(FormPrincipal.userID, FormPrincipal.id_empleado, idUltimoCorteDeCaja)))
+                                    {
+                                        if (!dtSaldoInicialRetiros.Rows.Count.Equals(0))
+                                        {
+                                            foreach (DataRow item in dtSaldoInicialRetiros.Rows)
+                                            {
+                                                EfectivoEnCaja -= (decimal)Convert.ToDouble(item["Efectivo"].ToString());
+                                                TarjetaEnCaja -= (decimal)Convert.ToDouble(item["Tarjeta"].ToString());
+                                                ValesEnCaja -= (decimal)Convert.ToDouble(item["Vales"].ToString());
+                                                ChequeEnCaja -= (decimal)Convert.ToDouble(item["Cheque"].ToString());
+                                                TransferenciaEnCaja -= (decimal)Convert.ToDouble(item["Transferencia"].ToString());
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (formaPago == "01" && importe > (float)EfectivoEnCaja || formaPago == "04" && importe > (float)TarjetaEnCaja || formaPago == "08" && importe > (float)ValesEnCaja || formaPago == "02" && importe > (float)ChequeEnCaja || formaPago == "03" && importe > (float)TransferenciaEnCaja)
+                            {
+                                MessageBox.Show("Saldo insuficiente para deshabilitar el anticipo", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                            else
+                            {
+                                cn.EjecutarConsulta(cs.CambiarStatusAnticipo(2, idAnticipo, FormPrincipal.userID));
+                                CajaDeshabilitar(formaPago, importe);
+                                CargarDatos(cbAnticipos.SelectedIndex + 1);
+                            }
+
                         }
 
                         // Habilitar
