@@ -31,10 +31,10 @@ namespace PuntoDeVentaV2
 
 
         //MIOOOOOOOOOOOOO
-        float efectivo ;
-        float tarjeta ;
-        float vales ;
-        float cheque ;
+        float efectivo;
+        float tarjeta;
+        float vales;
+        float cheque;
         float transferencia;
         float restante;
         float cambio;
@@ -86,7 +86,7 @@ namespace PuntoDeVentaV2
             {
                 var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
                 var restante = totalPendiente - abonado;
-                txtPendiente.Text =restante.ToString("C2");
+                txtPendiente.Text = restante.ToString("C2");
                 totalPendiente = restante;
             }
         }
@@ -223,7 +223,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                MessageBox.Show("Ingrese una cantidad para poder realizar el abono.","Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Ingrese una cantidad para poder realizar el abono.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -244,7 +244,7 @@ namespace PuntoDeVentaV2
         {
             var servidor = Properties.Settings.Default.Hosting;
 
-            ticketGenerado = $"ticket_abono_{idVenta}"+"_"+idAbono+".pdf";
+            ticketGenerado = $"ticket_abono_{idVenta}" + "_" + idAbono + ".pdf";
 
             if (!string.IsNullOrWhiteSpace(servidor))
             {
@@ -437,7 +437,7 @@ namespace PuntoDeVentaV2
         }
 
         private void txtEfectivo_KeyUp(object sender, KeyEventArgs e)
-        {            
+        {
             //CalcularCambio();
 
             var cantidadEfectivo = txtEfectivo.Text;
@@ -627,305 +627,402 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void txtEfectivo_TextChanged(object sender, EventArgs e)
+        private void validacionRestanteDeAbonos(object sender, EventArgs e)
         {
+            TextBox txtCajaDeTexto = (TextBox)sender;
+
             var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
             totalPendiente = float.Parse(detalles[2]);
 
-
-
+            if (txtCajaDeTexto.Text == "")
+            {
+                txtCajaDeTexto.Text = "0";
+                txtCajaDeTexto.Focus();
+                txtCajaDeTexto.SelectAll();
+            }
+            else if (txtCajaDeTexto.Text.Equals("."))
+            {
+                txtCajaDeTexto.Text = "0.";
+                txtCajaDeTexto.Focus();
+                txtCajaDeTexto.SelectionStart = txtCajaDeTexto.Text.Length;
+                txtCajaDeTexto.SelectionLength = 0;
+            }
 
             using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDeLaVentaACredito(idVenta)))
             {
-                if (txtEfectivo.Text == "")
+                if (!dtAbonos.Rows.Count.Equals(0))
                 {
-                    txtEfectivo.Text = "0";
-                    txtEfectivo.Focus();
-                    txtEfectivo.SelectAll();
-                }
-                else
-                {
-                    if (!dtAbonos.Rows.Count.Equals(0))
-                    {
-                        var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
-                        efectivo = (float)Convert.ToDecimal(txtEfectivo.Text);
-                        var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
-                        restante = totalPendiente - nuevoabono;
-                        txtPendiente.Text = restante.ToString("C2");
-                        if (restante < 1)
-                        {
-                            txtPendiente.Text = "$0.00";
-                            cambio = restante * (-1);
-                            lbTotalCambio.Text = cambio.ToString("C2");
-                        }
-                        else
-                        {
-                            lbTotalCambio.Text = "$0.00";
-                        }
+                    var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
 
+                    if (txtCajaDeTexto.Name.Equals("txtEfectivo"))
+                    {
+                        efectivo = (float)Convert.ToDecimal(txtCajaDeTexto.Text);
+                    }
+                    else if (txtCajaDeTexto.Name.Equals("txtTarjeta"))
+                    {
+                        tarjeta = (float)Convert.ToDecimal(txtCajaDeTexto.Text);
+                    }
+                    else if (txtCajaDeTexto.Name.Equals("txtVales"))
+                    {
+                        vales = (float)Convert.ToDecimal(txtCajaDeTexto.Text);
+                    }
+                    else if (txtCajaDeTexto.Name.Equals("txtCheque"))
+                    {
+                        cheque = (float)Convert.ToDecimal(txtCajaDeTexto.Text);
+                    }
+                    else if (txtCajaDeTexto.Name.Equals("txtTransferencia"))
+                    {
+                        transferencia = (float)Convert.ToDecimal(txtCajaDeTexto.Text);
+                    }
+
+                    var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
+                    restante = totalPendiente - nuevoabono;
+                    txtPendiente.Text = restante.ToString("C2");
+                    if (restante < 1)
+                    {
+                        txtPendiente.Text = "$0.00";
+                        cambio = restante * (-1);
+                        lbTotalCambio.Text = cambio.ToString("C2");
                     }
                     else
                     {
-                        float abonado = 0;
-                        efectivo = (float)Convert.ToDecimal(txtEfectivo.Text);
-                        var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
-                        restante = totalPendiente - nuevoabono;
-                        txtPendiente.Text = restante.ToString("C2");
-                        if (restante < 1)
-                        {
-                            txtPendiente.Text = "$0.00";
-                            cambio = restante * (-1);
-                            lbTotalCambio.Text = cambio.ToString("C2");
-                        }
-                        else
-                        {
-                            lbTotalCambio.Text = "$0.00";
-                        }
+                        lbTotalCambio.Text = "$0.00";
+                    }
+
+                }
+                else
+                {
+                    float abonado = 0;
+
+                    if (txtCajaDeTexto.Name.Equals("txtEfectivo"))
+                    {
+                        efectivo = (float)Convert.ToDecimal(txtCajaDeTexto.Text);
+                    }
+                    else if (txtCajaDeTexto.Name.Equals("txtTarjeta"))
+                    {
+                        tarjeta = (float)Convert.ToDecimal(txtCajaDeTexto.Text);
+                    }
+                    else if (txtCajaDeTexto.Name.Equals("txtVales"))
+                    {
+                        vales = (float)Convert.ToDecimal(txtCajaDeTexto.Text);
+                    }
+                    else if (txtCajaDeTexto.Name.Equals("txtCheque"))
+                    {
+                        cheque = (float)Convert.ToDecimal(txtCajaDeTexto.Text);
+                    }
+                    else if (txtCajaDeTexto.Name.Equals("txtTransferencia"))
+                    {
+                        transferencia = (float)Convert.ToDecimal(txtCajaDeTexto.Text);
+                    }
+
+                    var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
+                    restante = totalPendiente - nuevoabono;
+                    txtPendiente.Text = restante.ToString("C2");
+                    if (restante < 1)
+                    {
+                        txtPendiente.Text = "$0.00";
+                        cambio = restante * (-1);
+                        lbTotalCambio.Text = cambio.ToString("C2");
+                    }
+                    else
+                    {
+                        lbTotalCambio.Text = "$0.00";
                     }
                 }
 
             }
+        }
+
+        private void txtEfectivo_TextChanged(object sender, EventArgs e)
+        {
+            validacionRestanteDeAbonos(sender, e);
+
+            //var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
+            //totalPendiente = float.Parse(detalles[2]);
+
+            //using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDeLaVentaACredito(idVenta)))
+            //{
+            //    if (txtEfectivo.Text == "")
+            //    {
+            //        txtEfectivo.Text = "0";
+            //        txtEfectivo.Focus();
+            //        txtEfectivo.SelectAll();
+            //    }
+            //    else
+            //    {
+            //        if (!dtAbonos.Rows.Count.Equals(0))
+            //        {
+            //            var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
+            //            efectivo = (float)Convert.ToDecimal(txtEfectivo.Text);
+            //            var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
+            //            restante = totalPendiente - nuevoabono;
+            //            txtPendiente.Text = restante.ToString("C2");
+            //            if (restante < 1)
+            //            {
+            //                txtPendiente.Text = "$0.00";
+            //                cambio = restante * (-1);
+            //                lbTotalCambio.Text = cambio.ToString("C2");
+            //            }
+            //            else
+            //            {
+            //                lbTotalCambio.Text = "$0.00";
+            //            }
+
+            //        }
+            //        else
+            //        {
+            //            float abonado = 0;
+            //            efectivo = (float)Convert.ToDecimal(txtEfectivo.Text);
+            //            var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
+            //            restante = totalPendiente - nuevoabono;
+            //            txtPendiente.Text = restante.ToString("C2");
+            //            if (restante < 1)
+            //            {
+            //                txtPendiente.Text = "$0.00";
+            //                cambio = restante * (-1);
+            //                lbTotalCambio.Text = cambio.ToString("C2");
+            //            }
+            //            else
+            //            {
+            //                lbTotalCambio.Text = "$0.00";
+            //            }
+            //        }
+            //    }
+
+            //}
         }
 
         private void txtTarjeta_TextChanged(object sender, EventArgs e)
         {
-            var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
-            totalPendiente = float.Parse(detalles[2]);
+            validacionRestanteDeAbonos(sender, e);
 
+            //var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
+            //totalPendiente = float.Parse(detalles[2]);
 
+            //using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDeLaVentaACredito(idVenta)))
+            //{
+            //    if (txtTarjeta.Text == "")
+            //    {
+            //        txtTarjeta.Text = "0";
+            //        txtTarjeta.Focus();
+            //        txtTarjeta.SelectAll();
+            //    }
+            //    else
+            //    {
+            //        if (!dtAbonos.Rows.Count.Equals(0))
+            //        {
+            //            var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
+            //            tarjeta = (float)Convert.ToDecimal(txtTarjeta.Text);
+            //            var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
+            //            restante = totalPendiente - nuevoabono;
+            //            txtPendiente.Text = restante.ToString("C2");
+            //            if (restante < 1)
+            //            {
+            //                txtPendiente.Text = "$0.00";
+            //                cambio = restante * (-1);
+            //                lbTotalCambio.Text = cambio.ToString("C2");
+            //            }
+            //            else
+            //            {
+            //                lbTotalCambio.Text = "$0.00";
+            //            }
 
-
-            using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDeLaVentaACredito(idVenta)))
-            {
-                if (txtTarjeta.Text == "")
-                {
-                    txtTarjeta.Text = "0";
-                    txtTarjeta.Focus();
-                    txtTarjeta.SelectAll();
-                }
-                else
-                {
-                    if (!dtAbonos.Rows.Count.Equals(0))
-                    {
-                        var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
-                        tarjeta = (float)Convert.ToDecimal(txtTarjeta.Text);
-                        var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
-                        restante = totalPendiente - nuevoabono;
-                        txtPendiente.Text = restante.ToString("C2");
-                        if (restante < 1)
-                        {
-                            txtPendiente.Text = "$0.00";
-                            cambio = restante * (-1);
-                            lbTotalCambio.Text = cambio.ToString("C2");
-                        }
-                        else
-                        {
-                            lbTotalCambio.Text = "$0.00";
-                        }
-
-                    }
-                    else
-                    {
-                        float abonado = 0;
-                        tarjeta = (float)Convert.ToDecimal(txtTarjeta.Text);
-                        var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
-                        restante = totalPendiente - nuevoabono;
-                        txtPendiente.Text = restante.ToString("C2");
-                        if (restante < 1)
-                        {
-                            txtPendiente.Text = "$0.00";
-                            cambio = restante * (-1);
-                            lbTotalCambio.Text = cambio.ToString("C2");
-                        }
-                        else
-                        {
-                            lbTotalCambio.Text = "$0.00";
-                        }
-                    }
-                }
-
-            }
+            //        }
+            //        else
+            //        {
+            //            float abonado = 0;
+            //            tarjeta = (float)Convert.ToDecimal(txtTarjeta.Text);
+            //            var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
+            //            restante = totalPendiente - nuevoabono;
+            //            txtPendiente.Text = restante.ToString("C2");
+            //            if (restante < 1)
+            //            {
+            //                txtPendiente.Text = "$0.00";
+            //                cambio = restante * (-1);
+            //                lbTotalCambio.Text = cambio.ToString("C2");
+            //            }
+            //            else
+            //            {
+            //                lbTotalCambio.Text = "$0.00";
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         private void txtVales_TextChanged(object sender, EventArgs e)
         {
-            var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
-            totalPendiente = float.Parse(detalles[2]);
+            validacionRestanteDeAbonos(sender, e);
 
+            //var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
+            //totalPendiente = float.Parse(detalles[2]);
 
+            //using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDeLaVentaACredito(idVenta)))
+            //{
+            //    if (txtVales.Text == "")
+            //    {
+            //        txtVales.Text = "0";
+            //        txtVales.Focus();
+            //        txtVales.SelectAll();
+            //    }
+            //    else
+            //    {
+            //        if (!dtAbonos.Rows.Count.Equals(0))
+            //        {
+            //            var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
+            //            vales = (float)Convert.ToDecimal(txtVales.Text);
+            //            var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
+            //            restante = totalPendiente - nuevoabono;
+            //            txtPendiente.Text = restante.ToString("C2");
+            //            if (restante < 1)
+            //            {
+            //                txtPendiente.Text = "$0.00";
+            //                cambio = restante * (-1);
+            //                lbTotalCambio.Text = cambio.ToString("C2");
+            //            }
+            //            else
+            //            {
+            //                lbTotalCambio.Text = "$0.00";
+            //            }
 
-
-            using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDeLaVentaACredito(idVenta)))
-            {
-                if (txtVales.Text == "")
-                {
-                    txtVales.Text = "0";
-                    txtVales.Focus();
-                    txtVales.SelectAll();
-                }
-                else
-                {
-                    if (!dtAbonos.Rows.Count.Equals(0))
-                    {
-                        var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
-                        vales = (float)Convert.ToDecimal(txtVales.Text);
-                        var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
-                        restante = totalPendiente - nuevoabono;
-                        txtPendiente.Text = restante.ToString("C2");
-                        if (restante < 1)
-                        {
-                            txtPendiente.Text = "$0.00";
-                            cambio = restante * (-1);
-                            lbTotalCambio.Text = cambio.ToString("C2");
-                        }
-                        else
-                        {
-                            lbTotalCambio.Text = "$0.00";
-                        }
-
-                    }
-                    else
-                    {
-                        float abonado = 0;
-                        vales = (float)Convert.ToDecimal(txtVales.Text);
-                        var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
-                        restante = totalPendiente - nuevoabono;
-                        txtPendiente.Text = restante.ToString("C2");
-                        if (restante < 1)
-                        {
-                            txtPendiente.Text = "$0.00";
-                            cambio = restante * (-1);
-                            lbTotalCambio.Text = cambio.ToString("C2");
-                        }
-                        else
-                        {
-                            lbTotalCambio.Text = "$0.00";
-                        }
-                    }
-                }
-
-            }
+            //        }
+            //        else
+            //        {
+            //            float abonado = 0;
+            //            vales = (float)Convert.ToDecimal(txtVales.Text);
+            //            var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
+            //            restante = totalPendiente - nuevoabono;
+            //            txtPendiente.Text = restante.ToString("C2");
+            //            if (restante < 1)
+            //            {
+            //                txtPendiente.Text = "$0.00";
+            //                cambio = restante * (-1);
+            //                lbTotalCambio.Text = cambio.ToString("C2");
+            //            }
+            //            else
+            //            {
+            //                lbTotalCambio.Text = "$0.00";
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         private void txtCheque_TextChanged(object sender, EventArgs e)
         {
-            var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
-            totalPendiente = float.Parse(detalles[2]);
+            validacionRestanteDeAbonos(sender, e);
 
+            //var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
+            //totalPendiente = float.Parse(detalles[2]);
 
-
-
-            using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDeLaVentaACredito(idVenta)))
-            {
-                if (txtCheque.Text == "")
-                {
-                    txtCheque.Text = "0";
-                    txtCheque.Focus();
-                    txtCheque.SelectAll();
-                }
-                else
-                {
-                    if (!dtAbonos.Rows.Count.Equals(0))
-                    {
-                        var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
-                        cheque = (float)Convert.ToDecimal(txtCheque.Text);
-                        var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
-                        restante = totalPendiente - nuevoabono;
-                        txtPendiente.Text = restante.ToString("C2");
-                        if (restante < 1)
-                        {
-                            txtPendiente.Text = "$0.00";
-                            cambio = restante * (-1);
-                            lbTotalCambio.Text = cambio.ToString("C2");
-                        }
-                        else
-                        {
-                            lbTotalCambio.Text = "$0.00";
-                        }
-                    }
-                    else
-                    {
-                        float abonado = 0;
-                        cheque = (float)Convert.ToDecimal(txtCheque.Text);
-                        var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
-                        restante = totalPendiente - nuevoabono;
-                        txtPendiente.Text = restante.ToString("C2");
-                        if (restante < 1)
-                        {
-                            txtPendiente.Text = "$0.00";
-                            cambio = restante * (-1);
-                            lbTotalCambio.Text = cambio.ToString("C2");
-                        }
-                        else
-                        {
-                            lbTotalCambio.Text = "$0.00";
-                        }
-                    }
-                }
-
-            }
+            //using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDeLaVentaACredito(idVenta)))
+            //{
+            //    if (txtCheque.Text == "")
+            //    {
+            //        txtCheque.Text = "0";
+            //        txtCheque.Focus();
+            //        txtCheque.SelectAll();
+            //    }
+            //    else
+            //    {
+            //        if (!dtAbonos.Rows.Count.Equals(0))
+            //        {
+            //            var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
+            //            cheque = (float)Convert.ToDecimal(txtCheque.Text);
+            //            var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
+            //            restante = totalPendiente - nuevoabono;
+            //            txtPendiente.Text = restante.ToString("C2");
+            //            if (restante < 1)
+            //            {
+            //                txtPendiente.Text = "$0.00";
+            //                cambio = restante * (-1);
+            //                lbTotalCambio.Text = cambio.ToString("C2");
+            //            }
+            //            else
+            //            {
+            //                lbTotalCambio.Text = "$0.00";
+            //            }
+            //        }
+            //        else
+            //        {
+            //            float abonado = 0;
+            //            cheque = (float)Convert.ToDecimal(txtCheque.Text);
+            //            var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
+            //            restante = totalPendiente - nuevoabono;
+            //            txtPendiente.Text = restante.ToString("C2");
+            //            if (restante < 1)
+            //            {
+            //                txtPendiente.Text = "$0.00";
+            //                cambio = restante * (-1);
+            //                lbTotalCambio.Text = cambio.ToString("C2");
+            //            }
+            //            else
+            //            {
+            //                lbTotalCambio.Text = "$0.00";
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         private void txtTransferencia_TextChanged(object sender, EventArgs e)
         {
-            var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
-            totalPendiente = float.Parse(detalles[2]);
+            validacionRestanteDeAbonos(sender, e);
 
+            //var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
+            //totalPendiente = float.Parse(detalles[2]);
 
+            //using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDeLaVentaACredito(idVenta)))
+            //{
+            //    if (txtTransferencia.Text == "")
+            //    {
+            //        txtTransferencia.Text = "0";
+            //        txtTransferencia.Focus();
+            //        txtTransferencia.SelectAll();
+            //    }
+            //    else
+            //    {
+            //        if (!dtAbonos.Rows.Count.Equals(0))
+            //        {
+            //            var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
+            //            transferencia = (float)Convert.ToDecimal(txtTransferencia.Text);
+            //            var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
+            //            restante = totalPendiente - nuevoabono;
+            //            txtPendiente.Text = restante.ToString("C2");
+            //            if (restante < 1)
+            //            {
+            //                txtPendiente.Text = "$0.00";
+            //                cambio = restante * (-1);
+            //                lbTotalCambio.Text = cambio.ToString("C2");
+            //            }
+            //            else
+            //            {
+            //                lbTotalCambio.Text = "$0.00";
+            //            }
 
+            //        }
+            //        else
+            //        {
+            //            float abonado = 0;
+            //            transferencia = (float)Convert.ToDecimal(txtTransferencia.Text);
+            //            var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
+            //            restante = totalPendiente - nuevoabono;
+            //            txtPendiente.Text = restante.ToString("C2");
 
-            using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDeLaVentaACredito(idVenta)))
-            {
-                if (txtTransferencia.Text == "")
-                {
-                    txtTransferencia.Text = "0";
-                    txtTransferencia.Focus();
-                    txtTransferencia.SelectAll();
-                }
-                else
-                {
-                    if (!dtAbonos.Rows.Count.Equals(0))
-                    {
-                        var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
-                        transferencia = (float)Convert.ToDecimal(txtTransferencia.Text);
-                        var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
-                        restante = totalPendiente - nuevoabono;
-                        txtPendiente.Text = restante.ToString("C2");
-                        if (restante < 1)
-                        {
-                            txtPendiente.Text = "$0.00";
-                            cambio = restante * (-1);
-                            lbTotalCambio.Text = cambio.ToString("C2");
-                        }
-                        else
-                        {
-                            lbTotalCambio.Text = "$0.00";
-                        }
+            //            if (restante < 1)
+            //            {
+            //                txtPendiente.Text = "$0.00";
+            //                cambio = restante * (-1);
+            //                lbTotalCambio.Text = cambio.ToString("C2");
+            //            }
+            //            else
+            //            {
+            //                lbTotalCambio.Text = "$0.00";
+            //            }
 
-                    }
-                    else
-                    {
-                        float abonado = 0;
-                        transferencia = (float)Convert.ToDecimal(txtTransferencia.Text);
-                        var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
-                        restante = totalPendiente - nuevoabono;
-                        txtPendiente.Text = restante.ToString("C2");
-
-                        if (restante < 1)
-                        {
-                            txtPendiente.Text = "$0.00";
-                            cambio = restante * (-1) ;
-                            lbTotalCambio.Text = cambio.ToString("C2");
-                        }
-                        else
-                        {
-                            lbTotalCambio.Text = "$0.00";
-                        }
-
-                    }
-                }
-
-            }
+            //        }
+            //    }
+            //}
         }
 
         private void txtEfectivo_KeyDown(object sender, KeyEventArgs e)
