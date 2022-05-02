@@ -1731,9 +1731,20 @@ namespace PuntoDeVentaV2
 
             if (Convert.ToInt32(datosEnvioCorreo[13]) != 0/*!string.IsNullOrWhiteSpace(datosEnvioCorreo[13])*/)//Valida cuando es empleado
             {
-                var datosEmpleado = datosEnvioCorreo[14].Split('@');
+                //var datosEmpleado = datosEnvioCorreo[14].Split('@');
+                var datosEmpleado = FormPrincipal.userNickName.Split('@');
+                var usuario = string.Empty;
+                var empleado = string.Empty;
 
-                pieHTML = $@"<p>Está operación fue realizada por {datosEnvioCorreo[13]} ({datosEmpleado[1]}) del usuario {datosEmpleado[0]} con <span style='color:red;'>fecha de {FechaDeOperacion}</span></p>";
+                if (datosEmpleado.Count() > 0)
+                {
+                    usuario = datosEmpleado[0].ToString();
+                    empleado = datosEmpleado[1].ToString();
+                }
+
+                pieHTML = $@"<p>Está operación fue realizada por {empleado} ({FormPrincipal.userNickName}) del usuario {usuario} con <span style='color:red;'>fecha de {FechaDeOperacion}</span></p>";
+
+                //pieHTML = $@"<p>Está operación fue realizada por {datosEnvioCorreo[13]} ({datosEmpleado[1]}) del usuario {datosEmpleado[0]} con <span style='color:red;'>fecha de {FechaDeOperacion}</span></p>";
             }
             else
             {
