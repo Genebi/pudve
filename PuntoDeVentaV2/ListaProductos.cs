@@ -20,6 +20,9 @@ namespace PuntoDeVentaV2
 
         public int idProdEdit;
 
+        string prueba;
+        string pruebados;
+
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
@@ -169,6 +172,29 @@ namespace PuntoDeVentaV2
             //CargarDataGridView();
             // Llamamos el metodo consultadoDesdeListProd
             consultadoDesdeListProd = 0;
+
+            if (listaProd.Count>0)
+            {
+                foreach (var item in listaProd)
+                {
+                    var words = item.Split('|');
+                    var idpdroducto = words[2].ToString();
+                    if (!string.IsNullOrWhiteSpace(idpdroducto))
+                    {
+                        foreach (DataGridViewRow DRListado in DGVStockProductos.Rows)
+                        {
+                            string strFila = DRListado.Cells[0].RowIndex.ToString();
+                            var idproddgv = DRListado.Cells["ID"].Value.ToString();
+                            if (idproddgv.Equals(idpdroducto))
+                            {
+                                DGVStockProductos.Rows[Convert.ToInt32(strFila)].DefaultCellStyle.BackColor = Color.Gray;
+                            }
+                        }
+                        
+                        //mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
+                    }
+                }
+            }
         }
 
         private void txtBoxSearchProd_KeyDown(object sender, KeyEventArgs e)
@@ -275,6 +301,7 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Up && DGVStockProductos.CurrentRow.Index == 0)
             {
                 txtBoxSearchProd.Focus();
+
             }
             else if (e.KeyCode == Keys.Enter)
             {
@@ -668,7 +695,9 @@ namespace PuntoDeVentaV2
 
                         if (IDServicio.Equals(idServ))
                         {
+                            DGVStockProductos.Rows[idProdEdit].DefaultCellStyle.BackColor = Color.Yellow;
                             mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
+                           
                             //MessageBox.Show("La relación ya existe para este producto, combo ó servicio", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
@@ -685,11 +714,11 @@ namespace PuntoDeVentaV2
                         var IDProducto = words[2].ToString();
                         var NombreProducto = words[3].ToString();
                         var Cantidad = words[4].ToString();
+                        
 
                         if (IDProducto.Equals(idServ))
-                        {
-                            mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
-                            //MessageBox.Show("La relación ya existe para este producto, combo ó servicio", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        {                            
+                            MessageBox.Show("La relación ya existe para este producto, combo ó servicio", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
                     }
@@ -711,7 +740,9 @@ namespace PuntoDeVentaV2
                                 {
                                     if (drRelacion["IDServicio"].Equals(idServ))
                                     {
+                                        DGVStockProductos.Rows[idProdEdit].DefaultCellStyle.BackColor = Color.Yellow;
                                         mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
+                                        
                                         //MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                         return;
                                     }
@@ -725,7 +756,9 @@ namespace PuntoDeVentaV2
                                 var claves = item.Split('|');
                                 if (claves[2].Equals(Convert.ToString(idServ)))
                                 {
+                                    DGVStockProductos.Rows[idProdEdit].DefaultCellStyle.BackColor = Color.Yellow;
                                     mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
+                                    
                                     //MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     return;
                                 }
@@ -744,7 +777,9 @@ namespace PuntoDeVentaV2
                                     var idProducto = Convert.ToInt32(drRelacion["IDProducto"].ToString());
                                     if (idProducto.Equals(idServ))
                                     {
+                                        DGVStockProductos.Rows[idProdEdit].DefaultCellStyle.BackColor = Color.Yellow;
                                         mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
+                                        
                                         //MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                         return;
                                     }
@@ -758,7 +793,9 @@ namespace PuntoDeVentaV2
                                 var claves = item.Split('|');
                                 if (claves[2].Equals(Convert.ToString(idServ)))
                                 {
+                                    DGVStockProductos.Rows[idProdEdit].DefaultCellStyle.BackColor = Color.Yellow;
                                     mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
+                                    
                                     //MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     return;
                                 }
@@ -854,6 +891,7 @@ namespace PuntoDeVentaV2
                     nombreProducto(NombreProdStrFin, IdProdStrFin);
                 }
             }
+            
 
             this.Close();
         }
@@ -878,8 +916,10 @@ namespace PuntoDeVentaV2
 
             // Identificador de recurso Win32 del icono que queremos poner en el cuadro de mensaje.
             const int Smiley = 104;
-
+           
             MessageBoxIndirect mb = new MessageBoxIndirect(this, mensajeMessageBox, tituloMessageBox);
+           
+
 
             // Cargue el icono de la DLL de recursos que cargamos.
             mb.Instance = hWin32Resources;
