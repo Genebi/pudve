@@ -991,7 +991,7 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            var apartado = cbMostrar.SelectedItem.ToString();
+                var apartado = cbMostrar.SelectedItem.ToString();
             var mensajeDeshabilitadosConOpcionTodosLosProductos = "Este Producto Servicio o Combo, se encuentra deshabilitado,\npara activar esta opción primero debe enviarlo a habilitados ";
 
             if (apartado.Equals("Deshabilitados"))
