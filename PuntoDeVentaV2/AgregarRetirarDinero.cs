@@ -911,6 +911,8 @@ namespace PuntoDeVentaV2
             tabla.WidthPercentage = 100;
             tabla.SetWidths(anchoColumnas);
 
+            
+
             //======================================================================
             PdfPCell colEfectivo = new PdfPCell(new Phrase("Efectivo", fuenteNormal));
             colEfectivo.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -960,6 +962,20 @@ namespace PuntoDeVentaV2
             colCreditoC.HorizontalAlignment = Element.ALIGN_CENTER;
             colCreditoC.BorderWidth = 0;
 
+            var total = Convert.ToDecimal(info[6].ToString()) + Convert.ToDecimal(info[7].ToString()) + Convert.ToDecimal(info[8].ToString()) + Convert.ToDecimal(info[9].ToString()) + Convert.ToDecimal(info[10].ToString()) + Convert.ToDecimal(info[11].ToString());
+
+            PdfPTable tabla2 = new PdfPTable(2);
+            tabla2.WidthPercentage = 100;
+            tabla2.SetWidths(anchoColumnas);
+
+            PdfPCell celdaEnBlanco = new PdfPCell(new Phrase("TOTAL: ",fuenteNormal));
+            celdaEnBlanco.HorizontalAlignment = Element.ALIGN_RIGHT;
+            celdaEnBlanco.BorderWidth = 0;
+
+            PdfPCell totalC = new PdfPCell(new Phrase($"{total.ToString("C2")}", fuenteNormal));
+            totalC.HorizontalAlignment = Element.ALIGN_CENTER;
+            totalC.BorderWidth = 0;
+
             tabla.AddCell(colEfectivo);
             tabla.AddCell(colEfectivoC);
             tabla.AddCell(colTarjeta);
@@ -972,6 +988,8 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colTransC);
             tabla.AddCell(colCredito);
             tabla.AddCell(colCreditoC);
+            tabla2.AddCell(celdaEnBlanco);
+            tabla2.AddCell(totalC);
 
             //======================================================================
 
@@ -990,6 +1008,7 @@ namespace PuntoDeVentaV2
             ticket.Add(linea);
             ticket.Add(tabla);
             ticket.Add(linea);
+            ticket.Add(tabla2);
 
             if (!string.IsNullOrWhiteSpace(info[3]))
             {
