@@ -814,6 +814,12 @@ namespace PuntoDeVentaV2
 
             validarVentasVentanas();
         }
+
+        private void menuVertical_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         private void validarCerrarSesion()
         {
             FormPrincipal fPrincipal = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
