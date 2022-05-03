@@ -46,7 +46,8 @@ namespace PuntoDeVentaV2
 
         public static string tipoDeAsignacion = string.Empty;
 
-        
+        Button btnAceptar = new Button();
+
 
         public AsignarPropiedad(object propiedad)
         {
@@ -124,7 +125,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            
+            btnAceptar.Enabled = false;
 
             CargarPropiedad();
 
@@ -534,7 +535,7 @@ namespace PuntoDeVentaV2
             }
             else if (propiedad == "ClaveProducto")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
-                TextBox tbClaveProducto = new TextBox();
+                TextBox tbClaveProducto = new TextBox();               
                 tbClaveProducto.Name = "tb" + propiedad;
                 tbClaveProducto.Width = 200;
                 tbClaveProducto.Height = 40;
@@ -542,7 +543,11 @@ namespace PuntoDeVentaV2
                 tbClaveProducto.KeyPress += new KeyPressEventHandler(SoloDecimales);
                 tbClaveProducto.Font = fuente;
                 tbClaveProducto.Location = new Point(65, 70);
+                tbClaveProducto.MaxLength = 8;
+                tbClaveProducto.TextChanged += new EventHandler(CambioDeColor);
 
+                                    
+                          
                 panelContenedor.Controls.Add(tbClaveProducto);
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarClaveProducto"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarClaveProducto"));
@@ -734,6 +739,21 @@ namespace PuntoDeVentaV2
 
         }
 
+        private void CambioDeColor(object sender, EventArgs e)
+        {
+            
+            if (!(sender as TextBox).Text.Length.Equals(8))
+            {
+                (sender as TextBox).ForeColor = Color.Red;
+                btnAceptar.Enabled = false;
+            }
+            else
+            {
+                (sender as TextBox).ForeColor = Color.Black;
+                btnAceptar.Enabled = true;
+            }
+        }
+
         private void chkOcultarMensaje_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton checkbox = (RadioButton)sender;
@@ -842,7 +862,7 @@ namespace PuntoDeVentaV2
 
             if (tipo == 1)
             {
-                Button btnAceptar = new Button();
+                
                 btnAceptar.Text = "Aceptar";
                 btnAceptar.Name = nombre;
                 btnAceptar.BackColor = Color.Green;
@@ -993,7 +1013,10 @@ namespace PuntoDeVentaV2
             //porFavorEspere.propiedadCambiar = propiedad;
             //porFavorEspere.ShowDialog();
             //Thread.Sleep(500);
-            this.Close();
+            
+                this.Close();          
+                      
+            
         }
 
         private void OperacionBoton()
@@ -1515,34 +1538,44 @@ namespace PuntoDeVentaV2
                 var consulta = "INSERT IGNORE INTO Productos (ID, ClaveProducto) VALUES";
                 var valores = string.Empty;
 
-                if (!string.IsNullOrWhiteSpace(clave))
-                {
-                    foreach (var producto in productos)
+                //if (!txtClave.Text.Length.Equals(8))
+                //{
+                //  MessageBox.Show("Ingrese una clave con el formato Correcto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    
+                   
+                //}
+                
+                    if (!string.IsNullOrWhiteSpace(clave))
                     {
-                        valores += $"({producto.Key}, '{clave}'),";
-                        //cn.EjecutarConsulta($"UPDATE Productos SET ClaveProducto = '{clave}' WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
-                    }
+                        foreach (var producto in productos)
+                        {
+                            valores += $"({producto.Key}, '{clave}'),";
+                            //cn.EjecutarConsulta($"UPDATE Productos SET ClaveProducto = '{clave}' WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
+                        }
 
-                    if (!string.IsNullOrWhiteSpace(valores))
+                        if (!string.IsNullOrWhiteSpace(valores))
+                        {
+                            valores = valores.TrimEnd(',');
+
+                            consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), ClaveProducto = VALUES(ClaveProducto);";
+
+                            cn.EjecutarConsulta(consulta);
+                        }
+                        MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
+                    }
+                    else
                     {
-                        valores = valores.TrimEnd(',');
-
-                        consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), ClaveProducto = VALUES(ClaveProducto);";
-
-                        cn.EjecutarConsulta(consulta);
+                        MessageBox.Show("Ingrese la clave de producto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
                     }
-                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
-                }
-                else
-                {
-                    MessageBox.Show("Ingrese la clave de producto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                
+               
             }
             else if (propiedad == "ClaveUnidad")
             {
                 TextBox txtClave = (TextBox)this.Controls.Find("tbClaveUnidad", true).FirstOrDefault();
                 ComboBox combo = (ComboBox)this.Controls.Find("cbClaveUnidad", true).FirstOrDefault();
+
 
                 var claveUnidad = txtClave.Text;
                 var claveCombo = combo.SelectedValue.ToString();

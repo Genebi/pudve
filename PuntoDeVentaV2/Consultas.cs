@@ -298,7 +298,10 @@ namespace PuntoDeVentaV2
 
             var query = cn.CargarDatos($"SELECT ID FROM Empleados WHERE Usuario = '{nombre}'");
 
-            if (!query.Rows.Count.Equals(0)) { result = query.Rows[0]["ID"].ToString(); }
+            if (!query.Rows.Count.Equals(0))
+            { 
+                result = query.Rows[0]["ID"].ToString(); 
+            }
 
             return result;
         }
