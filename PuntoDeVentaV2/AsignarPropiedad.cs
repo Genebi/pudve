@@ -125,7 +125,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            btnAceptar.Enabled = false;
+            
 
             CargarPropiedad();
 
