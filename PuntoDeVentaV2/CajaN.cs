@@ -442,6 +442,11 @@ namespace PuntoDeVentaV2
                 {
                     if (!string.IsNullOrWhiteSpace(fechaFormateadaCorteParaAbonos))
                     {
+                        if (FormPrincipal.userNickName.Contains("@"))
+                        {
+                            idUsuarioEmpleado = FormPrincipal.id_empleado.ToString();
+                        }
+
                         using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoEmpleado(idUsuarioEmpleado, fechaFormateadaCorteParaAbonos)))
                         {
                             if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Count.Equals(0))
@@ -1610,6 +1615,7 @@ namespace PuntoDeVentaV2
 
                 limpiarVariablesParaTotales();
                 CargarSaldoInicial();
+                mostrarInformacionAbonos();
                 if (!FormPrincipal.userNickName.Contains("@"))
                 {
                     cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
