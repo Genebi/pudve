@@ -467,12 +467,14 @@ namespace PuntoDeVentaV2
                                 }
                             }
 
-                            if (formaPago == "01" && importe > (float)EfectivoEnCajaT || formaPago == "04" && importe > (float)TarjetaEnCajaT || formaPago == "08" && importe > (float)ValesEnCajaT || formaPago == "02" && importe > (float)ChequeEnCajaT || formaPago == "03" && importe > (float)TransferenciaEnCajaT)
+                            if (formaPago == "01" && importe > (float)EfectivoEnCajaT || formaPago == "04" && importe > (float)TransferenciaEnCajaT || formaPago == "08" && importe > (float)ValesEnCajaT || formaPago == "02" && importe > (float)ChequeEnCajaT || formaPago == "03" && importe > (float)TarjetaEnCajaT)
                             {
+
                         MessageBox.Show("Dinero Insuficuente", "¡Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         noCash = true;
                         cancel = 1;
                         //realizado = false;
+
                     }
                     else
                     {
