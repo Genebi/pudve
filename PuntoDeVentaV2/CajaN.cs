@@ -436,7 +436,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                idUsuarioEmpleado = opcionComboBoxFiltroAdminEmp; 
+                idUsuarioEmpleado = opcionComboBoxFiltroAdminEmp;
 
                 if (!string.IsNullOrWhiteSpace(idUltimoCorteDeCaja))
                 {
