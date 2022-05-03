@@ -986,8 +986,8 @@ namespace PuntoDeVentaV2
             tabla.AddCell(colChequeC);
             tabla.AddCell(colTrans);
             tabla.AddCell(colTransC);
-            tabla.AddCell(colCredito);
-            tabla.AddCell(colCreditoC);
+            //tabla.AddCell(colCredito);
+            //tabla.AddCell(colCreditoC);
             tabla2.AddCell(celdaEnBlanco);
             tabla2.AddCell(totalC);
 
