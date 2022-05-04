@@ -2514,7 +2514,16 @@ namespace PuntoDeVentaV2
         {
             var lista = new List<int>();
 
-            DatosConexion($"SELECT {concepto} FROM permisosconfiguracion WHERE IDEmpleado = {idEmpleado} AND IDUsuario = {FormPrincipal.userID}");
+            if (FormPrincipal.id_empleado.Equals(0))
+            {
+                DatosConexion($"SELECT {concepto} FROM permisosconfiguracion WHERE IDUsuario = {FormPrincipal.userID}");
+            }
+            else
+            {
+                DatosConexion($"SELECT {concepto} FROM permisosconfiguracion WHERE IDEmpleado = {idEmpleado} AND IDUsuario = {FormPrincipal.userID}");
+
+            }
+            
 
             var dr = sql_cmd.ExecuteReader();
 
