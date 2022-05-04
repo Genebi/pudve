@@ -1728,6 +1728,853 @@ namespace PuntoDeVentaV2
             //}
         }
 
+        private void generarNuevoReporte()
+        {
+            #region variables
+            var datos = FormPrincipal.datosUsuario;
+            var colorFuenteNegrita = new BaseColor(Color.Black);
+            var colorFuenteBlanca = new BaseColor(Color.White);
+
+            var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 8);
+            var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, 1, colorFuenteNegrita);
+            var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
+            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 10, 1, colorFuenteBlanca);
+
+            // Ruta donde se creara el archivo PDF
+            var rutaArchivo = string.Empty;
+            var servidor = Properties.Settings.Default.Hosting;
+
+            var UsuarioActivo = cs.validarEmpleado(FormPrincipal.userNickName, true);
+            var obtenerUsuarioPrincipal = cs.validarEmpleadoPorID();
+            #endregion
+
+            #region Ruta para el archivo de PDF
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Caja\reporte_corte_" + fechaUltimoCorte.ToString("yyyyMMddHHmmss") + ".pdf";
+            }
+            else
+            {
+                rutaArchivo = @"C:\Archivos PUDVE\Reportes\Caja\reporte_corte_" + fechaUltimoCorte.ToString("yyyyMMddHHmmss") + ".pdf";
+            }
+            obtenerRutaPDF = rutaArchivo;
+            #endregion
+
+            Paragraph Usuario = new Paragraph();
+            Paragraph Empleado = new Paragraph();
+            // Linea serapadora
+            Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
+
+            #region Encabezado del reporte
+            Usuario = new Paragraph($"USUARIO: ADMIN ({obtenerUsuarioPrincipal})", fuenteNegrita);
+            if (!string.IsNullOrEmpty(UsuarioActivo))
+            {
+                Empleado = new Paragraph($"EMPLEADO: {UsuarioActivo}", fuenteNegrita);
+            }
+
+            var numFolio = obtenerFolioCorte();
+
+            Document reporte = new Document(PageSize.A3);
+            PdfWriter writer = PdfWriter.GetInstance(reporte, new FileStream(rutaArchivo, FileMode.Create));
+            Paragraph NumeroFolio = new Paragraph("No. Folio: " + numFolio, fuenteGrande);
+
+            reporte.Open();
+
+            Paragraph titulo = new Paragraph(datos[0], fuenteGrande);
+            Paragraph subTitulo = new Paragraph("CORTE DE CAJA\nFecha: " + fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+
+            titulo.Alignment = Element.ALIGN_CENTER;
+            subTitulo.Alignment = Element.ALIGN_CENTER;
+            Usuario.Alignment = Element.ALIGN_CENTER;
+            NumeroFolio.Alignment = Element.ALIGN_CENTER;
+            if (!string.IsNullOrEmpty(UsuarioActivo))
+            {
+                Empleado.Alignment = Element.ALIGN_CENTER;
+            }
+
+            reporte.Add(titulo);
+            reporte.Add(Usuario);
+            if (!string.IsNullOrEmpty(UsuarioActivo))
+            {
+                reporte.Add(Empleado);
+            }
+            reporte.Add(NumeroFolio);
+            reporte.Add(subTitulo);
+            #endregion
+
+            #region Contenido Valores de Caja
+            float[] anchoColumnasContenido = new float[] { 200f, 200f, 200f, 200f, 200f };
+
+            PdfPTable tablaContenido = new PdfPTable(5);
+            tablaContenido.WidthPercentage = 100;
+            tablaContenido.SetWidths(anchoColumnasContenido);
+
+            float[] anchoColumnasTablas = new float[] { 150f, 50f };
+
+            /************************************
+            *                                   * 
+            *   Taabla con los valores de la    * 
+            *   sección de Ventas de Caja       *
+            *                                   *
+            ************************************/
+            #region Tabla de Ventas
+            PdfPTable tablaVentas = new PdfPTable(2);
+            tablaVentas.WidthPercentage = 100;
+            tablaVentas.SetWidths(anchoColumnasTablas);
+
+            // Encabezado de La Tabla
+            #region Encabezado Ventas
+            PdfPCell columnaTituloVentas = new PdfPCell(new Phrase(tituloVentas.Text, fuenteNegrita));
+            columnaTituloVentas.Colspan = 2;
+            columnaTituloVentas.BorderWidth = 0;
+            columnaTituloVentas.HorizontalAlignment = Element.ALIGN_CENTER;
+            columnaTituloVentas.Padding = 3;
+            tablaVentas.AddCell(columnaTituloVentas);
+            #endregion
+
+            // Conceptos de la Tabla
+            #region Concepto Efectivo
+            PdfPCell columnaConceptoEfectivo = new PdfPCell(new Phrase(lbEfectivo.Text, fuenteNormal));
+            columnaConceptoEfectivo.BorderWidth = 0;
+            columnaConceptoEfectivo.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoEfectivo.Padding = 3;
+
+            PdfPCell columnaCantidadEfectivo = new PdfPCell(new Phrase(lbTEfectivo.Text, fuenteNormal));
+            columnaCantidadEfectivo.BorderWidth = 0;
+            columnaCantidadEfectivo.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadEfectivo.Padding = 3;
+            #endregion
+
+            #region Concepto Tarjeta
+            PdfPCell columnaConceptoTarjeta = new PdfPCell(new Phrase(lbTarjeta.Text, fuenteNormal));
+            columnaConceptoTarjeta.BorderWidth = 0;
+            columnaConceptoTarjeta.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoTarjeta.Padding = 3;
+
+            PdfPCell columnaCantidadTarjeta = new PdfPCell(new Phrase(lbTTarjeta.Text, fuenteNormal));
+            columnaCantidadTarjeta.BorderWidth = 0;
+            columnaCantidadTarjeta.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadTarjeta.Padding = 3;
+            #endregion
+
+            #region Concepto Vales
+            PdfPCell columnaConceptoVales = new PdfPCell(new Phrase(lbVales.Text, fuenteNormal));
+            columnaConceptoVales.BorderWidth = 0;
+            columnaConceptoVales.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoVales.Padding = 3;
+
+            PdfPCell columnaCantidadVales = new PdfPCell(new Phrase(lbTVales.Text, fuenteNormal));
+            columnaCantidadVales.BorderWidth = 0;
+            columnaCantidadVales.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadVales.Padding = 3;
+            #endregion
+
+            #region Concepto Cheques
+            PdfPCell columnaConceptoCheques = new PdfPCell(new Phrase(lbCheque.Text, fuenteNormal));
+            columnaConceptoCheques.BorderWidth = 0;
+            columnaConceptoCheques.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoCheques.Padding = 3;
+
+            PdfPCell columnaCantidadCheques = new PdfPCell(new Phrase(lbTCheque.Text, fuenteNormal));
+            columnaCantidadCheques.BorderWidth = 0;
+            columnaCantidadCheques.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadCheques.Padding = 3;
+            #endregion
+
+            #region Concepto Transferencias
+            PdfPCell columnaConceptoTransferencias = new PdfPCell(new Phrase(lbTrans.Text, fuenteNormal));
+            columnaConceptoTransferencias.BorderWidth = 0;
+            columnaConceptoTransferencias.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoTransferencias.Padding = 3;
+
+            PdfPCell columnaCantidadTransferencias = new PdfPCell(new Phrase(lbTTrans.Text, fuenteNormal));
+            columnaCantidadTransferencias.BorderWidth = 0;
+            columnaCantidadTransferencias.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadTransferencias.Padding = 3;
+            #endregion
+
+            #region Concepto Crédito
+            PdfPCell columnaConceptoCredito = new PdfPCell(new Phrase(lbCredito.Text, fuenteNormal));
+            columnaConceptoCredito.BorderWidth = 0;
+            columnaConceptoCredito.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoCredito.Padding = 3;
+
+            PdfPCell columnaCantidadCredito = new PdfPCell(new Phrase(lbTCredito.Text, fuenteNormal));
+            columnaCantidadCredito.BorderWidth = 0;
+            columnaCantidadCredito.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadCredito.Padding = 3;
+            #endregion
+
+            #region Concepto Abonos
+            PdfPCell columnaConceptoAbonos = new PdfPCell(new Phrase(lbCreditoC.Text, fuenteNormal));
+            columnaConceptoAbonos.BorderWidth = 0;
+            columnaConceptoAbonos.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoAbonos.Padding = 3;
+
+            PdfPCell columnaCantidadAbonos = new PdfPCell(new Phrase(lbTCreditoC.Text, fuenteNormal));
+            columnaCantidadAbonos.BorderWidth = 0;
+            columnaCantidadAbonos.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadAbonos.Padding = 3;
+            #endregion
+
+            #region Concepto Anticipos Utilizados
+            PdfPCell columnaConceptoAnticiposUtilizados = new PdfPCell(new Phrase(lbAnticipos.Text, fuenteNormal));
+            columnaConceptoAnticiposUtilizados.BorderWidth = 0;
+            columnaConceptoAnticiposUtilizados.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoAnticiposUtilizados.Padding = 3;
+
+            PdfPCell columnaCantidadAnticiposUtilizados = new PdfPCell(new Phrase(lbTCreditoC.Text, fuenteNormal));
+            columnaCantidadAnticiposUtilizados.BorderWidth = 0;
+            columnaCantidadAnticiposUtilizados.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadAnticiposUtilizados.Padding = 3;
+            #endregion
+
+            #region Agregar Conceptos A Tabla Ventas
+            tablaVentas.AddCell(columnaConceptoEfectivo);
+            tablaVentas.AddCell(columnaCantidadEfectivo);
+            tablaVentas.AddCell(columnaConceptoTarjeta);
+            tablaVentas.AddCell(columnaCantidadTarjeta);
+            tablaVentas.AddCell(columnaConceptoVales);
+            tablaVentas.AddCell(columnaCantidadVales);
+            tablaVentas.AddCell(columnaConceptoCheques);
+            tablaVentas.AddCell(columnaCantidadCheques);
+            tablaVentas.AddCell(columnaConceptoTransferencias);
+            tablaVentas.AddCell(columnaCantidadTransferencias);
+            tablaVentas.AddCell(columnaConceptoCredito);
+            tablaVentas.AddCell(columnaCantidadCredito);
+            tablaVentas.AddCell(columnaConceptoAbonos);
+            tablaVentas.AddCell(columnaCantidadAbonos);
+            tablaVentas.AddCell(columnaConceptoAnticiposUtilizados);
+            tablaVentas.AddCell(columnaCantidadAnticiposUtilizados);
+            #endregion
+
+            // Agregando Conceptos Ventas a Tabla Contenido
+            tablaContenido.AddCell(tablaVentas);
+            #endregion
+
+            #region Tabla de Anticipos Recibidos
+            PdfPTable tablaAnticipos = new PdfPTable(2);
+            tablaAnticipos.WidthPercentage = 100;
+            tablaAnticipos.SetWidths(anchoColumnasTablas);
+
+            // Encabezado de La Tabla
+            #region Encabezado Anticipos
+            PdfPCell columnaTituloAnticipo = new PdfPCell(new Phrase(tituloAnticipos.Text, fuenteNegrita));
+            columnaTituloAnticipo.Colspan = 2;
+            columnaTituloAnticipo.BorderWidth = 0;
+            columnaTituloAnticipo.HorizontalAlignment = Element.ALIGN_CENTER;
+            columnaTituloAnticipo.Padding = 3;
+            tablaAnticipos.AddCell(columnaTituloAnticipo);
+            #endregion
+
+            // Conceptos de la Tabla
+            #region Concepto Efectivo
+            PdfPCell columnaConceptoEfectivoAnticipo = new PdfPCell(new Phrase(lbEfectivoA.Text, fuenteNormal));
+            columnaConceptoEfectivoAnticipo.BorderWidth = 0;
+            columnaConceptoEfectivoAnticipo.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoEfectivoAnticipo.Padding = 3;
+
+            PdfPCell columnaCantidadEfectivoAnticipo = new PdfPCell(new Phrase(lbTEfectivoA.Text, fuenteNormal));
+            columnaCantidadEfectivoAnticipo.BorderWidth = 0;
+            columnaCantidadEfectivoAnticipo.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadEfectivoAnticipo.Padding = 3;
+            #endregion
+
+            #region Concepto Tarjeta
+            PdfPCell columnaConceptoTarjetaAnticipo = new PdfPCell(new Phrase(lbTarjetaA.Text, fuenteNormal));
+            columnaConceptoTarjetaAnticipo.BorderWidth = 0;
+            columnaConceptoTarjetaAnticipo.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoTarjetaAnticipo.Padding = 3;
+
+            PdfPCell columnaCantidadTarjetaAnticipo = new PdfPCell(new Phrase(lbTTarjetaA.Text, fuenteNormal));
+            columnaCantidadTarjetaAnticipo.BorderWidth = 0;
+            columnaCantidadTarjetaAnticipo.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadTarjetaAnticipo.Padding = 3;
+            #endregion
+
+            #region Concepto Vales
+            PdfPCell columnaConceptoValesAnticipo = new PdfPCell(new Phrase(lbValesA.Text, fuenteNormal));
+            columnaConceptoValesAnticipo.BorderWidth = 0;
+            columnaConceptoValesAnticipo.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoValesAnticipo.Padding = 3;
+
+            PdfPCell columnaCantidadValesAnticipo = new PdfPCell(new Phrase(lbTValesA.Text, fuenteNormal));
+            columnaCantidadValesAnticipo.BorderWidth = 0;
+            columnaCantidadValesAnticipo.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadValesAnticipo.Padding = 3;
+            #endregion
+
+            #region Concepto Cheques
+            PdfPCell columnaConceptoChequesAnticipo = new PdfPCell(new Phrase(lbChequeA.Text, fuenteNormal));
+            columnaConceptoChequesAnticipo.BorderWidth = 0;
+            columnaConceptoChequesAnticipo.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoChequesAnticipo.Padding = 3;
+
+            PdfPCell columnaCantidadChequesAnticipo = new PdfPCell(new Phrase(lbTChequeA.Text, fuenteNormal));
+            columnaCantidadChequesAnticipo.BorderWidth = 0;
+            columnaCantidadChequesAnticipo.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadChequesAnticipo.Padding = 3;
+            #endregion
+
+            #region Concepto Transferencias
+            PdfPCell columnaConceptoTransferenciasAnticipo = new PdfPCell(new Phrase(lbTransA.Text, fuenteNormal));
+            columnaConceptoTransferenciasAnticipo.BorderWidth = 0;
+            columnaConceptoTransferenciasAnticipo.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoTransferenciasAnticipo.Padding = 3;
+
+            PdfPCell columnaCantidadTransferenciasAnticipo = new PdfPCell(new Phrase(lbTTransA.Text, fuenteNormal));
+            columnaCantidadTransferenciasAnticipo.BorderWidth = 0;
+            columnaCantidadTransferenciasAnticipo.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadTransferenciasAnticipo.Padding = 3;
+            #endregion
+
+            #region Agregar Conceptos A Tabla Ventas
+            tablaAnticipos.AddCell(columnaConceptoEfectivoAnticipo);
+            tablaAnticipos.AddCell(columnaCantidadEfectivoAnticipo);
+            tablaAnticipos.AddCell(columnaConceptoTarjetaAnticipo);
+            tablaAnticipos.AddCell(columnaCantidadTarjetaAnticipo);
+            tablaAnticipos.AddCell(columnaConceptoValesAnticipo);
+            tablaAnticipos.AddCell(columnaCantidadValesAnticipo);
+            tablaAnticipos.AddCell(columnaConceptoChequesAnticipo);
+            tablaAnticipos.AddCell(columnaCantidadChequesAnticipo);
+            tablaAnticipos.AddCell(columnaConceptoTransferenciasAnticipo);
+            tablaAnticipos.AddCell(columnaCantidadTransferenciasAnticipo);
+            #endregion
+
+            // Agregando Conceptos Anticipo a Tabla Contenido
+            tablaContenido.AddCell(tablaAnticipos);
+            #endregion
+
+            #region Tabla de Dinero Agregado
+            PdfPTable tablaDeposito = new PdfPTable(2);
+            tablaDeposito.WidthPercentage = 100;
+            tablaDeposito.SetWidths(anchoColumnasTablas);
+
+            // Encabezado de La Tabla
+            #region Encabezado Anticipos
+            PdfPCell columnaTituloDeposito = new PdfPCell(new Phrase(tituloDinero.Text, fuenteNegrita));
+            columnaTituloDeposito.Colspan = 2;
+            columnaTituloDeposito.BorderWidth = 0;
+            columnaTituloDeposito.HorizontalAlignment = Element.ALIGN_CENTER;
+            columnaTituloDeposito.Padding = 3;
+            tablaDeposito.AddCell(columnaTituloDeposito);
+            #endregion
+
+            // Conceptos de la Tabla
+            #region Concepto Efectivo
+            PdfPCell columnaConceptoEfectivoDeposito = new PdfPCell(new Phrase(lbEfectivoD.Text, fuenteNormal));
+            columnaConceptoEfectivoDeposito.BorderWidth = 0;
+            columnaConceptoEfectivoDeposito.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoEfectivoDeposito.Padding = 3;
+
+            PdfPCell columnaCantidadEfectivoDeposito = new PdfPCell(new Phrase(lbTEfectivoD.Text, fuenteNormal));
+            columnaCantidadEfectivoDeposito.BorderWidth = 0;
+            columnaCantidadEfectivoDeposito.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadEfectivoDeposito.Padding = 3;
+            #endregion
+
+            #region Concepto Tarjeta
+            PdfPCell columnaConceptoTarjetaDeposito = new PdfPCell(new Phrase(lbTarjetaD.Text, fuenteNormal));
+            columnaConceptoTarjetaDeposito.BorderWidth = 0;
+            columnaConceptoTarjetaDeposito.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoTarjetaDeposito.Padding = 3;
+
+            PdfPCell columnaCantidadTarjetaDeposito = new PdfPCell(new Phrase(lbTTarjetaD.Text, fuenteNormal));
+            columnaCantidadTarjetaDeposito.BorderWidth = 0;
+            columnaCantidadTarjetaDeposito.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadTarjetaDeposito.Padding = 3;
+            #endregion
+
+            #region Concepto Vales
+            PdfPCell columnaConceptoValesDeposito = new PdfPCell(new Phrase(lbValesD.Text, fuenteNormal));
+            columnaConceptoValesDeposito.BorderWidth = 0;
+            columnaConceptoValesDeposito.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoValesDeposito.Padding = 3;
+
+            PdfPCell columnaCantidadValesDeposito = new PdfPCell(new Phrase(lbTValesD.Text, fuenteNormal));
+            columnaCantidadValesDeposito.BorderWidth = 0;
+            columnaCantidadValesDeposito.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadValesDeposito.Padding = 3;
+            #endregion
+
+            #region Concepto Cheques
+            PdfPCell columnaConceptoChequesDeposito = new PdfPCell(new Phrase(lbChequeD.Text, fuenteNormal));
+            columnaConceptoChequesDeposito.BorderWidth = 0;
+            columnaConceptoChequesDeposito.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoChequesDeposito.Padding = 3;
+
+            PdfPCell columnaCantidadChequesDeposito = new PdfPCell(new Phrase(lbTChequeD.Text, fuenteNormal));
+            columnaCantidadChequesDeposito.BorderWidth = 0;
+            columnaCantidadChequesDeposito.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadChequesDeposito.Padding = 3;
+            #endregion
+
+            #region Concepto Transferencias
+            PdfPCell columnaConceptoTransferenciasDeposito = new PdfPCell(new Phrase(lbTransD.Text, fuenteNormal));
+            columnaConceptoTransferenciasDeposito.BorderWidth = 0;
+            columnaConceptoTransferenciasDeposito.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoTransferenciasDeposito.Padding = 3;
+
+            PdfPCell columnaCantidadTransferenciasDeposito = new PdfPCell(new Phrase(lbTTransD.Text, fuenteNormal));
+            columnaCantidadTransferenciasDeposito.BorderWidth = 0;
+            columnaCantidadTransferenciasDeposito.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadTransferenciasDeposito.Padding = 3;
+            #endregion
+
+            #region Agregar Conceptos A Tabla Ventas
+            tablaDeposito.AddCell(columnaConceptoEfectivoDeposito);
+            tablaDeposito.AddCell(columnaCantidadEfectivoDeposito);
+            tablaDeposito.AddCell(columnaConceptoTarjetaDeposito);
+            tablaDeposito.AddCell(columnaCantidadTarjetaDeposito);
+            tablaDeposito.AddCell(columnaConceptoValesDeposito);
+            tablaDeposito.AddCell(columnaCantidadValesDeposito);
+            tablaDeposito.AddCell(columnaConceptoChequesDeposito);
+            tablaDeposito.AddCell(columnaCantidadChequesDeposito);
+            tablaDeposito.AddCell(columnaConceptoTransferenciasDeposito);
+            tablaDeposito.AddCell(columnaCantidadTransferenciasDeposito);
+            #endregion
+
+            // Agregando Conceptos Anticipo a Tabla Contenido
+            tablaContenido.AddCell(tablaDeposito);
+            #endregion
+
+            #region Tabla de Dinero Retirado
+            PdfPTable tablaRetiros = new PdfPTable(2);
+            tablaRetiros.WidthPercentage = 100;
+            tablaRetiros.SetWidths(anchoColumnasTablas);
+
+            // Encabezado de La Tabla
+            #region Encabezado Anticipos
+            PdfPCell columnaTituloRetiro = new PdfPCell(new Phrase(label1.Text, fuenteNegrita));
+            columnaTituloRetiro.Colspan = 2;
+            columnaTituloRetiro.BorderWidth = 0;
+            columnaTituloRetiro.HorizontalAlignment = Element.ALIGN_CENTER;
+            columnaTituloRetiro.Padding = 3;
+            tablaRetiros.AddCell(columnaTituloRetiro);
+            #endregion
+
+            // Conceptos de la Tabla
+            #region Concepto Efectivo
+            PdfPCell columnaConceptoEfectivoRetiro = new PdfPCell(new Phrase(label13.Text, fuenteNormal));
+            columnaConceptoEfectivoRetiro.BorderWidth = 0;
+            columnaConceptoEfectivoRetiro.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoEfectivoRetiro.Padding = 3;
+
+            PdfPCell columnaCantidadEfectivoRetiro = new PdfPCell(new Phrase(lbEfectivoR.Text, fuenteNormal));
+            columnaCantidadEfectivoRetiro.BorderWidth = 0;
+            columnaCantidadEfectivoRetiro.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadEfectivoRetiro.Padding = 3;
+            #endregion
+
+            #region Concepto Tarjeta
+            PdfPCell columnaConceptoTarjetaRetiro = new PdfPCell(new Phrase(label12.Text, fuenteNormal));
+            columnaConceptoTarjetaRetiro.BorderWidth = 0;
+            columnaConceptoTarjetaRetiro.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoTarjetaRetiro.Padding = 3;
+
+            PdfPCell columnaCantidadTarjetaRetiro = new PdfPCell(new Phrase(lbTarjetaR.Text, fuenteNormal));
+            columnaCantidadTarjetaRetiro.BorderWidth = 0;
+            columnaCantidadTarjetaRetiro.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadTarjetaRetiro.Padding = 3;
+            #endregion
+
+            #region Concepto Vales
+            PdfPCell columnaConceptoValesRetiro = new PdfPCell(new Phrase(label11.Text, fuenteNormal));
+            columnaConceptoValesRetiro.BorderWidth = 0;
+            columnaConceptoValesRetiro.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoValesRetiro.Padding = 3;
+
+            PdfPCell columnaCantidadValesRetiro = new PdfPCell(new Phrase(lbValesR.Text, fuenteNormal));
+            columnaCantidadValesRetiro.BorderWidth = 0;
+            columnaCantidadValesRetiro.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadValesRetiro.Padding = 3;
+            #endregion
+
+            #region Concepto Cheques
+            PdfPCell columnaConceptoChequesRetiro = new PdfPCell(new Phrase(label10.Text, fuenteNormal));
+            columnaConceptoChequesRetiro.BorderWidth = 0;
+            columnaConceptoChequesRetiro.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoChequesRetiro.Padding = 3;
+
+            PdfPCell columnaCantidadChequesRetiro = new PdfPCell(new Phrase(lbChequeR.Text, fuenteNormal));
+            columnaCantidadChequesRetiro.BorderWidth = 0;
+            columnaCantidadChequesRetiro.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadChequesRetiro.Padding = 3;
+            #endregion
+
+            #region Concepto Transferencias
+            PdfPCell columnaConceptoTransferenciasRetiro = new PdfPCell(new Phrase(label9.Text, fuenteNormal));
+            columnaConceptoTransferenciasRetiro.BorderWidth = 0;
+            columnaConceptoTransferenciasRetiro.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoTransferenciasRetiro.Padding = 3;
+
+            PdfPCell columnaCantidadTransferenciasRetiro = new PdfPCell(new Phrase(lbTransferenciaR.Text, fuenteNormal));
+            columnaCantidadTransferenciasRetiro.BorderWidth = 0;
+            columnaCantidadTransferenciasRetiro.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadTransferenciasRetiro.Padding = 3;
+            #endregion
+
+            #region Concepto Devoluciones
+            PdfPCell columnaConceptoDevolucionesRetiro = new PdfPCell(new Phrase(label4.Text, fuenteNormal));
+            columnaConceptoDevolucionesRetiro.BorderWidth = 0;
+            columnaConceptoDevolucionesRetiro.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoDevolucionesRetiro.Padding = 3;
+
+            PdfPCell columnaCantidadDevolucionesRetiro = new PdfPCell(new Phrase(lbDevoluciones.Text, fuenteNormal));
+            columnaCantidadDevolucionesRetiro.BorderWidth = 0;
+            columnaCantidadDevolucionesRetiro.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadDevolucionesRetiro.Padding = 3;
+            #endregion
+
+            #region Agregar Conceptos A Tabla Ventas
+            tablaRetiros.AddCell(columnaConceptoEfectivoRetiro);
+            tablaRetiros.AddCell(columnaCantidadEfectivoRetiro);
+            tablaRetiros.AddCell(columnaConceptoTarjetaRetiro);
+            tablaRetiros.AddCell(columnaCantidadTarjetaRetiro);
+            tablaRetiros.AddCell(columnaConceptoValesRetiro);
+            tablaRetiros.AddCell(columnaCantidadValesRetiro);
+            tablaRetiros.AddCell(columnaConceptoChequesRetiro);
+            tablaRetiros.AddCell(columnaCantidadChequesRetiro);
+            tablaRetiros.AddCell(columnaConceptoTransferenciasRetiro);
+            tablaRetiros.AddCell(columnaCantidadTransferenciasRetiro);
+            tablaRetiros.AddCell(columnaConceptoDevolucionesRetiro);
+            tablaRetiros.AddCell(columnaCantidadDevolucionesRetiro);
+            #endregion
+
+            // Agregando Conceptos Anticipo a Tabla Contenido
+            tablaContenido.AddCell(tablaRetiros);
+            #endregion
+
+            #region Tabla de Total Caja
+            PdfPTable tablaTotalCaja = new PdfPTable(2);
+            tablaTotalCaja.WidthPercentage = 100;
+            tablaTotalCaja.SetWidths(anchoColumnasTablas);
+
+            // Encabezado de La Tabla
+            #region Encabezado TotalCaja
+            PdfPCell columnaTituloTotalCaja = new PdfPCell(new Phrase(tituloCaja.Text, fuenteNegrita));
+            columnaTituloTotalCaja.Colspan = 2;
+            columnaTituloTotalCaja.BorderWidth = 0;
+            columnaTituloTotalCaja.HorizontalAlignment = Element.ALIGN_CENTER;
+            columnaTituloTotalCaja.Padding = 3;
+            tablaTotalCaja.AddCell(columnaTituloTotalCaja);
+            #endregion
+
+            // Conceptos de la Tabla
+            #region Concepto Efectivo
+            PdfPCell columnaConceptoEfectivoTotalCaja = new PdfPCell(new Phrase(lbEfectivoC.Text, fuenteNormal));
+            columnaConceptoEfectivoTotalCaja.BorderWidth = 0;
+            columnaConceptoEfectivoTotalCaja.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoEfectivoTotalCaja.Padding = 3;
+
+            PdfPCell columnaCantidadEfectivoTotalCaja = new PdfPCell(new Phrase(lbTEfectivoC.Text, fuenteNormal));
+            columnaCantidadEfectivoTotalCaja.BorderWidth = 0;
+            columnaCantidadEfectivoTotalCaja.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadEfectivoTotalCaja.Padding = 3;
+            #endregion
+
+            #region Concepto Tarjeta
+            PdfPCell columnaConceptoTarjetaTotalCaja = new PdfPCell(new Phrase(lbTarjetaC.Text, fuenteNormal));
+            columnaConceptoTarjetaTotalCaja.BorderWidth = 0;
+            columnaConceptoTarjetaTotalCaja.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoTarjetaTotalCaja.Padding = 3;
+
+            PdfPCell columnaCantidadTarjetaTotalCaja = new PdfPCell(new Phrase(lbTTarjetaC.Text, fuenteNormal));
+            columnaCantidadTarjetaTotalCaja.BorderWidth = 0;
+            columnaCantidadTarjetaTotalCaja.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadTarjetaTotalCaja.Padding = 3;
+            #endregion
+
+            #region Concepto Vales
+            PdfPCell columnaConceptoValesTotalCaja = new PdfPCell(new Phrase(lbValesC.Text, fuenteNormal));
+            columnaConceptoValesTotalCaja.BorderWidth = 0;
+            columnaConceptoValesTotalCaja.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoValesTotalCaja.Padding = 3;
+
+            PdfPCell columnaCantidadValesTotalCaja = new PdfPCell(new Phrase(lbTValesC.Text, fuenteNormal));
+            columnaCantidadValesTotalCaja.BorderWidth = 0;
+            columnaCantidadValesTotalCaja.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadValesTotalCaja.Padding = 3;
+            #endregion
+
+            #region Concepto Cheques
+            PdfPCell columnaConceptoChequesTotalCaja = new PdfPCell(new Phrase(lbChequeC.Text, fuenteNormal));
+            columnaConceptoChequesTotalCaja.BorderWidth = 0;
+            columnaConceptoChequesTotalCaja.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoChequesTotalCaja.Padding = 3;
+
+            PdfPCell columnaCantidadChequesTotalCaja = new PdfPCell(new Phrase(lbTChequeC.Text, fuenteNormal));
+            columnaCantidadChequesTotalCaja.BorderWidth = 0;
+            columnaCantidadChequesTotalCaja.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadChequesTotalCaja.Padding = 3;
+            #endregion
+
+            #region Concepto Transferencias
+            PdfPCell columnaConceptoTransferenciasTotalCaja = new PdfPCell(new Phrase(lbTransC.Text, fuenteNormal));
+            columnaConceptoTransferenciasTotalCaja.BorderWidth = 0;
+            columnaConceptoTransferenciasTotalCaja.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoTransferenciasTotalCaja.Padding = 3;
+
+            PdfPCell columnaCantidadTransferenciasTotalCaja = new PdfPCell(new Phrase(lbTTransC.Text, fuenteNormal));
+            columnaCantidadTransferenciasTotalCaja.BorderWidth = 0;
+            columnaCantidadTransferenciasTotalCaja.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadTransferenciasTotalCaja.Padding = 3;
+            #endregion
+
+            #region Concepto SaldoInicial
+            PdfPCell columnaConceptoSaldoInicialTotalCaja = new PdfPCell(new Phrase(lbSaldoInicial.Text, fuenteNormal));
+            columnaConceptoSaldoInicialTotalCaja.BorderWidth = 0;
+            columnaConceptoSaldoInicialTotalCaja.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoSaldoInicialTotalCaja.Padding = 3;
+
+            PdfPCell columnaCantidadSaldoInicialTotalCaja = new PdfPCell(new Phrase(lbTSaldoInicial.Text, fuenteNormal));
+            columnaCantidadSaldoInicialTotalCaja.BorderWidth = 0;
+            columnaCantidadSaldoInicialTotalCaja.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadSaldoInicialTotalCaja.Padding = 3;
+            #endregion
+
+            #region Agregar Conceptos A Tabla Ventas
+            tablaTotalCaja.AddCell(columnaConceptoEfectivoTotalCaja);
+            tablaTotalCaja.AddCell(columnaCantidadEfectivoTotalCaja);
+            tablaTotalCaja.AddCell(columnaConceptoTarjetaTotalCaja);
+            tablaTotalCaja.AddCell(columnaCantidadTarjetaTotalCaja);
+            tablaTotalCaja.AddCell(columnaConceptoValesTotalCaja);
+            tablaTotalCaja.AddCell(columnaCantidadValesTotalCaja);
+            tablaTotalCaja.AddCell(columnaConceptoChequesTotalCaja);
+            tablaTotalCaja.AddCell(columnaCantidadChequesTotalCaja);
+            tablaTotalCaja.AddCell(columnaConceptoTransferenciasTotalCaja);
+            tablaTotalCaja.AddCell(columnaCantidadTransferenciasTotalCaja);
+            tablaTotalCaja.AddCell(columnaConceptoSaldoInicialTotalCaja);
+            tablaTotalCaja.AddCell(columnaCantidadSaldoInicialTotalCaja);
+            #endregion
+
+            // Agregando Conceptos Anticipo a Tabla Contenido
+            tablaContenido.AddCell(tablaTotalCaja);
+            #endregion
+
+            #region espacio en blanco
+            PdfPCell cell = new PdfPCell(new Phrase(string.Empty, fuenteNormal));
+            cell.Colspan = 4;
+            cell.BorderWidth = 0;
+            cell.HorizontalAlignment = Element.ALIGN_RIGHT;
+            cell.Padding = 3;
+
+            tablaContenido.AddCell(cell);
+            #endregion
+
+            #region Monto Retirado
+
+            #region Tabla Monto Retirado
+            PdfPTable tablaMontoRetirado = new PdfPTable(2);
+            tablaMontoRetirado.WidthPercentage = 100;
+            tablaMontoRetirado.SetWidths(anchoColumnasTablas);
+
+            #region Concepto Transferencias
+            PdfPCell columnaConceptoMontoAntesDelCorte = new PdfPCell(new Phrase(lbTotalCaja.Text + " antes del corte:", fuenteNormal));
+            columnaConceptoMontoAntesDelCorte.BorderWidth = 0;
+            columnaConceptoMontoAntesDelCorte.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoMontoAntesDelCorte.Padding = 3;
+
+            PdfPCell columnaCantidadMontoAntesDelCorte = new PdfPCell(new Phrase(lbTTotalCaja.Text, fuenteNormal));
+            columnaCantidadMontoAntesDelCorte.BorderWidth = 0;
+            columnaCantidadMontoAntesDelCorte.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadMontoAntesDelCorte.Padding = 3;
+            #endregion
+
+            #region Concepto SaldoInicial
+            PdfPCell columnaConceptoMontoRetiradaAlCorte = new PdfPCell(new Phrase("Cantidad retirada al corte:", fuenteNormal));
+            columnaConceptoMontoRetiradaAlCorte.BorderWidth = 0;
+            columnaConceptoMontoRetiradaAlCorte.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoMontoRetiradaAlCorte.Padding = 3;
+
+            PdfPCell columnaCantidadMontoRetiradaAlCorte = new PdfPCell(new Phrase("$0.00", fuenteNormal));
+            columnaCantidadMontoRetiradaAlCorte.BorderWidth = 0;
+            columnaCantidadMontoRetiradaAlCorte.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadMontoRetiradaAlCorte.Padding = 3;
+            #endregion
+
+            #region Agregar Conceptos A Tabla Ventas
+            tablaMontoRetirado.AddCell(columnaConceptoMontoAntesDelCorte);
+            tablaMontoRetirado.AddCell(columnaCantidadMontoAntesDelCorte);
+            tablaMontoRetirado.AddCell(columnaConceptoMontoRetiradaAlCorte);
+            tablaMontoRetirado.AddCell(columnaCantidadMontoRetiradaAlCorte);
+            #endregion
+
+            #endregion
+
+            // Agregando Conceptos Anticipo a Tabla Contenido
+            tablaContenido.AddCell(tablaMontoRetirado);
+            #endregion
+
+            #region Totales Generales
+
+            #region Total De Ventas
+            PdfPTable tablaTotalVentas = new PdfPTable(2);
+            tablaTotalVentas.WidthPercentage = 100;
+            tablaTotalVentas.SetWidths(anchoColumnasTablas);
+
+            #region Concepto Total de Ventas
+            PdfPCell columnaConceptoTotalDeVentas = new PdfPCell(new Phrase(lbVentas.Text, fuenteTotales));
+            columnaConceptoTotalDeVentas.BorderWidth = 0;
+            columnaConceptoTotalDeVentas.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoTotalDeVentas.Padding = 3;
+            columnaConceptoTotalDeVentas.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell columnaCantidadTotalDeVentas = new PdfPCell(new Phrase(lbTVentas.Text, fuenteTotales));
+            columnaCantidadTotalDeVentas.BorderWidth = 0;
+            columnaCantidadTotalDeVentas.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadTotalDeVentas.Padding = 3;
+            columnaCantidadTotalDeVentas.BackgroundColor = new BaseColor(Color.Red);
+            #endregion
+
+            #region Agregar Conceptos A Tabla TotalVentas
+            tablaTotalVentas.AddCell(columnaConceptoTotalDeVentas);
+            tablaTotalVentas.AddCell(columnaCantidadTotalDeVentas);
+            #endregion
+
+            #endregion
+
+            #region Total De Anticipos
+            PdfPTable tablaTotalAnticipos = new PdfPTable(2);
+            tablaTotalAnticipos.WidthPercentage = 100;
+            tablaTotalAnticipos.SetWidths(anchoColumnasTablas);
+
+            #region Concepto Total de Anticipo
+            PdfPCell columnaConceptoTotalDeAnticipo = new PdfPCell(new Phrase(lbTotalAnticipos.Text, fuenteTotales));
+            columnaConceptoTotalDeAnticipo.BorderWidth = 0;
+            columnaConceptoTotalDeAnticipo.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoTotalDeAnticipo.Padding = 3;
+            columnaConceptoTotalDeAnticipo.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell columnaCantidadTotalDeAnticipo = new PdfPCell(new Phrase(lbTAnticiposA.Text, fuenteTotales));
+            columnaCantidadTotalDeAnticipo.BorderWidth = 0;
+            columnaCantidadTotalDeAnticipo.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadTotalDeAnticipo.Padding = 3;
+            columnaCantidadTotalDeAnticipo.BackgroundColor = new BaseColor(Color.Red);
+            #endregion
+
+            #region Agregar Conceptos A Tabla TotalVentas
+            tablaTotalAnticipos.AddCell(columnaConceptoTotalDeAnticipo);
+            tablaTotalAnticipos.AddCell(columnaCantidadTotalDeAnticipo);
+            #endregion
+
+            #endregion
+
+            #region Total De Dinero Agregado
+            PdfPTable tablaTotalDineroAgregado = new PdfPTable(2);
+            tablaTotalDineroAgregado.WidthPercentage = 100;
+            tablaTotalDineroAgregado.SetWidths(anchoColumnasTablas);
+
+            #region Concepto Total de Anticipo
+            PdfPCell columnaConceptoTotalDineroAgregado = new PdfPCell(new Phrase(lbTotalAgregado.Text, fuenteTotales));
+            columnaConceptoTotalDineroAgregado.BorderWidth = 0;
+            columnaConceptoTotalDineroAgregado.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoTotalDineroAgregado.PaddingBottom = 0;
+            columnaConceptoTotalDineroAgregado.PaddingTop = 0;
+            columnaConceptoTotalDineroAgregado.PaddingLeft = 0;
+            columnaConceptoTotalDineroAgregado.PaddingRight = 0;
+            columnaConceptoTotalDineroAgregado.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell columnaCantidadTotalDineroAgregado = new PdfPCell(new Phrase(lbTAgregado.Text, fuenteTotales));
+            columnaCantidadTotalDineroAgregado.BorderWidth = 0;
+            columnaCantidadTotalDineroAgregado.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadTotalDineroAgregado.Padding = 3;
+            columnaCantidadTotalDineroAgregado.BackgroundColor = new BaseColor(Color.Red);
+            #endregion
+
+            #region Agregar Conceptos A Tabla TotalVentas
+            tablaTotalDineroAgregado.AddCell(columnaConceptoTotalDineroAgregado);
+            tablaTotalDineroAgregado.AddCell(columnaCantidadTotalDineroAgregado);
+            #endregion
+
+            #endregion
+
+            #region Total De Dinero Retirado
+            PdfPTable tablaTotalDineroRetirado = new PdfPTable(2);
+            tablaTotalDineroRetirado.WidthPercentage = 100;
+            tablaTotalDineroRetirado.SetWidths(anchoColumnasTablas);
+
+            #region Concepto Total de Anticipo
+            PdfPCell columnaConceptoTotalDineroRetirado = new PdfPCell(new Phrase(label3.Text, fuenteTotales));
+            columnaConceptoTotalDineroRetirado.BorderWidth = 0;
+            columnaConceptoTotalDineroRetirado.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoTotalDineroRetirado.Padding = 3;
+            columnaConceptoTotalDineroRetirado.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell columnaCantidadTotalDineroRetirado = new PdfPCell(new Phrase(lbTRetirado.Text, fuenteTotales));
+            columnaCantidadTotalDineroRetirado.BorderWidth = 0;
+            columnaCantidadTotalDineroRetirado.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadTotalDineroRetirado.Padding = 3;
+            columnaCantidadTotalDineroRetirado.BackgroundColor = new BaseColor(Color.Red);
+            #endregion
+
+            #region Agregar Conceptos A Tabla TotalVentas
+            tablaTotalDineroRetirado.AddCell(columnaConceptoTotalDineroRetirado);
+            tablaTotalDineroRetirado.AddCell(columnaCantidadTotalDineroRetirado);
+            #endregion
+
+            #endregion
+
+            #region Total En Caja Despues Del Corte
+            PdfPTable tablaTotalEnCajaDespuesDelCorte = new PdfPTable(2);
+            tablaTotalEnCajaDespuesDelCorte.WidthPercentage = 100;
+            tablaTotalEnCajaDespuesDelCorte.SetWidths(anchoColumnasTablas);
+
+            #region Concepto Total de Anticipo
+            PdfPCell columnaConceptoTotalEnCajaDespuesDelCorte = new PdfPCell(new Phrase("Total en Caja despues del corte:", fuenteTotales));
+            columnaConceptoTotalEnCajaDespuesDelCorte.BorderWidth = 0;
+            columnaConceptoTotalEnCajaDespuesDelCorte.HorizontalAlignment = Element.ALIGN_LEFT;
+            columnaConceptoTotalEnCajaDespuesDelCorte.Padding = 3;
+            columnaConceptoTotalEnCajaDespuesDelCorte.BackgroundColor = new BaseColor(Color.Red);
+
+            PdfPCell columnaCantidadTotalEnCajaDespuesDelCorte = new PdfPCell(new Phrase("$0.00", fuenteTotales));
+            columnaCantidadTotalEnCajaDespuesDelCorte.BorderWidth = 0;
+            columnaCantidadTotalEnCajaDespuesDelCorte.HorizontalAlignment = Element.ALIGN_RIGHT;
+            columnaCantidadTotalEnCajaDespuesDelCorte.Padding = 3;
+            columnaCantidadTotalEnCajaDespuesDelCorte.BackgroundColor = new BaseColor(Color.Red);
+            #endregion
+
+            #region Agregar Conceptos A Tabla TotalVentas
+            tablaTotalEnCajaDespuesDelCorte.AddCell(columnaConceptoTotalEnCajaDespuesDelCorte);
+            tablaTotalEnCajaDespuesDelCorte.AddCell(columnaCantidadTotalEnCajaDespuesDelCorte);
+            #endregion
+
+            #endregion
+
+            // Agregando Conceptos Anticipo a Tabla Contenido
+            tablaContenido.AddCell(tablaTotalVentas);
+            tablaContenido.AddCell(tablaTotalAnticipos);
+            tablaContenido.AddCell(tablaTotalDineroAgregado);
+            tablaContenido.AddCell(tablaTotalDineroRetirado);
+            tablaContenido.AddCell(tablaTotalEnCajaDespuesDelCorte);
+            #endregion
+
+            reporte.Add(tablaContenido);
+
+            Paragraph HistorialDeDepositosDelCorteDeCaja = new Paragraph("HISTORIAL DE DEPOSITOS", fuenteGrande);
+            Paragraph HistorialDeRetirosDelCorteDeCaja = new Paragraph("HISTORIAL DE RETIROS", fuenteGrande);
+
+            HistorialDeDepositosDelCorteDeCaja.Alignment = Element.ALIGN_CENTER;
+            HistorialDeRetirosDelCorteDeCaja.Alignment = Element.ALIGN_CENTER;
+
+            reporte.Add(linea);
+            reporte.Add(HistorialDeDepositosDelCorteDeCaja);
+
+            reporte.Add(linea);
+            reporte.Add(HistorialDeRetirosDelCorteDeCaja);
+
+            #endregion
+
+            reporte.AddTitle("Reporte Corte de Caja");
+            reporte.AddAuthor("PUDVE");
+            reporte.Close();
+            writer.Close();
+
+            VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+            vr.ShowDialog();
+        }
+
         private void GenerarReporte()
         {
             var datosCajaShow = cargarDatosCorteCaja();
@@ -3535,7 +4382,8 @@ namespace PuntoDeVentaV2
 
                         if (Utilidades.AdobeReaderInstalado())
                         {
-                            GenerarReporte();
+                            //GenerarReporte();
+                            generarNuevoReporte();
                             using (DataTable dtCerrarSesionDesdeCorteCaja = cn.CargarDatos(cs.validarCerrarSesionCorteCaja()))
                             {
                                 if (!dtCerrarSesionDesdeCorteCaja.Rows.Count.Equals(0))
