@@ -109,7 +109,7 @@ namespace PuntoDeVentaV2
 
                 GenerarCheckbox(10, 10, 200, "Marcar Todos", 0);
 
-                GenerarCheckbox(40, 10, 200, "Codigo de barras ticet\nventa", permisos[0]);
+                GenerarCheckbox(40, 10, 200, "Codigo de barras ticket\nventa", permisos[0]);
                 GenerarCheckbox(40, 220, 200, "Habilitar informacion en\npagina web", permisos[1]);
 
                 GenerarCheckbox(70, 10, 200, "Mostrar codigo productos\nen ventas", permisos[2]);
