@@ -153,7 +153,7 @@ namespace PuntoDeVentaV2
             GenerarCheckbox(50, 130, 150, "Botón Buscar", datos[0]);
             GenerarCheckbox(90, 130, 150, "Nuevo Proveedor", datos[1]);
             GenerarCheckbox(130, 130, 150, "Deshabilitar", datos[2]);
-            GenerarCheckbox(170, 130, 150, "habilitar", datos[3]);
+            GenerarCheckbox(170, 130, 150, "Habilitar", datos[3]);
 
         }
 
@@ -168,7 +168,7 @@ namespace PuntoDeVentaV2
             GenerarCheckbox(120, 130, 150, "Listado Tipo Cliente", datos[2]);
             GenerarCheckbox(160, 130, 150, "Nuevo Cliente", datos[3]);
             GenerarCheckbox(200, 130, 150, "Deshabilitar", datos[4]);
-            GenerarCheckbox(240, 130, 150, "habilitar", datos[5]);
+            GenerarCheckbox(235, 130, 150, "Habilitar", datos[5]);
         }
 
         private void GenerarReportes()
@@ -248,7 +248,7 @@ namespace PuntoDeVentaV2
             GenerarCheckbox(160, 180, 200, "Mostrar Panel Ventas", datos[7]);
             GenerarCheckbox(200, 20, 150, "Mostrar Panel Anticipos", datos[8]);
             GenerarCheckbox(200, 180, 200, "Mostrar Panel Dinero Agregado", datos[9]);
-            GenerarCheckbox(240, 20, 150, "Mostrar Panel Total Caja", datos[10]);
+            GenerarCheckbox(235, 20, 150, "Mostrar Panel Total Caja", datos[10]);
         }
 
         private void GenerarVentas()
