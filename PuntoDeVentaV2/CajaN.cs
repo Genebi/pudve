@@ -112,11 +112,11 @@ namespace PuntoDeVentaV2
             cantidadTotalValesEnCaja = 0,
             cantidadTotalCehqueEnCaja = 0,
             cantidadTotalTransferenciaEnCaja = 0,
-            totalSaldoInicial = 0, 
-            cantidadEfectivoSaldoInicialEnCaja = 0, 
-            cantidadTarjetaSaldoInicialEnCaja = 0, 
-            cantidadValesSaldoInicialEnCaja = 0, 
-            cantidadChequeSaldoInicialEnCaja = 0, 
+            totalSaldoInicial = 0,
+            cantidadEfectivoSaldoInicialEnCaja = 0,
+            cantidadTarjetaSaldoInicialEnCaja = 0,
+            cantidadValesSaldoInicialEnCaja = 0,
+            cantidadChequeSaldoInicialEnCaja = 0,
             cantidadTransferenciaSaldoInicialEnCaja = 0;
 
         decimal totalEfectivoVentaEnCaja = 0,
@@ -162,10 +162,10 @@ namespace PuntoDeVentaV2
                 cantidadTotalVentas = 0,
                 // Ventas sección de variables del apartado de efectivo para Administrador o Empleado
                 cantidadEfectivoAnticipos = 0,
-                cantidadTarjetaAnticipos = 0, 
-                cantidadValesAnticipos = 0, 
-                cantidadChequeAnticipos = 0, 
-                cantidadTransferenciaAnticipos = 0, 
+                cantidadTarjetaAnticipos = 0,
+                cantidadValesAnticipos = 0,
+                cantidadChequeAnticipos = 0,
+                cantidadTransferenciaAnticipos = 0,
                 cantidadTotalAnticipos = 0,
                 // Anticipos sección de variables del apartado de efectivo para Administrador o Empleado
                 cantidadEfectivoAgregado = 0,
@@ -185,11 +185,11 @@ namespace PuntoDeVentaV2
                 cantidadAnticiposVentaTodos = 0,
                 cantidadTotalVentasVentaTodos = 0,
                 // Ventas sección de todos 
-                cantidadEfectivoAgregaddo = 0, 
-                cantidadTarjetaAgregaddo = 0, 
-                cantidadValesAgregaddo = 0, 
-                cantidadChequeAgregaddo = 0, 
-                cantidadTransferenciaAgregaddo = 0, 
+                cantidadEfectivoAgregaddo = 0,
+                cantidadTarjetaAgregaddo = 0,
+                cantidadValesAgregaddo = 0,
+                cantidadChequeAgregaddo = 0,
+                cantidadTransferenciaAgregaddo = 0,
                 cantidadTotalDineroAgregado = 0,
                 // Dinero Agregado de todos
                 cantidadEfectivoRetirado = 0,
@@ -198,7 +198,7 @@ namespace PuntoDeVentaV2
                 cantidadChequeRetirado = 0,
                 cantidadTransferenciaRetirado = 0,
                 cantidadTotalDineroRetirado = 0;
-                // Dinero Retirado de todos
+        // Dinero Retirado de todos
 
         public CajaN()
         {
@@ -1747,6 +1747,9 @@ namespace PuntoDeVentaV2
 
             var UsuarioActivo = cs.validarEmpleado(FormPrincipal.userNickName, true);
             var obtenerUsuarioPrincipal = cs.validarEmpleadoPorID();
+
+            var cantidadRetiradaAlCorteDeCaja = 0m;
+            var cantidadEnCajaAntesDelCorteDeCaja = 0m;
             #endregion
 
             #region Ruta para el archivo de PDF
@@ -1810,7 +1813,7 @@ namespace PuntoDeVentaV2
             tablaContenido.WidthPercentage = 100;
             tablaContenido.SetWidths(anchoColumnasContenido);
 
-            float[] anchoColumnasTablas = new float[] { 150f, 50f };
+            float[] anchoColumnasTablas = new float[] { 120f, 80f };
 
             /************************************
             *                                   * 
@@ -2370,25 +2373,42 @@ namespace PuntoDeVentaV2
             tablaMontoRetirado.WidthPercentage = 100;
             tablaMontoRetirado.SetWidths(anchoColumnasTablas);
 
-            #region Concepto Transferencias
+            #region Concepto Monto antes del Corte
             PdfPCell columnaConceptoMontoAntesDelCorte = new PdfPCell(new Phrase(lbTotalCaja.Text + " antes del corte:", fuenteNormal));
             columnaConceptoMontoAntesDelCorte.BorderWidth = 0;
             columnaConceptoMontoAntesDelCorte.HorizontalAlignment = Element.ALIGN_LEFT;
             columnaConceptoMontoAntesDelCorte.Padding = 3;
 
-            PdfPCell columnaCantidadMontoAntesDelCorte = new PdfPCell(new Phrase(lbTTotalCaja.Text, fuenteNormal));
+            cantidadEnCajaAntesDelCorteDeCaja = Convert.ToDecimal(lbTTotalCaja.Text.ToString().Replace("$", string.Empty));
+
+            PdfPCell columnaCantidadMontoAntesDelCorte = new PdfPCell(new Phrase(cantidadEnCajaAntesDelCorteDeCaja.ToString("C2"), fuenteNormal));
             columnaCantidadMontoAntesDelCorte.BorderWidth = 0;
             columnaCantidadMontoAntesDelCorte.HorizontalAlignment = Element.ALIGN_RIGHT;
             columnaCantidadMontoAntesDelCorte.Padding = 3;
             #endregion
 
-            #region Concepto SaldoInicial
+            #region Concepto Cantidad Retirada en el corte
             PdfPCell columnaConceptoMontoRetiradaAlCorte = new PdfPCell(new Phrase("Cantidad retirada al corte:", fuenteNormal));
             columnaConceptoMontoRetiradaAlCorte.BorderWidth = 0;
             columnaConceptoMontoRetiradaAlCorte.HorizontalAlignment = Element.ALIGN_LEFT;
             columnaConceptoMontoRetiradaAlCorte.Padding = 3;
 
-            PdfPCell columnaCantidadMontoRetiradaAlCorte = new PdfPCell(new Phrase("$0.00", fuenteNormal));
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                using (DataTable dtSaldoInicial = cn.CargarDatos(cs.cargarSaldoInicialAdministrador()))
+                {
+                    cantidadRetiradaAlCorteDeCaja = obtenerCantidadRetiradaAlCorteDeCaja(dtSaldoInicial);
+                }
+            }
+            else if (FormPrincipal.userNickName.Contains("@"))
+            {
+                using (DataTable dtSaldoInicial = cn.CargarDatos(cs.cargarSaldoInicialEmpleado(Convert.ToString(FormPrincipal.id_empleado))))
+                {
+                    cantidadRetiradaAlCorteDeCaja = obtenerCantidadRetiradaAlCorteDeCaja(dtSaldoInicial);
+                }
+            }
+
+            PdfPCell columnaCantidadMontoRetiradaAlCorte = new PdfPCell(new Phrase(cantidadRetiradaAlCorteDeCaja.ToString("C2"), fuenteNormal));
             columnaCantidadMontoRetiradaAlCorte.BorderWidth = 0;
             columnaCantidadMontoRetiradaAlCorte.HorizontalAlignment = Element.ALIGN_RIGHT;
             columnaCantidadMontoRetiradaAlCorte.Padding = 3;
@@ -2521,14 +2541,14 @@ namespace PuntoDeVentaV2
             tablaTotalEnCajaDespuesDelCorte.WidthPercentage = 100;
             tablaTotalEnCajaDespuesDelCorte.SetWidths(anchoColumnasTablas);
 
-            #region Concepto Total de Anticipo
+            #region Concepto Total Restante al Corte de Caja
             PdfPCell columnaConceptoTotalEnCajaDespuesDelCorte = new PdfPCell(new Phrase("Total en Caja despues del corte:", fuenteTotales));
             columnaConceptoTotalEnCajaDespuesDelCorte.BorderWidth = 0;
             columnaConceptoTotalEnCajaDespuesDelCorte.HorizontalAlignment = Element.ALIGN_LEFT;
             columnaConceptoTotalEnCajaDespuesDelCorte.Padding = 3;
             columnaConceptoTotalEnCajaDespuesDelCorte.BackgroundColor = new BaseColor(Color.Red);
 
-            PdfPCell columnaCantidadTotalEnCajaDespuesDelCorte = new PdfPCell(new Phrase("$0.00", fuenteTotales));
+            PdfPCell columnaCantidadTotalEnCajaDespuesDelCorte = new PdfPCell(new Phrase((cantidadEnCajaAntesDelCorteDeCaja - cantidadRetiradaAlCorteDeCaja).ToString("C2"), fuenteTotales));
             columnaCantidadTotalEnCajaDespuesDelCorte.BorderWidth = 0;
             columnaCantidadTotalEnCajaDespuesDelCorte.HorizontalAlignment = Element.ALIGN_RIGHT;
             columnaCantidadTotalEnCajaDespuesDelCorte.Padding = 3;
@@ -2573,6 +2593,21 @@ namespace PuntoDeVentaV2
 
             VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
             vr.ShowDialog();
+        }
+
+        private decimal obtenerCantidadRetiradaAlCorteDeCaja(DataTable dtSaldoInicial)
+        {
+            var cantidad = 0m;
+
+            if (!dtSaldoInicial.Rows.Count.Equals(0))
+            {
+                foreach (DataRow item in dtSaldoInicial.Rows)
+                {
+                    cantidad = Convert.ToDecimal(item["CantidadRetirada"].ToString());
+                }
+            }
+
+            return cantidad;
         }
 
         private void GenerarReporte()
@@ -4235,7 +4270,7 @@ namespace PuntoDeVentaV2
 
         private void lbSaldoInicialInfoBtn_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnRedondoTabuladorDeDinero_Click(object sender, EventArgs e)
@@ -4600,7 +4635,7 @@ namespace PuntoDeVentaV2
         {
             totalEfectivoVentaEnCaja = totalTarjetaVentaEnCaja = totalValesEnVentaCaja = totalChequesVentaEnCaja = totalTransferenciaVentaEnCaja = totalSaldoInicialVentaEnCaja = totalEfectivoAnticiposEnCaja = totalTarjetaAnticiposEnCaja = totalValesAnticiposEnCaja = totalChequesAnticipoEnCaja = totalTransferenciaAnticiposEnCaja = totalEfectivoDepsitosEnCaja = totalTarjetaDepositosEnCaja = totalValesDepositosEnCaja = totalChequesDepsoitosEnCaja = totalTransferenciasDepositosEnCaja = totalEfectivoRetiroEnCaja = totalTarjetaRetiroEnCaja = totalValesRetiroEnCaja = totalChequesRetiroEnCaja = totalTransferenciaRetiroEnCaja = totalAbonoEfectivo = totalAbonoTarjeta = totalAbonoVales = totalAbonoCheque = totalAbonoTransferencia = totalAbonoRealizado = cantidadEfectivoSaldoInicialEnCaja = cantidadTarjetaSaldoInicialEnCaja = cantidadValesSaldoInicialEnCaja = cantidadChequeSaldoInicialEnCaja = cantidadTransferenciaSaldoInicialEnCaja = 0;
 
-            cantidadEfectivoAgregado = cantidadTarjetaAgregado = cantidadValesAgregado = cantidadChequeAgregado = cantidadTransferenciaAgregado = cantidadTotalDineroAgregado = cantidadEfectivoRetirado = cantidadTarjetaRetirado = cantidadValesRetirado = cantidadChequeRetirado = cantidadTransferenciaRetirado = cantidadTotalDineroRetirado = 0; 
+            cantidadEfectivoAgregado = cantidadTarjetaAgregado = cantidadValesAgregado = cantidadChequeAgregado = cantidadTransferenciaAgregado = cantidadTotalDineroAgregado = cantidadEfectivoRetirado = cantidadTarjetaRetirado = cantidadValesRetirado = cantidadChequeRetirado = cantidadTransferenciaRetirado = cantidadTotalDineroRetirado = 0;
         }
 
         private void mostrarTotalEnCaja()
