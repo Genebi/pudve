@@ -4162,6 +4162,12 @@ namespace PuntoDeVentaV2
             //}
         }
 
+        private void AgregarEditarProducto_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            listaProductoToCombo.Clear();
+            ProductosDeServicios.Clear();
+        }
+
         public void cargarCodBarExt()
         {
             id = 0;
