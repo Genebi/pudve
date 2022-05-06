@@ -861,6 +861,9 @@ namespace PuntoDeVentaV2
             //ClaveInternaProdStrFin = ClaveInternaProdStr;           // almacenamos el valor de ClaveInternaProd
             CodigoBarrasProdStrFin = CodigoBarrasProdStr;           // almacenamos el valor de CodigoBarrasProd
             consultadoDesdeListProd = 1;                            // almacenamos el valor si selecciono un producto
+           
+           
+           
             consultadoDesdeListProdFin = consultadoDesdeListProd;   // almacenamos el valor de consultadoDesdeListProd
             opcionGuardarFin = opcionGuardar;                       // almacenamos el valor de opcionGuardar
 
