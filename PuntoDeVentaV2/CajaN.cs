@@ -1737,6 +1737,7 @@ namespace PuntoDeVentaV2
 
             var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 8);
             var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 8, 1, colorFuenteNegrita);
+            var fuenteTituloHistorialDepositoRetiro = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 10, 1, colorFuenteNegrita);
             var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 10);
             var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 10);
             var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 10, 1, colorFuenteBlanca);
@@ -2585,8 +2586,8 @@ namespace PuntoDeVentaV2
 
             reporte.Add(tablaContenido);
 
-            Paragraph HistorialDeDepositosDelCorteDeCaja = new Paragraph("HISTORIAL DE DEPOSITOS", fuenteGrande);
-            Paragraph HistorialDeRetirosDelCorteDeCaja = new Paragraph("HISTORIAL DE RETIROS", fuenteGrande);
+            Paragraph HistorialDeDepositosDelCorteDeCaja = new Paragraph("HISTORIAL DE DEPOSITOS", fuenteTituloHistorialDepositoRetiro);
+            Paragraph HistorialDeRetirosDelCorteDeCaja = new Paragraph("HISTORIAL DE RETIROS", fuenteTituloHistorialDepositoRetiro);
 
             HistorialDeDepositosDelCorteDeCaja.Alignment = Element.ALIGN_CENTER;
             HistorialDeRetirosDelCorteDeCaja.Alignment = Element.ALIGN_CENTER;
