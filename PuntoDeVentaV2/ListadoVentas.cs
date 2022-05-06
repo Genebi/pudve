@@ -1945,80 +1945,84 @@ namespace PuntoDeVentaV2
                                             var cantidad = item["Cantidad"].ToString();
                                             var consulta = cn.CargarDatos($"SELECT * FROM productosdeservicios WHERE IDServicio = {idprod}");
                                             var consultaCombo = cn.CargarDatos($"SELECT IDProducto FROM productosdeservicios WHERE IDServicio = {idprod}");
-                                            var idproduct = consultaCombo.Rows[0]["IDProducto"].ToString();
-
-                                            if (!consulta.Rows.Count.Equals(0) && idproduct != "0") //En caso que el producto sea un combo o servicio
+                                            if (!consultaCombo.Rows.Count.Equals(0))
                                             {
-                                                var cantidadCombo = consulta.Rows[0]["Cantidad"].ToString();
-                                                var idProd = consulta.Rows[0]["IDProducto"].ToString();
-                                                var stock = cn.CargarDatos($"SELECT StockNuevo FROM `historialstock` WHERE IDProducto = {idProd} ORDER BY ID DESC");
-                                                var stockOriginal = stock.Rows[0]["StockNuevo"].ToString();
-                                                var stockActual = Convert.ToDecimal(stockOriginal) + Convert.ToDecimal(Convert.ToDecimal(cantidadCombo) * Convert.ToDecimal(cantidad));
-                                                var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
-                                                var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
-                                                decimal stockAnterior = Convert.ToDecimal(stockOriginal);
-                                                decimal stockNuevo = Convert.ToInt32(stockActual);
-                                                var cantidadR = Convert.ToDecimal(cantidad) * Convert.ToDecimal(cantidadCombo);
-                                                var fechaDeOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                                var paqueteServicio = string.Empty;
+                                                var idproduct = consultaCombo.Rows[0]["IDProducto"].ToString();
 
-                                                var tipoComboSerbicio = cn.CargarDatos($"SELECT tipoDeVenta FROM `historialstock` WHERE idComboServicio = {idprod} ");
-                                                paqueteServicio = tipoComboSerbicio.Rows[0]["tipoDeVenta"].ToString();
+                                                if (!consulta.Rows.Count.Equals(0) && idproduct != "0") //En caso que el producto sea un combo o servicio
+                                                {
+                                                    var cantidadCombo = consulta.Rows[0]["Cantidad"].ToString();
+                                                    var idProd = consulta.Rows[0]["IDProducto"].ToString();
+                                                    var stock = cn.CargarDatos($"SELECT StockNuevo FROM `historialstock` WHERE IDProducto = {idProd} ORDER BY ID DESC");
+                                                    var stockOriginal = stock.Rows[0]["StockNuevo"].ToString();
+                                                    var stockActual = Convert.ToDecimal(stockOriginal) + Convert.ToDecimal(Convert.ToDecimal(cantidadCombo) * Convert.ToDecimal(cantidad));
+                                                    var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
+                                                    var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
+                                                    decimal stockAnterior = Convert.ToDecimal(stockOriginal);
+                                                    decimal stockNuevo = Convert.ToInt32(stockActual);
+                                                    var cantidadR = Convert.ToDecimal(cantidad) * Convert.ToDecimal(cantidadCombo);
+                                                    var fechaDeOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                                    var paqueteServicio = string.Empty;
 
-                                                if (paqueteServicio.Equals("PQ"))
-                                                {
-                                                    paqueteServicio = "de combo";
-                                                }
-                                                else
-                                                {
-                                                    paqueteServicio = "de servicio";
-                                                }
+                                                    var tipoComboSerbicio = cn.CargarDatos($"SELECT tipoDeVenta FROM `historialstock` WHERE idComboServicio = {idprod} ");
+                                                    paqueteServicio = tipoComboSerbicio.Rows[0]["tipoDeVenta"].ToString();
 
-                                                if (!consulta.Rows.Count.Equals(1))
-                                                {
-                                                    foreach (DataRow products in consulta.Rows)
+                                                    if (paqueteServicio.Equals("PQ"))
                                                     {
-                                                        int cant = Convert.ToInt32(products[5]);
-                                                        var stockActual2 = cn.CargarDatos($"SELECT StockNuevo FROM `historialstock` WHERE IDProducto = {products[3]} ORDER BY ID DESC");
-                                                        var stockAnterior2 = stockActual2.Rows[0]["StockNuevo"].ToString();
-                                                        var multiplicacionComboServicio = Convert.ToDecimal(cantidad) * Convert.ToDecimal(cant);
-                                                        var cantidadNuevoStock = Convert.ToDecimal(stockAnterior2) + multiplicacionComboServicio;
-
-                                                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{products[3]}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior2}','{cantidadNuevoStock}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{multiplicacionComboServicio.ToString("N")}')");
-
-                                                        cn.EjecutarConsulta($"UPDATE Productos SET Stock = {cantidadNuevoStock} WHERE ID = {products[3]} AND IDUsuario = {FormPrincipal.userID}");
+                                                        paqueteServicio = "de combo";
                                                     }
+                                                    else
+                                                    {
+                                                        paqueteServicio = "de servicio";
+                                                    }
+
+                                                    if (!consulta.Rows.Count.Equals(1))
+                                                    {
+                                                        foreach (DataRow products in consulta.Rows)
+                                                        {
+                                                            int cant = Convert.ToInt32(products[5]);
+                                                            var stockActual2 = cn.CargarDatos($"SELECT StockNuevo FROM `historialstock` WHERE IDProducto = {products[3]} ORDER BY ID DESC");
+                                                            var stockAnterior2 = stockActual2.Rows[0]["StockNuevo"].ToString();
+                                                            var multiplicacionComboServicio = Convert.ToDecimal(cantidad) * Convert.ToDecimal(cant);
+                                                            var cantidadNuevoStock = Convert.ToDecimal(stockAnterior2) + multiplicacionComboServicio;
+
+                                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{products[3]}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior2}','{cantidadNuevoStock}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{multiplicacionComboServicio.ToString("N")}')");
+
+                                                            cn.EjecutarConsulta($"UPDATE Productos SET Stock = {cantidadNuevoStock} WHERE ID = {products[3]} AND IDUsuario = {FormPrincipal.userID}");
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProd}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidadR.ToString("N")}')");
+
+                                                        cn.EjecutarConsulta($"UPDATE Productos SET Stock ={stockNuevo} WHERE ID = {idprod} AND IDUsuario = {FormPrincipal.userID}");
+                                                    }
+
                                                 }
-                                                else
+                                                else if (idproduct == "0")
                                                 {
-                                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProd}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidadR.ToString("N")}')");
+
+                                                }
+                                                else //En caso de ser un producto
+                                                {
+                                                    var stock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = '{idprod}'");
+                                                    var stockOriginal = stock.Rows[0]["Stock"].ToString();
+                                                    var stockActual = Convert.ToDecimal(stockOriginal) + Convert.ToDecimal(cantidad);
+                                                    var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
+                                                    var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
+                                                    decimal stockAnterior = Convert.ToDecimal(stockOriginal);
+                                                    decimal stockNuevo = Convert.ToInt32(stockActual);
+
+                                                    var fechaDeOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idprod}','Venta Cancelada folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidad}')");
 
                                                     cn.EjecutarConsulta($"UPDATE Productos SET Stock ={stockNuevo} WHERE ID = {idprod} AND IDUsuario = {FormPrincipal.userID}");
+
                                                 }
-
-                                            }
-                                            else if (idproduct == "0")
-                                            {
-                                         
-                                            }
-                                            else //En caso de ser un producto
-                                            {
-                                                var stock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = '{idprod}'");
-                                                var stockOriginal = stock.Rows[0]["Stock"].ToString();
-                                                var stockActual = Convert.ToDecimal(stockOriginal) + Convert.ToDecimal(cantidad);
-                                                var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
-                                                var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
-                                                decimal stockAnterior = Convert.ToDecimal(stockOriginal);
-                                                decimal stockNuevo = Convert.ToInt32(stockActual);
-
-                                                var fechaDeOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idprod}','Venta Cancelada folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidad}')");
-
-                                                cn.EjecutarConsulta($"UPDATE Productos SET Stock ={stockNuevo} WHERE ID = {idprod} AND IDUsuario = {FormPrincipal.userID}");
-
                                             }
                                         }
+                                           
                                     }
 
 
