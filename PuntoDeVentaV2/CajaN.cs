@@ -1754,7 +1754,7 @@ namespace PuntoDeVentaV2
             var cantidadEnCajaAntesDelCorteDeCaja = 0m;
             var idUltimoCorteDeCaja = 0;
 
-            float[] anchoColumnasTablasDepositosRetiros = new float[] { 200f, 100f, 100f, 100f, 100f, 100f, 150f, 150f };
+            float[] anchoColumnasTablasDepositosRetiros = new float[] { 200f, 120f, 120f, 120f, 120f, 120f, 180f, 180f };
             #endregion
 
             #region Ruta para el archivo de PDF
@@ -2618,42 +2618,42 @@ namespace PuntoDeVentaV2
                         var encabezadoFecha = "Fecha";
                         var encabezadoMotivo = "Concepto";
 
-                        PdfPCell columnaTituloRealizo = new PdfPCell(new Phrase(encabezadoRealizo, fuenteNegrita));
+                        PdfPCell columnaTituloRealizo = new PdfPCell(new Phrase(encabezadoRealizo, fuenteNegritaDepositoRetiro));
                         columnaTituloRealizo.BorderWidth = 0;
                         columnaTituloRealizo.HorizontalAlignment = Element.ALIGN_CENTER;
                         columnaTituloRealizo.Padding = 3;
 
-                        PdfPCell columnaTituloEfectivo = new PdfPCell(new Phrase(encabezadoEfectivo, fuenteNegrita));
+                        PdfPCell columnaTituloEfectivo = new PdfPCell(new Phrase(encabezadoEfectivo, fuenteNegritaDepositoRetiro));
                         columnaTituloEfectivo.BorderWidth = 0;
                         columnaTituloEfectivo.HorizontalAlignment = Element.ALIGN_CENTER;
                         columnaTituloEfectivo.Padding = 3;
 
-                        PdfPCell columnaTituloTarjeta = new PdfPCell(new Phrase(encabezadoTarjeta, fuenteNegrita));
+                        PdfPCell columnaTituloTarjeta = new PdfPCell(new Phrase(encabezadoTarjeta, fuenteNegritaDepositoRetiro));
                         columnaTituloTarjeta.BorderWidth = 0;
                         columnaTituloTarjeta.HorizontalAlignment = Element.ALIGN_CENTER;
                         columnaTituloTarjeta.Padding = 0;
 
-                        PdfPCell columnaTituloVales = new PdfPCell(new Phrase(encabezadoVales, fuenteNegrita));
+                        PdfPCell columnaTituloVales = new PdfPCell(new Phrase(encabezadoVales, fuenteNegritaDepositoRetiro));
                         columnaTituloVales.BorderWidth = 0;
                         columnaTituloVales.HorizontalAlignment = Element.ALIGN_CENTER;
                         columnaTituloVales.Padding = 3;
 
-                        PdfPCell columnaTituloCheques = new PdfPCell(new Phrase(encabezadoCheque, fuenteNegrita));
+                        PdfPCell columnaTituloCheques = new PdfPCell(new Phrase(encabezadoCheque, fuenteNegritaDepositoRetiro));
                         columnaTituloCheques.BorderWidth = 0;
                         columnaTituloCheques.HorizontalAlignment = Element.ALIGN_CENTER;
                         columnaTituloCheques.Padding = 3;
 
-                        PdfPCell columnaTituloTransferencias = new PdfPCell(new Phrase(encabezadoTransferencia, fuenteNegrita));
+                        PdfPCell columnaTituloTransferencias = new PdfPCell(new Phrase(encabezadoTransferencia, fuenteNegritaDepositoRetiro));
                         columnaTituloTransferencias.BorderWidth = 0;
                         columnaTituloTransferencias.HorizontalAlignment = Element.ALIGN_CENTER;
                         columnaTituloTransferencias.Padding = 3;
 
-                        PdfPCell columnaTituloFechas = new PdfPCell(new Phrase(encabezadoFecha, fuenteNegrita));
+                        PdfPCell columnaTituloFechas = new PdfPCell(new Phrase(encabezadoFecha, fuenteNegritaDepositoRetiro));
                         columnaTituloFechas.BorderWidth = 0;
                         columnaTituloFechas.HorizontalAlignment = Element.ALIGN_CENTER;
                         columnaTituloFechas.Padding = 3;
 
-                        PdfPCell columnaTituloMotivo = new PdfPCell(new Phrase(encabezadoMotivo, fuenteNegrita));
+                        PdfPCell columnaTituloMotivo = new PdfPCell(new Phrase(encabezadoMotivo, fuenteNegritaDepositoRetiro));
                         columnaTituloMotivo.BorderWidth = 0;
                         columnaTituloMotivo.HorizontalAlignment = Element.ALIGN_CENTER;
                         columnaTituloMotivo.Padding = 3;
@@ -2710,7 +2710,7 @@ namespace PuntoDeVentaV2
 
                             PdfPCell columnaFechas = new PdfPCell(new Phrase(conceptoFecha, fuenteNormal));
                             columnaFechas.BorderWidth = 1;
-                            columnaFechas.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaFechas.HorizontalAlignment = Element.ALIGN_CENTER;
                             columnaFechas.Padding = 3;
 
                             PdfPCell columnaMotivo = new PdfPCell(new Phrase(conceptoMotivo, fuenteNormal));
@@ -2787,7 +2787,7 @@ namespace PuntoDeVentaV2
 
                                     PdfPCell columnaFechas = new PdfPCell(new Phrase(conceptoFecha, fuenteNormal));
                                     columnaFechas.BorderWidth = 0;
-                                    columnaFechas.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaFechas.HorizontalAlignment = Element.ALIGN_CENTER;
                                     columnaFechas.Padding = 3;
 
                                     PdfPCell columnaMotivo = new PdfPCell(new Phrase(conceptoMotivo, fuenteNormal));
@@ -3149,7 +3149,7 @@ namespace PuntoDeVentaV2
 
                             PdfPCell columnaFechas = new PdfPCell(new Phrase(conceptoFecha, fuenteNormal));
                             columnaFechas.BorderWidth = 1;
-                            columnaFechas.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaFechas.HorizontalAlignment = Element.ALIGN_CENTER;
                             columnaFechas.Padding = 3;
 
                             PdfPCell columnaMotivo = new PdfPCell(new Phrase(conceptoMotivo, fuenteNormal));
@@ -3367,7 +3367,7 @@ namespace PuntoDeVentaV2
 
                             PdfPCell columnaFechas = new PdfPCell(new Phrase(conceptoFecha, fuenteNormal));
                             columnaFechas.BorderWidth = 1;
-                            columnaFechas.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaFechas.HorizontalAlignment = Element.ALIGN_CENTER;
                             columnaFechas.Padding = 3;
 
                             PdfPCell columnaMotivo = new PdfPCell(new Phrase(conceptoMotivo, fuenteNormal));
@@ -3444,7 +3444,7 @@ namespace PuntoDeVentaV2
 
                                     PdfPCell columnaFechas = new PdfPCell(new Phrase(conceptoFecha, fuenteNormal));
                                     columnaFechas.BorderWidth = 0;
-                                    columnaFechas.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaFechas.HorizontalAlignment = Element.ALIGN_CENTER;
                                     columnaFechas.Padding = 3;
 
                                     PdfPCell columnaMotivo = new PdfPCell(new Phrase(conceptoMotivo, fuenteNormal));
