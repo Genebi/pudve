@@ -3834,5 +3834,75 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string HistorialDepositosAdminsitrador(int idUltimoCorteDeCaja)
+        {
+            var consulta = $"SELECT Usr.Usuario AS 'Realizo', IF ( Box.Efectivo IS NULL, 0, Box.Efectivo ) AS 'Efectivo', IF ( Box.Tarjeta IS NULL, 0, Box.Tarjeta ) AS 'Tarjeta', IF ( Box.Vales IS NULL, 0, Box.Vales ) AS 'Vales', IF ( Box.Cheque IS NULL, 0, Box.Cheque ) AS 'Cheque', IF ( Box.Transferencia IS NULL, 0, Box.Transferencia ) AS 'Transferencia',  Box.FechaOperacion AS 'Fecha', IF ( Box.Concepto IS NULL OR Box.Concepto = '', 'N/A', Box.Concepto ) AS 'Concepto' FROM caja AS Box INNER JOIN usuarios AS Usr ON ( Usr.ID = Box.IDUsuario ) WHERE Box.ID > '{idUltimoCorteDeCaja}' AND Box.Operacion = 'deposito' AND Box.IDUsuario = '{FormPrincipal.userID}' AND Box.IdEmpleado = '0'";
+
+            return consulta;
+        }
+
+        public string cargarHistorialdepositosAdministradorSumaTotal(int idUltimoCorteDeCaja)
+        {
+            var consulta = $"SELECT IF ( SUM( Box.Efectivo ) IS NULL, 0, SUM( Box.Efectivo ) ) AS 'Efectivo', IF ( SUM( Box.Tarjeta ) IS NULL, 0, SUM( Box.Tarjeta ) ) AS 'Tarjeta', IF ( SUM( Box.Vales ) IS NULL, 0, SUM( Box.Vales ) ) AS 'Vales', IF ( SUM( Box.Cheque ) IS NULL, 0, SUM( Box.Cheque ) ) AS 'Cheque', IF ( SUM( Box.Transferencia ) IS NULL, 0, SUM( Box.Transferencia ) ) AS 'Transferencia' FROM caja AS Box INNER JOIN usuarios AS Usr ON ( Usr.ID = Box.IDUsuario ) WHERE Box.ID > '{idUltimoCorteDeCaja}' AND Box.Operacion = 'deposito' AND Box.IDUsuario = '{FormPrincipal.userID}' AND Box.IdEmpleado = '0'";
+
+            return consulta;
+        }
+
+        public string HistorialRetirosAdminsitrador(int idUltimoCorteDeCaja)
+        {
+            var consulta = $"SELECT Usr.Usuario AS 'Realizo', IF ( Box.Efectivo IS NULL, 0, Box.Efectivo ) AS 'Efectivo', IF ( Box.Tarjeta IS NULL, 0, Box.Tarjeta ) AS 'Tarjeta', IF ( Box.Vales IS NULL, 0, Box.Vales ) AS 'Vales', IF ( Box.Cheque IS NULL, 0, Box.Cheque ) AS 'Cheque', IF ( Box.Transferencia IS NULL, 0, Box.Transferencia ) AS 'Transferencia',  Box.FechaOperacion AS 'Fecha', IF ( Box.Concepto IS NULL OR Box.Concepto = '', 'N/A', Box.Concepto ) AS 'Concepto' FROM caja AS Box INNER JOIN usuarios AS Usr ON ( Usr.ID = Box.IDUsuario ) WHERE Box.ID > '{idUltimoCorteDeCaja}' AND Box.Operacion = 'retiro' AND Box.IDUsuario = '{FormPrincipal.userID}' AND Box.IdEmpleado = '0'";
+
+            return consulta;
+        }
+
+        public string cargarHistorialRetirosAdministradorSumaTotal(int idUltimoCorteDeCaja)
+        {
+            var consulta = $"SELECT IF ( SUM( Box.Efectivo ) IS NULL, 0, SUM( Box.Efectivo ) ) AS 'Efectivo', IF ( SUM( Box.Tarjeta ) IS NULL, 0, SUM( Box.Tarjeta ) ) AS 'Tarjeta', IF ( SUM( Box.Vales ) IS NULL, 0, SUM( Box.Vales ) ) AS 'Vales', IF ( SUM( Box.Cheque ) IS NULL, 0, SUM( Box.Cheque ) ) AS 'Cheque', IF ( SUM( Box.Transferencia ) IS NULL, 0, SUM( Box.Transferencia ) ) AS 'Transferencia' FROM caja AS Box INNER JOIN usuarios AS Usr ON ( Usr.ID = Box.IDUsuario ) WHERE Box.ID > '{idUltimoCorteDeCaja}' AND Box.Operacion = 'retiro' AND Box.IDUsuario = '{FormPrincipal.userID}' AND Box.IdEmpleado = '0'";
+
+            return consulta;
+        }
+
+        public string HistorialDepositosEmpleado(int idUltimoCorteDeCaja, int idEmpleado)
+        {
+            var consulta = $"SELECT Usr.nombre AS 'Realizo', IF ( Box.Efectivo IS NULL, 0, Box.Efectivo ) AS 'Efectivo', IF ( Box.Tarjeta IS NULL, 0, Box.Tarjeta ) AS 'Tarjeta', IF ( Box.Vales IS NULL, 0, Box.Vales ) AS 'Vales', IF ( Box.Cheque IS NULL, 0, Box.Cheque ) AS 'Cheque', IF ( Box.Transferencia IS NULL, 0, Box.Transferencia ) AS 'Transferencia',  Box.FechaOperacion AS 'Fecha', IF ( Box.Concepto IS NULL OR Box.Concepto = '', 'N/A', Box.Concepto ) AS 'Concepto' FROM caja AS Box INNER JOIN empleados AS Usr ON ( Usr.ID = Box.IdEmpleado ) WHERE Box.ID > '{idUltimoCorteDeCaja}' AND Box.Operacion = 'deposito' AND Box.IDUsuario = '{FormPrincipal.userID}' AND Box.IdEmpleado = '{idEmpleado}'";
+
+            return consulta;
+        }
+
+        public string cargarHistorialdepositosEmpleadoSumaTotal(int idUltimoCorteDeCaja, int idEmpleado)
+        {
+            var consulta = $"SELECT IF ( SUM( Box.Efectivo ) IS NULL, 0, SUM( Box.Efectivo ) ) AS 'Efectivo', IF ( SUM( Box.Tarjeta ) IS NULL, 0, SUM( Box.Tarjeta ) ) AS 'Tarjeta', IF ( SUM( Box.Vales ) IS NULL, 0, SUM( Box.Vales ) ) AS 'Vales', IF ( SUM( Box.Cheque ) IS NULL, 0, SUM( Box.Cheque ) ) AS 'Cheque', IF ( SUM( Box.Transferencia ) IS NULL, 0, SUM( Box.Transferencia ) ) AS 'Transferencia' FROM caja AS Box INNER JOIN usuarios AS Usr ON ( Usr.ID = Box.IDUsuario ) WHERE Box.ID > '{idUltimoCorteDeCaja}' AND Box.Operacion = 'deposito' AND Box.IDUsuario = '{FormPrincipal.userID}' AND Box.IdEmpleado = '{idEmpleado}'";
+
+            return consulta;
+        }
+
+        public string HistorialRetirosEmpleado(int idUltimoCorteDeCaja, int idEmpleado)
+        {
+            var consulta = $"SELECT Usr.nombre AS 'Realizo', IF ( Box.Efectivo IS NULL, 0, Box.Efectivo ) AS 'Efectivo', IF ( Box.Tarjeta IS NULL, 0, Box.Tarjeta ) AS 'Tarjeta', IF ( Box.Vales IS NULL, 0, Box.Vales ) AS 'Vales', IF ( Box.Cheque IS NULL, 0, Box.Cheque ) AS 'Cheque', IF ( Box.Transferencia IS NULL, 0, Box.Transferencia ) AS 'Transferencia',  Box.FechaOperacion AS 'Fecha', IF ( Box.Concepto IS NULL OR Box.Concepto = '', 'N/A', Box.Concepto ) AS 'Concepto' FROM caja AS Box INNER JOIN empleados AS Usr ON ( Usr.ID = Box.IdEmpleado ) WHERE Box.ID > '{idUltimoCorteDeCaja}' AND Box.Operacion = 'retiro' AND Box.IDUsuario = '{FormPrincipal.userID}' AND Box.IdEmpleado = '{idEmpleado}'";
+
+            return consulta;
+        }
+
+        public string cargarHistorialRetirosEmpleadoSumaTotal(int idUltimoCorteDeCaja, int idEmpleado)
+        {
+            var consulta = $"SELECT IF ( SUM( Box.Efectivo ) IS NULL, 0, SUM( Box.Efectivo ) ) AS 'Efectivo', IF ( SUM( Box.Tarjeta ) IS NULL, 0, SUM( Box.Tarjeta ) ) AS 'Tarjeta', IF ( SUM( Box.Vales ) IS NULL, 0, SUM( Box.Vales ) ) AS 'Vales', IF ( SUM( Box.Cheque ) IS NULL, 0, SUM( Box.Cheque ) ) AS 'Cheque', IF ( SUM( Box.Transferencia ) IS NULL, 0, SUM( Box.Transferencia ) ) AS 'Transferencia' FROM caja AS Box INNER JOIN usuarios AS Usr ON ( Usr.ID = Box.IDUsuario ) WHERE Box.ID > '{idUltimoCorteDeCaja}' AND Box.Operacion = 'retiro' AND Box.IDUsuario = '{FormPrincipal.userID}' AND Box.IdEmpleado = '{idEmpleado}'";
+
+            return consulta;
+        }
+
+        public string cargarPenultimoSaldoInicialAdministrador()
+        {
+            var consulta = $"SELECT IDCorteDeCaja AS 'IDCaja', FechaOperacion AS 'Fecha', SaldoInicialEfectivo AS 'Efectivo', SaldoInicialTarjeta AS 'Tarjeta', SaldoInicialVales AS 'Vales', SaldoInicialCheque AS 'Cheque', SaldoInicialTransferencia AS 'Transferencia', SaldoInicialCredito AS 'Credito', SaldoInicialAnticipo AS 'Anticipo', CantidadRetiradaDelCorte AS 'CantidadRetirada', ( SaldoInicialEfectivo + SaldoInicialTarjeta + SaldoInicialVales + SaldoInicialCheque + SaldoInicialTransferencia ) AS 'SaldoInicial' FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' AND IDEmpleado = '0' ORDER BY ID DESC LIMIT 1, 1";
+
+            return consulta;
+        }
+
+        public string cargarPenultimaSaldoInicialEmpleado(string idEmpleado)
+        {
+            var consulta = $"SELECT IDUsuario, IDEmpleado, IDCorteDeCaja AS 'IDCaja', FechaOperacion AS 'Fecha', SaldoInicialEfectivo AS 'Efectivo', SaldoInicialTarjeta AS 'Tarjeta', SaldoInicialVales AS 'Vales', SaldoInicialCheque AS 'Cheque', SaldoInicialTransferencia AS 'Transferencia', SaldoInicialCredito AS 'Credito', SaldoInicialAnticipo AS 'Anticipo', CantidadRetiradaDelCorte AS 'CantidadRetirada', ( SaldoInicialEfectivo + SaldoInicialTarjeta + SaldoInicialVales + SaldoInicialCheque + SaldoInicialTransferencia ) AS 'SaldoInicial' FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' AND IDEmpleado = '{idEmpleado}' ORDER BY IDCorteDeCaja DESC LIMIT 1, 1";
+
+            return consulta;
+        }
     }
 }  
