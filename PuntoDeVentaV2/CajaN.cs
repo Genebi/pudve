@@ -2398,18 +2398,26 @@ namespace PuntoDeVentaV2
 
             if (!FormPrincipal.userNickName.Contains("@"))
             {
-                using (DataTable dtSaldoInicial = cn.CargarDatos(cs.cargarPenultimoSaldoInicialAdministrador()))
+                using (DataTable dtSaldoInicial = cn.CargarDatos(cs.cargarSaldoInicialAdministrador()))
                 {
                     cantidadRetiradaAlCorteDeCaja = obtenerCantidadRetiradaAlCorteDeCaja(dtSaldoInicial);
-                    idUltimoCorteDeCaja = obtenerIdCajaUltimoCorteDeCaja(dtSaldoInicial);
+                }
+
+                using (DataTable dtPenultimoSaldoInicial = cn.CargarDatos(cs.cargarPenultimoSaldoInicialAdministrador()))
+                {
+                    idUltimoCorteDeCaja = obtenerIdCajaUltimoCorteDeCaja(dtPenultimoSaldoInicial);
                 }
             }
             else if (FormPrincipal.userNickName.Contains("@"))
             {
-                using (DataTable dtSaldoInicial = cn.CargarDatos(cs.cargarPenultimaSaldoInicialEmpleado(Convert.ToString(FormPrincipal.id_empleado))))
+                using (DataTable dtSaldoInicial = cn.CargarDatos(cs.cargarSaldoInicialEmpleado(Convert.ToString(FormPrincipal.id_empleado))))
                 {
                     cantidadRetiradaAlCorteDeCaja = obtenerCantidadRetiradaAlCorteDeCaja(dtSaldoInicial);
-                    idUltimoCorteDeCaja = obtenerIdCajaUltimoCorteDeCaja(dtSaldoInicial);
+                }
+
+                using (DataTable dtPenultimoSaldoInicial = cn.CargarDatos(cs.cargarPenultimaSaldoInicialEmpleado(Convert.ToString(FormPrincipal.id_empleado))))
+                {
+                    idUltimoCorteDeCaja = obtenerIdCajaUltimoCorteDeCaja(dtPenultimoSaldoInicial);
                 }
             }
 
@@ -2583,6 +2591,8 @@ namespace PuntoDeVentaV2
             HistorialDeDepositosDelCorteDeCaja.Alignment = Element.ALIGN_CENTER;
             HistorialDeRetirosDelCorteDeCaja.Alignment = Element.ALIGN_CENTER;
 
+            #region Historial de Depositos
+            #region Seccion Administrador
             if (!FormPrincipal.userNickName.Contains("@"))
             {
                 using (DataTable dtHistorialDepositos = cn.CargarDatos(cs.HistorialDepositosAdminsitrador(idUltimoCorteDeCaja)))
@@ -2717,9 +2727,90 @@ namespace PuntoDeVentaV2
                         }
 
                         reporte.Add(tablaHistorialDepositosDespuesDelCorte);
+
+                        using (DataTable dtSumaDeDepositos = cn.CargarDatos(cs.cargarHistorialdepositosAdministradorSumaTotal(idUltimoCorteDeCaja)))
+                        {
+                            if (!dtSumaDeDepositos.Rows.Count.Equals(0))
+                            {
+                                PdfPTable tablaSumaHistorialDepositosDespuesDelCorte = new PdfPTable(8);
+                                tablaSumaHistorialDepositosDespuesDelCorte.WidthPercentage = 100;
+                                tablaSumaHistorialDepositosDespuesDelCorte.SetWidths(anchoColumnasTablasDepositosRetiros);
+                                tablaSumaHistorialDepositosDespuesDelCorte.DefaultCell.Border = (int)BorderStyle.FixedSingle;
+
+                                foreach (DataRow item in dtSumaDeDepositos.Rows)
+                                {
+                                    var conceptoRealizo = string.Empty;
+                                    var conceptoEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                    var conceptoTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                    var conceptoVales = Convert.ToDecimal(item["Vales"].ToString());
+                                    var conceptoCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                    var conceptoTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                    var conceptoFecha = string.Empty;
+                                    var conceptoMotivo = string.Empty;
+
+                                    PdfPCell columnaRealizo = new PdfPCell(new Phrase(conceptoRealizo, fuenteNormal));
+                                    columnaRealizo.BorderWidth = 0;
+                                    columnaRealizo.HorizontalAlignment = Element.ALIGN_LEFT;
+                                    columnaRealizo.Padding = 3;
+
+                                    PdfPCell columnaEfectivo = new PdfPCell(new Phrase(conceptoEfectivo.ToString("C2"), fuenteNormal));
+                                    columnaEfectivo.BorderWidth = 1;
+                                    columnaEfectivo.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaEfectivo.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaEfectivo.Padding = 3;
+
+                                    PdfPCell columnaTarjeta = new PdfPCell(new Phrase(conceptoTarjeta.ToString("C2"), fuenteNormal));
+                                    columnaTarjeta.BorderWidth = 1;
+                                    columnaTarjeta.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaTarjeta.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaTarjeta.Padding = 3;
+
+                                    PdfPCell columnaVales = new PdfPCell(new Phrase(conceptoVales.ToString("C2"), fuenteNormal));
+                                    columnaVales.BorderWidth = 1;
+                                    columnaVales.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaVales.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaVales.Padding = 3;
+
+                                    PdfPCell columnaCheques = new PdfPCell(new Phrase(conceptoCheque.ToString("C2"), fuenteNormal));
+                                    columnaCheques.BorderWidth = 1;
+                                    columnaCheques.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaCheques.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaCheques.Padding = 3;
+
+                                    PdfPCell columnaTransferencias = new PdfPCell(new Phrase(conceptoTransferencia.ToString("C2"), fuenteNormal));
+                                    columnaTransferencias.BorderWidth = 1;
+                                    columnaTransferencias.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaTransferencias.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaTransferencias.Padding = 3;
+
+                                    PdfPCell columnaFechas = new PdfPCell(new Phrase(conceptoFecha, fuenteNormal));
+                                    columnaFechas.BorderWidth = 0;
+                                    columnaFechas.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaFechas.Padding = 3;
+
+                                    PdfPCell columnaMotivo = new PdfPCell(new Phrase(conceptoMotivo, fuenteNormal));
+                                    columnaMotivo.BorderWidth = 0;
+                                    columnaMotivo.HorizontalAlignment = Element.ALIGN_LEFT;
+                                    columnaMotivo.Padding = 3;
+
+                                    tablaSumaHistorialDepositosDespuesDelCorte.AddCell(columnaRealizo);
+                                    tablaSumaHistorialDepositosDespuesDelCorte.AddCell(columnaEfectivo);
+                                    tablaSumaHistorialDepositosDespuesDelCorte.AddCell(columnaTarjeta);
+                                    tablaSumaHistorialDepositosDespuesDelCorte.AddCell(columnaVales);
+                                    tablaSumaHistorialDepositosDespuesDelCorte.AddCell(columnaCheques);
+                                    tablaSumaHistorialDepositosDespuesDelCorte.AddCell(columnaTransferencias);
+                                    tablaSumaHistorialDepositosDespuesDelCorte.AddCell(columnaFechas);
+                                    tablaSumaHistorialDepositosDespuesDelCorte.AddCell(columnaMotivo);
+                                }
+
+                                reporte.Add(tablaSumaHistorialDepositosDespuesDelCorte);
+                            }
+                        }
                     }
                 }
             }
+            #endregion
+            #region Seccion de Empleados
             else if (FormPrincipal.userNickName.Contains("@"))
             {
                 using (DataTable dtHistorialDepositos = cn.CargarDatos(cs.HistorialDepositosEmpleado(idUltimoCorteDeCaja, FormPrincipal.id_empleado)))
@@ -2728,13 +2819,656 @@ namespace PuntoDeVentaV2
                     {
                         reporte.Add(linea);
                         reporte.Add(HistorialDeDepositosDelCorteDeCaja);
+
+                        PdfPTable tablaHistorialDepositosDespuesDelCorte = new PdfPTable(8);
+                        tablaHistorialDepositosDespuesDelCorte.WidthPercentage = 100;
+                        tablaHistorialDepositosDespuesDelCorte.SetWidths(anchoColumnasTablasDepositosRetiros);
+                        tablaHistorialDepositosDespuesDelCorte.DefaultCell.Border = (int)BorderStyle.FixedSingle;
+
+                        var encabezadoRealizo = "Realizó";
+                        var encabezadoEfectivo = "Efectivo";
+                        var encabezadoTarjeta = "Tarjeta";
+                        var encabezadoVales = "Vales";
+                        var encabezadoCheque = "Cheque";
+                        var encabezadoTransferencia = "Transferencia";
+                        var encabezadoFecha = "Fecha";
+                        var encabezadoMotivo = "Concepto";
+
+                        PdfPCell columnaTituloRealizo = new PdfPCell(new Phrase(encabezadoRealizo, fuenteNegrita));
+                        columnaTituloRealizo.BorderWidth = 0;
+                        columnaTituloRealizo.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloRealizo.Padding = 3;
+
+                        PdfPCell columnaTituloEfectivo = new PdfPCell(new Phrase(encabezadoEfectivo, fuenteNegrita));
+                        columnaTituloEfectivo.BorderWidth = 0;
+                        columnaTituloEfectivo.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloEfectivo.Padding = 3;
+
+                        PdfPCell columnaTituloTarjeta = new PdfPCell(new Phrase(encabezadoTarjeta, fuenteNegrita));
+                        columnaTituloTarjeta.BorderWidth = 0;
+                        columnaTituloTarjeta.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloTarjeta.Padding = 0;
+
+                        PdfPCell columnaTituloVales = new PdfPCell(new Phrase(encabezadoVales, fuenteNegrita));
+                        columnaTituloVales.BorderWidth = 0;
+                        columnaTituloVales.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloVales.Padding = 3;
+
+                        PdfPCell columnaTituloCheques = new PdfPCell(new Phrase(encabezadoCheque, fuenteNegrita));
+                        columnaTituloCheques.BorderWidth = 0;
+                        columnaTituloCheques.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloCheques.Padding = 3;
+
+                        PdfPCell columnaTituloTransferencias = new PdfPCell(new Phrase(encabezadoTransferencia, fuenteNegrita));
+                        columnaTituloTransferencias.BorderWidth = 0;
+                        columnaTituloTransferencias.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloTransferencias.Padding = 3;
+
+                        PdfPCell columnaTituloFechas = new PdfPCell(new Phrase(encabezadoFecha, fuenteNegrita));
+                        columnaTituloFechas.BorderWidth = 0;
+                        columnaTituloFechas.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloFechas.Padding = 3;
+
+                        PdfPCell columnaTituloMotivo = new PdfPCell(new Phrase(encabezadoMotivo, fuenteNegrita));
+                        columnaTituloMotivo.BorderWidth = 0;
+                        columnaTituloMotivo.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloMotivo.Padding = 3;
+
+                        tablaHistorialDepositosDespuesDelCorte.AddCell(columnaTituloRealizo);
+                        tablaHistorialDepositosDespuesDelCorte.AddCell(columnaTituloEfectivo);
+                        tablaHistorialDepositosDespuesDelCorte.AddCell(columnaTituloTarjeta);
+                        tablaHistorialDepositosDespuesDelCorte.AddCell(columnaTituloVales);
+                        tablaHistorialDepositosDespuesDelCorte.AddCell(columnaTituloCheques);
+                        tablaHistorialDepositosDespuesDelCorte.AddCell(columnaTituloTransferencias);
+                        tablaHistorialDepositosDespuesDelCorte.AddCell(columnaTituloFechas);
+                        tablaHistorialDepositosDespuesDelCorte.AddCell(columnaTituloMotivo);
+
+                        for (int i = 0; i < dtHistorialDepositos.Rows.Count; i++)
+                        {
+                            var conceptoRealizo = dtHistorialDepositos.Rows[i]["Realizo"].ToString();
+                            var conceptoEfectivo = Convert.ToDecimal(dtHistorialDepositos.Rows[i]["Efectivo"].ToString());
+                            var conceptoTarjeta = Convert.ToDecimal(dtHistorialDepositos.Rows[i]["Tarjeta"].ToString());
+                            var conceptoVales = Convert.ToDecimal(dtHistorialDepositos.Rows[i]["Vales"].ToString());
+                            var conceptoCheque = Convert.ToDecimal(dtHistorialDepositos.Rows[i]["Cheque"].ToString());
+                            var conceptoTransferencia = Convert.ToDecimal(dtHistorialDepositos.Rows[i]["Transferencia"].ToString());
+                            var conceptoFecha = dtHistorialDepositos.Rows[i]["Fecha"].ToString();
+                            var conceptoMotivo = dtHistorialDepositos.Rows[i]["Concepto"].ToString();
+
+                            PdfPCell columnaRealizo = new PdfPCell(new Phrase(conceptoRealizo, fuenteNormal));
+                            columnaRealizo.BorderWidth = 1;
+                            columnaRealizo.HorizontalAlignment = Element.ALIGN_LEFT;
+                            columnaRealizo.Padding = 3;
+
+                            PdfPCell columnaEfectivo = new PdfPCell(new Phrase(conceptoEfectivo.ToString("C2"), fuenteNormal));
+                            columnaEfectivo.BorderWidth = 1;
+                            columnaEfectivo.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaEfectivo.Padding = 3;
+
+                            PdfPCell columnaTarjeta = new PdfPCell(new Phrase(conceptoTarjeta.ToString("C2"), fuenteNormal));
+                            columnaTarjeta.BorderWidth = 1;
+                            columnaTarjeta.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaTarjeta.Padding = 3;
+
+                            PdfPCell columnaVales = new PdfPCell(new Phrase(conceptoVales.ToString("C2"), fuenteNormal));
+                            columnaVales.BorderWidth = 1;
+                            columnaVales.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaVales.Padding = 3;
+
+                            PdfPCell columnaCheques = new PdfPCell(new Phrase(conceptoCheque.ToString("C2"), fuenteNormal));
+                            columnaCheques.BorderWidth = 1;
+                            columnaCheques.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaCheques.Padding = 3;
+
+                            PdfPCell columnaTransferencias = new PdfPCell(new Phrase(conceptoTransferencia.ToString("C2"), fuenteNormal));
+                            columnaTransferencias.BorderWidth = 1;
+                            columnaTransferencias.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaTransferencias.Padding = 3;
+
+                            PdfPCell columnaFechas = new PdfPCell(new Phrase(conceptoFecha, fuenteNormal));
+                            columnaFechas.BorderWidth = 1;
+                            columnaFechas.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaFechas.Padding = 3;
+
+                            PdfPCell columnaMotivo = new PdfPCell(new Phrase(conceptoMotivo, fuenteNormal));
+                            columnaMotivo.BorderWidth = 1;
+                            columnaMotivo.HorizontalAlignment = Element.ALIGN_LEFT;
+                            columnaMotivo.Padding = 3;
+
+                            tablaHistorialDepositosDespuesDelCorte.AddCell(columnaRealizo);
+                            tablaHistorialDepositosDespuesDelCorte.AddCell(columnaEfectivo);
+                            tablaHistorialDepositosDespuesDelCorte.AddCell(columnaTarjeta);
+                            tablaHistorialDepositosDespuesDelCorte.AddCell(columnaVales);
+                            tablaHistorialDepositosDespuesDelCorte.AddCell(columnaCheques);
+                            tablaHistorialDepositosDespuesDelCorte.AddCell(columnaTransferencias);
+                            tablaHistorialDepositosDespuesDelCorte.AddCell(columnaFechas);
+                            tablaHistorialDepositosDespuesDelCorte.AddCell(columnaMotivo);
+                        }
+
+                        reporte.Add(tablaHistorialDepositosDespuesDelCorte);
+
+                        using (DataTable dtSumaDeDepositos = cn.CargarDatos(cs.cargarHistorialdepositosEmpleadoSumaTotal(idUltimoCorteDeCaja, FormPrincipal.id_empleado)))
+                        {
+                            if (!dtSumaDeDepositos.Rows.Count.Equals(0))
+                            {
+                                PdfPTable tablaSumaHistorialDepositosDespuesDelCorte = new PdfPTable(8);
+                                tablaSumaHistorialDepositosDespuesDelCorte.WidthPercentage = 100;
+                                tablaSumaHistorialDepositosDespuesDelCorte.SetWidths(anchoColumnasTablasDepositosRetiros);
+                                tablaSumaHistorialDepositosDespuesDelCorte.DefaultCell.Border = (int)BorderStyle.FixedSingle;
+
+                                foreach (DataRow item in dtSumaDeDepositos.Rows)
+                                {
+                                    var conceptoRealizo = string.Empty;
+                                    var conceptoEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                    var conceptoTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                    var conceptoVales = Convert.ToDecimal(item["Vales"].ToString());
+                                    var conceptoCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                    var conceptoTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                    var conceptoFecha = string.Empty;
+                                    var conceptoMotivo = string.Empty;
+
+                                    PdfPCell columnaRealizo = new PdfPCell(new Phrase(conceptoRealizo, fuenteNormal));
+                                    columnaRealizo.BorderWidth = 0;
+                                    columnaRealizo.HorizontalAlignment = Element.ALIGN_LEFT;
+                                    columnaRealizo.Padding = 3;
+
+                                    PdfPCell columnaEfectivo = new PdfPCell(new Phrase(conceptoEfectivo.ToString("C2"), fuenteNormal));
+                                    columnaEfectivo.BorderWidth = 1;
+                                    columnaEfectivo.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaEfectivo.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaEfectivo.Padding = 3;
+
+                                    PdfPCell columnaTarjeta = new PdfPCell(new Phrase(conceptoTarjeta.ToString("C2"), fuenteNormal));
+                                    columnaTarjeta.BorderWidth = 1;
+                                    columnaTarjeta.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaTarjeta.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaTarjeta.Padding = 3;
+
+                                    PdfPCell columnaVales = new PdfPCell(new Phrase(conceptoVales.ToString("C2"), fuenteNormal));
+                                    columnaVales.BorderWidth = 1;
+                                    columnaVales.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaVales.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaVales.Padding = 3;
+
+                                    PdfPCell columnaCheques = new PdfPCell(new Phrase(conceptoCheque.ToString("C2"), fuenteNormal));
+                                    columnaCheques.BorderWidth = 1;
+                                    columnaCheques.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaCheques.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaCheques.Padding = 3;
+
+                                    PdfPCell columnaTransferencias = new PdfPCell(new Phrase(conceptoTransferencia.ToString("C2"), fuenteNormal));
+                                    columnaTransferencias.BorderWidth = 1;
+                                    columnaTransferencias.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaTransferencias.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaTransferencias.Padding = 3;
+
+                                    PdfPCell columnaFechas = new PdfPCell(new Phrase(conceptoFecha, fuenteNormal));
+                                    columnaFechas.BorderWidth = 0;
+                                    columnaFechas.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaFechas.Padding = 3;
+
+                                    PdfPCell columnaMotivo = new PdfPCell(new Phrase(conceptoMotivo, fuenteNormal));
+                                    columnaMotivo.BorderWidth = 0;
+                                    columnaMotivo.HorizontalAlignment = Element.ALIGN_LEFT;
+                                    columnaMotivo.Padding = 3;
+
+                                    tablaSumaHistorialDepositosDespuesDelCorte.AddCell(columnaRealizo);
+                                    tablaSumaHistorialDepositosDespuesDelCorte.AddCell(columnaEfectivo);
+                                    tablaSumaHistorialDepositosDespuesDelCorte.AddCell(columnaTarjeta);
+                                    tablaSumaHistorialDepositosDespuesDelCorte.AddCell(columnaVales);
+                                    tablaSumaHistorialDepositosDespuesDelCorte.AddCell(columnaCheques);
+                                    tablaSumaHistorialDepositosDespuesDelCorte.AddCell(columnaTransferencias);
+                                    tablaSumaHistorialDepositosDespuesDelCorte.AddCell(columnaFechas);
+                                    tablaSumaHistorialDepositosDespuesDelCorte.AddCell(columnaMotivo);
+                                }
+
+                                reporte.Add(tablaSumaHistorialDepositosDespuesDelCorte);
+                            }
+                        }
                     }
                 }
             }
+            #endregion
+            #endregion
 
+            #region Historial de Retiros
+            #region Seccion Administrador
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                using (DataTable dtHistorialRetiros = cn.CargarDatos(cs.HistorialRetirosAdminsitrador(idUltimoCorteDeCaja)))
+                {
+                    if (!dtHistorialRetiros.Rows.Count.Equals(0))
+                    {
+                        reporte.Add(linea);
+                        reporte.Add(HistorialDeRetirosDelCorteDeCaja);
 
-            reporte.Add(linea);
-            reporte.Add(HistorialDeRetirosDelCorteDeCaja);
+                        PdfPTable tablaHistorialRetirosDespuesDelCorte = new PdfPTable(8);
+                        tablaHistorialRetirosDespuesDelCorte.WidthPercentage = 100;
+                        tablaHistorialRetirosDespuesDelCorte.SetWidths(anchoColumnasTablasDepositosRetiros);
+                        tablaHistorialRetirosDespuesDelCorte.DefaultCell.Border = (int)BorderStyle.FixedSingle;
+
+                        var encabezadoRealizo = "Realizó";
+                        var encabezadoEfectivo = "Efectivo";
+                        var encabezadoTarjeta = "Tarjeta";
+                        var encabezadoVales = "Vales";
+                        var encabezadoCheque = "Cheque";
+                        var encabezadoTransferencia = "Transferencia";
+                        var encabezadoFecha = "Fecha";
+                        var encabezadoMotivo = "Concepto";
+
+                        PdfPCell columnaTituloRealizo = new PdfPCell(new Phrase(encabezadoRealizo, fuenteNegrita));
+                        columnaTituloRealizo.BorderWidth = 0;
+                        columnaTituloRealizo.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloRealizo.Padding = 3;
+
+                        PdfPCell columnaTituloEfectivo = new PdfPCell(new Phrase(encabezadoEfectivo, fuenteNegrita));
+                        columnaTituloEfectivo.BorderWidth = 0;
+                        columnaTituloEfectivo.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloEfectivo.Padding = 3;
+
+                        PdfPCell columnaTituloTarjeta = new PdfPCell(new Phrase(encabezadoTarjeta, fuenteNegrita));
+                        columnaTituloTarjeta.BorderWidth = 0;
+                        columnaTituloTarjeta.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloTarjeta.Padding = 0;
+
+                        PdfPCell columnaTituloVales = new PdfPCell(new Phrase(encabezadoVales, fuenteNegrita));
+                        columnaTituloVales.BorderWidth = 0;
+                        columnaTituloVales.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloVales.Padding = 3;
+
+                        PdfPCell columnaTituloCheques = new PdfPCell(new Phrase(encabezadoCheque, fuenteNegrita));
+                        columnaTituloCheques.BorderWidth = 0;
+                        columnaTituloCheques.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloCheques.Padding = 3;
+
+                        PdfPCell columnaTituloTransferencias = new PdfPCell(new Phrase(encabezadoTransferencia, fuenteNegrita));
+                        columnaTituloTransferencias.BorderWidth = 0;
+                        columnaTituloTransferencias.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloTransferencias.Padding = 3;
+
+                        PdfPCell columnaTituloFechas = new PdfPCell(new Phrase(encabezadoFecha, fuenteNegrita));
+                        columnaTituloFechas.BorderWidth = 0;
+                        columnaTituloFechas.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloFechas.Padding = 3;
+
+                        PdfPCell columnaTituloMotivo = new PdfPCell(new Phrase(encabezadoMotivo, fuenteNegrita));
+                        columnaTituloMotivo.BorderWidth = 0;
+                        columnaTituloMotivo.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloMotivo.Padding = 3;
+
+                        tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTituloRealizo);
+                        tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTituloEfectivo);
+                        tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTituloTarjeta);
+                        tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTituloVales);
+                        tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTituloCheques);
+                        tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTituloTransferencias);
+                        tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTituloFechas);
+                        tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTituloMotivo);
+
+                        for (int i = 0; i < dtHistorialRetiros.Rows.Count; i++)
+                        {
+                            var conceptoRealizo = dtHistorialRetiros.Rows[i]["Realizo"].ToString();
+                            var conceptoEfectivo = Convert.ToDecimal(dtHistorialRetiros.Rows[i]["Efectivo"].ToString());
+                            var conceptoTarjeta = Convert.ToDecimal(dtHistorialRetiros.Rows[i]["Tarjeta"].ToString());
+                            var conceptoVales = Convert.ToDecimal(dtHistorialRetiros.Rows[i]["Vales"].ToString());
+                            var conceptoCheque = Convert.ToDecimal(dtHistorialRetiros.Rows[i]["Cheque"].ToString());
+                            var conceptoTransferencia = Convert.ToDecimal(dtHistorialRetiros.Rows[i]["Transferencia"].ToString());
+                            var conceptoFecha = dtHistorialRetiros.Rows[i]["Fecha"].ToString();
+                            var conceptoMotivo = dtHistorialRetiros.Rows[i]["Concepto"].ToString();
+
+                            PdfPCell columnaRealizo = new PdfPCell(new Phrase(conceptoRealizo, fuenteNormal));
+                            columnaRealizo.BorderWidth = 1;
+                            columnaRealizo.HorizontalAlignment = Element.ALIGN_LEFT;
+                            columnaRealizo.Padding = 3;
+
+                            PdfPCell columnaEfectivo = new PdfPCell(new Phrase(conceptoEfectivo.ToString("C2"), fuenteNormal));
+                            columnaEfectivo.BorderWidth = 1;
+                            columnaEfectivo.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaEfectivo.Padding = 3;
+
+                            PdfPCell columnaTarjeta = new PdfPCell(new Phrase(conceptoTarjeta.ToString("C2"), fuenteNormal));
+                            columnaTarjeta.BorderWidth = 1;
+                            columnaTarjeta.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaTarjeta.Padding = 3;
+
+                            PdfPCell columnaVales = new PdfPCell(new Phrase(conceptoVales.ToString("C2"), fuenteNormal));
+                            columnaVales.BorderWidth = 1;
+                            columnaVales.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaVales.Padding = 3;
+
+                            PdfPCell columnaCheques = new PdfPCell(new Phrase(conceptoCheque.ToString("C2"), fuenteNormal));
+                            columnaCheques.BorderWidth = 1;
+                            columnaCheques.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaCheques.Padding = 3;
+
+                            PdfPCell columnaTransferencias = new PdfPCell(new Phrase(conceptoTransferencia.ToString("C2"), fuenteNormal));
+                            columnaTransferencias.BorderWidth = 1;
+                            columnaTransferencias.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaTransferencias.Padding = 3;
+
+                            PdfPCell columnaFechas = new PdfPCell(new Phrase(conceptoFecha, fuenteNormal));
+                            columnaFechas.BorderWidth = 1;
+                            columnaFechas.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaFechas.Padding = 3;
+
+                            PdfPCell columnaMotivo = new PdfPCell(new Phrase(conceptoMotivo, fuenteNormal));
+                            columnaMotivo.BorderWidth = 1;
+                            columnaMotivo.HorizontalAlignment = Element.ALIGN_LEFT;
+                            columnaMotivo.Padding = 3;
+
+                            tablaHistorialRetirosDespuesDelCorte.AddCell(columnaRealizo);
+                            tablaHistorialRetirosDespuesDelCorte.AddCell(columnaEfectivo);
+                            tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTarjeta);
+                            tablaHistorialRetirosDespuesDelCorte.AddCell(columnaVales);
+                            tablaHistorialRetirosDespuesDelCorte.AddCell(columnaCheques);
+                            tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTransferencias);
+                            tablaHistorialRetirosDespuesDelCorte.AddCell(columnaFechas);
+                            tablaHistorialRetirosDespuesDelCorte.AddCell(columnaMotivo);
+                        }
+
+                        reporte.Add(tablaHistorialRetirosDespuesDelCorte);
+
+                        using (DataTable dtSumaDeRetiros = cn.CargarDatos(cs.cargarHistorialRetirosAdministradorSumaTotal(idUltimoCorteDeCaja)))
+                        {
+                            if (!dtSumaDeRetiros.Rows.Count.Equals(0))
+                            {
+                                PdfPTable tablaSumaHistorialRetirosDespuesDelCorte = new PdfPTable(8);
+                                tablaSumaHistorialRetirosDespuesDelCorte.WidthPercentage = 100;
+                                tablaSumaHistorialRetirosDespuesDelCorte.SetWidths(anchoColumnasTablasDepositosRetiros);
+                                tablaSumaHistorialRetirosDespuesDelCorte.DefaultCell.Border = (int)BorderStyle.FixedSingle;
+
+                                foreach (DataRow item in dtSumaDeRetiros.Rows)
+                                {
+                                    var conceptoRealizo = string.Empty;
+                                    var conceptoEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                    var conceptoTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                    var conceptoVales = Convert.ToDecimal(item["Vales"].ToString());
+                                    var conceptoCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                    var conceptoTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                    var conceptoFecha = string.Empty;
+                                    var conceptoMotivo = string.Empty;
+
+                                    PdfPCell columnaRealizo = new PdfPCell(new Phrase(conceptoRealizo, fuenteNormal));
+                                    columnaRealizo.BorderWidth = 0;
+                                    columnaRealizo.HorizontalAlignment = Element.ALIGN_LEFT;
+                                    columnaRealizo.Padding = 3;
+
+                                    PdfPCell columnaEfectivo = new PdfPCell(new Phrase(conceptoEfectivo.ToString("C2"), fuenteNormal));
+                                    columnaEfectivo.BorderWidth = 1;
+                                    columnaEfectivo.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaEfectivo.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaEfectivo.Padding = 3;
+
+                                    PdfPCell columnaTarjeta = new PdfPCell(new Phrase(conceptoTarjeta.ToString("C2"), fuenteNormal));
+                                    columnaTarjeta.BorderWidth = 1;
+                                    columnaTarjeta.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaTarjeta.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaTarjeta.Padding = 3;
+
+                                    PdfPCell columnaVales = new PdfPCell(new Phrase(conceptoVales.ToString("C2"), fuenteNormal));
+                                    columnaVales.BorderWidth = 1;
+                                    columnaVales.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaVales.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaVales.Padding = 3;
+
+                                    PdfPCell columnaCheques = new PdfPCell(new Phrase(conceptoCheque.ToString("C2"), fuenteNormal));
+                                    columnaCheques.BorderWidth = 1;
+                                    columnaCheques.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaCheques.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaCheques.Padding = 3;
+
+                                    PdfPCell columnaTransferencias = new PdfPCell(new Phrase(conceptoTransferencia.ToString("C2"), fuenteNormal));
+                                    columnaTransferencias.BorderWidth = 1;
+                                    columnaTransferencias.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaTransferencias.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaTransferencias.Padding = 3;
+
+                                    PdfPCell columnaFechas = new PdfPCell(new Phrase(conceptoFecha, fuenteNormal));
+                                    columnaFechas.BorderWidth = 0;
+                                    columnaFechas.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaFechas.Padding = 3;
+
+                                    PdfPCell columnaMotivo = new PdfPCell(new Phrase(conceptoMotivo, fuenteNormal));
+                                    columnaMotivo.BorderWidth = 0;
+                                    columnaMotivo.HorizontalAlignment = Element.ALIGN_LEFT;
+                                    columnaMotivo.Padding = 3;
+
+                                    tablaSumaHistorialRetirosDespuesDelCorte.AddCell(columnaRealizo);
+                                    tablaSumaHistorialRetirosDespuesDelCorte.AddCell(columnaEfectivo);
+                                    tablaSumaHistorialRetirosDespuesDelCorte.AddCell(columnaTarjeta);
+                                    tablaSumaHistorialRetirosDespuesDelCorte.AddCell(columnaVales);
+                                    tablaSumaHistorialRetirosDespuesDelCorte.AddCell(columnaCheques);
+                                    tablaSumaHistorialRetirosDespuesDelCorte.AddCell(columnaTransferencias);
+                                    tablaSumaHistorialRetirosDespuesDelCorte.AddCell(columnaFechas);
+                                    tablaSumaHistorialRetirosDespuesDelCorte.AddCell(columnaMotivo);
+                                }
+
+                                reporte.Add(tablaSumaHistorialRetirosDespuesDelCorte);
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+            #region Seccion Empleado
+            if (FormPrincipal.userNickName.Contains("@"))
+            {
+                using (DataTable dtHistorialRetiros = cn.CargarDatos(cs.HistorialRetirosEmpleado(idUltimoCorteDeCaja, FormPrincipal.id_empleado)))
+                {
+                    if (!dtHistorialRetiros.Rows.Count.Equals(0))
+                    {
+                        reporte.Add(linea);
+                        reporte.Add(HistorialDeRetirosDelCorteDeCaja);
+
+                        PdfPTable tablaHistorialRetirosDespuesDelCorte = new PdfPTable(8);
+                        tablaHistorialRetirosDespuesDelCorte.WidthPercentage = 100;
+                        tablaHistorialRetirosDespuesDelCorte.SetWidths(anchoColumnasTablasDepositosRetiros);
+                        tablaHistorialRetirosDespuesDelCorte.DefaultCell.Border = (int)BorderStyle.FixedSingle;
+
+                        var encabezadoRealizo = "Realizó";
+                        var encabezadoEfectivo = "Efectivo";
+                        var encabezadoTarjeta = "Tarjeta";
+                        var encabezadoVales = "Vales";
+                        var encabezadoCheque = "Cheque";
+                        var encabezadoTransferencia = "Transferencia";
+                        var encabezadoFecha = "Fecha";
+                        var encabezadoMotivo = "Concepto";
+
+                        PdfPCell columnaTituloRealizo = new PdfPCell(new Phrase(encabezadoRealizo, fuenteNegrita));
+                        columnaTituloRealizo.BorderWidth = 0;
+                        columnaTituloRealizo.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloRealizo.Padding = 3;
+
+                        PdfPCell columnaTituloEfectivo = new PdfPCell(new Phrase(encabezadoEfectivo, fuenteNegrita));
+                        columnaTituloEfectivo.BorderWidth = 0;
+                        columnaTituloEfectivo.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloEfectivo.Padding = 3;
+
+                        PdfPCell columnaTituloTarjeta = new PdfPCell(new Phrase(encabezadoTarjeta, fuenteNegrita));
+                        columnaTituloTarjeta.BorderWidth = 0;
+                        columnaTituloTarjeta.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloTarjeta.Padding = 0;
+
+                        PdfPCell columnaTituloVales = new PdfPCell(new Phrase(encabezadoVales, fuenteNegrita));
+                        columnaTituloVales.BorderWidth = 0;
+                        columnaTituloVales.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloVales.Padding = 3;
+
+                        PdfPCell columnaTituloCheques = new PdfPCell(new Phrase(encabezadoCheque, fuenteNegrita));
+                        columnaTituloCheques.BorderWidth = 0;
+                        columnaTituloCheques.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloCheques.Padding = 3;
+
+                        PdfPCell columnaTituloTransferencias = new PdfPCell(new Phrase(encabezadoTransferencia, fuenteNegrita));
+                        columnaTituloTransferencias.BorderWidth = 0;
+                        columnaTituloTransferencias.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloTransferencias.Padding = 3;
+
+                        PdfPCell columnaTituloFechas = new PdfPCell(new Phrase(encabezadoFecha, fuenteNegrita));
+                        columnaTituloFechas.BorderWidth = 0;
+                        columnaTituloFechas.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloFechas.Padding = 3;
+
+                        PdfPCell columnaTituloMotivo = new PdfPCell(new Phrase(encabezadoMotivo, fuenteNegrita));
+                        columnaTituloMotivo.BorderWidth = 0;
+                        columnaTituloMotivo.HorizontalAlignment = Element.ALIGN_CENTER;
+                        columnaTituloMotivo.Padding = 3;
+
+                        tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTituloRealizo);
+                        tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTituloEfectivo);
+                        tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTituloTarjeta);
+                        tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTituloVales);
+                        tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTituloCheques);
+                        tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTituloTransferencias);
+                        tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTituloFechas);
+                        tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTituloMotivo);
+
+                        for (int i = 0; i < dtHistorialRetiros.Rows.Count; i++)
+                        {
+                            var conceptoRealizo = dtHistorialRetiros.Rows[i]["Realizo"].ToString();
+                            var conceptoEfectivo = Convert.ToDecimal(dtHistorialRetiros.Rows[i]["Efectivo"].ToString());
+                            var conceptoTarjeta = Convert.ToDecimal(dtHistorialRetiros.Rows[i]["Tarjeta"].ToString());
+                            var conceptoVales = Convert.ToDecimal(dtHistorialRetiros.Rows[i]["Vales"].ToString());
+                            var conceptoCheque = Convert.ToDecimal(dtHistorialRetiros.Rows[i]["Cheque"].ToString());
+                            var conceptoTransferencia = Convert.ToDecimal(dtHistorialRetiros.Rows[i]["Transferencia"].ToString());
+                            var conceptoFecha = dtHistorialRetiros.Rows[i]["Fecha"].ToString();
+                            var conceptoMotivo = dtHistorialRetiros.Rows[i]["Concepto"].ToString();
+
+                            PdfPCell columnaRealizo = new PdfPCell(new Phrase(conceptoRealizo, fuenteNormal));
+                            columnaRealizo.BorderWidth = 1;
+                            columnaRealizo.HorizontalAlignment = Element.ALIGN_LEFT;
+                            columnaRealizo.Padding = 3;
+
+                            PdfPCell columnaEfectivo = new PdfPCell(new Phrase(conceptoEfectivo.ToString("C2"), fuenteNormal));
+                            columnaEfectivo.BorderWidth = 1;
+                            columnaEfectivo.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaEfectivo.Padding = 3;
+
+                            PdfPCell columnaTarjeta = new PdfPCell(new Phrase(conceptoTarjeta.ToString("C2"), fuenteNormal));
+                            columnaTarjeta.BorderWidth = 1;
+                            columnaTarjeta.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaTarjeta.Padding = 3;
+
+                            PdfPCell columnaVales = new PdfPCell(new Phrase(conceptoVales.ToString("C2"), fuenteNormal));
+                            columnaVales.BorderWidth = 1;
+                            columnaVales.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaVales.Padding = 3;
+
+                            PdfPCell columnaCheques = new PdfPCell(new Phrase(conceptoCheque.ToString("C2"), fuenteNormal));
+                            columnaCheques.BorderWidth = 1;
+                            columnaCheques.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaCheques.Padding = 3;
+
+                            PdfPCell columnaTransferencias = new PdfPCell(new Phrase(conceptoTransferencia.ToString("C2"), fuenteNormal));
+                            columnaTransferencias.BorderWidth = 1;
+                            columnaTransferencias.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaTransferencias.Padding = 3;
+
+                            PdfPCell columnaFechas = new PdfPCell(new Phrase(conceptoFecha, fuenteNormal));
+                            columnaFechas.BorderWidth = 1;
+                            columnaFechas.HorizontalAlignment = Element.ALIGN_RIGHT;
+                            columnaFechas.Padding = 3;
+
+                            PdfPCell columnaMotivo = new PdfPCell(new Phrase(conceptoMotivo, fuenteNormal));
+                            columnaMotivo.BorderWidth = 1;
+                            columnaMotivo.HorizontalAlignment = Element.ALIGN_LEFT;
+                            columnaMotivo.Padding = 3;
+
+                            tablaHistorialRetirosDespuesDelCorte.AddCell(columnaRealizo);
+                            tablaHistorialRetirosDespuesDelCorte.AddCell(columnaEfectivo);
+                            tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTarjeta);
+                            tablaHistorialRetirosDespuesDelCorte.AddCell(columnaVales);
+                            tablaHistorialRetirosDespuesDelCorte.AddCell(columnaCheques);
+                            tablaHistorialRetirosDespuesDelCorte.AddCell(columnaTransferencias);
+                            tablaHistorialRetirosDespuesDelCorte.AddCell(columnaFechas);
+                            tablaHistorialRetirosDespuesDelCorte.AddCell(columnaMotivo);
+                        }
+
+                        reporte.Add(tablaHistorialRetirosDespuesDelCorte);
+
+                        using (DataTable dtSumaDeRetiros = cn.CargarDatos(cs.cargarHistorialRetirosEmpleadoSumaTotal(idUltimoCorteDeCaja, FormPrincipal.id_empleado)))
+                        {
+                            if (!dtSumaDeRetiros.Rows.Count.Equals(0))
+                            {
+                                PdfPTable tablaSumaHistorialRetirosDespuesDelCorte = new PdfPTable(8);
+                                tablaSumaHistorialRetirosDespuesDelCorte.WidthPercentage = 100;
+                                tablaSumaHistorialRetirosDespuesDelCorte.SetWidths(anchoColumnasTablasDepositosRetiros);
+                                tablaSumaHistorialRetirosDespuesDelCorte.DefaultCell.Border = (int)BorderStyle.FixedSingle;
+
+                                foreach (DataRow item in dtSumaDeRetiros.Rows)
+                                {
+                                    var conceptoRealizo = string.Empty;
+                                    var conceptoEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                    var conceptoTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
+                                    var conceptoVales = Convert.ToDecimal(item["Vales"].ToString());
+                                    var conceptoCheque = Convert.ToDecimal(item["Cheque"].ToString());
+                                    var conceptoTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
+                                    var conceptoFecha = string.Empty;
+                                    var conceptoMotivo = string.Empty;
+
+                                    PdfPCell columnaRealizo = new PdfPCell(new Phrase(conceptoRealizo, fuenteNormal));
+                                    columnaRealizo.BorderWidth = 0;
+                                    columnaRealizo.HorizontalAlignment = Element.ALIGN_LEFT;
+                                    columnaRealizo.Padding = 3;
+
+                                    PdfPCell columnaEfectivo = new PdfPCell(new Phrase(conceptoEfectivo.ToString("C2"), fuenteNormal));
+                                    columnaEfectivo.BorderWidth = 1;
+                                    columnaEfectivo.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaEfectivo.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaEfectivo.Padding = 3;
+
+                                    PdfPCell columnaTarjeta = new PdfPCell(new Phrase(conceptoTarjeta.ToString("C2"), fuenteNormal));
+                                    columnaTarjeta.BorderWidth = 1;
+                                    columnaTarjeta.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaTarjeta.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaTarjeta.Padding = 3;
+
+                                    PdfPCell columnaVales = new PdfPCell(new Phrase(conceptoVales.ToString("C2"), fuenteNormal));
+                                    columnaVales.BorderWidth = 1;
+                                    columnaVales.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaVales.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaVales.Padding = 3;
+
+                                    PdfPCell columnaCheques = new PdfPCell(new Phrase(conceptoCheque.ToString("C2"), fuenteNormal));
+                                    columnaCheques.BorderWidth = 1;
+                                    columnaCheques.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaCheques.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaCheques.Padding = 3;
+
+                                    PdfPCell columnaTransferencias = new PdfPCell(new Phrase(conceptoTransferencia.ToString("C2"), fuenteNormal));
+                                    columnaTransferencias.BorderWidth = 1;
+                                    columnaTransferencias.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaTransferencias.BackgroundColor = new BaseColor(Color.LightSkyBlue);
+                                    columnaTransferencias.Padding = 3;
+
+                                    PdfPCell columnaFechas = new PdfPCell(new Phrase(conceptoFecha, fuenteNormal));
+                                    columnaFechas.BorderWidth = 0;
+                                    columnaFechas.HorizontalAlignment = Element.ALIGN_RIGHT;
+                                    columnaFechas.Padding = 3;
+
+                                    PdfPCell columnaMotivo = new PdfPCell(new Phrase(conceptoMotivo, fuenteNormal));
+                                    columnaMotivo.BorderWidth = 0;
+                                    columnaMotivo.HorizontalAlignment = Element.ALIGN_LEFT;
+                                    columnaMotivo.Padding = 3;
+
+                                    tablaSumaHistorialRetirosDespuesDelCorte.AddCell(columnaRealizo);
+                                    tablaSumaHistorialRetirosDespuesDelCorte.AddCell(columnaEfectivo);
+                                    tablaSumaHistorialRetirosDespuesDelCorte.AddCell(columnaTarjeta);
+                                    tablaSumaHistorialRetirosDespuesDelCorte.AddCell(columnaVales);
+                                    tablaSumaHistorialRetirosDespuesDelCorte.AddCell(columnaCheques);
+                                    tablaSumaHistorialRetirosDespuesDelCorte.AddCell(columnaTransferencias);
+                                    tablaSumaHistorialRetirosDespuesDelCorte.AddCell(columnaFechas);
+                                    tablaSumaHistorialRetirosDespuesDelCorte.AddCell(columnaMotivo);
+                                }
+
+                                reporte.Add(tablaSumaHistorialRetirosDespuesDelCorte);
+                            }
+                        }
+                    }
+                }
+            }
+            #endregion
+            #endregion
+            
             #endregion
 
             reporte.AddTitle("Reporte Corte de Caja");
