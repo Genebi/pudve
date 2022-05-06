@@ -1735,13 +1735,13 @@ namespace PuntoDeVentaV2
             var colorFuenteNegrita = new BaseColor(Color.Black);
             var colorFuenteBlanca = new BaseColor(Color.White);
 
-            var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 11);
+            var fuenteNormal = FontFactory.GetFont(FontFactory.HELVETICA, 10);
             var fuenteNegrita = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, 1, colorFuenteNegrita);
             var fuenteNegritaDepositoRetiro = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 11, 1, colorFuenteNegrita);
             var fuenteTituloHistorialDepositoRetiro = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, 1, colorFuenteNegrita);
             var fuenteGrande = FontFactory.GetFont(FontFactory.HELVETICA, 12);
             var fuenteMensaje = FontFactory.GetFont(FontFactory.HELVETICA, 12);
-            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 12, 1, colorFuenteBlanca);
+            var fuenteTotales = FontFactory.GetFont(FontFactory.HELVETICA, 10, 1, colorFuenteBlanca);
 
             // Ruta donde se creara el archivo PDF
             var rutaArchivo = string.Empty;
@@ -1818,7 +1818,7 @@ namespace PuntoDeVentaV2
             tablaContenido.WidthPercentage = 100;
             tablaContenido.SetWidths(anchoColumnasContenido);
 
-            float[] anchoColumnasTablas = new float[] { 120f, 80f };
+            float[] anchoColumnasTablas = new float[] { 120f, 110f };
 
             /************************************
             *                                   * 
