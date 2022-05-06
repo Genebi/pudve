@@ -2402,7 +2402,16 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
+            if (total_importe_cero_exe >0)
+            {
+                lblIVA0Exento.Visible = true;
+                lblCIVA0Exento.Visible = true;
+            }
+            else
+            {
+                lblIVA0Exento.Visible = false;
+                lblCIVA0Exento.Visible = false;
+            }
             if (totalIVA8 > 0)
             {
                 lbIVA8.Visible = true;
@@ -2430,7 +2439,11 @@ namespace PuntoDeVentaV2
             {
                 lbIVA.Visible = true;
                 cIVA.Visible = true;
-                
+            }
+            else
+            {
+                lbIVA.Visible = false;
+                cIVA.Visible = false;
             }
            
 
