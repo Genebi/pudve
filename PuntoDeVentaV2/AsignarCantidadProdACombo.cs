@@ -12,7 +12,9 @@ namespace PuntoDeVentaV2
 {
     public partial class AsignarCantidadProdACombo : Form
     {
-        public decimal cantidadDeProducto = 0;
+        decimal cantidadDeProducto = 0;
+        public decimal cantidadAsigarAlCombo;
+        public int cancelar = 1;
         public AsignarCantidadProdACombo()
         {
             InitializeComponent();
@@ -20,12 +22,23 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            cantidadDeProducto = Convert.ToDecimal(txtCantidad.Text);
-            this.Close();
+            cancelar = 0;
+            if (!string.IsNullOrWhiteSpace(txtCantidad.Text))
+            {
+                cantidadDeProducto = Convert.ToDecimal(txtCantidad.Text);
+                cantidadAsigarAlCombo = decimal.Round(cantidadDeProducto, 2);
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Favor de ingresar una cantidad");
+            }
+            
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            cancelar = 1;
             this.Close();
         }
 
@@ -33,6 +46,20 @@ namespace PuntoDeVentaV2
         {
             txtCantidad.SelectAll();
 
+        }
+
+        private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // solo 1 punto decimal
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

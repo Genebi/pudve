@@ -1627,20 +1627,20 @@ namespace PuntoDeVentaV2
 
         private void tLPCombo_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
-            if ((e.Column + e.Row) % 2 == 1)
-            {
-                using (SolidBrush brush = new SolidBrush(Color.AliceBlue))
-                {
-                    e.Graphics.FillRectangle(brush, e.CellBounds);
-                }
-            }
-            else
-            {
-                using (SolidBrush brush = new SolidBrush(Color.FromArgb(123, 234, 0)))
-                {
-                    e.Graphics.FillRectangle(Brushes.White, e.CellBounds);
-                }
-            }
+            //if ((e.Column + e.Row) % 2 == 1)
+            //{
+            //    using (SolidBrush brush = new SolidBrush(Color.AliceBlue))
+            //    {
+            //        e.Graphics.FillRectangle(brush, e.CellBounds);
+            //    }
+            //}
+            //else
+            //{
+            //    using (SolidBrush brush = new SolidBrush(Color.FromArgb(123, 234, 0)))
+            //    {
+            //        e.Graphics.FillRectangle(Brushes.White, e.CellBounds);
+            //    }
+            //}
         }
 
         private void fLPDetalleProducto_Paint(object sender, PaintEventArgs e)
@@ -8941,31 +8941,36 @@ namespace PuntoDeVentaV2
                     string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     string buscar = null;
                     buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{CBNombProd}' AND ID = '{CBIdProd}' AND IDUsuario = '{FormPrincipal.userID}'";
-
-                    using (dtProductos = cn.CargarDatos(buscar))
-                    {
-                        if (!dtProductos.Rows.Count.Equals(0))
+                     AsignarCantidadProdACombo FormCantidad = new AsignarCantidadProdACombo();
+                    
+                        using (dtProductos = cn.CargarDatos(buscar))
                         {
-                            AsignarCantidadProdACombo FormCantidad = new AsignarCantidadProdACombo();
-
-                            FormCantidad.FormClosed += delegate
+                            if (!dtProductos.Rows.Count.Equals(0))
                             {
-                                DataRow row = dtProductos.Rows[0];
-                                prodSerPaq += fech + "|";
-                                prodSerPaq += "|";
-                                prodSerPaq += row["ID"].ToString() + "|";
-                                prodSerPaq += row["Nombre"].ToString() + "|";
-                                prodSerPaq += FormCantidad.cantidadDeProducto.ToString();
+                               
 
+                                FormCantidad.FormClosed += delegate
+                                {
+                                    DataRow row = dtProductos.Rows[0];
+                                    prodSerPaq += fech + "|";
+                                    prodSerPaq += "|";
+                                    prodSerPaq += row["ID"].ToString() + "|";
+                                    prodSerPaq += row["Nombre"].ToString() + "|";
+                                    prodSerPaq += FormCantidad.cantidadAsigarAlCombo.ToString();
 
-                                ProductosDeServicios.Add(prodSerPaq);
-                                prodSerPaq = null;
-                            };
+                                    if (FormCantidad.cancelar == 0)
+                                    {
+                                    ProductosDeServicios.Add(prodSerPaq);
+                                    prodSerPaq = null;
+                                    }
+                                };
 
-                            FormCantidad.ShowDialog();
+                                FormCantidad.ShowDialog();
 
+                            }
                         }
-                    }
+                    
+                    
 
                     //btnAdd.Visible = true;
                     CargarDatos();

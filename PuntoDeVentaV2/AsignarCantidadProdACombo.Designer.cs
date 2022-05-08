@@ -65,6 +65,7 @@ namespace PuntoDeVentaV2
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(395, 26);
             this.txtCantidad.TabIndex = 0;
+            this.txtCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidad_KeyPress);
             // 
             // panel2
             // 
