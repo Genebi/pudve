@@ -147,6 +147,7 @@
             this.tlpVentas = new System.Windows.Forms.TableLayoutPanel();
             this.tlpTotalVentas = new System.Windows.Forms.TableLayoutPanel();
             this.tlpDineroRetirado = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpTotalDineroRetirado = new System.Windows.Forms.TableLayoutPanel();
             this.tablaContenedor.SuspendLayout();
             this.panelDineroRetirado.SuspendLayout();
             this.panelDineroAgregado.SuspendLayout();
@@ -161,6 +162,7 @@
             this.tlpVentas.SuspendLayout();
             this.tlpTotalVentas.SuspendLayout();
             this.tlpDineroRetirado.SuspendLayout();
+            this.tlpTotalDineroRetirado.SuspendLayout();
             this.SuspendLayout();
             // 
             // tituloSeccion
@@ -308,10 +310,9 @@
             // 
             // panelDineroRetirado
             // 
+            this.panelDineroRetirado.Controls.Add(this.tlpTotalDineroRetirado);
             this.panelDineroRetirado.Controls.Add(this.tlpDineroRetirado);
             this.panelDineroRetirado.Controls.Add(this.label1);
-            this.panelDineroRetirado.Controls.Add(this.lbTRetirado);
-            this.panelDineroRetirado.Controls.Add(this.label3);
             this.panelDineroRetirado.Controls.Add(this.lbTAnticiposC);
             this.panelDineroRetirado.Controls.Add(this.lbAnticiposC);
             this.panelDineroRetirado.Location = new System.Drawing.Point(657, 4);
@@ -376,27 +377,33 @@
             // 
             // lbTRetirado
             // 
-            this.lbTRetirado.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTRetirado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTRetirado.AutoSize = true;
             this.lbTRetirado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTRetirado.ForeColor = System.Drawing.Color.Red;
-            this.lbTRetirado.Location = new System.Drawing.Point(137, 365);
+            this.lbTRetirado.Location = new System.Drawing.Point(117, 0);
             this.lbTRetirado.Name = "lbTRetirado";
-            this.lbTRetirado.Size = new System.Drawing.Size(38, 15);
+            this.lbTRetirado.Size = new System.Drawing.Size(108, 26);
             this.lbTRetirado.TabIndex = 13;
             this.lbTRetirado.Text = "$0.00";
+            this.lbTRetirado.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label3
             // 
-            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Red;
-            this.label3.Location = new System.Drawing.Point(11, 365);
+            this.label3.Location = new System.Drawing.Point(3, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 15);
+            this.label3.Size = new System.Drawing.Size(108, 26);
             this.label3.TabIndex = 12;
             this.label3.Text = "Total Retirado";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbTransferenciaR
             // 
@@ -1875,6 +1882,21 @@
             this.tlpDineroRetirado.Size = new System.Drawing.Size(222, 194);
             this.tlpDineroRetirado.TabIndex = 124;
             // 
+            // tlpTotalDineroRetirado
+            // 
+            this.tlpTotalDineroRetirado.ColumnCount = 2;
+            this.tlpTotalDineroRetirado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpTotalDineroRetirado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpTotalDineroRetirado.Controls.Add(this.label3, 0, 0);
+            this.tlpTotalDineroRetirado.Controls.Add(this.lbTRetirado, 1, 0);
+            this.tlpTotalDineroRetirado.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tlpTotalDineroRetirado.Location = new System.Drawing.Point(0, 360);
+            this.tlpTotalDineroRetirado.Name = "tlpTotalDineroRetirado";
+            this.tlpTotalDineroRetirado.RowCount = 1;
+            this.tlpTotalDineroRetirado.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tlpTotalDineroRetirado.Size = new System.Drawing.Size(228, 26);
+            this.tlpTotalDineroRetirado.TabIndex = 125;
+            // 
             // CajaN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1932,6 +1954,8 @@
             this.tlpTotalVentas.PerformLayout();
             this.tlpDineroRetirado.ResumeLayout(false);
             this.tlpDineroRetirado.PerformLayout();
+            this.tlpTotalDineroRetirado.ResumeLayout(false);
+            this.tlpTotalDineroRetirado.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2055,5 +2079,6 @@
         private System.Windows.Forms.TableLayoutPanel tlpVentas;
         private System.Windows.Forms.TableLayoutPanel tlpTotalVentas;
         private System.Windows.Forms.TableLayoutPanel tlpDineroRetirado;
+        private System.Windows.Forms.TableLayoutPanel tlpTotalDineroRetirado;
     }
 }
