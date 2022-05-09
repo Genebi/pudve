@@ -142,7 +142,9 @@
             this.btnRedondoSaldoInicial = new PuntoDeVentaV2.BotonRedondo();
             this.tlpAnticposRecibidos = new System.Windows.Forms.TableLayoutPanel();
             this.tlpDineroAgregado = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpTotalAnticiposRecibidos = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpVentas = new System.Windows.Forms.TableLayoutPanel();
             this.tablaContenedor.SuspendLayout();
             this.panelDineroRetirado.SuspendLayout();
             this.panelDineroAgregado.SuspendLayout();
@@ -152,7 +154,9 @@
             this.panel1.SuspendLayout();
             this.tlpAnticposRecibidos.SuspendLayout();
             this.tlpDineroAgregado.SuspendLayout();
+            this.tlpTotalAnticiposRecibidos.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
+            this.tlpVentas.SuspendLayout();
             this.SuspendLayout();
             // 
             // tituloSeccion
@@ -529,10 +533,9 @@
             // 
             // panelDineroAgregado
             // 
+            this.panelDineroAgregado.Controls.Add(this.tableLayoutPanel1);
             this.panelDineroAgregado.Controls.Add(this.tlpDineroAgregado);
             this.panelDineroAgregado.Controls.Add(this.tituloDinero);
-            this.panelDineroAgregado.Controls.Add(this.lbTAgregado);
-            this.panelDineroAgregado.Controls.Add(this.lbTotalAgregado);
             this.panelDineroAgregado.Location = new System.Drawing.Point(448, 4);
             this.panelDineroAgregado.Name = "panelDineroAgregado";
             this.panelDineroAgregado.Size = new System.Drawing.Size(202, 386);
@@ -551,27 +554,33 @@
             // 
             // lbTAgregado
             // 
-            this.lbTAgregado.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTAgregado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTAgregado.AutoSize = true;
             this.lbTAgregado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTAgregado.ForeColor = System.Drawing.Color.Red;
-            this.lbTAgregado.Location = new System.Drawing.Point(139, 365);
+            this.lbTAgregado.Location = new System.Drawing.Point(99, 0);
             this.lbTAgregado.Name = "lbTAgregado";
-            this.lbTAgregado.Size = new System.Drawing.Size(38, 15);
+            this.lbTAgregado.Size = new System.Drawing.Size(100, 26);
             this.lbTAgregado.TabIndex = 13;
             this.lbTAgregado.Text = "$0.00";
+            this.lbTAgregado.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbTotalAgregado
             // 
-            this.lbTotalAgregado.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTotalAgregado.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTotalAgregado.AutoSize = true;
             this.lbTotalAgregado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotalAgregado.ForeColor = System.Drawing.Color.Red;
-            this.lbTotalAgregado.Location = new System.Drawing.Point(8, 365);
+            this.lbTotalAgregado.Location = new System.Drawing.Point(3, 0);
             this.lbTotalAgregado.Name = "lbTotalAgregado";
-            this.lbTotalAgregado.Size = new System.Drawing.Size(90, 15);
+            this.lbTotalAgregado.Size = new System.Drawing.Size(90, 26);
             this.lbTotalAgregado.TabIndex = 12;
             this.lbTotalAgregado.Text = "Total Agregado";
+            this.lbTotalAgregado.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbTTransD
             // 
@@ -717,7 +726,7 @@
             // 
             this.panelAnticipos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelAnticipos.Controls.Add(this.tableLayoutPanel1);
+            this.panelAnticipos.Controls.Add(this.tlpTotalAnticiposRecibidos);
             this.panelAnticipos.Controls.Add(this.tlpAnticposRecibidos);
             this.panelAnticipos.Controls.Add(this.tituloAnticipos);
             this.panelAnticipos.Location = new System.Drawing.Point(239, 4);
@@ -1192,25 +1201,9 @@
             // 
             this.panelVentas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelVentas.Controls.Add(this.lbCambioAbonos);
-            this.panelVentas.Controls.Add(this.lbTCreditoC);
-            this.panelVentas.Controls.Add(this.lbCreditoC);
+            this.panelVentas.Controls.Add(this.tlpVentas);
             this.panelVentas.Controls.Add(this.lbVentas);
             this.panelVentas.Controls.Add(this.lbTVentas);
-            this.panelVentas.Controls.Add(this.lbTAnticipos);
-            this.panelVentas.Controls.Add(this.lbTCredito);
-            this.panelVentas.Controls.Add(this.lbTTrans);
-            this.panelVentas.Controls.Add(this.lbTCheque);
-            this.panelVentas.Controls.Add(this.lbTVales);
-            this.panelVentas.Controls.Add(this.lbTTarjeta);
-            this.panelVentas.Controls.Add(this.lbTEfectivo);
-            this.panelVentas.Controls.Add(this.lbAnticipos);
-            this.panelVentas.Controls.Add(this.lbCredito);
-            this.panelVentas.Controls.Add(this.lbTrans);
-            this.panelVentas.Controls.Add(this.lbCheque);
-            this.panelVentas.Controls.Add(this.lbVales);
-            this.panelVentas.Controls.Add(this.lbTarjeta);
-            this.panelVentas.Controls.Add(this.lbEfectivo);
             this.panelVentas.Controls.Add(this.tituloVentas);
             this.panelVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panelVentas.Location = new System.Drawing.Point(4, 4);
@@ -1220,39 +1213,49 @@
             // 
             // lbCambioAbonos
             // 
+            this.lbCambioAbonos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbCambioAbonos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbCambioAbonos.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbCambioAbonos.Location = new System.Drawing.Point(190, 232);
+            this.lbCambioAbonos.Location = new System.Drawing.Point(93, 180);
             this.lbCambioAbonos.Name = "lbCambioAbonos";
-            this.lbCambioAbonos.Size = new System.Drawing.Size(30, 26);
+            this.lbCambioAbonos.Size = new System.Drawing.Size(12, 30);
             this.lbCambioAbonos.TabIndex = 38;
+            this.lbCambioAbonos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.toolTip1.SetToolTip(this.lbCambioAbonos, "Mostrar Abonos");
             this.lbCambioAbonos.Visible = false;
             this.lbCambioAbonos.Click += new System.EventHandler(this.lbCambioAbonos_Click);
             // 
             // lbTCreditoC
             // 
-            this.lbTCreditoC.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTCreditoC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTCreditoC.AutoSize = true;
             this.lbTCreditoC.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTCreditoC.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbTCreditoC.Location = new System.Drawing.Point(137, 236);
+            this.lbTCreditoC.Location = new System.Drawing.Point(111, 180);
             this.lbTCreditoC.Name = "lbTCreditoC";
-            this.lbTCreditoC.Size = new System.Drawing.Size(43, 15);
+            this.lbTCreditoC.Size = new System.Drawing.Size(111, 30);
             this.lbTCreditoC.TabIndex = 36;
             this.lbTCreditoC.Text = "$0.00";
+            this.lbTCreditoC.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbCreditoC
             // 
-            this.lbCreditoC.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbCreditoC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbCreditoC.AutoSize = true;
             this.lbCreditoC.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCreditoC.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lbCreditoC.Location = new System.Drawing.Point(11, 236);
+            this.lbCreditoC.Location = new System.Drawing.Point(3, 180);
             this.lbCreditoC.Name = "lbCreditoC";
-            this.lbCreditoC.Size = new System.Drawing.Size(54, 15);
+            this.lbCreditoC.Size = new System.Drawing.Size(84, 30);
             this.lbCreditoC.TabIndex = 37;
             this.lbCreditoC.Text = "Abonos";
+            this.lbCreditoC.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbVentas
             // 
@@ -1280,156 +1283,197 @@
             // 
             // lbTAnticipos
             // 
-            this.lbTAnticipos.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTAnticipos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTAnticipos.AutoSize = true;
             this.lbTAnticipos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTAnticipos.Location = new System.Drawing.Point(136, 270);
+            this.lbTAnticipos.Location = new System.Drawing.Point(111, 210);
             this.lbTAnticipos.Name = "lbTAnticipos";
-            this.lbTAnticipos.Size = new System.Drawing.Size(38, 15);
+            this.lbTAnticipos.Size = new System.Drawing.Size(111, 55);
             this.lbTAnticipos.TabIndex = 16;
             this.lbTAnticipos.Text = "$0.00";
+            this.lbTAnticipos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbTCredito
             // 
-            this.lbTCredito.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTCredito.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTCredito.AutoSize = true;
             this.lbTCredito.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTCredito.Location = new System.Drawing.Point(136, 205);
+            this.lbTCredito.Location = new System.Drawing.Point(111, 150);
             this.lbTCredito.Name = "lbTCredito";
-            this.lbTCredito.Size = new System.Drawing.Size(43, 15);
+            this.lbTCredito.Size = new System.Drawing.Size(111, 30);
             this.lbTCredito.TabIndex = 11;
             this.lbTCredito.Text = "$0.00";
+            this.lbTCredito.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbTTrans
             // 
-            this.lbTTrans.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTTrans.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTTrans.AutoSize = true;
             this.lbTTrans.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTTrans.Location = new System.Drawing.Point(136, 175);
+            this.lbTTrans.Location = new System.Drawing.Point(111, 120);
             this.lbTTrans.Name = "lbTTrans";
-            this.lbTTrans.Size = new System.Drawing.Size(43, 15);
+            this.lbTTrans.Size = new System.Drawing.Size(111, 30);
             this.lbTTrans.TabIndex = 10;
             this.lbTTrans.Text = "$0.00";
+            this.lbTTrans.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbTCheque
             // 
-            this.lbTCheque.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTCheque.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTCheque.AutoSize = true;
             this.lbTCheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTCheque.Location = new System.Drawing.Point(136, 145);
+            this.lbTCheque.Location = new System.Drawing.Point(111, 90);
             this.lbTCheque.Name = "lbTCheque";
-            this.lbTCheque.Size = new System.Drawing.Size(43, 15);
+            this.lbTCheque.Size = new System.Drawing.Size(111, 30);
             this.lbTCheque.TabIndex = 9;
             this.lbTCheque.Text = "$0.00";
+            this.lbTCheque.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbTVales
             // 
-            this.lbTVales.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTVales.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTVales.AutoSize = true;
             this.lbTVales.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTVales.Location = new System.Drawing.Point(136, 115);
+            this.lbTVales.Location = new System.Drawing.Point(111, 60);
             this.lbTVales.Name = "lbTVales";
-            this.lbTVales.Size = new System.Drawing.Size(43, 15);
+            this.lbTVales.Size = new System.Drawing.Size(111, 30);
             this.lbTVales.TabIndex = 8;
             this.lbTVales.Text = "$0.00";
+            this.lbTVales.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbTTarjeta
             // 
-            this.lbTTarjeta.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTTarjeta.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTTarjeta.AutoSize = true;
             this.lbTTarjeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTTarjeta.Location = new System.Drawing.Point(136, 85);
+            this.lbTTarjeta.Location = new System.Drawing.Point(111, 30);
             this.lbTTarjeta.Name = "lbTTarjeta";
-            this.lbTTarjeta.Size = new System.Drawing.Size(43, 15);
+            this.lbTTarjeta.Size = new System.Drawing.Size(111, 30);
             this.lbTTarjeta.TabIndex = 7;
             this.lbTTarjeta.Text = "$0.00";
+            this.lbTTarjeta.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbTEfectivo
             // 
-            this.lbTEfectivo.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTEfectivo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTEfectivo.AutoSize = true;
             this.lbTEfectivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTEfectivo.Location = new System.Drawing.Point(136, 55);
+            this.lbTEfectivo.Location = new System.Drawing.Point(111, 0);
             this.lbTEfectivo.Name = "lbTEfectivo";
-            this.lbTEfectivo.Size = new System.Drawing.Size(43, 15);
+            this.lbTEfectivo.Size = new System.Drawing.Size(111, 30);
             this.lbTEfectivo.TabIndex = 6;
             this.lbTEfectivo.Text = "$0.00";
+            this.lbTEfectivo.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbAnticipos
             // 
-            this.lbAnticipos.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbAnticipos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbAnticipos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAnticipos.Location = new System.Drawing.Point(11, 270);
+            this.lbAnticipos.Location = new System.Drawing.Point(3, 210);
             this.lbAnticipos.Name = "lbAnticipos";
-            this.lbAnticipos.Size = new System.Drawing.Size(130, 35);
+            this.lbAnticipos.Size = new System.Drawing.Size(84, 55);
             this.lbAnticipos.TabIndex = 15;
             this.lbAnticipos.Text = "Anticipos utilizados al corte";
+            this.lbAnticipos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbCredito
             // 
-            this.lbCredito.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbCredito.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbCredito.AutoSize = true;
             this.lbCredito.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCredito.Location = new System.Drawing.Point(11, 205);
+            this.lbCredito.Location = new System.Drawing.Point(3, 150);
             this.lbCredito.Name = "lbCredito";
-            this.lbCredito.Size = new System.Drawing.Size(89, 15);
+            this.lbCredito.Size = new System.Drawing.Size(84, 30);
             this.lbCredito.TabIndex = 5;
             this.lbCredito.Text = "Total Crédito";
+            this.lbCredito.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbTrans
             // 
-            this.lbTrans.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lbTrans.AutoSize = true;
+            this.lbTrans.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTrans.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTrans.Location = new System.Drawing.Point(11, 175);
+            this.lbTrans.Location = new System.Drawing.Point(3, 120);
             this.lbTrans.Name = "lbTrans";
-            this.lbTrans.Size = new System.Drawing.Size(95, 15);
+            this.lbTrans.Size = new System.Drawing.Size(84, 30);
             this.lbTrans.TabIndex = 4;
-            this.lbTrans.Text = "Transferencia";
+            this.lbTrans.Text = "Transferencia ";
+            this.lbTrans.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbCheque
             // 
-            this.lbCheque.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbCheque.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbCheque.AutoSize = true;
             this.lbCheque.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCheque.Location = new System.Drawing.Point(11, 145);
+            this.lbCheque.Location = new System.Drawing.Point(3, 90);
             this.lbCheque.Name = "lbCheque";
-            this.lbCheque.Size = new System.Drawing.Size(56, 15);
+            this.lbCheque.Size = new System.Drawing.Size(84, 30);
             this.lbCheque.TabIndex = 3;
             this.lbCheque.Text = "Cheque";
+            this.lbCheque.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbVales
             // 
-            this.lbVales.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbVales.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbVales.AutoSize = true;
             this.lbVales.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbVales.Location = new System.Drawing.Point(11, 115);
+            this.lbVales.Location = new System.Drawing.Point(3, 60);
             this.lbVales.Name = "lbVales";
-            this.lbVales.Size = new System.Drawing.Size(42, 15);
+            this.lbVales.Size = new System.Drawing.Size(84, 30);
             this.lbVales.TabIndex = 2;
             this.lbVales.Text = "Vales";
+            this.lbVales.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbTarjeta
             // 
-            this.lbTarjeta.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTarjeta.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTarjeta.AutoSize = true;
             this.lbTarjeta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTarjeta.Location = new System.Drawing.Point(11, 85);
+            this.lbTarjeta.Location = new System.Drawing.Point(3, 30);
             this.lbTarjeta.Name = "lbTarjeta";
-            this.lbTarjeta.Size = new System.Drawing.Size(52, 15);
+            this.lbTarjeta.Size = new System.Drawing.Size(84, 30);
             this.lbTarjeta.TabIndex = 1;
             this.lbTarjeta.Text = "Tarjeta";
+            this.lbTarjeta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbEfectivo
             // 
-            this.lbEfectivo.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbEfectivo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbEfectivo.AutoSize = true;
             this.lbEfectivo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbEfectivo.Location = new System.Drawing.Point(11, 55);
+            this.lbEfectivo.Location = new System.Drawing.Point(3, 0);
             this.lbEfectivo.Name = "lbEfectivo";
-            this.lbEfectivo.Size = new System.Drawing.Size(57, 15);
+            this.lbEfectivo.Size = new System.Drawing.Size(84, 30);
             this.lbEfectivo.TabIndex = 0;
             this.lbEfectivo.Text = "Efectivo";
+            this.lbEfectivo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tituloVentas
             // 
@@ -1681,20 +1725,72 @@
             this.tlpDineroAgregado.Size = new System.Drawing.Size(200, 152);
             this.tlpDineroAgregado.TabIndex = 17;
             // 
+            // tlpTotalAnticiposRecibidos
+            // 
+            this.tlpTotalAnticiposRecibidos.ColumnCount = 2;
+            this.tlpTotalAnticiposRecibidos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlpTotalAnticiposRecibidos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlpTotalAnticiposRecibidos.Controls.Add(this.lbTotalAnticipos, 0, 0);
+            this.tlpTotalAnticiposRecibidos.Controls.Add(this.lbTAnticiposA, 1, 0);
+            this.tlpTotalAnticiposRecibidos.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tlpTotalAnticiposRecibidos.Location = new System.Drawing.Point(0, 360);
+            this.tlpTotalAnticiposRecibidos.Name = "tlpTotalAnticiposRecibidos";
+            this.tlpTotalAnticiposRecibidos.RowCount = 1;
+            this.tlpTotalAnticiposRecibidos.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tlpTotalAnticiposRecibidos.Size = new System.Drawing.Size(202, 26);
+            this.tlpTotalAnticiposRecibidos.TabIndex = 17;
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.lbTotalAnticipos, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lbTAnticiposA, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lbTotalAgregado, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lbTAgregado, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 360);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(202, 26);
-            this.tableLayoutPanel1.TabIndex = 17;
+            this.tableLayoutPanel1.TabIndex = 18;
+            // 
+            // tlpVentas
+            // 
+            this.tlpVentas.ColumnCount = 3;
+            this.tlpVentas.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
+            this.tlpVentas.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8F));
+            this.tlpVentas.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 52F));
+            this.tlpVentas.Controls.Add(this.lbCambioAbonos, 1, 6);
+            this.tlpVentas.Controls.Add(this.lbEfectivo, 0, 0);
+            this.tlpVentas.Controls.Add(this.lbTAnticipos, 2, 7);
+            this.tlpVentas.Controls.Add(this.lbTarjeta, 0, 1);
+            this.tlpVentas.Controls.Add(this.lbCreditoC, 0, 6);
+            this.tlpVentas.Controls.Add(this.lbTCredito, 2, 5);
+            this.tlpVentas.Controls.Add(this.lbVales, 0, 2);
+            this.tlpVentas.Controls.Add(this.lbTTrans, 2, 4);
+            this.tlpVentas.Controls.Add(this.lbCheque, 0, 3);
+            this.tlpVentas.Controls.Add(this.lbTCheque, 2, 3);
+            this.tlpVentas.Controls.Add(this.lbTrans, 0, 4);
+            this.tlpVentas.Controls.Add(this.lbTVales, 2, 2);
+            this.tlpVentas.Controls.Add(this.lbCredito, 0, 5);
+            this.tlpVentas.Controls.Add(this.lbTTarjeta, 2, 1);
+            this.tlpVentas.Controls.Add(this.lbAnticipos, 0, 7);
+            this.tlpVentas.Controls.Add(this.lbTEfectivo, 2, 0);
+            this.tlpVentas.Controls.Add(this.lbTCreditoC, 2, 6);
+            this.tlpVentas.Location = new System.Drawing.Point(3, 55);
+            this.tlpVentas.Name = "tlpVentas";
+            this.tlpVentas.RowCount = 8;
+            this.tlpVentas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlpVentas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlpVentas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlpVentas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlpVentas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlpVentas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlpVentas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tlpVentas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tlpVentas.Size = new System.Drawing.Size(225, 265);
+            this.tlpVentas.TabIndex = 39;
             // 
             // CajaN
             // 
@@ -1743,8 +1839,12 @@
             this.tlpAnticposRecibidos.PerformLayout();
             this.tlpDineroAgregado.ResumeLayout(false);
             this.tlpDineroAgregado.PerformLayout();
+            this.tlpTotalAnticiposRecibidos.ResumeLayout(false);
+            this.tlpTotalAnticiposRecibidos.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
+            this.tlpVentas.ResumeLayout(false);
+            this.tlpVentas.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1863,6 +1963,8 @@
         private System.Windows.Forms.Label lbDevoluciones;
         private System.Windows.Forms.TableLayoutPanel tlpAnticposRecibidos;
         private System.Windows.Forms.TableLayoutPanel tlpDineroAgregado;
+        private System.Windows.Forms.TableLayoutPanel tlpTotalAnticiposRecibidos;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.TableLayoutPanel tlpVentas;
     }
 }
