@@ -145,6 +145,7 @@
             this.tlpTotalAnticiposRecibidos = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tlpVentas = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.tablaContenedor.SuspendLayout();
             this.panelDineroRetirado.SuspendLayout();
             this.panelDineroAgregado.SuspendLayout();
@@ -157,6 +158,7 @@
             this.tlpTotalAnticiposRecibidos.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tlpVentas.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tituloSeccion
@@ -1201,9 +1203,8 @@
             // 
             this.panelVentas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelVentas.Controls.Add(this.tableLayoutPanel2);
             this.panelVentas.Controls.Add(this.tlpVentas);
-            this.panelVentas.Controls.Add(this.lbVentas);
-            this.panelVentas.Controls.Add(this.lbTVentas);
             this.panelVentas.Controls.Add(this.tituloVentas);
             this.panelVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panelVentas.Location = new System.Drawing.Point(4, 4);
@@ -1259,27 +1260,33 @@
             // 
             // lbVentas
             // 
-            this.lbVentas.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbVentas.AutoSize = true;
             this.lbVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbVentas.ForeColor = System.Drawing.Color.Red;
-            this.lbVentas.Location = new System.Drawing.Point(11, 365);
+            this.lbVentas.Location = new System.Drawing.Point(3, 0);
             this.lbVentas.Name = "lbVentas";
-            this.lbVentas.Size = new System.Drawing.Size(91, 15);
+            this.lbVentas.Size = new System.Drawing.Size(108, 26);
             this.lbVentas.TabIndex = 12;
             this.lbVentas.Text = "Total de Ventas";
+            this.lbVentas.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbTVentas
             // 
-            this.lbTVentas.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTVentas.AutoSize = true;
             this.lbTVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTVentas.ForeColor = System.Drawing.Color.Red;
-            this.lbTVentas.Location = new System.Drawing.Point(141, 365);
+            this.lbTVentas.Location = new System.Drawing.Point(117, 0);
             this.lbTVentas.Name = "lbTVentas";
-            this.lbTVentas.Size = new System.Drawing.Size(38, 15);
+            this.lbTVentas.Size = new System.Drawing.Size(108, 26);
             this.lbTVentas.TabIndex = 13;
             this.lbTVentas.Text = "$0.00";
+            this.lbTVentas.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbTAnticipos
             // 
@@ -1792,6 +1799,21 @@
             this.tlpVentas.Size = new System.Drawing.Size(225, 265);
             this.tlpVentas.TabIndex = 39;
             // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 2;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Controls.Add(this.lbVentas, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.lbTVentas, 1, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 360);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(228, 26);
+            this.tableLayoutPanel2.TabIndex = 124;
+            // 
             // CajaN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1845,6 +1867,8 @@
             this.tableLayoutPanel1.PerformLayout();
             this.tlpVentas.ResumeLayout(false);
             this.tlpVentas.PerformLayout();
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1966,5 +1990,6 @@
         private System.Windows.Forms.TableLayoutPanel tlpTotalAnticiposRecibidos;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tlpVentas;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
     }
 }
