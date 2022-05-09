@@ -186,7 +186,7 @@ namespace PuntoDeVentaV2
                     {
                         var id = item.Key;
                         var dato = cn.CargarDatos($"SELECT CantidadMinimaDeCompra FROM productmessage WHERE IDProducto = {id}");
-                        if (!dato.Rows.Count.Equals(0))
+                        if (!dato.Rows.Count.Equals(0) && !string.IsNullOrWhiteSpace(dato.ToString()))
                         {
                             int cantidad = Convert.ToInt32(dato.Rows[0]["CantidadMinimaDeCompra"]);
                             txtCantidadCompra.Text = cantidad.ToString();
@@ -622,15 +622,18 @@ namespace PuntoDeVentaV2
 
                     var validar = cn.CargarDatos($"SELECT CorreoVentaProducto FROM CorreosProducto WHERE IDProducto = {producto.Key}");
 
-                    int Status = Convert.ToInt32(validar.Rows[0]["CorreoVentaProducto"]);
+                    if (!validar.Rows.Count.Equals(0) && !string.IsNullOrWhiteSpace(validar.ToString()))
+                    {
+                        int Status = Convert.ToInt32(validar.Rows[0]["CorreoVentaProducto"]);
 
-                    if (Status.Equals(1))
-                    {
-                        cuartoCB.Checked = true;
-                    }
-                    else if (Status.Equals(0))
-                    {
-                        cuartoCB.Checked = false;
+                        if (Status.Equals(1))
+                        {
+                            cuartoCB.Checked = true;
+                        }
+                        else if (Status.Equals(0))
+                        {
+                            cuartoCB.Checked = false;
+                        }
                     }
                 }
                     

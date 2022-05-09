@@ -6831,7 +6831,7 @@ namespace PuntoDeVentaV2
 
                     var MinimaCompra = cn.CargarDatos(cs.cantidadCompraMinima(Convert.ToInt32(idproductoCantidad)));
 
-                    if (!MinimaCompra.Rows.Count.Equals(0))
+                    if (!MinimaCompra.Rows.Count.Equals(0) && !string.IsNullOrWhiteSpace(MinimaCompra.ToString()))
                     {
                         var cantidadMinima = Convert.ToInt32(MinimaCompra.Rows[0].ItemArray[0]);
 
