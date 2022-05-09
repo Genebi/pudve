@@ -397,7 +397,7 @@
             this.tlpDineroRetirado.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tlpDineroRetirado.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tlpDineroRetirado.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tlpDineroRetirado.Size = new System.Drawing.Size(228, 194);
+            this.tlpDineroRetirado.Size = new System.Drawing.Size(228, 178);
             this.tlpDineroRetirado.TabIndex = 124;
             // 
             // label9
@@ -438,7 +438,7 @@
             this.lbDevoluciones.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbDevoluciones.Location = new System.Drawing.Point(112, 150);
             this.lbDevoluciones.Name = "lbDevoluciones";
-            this.lbDevoluciones.Size = new System.Drawing.Size(113, 44);
+            this.lbDevoluciones.Size = new System.Drawing.Size(113, 30);
             this.lbDevoluciones.TabIndex = 20;
             this.lbDevoluciones.Text = "$0.00";
             this.lbDevoluciones.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -452,7 +452,7 @@
             this.lbCambioDevoluciones.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
             this.lbCambioDevoluciones.Location = new System.Drawing.Point(94, 150);
             this.lbCambioDevoluciones.Name = "lbCambioDevoluciones";
-            this.lbCambioDevoluciones.Size = new System.Drawing.Size(12, 44);
+            this.lbCambioDevoluciones.Size = new System.Drawing.Size(12, 30);
             this.lbCambioDevoluciones.TabIndex = 39;
             this.lbCambioDevoluciones.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.toolTip1.SetToolTip(this.lbCambioDevoluciones, "Mostrar Abonos");
@@ -493,10 +493,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(3, 150);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(85, 44);
+            this.label4.Size = new System.Drawing.Size(85, 30);
             this.label4.TabIndex = 19;
             this.label4.Text = "Devoluciones";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
