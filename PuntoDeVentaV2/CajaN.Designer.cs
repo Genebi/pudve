@@ -141,6 +141,7 @@
             this.btnRedondoAgregarDinero = new PuntoDeVentaV2.BotonRedondo();
             this.btnRedondoSaldoInicial = new PuntoDeVentaV2.BotonRedondo();
             this.tlpAnticposRecibidos = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpDineroAgregado = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tablaContenedor.SuspendLayout();
             this.panelDineroRetirado.SuspendLayout();
@@ -150,6 +151,7 @@
             this.panelVentas.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tlpAnticposRecibidos.SuspendLayout();
+            this.tlpDineroAgregado.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -527,7 +529,7 @@
             // 
             // panelDineroAgregado
             // 
-            this.panelDineroAgregado.Controls.Add(this.tableLayoutPanel1);
+            this.panelDineroAgregado.Controls.Add(this.tlpDineroAgregado);
             this.panelDineroAgregado.Controls.Add(this.tituloDinero);
             this.panelDineroAgregado.Controls.Add(this.lbTAgregado);
             this.panelDineroAgregado.Controls.Add(this.lbTotalAgregado);
@@ -715,10 +717,9 @@
             // 
             this.panelAnticipos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelAnticipos.Controls.Add(this.tableLayoutPanel1);
             this.panelAnticipos.Controls.Add(this.tlpAnticposRecibidos);
             this.panelAnticipos.Controls.Add(this.tituloAnticipos);
-            this.panelAnticipos.Controls.Add(this.lbTAnticiposA);
-            this.panelAnticipos.Controls.Add(this.lbTotalAnticipos);
             this.panelAnticipos.Location = new System.Drawing.Point(239, 4);
             this.panelAnticipos.Name = "panelAnticipos";
             this.panelAnticipos.Size = new System.Drawing.Size(202, 386);
@@ -737,27 +738,33 @@
             // 
             // lbTAnticiposA
             // 
-            this.lbTAnticiposA.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTAnticiposA.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTAnticiposA.AutoSize = true;
             this.lbTAnticiposA.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTAnticiposA.ForeColor = System.Drawing.Color.Red;
-            this.lbTAnticiposA.Location = new System.Drawing.Point(138, 365);
+            this.lbTAnticiposA.Location = new System.Drawing.Point(95, 0);
             this.lbTAnticiposA.Name = "lbTAnticiposA";
-            this.lbTAnticiposA.Size = new System.Drawing.Size(38, 15);
+            this.lbTAnticiposA.Size = new System.Drawing.Size(104, 26);
             this.lbTAnticiposA.TabIndex = 13;
             this.lbTAnticiposA.Text = "$0.00";
+            this.lbTAnticiposA.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lbTotalAnticipos
             // 
-            this.lbTotalAnticipos.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lbTotalAnticipos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTotalAnticipos.AutoSize = true;
             this.lbTotalAnticipos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTotalAnticipos.ForeColor = System.Drawing.Color.Red;
-            this.lbTotalAnticipos.Location = new System.Drawing.Point(7, 365);
+            this.lbTotalAnticipos.Location = new System.Drawing.Point(3, 0);
             this.lbTotalAnticipos.Name = "lbTotalAnticipos";
-            this.lbTotalAnticipos.Size = new System.Drawing.Size(86, 15);
+            this.lbTotalAnticipos.Size = new System.Drawing.Size(86, 26);
             this.lbTotalAnticipos.TabIndex = 12;
             this.lbTotalAnticipos.Text = "Total Anticipos";
+            this.lbTotalAnticipos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbTTransA
             // 
@@ -1648,30 +1655,45 @@
             this.tlpAnticposRecibidos.Size = new System.Drawing.Size(200, 150);
             this.tlpAnticposRecibidos.TabIndex = 16;
             // 
+            // tlpDineroAgregado
+            // 
+            this.tlpDineroAgregado.ColumnCount = 2;
+            this.tlpDineroAgregado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlpDineroAgregado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tlpDineroAgregado.Controls.Add(this.lbEfectivoD, 0, 0);
+            this.tlpDineroAgregado.Controls.Add(this.lbTarjetaD, 0, 1);
+            this.tlpDineroAgregado.Controls.Add(this.lbValesD, 0, 2);
+            this.tlpDineroAgregado.Controls.Add(this.lbChequeD, 0, 3);
+            this.tlpDineroAgregado.Controls.Add(this.lbTransD, 0, 4);
+            this.tlpDineroAgregado.Controls.Add(this.lbTChequeD, 1, 3);
+            this.tlpDineroAgregado.Controls.Add(this.lbTEfectivoD, 1, 0);
+            this.tlpDineroAgregado.Controls.Add(this.lbTValesD, 1, 2);
+            this.tlpDineroAgregado.Controls.Add(this.lbTTarjetaD, 1, 1);
+            this.tlpDineroAgregado.Controls.Add(this.lbTTransD, 1, 4);
+            this.tlpDineroAgregado.Location = new System.Drawing.Point(1, 55);
+            this.tlpDineroAgregado.Name = "tlpDineroAgregado";
+            this.tlpDineroAgregado.RowCount = 5;
+            this.tlpDineroAgregado.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpDineroAgregado.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpDineroAgregado.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpDineroAgregado.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpDineroAgregado.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tlpDineroAgregado.Size = new System.Drawing.Size(200, 152);
+            this.tlpDineroAgregado.TabIndex = 17;
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.lbEfectivoD, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lbTarjetaD, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lbValesD, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lbChequeD, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.lbTransD, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.lbTChequeD, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.lbTEfectivoD, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lbTValesD, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lbTTarjetaD, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lbTTransD, 1, 4);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 55);
+            this.tableLayoutPanel1.Controls.Add(this.lbTotalAnticipos, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lbTAnticiposA, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 360);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(200, 152);
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(202, 26);
             this.tableLayoutPanel1.TabIndex = 17;
             // 
             // CajaN
@@ -1719,6 +1741,8 @@
             this.panel1.ResumeLayout(false);
             this.tlpAnticposRecibidos.ResumeLayout(false);
             this.tlpAnticposRecibidos.PerformLayout();
+            this.tlpDineroAgregado.ResumeLayout(false);
+            this.tlpDineroAgregado.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
@@ -1838,6 +1862,7 @@
         private System.Windows.Forms.Label lbTCreditoC;
         private System.Windows.Forms.Label lbDevoluciones;
         private System.Windows.Forms.TableLayoutPanel tlpAnticposRecibidos;
+        private System.Windows.Forms.TableLayoutPanel tlpDineroAgregado;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
     }
 }
