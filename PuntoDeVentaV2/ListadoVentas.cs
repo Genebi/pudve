@@ -2003,26 +2003,25 @@ namespace PuntoDeVentaV2
                                                 {
 
                                                 }
-                                                else //En caso de ser un producto
-                                                {
-                                                    var stock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = '{idprod}'");
-                                                    var stockOriginal = stock.Rows[0]["Stock"].ToString();
-                                                    var stockActual = Convert.ToDecimal(stockOriginal) + Convert.ToDecimal(cantidad);
-                                                    var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
-                                                    var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
-                                                    decimal stockAnterior = Convert.ToDecimal(stockOriginal);
-                                                    decimal stockNuevo = Convert.ToInt32(stockActual);
+                                            }
+                                            else //En caso de ser un producto
+                                            {
+                                                var stock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = '{idprod}'");
+                                                var stockOriginal = stock.Rows[0]["Stock"].ToString();
+                                                var stockActual = Convert.ToDecimal(stockOriginal) + Convert.ToDecimal(cantidad);
+                                                var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
+                                                var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
+                                                decimal stockAnterior = Convert.ToDecimal(stockOriginal);
+                                                decimal stockNuevo = Convert.ToInt32(stockActual);
 
-                                                    var fechaDeOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                                var fechaDeOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idprod}','Venta Cancelada folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidad}')");
+                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idprod}','Venta Cancelada folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidad}')");
 
-                                                    cn.EjecutarConsulta($"UPDATE Productos SET Stock ={stockNuevo} WHERE ID = {idprod} AND IDUsuario = {FormPrincipal.userID}");
+                                                cn.EjecutarConsulta($"UPDATE Productos SET Stock ={stockNuevo} WHERE ID = {idprod} AND IDUsuario = {FormPrincipal.userID}");
 
-                                                }
                                             }
                                         }
-                                           
                                     }
 
 
