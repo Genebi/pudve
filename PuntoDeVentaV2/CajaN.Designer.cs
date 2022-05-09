@@ -510,10 +510,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
+            this.tlpDineroRetirado.SetColumnSpan(this.label9, 2);
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(3, 120);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(83, 30);
+            this.label9.Size = new System.Drawing.Size(100, 30);
             this.label9.TabIndex = 4;
             this.label9.Text = "Transferencia";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
