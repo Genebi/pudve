@@ -1369,7 +1369,7 @@
             this.lbTAnticipos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTAnticipos.Location = new System.Drawing.Point(117, 210);
             this.lbTAnticipos.Name = "lbTAnticipos";
-            this.lbTAnticipos.Size = new System.Drawing.Size(109, 55);
+            this.lbTAnticipos.Size = new System.Drawing.Size(109, 50);
             this.lbTAnticipos.TabIndex = 16;
             this.lbTAnticipos.Text = "$0.00";
             this.lbTAnticipos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -1463,10 +1463,11 @@
             this.lbAnticipos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tlpVentas.SetColumnSpan(this.lbAnticipos, 2);
             this.lbAnticipos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbAnticipos.Location = new System.Drawing.Point(3, 210);
             this.lbAnticipos.Name = "lbAnticipos";
-            this.lbAnticipos.Size = new System.Drawing.Size(90, 55);
+            this.lbAnticipos.Size = new System.Drawing.Size(108, 50);
             this.lbAnticipos.TabIndex = 15;
             this.lbAnticipos.Text = "Anticipos utilizados al corte";
             this.lbAnticipos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1490,10 +1491,11 @@
             this.lbTrans.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tlpVentas.SetColumnSpan(this.lbTrans, 2);
             this.lbTrans.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTrans.Location = new System.Drawing.Point(3, 120);
             this.lbTrans.Name = "lbTrans";
-            this.lbTrans.Size = new System.Drawing.Size(90, 30);
+            this.lbTrans.Size = new System.Drawing.Size(108, 30);
             this.lbTrans.TabIndex = 4;
             this.lbTrans.Text = "Transferencia ";
             this.lbTrans.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1868,7 +1870,7 @@
             this.tlpVentas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tlpVentas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tlpVentas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tlpVentas.Size = new System.Drawing.Size(229, 265);
+            this.tlpVentas.Size = new System.Drawing.Size(229, 260);
             this.tlpVentas.TabIndex = 39;
             // 
             // tlpTotalVentas
