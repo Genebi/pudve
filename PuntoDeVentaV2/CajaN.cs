@@ -350,6 +350,7 @@ namespace PuntoDeVentaV2
             limpiarVariablesParaTotales();
             CargarSaldoInicial();
             mostrarInformacionAbonos();
+            mostrarInformacionAnticipos();
             if (!FormPrincipal.userNickName.Contains("@"))
             {
                 cbFiltroAdminEmpleado_SelectedIndexChanged(sender, e);
@@ -360,6 +361,11 @@ namespace PuntoDeVentaV2
                 seccionEmpleadoCaja(FormPrincipal.id_empleado.ToString());
                 mostrarTotalEnCaja();
             }
+        }
+
+        private void mostrarInformacionAnticipos()
+        {
+            
         }
 
         private void mostrarInformacionAbonos()
@@ -6777,8 +6783,8 @@ namespace PuntoDeVentaV2
                             lbTCheque.Text = cantidadCheque.ToString("C2");
                             lbTTrans.Text = cantidadTransferencia.ToString("C2");
                             lbTCredito.Text = cantidadCredito.ToString("C2");
-                            //lbTCreditoC.Text = cantidadAbonos.ToString("C2");
-                            lbTAnticipos.Text = totalAbonoRealizado.ToString("C2");
+                            lbTCreditoC.Text = totalAbonoRealizado.ToString("C2");
+                            lbTAnticipos.Text = cantidadAnticipos.ToString("C2");
                             lbTVentas.Text = (cantidadEfectivo + cantidadTarjeta + cantidadVales + cantidadCheque + cantidadTransferencia + cantidadCredito + totalAbonoRealizado).ToString("C2");
                         }
                     }
