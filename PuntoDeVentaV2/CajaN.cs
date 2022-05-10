@@ -373,7 +373,6 @@ namespace PuntoDeVentaV2
 
                 if (!string.IsNullOrWhiteSpace(idUltimoCorteDeCaja))
                 {
-
                     if (!string.IsNullOrWhiteSpace(fechaFormateadaCorteParaAbonos))
                     {
                         using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoAdministrador(idUsuarioEmpleado, fechaFormateadaCorteParaAbonos)))
@@ -6779,7 +6778,7 @@ namespace PuntoDeVentaV2
                             lbTTrans.Text = cantidadTransferencia.ToString("C2");
                             lbTCredito.Text = cantidadCredito.ToString("C2");
                             //lbTCreditoC.Text = cantidadAbonos.ToString("C2");
-                            lbTAnticipos.Text = cantidadAnticipos.ToString("C2");
+                            lbTAnticipos.Text = totalAbonoRealizado.ToString("C2");
                             lbTVentas.Text = (cantidadTotalVentas - totalAbonoRealizado).ToString("C2");
                         }
                     }
