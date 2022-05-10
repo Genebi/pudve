@@ -2085,7 +2085,7 @@ namespace PuntoDeVentaV2
                                                         efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0",FormPrincipal.id_empleado.ToString()
                                                     };
                                                 cn.EjecutarConsulta(cs.OperacionCaja(datos));
-                                            }
+                                            } 
                                         }
 
                                         // Agregamos marca de agua al PDF del ticket de la venta cancelada
