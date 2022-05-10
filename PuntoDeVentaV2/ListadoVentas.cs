@@ -2063,16 +2063,16 @@ namespace PuntoDeVentaV2
                                         //}
 
                                         var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
-
-                                        var conceptoCreditoC = $"DELOLUVION CREDITO VENTA CANCELADA ID {idVenta}";
+                                        var abonosAVenta = cn.CargarDatos(cs.ConsultarAbonosVentaACredito(idVenta));
+                                         var conceptoCreditoC = $"DELOLUVION CREDITO VENTA CANCELADA ID {idVenta}";
                                         if (formasPago2.Length > 0)
                                         {
                                             var total1 = "0";
-                                            var efectivo1 = "0";
-                                            var tarjeta1 = "0";
-                                            var vales1 = "0";
-                                            var cheque1 = "0";
-                                            var transferencia1 = "0";
+                                            var efectivo1 = abonosAVenta.Rows[0]["Efectivo"].ToString(); ;
+                                            var tarjeta1 = abonosAVenta.Rows[0]["Tarjeta"].ToString(); ;
+                                            var vales1 = abonosAVenta.Rows[0]["Vales"].ToString(); ;
+                                            var cheque1 = abonosAVenta.Rows[0]["Cheque"].ToString(); ;
+                                            var transferencia1 = abonosAVenta.Rows[0]["Transferencia"].ToString(); ;
                                             var credito1 = formasPago2[5].ToString();
                                             //var anticipo1 = "0";
 

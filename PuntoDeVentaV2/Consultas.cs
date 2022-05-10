@@ -3904,5 +3904,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string ConsultarAbonosVentaACredito(int idVenta)
+        {
+            var consulta = $"SELECT IF ( SUM( abonos.Efectivo ) IS NULL, 0, SUM( abonos.Efectivo ) ) AS 'Efectivo', IF ( SUM( abonos.Tarjeta ) IS NULL, 0, SUM( abonos.Tarjeta ) ) AS 'Tarjeta', IF ( SUM( abonos.Vales ) IS NULL, 0, SUM( abonos.Vales ) ) AS 'Vales', IF ( SUM( abonos.Cheque ) IS NULL, 0, SUM( abonos.Cheque ) ) AS 'Cheque', IF ( SUM( abonos.Transferencia ) IS NULL, 0, SUM( abonos.Transferencia ) ) AS 'Transferencia', IF ((SUM( abonos.Efectivo ) + SUM( abonos.Tarjeta ) + SUM( abonos.Vales ) + SUM( abonos.Cheque ) + SUM( abonos.Transferencia )) IS NULL, 0, (SUM( abonos.Efectivo ) + SUM( abonos.Tarjeta ) + SUM( abonos.Vales ) + SUM( abonos.Cheque ) + SUM( abonos.Transferencia ))) AS 'Total de abonos' FROM abonos INNER JOIN ventas ON ( ventas.ID = abonos.IDVenta ) WHERE ventas.ID = '{idVenta}'";
+
+            return consulta;
+        }
     }
 }  
