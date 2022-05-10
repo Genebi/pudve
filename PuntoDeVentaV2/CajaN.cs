@@ -6779,7 +6779,7 @@ namespace PuntoDeVentaV2
                             lbTCredito.Text = cantidadCredito.ToString("C2");
                             //lbTCreditoC.Text = cantidadAbonos.ToString("C2");
                             lbTAnticipos.Text = totalAbonoRealizado.ToString("C2");
-                            lbTVentas.Text = (cantidadTotalVentas - totalAbonoRealizado).ToString("C2");
+                            lbTVentas.Text = (cantidadEfectivo + cantidadTarjeta + cantidadVales + cantidadCheque + cantidadTransferencia + cantidadCredito + totalAbonoRealizado).ToString("C2");
                         }
                     }
                 }
