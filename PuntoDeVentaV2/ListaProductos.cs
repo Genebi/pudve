@@ -114,6 +114,7 @@ namespace PuntoDeVentaV2
 
         string mensajeParaMostrar = string.Empty;
 
+        
         // metodo para poder cargar los datos al inicio
         public void CargarDataGridView()
         {
@@ -192,6 +193,64 @@ namespace PuntoDeVentaV2
                         }
                         
                         //mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
+                    }
+                }
+            }
+
+            if (DatosSourceFinal.Equals(2))
+            {
+                var tipo = string.Empty;
+                if (idProdEdit>0)
+                {
+                    using (DataTable dtTipoProducto = cn.CargarDatos($"SELECT Tipo FROM productos WHERE ID = {idProdEdit}"))
+                    {
+                        if (!dtTipoProducto.Rows.Count.Equals(0))
+                        {
+                             tipo = dtTipoProducto.Rows[0]["Tipo"].ToString();
+                        }
+                    }
+                }
+                if (tipo.Equals("PQ") || tipo.Equals("S"))  // cuando es Editar Productos
+                {
+                    int producto =0 ;
+                    using (DataTable dtRelacionProdComboServ = cn.CargarDatos(cs.ChecarSiHayRelacion(idProdEdit)))
+                    {
+                        if (!dtRelacionProdComboServ.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtRelacionProdComboServ.Rows)
+                            {
+                                var idProductoBUscar = item["IDProducto"].ToString();
+                                if (!string.IsNullOrWhiteSpace(idProductoBUscar))
+                                {
+                                    if (!DGVStockProductos.Rows.Count.Equals(0))
+                                    {
+                                        foreach (DataGridViewRow drDGV in DGVStockProductos.Rows)
+                                        {
+                                            string strFila = drDGV.Cells[0].RowIndex.ToString();
+                                            if (drDGV.Cells[0].Value.ToString().Equals(idProductoBUscar))
+                                            {
+                                                DGVStockProductos.Rows[Convert.ToInt32(strFila)].DefaultCellStyle.BackColor = Color.Gray;
+                                            }
+                                        }
+                                    }
+                                }
+                            }                                                                        
+                        }
+                    }
+                    if (!AgregarEditarProducto.listaProductoToCombo.Count.Equals(0))
+                    {
+                        foreach (var item in AgregarEditarProducto.listaProductoToCombo)
+                        {
+                            var claves = item.Split('|');
+                            if (claves[2].Equals(Convert.ToString(producto)))
+                            {
+                                DGVStockProductos.Rows[idProdEdit].DefaultCellStyle.BackColor = Color.Yellow;
+                                mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
+
+                                //MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
                     }
                 }
             }

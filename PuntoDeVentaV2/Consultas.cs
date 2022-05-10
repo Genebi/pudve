@@ -2159,7 +2159,7 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-
+        
         public string checarProductoEstaActivo(string idProd)
         {
             var consulta = $"SELECT ID, Nombre, Precio, `Status` FROM Productos WHERE ID = '{idProd}' AND `Status` = '1' AND IDUsuario = '{FormPrincipal.userID}';";
@@ -3905,9 +3905,15 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+<<<<<<< HEAD
         public string ConsultarAbonosVentaACredito(int idVenta)
         {
             var consulta = $"SELECT IF ( SUM( abonos.Efectivo ) IS NULL, 0, SUM( abonos.Efectivo ) ) AS 'Efectivo', IF ( SUM( abonos.Tarjeta ) IS NULL, 0, SUM( abonos.Tarjeta ) ) AS 'Tarjeta', IF ( SUM( abonos.Vales ) IS NULL, 0, SUM( abonos.Vales ) ) AS 'Vales', IF ( SUM( abonos.Cheque ) IS NULL, 0, SUM( abonos.Cheque ) ) AS 'Cheque', IF ( SUM( abonos.Transferencia ) IS NULL, 0, SUM( abonos.Transferencia ) ) AS 'Transferencia', IF ((SUM( abonos.Efectivo ) + SUM( abonos.Tarjeta ) + SUM( abonos.Vales ) + SUM( abonos.Cheque ) + SUM( abonos.Transferencia )) IS NULL, 0, (SUM( abonos.Efectivo ) + SUM( abonos.Tarjeta ) + SUM( abonos.Vales ) + SUM( abonos.Cheque ) + SUM( abonos.Transferencia ))) AS 'Total de abonos' FROM abonos INNER JOIN ventas ON ( ventas.ID = abonos.IDVenta ) WHERE ventas.ID = '{idVenta}'";
+=======
+        public string ChecarSiHayRelacion(int idServicio)
+        {
+            var consulta = $"SELECT IDServicio, IDProducto, NombreProducto FROM productosdeservicios WHERE IDServicio = '{idServicio}'";
+>>>>>>> MarcarLosProductosYaSeleccionadosAlEditarUnServicioOCombo
 
             return consulta;
         }
