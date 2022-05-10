@@ -2159,7 +2159,7 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-
+        
         public string checarProductoEstaActivo(string idProd)
         {
             var consulta = $"SELECT ID, Nombre, Precio, `Status` FROM Productos WHERE ID = '{idProd}' AND `Status` = '1' AND IDUsuario = '{FormPrincipal.userID}';";
@@ -3901,6 +3901,13 @@ namespace PuntoDeVentaV2
         public string cargarPenultimaSaldoInicialEmpleado(string idEmpleado)
         {
             var consulta = $"SELECT IDUsuario, IDEmpleado, IDCorteDeCaja AS 'IDCaja', FechaOperacion AS 'Fecha', SaldoInicialEfectivo AS 'Efectivo', SaldoInicialTarjeta AS 'Tarjeta', SaldoInicialVales AS 'Vales', SaldoInicialCheque AS 'Cheque', SaldoInicialTransferencia AS 'Transferencia', SaldoInicialCredito AS 'Credito', SaldoInicialAnticipo AS 'Anticipo', CantidadRetiradaDelCorte AS 'CantidadRetirada', ( SaldoInicialEfectivo + SaldoInicialTarjeta + SaldoInicialVales + SaldoInicialCheque + SaldoInicialTransferencia ) AS 'SaldoInicial' FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' AND IDEmpleado = '{idEmpleado}' ORDER BY IDCorteDeCaja DESC LIMIT 1, 1";
+
+            return consulta;
+        }
+
+        public string ChecarSiHayRelacion(int idServicio)
+        {
+            var consulta = $"SELECT IDServicio, IDProducto, NombreProducto FROM productosdeservicios WHERE IDServicio = '{idServicio}'";
 
             return consulta;
         }
