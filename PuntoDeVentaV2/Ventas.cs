@@ -15,6 +15,7 @@ using System.Threading;
 using static System.Windows.Forms.DataGridView;
 using System.IO.Ports;
 using System.Media;
+using System.Globalization;
 
 namespace PuntoDeVentaV2
 {
@@ -2996,13 +2997,13 @@ namespace PuntoDeVentaV2
         {
             // Datos generales de la venta
             var IdEmpresa = FormPrincipal.userID.ToString();
-            var Subtotal = cSubtotal.Text;
-            var IVA16 = cIVA.Text;
-            var Descuento = cDescuento.Text;
-            var Total = cTotal.Text;
-            var DescuentoGeneral = porcentajeGeneral.ToString("0.00");
-            var Anticipo = cAnticipo.Text;
-            var AnticipoUtilizado = cAnticipoUtilizado.Text;
+            var Subtotal = formatoNumericoEstandar(cSubtotal.Text);
+            var IVA16 = formatoNumericoEstandar(cIVA.Text);
+            var Descuento = formatoNumericoEstandar(cDescuento.Text);
+            var Total = formatoNumericoEstandar(cTotal.Text);
+            var DescuentoGeneral = formatoNumericoEstandar(porcentajeGeneral.ToString("0.00"));
+            var Anticipo = formatoNumericoEstandar(cAnticipo.Text);
+            var AnticipoUtilizado = formatoNumericoEstandar(cAnticipoUtilizado.Text);
             var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
             var Folio = "";
             var Serie = "A";
@@ -3718,6 +3719,19 @@ namespace PuntoDeVentaV2
 
                 this.Dispose();
             }
+        }
+
+        private string formatoNumericoEstandar(string cantidad)
+        {
+            var resultado = string.Empty;
+            string especificador;
+
+            // Usar especificadores de formato numérico estándar
+            especificador = "G";
+
+            resultado = Convert.ToDecimal(cantidad).ToString(especificador, CultureInfo.InvariantCulture);
+
+            return resultado;
         }
 
         private void LimpiarVariables()
