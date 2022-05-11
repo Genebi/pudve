@@ -488,7 +488,7 @@
             // 
             // cNumeroArticulos
             // 
-            this.cNumeroArticulos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cNumeroArticulos.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cNumeroArticulos.Location = new System.Drawing.Point(211, 242);
             this.cNumeroArticulos.Name = "cNumeroArticulos";
             this.cNumeroArticulos.Size = new System.Drawing.Size(98, 22);
@@ -500,7 +500,7 @@
             // cSubtotal
             // 
             this.cSubtotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cSubtotal.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cSubtotal.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cSubtotal.Location = new System.Drawing.Point(211, 262);
             this.cSubtotal.Name = "cSubtotal";
             this.cSubtotal.Size = new System.Drawing.Size(98, 22);
@@ -512,7 +512,7 @@
             // cIVA
             // 
             this.cIVA.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cIVA.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cIVA.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cIVA.Location = new System.Drawing.Point(211, 307);
             this.cIVA.Name = "cIVA";
             this.cIVA.Size = new System.Drawing.Size(98, 22);
@@ -525,7 +525,7 @@
             // cAnticipo
             // 
             this.cAnticipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cAnticipo.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cAnticipo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cAnticipo.Location = new System.Drawing.Point(211, 441);
             this.cAnticipo.Name = "cAnticipo";
             this.cAnticipo.Size = new System.Drawing.Size(98, 22);
@@ -538,7 +538,7 @@
             // cDescuento
             // 
             this.cDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cDescuento.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cDescuento.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cDescuento.Location = new System.Drawing.Point(211, 284);
             this.cDescuento.Name = "cDescuento";
             this.cDescuento.Size = new System.Drawing.Size(98, 22);
@@ -550,7 +550,7 @@
             // cTotal
             // 
             this.cTotal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cTotal.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cTotal.Font = new System.Drawing.Font("Century Gothic", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cTotal.Location = new System.Drawing.Point(123, 494);
             this.cTotal.Name = "cTotal";
             this.cTotal.Size = new System.Drawing.Size(189, 39);
@@ -573,7 +573,7 @@
             // cIVA8
             // 
             this.cIVA8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cIVA8.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cIVA8.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cIVA8.Location = new System.Drawing.Point(211, 331);
             this.cIVA8.Name = "cIVA8";
             this.cIVA8.Size = new System.Drawing.Size(98, 22);
@@ -764,7 +764,7 @@
             // 
             // lb_cant_impuestos_retenidos
             // 
-            this.lb_cant_impuestos_retenidos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_cant_impuestos_retenidos.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_cant_impuestos_retenidos.Location = new System.Drawing.Point(210, 418);
             this.lb_cant_impuestos_retenidos.Name = "lb_cant_impuestos_retenidos";
             this.lb_cant_impuestos_retenidos.Size = new System.Drawing.Size(98, 22);
@@ -787,7 +787,7 @@
             // cOtrosImpuestos
             // 
             this.cOtrosImpuestos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cOtrosImpuestos.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cOtrosImpuestos.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cOtrosImpuestos.Location = new System.Drawing.Point(211, 396);
             this.cOtrosImpuestos.Name = "cOtrosImpuestos";
             this.cOtrosImpuestos.Size = new System.Drawing.Size(98, 22);
@@ -812,7 +812,7 @@
             // cAnticipoUtilizado
             // 
             this.cAnticipoUtilizado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cAnticipoUtilizado.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cAnticipoUtilizado.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cAnticipoUtilizado.Location = new System.Drawing.Point(211, 464);
             this.cAnticipoUtilizado.Name = "cAnticipoUtilizado";
             this.cAnticipoUtilizado.Size = new System.Drawing.Size(98, 22);
@@ -968,7 +968,7 @@
             // lblCIVA0Exento
             // 
             this.lblCIVA0Exento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCIVA0Exento.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCIVA0Exento.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCIVA0Exento.Location = new System.Drawing.Point(210, 355);
             this.lblCIVA0Exento.Name = "lblCIVA0Exento";
             this.lblCIVA0Exento.Size = new System.Drawing.Size(98, 22);
