@@ -2394,13 +2394,13 @@ namespace PuntoDeVentaV2
                         {
                             var diferencia = importeTmp - sumaImportes;
 
-                            cAnticipoUtilizado.Text = diferencia.ToString("#,###.00");
+                            cAnticipoUtilizado.Text = diferencia.ToString("N");
                         }
                         else
                         {
                             var diferencia = importeTmp - sumaImportes;
 
-                            cAnticipoUtilizado.Text = diferencia.ToString("#,###.00");
+                            cAnticipoUtilizado.Text = diferencia.ToString("N");
                         }
                     }
                 }
@@ -2450,14 +2450,14 @@ namespace PuntoDeVentaV2
             }
            
 
-            cIVA.Text = totalIVA16.ToString("#,###.00");
-            cIVA8.Text = totalIVA8.ToString("#,###.00");           
-            cTotal.Text = sumaImportes.ToString("#,###.00");
+            cIVA.Text = totalIVA16.ToString("N");
+            cIVA8.Text = totalIVA8.ToString("N");           
+            cTotal.Text = sumaImportes.ToString("N");
             if (sumaImportes <=0)
             {
                 cTotal.Text = "0.00";
             }
-            cSubtotal.Text = (totalSubtotal + totalSubtotal8 + total_subtotal_cero_exe).ToString("#,###.00");
+            cSubtotal.Text = (totalSubtotal + totalSubtotal8 + total_subtotal_cero_exe).ToString("N");
 
             // Se ocultan si las cantidades de este campo son igual a 0
             if (totalAnticipos > 0)
@@ -2509,11 +2509,11 @@ namespace PuntoDeVentaV2
                 lb_cant_impuestos_retenidos.Visible = false;
             }
 
-            cOtrosImpuestos.Text = totalOtrosImpuestos.ToString("#,###.00");
-            lb_cant_impuestos_retenidos.Text = total_impuestos_retenidos.ToString("#,###.00");
-            cAnticipo.Text = totalAnticipos.ToString("#,###.00");
-            cDescuento.Text = totalDescuento.ToString("#,###.00");
-            cNumeroArticulos.Text = totalArticulos.ToString("#,###.00");
+            cOtrosImpuestos.Text = totalOtrosImpuestos.ToString("N");
+            lb_cant_impuestos_retenidos.Text = total_impuestos_retenidos.ToString("N");
+            cAnticipo.Text = totalAnticipos.ToString("N");
+            cDescuento.Text = totalDescuento.ToString("N");
+            cNumeroArticulos.Text = totalArticulos.ToString("N");
 
             ComprobarProductos();
         }
