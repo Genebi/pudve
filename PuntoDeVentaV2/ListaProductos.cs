@@ -227,7 +227,8 @@ namespace PuntoDeVentaV2
                                         foreach (DataGridViewRow drDGV in DGVStockProductos.Rows)
                                         {
                                             string strFila = drDGV.Cells[0].RowIndex.ToString();
-                                            if (drDGV.Cells[0].Value.ToString().Equals(idProductoBUscar))
+                                            string servicio = drDGV.Cells[0].Value.ToString();
+                                            if (servicio.Equals(idProductoBUscar))
                                             {
                                                 DGVStockProductos.Rows[Convert.ToInt32(strFila)].DefaultCellStyle.BackColor = Color.Gray;
                                             }
