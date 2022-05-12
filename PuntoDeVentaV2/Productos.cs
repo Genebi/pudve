@@ -4729,11 +4729,11 @@ namespace PuntoDeVentaV2
                     consultaFiltro = "SELECT * FROM Productos WHERE ID = 0";
                     MessageBox.Show($"No se encontro ninguna coincidencia con el producto: {busquedaEnProductos}","Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                else if (status == 1)
+                else if (status == 1 && consultaFiltro == "")
                 {
                     consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1";
                 }
-                else if (status == 2)
+                else if (status == 2 && consultaFiltro == "")
                 {
                     consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID}";
                 }
