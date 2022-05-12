@@ -43,7 +43,7 @@ namespace PuntoDeVentaV2
 
         private async Task InsertarDatos()
         {
-            string[] archivos = new string[] { "RegimenFiscal", "CatalogoMonedas", "UnidadesMedida", "ClavesProducto", "Basculas" };
+            string[] archivos = new string[] { "RegimenFiscal", "CatalogoMonedas", "UnidadesMedida", "ClavesProducto", "Basculas", "UpdateInformationTablesIntoDataRows" };
 
             string conexion = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
 

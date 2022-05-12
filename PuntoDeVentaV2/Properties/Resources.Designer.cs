@@ -12205,8 +12205,7 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INSERT IGNORE INTO RegimenFiscal 
-        ///(ID, CodigoRegimen, Descripcion, AplicaFisica, AplicaMoral) 
+        ///   Looks up a localized string similar to INSERT IGNORE INTO RegimenFiscal (ID, CodigoRegimen, Descripcion, AplicaFisica, AplicaMoral) 
         ///VALUES 
         ///(1, 601, &apos;General de Ley Personas Morales&apos;, &apos;No&apos;, &apos;SÃ­&apos;),
         ///(2, 603, &apos;Personas Morales con Fines no Lucrativos&apos;, &apos;No&apos;, &apos;SÃ­&apos;),
@@ -12214,7 +12213,7 @@ namespace PuntoDeVentaV2.Properties {
         ///(4, 606, &apos;Arrendamiento&apos;, &apos;SÃ­&apos;, &apos;No&apos;),
         ///(5, 608, &apos;DemÃ¡s ingresos&apos;, &apos;SÃ­&apos;, &apos;No&apos;),
         ///(6, 609, &apos;ConsolidaciÃ³n&apos;, &apos;No&apos;, &apos;SÃ­&apos;),
-        ///(7, 610, &apos;Residentes en el Extranjero sin Establecimiento Permanente en MÃ [rest of string was truncated]&quot;;.
+        ///(7, 610, &apos;Residentes en el Extranjero sin Establecimiento Permanente en MÃ©x [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string RegimenFiscal {
             get {
@@ -16304,6 +16303,15 @@ namespace PuntoDeVentaV2.Properties {
             get {
                 object obj = ResourceManager.GetObject("unsorted1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        internal static string UpdateInformationTablesIntoDataRows {
+            get {
+                return ResourceManager.GetString("UpdateInformationTablesIntoDataRows", resourceCulture);
             }
         }
         

@@ -1,5 +1,4 @@
-INSERT IGNORE INTO RegimenFiscal 
-(ID, CodigoRegimen, Descripcion, AplicaFisica, AplicaMoral) 
+INSERT IGNORE INTO RegimenFiscal (ID, CodigoRegimen, Descripcion, AplicaFisica, AplicaMoral) 
 VALUES 
 (1, 601, 'General de Ley Personas Morales', 'No', 'Sí'),
 (2, 603, 'Personas Morales con Fines no Lucrativos', 'No', 'Sí'),
