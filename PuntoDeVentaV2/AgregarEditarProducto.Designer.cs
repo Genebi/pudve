@@ -84,7 +84,13 @@
             this.tLPCombo = new System.Windows.Forms.TableLayoutPanel();
             this.tLPProducto = new System.Windows.Forms.TableLayoutPanel();
             this.PAccion = new System.Windows.Forms.Panel();
+            this.btnMensajeVenta = new PuntoDeVentaV2.BotonRedondo();
+            this.button1 = new PuntoDeVentaV2.BotonRedondo();
+            this.btnAgregarDescuento = new PuntoDeVentaV2.BotonRedondo();
+            this.btnDetalleProducto = new PuntoDeVentaV2.BotonRedondo();
             this.btnProdUpdate = new System.Windows.Forms.Button();
+            this.btnDetalleFacturacion = new PuntoDeVentaV2.BotonRedondo();
+            this.btnGuardarProducto = new PuntoDeVentaV2.BotonRedondo();
             this.PType = new System.Windows.Forms.Panel();
             this.fLPType = new System.Windows.Forms.FlowLayoutPanel();
             this.fLPDetalleProducto = new System.Windows.Forms.FlowLayoutPanel();
@@ -97,12 +103,6 @@
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.errorProvAgregarEditarProducto = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnMensajeVenta = new PuntoDeVentaV2.BotonRedondo();
-            this.button1 = new PuntoDeVentaV2.BotonRedondo();
-            this.btnAgregarDescuento = new PuntoDeVentaV2.BotonRedondo();
-            this.btnDetalleProducto = new PuntoDeVentaV2.BotonRedondo();
-            this.btnDetalleFacturacion = new PuntoDeVentaV2.BotonRedondo();
-            this.btnGuardarProducto = new PuntoDeVentaV2.BotonRedondo();
             this.PDetalleProdcuto.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -799,134 +799,6 @@
             this.PAccion.Size = new System.Drawing.Size(999, 82);
             this.PAccion.TabIndex = 32;
             // 
-            // btnProdUpdate
-            // 
-            this.btnProdUpdate.BackColor = System.Drawing.Color.Teal;
-            this.btnProdUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnProdUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btnProdUpdate.Location = new System.Drawing.Point(163, 36);
-            this.btnProdUpdate.Name = "btnProdUpdate";
-            this.btnProdUpdate.Size = new System.Drawing.Size(180, 28);
-            this.btnProdUpdate.TabIndex = 20;
-            this.btnProdUpdate.Text = "Actualizar Producto";
-            this.btnProdUpdate.UseVisualStyleBackColor = false;
-            this.btnProdUpdate.Visible = false;
-            this.btnProdUpdate.Click += new System.EventHandler(this.btnProdUpdate_Click);
-            // 
-            // PType
-            // 
-            this.PType.Controls.Add(this.chkBoxConProductos);
-            this.PType.Controls.Add(this.label10);
-            this.PType.Controls.Add(this.PTypeAndCantProd);
-            this.PType.Controls.Add(this.cbTipo);
-            this.PType.Location = new System.Drawing.Point(3, 3);
-            this.PType.Name = "PType";
-            this.PType.Size = new System.Drawing.Size(838, 23);
-            this.PType.TabIndex = 34;
-            // 
-            // fLPType
-            // 
-            this.fLPType.Controls.Add(this.PType);
-            this.fLPType.Dock = System.Windows.Forms.DockStyle.Top;
-            this.fLPType.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPType.Location = new System.Drawing.Point(0, 0);
-            this.fLPType.Name = "fLPType";
-            this.fLPType.Size = new System.Drawing.Size(1278, 29);
-            this.fLPType.TabIndex = 35;
-            // 
-            // fLPDetalleProducto
-            // 
-            this.fLPDetalleProducto.BackColor = System.Drawing.SystemColors.Control;
-            this.fLPDetalleProducto.Controls.Add(this.PDetalleProdcuto);
-            this.fLPDetalleProducto.Dock = System.Windows.Forms.DockStyle.Top;
-            this.fLPDetalleProducto.Location = new System.Drawing.Point(0, 29);
-            this.fLPDetalleProducto.Name = "fLPDetalleProducto";
-            this.fLPDetalleProducto.Size = new System.Drawing.Size(1278, 66);
-            this.fLPDetalleProducto.TabIndex = 36;
-            this.fLPDetalleProducto.Paint += new System.Windows.Forms.PaintEventHandler(this.fLPDetalleProducto_Paint);
-            // 
-            // fLPContenidoProducto
-            // 
-            this.fLPContenidoProducto.BackColor = System.Drawing.SystemColors.Control;
-            this.fLPContenidoProducto.Controls.Add(this.PConteidoProducto);
-            this.fLPContenidoProducto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPContenidoProducto.Location = new System.Drawing.Point(0, 862);
-            this.fLPContenidoProducto.Name = "fLPContenidoProducto";
-            this.fLPContenidoProducto.Size = new System.Drawing.Size(870, 62);
-            this.fLPContenidoProducto.TabIndex = 37;
-            // 
-            // fLPDetalle
-            // 
-            this.fLPDetalle.BackColor = System.Drawing.SystemColors.Control;
-            this.fLPDetalle.Controls.Add(this.PDetalle);
-            this.fLPDetalle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.fLPDetalle.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPDetalle.Location = new System.Drawing.Point(0, 95);
-            this.fLPDetalle.Name = "fLPDetalle";
-            this.fLPDetalle.Size = new System.Drawing.Size(1278, 210);
-            this.fLPDetalle.TabIndex = 38;
-            // 
-            // fLPAccion
-            // 
-            this.fLPAccion.BackColor = System.Drawing.SystemColors.Control;
-            this.fLPAccion.Controls.Add(this.PAccion);
-            this.fLPAccion.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPAccion.Location = new System.Drawing.Point(0, 581);
-            this.fLPAccion.Name = "fLPAccion";
-            this.fLPAccion.Size = new System.Drawing.Size(993, 87);
-            this.fLPAccion.TabIndex = 40;
-            // 
-            // fLPDetallesProducto
-            // 
-            this.fLPDetallesProducto.BackColor = System.Drawing.SystemColors.Control;
-            this.fLPDetallesProducto.Controls.Add(this.groupBox2);
-            this.fLPDetallesProducto.Dock = System.Windows.Forms.DockStyle.Top;
-            this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 305);
-            this.fLPDetallesProducto.Name = "fLPDetallesProducto";
-            this.fLPDetallesProducto.Size = new System.Drawing.Size(1278, 270);
-            this.fLPDetallesProducto.TabIndex = 39;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.lblMsgSinSelecDetalles);
-            this.groupBox2.Controls.Add(this.flowLayoutPanel3);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(3, 3);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(867, 262);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = " Detalles ";
-            this.groupBox2.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBox2_Paint);
-            // 
-            // lblMsgSinSelecDetalles
-            // 
-            this.lblMsgSinSelecDetalles.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMsgSinSelecDetalles.Location = new System.Drawing.Point(15, 23);
-            this.lblMsgSinSelecDetalles.Name = "lblMsgSinSelecDetalles";
-            this.lblMsgSinSelecDetalles.Size = new System.Drawing.Size(835, 23);
-            this.lblMsgSinSelecDetalles.TabIndex = 3;
-            this.lblMsgSinSelecDetalles.Text = resources.GetString("lblMsgSinSelecDetalles.Text");
-            this.lblMsgSinSelecDetalles.Visible = false;
-            // 
-            // flowLayoutPanel3
-            // 
-            this.flowLayoutPanel3.AutoScroll = true;
-            this.flowLayoutPanel3.BackColor = System.Drawing.SystemColors.Control;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(4, 45);
-            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(858, 212);
-            this.flowLayoutPanel3.TabIndex = 1;
-            // 
-            // errorProvAgregarEditarProducto
-            // 
-            this.errorProvAgregarEditarProducto.ContainerControl = this;
-            this.errorProvAgregarEditarProducto.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvAgregarEditarProducto.Icon")));
-            // 
-            // toolTip1
-            // 
-            this.toolTip1.IsBalloon = true;
-            // 
             // btnMensajeVenta
             // 
             this.btnMensajeVenta.BackColor = System.Drawing.Color.Crimson;
@@ -1013,6 +885,20 @@
             this.btnDetalleProducto.UseVisualStyleBackColor = false;
             this.btnDetalleProducto.Click += new System.EventHandler(this.botonRedondo2_Click);
             // 
+            // btnProdUpdate
+            // 
+            this.btnProdUpdate.BackColor = System.Drawing.Color.Teal;
+            this.btnProdUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProdUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.btnProdUpdate.Location = new System.Drawing.Point(163, 36);
+            this.btnProdUpdate.Name = "btnProdUpdate";
+            this.btnProdUpdate.Size = new System.Drawing.Size(180, 28);
+            this.btnProdUpdate.TabIndex = 20;
+            this.btnProdUpdate.Text = "Actualizar Producto";
+            this.btnProdUpdate.UseVisualStyleBackColor = false;
+            this.btnProdUpdate.Visible = false;
+            this.btnProdUpdate.Click += new System.EventHandler(this.btnProdUpdate_Click);
+            // 
             // btnDetalleFacturacion
             // 
             this.btnDetalleFacturacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(153)))), ((int)(((byte)(191)))));
@@ -1057,12 +943,126 @@
             this.btnGuardarProducto.UseVisualStyleBackColor = false;
             this.btnGuardarProducto.Click += new System.EventHandler(this.botonRedondo5_Click);
             // 
+            // PType
+            // 
+            this.PType.Controls.Add(this.chkBoxConProductos);
+            this.PType.Controls.Add(this.label10);
+            this.PType.Controls.Add(this.PTypeAndCantProd);
+            this.PType.Controls.Add(this.cbTipo);
+            this.PType.Location = new System.Drawing.Point(3, 3);
+            this.PType.Name = "PType";
+            this.PType.Size = new System.Drawing.Size(838, 23);
+            this.PType.TabIndex = 34;
+            // 
+            // fLPType
+            // 
+            this.fLPType.Controls.Add(this.PType);
+            this.fLPType.Dock = System.Windows.Forms.DockStyle.Top;
+            this.fLPType.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.fLPType.Location = new System.Drawing.Point(0, 0);
+            this.fLPType.Name = "fLPType";
+            this.fLPType.Size = new System.Drawing.Size(1295, 29);
+            this.fLPType.TabIndex = 35;
+            // 
+            // fLPDetalleProducto
+            // 
+            this.fLPDetalleProducto.BackColor = System.Drawing.SystemColors.Control;
+            this.fLPDetalleProducto.Controls.Add(this.PDetalleProdcuto);
+            this.fLPDetalleProducto.Dock = System.Windows.Forms.DockStyle.Top;
+            this.fLPDetalleProducto.Location = new System.Drawing.Point(0, 29);
+            this.fLPDetalleProducto.Name = "fLPDetalleProducto";
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(1295, 66);
+            this.fLPDetalleProducto.TabIndex = 36;
+            this.fLPDetalleProducto.Paint += new System.Windows.Forms.PaintEventHandler(this.fLPDetalleProducto_Paint);
+            // 
+            // fLPContenidoProducto
+            // 
+            this.fLPContenidoProducto.BackColor = System.Drawing.SystemColors.Control;
+            this.fLPContenidoProducto.Controls.Add(this.PConteidoProducto);
+            this.fLPContenidoProducto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.fLPContenidoProducto.Location = new System.Drawing.Point(0, 862);
+            this.fLPContenidoProducto.Name = "fLPContenidoProducto";
+            this.fLPContenidoProducto.Size = new System.Drawing.Size(870, 62);
+            this.fLPContenidoProducto.TabIndex = 37;
+            // 
+            // fLPDetalle
+            // 
+            this.fLPDetalle.BackColor = System.Drawing.SystemColors.Control;
+            this.fLPDetalle.Controls.Add(this.PDetalle);
+            this.fLPDetalle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.fLPDetalle.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.fLPDetalle.Location = new System.Drawing.Point(0, 95);
+            this.fLPDetalle.Name = "fLPDetalle";
+            this.fLPDetalle.Size = new System.Drawing.Size(1295, 210);
+            this.fLPDetalle.TabIndex = 38;
+            // 
+            // fLPAccion
+            // 
+            this.fLPAccion.BackColor = System.Drawing.SystemColors.Control;
+            this.fLPAccion.Controls.Add(this.PAccion);
+            this.fLPAccion.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.fLPAccion.Location = new System.Drawing.Point(0, 581);
+            this.fLPAccion.Name = "fLPAccion";
+            this.fLPAccion.Size = new System.Drawing.Size(993, 87);
+            this.fLPAccion.TabIndex = 40;
+            // 
+            // fLPDetallesProducto
+            // 
+            this.fLPDetallesProducto.BackColor = System.Drawing.SystemColors.Control;
+            this.fLPDetallesProducto.Controls.Add(this.groupBox2);
+            this.fLPDetallesProducto.Dock = System.Windows.Forms.DockStyle.Top;
+            this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 305);
+            this.fLPDetallesProducto.Name = "fLPDetallesProducto";
+            this.fLPDetallesProducto.Size = new System.Drawing.Size(1295, 270);
+            this.fLPDetallesProducto.TabIndex = 39;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.lblMsgSinSelecDetalles);
+            this.groupBox2.Controls.Add(this.flowLayoutPanel3);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(3, 3);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(867, 262);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = " Detalles ";
+            this.groupBox2.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBox2_Paint);
+            // 
+            // lblMsgSinSelecDetalles
+            // 
+            this.lblMsgSinSelecDetalles.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMsgSinSelecDetalles.Location = new System.Drawing.Point(15, 23);
+            this.lblMsgSinSelecDetalles.Name = "lblMsgSinSelecDetalles";
+            this.lblMsgSinSelecDetalles.Size = new System.Drawing.Size(835, 23);
+            this.lblMsgSinSelecDetalles.TabIndex = 3;
+            this.lblMsgSinSelecDetalles.Text = resources.GetString("lblMsgSinSelecDetalles.Text");
+            this.lblMsgSinSelecDetalles.Visible = false;
+            // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.AutoScroll = true;
+            this.flowLayoutPanel3.BackColor = System.Drawing.SystemColors.Control;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(4, 45);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(858, 212);
+            this.flowLayoutPanel3.TabIndex = 1;
+            // 
+            // errorProvAgregarEditarProducto
+            // 
+            this.errorProvAgregarEditarProducto.ContainerControl = this;
+            this.errorProvAgregarEditarProducto.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvAgregarEditarProducto.Icon")));
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            // 
             // AgregarEditarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1295, 680);
+            this.ClientSize = new System.Drawing.Size(1312, 680);
             this.Controls.Add(this.fLPContenidoProducto);
             this.Controls.Add(this.fLPDetallesProducto);
             this.Controls.Add(this.fLPAccion);

@@ -8995,21 +8995,29 @@ namespace PuntoDeVentaV2
                     string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     string buscar = null;
                     buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{CBNombProd}' AND ID = '{CBIdProd}' AND IDUsuario = '{FormPrincipal.userID}'";
+                    AsignarCantidadProdACombo FormCantidad = new AsignarCantidadProdACombo();
 
                     using (dtProductos = cn.CargarDatos(buscar))
                     {
-                        if (!dtProductos.Rows.Count.Equals(0))
+                        FormCantidad.FormClosed += delegate
                         {
-                            DataRow row = dtProductos.Rows[0];
-                            prodSerPaq += fech + "|";
-                            prodSerPaq += idEditarProducto + "|";
-                            prodSerPaq += row["ID"].ToString() + "|";
-                            prodSerPaq += row["Nombre"].ToString() + "|";
-                            prodSerPaq += txtCantPaqServ.Text;
+                            if (!dtProductos.Rows.Count.Equals(0))
+                            {
+                                DataRow row = dtProductos.Rows[0];
+                                prodSerPaq += fech + "|";
+                                prodSerPaq += idEditarProducto + "|";
+                                prodSerPaq += row["ID"].ToString() + "|";
+                                prodSerPaq += row["Nombre"].ToString() + "|";
+                                prodSerPaq += FormCantidad.cantidadAsigarAlCombo.ToString();
 
-                            ProductosDeServicios.Add(prodSerPaq);
-                            prodSerPaq = null;
-                        }
+                                if (FormCantidad.cancelar == 0)
+                                {
+                                    ProductosDeServicios.Add(prodSerPaq);
+                                    prodSerPaq = null;
+                                }
+                            }
+                        };
+                        FormCantidad.ShowDialog();
                     }
                     //btnAdd.Visible = true;
                     CargarDatos();
@@ -9064,43 +9072,6 @@ namespace PuntoDeVentaV2
                 }
                 else if (this.Text.Trim().Equals("EDITAR PRODUCTO") && DatosSourceFinal.Equals(2))
                 {
-                    //using (DataTable dtDatosComboServicio = cn.CargarDatos(cs.getDatosServCombo(CBIdProd)))
-                    //{
-                    //    string fechaServCombo = string.Empty,
-                    //            idServCombo = string.Empty,
-                    //            cantidadServCombo = string.Empty,
-                    //            idProducto = string.Empty,
-                    //            nombreProducto = string.Empty;
-
-                    //    if (!dtDatosComboServicio.Rows.Count.Equals(0))
-                    //    {
-                    //        foreach (DataRow drComboServ in dtDatosComboServicio.Rows)
-                    //        {
-                    //            fechaServCombo = drComboServ["Fecha"].ToString();
-                    //            idServCombo = drComboServ["IDServicio"].ToString();
-                    //            cantidadServCombo = drComboServ["Cantidad"].ToString();
-                    //        }
-
-                    //        using (DataTable dtDatosProductos = cn.CargarDatos(cs.getDatosProducto(idEditarProducto)))
-                    //        {
-                    //            if (!dtDatosProductos.Rows.Count.Equals(0))
-                    //            {
-                    //                foreach (DataRow drProducto in dtDatosProductos.Rows)
-                    //                {
-                    //                    idProducto = drProducto["ID"].ToString();
-                    //                    nombreProducto = drProducto["Nombre"].ToString();
-                    //                }
-                    //            }
-                    //        }
-                    //    }
-                    //    if (dtDatosComboServicio.Rows.Count.Equals(0))
-                    //    {
-                    //        fechaServCombo = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss tt");
-                    //        idServCombo = CBIdProd;
-                    //        cantidadServCombo = "1.00";
-                    //    }
-                    //    listaProductoToCombo.Add(fechaServCombo + "|" + idServCombo + "|" + idProducto + "|" + nombreProducto + "|" + cantidadServCombo);
-                    //}
                     string prodSerPaq = null;
                     DataTable dtComboServicio;
                     string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
