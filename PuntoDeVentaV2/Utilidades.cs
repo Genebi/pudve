@@ -542,7 +542,7 @@ namespace PuntoDeVentaV2
                         <hr>
                         {producto}
                          <hr>
-                        <p style='font-size: 0.9em;'>
+                        <p style='font-size: 1 em;'>
                             <span>NOTA:El stock de los productos fue modificado desde {origen} por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> <span style='color: red;'> Fecha de Modificación: {DateTime.Now}</span></span></p></div>";
                     }
                    

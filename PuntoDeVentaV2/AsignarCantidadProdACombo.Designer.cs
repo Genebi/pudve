@@ -120,11 +120,10 @@ namespace PuntoDeVentaV2
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "AsignarCantidadProdACombo";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AsignarCantidadProdACombo";
             this.Load += new System.EventHandler(this.AsignarCantidadProdACombo_Load);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
