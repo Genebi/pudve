@@ -139,6 +139,7 @@
             this.DGVStockProductos.RowTemplate.Height = 24;
             this.DGVStockProductos.Size = new System.Drawing.Size(934, 457);
             this.DGVStockProductos.TabIndex = 0;
+            
             this.DGVStockProductos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVStockProductos_CellDoubleClick);
             this.DGVStockProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVStockProductos_KeyDown);
             // 
