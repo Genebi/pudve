@@ -3919,5 +3919,12 @@ namespace PuntoDeVentaV2
             return consulta;
 
         }
+
+        public string verificarLaVentaSiTieneAnticiposAplicados(int idVenta)
+        {
+            var consulta = $"SELECT ID, Importe, Concepto, Cliente, FormaPago, IDVenta, IDUsuario FROM anticipos WHERE IDUsuario = '{FormPrincipal.userID}' AND IDVenta = '{idVenta}'";
+
+            return consulta;
+        }
     }
 }  

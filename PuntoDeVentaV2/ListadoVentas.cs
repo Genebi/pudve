@@ -1442,9 +1442,20 @@ namespace PuntoDeVentaV2
                                 if (Folio.Equals("0"))
                                 {
                                     MessageBox.Show($"En esta operación se realizo la apertura de la Caja\nRealizada por el Usuario: {item["Usuario"].ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                                     return;
                                 }
                             }
+                        }
+                    }
+
+                    using (DataTable dtVerificarSiTieneAnticiposAplicadosLaVenta = cn.CargarDatos(cs.verificarLaVentaSiTieneAnticiposAplicados(idVenta)))
+                    {
+                        if (!dtVerificarSiTieneAnticiposAplicadosLaVenta.Rows.Count.Equals(0))
+                        {
+                            MessageBox.Show("Por el momento no se puede realizar la cancelación\nde ventas con anticipos; nos encontramos trabajando en ello,\na la brevedad posible se implementará la mejora.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                            return;
                         }
                     }
 
@@ -1900,9 +1911,8 @@ namespace PuntoDeVentaV2
                                             else
                                             {
                                                 string[] datos = new string[] {
-                                                        "retiro", total1, "0", conceptoCredito, fechaOperacion1, FormPrincipal.userID.ToString(),
-                                                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, anticipo1,FormPrincipal.id_empleado.ToString()
-                                                    };
+                                                    "retiro", total1, "0", conceptoCredito, fechaOperacion1, FormPrincipal.userID.ToString(), efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, anticipo1, FormPrincipal.id_empleado.ToString()
+                                                };
                                                 cn.EjecutarConsulta(cs.OperacionCaja(datos));
                                                 //string[] datos = new string[]
                                                 //        {
@@ -2023,7 +2033,6 @@ namespace PuntoDeVentaV2
                                         }
                                     }
 
-
                                     if (d_prod_venta.Rows.Count > 0)
                                     {
                                         //    foreach (DataRow prods in d_prod_venta.Rows)
@@ -2080,9 +2089,8 @@ namespace PuntoDeVentaV2
                                             if (!DevolverAnticipo.ventaCanceladaCredito.Equals(true))
                                             {
                                                 string[] datos = new string[] {
-                                                        "retiro", total1, "0", conceptoCreditoC, fechaOperacion1, FormPrincipal.userID.ToString(),
-                                                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0",FormPrincipal.id_empleado.ToString()
-                                                    };
+                                                    "retiro", total1, "0", conceptoCreditoC, fechaOperacion1, FormPrincipal.userID.ToString(), efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1 /*"0.00"*/, /*anticipo*/ "0", FormPrincipal.id_empleado.ToString()
+                                                };
                                                 cn.EjecutarConsulta(cs.OperacionCaja(datos));
                                             } 
                                         }
