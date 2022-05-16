@@ -3623,6 +3623,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string AbonosCreditoDesdeUltimoCorteRealizadoTodos(string ultimaFechaDeCorte)
+        {
+            var consulta = $"SELECT IF ( SUM( Abono.Efectivo ) IS NULL, 0, SUM( Abono.Efectivo ) ) AS 'Efectivo', IF ( SUM( Abono.Tarjeta ) IS NULL, 0, SUM( Abono.Tarjeta ) ) AS 'Tarjeta', IF ( SUM( Abono.Vales ) IS NULL, 0, SUM( Abono.Vales ) ) AS 'Vales', IF ( SUM( Abono.Cheque ) IS NULL, 0, SUM( Abono.Cheque ) ) AS 'Cheque', IF ( SUM( Abono.Transferencia ) IS NULL, 0, SUM( Abono.Transferencia ) ) AS 'Transferencia', ( IF ( SUM( Abono.Efectivo ) IS NULL, 0, SUM( Abono.Efectivo ) ) + IF ( SUM( Abono.Tarjeta ) IS NULL, 0, SUM( Abono.Tarjeta ) ) + IF ( SUM( Abono.Vales ) IS NULL, 0, SUM( Abono.Vales ) ) + IF ( SUM( Abono.Cheque ) IS NULL, 0, SUM( Abono.Cheque ) ) + IF ( SUM( Abono.Transferencia ) IS NULL, 0, SUM( Abono.Transferencia ) ) ) AS 'Total' FROM Abonos AS Abono INNER JOIN ventas AS Vent ON ( Vent.ID = Abono.IDVenta ) WHERE Abono.IDUsuario = '{FormPrincipal.userID}' AND Vent.`Status` = '4' AND Abono.FechaOperacion > '{ultimaFechaDeCorte}'";
+
+            return consulta;
+        }
+
         public string cargarIDInicialDeAbonos(string ultimaFechaDeCorte)
         {
             var consulta = $"SELECT ID FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{ultimaFechaDeCorte}' ORDER BY ID ASC LIMIT 1";

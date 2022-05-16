@@ -413,7 +413,7 @@ namespace PuntoDeVentaV2
                 {
                     if (!string.IsNullOrWhiteSpace(fechaFormateadaCorteParaAbonos))
                     {
-                        using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoTodos(fechaFormateadaCorteParaAbonos)))
+                        using (DataTable dtAbonos = cn.CargarDatos(cs.AbonosCreditoDesdeUltimoCorteRealizadoTodos(fechaFormateadaCorteParaAbonos)))
                         {
                             if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Count.Equals(0))
                             {
@@ -6027,7 +6027,7 @@ namespace PuntoDeVentaV2
 
                                             if (cantidadCreditoResultadoBaseDeDatos > 0)
                                             {
-                                                cantidadCreditoVentaTodos += cantidadCreditoResultadoBaseDeDatos - totalAbonoRealizado;
+                                                cantidadCreditoVentaTodos += cantidadCreditoResultadoBaseDeDatos;
                                             }
                                             else if (cantidadCreditoResultadoBaseDeDatos.Equals(0))
                                             {
@@ -6050,7 +6050,7 @@ namespace PuntoDeVentaV2
                                         lbTVales.Text = cantidadValesVentaTodos.ToString("C2");
                                         lbTCheque.Text = cantidadChequeVentaTodos.ToString("C2");
                                         lbTTrans.Text = cantidadTransferenciaVentaTodos.ToString("C2");
-                                        lbTCredito.Text = cantidadCreditoVentaTodos.ToString("C2");
+                                        lbTCredito.Text = (cantidadCreditoVentaTodos - totalAbonoRealizado).ToString("C2");
                                         //lbTCreditoC.Text = cantidadAbonosVentaTodos.ToString("C2");
                                         lbTAnticipos.Text = cantidadAnticiposVentaTodos.ToString("C2");
                                         lbTVentas.Text = cantidadTotalVentasVentaTodos.ToString("C2");
