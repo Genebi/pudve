@@ -92,6 +92,10 @@ namespace PuntoDeVentaV2
 
         public List<string> listaServCombo = new List<string>();
         public List<string> listaProd = new List<string>();
+        public List<string> conteo = new List<string>();
+
+
+        public static int idProdPintar;
 
         #region Sección de variables globales
         // Variables de tipo String
@@ -173,8 +177,35 @@ namespace PuntoDeVentaV2
             //CargarDataGridView();
             // Llamamos el metodo consultadoDesdeListProd
             consultadoDesdeListProd = 0;
+            RelacionProductoServicioCombo();
 
-            if (listaProd.Count>0)
+            //var idServ = Convert.ToInt32(DGVStockProductos[0, numfila].Value.ToString());
+            if (!AgregarEditarProducto.ProductosDeServicios.Count.Equals(0))
+            {
+                foreach (var item in AgregarEditarProducto.ProductosDeServicios)
+                {
+                    var claves = item.Split('|');
+                    var idpdroducto = claves[2].ToString();
+                    if (!string.IsNullOrWhiteSpace(idpdroducto))
+                    {
+                        foreach (DataGridViewRow ListaProducto in DGVStockProductos.Rows)
+                        {
+                            string fila = ListaProducto.Cells[0].RowIndex.ToString();
+                            var productoDGV = ListaProducto.Cells["ID"].Value.ToString();
+                            if (productoDGV.Equals(idpdroducto))
+                            {
+                                DGVStockProductos.Rows[Convert.ToInt32(fila)].DefaultCellStyle.BackColor = Color.Gray;
+                            }
+                        }
+                    }
+                   
+                }
+            }
+        }
+
+        private void RelacionProductoServicioCombo()
+        {
+            if (listaProd.Count > 0)
             {
                 foreach (var item in listaProd)
                 {
@@ -191,7 +222,7 @@ namespace PuntoDeVentaV2
                                 DGVStockProductos.Rows[Convert.ToInt32(strFila)].DefaultCellStyle.BackColor = Color.Gray;
                             }
                         }
-                        
+
                         //mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
                     }
                 }
@@ -200,19 +231,19 @@ namespace PuntoDeVentaV2
             if (DatosSourceFinal.Equals(2))
             {
                 var tipo = string.Empty;
-                if (idProdEdit>0)
+                if (idProdEdit > 0)
                 {
                     using (DataTable dtTipoProducto = cn.CargarDatos($"SELECT Tipo FROM productos WHERE ID = {idProdEdit}"))
                     {
                         if (!dtTipoProducto.Rows.Count.Equals(0))
                         {
-                             tipo = dtTipoProducto.Rows[0]["Tipo"].ToString();
+                            tipo = dtTipoProducto.Rows[0]["Tipo"].ToString();
                         }
                     }
                 }
                 if (tipo.Equals("PQ") || tipo.Equals("S"))  // cuando es Editar Productos
                 {
-                    int producto =0 ;
+                    int producto = 0;
                     using (DataTable dtRelacionProdComboServ = cn.CargarDatos(cs.ChecarSiHayRelacion(idProdEdit)))
                     {
                         if (!dtRelacionProdComboServ.Rows.Count.Equals(0))
@@ -235,7 +266,7 @@ namespace PuntoDeVentaV2
                                         }
                                     }
                                 }
-                            }                                                                        
+                            }
                         }
                     }
                     if (!AgregarEditarProducto.listaProductoToCombo.Count.Equals(0))
@@ -245,10 +276,7 @@ namespace PuntoDeVentaV2
                             var claves = item.Split('|');
                             if (claves[2].Equals(Convert.ToString(producto)))
                             {
-                                DGVStockProductos.Rows[idProdEdit].DefaultCellStyle.BackColor = Color.Yellow;
-                                mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
-
-                                //MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 return;
                             }
                         }
@@ -282,6 +310,7 @@ namespace PuntoDeVentaV2
                 txtBoxSearchProd.Focus();
                 txtBoxSearchProd.SelectAll();
             }
+            RelacionProductoServicioCombo();
         }
 
         private void BuscarProductos()
@@ -478,6 +507,7 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+            RelacionProductoServicioCombo();
         }
 
         private void btnAnterior_Click(object sender, EventArgs e)
@@ -486,6 +516,7 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+            RelacionProductoServicioCombo();
         }
 
         private void linkLblPaginaAnterior_Click(object sender, EventArgs e)
@@ -494,11 +525,13 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+            RelacionProductoServicioCombo();
         }
 
         private void linkLblPaginaActual_Click(object sender, EventArgs e)
         {
             actualizar();
+            RelacionProductoServicioCombo();
         }
 
         private void linkLblPaginaSiguiente_Click(object sender, EventArgs e)
@@ -507,6 +540,7 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+            RelacionProductoServicioCombo();
         }
 
         private void btnSiguiente_Click(object sender, EventArgs e)
@@ -515,6 +549,7 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+            RelacionProductoServicioCombo();
         }
 
         private void btnUltimaPagina_Click(object sender, EventArgs e)
@@ -523,6 +558,7 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+            RelacionProductoServicioCombo();
         }
 
         private void txtMaximoPorPagina_Click(object sender, EventArgs e)
@@ -531,6 +567,7 @@ namespace PuntoDeVentaV2
             p.actualizarTope(maximo_x_pagina);
             CargarDatos();
             actualizar();
+            RelacionProductoServicioCombo();
         }
 
         private void txtMaximoPorPagina_KeyPress(object sender, KeyPressEventArgs e)
@@ -735,8 +772,12 @@ namespace PuntoDeVentaV2
 
         private void DGVStockProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+
+
+
             // variable para poder saber que fila fue la seleccionada
             numfila = DGVStockProductos.CurrentRow.Index;
+            DGVStockProductos.Rows[Convert.ToInt32(numfila)].DefaultCellStyle.BackColor = Color.Gray;
 
             if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
             {
@@ -755,10 +796,7 @@ namespace PuntoDeVentaV2
 
                         if (IDServicio.Equals(idServ))
                         {
-                            DGVStockProductos.Rows[idProdEdit].DefaultCellStyle.BackColor = Color.Yellow;
-                            mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
-                           
-                            //MessageBox.Show("La relación ya existe para este producto, combo ó servicio", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("La relación ya existe para este producto, combo ó servicio", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
                         }
                     }
@@ -800,10 +838,7 @@ namespace PuntoDeVentaV2
                                 {
                                     if (drRelacion["IDServicio"].Equals(idServ))
                                     {
-                                        DGVStockProductos.Rows[idProdEdit].DefaultCellStyle.BackColor = Color.Yellow;
-                                        mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
-                                        
-                                        //MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                         return;
                                     }
                                 }
@@ -816,10 +851,8 @@ namespace PuntoDeVentaV2
                                 var claves = item.Split('|');
                                 if (claves[2].Equals(Convert.ToString(idServ)))
                                 {
-                                    DGVStockProductos.Rows[idProdEdit].DefaultCellStyle.BackColor = Color.Yellow;
-                                    mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
-                                    
-                                    //MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                   
+                                    MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     return;
                                 }
                             }
@@ -828,6 +861,7 @@ namespace PuntoDeVentaV2
                     if (typeStockFinal.Equals("Productos"))
                     {
                         var idServ = Convert.ToInt32(DGVStockProductos[0, numfila].Value.ToString());
+                        idProdPintar = idServ;                        
                         using (DataTable dtRelacionProdComboServ = cn.CargarDatos(cs.checarSiExisteRelacionComboServ(idProdEdit, idServ)))
                         {
                             if (!dtRelacionProdComboServ.Rows.Count.Equals(0))
@@ -837,10 +871,7 @@ namespace PuntoDeVentaV2
                                     var idProducto = Convert.ToInt32(drRelacion["IDProducto"].ToString());
                                     if (idProducto.Equals(idServ))
                                     {
-                                        DGVStockProductos.Rows[idProdEdit].DefaultCellStyle.BackColor = Color.Yellow;
-                                        mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
-                                        
-                                        //MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                     MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                         return;
                                     }
                                 }
@@ -852,11 +883,8 @@ namespace PuntoDeVentaV2
                             {
                                 var claves = item.Split('|');
                                 if (claves[2].Equals(Convert.ToString(idServ)))
-                                {
-                                    DGVStockProductos.Rows[idProdEdit].DefaultCellStyle.BackColor = Color.Yellow;
-                                    mensajeDeRelacionConImagenParaElUsuario(mensajeMessageBox, tituloMessageBox);
-                                    
-                                    //MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                {                                
+                                   MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     return;
                                 }
                             }
@@ -967,6 +995,8 @@ namespace PuntoDeVentaV2
             }
         }
 
+      
+
         private void mensajeDeRelacionConImagenParaElUsuario(string mensajeMessageBox, string tituloMessageBox)
         {
             //MessageBox.Show("Ruta Directorio:\n\n" + Properties.Settings.Default.rutaDirectorio + "\n" + Properties.Settings.Default.pathPUDVE);
@@ -981,8 +1011,6 @@ namespace PuntoDeVentaV2
             const int Smiley = 104;
            
             MessageBoxIndirect mb = new MessageBoxIndirect(this, mensajeMessageBox, tituloMessageBox);
-           
-
 
             // Cargue el icono de la DLL de recursos que cargamos.
             mb.Instance = hWin32Resources;

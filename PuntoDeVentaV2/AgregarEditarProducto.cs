@@ -9009,7 +9009,13 @@ namespace PuntoDeVentaV2
                                 prodSerPaq += row["ID"].ToString() + "|";
                                 prodSerPaq += row["Nombre"].ToString() + "|";
                                 prodSerPaq += FormCantidad.cantidadAsigarAlCombo.ToString();
+                               
+                                    //foreach (DataGridViewRow item in DGVStockProductos.Rows)
+                                    //{
+                                    //    var idproddgv = item.Cells["ID"].Value.ToString();
 
+                                    //}
+                               
                                 if (FormCantidad.cancelar == 0)
                                 {
                                     ProductosDeServicios.Add(prodSerPaq);

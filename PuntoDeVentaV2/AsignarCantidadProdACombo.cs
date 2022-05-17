@@ -12,6 +12,7 @@ namespace PuntoDeVentaV2
 {
     public partial class AsignarCantidadProdACombo : Form
     {
+        public string ListProd;
         decimal cantidadDeProducto = 0;
         public decimal cantidadAsigarAlCombo;
         public int cancelar = 1;
@@ -27,6 +28,7 @@ namespace PuntoDeVentaV2
             {
                 cantidadDeProducto = Convert.ToDecimal(txtCantidad.Text);
                 cantidadAsigarAlCombo = decimal.Round(cantidadDeProducto, 2);
+                ListProd = ListaProductos.idProdPintar.ToString();
                 this.Close();
             }
             else
