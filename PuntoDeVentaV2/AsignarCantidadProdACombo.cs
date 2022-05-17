@@ -23,7 +23,7 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            cancelar = 0;
+            cancelar = 0;            
             if (!string.IsNullOrWhiteSpace(txtCantidad.Text))
             {
                 cantidadDeProducto = Convert.ToDecimal(txtCantidad.Text);
@@ -33,7 +33,8 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                MessageBox.Show("Favor de ingresar una cantidad");
+                cancelar = 1;
+                MessageBox.Show("Favor de ingresar una cantidad","Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             
         }
@@ -47,7 +48,7 @@ namespace PuntoDeVentaV2
         private void AsignarCantidadProdACombo_Load(object sender, EventArgs e)
         {
             txtCantidad.SelectAll();
-
+            txtCantidad.Focus();
         }
 
         private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e)
@@ -61,6 +62,31 @@ namespace PuntoDeVentaV2
             if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void txtCantidad_TextChanged(object sender, EventArgs e)
+        {
+            if (txtCantidad.Text.Equals(""))
+            {
+                txtCantidad.Text = "1";
+                txtCantidad.SelectAll();
+                txtCantidad.Focus();
+            }
+            else if (Convert.ToDecimal(txtCantidad.Text)<1)
+            {
+                txtCantidad.Text = "1";
+                txtCantidad.SelectAll();
+                txtCantidad.Focus();
+            }
+            
+        }
+
+        private void AsignarCantidadProdACombo_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
             }
         }
     }

@@ -46,7 +46,7 @@ namespace PuntoDeVentaV2
             this.label1.Location = new System.Drawing.Point(8, 23);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(417, 18);
-            this.label1.TabIndex = 9;
+            this.label1.TabIndex = 1;
             this.label1.Text = "Ingrese la cantidad de producto para asignar al combo";
             // 
             // panel3
@@ -56,7 +56,7 @@ namespace PuntoDeVentaV2
             this.panel3.Location = new System.Drawing.Point(13, 49);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(409, 51);
-            this.panel3.TabIndex = 8;
+            this.panel3.TabIndex = 0;
             // 
             // txtCantidad
             // 
@@ -65,6 +65,7 @@ namespace PuntoDeVentaV2
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(395, 26);
             this.txtCantidad.TabIndex = 0;
+            this.txtCantidad.TextChanged += new System.EventHandler(this.txtCantidad_TextChanged);
             this.txtCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidad_KeyPress);
             // 
             // panel2
@@ -121,10 +122,12 @@ namespace PuntoDeVentaV2
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.KeyPreview = true;
             this.Name = "AsignarCantidadProdACombo";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.AsignarCantidadProdACombo_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AsignarCantidadProdACombo_KeyDown);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
