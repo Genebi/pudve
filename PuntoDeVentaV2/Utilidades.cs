@@ -557,13 +557,12 @@ namespace PuntoDeVentaV2
             var correo = FormPrincipal.datosUsuario[9];
             var asunto = $"STOCK DE PRODUCTO {titulo}";// "Cambio de stock para producto(s)";
             var html = string.Empty;
-            string usuario = string.Empty;
 
             asunto += MetodosBusquedas.ObtenerResponsable();
 
             html = $@"
                     <div>
-                        <h3 style='text-align: center;'>STOCK DE PRODUCTO {titulo}</h3><hr>
+                        <h4 style='text-align: center;'>STOCK DE PRODUCTO {titulo}</h4><hr>
                         <ul>";
 
             foreach (var cadena in cadenas)
@@ -581,17 +580,9 @@ namespace PuntoDeVentaV2
                         {origen}, su stock <b>anterior</b> era de <span style='color: red;'>{ stockAnterior}</span>, se {operacion}
                         la cantidad de <span style='color: red;'>{stockNuevo}</span> y su stock <b>actual</b> es de <span style='color: red;'>{stockActual}</span>.</li>";
             }
-            if (FormPrincipal.userNickName.Contains("@"))
-            {
-                usuario = $"Modificado por el EMPLEADO: {FormPrincipal.userNickName}";
-            }
-            else
-            {
-                usuario = $"Modificado por el ADMINISTRADOR: {FormPrincipal.userNickName}";
-            }
-            html += $@"<hr></ul>
-                        <p style='font-size: 1em;'<b>{usuario}</b></p>
-                       <p style='font-size: 1em;'>Fecha de Modificación: <b>{DateTime.Now}</b></p>
+
+            html += $@"</ul>
+                       <p style='font-size: 0.8em;'>Fecha de Modificación: <b>{DateTime.Now}</b></p>
                    </div>";
 
             Inventario.productosAumentoDecremento.Clear();
@@ -1204,7 +1195,7 @@ namespace PuntoDeVentaV2
                     correo = string.Empty,
                     correo1 = string.Empty;
 
-            encabezadoHTML = @" <h2 style='text-align: center; color: red;'>SE CERRO LA VENTAN DE VENTAS (CON PRODUCTOS AGREGADOS)</h2><br>
+            encabezadoHTML = @" <h1 style='text-align: center; color: red;'>VENTA NO FINALIZADA EN EL SISTEMA</h1><br>
                                 <p>Registro de venta no realizada en el sistema; la siguiente lista es de productos registrados en la venta no realizada:</p>
                                 <table style='width:100%'>
                                     <tr>
@@ -1250,11 +1241,11 @@ namespace PuntoDeVentaV2
 
                 var infoEmpleado = usuarioEmpleado.Split('@');
 
-                footerCorreo = $"<p style='font-size: 1em;'>Está operación fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: red;'>fecha de {fechaSistema}</span></p>";
+                footerCorreo = $"<p style='font-size: 0.8em;'>Está operación fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: red;'>fecha de {fechaSistema}</span></p>";
             }
             else
             {
-                footerCorreo = $"<p style='font-size: 1em;'>Está operación fue realizada por el<FONT SIZE=2> <b>ADMINISTRADOR</b> </FONT> del usuario<FONT SIZE=2> <FONT SIZE=2>  <b>{FormPrincipal.userNickName}</b> </FONT> </FONT> con <span style='color: red;'>fecha de {fechaSistema}</span></p>";
+                footerCorreo = $"<p style='font-size: 0.8em;'>Está operación fue realizada por el<FONT SIZE=2> <b>ADMINISTRADOR</b> </FONT> del usuario<FONT SIZE=2> <FONT SIZE=2>  <b>{FormPrincipal.userNickName}</b> </FONT> </FONT> con <span style='color: red;'>fecha de {fechaSistema}</span></p>";
             }
 
             pieHTML = $@"           <tr>
@@ -1271,7 +1262,7 @@ namespace PuntoDeVentaV2
 
             correoHTML = encabezadoHTML + productos + pieHTML;
 
-            asunto = "SE CERRO LA VENTAN DE VENTAS (CON PRODUCTOS AGREGADOS)";
+            asunto = "Venta no realizada en el sistema (Al cerrar la ventana de ventas)";
             correo = datosUsuario[9].ToString();
             correo1 = "micorreoeshouse_1@hotmail.com";
             //correo = "genebi@outlook.com";
@@ -1537,8 +1528,8 @@ namespace PuntoDeVentaV2
                     correo = string.Empty,
                     correo1 = string.Empty;
 
-            encabezadoHTML = @" <h1 style='text-align: center; color: red;'>VENTA NO FINALIZADA (Click en botón borrar todos los productos) EN EL SISTEMA</h1><br>
-                                <p>Registro de venta no realizada en el sistema; la siguiente lista es de productos registrados en la venta no realizada:</p>
+            encabezadoHTML = @" <h2 style='text-align: center; color: red;'>VENTA NO FINALIZADA (Click en botón borrar todos los productos) EN EL SISTEMA</h2><br>
+                                <p style='font-size: 1.2em;'>Los siguientes productos fueron eliminados de carrito:</p>
                                 <table style='width:100%'>
                                     <tr>
                                         <th style = 'text-align: left;'>Cantidad</th>
@@ -1583,11 +1574,11 @@ namespace PuntoDeVentaV2
 
                 var infoEmpleado = usuarioEmpleado.Split('@');
 
-                footerCorreo = $"<p style='font-size: 0.8em;'>Está operación fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: red;'>fecha de {fechaSistema}</span></p>";
+                footerCorreo = $"<p style='font-size: 0.9em;'>Está operación fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: red;'>fecha de {fechaSistema}</span></p>";
             }
             else
             {
-                footerCorreo = $"<p style='font-size: 0.8em;'>Está operación fue realizada por el <FONT SIZE=2> <b>ADMINISTRADOR</b>  </FONT> del usuario <FONT SIZE=2> <FONT SIZE=2>  <b>{FormPrincipal.userNickName}</b> </FONT> </FONT> con <span style='color: red;'>fecha de {fechaSistema}</span></p>";
+                footerCorreo = $"<p style='font-size: 0.9em;'>Está operación fue realizada por el <FONT SIZE=2> <b>ADMINISTRADOR</b>  </FONT> del usuario <FONT SIZE=2> <FONT SIZE=2>  <b>{FormPrincipal.userNickName}</b> </FONT> </FONT> con <span style='color: red;'>fecha de {fechaSistema}</span></p>";
             }
 
             pieHTML = $@"           <tr>
@@ -1603,7 +1594,7 @@ namespace PuntoDeVentaV2
 
             correoHTML = encabezadoHTML + productos + pieHTML;
 
-            asunto = "Venta no realizada en el sistema";
+            asunto = "PRODUCTOS ELIMINADOS DEL CARRITO DE VENTAS";
             correo = datosUsuario[9].ToString();
 
             if (!correo.Equals(""))
