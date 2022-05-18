@@ -1266,15 +1266,15 @@ namespace PuntoDeVentaV2
 
                     if (status == 0)// Status = 0 busca solo en lo productos habilitaods
                     {
-                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%')");
+                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR CodigoBarras LIKE '%{palabra}%' OR ClaveInterna LIKE '%{palabra}%')");
                     }
                     else if (status == 1)// Status = 1 busca solo en lo productos deshabilitados
                     {
-                         DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 0  AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%')");
+                         DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 0  AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR CodigoBarras LIKE '%{palabra}%' OR ClaveInterna LIKE '%{palabra}%')");
                     }
                     else if (status == 2)// Status = 2 busca en todos los prodcutos 
                     {
-                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%')");
+                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR CodigoBarras LIKE '%{palabra}%' OR ClaveInterna LIKE '%{palabra}%')");
                     }
                     
 

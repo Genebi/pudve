@@ -4717,7 +4717,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} AND Nombre LIKE '%{busquedaEnProductos}%'";
+                    consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} AND Nombre LIKE '%{busquedaEnProductos}%' OR CodigoBarras LIKE '%{busquedaEnProductos}%'";
                 }
             }
                
