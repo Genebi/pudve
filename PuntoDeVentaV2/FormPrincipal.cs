@@ -1474,7 +1474,7 @@ namespace PuntoDeVentaV2
                     <p>El ingreso al sistema fue realizado el día <span style='color: red;'>{fechaOperacion}</span>
                 </div>";
 
-                asunto = $"Inicio de sesión de {infoEmpleado[0]}@{infoEmpleado[1]}";
+                asunto = $"INICIO DE SESÍON DE{infoEmpleado[0]}@{infoEmpleado[1]}";
             }
             else
             {
@@ -1483,7 +1483,7 @@ namespace PuntoDeVentaV2
                     <p>El ingreso al sistema fue realizado el día <span style='color: red;'>{fechaOperacion}</span>
                 </div>";
 
-                asunto = $"Inicio de sesión de {userNickName}";
+                asunto = $"INICIO DE SESÍON DE {userNickName}";
             }
 
             Utilidades.EnviarEmail(html, asunto, email);

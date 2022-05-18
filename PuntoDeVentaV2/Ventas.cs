@@ -7303,7 +7303,7 @@ namespace PuntoDeVentaV2
                         html += " </table>";
                         html += "<hr>";
                         html += cadenaDatos;
-                        html += $"<p style='font-size: 12px;'>La venta fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                        html += $"<p style='font-size: 14px;'>La venta fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
 
                         asunto = $"VENTA REALIZADA - {infoEmpleado[0]}@{infoEmpleado[1]}";
                         asuntoAdicional = $"Venta realizada con descuento - {infoEmpleado[0]}@{infoEmpleado[1]}";
@@ -7363,10 +7363,10 @@ namespace PuntoDeVentaV2
                         html += "</table>";
                         html += "<hr>";
                         html += cadenaDatos;
-                        html += $"<p style='font-size: 12px;'>La venta fue realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                        html += $"<p style='font-size: 14px;'>La venta fue realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
 
                         asunto = $"VENTA REALIZADA - {FormPrincipal.userNickName}";
-                        asuntoAdicional = $"Venta realizada con descuento - {FormPrincipal.userNickName}";
+                        asuntoAdicional = $"SE REALIZO VENTA CON DESCUENTO - {FormPrincipal.userNickName}";
                     }
 
                     if (correoVenta == 1 && correoDescuento == 1)
