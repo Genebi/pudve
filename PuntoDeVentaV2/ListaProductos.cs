@@ -178,8 +178,13 @@ namespace PuntoDeVentaV2
             // Llamamos el metodo consultadoDesdeListProd
             consultadoDesdeListProd = 0;
             RelacionProductoServicioCombo();
-
+            RelacionProductoServicioComboEditar();
             //var idServ = Convert.ToInt32(DGVStockProductos[0, numfila].Value.ToString());
+           
+        }
+
+        private void RelacionProductoServicioComboEditar()
+        {
             if (!AgregarEditarProducto.ProductosDeServicios.Count.Equals(0))
             {
                 foreach (var item in AgregarEditarProducto.ProductosDeServicios)
@@ -198,7 +203,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-                   
+
                 }
             }
         }
@@ -311,6 +316,7 @@ namespace PuntoDeVentaV2
                 txtBoxSearchProd.SelectAll();
             }
             RelacionProductoServicioCombo();
+            RelacionProductoServicioComboEditar();
         }
 
         private void BuscarProductos()
@@ -508,6 +514,7 @@ namespace PuntoDeVentaV2
             CargarDatos();
             actualizar();
             RelacionProductoServicioCombo();
+            RelacionProductoServicioComboEditar();
         }
 
         private void btnAnterior_Click(object sender, EventArgs e)
@@ -517,6 +524,7 @@ namespace PuntoDeVentaV2
             CargarDatos();
             actualizar();
             RelacionProductoServicioCombo();
+            RelacionProductoServicioComboEditar();
         }
 
         private void linkLblPaginaAnterior_Click(object sender, EventArgs e)
@@ -526,12 +534,14 @@ namespace PuntoDeVentaV2
             CargarDatos();
             actualizar();
             RelacionProductoServicioCombo();
+            RelacionProductoServicioComboEditar();
         }
 
         private void linkLblPaginaActual_Click(object sender, EventArgs e)
         {
             actualizar();
             RelacionProductoServicioCombo();
+            RelacionProductoServicioComboEditar();
         }
 
         private void linkLblPaginaSiguiente_Click(object sender, EventArgs e)
@@ -541,6 +551,7 @@ namespace PuntoDeVentaV2
             CargarDatos();
             actualizar();
             RelacionProductoServicioCombo();
+            RelacionProductoServicioComboEditar();
         }
 
         private void btnSiguiente_Click(object sender, EventArgs e)
@@ -550,6 +561,7 @@ namespace PuntoDeVentaV2
             CargarDatos();
             actualizar();
             RelacionProductoServicioCombo();
+            RelacionProductoServicioComboEditar();
         }
 
         private void btnUltimaPagina_Click(object sender, EventArgs e)
@@ -559,6 +571,7 @@ namespace PuntoDeVentaV2
             CargarDatos();
             actualizar();
             RelacionProductoServicioCombo();
+            RelacionProductoServicioComboEditar();
         }
 
         private void txtMaximoPorPagina_Click(object sender, EventArgs e)
@@ -568,6 +581,7 @@ namespace PuntoDeVentaV2
             CargarDatos();
             actualizar();
             RelacionProductoServicioCombo();
+            RelacionProductoServicioComboEditar();
         }
 
         private void txtMaximoPorPagina_KeyPress(object sender, KeyPressEventArgs e)
