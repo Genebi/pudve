@@ -2875,6 +2875,7 @@ namespace PuntoDeVentaV2
                                 AsignarCreditoVenta.idCliente = 0;
                                 AsignarCreditoVenta.cliente = string.Empty;
                                 ultimaVentaInformacion();
+                                panel1.Focus();
                             }
                             else
                             {
@@ -2886,13 +2887,17 @@ namespace PuntoDeVentaV2
                                 
                             }
                             noDuplicadoVentas = 0;
+                            panel1.Focus();
                         };
 
                         detalle.ShowDialog();
                         noDuplicadoVentas = 1;
+                        txtBuscadorProducto.Focus();
                     }
+                    txtBuscadorProducto.Focus();
                 }
             }
+            txtBuscadorProducto.Focus();
         }
 
         private void ultimaVentaInformacion()
@@ -2906,7 +2911,7 @@ namespace PuntoDeVentaV2
             //    CambioTotal = (float)Convert.ToDouble(item[2]);
             //}
 
-
+            
             InfoUltimaVenta ticketUltimaVenta = new InfoUltimaVenta();
             ticketUltimaVenta.ShowDialog();
         }

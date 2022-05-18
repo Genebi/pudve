@@ -191,7 +191,7 @@
             this.txtBuscadorProducto.Location = new System.Drawing.Point(94, 29);
             this.txtBuscadorProducto.Name = "txtBuscadorProducto";
             this.txtBuscadorProducto.Size = new System.Drawing.Size(790, 23);
-            this.txtBuscadorProducto.TabIndex = 41;
+            this.txtBuscadorProducto.TabIndex = 0;
             this.txtBuscadorProducto.Text = "BUSCAR PRODUCTO O SERVICIO...";
             this.txtBuscadorProducto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyDown);
             this.txtBuscadorProducto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyUp);
@@ -1187,7 +1187,7 @@
             this.btnCSV.Location = new System.Drawing.Point(383, 20);
             this.btnCSV.Name = "btnCSV";
             this.btnCSV.Size = new System.Drawing.Size(105, 40);
-            this.btnCSV.TabIndex = 0;
+            this.btnCSV.TabIndex = 50;
             this.btnCSV.Text = "Operación CSV";
             this.btnCSV.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCSV.UseVisualStyleBackColor = true;
