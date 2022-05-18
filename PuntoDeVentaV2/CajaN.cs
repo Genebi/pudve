@@ -542,7 +542,7 @@ namespace PuntoDeVentaV2
                     {
                         if (!dtHistorialCorteDeCaja.Rows.Count.Equals(0))
                         {
-                            lbSaldoInicialInfo.Visible = true;
+                            lbSaldoInicialInfo.Visible = false;
                             foreach (DataRow item in dtHistorialCorteDeCaja.Rows)
                             {
                                 fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());
@@ -609,7 +609,7 @@ namespace PuntoDeVentaV2
                             {
                                 if (!dtResultadoConcentradooHistorialCorteDeCaja.Rows.Count.Equals(0))
                                 {
-                                    lbSaldoInicialInfo.Visible = true;
+                                    lbSaldoInicialInfo.Visible = false;
                                     foreach (DataRow item in dtResultadoConcentradooHistorialCorteDeCaja.Rows)
                                     {
                                         cantidadEfectivoSaldoInicialEnCaja = cantidadTotalEfectivoEnCaja = Convert.ToDecimal(item["Efectivo"].ToString());
@@ -638,7 +638,7 @@ namespace PuntoDeVentaV2
                         {
                             if (!dtHistorialCorteDeCaja.Rows.Count.Equals(0))
                             {
-                                lbSaldoInicialInfo.Visible = true;
+                                lbSaldoInicialInfo.Visible = false;
                                 foreach (DataRow item in dtHistorialCorteDeCaja.Rows)
                                 {
                                     fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());
@@ -671,7 +671,7 @@ namespace PuntoDeVentaV2
                     {
                         if (!dtHistorialCorteDeCaja.Rows.Count.Equals(0))
                         {
-                            lbSaldoInicialInfo.Visible = true;
+                            lbSaldoInicialInfo.Visible = false;
                             foreach (DataRow item in dtHistorialCorteDeCaja.Rows)
                             {
                                 fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());
@@ -692,7 +692,7 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            lbSaldoInicialInfo.Visible = true;
+                            lbSaldoInicialInfo.Visible = false;
                             limpiarVariablesCantidadesDeCaja();
                         }
                     }
@@ -704,7 +704,7 @@ namespace PuntoDeVentaV2
                 {
                     if (!dtHistorialCorteDeCaja.Rows.Count.Equals(0))
                     {
-                        lbSaldoInicialInfo.Visible = true;
+                        lbSaldoInicialInfo.Visible = false;
                         foreach (DataRow item in dtHistorialCorteDeCaja.Rows)
                         {
                             fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());
@@ -725,7 +725,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        lbSaldoInicialInfo.Visible = true;
+                        lbSaldoInicialInfo.Visible = false;
                         limpiarVariablesCantidadesDeCaja();
                     }
                 }
@@ -5026,7 +5026,7 @@ namespace PuntoDeVentaV2
 
             if (MetodosBusquedas.totalSInicial > 0)
             {
-                lbSaldoInicialInfo.Visible = true;
+                lbSaldoInicialInfo.Visible = false;
             }
             else
             {
@@ -6071,7 +6071,7 @@ namespace PuntoDeVentaV2
                 {
                     if (!dtHistorialCorteDeCaja.Rows.Count.Equals(0))
                     {
-                        lbSaldoInicialInfo.Visible = true;
+                        lbSaldoInicialInfo.Visible = false;
                         foreach (DataRow item in dtHistorialCorteDeCaja.Rows)
                         {
                             fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());

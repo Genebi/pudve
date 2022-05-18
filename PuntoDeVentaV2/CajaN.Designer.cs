@@ -43,7 +43,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lbTRetirado = new System.Windows.Forms.Label();
             this.tlpDineroRetirado = new System.Windows.Forms.TableLayoutPanel();
-            this.label9 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.lbDevoluciones = new System.Windows.Forms.Label();
             this.lbCambioDevoluciones = new System.Windows.Forms.Label();
@@ -56,6 +55,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.lbTransferenciaR = new System.Windows.Forms.Label();
             this.lbChequeR = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lbTAnticiposC = new System.Windows.Forms.Label();
             this.lbAnticiposC = new System.Windows.Forms.Label();
@@ -96,7 +96,6 @@
             this.lbTotalCaja = new System.Windows.Forms.Label();
             this.lbTTotalCaja = new System.Windows.Forms.Label();
             this.tlpTotalEnCaja = new System.Windows.Forms.TableLayoutPanel();
-            this.lbTransC = new System.Windows.Forms.Label();
             this.lbEfectivoC = new System.Windows.Forms.Label();
             this.lbTEfectivoC = new System.Windows.Forms.Label();
             this.lbSaldoInicialInfo = new System.Windows.Forms.Label();
@@ -108,6 +107,7 @@
             this.lbChequeC = new System.Windows.Forms.Label();
             this.lbSaldoInicial = new System.Windows.Forms.Label();
             this.lbTChequeC = new System.Windows.Forms.Label();
+            this.lbTransC = new System.Windows.Forms.Label();
             this.lbTTransC = new System.Windows.Forms.Label();
             this.lbTCreditoTotal = new System.Windows.Forms.Label();
             this.lbCreditoTotal = new System.Windows.Forms.Label();
@@ -121,8 +121,6 @@
             this.lbVentas = new System.Windows.Forms.Label();
             this.lbTVentas = new System.Windows.Forms.Label();
             this.tlpVentas = new System.Windows.Forms.TableLayoutPanel();
-            this.lbAnticipos = new System.Windows.Forms.Label();
-            this.lbTrans = new System.Windows.Forms.Label();
             this.lbCambioAbonos = new System.Windows.Forms.Label();
             this.lbEfectivo = new System.Windows.Forms.Label();
             this.lbTAnticipos = new System.Windows.Forms.Label();
@@ -133,9 +131,11 @@
             this.lbTTrans = new System.Windows.Forms.Label();
             this.lbCheque = new System.Windows.Forms.Label();
             this.lbTCheque = new System.Windows.Forms.Label();
+            this.lbTrans = new System.Windows.Forms.Label();
             this.lbTVales = new System.Windows.Forms.Label();
             this.lbCredito = new System.Windows.Forms.Label();
             this.lbTTarjeta = new System.Windows.Forms.Label();
+            this.lbAnticipos = new System.Windows.Forms.Label();
             this.lbTEfectivo = new System.Windows.Forms.Label();
             this.lbTCreditoC = new System.Windows.Forms.Label();
             this.tituloVentas = new System.Windows.Forms.Label();
@@ -400,21 +400,6 @@
             this.tlpDineroRetirado.Size = new System.Drawing.Size(228, 178);
             this.tlpDineroRetirado.TabIndex = 124;
             // 
-            // label9
-            // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label9.AutoSize = true;
-            this.tlpDineroRetirado.SetColumnSpan(this.label9, 2);
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(3, 120);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(103, 30);
-            this.label9.TabIndex = 4;
-            this.label9.Text = "Transferencia";
-            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // label13
             // 
             this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -584,6 +569,21 @@
             this.lbChequeR.TabIndex = 9;
             this.lbChequeR.Text = "$0.00";
             this.lbChequeR.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.tlpDineroRetirado.SetColumnSpan(this.label9, 2);
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(3, 120);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(103, 30);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "Transferencia";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label1
             // 
@@ -1179,21 +1179,6 @@
             this.tlpTotalEnCaja.Size = new System.Drawing.Size(220, 180);
             this.tlpTotalEnCaja.TabIndex = 124;
             // 
-            // lbTransC
-            // 
-            this.lbTransC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbTransC.AutoSize = true;
-            this.tlpTotalEnCaja.SetColumnSpan(this.lbTransC, 2);
-            this.lbTransC.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTransC.Location = new System.Drawing.Point(3, 120);
-            this.lbTransC.Name = "lbTransC";
-            this.lbTransC.Size = new System.Drawing.Size(99, 30);
-            this.lbTransC.TabIndex = 4;
-            this.lbTransC.Text = "Transferencia";
-            this.lbTransC.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // lbEfectivoC
             // 
             this.lbEfectivoC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1235,7 +1220,6 @@
             this.lbSaldoInicialInfo.Size = new System.Drawing.Size(11, 30);
             this.lbSaldoInicialInfo.TabIndex = 120;
             this.toolTip1.SetToolTip(this.lbSaldoInicialInfo, "Mostrar Abonos");
-            this.lbSaldoInicialInfo.Visible = false;
             this.lbSaldoInicialInfo.Click += new System.EventHandler(this.lbSaldoInicialInfo_Click);
             // 
             // lbTSaldoInicial
@@ -1251,6 +1235,7 @@
             this.lbTSaldoInicial.TabIndex = 24;
             this.lbTSaldoInicial.Text = "$0.00";
             this.lbTSaldoInicial.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lbTSaldoInicial.Visible = false;
             // 
             // lbTarjetaC
             // 
@@ -1335,6 +1320,7 @@
             this.lbSaldoInicial.TabIndex = 23;
             this.lbSaldoInicial.Text = "Saldo inicial";
             this.lbSaldoInicial.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lbSaldoInicial.Visible = false;
             // 
             // lbTChequeC
             // 
@@ -1349,6 +1335,21 @@
             this.lbTChequeC.TabIndex = 9;
             this.lbTChequeC.Text = "$0.00";
             this.lbTChequeC.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lbTransC
+            // 
+            this.lbTransC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbTransC.AutoSize = true;
+            this.tlpTotalEnCaja.SetColumnSpan(this.lbTransC, 2);
+            this.lbTransC.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTransC.Location = new System.Drawing.Point(3, 120);
+            this.lbTransC.Name = "lbTransC";
+            this.lbTransC.Size = new System.Drawing.Size(99, 30);
+            this.lbTransC.TabIndex = 4;
+            this.lbTransC.Text = "Transferencia";
+            this.lbTransC.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbTTransC
             // 
@@ -1542,34 +1543,6 @@
             this.tlpVentas.Size = new System.Drawing.Size(229, 260);
             this.tlpVentas.TabIndex = 39;
             // 
-            // lbAnticipos
-            // 
-            this.lbAnticipos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tlpVentas.SetColumnSpan(this.lbAnticipos, 2);
-            this.lbAnticipos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAnticipos.Location = new System.Drawing.Point(3, 210);
-            this.lbAnticipos.Name = "lbAnticipos";
-            this.lbAnticipos.Size = new System.Drawing.Size(108, 50);
-            this.lbAnticipos.TabIndex = 15;
-            this.lbAnticipos.Text = "Anticipos utilizados al corte";
-            this.lbAnticipos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lbTrans
-            // 
-            this.lbTrans.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tlpVentas.SetColumnSpan(this.lbTrans, 2);
-            this.lbTrans.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTrans.Location = new System.Drawing.Point(3, 120);
-            this.lbTrans.Name = "lbTrans";
-            this.lbTrans.Size = new System.Drawing.Size(108, 30);
-            this.lbTrans.TabIndex = 4;
-            this.lbTrans.Text = "Transferencia ";
-            this.lbTrans.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // lbCambioAbonos
             // 
             this.lbCambioAbonos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1713,6 +1686,20 @@
             this.lbTCheque.Text = "$0.00";
             this.lbTCheque.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // lbTrans
+            // 
+            this.lbTrans.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tlpVentas.SetColumnSpan(this.lbTrans, 2);
+            this.lbTrans.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbTrans.Location = new System.Drawing.Point(3, 120);
+            this.lbTrans.Name = "lbTrans";
+            this.lbTrans.Size = new System.Drawing.Size(108, 30);
+            this.lbTrans.TabIndex = 4;
+            this.lbTrans.Text = "Transferencia ";
+            this.lbTrans.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // lbTVales
             // 
             this.lbTVales.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -1754,6 +1741,20 @@
             this.lbTTarjeta.TabIndex = 7;
             this.lbTTarjeta.Text = "$0.00";
             this.lbTTarjeta.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // lbAnticipos
+            // 
+            this.lbAnticipos.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tlpVentas.SetColumnSpan(this.lbAnticipos, 2);
+            this.lbAnticipos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAnticipos.Location = new System.Drawing.Point(3, 210);
+            this.lbAnticipos.Name = "lbAnticipos";
+            this.lbAnticipos.Size = new System.Drawing.Size(108, 50);
+            this.lbAnticipos.TabIndex = 15;
+            this.lbAnticipos.Text = "Anticipos utilizados al corte";
+            this.lbAnticipos.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lbTEfectivo
             // 
