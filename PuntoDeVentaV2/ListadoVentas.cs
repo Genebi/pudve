@@ -619,6 +619,14 @@ namespace PuntoDeVentaV2
                             if (estado.Equals(1)) // Ventas pagadas
                             {
                                 consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, extra);
+
+                                using (DataTable dtSeEncontroClientePorNombreRFC = cn.CargarDatos(consulta))
+                                {
+                                    if (dtSeEncontroClientePorNombreRFC.Rows.Count.Equals(0))
+                                    {
+                                        consulta = cs.VerComoDesdeOtroEmpleadoVentasPagadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                    }
+                                }
                             }
                             else if (estado.Equals(2)) // Ventas guardadas
                             {
