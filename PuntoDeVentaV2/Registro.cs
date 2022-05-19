@@ -15,6 +15,7 @@ using System.Net.NetworkInformation;
 using System.Net.Mail;
 using System.Threading;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace PuntoDeVentaV2
 {
@@ -413,13 +414,325 @@ namespace PuntoDeVentaV2
         private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)
         {
             //e.Handled = (e.KeyChar == (char)Keys.Space);
-
+           
             if (!char.IsLetter(e.KeyChar) && e.KeyChar != (char)Keys.Back && !char.IsDigit(e.KeyChar))
             {
                 MessageBox.Show("Solo se permiten letras y numeros", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 e.Handled = true;
                 return;
             }
+            
         }
+
+        private void txtUsuario_TextChanged(object sender, EventArgs e)
+        {
+            //var SinLaÑ = string.Empty;
+            //SinLaÑ = txtUsuario.Text.Replace('Ñ', 'N');
+            //txtUsuario.Text = SinLaÑ;
+
+
+            //var SinLañ = string.Empty;
+            //SinLañ = txtUsuario.Text.Replace('ñ', 'ñ');
+            //txtUsuario.Text = SinLañ;
+
+            //var AsinAcento = string.Empty;
+            //AsinAcento = txtUsuario.Text.Replace('Á', 'A');
+            //txtUsuario.Text = AsinAcento;
+
+            //var asinacento = string.Empty;
+            //asinacento = txtUsuario.Text.Replace('á', 'a');
+            //txtUsuario.Text = asinacento;
+
+            //var EsinAcento = string.Empty;
+            //EsinAcento = txtUsuario.Text.Replace('É', 'E');
+            //txtUsuario.Text = EsinAcento;
+
+            //var esinacento = string.Empty;
+            //esinacento = txtUsuario.Text.Replace('é', 'e');
+            //txtUsuario.Text = esinacento;
+
+            //var IsinAcento = string.Empty;
+            //IsinAcento = txtUsuario.Text.Replace('Í', 'I');
+            //txtUsuario.Text = IsinAcento;
+
+            //var isinacento = string.Empty;
+            //isinacento = txtUsuario.Text.Replace('í', 'i');
+            //txtUsuario.Text = isinacento;
+
+            //var OsinAcento = string.Empty;
+            //OsinAcento = txtUsuario.Text.Replace('Ó', 'O');
+            //txtUsuario.Text = OsinAcento;
+
+            //var osinacento = string.Empty;
+            //osinacento = txtUsuario.Text.Replace('ó','o');
+            //txtUsuario.Text = osinacento;
+
+            //var UsinAcento = string.Empty;
+            //UsinAcento = txtUsuario.Text.Replace('Ú','U');
+            //txtUsuario.Text = UsinAcento;
+
+            //var usinacento = string.Empty;
+            //usinacento = txtUsuario.Text.Replace('ú','u');
+            //txtUsuario.Text = usinacento;
+
+            //txtUsuario.Select(txtUsuario.Text.Length, 0);
+            ValidarEntradaDeTexto(sender,e);
+        }
+
+        private void ValidarEntradaDeTexto(object sender, EventArgs e)
+        {
+            var resultado = string.Empty;
+            var txtValidarTexto = (TextBox)sender;
+            resultado = txtValidarTexto.Text;
+
+            if (!string.IsNullOrWhiteSpace(resultado))
+            {
+                Regex patronCorerecto = new Regex(@"^[a-zA-Z0-9ÑñÁáÉéÍíÓóÚú]");
+
+                if (patronCorerecto.IsMatch(resultado))
+                {
+                    resultado = Regex.Replace(resultado, @"[Ñ]", "N");
+                    resultado = Regex.Replace(resultado, @"[ñ]", "n");
+                    resultado = Regex.Replace(resultado, @"[Á]", "A");
+                    resultado = Regex.Replace(resultado, @"[á]", "a");
+                    resultado = Regex.Replace(resultado, @"[É]", "E");
+                    resultado = Regex.Replace(resultado, @"[é]", "e");
+                    resultado = Regex.Replace(resultado, @"[Í]", "I");
+                    resultado = Regex.Replace(resultado, @"[í]", "i");
+                    resultado = Regex.Replace(resultado, @"[Ó]", "O");
+                    resultado = Regex.Replace(resultado, @"[ó]", "o");
+                    resultado = Regex.Replace(resultado, @"[Ú]", "U");
+                    resultado = Regex.Replace(resultado, @"[ú]", "u");
+                    txtValidarTexto.Text = resultado;
+                    txtValidarTexto.Select(txtValidarTexto.Text.Length,0);
+                }
+                else
+                {
+                    var resultadoAuxialiar = Regex.Replace(resultado, @"[^a-zA-Z0-9]", string.Empty).Trim();
+                    resultado = resultadoAuxialiar;
+                    txtValidarTexto.Text = resultado;
+                    txtValidarTexto.Focus();
+                    txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+                }
+            }
+            else
+            {
+                txtValidarTexto.Focus();
+                txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+            }
+        }
+
+        private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+            //var SinLaÑ = string.Empty;
+            //SinLaÑ = txtPassword.Text.Replace('Ñ', 'N');
+            //txtPassword.Text = SinLaÑ;
+
+            //var SinLañ = string.Empty;
+            //SinLañ = txtPassword.Text.Replace('ñ', 'n');
+            //txtPassword.Text = SinLañ;
+
+            //var AsinAcento = string.Empty;
+            //AsinAcento = txtPassword.Text.Replace('Á', 'A');
+            //txtPassword.Text = AsinAcento;
+
+            //var asinacento = string.Empty;
+            //asinacento = txtPassword.Text.Replace('á', 'a');
+            //txtPassword.Text = asinacento;
+
+            //var EsinAcento = string.Empty;
+            //EsinAcento = txtPassword.Text.Replace('É', 'E');
+            //txtPassword.Text = EsinAcento;
+
+            //var esinacento = string.Empty;
+            //esinacento = txtPassword.Text.Replace('é', 'e');
+            //txtPassword.Text = esinacento;
+
+            //var IsinAcento = string.Empty;
+            //IsinAcento = txtPassword.Text.Replace('Í', 'I');
+            //txtPassword.Text = IsinAcento;
+
+            //var isinacento = string.Empty;
+            //isinacento = txtPassword.Text.Replace('í', 'i');
+            //txtPassword.Text = isinacento;
+
+            //var OsinAcento = string.Empty;
+            //OsinAcento = txtPassword.Text.Replace('Ó', 'O');
+            //txtPassword.Text = OsinAcento;
+
+            //var osinacento = string.Empty;
+            //osinacento = txtPassword.Text.Replace('ó', 'o');
+            //txtPassword.Text = osinacento;
+
+            //var UsinAcento = string.Empty;
+            //UsinAcento = txtPassword.Text.Replace('Ú', 'U');
+            //txtPassword.Text = UsinAcento;
+
+            //var usinacento = string.Empty;
+            //usinacento = txtPassword.Text.Replace('ú', 'u');
+            //txtPassword.Text = usinacento;
+
+            //txtPassword.Select(txtPassword.Text.Length, 0);
+            ValidarEntradaDeTexto(sender, e);
+        }
+
+        private void txtPassword2_TextChanged(object sender, EventArgs e)
+        {
+            //var SinLaÑ = string.Empty;
+            //SinLaÑ = txtPassword2.Text.Replace('Ñ', 'N');
+            //txtPassword2.Text = SinLaÑ;
+
+            //var SinLañ = string.Empty;
+            //SinLañ = txtPassword2.Text.Replace('ñ', 'n');
+            //txtPassword2.Text = SinLañ;
+
+            //var AsinAcento = string.Empty;
+            //AsinAcento = txtPassword2.Text.Replace('Á', 'A');
+            //txtPassword2.Text = AsinAcento;
+
+            //var asinacento = string.Empty;
+            //asinacento = txtPassword2.Text.Replace('á', 'a');
+            //txtPassword2.Text = asinacento;
+
+            //var EsinAcento = string.Empty;
+            //EsinAcento = txtPassword2.Text.Replace('É', 'E');
+            //txtPassword2.Text = EsinAcento;
+
+            //var esinacento = string.Empty;
+            //esinacento = txtPassword2.Text.Replace('é', 'e');
+            //txtPassword2.Text = esinacento;
+
+            //var IsinAcento = string.Empty;
+            //IsinAcento = txtPassword2.Text.Replace('Í', 'I');
+            //txtPassword2.Text = IsinAcento;
+
+            //var isinacento = string.Empty;
+            //isinacento = txtPassword2.Text.Replace('í', 'i');
+            //txtPassword2.Text = isinacento;
+
+            //var OsinAcento = string.Empty;
+            //OsinAcento = txtPassword2.Text.Replace('Ó', 'O');
+            //txtPassword2.Text = OsinAcento;
+
+            //var osinacento = string.Empty;
+            //osinacento = txtPassword2.Text.Replace('ó', 'o');
+            //txtPassword2.Text = osinacento;
+
+            //var UsinAcento = string.Empty;
+            //UsinAcento = txtPassword2.Text.Replace('Ú', 'U');
+            //txtPassword2.Text = UsinAcento;
+
+            //var usinacento = string.Empty;
+            //usinacento = txtPassword2.Text.Replace('ú', 'u');
+            //txtPassword2.Text = usinacento;
+
+            //txtPassword2.Select(txtPassword2.Text.Length, 0);
+            ValidarEntradaDeTexto(sender, e);
+
+        }
+
+        private void txtRazonSocial_TextChanged(object sender, EventArgs e)
+        {
+            //var SinLaÑ = string.Empty;
+            //SinLaÑ = txtRazonSocial.Text.Replace('Ñ', 'N');
+            //txtRazonSocial.Text = SinLaÑ;
+
+            //var SinLañ = string.Empty;
+            //SinLañ = txtRazonSocial.Text.Replace('ñ', 'n');
+            //txtRazonSocial.Text = SinLañ;
+
+            //var AsinAcento = string.Empty;
+            //AsinAcento = txtRazonSocial.Text.Replace('Á', 'A');
+            //txtRazonSocial.Text = AsinAcento;
+
+            //var asinacento = string.Empty;
+            //asinacento = txtRazonSocial.Text.Replace('á', 'a');
+            //txtRazonSocial.Text = asinacento;
+
+            //var EsinAcento = string.Empty;
+            //EsinAcento = txtRazonSocial.Text.Replace('É', 'E');
+            //txtRazonSocial.Text = EsinAcento;
+
+            //var esinacento = string.Empty;
+            //esinacento = txtRazonSocial.Text.Replace('é', 'e');
+            //txtRazonSocial.Text = esinacento;
+
+            //var IsinAcento = string.Empty;
+            //IsinAcento = txtRazonSocial.Text.Replace('Í', 'I');
+            //txtRazonSocial.Text = IsinAcento;
+
+            //var isinacento = string.Empty;
+            //isinacento = txtRazonSocial.Text.Replace('í', 'i');
+            //txtRazonSocial.Text = isinacento;
+
+            //var OsinAcento = string.Empty;
+            //OsinAcento = txtRazonSocial.Text.Replace('Ó', 'O');
+            //txtRazonSocial.Text = OsinAcento;
+
+            //var osinacento = string.Empty;
+            //osinacento = txtRazonSocial.Text.Replace('ó', 'o');
+            //txtRazonSocial.Text = osinacento;
+
+            //var UsinAcento = string.Empty;
+            //UsinAcento = txtRazonSocial.Text.Replace('Ú', 'U');
+            //txtRazonSocial.Text = UsinAcento;
+
+            //var usinacento = string.Empty;
+            //usinacento = txtRazonSocial.Text.Replace('ú', 'u');
+            //txtRazonSocial.Text = usinacento;
+
+            //txtRazonSocial.Select(txtRazonSocial.Text.Length, 0);
+            ValidarEntradaDeTexto(sender, e);
+        }
+
+        private void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+            //var SinLaÑ = string.Empty;
+            //SinLaÑ = txtEmail.Text.Replace('ñ', 'n');
+            //txtEmail.Text = SinLaÑ;
+
+            //var AsinAcento = string.Empty;
+            //AsinAcento = txtEmail.Text.Replace('Á', 'A');
+            //txtEmail.Text = AsinAcento;
+
+            //var asinacento = string.Empty;
+            //asinacento = txtEmail.Text.Replace('á', 'a');
+            //txtEmail.Text = asinacento;
+
+            //var EsinAcento = string.Empty;
+            //EsinAcento = txtEmail.Text.Replace('É', 'E');
+            //txtEmail.Text = EsinAcento;
+
+            //var esinacento = string.Empty;
+            //esinacento = txtEmail.Text.Replace('é', 'e');
+            //txtEmail.Text = esinacento;
+
+            //var IsinAcento = string.Empty;
+            //IsinAcento = txtEmail.Text.Replace('Í', 'I');
+            //txtEmail.Text = IsinAcento;
+
+            //var isinacento = string.Empty;
+            //isinacento = txtEmail.Text.Replace('í', 'i');
+            //txtEmail.Text = isinacento;
+
+            //var OsinAcento = string.Empty;
+            //OsinAcento = txtEmail.Text.Replace('Ó', 'O');
+            //txtEmail.Text = OsinAcento;
+
+            //var osinacento = string.Empty;
+            //osinacento = txtEmail.Text.Replace('ó', 'o');
+            //txtEmail.Text = osinacento;
+
+            //var UsinAcento = string.Empty;
+            //UsinAcento = txtEmail.Text.Replace('Ú', 'U');
+            //txtEmail.Text = UsinAcento;
+
+            //var usinacento = string.Empty;
+            //usinacento = txtEmail.Text.Replace('ú', 'u');
+            //txtEmail.Text = usinacento;
+
+            //txtEmail.Select(txtEmail.Text.Length, 0);
+            ValidarEntradaDeTexto(sender, e);
+        }       
     }
 }
