@@ -114,6 +114,7 @@
             this.txtUsuario.ShortcutsEnabled = false;
             this.txtUsuario.Size = new System.Drawing.Size(217, 23);
             this.txtUsuario.TabIndex = 7;
+            this.txtUsuario.TextChanged += new System.EventHandler(this.txtUsuario_TextChanged);
             this.txtUsuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUsuario_KeyPress);
             // 
             // txtPassword
@@ -126,6 +127,7 @@
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(217, 23);
             this.txtPassword.TabIndex = 8;
+            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             // 
             // txtRazonSocial
             // 
@@ -137,6 +139,7 @@
             this.txtRazonSocial.Name = "txtRazonSocial";
             this.txtRazonSocial.Size = new System.Drawing.Size(217, 23);
             this.txtRazonSocial.TabIndex = 10;
+            this.txtRazonSocial.TextChanged += new System.EventHandler(this.txtRazonSocial_TextChanged);
             // 
             // txtEmail
             // 
@@ -148,6 +151,7 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(217, 23);
             this.txtEmail.TabIndex = 11;
+            this.txtEmail.TextChanged += new System.EventHandler(this.txtEmail_TextChanged);
             // 
             // txtPassword2
             // 
@@ -159,6 +163,7 @@
             this.txtPassword2.PasswordChar = '*';
             this.txtPassword2.Size = new System.Drawing.Size(217, 23);
             this.txtPassword2.TabIndex = 9;
+            this.txtPassword2.TextChanged += new System.EventHandler(this.txtPassword2_TextChanged);
             // 
             // label6
             // 
@@ -287,6 +292,7 @@
             this.txtTelefono.ShortcutsEnabled = false;
             this.txtTelefono.Size = new System.Drawing.Size(217, 23);
             this.txtTelefono.TabIndex = 12;
+            
             this.txtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefono_KeyPress);
             // 
             // label14
