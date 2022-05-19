@@ -621,7 +621,7 @@ namespace PuntoDeVentaV2
                                 consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, extra);
 
                                 using (DataTable dtSeEncontroClientePorNombreRFC = cn.CargarDatos(consulta))
-                                { 
+                                {
                                     if (dtSeEncontroClientePorNombreRFC.Rows.Count.Equals(0))
                                     {
                                         consulta = cs.VerComoDesdeOtroEmpleadoVentasPagadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
