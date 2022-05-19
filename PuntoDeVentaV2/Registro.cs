@@ -682,7 +682,7 @@ namespace PuntoDeVentaV2
             //txtRazonSocial.Text = usinacento;
 
             //txtRazonSocial.Select(txtRazonSocial.Text.Length, 0);
-            ValidarEntradaDeTexto(sender, e);
+            //ValidarEntradaDeTexto(sender, e);
         }
 
         private void txtEmail_TextChanged(object sender, EventArgs e)
@@ -733,6 +733,7 @@ namespace PuntoDeVentaV2
 
             //txtEmail.Select(txtEmail.Text.Length, 0);
             ValidarEntradaDeTexto(sender, e);
+
         }       
     }
 }
