@@ -3940,5 +3940,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string BuscarAnticiposPorTexto(string Filtro)
+        {
+            var consulta = $"SELECT * FROM anticipos WHERE IDUsuario = 10 AND(Cliente LIKE '%{Filtro}%' OR  IMPORTE LIKE '%{Filtro}%' OR Concepto LIKE '{Filtro}')";
+
+            return consulta;
+        }
     }
 }  

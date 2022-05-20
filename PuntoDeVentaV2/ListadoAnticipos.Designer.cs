@@ -36,6 +36,7 @@
             this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Aplicar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.txtbusqueda = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListaAnticipos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -63,11 +64,11 @@
             this.Cliente,
             this.Fecha,
             this.Aplicar});
-            this.DGVListaAnticipos.Location = new System.Drawing.Point(12, 71);
+            this.DGVListaAnticipos.Location = new System.Drawing.Point(12, 82);
             this.DGVListaAnticipos.Name = "DGVListaAnticipos";
             this.DGVListaAnticipos.ReadOnly = true;
             this.DGVListaAnticipos.RowHeadersVisible = false;
-            this.DGVListaAnticipos.Size = new System.Drawing.Size(510, 178);
+            this.DGVListaAnticipos.Size = new System.Drawing.Size(510, 220);
             this.DGVListaAnticipos.TabIndex = 7;
             this.DGVListaAnticipos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListaAnticipos_CellClick);
             this.DGVListaAnticipos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListaAnticipos_CellMouseEnter);
@@ -117,11 +118,20 @@
             this.Aplicar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Aplicar.Width = 50;
             // 
+            // txtbusqueda
+            // 
+            this.txtbusqueda.Location = new System.Drawing.Point(136, 56);
+            this.txtbusqueda.Name = "txtbusqueda";
+            this.txtbusqueda.Size = new System.Drawing.Size(258, 20);
+            this.txtbusqueda.TabIndex = 8;
+            this.txtbusqueda.TextChanged += new System.EventHandler(this.txtbusqueda_TextChanged);
+            // 
             // ListadoAnticipos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 261);
+            this.ClientSize = new System.Drawing.Size(534, 314);
+            this.Controls.Add(this.txtbusqueda);
             this.Controls.Add(this.DGVListaAnticipos);
             this.Controls.Add(this.tituloSeccion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -148,5 +158,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewImageColumn Aplicar;
+        private System.Windows.Forms.TextBox txtbusqueda;
     }
 }

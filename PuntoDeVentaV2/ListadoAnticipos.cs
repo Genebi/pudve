@@ -50,7 +50,14 @@ namespace PuntoDeVentaV2
             }
 
             sql_con.Open();
-            sql_cmd = new MySqlCommand($"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND (Status = 1 OR Status = 5)", sql_con);
+            if (!string.IsNullOrWhiteSpace(txtbusqueda.Text))
+            {
+                sql_cmd = new MySqlCommand(cs.BuscarAnticiposPorTexto(txtbusqueda.Text), sql_con);
+            }
+            else
+            {
+                sql_cmd = new MySqlCommand($"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND (Status = 1 OR Status = 5)", sql_con);
+            }            
             dr = sql_cmd.ExecuteReader();
 
             DGVListaAnticipos.Rows.Clear();
@@ -65,7 +72,7 @@ namespace PuntoDeVentaV2
 
                 anticipos = cadena;
             }
-
+            
             while (dr.Read())
             {
                 
@@ -195,6 +202,13 @@ namespace PuntoDeVentaV2
             {
                 DGVListaAnticipos_CellClick(this, new DataGridViewCellEventArgs(5, DGVListaAnticipos.CurrentRow.Index));
             }
+        }
+
+        private void txtbusqueda_TextChanged(object sender, EventArgs e)
+        {
+            CargarDatos();
+            txtbusqueda.Focus();
+
         }
     }
 }
