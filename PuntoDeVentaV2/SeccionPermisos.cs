@@ -177,8 +177,12 @@ namespace PuntoDeVentaV2
 
             var datos = mb.ObtenerPermisosEmpleado(id_empleado, "Reportes");
             GenerarCheckbox(10, 20, 150, "Marcar todos", 0);
-            GenerarCheckbox(50, 130, 150, "Historial de Precios", datos[0]);
-            GenerarCheckbox(90, 130, 150, "Historial Dinero Agregado", datos[1]);
+            GenerarCheckbox(90, 23, 150, "Historial de Precios", datos[0]);
+            GenerarCheckbox(130, 23, 150, "Caja", datos[1]);
+            GenerarCheckbox(170, 23, 150, "Reportes de Inventario", datos[2]);
+            GenerarCheckbox(90, 215, 150, "Reportes de Ventas", datos[3]);
+            GenerarCheckbox(130, 215, 150, "Reportes de Clientes", datos[4]);
+            GenerarCheckbox(170,215, 150, "Reportes de Mas/Menos Vnedido", datos[5]);
         }
 
         private void GenerarConfiguracion()
@@ -568,5 +572,7 @@ namespace PuntoDeVentaV2
                 this.Close();
             }
         }
+
+        
     }
 }

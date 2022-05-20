@@ -34,6 +34,10 @@ namespace PuntoDeVentaV2
         // Permisos botones
         int opcion1 = 1; // Historial precios
         int opcion2 = 1; // Historial dinero agregado
+        int opcion3 = 1;
+        int opcion4 = 1;
+        int opcion5 = 1;
+        int opcion6 = 1;
 
         public Reportes()
         {
@@ -48,6 +52,10 @@ namespace PuntoDeVentaV2
 
                 opcion1 = permisos[0];
                 opcion2 = permisos[1];
+                opcion3 = permisos[2];
+                opcion4 = permisos[3];
+                opcion5 = permisos[4];
+                opcion6 = permisos[5];
             }
             this.Focus();
         }
@@ -2235,6 +2243,11 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo2_Click(object sender, EventArgs e)
         {
+            if (opcion2 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
             //if (FormPrincipal.userNickName.Equals("OXXOCLARA3") || FormPrincipal.userNickName.Equals("ALEXHIT"))
             //{
             BuscarReporteCajaPorFecha reporteCaja = new BuscarReporteCajaPorFecha();
@@ -2249,6 +2262,11 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo3_Click(object sender, EventArgs e)
         {
+            if (opcion3 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
             TipoReportesInventario TRPInventario = new TipoReportesInventario();
 
             TRPInventario.ShowDialog();
@@ -2259,11 +2277,22 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo4_Click(object sender, EventArgs e)
         {
+            if (opcion4 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
             MessageBox.Show("Para generar reportes de ventas deberá ir \nal apartado Ventas y dar click en el botón \n\"Generar Reporte\".", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void botonRedondo5_Click(object sender, EventArgs e)
         {
+            if (opcion5 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+            
             BuscadorReporteClientes reporteClientes = new BuscadorReporteClientes();
 
             reporteClientes.ShowDialog();
@@ -2271,6 +2300,11 @@ namespace PuntoDeVentaV2
 
         private void btnMenosVendidos_Click(object sender, EventArgs e)
         {
+            if (opcion6 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
             RangosReporteProductosMenosVendidos rangoReporte = new RangosReporteProductosMenosVendidos();
 
             rangoReporte.ShowDialog();

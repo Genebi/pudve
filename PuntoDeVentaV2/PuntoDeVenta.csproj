@@ -908,6 +908,12 @@
     <Compile Include="Proveedores.Designer.cs">
       <DependentUpon>Proveedores.cs</DependentUpon>
     </Compile>
+    <Compile Include="puerba.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="puerba.Designer.cs">
+      <DependentUpon>puerba.cs</DependentUpon>
+    </Compile>
     <Compile Include="QuitarEspecificacionDeConceptoDinamico.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1492,6 +1498,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Proveedores.resx">
       <DependentUpon>Proveedores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="puerba.resx">
+      <DependentUpon>puerba.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="QuitarEspecificacionDeConceptoDinamico.resx">
       <DependentUpon>QuitarEspecificacionDeConceptoDinamico.cs</DependentUpon>
