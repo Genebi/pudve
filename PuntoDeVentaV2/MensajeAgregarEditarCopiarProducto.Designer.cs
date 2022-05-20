@@ -29,10 +29,12 @@ namespace PuntoDeVentaV2
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MensajeAgregarEditarCopiarProducto));
             this.lblMensaje = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.pbImagen = new System.Windows.Forms.PictureBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pbImagen)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,6 +70,11 @@ namespace PuntoDeVentaV2
             this.pbImagen.TabIndex = 3;
             this.pbImagen.TabStop = false;
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 3000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // MensajeAgregarEditarCopiarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -96,5 +103,6 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.Label lblMensaje;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox pbImagen;
+        private System.Windows.Forms.Timer timer1;
     }
 }

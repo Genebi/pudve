@@ -21,7 +21,11 @@ namespace PuntoDeVentaV2
             this.Text = _titulo;
             this.mensaje = _texto;            
             this.imagen = _imagen;
+            timer1.Start();
         }
+
+      
+            
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -55,6 +59,9 @@ namespace PuntoDeVentaV2
             this.Close();
         }
 
-
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }   
 }
