@@ -19,6 +19,10 @@ using System.Threading;
 using System.Net.NetworkInformation;
 using static System.Net.WebRequestMethods;
 using System.Deployment.Application;
+using System.Net.Mail;
+using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 
 namespace PuntoDeVentaV2
 {
@@ -109,6 +113,9 @@ namespace PuntoDeVentaV2
         int veces = 1;
         public int validacionDesdeCajaN = 0;
         public int validacionDesdeFormPrincipal = 0;
+
+
+        DateTime FechaExpiracion;
 
         Dictionary<int, string> IdUsuarios = new Dictionary<int, string>();
 
@@ -646,6 +653,71 @@ namespace PuntoDeVentaV2
             Utilidades.registrarEmpleadosAntiguosPermisosConfiguracion();
 
             quitarSimbolosDePreguntaRegimenFiscalEnDescripcion();
+
+            CorreoDe10DiazParaExpiracion();
+                
+        }
+
+        private void CorreoDe10DiazParaExpiracion()
+        {
+
+            using (DataTable Fecha = cn.CargarDatos(cs.BuscarFechaDeExpiracion(userID)))
+            {
+                FechaExpiracion = Convert.ToDateTime(Fecha.Rows[0]["FechaFinLicencia"].ToString());
+               
+                var fechahoy = DateTime.Now;  
+                
+                TimeSpan comparaciondeTiempo = FechaExpiracion.Subtract(fechahoy);
+                int DiasRestantes = comparaciondeTiempo.Days;
+
+                if (DiasRestantes <= 7)
+                {
+                    EnvioDeCorreoAdvertenciaFechaExpiracion();
+                }
+
+            }
+        }
+
+        private void EnvioDeCorreoAdvertenciaFechaExpiracion()
+        {
+            string correo;
+            string Licencia;
+            string Nombre;
+            using (DataTable ConsultaNombre = cn.CargarDatos(cs.BuscarNombreDelUsuario(IdUsuario)))
+            {
+                Nombre= ConsultaNombre.Rows[0]["NombreCompleto"].ToString();
+            }
+            using (DataTable ConsultaLicencia = cn.CargarDatos(cs.BuscarLicenciaDelUsuario(IdUsuario)))
+            {
+                Licencia = ConsultaLicencia.Rows[0]["Licencia"].ToString();
+
+            }
+            using (DataTable email = cn.CargarDatos(cs.BuscarCorreoDelUsuario(IdUsuario)))
+            {
+                 correo = email.Rows[0]["Email"].ToString();
+            }
+            var FechaFin = FechaExpiracion.ToString("dd-MM-yyyy");
+            var asunto = "Aviso de Expiracion de licencia";
+            var html = $@"<div>
+
+            <div style = 'text-align: center;' >
+            <h3>Fecha de Expiracion Proxima</h3>
+            </div>
+            <hr>
+            <center>
+              Su licencia del punto de venta SIFO <b>{Licencia} </b>esta proxima a vencer <br>
+                <b>{Nombre} </b> el dia <b>{FechaFin}</b>
+             </center>
+             <hr>
+            <center>
+                    <p>
+                        ¿Desea Adquirir el Punto de Venta SIFO? Precione el siguiente enlace https://sifo.com.mx/puntodeventa.php
+                     </ p >
+            </center>
+            </div>";  
+
+                Utilidades.EnviarEmail(html, asunto, correo);
+            
         }
 
         private void quitarSimbolosDePreguntaRegimenFiscalEnDescripcion()

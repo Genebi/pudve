@@ -3947,5 +3947,64 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+
+        public  string BuscarFechaDeExpiracion(int Usuario)
+        {
+            var consulta = $"SELECT FechaFinLicencia FROM usuarios where ID = {Usuario}";
+            return consulta;
+        }
+
+        public string BuscarCorreoDelUsuario(int usuario)
+        {
+            var consulta = $"SELECT Email FROM usuarios WHERE ID = {usuario}";
+            return consulta;
+        }
+
+        public string BuscarLicenciaDelUsuario(int idusuario)
+        {
+            var consulta = $"SELECT Licencia FROM usuarios WHERE ID = {idusuario}";
+            return consulta;
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+        public string BuscarNombreDelUsuario(int idusuario)
+        {
+            var consulta = $"SELECT NombreCompleto FROM usuarios WHERE ID = {idusuario}";
+            return consulta;
+        }
     }
 }  

@@ -208,7 +208,6 @@ namespace PuntoDeVentaV2
         {
             CargarDatos();
             txtbusqueda.Focus();
-
         }
     }
 }
