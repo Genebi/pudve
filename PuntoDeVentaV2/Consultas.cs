@@ -543,6 +543,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string ActualizarProvedorDetallesProd(string[] datos)
+        {
+            string consulta = string.Empty;
+            consulta = $"UPDATE detallesProducto SET IDProveedor = '{datos[1]}', Proveedor = '{datos[2]}' WHERE IDProducto = '{datos[0]}'";
+            return consulta;
+        }
+
         public string ActualizarProveedorDetallesDeCategoria(string[] datos)
         {
             string consulta = string.Empty;
@@ -3930,6 +3937,13 @@ namespace PuntoDeVentaV2
         public string verificarLaVentaSiTieneAnticiposAplicados(int idVenta)
         {
             var consulta = $"SELECT ID, Importe, Concepto, Cliente, FormaPago, IDVenta, IDUsuario FROM anticipos WHERE IDUsuario = '{FormPrincipal.userID}' AND IDVenta = '{idVenta}'";
+
+            return consulta;
+        }
+
+        public string eliminarDetalleDinamico(string idusr, string idDetailProdGral)
+        {
+            var consulta = $"DELETE FROM detallesproductogenerales WHERE '{idusr}' AND ID = '{idDetailProdGral}'";
 
             return consulta;
         }
