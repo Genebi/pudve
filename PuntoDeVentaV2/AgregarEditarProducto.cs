@@ -2577,7 +2577,6 @@ namespace PuntoDeVentaV2
                                             texto = "Se copio exitosamente el producto....";
                                             SeleccionaImagen = "correcto";
                                         }
-
                                         if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                                         {
                                             

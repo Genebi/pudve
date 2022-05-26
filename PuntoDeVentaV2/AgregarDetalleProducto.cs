@@ -2921,7 +2921,7 @@ namespace PuntoDeVentaV2
                                                     alreadyStoredDescripcionGral = false;
                                                 }
                                             }
-
+                                            //textoConcepto = "";
                                             var idFoundGral = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto.Replace(" ", "_"));
 
                                             var idProductoBuscarGral = finalIdProducto;
@@ -2930,7 +2930,15 @@ namespace PuntoDeVentaV2
                                             {
                                                 try
                                                 {
-                                                    cn.EjecutarConsulta(cs.ActualizarTextConceptoFiltroDinamicoGral(idFoundGral[0].ToString(), IdDetalleGral));
+                                                    if (textoConcepto == "")
+                                                    {
+                                                        cn.EjecutarConsulta(cs.eliminarDetalleDinamico(FormPrincipal.userID.ToString(), IdDetalleGral));
+                                                    }
+                                                    else
+                                                    {
+                                                        cn.EjecutarConsulta(cs.ActualizarTextConceptoFiltroDinamicoGral(idFoundGral[0].ToString(), IdDetalleGral));
+                                                    }
+                                                    
                                                 }
                                                 catch (Exception ex)
                                                 {
@@ -3142,7 +3150,7 @@ namespace PuntoDeVentaV2
                                             var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, textoConcepto);
                                             var idProductoBuscar = finalIdProducto;
 
-                                            if (alreadyStoredDescripcion)
+                                             if (alreadyStoredDescripcion)
                                             {
                                                 try
                                                 {
@@ -3158,7 +3166,7 @@ namespace PuntoDeVentaV2
 
                                                     queryCargarDatos = $"SELECT * FROM DetallesProducto WHERE IDUsuario = '{FormPrincipal.userID}' AND IDProducto = '{idProductoBuscar}'";
 
-                                                    using (DataTable dtDetallesProducto = cn.CargarDatos(queryCargarDatos))
+                                                    using ( DataTable dtDetallesProducto = cn.CargarDatos(queryCargarDatos))
                                                     {
                                                         //infoDetalle.Add(FormPrincipal.userID.ToString());
                                                         if (!dtDetallesProducto.Rows.Count.Equals(0))
@@ -3173,6 +3181,14 @@ namespace PuntoDeVentaV2
                                                                 infoDetalle.Add(idFound[2].ToString());
                                                                 guardar = infoDetalle.ToArray();
                                                                 cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
+                                                            }
+                                                            else
+                                                            {
+                                                                infoDetalle.Add(idProductoBuscar);
+                                                                infoDetalle.Add("0");
+                                                                infoDetalle.Add("");
+                                                                guardar = infoDetalle.ToArray();
+                                                                cn.EjecutarConsulta(cs.ActualizarProvedorDetallesProd(guardar));
                                                             }
                                                         }
                                                         else if (dtDetallesProducto.Rows.Count.Equals(0))

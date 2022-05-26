@@ -543,6 +543,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string ActualizarProvedorDetallesProd(string[] datos)
+        {
+            string consulta = string.Empty;
+            consulta = $"UPDATE detallesProducto SET IDProveedor = '{datos[1]}', Proveedor = '{datos[2]}' WHERE IDProducto = '{datos[0]}'";
+            return consulta;
+        }
+
         public string ActualizarProveedorDetallesDeCategoria(string[] datos)
         {
             string consulta = string.Empty;
@@ -3971,45 +3978,16 @@ namespace PuntoDeVentaV2
         {
             var consulta = $"SELECT Licencia FROM usuarios WHERE ID = {idusuario}";
             return consulta;
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
+        }   
         public string BuscarNombreDelUsuario(int idusuario)
         {
             var consulta = $"SELECT NombreCompleto FROM usuarios WHERE ID = {idusuario}";
+            return consulta;
+        }
+        public string eliminarDetalleDinamico(string idusr, string idDetailProdGral)
+        {
+            var consulta = $"DELETE FROM detallesproductogenerales WHERE '{idusr}' AND ID = '{idDetailProdGral}'";
+
             return consulta;
         }
     }
