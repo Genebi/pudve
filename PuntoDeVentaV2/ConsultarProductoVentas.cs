@@ -53,12 +53,14 @@ namespace PuntoDeVentaV2
 
         string mensajeParaMostrar = string.Empty;
 
+        string filtro = string.Empty;
+
         #region Sección de operaciones de paginador
         public void filtroLoadProductos()
         {
             busqueda = txtBuscar.Text;
 
-            filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+            filtroConSinFiltroAvanzado = cs.searchSaleProductAll(busqueda);
             p = new Paginar(filtroConSinFiltroAvanzado, DataMemberDGV, maximo_x_pagina);
 
             DGVProductos.Rows.Clear();
@@ -291,7 +293,14 @@ namespace PuntoDeVentaV2
             {
                 if (busqueda == "")
                 {
-                    filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+                    if (!filtro.Equals("Todos"))
+                    {
+                        filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda,filtro);
+                    }
+                    else
+                    {
+                        filtroConSinFiltroAvanzado = cs.searchSaleProductAll(busqueda);
+                    }
 
                     if (maximo_x_pagina.Equals(0))
                     {
@@ -304,7 +313,14 @@ namespace PuntoDeVentaV2
                 }
                 else if (busqueda != "")
                 {
-                    filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+                    if (filtro.Equals("Todos"))
+                    {
+                        filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda, filtro);
+                    }
+                    else
+                    {
+                        filtroConSinFiltroAvanzado = cs.searchSaleProductAll(busqueda);
+                    }
 
                     if (maximo_x_pagina.Equals(0))
                     {
@@ -320,7 +336,14 @@ namespace PuntoDeVentaV2
             {
                 if (busqueda == "")
                 {
-                    filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+                    if (!filtro.Equals("Todos"))
+                    {
+                        filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda, filtro);
+                    }
+                    else
+                    {
+                        filtroConSinFiltroAvanzado = cs.searchSaleProductAll(busqueda);
+                    }
 
                     if (maximo_x_pagina.Equals(0))
                     {
@@ -333,7 +356,14 @@ namespace PuntoDeVentaV2
                 }
                 else if (busqueda != "")
                 {
-                    filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda);
+                    if (!filtro.Equals("Todos"))
+                    {
+                        filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda, filtro);
+                    }
+                    else
+                    {
+                        filtroConSinFiltroAvanzado = cs.searchSaleProductAll(busqueda);
+                    }
 
                     if (maximo_x_pagina.Equals(0))
                     {
@@ -508,7 +538,8 @@ namespace PuntoDeVentaV2
 
         private void ConsultarProductoVentas_Load(object sender, EventArgs e)
         {
-            
+            CBTipo.SelectedItem ="Todos";
+
             filtroLoadProductos();
 
             GenerarColumnas();
@@ -686,6 +717,28 @@ namespace PuntoDeVentaV2
                 multiplesProductosSeleccionados();
                 newObtenerDatoProductoSeleccionado();
             }
+        }
+
+        private void CBTipo_TextChanged(object sender, EventArgs e)
+        {
+
+            if (CBTipo.SelectedItem.Equals("Productos"))
+            {
+                filtro = "P";
+            }
+            else if (CBTipo.SelectedItem.Equals("Servicios"))
+            {
+                filtro = "S";
+            }
+            else if (CBTipo.SelectedItem.Equals("Combos"))
+            {
+                filtro = "PQ";
+            }
+            else if (CBTipo.SelectedItem.Equals("Todos"))
+            {
+                filtro = "Todos";
+            }
+            CargarDatos();
         }
 
         public void multiplesProductosSeleccionados()

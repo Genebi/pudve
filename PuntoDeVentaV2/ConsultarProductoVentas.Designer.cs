@@ -56,6 +56,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.CBTipo = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductos)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -399,11 +400,28 @@
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label4.Visible = false;
             // 
+            // CBTipo
+            // 
+            this.CBTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBTipo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.CBTipo.FormattingEnabled = true;
+            this.CBTipo.Items.AddRange(new object[] {
+            "Todos",
+            "Productos",
+            "Servicios",
+            "Combos"});
+            this.CBTipo.Location = new System.Drawing.Point(45, 55);
+            this.CBTipo.Name = "CBTipo";
+            this.CBTipo.Size = new System.Drawing.Size(121, 21);
+            this.CBTipo.TabIndex = 39;
+            this.CBTipo.TextChanged += new System.EventHandler(this.CBTipo_TextChanged);
+            // 
             // ConsultarProductoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1232, 540);
+            this.Controls.Add(this.CBTipo);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.tituloSeccion);
             this.Controls.Add(this.txtBuscar);
@@ -459,5 +477,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Tipo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Proveedor;
         private System.Windows.Forms.DataGridViewTextBoxColumn _id;
+        private System.Windows.Forms.ComboBox CBTipo;
     }
 }
