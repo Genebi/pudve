@@ -216,7 +216,7 @@ namespace PuntoDeVentaV2
 
                 if (dr.Read())
                 {
-                    DateTime fechaFin = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("fechaFinLicencia"))).AddMonths(3);
+                    DateTime fechaFin = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("fechaFinLicencia"))).AddMonths(1);
 
                     dr.Close();
 

@@ -1126,7 +1126,7 @@ namespace PuntoDeVentaV2
                                 respuesta = false;
                             }
                         }
-
+                        
                         int correcto = cn.EjecutarConsulta($"UPDATE Usuarios SET EstadoLicencia = {estado}, FechaHoy = '{fechaCreacion}', FechaInicioLicencia = '{fechaInicio}', FechaFinLicencia = '{fechaFin}' WHERE Usuario = '{usuario.Trim()}'");
 
                         if (correcto > 0)
