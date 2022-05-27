@@ -40,6 +40,7 @@ namespace PuntoDeVentaV2
         float cambio;
         string nameOfControl = string.Empty;
 
+        float restanteDePago= 0;
 
         public AsignarAbonos(int idVenta, float totalOriginal)
         {
@@ -85,9 +86,9 @@ namespace PuntoDeVentaV2
             else
             {
                 var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
-                var restante = totalPendiente - abonado;
-                txtPendiente.Text = restante.ToString("C2");
-                totalPendiente = restante;
+                restanteDePago = totalPendiente - abonado;
+                txtPendiente.Text = restanteDePago.ToString("C2");
+                totalPendiente = restanteDePago;
             }
         }
 
@@ -536,7 +537,8 @@ namespace PuntoDeVentaV2
             Paragraph separadorInicial = new Paragraph(new string('-', separadores), fuenteNormal);
 
             //Contenido del Ticket
-            string contenido = $"ID de venta: {info[0]}\nTotal original: ${info[2]}\nPendiente de pago: ${info[3]}\nCantidad abonada: ${info[4]}\nCantidad restante: ${info[5]}\n{info[6]}";
+            var restante = restanteDePago - float.Parse(info[4]);
+            string contenido = $"ID de venta: {info[0]}\nTotal original: ${info[2]}\nPendiente de pago: ${restanteDePago.ToString()}\nCantidad abonada: ${info[4]}\nCantidad restante: ${restante.ToString()}\n{info[6]}";
 
             Paragraph cuerpo = new Paragraph(contenido, fuenteNormal);
             cuerpo.Alignment = Element.ALIGN_CENTER;
