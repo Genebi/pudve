@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using System.Xml;
 
 namespace PuntoDeVentaV2
@@ -661,16 +662,15 @@ namespace PuntoDeVentaV2
 
             if (e.KeyCode == Keys.Enter)
             {
-                //BuscarProductos();
                 if (!txtBuscar.Text.Equals(string.Empty))
                 {
-                    CargarDatos(1, txtBuscar.Text);
+                     CargarDatos(1, txtBuscar.Text);
                     txtBuscar.SelectAll();
                 }
-                else
-                {
-                    CargarDatos();
-                }
+                 else
+                 {
+                     CargarDatos();
+                 }
             }
 
             if (e.KeyCode == Keys.Down && !DGVProductos.Rows.Count.Equals(0))
@@ -739,6 +739,20 @@ namespace PuntoDeVentaV2
                 filtro = "Todos";
             }
             CargarDatos();
+            buscarxd();    
+        }
+
+        private void buscarxd()
+        {
+            if (!txtBuscar.Text.Equals(string.Empty))
+            {
+                CargarDatos(1, txtBuscar.Text);
+                txtBuscar.SelectAll();
+            }
+            else
+            {
+                CargarDatos();
+            }
         }
 
         public void multiplesProductosSeleccionados()
