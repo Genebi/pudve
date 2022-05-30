@@ -322,10 +322,11 @@ namespace PuntoDeVentaV2
         private void BuscarProductos()
         {
             var busqueda = txtBoxSearchProd.Text.Trim();
-
+            string filtro = "Todos";
+           
             if (!string.IsNullOrWhiteSpace(busqueda))
             {
-                var coincidencias = mb.BusquedaCoincidenciasVentas(busqueda);
+                var coincidencias = mb.BusquedaCoincidenciasVentas(busqueda,filtro);
 
                 if (coincidencias.Count > 0)
                 {

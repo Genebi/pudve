@@ -114,6 +114,7 @@
             this.btnBascula = new System.Windows.Forms.Button();
             this.lblPesoRecibido = new System.Windows.Forms.Label();
             this.btnCSV = new System.Windows.Forms.Button();
+            this.CBTipo = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -193,6 +194,7 @@
             this.txtBuscadorProducto.Size = new System.Drawing.Size(790, 23);
             this.txtBuscadorProducto.TabIndex = 0;
             this.txtBuscadorProducto.Text = "BUSCAR PRODUCTO O SERVICIO...";
+            this.txtBuscadorProducto.TextChanged += new System.EventHandler(this.txtBuscadorProducto_TextChanged);
             this.txtBuscadorProducto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyDown);
             this.txtBuscadorProducto.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyUp);
             // 
@@ -588,6 +590,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
+            this.panel1.Controls.Add(this.CBTipo);
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Controls.Add(this.lbEliminarCliente);
@@ -1193,6 +1196,22 @@
             this.btnCSV.UseVisualStyleBackColor = true;
             this.btnCSV.Click += new System.EventHandler(this.btnCSV_Click);
             // 
+            // CBTipo
+            // 
+            this.CBTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBTipo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.CBTipo.FormattingEnabled = true;
+            this.CBTipo.Items.AddRange(new object[] {
+            "Todos",
+            "Productos",
+            "Servicios",
+            "Combos"});
+            this.CBTipo.Location = new System.Drawing.Point(763, 5);
+            this.CBTipo.Name = "CBTipo";
+            this.CBTipo.Size = new System.Drawing.Size(121, 21);
+            this.CBTipo.TabIndex = 65;
+            this.CBTipo.TextChanged += new System.EventHandler(this.CBTipo_TextChanged);
+            // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1330,5 +1349,6 @@
         private System.Windows.Forms.Button btnCSV;
         private System.Windows.Forms.Label lblCIVA0Exento;
         private System.Windows.Forms.Label lblIVA0Exento;
+        private System.Windows.Forms.ComboBox CBTipo;
     }
 }

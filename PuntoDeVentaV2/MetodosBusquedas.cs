@@ -1354,7 +1354,7 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-        public Dictionary<int, string> BusquedaCoincidenciasVentas(string frase, int mPrecio = 0, int mCB = 0)
+        public Dictionary<int, string> BusquedaCoincidenciasVentas(string frase, string filtro, int mPrecio = 0, int mCB = 0)
         {
             var lista = new Dictionary<int, string>();
 
@@ -1366,7 +1366,15 @@ namespace PuntoDeVentaV2
             {
                 foreach (var palabra in palabras)
                 {
-                    DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna = '{palabra}' OR CodigoBarras = '{palabra}')");
+                    if (filtro.Equals("Todos"))
+                    {
+                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna = '{palabra}' OR CodigoBarras = '{palabra}')");
+                    }
+                    else
+                    {
+                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Tipo = '{filtro}' AND Status = 1 AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna = '{palabra}' OR CodigoBarras = '{palabra}')");
+                    }
+                   
 
                     var dr = sql_cmd.ExecuteReader();
 

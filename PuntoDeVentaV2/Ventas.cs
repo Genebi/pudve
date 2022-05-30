@@ -66,6 +66,8 @@ namespace PuntoDeVentaV2
         public static string listaAnticipos = string.Empty;
         public static float importeAnticipo = 0f;
 
+        string filtro;
+
         int noDuplicadoVentas /*= DetalleVenta.validarNoDuplicarVentas*/= 0;
 
         // Variables para almacenar los valores agregados en el form DetalleVenta.cs
@@ -267,6 +269,8 @@ namespace PuntoDeVentaV2
 
         private void Ventas_Load(object sender, EventArgs e)
         {
+            CBTipo.SelectedItem = "Todos";
+
             mostrarBotonCSV();
 
             ventaGuardadappt = 0;
@@ -5730,7 +5734,7 @@ namespace PuntoDeVentaV2
             {
                 // Regresa un diccionario
                 //var resultados = mb.BuscarProducto(txtBuscadorProducto.Text);
-                var resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text.Trim(), mostrarPrecioProducto, mostrarCBProducto);
+                var resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text.Trim(), filtro, mostrarPrecioProducto, mostrarCBProducto);
                 int coincidencias = resultados.Count;
 
                 if (coincidencias > 0)
@@ -5863,48 +5867,7 @@ namespace PuntoDeVentaV2
 
         private void txtBuscadorProducto_KeyUp(object sender, KeyEventArgs e)
         {
-            // Detecta si esta habilitado el checkbox para cancelar venta, si esta
-            // habilitado se detienen todas las operaciones normales del evento keyup
-            if (checkCancelar.Checked)
-            {
-                return;
-            }
-
-            var busqueda = txtBuscadorProducto.Text.Trim();
-
-            // Verificar si el primer caracter es + o - para evitar la busqueda
-            // y que tome en cuenta el atajo para aumentar o disminuir cantidad
-            if (!string.IsNullOrWhiteSpace(busqueda))
-            {
-                var caracter = busqueda[0].ToString();
-
-                if (caracter.Equals("+") || caracter.Equals("-"))
-                {
-                    reproducirProductoAgregado();
-                    return;
-                }
-            }
-
-            // Combinación para abrir caja
-            if (busqueda.Equals(".4."))
-            {
-                timerBusqueda.Interval = 1;
-                txtBuscadorProducto.Text = string.Empty;
-                btnAbrirCaja.PerformClick();
-                return;
-            }
-
-            // Si encuentra una coincidencia de los patrones cambia el tiempo de busqueda
-            // del timer para que haga la operación más rápido
-            txtBuscadorProducto.Text = VerificarPatronesBusqueda(txtBuscadorProducto.Text);
-
-            if (string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
-            {
-                timerBusqueda.Interval = 1;
-            }
-
-            timerBusqueda.Stop();
-            timerBusqueda.Start();
+            
         }
 
         private void listaProductos_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -6995,6 +6958,90 @@ namespace PuntoDeVentaV2
         private void Ventas_Layout(object sender, LayoutEventArgs e)
         {
 
+        }
+
+        private void CBTipo_TextChanged(object sender, EventArgs e)
+        {
+            if (CBTipo.SelectedItem.Equals("Todos"))
+            {
+                filtro = "Todos";
+            }
+            if (CBTipo.SelectedItem.Equals("Servicios"))
+            {
+                filtro = "S";
+            }
+            if (CBTipo.SelectedItem.Equals("Productos"))
+            {
+                filtro = "P";
+            }
+            if (CBTipo.SelectedItem.Equals("Combos"))
+            {
+                filtro = "PQ";
+            }
+            if (!string.IsNullOrWhiteSpace(txtBuscadorProducto.Text) || !txtBuscadorProducto.Text.Equals("BUSCAR PRODUCTO O SERVICIO..."))
+            {
+                string texto = txtBuscadorProducto.Text;
+                var tamaño = texto.Length;
+                var ultimaLetra = texto[tamaño-1].ToString();
+
+                //Borrar la ultima letra
+                if (txtBuscadorProducto.Text.Length > tamaño-1)
+                {
+                    txtBuscadorProducto.Text = txtBuscadorProducto.Text.Substring(0, tamaño-1);
+                    txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
+                    var sinLetra = txtBuscadorProducto.Text;
+                    txtBuscadorProducto.Text = $"{sinLetra}{ultimaLetra}";
+                }
+                
+            }
+            
+
+        }
+
+        private void txtBuscadorProducto_TextChanged(object sender, EventArgs e)
+        {
+            // Detecta si esta habilitado el checkbox para cancelar venta, si esta
+            // habilitado se detienen todas las operaciones normales del evento keyup
+            if (checkCancelar.Checked)
+            {
+                return;
+            }
+
+            var busqueda = txtBuscadorProducto.Text.Trim();
+
+            // Verificar si el primer caracter es + o - para evitar la busqueda
+            // y que tome en cuenta el atajo para aumentar o disminuir cantidad
+            if (!string.IsNullOrWhiteSpace(busqueda))
+            {
+                var caracter = busqueda[0].ToString();
+
+                if (caracter.Equals("+") || caracter.Equals("-"))
+                {
+                    reproducirProductoAgregado();
+                    return;
+                }
+            }
+
+            // Combinación para abrir caja
+            if (busqueda.Equals(".4."))
+            {
+                timerBusqueda.Interval = 1;
+                txtBuscadorProducto.Text = string.Empty;
+                btnAbrirCaja.PerformClick();
+                return;
+            }
+
+            // Si encuentra una coincidencia de los patrones cambia el tiempo de busqueda
+            // del timer para que haga la operación más rápido
+            txtBuscadorProducto.Text = VerificarPatronesBusqueda(txtBuscadorProducto.Text);
+
+            if (string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
+            {
+                timerBusqueda.Interval = 1;
+            }
+
+            timerBusqueda.Stop();
+            timerBusqueda.Start();
         }
 
         private void DGVentas_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
