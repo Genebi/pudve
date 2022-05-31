@@ -3990,5 +3990,7 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        
     }
 }  

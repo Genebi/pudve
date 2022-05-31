@@ -184,7 +184,7 @@ namespace PuntoDeVentaV2
         int cantidadCombo = 0;
         int ventaGuardadappt = 0;
 
-        //Si el cliente esta seeccionado o yo
+        public static string NombreCliente = string.Empty;
 
 
         Dictionary<int, string> listaMensajesEnviados = new Dictionary<int, string>();
@@ -6579,6 +6579,7 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo3_Click(object sender, EventArgs e)
         {
+            
             if (opcion16 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -6598,7 +6599,7 @@ namespace PuntoDeVentaV2
                 if (respuesta == DialogResult.OK)
                 {
                     var datos = clientes.datosCliente;
-                    var cliente = string.Empty;
+                     string cliente = string.Empty;
 
                     idCliente = datos[18];
 
@@ -6610,6 +6611,7 @@ namespace PuntoDeVentaV2
                     if (!auxSegundo) { cliente += $" --- RFC: {datos[1]}"; }
                     if (!auxTercero) { cliente += $" --- No. {datos[17]}"; }
 
+                    NombreCliente = datos[0];
                     var idTipoCliente = Convert.ToInt32(datos[16]);
 
                     idClienteDescuento = Convert.ToInt32(datos[18]);
