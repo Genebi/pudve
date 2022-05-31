@@ -184,6 +184,9 @@ namespace PuntoDeVentaV2
         int cantidadCombo = 0;
         int ventaGuardadappt = 0;
 
+        //Si el cliente esta seeccionado o yo
+
+
         Dictionary<int, string> listaMensajesEnviados = new Dictionary<int, string>();
 
 
@@ -6502,6 +6505,7 @@ namespace PuntoDeVentaV2
             lbDatosCliente.Visible = false;
             lbEliminarCliente.Visible = false;
             btnEliminarDescuentos.PerformClick();
+            idCliente = "";
         }
 
         private void label1_Click(object sender, EventArgs e)

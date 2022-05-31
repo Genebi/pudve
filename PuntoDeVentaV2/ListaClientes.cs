@@ -41,7 +41,69 @@ namespace PuntoDeVentaV2
 
         private void ListaClientes_Load(object sender, EventArgs e)
         {
-            CargarDatos();
+            if (Ventas.idCliente.Equals(""))
+            {
+                CargarDatos();
+            }
+            else
+            {
+                CargarDatosCliente();
+            }
+           
+        }
+
+        private void CargarDatosCliente()
+        {
+            MySqlConnection sql_con;
+            MySqlCommand sql_cmd;
+            MySqlDataReader dr;
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                sql_con = new MySqlConnection("datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;");
+            }
+            else
+            {
+                sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
+            }
+
+            var consulta = string.Empty;
+
+              consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND ID = {Ventas.idCliente}";           
+            
+
+            sql_con.Open();
+            sql_cmd = new MySqlCommand(consulta, sql_con);
+            dr = sql_cmd.ExecuteReader();
+
+            DGVClientes.Rows.Clear();
+
+            while (dr.Read())
+            {
+                int rowId = DGVClientes.Rows.Add();
+
+                DataGridViewRow row = DGVClientes.Rows[rowId];
+
+                Image agregar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
+
+                var numeroCliente = dr.GetValue(dr.GetOrdinal("NumeroCliente")).ToString();
+
+                if (string.IsNullOrWhiteSpace(numeroCliente))
+                {
+                    numeroCliente = "N/A";
+                }
+
+                row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
+                row.Cells["RFC"].Value = dr.GetValue(dr.GetOrdinal("RFC"));
+                row.Cells["RazonSocial"].Value = dr.GetValue(dr.GetOrdinal("RazonSocial"));
+                row.Cells["NumeroCliente"].Value = numeroCliente;
+                row.Cells["Agregar"].Value = agregar;
+            }
+
+            DGVClientes.ClearSelection();
+
+            dr.Close();
+            sql_con.Close();
         }
 
         private void CargarDatos(string busqueda = "")
@@ -386,6 +448,11 @@ namespace PuntoDeVentaV2
             };
 
             nuevo.ShowDialog();
+        }
+
+        private void DGVClientes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
