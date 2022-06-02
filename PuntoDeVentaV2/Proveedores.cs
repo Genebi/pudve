@@ -502,6 +502,9 @@ namespace PuntoDeVentaV2
             }
         }
 
-       
+        private void linkLblPrimeraPagina_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
     }
 }

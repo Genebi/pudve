@@ -39,6 +39,15 @@ namespace PuntoDeVentaV2
         int opcion4 = 1; // Boton buscar
         int opcion5 = 1; // Nuevo anticipo
 
+
+
+        string mensajeParaMostrar = string.Empty;
+        int maximo_x_pagina = 14;
+        int opcion;
+        private Paginar p;
+        int clickBoton = 0;
+        string DataMemberDGV = "Anticipos";
+
         IEnumerable<AgregarAnticipo> FormAnticipo = Application.OpenForms.OfType<AgregarAnticipo>();
 
         public Anticipos()
@@ -56,7 +65,7 @@ namespace PuntoDeVentaV2
             dpFechaInicial.Value = PrimerDia;
             dpFechaFinal.Value = DateTime.Now;
             cbAnticipos.DropDownStyle = ComboBoxStyle.DropDownList;
-            CargarDatos(1);
+            CargarDatos();
 
             if (FormPrincipal.id_empleado > 0)
             {
@@ -73,7 +82,7 @@ namespace PuntoDeVentaV2
            
         }
 
-        private void CargarDatos(int estado = 1, int tipo = 0)
+        private void CargarDatos(int estado = 1)
         {
             MySqlConnection sql_con;
             MySqlCommand sql_cmd;
@@ -126,6 +135,16 @@ namespace PuntoDeVentaV2
 
                     conBusqueda = true;
                 }
+
+            if (DGVAnticipos.Rows.Count.Equals(0) || clickBoton.Equals(0))
+            {
+                p = new Paginar(consulta, DataMemberDGV, maximo_x_pagina);
+            }
+
+            DGVAnticipos.Rows.Clear();
+
+            DataSet datos = p.cargar();
+            DataTable dtDatos = datos.Tables[0];
 
             //}
 
@@ -210,6 +229,7 @@ namespace PuntoDeVentaV2
                 }
             }
             DGVAnticipos.ClearSelection();
+            ActualizarPaginador();
 
             dr.Close();
             sql_con.Close();
@@ -334,14 +354,14 @@ namespace PuntoDeVentaV2
         {
             ComboBox cb = sender as ComboBox;
 
-            int opcion = cb.SelectedIndex;
+            opcion = cb.SelectedIndex;
 
             if (opcion >= 0)
             {
                 //if ((opcion + 1) == 4)
                 //    opcion = opcion + 1;
 
-                CargarDatos(opcion + 1);
+                CargarDatos(opcion +1);
             }
         }
 
@@ -554,7 +574,7 @@ namespace PuntoDeVentaV2
 
             var status = cbAnticipos.SelectedIndex;
 
-            CargarDatos(status + 1, 1);
+            CargarDatos(status + 1);
         }
 
         private void TTMensaje_Draw(object sender, DrawToolTipEventArgs e)
@@ -663,6 +683,140 @@ namespace PuntoDeVentaV2
         private void txtBuscarAnticipo_TextChanged(object sender, EventArgs e)
         {
             txtBuscarAnticipo.CharacterCasing = CharacterCasing.Upper;
+        }
+
+        private void btnActualizarMaximoProductos_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnUltimaPagina_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPrimeraPagina_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnActualizarMaximoProductos_Click_1(object sender, EventArgs e)
+        {
+            if (!txtMaximoPorPagina.Text.Equals(string.Empty))
+            {
+
+                var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
+
+                if (cantidadAMostrar <= 0)
+                {
+                    mensajeParaMostrar = "Catidad a mostrar debe ser mayor a 0";
+                    Utilidades.MensajeCuandoSeaCeroEnElListado(mensajeParaMostrar);
+                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                    return;
+                }
+
+
+                maximo_x_pagina = cantidadAMostrar;
+                p.actualizarTope(maximo_x_pagina);
+                int tipo = opcion +1;
+                CargarDatos(tipo);
+                ActualizarPaginador();
+            }
+            else
+            {
+                txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+            }
+        }
+
+        private void ActualizarPaginador()
+        {
+            int BeforePage = 0, AfterPage = 0, LastPage = 0;
+
+            linkLblPaginaAnterior.Visible = false;
+            linkLblPaginaSiguiente.Visible = false;
+
+            linkLblPaginaActual.Text = p.numPag().ToString();
+            linkLblPaginaActual.LinkColor = Color.White;
+            linkLblPaginaActual.BackColor = Color.Black;
+
+            BeforePage = p.numPag() - 1;
+            AfterPage = p.numPag() + 1;
+            LastPage = p.countPag();
+
+            if (Convert.ToInt32(linkLblPaginaActual.Text) >= 2)
+            {
+                linkLblPaginaAnterior.Text = BeforePage.ToString();
+                linkLblPaginaAnterior.Visible = true;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                }
+            }
+            else if (BeforePage < 1)
+            {
+                linkLblPrimeraPagina.Visible = false;
+                linkLblPaginaAnterior.Visible = false;
+
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                    linkLblUltimaPagina.Visible = false;
+                }
+            }
+        }
+
+        private void btnUltimaPagina_Click_1(object sender, EventArgs e)
+        {
+            p.ultimaPagina();
+            clickBoton = 1;
+            CargarDatos();
+            ActualizarPaginador();
+        }
+
+        private void btnSiguiente_Click_1(object sender, EventArgs e)
+        {
+            p.adelante();
+            clickBoton = 1;
+            CargarDatos();
+            ActualizarPaginador();
+        }
+
+        private void btnAnterior_Click_1(object sender, EventArgs e)
+        {
+            p.atras();
+            clickBoton = 1;
+            CargarDatos();
+            ActualizarPaginador();
+        }
+
+        private void btnPrimeraPagina_Click_1(object sender, EventArgs e)
+        {
+            p.primerPagina();
+            clickBoton = 1;
+            CargarDatos();
+            ActualizarPaginador();
         }
 
 

@@ -345,7 +345,7 @@
             this.btnActualizarMaximoProductos.TabIndex = 41;
             this.btnActualizarMaximoProductos.Text = "Actualizar";
             this.btnActualizarMaximoProductos.UseVisualStyleBackColor = false;
-            this.btnActualizarMaximoProductos.Visible = false;
+            this.btnActualizarMaximoProductos.Click += new System.EventHandler(this.btnActualizarMaximoProductos_Click);
             // 
             // txtMaximoPorPagina
             // 
@@ -355,7 +355,7 @@
             this.txtMaximoPorPagina.Size = new System.Drawing.Size(56, 20);
             this.txtMaximoPorPagina.TabIndex = 40;
             this.txtMaximoPorPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtMaximoPorPagina.Visible = false;
+            this.txtMaximoPorPagina.TextChanged += new System.EventHandler(this.txtMaximoPorPagina_TextChanged);
             // 
             // label7
             // 
@@ -366,7 +366,7 @@
             this.label7.TabIndex = 39;
             this.label7.Text = "Cantidad de productos para mostrar: ";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label7.Visible = false;
+            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // lblCantidadRegistros
             // 
