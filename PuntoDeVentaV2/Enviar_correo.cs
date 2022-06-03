@@ -26,6 +26,10 @@ namespace PuntoDeVentaV2
         int tipo_factura = 0;
         int id_empleado = FormPrincipal.id_empleado;
 
+        string folio;
+        string Serie;
+        string nombreUsuario;
+
 
         public Enviar_correo(string[][] arr_ids, string titulo, int tp_factura)
         {
@@ -44,11 +48,11 @@ namespace PuntoDeVentaV2
 
         private void cargar_correos_default()
         {
-            for(int x=0; x<arr_ids_f_enviar.Length; x++)
+            for (int x = 0; x < arr_ids_f_enviar.Length; x++)
             {
                 DataTable d_factura = cn.CargarDatos(cs.cargar_datos_venta_xml(1, Convert.ToInt32(arr_ids_f_enviar[x][0]), FormPrincipal.userID));
 
-                if(d_factura.Rows.Count > 0)
+                if (d_factura.Rows.Count > 0)
                 {
                     DataRow r_factura = d_factura.Rows[0];
 
@@ -83,7 +87,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No hay ningún correo por agregar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
         }
 
         private void agregar_elementos_correo(string txtcorreo)
@@ -123,7 +127,7 @@ namespace PuntoDeVentaV2
             string id_img = img_eliminar.Name.Substring(11);
             string pnl_eliminar = "pnl_correo" + id_img;
 
-            foreach(Control pnl_el in pnl_principal.Controls.OfType<FlowLayoutPanel>())
+            foreach (Control pnl_el in pnl_principal.Controls.OfType<FlowLayoutPanel>())
             {
                 if (pnl_el.Name == pnl_eliminar)
                 {
@@ -160,7 +164,7 @@ namespace PuntoDeVentaV2
             {
                 if (pnl.Name.Contains("pnl_correo"))
                 {
-                    foreach(Control pnl_sec in pnl.Controls)
+                    foreach (Control pnl_sec in pnl.Controls)
                     {
                         if (pnl_sec.Name.Contains("lb_correo"))
                         {
@@ -177,7 +181,7 @@ namespace PuntoDeVentaV2
             {
                 arr_obtiene_datos_correo = datos_factura();
             }
-            if(tipo == "nota de venta")
+            if (tipo == "nota de venta")
             {
                 arr_obtiene_datos_correo = datos_nota_venta();
             }
@@ -195,7 +199,7 @@ namespace PuntoDeVentaV2
             smtp.Port = 587;
             smtp.EnableSsl = true;
             smtp.UseDefaultCredentials = false;
-            smtp.Credentials= new NetworkCredential("pudve.contacto@gmail.com", "grtpoxrdmngbozwm");
+            smtp.Credentials = new NetworkCredential("pudve.contacto@gmail.com", "grtpoxrdmngbozwm");
             smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
             //smtp.TargetName = "STARTTLS/smtp.office365.com";
             //smtp.SSLConfiguration.EnabledSslProtocols = SslProtocols.Tls12;
@@ -207,16 +211,17 @@ namespace PuntoDeVentaV2
             correo.From = new MailAddress("pudve.contacto@gmail.com");
 
             // Para
-            foreach(string c in list_correos)
+            foreach (string c in list_correos)
             {
                 correo.To.Add(new MailAddress(c));
             }
 
             // Responder a...
-            correo.ReplyToList.Add(correo_emisor);
+            //correo.ReplyToList.Add(correo_emisor);
+            correo.ReplyToList.Add("pudve.contacto@gmail.com");
 
             // Asunto
-            if(tipo == "factura")
+            if (tipo == "factura")
             {
                 if (tipo_factura == 3)
                 {
@@ -231,7 +236,7 @@ namespace PuntoDeVentaV2
             {
                 correo.Subject = "PUDVE - Nota de venta de " + fecha_cfdi.ToString("MMMM yyyy");
             }
-            
+
 
             // Contenido
             correo.Body = contenido;
@@ -239,7 +244,27 @@ namespace PuntoDeVentaV2
 
             // Archivos a enviar
 
-            for(int i=0; i<arr_ids_f_enviar.Length; i++)
+            
+            if (FormPrincipal.userNickName.Contains("@"))
+            {
+                string[] otro = FormPrincipal.userNickName.Split('@');
+                nombreUsuario = otro[0].ToString();
+            }
+            else
+            {
+                nombreUsuario = FormPrincipal.userNickName;
+            }
+            var NumerodeVenta = arr_ids_f_enviar[0][0].ToString();
+            using (DataTable consultaFolio = cn.CargarDatos($"SELECT Folio from ventas WHERE ID = {NumerodeVenta}"))
+            {
+                folio = consultaFolio.Rows[0]["Folio"].ToString();
+            }
+            using (DataTable ConsultaSerie = cn.CargarDatos($"SELECT Serie from ventas WHERE ID = {NumerodeVenta}"))
+            {
+                Serie = ConsultaSerie.Rows[0]["Serie"].ToString();
+            }
+
+            for (int i=0; i<arr_ids_f_enviar.Length; i++)
             {
                 if(tipo == "factura")
                 {
@@ -257,6 +282,9 @@ namespace PuntoDeVentaV2
                     }
                     tipo_comprobante += sin_con_acuse;
 
+                    
+
+                    
 
                     // Verifica
                     if (!string.IsNullOrWhiteSpace(servidor))
@@ -283,11 +311,14 @@ namespace PuntoDeVentaV2
                 {
                     if (!string.IsNullOrWhiteSpace(servidor))
                     {
+                        
                         correo.Attachments.Add(new Attachment($@"\\{servidor}\Archivos PUDVE\Ventas\PDF\VENTA_" + arr_ids_f_enviar[i][0] + ".pdf"));
                     }
                     else
                     {
-                        correo.Attachments.Add(new Attachment(@"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + arr_ids_f_enviar[i][0] + ".pdf"));
+                        correo.Attachments.Add(new Attachment($@"C:\Archivos PUDVE\Ventas\PDF\{nombreUsuario}\VENTA_NoVenta{NumerodeVenta}_Folio{folio}{Serie}.pdf"));
+                        //correo.Attachments.Add(new Attachment(@"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + arr_ids_f_enviar[i][0] + ".pdf"));
+                        //correo.Attachments.Add(new Attachment(@"C:\Archivos PUDVE\Ventas\PDF\HOUSEDEPOTAUTLAN\VENTA_NoVenta171283_Folio170522A.pdf"));
                     }
                 }
             }
@@ -325,6 +356,8 @@ namespace PuntoDeVentaV2
 
                 MessageBox.Show("La " + tipo + " no fue enviada. Revisar que el correo se halla escrito correctamente.  \n\n" + ex.Message + "", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            this.Close();
         }
         
         private string[] datos_factura()
@@ -594,6 +627,54 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+        }
+
+        private void Enviar_correo_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txt_correo_TextChanged(object sender, EventArgs e)
+        {
+            var resultado = string.Empty;
+            var txtValidarTexto = (TextBox)sender;
+            resultado = txtValidarTexto.Text;
+
+            if (!string.IsNullOrWhiteSpace(resultado))
+            {
+                Regex patronCorerecto = new Regex(@"^[a-zA-Z0-9ÑñÁáÉéÍíÓóÚú]");
+
+                if (patronCorerecto.IsMatch(resultado))
+                {
+                    resultado = Regex.Replace(resultado, @"[Ñ]", "N");
+                    resultado = Regex.Replace(resultado, @"[ñ]", "n");
+                    resultado = Regex.Replace(resultado, @"[Á]", "A");
+                    resultado = Regex.Replace(resultado, @"[á]", "a");
+                    resultado = Regex.Replace(resultado, @"[É]", "E");
+                    resultado = Regex.Replace(resultado, @"[é]", "e");
+                    resultado = Regex.Replace(resultado, @"[Í]", "I");
+                    resultado = Regex.Replace(resultado, @"[í]", "i");
+                    resultado = Regex.Replace(resultado, @"[Ó]", "O");
+                    resultado = Regex.Replace(resultado, @"[ó]", "o");
+                    resultado = Regex.Replace(resultado, @"[Ú]", "U");
+                    resultado = Regex.Replace(resultado, @"[ú]", "u");
+                    txtValidarTexto.Text = resultado;
+                    txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+                }
+                else
+                {
+                    var resultadoAuxialiar = Regex.Replace(resultado, @"[^a-zA-Z0-9]", string.Empty).Trim();
+                    resultado = resultadoAuxialiar;
+                    txtValidarTexto.Text = resultado;
+                    txtValidarTexto.Focus();
+                    txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+                }
+            }
+            else
+            {
+                txtValidarTexto.Focus();
+                txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
             }
         }
     }

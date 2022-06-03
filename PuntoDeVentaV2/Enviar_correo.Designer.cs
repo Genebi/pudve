@@ -43,6 +43,7 @@
             this.txt_correo.Name = "txt_correo";
             this.txt_correo.Size = new System.Drawing.Size(273, 21);
             this.txt_correo.TabIndex = 0;
+            this.txt_correo.TextChanged += new System.EventHandler(this.txt_correo_TextChanged);
             // 
             // btn_agregar
             // 
@@ -135,6 +136,7 @@
             this.Name = "Enviar_correo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Enviar correo";
+            this.Load += new System.EventHandler(this.Enviar_correo_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Enviar_correo_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();

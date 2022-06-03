@@ -892,6 +892,11 @@ namespace PuntoDeVentaV2
 
         }
 
+        private void progressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void validarCerrarSesion()
         {
             FormPrincipal fPrincipal = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();

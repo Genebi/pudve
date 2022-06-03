@@ -141,7 +141,7 @@ namespace PuntoDeVentaV2
                 p = new Paginar(consulta, DataMemberDGV, maximo_x_pagina);
             }
 
-            DGVAnticipos.Rows.Clear();
+            //DGVAnticipos.Rows.Clear();
 
             DataSet datos = p.cargar();
             DataTable dtDatos = datos.Tables[0];

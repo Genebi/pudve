@@ -345,7 +345,6 @@
             this.btnActualizarMaximoProductos.TabIndex = 52;
             this.btnActualizarMaximoProductos.Text = "Actualizar";
             this.btnActualizarMaximoProductos.UseVisualStyleBackColor = false;
-            this.btnActualizarMaximoProductos.Visible = false;
             this.btnActualizarMaximoProductos.Click += new System.EventHandler(this.btnActualizarMaximoProductos_Click_1);
             // 
             // txtMaximoPorPagina
@@ -357,7 +356,6 @@
             this.txtMaximoPorPagina.TabIndex = 51;
             this.txtMaximoPorPagina.Text = "14";
             this.txtMaximoPorPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtMaximoPorPagina.Visible = false;
             // 
             // label7
             // 
@@ -368,7 +366,6 @@
             this.label7.TabIndex = 50;
             this.label7.Text = "Cantidad de proveedores para mostrar: ";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.label7.Visible = false;
             // 
             // panel4
             // 
@@ -380,7 +377,6 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(59, 32);
             this.panel4.TabIndex = 49;
-            this.panel4.Visible = false;
             // 
             // linkLblUltimaPagina
             // 
@@ -435,7 +431,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(56, 32);
             this.panel3.TabIndex = 48;
-            this.panel3.Visible = false;
             // 
             // btnPrimeraPagina
             // 
@@ -492,7 +487,6 @@
             this.linkLblPaginaSiguiente.TabIndex = 47;
             this.linkLblPaginaSiguiente.TabStop = true;
             this.linkLblPaginaSiguiente.Text = "4";
-            this.linkLblPaginaSiguiente.Visible = false;
             // 
             // linkLblPaginaActual
             // 
@@ -506,7 +500,6 @@
             this.linkLblPaginaActual.TabIndex = 46;
             this.linkLblPaginaActual.TabStop = true;
             this.linkLblPaginaActual.Text = "3";
-            this.linkLblPaginaActual.Visible = false;
             // 
             // linkLblPaginaAnterior
             // 
@@ -520,7 +513,6 @@
             this.linkLblPaginaAnterior.TabIndex = 45;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "2";
-            this.linkLblPaginaAnterior.Visible = false;
             // 
             // Anticipos
             // 
