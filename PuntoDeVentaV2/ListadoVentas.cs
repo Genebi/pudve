@@ -102,6 +102,9 @@ namespace PuntoDeVentaV2
         string nombreDeUsuario = string.Empty;
         string razonSocialUsuario = string.Empty;
 
+        string tipo = string.Empty;
+        int buscarPorFecha = 0; 
+
         public ListadoVentas()
         {
             InitializeComponent();
@@ -122,7 +125,20 @@ namespace PuntoDeVentaV2
             txtBuscador.LostFocus += new EventHandler(BuscarPierdeFoco);
             fechaUltimoCorte = Convert.ToDateTime(mb.UltimaFechaCorte());
             //dpFechaInicial.Value = DateTime.Today.AddDays(-7);
-            dpFechaInicial.Value = fechaUltimoCorte;
+            var ultimoCorte = string.Empty;
+            var fechasUltimoCorte = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' ORDER BY FechaOperacion DESC LIMIT 1");
+            if (!fechasUltimoCorte.Rows.Count.Equals(0))
+            {
+                ultimoCorte = fechasUltimoCorte.Rows[0]["FechaOperacion"].ToString();
+                var ultimoCorteEmpleado2 = Convert.ToDateTime(ultimoCorte.ToString());
+                ultimoCorte = ultimoCorteEmpleado2.ToString("yyyy-MM-dd HH:mm:ss");
+                dpFechaInicial.Value = ultimoCorteEmpleado2;
+            }
+            else
+            {
+                dpFechaInicial.Value = fechaUltimoCorte;
+            }
+            
             dpFechaFinal.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             // Opciones para el combobox
@@ -386,13 +402,24 @@ namespace PuntoDeVentaV2
 
             extra = string.Empty;
             yaValidado = 0;
+            var fechaInicial = string.Empty;
 
             if (clickBoton == 0)
             {
                 if (busqueda)
                 {
                     var buscador = txtBuscador.Text.Trim();
-                    var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                    if (buscarPorFecha == 1)
+                    {
+                        fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                    }
+                    else
+                    {
+                        var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}'");
+                        fechaInicial = fechaInicial2.Rows[0]["FechaOperacion"].ToString();
+                    }
+                   
+                    
                     var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd HH:mm:ss");
                     var opcion = cbTipoVentas.SelectedValue.ToString();
 
@@ -416,6 +443,18 @@ namespace PuntoDeVentaV2
                         if (FormPrincipal.userNickName.Contains("@"))
                         {
                             //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY ID DESC";
+
+                            //var fechaUltimoCorte = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}'");
+                            if (buscarPorFecha == 1)
+                            {
+                                fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                            }
+                            else
+                            {
+                                var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}'");
+                                fechaInicial = fechaInicial2.Rows[0]["FechaOperacion"].ToString();
+                            }
+
                             if (estado.Equals(1)) // Ventas pagadas
                             {
                                 consulta = cs.VerComoEpleadoTodasMisVentasPagadasPorFechas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal);
@@ -713,13 +752,44 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                    if (buscarPorFecha == 1)
+                    {
+                        fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                    }
+                    else
+                    {
+                        if (FormPrincipal.userNickName.Contains("@"))
+                        {
+                            opcionComboBoxFiltroAdminEmp = FormPrincipal.id_empleado.ToString();
+                        }
+                        var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{opcionComboBoxFiltroAdminEmp.ToString()}' ORDER BY FechaOperacion DESC");
+                        if (!fechaInicial2.Rows.Count.Equals(0))
+                        {
+                            var fechaInicialDP = Convert.ToDateTime(fechaInicial2.Rows[0]["FechaOperacion"].ToString());
+                            fechaInicial = fechaInicialDP.ToString("yyyy-MM-dd HH:mm:ss");
+                        }
+                    }
                     dpFechaFinal.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd HH:mm:ss");
 
                     if (FormPrincipal.userNickName.Contains("@"))
                     {
                         //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY ID DESC";
+                        if (buscarPorFecha == 1)
+                        {
+                            fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                        }
+                        else
+                        {
+                            var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' ORDER BY FechaOperacion DESC");
+                            //if (!fechaInicial2.Rows.Count.Equals(0))
+                            //{
+
+                            //}
+                            var fechaInicialDP = Convert.ToDateTime(fechaInicial2.Rows[0]["FechaOperacion"].ToString());
+                            fechaInicial = fechaInicialDP.ToString("yyyy-MM-dd HH:mm:ss");
+
+                        }
 
                         if (estado.Equals(1)) // Ventas pagadas
                         {
@@ -745,16 +815,81 @@ namespace PuntoDeVentaV2
 
                         if (estado.Equals(1)) // Ventas pagadas
                         {
-                            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                                    if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                             {
+                                if (buscarPorFecha == 1)
+                                {
+                                    fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                                }
+                                else
+                                {
+                                    var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' ORDER BY FechaOperacion DESC");
+                                    var fechaInicialDP = Convert.ToDateTime(fechaInicial2.Rows[0]["FechaOperacion"].ToString());
+                                    fechaInicial = fechaInicialDP.ToString("yyyy-MM-dd HH:mm:ss");
+
+                                }
                                 consulta = cs.VerComoAdministradorTodasLasVentasPagadas(estado, fechaInicial, fechaFinal);
                             }
                             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                             {
-                                consulta = cs.filtroMostrarTodasLasVentasPagadasEnAdministrador(estado, fechaInicial, fechaFinal);
+                                List<string> idFechas = new List<string>();
+                                var ultimoCorteEmpleado = string.Empty;
+                                var empleados = cn.CargarDatos($"SELECT ID FROM empleados WHERE IDUsuario = '{FormPrincipal.userID}' AND estatus = '1'");
+                                List<string> QuerysDeTodasLasVentas = new List<string>();
+                               
+
+                                for (int i = 0; i < empleados.Rows.Count; i++)
+                                {
+                                    var idEmpleado = empleados.Rows[i]["ID"].ToString();
+                                    var fechasUltimoCorte = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{idEmpleado}' ORDER BY FechaOperacion DESC LIMIT 1");
+                                    if (!fechasUltimoCorte.Rows.Count.Equals(0))
+                                    {
+                                        ultimoCorteEmpleado = fechasUltimoCorte.Rows[0]["FechaOperacion"].ToString();
+                                        var ultimoCorteEmpleado2 = Convert.ToDateTime(ultimoCorteEmpleado.ToString());
+                                        ultimoCorteEmpleado = ultimoCorteEmpleado2.ToString("yyyy-MM-dd HH:mm:ss");
+                                    }
+                                    else
+                                    {
+                                        ultimoCorteEmpleado = "0000-00-00 00:00:00";
+                                    }
+                                    idFechas.Add($"{idEmpleado}|{ultimoCorteEmpleado}");
+                                }
+
+                                var fechaHoy = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                var fechasUltimoCorteUsr = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{0}' ORDER BY FechaOperacion DESC LIMIT 1");
+                                var ultimoCorteUsr2 = Convert.ToDateTime(fechasUltimoCorteUsr.Rows[0]["FechaOperacion"].ToString());
+                                ultimoCorteEmpleado = ultimoCorteUsr2.ToString("yyyy-MM-dd HH:mm:ss");
+
+                                QuerysDeTodasLasVentas.Add($"(SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT( Usr.Usuario, ' (ADMIN)' ), CONCAT( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario )	LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente )	LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '1' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.FechaOperacion BETWEEN '{ultimoCorteEmpleado}.999999' AND '{fechaHoy}.999999' ORDER BY ID DESC)");
+
+                                foreach (var item in idFechas)
+                                {
+                                    
+                                    var datosEmp = item.Split('|');
+
+                                    QuerysDeTodasLasVentas.Add($"(SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT( Usr.Usuario, ' (ADMIN)' ), CONCAT( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario )	LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente )	LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '1' AND Vent.IDEmpleado = '{datosEmp[0]}' AND Vent.FechaOperacion BETWEEN '{datosEmp[1]}.999999' AND '{fechaHoy}.999999' ORDER BY ID DESC)");
+                                }
+
+                                var UnionQuerysTodosLosTotales = string.Join("UNION", QuerysDeTodasLasVentas);
+                                consulta = UnionQuerysTodosLosTotales;
+
+                                //consulta = cs.filtroMostrarTodasLasVentasPagadasEnAdministrador(estado, fechaInicial, fechaFinal);
                             }
                             else
                             {
+                                if (buscarPorFecha == 1)
+                                {
+                                    fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                                }
+                                else
+                                {
+                                    var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{opcionComboBoxFiltroAdminEmp.ToString()}' ORDER BY FechaOperacion DESC");
+                                    if (!fechaInicial2.Rows.Count.Equals(0))
+                                    {
+                                        var fechaInicialDP = Convert.ToDateTime(fechaInicial2.Rows[0]["FechaOperacion"].ToString());
+                                        fechaInicial = fechaInicialDP.ToString("yyyy-MM-dd HH:mm:ss");
+                                    }
+                                }
                                 consulta = cs.filtroPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
                             }
                         }
@@ -1147,6 +1282,8 @@ namespace PuntoDeVentaV2
 
         private void btnBuscarVentas_Click(object sender, EventArgs e)
         {
+            buscarPorFecha = 1;
+
             if (opcion7 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -1471,8 +1608,14 @@ namespace PuntoDeVentaV2
                     var fechaVenta = mb.ObtenerFechaVenta(idVenta);
                     DateTime validarFechaCorte = Convert.ToDateTime(ultimaFechaCorte);
                     DateTime validarFechaVenta = Convert.ToDateTime(fechaVenta);
+                    var fechasUltimoCorte = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' ORDER BY FechaOperacion DESC LIMIT 1");
+                    var ultimoCorte = string.Empty;
+                    if (!fechasUltimoCorte.Rows.Count.Equals(0))
+                    {
+                        ultimoCorte = fechasUltimoCorte.Rows[0]["FechaOperacion"].ToString();
+                    }
 
-                    if (validarFechaVenta > validarFechaCorte)
+                    if (validarFechaVenta > Convert.ToDateTime(ultimoCorte))
                     {
                         var datoResultado = string.Empty;
 
@@ -4231,12 +4374,33 @@ namespace PuntoDeVentaV2
         private void cbFiltroAdminEmpleado_SelectedIndexChanged(object sender, EventArgs e)
         {
             var tipoDeBusqueda = 0;
+            buscarPorFecha = 0;
+            opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
+            var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{opcionComboBoxFiltroAdminEmp.ToString()}'"); 
+            var ultimoCorteEmpleado2 = Convert.ToDateTime(fechaInicial2.Rows[0]["FechaOperacion"].ToString());
+            dpFechaInicial.Value = ultimoCorteEmpleado2;
 
             tipoDeBusqueda = verTipoDeBusqueda();
 
             if (!FormPrincipal.userNickName.Contains("@"))
             {
                 clasificarTipoDeUsuario();
+            }
+
+            var indexCombo = cbFiltroAdminEmpleado.SelectedValue;
+            
+
+            if (indexCombo.Equals("ADMIN"))
+            {
+                tipo = "admin";
+            }
+            else if (indexCombo.Equals("ALL"))
+            {
+                tipo = "todos";
+            }
+            else if (!indexCombo.Equals("ADMIN") && !indexCombo.Equals("All"))
+            {
+                tipo = "empleado";
             }
 
             CargarDatos(tipoDeBusqueda);

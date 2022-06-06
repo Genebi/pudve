@@ -95,10 +95,10 @@
             // 
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
-            this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tituloSeccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tituloSeccion.Location = new System.Drawing.Point(409, 27);
             this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(90, 25);
+            this.tituloSeccion.Size = new System.Drawing.Size(102, 25);
             this.tituloSeccion.TabIndex = 4;
             this.tituloSeccion.Text = "VENTAS";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -292,14 +292,14 @@
             // cbFiltroAdminEmpleado
             // 
             this.cbFiltroAdminEmpleado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbFiltroAdminEmpleado.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbFiltroAdminEmpleado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbFiltroAdminEmpleado.FormattingEnabled = true;
             this.cbFiltroAdminEmpleado.Items.AddRange(new object[] {
             "Administrador",
             "Todos"});
             this.cbFiltroAdminEmpleado.Location = new System.Drawing.Point(222, 10);
             this.cbFiltroAdminEmpleado.Name = "cbFiltroAdminEmpleado";
-            this.cbFiltroAdminEmpleado.Size = new System.Drawing.Size(185, 24);
+            this.cbFiltroAdminEmpleado.Size = new System.Drawing.Size(185, 21);
             this.cbFiltroAdminEmpleado.TabIndex = 15;
             this.cbFiltroAdminEmpleado.SelectedIndexChanged += new System.EventHandler(this.cbFiltroAdminEmpleado_SelectedIndexChanged);
             // 
@@ -327,7 +327,7 @@
             this.btnReportes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btnReportes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnReportes.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnReportes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.btnReportes.ForeColor = System.Drawing.Color.White;
             this.btnReportes.Location = new System.Drawing.Point(639, 14);
             this.btnReportes.Name = "btnReportes";
@@ -343,7 +343,7 @@
             this.btn_descargar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btn_descargar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_descargar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_descargar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_descargar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_descargar.ForeColor = System.Drawing.Color.White;
             this.btn_descargar.Location = new System.Drawing.Point(772, 45);
             this.btn_descargar.Name = "btn_descargar";
@@ -356,10 +356,10 @@
             // txtBuscador
             // 
             this.txtBuscador.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBuscador.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBuscador.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBuscador.Location = new System.Drawing.Point(3, 45);
             this.txtBuscador.Name = "txtBuscador";
-            this.txtBuscador.Size = new System.Drawing.Size(375, 23);
+            this.txtBuscador.Size = new System.Drawing.Size(375, 22);
             this.txtBuscador.TabIndex = 9;
             this.txtBuscador.Text = "BUSCAR POR RFC, CLIENTE, EMPLEADO O FOLIO...";
             this.txtBuscador.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -371,7 +371,7 @@
             this.btn_enviar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btn_enviar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_enviar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_enviar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_enviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_enviar.ForeColor = System.Drawing.Color.White;
             this.btn_enviar.Location = new System.Drawing.Point(772, 14);
             this.btn_enviar.Name = "btn_enviar";
@@ -384,21 +384,21 @@
             // dpFechaFinal
             // 
             this.dpFechaFinal.CustomFormat = "yyyy-MM-dd";
-            this.dpFechaFinal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dpFechaFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dpFechaFinal.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dpFechaFinal.Location = new System.Drawing.Point(510, 45);
             this.dpFechaFinal.Name = "dpFechaFinal";
-            this.dpFechaFinal.Size = new System.Drawing.Size(100, 23);
+            this.dpFechaFinal.Size = new System.Drawing.Size(100, 22);
             this.dpFechaFinal.TabIndex = 7;
             // 
             // dpFechaInicial
             // 
             this.dpFechaInicial.CustomFormat = "yyyy-MM-dd";
-            this.dpFechaInicial.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dpFechaInicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dpFechaInicial.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dpFechaInicial.Location = new System.Drawing.Point(404, 45);
             this.dpFechaInicial.Name = "dpFechaInicial";
-            this.dpFechaInicial.Size = new System.Drawing.Size(100, 23);
+            this.dpFechaInicial.Size = new System.Drawing.Size(100, 22);
             this.dpFechaInicial.TabIndex = 6;
             // 
             // btnNuevaVenta
@@ -410,7 +410,7 @@
             this.btnNuevaVenta.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
             this.btnNuevaVenta.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
             this.btnNuevaVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnNuevaVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNuevaVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevaVenta.ForeColor = System.Drawing.Color.White;
             this.btnNuevaVenta.Location = new System.Drawing.Point(639, 45);
             this.btnNuevaVenta.Name = "btnNuevaVenta";
@@ -428,7 +428,7 @@
             this.btnBuscarVentas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
             this.btnBuscarVentas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
             this.btnBuscarVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscarVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscarVentas.ForeColor = System.Drawing.Color.White;
             this.btnBuscarVentas.Location = new System.Drawing.Point(616, 45);
             this.btnBuscarVentas.Name = "btnBuscarVentas";
@@ -441,25 +441,25 @@
             // cbVentas
             // 
             this.cbVentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbVentas.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbVentas.FormattingEnabled = true;
             this.cbVentas.Items.AddRange(new object[] {
             "Todas las ventas",
             "Mis ventas"});
             this.cbVentas.Location = new System.Drawing.Point(222, 10);
             this.cbVentas.Name = "cbVentas";
-            this.cbVentas.Size = new System.Drawing.Size(156, 24);
+            this.cbVentas.Size = new System.Drawing.Size(156, 21);
             this.cbVentas.TabIndex = 0;
             this.cbVentas.Visible = false;
             // 
             // cbTipoVentas
             // 
             this.cbTipoVentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTipoVentas.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTipoVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbTipoVentas.FormattingEnabled = true;
             this.cbTipoVentas.Location = new System.Drawing.Point(3, 10);
             this.cbTipoVentas.Name = "cbTipoVentas";
-            this.cbTipoVentas.Size = new System.Drawing.Size(213, 24);
+            this.cbTipoVentas.Size = new System.Drawing.Size(213, 21);
             this.cbTipoVentas.TabIndex = 1;
             this.cbTipoVentas.SelectedIndexChanged += new System.EventHandler(this.cbTipoVentas_SelectedIndexChanged);
             this.cbTipoVentas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbTipoVentas_KeyDown);
@@ -470,7 +470,7 @@
             this.btn_timbrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btn_timbrar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_timbrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_timbrar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_timbrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_timbrar.ForeColor = System.Drawing.Color.White;
             this.btn_timbrar.Location = new System.Drawing.Point(806, 47);
             this.btn_timbrar.Name = "btn_timbrar";
@@ -499,7 +499,7 @@
             this.panel1.Controls.Add(this.linkLblPaginaAnterior);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.panel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.panel1.ForeColor = System.Drawing.Color.Red;
             this.panel1.Location = new System.Drawing.Point(0, 495);
             this.panel1.Name = "panel1";
@@ -551,7 +551,7 @@
             this.btnSiguiente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSiguiente.FlatAppearance.BorderSize = 0;
             this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSiguiente.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnSiguiente.Image = global::PuntoDeVentaV2.Properties.Resources.angle_right;
             this.btnSiguiente.Location = new System.Drawing.Point(6, 6);
             this.btnSiguiente.Name = "btnSiguiente";
@@ -567,7 +567,7 @@
             this.btnUltimaPagina.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnUltimaPagina.FlatAppearance.BorderSize = 0;
             this.btnUltimaPagina.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUltimaPagina.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnUltimaPagina.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnUltimaPagina.Image = global::PuntoDeVentaV2.Properties.Resources.angle_double_right;
             this.btnUltimaPagina.Location = new System.Drawing.Point(31, 6);
             this.btnUltimaPagina.Name = "btnUltimaPagina";
@@ -593,7 +593,7 @@
             this.btnPrimeraPagina.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPrimeraPagina.FlatAppearance.BorderSize = 0;
             this.btnPrimeraPagina.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPrimeraPagina.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnPrimeraPagina.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnPrimeraPagina.Image = global::PuntoDeVentaV2.Properties.Resources.angle_double_left;
             this.btnPrimeraPagina.Location = new System.Drawing.Point(6, 6);
             this.btnPrimeraPagina.Name = "btnPrimeraPagina";
@@ -609,7 +609,7 @@
             this.btnAnterior.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAnterior.FlatAppearance.BorderSize = 0;
             this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAnterior.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnAnterior.Image = global::PuntoDeVentaV2.Properties.Resources.angle_left;
             this.btnAnterior.Location = new System.Drawing.Point(31, 6);
             this.btnAnterior.Name = "btnAnterior";
@@ -689,11 +689,11 @@
             this.lb_texto_descarga_verpdf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lb_texto_descarga_verpdf.AutoSize = true;
-            this.lb_texto_descarga_verpdf.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_texto_descarga_verpdf.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_texto_descarga_verpdf.ForeColor = System.Drawing.Color.Red;
             this.lb_texto_descarga_verpdf.Location = new System.Drawing.Point(393, 447);
             this.lb_texto_descarga_verpdf.Name = "lb_texto_descarga_verpdf";
-            this.lb_texto_descarga_verpdf.Size = new System.Drawing.Size(154, 19);
+            this.lb_texto_descarga_verpdf.Size = new System.Drawing.Size(157, 20);
             this.lb_texto_descarga_verpdf.TabIndex = 9;
             this.lb_texto_descarga_verpdf.Text = "Descargando nota";
             this.lb_texto_descarga_verpdf.Visible = false;
@@ -703,11 +703,11 @@
             this.lb_txt_ruta_descargar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lb_txt_ruta_descargar.AutoSize = true;
-            this.lb_txt_ruta_descargar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_txt_ruta_descargar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_txt_ruta_descargar.ForeColor = System.Drawing.Color.Red;
             this.lb_txt_ruta_descargar.Location = new System.Drawing.Point(448, 473);
             this.lb_txt_ruta_descargar.Name = "lb_txt_ruta_descargar";
-            this.lb_txt_ruta_descargar.Size = new System.Drawing.Size(58, 19);
+            this.lb_txt_ruta_descargar.Size = new System.Drawing.Size(57, 20);
             this.lb_txt_ruta_descargar.TabIndex = 11;
             this.lb_txt_ruta_descargar.Text = "label1";
             this.lb_txt_ruta_descargar.Visible = false;
