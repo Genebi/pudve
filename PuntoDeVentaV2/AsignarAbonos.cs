@@ -82,6 +82,7 @@ namespace PuntoDeVentaV2
             if (!existenAbonos)
             {
                 txtPendiente.Text = totalPendiente.ToString("C2");
+                restanteDePago = totalPendiente;
             }
             else
             {
