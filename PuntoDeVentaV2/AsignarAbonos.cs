@@ -538,7 +538,7 @@ namespace PuntoDeVentaV2
 
             //Contenido del Ticket
             var restante = restanteDePago - float.Parse(info[4]);
-            string contenido = $"ID de venta: {info[0]}\nTotal original: ${info[2]}\nPendiente de pago: ${restanteDePago.ToString()}\nCantidad abonada: ${info[4]}\nCantidad restante: ${restante.ToString()}\n{info[6]}";
+            string contenido = $"ID de venta: {info[0]}\nTotal original: ${info[2]}\nSaldo anterior: ${restanteDePago.ToString()}\nCantidad abonada: ${info[4]}\nCantidad restante: ${restante.ToString()}\n{info[6]}";
 
             Paragraph cuerpo = new Paragraph(contenido, fuenteNormal);
             cuerpo.Alignment = Element.ALIGN_CENTER;
