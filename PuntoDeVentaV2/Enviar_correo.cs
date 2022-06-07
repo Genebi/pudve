@@ -30,6 +30,7 @@ namespace PuntoDeVentaV2
         string Serie;
         string nombreUsuario;
 
+        string IDS;
 
         public Enviar_correo(string[][] arr_ids, string titulo, int tp_factura)
         {
@@ -143,12 +144,37 @@ namespace PuntoDeVentaV2
 
         private void btn_enviar_Click(object sender, EventArgs e)
         {
+            bool yasemando = true;
+            foreach (var CosultaIDS in arr_ids_f_enviar)
+            {
+                IDS = CosultaIDS[0].ToString();
+
+
+                using (DataTable consultaFolio = cn.CargarDatos($"SELECT Folio from ventas WHERE ID = {IDS}"))
+                {
+                    folio = consultaFolio.Rows[0]["Folio"].ToString();
+                }
+
+                if (folio.Equals("0"))
+                {
+                    MessageBox.Show("No se pueden Enviar APERTURAS DE CAJA","Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    this.Close();
+                    break;
+                }
+                else
+                {
+                    if (yasemando.Equals(true))
+                    {
+                        MessageBox.Show("La envío tardará 8 segundos (aproximadamente) en ser enviado. \n Por favor no cierre la ventana. \n\n Un momento por favor...", "Mensaje del sistema", MessageBoxButtons.OK);
+                    }
+                    yasemando = false;
+                }
+                
+            }
+
             List<string> list_correos = new List<string>();
             string[] arr_obtiene_datos_correo = new string[3];
             var servidor = Properties.Settings.Default.Hosting;
-
-
-            MessageBox.Show("La envío tardará 8 segundos (aproximadamente) en ser enviado. \n Por favor no cierre la ventana. \n\n Un momento por favor...", "Mensaje del sistema", MessageBoxButtons.OK);
 
             // Deshabilita los botones 
 
@@ -254,15 +280,7 @@ namespace PuntoDeVentaV2
             {
                 nombreUsuario = FormPrincipal.userNickName;
             }
-            var NumerodeVenta = arr_ids_f_enviar[0][0].ToString();
-            using (DataTable consultaFolio = cn.CargarDatos($"SELECT Folio from ventas WHERE ID = {NumerodeVenta}"))
-            {
-                folio = consultaFolio.Rows[0]["Folio"].ToString();
-            }
-            using (DataTable ConsultaSerie = cn.CargarDatos($"SELECT Serie from ventas WHERE ID = {NumerodeVenta}"))
-            {
-                Serie = ConsultaSerie.Rows[0]["Serie"].ToString();
-            }
+           
 
             for (int i=0; i<arr_ids_f_enviar.Length; i++)
             {
@@ -316,7 +334,24 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        correo.Attachments.Add(new Attachment($@"C:\Archivos PUDVE\Ventas\PDF\{nombreUsuario}\VENTA_NoVenta{NumerodeVenta}_Folio{folio}{Serie}.pdf"));
+                       
+                        foreach (var CosultaIDS in arr_ids_f_enviar)
+                        {
+                            IDS = CosultaIDS[0].ToString();
+
+                           
+                            using (DataTable consultaFolio = cn.CargarDatos($"SELECT Folio from ventas WHERE ID = {IDS}"))
+                            {
+                                folio = consultaFolio.Rows[0]["Folio"].ToString();
+                            }
+                            using (DataTable ConsultaSerie = cn.CargarDatos($"SELECT Serie from ventas WHERE ID = {IDS}"))
+                            {
+                                Serie = ConsultaSerie.Rows[0]["Serie"].ToString();
+                            }
+
+                            correo.Attachments.Add(new Attachment($@"C:\Archivos PUDVE\Ventas\PDF\{nombreUsuario}\VENTA_NoVenta{IDS}_Folio{folio}{Serie}.pdf"));
+                        }
+                        
                         //correo.Attachments.Add(new Attachment(@"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + arr_ids_f_enviar[i][0] + ".pdf"));
                         //correo.Attachments.Add(new Attachment(@"C:\Archivos PUDVE\Ventas\PDF\HOUSEDEPOTAUTLAN\VENTA_NoVenta171283_Folio170522A.pdf"));
                     }
