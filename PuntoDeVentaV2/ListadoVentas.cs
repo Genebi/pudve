@@ -2838,6 +2838,15 @@ namespace PuntoDeVentaV2
             DataTable dt_usuarios = cn.CargarDatos("SELECT ID, Usuario FROM usuarios");
             int tam_usuarios = dt_usuarios.Rows.Count;
 
+            var carpetaCSDAdministrador = FormPrincipal.userNickName;
+
+            if (FormPrincipal.userNickName.Contains("@"))
+            {
+                var dividirAdministradorEmpleado = FormPrincipal.userNickName.Split('@');
+
+                carpetaCSDAdministrador = dividirAdministradorEmpleado[0];
+            }
+
             if (tam_usuarios > 1)
             {
                 DataRow dr_usuarios = dt_usuarios.Rows[0];
@@ -2850,13 +2859,15 @@ namespace PuntoDeVentaV2
                     if (!Directory.Exists(ruta_carpeta_csd))
                     {
                         cambia_nombre_carpeta = true;
-                        ruta_carpeta_csd = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                        //ruta_carpeta_csd = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                        ruta_carpeta_csd = @"C:\Archivos PUDVE\MisDatos\CSD_" + carpetaCSDAdministrador + @"\";
                     }
                 }
                 else
                 {
                     cambia_nombre_carpeta = true;
-                    ruta_carpeta_csd = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                    //ruta_carpeta_csd = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                    ruta_carpeta_csd = @"C:\Archivos PUDVE\MisDatos\CSD_" + carpetaCSDAdministrador + @"\";
                 }
             }
 
@@ -2866,7 +2877,8 @@ namespace PuntoDeVentaV2
 
                 if (cambia_nombre_carpeta == true)
                 {
-                    ruta_carpeta_csd = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                    //ruta_carpeta_csd = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                    ruta_carpeta_csd = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_" + carpetaCSDAdministrador + @"\";
                 }
             }
 
