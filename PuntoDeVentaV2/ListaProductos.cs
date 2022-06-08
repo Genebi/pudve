@@ -179,8 +179,65 @@ namespace PuntoDeVentaV2
             consultadoDesdeListProd = 0;
             RelacionProductoServicioCombo();
             RelacionProductoServicioComboEditar();
+            RelacionServicioConCombo();
             //var idServ = Convert.ToInt32(DGVStockProductos[0, numfila].Value.ToString());
            
+        }
+
+        private void RelacionServicioConCombo()
+        {
+            numfila = DGVStockProductos.CurrentRow.Index;
+            
+
+            if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
+            {
+                if (!listaServCombo.Count().Equals(0))       // cuando es Producto
+                {
+                    var idServ = DGVStockProductos[0, numfila].Value.ToString();
+
+                    foreach (var item in listaServCombo)
+                    {
+                       
+                        var words = item.Split('|');
+                        var Fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        var IDServicio = words[1].ToString();
+                        var IDProducto = words[2].ToString();
+                        var NombreProducto = words[3].ToString();
+                        var Cantidad = words[4].ToString();
+
+                        foreach (DataGridViewRow DRListado in DGVStockProductos.Rows)
+                        {
+                            string strFila = DRListado.Cells[0].RowIndex.ToString();
+                            var idproddgv = DRListado.Cells["ID"].Value.ToString();
+                            if (idproddgv.Equals(IDServicio))
+                            {
+                                DGVStockProductos.Rows[Convert.ToInt32(strFila)].DefaultCellStyle.BackColor = Color.Gray;
+                            }
+                        }
+                        
+                    }
+                }
+                if (!listaProd.Count.Equals(0))     // cuando es Combo ó Servicio
+                {
+                    var idServ = DGVStockProductos[0, numfila].Value.ToString();
+                    foreach (var item in listaProd)
+                    {
+                        var words = item.Split('|');
+                        var Fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        var IDServicio = words[1].ToString();
+                        var IDProducto = words[2].ToString();
+                        var NombreProducto = words[3].ToString();
+                        var Cantidad = words[4].ToString();
+
+
+                        if (IDProducto.Equals(idServ))
+                        {
+                            MessageBox.Show("La relación ya existe para este producto, combo ó servicio", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+                }
+            }
         }
 
         private void RelacionProductoServicioComboEditar()
