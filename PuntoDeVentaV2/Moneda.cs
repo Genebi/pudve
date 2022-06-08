@@ -91,27 +91,27 @@ namespace PuntoDeVentaV2
                 parte_decimal = moneda + " " + Num[1] + "/100" + MN;
 
                 //se convierte el numero a literal
-                if (int.Parse(Num[0]) == 0)
+                if ((int)double.Parse(Num[0]) == 0)
                 {
                     //si el valor es cero
                     literal = "cero ";
                 }
-                else if (int.Parse(Num[0]) > 999999)
+                else if ((int)double.Parse(Num[0]) > 999999)
                 {
                     //si es millon
                     literal = getMillones(Num[0]);
                 }
-                else if (int.Parse(Num[0]) > 999)
+                else if ((int)double.Parse(Num[0]) > 999)
                 {
                     //si es miles
                     literal = getMiles(Num[0]);
                 }
-                else if (int.Parse(Num[0]) > 99)
+                else if ((int)double.Parse(Num[0]) > 99)
                 {
                     //si es centena
                     literal = getCentenas(Num[0]);
                 }
-                else if (int.Parse(Num[0]) > 9)
+                else if ((int)double.Parse(Num[0]) > 9)
                 {
                     //si es decena
                     literal = getDecenas(Num[0]);

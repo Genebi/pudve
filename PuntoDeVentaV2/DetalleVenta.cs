@@ -559,7 +559,7 @@ namespace PuntoDeVentaV2
 
         private void CalcularCambio()
         {
-           
+
 
             //if (credito >= total)
             //{
@@ -581,13 +581,13 @@ namespace PuntoDeVentaV2
             float vales = CantidadDecimal(txtVales.Text);
             float cheque = CantidadDecimal(txtCheque.Text);
             float transferencia = CantidadDecimal(txtTransferencia.Text);
-            
+
             float suma = tarjeta + vales + cheque + transferencia;
 
 
             if (escredito == 1)
             {
-                cambio =(CantidadDecimal(txtEfectivo.Text) + suma + credito) - total;
+                cambio = (CantidadDecimal(txtEfectivo.Text) + suma + credito) - total;
 
                 if (cambio < 0)
                 {
@@ -605,11 +605,11 @@ namespace PuntoDeVentaV2
                     cambio = 0;
                 }
 
-                lbTotalCambio.Text =cambio.ToString("C2");
+                lbTotalCambio.Text = cambio.ToString("C2");
             }
 
             decimal mandar = Convert.ToDecimal(cambio);
-            InformacionVenta informacionVenta = new InformacionVenta(Convert.ToInt32(mandar));
+            InformacionVenta informacionVenta = new InformacionVenta((long)Convert.ToDouble(mandar));
 
         }
 

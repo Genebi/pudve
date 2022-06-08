@@ -20,11 +20,11 @@ namespace PuntoDeVentaV2
 
         private string[] pagosConCuenta = new string[] { "02", "03", "04", "05", "06", "28", "29", "99"};
 
-        public InformacionVenta(int idVenta = 0)
+        public InformacionVenta( long idVenta = 0)
         {
             InitializeComponent();
 
-            this.idVenta = idVenta;
+                this.idVenta =(int)Convert.ToDouble(idVenta);
         }
 
         private void InformacionVenta_Load(object sender, EventArgs e)
