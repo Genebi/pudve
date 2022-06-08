@@ -873,8 +873,8 @@
             // 
             // btnConfiguracionGeneral
             // 
-            this.btnConfiguracionGeneral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
-            this.btnConfiguracionGeneral.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.btnConfiguracionGeneral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnConfiguracionGeneral.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btnConfiguracionGeneral.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnConfiguracionGeneral.BorderRadius = 40;
             this.btnConfiguracionGeneral.BorderSize = 0;
@@ -895,8 +895,8 @@
             // 
             // botonRedondo4
             // 
-            this.botonRedondo4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
-            this.botonRedondo4.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.botonRedondo4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.botonRedondo4.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.botonRedondo4.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.botonRedondo4.BorderRadius = 40;
             this.botonRedondo4.BorderSize = 0;
@@ -917,8 +917,8 @@
             // 
             // botonRedondo1
             // 
-            this.botonRedondo1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
-            this.botonRedondo1.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.botonRedondo1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.botonRedondo1.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.botonRedondo1.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.botonRedondo1.BorderRadius = 40;
             this.botonRedondo1.BorderSize = 0;
@@ -942,8 +942,8 @@
             // 
             // btnRespaldarInformacion
             // 
-            this.btnRespaldarInformacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
-            this.btnRespaldarInformacion.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.btnRespaldarInformacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnRespaldarInformacion.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btnRespaldarInformacion.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnRespaldarInformacion.BorderRadius = 40;
             this.btnRespaldarInformacion.BorderSize = 0;
@@ -964,8 +964,8 @@
             // 
             // botonRedondo5
             // 
-            this.botonRedondo5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
-            this.botonRedondo5.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.botonRedondo5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.botonRedondo5.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.botonRedondo5.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.botonRedondo5.BorderRadius = 40;
             this.botonRedondo5.BorderSize = 0;
@@ -986,8 +986,8 @@
             // 
             // btnEnvioCorreo
             // 
-            this.btnEnvioCorreo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
-            this.btnEnvioCorreo.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.btnEnvioCorreo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnEnvioCorreo.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btnEnvioCorreo.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnEnvioCorreo.BorderRadius = 40;
             this.btnEnvioCorreo.BorderSize = 0;
