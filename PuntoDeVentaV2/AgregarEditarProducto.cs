@@ -3512,7 +3512,7 @@ namespace PuntoDeVentaV2
                             {
                                 // Agregar la relacion de producto ya registrado con Combo Servicio
                                 #region Agregar a tabla productosdeservicios
-                                if (listaProductoToCombo.Count().Equals(1))
+                                if (!listaProductoToCombo.Count().Equals(0))//Validaba para que solo entre cuando la lista contiene 1 Producto---------------------------
                                 {
                                     if (!listaProductoToCombo[0].ToString().Equals(string.Empty))
                                     {
@@ -3524,8 +3524,8 @@ namespace PuntoDeVentaV2
                                                 datos = item.Split('|');
                                                 string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                                                 datos[0] = fech.Trim();
-                                                string[] nuevosDatos = { datos[0], datos[1], datos[3], datos[4], datos[5] };
-                                                cn.EjecutarConsulta(cs.insertarProductosServicios(nuevosDatos));
+                                                string[] nuevosDatos = { datos[0], datos[1], datos[3], datos[4], "0" };
+                                                cn.EjecutarConsulta(cs.insertarProductosServicios(nuevosDatos)); //Cuando se agrega un servicio al Producto---------------
                                             }
                                             using (DataTable dtProductosDeServicios = cn.CargarDatos(cs.ObtenerProductosServPaq(datos[1].ToString())))
                                             {

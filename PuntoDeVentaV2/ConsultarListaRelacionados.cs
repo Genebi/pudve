@@ -156,7 +156,7 @@ namespace PuntoDeVentaV2
                 string NombreProducto = string.Empty;
                 string Cantidad = string.Empty;
                 string Tipo = string.Empty;
-
+                DataTable rowsDGV = cn.CargarDatos(cs.buscarProdIntoServComb(idProdEdit));
                 using (DataTable dtProdServ = cn.CargarDatos(cs.buscarProdIntoServComb(idProdEdit)))
                 {
                     if (!dtProdServ.Rows.Count.Equals(0))
@@ -231,6 +231,11 @@ namespace PuntoDeVentaV2
                 {
                     DGVProdServCombo.Rows.Clear();
                 }
+                else if(rowsDGV.Rows.Count.Equals(0))
+                {
+                    this.Close();
+                }
+
             }
 
             DGVProdServCombo.Columns[0].Visible = false;
@@ -355,6 +360,7 @@ namespace PuntoDeVentaV2
 
         private void notSortableDataGridView()
         {
+
             foreach (DataGridViewColumn column in DGVProdServCombo.Columns)
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -522,10 +528,13 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
+                    DGVProdServCombo.Rows.Clear();
+                    cargarDatos();
                     verificarTipoYLlenadoDataGridView();
                 }
             }
         }
+
 
         private void DGVProdServCombo_MouseUp(object sender, MouseEventArgs e)
         {
