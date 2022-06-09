@@ -4388,7 +4388,7 @@ namespace PuntoDeVentaV2
             var tipoDeBusqueda = 0;
             buscarPorFecha = 0;
             opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
-            var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{opcionComboBoxFiltroAdminEmp.ToString()}'");
+            var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{opcionComboBoxFiltroAdminEmp.ToString()}' ORDER BY FechaOperacion DESC LIMIT 1");
 
             if (fechaInicial2.Rows.Count.Equals(0))
             {
@@ -4400,7 +4400,6 @@ namespace PuntoDeVentaV2
                 var ultimoCorteEmpleado2 = Convert.ToDateTime(fechaInicial2.Rows[0]["FechaOperacion"].ToString());
                 dpFechaInicial.Value = ultimoCorteEmpleado2;
             }
-            
 
             tipoDeBusqueda = verTipoDeBusqueda();
 
