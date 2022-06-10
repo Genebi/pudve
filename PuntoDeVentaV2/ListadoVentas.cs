@@ -2802,8 +2802,12 @@ namespace PuntoDeVentaV2
                 //    mainForm.SendToBack();
                 //}
             }
-            cbFiltroAdminEmpleado.SelectedIndex = 1;
-            cbFiltroAdminEmpleado.SelectedIndex = 0;
+            if (cbFiltroAdminEmpleado.Items.Count > 1 && !FormPrincipal.userNickName.Contains("@"))
+            {
+                cbFiltroAdminEmpleado.SelectedIndex = 1;
+                cbFiltroAdminEmpleado.SelectedIndex = 0;
+            }
+
         }
 
         //Se agrego para que no se abra la ventana nueva venta al cambiar el tamaño del form
@@ -4394,7 +4398,10 @@ namespace PuntoDeVentaV2
         {
             var tipoDeBusqueda = 0;
             buscarPorFecha = 0;
-            opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+               opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
+            }
             var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{opcionComboBoxFiltroAdminEmp.ToString()}' ORDER BY FechaOperacion DESC LIMIT 1");
 
             if (fechaInicial2.Rows.Count.Equals(0))
