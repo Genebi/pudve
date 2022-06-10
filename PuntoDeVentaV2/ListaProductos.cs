@@ -186,55 +186,52 @@ namespace PuntoDeVentaV2
 
         private void RelacionServicioConCombo()
         {
-            numfila = DGVStockProductos.CurrentRow.Index;
-            
-
-            if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
+            if (typeStockFinal.Equals("Combos") || typeStockFinal.Equals("Servicios"))  // cuando es Editar Productos
             {
-                if (!listaServCombo.Count().Equals(0))       // cuando es Producto
+                
+                using (DataTable dtRelacionProdComboServ = cn.CargarDatos(cs.checarSiExisteRelacionProducto(idProdEdit)))
                 {
-                    var idServ = DGVStockProductos[0, numfila].Value.ToString();
-
-                    foreach (var item in listaServCombo)
+                    if (!dtRelacionProdComboServ.Rows.Count.Equals(0))
                     {
-                       
-                        var words = item.Split('|');
-                        var Fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                        var IDServicio = words[1].ToString();
-                        var IDProducto = words[2].ToString();
-                        var NombreProducto = words[3].ToString();
-                        var Cantidad = words[4].ToString();
-
-                        foreach (DataGridViewRow DRListado in DGVStockProductos.Rows)
+                        foreach (DataRow drRelacion in dtRelacionProdComboServ.Rows)
                         {
-                            string strFila = DRListado.Cells[0].RowIndex.ToString();
-                            var idproddgv = DRListado.Cells["ID"].Value.ToString();
-                            if (idproddgv.Equals(IDServicio))
+                            var IDServicio = drRelacion["IDServicio"];
+                            foreach (DataGridViewRow IdServicio in DGVStockProductos.Rows)
                             {
-                                DGVStockProductos.Rows[Convert.ToInt32(strFila)].DefaultCellStyle.BackColor = Color.Gray;
+                                string fila = IdServicio.Cells[0].RowIndex.ToString();
+                                var servicioDGV = IdServicio.Cells["ID"].Value.ToString();
+                                var sinComillas = string.Empty;
+                                sinComillas = IDServicio.ToString().Replace('"', ' ');
+                                if (servicioDGV.Equals(sinComillas))
+                                {
+                                    DGVStockProductos.Rows[Convert.ToInt32(fila)].DefaultCellStyle.BackColor = Color.Gray;
+                                }
+                            }
+                            
+                        }
+                    }
+
+
+                }
+                if (!AgregarEditarProducto.listaProductoToCombo.Count.Equals(0))
+                {
+                    foreach (var item in AgregarEditarProducto.listaProductoToCombo)
+                    {
+                        var claves = item.Split('|');
+                        var idProducto = claves[1].ToString();
+                        if (!string.IsNullOrWhiteSpace(idProducto))
+                        {
+                            foreach (DataGridViewRow IdServicio in DGVStockProductos.Rows)
+                            {
+                                string fila = IdServicio.Cells[0].RowIndex.ToString();
+                                var servicioDGV = IdServicio.Cells["ID"].Value.ToString();
+                                if (servicioDGV.Equals(idProducto))
+                                {
+                                    DGVStockProductos.Rows[Convert.ToInt32(fila)].DefaultCellStyle.BackColor = Color.Gray;
+                                }
                             }
                         }
                         
-                    }
-                }
-                if (!listaProd.Count.Equals(0))     // cuando es Combo ó Servicio
-                {
-                    var idServ = DGVStockProductos[0, numfila].Value.ToString();
-                    foreach (var item in listaProd)
-                    {
-                        var words = item.Split('|');
-                        var Fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                        var IDServicio = words[1].ToString();
-                        var IDProducto = words[2].ToString();
-                        var NombreProducto = words[3].ToString();
-                        var Cantidad = words[4].ToString();
-
-
-                        if (IDProducto.Equals(idServ))
-                        {
-                            MessageBox.Show("La relación ya existe para este producto, combo ó servicio", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
                     }
                 }
             }
@@ -844,9 +841,6 @@ namespace PuntoDeVentaV2
 
         private void DGVStockProductos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-
-
-
             // variable para poder saber que fila fue la seleccionada
             numfila = DGVStockProductos.CurrentRow.Index;
             DGVStockProductos.Rows[Convert.ToInt32(numfila)].DefaultCellStyle.BackColor = Color.Gray;
@@ -915,13 +909,15 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                             }
+                            
+                            
                         }
                         if (!AgregarEditarProducto.listaProductoToCombo.Count.Equals(0))
                         {
                             foreach(var item in AgregarEditarProducto.listaProductoToCombo)
                             {
                                 var claves = item.Split('|');
-                                if (claves[2].Equals(Convert.ToString(idServ)))
+                                if (claves[1].Equals(Convert.ToString(idServ)))
                                 {
                                    
                                     MessageBox.Show("La relación ya existe para este producto", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
