@@ -158,7 +158,7 @@
             // 
             this.txtTransferencia.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTransferencia.Location = new System.Drawing.Point(391, 140);
-            this.txtTransferencia.MaxLength = 7;
+            this.txtTransferencia.MaxLength = 10;
             this.txtTransferencia.Name = "txtTransferencia";
             this.txtTransferencia.Size = new System.Drawing.Size(80, 22);
             this.txtTransferencia.TabIndex = 125;
@@ -171,7 +171,7 @@
             // 
             this.txtCheque.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCheque.Location = new System.Drawing.Point(297, 140);
-            this.txtCheque.MaxLength = 7;
+            this.txtCheque.MaxLength = 10;
             this.txtCheque.Name = "txtCheque";
             this.txtCheque.Size = new System.Drawing.Size(80, 22);
             this.txtCheque.TabIndex = 124;
@@ -184,7 +184,7 @@
             // 
             this.txtVales.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtVales.Location = new System.Drawing.Point(203, 140);
-            this.txtVales.MaxLength = 7;
+            this.txtVales.MaxLength = 10;
             this.txtVales.Name = "txtVales";
             this.txtVales.Size = new System.Drawing.Size(80, 22);
             this.txtVales.TabIndex = 123;
@@ -197,7 +197,7 @@
             // 
             this.txtTarjeta.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTarjeta.Location = new System.Drawing.Point(107, 140);
-            this.txtTarjeta.MaxLength = 7;
+            this.txtTarjeta.MaxLength = 10;
             this.txtTarjeta.Name = "txtTarjeta";
             this.txtTarjeta.Size = new System.Drawing.Size(80, 22);
             this.txtTarjeta.TabIndex = 122;
@@ -211,7 +211,7 @@
             this.txtEfectivo.AcceptsReturn = true;
             this.txtEfectivo.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEfectivo.Location = new System.Drawing.Point(13, 140);
-            this.txtEfectivo.MaxLength = 7;
+            this.txtEfectivo.MaxLength = 10;
             this.txtEfectivo.Name = "txtEfectivo";
             this.txtEfectivo.Size = new System.Drawing.Size(80, 22);
             this.txtEfectivo.TabIndex = 121;
