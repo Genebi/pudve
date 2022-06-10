@@ -74,6 +74,8 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.CBTipo = new System.Windows.Forms.ComboBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnAplicarDescuento = new System.Windows.Forms.Button();
@@ -114,8 +116,6 @@
             this.btnBascula = new System.Windows.Forms.Button();
             this.lblPesoRecibido = new System.Windows.Forms.Label();
             this.btnCSV = new System.Windows.Forms.Button();
-            this.CBTipo = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -612,6 +612,32 @@
             this.panel1.Click += new System.EventHandler(this.panel1_Click);
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(726, 7);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 17);
+            this.label2.TabIndex = 66;
+            this.label2.Text = "Tipo:";
+            // 
+            // CBTipo
+            // 
+            this.CBTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBTipo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.CBTipo.FormattingEnabled = true;
+            this.CBTipo.Items.AddRange(new object[] {
+            "Todos",
+            "Productos",
+            "Servicios",
+            "Combos"});
+            this.CBTipo.Location = new System.Drawing.Point(763, 5);
+            this.CBTipo.Name = "CBTipo";
+            this.CBTipo.Size = new System.Drawing.Size(121, 21);
+            this.CBTipo.TabIndex = 65;
+            this.CBTipo.TextChanged += new System.EventHandler(this.CBTipo_TextChanged);
+            // 
             // panel4
             // 
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -737,8 +763,8 @@
             this.nudCantidadPS.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudCantidadPS.Location = new System.Drawing.Point(7, 29);
             this.nudCantidadPS.Maximum = new decimal(new int[] {
-            999999,
-            0,
+            1410065407,
+            2,
             0,
             0});
             this.nudCantidadPS.Minimum = new decimal(new int[] {
@@ -1197,32 +1223,6 @@
             this.btnCSV.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCSV.UseVisualStyleBackColor = true;
             this.btnCSV.Click += new System.EventHandler(this.btnCSV_Click);
-            // 
-            // CBTipo
-            // 
-            this.CBTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CBTipo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.CBTipo.FormattingEnabled = true;
-            this.CBTipo.Items.AddRange(new object[] {
-            "Todos",
-            "Productos",
-            "Servicios",
-            "Combos"});
-            this.CBTipo.Location = new System.Drawing.Point(763, 5);
-            this.CBTipo.Name = "CBTipo";
-            this.CBTipo.Size = new System.Drawing.Size(121, 21);
-            this.CBTipo.TabIndex = 65;
-            this.CBTipo.TextChanged += new System.EventHandler(this.CBTipo_TextChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(726, 7);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 17);
-            this.label2.TabIndex = 66;
-            this.label2.Text = "Tipo:";
             // 
             // Ventas
             // 

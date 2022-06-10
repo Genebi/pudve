@@ -5990,7 +5990,7 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                nudCantidadPS.Value = Convert.ToDecimal(cantidadaPedir);
+                                nudCantidadPS.Value =(long)Convert.ToDouble(cantidadaPedir);
                                 AgregarProducto(datosProducto.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
                             }
                         }
