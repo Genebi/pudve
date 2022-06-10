@@ -2802,6 +2802,8 @@ namespace PuntoDeVentaV2
                 //    mainForm.SendToBack();
                 //}
             }
+            cbFiltroAdminEmpleado.SelectedIndex = 1;
+            cbFiltroAdminEmpleado.SelectedIndex = 0;
         }
 
         //Se agrego para que no se abra la ventana nueva venta al cambiar el tamaño del form
@@ -4383,6 +4385,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        public void recargarFechaCorteCaja()
+        {
+            //cbFiltroAdminEmpleado.SelectedIndex = 1;
+            //cbFiltroAdminEmpleado.SelectedIndex = 0;
+        }
         private void cbFiltroAdminEmpleado_SelectedIndexChanged(object sender, EventArgs e)
         {
             var tipoDeBusqueda = 0;
