@@ -603,7 +603,13 @@ namespace PuntoDeVentaV2
                 if (words.Count() == 1)
                 {
                     DGVProdServCombo.Rows[row].Cells[column].Value = $"{words[0]}.00";
-                    cantidad = (float)Convert.ToDecimal(DGVProdServCombo.Rows[row].Cells[column].Value.ToString());
+                    bool esDecimal = false;
+                    esDecimal = float.TryParse(DGVProdServCombo.Rows[row].Cells[column].Value.ToString(), out cantidad);
+                    if (esDecimal)
+                    {
+                        cantidad = (float)Convert.ToDecimal(DGVProdServCombo.Rows[row].Cells[column].Value.ToString());
+                    }
+                   
                 }
             }
 
