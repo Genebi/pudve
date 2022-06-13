@@ -580,7 +580,6 @@ namespace PuntoDeVentaV2
 
             //var valor = DGVProdServCombo.Rows[row].Cells[column].Value.ToString();
 
-<<<<<<< HEAD
             //if (!valor.Equals(string.Empty))
             //{
             //    words = valor.Split('.');
@@ -607,40 +606,38 @@ namespace PuntoDeVentaV2
             //        cantidad = (float)Convert.ToDecimal(DGVProdServCombo.Rows[row].Cells[column].Value.ToString());
             //    }
             //}
-=======
-            if (!valor.Equals(string.Empty))
-            {
-                words = valor.Split('.');
-                if (words.Count() > 1)
-                {
-                    if (words[1].Equals(string.Empty))
-                    {
-                        words[1] = "00";
-                    }
-                    else if (!words[1].Equals(string.Empty))
-                    {
-                        if (words[1].Length.Equals(1))
-                        {
-                            var contenido = words[1];
-                            words[1] = $"{contenido}0";
-                        }
-                    }
-                    DGVProdServCombo.Rows[row].Cells[column].Value = $"{words[0]}.{words[1]}";
-                    cantidad = (float)Convert.ToDecimal(DGVProdServCombo.Rows[row].Cells[column].Value.ToString());
-                }
-                if (words.Count() == 1)
-                {
-                    DGVProdServCombo.Rows[row].Cells[column].Value = $"{words[0]}.00";
-                    bool esDecimal = false;
-                    esDecimal = float.TryParse(DGVProdServCombo.Rows[row].Cells[column].Value.ToString(), out cantidad);
-                    if (esDecimal)
-                    {
-                        cantidad = (float)Convert.ToDecimal(DGVProdServCombo.Rows[row].Cells[column].Value.ToString());
-                    }
+            //if (!valor.Equals(string.Empty))
+            //{
+            //    words = valor.Split('.');
+            //    if (words.Count() > 1)
+            //    {
+            //        if (words[1].Equals(string.Empty))
+            //        {
+            //            words[1] = "00";
+            //        }
+            //        else if (!words[1].Equals(string.Empty))
+            //        {
+            //            if (words[1].Length.Equals(1))
+            //            {
+            //                var contenido = words[1];
+            //                words[1] = $"{contenido}0";
+            //            }
+            //        }
+            //        DGVProdServCombo.Rows[row].Cells[column].Value = $"{words[0]}.{words[1]}";
+            //        cantidad = (float)Convert.ToDecimal(DGVProdServCombo.Rows[row].Cells[column].Value.ToString());
+            //    }
+            //    if (words.Count() == 1)
+            //    {
+            //        DGVProdServCombo.Rows[row].Cells[column].Value = $"{words[0]}.00";
+            //        bool esDecimal = false;
+            //        esDecimal = float.TryParse(DGVProdServCombo.Rows[row].Cells[column].Value.ToString(), out cantidad);
+            //        if (esDecimal)
+            //        {
+            //            cantidad = (float)Convert.ToDecimal(DGVProdServCombo.Rows[row].Cells[column].Value.ToString());
+            //        }
                    
-                }
-            }
->>>>>>> EnvioDeCorreoFacturacion
+            //    }
+            //}
 
             //if (DatosSourceFinal.Equals(1))
             //{
