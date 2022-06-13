@@ -1995,7 +1995,7 @@ namespace PuntoDeVentaV2
         }
 
         private void botonRedondo5_Click(object sender, EventArgs e)
-        {
+            {
             var tituloVentana = string.Empty;
 
             #region Inicio Sección de Cambio de Producto a Servicio/Combo ó Servicio/Combo a Producto
@@ -3332,7 +3332,7 @@ namespace PuntoDeVentaV2
                             codigosBarrras.Clear();
                             #endregion Final Codigo de barras extras
 
-                            var empleado = "0";
+                                var empleado = "0";
 
                             #region Incio Seccion Cambio de Precio
                             if (precioNuevo != precioAnterior)
@@ -3608,7 +3608,9 @@ namespace PuntoDeVentaV2
                                     {
                                         foreach (DataRow item in dtComboServicio.Rows)
                                         {
-                                            cn.EjecutarConsulta(cs.actualizarCantidadRelacionProdComboServicio(Convert.ToInt32(item["IDServicio"].ToString()), (float)Convert.ToDecimal(txtCantPaqServ.Text)));
+                                            var cantidad = item["Cantidad"].ToString();
+                                            var idProd = item["IDProducto"].ToString();
+                                            cn.EjecutarConsulta(cs.actualizarCantidadRelacionProdComboServicio(Convert.ToInt32(item["IDServicio"].ToString()), (float)Convert.ToDecimal(cantidad),idProd));
                                         }
                                     }
                                 }
@@ -11836,7 +11838,7 @@ namespace PuntoDeVentaV2
                 itemCBProd.text = datosProductos.Rows[i]["ID"].ToString();
                 prodList.Add(itemCBProd);
             }
-        }
+        } 
 
         private void guardar_impuestos_dexml(double basep, int id_producto)
         {

@@ -60,6 +60,7 @@
             this.Eliminar});
             this.DGVProdServCombo.Location = new System.Drawing.Point(12, 53);
             this.DGVProdServCombo.Name = "DGVProdServCombo";
+            this.DGVProdServCombo.ReadOnly = true;
             this.DGVProdServCombo.RowHeadersVisible = false;
             this.DGVProdServCombo.Size = new System.Drawing.Size(670, 249);
             this.DGVProdServCombo.TabIndex = 0;
@@ -73,46 +74,55 @@
             // 
             this.ID.HeaderText = "ID";
             this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
             // 
             // Fecha
             // 
             this.Fecha.HeaderText = "Fecha";
             this.Fecha.Name = "Fecha";
+            this.Fecha.ReadOnly = true;
             // 
             // IDServicio
             // 
             this.IDServicio.HeaderText = "IDServicio";
             this.IDServicio.Name = "IDServicio";
+            this.IDServicio.ReadOnly = true;
             // 
             // ServicioCombo
             // 
             this.ServicioCombo.HeaderText = "Concepto";
             this.ServicioCombo.Name = "ServicioCombo";
+            this.ServicioCombo.ReadOnly = true;
             // 
             // IDProducto
             // 
             this.IDProducto.HeaderText = "IDProducto";
             this.IDProducto.Name = "IDProducto";
+            this.IDProducto.ReadOnly = true;
             // 
             // NombreProducto
             // 
             this.NombreProducto.HeaderText = "Concepto";
             this.NombreProducto.Name = "NombreProducto";
+            this.NombreProducto.ReadOnly = true;
             // 
             // Cantidad
             // 
             this.Cantidad.HeaderText = "Cantidad";
             this.Cantidad.Name = "Cantidad";
+            this.Cantidad.ReadOnly = true;
             // 
             // Type
             // 
             this.Type.HeaderText = "Tipo (Combo / Servicio)";
             this.Type.Name = "Type";
+            this.Type.ReadOnly = true;
             // 
             // Eliminar
             // 
             this.Eliminar.HeaderText = "Eliminar";
             this.Eliminar.Name = "Eliminar";
+            this.Eliminar.ReadOnly = true;
             // 
             // lblTitulo
             // 

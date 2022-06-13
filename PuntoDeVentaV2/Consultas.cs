@@ -2758,9 +2758,9 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string actualizarCantidadRelacionProdComboServicio(int idRelacion, float cantidadRelacion)
+        public string actualizarCantidadRelacionProdComboServicio(int idRelacion, float cantidadRelacion, string idProd)
         {
-            var consulta = $"UPDATE ProductosDeServicios SET Cantidad = '{cantidadRelacion}' WHERE IDServicio = '{idRelacion}';";
+            var consulta = $"UPDATE ProductosDeServicios SET Cantidad = '{cantidadRelacion}' WHERE IDServicio = '{idRelacion}' AND  IDProducto = '{idProd}'";
 
             return consulta;
         }

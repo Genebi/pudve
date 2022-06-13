@@ -394,22 +394,22 @@ namespace PuntoDeVentaV2
         {
             row = e.RowIndex;
             column = e.ColumnIndex;
-            
-            if (e.ColumnIndex.Equals(6))
-            {
-                if (e.RowIndex >= 0)
-                {
-                    if (DatosSourceFinal.Equals(1))
-                    {
-                        idProdTemp = Convert.ToInt32(DGVProdServCombo.Rows[row].Cells[4].Value.ToString());
-                        Concepto = DGVProdServCombo.Rows[row].Cells[5].Value.ToString();
-                    }
-                    if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
-                    {
-                        idReg = Convert.ToInt32(DGVProdServCombo.Rows[row].Cells[0].Value.ToString());
-                    }
-                }
-            }
+
+            //if (e.ColumnIndex.Equals(6))
+            //{
+            //    if (e.RowIndex >= 0)
+            //    {
+            //        if (DatosSourceFinal.Equals(1))
+            //        {
+            //            idProdTemp = Convert.ToInt32(DGVProdServCombo.Rows[row].Cells[4].Value.ToString());
+            //            Concepto = DGVProdServCombo.Rows[row].Cells[5].Value.ToString();
+            //        }
+            //        if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
+            //        {
+            //            idReg = Convert.ToInt32(DGVProdServCombo.Rows[row].Cells[0].Value.ToString());
+            //        }
+            //    }
+            //}
 
             if (e.ColumnIndex.Equals(8))
             {
@@ -574,80 +574,80 @@ namespace PuntoDeVentaV2
 
         private void DGVProdServCombo_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            float cantidad = 0;
+            //float cantidad = 0;
 
-            string[] words = { };
+            //string[] words = { };
 
-            var valor = DGVProdServCombo.Rows[row].Cells[column].Value.ToString();
+            //var valor = DGVProdServCombo.Rows[row].Cells[column].Value.ToString();
 
-            if (!valor.Equals(string.Empty))
-            {
-                words = valor.Split('.');
-                if (words.Count() > 1)
-                {
-                    if (words[1].Equals(string.Empty))
-                    {
-                        words[1] = "00";
-                    }
-                    else if (!words[1].Equals(string.Empty))
-                    {
-                        if (words[1].Length.Equals(1))
-                        {
-                            var contenido = words[1];
-                            words[1] = $"{contenido}0";
-                        }
-                    }
-                    DGVProdServCombo.Rows[row].Cells[column].Value = $"{words[0]}.{words[1]}";
-                    cantidad = (float)Convert.ToDecimal(DGVProdServCombo.Rows[row].Cells[column].Value.ToString());
-                }
-                if (words.Count() == 1)
-                {
-                    DGVProdServCombo.Rows[row].Cells[column].Value = $"{words[0]}.00";
-                    cantidad = (float)Convert.ToDecimal(DGVProdServCombo.Rows[row].Cells[column].Value.ToString());
-                }
-            }
+            //if (!valor.Equals(string.Empty))
+            //{
+            //    words = valor.Split('.');
+            //    if (words.Count() > 1)
+            //    {
+            //        if (words[1].Equals(string.Empty))
+            //        {
+            //            words[1] = "00";
+            //        }
+            //        else if (!words[1].Equals(string.Empty))
+            //        {
+            //            if (words[1].Length.Equals(1))
+            //            {
+            //                var contenido = words[1];
+            //                words[1] = $"{contenido}0";
+            //            }
+            //        }
+            //        DGVProdServCombo.Rows[row].Cells[column].Value = $"{words[0]}.{words[1]}";
+            //        cantidad = (float)Convert.ToDecimal(DGVProdServCombo.Rows[row].Cells[column].Value.ToString());
+            //    }
+            //    if (words.Count() == 1)
+            //    {
+            //        DGVProdServCombo.Rows[row].Cells[column].Value = $"{words[0]}.00";
+            //        cantidad = (float)Convert.ToDecimal(DGVProdServCombo.Rows[row].Cells[column].Value.ToString());
+            //    }
+            //}
 
-            if (DatosSourceFinal.Equals(1))
-            {
-                using (AgregarEditarProducto addEditProd = new AgregarEditarProducto())
-                {
-                    if (!listaProd.Count().Equals(0))
-                    {
-                        if (!listaProd[0].ToString().Equals(string.Empty))
-                        {
-                            foreach (var item in listaProd)
-                            {
-                                words = item.Split('|');
-                                if (words[2].Equals(Convert.ToString(idProdTemp)) && words[3].Equals(Concepto))
-                                {
-                                    words[4] = cantidad.ToString();
-                                    break;
-                                }
-                            }
-                            for (int i = 0; i < listaProd.Count; i++)
-                            {
-                                if (listaProd[i].Contains(Concepto) && listaProd[i].Contains(idProdTemp.ToString()))
-                                {
-                                    listaProd[i] = $"{words[0]}|{words[1]}|{words[2]}|{words[3]}|{words[4]}";
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            //if (DatosSourceFinal.Equals(1))
+            //{
+            //    using (AgregarEditarProducto addEditProd = new AgregarEditarProducto())
+            //    {
+            //        if (!listaProd.Count().Equals(0))
+            //        {
+            //            if (!listaProd[0].ToString().Equals(string.Empty))
+            //            {
+            //                foreach (var item in listaProd)
+            //                {
+            //                    words = item.Split('|');
+            //                    if (words[2].Equals(Convert.ToString(idProdTemp)) && words[3].Equals(Concepto))
+            //                    {
+            //                        words[4] = cantidad.ToString();
+            //                        break;
+            //                    }
+            //                }
+            //                for (int i = 0; i < listaProd.Count; i++)
+            //                {
+            //                    if (listaProd[i].Contains(Concepto) && listaProd[i].Contains(idProdTemp.ToString()))
+            //                    {
+            //                        listaProd[i] = $"{words[0]}|{words[1]}|{words[2]}|{words[3]}|{words[4]}";
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
 
-            if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
-            {
-                try
-                {
-                    var resultado = cn.EjecutarConsulta(cs.actualizarRelacionProdComboServicio(idReg, cantidad));
-                    verificarTipoYLlenadoDataGridView();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Algo paso al actualizar la relación.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
+            //if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
+            //{
+            //    try
+            //    {
+            //        var resultado = cn.EjecutarConsulta(cs.actualizarRelacionProdComboServicio(idReg, cantidad));
+            //        verificarTipoYLlenadoDataGridView();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show("Algo paso al actualizar la relación.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //}
         }
 
         private void Column6_KeyPress(object sender, KeyPressEventArgs e)
