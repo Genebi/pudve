@@ -194,6 +194,8 @@ namespace PuntoDeVentaV2
 
                         // Tabla Empleados
                         cn.EjecutarConsulta($"UPDATE Empleados SET p_empleado='0', p_empresa='0', p_inventario='0', p_mdatos='0', p_producto='0', p_proveedor='0', p_reporte='0' WHERE ID='{id_empleado}'");
+                        //Bascula
+                        cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion1='1' WHERE Seccion='Bascula' AND IDEmpleado='{id_empleado}'");
 
                         /* 
                          * - Anticipos
@@ -391,7 +393,7 @@ namespace PuntoDeVentaV2
             var secciones = new string[] {
                 "Caja", "Ventas", "Inventario", "Anticipos",
                 "MisDatos", "Facturas", "Configuracion", "Reportes",
-                "Clientes", "Proveedores", "Empleados", "Productos"
+                "Clientes", "Proveedores", "Empleados", "Productos","Bascula"
             };
 
             foreach (var seccion in secciones)
