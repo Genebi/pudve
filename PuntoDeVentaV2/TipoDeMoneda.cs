@@ -24,6 +24,7 @@ namespace PuntoDeVentaV2
                 cboTipoMoneda.SelectedIndex = 113;
                 FormPrincipal.Moneda = cboTipoMoneda.Text;
             }
+            cboTipoMoneda.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
         }
 
         private void cboTipoMoneda_SelectedIndexChanged(object sender, EventArgs e)

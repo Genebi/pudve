@@ -273,6 +273,7 @@ namespace PuntoDeVentaV2
         private void Ventas_Load(object sender, EventArgs e)
         {
             CBTipo.SelectedItem = "Todos";
+            CBTipo.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
 
             mostrarBotonCSV();
 

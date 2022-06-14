@@ -60,6 +60,7 @@ namespace PuntoDeVentaV2
 
         private void Facturas_Load(object sender, EventArgs e)
         {
+            cmb_bx_tipo_factura.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             DateTime date = DateTime.Now;
             DateTime PrimerDia = new DateTime(date.Year, date.Month -1, 1);
             datetp_fecha_inicial.Value = PrimerDia;

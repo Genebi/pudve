@@ -736,6 +736,12 @@ namespace PuntoDeVentaV2
             iniciarValores();
             validarBotones();
             inciarCampos();
+            cbDatos.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbBaudRate.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbHandshake.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbParidad.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbPuerto.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbStopBits.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
         }
     }
 }

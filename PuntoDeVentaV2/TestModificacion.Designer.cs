@@ -241,6 +241,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "TestModificacion";
             this.Text = "TestModificacion";
+            this.Load += new System.EventHandler(this.TestModificacion_Load);
             this.panelCategoria.ResumeLayout(false);
             this.panelCategoria.PerformLayout();
             this.panelUbicacion.ResumeLayout(false);

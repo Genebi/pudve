@@ -3643,5 +3643,11 @@ namespace PuntoDeVentaV2
 
             return numeroMayor;
         }
+
+        public static void ComboBox_Quitar_MouseWheel(object sender, MouseEventArgs e)
+        {
+            HandledMouseEventArgs ee = (HandledMouseEventArgs)e;
+            ee.Handled = true;
+        }
     }
 }

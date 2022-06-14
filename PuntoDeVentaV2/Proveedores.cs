@@ -37,6 +37,7 @@ namespace PuntoDeVentaV2
 
         private void Proveedores_Load(object sender, EventArgs e)
         {
+            cbStatus.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbStatus.SelectedIndex = 0;
 
             CargarDatos();

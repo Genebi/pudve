@@ -85,6 +85,8 @@ namespace PuntoDeVentaV2
 
         private void AgregarRetirarDinero_Load(object sender, EventArgs e)
         {
+            cbConceptoConBusqueda.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbConceptos.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             if (operacion == 0)
             {
                 lbTitulo.Text = "Cantidad a depositar";

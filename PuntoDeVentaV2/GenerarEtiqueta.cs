@@ -31,6 +31,7 @@ namespace PuntoDeVentaV2
         private void GenerarEtiqueta_Load(object sender, EventArgs e)
         {
             CargarPropiedades();
+            cbFuentes.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
 
             // Cargar combobox con las fuentes del sistema
             foreach (FontFamily fuente in FontFamily.Families)

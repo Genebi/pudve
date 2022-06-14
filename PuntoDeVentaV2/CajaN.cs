@@ -207,6 +207,7 @@ namespace PuntoDeVentaV2
 
         private void CajaN_Load(object sender, EventArgs e)
         {
+            cbFiltroAdminEmpleado.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             recargarDatos = true;
             verificarSiExisteCorteDeCaja();
             verComboBoxAdministradorEmpleado();

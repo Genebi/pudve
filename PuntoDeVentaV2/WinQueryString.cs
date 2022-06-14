@@ -1778,6 +1778,12 @@ namespace PuntoDeVentaV2
 
         private void WinQueryString_Load(object sender, EventArgs e)
         {
+            cbTipoFiltroCombProdServ.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbTipoFiltroImagen.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbTipoFiltroPrecio.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbTipoFiltroRevision.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbTipoFiltroStock.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            
             validarConexionServidor();
             path = saveDirectoryFile;
 

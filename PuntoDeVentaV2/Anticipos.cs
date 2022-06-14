@@ -58,6 +58,7 @@ namespace PuntoDeVentaV2
 
         private void Anticipos_Load(object sender, EventArgs e)
         {
+            cbAnticipos.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             //Se crea el directorio para almacenar los tickets y otros archivos relacionados con ventas
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Anticipos\Tickets");
             DateTime date = DateTime.Now;

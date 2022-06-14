@@ -27,7 +27,8 @@ namespace PuntoDeVentaV2
         private void AgregarAnticipo_Load(object sender, EventArgs e)
         {
             CargarClientes();
-
+            cbClientes.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbFormaPago.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             //ComboBox Formas de pago
             Dictionary<string, string> pagos = new Dictionary<string, string>();
             pagos.Add("01", "01 - Efectivo");

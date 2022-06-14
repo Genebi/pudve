@@ -34,7 +34,9 @@ namespace PuntoDeVentaV2
 
         private void FechasReportes_Load(object sender, EventArgs e)
         {
-
+            cbConceptos.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbEmpleados.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            
             primerDatePicker.Value = DateTime.Today.AddDays(-30);
             DateTime date = DateTime.Now;
             DateTime PrimerDia = new DateTime(date.Year, date.Month -1, 1);

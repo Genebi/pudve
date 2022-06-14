@@ -64,6 +64,8 @@ namespace PuntoDeVentaV2
 
         private void AjustarProducto_Load(object sender, EventArgs e)
         {
+            cbConceptos.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbProveedores.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             string[] datos = cn.BuscarProducto(IDProducto, FormPrincipal.userID);
 
             //Se obtienen los proveedores del usuario

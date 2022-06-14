@@ -46,6 +46,9 @@ namespace PuntoDeVentaV2
             Utilidades.EjecutarAtajoKeyPreviewDown(gbContenedor_PreviewKeyDown, form);
 
             DatosAgregarCliente();
+            cbCliente.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbTipoCliente.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbUsoCFDI.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
 
             using (DataTable dtPublicoGeneral = cn.CargarDatos(cs.BuscarPublicaGeneral()))
             {

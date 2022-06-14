@@ -121,6 +121,8 @@ namespace PuntoDeVentaV2
 
         private void DevolverAnticipo_Load(object sender, EventArgs e)
         {
+            cbFormaPago.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            
             ventaCanceladaCredito = false;
             if (tipo == 1)
             {

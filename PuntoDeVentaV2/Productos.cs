@@ -1919,6 +1919,9 @@ namespace PuntoDeVentaV2
 
         private void Productos_Load(object sender, EventArgs e)
         {
+            cbMostrar.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbOrden.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbTodos.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             recargarDatos = false;
 
             path = string.Empty;

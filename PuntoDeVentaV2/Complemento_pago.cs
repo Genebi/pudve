@@ -29,6 +29,7 @@ namespace PuntoDeVentaV2
 
         private void Complemento_pago_Load(object sender, EventArgs e)
         {
+            cmb_bx_forma_pago.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             // Forma de pago
 
             Dictionary<string, string> forma_pago = new Dictionary<string, string>();

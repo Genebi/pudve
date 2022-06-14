@@ -56,6 +56,10 @@ namespace PuntoDeVentaV2
 
         private void FiltroRevisarInventario_Load(object sender, EventArgs e)
         {
+            cbFiltro.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbFiltroDinamico.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbOperadores.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            
             RevisarInventario.mensajeInventario = 0;
             //Esta condicion es para que solo se muestren todos los tipos de filtros para los primeros usuarios y para los demas solo tenga el filtro normal
             //if (FormPrincipal.clave == 1 )

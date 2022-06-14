@@ -16,5 +16,17 @@ namespace PuntoDeVentaV2
         {
             InitializeComponent();
         }
+
+        private void TestModificacion_Load(object sender, EventArgs e)
+        {
+            cbCategorias.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbProveedores.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbUbicaciones.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            comboBox1.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            comboBox2.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            comboBox3.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            comboBox4.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+          
+        }
     }
 }

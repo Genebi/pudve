@@ -39,7 +39,9 @@ namespace PuntoDeVentaV2
         private void cargar_empleados(object sender, EventArgs e)
         {
             filtroLoadProductos();
+            cboMostrados.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             //cargar_lista_empleados();
+            
             cboMostrados.SelectedIndex = 0;
             if (FormPrincipal.id_empleado > 0)
             {

@@ -27,6 +27,8 @@ namespace PuntoDeVentaV2
         private void ImprimirEtiqueta_Load(object sender, EventArgs e)
         {
             ListaPlantillas();
+            cbPlantillas.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            
         }
 
         private void ListaPlantillas()

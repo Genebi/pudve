@@ -114,9 +114,9 @@ namespace PuntoDeVentaV2
 
         private void ListadoVentas_Load(object sender, EventArgs e)
         {
-            cbTipoVentas.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
-            cbFiltroAdminEmpleado.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
-            cbVentas.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
+            cbTipoVentas.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbFiltroAdminEmpleado.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbVentas.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             recargarDatos = true;
             // Se crea el directorio para almacenar los tickets y otros archivos relacionados con ventas
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Ventas\Tickets");

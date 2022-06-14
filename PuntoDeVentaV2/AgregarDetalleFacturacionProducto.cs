@@ -196,7 +196,12 @@ namespace PuntoDeVentaV2
 
         private void AgregarDetalleFacturacionProducto_Load(object sender, EventArgs e)
         {
-            cargarDatos(); 
+            cargarDatos();
+            cbUnidadMedida.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbLinea1_16.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbLinea1_26.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbLinea1_36.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbLinea1_46.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             //Se definen los valores que tendran los ComboBox y TextBox por default
             //al abrir la ventana por primera vez
             precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);

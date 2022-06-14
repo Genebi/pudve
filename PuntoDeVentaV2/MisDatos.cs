@@ -367,6 +367,7 @@ namespace PuntoDeVentaV2
 
         private void MisDatos_Load(object sender, EventArgs e)
         {
+            cbRegimen.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             // asignamos el valor de userName que sea
             // el valor que tiene userNickUsuario en el formulario Principal
             userName = FormPrincipal.userNickName;

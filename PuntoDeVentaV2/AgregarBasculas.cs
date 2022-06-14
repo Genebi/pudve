@@ -348,6 +348,13 @@ namespace PuntoDeVentaV2
             cbBasculaRegistrada_TextChanged(sender, e);
             cbBasculaRegistrada.Focus();
 
+            cbBasculaRegistrada.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbBaudRate.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbDatos.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbHandshake.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbParidad.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbPuerto.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbStopBits.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             if (FormPrincipal.id_empleado > 0)
             {
                 var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Bascula");

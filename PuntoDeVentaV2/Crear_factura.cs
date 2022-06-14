@@ -95,6 +95,12 @@ namespace PuntoDeVentaV2
 
         private void Crear_factura_Load(object sender, EventArgs e)
         {
+            cmb_bx_clientes.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cmb_bx_forma_pago.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cmb_bx_metodo_pago.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cmb_bx_moneda.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cmb_bx_uso_cfdi.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+           
             // Obtiene los clientes
 
             DataTable d_clientes;
