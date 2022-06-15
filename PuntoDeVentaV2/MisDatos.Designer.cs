@@ -900,6 +900,7 @@
             this.lb_fvencimiento.Size = new System.Drawing.Size(11, 17);
             this.lb_fvencimiento.TabIndex = 8;
             this.lb_fvencimiento.Text = ".";
+            
             // 
             // label24
             // 

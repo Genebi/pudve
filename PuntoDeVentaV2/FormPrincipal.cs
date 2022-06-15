@@ -654,11 +654,70 @@ namespace PuntoDeVentaV2
 
             quitarSimbolosDePreguntaRegimenFiscalEnDescripcion();
 
-            CorreoDe10DiazParaExpiracion();
+            CorreoDe7DiazParaExpiracion();
+            CorreoDe10DiezParaExpiracionDocumentosCSD();
                 
         }
 
-        private void CorreoDe10DiazParaExpiracion()
+        private void CorreoDe10DiezParaExpiracionDocumentosCSD()
+        {
+            using (DataTable Fecha = cn.CargarDatos(cs.BusquedaFechaExpiracionDocumentosSCD(userID)))
+            {
+                foreach (DataRow item in Fecha.Rows)
+                {
+                    if (!string.IsNullOrWhiteSpace(item["fechaCSD"].ToString()))
+                    {
+                        FechaExpiracion = Convert.ToDateTime(Fecha.Rows[0]["fechaCSD"].ToString());
+
+                        var fechahoy = DateTime.Now;
+                        TimeSpan comparaciondeTiempo = FechaExpiracion.Subtract(fechahoy);
+                        int DiasRestantes = comparaciondeTiempo.Days;
+
+                        if (DiasRestantes <= 10)
+                        {
+                            CorreoFechaCaducidadCertificado();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void CorreoFechaCaducidadCertificado()
+        {
+            string correo;
+            string certificado;
+            string Nombre;
+            using (DataTable ConsultaNombre = cn.CargarDatos(cs.BuscarNombreDelUsuario(IdUsuario)))
+            {
+                Nombre = ConsultaNombre.Rows[0]["NombreCompleto"].ToString();
+            }
+            using (DataTable ConsultaLicencia = cn.CargarDatos(cs.BuscarNumeroCertificado(IdUsuario)))
+            {
+                certificado = ConsultaLicencia.Rows[0]["num_certificado"].ToString();
+            }
+            using (DataTable email = cn.CargarDatos(cs.BuscarCorreoDelUsuario(IdUsuario)))
+            {
+                correo = email.Rows[0]["Email"].ToString();
+            }
+            var FechaFin = FechaExpiracion.ToString("dd-MM-yyyy");
+            var asunto = "Aviso de Expiracion de Archivos CSD";
+            var html = $@"<div>
+
+            <div style = 'text-align: center;' >
+            <h3>Fecha de Expiracion Proxima</h3>
+            </div>
+            <hr>
+            <center>
+               Sus Archivos CSD del punto de venta SIFO estan por vencer<br>
+                 el dia <b>{FechaFin}</b> <b>{Nombre} </b>
+             </center>
+             <hr>
+            </div>";
+
+            Utilidades.EnviarEmail(html, asunto, correo);
+        }
+
+        private void CorreoDe7DiazParaExpiracion()
         {
 
             using (DataTable Fecha = cn.CargarDatos(cs.BuscarFechaDeExpiracion(userID)))

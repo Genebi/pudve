@@ -1162,6 +1162,8 @@ namespace PuntoDeVentaV2
             }
         }
 
+       
+
         private void cbRegimen_Click(object sender, EventArgs e)
         {
             // al dar clic en el comboBox se despliega la lista de opciones

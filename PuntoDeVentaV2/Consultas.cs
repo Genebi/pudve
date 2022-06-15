@@ -3991,6 +3991,18 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string BusquedaFechaExpiracionDocumentosSCD(int usuario)
+        {
+            var consuta = $"SELECT IF(fecha_caducidad_cer = '' OR fecha_caducidad_cer IS NULL,'',fecha_caducidad_cer)AS 'fechaCSD' FROM usuarios WHERE ID ={usuario}";
+            return consuta;
+        }
+
+        public string BuscarNumeroCertificado(int ususario)
+        {
+            var consulta = $"SELECT num_certificado FROM usuarios WHERE ID ={ususario}";
+            return consulta;
+        }
+
         
     }
 }  
