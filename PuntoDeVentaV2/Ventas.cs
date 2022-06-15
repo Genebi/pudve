@@ -5869,10 +5869,7 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-        private void txtBuscadorProducto_KeyUp(object sender, KeyEventArgs e)
-        {
-            
-        }
+       
 
         private void listaProductos_MouseDoubleClick(object sender, MouseEventArgs e)
         {
