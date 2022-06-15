@@ -7524,7 +7524,14 @@ namespace PuntoDeVentaV2
             {
                 decimal cantidad = 0;
 
+                if (String.IsNullOrWhiteSpace(DGVentas.Rows[celda].Cells[5].Value as String) || DGVentas.Rows[celda].Cells[5].Value.Equals("0"))
+                {
+                    DGVentas.Rows[celda].Cells[5].Value = "1";
+                }
+
                 bool isDecimal = Decimal.TryParse(DGVentas.Rows[celda].Cells[5].Value.ToString(), out cantidad);//Se obtiene y guarda la cantidad en cantidad"
+
+
                 var idproductoCantidad = DGVentas.Rows[celda].Cells[0].Value;
 
                 var MinimaCompra = cn.CargarDatos(cs.cantidadCompraMinima(Convert.ToInt32(idproductoCantidad)));
