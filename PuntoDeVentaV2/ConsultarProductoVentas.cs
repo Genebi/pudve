@@ -314,7 +314,7 @@ namespace PuntoDeVentaV2
                 }
                 else if (busqueda != "")
                 {
-                    if (filtro.Equals("Todos"))
+                    if (!filtro.Equals("Todos"))
                     {
                         filtroConSinFiltroAvanzado = cs.searchSaleProduct(busqueda, filtro);
                     }
