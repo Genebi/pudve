@@ -48,9 +48,9 @@ namespace PuntoDeVentaV2
 
 
         //Miooooooooooo
-         public string titulo;
-         public string texto;
-         public string SeleccionaImagen;
+        public string titulo;
+        public string texto;
+        public string SeleccionaImagen;
 
 
         List<string> prodServPaq = new List<string>();
@@ -360,6 +360,8 @@ namespace PuntoDeVentaV2
         string gralDetailSelected = string.Empty,
                 gralDetailGralSelected = string.Empty;
 
+        List<String> ActualizarDetallesDinamicos = new List<String>();
+        List<String> InsertarDetallesDinamicos = new List<String>();
 
         // this code will add a listviewtem
         // to a listview for each database entry
@@ -751,13 +753,13 @@ namespace PuntoDeVentaV2
             int comboBoxIndex = 0;
 
             comboBoxIndex = comboBox.SelectedIndex;
-            //namePanel = comboBox.Name.ToString().Remove(0, 2);
+            namePanel = comboBox.Name.ToString().Remove(0, 2);
             namePanel = comboBox.Tag.ToString();
             gralDetailGralSelected = Convert.ToString(comboBox.Text).Replace(" ", "_");
 
             if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3) || DatosSourceFinal.Equals(2))
             {
-                //listaDetalleGral = mb.ObtenerDetallesGral(FormPrincipal.userID, namePanel.Remove(0, 3));
+                listaDetalleGral = mb.ObtenerDetallesGral(FormPrincipal.userID, namePanel.Remove(0, 3));
                 listaDetalleGral = mb.ObtenerDetallesGral(FormPrincipal.userID, namePanel);
             }
 
@@ -862,13 +864,15 @@ namespace PuntoDeVentaV2
                                         nvoConceptoDetalleProducto = contLblHijo.Text;
                                         string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), namePanel, idGralDetail[0].ToString(), "1" };
                                         var resultadoBuscarDetalleGeneralProducto = mb.obtenerUnDetalleProductoGenerales(idProductoBuscado, Convert.ToString(FormPrincipal.userID), namePanel);
-                                        if (!resultadoBuscarDetalleGeneralProducto.Count().Equals(0))
+                                        if (!resultadoBuscarDetalleGeneralProducto.Count().Equals(0))//En caso de ya estar registrado el detalle.
                                         {
-                                            int respuestaChangeDetailProducto = cn.EjecutarConsulta(cs.GuardarDetallesProductoGeneralesDesdeAgregarEditarProducto(dataSave));
+                                            //int respuestaChangeDetailProducto = cn.EjecutarConsulta(cs.GuardarDetallesProductoGeneralesDesdeAgregarEditarProducto(dataSave));
+                                            ActualizarDetallesDinamicos.Add($"UPDATE DetallesProductoGenerales SET IDDetalleGral = '{dataSave[3]}' WHERE IDProducto = '{dataSave[0]}' AND IDUsuario = '{FormPrincipal.userID}' AND panelContenido = '{dataSave[2]}'");
                                         }
-                                        else if (resultadoBuscarDetalleGeneralProducto.Count().Equals(0))
+                                        else if (resultadoBuscarDetalleGeneralProducto.Count().Equals(0))//En caso de no estar registrado el detalle.
                                         {
-                                            int respuestaChangeDetailProducto = cn.EjecutarConsulta(cs.GuardarDetallesProductoGeneralesComboBox(dataSave));
+                                            //int respuestaChangeDetailProducto = cn.EjecutarConsulta(cs.GuardarDetallesProductoGeneralesComboBox(dataSave));
+                                            InsertarDetallesDinamicos.Add($"INSERT INTO DetallesProductoGenerales (IDProducto, IDUsuario, IDDetalleGral, StatusDetalleGral, panelContenido)VALUES ('{dataSave[0]}', '{FormPrincipal.userID}', '{dataSave[3]}', '1', '{dataSave[2]}')");
                                         }
                                     }
                                 }
@@ -1059,11 +1063,14 @@ namespace PuntoDeVentaV2
                                     var resultadoBusquedaDetallesProducto = mb.DetallesProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
                                     if (!resultadoBusquedaDetallesProducto.Count().Equals(0))
                                     {
-                                        int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave, 1));
+                                        //int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave, 1));
+                                        ActualizarDetallesDinamicos.Add($"UPDATE DetallesProducto SET Proveedor = '{dataSave[2]}', IDProveedor = '{dataSave[3]}' WHERE IDProducto = '{dataSave[0]}' AND IDUsuario = '{FormPrincipal.userID}'");
+
                                     }
                                     else if (resultadoBusquedaDetallesProducto.Count().Equals(0))
                                     {
-                                        int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave));
+                                        //int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave));
+                                        InsertarDetallesDinamicos.Add($"INSERT INTO DetallesProducto (IDProducto, IDUsuario, Proveedor, IDProveedor)VALUES ('{dataSave[0]}', '{FormPrincipal.userID}', '{dataSave[2]}', '{dataSave[3]}')");
                                     }
                                 }
                             }
@@ -1995,8 +2002,10 @@ namespace PuntoDeVentaV2
         }
 
         private void botonRedondo5_Click(object sender, EventArgs e)
-            {
+        {
             var tituloVentana = string.Empty;
+
+            guardarDetallesDinamicos();
 
             #region Inicio Sección de Cambio de Producto a Servicio/Combo ó Servicio/Combo a Producto
             // Condiciones para saber si se realiza el cambio de un producto a servicio y viceversa
@@ -2562,7 +2571,7 @@ namespace PuntoDeVentaV2
                                         if (this.Text.Trim().Equals("AGREGAR PRODUCTO"))
                                         {
                                             titulo = "Producto Agregado";
-                                           texto= "Se guardo exitosamente el producto....";
+                                            texto = "Se guardo exitosamente el producto....";
                                             SeleccionaImagen = "correcto";
                                         }
                                         else if (this.Text.Trim().Equals("EDITAR PRODUCTO"))
@@ -2579,15 +2588,15 @@ namespace PuntoDeVentaV2
                                         }
                                         if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                                         {
-                                            
-                                            MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo , texto, SeleccionaImagen);
+
+                                            MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo, texto, SeleccionaImagen);
                                             MAECP.ShowDialog();
                                             //MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                                         }
                                         else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                                         {
-                                            
-                                            MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo,texto,SeleccionaImagen);
+
+                                            MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo, texto, SeleccionaImagen);
                                             MAECP.ShowDialog();
                                             //MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                                         }
@@ -3134,7 +3143,7 @@ namespace PuntoDeVentaV2
                                     }
                                     else if (this.Text.Trim().Equals("EDITAR COMBOS"))
                                     {
-                                        titulo = "Combo Actualizado"; 
+                                        titulo = "Combo Actualizado";
                                         texto = "Se actualizo exitosamente el combo....";
                                         SeleccionaImagen = "correcto";
                                     }
@@ -3165,16 +3174,16 @@ namespace PuntoDeVentaV2
 
                                     if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                                     {
-                                        
-                                        MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo, texto,SeleccionaImagen);
+
+                                        MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo, texto, SeleccionaImagen);
                                         MAECP.ShowDialog();
                                         //MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                                     }
                                     else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                                     {
-                                        MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo, texto,SeleccionaImagen);
+                                        MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo, texto, SeleccionaImagen);
                                         MAECP.ShowDialog();
-                                      //  MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
+                                        //  MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                                     }
 
                                     //Cierra la ventana donde se agregan los datos del producto
@@ -3233,7 +3242,7 @@ namespace PuntoDeVentaV2
                     if (precioNuevo != precioAnterior)
                     {
                         var respuesta = MessageBox.Show("El precio esta siendo modificado, los descuentos vinculados a este producto/servicio/combo serán eliminados por lo que\nserá necesario agregarlos nuevamente.", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                        
+
                         if (respuesta == DialogResult.Yes)
                         {
                             cn.EjecutarConsulta($"DELETE FROM DescuentoCliente WHERE IDProducto = {idProductoBuscado}");
@@ -3332,7 +3341,7 @@ namespace PuntoDeVentaV2
                             codigosBarrras.Clear();
                             #endregion Final Codigo de barras extras
 
-                                var empleado = "0";
+                            var empleado = "0";
 
                             #region Incio Seccion Cambio de Precio
                             if (precioNuevo != precioAnterior)
@@ -3394,7 +3403,7 @@ namespace PuntoDeVentaV2
                                 {
                                     FormAgregar.Close();
                                 }
-                                
+
                                 tipoDescuento = descuentos[0];
                             }
 
@@ -3610,7 +3619,7 @@ namespace PuntoDeVentaV2
                                         {
                                             var cantidad = item["Cantidad"].ToString();
                                             var idProd = item["IDProducto"].ToString();
-                                            cn.EjecutarConsulta(cs.actualizarCantidadRelacionProdComboServicio(Convert.ToInt32(item["IDServicio"].ToString()), (float)Convert.ToDecimal(cantidad),idProd));
+                                            cn.EjecutarConsulta(cs.actualizarCantidadRelacionProdComboServicio(Convert.ToInt32(item["IDServicio"].ToString()), (float)Convert.ToDecimal(cantidad), idProd));
                                         }
                                     }
                                 }
@@ -4068,6 +4077,26 @@ namespace PuntoDeVentaV2
 
             listaProductoToCombo = new List<string>();
             ProductosDeServicios = new List<string>();
+
+        }
+
+        public void guardarDetallesDinamicos()
+        {
+            if (!ActualizarDetallesDinamicos.Count.Equals(0))
+            {
+                foreach (var item in ActualizarDetallesDinamicos)
+                {
+                    cn.EjecutarConsulta(item);
+                }
+            }
+            if (!InsertarDetallesDinamicos.Count.Equals(0))
+            {
+                foreach (var item in InsertarDetallesDinamicos)
+                {
+                    cn.EjecutarConsulta(item);
+                }
+            }
+
         }
 
         private void txtCantPaqServ_Validating(object sender, CancelEventArgs e)
@@ -4109,7 +4138,7 @@ namespace PuntoDeVentaV2
         {
             if (e.KeyCode == Keys.Escape)
             {
-                this.Close(); 
+                this.Close();
             }
         }
 
@@ -4119,7 +4148,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Se requiere guardar el producto antes de asignarle los mensajes", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
-            } 
+            }
             MensajeVentasYMensajeInventario mensajes = new MensajeVentasYMensajeInventario();
             nombreProductoEditar = txtNombreProducto.Text;
             mensajes.ShowDialog();
@@ -5112,7 +5141,7 @@ namespace PuntoDeVentaV2
                     FormAgregar.Show();
                 }
             }
-            
+
             //List<string> usuariosPermitidos = new List<string>()
             //{
             //    "HOUSEDEPOTAUTLAN",
@@ -5239,7 +5268,7 @@ namespace PuntoDeVentaV2
                                 File.Dispose();                                         // Liberamos el objeto File
                             }
                         }
-                        else 
+                        else
                         {
                             btnImagenes.Text = "Seleccionar imagen";
                             return;
@@ -6001,7 +6030,7 @@ namespace PuntoDeVentaV2
                                         if (this.Text.Trim().Equals("AGREGAR PRODUCTO"))
                                         {
                                             titulo = "Producto Agregado";
-                                            texto = "Se guardo exitosamente el producto...."; 
+                                            texto = "Se guardo exitosamente el producto....";
                                             SeleccionaImagen = "correcto";
                                         }
                                         else if (this.Text.Trim().Equals("EDITAR PRODUCTO"))
@@ -6021,7 +6050,7 @@ namespace PuntoDeVentaV2
                                         {
                                             MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo, texto, SeleccionaImagen);
                                             MAECP.ShowDialog();
-                                           // MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
+                                            // MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                                         }
                                         else if (DatosSourceFinal.Equals(2) || DatosSourceFinal.Equals(4))
                                         {
@@ -7128,7 +7157,7 @@ namespace PuntoDeVentaV2
 
                             if (DatosSourceFinal.Equals(1) || DatosSourceFinal.Equals(3))
                             {
-                                MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo,texto,SeleccionaImagen);
+                                MensajeAgregarEditarCopiarProducto MAECP = new MensajeAgregarEditarCopiarProducto(titulo, texto, SeleccionaImagen);
                                 MAECP.ShowDialog();
                                 //MessageBoxTemporal.Show(tituloVentana, "Aviso del Sistema", 2, false);
                             }
@@ -7611,9 +7640,23 @@ namespace PuntoDeVentaV2
                 for (int i = 0; i < longitud; i++)
                 {
                     string[] imp = listaImpuestos[i].Split(',');
-                    if (imp[3] == " - ") { imp[3] = "0"; }
-                    if (imp[4] == " - ") { imp[4] = "0"; }
-                    if (imp[5] == " - ") { imp[5] = "0"; }
+                    if (imp[3] == " - ")
+                    {
+                        imp[3] = "0";
+                    }
+                    else
+                    {
+                        var iva = imp[3].Replace(" %", string.Empty);
+                        imp[3] = iva;
+                    }
+                    if (imp[4] == " - ")
+                    {
+                        imp[4] = "0";
+                    }
+                    if (imp[5] == " - ")
+                    {
+                        imp[5] = "0";
+                    }
                     guardar = new string[] { imp[0], imp[1], imp[2], imp[3], imp[4], imp[5] };
 
                     try
@@ -8760,7 +8803,7 @@ namespace PuntoDeVentaV2
                         txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
                     }
                 }
-                
+
                 txtPrecioProducto.Focus();
                 txtPrecioProducto.Select(txtPrecioProducto.Text.Length, 0);
             }
@@ -8811,7 +8854,7 @@ namespace PuntoDeVentaV2
                     txtPrecioProducto.Text = "0";
                 }
             }
-            
+
             txtPrecioProducto.Focus();
             txtPrecioProducto.Select(txtPrecioProducto.Text.Length, 0);
         }
@@ -8942,36 +8985,36 @@ namespace PuntoDeVentaV2
                     string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     string buscar = null;
                     buscar = $"SELECT ID, Nombre FROM Productos WHERE Nombre = '{CBNombProd}' AND ID = '{CBIdProd}' AND IDUsuario = '{FormPrincipal.userID}'";
-                     AsignarCantidadProdACombo FormCantidad = new AsignarCantidadProdACombo();
-                    
-                        using (dtProductos = cn.CargarDatos(buscar))
+                    AsignarCantidadProdACombo FormCantidad = new AsignarCantidadProdACombo();
+
+                    using (dtProductos = cn.CargarDatos(buscar))
+                    {
+                        if (!dtProductos.Rows.Count.Equals(0))
                         {
-                            if (!dtProductos.Rows.Count.Equals(0))
+
+
+                            FormCantidad.FormClosed += delegate
                             {
-                               
+                                DataRow row = dtProductos.Rows[0];
+                                prodSerPaq += fech + "|";
+                                prodSerPaq += "|";
+                                prodSerPaq += row["ID"].ToString() + "|";
+                                prodSerPaq += row["Nombre"].ToString() + "|";
+                                prodSerPaq += FormCantidad.cantidadAsigarAlCombo.ToString();
 
-                                FormCantidad.FormClosed += delegate
+                                if (FormCantidad.cancelar == 0)
                                 {
-                                    DataRow row = dtProductos.Rows[0];
-                                    prodSerPaq += fech + "|";
-                                    prodSerPaq += "|";
-                                    prodSerPaq += row["ID"].ToString() + "|";
-                                    prodSerPaq += row["Nombre"].ToString() + "|";
-                                    prodSerPaq += FormCantidad.cantidadAsigarAlCombo.ToString();
-
-                                    if (FormCantidad.cancelar == 0)
-                                    {
                                     ProductosDeServicios.Add(prodSerPaq);
                                     prodSerPaq = null;
-                                    }
-                                };
+                                }
+                            };
 
-                                FormCantidad.ShowDialog();
+                            FormCantidad.ShowDialog();
 
-                            }
                         }
-                    
-                    
+                    }
+
+
 
                     //btnAdd.Visible = true;
                     CargarDatos();
@@ -9010,13 +9053,13 @@ namespace PuntoDeVentaV2
                                 prodSerPaq += row["ID"].ToString() + "|";
                                 prodSerPaq += row["Nombre"].ToString() + "|";
                                 prodSerPaq += FormCantidad.cantidadAsigarAlCombo.ToString();
-                               
-                                    //foreach (DataGridViewRow item in DGVStockProductos.Rows)
-                                    //{
-                                    //    var idproddgv = item.Cells["ID"].Value.ToString();
 
-                                    //}
-                               
+                                //foreach (DataGridViewRow item in DGVStockProductos.Rows)
+                                //{
+                                //    var idproddgv = item.Cells["ID"].Value.ToString();
+
+                                //}
+
                                 if (FormCantidad.cancelar == 0)
                                 {
                                     ProductosDeServicios.Add(prodSerPaq);
@@ -9191,8 +9234,8 @@ namespace PuntoDeVentaV2
             cargarCBProductos(idEditarProducto);
         }
 
-        
-        
+
+
 
         private void cbTipo_Enter(object sender, EventArgs e)
         {
@@ -10561,8 +10604,8 @@ namespace PuntoDeVentaV2
                     lblCantPaqServ.TextAlign = ContentAlignment.MiddleLeft;
 
                     //tLPCombo.Controls.Add(label5, 0, 2);               // Clave Interna Label
-                    tLPCombo.Controls.Add(label2, 0,2);               // Código de Barras Label
-                    tLPCombo.Controls.Add(lblCodigoBarras,1, 2);      // Simbolo Informativo
+                    tLPCombo.Controls.Add(label2, 0, 2);               // Código de Barras Label
+                    tLPCombo.Controls.Add(lblCodigoBarras, 1, 2);      // Simbolo Informativo
                     tLPCombo.Controls.Add(lblCodBarExtra, 0, 4);       // Simbolo Informativo gregar código Barras extra
                     tLPCombo.Controls.Add(lblCantPaqServ, 0, 2);       // Relacionar con Combo/Servicio Label
 
@@ -10622,7 +10665,7 @@ namespace PuntoDeVentaV2
                     lblCantCombServ.Anchor = AnchorStyles.Left;
 
                     tLPCombo.Controls.Add(txtCodigoBarras, 0, 3);      // Código de Barras TextBox
-                    tLPCombo.Controls.Add(btnGenerarCB,1, 3);         // Código de Barras Button
+                    tLPCombo.Controls.Add(btnGenerarCB, 1, 3);         // Código de Barras Button
                     tLPCombo.Controls.Add(btnAddCodBar, 2, 3);         // Botón de generar códigos de barra extra
                     tLPCombo.Controls.Add(txtCantPaqServ, 0, 3);       // Relacionar con Combo/Servicio TextBox
                     tLPCombo.Controls.Add(lblCantCombServ, 1, 3);      // Label signo de ayuda
@@ -11685,7 +11728,7 @@ namespace PuntoDeVentaV2
 
             //if (string.IsNullOrWhiteSpace(servidor))
             //{
-                
+
             //    chkDatabase.Items.Clear();
             //    settingDatabases.Items.Clear();
 
@@ -11838,7 +11881,7 @@ namespace PuntoDeVentaV2
                 itemCBProd.text = datosProductos.Rows[i]["ID"].ToString();
                 prodList.Add(itemCBProd);
             }
-        } 
+        }
 
         private void guardar_impuestos_dexml(double basep, int id_producto)
         {
