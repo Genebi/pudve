@@ -76,7 +76,7 @@
             this.btnAceptarDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAceptarDetalle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen;
             this.btnAceptarDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAceptarDetalle.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAceptarDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptarDetalle.ForeColor = System.Drawing.Color.White;
             this.btnAceptarDetalle.Location = new System.Drawing.Point(792, 549);
             this.btnAceptarDetalle.Name = "btnAceptarDetalle";
@@ -93,7 +93,7 @@
             this.btnCancelarDetalle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancelarDetalle.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
             this.btnCancelarDetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelarDetalle.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelarDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarDetalle.ForeColor = System.Drawing.Color.White;
             this.btnCancelarDetalle.Location = new System.Drawing.Point(642, 549);
             this.btnCancelarDetalle.Name = "btnCancelarDetalle";
@@ -160,7 +160,7 @@
             this.btnExtra.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExtra.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnExtra.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExtra.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExtra.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExtra.ForeColor = System.Drawing.Color.White;
             this.btnExtra.Location = new System.Drawing.Point(792, 216);
             this.btnExtra.Name = "btnExtra";
@@ -174,7 +174,7 @@
             // 
             this.btnImpLocal.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnImpLocal.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnImpLocal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImpLocal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnImpLocal.Location = new System.Drawing.Point(792, 265);
             this.btnImpLocal.Name = "btnImpLocal";
             this.btnImpLocal.Size = new System.Drawing.Size(144, 25);
@@ -187,7 +187,7 @@
             // 
             this.panelContenedor.AutoScroll = true;
             this.panelContenedor.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.panelContenedor.Location = new System.Drawing.Point(6, 185);
+            this.panelContenedor.Location = new System.Drawing.Point(7, 185);
             this.panelContenedor.Name = "panelContenedor";
             this.panelContenedor.Size = new System.Drawing.Size(772, 142);
             this.panelContenedor.TabIndex = 33;
@@ -206,10 +206,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(57, 426);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(164, 17);
+            this.label1.Size = new System.Drawing.Size(154, 16);
             this.label1.TabIndex = 35;
             this.label1.Text = "Clave SAT del producto:";
             // 
@@ -219,7 +219,7 @@
             this.btnClaveGenerica.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClaveGenerica.FlatAppearance.BorderSize = 0;
             this.btnClaveGenerica.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClaveGenerica.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClaveGenerica.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClaveGenerica.ForeColor = System.Drawing.Color.White;
             this.btnClaveGenerica.Location = new System.Drawing.Point(409, 422);
             this.btnClaveGenerica.Name = "btnClaveGenerica";
@@ -231,7 +231,7 @@
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(61, 473);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(160, 40);
@@ -344,23 +344,23 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(20, 43);
             this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(46, 21);
+            this.label11.Size = new System.Drawing.Size(46, 20);
             this.label11.TabIndex = 50;
             this.label11.Text = "Base";
             // 
             // txtBoxBase
             // 
             this.txtBoxBase.Enabled = false;
-            this.txtBoxBase.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBoxBase.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBoxBase.ForeColor = System.Drawing.SystemColors.WindowText;
             this.txtBoxBase.Location = new System.Drawing.Point(82, 40);
             this.txtBoxBase.Margin = new System.Windows.Forms.Padding(2);
             this.txtBoxBase.Name = "txtBoxBase";
-            this.txtBoxBase.Size = new System.Drawing.Size(120, 27);
+            this.txtBoxBase.Size = new System.Drawing.Size(120, 26);
             this.txtBoxBase.TabIndex = 51;
             this.txtBoxBase.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -370,7 +370,7 @@
             this.groupBox1.Controls.Add(this.rb16porCiento);
             this.groupBox1.Controls.Add(this.rb8porCiento);
             this.groupBox1.Controls.Add(this.rb0porCiento);
-            this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(24, 84);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
@@ -386,7 +386,7 @@
             this.rbExcento.Location = new System.Drawing.Point(473, 28);
             this.rbExcento.Margin = new System.Windows.Forms.Padding(2);
             this.rbExcento.Name = "rbExcento";
-            this.rbExcento.Size = new System.Drawing.Size(93, 21);
+            this.rbExcento.Size = new System.Drawing.Size(86, 19);
             this.rbExcento.TabIndex = 3;
             this.rbExcento.Text = "IVA  Exento";
             this.rbExcento.UseVisualStyleBackColor = true;
@@ -399,7 +399,7 @@
             this.rb16porCiento.Location = new System.Drawing.Point(316, 28);
             this.rb16porCiento.Margin = new System.Windows.Forms.Padding(2);
             this.rb16porCiento.Name = "rb16porCiento";
-            this.rb16porCiento.Size = new System.Drawing.Size(73, 21);
+            this.rb16porCiento.Size = new System.Drawing.Size(70, 19);
             this.rb16porCiento.TabIndex = 2;
             this.rb16porCiento.TabStop = true;
             this.rb16porCiento.Text = "IVA 16%";
@@ -412,7 +412,7 @@
             this.rb8porCiento.Location = new System.Drawing.Point(153, 28);
             this.rb8porCiento.Margin = new System.Windows.Forms.Padding(2);
             this.rb8porCiento.Name = "rb8porCiento";
-            this.rb8porCiento.Size = new System.Drawing.Size(66, 21);
+            this.rb8porCiento.Size = new System.Drawing.Size(63, 19);
             this.rb8porCiento.TabIndex = 1;
             this.rb8porCiento.Text = "IVA 8%";
             this.rb8porCiento.UseVisualStyleBackColor = true;
@@ -424,7 +424,7 @@
             this.rb0porCiento.Location = new System.Drawing.Point(16, 28);
             this.rb0porCiento.Margin = new System.Windows.Forms.Padding(2);
             this.rb0porCiento.Name = "rb0porCiento";
-            this.rb0porCiento.Size = new System.Drawing.Size(66, 21);
+            this.rb0porCiento.Size = new System.Drawing.Size(63, 19);
             this.rb0porCiento.TabIndex = 0;
             this.rb0porCiento.Text = "IVA 0%";
             this.rb0porCiento.UseVisualStyleBackColor = true;
@@ -432,42 +432,42 @@
             // 
             // txtIVA
             // 
-            this.txtIVA.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIVA.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtIVA.Location = new System.Drawing.Point(624, 112);
             this.txtIVA.Margin = new System.Windows.Forms.Padding(2);
             this.txtIVA.Name = "txtIVA";
-            this.txtIVA.Size = new System.Drawing.Size(100, 21);
+            this.txtIVA.Size = new System.Drawing.Size(100, 20);
             this.txtIVA.TabIndex = 53;
             this.txtIVA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(739, 113);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(29, 17);
+            this.label12.Size = new System.Drawing.Size(29, 16);
             this.label12.TabIndex = 54;
             this.label12.Text = "IVA";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(739, 363);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(39, 17);
+            this.label13.Size = new System.Drawing.Size(39, 16);
             this.label13.TabIndex = 55;
             this.label13.Text = "Total";
             // 
             // txtTotal
             // 
-            this.txtTotal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTotal.Location = new System.Drawing.Point(624, 362);
             this.txtTotal.Margin = new System.Windows.Forms.Padding(2);
             this.txtTotal.Name = "txtTotal";
-            this.txtTotal.Size = new System.Drawing.Size(100, 22);
+            this.txtTotal.Size = new System.Drawing.Size(100, 21);
             this.txtTotal.TabIndex = 56;
             this.txtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -476,7 +476,7 @@
             this.btnKeyWordSearch.BackColor = System.Drawing.Color.Aqua;
             this.btnKeyWordSearch.FlatAppearance.BorderSize = 0;
             this.btnKeyWordSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnKeyWordSearch.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnKeyWordSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnKeyWordSearch.Location = new System.Drawing.Point(584, 423);
             this.btnKeyWordSearch.Margin = new System.Windows.Forms.Padding(2);
             this.btnKeyWordSearch.Name = "btnKeyWordSearch";

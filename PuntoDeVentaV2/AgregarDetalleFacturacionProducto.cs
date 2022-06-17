@@ -1882,7 +1882,7 @@ namespace PuntoDeVentaV2
                         cb4.SelectedItem = r_impuestos_ext["tasacuota"].ToString();
                         int index4 = cb4.SelectedIndex;
 
-                        AccederComboBox(nombre_cb, 5, index4, r_impuestos_ext["tasacuota"].ToString());
+                        AccederComboBox(nombre_cb, 5, index4, r_impuestos_ext["tasacuota"].ToString()+" %");
 
 
                         // Textbox: Definir impuesto
