@@ -15,6 +15,8 @@ using System.Data.SQLite;
 using System.Net.NetworkInformation;
 using System.Deployment.Application;
 using System.Security.Cryptography;
+using System.Globalization;
+using System.Threading;
 
 namespace PuntoDeVentaV2
 {
@@ -615,7 +617,11 @@ namespace PuntoDeVentaV2
 
         private void Login_Load(object sender, EventArgs e)
         {
-            
+            if (Thread.CurrentThread.CurrentCulture.Name != "es-MX")
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture("es-MX");
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.CreateSpecificCulture("es-MX");
+            }
             //if (ApplicationDeployment.IsNetworkDeployed)
             //{
             //    try

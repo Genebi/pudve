@@ -23,6 +23,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
+using System.Globalization;
 
 namespace PuntoDeVentaV2
 {
@@ -667,6 +668,8 @@ namespace PuntoDeVentaV2
                 {
                     if (!string.IsNullOrWhiteSpace(item["fechaCSD"].ToString()))
                     {
+                        var dato = item["fechaCSD"].ToString();
+
                         FechaExpiracion = Convert.ToDateTime(Fecha.Rows[0]["fechaCSD"].ToString());
 
                         var fechahoy = DateTime.Now;
