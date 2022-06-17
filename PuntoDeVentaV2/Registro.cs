@@ -113,8 +113,8 @@ namespace PuntoDeVentaV2
 
                         
                         //Consulta de MySQL local 
-                        string consulta = "INSERT INTO Usuarios (Usuario, Password, RazonSocial, Telefono, Email, Licencia)";
-                               consulta += $"VALUES ('{usuario}', '{password}', '{razonSocial}', '{telefono}', '{email}', '{licencia}')";
+                        string consulta = "INSERT INTO Usuarios (Usuario, Password, RazonSocial, Telefono, Email, VerificacionNS, Licencia)";
+                               consulta += $"VALUES ('{usuario}', '{password}', '{razonSocial}', '{telefono}', '{email}', 1, '{licencia}')";
 
 
                         int respuesta = cn.EjecutarConsulta(consulta, regresarID: true);
@@ -129,7 +129,7 @@ namespace PuntoDeVentaV2
                         //}
 
                         //Consulta de MySQL
-                        registrar.CommandText = $"INSERT INTO Usuarios (usuario, password, razonSocial, email, telefono, numeroSerie, idLocal, licencia) VALUES ('{usuario}', '{password}', '{razonSocial}', '{email}', '{telefono}', '{TarjetaMadreID()}', '{respuesta}', '{licencia}')";
+                        registrar.CommandText = $"INSERT INTO Usuarios (usuario, password, razonSocial, email, telefono, numeroSerie, idLocal, verificacionNS, licencia) VALUES ('{usuario}', '{password}', '{razonSocial}', '{email}', '{telefono}', '{TarjetaMadreID()}', '{respuesta}', 1, '{licencia}')";
                         int resultado = registrar.ExecuteNonQuery();
 
                         if (respuesta > 0 && resultado > 0)
