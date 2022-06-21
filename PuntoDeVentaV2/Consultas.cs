@@ -2613,6 +2613,12 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string lotipoTicket(int logo)
+        {
+            var consulta = $"UPDATE editarticket SET logo = {logo} WHERE IDUsuario = '{FormPrincipal.userID}';";
+            return consulta;
+        }
+
         public string nombreusTicket(int nombre)
         {
             var consulta = $"UPDATE editarticket SET Usuario = {nombre} WHERE IDUsuario = '{FormPrincipal.userID}';";

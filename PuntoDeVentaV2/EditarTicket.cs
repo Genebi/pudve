@@ -55,9 +55,19 @@ namespace PuntoDeVentaV2
                 int telefonoc = Convert.ToInt32(datos2[13]);
                 int colycpc = Convert.ToInt32(datos2[14]);
                 int formapagoc = Convert.ToInt32(datos2[15]);
+                int logo = Convert.ToInt32(datos2[16]);
                 int nComercial = Convert.ToInt32(datos2[17]);
 
-                if (nComercial == 1)
+
+                if (nComercial == 1)//////Logo  
+                {
+                    chkLogoTicket.Checked = true;
+                }
+                else
+                {
+                    chkLogoTicket.Checked = false;
+                }
+                if (nComercial == 1)//////Nombre Comercial 
                 {
                     chkNombreComercial.Checked = true;
                 }
@@ -65,7 +75,7 @@ namespace PuntoDeVentaV2
                 {
                     chkNombreComercial.Checked = false;
                 }
-                if (nombre == 1)
+                if (nombre == 1)//////Nombre Usuario
                 {
                     chkNombreUs.Checked = true;
                 }
@@ -73,7 +83,7 @@ namespace PuntoDeVentaV2
                 {
                     chkNombreUs.Checked = false;
                 }
-                if (direccion == 1)
+                if (direccion == 1)//////Direccion Usuario
                 {
                     chkDireccionUs.Checked = true;
                 }
@@ -81,7 +91,7 @@ namespace PuntoDeVentaV2
                 {
                     chkDireccionUs.Checked = false;
                 }
-                if (colycp == 1)
+                if (colycp == 1)/////Coloni y CP Usuario
                 {
                     chkColUs.Checked = true;
                 }
@@ -89,7 +99,7 @@ namespace PuntoDeVentaV2
                 {
                     chkColUs.Checked = false;
                 }
-                if (rfc == 1)
+                if (rfc == 1)//////RFC Usuario
                 {
                     chkRfcUs.Checked = true;
                 }
@@ -97,7 +107,7 @@ namespace PuntoDeVentaV2
                 {
                     chkRfcUs.Checked = false;
                 }
-                if (correo == 1)
+                if (correo == 1)//////Correo Usuario
                 {
                     chkCorreoUs.Checked = true;
                 }
@@ -105,7 +115,7 @@ namespace PuntoDeVentaV2
                 {
                     chkCorreoUs.Checked = false;
                 }
-                if (telefono == 1)
+                if (telefono == 1)/////Telefono Usuario
                 {
                     chkTelefonoUs.Checked = true;
                 }
@@ -113,7 +123,7 @@ namespace PuntoDeVentaV2
                 {
                     chkTelefonoUs.Checked = false;
                 }
-                if (nombrec == 1)
+                if (nombrec == 1)/////Nombre Cliente
                 {
                     chkNombreCl.Checked = true;
                 }
@@ -121,15 +131,15 @@ namespace PuntoDeVentaV2
                 {
                     chkNombreCl.Checked = false;
                 }
-                if (domicilioc == 1)
+                if (domicilioc == 1)/////Domicilio Cliente
                 {
-                    chkDireccionUs.Checked = true;
+                    chkDomicilioCl.Checked = true;
                 }
                 else
                 {
-                    chkDireccionUs.Checked = false;
+                    chkDomicilioCl.Checked = false;
                 }
-                if (rfcc == 1)
+                if (rfcc == 1)/////RFC Cliente
                 {
                     chkRfcCl.Checked = true;
                 }
@@ -137,7 +147,7 @@ namespace PuntoDeVentaV2
                 {
                     chkRfcCl.Checked = false;
                 }
-                if (correoc == 1)
+                if (correoc == 1)/////Correo Cliente
                 {
                     chkCorreoCl.Checked = true;
                 }
@@ -145,7 +155,7 @@ namespace PuntoDeVentaV2
                 {
                     chkCorreoCl.Checked = false;
                 }
-                if (telefonoc == 1)
+                if (telefonoc == 1)/////Telefono Cliente
                 {
                     chkTelefonoCl.Checked = true;
                 }
@@ -153,7 +163,7 @@ namespace PuntoDeVentaV2
                 {
                     chkTelefonoCl.Checked = false;
                 }
-                if (colycpc == 1)
+                if (colycpc == 1)/////Colonia y CP Cliente
                 {
                     chkColoniaCl.Checked = true;
                 }
@@ -161,7 +171,7 @@ namespace PuntoDeVentaV2
                 {
                     chkColoniaCl.Checked = false;
                 }
-                if (formapagoc == 1)
+                if (formapagoc == 1)/////Forma de Pago Cliente
                 {
                     chkFormaPagoCl.Checked = true;
                 }
@@ -171,7 +181,7 @@ namespace PuntoDeVentaV2
                 }
 
             }
-            if (File.Exists($@"C:\Archivos PUDVE\MisDatos\Usuarios\{FormPrincipal.datosUsuario[11].ToString()}"))
+            if (File.Exists($@"C:\Archivos PUDVE\MisDatos\Usuarios\{FormPrincipal.datosUsuario[11].ToString()}"))/////Imagen
             {
                 pictureBox1.Image = Image.FromFile($@"C:\Archivos PUDVE\MisDatos\Usuarios\{FormPrincipal.datosUsuario[11].ToString()}");
             }
@@ -212,11 +222,26 @@ namespace PuntoDeVentaV2
                 valor = Convert.ToInt32(item[0].ToString());
             }
 
+
+
             if (valor == 0)
             {
                 cn.EjecutarConsulta(cs.insertarMensajeDeTicket(FormPrincipal.userID, "Gracias por su compra!!"));
             }
 
+            //////Logotipo
+            if (chkLogoTicket.Checked == true)
+            {
+                var status = 1;
+                cn.EjecutarConsulta(cs.lotipoTicket(status));
+            }
+            else
+            {
+                var status = 0;
+                cn.EjecutarConsulta(cs.lotipoTicket(status));
+            }
+
+            //////Nombre Usuario
             if (chkNombreUs.Checked == true)
             {
                 var status = 1;
@@ -227,7 +252,7 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.nombreusTicket(status));
             }
-            //////
+            //////Direccion de Usuario
             if (chkDireccionUs.Checked == true)
             {
                 var status = 1;
@@ -238,7 +263,7 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.direccionTicket(status));
             }
-            //////
+            //////RFC Usuario
             if (chkRfcUs.Checked == true)
             {
                 var status = 1;
@@ -249,7 +274,7 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.rfcTicket(status));
             }
-            //////
+            //////Colonia y CP Usuario
             if (chkColUs.Checked == true)
             {
                 var status = 1;
@@ -260,7 +285,7 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.colycpTicket(status));
             }
-            //////
+            //////Correo Usuario
             if (chkCorreoUs.Checked == true)
             {
                 var status = 1;
@@ -271,7 +296,7 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.correoTicket(status));
             }
-            //////
+            //////Telefono Usuario
             if (chkTelefonoUs.Checked == true)
             {
                 var status = 1;
@@ -282,7 +307,7 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.telTicket(status));
             }
-            //////
+            //////Forma Pago Cliente
             if (chkFormaPagoCl.Checked == true)
             {
                 var status = 1;
@@ -293,7 +318,7 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.formapagoCTicket(status));
             }
-            //////
+            //////RFC Cliente
             if (chkRfcCl.Checked == true)
             {
                 var status = 1;
@@ -304,7 +329,7 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.rfcCTicket(status));
             }
-            //////
+            //////Domicilio Cliente
             if (chkDomicilioCl.Checked == true)
             {
                 var status = 1;
@@ -315,7 +340,7 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.domicilioCTicket(status));
             }
-            //////
+            //////Correo Cliente
             if (chkCorreoCl.Checked == true)
             {
                 var status = 1;
@@ -326,7 +351,7 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.correoCTicket(status));
             }
-            //////
+            //////Colonia y CP Cliente
             if (chkColoniaCl.Checked == true)
             {
                 var status = 1;
@@ -337,7 +362,7 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.colycpCTicket(status));
             }
-            //////
+            //////Nombre Cliente
             if (chkNombreCl.Checked == true)
             {
                 var status = 1;
@@ -348,7 +373,7 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.nombreCTicket(status));
             }
-            //////
+            //////Telefono Cliente
             if (chkTelefonoCl.Checked == true)
             {
                 var status = 1;
@@ -359,7 +384,7 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.telefonoCTicket(status));
             }
-            /////
+            /////Nombre Cliente
             if (chkNombreComercial.Checked == true)
             {
                 var status = 1;
@@ -371,6 +396,7 @@ namespace PuntoDeVentaV2
                 cn.EjecutarConsulta(cs.nombreComercial(status));
             }
             MessageBox.Show("Guardado Correctamente");
+            this.Close();
         }
 
         private void chkColoniaCl_CheckedChanged(object sender, EventArgs e)
@@ -474,7 +500,7 @@ namespace PuntoDeVentaV2
         private void chkNombreUs_CheckedChanged(object sender, EventArgs e)
         {
             if (chkNombreUs.Checked == false)
-            {
+            { 
                 lblNombreUs.Visible = false;
                 lblNombreUs.Height = 0;
             }
@@ -606,6 +632,7 @@ namespace PuntoDeVentaV2
                 chkTelefonoUs.Checked = true;
                 chkColUs.Checked = true;
                 chkLogoTicket.Checked = true;
+                chkNombreComercial.Checked = true;
             }
             else
             {
@@ -616,6 +643,7 @@ namespace PuntoDeVentaV2
                 chkTelefonoUs.Checked = false;
                 chkColUs.Checked = false;
                 chkLogoTicket.Checked = false;
+                chkNombreComercial.Checked = false;
         }
 
     }
