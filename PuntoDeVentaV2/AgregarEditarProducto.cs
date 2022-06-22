@@ -287,6 +287,8 @@ namespace PuntoDeVentaV2
 
         public static string nombreProductoEditar;
 
+        int contador = 0;
+
         #region Iniciar Varaibles Globales
         List<string> datosProductosBtnGuardar,
                      datosProductoRelacionado;
@@ -2003,8 +2005,7 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo5_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Desea Guardar los Cambios?", "Aviso del sistema!", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
+                contador++;
                 var tituloVentana = string.Empty;
 
                 guardarDetallesDinamicos();
@@ -4079,13 +4080,6 @@ namespace PuntoDeVentaV2
 
                 listaProductoToCombo = new List<string>();
                 ProductosDeServicios = new List<string>();
-            }
-            else
-            {
-                this.Close();
-            }
-
-           
 
         }
 
@@ -4203,8 +4197,26 @@ namespace PuntoDeVentaV2
 
         private void AgregarEditarProducto_FormClosing(object sender, FormClosingEventArgs e)
         {
-            listaProductoToCombo.Clear();
-            ProductosDeServicios.Clear();
+            if (contador == 0)
+            {
+                DialogResult result = MessageBox.Show("Desea Guardar los Cambios?", "Aviso del sistema!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (result.Equals(DialogResult.Yes))
+                {
+                    contador++;
+                    btnGuardarProducto.PerformClick();
+                    
+                }
+                else if (result.Equals(DialogResult.Cancel))
+                {
+                    e.Cancel = true;
+                    return;
+                }
+                else
+                {
+                    listaProductoToCombo.Clear();
+                    ProductosDeServicios.Clear();
+                }
+            }
         }
 
         public void cargarCodBarExt()
@@ -9318,16 +9330,16 @@ namespace PuntoDeVentaV2
 
         private void AgregarEditarProducto_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Productos producto = Application.OpenForms.OfType<Productos>().FirstOrDefault();
+                Productos producto = Application.OpenForms.OfType<Productos>().FirstOrDefault();
 
-            if (producto != null)
-            {
-                producto.retornoAgregarEditarProductoDatosSourceFinal = DatosSourceFinal;
-                producto.recargarDGV();
-            }
+                if (producto != null)
+                {
+                    producto.retornoAgregarEditarProductoDatosSourceFinal = DatosSourceFinal;
+                    producto.recargarDGV();
+                }
 
-            LimpiarDatos();
-            Productos.codProductoEditarVenta = 0;
+                LimpiarDatos();
+                Productos.codProductoEditarVenta = 0;
         }
 
         private void mostrarOcultarLblArrow()
@@ -9406,6 +9418,7 @@ namespace PuntoDeVentaV2
             baseProducto = "0";
             ivaProducto = "0";
             idReporte = "0";
+            contador = 0;
 
             var servidor = Properties.Settings.Default.Hosting;
 
