@@ -17,7 +17,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         private int counter = 5;
-        string saveDirectoryImg = @"C:\Archivos PUDVE\MisDatos\Usuarios\";
+        string saveDirectoryImg = string.Empty;
         public PreciosProducto()
         {
             InitializeComponent();
@@ -45,7 +45,10 @@ namespace PuntoDeVentaV2
                     string DirectorioImagen;
                     if (!string.IsNullOrWhiteSpace(servidor))
                     {
+
+                        saveDirectoryImg = $@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\";
                         DirectorioImagen = $@"\\{servidor}\pudve\Productos\";
+
                     }
                     else
                     {
