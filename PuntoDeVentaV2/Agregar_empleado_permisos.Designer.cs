@@ -61,6 +61,7 @@
             this.btnBascula = new System.Windows.Forms.Button();
             this.cboBascula = new System.Windows.Forms.CheckBox();
             this.chkPrecio = new System.Windows.Forms.CheckBox();
+            this.cboxConsultaP = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cbox_anticipos
@@ -422,6 +423,16 @@
             this.chkPrecio.TabIndex = 119;
             this.chkPrecio.Text = "Precio";
             this.chkPrecio.UseVisualStyleBackColor = true;
+            this.chkPrecio.CheckedChanged += new System.EventHandler(this.chkPrecio_CheckedChanged);
+            // 
+            // cboxConsultaP
+            // 
+            this.cboxConsultaP.Location = new System.Drawing.Point(308, 203);
+            this.cboxConsultaP.Name = "cboxConsultaP";
+            this.cboxConsultaP.Size = new System.Drawing.Size(102, 41);
+            this.cboxConsultaP.TabIndex = 120;
+            this.cboxConsultaP.Text = "Consutar Precios";
+            this.cboxConsultaP.UseVisualStyleBackColor = true;
             // 
             // Agregar_empleado_permisos
             // 
@@ -461,6 +472,7 @@
             this.Controls.Add(this.cbox_clientes);
             this.Controls.Add(this.cbox_caja);
             this.Controls.Add(this.cbox_anticipos);
+            this.Controls.Add(this.cboxConsultaP);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
@@ -511,5 +523,6 @@
         private System.Windows.Forms.Button btnBascula;
         private System.Windows.Forms.CheckBox cboBascula;
         private System.Windows.Forms.CheckBox chkPrecio;
+        private System.Windows.Forms.CheckBox cboxConsultaP;
     }
 }

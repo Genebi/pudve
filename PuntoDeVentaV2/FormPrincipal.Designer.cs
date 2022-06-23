@@ -33,6 +33,7 @@
             this.panelMaestro = new System.Windows.Forms.Panel();
             this.panelContenedor = new System.Windows.Forms.Panel();
             this.menuVertical = new System.Windows.Forms.Panel();
+            this.BtnConsulta = new System.Windows.Forms.Button();
             this.btnImpresoras = new System.Windows.Forms.Button();
             this.btnEmpleados = new System.Windows.Forms.Button();
             this.btnReportes = new System.Windows.Forms.Button();
@@ -77,6 +78,7 @@
             // menuVertical
             // 
             this.menuVertical.BackColor = System.Drawing.Color.Gold;
+            this.menuVertical.Controls.Add(this.BtnConsulta);
             this.menuVertical.Controls.Add(this.btnImpresoras);
             this.menuVertical.Controls.Add(this.btnEmpleados);
             this.menuVertical.Controls.Add(this.btnReportes);
@@ -98,6 +100,26 @@
             this.menuVertical.Size = new System.Drawing.Size(230, 602);
             this.menuVertical.TabIndex = 0;
             this.menuVertical.Paint += new System.Windows.Forms.PaintEventHandler(this.menuVertical_Paint);
+            // 
+            // BtnConsulta
+            // 
+            this.BtnConsulta.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.BtnConsulta.FlatAppearance.BorderSize = 0;
+            this.BtnConsulta.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(12)))), ((int)(((byte)(61)))), ((int)(((byte)(92)))));
+            this.BtnConsulta.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.BtnConsulta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnConsulta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnConsulta.ForeColor = System.Drawing.Color.Black;
+            this.BtnConsulta.Image = ((System.Drawing.Image)(resources.GetObject("BtnConsulta.Image")));
+            this.BtnConsulta.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.BtnConsulta.Location = new System.Drawing.Point(115, 461);
+            this.BtnConsulta.Name = "BtnConsulta";
+            this.BtnConsulta.Size = new System.Drawing.Size(115, 71);
+            this.BtnConsulta.TabIndex = 112;
+            this.BtnConsulta.Text = "Consulta Precios";
+            this.BtnConsulta.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.BtnConsulta.UseVisualStyleBackColor = true;
+            this.BtnConsulta.Click += new System.EventHandler(this.BtnConsulta_Click);
             // 
             // btnImpresoras
             // 
@@ -453,6 +475,7 @@
         private System.Windows.Forms.Button btnImpresoras;
         public System.Windows.Forms.Panel panelContenedor;
         private System.Windows.Forms.Button btnSesion;
+        private System.Windows.Forms.Button BtnConsulta;
     }
 }
 

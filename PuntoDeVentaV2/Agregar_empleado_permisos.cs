@@ -58,6 +58,7 @@ namespace PuntoDeVentaV2
             cbox_ventas.Checked = false;
             cboBascula.Checked = false;
             chkPrecio.Checked = false;
+            cboxConsultaP.Checked = false;
         }
 
         private void cargar_checkbox_permisos(string[] datos_e)
@@ -76,6 +77,8 @@ namespace PuntoDeVentaV2
             cbox_reportes.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[11]));
             cbox_ventas.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[13]));
             cboBascula.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[14]));
+            cboxConsultaP.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[15]));
+
             var permisoPrecio = cn.CargarDatos($"SELECT COUNT(Precio) AS Estado FROM empleadospermisos WHERE IDEmpleado = '{id_empleado}' AND IDUsuario = '{FormPrincipal.userID}' AND Precio = 1");
             var DRPermisoPrecio = permisoPrecio.Rows[0]["Estado"].ToString();
             if (!DRPermisoPrecio.Equals("0"))
@@ -110,11 +113,12 @@ namespace PuntoDeVentaV2
             string reporte = Convert.ToString(Convert.ToInt32(cbox_reportes.Checked));
             string venta = Convert.ToString(Convert.ToInt32(cbox_ventas.Checked));
             string bascula = Convert.ToString(Convert.ToInt32(cboBascula.Checked));
+            string ConsultaPrecio = Convert.ToString(Convert.ToInt32(cboxConsultaP.Checked));
 
             datos = new string[]
             {
                 FormPrincipal.userID.ToString(), id_empleado.ToString(), anticipo, caja, client, config, empleado,
-                empresa, factura, inventario, mdatos, producto, proveedor, reporte, venta, bascula
+                empresa, factura, inventario, mdatos, producto, proveedor, reporte, venta, bascula, ConsultaPrecio
             };
 
             if (id_empleado > 0)
@@ -356,6 +360,11 @@ namespace PuntoDeVentaV2
             {
                 this.Close();
             }
+        }
+
+        private void chkPrecio_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
