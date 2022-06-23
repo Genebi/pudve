@@ -270,7 +270,7 @@
             this.Categoria,
             this.StockMinimo,
             this.StockMaximo});
-            this.DGVProductos.Location = new System.Drawing.Point(10, 3);
+            this.DGVProductos.Location = new System.Drawing.Point(10, 4);
             this.DGVProductos.Name = "DGVProductos";
             this.DGVProductos.ReadOnly = true;
             this.DGVProductos.RowHeadersVisible = false;

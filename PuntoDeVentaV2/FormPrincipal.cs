@@ -77,6 +77,8 @@ namespace PuntoDeVentaV2
         private int servicios = 1;
         private int ventas = 1;
         private int basculas = 1;
+        private int consulta = 1;
+
 
         //Variable para usuarios sin/con clave interna
         public static int clave { get; set; }
@@ -959,6 +961,20 @@ namespace PuntoDeVentaV2
 
         }
 
+        private void BtnConsulta_Click(object sender, EventArgs e)
+        {
+            if (consulta == 1)
+            {
+                ConsultaPrecio consultaPrecio = new ConsultaPrecio();
+                consultaPrecio.ShowDialog();
+               
+            }
+            else
+            {
+                MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
+        }
+
         private void validarCerrarSesion()
         {
             FormPrincipal fPrincipal = Application.OpenForms.OfType<FormPrincipal>().FirstOrDefault();
@@ -1303,6 +1319,7 @@ namespace PuntoDeVentaV2
             servicios = Convert.ToInt32(datos_e[12]);
             ventas = Convert.ToInt32(datos_e[13]);
             basculas = Convert.ToInt32(datos_e[14]);
+            consulta = Convert.ToInt32(datos_e[15]);
         }
 
         /****************************

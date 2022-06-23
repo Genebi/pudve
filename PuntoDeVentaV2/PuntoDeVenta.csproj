@@ -541,6 +541,12 @@
       <DependentUpon>ConfiguracionMariaDB.cs</DependentUpon>
     </Compile>
     <Compile Include="ConnectionHandler.cs" />
+    <Compile Include="ConsultaPrecio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConsultaPrecio.Designer.cs">
+      <DependentUpon>ConsultaPrecio.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConsultarListaRelacionados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -889,6 +895,12 @@
     </Compile>
     <Compile Include="PorcentageGanancia.Designer.cs">
       <DependentUpon>PorcentageGanancia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PreciosProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PreciosProducto.Designer.cs">
+      <DependentUpon>PreciosProducto.cs</DependentUpon>
     </Compile>
     <Compile Include="Productos.cs">
       <SubType>Form</SubType>
@@ -1315,6 +1327,9 @@
     <EmbeddedResource Include="ConfiguracionMariaDB.resx">
       <DependentUpon>ConfiguracionMariaDB.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConsultaPrecio.resx">
+      <DependentUpon>ConsultaPrecio.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConsultarListaRelacionados.resx">
       <DependentUpon>ConsultarListaRelacionados.cs</DependentUpon>
     </EmbeddedResource>
@@ -1482,6 +1497,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PorcentageGanancia.resx">
       <DependentUpon>PorcentageGanancia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PreciosProducto.resx">
+      <DependentUpon>PreciosProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Productos.resx">
       <DependentUpon>Productos.cs</DependentUpon>
