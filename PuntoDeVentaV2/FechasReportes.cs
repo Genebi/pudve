@@ -62,37 +62,46 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            fechaInicial = primerDatePicker.Value.ToString("yyyy-MM-dd");
-            fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd");
-
-            var tipoBusqurda = cbEmpleados.SelectedItem.ToString();
-
-            var existencia = verificarExistencia(tipoBusqurda);
-
-            if (existencia)
+            if (cbEmpleados.SelectedIndex.Equals(0))
             {
-                HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda, fechaInicial, fechaFinal);
+                MessageBox.Show("Seleccione si es Empleado o Producto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                cbEmpleados.Focus();
+            }
+            else
+            {
+                fechaInicial = primerDatePicker.Value.ToString("yyyy-MM-dd");
+                fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd");
 
-                if (tipoBusqurda.Equals("Seleccionar Empleado/Producto") || tipoBusqurda.Equals("Reporte general"))
+                var tipoBusqurda = cbEmpleados.SelectedItem.ToString();
+
+                var existencia = verificarExistencia(tipoBusqurda);
+
+                if (existencia)
                 {
-                    terminarOperaciones();
+                    HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda, fechaInicial, fechaFinal);
+
+                    if (tipoBusqurda.Equals("Seleccionar Empleado/Producto") || tipoBusqurda.Equals("Reporte general"))
+                    {
+                        terminarOperaciones();
+                    }
+                    else
+                    {
+                        hpBuscador.FormClosed += delegate
+                        {
+                            var idBusqueda = HistorialPrecioBuscador.idEmpleadoObtenido;
+                            if (!string.IsNullOrEmpty(idBusqueda))
+                            {
+                                terminarOperaciones();
+                            }
+                        };
+
+                        hpBuscador.ShowDialog();
+                    }
                 }
                 else
                 {
-                    hpBuscador.FormClosed += delegate
-                    {
-                        var idBusqueda = HistorialPrecioBuscador.idEmpleadoObtenido;
-                        if (!string.IsNullOrEmpty(idBusqueda))
-                        {
-                            terminarOperaciones();
-                        }
-                    };
-
-                    hpBuscador.ShowDialog();
+                    MessageBox.Show($"No cuenta con ningun {tipoBusqurda}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-            }else
-            {
-                MessageBox.Show($"No cuenta con ningun {tipoBusqurda}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
