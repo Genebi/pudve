@@ -194,6 +194,9 @@ namespace PuntoDeVentaV2
         static public string idProductoFinal = string.Empty;
         static public string impuestoProductoFinal = string.Empty;
 
+        public string resultadoMensaje;
+
+
 
         DataTable SearchProdResult,
                     SearchCodBarExtResult,
@@ -4199,22 +4202,23 @@ namespace PuntoDeVentaV2
         {
             if (contador == 0)
             {
-                DialogResult result = MessageBox.Show("Desea Guardar los Cambios?", "Aviso del sistema!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                if (result.Equals(DialogResult.Yes))
+                MensajeSiNoCancelar Opcion = new MensajeSiNoCancelar();
+                Opcion.ShowDialog();
+
+                if (Opcion.opcionMensaje == "si")
                 {
                     contador++;
                     btnGuardarProducto.PerformClick();
-                    
                 }
-                else if (result.Equals(DialogResult.Cancel))
-                {
-                    e.Cancel = true;
-                    return;
-                }
-                else
+                else if (Opcion.opcionMensaje == "no")
                 {
                     listaProductoToCombo.Clear();
                     ProductosDeServicios.Clear();
+                }
+                else
+                {
+                    e.Cancel = true;
+                    return;
                 }
             }
         }

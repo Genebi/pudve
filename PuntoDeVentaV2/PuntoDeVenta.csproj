@@ -823,6 +823,12 @@
     <Compile Include="MensajePorFavorEspere.Designer.cs">
       <DependentUpon>MensajePorFavorEspere.cs</DependentUpon>
     </Compile>
+    <Compile Include="MensajeSiNoCancelar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MensajeSiNoCancelar.Designer.cs">
+      <DependentUpon>MensajeSiNoCancelar.cs</DependentUpon>
+    </Compile>
     <Compile Include="MensajeVentasYMensajeInventario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1464,6 +1470,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MensajePorFavorEspere.resx">
       <DependentUpon>MensajePorFavorEspere.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MensajeSiNoCancelar.resx">
+      <DependentUpon>MensajeSiNoCancelar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MensajeVentasYMensajeInventario.resx">
       <DependentUpon>MensajeVentasYMensajeInventario.cs</DependentUpon>
