@@ -1731,7 +1731,7 @@ namespace PuntoDeVentaV2
                         {
                             lb_facturando.Visible = false;
 
-                            var r = MessageBox.Show("Su(s) factura(s) han sido creadas y timbradas con éxito.", "Éxito", MessageBoxButtons.OK);
+                            var r = MessageBox.Show("Su(s) factura(s) han sido \ncreadas y timbradas con éxito.", "Aviso del Sistema", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
 
                             if (r == DialogResult.OK)
                             {
