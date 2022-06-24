@@ -64,7 +64,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.lblCantidadRegistros = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.chkSeleccionarTodos = new System.Windows.Forms.CheckBox();
+            this.chTodos = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVDatosEmpleados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGVDatosProductos)).BeginInit();
             this.panel5.SuspendLayout();
@@ -478,22 +478,23 @@
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label4.Visible = false;
             // 
-            // chkSeleccionarTodos
+            // chTodos
             // 
-            this.chkSeleccionarTodos.AutoSize = true;
-            this.chkSeleccionarTodos.Location = new System.Drawing.Point(27, 106);
-            this.chkSeleccionarTodos.Name = "chkSeleccionarTodos";
-            this.chkSeleccionarTodos.Size = new System.Drawing.Size(178, 17);
-            this.chkSeleccionarTodos.TabIndex = 41;
-            this.chkSeleccionarTodos.Text = "Seleccionar todos los Productos";
-            this.chkSeleccionarTodos.UseVisualStyleBackColor = true;
+            this.chTodos.AutoSize = true;
+            this.chTodos.Location = new System.Drawing.Point(27, 106);
+            this.chTodos.Name = "chTodos";
+            this.chTodos.Size = new System.Drawing.Size(178, 17);
+            this.chTodos.TabIndex = 41;
+            this.chTodos.Text = "Seleccionar todos los Productos";
+            this.chTodos.UseVisualStyleBackColor = true;
+            this.chTodos.CheckedChanged += new System.EventHandler(this.chkSeleccionarTodos_CheckedChanged);
             // 
             // HistorialPrecioBuscador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(678, 438);
-            this.Controls.Add(this.chkSeleccionarTodos);
+            this.Controls.Add(this.chTodos);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.rbDeshabilitados);
             this.Controls.Add(this.rbHabilitados);
@@ -560,6 +561,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblCantidadRegistros;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.CheckBox chkSeleccionarTodos;
+        private System.Windows.Forms.CheckBox chTodos;
     }
 }

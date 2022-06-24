@@ -37,6 +37,7 @@ namespace PuntoDeVentaV2
         string fechaInicialF = string.Empty;
         string fechaFinalF = string.Empty;
 
+
         public HistorialPrecioBuscador(string tipoBusqueda, string fechaInicial, string fechaFinal)
         {
             InitializeComponent();
@@ -103,7 +104,6 @@ namespace PuntoDeVentaV2
             {//Aqui va la consulta con buscador 
                 consulta += $"AND Nombre LIKE '%{empleadoBuscar}%' LIMIT 20";
             }
-
             //query = cn.CargarDatos(consulta);
             filtroConSinFiltroAvanzado = consulta;
 
@@ -902,6 +902,103 @@ namespace PuntoDeVentaV2
             if (e.KeyCode.Equals(Keys.Escape))
             {
                 this.Close();
+            }
+        }
+
+        private void chkSeleccionarTodos_CheckedChanged(object sender, EventArgs e)
+        {
+            var incremento = -1;
+
+            var query = cn.CargarDatos(filtroConSinFiltroAvanzado);
+            if (tipoBuscador.Equals("Empleados"))
+            {
+                if (chTodos.Checked)
+                {
+                    if (!query.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow dgv in query.Rows)
+                        {
+                            if (!listaIdEmpleados.ContainsKey(Convert.ToInt32(dgv["ID"].ToString())))
+                            {
+                                listaIdEmpleados.Add(Convert.ToInt32(dgv["ID"].ToString()), string.Empty);
+                            }
+                        }
+                    }
+
+                    foreach (DataGridViewRow marcarDGV in DGVDatosEmpleados.Rows)
+                    {
+                        try
+                        {
+                            incremento += 1;
+                            DGVDatosEmpleados.Rows[incremento].Cells["checkBox"].Value = true;
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                }
+                else if (!chTodos.Checked)
+                {
+                    listaIdEmpleados.Clear();
+                    foreach (DataGridViewRow desmarcarDGV in DGVDatosEmpleados.Rows)
+                    {
+                        try
+                        {
+                            incremento += 1;
+                            DGVDatosEmpleados.Rows[incremento].Cells["checkbox"].Value = false;
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                }
+            }
+            else if (tipoBuscador.Equals("Productos"))
+            {
+                if (chTodos.Checked)
+                {
+                    if (!query.Rows.Count.Equals(0))
+                    {
+                        foreach (DataRow dgv in query.Rows)
+                        {
+                            if (!listaIdProductos.ContainsKey(Convert.ToInt32(dgv["ID"].ToString())))
+                            {
+                                listaIdProductos.Add(Convert.ToInt32(dgv["ID"].ToString()), string.Empty);
+                            }
+                        }
+                    }
+
+                    foreach (DataGridViewRow marcarDGV in DGVDatosProductos.Rows)
+                    {
+                        try
+                        {
+                            incremento += 1;
+                            DGVDatosProductos.Rows[incremento].Cells["checkBoxProd"].Value = true;
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                }
+                else if (!chTodos.Checked)
+                {
+                    listaIdEmpleados.Clear();
+                    foreach (DataGridViewRow desmarcarDGV in DGVDatosProductos.Rows)
+                    {
+                        try
+                        {
+                            incremento += 1;
+                            DGVDatosProductos.Rows[incremento].Cells["checkBoxProd"].Value = false;
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                }
             }
         }
     }
