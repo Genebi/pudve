@@ -35,7 +35,14 @@ namespace PuntoDeVentaV2
             MySqlCommand sql_cmd;
             MySqlDataReader dr;
 
-            sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
+            string conexion = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                conexion = "datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;";
+            }
+
+            sql_con = new MySqlConnection(conexion);
             sql_con.Open();
 
             var consulta = $"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID} ORDER BY FechaOperacion DESC";
@@ -104,10 +111,16 @@ namespace PuntoDeVentaV2
             {
                 if (e.ColumnIndex == 8)
                 {
+                    var servidor = Properties.Settings.Default.Hosting;
                     var idAbono = DGVAbonos.Rows[DGVAbonos.CurrentCell.RowIndex].Cells["ID"].Value.ToString();
 
                     var nombreTicket = $"ticket_abono_{idVenta}_{idAbono}.pdf";
                     var rutaTicket = @"C:\Archivos PUDVE\Ventas\Tickets\" + nombreTicket;
+
+                    if (!string.IsNullOrWhiteSpace(servidor))
+                    {
+                        rutaTicket = $@"\\{servidor}\Archivos PUDVE\Ventas\Tickets\" + nombreTicket;
+                    }
 
                     if (File.Exists(rutaTicket))
                     {
