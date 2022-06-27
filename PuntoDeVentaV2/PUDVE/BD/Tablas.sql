@@ -1744,3 +1744,9 @@ IF
 		FOREIGN KEY ( IDCorteDeCaja ) REFERENCES caja ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
 		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
 	);
+
+-- Agregar columna de 58mm en la tabla de EditarTicket 
+ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS ticket58mm INT DEFAULT 0;
+
+-- Agregar columna de 80mm en la tabla de EditarTicket 
+ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS ticket80mm INT DEFAULT 1;
