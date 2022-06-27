@@ -4055,5 +4055,19 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string ticket58mm(int ticket58)
+        {
+            var consulta = $"UPDATE editarticket SET ticket58mm = {ticket58} WHERE IDUsuario = '{FormPrincipal.userID}';";
+
+            return consulta;
+        }
+
+        public string ticket80mm(int ticket80)
+        {
+            var consulta = $"UPDATE editarticket SET ticket80mm = {ticket80} WHERE IDUsuario = '{FormPrincipal.userID}';";
+
+            return consulta;
+        }
     }
 }  

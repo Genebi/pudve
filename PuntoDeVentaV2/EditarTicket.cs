@@ -411,6 +411,28 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.nombreComercial(status));
             }
+            /////
+            if (rbTicket6cm.Checked.Equals(true))
+            {
+                var status = 1;
+                cn.EjecutarConsulta(cs.ticket58mm(status));
+            }
+            else
+            {
+                var status = 0;
+                cn.EjecutarConsulta(cs.ticket58mm(status));
+            }
+            /////
+            if (rbTicket8cm.Checked.Equals(true))
+            {
+                var status = 1;
+                cn.EjecutarConsulta(cs.ticket80mm(status));
+            }
+            else
+            {
+                var status = 0;
+                cn.EjecutarConsulta(cs.ticket80mm(status));
+            }
             MessageBox.Show("Guardado Correctamente");
             this.Close();
         }
