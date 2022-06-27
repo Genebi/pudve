@@ -57,7 +57,8 @@ namespace PuntoDeVentaV2
                 int formapagoc = Convert.ToInt32(datos2[15]);
                 int logo = Convert.ToInt32(datos2[16]);
                 int nComercial = Convert.ToInt32(datos2[17]);
-
+                int ticket58mm = Convert.ToInt32(datos2[18]);
+                int ticket80mm = Convert.ToInt32(datos2[19]);
 
                 if (nComercial == 1)//////Logo  
                 {
@@ -179,7 +180,22 @@ namespace PuntoDeVentaV2
                 {
                     chkFormaPagoCl.Checked = false;
                 }
-
+                if (ticket58mm.Equals(1))
+                {
+                    rbTicket6cm.Checked = true;
+                }
+                else
+                {
+                    rbTicket6cm.Checked = false;
+                }
+                if (ticket80mm.Equals(1))
+                {
+                    rbTicket8cm.Checked = true;
+                }
+                else
+                {
+                    rbTicket8cm.Checked = false;
+                }
             }
             if (File.Exists($@"C:\Archivos PUDVE\MisDatos\Usuarios\{FormPrincipal.datosUsuario[11].ToString()}"))/////Imagen
             {
