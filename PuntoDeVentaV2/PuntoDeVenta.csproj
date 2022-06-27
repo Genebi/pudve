@@ -1017,6 +1017,7 @@
     <Compile Include="Reportes.Designer.cs">
       <DependentUpon>Reportes.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReportesImpresion\EnviarImprimir.cs" />
     <Compile Include="ReportesImpresion\Ticket\AbonoRealizado\TicketAbono.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
