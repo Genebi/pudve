@@ -203,7 +203,7 @@
             <Source>External</Source>
             <Value>=Parameters!PathLogo.Value + First(Fields!LogoTipo.Value, "TicketVenta")</Value>
             <Sizing>FitProportional</Sizing>
-            <Top>2.42492cm</Top>
+            <Top>1.75817cm</Top>
             <Left>1.51559cm</Left>
             <Height>3.99458cm</Height>
             <Width>5cm</Width>
@@ -243,7 +243,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>RazonSocial</rd:DefaultName>
-            <Top>6.98748cm</Top>
+            <Top>6.32073cm</Top>
             <Left>0.15cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -286,7 +286,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NombreComercial</rd:DefaultName>
-            <Top>7.63685cm</Top>
+            <Top>6.9701cm</Top>
             <Left>0.15cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -329,7 +329,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Direccion1</rd:DefaultName>
-            <Top>8.2545cm</Top>
+            <Top>7.58775cm</Top>
             <Left>0.15cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -372,7 +372,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Direccion2</rd:DefaultName>
-            <Top>8.88075cm</Top>
+            <Top>8.214cm</Top>
             <Left>0.15cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -415,7 +415,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>RFC</rd:DefaultName>
-            <Top>9.49987cm</Top>
+            <Top>8.83312cm</Top>
             <Left>0.15cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -458,7 +458,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Correo</rd:DefaultName>
-            <Top>10.13488cm</Top>
+            <Top>9.46813cm</Top>
             <Left>0.15cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -501,7 +501,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Telefono</rd:DefaultName>
-            <Top>10.78574cm</Top>
+            <Top>10.11899cm</Top>
             <Left>0.15cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -546,7 +546,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteNombre</rd:DefaultName>
-            <Top>11.93404cm</Top>
+            <Top>11.26729cm</Top>
             <Left>0.15cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -587,7 +587,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteRFC</rd:DefaultName>
-            <Top>12.55317cm</Top>
+            <Top>11.88642cm</Top>
             <Left>0.15cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -628,7 +628,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteDomicilio</rd:DefaultName>
-            <Top>13.18817cm</Top>
+            <Top>12.52142cm</Top>
             <Left>0.15cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -669,7 +669,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteColoniaCodigoPostal</rd:DefaultName>
-            <Top>13.82317cm</Top>
+            <Top>13.15642cm</Top>
             <Left>0.15cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -710,7 +710,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteCorreo</rd:DefaultName>
-            <Top>14.45816cm</Top>
+            <Top>13.79141cm</Top>
             <Left>0.15cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -751,7 +751,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteTelefono</rd:DefaultName>
-            <Top>15.08258cm</Top>
+            <Top>14.41583cm</Top>
             <Left>0.15cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -794,7 +794,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>FormaDePago</rd:DefaultName>
-            <Top>16.1568cm</Top>
+            <Top>15.49005cm</Top>
             <Left>0.15cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -1192,7 +1192,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>TicketVenta</DataSetName>
-            <Top>17.11988cm</Top>
+            <Top>16.45313cm</Top>
             <Left>0.15cm</Left>
             <Height>1.2cm</Height>
             <Width>7.7cm</Width>
@@ -1223,7 +1223,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>DescuentosDeProductos</rd:DefaultName>
-            <Top>18.3793cm</Top>
+            <Top>17.71255cm</Top>
             <Left>1.15cm</Left>
             <Height>0.6cm</Height>
             <Width>6.7cm</Width>
@@ -1257,7 +1257,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TotalGeneral</rd:DefaultName>
-            <Top>18.99693cm</Top>
+            <Top>18.33018cm</Top>
             <Left>1.15cm</Left>
             <Height>0.6cm</Height>
             <Width>6.7cm</Width>
@@ -1291,7 +1291,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>20.14142cm</Top>
+            <Top>19.47467cm</Top>
             <Left>0.15cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -1310,7 +1310,7 @@
             <Source>External</Source>
             <Value>=Parameters!PathBarCode.Value</Value>
             <Sizing>Fit</Sizing>
-            <Top>20.96163cm</Top>
+            <Top>20.29488cm</Top>
             <Left>1.51559cm</Left>
             <Height>1.36771cm</Height>
             <Width>5cm</Width>
@@ -1325,7 +1325,7 @@
             </Style>
           </Image>
         </ReportItems>
-        <Height>22.5cm</Height>
+        <Height>21.97083cm</Height>
         <Style />
       </Body>
       <Width>8cm</Width>

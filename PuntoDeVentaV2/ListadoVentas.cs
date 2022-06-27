@@ -2431,66 +2431,155 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    var servidor = Properties.Settings.Default.Hosting;
-
-                    ticketGenerado = $"ticket_venta_{idVenta}.pdf";
-
-                    if (!string.IsNullOrWhiteSpace(servidor))
+                    using (DataTable dtConfiguracionTipoTicket = cn.CargarDatos(cs.tipoDeTicket()))
                     {
-                        rutaTicketGenerado = $@"\\{servidor}\Archivos PUDVE\Ventas\Tickets\" + ticketGenerado;
-                    }
-                    else
-                    {
-                        rutaTicketGenerado = @"C:\Archivos PUDVE\Ventas\Tickets\" + ticketGenerado;
-                    }
-
-                    if (File.Exists(rutaTicketGenerado))
-                    {
-                        VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
-
-                        vt.FormClosed += delegate
+                        if (!dtConfiguracionTipoTicket.Rows.Count.Equals(0))
                         {
-                            vt.Dispose();
+                            var Usuario = 0;
+                            var NombreComercial = 0;
+                            var Direccion = 0;
+                            var ColyCP = 0;
+                            var RFC = 0;
+                            var Correo = 0;
+                            var Telefono = 0;
+                            var NombreC = 0;
+                            var DomicilioC = 0;
+                            var RFCC = 0;
+                            var CorreoC = 0;
+                            var TelefonoC = 0;
+                            var ColyCPC = 0;
+                            var FormaPagoC = 0;
+                            var logo = 0;
+                            var ticket8cm = 0;
+                            var ticket6cm = 0;
+                            var codigoBarraTicket = 0;
 
-                            rutaTicketGenerado = string.Empty;
-                            ticketGenerado = string.Empty;
-                        };
-
-                        vt.ShowDialog();
-                    }
-                    else
-                    {
-                        //MessageBox.Show($"El archivo solicitado con nombre '{ticketGenerado}' \nno se encuentra en el sistema.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        var dtImpVenta = cn.CargarDatos(cs.ReimprimirTicket(idVenta));
-
-                        var datosConfig = mb.DatosConfiguracion();
-                        bool imprimirCodigo = false;
-
-                        if (Convert.ToInt16(datosConfig[0]) == 1)
-                        {
-                            imprimirCodigo = true;
-                        }
-
-                        if (dtImpVenta.Rows.Count > 0)
-                        {
-                            Utilidades.GenerarTicket(dtImpVenta, imprimirCodigo);
-
-                            if (File.Exists(rutaTicketGenerado))
+                            foreach (DataRow item in dtConfiguracionTipoTicket.Rows)
                             {
-                                VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
+                                Usuario = Convert.ToInt32(item["Usuario"].ToString());
+                                NombreComercial = Convert.ToInt32(item["NombreComercial"].ToString());
+                                Direccion = Convert.ToInt32(item["Direccion"].ToString());
+                                ColyCP = Convert.ToInt32(item["ColyCP"].ToString());
+                                RFC = Convert.ToInt32(item["RFC"].ToString());
+                                Correo = Convert.ToInt32(item["Correo"].ToString());
+                                Telefono = Convert.ToInt32(item["Telefono"].ToString());
+                                NombreC = Convert.ToInt32(item["NombreC"].ToString());
+                                DomicilioC = Convert.ToInt32(item["DomicilioC"].ToString());
+                                RFCC = Convert.ToInt32(item["RFCC"].ToString());
+                                CorreoC = Convert.ToInt32(item["CorreoC"].ToString());
+                                TelefonoC = Convert.ToInt32(item["TelefonoC"].ToString());
+                                ColyCPC = Convert.ToInt32(item["ColyCPC"].ToString());
+                                FormaPagoC = Convert.ToInt32(item["FormaPagoC"].ToString());
+                                logo = Convert.ToInt32(item["logo"].ToString());
+                                ticket6cm = Convert.ToInt32(item["ticket58mm"].ToString());
+                                ticket8cm = Convert.ToInt32(item["ticket80mm"].ToString());
+                                codigoBarraTicket = Convert.ToInt32(item["TicketVenta"].ToString());
+                            }
 
-                                vt.FormClosed += delegate
+                            var tipoDeBusqueda = 0;
+
+                            tipoDeBusqueda = verTipoDeBusqueda();
+
+                            if (tipoDeBusqueda.Equals(1))
+                            {
+                                if (ticket6cm.Equals(1))
                                 {
-                                    vt.Dispose();
+                                    //using (imprimirTicket6cm imprimirTicketVenta = new imprimirTicket6cm())
+                                    //{
+                                    //    imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+                                    //    imprimirTicketVenta.ShowDialog();
+                                    //}
+                                }
+                                else if (ticket8cm.Equals(1))
+                                {
+                                    using (VerTicket80mmListadoVentas imprimirTicketVenta = new VerTicket80mmListadoVentas())
+                                    {
+                                        imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
 
-                                    rutaTicketGenerado = string.Empty;
-                                    ticketGenerado = string.Empty;
-                                };
+                                        imprimirTicketVenta.Logo = logo;
+                                        imprimirTicketVenta.Nombre = Usuario;
+                                        imprimirTicketVenta.NombreComercial = NombreComercial;
+                                        imprimirTicketVenta.DireccionCiudad = Direccion;
+                                        imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                        imprimirTicketVenta.RFC = RFC;
+                                        imprimirTicketVenta.Correo = Correo;
+                                        imprimirTicketVenta.Telefono = Telefono;
+                                        imprimirTicketVenta.NombreCliente = NombreC;
+                                        imprimirTicketVenta.RFCCliente = RFCC;
+                                        imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                        imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                        imprimirTicketVenta.CorreoCliente = CorreoC;
+                                        imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                        imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                        imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
 
-                                vt.ShowDialog();
+                                        imprimirTicketVenta.ShowDialog();
+                                    }
+                                }
                             }
                         }
                     }
+
+                    //var servidor = Properties.Settings.Default.Hosting;
+
+                    //ticketGenerado = $"ticket_venta_{idVenta}.pdf";
+
+                    //if (!string.IsNullOrWhiteSpace(servidor))
+                    //{
+                    //    rutaTicketGenerado = $@"\\{servidor}\Archivos PUDVE\Ventas\Tickets\" + ticketGenerado;
+                    //}
+                    //else
+                    //{
+                    //    rutaTicketGenerado = @"C:\Archivos PUDVE\Ventas\Tickets\" + ticketGenerado;
+                    //}
+
+                    //if (File.Exists(rutaTicketGenerado))
+                    //{
+                    //    VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
+
+                    //    vt.FormClosed += delegate
+                    //    {
+                    //        vt.Dispose();
+
+                    //        rutaTicketGenerado = string.Empty;
+                    //        ticketGenerado = string.Empty;
+                    //    };
+
+                    //    vt.ShowDialog();
+                    //}
+                    //else
+                    //{
+                    //    //MessageBox.Show($"El archivo solicitado con nombre '{ticketGenerado}' \nno se encuentra en el sistema.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //    var dtImpVenta = cn.CargarDatos(cs.ReimprimirTicket(idVenta));
+
+                    //    var datosConfig = mb.DatosConfiguracion();
+                    //    bool imprimirCodigo = false;
+
+                    //    if (Convert.ToInt16(datosConfig[0]) == 1)
+                    //    {
+                    //        imprimirCodigo = true;
+                    //    }
+
+                    //    if (dtImpVenta.Rows.Count > 0)
+                    //    {
+                    //        Utilidades.GenerarTicket(dtImpVenta, imprimirCodigo);
+
+                    //        if (File.Exists(rutaTicketGenerado))
+                    //        {
+                    //            VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
+
+                    //            vt.FormClosed += delegate
+                    //            {
+                    //                vt.Dispose();
+
+                    //                rutaTicketGenerado = string.Empty;
+                    //                ticketGenerado = string.Empty;
+                    //            };
+
+                    //            vt.ShowDialog();
+                    //        }
+                    //    }
+                    //}
                 }
 
                 //Abonos

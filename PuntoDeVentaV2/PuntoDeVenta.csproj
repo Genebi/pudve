@@ -1188,6 +1188,12 @@
     <Compile Include="verificarBasesSQLite.Designer.cs">
       <DependentUpon>verificarBasesSQLite.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerTicket80mmListadoVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerTicket80mmListadoVentas.Designer.cs">
+      <DependentUpon>VerTicket80mmListadoVentas.cs</DependentUpon>
+    </Compile>
     <Compile Include="VincularPC.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1666,6 +1672,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="verificarBasesSQLite.resx">
       <DependentUpon>verificarBasesSQLite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerTicket80mmListadoVentas.resx">
+      <DependentUpon>VerTicket80mmListadoVentas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VincularPC.resx">
       <DependentUpon>VincularPC.cs</DependentUpon>
