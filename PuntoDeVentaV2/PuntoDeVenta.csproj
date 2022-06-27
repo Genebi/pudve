@@ -1017,6 +1017,16 @@
     <Compile Include="Reportes.Designer.cs">
       <DependentUpon>Reportes.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReportesImpresion\Ticket\AbonoRealizado\TicketAbono.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TicketAbono.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TicketVenta.xsd</DependentUpon>
+    </Compile>
     <Compile Include="RespadoBaseDatos.cs" />
     <Compile Include="RevisarInventario.cs">
       <SubType>Form</SubType>
@@ -1576,6 +1586,8 @@
     <EmbeddedResource Include="Reportes.resx">
       <DependentUpon>Reportes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc" />
+    <EmbeddedResource Include="ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm.rdlc" />
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -1672,6 +1684,28 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="ReportesImpresion\Ticket\AbonoRealizado\TicketAbono.xsc">
+      <DependentUpon>TicketAbono.xsd</DependentUpon>
+    </None>
+    <None Include="ReportesImpresion\Ticket\AbonoRealizado\TicketAbono.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TicketAbono.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ReportesImpresion\Ticket\AbonoRealizado\TicketAbono.xss">
+      <DependentUpon>TicketAbono.xsd</DependentUpon>
+    </None>
+    <None Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.xsc">
+      <DependentUpon>TicketVenta.xsd</DependentUpon>
+    </None>
+    <None Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TicketVenta.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.xss">
+      <DependentUpon>TicketVenta.xsd</DependentUpon>
+    </None>
     <None Include="Service References\ServiceReferenceTPrueba\PuntoDeVentaV2.ServiceReferenceTPrueba.buscar_acuse_recepcion_result.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
