@@ -732,6 +732,12 @@
     <Compile Include="ImprimirEtiqueta.Designer.cs">
       <DependentUpon>ImprimirEtiqueta.cs</DependentUpon>
     </Compile>
+    <Compile Include="imprimirTicket8cm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="imprimirTicket8cm.Designer.cs">
+      <DependentUpon>imprimirTicket8cm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InformacionVenta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1022,11 +1028,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TicketAbono.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TicketVenta.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="RespadoBaseDatos.cs" />
     <Compile Include="RevisarInventario.cs">
@@ -1447,6 +1455,9 @@
     <EmbeddedResource Include="ImprimirEtiqueta.resx">
       <DependentUpon>ImprimirEtiqueta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="imprimirTicket8cm.resx">
+      <DependentUpon>imprimirTicket8cm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InformacionVenta.resx">
       <DependentUpon>InformacionVenta.cs</DependentUpon>
     </EmbeddedResource>
@@ -1587,8 +1598,12 @@
     <EmbeddedResource Include="Reportes.resx">
       <DependentUpon>Reportes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc" />
-    <EmbeddedResource Include="ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm.rdlc" />
+    <Content Include="ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -1687,25 +1702,31 @@
     </Compile>
     <None Include="ReportesImpresion\Ticket\AbonoRealizado\TicketAbono.xsc">
       <DependentUpon>TicketAbono.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ReportesImpresion\Ticket\AbonoRealizado\TicketAbono.xsd">
+    <Content Include="ReportesImpresion\Ticket\AbonoRealizado\TicketAbono.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>TicketAbono.Designer.cs</LastGenOutput>
-    </None>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="ReportesImpresion\Ticket\AbonoRealizado\TicketAbono.xss">
       <DependentUpon>TicketAbono.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.xsc">
       <DependentUpon>TicketVenta.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.xsd">
+    <Content Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>TicketVenta.Designer.cs</LastGenOutput>
-    </None>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.xss">
       <DependentUpon>TicketVenta.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Service References\ServiceReferenceTPrueba\PuntoDeVentaV2.ServiceReferenceTPrueba.buscar_acuse_recepcion_result.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
