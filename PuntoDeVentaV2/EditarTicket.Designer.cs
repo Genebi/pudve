@@ -101,6 +101,10 @@
             this.label40 = new System.Windows.Forms.Label();
             this.lblMensajeTicket = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
+            this.rbTicket8cm = new System.Windows.Forms.RadioButton();
+            this.rbTicket6cm = new System.Windows.Forms.RadioButton();
+            this.label28 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.fLPVistaPreTickect.SuspendLayout();
@@ -110,6 +114,10 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.rbTicket8cm);
+            this.panel1.Controls.Add(this.rbTicket6cm);
+            this.panel1.Controls.Add(this.label28);
+            this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.chkNombreComercial);
             this.panel1.Controls.Add(this.label27);
             this.panel1.Controls.Add(this.chkMostrarMensaje);
@@ -157,7 +165,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(4, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(298, 568);
+            this.panel1.Size = new System.Drawing.Size(298, 663);
             this.panel1.TabIndex = 28;
             // 
             // chkNombreComercial
@@ -586,7 +594,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(5, 523);
+            this.button1.Location = new System.Drawing.Point(5, 621);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(283, 35);
             this.button1.TabIndex = 4;
@@ -627,7 +635,7 @@
             this.panel2.Controls.Add(this.fLPVistaPreTickect);
             this.panel2.Location = new System.Drawing.Point(308, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(559, 568);
+            this.panel2.Size = new System.Drawing.Size(559, 663);
             this.panel2.TabIndex = 29;
             // 
             // label3
@@ -672,7 +680,7 @@
             this.fLPVistaPreTickect.Controls.Add(this.label22);
             this.fLPVistaPreTickect.Location = new System.Drawing.Point(5, 44);
             this.fLPVistaPreTickect.Name = "fLPVistaPreTickect";
-            this.fLPVistaPreTickect.Size = new System.Drawing.Size(558, 541);
+            this.fLPVistaPreTickect.Size = new System.Drawing.Size(558, 636);
             this.fLPVistaPreTickect.TabIndex = 0;
             // 
             // pnlLogo
@@ -902,12 +910,52 @@
             this.label22.Text = "Fehca Hora y Folio del Ticket";
             this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // rbTicket8cm
+            // 
+            this.rbTicket8cm.AutoSize = true;
+            this.rbTicket8cm.Location = new System.Drawing.Point(174, 576);
+            this.rbTicket8cm.Name = "rbTicket8cm";
+            this.rbTicket8cm.Size = new System.Drawing.Size(88, 17);
+            this.rbTicket8cm.TabIndex = 56;
+            this.rbTicket8cm.TabStop = true;
+            this.rbTicket8cm.Text = "80 mm (8 cm)";
+            this.rbTicket8cm.UseVisualStyleBackColor = true;
+            // 
+            // rbTicket6cm
+            // 
+            this.rbTicket6cm.AutoSize = true;
+            this.rbTicket6cm.Location = new System.Drawing.Point(12, 576);
+            this.rbTicket6cm.Name = "rbTicket6cm";
+            this.rbTicket6cm.Size = new System.Drawing.Size(97, 17);
+            this.rbTicket6cm.TabIndex = 55;
+            this.rbTicket6cm.TabStop = true;
+            this.rbTicket6cm.Text = "58 mm (5.8 cm)";
+            this.rbTicket6cm.UseVisualStyleBackColor = true;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(95, 547);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(117, 13);
+            this.label28.TabIndex = 54;
+            this.label28.Text = "Tamaño del Ticket.";
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.panel4.Location = new System.Drawing.Point(2, 532);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(295, 2);
+            this.panel4.TabIndex = 53;
+            // 
             // EditarTicket
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(875, 583);
+            this.ClientSize = new System.Drawing.Size(875, 678);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -1005,5 +1053,9 @@
         private System.Windows.Forms.Label lblNombreComercial;
         private System.Windows.Forms.CheckBox chkNombreComercial;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.RadioButton rbTicket8cm;
+        private System.Windows.Forms.RadioButton rbTicket6cm;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Panel panel4;
     }
 }

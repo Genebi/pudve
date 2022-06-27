@@ -4021,6 +4021,39 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        
+        public string imprimirTicketRealizada(int idVentaRealizada)
+        {
+            var consulta = $"SET lc_time_names = 'es_MX'; SELECT DISTINCT CONCAT( DATE_FORMAT( Vent.FechaOperacion, '%W - %e/%M/%Y' ), ' ', TIME_FORMAT( Vent.FechaOperacion, '%h:%i:%s %p' ) ) AS 'FechaDeCompra', CONCAT( 'Folio: ', Vent.Folio ) AS 'FolioTicket', IF ( Usr.LogoTipo = '' OR Usr.LogoTipo IS NULL, '', Usr.LogoTipo ) AS 'LogoTipo', IF ( Usr.RazonSocial = '' OR Usr.RazonSocial IS NULL, '', Usr.RazonSocial ) AS 'RazonSocial', IF ( Usr.nombre_comercial = '' OR Usr.nombre_comercial IS NULL, '', CONCAT( 'NOMBRE COMERCIAL: ', Usr.nombre_comercial ) ) AS 'NombreComercial', CONCAT( IF ( Usr.Calle = '' OR Usr.Calle IS NULL, '', CONCAT( 'DIRECCION: ', Usr.Calle ) ), IF ( Usr.NoExterior = '' OR Usr.NoExterior IS NULL, '', CONCAT( ' #', Usr.NoExterior ) ), IF ( Usr.NoInterior = '' OR Usr.NoInterior IS NULL, '', CONCAT( ', INTERIOR: ', Usr.NoInterior ) ), IF ( Usr.Municipio = '' OR Usr.Municipio IS NULL, '', CONCAT( ', ', Usr.Municipio ) ), IF ( Usr.Estado = '' OR Usr.Estado IS NULL, '', CONCAT( ', ', Usr.Estado ) ) ) AS 'Direccion1', CONCAT( IF ( Usr.Colonia = '' OR Usr.Colonia IS NULL, '', CONCAT( 'COLONIA: ', Usr.Colonia ) ), IF ( Usr.CodigoPostal = '' OR Usr.CodigoPostal IS NULL, '', CONCAT( ', C.P.:', Usr.CodigoPostal ) ) ) AS 'Direccion2', IF ( Usr.RFC = '' OR Usr.RFC IS NULL, '', Usr.RFC ) AS 'RFC', IF ( Usr.Email = '' OR Usr.Email IS NULL, '', Usr.Email ) AS 'Correo', IF ( Usr.Telefono = '' OR Usr.Telefono IS NULL, '', Usr.Telefono ) AS 'Telefono', IF ( Clte.RazonSocial = '' OR Clte.RazonSocial IS NULL, IF(Vent.IDCliente = '0', 'PUBLICO GENERAL', ''), Clte.RazonSocial ) AS 'ClienteNombre', IF ( Clte.RFC = '' OR Clte.RFC IS NULL, IF(Vent.IDCliente = '0', 'RFC: XAXX010101000', ''), CONCAT( 'RFC: ', Clte.RFC ) ) AS 'ClienteRFC', CONCAT( IF ( Clte.Calle = '' OR Clte.Calle IS NULL, '', CONCAT( 'DOMICILIO: CALLE/AV.: ', Clte.Calle ) ), IF ( Clte.NoExterior = '' OR Clte.NoExterior IS NULL, '', CONCAT( ' #', Clte.NoExterior ) ), IF ( Clte.NoInterior = '' OR Clte.NoInterior IS NULL, '', CONCAT( ', INTERIOR: ', Clte.NoInterior ) ), IF ( Clte.Localidad = '' OR Clte.Localidad IS NULL, '', CONCAT( ', LOCALIDAD: ', Clte.Localidad ) ), IF ( Clte.Municipio = '' OR Clte.Municipio IS NULL, '', CONCAT( ', MUNICIPIO: ', Clte.Municipio ) ) ) AS 'ClienteDomicilio', CONCAT( IF ( Clte.Colonia = '' OR Clte.Colonia IS NULL, '', CONCAT( 'COLONIA: ', Clte.Colonia ) ), IF ( Clte.CodigoPostal = '' OR Clte.CodigoPostal IS NULL, '', CONCAT( ', C.P.: ', Clte.CodigoPostal ) ) ) AS 'ClienteColoniaCodigoPostal', IF ( Clte.Email = '' OR Clte.Email IS NULL, '', CONCAT( 'CORREO: ', Clte.Email ) ) AS 'ClienteCorreo', IF ( Clte.Telefono = '' OR Clte.Telefono IS NULL, '', CONCAT( 'TELEFONO: ', Clte.Telefono ) ) AS 'ClienteTelefono', IF ( Vent.FormaPago = '' OR Vent.FormaPago IS NULL, '', CONCAT( 'FORMA DE PAGO: ', UPPER( Vent.FormaPago ) ) ) AS 'FormaDePago', ProdVent.Cantidad AS 'ProductoCantidad', ProdVent.Nombre AS 'ProductoNombre', CONCAT( '$ ', FORMAT( ProdVent.Precio, 2 ) ) AS 'ProductoPrecio', CONCAT( '$ ', FORMAT( ProdVent.descuento, 2 ) ) AS 'ProductoDescuento', IF ( ( ( ProdVent.Precio * ProdVent.Cantidad ) - ProdVent.descuento ) IS NULL, CONCAT( '$', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( ( ( ProdVent.Precio * ProdVent.Cantidad ) - ProdVent.descuento ), 2 ) ) ) AS 'ProductoImporte', CONCAT( 'Descuento productos: ', IF ( ProdVent.descuento IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( ProdVent.descuento, 2 ) ) ) ) AS 'DescuentosDeProductos', CONCAT( 'TOTAL: ', IF (Vent.Total IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( Vent.Total, 2 ) ) ) ) AS 'TotalGeneral', IF ( editarticket.MensajeTicket IS NULL OR editarticket.MensajeTicket = '.' OR editarticket.MensajeTicket = '', '', editarticket.MensajeTicket ) AS 'MensajeDelTicket', IF ( Vent.Folio = '' OR Vent.Folio IS NULL, '', Vent.Folio ) AS 'CodigoBarrasTicketVenta' FROM productosventa AS ProdVent INNER JOIN ventas AS Vent ON ( ProdVent.IDVenta = Vent.ID ) INNER JOIN detallesventa AS DetVent ON ( DetVent.IDVenta = Vent.ID ) INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) INNER JOIN configuracion AS Config ON ( Config.IDUsuario = Usr.ID ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN editarticket ON ( editarticket.IDUsuario = Usr.ID ) WHERE Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.`Status` = '1' AND ProdVent.IDVenta = '{idVentaRealizada}'";
+
+            return consulta;
+        }
+
+        public string tipoDeTicket()
+        {
+            var consulta = $"SELECT EditTicket.Usuario, EditTicket.Direccion, EditTicket.ColyCP, EditTicket.RFC, EditTicket.Correo, EditTicket.Telefono, EditTicket.NombreC, EditTicket.DomicilioC, EditTicket.RFCC, EditTicket.CorreoC, EditTicket.TelefonoC, EditTicket.ColyCPC, EditTicket.FormaPagoC, EditTicket.logo, EditTicket.NombreComercial, EditTicket.ticket58mm, EditTicket.ticket80mm, Conf.TicketVenta FROM editarticket AS EditTicket INNER JOIN configuracion AS Conf ON ( Conf.IDUsuario = EditTicket.IDUsuario ) WHERE EditTicket.IDUsuario = '{FormPrincipal.userID}'";
+
+            return consulta;
+        }
+
+        public string ImpresionTicketAbono(int idVenta)
+        {
+            var consulta = $"SELECT usr.RazonSocial,	CONCAT(	IF ( Usr.Calle = '' OR Usr.Calle IS NULL, '', CONCAT( 'DIRECCION: ', Usr.Calle ) ), IF ( Usr.NoExterior = '' OR  Usr.NoExterior IS NULL, '', CONCAT( ' #', Usr.NoExterior ) ), IF ( Usr.NoInterior = '' OR Usr.NoInterior IS NULL, '', CONCAT( ', INTERIOR: ', Usr.NoInterior ) ), IF ( Usr.Municipio = '' OR Usr.Municipio IS NULL, '', CONCAT( ', ', Usr.Municipio ) ), IF ( Usr.Estado = '' OR Usr.Estado IS NULL, '', CONCAT( ', ', Usr.Estado ) ) ) AS 'Domicilio',	CONCAT(	IF ( Usr.Colonia = '' OR Usr.Colonia IS NULL, '', CONCAT( 'COLONIA: ', Usr.Colonia ) ),	IF ( Usr.CodigoPostal = '' OR Usr.CodigoPostal IS NULL, '', CONCAT( ', C.P.:', Usr.CodigoPostal ) ) ) AS 'ColyCP', IF ( Usr.RFC = '' OR Usr.RFC IS NULL, '', Usr.RFC ) AS 'RFC', IF	( Usr.Email = '' OR Usr.Email IS NULL, '', Usr.Email ) AS 'Correo', IF ( Usr.Telefono = '' OR Usr.Telefono IS NULL, '', Usr.Telefono ) AS 'Telefono', vent.ID AS 'IDVenta',	CONCAT( '$ ', FORMAT( vent.Total, 2 ) ) AS 'TotalOriginal',IF ( SUM( abonos.Total ) = '' OR SUM( abonos.Total ) IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( ( vent.Total - ( SELECT SUM( Total ) AS 'Total' FROM abonos WHERE ID != ( SELECT MAX( ID ) FROM abonos WHERE IDVenta = '{idVenta}' ) AND IDVenta = '{idVenta}' ) ), 2 ) ) ) AS 'SaldoAnterior', IF ( SUM( abonos.Total ) = '' OR SUM( abonos.Total ) IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( (SELECT Total FROM abonos WHERE IDVenta = '{idVenta}' ORDER BY ID DESC LIMIT 1), 2 ) ) ) AS 'CantidadAbonada', IF ( SUM( abonos.Total ) = '' OR SUM( abonos.Total ) IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( vent.Total - SUM( abonos.Total ), 2 ) ) ) AS 'CantidadRestante', (SELECT FechaOperacion FROM abonos WHERE IDVenta = '{idVenta}' ORDER BY ID DESC LIMIT 1) AS 'FechaUltimoAbono', 'Comprobante de Abono' AS 'comprobante' FROM `ventas` AS vent INNER JOIN usuarios AS usr ON ( usr.ID = vent.IDUsuario ) INNER JOIN abonos ON ( abonos.IDVenta = vent.ID ) WHERE IDVenta = '{idVenta}'";
+
+            return consulta;
+        }
+
+        public string folioDeLaVentaParaElTicket(int idVenta)
+        {
+            var consulta = $"SELECT Folio FROM ventas WHERE ID = '{idVenta}'";
+
+            return consulta;
+        }
+
+        public string getLogoTipoUsuario()
+        {
+            var consulta = $"SELECT LogoTipo FROM usuarios WHERE ID = '{FormPrincipal.userID}'";
+
+            return consulta;
+        }
     }
 }  
