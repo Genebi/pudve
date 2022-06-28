@@ -43,7 +43,8 @@ namespace PuntoDeVentaV2
             var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
             string IDProducto = ConsultaID.Rows[0]["ID"].ToString();
             var ConsultaDescuantos = cn.CargarDatos(cs.BuscarDescuentosPorMayoreo(IDProducto));
-        
+            int otrosPrecios = 3;
+            int contador = 0;
             if (!ConsultaDescuantos.Rows.Count.Equals(0))
             {
                 foreach (DataRow item in ConsultaDescuantos.Rows)
@@ -70,6 +71,7 @@ namespace PuntoDeVentaV2
                     flowLayoutPanel1.Controls.Add(lblprecio);
                     mas++;
                     numerosPrecios++;
+                    contador++;
                     counter += 3;
                 }
             }

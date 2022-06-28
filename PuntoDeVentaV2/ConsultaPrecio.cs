@@ -89,7 +89,7 @@ namespace PuntoDeVentaV2
             if (!txtBusqueda.Text.Equals(string.Empty))
             {
                 CodigoDeBarras = txtBusqueda.Text;
-                CargarDatos(txtBusqueda.Text);
+                CargarDatos(CodigoDeBarras);
             }
             else
             {
