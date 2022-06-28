@@ -4021,6 +4021,28 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        
+        public string RangosDePrecioConDescuento(int idProducto)
+        {
+            var consulta = $"SELECT RangoInicial,RangoFinal,Precio FROM descuentomayoreo WHERE IDProducto ={idProducto}";
+            return consulta;
+        }
+
+        public string BuscarIDPreductoPorCodigoDeBarras(string Codigo)
+        {
+            var consulta = $"SELECT ID FROM productos WHERE CodigoBarras = {Codigo}";
+            return consulta;
+        }
+
+        public string BuscarDescuentosPorMayoreo(string IDProducto)
+        {
+            var consulta = $"SELECT RangoInicial, RangoFinal, Precio FROM descuentomayoreo WHERE IDProducto = {IDProducto}";
+            return consulta;
+        }
+
+        public string BuscarPrecioPorIDdelProducto(string IDproducto)
+        {
+            var consuta = $"SELECT Precio FROM productos WHERE ID = {IDproducto}";
+            return consuta;
+        }
     }
 }  
