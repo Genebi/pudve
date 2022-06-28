@@ -30,13 +30,10 @@ namespace PuntoDeVentaV2
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PreciosProducto));
             this.label1 = new System.Windows.Forms.Label();
             this.lblCodigoDeBarras = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.lblPrecio = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -45,9 +42,10 @@ namespace PuntoDeVentaV2
             this.lblTiempo = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblPrecioSinDescuentos = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -55,7 +53,7 @@ namespace PuntoDeVentaV2
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(181, 214);
+            this.label1.Location = new System.Drawing.Point(181, 311);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(240, 31);
             this.label1.TabIndex = 0;
@@ -65,7 +63,7 @@ namespace PuntoDeVentaV2
             // 
             this.lblCodigoDeBarras.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblCodigoDeBarras.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCodigoDeBarras.Location = new System.Drawing.Point(3, 245);
+            this.lblCodigoDeBarras.Location = new System.Drawing.Point(3, 342);
             this.lblCodigoDeBarras.Name = "lblCodigoDeBarras";
             this.lblCodigoDeBarras.Size = new System.Drawing.Size(608, 44);
             this.lblCodigoDeBarras.TabIndex = 1;
@@ -92,32 +90,11 @@ namespace PuntoDeVentaV2
             this.lblNombre.TabIndex = 3;
             this.lblNombre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(250, 114);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(97, 31);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Precio";
-            // 
-            // lblPrecio
-            // 
-            this.lblPrecio.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lblPrecio.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrecio.Location = new System.Drawing.Point(0, 147);
-            this.lblPrecio.Name = "lblPrecio";
-            this.lblPrecio.Size = new System.Drawing.Size(608, 62);
-            this.lblPrecio.TabIndex = 5;
-            this.lblPrecio.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // label3
             // 
             this.label3.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Location = new System.Drawing.Point(-5, 108);
+            this.label3.Location = new System.Drawing.Point(-5, 112);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(613, 10);
             this.label3.TabIndex = 7;
@@ -126,7 +103,7 @@ namespace PuntoDeVentaV2
             // 
             this.label5.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label5.Location = new System.Drawing.Point(-1, 209);
+            this.label5.Location = new System.Drawing.Point(-1, 306);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(613, 10);
             this.label5.TabIndex = 8;
@@ -135,7 +112,7 @@ namespace PuntoDeVentaV2
             // 
             this.label7.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label7.Location = new System.Drawing.Point(-2, 302);
+            this.label7.Location = new System.Drawing.Point(-2, 397);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(613, 10);
             this.label7.TabIndex = 9;
@@ -154,7 +131,7 @@ namespace PuntoDeVentaV2
             this.label9.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(469, 602);
+            this.label9.Location = new System.Drawing.Point(462, 661);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(106, 20);
             this.label9.TabIndex = 11;
@@ -164,9 +141,9 @@ namespace PuntoDeVentaV2
             // 
             this.lblTiempo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblTiempo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTiempo.Location = new System.Drawing.Point(574, 602);
+            this.lblTiempo.Location = new System.Drawing.Point(574, 661);
             this.lblTiempo.Name = "lblTiempo";
-            this.lblTiempo.Size = new System.Drawing.Size(25, 20);
+            this.lblTiempo.Size = new System.Drawing.Size(37, 20);
             this.lblTiempo.TabIndex = 12;
             // 
             // timer1
@@ -176,30 +153,56 @@ namespace PuntoDeVentaV2
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(141, 328);
+            this.pictureBox1.Location = new System.Drawing.Point(141, 418);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(315, 294);
+            this.pictureBox1.Size = new System.Drawing.Size(315, 232);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 13;
             this.pictureBox1.TabStop = false;
             // 
-            // pictureBox2
+            // flowLayoutPanel1
             // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(141, 328);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(315, 294);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 14;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Visible = false;
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(1, 152);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(609, 150);
+            this.flowLayoutPanel1.TabIndex = 15;
+            this.flowLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.flowLayoutPanel1_Paint);
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(252, 120);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(97, 31);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Precio";
+            // 
+            // lblPrecioSinDescuentos
+            // 
+            this.lblPrecioSinDescuentos.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblPrecioSinDescuentos.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPrecioSinDescuentos.Location = new System.Drawing.Point(1, 152);
+            this.lblPrecioSinDescuentos.Name = "lblPrecioSinDescuentos";
+            this.lblPrecioSinDescuentos.Size = new System.Drawing.Size(609, 153);
+            this.lblPrecioSinDescuentos.TabIndex = 17;
+            this.lblPrecioSinDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPrecioSinDescuentos.Visible = false;
             // 
             // PreciosProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(609, 629);
-            this.Controls.Add(this.pictureBox2);
+            this.ClientSize = new System.Drawing.Size(609, 690);
+            this.Controls.Add(this.lblPrecioSinDescuentos);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblTiempo);
             this.Controls.Add(this.label9);
@@ -207,19 +210,17 @@ namespace PuntoDeVentaV2
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.lblPrecio);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblCodigoDeBarras);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.label4);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "PreciosProducto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PreciosProducto";
             this.Load += new System.EventHandler(this.PreciosProducto_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -231,8 +232,6 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.Label lblCodigoDeBarras;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblNombre;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label lblPrecio;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
@@ -241,6 +240,8 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.Label lblTiempo;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblPrecioSinDescuentos;
     }
 }

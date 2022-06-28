@@ -4011,7 +4011,7 @@ namespace PuntoDeVentaV2
 
         public string BuscarProductoPorCodigoDeBarras(string codigo)
         {
-            var consulta = $"SELECT Nombre, Precio FROM productos WHERE `Status` = 1 AND CodigoBarras ={codigo}";
+            var consulta = $"SELECT Nombre, Precio FROM productos WHERE `Status` = 1 AND CodigoBarras ='{codigo}'";
             return consulta;
         }
 
@@ -4068,6 +4068,30 @@ namespace PuntoDeVentaV2
             var consulta = $"UPDATE editarticket SET ticket80mm = {ticket80} WHERE IDUsuario = '{FormPrincipal.userID}';";
 
             return consulta;
+        }
+
+        public string RangosDePrecioConDescuento(int idProducto)
+        {
+            var consulta = $"SELECT RangoInicial,RangoFinal,Precio FROM descuentomayoreo WHERE IDProducto ={idProducto}";
+            return consulta;
+        }
+
+        public string BuscarIDPreductoPorCodigoDeBarras(string Codigo)
+        {
+            var consulta = $"SELECT ID FROM productos WHERE CodigoBarras = {Codigo}";
+            return consulta;
+        }
+
+        public string BuscarDescuentosPorMayoreo(string IDProducto)
+        {
+            var consulta = $"SELECT RangoInicial, RangoFinal, Precio FROM descuentomayoreo WHERE IDProducto = {IDProducto}";
+            return consulta;
+        }
+
+        public string BuscarPrecioPorIDdelProducto(string IDproducto)
+        {
+            var consuta = $"SELECT Precio FROM productos WHERE ID = {IDproducto}";
+            return consuta;
         }
     }
 }  
