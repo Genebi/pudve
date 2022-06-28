@@ -148,7 +148,7 @@
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.1016.290\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="MySql.Data, Version=8.0.21.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
@@ -692,6 +692,12 @@
     </Compile>
     <Compile Include="FiltroRevisarInventario.Designer.cs">
       <DependentUpon>FiltroRevisarInventario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImprimirTicketAbono.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImprimirTicketAbono.Designer.cs">
+      <DependentUpon>ImprimirTicketAbono.cs</DependentUpon>
     </Compile>
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
@@ -1464,6 +1470,9 @@
     <EmbeddedResource Include="imprimirTicket8cm.resx">
       <DependentUpon>imprimirTicket8cm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ImprimirTicketAbono.resx">
+      <DependentUpon>ImprimirTicketAbono.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InformacionVenta.resx">
       <DependentUpon>InformacionVenta.cs</DependentUpon>
     </EmbeddedResource>
@@ -1604,9 +1613,9 @@
     <EmbeddedResource Include="Reportes.resx">
       <DependentUpon>Reportes.cs</DependentUpon>
     </EmbeddedResource>
-    <Content Include="ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc">
+    <EmbeddedResource Include="ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

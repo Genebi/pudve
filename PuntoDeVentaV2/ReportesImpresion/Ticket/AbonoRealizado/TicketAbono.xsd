@@ -1,16 +1,37 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
-<xs:schema id="TicketAbono" 
-                  targetNamespace="http://tempuri.org/TicketAbono.xsd"
-                  elementFormDefault="qualified"
-                  attributeFormDefault="qualified"
-                  xmlns="http://tempuri.org/TicketAbono.xsd"
-                  xmlns:mstns="http://tempuri.org/TicketAbono.xsd"
-                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                  xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"
-                  xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
-    <xs:element name="TicketAbono" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true">
-        <xs:complexType>
-            <xs:choice minOccurs="0" maxOccurs="unbounded"></xs:choice>
-        </xs:complexType>
-    </xs:element>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="TicketAbono" targetNamespace="http://tempuri.org/TicketAbono.xsd" xmlns:mstns="http://tempuri.org/TicketAbono.xsd" xmlns="http://tempuri.org/TicketAbono.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="TicketAbono" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="TicketAbono" msprop:Generator_UserDSName="TicketAbono">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable1" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_UserTableName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_RowClassName="DataTable1Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RazonSocial" msprop:Generator_ColumnVarNameInTable="columnRazonSocial" msprop:Generator_ColumnPropNameInRow="RazonSocial" msprop:Generator_ColumnPropNameInTable="RazonSocialColumn" msprop:Generator_UserColumnName="RazonSocial" type="xs:string" minOccurs="0" />
+              <xs:element name="Domicilio" msprop:Generator_ColumnVarNameInTable="columnDomicilio" msprop:Generator_ColumnPropNameInRow="Domicilio" msprop:Generator_ColumnPropNameInTable="DomicilioColumn" msprop:Generator_UserColumnName="Domicilio" type="xs:string" minOccurs="0" />
+              <xs:element name="ColyCP" msprop:Generator_ColumnVarNameInTable="columnColyCP" msprop:Generator_ColumnPropNameInRow="ColyCP" msprop:Generator_ColumnPropNameInTable="ColyCPColumn" msprop:Generator_UserColumnName="ColyCP" type="xs:string" minOccurs="0" />
+              <xs:element name="RFC" msprop:Generator_ColumnVarNameInTable="columnRFC" msprop:Generator_ColumnPropNameInRow="RFC" msprop:Generator_ColumnPropNameInTable="RFCColumn" msprop:Generator_UserColumnName="RFC" type="xs:string" minOccurs="0" />
+              <xs:element name="Correo" msprop:Generator_ColumnVarNameInTable="columnCorreo" msprop:Generator_ColumnPropNameInRow="Correo" msprop:Generator_ColumnPropNameInTable="CorreoColumn" msprop:Generator_UserColumnName="Correo" type="xs:string" minOccurs="0" />
+              <xs:element name="Telefono" msprop:Generator_ColumnVarNameInTable="columnTelefono" msprop:Generator_ColumnPropNameInRow="Telefono" msprop:Generator_ColumnPropNameInTable="TelefonoColumn" msprop:Generator_UserColumnName="Telefono" type="xs:string" minOccurs="0" />
+              <xs:element name="IDVenta" msprop:Generator_ColumnVarNameInTable="columnIDVenta" msprop:Generator_ColumnPropNameInRow="IDVenta" msprop:Generator_ColumnPropNameInTable="IDVentaColumn" msprop:Generator_UserColumnName="IDVenta" type="xs:string" minOccurs="0" />
+              <xs:element name="TotalOriginal" msprop:Generator_ColumnVarNameInTable="columnTotalOriginal" msprop:Generator_ColumnPropNameInRow="TotalOriginal" msprop:Generator_ColumnPropNameInTable="TotalOriginalColumn" msprop:Generator_UserColumnName="TotalOriginal" type="xs:string" minOccurs="0" />
+              <xs:element name="SaldoAnterior" msprop:Generator_ColumnVarNameInTable="columnSaldoAnterior" msprop:Generator_ColumnPropNameInRow="SaldoAnterior" msprop:Generator_ColumnPropNameInTable="SaldoAnteriorColumn" msprop:Generator_UserColumnName="SaldoAnterior" type="xs:string" minOccurs="0" />
+              <xs:element name="CantidadAbonada" msprop:Generator_ColumnVarNameInTable="columnCantidadAbonada" msprop:Generator_ColumnPropNameInRow="CantidadAbonada" msprop:Generator_ColumnPropNameInTable="CantidadAbonadaColumn" msprop:Generator_UserColumnName="CantidadAbonada" type="xs:string" minOccurs="0" />
+              <xs:element name="CantidadRestante" msprop:Generator_ColumnVarNameInTable="columnCantidadRestante" msprop:Generator_ColumnPropNameInRow="CantidadRestante" msprop:Generator_ColumnPropNameInTable="CantidadRestanteColumn" msprop:Generator_UserColumnName="CantidadRestante" type="xs:string" minOccurs="0" />
+              <xs:element name="FechaUltimoAbono" msprop:Generator_ColumnVarNameInTable="columnFechaUltimoAbono" msprop:Generator_ColumnPropNameInRow="FechaUltimoAbono" msprop:Generator_ColumnPropNameInTable="FechaUltimoAbonoColumn" msprop:Generator_UserColumnName="FechaUltimoAbono" type="xs:string" minOccurs="0" />
+              <xs:element name="Comprobante" msprop:Generator_ColumnVarNameInTable="columnComprobante" msprop:Generator_ColumnPropNameInRow="Comprobante" msprop:Generator_ColumnPropNameInTable="ComprobanteColumn" msprop:Generator_UserColumnName="Comprobante" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
