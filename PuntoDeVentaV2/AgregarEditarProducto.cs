@@ -367,6 +367,7 @@ namespace PuntoDeVentaV2
 
         List<String> ActualizarDetallesDinamicos = new List<String>();
         List<String> InsertarDetallesDinamicos = new List<String>();
+        List<string> datosAct = new List<string>();
 
         // this code will add a listviewtem
         // to a listview for each database entry
@@ -750,6 +751,9 @@ namespace PuntoDeVentaV2
             ee.Handled = true;
         }
 
+        string panel, cbDetalleGeneralDefault;
+        List<string> productosEditar = new List<string>();
+
         private void ComboBoxDetalleGral_SelectValueChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
@@ -781,7 +785,11 @@ namespace PuntoDeVentaV2
                 else if (comboBoxIndex <= 0)
                 {
                     idProductoDetalleGral = 0;
-                    limpiarDatosGral(namePanel);
+                    limpiarDatosGralLabel(namePanel);
+                    panel = namePanel;
+                    cbDetalleGeneralDefault = "1";
+                    //productosEditar.Add(idProductoDetalleGral.ToString());
+                    ActualizarDetallesDinamicos.Add($"DELETE FROM detallesproductogenerales WHERE IDProducto = '{idEditarProducto}' AND IDUsuario = '{FormPrincipal.userID}' AND panelContenido = 'panelContenido{namePanel}'");
                 }
 
                 if (idProductoDetalleGral > 0)
@@ -796,9 +804,53 @@ namespace PuntoDeVentaV2
 
         private void limpiarDatosGral(string textoBuscado)
         {
+
+            var resultadoDeBorrado = cn.EjecutarConsulta(cs.borrarEspecificacionDetalleProducto(idEditarProducto));
+
+            //string namePanel = string.Empty;
+
+            //namePanel = "panelContenedor" + textoBuscado;
+
+            //foreach (Control contHijo in flowLayoutPanel3.Controls.OfType<Control>())
+            //{
+            //    if (contHijo.Name == namePanel)
+            //    {
+            //        foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
+            //        {
+            //            namePanel = "panelContenido" + textoBuscado;
+            //            if (contSubHijo.Name == namePanel)
+            //            {
+            //                foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
+            //                {
+            //                    var nuevoTextoBuscado = textoBuscado.TrimEnd("[_]".ToCharArray());
+            //                    if (contLblHijo.Name.Trim() == "lblNombrechk" + nuevoTextoBuscado.Replace("_"," "))
+            //                    {
+            //                        //contLblHijo.Text = separadas[1].ToString().Replace("_", " ");
+            //                        //contLblHijo.Text = "En Construcción está sección...";
+            //                        contLblHijo.Text = string.Empty;
+            //                        using (DataTable dtResultado = cn.CargarDatos(cs.limpiarEspecificacionDetalleProducto(idEditarProducto, namePanel, gralDetailGralSelected)))
+            //                        {
+            //                            if (!dtResultado.Rows.Count.Equals(0))
+            //                            {
+            //                                foreach (DataRow item in dtResultado.Rows)
+            //                                {
+            //                                    var resultadoDeBorrado = cn.EjecutarConsulta(cs.borrarEspecificacionDetalleProducto(item["ID"].ToString()));
+            //                                }
+            //                            }
+            //                        }
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+        }
+
+        private void limpiarDatosGralLabel(string label)
+        {
             string namePanel = string.Empty;
 
-            namePanel = "panelContenedor" + textoBuscado;
+            namePanel = "panelContenedor" + label;
 
             foreach (Control contHijo in flowLayoutPanel3.Controls.OfType<Control>())
             {
@@ -806,26 +858,20 @@ namespace PuntoDeVentaV2
                 {
                     foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
                     {
-                        namePanel = "panelContenido" + textoBuscado;
+                        namePanel = "panelContenido" + label;
                         if (contSubHijo.Name == namePanel)
                         {
                             foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
                             {
-                                var nuevoTextoBuscado = textoBuscado.TrimEnd("[_]".ToCharArray());
-                                if (contLblHijo.Name.Trim() == "lblNombrechk" + nuevoTextoBuscado)
+                                var nuevoTextoBuscado = label.TrimEnd("[_]".ToCharArray());
+                                if (contLblHijo.Name.Trim() == "lblNombrechk" + nuevoTextoBuscado.Replace("_", " "))
                                 {
                                     //contLblHijo.Text = separadas[1].ToString().Replace("_", " ");
                                     //contLblHijo.Text = "En Construcción está sección...";
                                     contLblHijo.Text = string.Empty;
                                     using (DataTable dtResultado = cn.CargarDatos(cs.limpiarEspecificacionDetalleProducto(idEditarProducto, namePanel, gralDetailGralSelected)))
                                     {
-                                        if (!dtResultado.Rows.Count.Equals(0))
-                                        {
-                                            foreach (DataRow item in dtResultado.Rows)
-                                            {
-                                                var resultadoDeBorrado = cn.EjecutarConsulta(cs.borrarEspecificacionDetalleProducto(item["ID"].ToString()));
-                                            }
-                                        }
+                                       
                                     }
                                 }
                             }
@@ -839,12 +885,14 @@ namespace PuntoDeVentaV2
         {
             string namePanel = string.Empty;
 
+          
+
             //namePanel = "panelContenedor" + textoBuscado.Remove(0, 3);
             namePanel = "panelContenedor" + textoBuscado;
 
             string nvoConceptoDetalleProducto = string.Empty;
 
-            var idGralDetail = mb.GetDetalleGeneral(FormPrincipal.userID, gralDetailGralSelected);
+            var idGralDetail = mb.GetDetalleGeneral(FormPrincipal.userID, gralDetailGralSelected);//Falta el Replace a los guines bajos 
 
             foreach (Control contHijo in flowLayoutPanel3.Controls.OfType<Control>())
             {
@@ -869,6 +917,7 @@ namespace PuntoDeVentaV2
                                         nvoConceptoDetalleProducto = contLblHijo.Text;
                                         string[] dataSave = { idProductoBuscado, Convert.ToString(FormPrincipal.userID), namePanel, idGralDetail[0].ToString(), "1" };
                                         var resultadoBuscarDetalleGeneralProducto = mb.obtenerUnDetalleProductoGenerales(idProductoBuscado, Convert.ToString(FormPrincipal.userID), namePanel);
+
                                         if (!resultadoBuscarDetalleGeneralProducto.Count().Equals(0))//En caso de ya estar registrado el detalle.
                                         {
                                             //int respuestaChangeDetailProducto = cn.EjecutarConsulta(cs.GuardarDetallesProductoGeneralesDesdeAgregarEditarProducto(dataSave));
@@ -877,7 +926,7 @@ namespace PuntoDeVentaV2
                                         else if (resultadoBuscarDetalleGeneralProducto.Count().Equals(0))//En caso de no estar registrado el detalle.
                                         {
                                             //int respuestaChangeDetailProducto = cn.EjecutarConsulta(cs.GuardarDetallesProductoGeneralesComboBox(dataSave));
-                                            InsertarDetallesDinamicos.Add($"INSERT INTO DetallesProductoGenerales (IDProducto, IDUsuario, IDDetalleGral, StatusDetalleGral, panelContenido)VALUES ('{dataSave[0]}', '{FormPrincipal.userID}', '{dataSave[3]}', '1', '{dataSave[2]}')");
+                                            InsertarDetallesDinamicos.Add($"UPDATE DetallesProductoGenerales SET IDDetalleGral = '{dataSave[3]}' WHERE IDProducto = '{dataSave[0]}' AND IDUsuario = '{FormPrincipal.userID}' AND panelContenido = '{dataSave[2]}'; INSERT INTO DetallesProductoGenerales ( IDProducto, IDUsuario, IDDetalleGral, StatusDetalleGral, panelContenido ) SELECT DISTINCT '{dataSave[0]}','{FormPrincipal.userID}','{dataSave[3]}','1','{dataSave[2]}' FROM	DetallesProductoGenerales WHERE NOT EXISTS ( SELECT * FROM DetallesProductoGenerales WHERE IDProducto = '{dataSave[0]}' AND IDUsuario = '{FormPrincipal.userID}' AND panelContenido = '{dataSave[2]}')");
                                         }
                                     }
                                 }
@@ -924,6 +973,7 @@ namespace PuntoDeVentaV2
             }
         }
 
+        string cbProverdorDefualt, nombrePanel;
         private void comboBoxProveedor_SelectValueChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = sender as ComboBox;
@@ -948,7 +998,9 @@ namespace PuntoDeVentaV2
                 else if (comboBoxIndex <= 0)
                 {
                     idProveedor = 0;
-                    limpiarDatosProveedor(namePanel);
+                    cbProverdorDefualt = "1";
+                    nombrePanel = namePanel;
+                    limpiarDatosProveedorLabel(namePanel);
                 }
 
                 if (idProveedor > 0)
@@ -1016,6 +1068,53 @@ namespace PuntoDeVentaV2
                                     //{
                                     //    int resultChangeProvaider = cn.EjecutarConsulta(cs.GuardarProveedorProducto(dataSave));
                                     //}
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void limpiarDatosProveedorLabel(string label)
+        {
+            string namePanel = string.Empty;
+            string nvoNombreProveedorDetalleProducto = string.Empty;
+
+            var idProveedor = mb.DetallesProducto(Convert.ToInt32(idProductoBuscado), FormPrincipal.userID);
+
+            namePanel = "panelContenedor" + label;
+
+            foreach (Control contHijo in flowLayoutPanel3.Controls.OfType<Control>())
+            {
+                if (contHijo.Name == namePanel)
+                {
+                    foreach (Control contSubHijo in contHijo.Controls.OfType<Control>())
+                    {
+                        namePanel = "panelContenido" + label;
+                        if (contSubHijo.Name == namePanel)
+                        {
+                            foreach (Control contLblHijo in contSubHijo.Controls.OfType<Control>())
+                            {
+                                if (contLblHijo.Name == "cb" + label)
+                                {
+                                    //contLblHijo.Text = datosProveedor[0];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                                if (contLblHijo.Name == "lblNombre" + label)
+                                {
+                                    //contLblHijo.Text = datosProveedor[0];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                                else if (contLblHijo.Name == "lblRFC" + label)
+                                {
+                                    //contLblHijo.Text = datosProveedor[1];
+                                    contLblHijo.Text = string.Empty;
+                                }
+                                else if (contLblHijo.Name == "lblTel" + label)
+                                {
+                                    //contLblHijo.Text = datosProveedor[10];
+                                    contLblHijo.Text = string.Empty;
                                 }
                             }
                         }
@@ -4084,6 +4183,15 @@ namespace PuntoDeVentaV2
                 listaProductoToCombo = new List<string>();
                 ProductosDeServicios = new List<string>();
 
+            if (cbProverdorDefualt == "1")
+            {
+                limpiarDatosProveedor(nombrePanel);
+            }
+
+            if (cbDetalleGeneralDefault == "1")
+            {
+                limpiarDatosGral(panel);
+            }
         }
 
         public void guardarDetallesDinamicos()
