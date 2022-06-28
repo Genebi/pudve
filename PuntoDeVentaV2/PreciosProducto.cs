@@ -52,6 +52,7 @@ namespace PuntoDeVentaV2
                     int precio = Convert.ToInt32(ConsultaDescuantos.Rows[mas]["Precio"]);
                     string rangoinical = ConsultaDescuantos.Rows[mas]["RangoInicial"].ToString();
                     string rangoFinal;
+
                     if (ConsultaDescuantos.Rows[mas]["RangoFinal"].Equals("N"))
                     {
                         rangoFinal = " En adelante";
