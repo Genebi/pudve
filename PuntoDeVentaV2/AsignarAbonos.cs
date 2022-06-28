@@ -224,7 +224,6 @@ namespace PuntoDeVentaV2
                         impresionTicketAbono.ShowDialog();
                         //ImprimirTicket(idVenta.ToString(), idAbono);
                         //MostrarTicketAbonos(idVenta.ToString(), idAbono);
-
                         this.Dispose();
                     }
                 }
