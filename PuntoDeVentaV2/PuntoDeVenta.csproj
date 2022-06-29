@@ -738,6 +738,12 @@
     <Compile Include="imprimirTicket8cm.Designer.cs">
       <DependentUpon>imprimirTicket8cm.cs</DependentUpon>
     </Compile>
+    <Compile Include="imprimirTicketPresupuesto8cm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="imprimirTicketPresupuesto8cm.Designer.cs">
+      <DependentUpon>imprimirTicketPresupuesto8cm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InformacionVenta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1028,6 +1034,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TicketAbono.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="ReportesImpresion\Ticket\PresupuestoRealizado\TicketPresupuesto.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TicketPresupuesto.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.Designer.cs">
@@ -1464,6 +1476,9 @@
     <EmbeddedResource Include="imprimirTicket8cm.resx">
       <DependentUpon>imprimirTicket8cm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="imprimirTicketPresupuesto8cm.resx">
+      <DependentUpon>imprimirTicketPresupuesto8cm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InformacionVenta.resx">
       <DependentUpon>InformacionVenta.cs</DependentUpon>
     </EmbeddedResource>
@@ -1604,9 +1619,21 @@
     <EmbeddedResource Include="Reportes.resx">
       <DependentUpon>Reportes.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="PUDVE\assets\Cancelada.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\assets\Credito.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PUDVE\assets\Presupuesto.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="ReportesImpresion\Ticket\PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -1721,6 +1748,20 @@
     </Content>
     <None Include="ReportesImpresion\Ticket\AbonoRealizado\TicketAbono.xss">
       <DependentUpon>TicketAbono.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\PresupuestoRealizado\TicketPresupuesto.xsc">
+      <DependentUpon>TicketPresupuesto.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="ReportesImpresion\Ticket\PresupuestoRealizado\TicketPresupuesto.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TicketPresupuesto.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ReportesImpresion\Ticket\PresupuestoRealizado\TicketPresupuesto.xss">
+      <DependentUpon>TicketPresupuesto.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.xsc">
