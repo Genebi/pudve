@@ -3749,7 +3749,7 @@ namespace PuntoDeVentaV2
                                     }
                                     else if (ticket8cm.Equals(1))
                                     {
-                                        using (imprimirTicket8cm imprimirTicketVenta = new imprimirTicket8cm())
+                                        using (imprimirTicketPresupuesto8cm imprimirTicketVenta = new imprimirTicketPresupuesto8cm())
                                         {
                                             imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
 

@@ -69,6 +69,7 @@ namespace PuntoDeVentaV2
             this.ClientSize = new System.Drawing.Size(661, 450);
             this.Controls.Add(this.btnReImprimirTicket);
             this.Controls.Add(this.reportViewer1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "VerTicket80mmListadoVentas";
