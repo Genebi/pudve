@@ -77,7 +77,7 @@ namespace PuntoDeVentaV2
             cbox_reportes.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[11]));
             cbox_ventas.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[13]));
             cboBascula.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[14]));
-            cboxConsultaP.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[15]));
+            cboxConsultaP.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[18]));
 
             var permisoPrecio = cn.CargarDatos($"SELECT COUNT(Precio) AS Estado FROM empleadospermisos WHERE IDEmpleado = '{id_empleado}' AND IDUsuario = '{FormPrincipal.userID}' AND Precio = 1");
             var DRPermisoPrecio = permisoPrecio.Rows[0]["Estado"].ToString();

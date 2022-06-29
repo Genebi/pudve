@@ -1454,7 +1454,7 @@ namespace PuntoDeVentaV2
 
             if (habilitadosOno.Equals(DialogResult.Yes))
             {
-
+                checkboxMarcados.Clear();
                 if (contador >= 50)
                 {
                     cargando.Start();
