@@ -265,7 +265,6 @@ namespace PuntoDeVentaV2
                     {
                         var precioActual = (float)Convert.ToDecimal(valor[1]);
 
-
                         {
                             checkboxMarcados.Add(id, tipo);
                         }
