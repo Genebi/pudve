@@ -651,12 +651,12 @@ namespace PuntoDeVentaV2
                                                         if (Productos.dobleClickProducto == 1)
                                                         {
                                                             cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.idprodDobleClick, estado, NuevoMensaje));
-                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                            MessageBox.Show("Actualizado Correctamente.","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
                                                         }
                                                         else
                                                         {
                                                             cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.codProductoEditarVenta, estado, NuevoMensaje));
-                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                         }
                                                         
                                                     }
@@ -675,12 +675,12 @@ namespace PuntoDeVentaV2
                                                         if (Productos.dobleClickProducto == 1)
                                                         {
                                                             cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.idprodDobleClick, NuevoMensaje, estado));
-                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                         }
                                                         else
                                                         {
                                                             cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.codProductoEditarVenta, NuevoMensaje, estado));
-                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                         }
                                                     }
                                                 }
@@ -703,12 +703,12 @@ namespace PuntoDeVentaV2
                                                         if (Productos.dobleClickProducto == 1)
                                                         {
                                                             cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.idprodDobleClick, estado, NuevoMensaje));
-                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                         }
                                                         else
                                                         {
                                                             cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.codProductoEditarVenta, estado, NuevoMensaje));
-                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                         }
                                                     }
                                                 }
@@ -724,7 +724,7 @@ namespace PuntoDeVentaV2
                                                             estado = 0;
                                                         }
                                                         cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.codProductoEditarVenta, NuevoMensaje, estado));
-                                                        MessageBox.Show("Actualizado Correctamente.");
+                                                        MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                     }
                                                 }
                                             }
@@ -775,7 +775,7 @@ namespace PuntoDeVentaV2
                                                                 estado = 0;
                                                             }
                                                             cn.EjecutarConsulta(cs.insertarMensajeInventario(Productos.idprodDobleClick, NuevoMensaje, estado));
-                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                         }
                                                     }
                                                     else
@@ -790,7 +790,7 @@ namespace PuntoDeVentaV2
                                                                 estado = 0;
                                                             }
                                                             cn.EjecutarConsulta(cs.actualizarMensajeInventario(Productos.idprodDobleClick, NuevoMensaje, estado));
-                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                         }
                                                     }
                                                 }
@@ -810,7 +810,7 @@ namespace PuntoDeVentaV2
                                                                 estado = 0;
                                                             }
                                                             cn.EjecutarConsulta(cs.insertarMensajeInventario(Productos.codProductoEditarInventario, NuevoMensaje, estado));
-                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                         }
                                                     }
                                                     else
@@ -825,7 +825,7 @@ namespace PuntoDeVentaV2
                                                                 estado = 0;
                                                             }
                                                             cn.EjecutarConsulta(cs.actualizarMensajeInventario(Productos.codProductoEditarInventario, NuevoMensaje, estado));
-                                                            MessageBox.Show("Actualizado Correctamente.");
+                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                         }
                                                     }
                                                 }

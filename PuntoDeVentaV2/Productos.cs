@@ -265,7 +265,6 @@ namespace PuntoDeVentaV2
                     {
                         var precioActual = (float)Convert.ToDecimal(valor[1]);
 
-
                         {
                             checkboxMarcados.Add(id, tipo);
                         }
@@ -1455,7 +1454,7 @@ namespace PuntoDeVentaV2
 
             if (habilitadosOno.Equals(DialogResult.Yes))
             {
-
+                checkboxMarcados.Clear();
                 if (contador >= 50)
                 {
                     cargando.Start();

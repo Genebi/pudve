@@ -5317,4 +5317,13 @@
   <data name="UpdateInformationTablesIntoDataRows" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\PUDVE\BD\UpdateInformationTablesIntoDataRows.sql;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="Cancelada" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\assets\Cancelada.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Credito" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\assets\Credito.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Presupuesto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\PUDVE\assets\Presupuesto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
