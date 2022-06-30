@@ -422,7 +422,7 @@ namespace PuntoDeVentaV2
         public static void CambioPrecioProductoEmail(string[] datos, int tipo = 0)
         {
             var correo = FormPrincipal.datosUsuario[9];
-            var asunto = "¡ATENCIÓN! PRECIO(S) DE PRODUCTO(S) MODIFICADO(S) (AUMENTADO O DISMINUIDO)";
+            var asunto = string.Empty; 
             var html = string.Empty;
 
             var producto = datos[0];
@@ -455,14 +455,30 @@ namespace PuntoDeVentaV2
 
                 if (tipo == 0)
                 {
-                    html = $@"
+                    if (Convert.ToDecimal(precioAnterior)< Convert.ToDecimal(precioNuevo))
+                    {
+                        asunto = "¡ATENCIÓN! PRECIO(S) DE PRODUCTO(S) AUMENTADO";
+                        html = $@"
                     <div>
-                        <h4 style='text-align: center;'>PRECIO DE PRODUCTO MODIFICADO</h4><hr>
+                        <h4 style='text-align: center;'>PRECIO DE PRODUCTO AUMENTADO</h4><hr>
                         <p>El precio del producto <span style='color: red;'>{producto}</span> ha sido modificado desde
-                        {origen}, su precio <b>anterior</b> era de <span style='color: red;'>${precioAnterior}</span> y fue actualizado
+                        {origen}, su precio <b>anterior</b> era de <span style='color: red;'>${precioAnterior}</span> y fue aumentado
                         por el <b>nuevo</b> precio de <span style='color: red;'>${precioNuevo}</span>.</p>
                         {footerCorreo}
                     </div>";
+                    }
+                    else if (Convert.ToDecimal(precioAnterior) > Convert.ToDecimal(precioNuevo))
+                    {
+                        asunto = "¡ATENCIÓN! PRECIO(S) DE PRODUCTO(S) DISMINUIDO";
+                        html = $@"
+                    <div>
+                        <h4 style='text-align: center;'>PRECIO DE PRODUCTO DISMINUIDO</h4><hr>
+                        <p>El precio del producto <span style='color: red;'>{producto}</span> ha sido modificado desde
+                        {origen}, su precio <b>anterior</b> era de <span style='color: red;'>${precioAnterior}</span> y fue disminuido
+                        por el <b>nuevo</b> precio de <span style='color: red;'>${precioNuevo}</span>.</p>
+                        {footerCorreo}
+                    </div>";
+                    }
                 }
 
                 if (tipo == 1)
