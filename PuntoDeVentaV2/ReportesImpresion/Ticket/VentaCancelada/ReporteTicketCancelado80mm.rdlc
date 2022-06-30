@@ -605,36 +605,6 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="ClienteCorreo1">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=First(Fields!ClienteCorreo.Value, "TicketCancelado")</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>ClienteCorreo1</rd:DefaultName>
-            <Top>15.30033cm</Top>
-            <Left>0.1cm</Left>
-            <Height>0.6cm</Height>
-            <Width>7.7cm</Width>
-            <ZIndex>16</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
           <Textbox Name="ClienteTelefono">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -650,11 +620,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteTelefono</rd:DefaultName>
-            <Top>15.92474cm</Top>
+            <Top>15.28974cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>17</ZIndex>
+            <ZIndex>16</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -682,11 +652,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>FormaDePago</rd:DefaultName>
-            <Top>16.78728cm</Top>
+            <Top>16.18403cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>18</ZIndex>
+            <ZIndex>17</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1074,11 +1044,11 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>TicketCancelado</DataSetName>
-            <Top>17.68263cm</Top>
+            <Top>17.20638cm</Top>
             <Left>0.1cm</Left>
             <Height>1.2cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>19</ZIndex>
+            <ZIndex>18</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1102,11 +1072,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>DescuentosDeProductos</rd:DefaultName>
-            <Top>18.89337cm</Top>
+            <Top>18.41712cm</Top>
             <Left>1.6cm</Left>
             <Height>0.6cm</Height>
             <Width>6.2cm</Width>
-            <ZIndex>20</ZIndex>
+            <ZIndex>19</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1134,11 +1104,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TotalGeneral</rd:DefaultName>
-            <Top>19.52837cm</Top>
+            <Top>19.05212cm</Top>
             <Left>1.6cm</Left>
             <Height>0.6cm</Height>
             <Width>6.2cm</Width>
-            <ZIndex>21</ZIndex>
+            <ZIndex>20</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1166,11 +1136,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>20.36974cm</Top>
+            <Top>20.30624cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>22</ZIndex>
+            <ZIndex>21</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1189,7 +1159,7 @@
             <Left>1.5cm</Left>
             <Height>1.15604cm</Height>
             <Width>5cm</Width>
-            <ZIndex>23</ZIndex>
+            <ZIndex>22</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
