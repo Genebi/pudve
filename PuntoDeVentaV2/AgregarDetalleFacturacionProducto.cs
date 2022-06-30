@@ -620,7 +620,11 @@ namespace PuntoDeVentaV2
             var clavePS = txtClaveProducto.Text;
             var claveUnidad = txtClaveUnidad.Text;
 
-            if (clavePS.Length < 8)
+            if (string.IsNullOrWhiteSpace(clavePS))
+            {
+                clavePS = string.Empty;
+            }
+            else if (clavePS.Length < 8)
             {
                 MessageBox.Show("La clave de producto debe contener 8 dígitos.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
