@@ -55,6 +55,7 @@ namespace PuntoDeVentaV2
 
         // Para las ventas guardadas
         public static int mostrarVenta = 0;
+        private bool mostrarMensajeProducto = true;
 
         // Estado de la venta
         public static string statusVenta = string.Empty;
@@ -383,6 +384,8 @@ namespace PuntoDeVentaV2
             if (string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
             {
                 txtBuscadorProducto.Text = "BUSCAR PRODUCTO O SERVICIO...";
+
+                mostrarMensajeProducto = true;
             }
         }
 
@@ -6837,6 +6840,8 @@ namespace PuntoDeVentaV2
                             }
                         }
 
+                        mostrarMensajeProducto = false;
+
                         CargarVentaGuardada();
 
                         ventasGuardadas.Add(mostrarVenta);
@@ -7199,20 +7204,23 @@ namespace PuntoDeVentaV2
 
                         if (cantidad >= cantidadMinima)
                         {
-                            using (DataTable dtMensajesVentas = cn.CargarDatos(cs.verificarMensajesProductosVentas(Convert.ToInt32(idproductoCantidad))))
+                            if (mostrarMensajeProducto)
                             {
-                                var estado = dtMensajesVentas.Rows[0];
-
-                                if (!dtMensajesVentas.Rows.Count.Equals(0))
+                                using (DataTable dtMensajesVentas = cn.CargarDatos(cs.verificarMensajesProductosVentas(Convert.ToInt32(idproductoCantidad))))
                                 {
-                                    if (estado["ProductMessageActivated"].Equals(true))
+                                    var estado = dtMensajesVentas.Rows[0];
+
+                                    if (!dtMensajesVentas.Rows.Count.Equals(0))
                                     {
-                                        if (!listaMensajesEnviados.ContainsKey(Convert.ToInt32(idproductoCantidad)))
+                                        if (estado["ProductMessageActivated"].Equals(true))
                                         {
-                                            listaMensajesEnviados.Add(Convert.ToInt32(idproductoCantidad), "Mensaje");
-                                            foreach (DataRow item in dtMensajesVentas.Rows)
+                                            if (!listaMensajesEnviados.ContainsKey(Convert.ToInt32(idproductoCantidad)))
                                             {
-                                                MessageBox.Show(item["ProductOfMessage"].ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                listaMensajesEnviados.Add(Convert.ToInt32(idproductoCantidad), "Mensaje");
+                                                foreach (DataRow item in dtMensajesVentas.Rows)
+                                                {
+                                                    MessageBox.Show(item["ProductOfMessage"].ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                }
                                             }
                                         }
                                     }
