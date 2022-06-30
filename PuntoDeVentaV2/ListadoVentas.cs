@@ -2480,6 +2480,7 @@ namespace PuntoDeVentaV2
 
                             tipoDeBusqueda = verTipoDeBusqueda();
 
+                            // Ventas Realizadas
                             if (tipoDeBusqueda.Equals(1))
                             {
                                 if (ticket6cm.Equals(1))
@@ -2517,7 +2518,8 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                             }
-                            else if (tipoDeBusqueda.Equals(2))
+                            // Venta Guardada
+                            if (tipoDeBusqueda.Equals(2))
                             {
                                 if (ticket6cm.Equals(1))
                                 {
@@ -2553,6 +2555,16 @@ namespace PuntoDeVentaV2
                                         imprimirTicketVenta.ShowDialog();
                                     }
                                 }
+                            }
+                            // Venta Cancelada
+                            if (tipoDeBusqueda.Equals(3))
+                            {
+
+                            }
+                            // Venta a Credito
+                            if (tipoDeBusqueda.Equals(4))
+                            {
+
                             }
                         }
                     }

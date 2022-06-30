@@ -3734,7 +3734,57 @@ namespace PuntoDeVentaV2
                                 codigoBarraTicket = Convert.ToInt32(item["TicketVenta"].ToString());
                             }
 
-                            if (statusVenta.Equals("2"))
+                            var tipoDeVentaRealizada = 0;
+
+                            using (DataTable dtTipoDeVentaRealizada = cn.CargarDatos(cs.StatusVenta(Convert.ToInt32(idVenta))))
+                            {
+                                if (!dtTipoDeVentaRealizada.Rows.Count.Equals(0))
+                                {
+                                    DataRow drTipoVentaRealizada = dtTipoDeVentaRealizada.Rows[0];
+                                    tipoDeVentaRealizada = Convert.ToInt32(drTipoVentaRealizada["Status"].ToString());
+                                }
+                            }
+
+                            // Imprimir Ticket Venta Terminada
+                            if (tipoDeVentaRealizada.Equals(1))
+                            {
+                                if (ticket6cm.Equals(1))
+                                {
+                                    //using (imprimirTicket6cm imprimirTicketVenta = new imprimirTicket6cm())
+                                    //{
+                                    //    imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+                                    //    imprimirTicketVenta.ShowDialog();
+                                    //}
+                                }
+                                else if (ticket8cm.Equals(1))
+                                {
+                                    using (imprimirTicket8cm imprimirTicketVenta = new imprimirTicket8cm())
+                                    {
+                                        imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+
+                                        imprimirTicketVenta.Logo = logo;
+                                        imprimirTicketVenta.Nombre = Usuario;
+                                        imprimirTicketVenta.NombreComercial = NombreComercial;
+                                        imprimirTicketVenta.DireccionCiudad = Direccion;
+                                        imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                        imprimirTicketVenta.RFC = RFC;
+                                        imprimirTicketVenta.Correo = Correo;
+                                        imprimirTicketVenta.Telefono = Telefono;
+                                        imprimirTicketVenta.NombreCliente = NombreC;
+                                        imprimirTicketVenta.RFCCliente = RFCC;
+                                        imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                        imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                        imprimirTicketVenta.CorreoCliente = CorreoC;
+                                        imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                        imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                        imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+
+                                        imprimirTicketVenta.ShowDialog();
+                                    }
+                                }
+                            }
+                            // Imprimir Ticket Venta Guardada
+                            if (tipoDeVentaRealizada.Equals(2))
                             {
                                 DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket Del Presupuesto", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                                 if (respuestaImpresion.Equals(DialogResult.Yes))
@@ -3775,42 +3825,15 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                             }
-                            else
+                            // Imprimir Ticket Venta Cancelada
+                            if (tipoDeVentaRealizada.Equals(3))
                             {
-                                if (ticket6cm.Equals(1))
-                                {
-                                    //using (imprimirTicket6cm imprimirTicketVenta = new imprimirTicket6cm())
-                                    //{
-                                    //    imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
-                                    //    imprimirTicketVenta.ShowDialog();
-                                    //}
-                                }
-                                else if (ticket8cm.Equals(1))
-                                {
-                                    using (imprimirTicket8cm imprimirTicketVenta = new imprimirTicket8cm())
-                                    {
-                                        imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+                                
+                            }
+                            // Imprimir Ticket Venta a Credito
+                            if (tipoDeVentaRealizada.Equals(4))
+                            {
 
-                                        imprimirTicketVenta.Logo = logo;
-                                        imprimirTicketVenta.Nombre = Usuario;
-                                        imprimirTicketVenta.NombreComercial = NombreComercial;
-                                        imprimirTicketVenta.DireccionCiudad = Direccion;
-                                        imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
-                                        imprimirTicketVenta.RFC = RFC;
-                                        imprimirTicketVenta.Correo = Correo;
-                                        imprimirTicketVenta.Telefono = Telefono;
-                                        imprimirTicketVenta.NombreCliente = NombreC;
-                                        imprimirTicketVenta.RFCCliente = RFCC;
-                                        imprimirTicketVenta.DomicilioCliente = DomicilioC;
-                                        imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
-                                        imprimirTicketVenta.CorreoCliente = CorreoC;
-                                        imprimirTicketVenta.TelefonoCliente = TelefonoC;
-                                        imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
-                                        imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
-
-                                        imprimirTicketVenta.ShowDialog();
-                                    }
-                                }
                             }
                         }
                     }
