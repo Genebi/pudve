@@ -208,6 +208,16 @@
             <Height>5cm</Height>
             <Width>5cm</Width>
             <ZIndex>2</ZIndex>
+            <Visibility>
+              <Hidden>=iif(Parameters!Logo.Value = "0", 
+	True,
+	iif(
+		First(Fields!LogoTipo.Value, "TicketPresupuesto").ToString() = "",
+		True,
+		False
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -238,6 +248,17 @@
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>3</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!Nombre.Value = "0",
+	True,
+	iif(
+		First(Fields!RazonSocial.Value, "TicketPresupuesto").ToString() = "",
+		True,
+		False
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -270,6 +291,17 @@
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>4</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!NombreComercial.Value = "0",
+	True,
+	iif(
+		First(Fields!NombreComercial.Value, "TicketPresupuesto").ToString() = "",
+		True,
+		False
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -302,6 +334,17 @@
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>5</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!DireccionCiudad.Value = "0",
+	True,
+	iif(
+		First(Fields!Direccion1.Value, "TicketPresupuesto").ToString() = "",
+		True,
+		False
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -334,6 +377,17 @@
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>6</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!ColoniaCodigoPostal.Value = "0",
+	True,
+	iif(
+		First(Fields!Direccion2.Value, "TicketPresupuesto").ToString() = "",
+		True,
+		False
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -366,6 +420,17 @@
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>7</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!RFC.Value = "0",
+	True,
+	iif(
+		First(Fields!RFC.Value, "TicketPresupuesto").ToString() = "",
+		True,
+		False
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -398,6 +463,17 @@
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>8</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!Correo.Value = "0",
+	True,
+	iif(
+		First(Fields!Correo.Value, "TicketPresupuesto").ToString() = "",
+		True,
+		False
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -430,6 +506,17 @@
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>9</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!Telefono.Value = "0",
+	True,
+	iif(
+		First(Fields!Telefono.Value, "TicketPresupuesto").ToString() = "",
+		True,
+		False
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -462,6 +549,17 @@
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>10</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!NombreCliente.Value = "0",
+	True,
+	iif(
+		First(Fields!ClienteNombre.Value, "TicketPresupuesto").ToString() = "",
+		True,
+		False
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -492,6 +590,17 @@
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>11</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!RFCCliente.Value = "0",
+	True,
+	iif(
+		First(Fields!ClienteRFC.Value, "TicketPresupuesto").ToString() = "",
+		True,
+		False
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -522,6 +631,17 @@
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>12</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!DomicilioCliente.Value = "0",
+	True,
+	iif(
+		First(Fields!ClienteDomicilio.Value, "TicketPresupuesto").ToString() = "",
+		True,
+		False
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -552,6 +672,17 @@
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>13</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!ColoniaCodigoPostalCliente.Value = "0",
+	True,
+	iif(
+		First(Fields!ClienteColoniaCodigoPostal.Value, "TicketPresupuesto").ToString() = "",
+		True,
+		False
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -582,6 +713,17 @@
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>14</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!CorreoCliente.Value = "0",
+	True,
+	iif(
+		First(Fields!ClienteCorreo.Value, "TicketPresupuesto").ToString() = "",
+		True,
+		False
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -612,6 +754,17 @@
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>15</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!TelefonoCliente.Value = "0",
+	True,
+	iif(
+		First(Fields!ClienteTelefono.Value, "TicketPresupuesto").ToString() = "",
+		True,
+		False
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -644,6 +797,17 @@
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>16</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!FormaDePagoCliente.Value = "0",
+	True,
+	iif(
+		First(Fields!FormaDePago.Value, "TicketPresupuesto").ToString() = "",
+		True,
+		False
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1153,6 +1317,9 @@
             <Height>1.15604cm</Height>
             <Width>5cm</Width>
             <ZIndex>21</ZIndex>
+            <Visibility>
+              <Hidden>=iif(Parameters!CodigoBarra.Value = "0", True, False)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>

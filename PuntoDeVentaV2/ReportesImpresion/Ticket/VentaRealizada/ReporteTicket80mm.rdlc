@@ -761,7 +761,7 @@
 	Parameters!TelefonoCliente.Value = "0",
 	True,
 	iif(
-		First(Fields!ClienteCorreo.Value, "TicketVenta").ToString() = "",
+		First(Fields!ClienteTelefono.Value, "TicketVenta").ToString() = "",
 		True,
 		False
 	)
@@ -799,6 +799,17 @@
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>16</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!FormaDePagoCliente.Value = "0",
+	True,
+	iif(
+		First(Fields!FormaDePago.Value, "TicketVenta").ToString() = "",
+		True,
+		False
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
