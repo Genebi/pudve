@@ -92,7 +92,54 @@ namespace PuntoDeVentaV2
 
         private void btnReImprimirTicket_Click(object sender, EventArgs e)
         {
+            string cadenaConn = string.Empty;
 
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                cadenaConn = $"datasource={Properties.Settings.Default.Hosting};port=6666;username=root;password=;database=pudve;";
+            }
+            else
+            {
+                cadenaConn = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
+            }
+
+            string queryVenta = cs.visualizadorTicketAbono(idVenta, idAbono);
+
+            MySqlConnection conn = new MySqlConnection();
+
+            conn.ConnectionString = cadenaConn;
+
+            try
+            {
+                conn.Open();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+
+            string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+            MySqlDataAdapter ventaDA = new MySqlDataAdapter(queryVenta, conn);
+            DataTable ventaDT = new DataTable();
+
+            ventaDA.Fill(ventaDT);
+
+            #region Impresion Ticket de 80 mm
+            ReportDataSource rp = new ReportDataSource("TicketAbono", ventaDT);
+
+            string DirectoryImage = string.Empty;
+
+            LocalReport rdlc = new LocalReport();
+            rdlc.EnableExternalImages = true;
+            rdlc.ReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc";
+            rdlc.DataSources.Add(rp);
+            #endregion
+
+            EnviarImprimir imp = new EnviarImprimir();
+            imp.Imprime(rdlc);
+            this.reportViewer1.RefreshReport();
+            this.Close();
         }
     }
 }
