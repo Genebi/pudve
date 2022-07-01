@@ -1214,9 +1214,7 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!DescuentosDeProductos.Value, "TicketPresupuesto")</Value>
-                    <Style>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
+                    <Style />
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -1228,7 +1226,7 @@
             <Top>18.66053cm</Top>
             <Left>1.6cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.16825cm</Width>
+            <Width>6.1111cm</Width>
             <ZIndex>18</ZIndex>
             <Style>
               <Border>
@@ -1248,9 +1246,7 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!TotalGeneral.Value, "TicketPresupuesto")</Value>
-                    <Style>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
+                    <Style />
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -1262,7 +1258,7 @@
             <Top>19.3064cm</Top>
             <Left>1.6cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.16825cm</Width>
+            <Width>6.1111cm</Width>
             <ZIndex>19</ZIndex>
             <Style>
               <Border>
