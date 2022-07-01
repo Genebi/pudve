@@ -837,19 +837,19 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
+                  <Width>1cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.1cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.555cm</Width>
+                </TablixColumn>
+                <TablixColumn>
                   <Width>1.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.6cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>1.2cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>1.2cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>1.2cm</Width>
+                  <Width>1.555cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1041,7 +1041,9 @@
                                   </Style>
                                 </TextRun>
                               </TextRuns>
-                              <Style />
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>ProductoCantidad</rd:DefaultName>
@@ -1213,7 +1215,7 @@
             <Top>16.97101cm</Top>
             <Left>0.1cm</Left>
             <Height>1.2cm</Height>
-            <Width>7.7cm</Width>
+            <Width>7.71cm</Width>
             <ZIndex>18</ZIndex>
             <Style>
               <Border>
