@@ -15,6 +15,7 @@ namespace PuntoDeVentaV2
 {
     public partial class ListaAbonosVenta : Form
     {
+        Conexion cn = new Conexion();
         private int idVenta = 0;
         public ListaAbonosVenta(int idVenta)
         {
@@ -111,28 +112,35 @@ namespace PuntoDeVentaV2
             {
                 if (e.ColumnIndex == 8)
                 {
-                    var servidor = Properties.Settings.Default.Hosting;
                     var idAbono = DGVAbonos.Rows[DGVAbonos.CurrentCell.RowIndex].Cells["ID"].Value.ToString();
+                    var consulta = cn.CargarDatos($"SELECT IDVenta FROM abonos WHERE ID = '{idAbono}'");
+                    string idventa = consulta.Rows[0]["IDVenta"].ToString();
+                    VisualizarTicketAbono ticketAbono = new VisualizarTicketAbono();
+                    ticketAbono.idVenta = Convert.ToInt32(idventa);
+                    ticketAbono.idAbono = Convert.ToInt32(idAbono);
+                    ticketAbono.ShowDialog();
+                    //var servidor = Properties.Settings.Default.Hosting;
+                    //var idAbono = DGVAbonos.Rows[DGVAbonos.CurrentCell.RowIndex].Cells["ID"].Value.ToString();
 
-                    var nombreTicket = $"ticket_abono_{idVenta}_{idAbono}.pdf";
-                    var rutaTicket = @"C:\Archivos PUDVE\Ventas\Tickets\" + nombreTicket;
+                    //var nombreTicket = $"ticket_abono_{idVenta}_{idAbono}.pdf";
+                    //var rutaTicket = @"C:\Archivos PUDVE\Ventas\Tickets\" + nombreTicket;
 
-                    if (!string.IsNullOrWhiteSpace(servidor))
-                    {
-                        rutaTicket = $@"\\{servidor}\Archivos PUDVE\Ventas\Tickets\" + nombreTicket;
-                    }
+                    //if (!string.IsNullOrWhiteSpace(servidor))
+                    //{
+                    //    rutaTicket = $@"\\{servidor}\Archivos PUDVE\Ventas\Tickets\" + nombreTicket;
+                    //}
 
-                    if (File.Exists(rutaTicket))
-                    {
-                        VisualizadorTickets ticket = new VisualizadorTickets(nombreTicket, rutaTicket);
+                    //if (File.Exists(rutaTicket))
+                    //{
+                    //    VisualizadorTickets ticket = new VisualizadorTickets(nombreTicket, rutaTicket);
 
-                        ticket.FormClosed += delegate
-                        {
-                            ticket.Dispose();
-                        };
+                    //    ticket.FormClosed += delegate
+                    //    {
+                    //        ticket.Dispose();
+                    //    };
 
-                        ticket.ShowDialog();
-                    }
+                    //    ticket.ShowDialog();
+                    //}
                 }
 
                 DGVAbonos.ClearSelection();

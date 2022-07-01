@@ -1276,6 +1276,12 @@
     <Compile Include="VisualizadorTickets.Designer.cs">
       <DependentUpon>VisualizadorTickets.cs</DependentUpon>
     </Compile>
+    <Compile Include="VisualizarTicketAbono.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VisualizarTicketAbono.Designer.cs">
+      <DependentUpon>VisualizarTicketAbono.cs</DependentUpon>
+    </Compile>
     <Compile Include="Visualizar_factura.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1787,6 +1793,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VisualizadorTickets.resx">
       <DependentUpon>VisualizadorTickets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VisualizarTicketAbono.resx">
+      <DependentUpon>VisualizarTicketAbono.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Visualizar_factura.resx">
       <DependentUpon>Visualizar_factura.cs</DependentUpon>
