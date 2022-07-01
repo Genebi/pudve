@@ -2597,7 +2597,29 @@ namespace PuntoDeVentaV2
                             // Venta a Credito
                             if (tipoDeBusqueda.Equals(4))
                             {
+                                using (VerTicketCredito8cmListadoVentas imprimirTicketVenta = new VerTicketCredito8cmListadoVentas())
+                                {
+                                    imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
 
+                                    imprimirTicketVenta.Logo = logo;
+                                    imprimirTicketVenta.Nombre = Usuario;
+                                    imprimirTicketVenta.NombreComercial = NombreComercial;
+                                    imprimirTicketVenta.DireccionCiudad = Direccion;
+                                    imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                    imprimirTicketVenta.RFC = RFC;
+                                    imprimirTicketVenta.Correo = Correo;
+                                    imprimirTicketVenta.Telefono = Telefono;
+                                    imprimirTicketVenta.NombreCliente = NombreC;
+                                    imprimirTicketVenta.RFCCliente = RFCC;
+                                    imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                    imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                    imprimirTicketVenta.CorreoCliente = CorreoC;
+                                    imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                    imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                    imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+
+                                    imprimirTicketVenta.ShowDialog();
+                                }
                             }
                         }
                     }

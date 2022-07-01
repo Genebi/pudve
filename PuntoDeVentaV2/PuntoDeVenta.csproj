@@ -1246,6 +1246,12 @@
     <Compile Include="VerTicketCancelado8cmListadoVentas.Designer.cs">
       <DependentUpon>VerTicketCancelado8cmListadoVentas.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerTicketCredito8cmListadoVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerTicketCredito8cmListadoVentas.Designer.cs">
+      <DependentUpon>VerTicketCredito8cmListadoVentas.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerTicketPresupuesto8cmListadoVentas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1766,6 +1772,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VerTicketCancelado8cmListadoVentas.resx">
       <DependentUpon>VerTicketCancelado8cmListadoVentas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerTicketCredito8cmListadoVentas.resx">
+      <DependentUpon>VerTicketCredito8cmListadoVentas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VerTicketPresupuesto8cmListadoVentas.resx">
       <DependentUpon>VerTicketPresupuesto8cmListadoVentas.cs</DependentUpon>
