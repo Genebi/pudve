@@ -3833,7 +3833,40 @@ namespace PuntoDeVentaV2
                             // Imprimir Ticket Venta a Credito
                             if (tipoDeVentaRealizada.Equals(4))
                             {
+                                if (ticket6cm.Equals(1))
+                                {
+                                    //using (imprimirTicket6cm imprimirTicketVenta = new imprimirTicket6cm())
+                                    //{
+                                    //    imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+                                    //    imprimirTicketVenta.ShowDialog();
+                                    //}
+                                }
+                                else if (ticket8cm.Equals(1))
+                                {
+                                    using (ImprimirTicketCredito8cm imprimirTicketVenta = new ImprimirTicketCredito8cm())
+                                    {
+                                        imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
 
+                                        imprimirTicketVenta.Logo = logo;
+                                        imprimirTicketVenta.Nombre = Usuario;
+                                        imprimirTicketVenta.NombreComercial = NombreComercial;
+                                        imprimirTicketVenta.DireccionCiudad = Direccion;
+                                        imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                        imprimirTicketVenta.RFC = RFC;
+                                        imprimirTicketVenta.Correo = Correo;
+                                        imprimirTicketVenta.Telefono = Telefono;
+                                        imprimirTicketVenta.NombreCliente = NombreC;
+                                        imprimirTicketVenta.RFCCliente = RFCC;
+                                        imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                        imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                        imprimirTicketVenta.CorreoCliente = CorreoC;
+                                        imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                        imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                        imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+
+                                        imprimirTicketVenta.ShowDialog();
+                                    }
+                                }
                             }
                         }
                     }
