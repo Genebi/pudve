@@ -744,6 +744,18 @@
     <Compile Include="ImprimirTicketAbono.Designer.cs">
       <DependentUpon>ImprimirTicketAbono.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImprimirTicketCancelado8cm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImprimirTicketCancelado8cm.Designer.cs">
+      <DependentUpon>ImprimirTicketCancelado8cm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImprimirTicketCredito8cm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImprimirTicketCredito8cm.Designer.cs">
+      <DependentUpon>ImprimirTicketCredito8cm.cs</DependentUpon>
+    </Compile>
     <Compile Include="imprimirTicketPresupuesto8cm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1042,10 +1054,26 @@
       <DependentUpon>TicketAbono.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="ReportesImpresion\Ticket\CreditoRealizado\TicketCredito.cs">
+      <DependentUpon>TicketCredito.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="ReportesImpresion\Ticket\CreditoRealizado\TicketCredito.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TicketCredito.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\PresupuestoRealizado\TicketPresupuesto.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TicketPresupuesto.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="ReportesImpresion\Ticket\VentaCancelada\TicketCancelado.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TicketCancelado.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.Designer.cs">
@@ -1212,6 +1240,18 @@
     <Compile Include="VerTicket80mmListadoVentas.Designer.cs">
       <DependentUpon>VerTicket80mmListadoVentas.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerTicketCancelado8cmListadoVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerTicketCancelado8cmListadoVentas.Designer.cs">
+      <DependentUpon>VerTicketCancelado8cmListadoVentas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VerTicketCredito8cmListadoVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerTicketCredito8cmListadoVentas.Designer.cs">
+      <DependentUpon>VerTicketCredito8cmListadoVentas.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerTicketPresupuesto8cmListadoVentas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1235,6 +1275,12 @@
     </Compile>
     <Compile Include="VisualizadorTickets.Designer.cs">
       <DependentUpon>VisualizadorTickets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VisualizarTicketAbono.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VisualizarTicketAbono.Designer.cs">
+      <DependentUpon>VisualizarTicketAbono.cs</DependentUpon>
     </Compile>
     <Compile Include="Visualizar_factura.cs">
       <SubType>Form</SubType>
@@ -1491,6 +1537,12 @@
     <EmbeddedResource Include="ImprimirTicketAbono.resx">
       <DependentUpon>ImprimirTicketAbono.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ImprimirTicketCancelado8cm.resx">
+      <DependentUpon>ImprimirTicketCancelado8cm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImprimirTicketCredito8cm.resx">
+      <DependentUpon>ImprimirTicketCredito8cm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="imprimirTicketPresupuesto8cm.resx">
       <DependentUpon>imprimirTicketPresupuesto8cm.cs</DependentUpon>
     </EmbeddedResource>
@@ -1643,10 +1695,16 @@
     <Content Include="PUDVE\assets\Presupuesto.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc">
+    <EmbeddedResource Include="ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportesImpresion\Ticket\CreditoRealizado\ReporteTicketCredito80mm.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportesImpresion\Ticket\PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportesImpresion\Ticket\VentaCancelada\ReporteTicketCancelado80mm.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm.rdlc">
@@ -1718,6 +1776,12 @@
     <EmbeddedResource Include="VerTicket80mmListadoVentas.resx">
       <DependentUpon>VerTicket80mmListadoVentas.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="VerTicketCancelado8cmListadoVentas.resx">
+      <DependentUpon>VerTicketCancelado8cmListadoVentas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerTicketCredito8cmListadoVentas.resx">
+      <DependentUpon>VerTicketCredito8cmListadoVentas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VerTicketPresupuesto8cmListadoVentas.resx">
       <DependentUpon>VerTicketPresupuesto8cmListadoVentas.cs</DependentUpon>
     </EmbeddedResource>
@@ -1729,6 +1793,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VisualizadorTickets.resx">
       <DependentUpon>VisualizadorTickets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VisualizarTicketAbono.resx">
+      <DependentUpon>VisualizarTicketAbono.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Visualizar_factura.resx">
       <DependentUpon>Visualizar_factura.cs</DependentUpon>
@@ -1768,6 +1835,20 @@
       <DependentUpon>TicketAbono.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="ReportesImpresion\Ticket\CreditoRealizado\TicketCredito.xsc">
+      <DependentUpon>TicketCredito.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="ReportesImpresion\Ticket\CreditoRealizado\TicketCredito.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TicketCredito.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ReportesImpresion\Ticket\CreditoRealizado\TicketCredito.xss">
+      <DependentUpon>TicketCredito.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="ReportesImpresion\Ticket\PresupuestoRealizado\TicketPresupuesto.xsc">
       <DependentUpon>TicketPresupuesto.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1780,6 +1861,20 @@
     </Content>
     <None Include="ReportesImpresion\Ticket\PresupuestoRealizado\TicketPresupuesto.xss">
       <DependentUpon>TicketPresupuesto.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\VentaCancelada\TicketCancelado.xsc">
+      <DependentUpon>TicketCancelado.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="ReportesImpresion\Ticket\VentaCancelada\TicketCancelado.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TicketCancelado.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ReportesImpresion\Ticket\VentaCancelada\TicketCancelado.xss">
+      <DependentUpon>TicketCancelado.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.xsc">

@@ -2,18 +2,18 @@
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="TicketPresupuesto">
+    <DataSource Name="TicketCredito">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>0dc866c7-5500-40a2-a2db-d158ffa7a7f1</rd:DataSourceID>
+      <rd:DataSourceID>069d79c3-1995-4d6f-a50b-f3806012de2f</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="TicketPresupuesto">
+    <DataSet Name="TicketCredito">
       <Query>
-        <DataSourceName>TicketPresupuesto</DataSourceName>
+        <DataSourceName>TicketCredito</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -117,15 +117,15 @@
           <DataField>MensajeDelTicket</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="CodigoBarrasTickectVenta">
-          <DataField>CodigoBarrasTickectVenta</DataField>
+        <Field Name="CodigoBarrasTicketVenta">
+          <DataField>CodigoBarrasTicketVenta</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>TicketPresupuesto</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\Dell\source\repos\pudve\PuntoDeVentaV2\ReportesImpresion\Ticket\PresupuestoRealizado\TicketPresupuesto.xsd</rd:SchemaPath>
-        <rd:TableName>DTTicketPresupuesto</rd:TableName>
+        <rd:DataSetName>TicketCredito</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\Dell\source\repos\pudve\PuntoDeVentaV2\ReportesImpresion\Ticket\CreditoRealizado\TicketCredito.xsd</rd:SchemaPath>
+        <rd:TableName>DTTicketCredito</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
         <rd:TableAdapterName />
@@ -143,9 +143,9 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!FechaDeCompra.Value, "TicketPresupuesto")</Value>
+                    <Value>=First(Fields!FechaDeCompra.Value, "TicketCredito")</Value>
                     <Style>
-                      <FontSize>9pt</FontSize>
+                      <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -153,7 +153,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>FechaDeCompra</rd:DefaultName>
-            <Top>0.2cm</Top>
+            <Top>0.11853cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -174,9 +174,9 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!FolioTicket.Value, "TicketPresupuesto")</Value>
+                    <Value>=First(Fields!FolioTicket.Value, "TicketCredito")</Value>
                     <Style>
-                      <FontSize>9pt</FontSize>
+                      <FontSize>8pt</FontSize>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -184,7 +184,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>FolioTicket</rd:DefaultName>
-            <Top>0.81762cm</Top>
+            <Top>0.73766cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -200,19 +200,34 @@
             </Style>
           </Textbox>
           <Image Name="Image2">
-            <Source>External</Source>
-            <Value>=Parameters!PathLogo.Value+First(Fields!LogoTipo.Value, "TicketPresupuesto")</Value>
+            <Source>Embedded</Source>
+            <Value>Credito</Value>
             <Sizing>Fit</Sizing>
-            <Top>2.56328cm</Top>
+            <Top>1.54199cm</Top>
+            <Left>0.1cm</Left>
+            <Height>0.70583cm</Height>
+            <Width>7.7cm</Width>
+            <ZIndex>2</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Image>
+          <Image Name="Image3">
+            <Source>External</Source>
+            <Value>=Parameters!PathLogo.Value+First(Fields!LogoTipo.Value, "TicketCredito")</Value>
+            <Sizing>FitProportional</Sizing>
+            <Top>2.36749cm</Top>
             <Left>1.5cm</Left>
             <Height>5cm</Height>
             <Width>5cm</Width>
-            <ZIndex>2</ZIndex>
+            <ZIndex>3</ZIndex>
             <Visibility>
               <Hidden>=iif(Parameters!Logo.Value = "0", 
 	True,
 	iif(
-		First(Fields!LogoTipo.Value, "TicketPresupuesto").ToString() = "",
+		First(Fields!LogoTipo.Value, "TicketCredito").ToString() = "",
 		True,
 		False
 	)
@@ -231,7 +246,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!RazonSocial.Value, "TicketPresupuesto")</Value>
+                    <Value>=First(Fields!RazonSocial.Value, "TicketCredito")</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -243,17 +258,17 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>RazonSocial</rd:DefaultName>
-            <Top>7.827cm</Top>
+            <Top>7.62741cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>3</ZIndex>
+            <ZIndex>4</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!Nombre.Value = "0",
 	True,
 	iif(
-		First(Fields!RazonSocial.Value, "TicketPresupuesto").ToString() = "",
+		First(Fields!RazonSocial.Value, "TicketCredito").ToString() = "",
 		True,
 		False
 	)
@@ -276,7 +291,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!NombreComercial.Value, "TicketPresupuesto")</Value>
+                    <Value>=First(Fields!NombreComercial.Value, "TicketCredito")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -286,17 +301,17 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NombreComercial</rd:DefaultName>
-            <Top>8.4582cm</Top>
+            <Top>8.25712cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>4</ZIndex>
+            <ZIndex>5</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!NombreComercial.Value = "0",
 	True,
 	iif(
-		First(Fields!NombreComercial.Value, "TicketPresupuesto").ToString() = "",
+		First(Fields!NombreComercial.Value, "TicketCredito").ToString() = "",
 		True,
 		False
 	)
@@ -319,7 +334,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!Direccion1.Value, "TicketPresupuesto")</Value>
+                    <Value>=First(Fields!Direccion1.Value, "TicketCredito")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -329,17 +344,17 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Direccion1</rd:DefaultName>
-            <Top>9.08791cm</Top>
+            <Top>8.85508cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>5</ZIndex>
+            <ZIndex>6</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!DireccionCiudad.Value = "0",
 	True,
 	iif(
-		First(Fields!Direccion1.Value, "TicketPresupuesto").ToString() = "",
+		First(Fields!Direccion1.Value, "TicketCredito").ToString() = "",
 		True,
 		False
 	)
@@ -362,7 +377,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!Direccion2.Value, "TicketPresupuesto")</Value>
+                    <Value>=First(Fields!Direccion2.Value, "TicketCredito")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -372,17 +387,17 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Direccion2</rd:DefaultName>
-            <Top>9.72291cm</Top>
+            <Top>9.46362cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>6</ZIndex>
+            <ZIndex>7</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!ColoniaCodigoPostal.Value = "0",
 	True,
 	iif(
-		First(Fields!Direccion2.Value, "TicketPresupuesto").ToString() = "",
+		First(Fields!Direccion2.Value, "TicketCredito").ToString() = "",
 		True,
 		False
 	)
@@ -405,7 +420,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!RFC.Value, "TicketPresupuesto")</Value>
+                    <Value>=First(Fields!RFC.Value, "TicketCredito")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -415,17 +430,17 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>RFC</rd:DefaultName>
-            <Top>10.373cm</Top>
+            <Top>10.07745cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>7</ZIndex>
+            <ZIndex>8</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!RFC.Value = "0",
 	True,
 	iif(
-		First(Fields!RFC.Value, "TicketPresupuesto").ToString() = "",
+		First(Fields!RFC.Value, "TicketCredito").ToString() = "",
 		True,
 		False
 	)
@@ -448,7 +463,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!Correo.Value, "TicketPresupuesto")</Value>
+                    <Value>=First(Fields!Correo.Value, "TicketCredito")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -458,17 +473,17 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Correo</rd:DefaultName>
-            <Top>11.01408cm</Top>
+            <Top>10.69658cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>8</ZIndex>
+            <ZIndex>9</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!Correo.Value = "0",
 	True,
 	iif(
-		First(Fields!Correo.Value, "TicketPresupuesto").ToString() = "",
+		First(Fields!Correo.Value, "TicketCredito").ToString() = "",
 		True,
 		False
 	)
@@ -491,7 +506,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!Telefono.Value, "TicketPresupuesto")</Value>
+                    <Value>=First(Fields!Telefono.Value, "TicketCredito")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -501,17 +516,17 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Telefono</rd:DefaultName>
-            <Top>11.64378cm</Top>
+            <Top>11.36862cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>9</ZIndex>
+            <ZIndex>10</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!Telefono.Value = "0",
 	True,
 	iif(
-		First(Fields!Telefono.Value, "TicketPresupuesto").ToString() = "",
+		First(Fields!Telefono.Value, "TicketCredito").ToString() = "",
 		True,
 		False
 	)
@@ -534,7 +549,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!ClienteNombre.Value, "TicketPresupuesto")</Value>
+                    <Value>=First(Fields!ClienteNombre.Value, "TicketCredito")</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -544,17 +559,17 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteNombre</rd:DefaultName>
-            <Top>12.53808cm</Top>
+            <Top>12.23116cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>10</ZIndex>
+            <ZIndex>11</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!NombreCliente.Value = "0",
 	True,
 	iif(
-		First(Fields!ClienteNombre.Value, "TicketPresupuesto").ToString() = "",
+		First(Fields!ClienteNombre.Value, "TicketCredito").ToString() = "",
 		True,
 		False
 	)
@@ -577,7 +592,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!ClienteRFC.Value, "TicketPresupuesto")</Value>
+                    <Value>=First(Fields!ClienteRFC.Value, "TicketCredito")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -585,17 +600,17 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteRFC</rd:DefaultName>
-            <Top>13.16778cm</Top>
+            <Top>12.86616cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>11</ZIndex>
+            <ZIndex>12</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!RFCCliente.Value = "0",
 	True,
 	iif(
-		First(Fields!ClienteRFC.Value, "TicketPresupuesto").ToString() = "",
+		First(Fields!ClienteRFC.Value, "TicketCredito").ToString() = "",
 		True,
 		False
 	)
@@ -618,7 +633,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!ClienteDomicilio.Value, "TicketPresupuesto")</Value>
+                    <Value>=First(Fields!ClienteDomicilio.Value, "TicketCredito")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -626,17 +641,17 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteDomicilio</rd:DefaultName>
-            <Top>13.78162cm</Top>
+            <Top>13.48528cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>12</ZIndex>
+            <ZIndex>13</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!DomicilioCliente.Value = "0",
 	True,
 	iif(
-		First(Fields!ClienteDomicilio.Value, "TicketPresupuesto").ToString() = "",
+		First(Fields!ClienteDomicilio.Value, "TicketCredito").ToString() = "",
 		True,
 		False
 	)
@@ -659,7 +674,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!ClienteColoniaCodigoPostal.Value, "TicketPresupuesto")</Value>
+                    <Value>=First(Fields!ClienteColoniaCodigoPostal.Value, "TicketCredito")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -667,17 +682,17 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteColoniaCodigoPostal</rd:DefaultName>
-            <Top>14.41662cm</Top>
+            <Top>14.09383cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>13</ZIndex>
+            <ZIndex>14</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!ColoniaCodigoPostalCliente.Value = "0",
 	True,
 	iif(
-		First(Fields!ClienteColoniaCodigoPostal.Value, "TicketPresupuesto").ToString() = "",
+		First(Fields!ClienteColoniaCodigoPostal.Value, "TicketCredito").ToString() = "",
 		True,
 		False
 	)
@@ -700,7 +715,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!ClienteCorreo.Value, "TicketPresupuesto")</Value>
+                    <Value>=First(Fields!ClienteCorreo.Value, "TicketCredito")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -708,17 +723,17 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteCorreo</rd:DefaultName>
-            <Top>15.04633cm</Top>
+            <Top>14.71295cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>14</ZIndex>
+            <ZIndex>15</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!CorreoCliente.Value = "0",
 	True,
 	iif(
-		First(Fields!ClienteCorreo.Value, "TicketPresupuesto").ToString() = "",
+		First(Fields!ClienteCorreo.Value, "TicketCredito").ToString() = "",
 		True,
 		False
 	)
@@ -741,7 +756,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!ClienteTelefono.Value, "TicketPresupuesto")</Value>
+                    <Value>=First(Fields!ClienteTelefono.Value, "TicketCredito")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -749,17 +764,17 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteTelefono</rd:DefaultName>
-            <Top>15.65487cm</Top>
+            <Top>15.33737cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>15</ZIndex>
+            <ZIndex>16</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!TelefonoCliente.Value = "0",
 	True,
 	iif(
-		First(Fields!ClienteTelefono.Value, "TicketPresupuesto").ToString() = "",
+		First(Fields!ClienteTelefono.Value, "TicketCredito").ToString() = "",
 		True,
 		False
 	)
@@ -782,7 +797,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!FormaDePago.Value, "TicketPresupuesto")</Value>
+                    <Value>=First(Fields!FormaDePago.Value, "TicketCredito")</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -792,17 +807,17 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>FormaDePago</rd:DefaultName>
-            <Top>16.51212cm</Top>
+            <Top>16.19462cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>16</ZIndex>
+            <ZIndex>17</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!FormaDePagoCliente.Value = "0",
 	True,
 	iif(
-		First(Fields!FormaDePago.Value, "TicketPresupuesto").ToString() = "",
+		First(Fields!FormaDePago.Value, "TicketCredito").ToString() = "",
 		True,
 		False
 	)
@@ -843,7 +858,7 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox21">
+                        <Textbox Name="Textbox28">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -860,7 +875,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox21</rd:DefaultName>
+                          <rd:DefaultName>Textbox28</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -876,7 +891,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox23">
+                        <Textbox Name="Textbox30">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -893,7 +908,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox23</rd:DefaultName>
+                          <rd:DefaultName>Textbox30</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -909,7 +924,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox25">
+                        <Textbox Name="Textbox37">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -926,7 +941,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox25</rd:DefaultName>
+                          <rd:DefaultName>Textbox37</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -942,7 +957,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox27">
+                        <Textbox Name="Textbox43">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -959,7 +974,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox27</rd:DefaultName>
+                          <rd:DefaultName>Textbox43</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -975,7 +990,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox29">
+                        <Textbox Name="Textbox46">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -992,7 +1007,7 @@
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox29</rd:DefaultName>
+                          <rd:DefaultName>Textbox46</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -1194,12 +1209,12 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>TicketPresupuesto</DataSetName>
-            <Top>17.44726cm</Top>
+            <DataSetName>TicketCredito</DataSetName>
+            <Top>16.97101cm</Top>
             <Left>0.1cm</Left>
             <Height>1.2cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>17</ZIndex>
+            <ZIndex>18</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1213,10 +1228,8 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!DescuentosDeProductos.Value, "TicketPresupuesto")</Value>
-                    <Style>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
+                    <Value>=First(Fields!DescuentosDeProductos.Value, "TicketCredito")</Value>
+                    <Style />
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -1225,11 +1238,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>DescuentosDeProductos</rd:DefaultName>
-            <Top>18.66053cm</Top>
+            <Top>18.18428cm</Top>
             <Left>1.6cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.16825cm</Width>
-            <ZIndex>18</ZIndex>
+            <Width>6.2cm</Width>
+            <ZIndex>19</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1247,10 +1260,8 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!TotalGeneral.Value, "TicketPresupuesto")</Value>
-                    <Style>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
+                    <Value>=First(Fields!TotalGeneral.Value, "TicketCredito")</Value>
+                    <Style />
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -1259,11 +1270,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TotalGeneral</rd:DefaultName>
-            <Top>19.3064cm</Top>
+            <Top>18.81399cm</Top>
             <Left>1.6cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.16825cm</Width>
-            <ZIndex>19</ZIndex>
+            <Width>6.2cm</Width>
+            <ZIndex>20</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1281,7 +1292,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!MensajeDelTicket.Value, "TicketPresupuesto")</Value>
+                    <Value>=First(Fields!MensajeDelTicket.Value, "TicketCredito")</Value>
                     <Style>
                       <FontWeight>Bold</FontWeight>
                     </Style>
@@ -1293,11 +1304,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>20.22158cm</Top>
+            <Top>19.72945cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>20</ZIndex>
+            <ZIndex>21</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1308,15 +1319,15 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Image Name="Image3">
+          <Image Name="Image4">
             <Source>External</Source>
             <Value>=Parameters!PathBarCode.Value</Value>
             <Sizing>Fit</Sizing>
-            <Top>21.2852cm</Top>
+            <Top>20.57612cm</Top>
             <Left>1.5cm</Left>
             <Height>1.15604cm</Height>
             <Width>5cm</Width>
-            <ZIndex>21</ZIndex>
+            <ZIndex>22</ZIndex>
             <Visibility>
               <Hidden>=iif(Parameters!CodigoBarra.Value = "0", True, False)</Hidden>
             </Visibility>
@@ -1326,23 +1337,8 @@
               </Border>
             </Style>
           </Image>
-          <Image Name="Image6">
-            <Source>Embedded</Source>
-            <Value>Presupuesto</Value>
-            <Sizing>Fit</Sizing>
-            <Top>1.65751cm</Top>
-            <Left>0.1cm</Left>
-            <Height>0.74907cm</Height>
-            <Width>7.66825cm</Width>
-            <ZIndex>22</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-            </Style>
-          </Image>
         </ReportItems>
-        <Height>22.68995cm</Height>
+        <Height>22.58412cm</Height>
         <Style />
       </Body>
       <Width>8cm</Width>
@@ -1531,15 +1527,13 @@
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <EmbeddedImages>
-    <EmbeddedImage Name="Presupuesto">
+    <EmbeddedImage Name="Credito">
       <MIMEType>image/png</MIMEType>
-      <ImageData>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</ImageData>
+      <ImageData>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</ImageData>
     </EmbeddedImage>
   </EmbeddedImages>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportID>fa53d7a3-c32e-4f02-ab9f-418c8163efb2</rd:ReportID>
+  <rd:ReportID>91d71cc1-5fe7-4546-96fd-b89ffcd032c7</rd:ReportID>
 </Report>

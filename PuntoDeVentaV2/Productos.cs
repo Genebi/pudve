@@ -119,7 +119,8 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
 
         int numfila, index, number_of_rows, i, seleccionadoDato, origenDeLosDatos = 0, editarEstado = 0, numerofila = 0;
-        string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, ClaveProducto, UnidadMedida, filtro, idProductoEditar, impuestoProducto;
+        string Id_Prod_select, buscar,Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, ClaveProducto, UnidadMedida, filtro, idProductoEditar, impuestoProducto;
+        string id = FormPrincipal.userID.ToString();
 
         DataTable dt, dtConsulta, fotos, registros;
         DataGridViewButtonColumn setup, record, barcode, foto, tag, copy;
@@ -457,7 +458,7 @@ namespace PuntoDeVentaV2
                         origenDeLosDatos = 2;
                     }
 
-                    var producto = cn.BuscarProducto(Convert.ToInt32(idProducto), Convert.ToInt32(id));
+                    var producto = cn.BuscarProducto(Convert.ToInt32(idProducto), FormPrincipal.userID);
 
                     string typeProduct = producto[5];
 
@@ -515,7 +516,7 @@ namespace PuntoDeVentaV2
                     }
 
 
-                    var producto = cn.BuscarProducto(Convert.ToInt32(idProducto), Convert.ToInt32(id));
+                    var producto = cn.BuscarProducto(Convert.ToInt32(idProducto), FormPrincipal.userID);
 
                     string typeProduct = producto[5];
 
@@ -1961,19 +1962,19 @@ namespace PuntoDeVentaV2
 
             lbCapital.Text = "Capital: " + mb.CalcularCapital().ToString();
 
-            if (FormPrincipal.id_empleado > 0)
-            {
-                var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Productos");
+            //if (FormPrincipal.id_empleado > 0)
+            //{
+            //    var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Productos");
 
-                opcion1 = permisos[0]; opcion2 = permisos[1]; opcion3 = permisos[2];
-                opcion4 = permisos[3]; opcion5 = permisos[4]; opcion6 = permisos[5];
-                opcion7 = permisos[6]; opcion8 = permisos[7]; opcion9 = permisos[8];
-                opcion10 = permisos[9]; opcion11 = permisos[10]; opcion12 = permisos[11];
-                opcion13 = permisos[12]; opcion14 = permisos[13]; opcion15 = permisos[14];
-                opcion16 = permisos[15]; opcion17 = permisos[16]; opcion18 = permisos[17];
-                opcion19 = permisos[18]; opcion20 = permisos[19]; opcion21 = permisos[20];
-                opcion22 = permisos[21];
-            }
+            //    opcion1 = permisos[0]; opcion2 = permisos[1]; opcion3 = permisos[2];
+            //    opcion4 = permisos[3]; opcion5 = permisos[4]; opcion6 = permisos[5];
+            //    opcion7 = permisos[6]; opcion8 = permisos[7]; opcion9 = permisos[8];
+            //    opcion10 = permisos[9]; opcion11 = permisos[10]; opcion12 = permisos[11];
+            //    opcion13 = permisos[12]; opcion14 = permisos[13]; opcion15 = permisos[14];
+            //    opcion16 = permisos[15]; opcion17 = permisos[16]; opcion18 = permisos[17];
+            //    opcion19 = permisos[18]; opcion20 = permisos[19]; opcion21 = permisos[20];
+            //    opcion22 = permisos[21];
+            //}
 
             var mostrarClave = FormPrincipal.clave;
             if (mostrarClave == 0)
@@ -2178,10 +2179,10 @@ namespace PuntoDeVentaV2
             {
                 recargarBusqueda();
             }
-            else if (txtBusqueda.Text.Equals(""))
-            {
-                recargarBusqueda();
-            }
+            //else if (txtBusqueda.Text.Equals(""))
+            //{
+            //    recargarBusqueda();
+            //}
         }
 
         private void recargarBusqueda()
@@ -4719,7 +4720,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} AND Nombre LIKE '%{busquedaEnProductos}%' OR CodigoBarras LIKE '%{busquedaEnProductos}%'";
+                    consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} AND (Nombre LIKE '%{busquedaEnProductos}%' OR CodigoBarras LIKE '%{busquedaEnProductos}')";
                 }
             }
                

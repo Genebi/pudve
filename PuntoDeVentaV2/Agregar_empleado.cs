@@ -70,7 +70,7 @@ namespace PuntoDeVentaV2
                     var tmp = datos[16].Split('@');
 
                     nombre = datos[15];
-                    usuario = tmp[1];
+                    usuario = tmp[0];
                     password = datos[17];
 
                     txt_nombre.Text = nombre;
