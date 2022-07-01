@@ -1961,19 +1961,19 @@ namespace PuntoDeVentaV2
 
             lbCapital.Text = "Capital: " + mb.CalcularCapital().ToString();
 
-            if (FormPrincipal.id_empleado > 0)
-            {
-                var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Productos");
+            //if (FormPrincipal.id_empleado > 0)
+            //{
+            //    var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Productos");
 
-                opcion1 = permisos[0]; opcion2 = permisos[1]; opcion3 = permisos[2];
-                opcion4 = permisos[3]; opcion5 = permisos[4]; opcion6 = permisos[5];
-                opcion7 = permisos[6]; opcion8 = permisos[7]; opcion9 = permisos[8];
-                opcion10 = permisos[9]; opcion11 = permisos[10]; opcion12 = permisos[11];
-                opcion13 = permisos[12]; opcion14 = permisos[13]; opcion15 = permisos[14];
-                opcion16 = permisos[15]; opcion17 = permisos[16]; opcion18 = permisos[17];
-                opcion19 = permisos[18]; opcion20 = permisos[19]; opcion21 = permisos[20];
-                opcion22 = permisos[21];
-            }
+            //    opcion1 = permisos[0]; opcion2 = permisos[1]; opcion3 = permisos[2];
+            //    opcion4 = permisos[3]; opcion5 = permisos[4]; opcion6 = permisos[5];
+            //    opcion7 = permisos[6]; opcion8 = permisos[7]; opcion9 = permisos[8];
+            //    opcion10 = permisos[9]; opcion11 = permisos[10]; opcion12 = permisos[11];
+            //    opcion13 = permisos[12]; opcion14 = permisos[13]; opcion15 = permisos[14];
+            //    opcion16 = permisos[15]; opcion17 = permisos[16]; opcion18 = permisos[17];
+            //    opcion19 = permisos[18]; opcion20 = permisos[19]; opcion21 = permisos[20];
+            //    opcion22 = permisos[21];
+            //}
 
             var mostrarClave = FormPrincipal.clave;
             if (mostrarClave == 0)

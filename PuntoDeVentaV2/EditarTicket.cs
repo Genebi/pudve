@@ -433,7 +433,7 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.ticket80mm(status));
             }
-            MessageBox.Show("Guardado Correctamente");
+            MessageBox.Show("Guardado Correctamente","Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
 
