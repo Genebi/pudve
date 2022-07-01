@@ -1223,9 +1223,7 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!DescuentosDeProductos.Value, "TicketVenta")</Value>
-                    <Style>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
+                    <Style />
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -1257,9 +1255,7 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!TotalGeneral.Value, "TicketVenta")</Value>
-                    <Style>
-                      <FontWeight>Bold</FontWeight>
-                    </Style>
+                    <Style />
                   </TextRun>
                 </TextRuns>
                 <Style>
