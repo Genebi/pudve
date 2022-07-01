@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="TicketCredito">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>069d79c3-1995-4d6f-a50b-f3806012de2f</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="TicketCredito">
+      <Query>
+        <DataSourceName>TicketCredito</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="FechaDeCompra">
+          <DataField>FechaDeCompra</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FolioTicket">
+          <DataField>FolioTicket</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="LogoTipo">
+          <DataField>LogoTipo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RazonSocial">
+          <DataField>RazonSocial</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="NombreComercial">
+          <DataField>NombreComercial</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Direccion1">
+          <DataField>Direccion1</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Direccion2">
+          <DataField>Direccion2</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="RFC">
+          <DataField>RFC</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Correo">
+          <DataField>Correo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Telefono">
+          <DataField>Telefono</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClienteNombre">
+          <DataField>ClienteNombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClienteRFC">
+          <DataField>ClienteRFC</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClienteDomicilio">
+          <DataField>ClienteDomicilio</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClienteColoniaCodigoPostal">
+          <DataField>ClienteColoniaCodigoPostal</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClienteCorreo">
+          <DataField>ClienteCorreo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ClienteTelefono">
+          <DataField>ClienteTelefono</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="FormaDePago">
+          <DataField>FormaDePago</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ProductoCantidad">
+          <DataField>ProductoCantidad</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ProductoNombre">
+          <DataField>ProductoNombre</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ProductoPrecio">
+          <DataField>ProductoPrecio</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ProductoDescuento">
+          <DataField>ProductoDescuento</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ProductoImporte">
+          <DataField>ProductoImporte</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="DescuentosDeProductos">
+          <DataField>DescuentosDeProductos</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="TotalGeneral">
+          <DataField>TotalGeneral</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MensajeDelTicket">
+          <DataField>MensajeDelTicket</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CodigoBarrasTicketVenta">
+          <DataField>CodigoBarrasTicketVenta</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>TicketCredito</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\Dell\source\repos\pudve\PuntoDeVentaV2\ReportesImpresion\Ticket\CreditoRealizado\TicketCredito.xsd</rd:SchemaPath>
+        <rd:TableName>DTTicketCredito</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Textbox Name="FechaDeCompra">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!FechaDeCompra.Value, "TicketCredito")</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>FechaDeCompra</rd:DefaultName>
+            <Top>0.11853cm</Top>
+            <Left>0.1cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.7cm</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="FolioTicket">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!FolioTicket.Value, "TicketCredito")</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>FolioTicket</rd:DefaultName>
+            <Top>0.73766cm</Top>
+            <Left>0.1cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.7cm</Width>
+            <ZIndex>1</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Image Name="Image2">
+            <Source>Embedded</Source>
+            <Value>Credito</Value>
+            <Sizing>Fit</Sizing>
+            <Top>1.54199cm</Top>
+            <Left>0.1cm</Left>
+            <Height>0.70583cm</Height>
+            <Width>7.7cm</Width>
+            <ZIndex>2</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Image>
+          <Image Name="Image3">
+            <Source>External</Source>
+            <Value>=Parameters!PathLogo.Value+First(Fields!LogoTipo.Value, "TicketCredito")</Value>
+            <Sizing>FitProportional</Sizing>
+            <Top>2.46274cm</Top>
+            <Left>1.5cm</Left>
+            <Height>5cm</Height>
+            <Width>5cm</Width>
+            <ZIndex>3</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Image>
+          <Textbox Name="RazonSocial">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!RazonSocial.Value, "TicketCredito")</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>RazonSocial</rd:DefaultName>
+            <Top>7.88141cm</Top>
+            <Left>0.1cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.7cm</Width>
+            <ZIndex>4</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <Height>22.5cm</Height>
+        <Style />
+      </Body>
+      <Width>8cm</Width>
+      <Page>
+        <PageHeight>22.5cm</PageHeight>
+        <PageWidth>8cm</PageWidth>
+        <LeftMargin>0cm</LeftMargin>
+        <RightMargin>0cm</RightMargin>
+        <TopMargin>0cm</TopMargin>
+        <BottomMargin>0cm</BottomMargin>
+        <ColumnSpacing>0.13cm</ColumnSpacing>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="Logo">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Nombre">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="NombreComercial">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DireccionCiudad">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ColoniaCodigoPostal">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="RFC">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Correo">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Telefono">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="NombreCliente">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="RFCCliente">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="DomicilioCliente">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="ColoniaCodigoPostalCliente">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CorreoCliente">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="TelefonoCliente">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="FormaDePagoCliente">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CodigoBarra">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PathLogo">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PathBarCode">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>5</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Logo</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Nombre</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>NombreComercial</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>DireccionCiudad</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>ColoniaCodigoPostal</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>RFC</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>Correo</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>1</RowIndex>
+          <ParameterName>Telefono</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>2</RowIndex>
+          <ParameterName>NombreCliente</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>2</RowIndex>
+          <ParameterName>RFCCliente</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>2</RowIndex>
+          <ParameterName>DomicilioCliente</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>2</RowIndex>
+          <ParameterName>ColoniaCodigoPostalCliente</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>3</RowIndex>
+          <ParameterName>CorreoCliente</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>3</RowIndex>
+          <ParameterName>TelefonoCliente</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>3</RowIndex>
+          <ParameterName>FormaDePagoCliente</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>3</RowIndex>
+          <ParameterName>CodigoBarra</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>4</RowIndex>
+          <ParameterName>PathLogo</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>4</RowIndex>
+          <ParameterName>PathBarCode</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
+  <EmbeddedImages>
+    <EmbeddedImage Name="Credito">
+      <MIMEType>image/png</MIMEType>
+      <ImageData>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</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <rd:ReportID>91d71cc1-5fe7-4546-96fd-b89ffcd032c7</rd:ReportID>
+</Report>

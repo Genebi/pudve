@@ -405,9 +405,9 @@ namespace PuntoDeVentaV2
             return $"UPDATE Productos SET Stock = '{datos[1]}' WHERE ID = '{datos[0]}' AND IDUsuario = {datos[2]}";
         }
 
-        public string StatusVenta(int id)
+        public string StatusVenta(int idVenta)
         {
-            return $"SELECT Status FROM Ventas WHERE IDusuario = '{id}'";
+            return $"SELECT Status FROM Ventas WHERE IDusuario = '{FormPrincipal.userID}' AND ID = '{idVenta}'";
         }
 
         public string ActualizarVenta(int IDVenta, int status, int IDUsuario)
