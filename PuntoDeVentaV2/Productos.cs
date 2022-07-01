@@ -119,7 +119,8 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
 
         int numfila, index, number_of_rows, i, seleccionadoDato, origenDeLosDatos = 0, editarEstado = 0, numerofila = 0;
-        string Id_Prod_select, buscar, id, Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, ClaveProducto, UnidadMedida, filtro, idProductoEditar, impuestoProducto;
+        string Id_Prod_select, buscar,Nombre, Precio, Stock, ClaveInterna, CodigoBarras, status, ClaveProducto, UnidadMedida, filtro, idProductoEditar, impuestoProducto;
+        string id = FormPrincipal.userID.ToString();
 
         DataTable dt, dtConsulta, fotos, registros;
         DataGridViewButtonColumn setup, record, barcode, foto, tag, copy;
@@ -457,7 +458,7 @@ namespace PuntoDeVentaV2
                         origenDeLosDatos = 2;
                     }
 
-                    var producto = cn.BuscarProducto(Convert.ToInt32(idProducto), Convert.ToInt32(id));
+                    var producto = cn.BuscarProducto(Convert.ToInt32(idProducto), FormPrincipal.userID);
 
                     string typeProduct = producto[5];
 
@@ -515,7 +516,7 @@ namespace PuntoDeVentaV2
                     }
 
 
-                    var producto = cn.BuscarProducto(Convert.ToInt32(idProducto), Convert.ToInt32(id));
+                    var producto = cn.BuscarProducto(Convert.ToInt32(idProducto), FormPrincipal.userID);
 
                     string typeProduct = producto[5];
 
@@ -2178,10 +2179,10 @@ namespace PuntoDeVentaV2
             {
                 recargarBusqueda();
             }
-            else if (txtBusqueda.Text.Equals(""))
-            {
-                recargarBusqueda();
-            }
+            //else if (txtBusqueda.Text.Equals(""))
+            //{
+            //    recargarBusqueda();
+            //}
         }
 
         private void recargarBusqueda()
@@ -4719,7 +4720,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} AND Nombre LIKE '%{busquedaEnProductos}%' OR CodigoBarras LIKE '%{busquedaEnProductos}%'";
+                    consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} AND (Nombre LIKE '%{busquedaEnProductos}%' OR CodigoBarras LIKE '%{busquedaEnProductos}')";
                 }
             }
                
