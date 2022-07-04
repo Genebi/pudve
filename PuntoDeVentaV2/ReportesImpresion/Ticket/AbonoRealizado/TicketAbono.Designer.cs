@@ -291,6 +291,18 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado {
             
             private global::System.Data.DataColumn columnTelefono;
             
+            private global::System.Data.DataColumn columnClienteNombre;
+            
+            private global::System.Data.DataColumn columnClienteRFC;
+            
+            private global::System.Data.DataColumn columnClienteDomicilio;
+            
+            private global::System.Data.DataColumn columnClienteColoniaCodigoPostal;
+            
+            private global::System.Data.DataColumn columnClienteCorreo;
+            
+            private global::System.Data.DataColumn columnClienteTelefono;
+            
             private global::System.Data.DataColumn columnIDVenta;
             
             private global::System.Data.DataColumn columnTotalOriginal;
@@ -388,6 +400,54 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ClienteNombreColumn {
+                get {
+                    return this.columnClienteNombre;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ClienteRFCColumn {
+                get {
+                    return this.columnClienteRFC;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ClienteDomicilioColumn {
+                get {
+                    return this.columnClienteDomicilio;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ClienteColoniaCodigoPostalColumn {
+                get {
+                    return this.columnClienteColoniaCodigoPostal;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ClienteCorreoColumn {
+                get {
+                    return this.columnClienteCorreo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ClienteTelefonoColumn {
+                get {
+                    return this.columnClienteTelefono;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn IDVentaColumn {
                 get {
                     return this.columnIDVenta;
@@ -479,7 +539,26 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DataTable1Row AddDataTable1Row(string RazonSocial, string Domicilio, string ColyCP, string RFC, string Correo, string Telefono, string IDVenta, string TotalOriginal, string SaldoAnterior, string CantidadAbonada, string CantidadRestante, string FechaUltimoAbono, string Comprobante) {
+            public DataTable1Row AddDataTable1Row(
+                        string RazonSocial, 
+                        string Domicilio, 
+                        string ColyCP, 
+                        string RFC, 
+                        string Correo, 
+                        string Telefono, 
+                        string ClienteNombre, 
+                        string ClienteRFC, 
+                        string ClienteDomicilio, 
+                        string ClienteColoniaCodigoPostal, 
+                        string ClienteCorreo, 
+                        string ClienteTelefono, 
+                        string IDVenta, 
+                        string TotalOriginal, 
+                        string SaldoAnterior, 
+                        string CantidadAbonada, 
+                        string CantidadRestante, 
+                        string FechaUltimoAbono, 
+                        string Comprobante) {
                 DataTable1Row rowDataTable1Row = ((DataTable1Row)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         RazonSocial,
@@ -488,6 +567,12 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado {
                         RFC,
                         Correo,
                         Telefono,
+                        ClienteNombre,
+                        ClienteRFC,
+                        ClienteDomicilio,
+                        ClienteColoniaCodigoPostal,
+                        ClienteCorreo,
+                        ClienteTelefono,
                         IDVenta,
                         TotalOriginal,
                         SaldoAnterior,
@@ -523,6 +608,12 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado {
                 this.columnRFC = base.Columns["RFC"];
                 this.columnCorreo = base.Columns["Correo"];
                 this.columnTelefono = base.Columns["Telefono"];
+                this.columnClienteNombre = base.Columns["ClienteNombre"];
+                this.columnClienteRFC = base.Columns["ClienteRFC"];
+                this.columnClienteDomicilio = base.Columns["ClienteDomicilio"];
+                this.columnClienteColoniaCodigoPostal = base.Columns["ClienteColoniaCodigoPostal"];
+                this.columnClienteCorreo = base.Columns["ClienteCorreo"];
+                this.columnClienteTelefono = base.Columns["ClienteTelefono"];
                 this.columnIDVenta = base.Columns["IDVenta"];
                 this.columnTotalOriginal = base.Columns["TotalOriginal"];
                 this.columnSaldoAnterior = base.Columns["SaldoAnterior"];
@@ -547,6 +638,18 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado {
                 base.Columns.Add(this.columnCorreo);
                 this.columnTelefono = new global::System.Data.DataColumn("Telefono", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTelefono);
+                this.columnClienteNombre = new global::System.Data.DataColumn("ClienteNombre", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnClienteNombre);
+                this.columnClienteRFC = new global::System.Data.DataColumn("ClienteRFC", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnClienteRFC);
+                this.columnClienteDomicilio = new global::System.Data.DataColumn("ClienteDomicilio", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnClienteDomicilio);
+                this.columnClienteColoniaCodigoPostal = new global::System.Data.DataColumn("ClienteColoniaCodigoPostal", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnClienteColoniaCodigoPostal);
+                this.columnClienteCorreo = new global::System.Data.DataColumn("ClienteCorreo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnClienteCorreo);
+                this.columnClienteTelefono = new global::System.Data.DataColumn("ClienteTelefono", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnClienteTelefono);
                 this.columnIDVenta = new global::System.Data.DataColumn("IDVenta", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIDVenta);
                 this.columnTotalOriginal = new global::System.Data.DataColumn("TotalOriginal", typeof(string), null, global::System.Data.MappingType.Element);
@@ -799,6 +902,103 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ClienteNombre {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.ClienteNombreColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ClienteNombre\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.ClienteNombreColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ClienteRFC {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.ClienteRFCColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ClienteRFC\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.ClienteRFCColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ClienteDomicilio {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.ClienteDomicilioColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ClienteDomicilio\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.ClienteDomicilioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ClienteColoniaCodigoPostal {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.ClienteColoniaCodigoPostalColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ClienteColoniaCodigoPostal\' in table \'DataTable1\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.ClienteColoniaCodigoPostalColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ClienteCorreo {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.ClienteCorreoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ClienteCorreo\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.ClienteCorreoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ClienteTelefono {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataTable1.ClienteTelefonoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'ClienteTelefono\' in table \'DataTable1\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataTable1.ClienteTelefonoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string IDVenta {
                 get {
                     try {
@@ -979,6 +1179,78 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetTelefonoNull() {
                 this[this.tableDataTable1.TelefonoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsClienteNombreNull() {
+                return this.IsNull(this.tableDataTable1.ClienteNombreColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetClienteNombreNull() {
+                this[this.tableDataTable1.ClienteNombreColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsClienteRFCNull() {
+                return this.IsNull(this.tableDataTable1.ClienteRFCColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetClienteRFCNull() {
+                this[this.tableDataTable1.ClienteRFCColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsClienteDomicilioNull() {
+                return this.IsNull(this.tableDataTable1.ClienteDomicilioColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetClienteDomicilioNull() {
+                this[this.tableDataTable1.ClienteDomicilioColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsClienteColoniaCodigoPostalNull() {
+                return this.IsNull(this.tableDataTable1.ClienteColoniaCodigoPostalColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetClienteColoniaCodigoPostalNull() {
+                this[this.tableDataTable1.ClienteColoniaCodigoPostalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsClienteCorreoNull() {
+                return this.IsNull(this.tableDataTable1.ClienteCorreoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetClienteCorreoNull() {
+                this[this.tableDataTable1.ClienteCorreoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsClienteTelefonoNull() {
+                return this.IsNull(this.tableDataTable1.ClienteTelefonoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetClienteTelefonoNull() {
+                this[this.tableDataTable1.ClienteTelefonoColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
