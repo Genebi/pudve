@@ -822,19 +822,19 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1cm</Width>
+                  <Width>0.998cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.1cm</Width>
+                  <Width>2.098cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.555cm</Width>
+                  <Width>1.553cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.5cm</Width>
+                  <Width>1.498cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.555cm</Width>
+                  <Width>1.553cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1200,7 +1200,7 @@
             <Top>17.44726cm</Top>
             <Left>0.1cm</Left>
             <Height>1.2cm</Height>
-            <Width>7.71cm</Width>
+            <Width>7.7cm</Width>
             <ZIndex>17</ZIndex>
             <Style>
               <Border>
@@ -1226,9 +1226,9 @@
             </Paragraphs>
             <rd:DefaultName>DescuentosDeProductos</rd:DefaultName>
             <Top>18.66053cm</Top>
-            <Left>1.6cm</Left>
+            <Left>1.098cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.1111cm</Width>
+            <Width>6.702cm</Width>
             <ZIndex>18</ZIndex>
             <Style>
               <Border>
@@ -1258,9 +1258,9 @@
             </Paragraphs>
             <rd:DefaultName>TotalGeneral</rd:DefaultName>
             <Top>19.3064cm</Top>
-            <Left>1.6cm</Left>
+            <Left>1.098cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.1111cm</Width>
+            <Width>6.75cm</Width>
             <ZIndex>19</ZIndex>
             <Style>
               <Border>
