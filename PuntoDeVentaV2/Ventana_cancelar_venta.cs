@@ -298,7 +298,7 @@ namespace PuntoDeVentaV2
                                                     using (ImprimirTicketCancelado8cm imprimirTicketVenta = new ImprimirTicketCancelado8cm())
                                                     {
                                                         imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
-
+                                                            
                                                         imprimirTicketVenta.Logo = logo;
                                                         imprimirTicketVenta.Nombre = Usuario;
                                                         imprimirTicketVenta.NombreComercial = NombreComercial;
