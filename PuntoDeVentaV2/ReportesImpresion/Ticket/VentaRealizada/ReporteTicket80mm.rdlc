@@ -824,19 +824,19 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1cm</Width>
+                  <Width>1.008cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.1cm</Width>
+                  <Width>2.108cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.555cm</Width>
+                  <Width>1.563cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.5cm</Width>
+                  <Width>1.508cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.555cm</Width>
+                  <Width>1.563cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1051,7 +1051,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1207,9 +1206,9 @@
             </TablixRowHierarchy>
             <DataSetName>TicketVenta</DataSetName>
             <Top>16.45313cm</Top>
-            <Left>0.15cm</Left>
+            <Left>0.1cm</Left>
             <Height>1.2cm</Height>
-            <Width>7.71cm</Width>
+            <Width>7.75cm</Width>
             <ZIndex>17</ZIndex>
             <Style>
               <Border>
@@ -1236,9 +1235,9 @@
             </Paragraphs>
             <rd:DefaultName>DescuentosDeProductos</rd:DefaultName>
             <Top>17.71255cm</Top>
-            <Left>1.15cm</Left>
+            <Left>1.108cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.7cm</Width>
+            <Width>6.692cm</Width>
             <ZIndex>18</ZIndex>
             <Style>
               <Border>
@@ -1268,9 +1267,9 @@
             </Paragraphs>
             <rd:DefaultName>TotalGeneral</rd:DefaultName>
             <Top>18.33018cm</Top>
-            <Left>1.15cm</Left>
+            <Left>1.108cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.7cm</Width>
+            <Width>6.692cm</Width>
             <ZIndex>19</ZIndex>
             <Style>
               <Border>
