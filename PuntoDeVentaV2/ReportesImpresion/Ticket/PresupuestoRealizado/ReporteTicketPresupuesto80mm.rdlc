@@ -204,7 +204,7 @@
             <Value>=Parameters!PathLogo.Value+First(Fields!LogoTipo.Value, "TicketPresupuesto")</Value>
             <Sizing>Fit</Sizing>
             <Top>2.56328cm</Top>
-            <Left>1.5cm</Left>
+            <Left>1.53175cm</Left>
             <Height>5cm</Height>
             <Width>5cm</Width>
             <ZIndex>2</ZIndex>

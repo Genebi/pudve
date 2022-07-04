@@ -1289,9 +1289,9 @@
             </Paragraphs>
             <rd:DefaultName>DescuentosDeProductos</rd:DefaultName>
             <Top>18.44871cm</Top>
-            <Left>1.118cm</Left>
+            <Left>1.1cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.692cm</Width>
+            <Width>6.7cm</Width>
             <ZIndex>21</ZIndex>
             <Style>
               <Border>
@@ -1321,9 +1321,9 @@
             </Paragraphs>
             <rd:DefaultName>TotalGeneral</rd:DefaultName>
             <Top>19.06634cm</Top>
-            <Left>1.118cm</Left>
+            <Left>1.1cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.692cm</Width>
+            <Width>6.75cm</Width>
             <ZIndex>22</ZIndex>
             <Style>
               <Border>
