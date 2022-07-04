@@ -835,19 +835,19 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1cm</Width>
+                  <Width>0.998cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.1cm</Width>
+                  <Width>2.098cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.555cm</Width>
+                  <Width>1.553cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.5cm</Width>
+                  <Width>1.498cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.555cm</Width>
+                  <Width>1.553cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1056,7 +1056,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1214,7 +1213,7 @@
             <Top>17.20638cm</Top>
             <Left>0.1cm</Left>
             <Height>1.2cm</Height>
-            <Width>7.71cm</Width>
+            <Width>7.7cm</Width>
             <ZIndex>18</ZIndex>
             <Style>
               <Border>
@@ -1240,9 +1239,9 @@
             </Paragraphs>
             <rd:DefaultName>DescuentosDeProductos</rd:DefaultName>
             <Top>18.41712cm</Top>
-            <Left>1.6cm</Left>
+            <Left>1.098cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.1111cm</Width>
+            <Width>6.702cm</Width>
             <ZIndex>19</ZIndex>
             <Style>
               <Border>
@@ -1272,9 +1271,9 @@
             </Paragraphs>
             <rd:DefaultName>TotalGeneral</rd:DefaultName>
             <Top>19.05212cm</Top>
-            <Left>1.6cm</Left>
+            <Left>1.098cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.1111cm</Width>
+            <Width>6.702cm</Width>
             <ZIndex>20</ZIndex>
             <Style>
               <Border>
