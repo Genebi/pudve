@@ -117,8 +117,8 @@
           <DataField>MensajeDelTicket</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="CodigoBarrasTicketVenta">
-          <DataField>CodigoBarrasTicketVenta</DataField>
+        <Field Name="CodigoBarrasTicketCancelado">
+          <DataField>CodigoBarrasTicketCancelado</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -835,19 +835,19 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>0.998cm</Width>
+                  <Width>1cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.098cm</Width>
+                  <Width>2.1cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.553cm</Width>
+                  <Width>1.555cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.498cm</Width>
+                  <Width>1.5cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.553cm</Width>
+                  <Width>1.555cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -1213,7 +1213,7 @@
             <Top>17.20638cm</Top>
             <Left>0.1cm</Left>
             <Height>1.2cm</Height>
-            <Width>7.7cm</Width>
+            <Width>7.71cm</Width>
             <ZIndex>18</ZIndex>
             <Style>
               <Border>
@@ -1221,6 +1221,56 @@
               </Border>
             </Style>
           </Tablix>
+          <Textbox Name="MensajeDelTicket">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!MensajeDelTicket.Value, "TicketCancelado")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
+            <Top>20.30624cm</Top>
+            <Left>0.1cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.7cm</Width>
+            <ZIndex>19</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Image Name="Image3">
+            <Source>External</Source>
+            <Value>=Parameters!PathBarCode.Value</Value>
+            <Sizing>Fit</Sizing>
+            <Top>21.29049cm</Top>
+            <Left>1.5cm</Left>
+            <Height>1.15604cm</Height>
+            <Width>5cm</Width>
+            <ZIndex>20</ZIndex>
+            <Visibility>
+              <Hidden>=iif(Parameters!CodigoBarra.Value = "0", True, False)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Image>
           <Textbox Name="DescuentosDeProductos">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -1238,11 +1288,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>DescuentosDeProductos</rd:DefaultName>
-            <Top>18.41712cm</Top>
-            <Left>1.098cm</Left>
+            <Top>18.44871cm</Top>
+            <Left>1.118cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.702cm</Width>
-            <ZIndex>19</ZIndex>
+            <Width>6.692cm</Width>
+            <ZIndex>21</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1270,71 +1320,21 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TotalGeneral</rd:DefaultName>
-            <Top>19.05212cm</Top>
-            <Left>1.098cm</Left>
+            <Top>19.06634cm</Top>
+            <Left>1.118cm</Left>
             <Height>0.6cm</Height>
-            <Width>6.702cm</Width>
-            <ZIndex>20</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="MensajeDelTicket">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=First(Fields!MensajeDelTicket.Value, "TicketCancelado")</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Center</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>20.30624cm</Top>
-            <Left>0.1cm</Left>
-            <Height>0.6cm</Height>
-            <Width>7.7cm</Width>
-            <ZIndex>21</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Image Name="Image3">
-            <Source>External</Source>
-            <Value>=Parameters!PathBarCode.Value</Value>
-            <Sizing>Fit</Sizing>
-            <Top>21.29049cm</Top>
-            <Left>1.5cm</Left>
-            <Height>1.15604cm</Height>
-            <Width>5cm</Width>
+            <Width>6.692cm</Width>
             <ZIndex>22</ZIndex>
-            <Visibility>
-              <Hidden>=iif(Parameters!CodigoBarra.Value = "0", True, False)</Hidden>
-            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
               </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
             </Style>
-          </Image>
+          </Textbox>
         </ReportItems>
         <Height>22.98099cm</Height>
         <Style />
