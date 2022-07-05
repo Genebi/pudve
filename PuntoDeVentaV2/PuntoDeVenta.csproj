@@ -1701,9 +1701,9 @@
     <Content Include="ReportesImpresion\Ticket\CreditoRealizado\ReporteTicketCredito80mm.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="ReportesImpresion\Ticket\PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc">
+    <Content Include="ReportesImpresion\Ticket\PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
     <EmbeddedResource Include="ReportesImpresion\Ticket\VentaCancelada\ReporteTicketCancelado80mm.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
