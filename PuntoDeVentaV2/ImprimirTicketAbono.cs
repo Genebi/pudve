@@ -57,13 +57,15 @@ namespace PuntoDeVentaV2
             }
 
             string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
+            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc";
 
             MySqlDataAdapter ventaDA = new MySqlDataAdapter(queryVenta, conn);
             DataTable ventaDT = new DataTable();
 
             ventaDA.Fill(ventaDT);
 
+            this.reportViewer1.ProcessingMode = ProcessingMode.Local;
+            this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             this.reportViewer1.LocalReport.DataSources.Clear();
 
             #region Impresion Ticket de 80 mm
@@ -78,7 +80,7 @@ namespace PuntoDeVentaV2
 
             LocalReport rdlc = new LocalReport();
             rdlc.EnableExternalImages = true;
-            rdlc.ReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc";
+            rdlc.ReportPath = FullReportPath;
             rdlc.DataSources.Add(rp);
             #endregion
 
