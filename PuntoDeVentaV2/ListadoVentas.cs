@@ -2441,7 +2441,12 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
+                            using (VerTicketCajaAbierta8cmListadoVentas imprimirTicketVenta = new VerTicketCajaAbierta8cmListadoVentas())
+                            {
+                                imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
 
+                                imprimirTicketVenta.ShowDialog();
+                            }
                         }
                     }
                     else

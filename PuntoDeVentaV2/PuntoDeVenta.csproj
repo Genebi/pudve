@@ -1246,6 +1246,12 @@
     <Compile Include="VerTicket80mmListadoVentas.Designer.cs">
       <DependentUpon>VerTicket80mmListadoVentas.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerTicketCajaAbierta8cmListadoVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerTicketCajaAbierta8cmListadoVentas.Designer.cs">
+      <DependentUpon>VerTicketCajaAbierta8cmListadoVentas.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerTicketCancelado8cmListadoVentas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1716,7 +1722,9 @@
     <Content Include="ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="ReportesImpresion\Ticket\AbrirCaja\ReporteTicketAbrirCaja80mm.rdlc" />
+    <Content Include="ReportesImpresion\Ticket\AbrirCaja\ReporteTicketAbrirCaja80mm.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -1782,6 +1790,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VerTicket80mmListadoVentas.resx">
       <DependentUpon>VerTicket80mmListadoVentas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerTicketCajaAbierta8cmListadoVentas.resx">
+      <DependentUpon>VerTicketCajaAbierta8cmListadoVentas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VerTicketCancelado8cmListadoVentas.resx">
       <DependentUpon>VerTicketCancelado8cmListadoVentas.cs</DependentUpon>
