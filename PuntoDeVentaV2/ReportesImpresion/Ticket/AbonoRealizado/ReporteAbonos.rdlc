@@ -21,8 +21,6 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>RazonSocial</rd:DefaultName>
-        <Top>0cm</Top>
-        <Left>0cm</Left>
         <Height>0.6cm</Height>
         <Width>8cm</Width>
         <Visibility>
@@ -349,7 +347,6 @@
         </Paragraphs>
         <rd:DefaultName>Textbox22</rd:DefaultName>
         <Top>10.17883cm</Top>
-        <Left>0cm</Left>
         <Height>0.6cm</Height>
         <Width>4.9518cm</Width>
         <ZIndex>10</ZIndex>
@@ -535,7 +532,6 @@
         </Paragraphs>
         <rd:DefaultName>Comprobante</rd:DefaultName>
         <Top>12.43215cm</Top>
-        <Left>0cm</Left>
         <Height>0.6cm</Height>
         <Width>7.97354cm</Width>
         <ZIndex>16</ZIndex>
@@ -565,7 +561,6 @@
         </Paragraphs>
         <rd:DefaultName>Textbox3</rd:DefaultName>
         <Top>10.65536cm</Top>
-        <Left>0cm</Left>
         <Height>0.6cm</Height>
         <Width>4.9518cm</Width>
         <ZIndex>17</ZIndex>

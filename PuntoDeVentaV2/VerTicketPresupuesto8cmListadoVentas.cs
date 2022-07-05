@@ -57,7 +57,7 @@ namespace PuntoDeVentaV2
             string queryPresupuestoRealizado = cs.imprimirTicketPresupuesto(idVentaRealizada);
             MySqlConnection conn = new MySqlConnection();
             string pathApplication = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\PresupuestoRealizado\ReporteTicket80mm.rdlc";
+            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc";
             string DirectoryImage = string.Empty;
             string path = string.Empty;
             string pathBarCode = $@"C:\Archivos PUDVE\Ventas\Tickets\BarCode\";
@@ -232,7 +232,7 @@ namespace PuntoDeVentaV2
             string queryPresupuestoRealizado = cs.imprimirTicketPresupuesto(idVentaRealizada);
             MySqlConnection conn = new MySqlConnection();
             string pathApplication = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\PresupuestoRealizado\ReporteTicket80mm.rdlc";
+            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc";
             string DirectoryImage = string.Empty;
             string path = string.Empty;
             string pathBarCode = $@"C:\Archivos PUDVE\Ventas\Tickets\BarCode\";
