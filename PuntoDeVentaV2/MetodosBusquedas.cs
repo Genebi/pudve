@@ -1234,7 +1234,7 @@ namespace PuntoDeVentaV2
         {
             Dictionary<int, string> lista = new Dictionary<int, string>();
 
-            DatosConexion($"SELECT * FROM DetalleGeneral WHERE IDUsuario = {idUsuario} AND ChckName = '{propiedad}'");
+            DatosConexion($"SELECT * FROM DetalleGeneral WHERE IDUsuario = {idUsuario} AND ChckName = '{propiedad}' AND Mostrar = 1");
 
             MySqlDataReader dr = sql_cmd.ExecuteReader();
 

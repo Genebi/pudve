@@ -534,18 +534,5 @@ namespace PuntoDeVentaV2
                 this.Close();
             }
         }
-
-        private void cbStock_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        //private void cbCustom_SelectionChangeCommitted(object sender, EventArgs e)
-        //{
-        //    var comboBoxCutom = (ComboBox)sender;
-        //    var opcion = comboBoxCutom.SelectedValue;
-
-        //    MessageBox.Show(opcion.ToString());
-        //}
     }
 }
