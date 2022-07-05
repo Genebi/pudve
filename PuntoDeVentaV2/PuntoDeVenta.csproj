@@ -1716,6 +1716,7 @@
     <Content Include="ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="ReportesImpresion\Ticket\AbrirCaja\ReporteTicketAbrirCaja80mm.rdlc" />
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
