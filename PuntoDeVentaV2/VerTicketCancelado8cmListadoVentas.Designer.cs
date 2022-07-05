@@ -49,8 +49,6 @@ namespace PuntoDeVentaV2
             // reportViewer1
             // 
             this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.reportViewer1.LocalReport.ReportEmbeddedResource = "PuntoDeVentaV2.ReportesImpresion.Ticket.VentaCancelada.ReporteTicketCancelado80mm" +
-    ".rdlc";
             this.reportViewer1.Location = new System.Drawing.Point(0, 0);
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.ServerReport.BearerToken = null;
