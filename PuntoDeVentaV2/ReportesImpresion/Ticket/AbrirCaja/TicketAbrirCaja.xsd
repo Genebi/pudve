@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="TicketAbrirCaja" targetNamespace="http://tempuri.org/TicketAbrirCaja.xsd" xmlns:mstns="http://tempuri.org/TicketAbrirCaja.xsd" xmlns="http://tempuri.org/TicketAbrirCaja.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="TicketAbrirCaja" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="TicketAbrirCaja" msprop:Generator_UserDSName="TicketAbrirCaja">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DTAbrirCaja" msprop:Generator_TableClassName="DTAbrirCajaDataTable" msprop:Generator_TableVarName="tableDTAbrirCaja" msprop:Generator_TablePropName="DTAbrirCaja" msprop:Generator_RowDeletingName="DTAbrirCajaRowDeleting" msprop:Generator_RowChangingName="DTAbrirCajaRowChanging" msprop:Generator_RowEvHandlerName="DTAbrirCajaRowChangeEventHandler" msprop:Generator_RowDeletedName="DTAbrirCajaRowDeleted" msprop:Generator_UserTableName="DTAbrirCaja" msprop:Generator_RowChangedName="DTAbrirCajaRowChanged" msprop:Generator_RowEvArgName="DTAbrirCajaRowChangeEvent" msprop:Generator_RowClassName="DTAbrirCajaRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="LogoTipo" msprop:Generator_ColumnVarNameInTable="columnLogoTipo" msprop:Generator_ColumnPropNameInRow="LogoTipo" msprop:Generator_ColumnPropNameInTable="LogoTipoColumn" msprop:Generator_UserColumnName="LogoTipo" type="xs:string" minOccurs="0" />
+              <xs:element name="RazonSocial" msprop:Generator_ColumnVarNameInTable="columnRazonSocial" msprop:Generator_ColumnPropNameInRow="RazonSocial" msprop:Generator_ColumnPropNameInTable="RazonSocialColumn" msprop:Generator_UserColumnName="RazonSocial" type="xs:string" minOccurs="0" />
+              <xs:element name="NombreComercial" msprop:Generator_ColumnVarNameInTable="columnNombreComercial" msprop:Generator_ColumnPropNameInRow="NombreComercial" msprop:Generator_ColumnPropNameInTable="NombreComercialColumn" msprop:Generator_UserColumnName="NombreComercial" type="xs:string" minOccurs="0" />
+              <xs:element name="Direccion1" msprop:Generator_ColumnVarNameInTable="columnDireccion1" msprop:Generator_ColumnPropNameInRow="Direccion1" msprop:Generator_ColumnPropNameInTable="Direccion1Column" msprop:Generator_UserColumnName="Direccion1" type="xs:string" minOccurs="0" />
+              <xs:element name="Direccion2" msprop:Generator_ColumnVarNameInTable="columnDireccion2" msprop:Generator_ColumnPropNameInRow="Direccion2" msprop:Generator_ColumnPropNameInTable="Direccion2Column" msprop:Generator_UserColumnName="Direccion2" type="xs:string" minOccurs="0" />
+              <xs:element name="RFC" msprop:Generator_ColumnVarNameInTable="columnRFC" msprop:Generator_ColumnPropNameInRow="RFC" msprop:Generator_ColumnPropNameInTable="RFCColumn" msprop:Generator_UserColumnName="RFC" type="xs:string" minOccurs="0" />
+              <xs:element name="Correo" msprop:Generator_ColumnVarNameInTable="columnCorreo" msprop:Generator_ColumnPropNameInRow="Correo" msprop:Generator_ColumnPropNameInTable="CorreoColumn" msprop:Generator_UserColumnName="Correo" type="xs:string" minOccurs="0" />
+              <xs:element name="Telefono" msprop:Generator_ColumnVarNameInTable="columnTelefono" msprop:Generator_ColumnPropNameInRow="Telefono" msprop:Generator_ColumnPropNameInTable="TelefonoColumn" msprop:Generator_UserColumnName="Telefono" type="xs:string" minOccurs="0" />
+              <xs:element name="TipoDeMovimiento" msprop:Generator_ColumnVarNameInTable="columnTipoDeMovimiento" msprop:Generator_ColumnPropNameInRow="TipoDeMovimiento" msprop:Generator_ColumnPropNameInTable="TipoDeMovimientoColumn" msprop:Generator_UserColumnName="TipoDeMovimiento" type="xs:string" minOccurs="0" />
+              <xs:element name="NombreEmpleado" msprop:Generator_ColumnVarNameInTable="columnNombreEmpleado" msprop:Generator_ColumnPropNameInRow="NombreEmpleado" msprop:Generator_ColumnPropNameInTable="NombreEmpleadoColumn" msprop:Generator_UserColumnName="NombreEmpleado" type="xs:string" minOccurs="0" />
+              <xs:element name="UsuarioEmpleado" msprop:Generator_ColumnVarNameInTable="columnUsuarioEmpleado" msprop:Generator_ColumnPropNameInRow="UsuarioEmpleado" msprop:Generator_ColumnPropNameInTable="UsuarioEmpleadoColumn" msprop:Generator_UserColumnName="UsuarioEmpleado" type="xs:string" minOccurs="0" />
+              <xs:element name="FechaDeAperturaCaja" msprop:Generator_ColumnVarNameInTable="columnFechaDeAperturaCaja" msprop:Generator_ColumnPropNameInRow="FechaDeAperturaCaja" msprop:Generator_ColumnPropNameInTable="FechaDeAperturaCajaColumn" msprop:Generator_UserColumnName="FechaDeAperturaCaja" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
