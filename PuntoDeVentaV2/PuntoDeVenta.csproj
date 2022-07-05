@@ -1695,21 +1695,21 @@
     <Content Include="PUDVE\assets\Presupuesto.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc">
+    <Content Include="ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ReportesImpresion\Ticket\CreditoRealizado\ReporteTicketCredito80mm.rdlc">
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\CreditoRealizado\ReporteTicketCredito80mm.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ReportesImpresion\Ticket\PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc">
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ReportesImpresion\Ticket\VentaCancelada\ReporteTicketCancelado80mm.rdlc">
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\VentaCancelada\ReporteTicketCancelado80mm.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm.rdlc">
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>

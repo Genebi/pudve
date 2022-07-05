@@ -35,7 +35,6 @@ namespace PuntoDeVentaV2
             // 
             // reportViewer1
             // 
-            this.reportViewer1.LocalReport.ReportEmbeddedResource = "PuntoDeVentaV2.ReportesImpresion.Ticket.VentaRealizada.ReporteTicket80mm.rdlc";
             this.reportViewer1.Location = new System.Drawing.Point(12, 12);
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.ServerReport.BearerToken = null;

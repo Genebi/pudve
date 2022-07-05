@@ -57,6 +57,7 @@ namespace PuntoDeVentaV2
             string queryPresupuestoRealizado = cs.imprimirTicketPresupuesto(idVentaRealizada);
             MySqlConnection conn = new MySqlConnection();
             string pathApplication = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc";
             string DirectoryImage = string.Empty;
             string path = string.Empty;
             string pathBarCode = $@"C:\Archivos PUDVE\Ventas\Tickets\BarCode\";
@@ -88,6 +89,8 @@ namespace PuntoDeVentaV2
 
             presupuestoDA.Fill(presupuestoDT);
 
+            this.reportViewer1.ProcessingMode = ProcessingMode.Local;
+            this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             this.reportViewer1.LocalReport.DataSources.Clear();
 
             #region Impresion Ticket de 8 cm (80 mm)
@@ -196,7 +199,7 @@ namespace PuntoDeVentaV2
 
             LocalReport rdlc = new LocalReport();
             rdlc.EnableExternalImages = true;
-            rdlc.ReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc";
+            rdlc.ReportPath = FullReportPath;
             rdlc.SetParameters(reportParameters);
             rdlc.DataSources.Add(rp);
             #endregion
