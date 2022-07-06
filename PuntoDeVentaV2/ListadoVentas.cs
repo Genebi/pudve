@@ -2435,17 +2435,66 @@ namespace PuntoDeVentaV2
                     {
                         var usuarioActivo = FormPrincipal.userNickName;
 
-                        if (usuarioActivo.Contains("@"))
+                        using (DataTable dtConfiguracionTipoTicket = cn.CargarDatos(cs.tipoDeTicket()))
                         {
-
-                        }
-                        else
-                        {
-                            using (VerTicketCajaAbierta8cmListadoVentas imprimirTicketVenta = new VerTicketCajaAbierta8cmListadoVentas())
+                            if (!dtConfiguracionTipoTicket.Rows.Count.Equals(0))
                             {
-                                imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+                                var ticket8cm = 0;
+                                var ticket6cm = 0;
 
-                                imprimirTicketVenta.ShowDialog();
+                                foreach (DataRow item in dtConfiguracionTipoTicket.Rows)
+                                {
+                                    ticket6cm = Convert.ToInt32(item["ticket58mm"].ToString());
+                                    ticket8cm = Convert.ToInt32(item["ticket80mm"].ToString());
+                                }
+
+                                var tipoDeBusqueda = 0;
+
+                                tipoDeBusqueda = verTipoDeBusqueda();
+
+                                if (tipoDeBusqueda.Equals(1))
+                                {
+                                    if (ticket6cm.Equals(1))
+                                    {
+                                        if (usuarioActivo.Contains("@"))
+                                        {
+                                            using (VerTicketCajaAbiertaEmpleado8cmListadoVentas imprimirTicketVenta = new VerTicketCajaAbiertaEmpleado8cmListadoVentas())
+                                            {
+                                                imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+                                                imprimirTicketVenta.idEmpleado = FormPrincipal.id_empleado;
+                                                imprimirTicketVenta.ShowDialog();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            using (VerTicketCajaAbierta8cmListadoVentas imprimirTicketVenta = new VerTicketCajaAbierta8cmListadoVentas())
+                                            {
+                                                imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+                                                imprimirTicketVenta.ShowDialog();
+                                            }
+                                        }
+                                    }
+                                    else if (ticket8cm.Equals(1))
+                                    {
+                                        if (usuarioActivo.Contains("@"))
+                                        {
+                                            using (VerTicketCajaAbiertaEmpleado8cmListadoVentas imprimirTicketVenta = new VerTicketCajaAbiertaEmpleado8cmListadoVentas())
+                                            {
+                                                imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+                                                imprimirTicketVenta.idEmpleado = FormPrincipal.id_empleado;
+                                                imprimirTicketVenta.ShowDialog();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            using (VerTicketCajaAbierta8cmListadoVentas imprimirTicketVenta = new VerTicketCajaAbierta8cmListadoVentas())
+                                            {
+                                                imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+                                                imprimirTicketVenta.ShowDialog();
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }

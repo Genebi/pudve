@@ -1252,6 +1252,12 @@
     <Compile Include="VerTicketCajaAbierta8cmListadoVentas.Designer.cs">
       <DependentUpon>VerTicketCajaAbierta8cmListadoVentas.cs</DependentUpon>
     </Compile>
+    <Compile Include="VerTicketCajaAbiertaEmpleado8cmListadoVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerTicketCajaAbiertaEmpleado8cmListadoVentas.Designer.cs">
+      <DependentUpon>VerTicketCajaAbiertaEmpleado8cmListadoVentas.cs</DependentUpon>
+    </Compile>
     <Compile Include="VerTicketCancelado8cmListadoVentas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1793,6 +1799,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VerTicketCajaAbierta8cmListadoVentas.resx">
       <DependentUpon>VerTicketCajaAbierta8cmListadoVentas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerTicketCajaAbiertaEmpleado8cmListadoVentas.resx">
+      <DependentUpon>VerTicketCajaAbiertaEmpleado8cmListadoVentas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VerTicketCancelado8cmListadoVentas.resx">
       <DependentUpon>VerTicketCancelado8cmListadoVentas.cs</DependentUpon>
