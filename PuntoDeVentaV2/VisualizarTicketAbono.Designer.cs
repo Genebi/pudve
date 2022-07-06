@@ -30,9 +30,9 @@ namespace PuntoDeVentaV2
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnReImprimirTicket = new PuntoDeVentaV2.BotonRedondo();
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -45,6 +45,16 @@ namespace PuntoDeVentaV2
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(800, 381);
             this.panel1.TabIndex = 0;
+            // 
+            // reportViewer1
+            // 
+            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reportViewer1.LocalReport.ReportEmbeddedResource = "PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado.ReporteAbonos.rdlc";
+            this.reportViewer1.Location = new System.Drawing.Point(0, 0);
+            this.reportViewer1.Name = "reportViewer1";
+            this.reportViewer1.ServerReport.BearerToken = null;
+            this.reportViewer1.Size = new System.Drawing.Size(800, 381);
+            this.reportViewer1.TabIndex = 0;
             // 
             // panel2
             // 
@@ -75,16 +85,6 @@ namespace PuntoDeVentaV2
             this.btnReImprimirTicket.UseVisualStyleBackColor = false;
             this.btnReImprimirTicket.Click += new System.EventHandler(this.btnReImprimirTicket_Click);
             // 
-            // reportViewer1
-            // 
-            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.reportViewer1.LocalReport.ReportEmbeddedResource = "PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado.ReporteAbonos.rdlc";
-            this.reportViewer1.Location = new System.Drawing.Point(0, 0);
-            this.reportViewer1.Name = "reportViewer1";
-            this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(800, 381);
-            this.reportViewer1.TabIndex = 0;
-            // 
             // VisualizarTicketAbono
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -93,6 +93,7 @@ namespace PuntoDeVentaV2
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "VisualizarTicketAbono";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VisualizarTicketAbono";
             this.Load += new System.EventHandler(this.VisualizarTicketAbono_Load);
             this.panel1.ResumeLayout(false);
