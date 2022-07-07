@@ -750,6 +750,12 @@
     <Compile Include="ImprimirTicketCajaAbierta8cmListadoVentas.Designer.cs">
       <DependentUpon>ImprimirTicketCajaAbierta8cmListadoVentas.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImprimirTicketCajaAbiertaEmpleado8cmListadoVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImprimirTicketCajaAbiertaEmpleado8cmListadoVentas.Designer.cs">
+      <DependentUpon>ImprimirTicketCajaAbiertaEmpleado8cmListadoVentas.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImprimirTicketCancelado8cm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1563,6 +1569,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ImprimirTicketCajaAbierta8cmListadoVentas.resx">
       <DependentUpon>ImprimirTicketCajaAbierta8cmListadoVentas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImprimirTicketCajaAbiertaEmpleado8cmListadoVentas.resx">
+      <DependentUpon>ImprimirTicketCajaAbiertaEmpleado8cmListadoVentas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImprimirTicketCancelado8cm.resx">
       <DependentUpon>ImprimirTicketCancelado8cm.cs</DependentUpon>
