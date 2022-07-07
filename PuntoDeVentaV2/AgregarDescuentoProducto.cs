@@ -44,6 +44,7 @@ namespace PuntoDeVentaV2
 
         private void AgregarDescuentoProducto_Load(object sender, EventArgs e)
         {
+            AgregarEditarProducto.validacionUpdateDescuentos = 0;
             precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
 
             this.ControlBox = false;
@@ -223,7 +224,7 @@ namespace PuntoDeVentaV2
                     return;
                 }
             }
-            
+            AgregarEditarProducto.validacionUpdateDescuentos = 1;
             refrescarForm = false;
             this.Hide();
         }

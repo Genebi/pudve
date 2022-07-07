@@ -820,8 +820,6 @@ namespace PuntoDeVentaV2
             ActualizarPaginador();
         }
 
-
-
         //private void dpFechaFinal_ValueChanged(object sender, EventArgs e)
         //{
         //    dpFechaFinal.Value = DateTime.Now;

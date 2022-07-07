@@ -395,7 +395,7 @@
             this.btnSiguiente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSiguiente.FlatAppearance.BorderSize = 0;
             this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSiguiente.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnSiguiente.Image = global::PuntoDeVentaV2.Properties.Resources.angle_right;
             this.btnSiguiente.Location = new System.Drawing.Point(4, 6);
             this.btnSiguiente.Name = "btnSiguiente";
@@ -411,7 +411,7 @@
             this.btnUltimaPagina.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnUltimaPagina.FlatAppearance.BorderSize = 0;
             this.btnUltimaPagina.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUltimaPagina.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnUltimaPagina.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnUltimaPagina.Image = global::PuntoDeVentaV2.Properties.Resources.angle_double_right;
             this.btnUltimaPagina.Location = new System.Drawing.Point(29, 6);
             this.btnUltimaPagina.Name = "btnUltimaPagina";
@@ -438,7 +438,7 @@
             this.btnPrimeraPagina.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnPrimeraPagina.FlatAppearance.BorderSize = 0;
             this.btnPrimeraPagina.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPrimeraPagina.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnPrimeraPagina.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnPrimeraPagina.Image = global::PuntoDeVentaV2.Properties.Resources.angle_double_left;
             this.btnPrimeraPagina.Location = new System.Drawing.Point(-6, 6);
             this.btnPrimeraPagina.Name = "btnPrimeraPagina";
@@ -454,7 +454,7 @@
             this.btnAnterior.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAnterior.FlatAppearance.BorderSize = 0;
             this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAnterior.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnAnterior.Image = global::PuntoDeVentaV2.Properties.Resources.angle_left;
             this.btnAnterior.Location = new System.Drawing.Point(19, 6);
             this.btnAnterior.Name = "btnAnterior";
