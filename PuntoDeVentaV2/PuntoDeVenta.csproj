@@ -693,6 +693,12 @@
     <Compile Include="FiltroRevisarInventario.Designer.cs">
       <DependentUpon>FiltroRevisarInventario.cs</DependentUpon>
     </Compile>
+    <Compile Include="HistorialAnticipos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HistorialAnticipos.Designer.cs">
+      <DependentUpon>HistorialAnticipos.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1527,6 +1533,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HistorialAnticipos.resx">
+      <DependentUpon>HistorialAnticipos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportarExportarCSV.resx">
       <DependentUpon>ImportarExportarCSV.cs</DependentUpon>

@@ -45,6 +45,7 @@ namespace PuntoDeVentaV2
         static public List<string> descuentos = new List<string>();
         static public List<string> detalleProductoBasico = new List<string>();
         static public List<string> detalleProductoGeneral = new List<string>();
+        static public int validacionUpdateDescuentos = 0;
 
 
         //Miooooooooooo
@@ -3547,17 +3548,14 @@ namespace PuntoDeVentaV2
                                 {
                                     stock = "0";
                                 }
-
-                                queryUpdateProd = $@"UPDATE Productos SET Nombre = '{nombre}', 
-                                                Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}',
-                                                TipoDescuento = '{tipoDescuento}', ClaveInterna = '{claveIn}', 
-                                                CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', 
-                                                UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}',
-                                                NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', 
-                                                NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', 
-                                                StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}',
-                                                PrecioMayoreo = '{precioMayoreo}'
-                                                WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
+                            if (validacionUpdateDescuentos == 0)
+                            {
+                                queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}', PrecioMayoreo = '{precioMayoreo}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
+                            }
+                            else
+                            {
+                                queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', TipoDescuento = '{tipoDescuento}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}', PrecioMayoreo = '{precioMayoreo}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
+                            }
 
                                 respuesta = cn.EjecutarConsulta(queryUpdateProd);
 
@@ -6292,12 +6290,7 @@ namespace PuntoDeVentaV2
                                 tmp_codigo_barras = codigoB;
 
 
-                                guardar = new string[] {
-                                    nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,
-                                    tipoDescuento, FormPrincipal.userID.ToString(), logoTipo, ProdServPaq, baseProducto,
-                                    ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre),
-                                    stockNecesario, "0", txtPrecioCompra.Text, precioMayoreo
-                                };
+                                guardar = new string[] {nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,tipoDescuento, FormPrincipal.userID.ToString(), logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre),stockNecesario, "0", txtPrecioCompra.Text, precioMayoreo};
 
                                 #region Inicio de guardado de los datos principales del Servicios o Combos
                                 //Se guardan los datos principales del producto
@@ -6998,17 +6991,15 @@ namespace PuntoDeVentaV2
                             {
                                 stock = "0";
                             }
-
-                            queryUpdateProd = $@"UPDATE Productos SET Nombre = '{nombre}', 
-                                                Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}',
-                                                TipoDescuento = '{tipoDescuento}', ClaveInterna = '{claveIn}', 
-                                                CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', 
-                                                UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}',
-                                                NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', 
-                                                NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', 
-                                                StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}',
-                                                PrecioMayoreo = '{precioMayoreo}'
-                                                WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
+                            if (validacionUpdateDescuentos == 0)
+                            {
+                                queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}', PrecioMayoreo = '{precioMayoreo}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
+                            }
+                            else
+                            {
+                                queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', TipoDescuento = '{tipoDescuento}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}', PrecioMayoreo = '{precioMayoreo}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
+                            }
+                           
 
                             respuesta = cn.EjecutarConsulta(queryUpdateProd);
 
@@ -9527,6 +9518,7 @@ namespace PuntoDeVentaV2
 
         private void AgregarEditarProducto_Load(object sender, EventArgs e)
         {
+            validacionUpdateDescuentos = 0;
             baseProducto = "0";
             ivaProducto = "0";
             idReporte = "0";
