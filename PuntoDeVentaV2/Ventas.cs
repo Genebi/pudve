@@ -6770,18 +6770,29 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            if (Utilidades.AdobeReaderInstalado())
-            {
-                var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                var datos = new string[] { FormPrincipal.userID.ToString(), "0", "0", "0", "0", "0", "0", "0", "0", "0", "N/A", "1", FechaOperacion, "Apertura de Caja", FormPrincipal.id_empleado.ToString(), "0" };
-                cn.EjecutarConsulta(cs.GuardarAperturaDeCaja(datos));
+            var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            var datos = new string[] { FormPrincipal.userID.ToString(), "0", "0", "0", "0", "0", "0", "0", "0", "0", "N/A", "1", FechaOperacion, "Apertura de Caja", FormPrincipal.id_empleado.ToString(), "0" };
+            cn.EjecutarConsulta(cs.GuardarAperturaDeCaja(datos));
 
-                GenerarTicketCaja();
-            }
-            else
+            DialogResult respuesta = MessageBox.Show("Desea imprimir Ticket de Apertura de Caja", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (respuesta.Equals(DialogResult.Yes))
             {
-                Utilidades.MensajeAdobeReader();
+                imprimirUltimoTicket();
             }
+
+            //if (Utilidades.AdobeReaderInstalado())
+            //{
+            //    var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            //    var datos = new string[] { FormPrincipal.userID.ToString(), "0", "0", "0", "0", "0", "0", "0", "0", "0", "N/A", "1", FechaOperacion, "Apertura de Caja", FormPrincipal.id_empleado.ToString(), "0" };
+            //    cn.EjecutarConsulta(cs.GuardarAperturaDeCaja(datos));
+
+            //    GenerarTicketCaja();
+            //}
+            //else
+            //{
+            //    Utilidades.MensajeAdobeReader();
+            //}
         }
 
         private void botonRedondo2_Click(object sender, EventArgs e)
@@ -6996,6 +7007,51 @@ namespace PuntoDeVentaV2
                 return;
             }
 
+            imprimirUltimoTicket();
+
+            //try
+            //{
+            //    var idVenta = cn.EjecutarSelect($"SELECT * FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 ORDER BY ID DESC LIMIT 1", 1).ToString();
+
+            //    var Folio = string.Empty;
+            //    var Serie = string.Empty;
+
+            //    using (DataTable dtDatosVentas = cn.CargarDatos(cs.DatosVentaParaLaNota(Convert.ToInt32(idVenta))))
+            //    {
+            //        if (!dtDatosVentas.Rows.Count.Equals(0))
+            //        {
+            //            foreach (DataRow item in dtDatosVentas.Rows)
+            //            {
+            //                Folio = item["Folio"].ToString();
+            //                Serie = item["Serie"].ToString();
+
+            //                if (Folio.Equals("0"))
+            //                {
+            //                    MessageBox.Show($"En esta operación se realizo la apertura de la Caja\nRealizada por el Usuario: {item["Usuario"].ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //                    return;
+            //                }
+            //            }
+            //        }
+            //    }
+
+            //    if (Utilidades.AdobeReaderInstalado())
+            //    {
+            //        ImprimirTicket(idVenta);
+            //    }
+            //    else
+            //    {
+            //        Utilidades.MensajeAdobeReader();
+            //    }
+
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Aun no se han creado Tickets", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
+        }
+
+        private void imprimirUltimoTicket()
+        {
             var Folio = string.Empty;
             var Serie = string.Empty;
             var StatusUltimoTicket = string.Empty;
@@ -7351,46 +7407,6 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
-            //try
-            //{
-            //    var idVenta = cn.EjecutarSelect($"SELECT * FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 ORDER BY ID DESC LIMIT 1", 1).ToString();
-
-            //    var Folio = string.Empty;
-            //    var Serie = string.Empty;
-
-            //    using (DataTable dtDatosVentas = cn.CargarDatos(cs.DatosVentaParaLaNota(Convert.ToInt32(idVenta))))
-            //    {
-            //        if (!dtDatosVentas.Rows.Count.Equals(0))
-            //        {
-            //            foreach (DataRow item in dtDatosVentas.Rows)
-            //            {
-            //                Folio = item["Folio"].ToString();
-            //                Serie = item["Serie"].ToString();
-
-            //                if (Folio.Equals("0"))
-            //                {
-            //                    MessageBox.Show($"En esta operación se realizo la apertura de la Caja\nRealizada por el Usuario: {item["Usuario"].ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //                    return;
-            //                }
-            //            }
-            //        }
-            //    }
-
-            //    if (Utilidades.AdobeReaderInstalado())
-            //    {
-            //        ImprimirTicket(idVenta);
-            //    }
-            //    else
-            //    {
-            //        Utilidades.MensajeAdobeReader();
-            //    }
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Aun no se han creado Tickets", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
         }
 
         private void txtDescuentoGeneral_KeyDown(object sender, KeyEventArgs e)
