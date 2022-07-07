@@ -2853,178 +2853,113 @@ namespace PuntoDeVentaV2
                             // verificamos si el control es de tipo Label
                             if (contItemSubHijo is Label)
                             {
-                                bool alreadyStoredDescripcion = false, alreadyStoredDescripcionGral = false;
-
-                                string IdDetalleGral = string.Empty;
-
-                                nameConcepto = contItemSubHijo.Name.ToString().Remove(0, 9);
-                                textoConcepto = contItemSubHijo.Text;
-
-                                namepanelContenido = contItemSubHijo.Name.ToString().Remove(0, 9);
-
-                                if (finalOrigenProdServCombo.Equals(1) || finalOrigenProdServCombo.Equals(3) || finalOrigenProdServCombo.Equals(4))
+                                if (!string.IsNullOrWhiteSpace(contItemSubHijo.Text))
                                 {
-                                    string rowDataList = string.Empty;
-                                    var idFoundNew = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto.Replace(" ", "_"));
+                                    bool alreadyStoredDescripcion = false, alreadyStoredDescripcionGral = false;
 
-                                    int contieneIdFoundNew = idFoundNew.Length;
+                                    string IdDetalleGral = string.Empty;
 
-                                    if (contieneIdFoundNew > 0)
+                                    nameConcepto = contItemSubHijo.Name.ToString().Remove(0, 9);
+                                    textoConcepto = contItemSubHijo.Text;
+
+                                    namepanelContenido = contItemSubHijo.Name.ToString().Remove(0, 9);
+
+                                    if (finalOrigenProdServCombo.Equals(1) || finalOrigenProdServCombo.Equals(3) || finalOrigenProdServCombo.Equals(4))
                                     {
-                                        rowDataList = finalIdProducto + "|" + Convert.ToString(FormPrincipal.userID) + "|" + idFoundNew[0].ToString() + "|1|panelContenido" + idFoundNew[2].ToString() + "|" + idFoundNew[3].ToString();
-                                        AgregarEditarProducto.detalleProductoGeneral.Add(rowDataList);
-                                    }
-                                }
-                                else if (finalOrigenProdServCombo.Equals(2))
-                                {
-                                    using (DataTable dtDynamicFilters = cn.CargarDatos(cs.VerificarTextoConceptoFiltroDinamico(nameConcepto, FormPrincipal.userID)))
-                                    {
-                                        if (!dtDynamicFilters.Rows.Count.Equals(0))
+                                        string rowDataList = string.Empty;
+                                        var idFoundNew = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto.Replace(" ", "_"));
+
+                                        int contieneIdFoundNew = idFoundNew.Length;
+
+                                        if (contieneIdFoundNew > 0)
                                         {
-                                            alreadyStoredDescripcion = true;
-                                        }
-                                        else if (dtDynamicFilters.Rows.Count.Equals(0))
-                                        {
-                                            alreadyStoredDescripcion = false;
+                                            rowDataList = finalIdProducto + "|" + Convert.ToString(FormPrincipal.userID) + "|" + idFoundNew[0].ToString() + "|1|panelContenido" + idFoundNew[2].ToString() + "|" + idFoundNew[3].ToString();
+                                            AgregarEditarProducto.detalleProductoGeneral.Add(rowDataList);
                                         }
                                     }
-
-                                    var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, textoConcepto.Replace(" ","_"));
-
-                                    var idProductoBuscar = finalIdProducto;
-
-                                    if (alreadyStoredDescripcion)
+                                    else if (finalOrigenProdServCombo.Equals(2))
                                     {
-                                        try
+                                        using (DataTable dtDynamicFilters = cn.CargarDatos(cs.VerificarTextoConceptoFiltroDinamico(nameConcepto, FormPrincipal.userID)))
                                         {
-                                            cn.EjecutarConsulta(cs.ActualizarTextConceptoFiltroDinamico("chk" + nameConcepto, FormPrincipal.userID, textoConcepto.Replace(" ", "_")));
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            MessageBox.Show("Error al actualizar Texto del Concepto Dinamico: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        }
-
-                                        try
-                                        {
-                                            using (DataTable dtDetallesProductoGenerales = cn.CargarDatos($"SELECT * FROM DetallesProductoGenerales WHERE IDUsuario = '{FormPrincipal.userID}' AND IDProducto = '{idProductoBuscar}' AND panelContenido = 'panelContenido{namepanelContenido}'"))
+                                            if (!dtDynamicFilters.Rows.Count.Equals(0))
                                             {
-                                                if (!dtDetallesProductoGenerales.Rows.Count.Equals(0))
-                                                {
-                                                    alreadyStoredDescripcionGral = true;
-                                                    foreach (DataRow dtRow in dtDetallesProductoGenerales.Rows)
-                                                    {
-                                                        IdDetalleGral = dtRow["ID"].ToString();
-                                                    }
-                                                }
-                                                else if (dtDetallesProductoGenerales.Rows.Count.Equals(0))
-                                                {
-                                                    alreadyStoredDescripcionGral = false;
-                                                }
+                                                alreadyStoredDescripcion = true;
                                             }
-                                            //textoConcepto = "";
-                                            var idFoundGral = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto.Replace(" ", "_"));
-
-                                            var idProductoBuscarGral = finalIdProducto;
-
-                                            if (alreadyStoredDescripcionGral)
+                                            else if (dtDynamicFilters.Rows.Count.Equals(0))
                                             {
-                                                try
-                                                {
-                                                    if (textoConcepto == "")
-                                                    {
-                                                        cn.EjecutarConsulta(cs.eliminarDetalleDinamico(FormPrincipal.userID.ToString(), IdDetalleGral));
-                                                    }
-                                                    else
-                                                    {
-                                                        cn.EjecutarConsulta(cs.ActualizarTextConceptoFiltroDinamicoGral(idFoundGral[0].ToString(), IdDetalleGral));
-                                                    }
-                                                    
-                                                }
-                                                catch (Exception ex)
-                                                {
-                                                    MessageBox.Show("Error al actualizar Texto del Concepto Dinamico: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                }
+                                                alreadyStoredDescripcion = false;
                                             }
-                                            else if (!alreadyStoredDescripcionGral)
+                                        }
+
+                                        var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, textoConcepto.Replace(" ", "_"));
+
+                                        var idProductoBuscar = finalIdProducto;
+
+                                        if (alreadyStoredDescripcion)
+                                        {
+                                            try
                                             {
-                                                try
-                                                {
-                                                    // Se almacenan los datos para 
-                                                    // el posterior registro
-                                                    infoDetailProdGral.Add(finalIdProducto);
-                                                    infoDetailProdGral.Add(FormPrincipal.userID.ToString());
-                                                    if (idFoundGral.Length > 0)
-                                                    {
-                                                        infoDetailProdGral.Add(idFoundGral[0].ToString());
-                                                        infoDetailProdGral.Add("1");
-                                                        infoDetailProdGral.Add("panelContenido" + idFoundGral[2].ToString());
-                                                        // Ejecutamos el proceso de guardado
-                                                        try
-                                                        {
-                                                            guardar = infoDetailProdGral.ToArray();
-                                                            cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(guardar));
-                                                            infoDetailProdGral.Clear();
-                                                        }
-                                                        catch (Exception ex)
-                                                        {
-                                                            MessageBox.Show("El proceso de guardardo del nuevo Detalle Del Producto Generales\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardar nuevo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                        }
-                                                    }
-                                                }
-                                                catch (Exception ex)
-                                                {
-                                                    MessageBox.Show("Error al agregar Texto del Concepto Dinamico: " + ex.Message.ToString(), "Error al Agregar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                }
+                                                cn.EjecutarConsulta(cs.ActualizarTextConceptoFiltroDinamico("chk" + nameConcepto, FormPrincipal.userID, textoConcepto.Replace(" ", "_")));
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show("Error al actualizar Texto del Concepto Dinamico: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                             }
 
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            MessageBox.Show("Error al actualizar Texto de DetallesProducto: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        }
-                                    }
-                                    else if (!alreadyStoredDescripcion)
-                                    {
-                                        infoDetailProdGral.Clear();
-                                        // Verificamos si el control es de tipo Label
-                                        if (contItemSubHijo is Label)
-                                        {
-                                            if (!finalIdProducto.Equals(""))
+                                            try
                                             {
-                                                using (DataTable dtDetallesProductoGenerales = cn.CargarDatos(cs.VerificarDetallesProductoGenerales(Convert.ToString(finalIdProducto), FormPrincipal.userID, "panelContenido" + namepanelContenido)))
+                                                using (DataTable dtDetallesProductoGenerales = cn.CargarDatos($"SELECT * FROM DetallesProductoGenerales WHERE IDUsuario = '{FormPrincipal.userID}' AND IDProducto = '{idProductoBuscar}' AND panelContenido = 'panelContenido{namepanelContenido}'"))
                                                 {
                                                     if (!dtDetallesProductoGenerales.Rows.Count.Equals(0))
                                                     {
-                                                        foreach (DataRow drDetallesProductoGenerales in dtDetallesProductoGenerales.Rows)
+                                                        alreadyStoredDescripcionGral = true;
+                                                        foreach (DataRow dtRow in dtDetallesProductoGenerales.Rows)
                                                         {
-                                                            var idFoundGral = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto.Replace(" ", "_"));
-                                                            try
-                                                            {
-                                                                infoDetailProdGral.Add(drDetallesProductoGenerales["ID"].ToString());
-                                                                infoDetailProdGral.Add(idFoundGral[0].ToString());
-                                                                guardar = infoDetailProdGral.ToArray();
-                                                                cn.EjecutarConsulta(cs.ActualizarDetallesProductoGenerales(guardar));
-                                                                infoDetailProdGral.Clear();
-                                                            }
-                                                            catch (Exception ex)
-                                                            {
-                                                                MessageBox.Show("Algo Ocurrio al Actualizar registro a la Tabla DetallesProductoGenerales\nError: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                            }
+                                                            IdDetalleGral = dtRow["ID"].ToString();
                                                         }
                                                     }
                                                     else if (dtDetallesProductoGenerales.Rows.Count.Equals(0))
+                                                    {
+                                                        alreadyStoredDescripcionGral = false;
+                                                    }
+                                                }
+                                                //textoConcepto = "";
+                                                var idFoundGral = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto.Replace(" ", "_"));
+
+                                                var idProductoBuscarGral = finalIdProducto;
+
+                                                if (alreadyStoredDescripcionGral)
+                                                {
+                                                    try
+                                                    {
+                                                        if (textoConcepto == "")
+                                                        {
+                                                            cn.EjecutarConsulta(cs.eliminarDetalleDinamico(FormPrincipal.userID.ToString(), IdDetalleGral));
+                                                        }
+                                                        else
+                                                        {
+                                                            cn.EjecutarConsulta(cs.ActualizarTextConceptoFiltroDinamicoGral(idFoundGral[0].ToString(), IdDetalleGral));
+                                                        }
+
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        MessageBox.Show("Error al actualizar Texto del Concepto Dinamico: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    }
+                                                }
+                                                else if (!alreadyStoredDescripcionGral)
+                                                {
+                                                    try
                                                     {
                                                         // Se almacenan los datos para 
                                                         // el posterior registro
                                                         infoDetailProdGral.Add(finalIdProducto);
                                                         infoDetailProdGral.Add(FormPrincipal.userID.ToString());
-                                                        Descripcion = contItemSubHijo.Text;
-                                                        var idFoundNew = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
-                                                        if (idFoundNew.Length > 0)
+                                                        if (idFoundGral.Length > 0)
                                                         {
-                                                            infoDetailProdGral.Add(idFoundNew[0].ToString());
+                                                            infoDetailProdGral.Add(idFoundGral[0].ToString());
                                                             infoDetailProdGral.Add("1");
-                                                            infoDetailProdGral.Add("panelContenido" + idFoundNew[2].ToString());
+                                                            infoDetailProdGral.Add("panelContenido" + idFoundGral[2].ToString());
                                                             // Ejecutamos el proceso de guardado
                                                             try
                                                             {
@@ -3038,22 +2973,90 @@ namespace PuntoDeVentaV2
                                                             }
                                                         }
                                                     }
+                                                    catch (Exception ex)
+                                                    {
+                                                        MessageBox.Show("Error al agregar Texto del Concepto Dinamico: " + ex.Message.ToString(), "Error al Agregar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    }
                                                 }
-                                            }
-                                            else if (finalIdProducto.Equals(""))
-                                            {
-                                                //MessageBox.Show("Pasar la informacion a Agregar/Editar Productos", "En Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                infoDetailProdGral.Add(finalIdProducto);
-                                                infoDetailProdGral.Add(Convert.ToString(FormPrincipal.userID));
-                                                Descripcion = contItemSubHijo.Text;
-                                                var idFoundNew = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
 
-                                                if (idFoundNew.Length > 0)
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                MessageBox.Show("Error al actualizar Texto de DetallesProducto: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            }
+                                        }
+                                        else if (!alreadyStoredDescripcion)
+                                        {
+                                            infoDetailProdGral.Clear();
+                                            // Verificamos si el control es de tipo Label
+                                            if (contItemSubHijo is Label)
+                                            {
+                                                if (!finalIdProducto.Equals(""))
                                                 {
-                                                    infoDetailProdGral.Add(idFoundNew[2].ToString()); // Obtenemos el ChckName Detalles Basicos
-                                                    infoDetailProdGral.Add(idFoundNew[0].ToString()); // Obtenemos el ID del Detalles Basicos
-                                                    infoDetailProdGral.Add(idFoundNew[3].ToString()); // Obtenemos la Descripcion del Detalles Basicos
-                                                    AgregarEditarProducto.detalleProductoGeneral = infoDetailProdGral;
+                                                    using (DataTable dtDetallesProductoGenerales = cn.CargarDatos(cs.VerificarDetallesProductoGenerales(Convert.ToString(finalIdProducto), FormPrincipal.userID, "panelContenido" + namepanelContenido)))
+                                                    {
+                                                        if (!dtDetallesProductoGenerales.Rows.Count.Equals(0))
+                                                        {
+                                                            foreach (DataRow drDetallesProductoGenerales in dtDetallesProductoGenerales.Rows)
+                                                            {
+                                                                var idFoundGral = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto.Replace(" ", "_"));
+                                                                try
+                                                                {
+                                                                    infoDetailProdGral.Add(drDetallesProductoGenerales["ID"].ToString());
+                                                                    infoDetailProdGral.Add(idFoundGral[0].ToString());
+                                                                    guardar = infoDetailProdGral.ToArray();
+                                                                    cn.EjecutarConsulta(cs.ActualizarDetallesProductoGenerales(guardar));
+                                                                    infoDetailProdGral.Clear();
+                                                                }
+                                                                catch (Exception ex)
+                                                                {
+                                                                    MessageBox.Show("Algo Ocurrio al Actualizar registro a la Tabla DetallesProductoGenerales\nError: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                                }
+                                                            }
+                                                        }
+                                                        else if (dtDetallesProductoGenerales.Rows.Count.Equals(0))
+                                                        {
+                                                            // Se almacenan los datos para 
+                                                            // el posterior registro
+                                                            infoDetailProdGral.Add(finalIdProducto);
+                                                            infoDetailProdGral.Add(FormPrincipal.userID.ToString());
+                                                            Descripcion = contItemSubHijo.Text;
+                                                            var idFoundNew = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
+                                                            if (idFoundNew.Length > 0)
+                                                            {
+                                                                infoDetailProdGral.Add(idFoundNew[0].ToString());
+                                                                infoDetailProdGral.Add("1");
+                                                                infoDetailProdGral.Add("panelContenido" + idFoundNew[2].ToString());
+                                                                // Ejecutamos el proceso de guardado
+                                                                try
+                                                                {
+                                                                    guardar = infoDetailProdGral.ToArray();
+                                                                    cn.EjecutarConsulta(cs.GuardarDetallesProductoGenerales(guardar));
+                                                                    infoDetailProdGral.Clear();
+                                                                }
+                                                                catch (Exception ex)
+                                                                {
+                                                                    MessageBox.Show("El proceso de guardardo del nuevo Detalle Del Producto Generales\nocurrio un error:\n" + ex.Message.ToString(), "Error al guardar nuevo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                else if (finalIdProducto.Equals(""))
+                                                {
+                                                    //MessageBox.Show("Pasar la informacion a Agregar/Editar Productos", "En Construcción", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                    infoDetailProdGral.Add(finalIdProducto);
+                                                    infoDetailProdGral.Add(Convert.ToString(FormPrincipal.userID));
+                                                    Descripcion = contItemSubHijo.Text;
+                                                    var idFoundNew = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, Descripcion);
+
+                                                    if (idFoundNew.Length > 0)
+                                                    {
+                                                        infoDetailProdGral.Add(idFoundNew[2].ToString()); // Obtenemos el ChckName Detalles Basicos
+                                                        infoDetailProdGral.Add(idFoundNew[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                                        infoDetailProdGral.Add(idFoundNew[3].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                                                        AgregarEditarProducto.detalleProductoGeneral = infoDetailProdGral;
+                                                    }
                                                 }
                                             }
                                         }
@@ -3100,159 +3103,162 @@ namespace PuntoDeVentaV2
                                     // nombre y no en el resto de los label
                                     if (contItemSubHijo.Name.Equals("lblNombreProveedor"))
                                     {
-                                        bool alreadyStoredDescripcion = false;
-
-                                        string nameConcepto = string.Empty, textoConcepto = string.Empty;
-
-                                        nameConcepto = contItemSubHijo.Name.ToString().Remove(0, 9);
-                                        textoConcepto = contItemSubHijo.Text;
-
-                                        if (finalOrigenProdServCombo.Equals(1) || finalOrigenProdServCombo.Equals(3) || finalOrigenProdServCombo.Equals(4))
+                                        if (!string.IsNullOrWhiteSpace(contItemSubHijo.Text))
                                         {
-                                            var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, textoConcepto);
-                                            int contieneDetalleProveedor = idFound.Length;
-                                            if (contieneDetalleProveedor > 0)
+                                            bool alreadyStoredDescripcion = false;
+
+                                            string nameConcepto = string.Empty, textoConcepto = string.Empty;
+
+                                            nameConcepto = contItemSubHijo.Name.ToString().Remove(0, 9);
+                                            textoConcepto = contItemSubHijo.Text;
+
+                                            if (finalOrigenProdServCombo.Equals(1) || finalOrigenProdServCombo.Equals(3) || finalOrigenProdServCombo.Equals(4))
                                             {
-                                                if (AgregarEditarProducto.detalleProductoBasico.Count.Equals(0))
+                                                var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, textoConcepto);
+                                                int contieneDetalleProveedor = idFound.Length;
+                                                if (contieneDetalleProveedor > 0)
                                                 {
-                                                    AgregarEditarProducto.detalleProductoBasico.Add(finalIdProducto);
-                                                    AgregarEditarProducto.detalleProductoBasico.Add(Convert.ToString(FormPrincipal.userID));
-                                                    AgregarEditarProducto.detalleProductoBasico.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
-                                                    AgregarEditarProducto.detalleProductoBasico.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
-                                                }
-                                                else
-                                                {
-                                                    AgregarEditarProducto.detalleProductoBasico.Clear();
-                                                    AgregarEditarProducto.detalleProductoBasico.Add(finalIdProducto);
-                                                    AgregarEditarProducto.detalleProductoBasico.Add(Convert.ToString(FormPrincipal.userID));
-                                                    AgregarEditarProducto.detalleProductoBasico.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
-                                                    AgregarEditarProducto.detalleProductoBasico.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
-                                                }
-                                            }
-                                        }
-                                        else if (finalOrigenProdServCombo.Equals(2))
-                                        {
-                                            // Verificamos si la Descripcion ya existe en el Diccionario de Detalles Basicos
-                                            // sí ya esta el registro de la Descripcion la variable sera true
-                                            // sí no esta el registro de la Descripcion la variable sera false
-                                            using (DataTable dtDynamicFilters = cn.CargarDatos(cs.VerificarTextoConceptoFiltroDinamico(nameConcepto, FormPrincipal.userID)))
-                                            {
-                                                if (!dtDynamicFilters.Rows.Count.Equals(0))
-                                                {
-                                                    alreadyStoredDescripcion = true;
-                                                }
-                                                else if (dtDynamicFilters.Rows.Count.Equals(0))
-                                                {
-                                                    alreadyStoredDescripcion = false;
-                                                }
-                                            }
-
-                                            var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, textoConcepto);
-                                            var idProductoBuscar = finalIdProducto;
-
-                                             if (alreadyStoredDescripcion)
-                                            {
-                                                try
-                                                {
-                                                    cn.EjecutarConsulta(cs.ActualizarTextConceptoFiltroDinamico("chk" + nameConcepto, FormPrincipal.userID, textoConcepto));
-                                                }
-                                                catch (Exception ex)
-                                                {
-                                                    MessageBox.Show("Error al actualizar Texto del Concepto Dinamico: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                }
-                                                try
-                                                {
-                                                    string queryCargarDatos = string.Empty;
-
-                                                    queryCargarDatos = $"SELECT * FROM DetallesProducto WHERE IDUsuario = '{FormPrincipal.userID}' AND IDProducto = '{idProductoBuscar}'";
-
-                                                    using ( DataTable dtDetallesProducto = cn.CargarDatos(queryCargarDatos))
+                                                    if (AgregarEditarProducto.detalleProductoBasico.Count.Equals(0))
                                                     {
-                                                        //infoDetalle.Add(FormPrincipal.userID.ToString());
-                                                        if (!dtDetallesProducto.Rows.Count.Equals(0))
-                                                        {
-                                                            if (idFound.Count() > 0)
-                                                            {
-                                                                foreach (DataRow dtRow in dtDetallesProducto.Rows)
-                                                                {
-                                                                    infoDetalle.Add(dtRow["ID"].ToString());
-                                                                }
-                                                                infoDetalle.Add(idFound[0].ToString());
-                                                                infoDetalle.Add(idFound[2].ToString());
-                                                                guardar = infoDetalle.ToArray();
-                                                                cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
-                                                            }
-                                                            else
-                                                            {
-                                                                infoDetalle.Add(idProductoBuscar);
-                                                                infoDetalle.Add("0");
-                                                                infoDetalle.Add("");
-                                                                guardar = infoDetalle.ToArray();
-                                                                cn.EjecutarConsulta(cs.ActualizarProvedorDetallesProd(guardar));
-                                                            }
-                                                        }
-                                                        else if (dtDetallesProducto.Rows.Count.Equals(0))
-                                                        {
-                                                            if (idFound.Count() > 0)
-                                                            {
-                                                                cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(Convert.ToInt32(idProductoBuscar), FormPrincipal.userID, idFound[2].ToString(), Convert.ToInt32(idFound[0].ToString())));
-                                                            }
-                                                        }
+                                                        AgregarEditarProducto.detalleProductoBasico.Add(finalIdProducto);
+                                                        AgregarEditarProducto.detalleProductoBasico.Add(Convert.ToString(FormPrincipal.userID));
+                                                        AgregarEditarProducto.detalleProductoBasico.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                                                        AgregarEditarProducto.detalleProductoBasico.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
                                                     }
-
-                                                    infoDetalle.Clear(); // limpiamos de informacion la Lista
-                                                }
-                                                catch (Exception ex)
-                                                {
-                                                    MessageBox.Show("Error al actualizar Texto de DetallesProducto: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    else
+                                                    {
+                                                        AgregarEditarProducto.detalleProductoBasico.Clear();
+                                                        AgregarEditarProducto.detalleProductoBasico.Add(finalIdProducto);
+                                                        AgregarEditarProducto.detalleProductoBasico.Add(Convert.ToString(FormPrincipal.userID));
+                                                        AgregarEditarProducto.detalleProductoBasico.Add(idFound[2].ToString()); // Obtenemos la Descripcion del Detalles Basicos
+                                                        AgregarEditarProducto.detalleProductoBasico.Add(idFound[0].ToString()); // Obtenemos el ID del Detalles Basicos
+                                                    }
                                                 }
                                             }
-                                            else if (!alreadyStoredDescripcion)
+                                            else if (finalOrigenProdServCombo.Equals(2))
                                             {
-                                                try
+                                                // Verificamos si la Descripcion ya existe en el Diccionario de Detalles Basicos
+                                                // sí ya esta el registro de la Descripcion la variable sera true
+                                                // sí no esta el registro de la Descripcion la variable sera false
+                                                using (DataTable dtDynamicFilters = cn.CargarDatos(cs.VerificarTextoConceptoFiltroDinamico(nameConcepto, FormPrincipal.userID)))
                                                 {
-                                                    cn.EjecutarConsulta(cs.InsertarDatoFiltroDinamicoCompleto("chk" + nameConcepto, textoConcepto, FormPrincipal.userID));
-                                                }
-                                                catch (Exception ex)
-                                                {
-                                                    MessageBox.Show("Error al registrar Texto del Concepto Dinamico: " + ex.Message.ToString(), "Error al Registrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                }
-                                                try
-                                                {
-                                                    string queryCargarDatos = string.Empty;
-
-                                                    queryCargarDatos = $"SELECT * FROM DetallesProducto WHERE IDUsuario = '{FormPrincipal.userID}' AND IDProducto = '{idProductoBuscar}'";
-
-                                                    using (DataTable dtDetallesProducto = cn.CargarDatos(queryCargarDatos))
+                                                    if (!dtDynamicFilters.Rows.Count.Equals(0))
                                                     {
-                                                        //infoDetalle.Add(FormPrincipal.userID.ToString());
-                                                        if (!dtDetallesProducto.Rows.Count.Equals(0))
-                                                        {
-                                                            if (idFound.Count() > 0)
-                                                            {
-                                                                foreach (DataRow dtRow in dtDetallesProducto.Rows)
-                                                                {
-                                                                    infoDetalle.Add(dtRow["ID"].ToString());
-                                                                }
-                                                                infoDetalle.Add(idFound[0].ToString());
-                                                                infoDetalle.Add(idFound[2].ToString());
-                                                                guardar = infoDetalle.ToArray();
-                                                                cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
-                                                            }
-                                                        }
-                                                        else if (dtDetallesProducto.Rows.Count.Equals(0))
-                                                        {
-                                                            if (idFound.Count() > 0)
-                                                            {
-                                                                cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(Convert.ToInt32(idProductoBuscar), FormPrincipal.userID, idFound[2].ToString(), Convert.ToInt32(idFound[0].ToString())));
-                                                            }
-                                                        }
+                                                        alreadyStoredDescripcion = true;
                                                     }
-                                                    infoDetalle.Clear(); // limpiamos de informacion la Lista
+                                                    else if (dtDynamicFilters.Rows.Count.Equals(0))
+                                                    {
+                                                        alreadyStoredDescripcion = false;
+                                                    }
                                                 }
-                                                catch (Exception ex)
+
+                                                var idFound = mb.obtenerIdDetallesProveedor(FormPrincipal.userID, textoConcepto);
+                                                var idProductoBuscar = finalIdProducto;
+
+                                                if (alreadyStoredDescripcion)
                                                 {
-                                                    MessageBox.Show("Error al actualizar Texto de DetallesProducto: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    try
+                                                    {
+                                                        cn.EjecutarConsulta(cs.ActualizarTextConceptoFiltroDinamico("chk" + nameConcepto, FormPrincipal.userID, textoConcepto));
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        MessageBox.Show("Error al actualizar Texto del Concepto Dinamico: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    }
+                                                    try
+                                                    {
+                                                        string queryCargarDatos = string.Empty;
+
+                                                        queryCargarDatos = $"SELECT * FROM DetallesProducto WHERE IDUsuario = '{FormPrincipal.userID}' AND IDProducto = '{idProductoBuscar}'";
+
+                                                        using (DataTable dtDetallesProducto = cn.CargarDatos(queryCargarDatos))
+                                                        {
+                                                            //infoDetalle.Add(FormPrincipal.userID.ToString());
+                                                            if (!dtDetallesProducto.Rows.Count.Equals(0))
+                                                            {
+                                                                if (idFound.Count() > 0)
+                                                                {
+                                                                    foreach (DataRow dtRow in dtDetallesProducto.Rows)
+                                                                    {
+                                                                        infoDetalle.Add(dtRow["ID"].ToString());
+                                                                    }
+                                                                    infoDetalle.Add(idFound[0].ToString());
+                                                                    infoDetalle.Add(idFound[2].ToString());
+                                                                    guardar = infoDetalle.ToArray();
+                                                                    cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
+                                                                }
+                                                                else
+                                                                {
+                                                                    infoDetalle.Add(idProductoBuscar);
+                                                                    infoDetalle.Add("0");
+                                                                    infoDetalle.Add("");
+                                                                    guardar = infoDetalle.ToArray();
+                                                                    cn.EjecutarConsulta(cs.ActualizarProvedorDetallesProd(guardar));
+                                                                }
+                                                            }
+                                                            else if (dtDetallesProducto.Rows.Count.Equals(0))
+                                                            {
+                                                                if (idFound.Count() > 0)
+                                                                {
+                                                                    cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(Convert.ToInt32(idProductoBuscar), FormPrincipal.userID, idFound[2].ToString(), Convert.ToInt32(idFound[0].ToString())));
+                                                                }
+                                                            }
+                                                        }
+
+                                                        infoDetalle.Clear(); // limpiamos de informacion la Lista
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        MessageBox.Show("Error al actualizar Texto de DetallesProducto: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    }
+                                                }
+                                                else if (!alreadyStoredDescripcion)
+                                                {
+                                                    try
+                                                    {
+                                                        cn.EjecutarConsulta(cs.InsertarDatoFiltroDinamicoCompleto("chk" + nameConcepto, textoConcepto, FormPrincipal.userID));
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        MessageBox.Show("Error al registrar Texto del Concepto Dinamico: " + ex.Message.ToString(), "Error al Registrar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    }
+                                                    try
+                                                    {
+                                                        string queryCargarDatos = string.Empty;
+
+                                                        queryCargarDatos = $"SELECT * FROM DetallesProducto WHERE IDUsuario = '{FormPrincipal.userID}' AND IDProducto = '{idProductoBuscar}'";
+
+                                                        using (DataTable dtDetallesProducto = cn.CargarDatos(queryCargarDatos))
+                                                        {
+                                                            //infoDetalle.Add(FormPrincipal.userID.ToString());
+                                                            if (!dtDetallesProducto.Rows.Count.Equals(0))
+                                                            {
+                                                                if (idFound.Count() > 0)
+                                                                {
+                                                                    foreach (DataRow dtRow in dtDetallesProducto.Rows)
+                                                                    {
+                                                                        infoDetalle.Add(dtRow["ID"].ToString());
+                                                                    }
+                                                                    infoDetalle.Add(idFound[0].ToString());
+                                                                    infoDetalle.Add(idFound[2].ToString());
+                                                                    guardar = infoDetalle.ToArray();
+                                                                    cn.EjecutarConsulta(cs.ActualizarProveedorDetallesDelProducto(guardar));
+                                                                }
+                                                            }
+                                                            else if (dtDetallesProducto.Rows.Count.Equals(0))
+                                                            {
+                                                                if (idFound.Count() > 0)
+                                                                {
+                                                                    cn.EjecutarConsulta(cs.GuardarDetallesDelProducto(Convert.ToInt32(idProductoBuscar), FormPrincipal.userID, idFound[2].ToString(), Convert.ToInt32(idFound[0].ToString())));
+                                                                }
+                                                            }
+                                                        }
+                                                        infoDetalle.Clear(); // limpiamos de informacion la Lista
+                                                    }
+                                                    catch (Exception ex)
+                                                    {
+                                                        MessageBox.Show("Error al actualizar Texto de DetallesProducto: " + ex.Message.ToString(), "Error al Actualizar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    }
                                                 }
                                             }
                                         }
