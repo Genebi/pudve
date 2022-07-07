@@ -75,11 +75,46 @@ namespace PuntoDeVentaV2
         {
             if (CajaN.totCorte != "")
             {
-                if (CajaN.efectivoCorte == null) { convertEfectivo = 0; } else { convertEfectivo = float.Parse(CajaN.efectivoCorte); }
-                if (CajaN.tarjetaCorte == null) { convertTarjeta = 0; } else { convertTarjeta = float.Parse(CajaN.tarjetaCorte); }
-                if (CajaN.chequeCorte == null) { convertCheque = 0; } else { convertCheque = float.Parse(CajaN.chequeCorte); }
-                if (CajaN.valesCorte == null) { convertVales = 0; } else { convertVales = float.Parse(CajaN.valesCorte); }
-                if (CajaN.transCorte == null) { convertTrans = 0; } else { convertTrans = float.Parse(CajaN.transCorte); }
+                if (CajaN.efectivoCorte == null) 
+                { 
+                    convertEfectivo = 0; 
+                } 
+                else 
+                { 
+                    convertEfectivo = float.Parse(CajaN.efectivoCorte); 
+                }
+                if (CajaN.tarjetaCorte == null) 
+                { 
+                    convertTarjeta = 0; 
+                } 
+                else 
+                { 
+                    convertTarjeta = float.Parse(CajaN.tarjetaCorte); 
+                }
+                if (CajaN.chequeCorte == null) 
+                { 
+                    convertCheque = 0; 
+                } 
+                else 
+                { 
+                    convertCheque = float.Parse(CajaN.chequeCorte); 
+                }
+                if (CajaN.valesCorte == null) 
+                { 
+                    convertVales = 0; 
+                } 
+                else 
+                { 
+                    convertVales = float.Parse(CajaN.valesCorte); 
+                }
+                if (CajaN.transCorte == null) 
+                { 
+                    convertTrans = 0; 
+                } 
+                else 
+                { 
+                    convertTrans = float.Parse(CajaN.transCorte); 
+                }
             }
         }
 
@@ -622,14 +657,45 @@ namespace PuntoDeVentaV2
                 // Para generar Ticket al depositar dinero
                 if (operacion == 0)
                 {
-                    if (Utilidades.AdobeReaderInstalado())
+
+                    DialogResult resultadoAgregarDinero = MessageBox.Show("Desea imprimir ticket de la operación Agregar Dinero", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (resultadoAgregarDinero.Equals(DialogResult.Yes))
                     {
-                        GenerarTicket(datos);
+                        var idDeposito = 0;
+                        var usuarioActivo = FormPrincipal.userNickName;
+
+                        if (!usuarioActivo.Contains("@"))
+                        {
+                            using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoAdministrador()))
+                            {
+                                if (!dtDepositoDeDinero.Rows.Count.Equals(0))
+                                {
+                                    DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
+                                    idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
+                                    
+                                    using (ImprimirTicketDepositarDineroCaja8cm imprimirTicketDineroAgregado = new ImprimirTicketDepositarDineroCaja8cm())
+                                    {
+                                        imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
+                                        imprimirTicketDineroAgregado.ShowDialog();
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+
+                        }
                     }
-                    else
-                    {
-                        Utilidades.MensajeAdobeReader();
-                    }
+
+                    //if (Utilidades.AdobeReaderInstalado())
+                    //{
+                    //    GenerarTicket(datos);
+                    //}
+                    //else
+                    //{
+                    //    Utilidades.MensajeAdobeReader();
+                    //}
                 }
 
                 // Para generar Ticket al retirar dinero
