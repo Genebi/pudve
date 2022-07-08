@@ -3740,6 +3740,16 @@ namespace PuntoDeVentaV2.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap clipboard_invoice16px {
+            get {
+                object obj = ResourceManager.GetObject("clipboard_invoice16px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap clipboard1 {
             get {
                 object obj = ResourceManager.GetObject("clipboard1", resourceCulture);

@@ -187,6 +187,9 @@ namespace PuntoDeVentaV2
 
         public static string NombreCliente = string.Empty;
 
+        public int idAnticipoVentas;
+
+
 
         Dictionary<int, string> listaMensajesEnviados = new Dictionary<int, string>();
 
@@ -3122,7 +3125,7 @@ namespace PuntoDeVentaV2
                                 {
                                     MessageBox.Show($"Esta venta ya fue guardada y facturada con el cliente {nombreCliente},\npor lo tanto se guardara como una venta nueva.", "Aviso Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     mostrarVenta = 0;
-                                    respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                                    respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta,idAnticipoVentas));
 
                                 }
                                 else if (!idClienteTmp.Equals(drVentaGuardada["IDCliente"].ToString()))
@@ -3130,7 +3133,7 @@ namespace PuntoDeVentaV2
                                     guardar[1] = idClienteTmp;
                                     mostrarVenta = 0;
                                     MessageBox.Show($"Esta venta ya fue guardada y facturada con un cliente distinto,\npor lo tanto se guardara como una venta nueva\ncon el cliente: {nombreCliente}.", "Aviso Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                                    respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas));
                                 }
                             }
                         }
@@ -3167,7 +3170,7 @@ namespace PuntoDeVentaV2
 
                                         if (!existeVenta)
                                         {
-                                            respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                                            respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas));
                                         }
                                         else
                                         {
@@ -3183,7 +3186,7 @@ namespace PuntoDeVentaV2
 
                                         if (!existeVenta)
                                         {
-                                            respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta));
+                                            respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas));
                                         }
                                         else
                                         {
@@ -3197,7 +3200,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         mostrarVenta = 0;
-                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta)); //Aqui se guarda
+                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas));
                     }
                 }
 
