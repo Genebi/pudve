@@ -171,6 +171,7 @@ namespace PuntoDeVentaV2
                     Image habilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\check.png");
                     Image devolver = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
                     Image info = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
+                    Image historialAnticipos = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\clipboard_invoice16px.png");
                     Bitmap sinImagen = new Bitmap(1, 1);
                     sinImagen.SetPixel(0, 0, Color.White);
 
@@ -214,6 +215,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
+                        row.Cells["Ticket"].Value = historialAnticipos;
                         row.Cells["Status"].Value = sinImagen;
                         row.Cells["Devolver"].Value = sinImagen;
                         row.Cells["Info"].Value = info;
@@ -383,39 +385,43 @@ namespace PuntoDeVentaV2
                 // Generar ticket
                 if (e.ColumnIndex == 6)
                 {
-                    if (opcion1 == 0)
-                    {
-                        Utilidades.MensajePermiso();
-                        return;
-                    }
+                    HistorialAnticipos historialAnticipo = new HistorialAnticipos();
+                    historialAnticipo.ShowDialog();
 
-                    if (!Utilidades.AdobeReaderInstalado())
-                    {
-                        Utilidades.MensajeAdobeReader();
-                        return;
-                    }
+                    var datosHistorial = cn.CargarDatos("SELECT ");
+                    //if (opcion1 == 0)
+                    //{
+                    //    Utilidades.MensajePermiso();
+                    //    return;
+                    //}
 
-                    rutaTicketGenerado = @"C:\Archivos PUDVE\Anticipos\Tickets\ticket_anticipo_" + idAnticipo + ".pdf";
-                    ticketGenerado = $"ticket_anticipo_{idAnticipo}.pdf";
+                    //if (!Utilidades.AdobeReaderInstalado())
+                    //{
+                    //    Utilidades.MensajeAdobeReader();
+                    //    return;
+                    //}
 
-                    if (File.Exists(rutaTicketGenerado))
-                    {
-                        VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
+                    //rutaTicketGenerado = @"C:\Archivos PUDVE\Anticipos\Tickets\ticket_anticipo_" + idAnticipo + ".pdf";
+                    //ticketGenerado = $"ticket_anticipo_{idAnticipo}.pdf";
 
-                        vt.FormClosed += delegate
-                        {
-                            vt.Dispose();
+                    //if (File.Exists(rutaTicketGenerado))
+                    //{
+                    //    VisualizadorTickets vt = new VisualizadorTickets(ticketGenerado, rutaTicketGenerado);
 
-                            rutaTicketGenerado = string.Empty;
-                            ticketGenerado = string.Empty;
-                        };
+                    //    vt.FormClosed += delegate
+                    //    {
+                    //        vt.Dispose();
 
-                        vt.ShowDialog();
-                    }
-                    else
-                    {
-                        MessageBox.Show($"El archivo solicitado con nombre '{ticketGenerado}' \nno se encuentra en el sistema.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    //        rutaTicketGenerado = string.Empty;
+                    //        ticketGenerado = string.Empty;
+                    //    };
+
+                    //    vt.ShowDialog();
+                    //}
+                    //else
+                    //{
+                    //    MessageBox.Show($"El archivo solicitado con nombre '{ticketGenerado}' \nno se encuentra en el sistema.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //}
                 }
 
                 // Habilitar/Deshabilitar

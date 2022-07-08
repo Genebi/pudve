@@ -1740,6 +1740,9 @@
     <Content Include="PUDVE\assets\Presupuesto.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="PUDVE\icon\black16\clipboard_invoice16px.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

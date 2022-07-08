@@ -132,6 +132,12 @@ namespace PuntoDeVentaV2
                 int idAnticipo = Convert.ToInt32(DGVListaAnticipos.Rows[fila].Cells["ID"].Value);
                 obtenerIdAnticipo = idAnticipo;
 
+                var form = Application.OpenForms.OfType<Ventas>().FirstOrDefault();
+                if (form != null)
+                {
+                    form.idAnticipoVentas = idAnticipo;
+                }
+
                 int seleccionado = Array.IndexOf(anticipos, idAnticipo.ToString());
 
                 //Si el anticipo no ha sido aplicado se hace la operacion normalmente

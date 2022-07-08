@@ -338,7 +338,7 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string GuardarVenta(string[] datos, int operacion = 0)
+        public string GuardarVenta(string[] datos, int operacion = 0, int idAnticipo = 0)
         {
             string consulta = null;
 
@@ -346,7 +346,7 @@ namespace PuntoDeVentaV2
             {
                 //Insertar nueva venta
                 consulta = "INSERT INTO Ventas (IDUsuario, IDCliente, IDSucursal, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, Status, FechaOperacion, IDClienteDescuento, IDEmpleado, FormaPago,IDAnticipo)";
-                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}')";
+                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}','{idAnticipo}')";
             }
             else
             {
