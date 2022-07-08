@@ -684,7 +684,20 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
+                            using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoEmpleado(FormPrincipal.id_empleado)))
+                            {
+                                if (!dtDepositoDeDinero.Rows.Count.Equals(0))
+                                {
+                                    DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
+                                    idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
 
+                                    using (imprimirTicketDineroAgregadoEmpleado imprimirTicketDineroAgregado = new imprimirTicketDineroAgregadoEmpleado())
+                                    {
+                                        imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
+                                        imprimirTicketDineroAgregado.ShowDialog();
+                                    }
+                                }
+                            }
                         }
                     }
 

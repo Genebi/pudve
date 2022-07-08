@@ -14,19 +14,19 @@ using System.Windows.Forms;
 
 namespace PuntoDeVentaV2
 {
-    public partial class ImprimirTicketDepositarDineroCaja8cm : Form
+    public partial class imprimirTicketDineroAgregadoEmpleado : Form
     {
         Consultas cs = new Consultas();
         Conexion cn = new Conexion();
 
         public int idDineroAgregado { get; set; }
 
-        public ImprimirTicketDepositarDineroCaja8cm()
+        public imprimirTicketDineroAgregadoEmpleado()
         {
             InitializeComponent();
         }
 
-        private void ImprimirTicketDepositarDineroCaja8cm_Load(object sender, EventArgs e)
+        private void imprimirTicketDineroAgregadoEmpleado_Load(object sender, EventArgs e)
         {
             CargarDatosTicket();
         }
@@ -35,7 +35,7 @@ namespace PuntoDeVentaV2
         {
             var servidor = Properties.Settings.Default.Hosting;
             string cadenaConn = string.Empty;
-            string queryDineroAgregado = cs.obtenerDatosTicketAgregarDinero(idDineroAgregado);
+            string queryDineroAgregado = cs.obtenerDatosTicketAgregarDineroEmpleado(idDineroAgregado);
             MySqlConnection conn = new MySqlConnection();
             string pathApplication = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\DineroAgregado\TicketDineroAgregado.rdlc";

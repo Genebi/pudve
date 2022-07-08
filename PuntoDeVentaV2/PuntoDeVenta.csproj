@@ -780,6 +780,12 @@
     <Compile Include="ImprimirTicketDepositarDineroCaja8cm.Designer.cs">
       <DependentUpon>ImprimirTicketDepositarDineroCaja8cm.cs</DependentUpon>
     </Compile>
+    <Compile Include="imprimirTicketDineroAgregadoEmpleado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="imprimirTicketDineroAgregadoEmpleado.Designer.cs">
+      <DependentUpon>imprimirTicketDineroAgregadoEmpleado.cs</DependentUpon>
+    </Compile>
     <Compile Include="imprimirTicketPresupuesto8cm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1602,6 +1608,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ImprimirTicketDepositarDineroCaja8cm.resx">
       <DependentUpon>ImprimirTicketDepositarDineroCaja8cm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="imprimirTicketDineroAgregadoEmpleado.resx">
+      <DependentUpon>imprimirTicketDineroAgregadoEmpleado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="imprimirTicketPresupuesto8cm.resx">
       <DependentUpon>imprimirTicketPresupuesto8cm.cs</DependentUpon>

@@ -4143,9 +4143,23 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string obtenerIdUltimoDepositoDeDineroComoEmpleado(int idEmpleado)
+        {
+            var consulta = $"SELECT ID FROM caja WHERE Operacion = 'deposito' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{idEmpleado}' ORDER BY ID DESC LIMIT 1";
+
+            return consulta;
+        }
+
         public string obtenerDatosTicketAgregarDinero(int IdAgregarDinero)
         {
             var consulta = $"SET lc_time_names = 'es_MX'; SELECT IF ( Usr.RazonSocial = '' OR Usr.RazonSocial IS NULL, '', Usr.RazonSocial ) AS 'RazonSocial', IF ( Box.Operacion = '' OR Box.Operacion IS NULL, '', 'Ticket DEPOSITO' ) AS 'TipoTicket', IF ( Box.FechaOperacion = '' OR Box.FechaOperacion IS NULL, '', CONCAT( 'Fecha: ', ( CONCAT( DATE_FORMAT( Box.FechaOperacion, '%W - %e/%M/%Y' ), '', TIME_FORMAT( Box.FechaOperacion, '%h:%i:%s %p' ) ) ) ) ) AS 'FechaDeposito', IF ( Usr.Usuario = '' OR Usr.Usuario IS NULL, '', CONCAT( 'Empleado: ', Usr.Usuario ) ) AS 'Empleado', IF ( Box.Efectivo = '' OR Box.Efectivo IS NULL, '', CONCAT( '$ ', FORMAT( Box.Efectivo, 2 ) ) ) AS 'Efectivo', IF ( Box.Tarjeta = '' OR Box.Tarjeta IS NULL, '', CONCAT( '$ ', FORMAT( Box.Tarjeta, 2 ) ) ) AS 'Tarjeta', IF ( Box.Vales = '' OR Box.Vales IS NULL, '', CONCAT( '$ ', FORMAT( Box.Vales, 2 ) ) ) AS 'Vales', IF ( Box.Cheque = '' OR Box.Cheque IS NULL, '', CONCAT( '$ ', FORMAT( Box.Cheque, 2 ) ) ) AS 'Cheque', IF ( Box.Transferencia = '' OR Box.Transferencia IS NULL, '', CONCAT( '$ ', FORMAT( Box.Transferencia, 2 ) ) ) AS 'Transferencia', IF ( Box.Cantidad = '' OR Box.Cantidad IS NULL, '', CONCAT( '$ ', FORMAT( Box.Cantidad, 2 ) ) ) AS 'Total', IF(Box.Concepto=''OR Box.Concepto IS NULL, '', Box.Concepto) AS 'Concepto' FROM caja AS Box INNER JOIN usuarios AS Usr ON ( Usr.ID = Box.IDUsuario ) WHERE Box.ID = '{IdAgregarDinero}'";
+
+            return consulta;
+        }
+
+        public string obtenerDatosTicketAgregarDineroEmpleado(int IdAgregarDinero)
+        {
+            var consulta = $"SET lc_time_names = 'es_MX'; SELECT IF ( Usr.RazonSocial = '' OR Usr.RazonSocial IS NULL, '', Usr.RazonSocial ) AS 'RazonSocial', IF ( Box.Operacion = '' OR Box.Operacion IS NULL, '', 'Ticket DEPOSITO' ) AS 'TipoTicket', IF ( Box.FechaOperacion = '' OR Box.FechaOperacion IS NULL, '', CONCAT( 'Fecha: ', ( CONCAT( DATE_FORMAT( Box.FechaOperacion, '%W - %e/%M/%Y' ), '', TIME_FORMAT( Box.FechaOperacion, '%h:%i:%s %p' ) ) ) ) ) AS 'FechaDeposito', IF ( Emp.nombre = '' OR Emp.nombre IS NULL, '', CONCAT( 'Empleado: ', Emp.nombre ) ) AS 'Empleado', IF ( Box.Efectivo = '' OR Box.Efectivo IS NULL, '', CONCAT( '$ ', FORMAT( Box.Efectivo, 2 ) ) ) AS 'Efectivo', IF ( Box.Tarjeta = '' OR Box.Tarjeta IS NULL, '', CONCAT( '$ ', FORMAT( Box.Tarjeta, 2 ) ) ) AS 'Tarjeta', IF ( Box.Vales = '' OR Box.Vales IS NULL, '', CONCAT( '$ ', FORMAT( Box.Vales, 2 ) ) ) AS 'Vales', IF ( Box.Cheque = '' OR Box.Cheque IS NULL, '', CONCAT( '$ ', FORMAT( Box.Cheque, 2 ) ) ) AS 'Cheque', IF ( Box.Transferencia = '' OR Box.Transferencia IS NULL, '', CONCAT( '$ ', FORMAT( Box.Transferencia, 2 ) ) ) AS 'Transferencia', IF ( Box.Cantidad = '' OR Box.Cantidad IS NULL, '', CONCAT( '$ ', FORMAT( Box.Cantidad, 2 ) ) ) AS 'Total', IF ( Box.Concepto = '' OR Box.Concepto IS NULL, '', Box.Concepto ) AS 'Concepto' FROM caja AS Box INNER JOIN usuarios AS Usr ON ( Usr.ID = Box.IDUsuario ) INNER JOIN empleados AS Emp ON ( Emp.ID = Box.IdEmpleado ) WHERE Box.ID = '{IdAgregarDinero}'";
 
             return consulta;
         }
