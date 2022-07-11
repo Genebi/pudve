@@ -739,19 +739,19 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            using (DataTable dtRetiroDeDinero = cn.CargarDatos(cs.obtenerIdUltimoRetiroDeDineroComoEmpleado(FormPrincipal.id_empleado)))
-                            {
-                                if (!dtRetiroDeDinero.Rows.Count.Equals(0))
-                                {
-                                    DataRow drIdReriroDeDinero = dtRetiroDeDinero.Rows[0];
-                                    idRetiro = Convert.ToInt32(drIdReriroDeDinero["ID"].ToString());
-                                    using (imprimirTicketDineroRetiradoEmpleado imprimirTicketDineroRetirado = new imprimirTicketDineroRetiradoEmpleado())
-                                    {
-                                        imprimirTicketDineroRetirado.idDineroRetirado = idRetiro;
-                                        imprimirTicketDineroRetirado.ShowDialog();
-                                    }
-                                }
-                            }
+                            //using (DataTable dtRetiroDeDinero = cn.CargarDatos(cs.obtenerIdUltimoRetiroDeDineroComoEmpleado(FormPrincipal.id_empleado)))
+                            //{
+                            //    if (!dtRetiroDeDinero.Rows.Count.Equals(0))
+                            //    {
+                            //        DataRow drIdReriroDeDinero = dtRetiroDeDinero.Rows[0];
+                            //        idRetiro = Convert.ToInt32(drIdReriroDeDinero["ID"].ToString());
+                            //        using (imprimirTicketDineroRetiradoEmpleado imprimirTicketDineroRetirado = new imprimirTicketDineroRetiradoEmpleado())
+                            //        {
+                            //            imprimirTicketDineroRetirado.idDineroRetirado = idRetiro;
+                            //            imprimirTicketDineroRetirado.ShowDialog();
+                            //        }
+                            //    }
+                            //}
                         }
                     }
 
