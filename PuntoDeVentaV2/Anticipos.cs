@@ -385,10 +385,14 @@ namespace PuntoDeVentaV2
                 // Generar ticket
                 if (e.ColumnIndex == 6)
                 {
+                    var datosHistorial = cn.CargarDatos($"SELECT vent.ID AS 'ID Venta', IF(vent.IDEmpleado!=0,'Empleado', 'Administrador') AS 'Empleado', ant.Concepto, ant.Cliente, ant.Comentarios, ant.ImporteOriginal AS 'Total Recibido', ((vent.Subtotal+vent.IVA16+vent.IVA8)) AS 'Anticipo Aplicado', vent.anticipo - (vent.Subtotal+vent.IVA16+vent.IVA8 - vent.Total) AS 'Saldo Restante', vent.FechaOperacion AS 'Fecha Operacion' FROM anticipos AS ant INNER JOIN ventas AS vent ON (Vent.IDAnticipo = ant.ID ) WHERE vent.IDAnticipo = '{idAnticipo}' ORDER BY vent.ID DESC");
+
+                   
                     HistorialAnticipos historialAnticipo = new HistorialAnticipos();
+                    historialAnticipo.datosHistoria = datosHistorial;
                     historialAnticipo.ShowDialog();
 
-                    var datosHistorial = cn.CargarDatos("SELECT ");
+                    
                     //if (opcion1 == 0)
                     //{
                     //    Utilidades.MensajePermiso();

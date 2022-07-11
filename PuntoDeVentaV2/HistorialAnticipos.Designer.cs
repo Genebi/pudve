@@ -30,13 +30,6 @@ namespace PuntoDeVentaV2
         private void InitializeComponent()
         {
             this.DGVAnticipos = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.empleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAnticipos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,56 +39,12 @@ namespace PuntoDeVentaV2
             this.DGVAnticipos.AllowUserToDeleteRows = false;
             this.DGVAnticipos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVAnticipos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVAnticipos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.id,
-            this.concepto,
-            this.importe,
-            this.cliente,
-            this.empleado,
-            this.fecha,
-            this.idVenta});
             this.DGVAnticipos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGVAnticipos.Location = new System.Drawing.Point(0, 0);
             this.DGVAnticipos.Name = "DGVAnticipos";
             this.DGVAnticipos.RowHeadersVisible = false;
             this.DGVAnticipos.Size = new System.Drawing.Size(680, 322);
             this.DGVAnticipos.TabIndex = 0;
-            // 
-            // id
-            // 
-            this.id.HeaderText = "";
-            this.id.Name = "id";
-            this.id.Visible = false;
-            // 
-            // concepto
-            // 
-            this.concepto.HeaderText = "Concepto";
-            this.concepto.Name = "concepto";
-            // 
-            // importe
-            // 
-            this.importe.HeaderText = "Importe";
-            this.importe.Name = "importe";
-            // 
-            // cliente
-            // 
-            this.cliente.HeaderText = "Cliente";
-            this.cliente.Name = "cliente";
-            // 
-            // empleado
-            // 
-            this.empleado.HeaderText = "Empleado";
-            this.empleado.Name = "empleado";
-            // 
-            // fecha
-            // 
-            this.fecha.HeaderText = "Fecha de Aplicacion";
-            this.fecha.Name = "fecha";
-            // 
-            // idVenta
-            // 
-            this.idVenta.HeaderText = "ID Venta";
-            this.idVenta.Name = "idVenta";
             // 
             // HistorialAnticipos
             // 
@@ -110,6 +59,7 @@ namespace PuntoDeVentaV2
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Historial";
+            this.Load += new System.EventHandler(this.HistorialAnticipos_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVAnticipos)).EndInit();
             this.ResumeLayout(false);
 
@@ -118,12 +68,5 @@ namespace PuntoDeVentaV2
         #endregion
 
         private System.Windows.Forms.DataGridView DGVAnticipos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn concepto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn importe;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn empleado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idVenta;
     }
 }

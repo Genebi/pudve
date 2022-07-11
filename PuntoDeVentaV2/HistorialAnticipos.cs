@@ -12,9 +12,21 @@ namespace PuntoDeVentaV2
 {
     public partial class HistorialAnticipos : Form
     {
+        public DataTable datosHistoria { get; set; }
+
         public HistorialAnticipos()
         {
             InitializeComponent();
+        }
+
+        private void HistorialAnticipos_Load(object sender, EventArgs e)
+        {
+            if (!datosHistoria.Rows.Count.Equals(0))
+            {
+                DGVAnticipos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+                DGVAnticipos.DataSource = datosHistoria;
+            }
         }
     }
 }
