@@ -792,6 +792,12 @@
     <Compile Include="imprimirTicketPresupuesto8cm.Designer.cs">
       <DependentUpon>imprimirTicketPresupuesto8cm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImprimirTicketRetirarDineroCaja8cm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImprimirTicketRetirarDineroCaja8cm.Designer.cs">
+      <DependentUpon>ImprimirTicketRetirarDineroCaja8cm.cs</DependentUpon>
+    </Compile>
     <Compile Include="InformacionVenta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1104,6 +1110,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TicketDineroAgregado.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="ReportesImpresion\Ticket\DineroRetirado\TicketDineroRetirado.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TicketDineroRetirado.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ReportesImpresion\Ticket\PresupuestoRealizado\TicketPresupuesto.Designer.cs">
@@ -1615,6 +1627,9 @@
     <EmbeddedResource Include="imprimirTicketPresupuesto8cm.resx">
       <DependentUpon>imprimirTicketPresupuesto8cm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ImprimirTicketRetirarDineroCaja8cm.resx">
+      <DependentUpon>ImprimirTicketRetirarDineroCaja8cm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InformacionVenta.resx">
       <DependentUpon>InformacionVenta.cs</DependentUpon>
     </EmbeddedResource>
@@ -1788,6 +1803,9 @@
     <Content Include="ReportesImpresion\Ticket\DineroAgregado\TicketDineroAgregado.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\DineroRetirado\TicketDineroRetirado.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -1959,6 +1977,20 @@
     </Content>
     <None Include="ReportesImpresion\Ticket\DineroAgregado\TicketDineroAgregado.xss">
       <DependentUpon>TicketDineroAgregado.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\DineroRetirado\TicketDineroRetirado.xsc">
+      <DependentUpon>TicketDineroRetirado.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="ReportesImpresion\Ticket\DineroRetirado\TicketDineroRetirado.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TicketDineroRetirado.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ReportesImpresion\Ticket\DineroRetirado\TicketDineroRetirado.xss">
+      <DependentUpon>TicketDineroRetirado.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportesImpresion\Ticket\PresupuestoRealizado\TicketPresupuesto.xsc">

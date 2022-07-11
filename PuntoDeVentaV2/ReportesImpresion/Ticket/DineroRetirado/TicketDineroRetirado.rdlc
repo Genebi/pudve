@@ -9,7 +9,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!RazonSocial.Value, "TicketDineroAgregado")</Value>
+                <Value>=First(Fields!RazonSocial.Value, "TicketDineroRetirado")</Value>
                 <Style>
                   <FontWeight>Bold</FontWeight>
                 </Style>
@@ -21,7 +21,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>RazonSocial</rd:DefaultName>
-        <Top>0.14499cm</Top>
+        <Top>0.1397cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
         <Width>7.7cm</Width>
@@ -42,7 +42,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!TipoTicket.Value, "TicketDineroAgregado")</Value>
+                <Value>=First(Fields!TipoTicket.Value, "TicketDineroRetirado")</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -52,7 +52,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>TipoTicket</rd:DefaultName>
-        <Top>0.76263cm</Top>
+        <Top>0.7747cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
         <Width>7.7cm</Width>
@@ -74,7 +74,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!FechaDeposito.Value, "TicketDineroAgregado")</Value>
+                <Value>=First(Fields!FechaDeposito.Value, "TicketDineroRetirado")</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -84,7 +84,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>FechaDeposito</rd:DefaultName>
-        <Top>1.41202cm</Top>
+        <Top>1.38324cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
         <Width>7.7cm</Width>
@@ -106,7 +106,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=First(Fields!Empleado.Value, "TicketDineroAgregado")</Value>
+                <Value>=First(Fields!Empleado.Value, "TicketDineroRetirado")</Value>
                 <Style />
               </TextRun>
             </TextRuns>
@@ -116,7 +116,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Empleado</rd:DefaultName>
-        <Top>2.03412cm</Top>
+        <Top>2.01824cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
         <Width>7.7cm</Width>
@@ -131,236 +131,12 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Textbox Name="Tarjeta">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Tarjeta.Value, "TicketDineroAgregado")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Tarjeta</rd:DefaultName>
-        <Top>4.41388cm</Top>
-        <Left>4.06639cm</Left>
-        <Height>0.6cm</Height>
-        <Width>3.73361cm</Width>
-        <ZIndex>4</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Vales">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Vales.Value, "TicketDineroAgregado")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Vales</rd:DefaultName>
-        <Top>5.03152cm</Top>
-        <Left>4.06639cm</Left>
-        <Height>0.6cm</Height>
-        <Width>3.73361cm</Width>
-        <ZIndex>5</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Cheque">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Cheque.Value, "TicketDineroAgregado")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Cheque</rd:DefaultName>
-        <Top>5.68091cm</Top>
-        <Left>4.06639cm</Left>
-        <Height>0.6cm</Height>
-        <Width>3.73361cm</Width>
-        <ZIndex>6</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Transferencia">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Transferencia.Value, "TicketDineroAgregado")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Transferencia</rd:DefaultName>
-        <Top>6.36205cm</Top>
-        <Left>4.06639cm</Left>
-        <Height>0.6cm</Height>
-        <Width>3.73361cm</Width>
-        <ZIndex>7</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Total">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Total.Value, "TicketDineroAgregado")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Total</rd:DefaultName>
-        <Top>7.64328cm</Top>
-        <Left>4.06639cm</Left>
-        <Height>0.6cm</Height>
-        <Width>3.73361cm</Width>
-        <ZIndex>8</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Efectivo">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Efectivo.Value, "TicketDineroAgregado")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Right</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Efectivo</rd:DefaultName>
-        <Top>3.79624cm</Top>
-        <Left>4.06639cm</Left>
-        <Height>0.6cm</Height>
-        <Width>3.73361cm</Width>
-        <ZIndex>9</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Concepto">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Concepto.Value, "TicketDineroAgregado")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Concepto</rd:DefaultName>
-        <Top>9.29428cm</Top>
-        <Left>0.1cm</Left>
-        <Height>0.6cm</Height>
-        <Width>7.7cm</Width>
-        <ZIndex>10</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
       <Line Name="Line1">
-        <Top>3.36233cm</Top>
+        <Top>2.97603cm</Top>
         <Left>0.1cm</Left>
         <Height>0cm</Height>
         <Width>7.7cm</Width>
-        <ZIndex>11</ZIndex>
+        <ZIndex>4</ZIndex>
         <Style>
           <Border>
             <Style>Solid</Style>
@@ -382,11 +158,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox16</rd:DefaultName>
-        <Top>3.79624cm</Top>
+        <Top>3.37001cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
         <Width>3.79cm</Width>
-        <ZIndex>12</ZIndex>
+        <ZIndex>5</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -412,11 +188,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox16</rd:DefaultName>
-        <Top>4.41388cm</Top>
+        <Top>3.98765cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
         <Width>3.79cm</Width>
-        <ZIndex>13</ZIndex>
+        <ZIndex>6</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -442,11 +218,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox16</rd:DefaultName>
-        <Top>5.03152cm</Top>
+        <Top>4.60529cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
         <Width>3.79cm</Width>
-        <ZIndex>14</ZIndex>
+        <ZIndex>7</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -472,11 +248,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox16</rd:DefaultName>
-        <Top>5.68091cm</Top>
+        <Top>5.25468cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
         <Width>3.79cm</Width>
-        <ZIndex>15</ZIndex>
+        <ZIndex>8</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -502,11 +278,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox16</rd:DefaultName>
-        <Top>6.36205cm</Top>
+        <Top>5.87232cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
         <Width>3.79cm</Width>
-        <ZIndex>16</ZIndex>
+        <ZIndex>9</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -517,18 +293,6 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Line Name="Line2">
-        <Top>7.35533cm</Top>
-        <Left>0.1cm</Left>
-        <Height>0cm</Height>
-        <Width>7.7cm</Width>
-        <ZIndex>17</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-        </Style>
-      </Line>
       <Textbox Name="Textbox21">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -546,11 +310,215 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox21</rd:DefaultName>
-        <Top>7.64328cm</Top>
+        <Top>7.40458cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
         <Width>3.79cm</Width>
-        <ZIndex>18</ZIndex>
+        <ZIndex>10</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Line Name="Line3">
+        <Top>6.90245cm</Top>
+        <Left>0.1cm</Left>
+        <Height>0cm</Height>
+        <Width>7.7cm</Width>
+        <ZIndex>11</ZIndex>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+          </Border>
+        </Style>
+      </Line>
+      <Textbox Name="Efectivo">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!Efectivo.Value, "TicketDineroRetirado")</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Efectivo</rd:DefaultName>
+        <Top>3.37001cm</Top>
+        <Left>4.06639cm</Left>
+        <Height>0.6cm</Height>
+        <Width>3.73361cm</Width>
+        <ZIndex>12</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Tarjeta">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!Tarjeta.Value, "TicketDineroRetirado")</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Tarjeta</rd:DefaultName>
+        <Top>4.00176cm</Top>
+        <Left>4.06639cm</Left>
+        <Height>0.6cm</Height>
+        <Width>3.73361cm</Width>
+        <ZIndex>13</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Vales">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!Vales.Value, "TicketDineroRetirado")</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Vales</rd:DefaultName>
+        <Top>4.63704cm</Top>
+        <Left>4.06639cm</Left>
+        <Height>0.6cm</Height>
+        <Width>3.73361cm</Width>
+        <ZIndex>14</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Cheque">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!Cheque.Value, "TicketDineroRetirado")</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Cheque</rd:DefaultName>
+        <Top>5.25468cm</Top>
+        <Left>4.06639cm</Left>
+        <Height>0.6cm</Height>
+        <Width>3.73361cm</Width>
+        <ZIndex>15</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Transferencia">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!Transferencia.Value, "TicketDineroRetirado")</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Transferencia</rd:DefaultName>
+        <Top>5.88996cm</Top>
+        <Left>4.06639cm</Left>
+        <Height>0.6cm</Height>
+        <Width>3.73361cm</Width>
+        <ZIndex>16</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Total">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!Total.Value, "TicketDineroRetirado")</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Total</rd:DefaultName>
+        <Top>7.40458cm</Top>
+        <Left>4.06639cm</Left>
+        <Height>0.6cm</Height>
+        <Width>3.73361cm</Width>
+        <ZIndex>17</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -580,7 +548,39 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox22</rd:DefaultName>
-        <Top>8.67516cm</Top>
+        <Top>8.54229cm</Top>
+        <Left>0.1cm</Left>
+        <Height>0.6cm</Height>
+        <Width>7.7cm</Width>
+        <ZIndex>18</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Concepto">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!Concepto.Value, "TicketDineroRetirado")</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Concepto</rd:DefaultName>
+        <Top>9.17787cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
         <Width>7.7cm</Width>
@@ -612,18 +612,18 @@
   </Page>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
-    <DataSource Name="TicketDineroAgregado">
+    <DataSource Name="TicketDineroRetirado">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>8cd5d5ab-9c79-4db0-b345-564751353665</rd:DataSourceID>
+      <rd:DataSourceID>95049315-b388-433b-aa1e-012692c098db</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="TicketDineroAgregado">
+    <DataSet Name="TicketDineroRetirado">
       <Query>
-        <DataSourceName>TicketDineroAgregado</DataSourceName>
+        <DataSourceName>TicketDineroRetirado</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <Fields>
@@ -673,9 +673,9 @@
         </Field>
       </Fields>
       <rd:DataSetInfo>
-        <rd:DataSetName>TicketDineroAgregado</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\Dell\source\repos\pudve\PuntoDeVentaV2\ReportesImpresion\Ticket\DineroAgregado\TicketDineroAgregado.xsd</rd:SchemaPath>
-        <rd:TableName>DTDineroAgregado</rd:TableName>
+        <rd:DataSetName>TicketDineroRetirado</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\Dell\source\repos\pudve\PuntoDeVentaV2\ReportesImpresion\Ticket\DineroRetirado\TicketDineroRetirado.xsd</rd:SchemaPath>
+        <rd:TableName>DTTicketDineroRetirado</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
         <rd:TableAdapterName />
@@ -683,5 +683,5 @@
     </DataSet>
   </DataSets>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
-  <rd:ReportID>d306e43e-b1ff-4ac3-bd89-775e1ec02881</rd:ReportID>
+  <rd:ReportID>5e762898-be20-4757-b264-9739a456c8e1</rd:ReportID>
 </Report>
