@@ -714,14 +714,55 @@ namespace PuntoDeVentaV2
                 // Para generar Ticket al retirar dinero
                 if (operacion == 1)
                 {
-                    if (Utilidades.AdobeReaderInstalado())
+                    DialogResult resultadoRetirarDinero = MessageBox.Show("Desea imprimir ticket de la operación Retirar Dinero", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (resultadoRetirarDinero.Equals(DialogResult.Yes))
                     {
-                        GenerarTicket(datos);
+                        var idRetiro = 0;
+                        var usuarioActivo = FormPrincipal.userNickName;
+
+                        if (!usuarioActivo.Contains("@"))
+                        {
+                            using (DataTable dtRetiroDeDinero = cn.CargarDatos(cs.obtenerIdUltimoRetiroDeDineroComoAdministrador()))
+                            {
+                                if (!dtRetiroDeDinero.Rows.Count.Equals(0))
+                                {
+                                    DataRow drIdReriroDeDinero = dtRetiroDeDinero.Rows[0];
+                                    idRetiro = Convert.ToInt32(drIdReriroDeDinero["ID"].ToString());
+                                    using (ImprimirTicketRetirarDineroCaja8cm imprimirTicketDineroRetirado = new ImprimirTicketRetirarDineroCaja8cm())
+                                    {
+                                        imprimirTicketDineroRetirado.idDineroRetirado = idRetiro;
+                                        imprimirTicketDineroRetirado.ShowDialog();
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            using (DataTable dtRetiroDeDinero = cn.CargarDatos(cs.obtenerIdUltimoRetiroDeDineroComoEmpleado(FormPrincipal.id_empleado)))
+                            {
+                                if (!dtRetiroDeDinero.Rows.Count.Equals(0))
+                                {
+                                    DataRow drIdReriroDeDinero = dtRetiroDeDinero.Rows[0];
+                                    idRetiro = Convert.ToInt32(drIdReriroDeDinero["ID"].ToString());
+                                    using (imprimirTicketDineroRetiradoEmpleado imprimirTicketDineroRetirado = new imprimirTicketDineroRetiradoEmpleado())
+                                    {
+                                        imprimirTicketDineroRetirado.idDineroRetirado = idRetiro;
+                                        imprimirTicketDineroRetirado.ShowDialog();
+                                    }
+                                }
+                            }
+                        }
                     }
-                    else
-                    {
-                        Utilidades.MensajeAdobeReader();
-                    }
+
+                    //if (Utilidades.AdobeReaderInstalado())
+                    //{
+                    //    GenerarTicket(datos);
+                    //}
+                    //else
+                    //{
+                    //    Utilidades.MensajeAdobeReader();
+                    //}
                 }
 
                 // Corte
