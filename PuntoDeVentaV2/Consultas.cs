@@ -4191,5 +4191,24 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string busquedaPorClientePorFolioVentasGuardadas(string textoProBuscar)
+        {
+            var consulta = $"AND (Cliente LIKE '%{textoProBuscar}%' OR Folio LIKE '%{textoProBuscar}%')";
+
+            return consulta;
+        }
+
+        public string buscarVentasGuardadasConSinParametroDeBusqueda(string parametroBusqueda)
+        {
+            var consulta = $"SELECT * FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND Status = '2' ORDER BY FechaOperacion DESC";
+
+            if (!string.IsNullOrWhiteSpace(parametroBusqueda))
+            {
+                consulta = $"SELECT * FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND Status = '2' {parametroBusqueda} ORDER BY FechaOperacion DESC";
+            }
+
+            return consulta;
+        }
     }
 }  

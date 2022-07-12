@@ -130,7 +130,7 @@
             this.txt_buscar_por.Size = new System.Drawing.Size(510, 22);
             this.txt_buscar_por.TabIndex = 6;
             this.txt_buscar_por.Text = "Buscar por cliente o folio";
-            this.txt_buscar_por.KeyDown += new System.Windows.Forms.KeyEventHandler(this.buscar_por);
+            this.txt_buscar_por.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_buscar_por_KeyDown);
             // 
             // ListadoVentasGuardadas
             // 
