@@ -5418,7 +5418,7 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta(cs.GuardarAperturaDeCaja(datos));
 
             //Utilidades.GenerarTicketCaja();
-            imprimirUltimoTicket();
+            imprimirUltimoTicket(); 
 
             recargarDatosConCantidades(sender, e);
         }
