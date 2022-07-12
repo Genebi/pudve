@@ -4071,7 +4071,7 @@ namespace PuntoDeVentaV2
                         celda.Value = false;
                         DGVListadoVentas.Rows[e.RowIndex].Selected = false;
                     }
-                }
+                }   
             }
         }
 
