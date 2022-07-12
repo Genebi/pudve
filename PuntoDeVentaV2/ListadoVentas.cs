@@ -1519,7 +1519,7 @@ namespace PuntoDeVentaV2
                     }
 
                     // Si es diferente a la fila donde se muestran los totales
-                    if (e.RowIndex != DGVListadoVentas.Rows.Count - 1)
+                    if (e.RowIndex != DGVListadoVentas.Rows.Count - 1 && e.RowIndex != DGVListadoVentas.Rows.Count -2)
                     {
                         VerToolTip(textoTT, cellRect.X, coordenadaX, cellRect.Y, permitir);
 
