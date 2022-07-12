@@ -4451,6 +4451,9 @@ namespace PuntoDeVentaV2
         private void obtenerIDSeleccionados()
         {
             var incremento = -1;
+            var penultimaFila = DGVListadoVentas.Rows.Count - 2;
+            var ultimaFila = DGVListadoVentas.Rows.Count - 1;
+
             if (chTodos.Checked)
             {
                 var query = cn.CargarDatos(FiltroAvanzado);
@@ -4471,7 +4474,10 @@ namespace PuntoDeVentaV2
                     try
                     {
                         incremento += 1;
-                        DGVListadoVentas.Rows[incremento].Cells["col_checkbox"].Value = true;
+                        if (DGVListadoVentas.Rows[incremento].Index != penultimaFila && DGVListadoVentas.Rows[incremento].Index != ultimaFila)
+                        {
+                            DGVListadoVentas.Rows[incremento].Cells["col_checkbox"].Value = true;
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -4487,7 +4493,10 @@ namespace PuntoDeVentaV2
                     try
                     {
                         incremento += 1;
-                        DGVListadoVentas.Rows[incremento].Cells["col_checkbox"].Value = false;
+                        if (DGVListadoVentas.Rows[incremento].Index != penultimaFila && DGVListadoVentas.Rows[incremento].Index != ultimaFila)
+                        {
+                            DGVListadoVentas.Rows[incremento].Cells["col_checkbox"].Value = false;
+                        }
                     }
                     catch (Exception ex)
                     {
