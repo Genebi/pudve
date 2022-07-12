@@ -1544,9 +1544,10 @@ namespace PuntoDeVentaV2
 
         private void DGVListadoVentas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            var penultimaFila = DGVListadoVentas.Rows.Count - 2;
             var ultimaFila = DGVListadoVentas.Rows.Count - 1;
 
-            if (e.RowIndex >= 0 && e.RowIndex != ultimaFila)
+            if (e.RowIndex >= 0 && e.RowIndex != penultimaFila && e.RowIndex != ultimaFila)
             {
                 var opcion = cbTipoVentas.SelectedValue.ToString();
 
@@ -4051,19 +4052,25 @@ namespace PuntoDeVentaV2
 
         private void clickcellc_checkbox(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == DGVListadoVentas.Columns[0].Index)
-            {
-                DataGridViewCheckBoxCell celda = (DataGridViewCheckBoxCell)this.DGVListadoVentas.Rows[e.RowIndex].Cells[0];
+            var penultimaFila = DGVListadoVentas.Rows.Count - 2;
+            var ultimaFila = DGVListadoVentas.Rows.Count - 1;
 
-                if (Convert.ToBoolean(celda.Value) == false)
+            if (e.RowIndex >= 0 && e.RowIndex != penultimaFila && e.RowIndex != ultimaFila)
+            {
+                if (e.ColumnIndex == DGVListadoVentas.Columns[0].Index)
                 {
-                    celda.Value = true;
-                    DGVListadoVentas.Rows[e.RowIndex].Selected = true;
-                }
-                else
-                {
-                    celda.Value = false;
-                    DGVListadoVentas.Rows[e.RowIndex].Selected = false;
+                    DataGridViewCheckBoxCell celda = (DataGridViewCheckBoxCell)this.DGVListadoVentas.Rows[e.RowIndex].Cells[0];
+
+                    if (Convert.ToBoolean(celda.Value) == false)
+                    {
+                        celda.Value = true;
+                        DGVListadoVentas.Rows[e.RowIndex].Selected = true;
+                    }
+                    else
+                    {
+                        celda.Value = false;
+                        DGVListadoVentas.Rows[e.RowIndex].Selected = false;
+                    }
                 }
             }
         }
