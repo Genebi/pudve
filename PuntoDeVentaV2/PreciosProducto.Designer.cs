@@ -61,6 +61,8 @@ namespace PuntoDeVentaV2
             this.timerProductos6 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel8 = new System.Windows.Forms.FlowLayoutPanel();
             this.timerProductos7 = new System.Windows.Forms.Timer(this.components);
+            this.lblFlechas = new System.Windows.Forms.Label();
+            this.ImagenPalpita = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -181,7 +183,7 @@ namespace PuntoDeVentaV2
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(252, 120);
+            this.label4.Location = new System.Drawing.Point(252, 116);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(97, 31);
             this.label4.TabIndex = 16;
@@ -350,11 +352,34 @@ namespace PuntoDeVentaV2
             // 
             this.timerProductos7.Tick += new System.EventHandler(this.timerProductos7_Tick);
             // 
+            // lblFlechas
+            // 
+            this.lblFlechas.Image = ((System.Drawing.Image)(resources.GetObject("lblFlechas.Image")));
+            this.lblFlechas.Location = new System.Drawing.Point(519, 281);
+            this.lblFlechas.Name = "lblFlechas";
+            this.lblFlechas.Size = new System.Drawing.Size(109, 57);
+            this.lblFlechas.TabIndex = 26;
+            this.lblFlechas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblFlechas.Visible = false;
+            // 
             // PreciosProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(609, 690);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lblFlechas);
+            this.Controls.Add(this.lblImagen);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.lblTiempo);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblNombre);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblCodigoDeBarras);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.flowLayoutPanel8);
             this.Controls.Add(this.flowLayoutPanel7);
             this.Controls.Add(this.flowLayoutPanel6);
@@ -362,20 +387,8 @@ namespace PuntoDeVentaV2
             this.Controls.Add(this.flowLayoutPanel5);
             this.Controls.Add(this.flowLayoutPanel3);
             this.Controls.Add(this.flowLayoutPanel2);
-            this.Controls.Add(this.lblImagen);
             this.Controls.Add(this.lblPrecioSinDescuentos);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.lblTiempo);
-            this.Controls.Add(this.label9);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.lblNombre);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.lblCodigoDeBarras);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.label4);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "PreciosProducto";
@@ -420,5 +433,7 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.Timer timerProductos6;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel8;
         private System.Windows.Forms.Timer timerProductos7;
+        private System.Windows.Forms.Label lblFlechas;
+        private System.Windows.Forms.Timer ImagenPalpita;
     }
 }
