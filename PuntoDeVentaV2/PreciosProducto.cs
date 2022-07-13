@@ -28,6 +28,7 @@ namespace PuntoDeVentaV2
         int Contadorescuetnos6 = 0;
         int ContadorDescuentos7 = 0;
         string IDProducto;
+        DataTable ConsultaDescuantos;
         public PreciosProducto()
         {
             InitializeComponent();
@@ -58,7 +59,7 @@ namespace PuntoDeVentaV2
             {
                 IDProducto = ConsultaPrecio.id;
             }
-            var ConsultaDescuantos = cn.CargarDatos(cs.BuscarDescuentosPorMayoreo(IDProducto));
+            ConsultaDescuantos = cn.CargarDatos(cs.BuscarDescuentosPorMayoreo(IDProducto));
             int tiempoTablas = ConsultaDescuantos.Rows.Count * 3;
             counter = tiempoTablas + 5;
             if (!ConsultaDescuantos.Rows.Count.Equals(0))
@@ -228,6 +229,19 @@ namespace PuntoDeVentaV2
         private void timer1_Tick(object sender, EventArgs e)
         {
             counter--;
+            if (ConsultaDescuantos.Rows.Count > 3)
+            {
+                if ((counter % 2) == 0)
+                {
+                    lblFlechas.Visible = true;
+                }
+                else
+                {
+
+                    lblFlechas.Visible = false;
+                }
+            }
+
             if (counter == 0)
             {
                 timer1.Stop();
