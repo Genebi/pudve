@@ -1815,6 +1815,9 @@
     <Content Include="ReportesImpresion\Ticket\DineroRetirado\TicketDineroRetirado.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\CorteDeCaja\ReporteCorteDeCaja.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
