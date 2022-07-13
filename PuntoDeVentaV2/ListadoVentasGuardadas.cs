@@ -60,20 +60,9 @@ namespace PuntoDeVentaV2
                         idVenta = item["ID"].ToString();
                         folio = item["Folio"].ToString();
                         idCliente = item["IDCliente"].ToString();
-                        if (!idCliente.Equals("0"))
-                        {
-                            var infoCliente = mb.ObtenerDatosCliente(Convert.ToInt32(idCliente), FormPrincipal.userID);
-                            if (!infoCliente.Length.Equals(0))
-                            {
-                                cliente = infoCliente[0];
-                            }
-                        }
-                        else
-                        {
-                            cliente = "Público General";
-                        }
-                        importe = item["Total"].ToString();
-                        fecha = item["FechaOperacion"].ToString();
+                        cliente = item["Cliente"].ToString();
+                        importe = item["Importe"].ToString();
+                        fecha = item["Fecha"].ToString();
 
                         var rowId = DGVListaVentasGuardadas.Rows.Add();
                         DataGridViewRow row = DGVListaVentasGuardadas.Rows[rowId];
