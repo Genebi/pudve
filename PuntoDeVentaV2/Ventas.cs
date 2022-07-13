@@ -1390,6 +1390,8 @@ namespace PuntoDeVentaV2
                                 string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
                                 CalcularDescuento(datosDescuento, tipoDescuento, (int)cantidad, celdaCellClick);
                             }
+
+                            noSeBorroFila = true;
                         }
                         else
                         {
@@ -1411,6 +1413,8 @@ namespace PuntoDeVentaV2
                             {
                                 descuentosDirectos.Remove(idProducto);
                             }
+
+                            noSeBorroFila = false;
                         }
                     }
                     reproducirProductoAgregado();
@@ -1496,10 +1500,7 @@ namespace PuntoDeVentaV2
                         btnCSV.Enabled = true;
                     }
                 }
-                if (!DGVentas.Rows.Count.Equals(0))
-                {
-
-                }
+                
                 if (!DGVentas.Rows.Count.Equals(0))
                 {
                     if (noSeBorroFila)
