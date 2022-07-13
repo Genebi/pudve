@@ -4192,9 +4192,9 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string busquedaPorClientePorFolioVentasGuardadas(string textoProBuscar)
+        public string busquedaPorClientePorFolioVentasGuardadas(string textoPorBuscar)
         {
-            var consulta = $"AND ( Vent.Cliente LIKE '%{textoProBuscar}%' OR Vent.Folio LIKE '%{textoProBuscar}%' )";
+            var consulta = $"AND ( Vent.Cliente LIKE '%{textoPorBuscar}%' OR Vent.Folio LIKE '%{textoPorBuscar}%' )";
 
             return consulta;
         }
@@ -4207,6 +4207,13 @@ namespace PuntoDeVentaV2
             {
                 consulta = $"SELECT Vent.ID, Vent.Folio, IF ( Vent.IDCliente = 0, 'Público General', Vent.Cliente ) AS 'Cliente', Vent.Total AS 'Importe', Vent.FechaOperacion AS 'Fecha', Vent.IDCliente FROM ventas AS Vent LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) WHERE Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.`Status` = '2' {parametroBusqueda} ORDER BY Vent.FechaOperacion DESC";
             }
+
+            return consulta;
+        }
+
+        public string estaHabilitadoElProductoDeLaVentaGuardada(int idProducto)
+        {
+            var consulta = $"SELECT * FROM Productos WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID} AND Status = 1";
 
             return consulta;
         }

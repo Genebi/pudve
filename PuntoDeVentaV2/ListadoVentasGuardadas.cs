@@ -108,7 +108,7 @@ namespace PuntoDeVentaV2
                 {
                     foreach (var producto in productosVenta)
                     {
-                        var estaHabilitado = (bool)cn.EjecutarSelect($"SELECT * FROM Productos WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID} AND Status = 1");
+                        var estaHabilitado = (bool)cn.EjecutarSelect(cs.estaHabilitadoElProductoDeLaVentaGuardada(producto.Key));
 
                         if (!estaHabilitado)
                         {
