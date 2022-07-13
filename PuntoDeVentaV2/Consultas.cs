@@ -4228,8 +4228,6 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT Nombre,Precio FROM productos WHERE `Status` = 1 AND ID = {id}";
 
             return consulta;
-
-
         }
     }
 }   

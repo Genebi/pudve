@@ -69,7 +69,7 @@ namespace PuntoDeVentaV2
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(181, 311);
+            this.label1.Location = new System.Drawing.Point(181, 342);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(240, 31);
             this.label1.TabIndex = 0;
@@ -79,7 +79,7 @@ namespace PuntoDeVentaV2
             // 
             this.lblCodigoDeBarras.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblCodigoDeBarras.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCodigoDeBarras.Location = new System.Drawing.Point(3, 342);
+            this.lblCodigoDeBarras.Location = new System.Drawing.Point(3, 373);
             this.lblCodigoDeBarras.Name = "lblCodigoDeBarras";
             this.lblCodigoDeBarras.Size = new System.Drawing.Size(608, 44);
             this.lblCodigoDeBarras.TabIndex = 1;
@@ -119,7 +119,7 @@ namespace PuntoDeVentaV2
             // 
             this.label5.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label5.Location = new System.Drawing.Point(-1, 306);
+            this.label5.Location = new System.Drawing.Point(-1, 336);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(613, 10);
             this.label5.TabIndex = 8;
@@ -128,7 +128,7 @@ namespace PuntoDeVentaV2
             // 
             this.label7.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.label7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label7.Location = new System.Drawing.Point(-2, 397);
+            this.label7.Location = new System.Drawing.Point(-2, 428);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(613, 10);
             this.label7.TabIndex = 9;
@@ -169,7 +169,7 @@ namespace PuntoDeVentaV2
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(141, 418);
+            this.pictureBox1.Location = new System.Drawing.Point(141, 449);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(315, 232);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -201,7 +201,7 @@ namespace PuntoDeVentaV2
             // lblImagen
             // 
             this.lblImagen.Image = ((System.Drawing.Image)(resources.GetObject("lblImagen.Image")));
-            this.lblImagen.Location = new System.Drawing.Point(141, 421);
+            this.lblImagen.Location = new System.Drawing.Point(141, 449);
             this.lblImagen.Name = "lblImagen";
             this.lblImagen.Size = new System.Drawing.Size(315, 232);
             this.lblImagen.TabIndex = 18;

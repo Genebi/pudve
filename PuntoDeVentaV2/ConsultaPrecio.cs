@@ -59,22 +59,7 @@ namespace PuntoDeVentaV2
 
                         MessageBoxTemporal.Show("El producto no Existe en la base de datos", "Aviso del Sistema", 3, true);
                     }
-                    if (!producto.Rows.Count.Equals(0))
-                    {
-                        PreciosProducto precios = new PreciosProducto();
-                        precios.ShowDialog();
-                    }
-                    else if (true)
-                    {
-
-                    }
-                    else
-                    {
-
-                        MessageBoxTemporal.Show("El producto no Existe en la base de datos", "Aviso del Sistema", 3, true);
-                    }
-                }
-               
+                } 
             }
         }
 
