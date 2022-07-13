@@ -150,18 +150,6 @@ namespace PuntoDeVentaV2
                             {
                                 pictureBox1.Image = Image.FromFile(directorfinal);
                             }
-                            else if (!NombreLogo.Equals(""))
-                            {
-                                if (!string.IsNullOrWhiteSpace(servidor))
-                                {
-                                    pictureBox1.Image = Image.FromFile(saveDirectoryImg + NombreLogo);
-                                }
-                                else
-                                {
-                                    saveDirectoryImg = @"C:\Archivos PUDVE\MisDatos\Usuarios\";
-                                    pictureBox1.Image = Image.FromFile(saveDirectoryImg + NombreLogo);
-                                }
-                            }
                             else
                             {
                                 pictureBox1.Visible = false;
