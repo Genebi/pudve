@@ -25,87 +25,61 @@ namespace PuntoDeVentaV2
             InitializeComponent();
         }
 
-
         private void CargarDatos()
         {
-            var servidor = Properties.Settings.Default.Hosting;
+            var consulta_buscar_por = string.Empty;
+            var buscar_por = txt_buscar_por.Text.Trim();
 
-            MySqlConnection sql_con;
-            MySqlCommand sql_cmd;
-            MySqlDataReader dr;
-
-            if (!string.IsNullOrWhiteSpace(servidor))
+            if (con_filtro)
             {
-                sql_con = new MySqlConnection("datasource=" + servidor + ";port=6666;username=root;password=;database=pudve;");
-            }
-            else
-            {
-                sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
+                if (!string.IsNullOrWhiteSpace(buscar_por))
+                {
+                    consulta_buscar_por = cs.busquedaPorClientePorFolioVentasGuardadas(buscar_por);
+                }
             }
 
-            // Miri.
-            //Buscar por cliente o folio
-
-            string consulta_buscar_por = "";
-            string buscar_por = txt_buscar_por.Text.Trim();
-
-            if(con_filtro == true)
-            {
-                consulta_buscar_por = "AND (Cliente LIKE '%" + buscar_por + "%' OR Folio LIKE '%" + buscar_por + "%')";
-            }
-
-            sql_con.Open();
-            sql_cmd = new MySqlCommand($"SELECT * FROM Ventas WHERE IDUsuario = {FormPrincipal.userID} AND Status = 2 " + consulta_buscar_por + " ORDER BY FechaOperacion DESC", sql_con);
-            dr = sql_cmd.ExecuteReader();
+            var filtrandoVentasGuardadas = cs.buscarVentasGuardadasConSinParametroDeBusqueda(consulta_buscar_por);
 
             DGVListaVentasGuardadas.Rows.Clear();
 
-            while (dr.Read())
+            using (DataTable dtVentasGuardadas = cn.CargarDatos(filtrandoVentasGuardadas))
             {
-                int idVenta = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("ID")));
-                string cliente = "Público General";
-
-                if (Ventas.ventasGuardadas.ToArray().Contains(idVenta))
+                if (!dtVentasGuardadas.Rows.Count.Equals(0))
                 {
-                    continue;
-                }
+                    var idVenta = string.Empty;
+                    var folio = string.Empty;
+                    var cliente = string.Empty;
+                    var idCliente = string.Empty;
+                    var importe = string.Empty;
+                    var fecha = string.Empty;
+                    Image imgMostrar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
+                    Image imgEliminar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
 
-                var idCliente = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IDCliente")));
-
-                if (idCliente > 0)
-                {
-                    var infoCliente = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
-                    if (!infoCliente.Length.Equals(0))
+                    foreach (DataRow item in dtVentasGuardadas.Rows)
                     {
-                        cliente = infoCliente[0];
+                        idVenta = item["ID"].ToString();
+                        folio = item["Folio"].ToString();
+                        idCliente = item["IDCliente"].ToString();
+                        cliente = item["Cliente"].ToString();
+                        importe = item["Importe"].ToString();
+                        fecha = item["Fecha"].ToString();
+
+                        var rowId = DGVListaVentasGuardadas.Rows.Add();
+                        DataGridViewRow row = DGVListaVentasGuardadas.Rows[rowId];
+
+                        row.Cells["ID"].Value = idVenta;
+                        row.Cells["Folio"].Value = folio;
+                        row.Cells["Cliente"].Value = cliente;
+                        row.Cells["IDCliente"].Value = idCliente;
+                        row.Cells["Importe"].Value = importe;
+                        row.Cells["Fecha"].Value = fecha;
+                        row.Cells["Mostrar"].Value = imgMostrar;
+                        row.Cells["Eliminar"].Value = imgEliminar;
                     }
-                    else
-                    {
-                        return;
-                    }
-                   
-                    //rfc = infoCliente[1];
+
+                    DGVListaVentasGuardadas.ClearSelection();
                 }
-
-                int rowId = DGVListaVentasGuardadas.Rows.Add();
-
-                DataGridViewRow row = DGVListaVentasGuardadas.Rows[rowId];
-
-                row.Cells["ID"].Value = idVenta;
-                row.Cells["Folio"].Value = dr.GetValue(dr.GetOrdinal("Folio"));
-                row.Cells["Cliente"].Value = cliente;
-                row.Cells["IDCliente"].Value = idCliente;
-                row.Cells["Importe"].Value = dr.GetValue(dr.GetOrdinal("Total"));
-                row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
-
-                Image imgMostrar  = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
-                Image imgEliminar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
-
-                row.Cells["Mostrar"].Value = imgMostrar;
-                row.Cells["Eliminar"].Value = imgEliminar;
             }
-
-            DGVListaVentasGuardadas.ClearSelection();
 
             if (DGVListaVentasGuardadas.Rows.Count != 0)
             {
@@ -113,11 +87,6 @@ namespace PuntoDeVentaV2
 
                 DGVListaVentasGuardadas.CurrentRow.Selected = true;
             }
-
-            dr.Close();
-            sql_con.Close();
-
-            
         }
 
         private void DGVListaVentasGuardadas_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -246,11 +215,11 @@ namespace PuntoDeVentaV2
 
         private void buscar_por(object sender, KeyEventArgs e)
         {
-            if (e.KeyData == Keys.Enter)
-            {
-                con_filtro = true;
-                CargarDatos();
-            }
+            //if (e.KeyData == Keys.Enter)
+            //{
+            //    con_filtro = true;
+            //    CargarDatos();
+            //}
         }
 
         private void buscar_por_confoco(object sender, EventArgs e)
@@ -267,6 +236,15 @@ namespace PuntoDeVentaV2
             {
                 txt_buscar_por.Text = "Buscar por cliente o folio";
                 con_filtro = false;
+            }
+        }
+
+        private void txt_buscar_por_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                con_filtro = true;
+                CargarDatos();
             }
         }
     }

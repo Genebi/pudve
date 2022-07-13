@@ -4191,5 +4191,24 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string busquedaPorClientePorFolioVentasGuardadas(string textoProBuscar)
+        {
+            var consulta = $"AND ( Vent.Cliente LIKE '%{textoProBuscar}%' OR Vent.Folio LIKE '%{textoProBuscar}%' )";
+
+            return consulta;
+        }
+
+        public string buscarVentasGuardadasConSinParametroDeBusqueda(string parametroBusqueda)
+        {
+            var consulta = $"SELECT Vent.ID, Vent.Folio, IF ( Vent.IDCliente = 0, 'Público General', Vent.Cliente ) AS 'Cliente', Vent.Total AS 'Importe', Vent.FechaOperacion AS 'Fecha', Vent.IDCliente FROM ventas AS Vent LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) WHERE Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.`Status` = '2' ORDER BY Vent.FechaOperacion DESC";
+
+            if (!string.IsNullOrWhiteSpace(parametroBusqueda))
+            {
+                consulta = $"SELECT Vent.ID, Vent.Folio, IF ( Vent.IDCliente = 0, 'Público General', Vent.Cliente ) AS 'Cliente', Vent.Total AS 'Importe', Vent.FechaOperacion AS 'Fecha', Vent.IDCliente FROM ventas AS Vent LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) WHERE Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.`Status` = '2' {parametroBusqueda} ORDER BY Vent.FechaOperacion DESC";
+            }
+
+            return consulta;
+        }
     }
 }  
