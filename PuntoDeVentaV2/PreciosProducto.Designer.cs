@@ -191,9 +191,9 @@ namespace PuntoDeVentaV2
             // 
             this.lblPrecioSinDescuentos.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblPrecioSinDescuentos.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPrecioSinDescuentos.Location = new System.Drawing.Point(2, 154);
+            this.lblPrecioSinDescuentos.Location = new System.Drawing.Point(-1, 150);
             this.lblPrecioSinDescuentos.Name = "lblPrecioSinDescuentos";
-            this.lblPrecioSinDescuentos.Size = new System.Drawing.Size(609, 153);
+            this.lblPrecioSinDescuentos.Size = new System.Drawing.Size(609, 155);
             this.lblPrecioSinDescuentos.TabIndex = 17;
             this.lblPrecioSinDescuentos.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblPrecioSinDescuentos.Visible = false;
@@ -201,7 +201,7 @@ namespace PuntoDeVentaV2
             // lblImagen
             // 
             this.lblImagen.Image = ((System.Drawing.Image)(resources.GetObject("lblImagen.Image")));
-            this.lblImagen.Location = new System.Drawing.Point(141, 418);
+            this.lblImagen.Location = new System.Drawing.Point(141, 421);
             this.lblImagen.Name = "lblImagen";
             this.lblImagen.Size = new System.Drawing.Size(315, 232);
             this.lblImagen.TabIndex = 18;
@@ -219,7 +219,7 @@ namespace PuntoDeVentaV2
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(1, 152);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(103, 151);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(609, 150);
@@ -233,7 +233,7 @@ namespace PuntoDeVentaV2
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel2.AutoScroll = true;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(-1, 153);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(101, 152);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Size = new System.Drawing.Size(609, 150);
@@ -257,7 +257,7 @@ namespace PuntoDeVentaV2
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel3.AutoScroll = true;
             this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(0, 154);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(102, 153);
             this.flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Size = new System.Drawing.Size(609, 150);
@@ -271,7 +271,7 @@ namespace PuntoDeVentaV2
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel5.AutoScroll = true;
             this.flowLayoutPanel5.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel5.Location = new System.Drawing.Point(0, 154);
+            this.flowLayoutPanel5.Location = new System.Drawing.Point(102, 153);
             this.flowLayoutPanel5.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
             this.flowLayoutPanel5.Size = new System.Drawing.Size(609, 150);
@@ -289,7 +289,7 @@ namespace PuntoDeVentaV2
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel4.AutoScroll = true;
             this.flowLayoutPanel4.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(0, 154);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(102, 153);
             this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
             this.flowLayoutPanel4.Size = new System.Drawing.Size(609, 150);
@@ -303,7 +303,7 @@ namespace PuntoDeVentaV2
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel6.AutoScroll = true;
             this.flowLayoutPanel6.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel6.Location = new System.Drawing.Point(0, 154);
+            this.flowLayoutPanel6.Location = new System.Drawing.Point(102, 153);
             this.flowLayoutPanel6.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel6.Name = "flowLayoutPanel6";
             this.flowLayoutPanel6.Size = new System.Drawing.Size(609, 150);
@@ -321,7 +321,7 @@ namespace PuntoDeVentaV2
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel7.AutoScroll = true;
             this.flowLayoutPanel7.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel7.Location = new System.Drawing.Point(0, 153);
+            this.flowLayoutPanel7.Location = new System.Drawing.Point(102, 152);
             this.flowLayoutPanel7.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel7.Name = "flowLayoutPanel7";
             this.flowLayoutPanel7.Size = new System.Drawing.Size(609, 150);
@@ -339,7 +339,7 @@ namespace PuntoDeVentaV2
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flowLayoutPanel8.AutoScroll = true;
             this.flowLayoutPanel8.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel8.Location = new System.Drawing.Point(0, 154);
+            this.flowLayoutPanel8.Location = new System.Drawing.Point(102, 153);
             this.flowLayoutPanel8.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel8.Name = "flowLayoutPanel8";
             this.flowLayoutPanel8.Size = new System.Drawing.Size(609, 150);

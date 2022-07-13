@@ -15,7 +15,8 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         public static string CodigoDeBarras;
-
+        public static bool OriginalOExtra;
+        public static string id;
         public ConsultaPrecio()
         {
             InitializeComponent();
@@ -34,19 +35,46 @@ namespace PuntoDeVentaV2
 
         private void CargarDatos(string busqueda = "")
         {
-            DataTable producto;
+            DataTable producto,ProductoCodigoExtra;
             using (producto = cn.CargarDatos(cs.BuscarProductoPorCodigoDeBarras(busqueda)))
             {
-                if (!producto.Rows.Count.Equals(0))
+                using (ProductoCodigoExtra = cn.CargarDatos(cs.obtenerProductoPorCodigoExtra(busqueda)))
                 {
-                    PreciosProducto precios = new PreciosProducto();
-                    precios.ShowDialog();
+                    if (!producto.Rows.Count.Equals(0))
+                    {
+                        OriginalOExtra = true;
+                        PreciosProducto precios = new PreciosProducto();
+                        precios.ShowDialog();
+                        
+                    }
+                    else if (!ProductoCodigoExtra.Rows.Count.Equals(0))
+                    {
+                        id = ProductoCodigoExtra.Rows[0]["IDProducto"].ToString();
+                        OriginalOExtra = false;
+                        PreciosProducto precios = new PreciosProducto();
+                        precios.ShowDialog();
+                    }
+                    else
+                    {
+
+                        MessageBoxTemporal.Show("El producto no Existe en la base de datos", "Aviso del Sistema", 3, true);
+                    }
+                    if (!producto.Rows.Count.Equals(0))
+                    {
+                        PreciosProducto precios = new PreciosProducto();
+                        precios.ShowDialog();
+                    }
+                    else if (true)
+                    {
+
+                    }
+                    else
+                    {
+
+                        MessageBoxTemporal.Show("El producto no Existe en la base de datos", "Aviso del Sistema", 3, true);
+                    }
                 }
-                else
-                {
-              
-                    MessageBoxTemporal.Show("El producto no Existe en la base de datos", "Aviso del Sistema",3,true);
-                }
+               
             }
         }
 

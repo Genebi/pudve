@@ -4214,8 +4214,21 @@ namespace PuntoDeVentaV2
         public string estaHabilitadoElProductoDeLaVentaGuardada(int idProducto)
         {
             var consulta = $"SELECT * FROM Productos WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID} AND Status = 1";
-
             return consulta;
         }
+
+        public string obtenerProductoPorCodigoExtra(string codigoExtra)
+        {
+            var consulta = $"SELECT IDProducto FROM codigobarrasextras WHERE CodigoBarraExtra = {codigoExtra}";
+            return consulta;
+        }
+
+        public string BuscarProductoPorCodigoDeBarrasExtra(string id)
+        {
+            var consulta = $"SELECT Nombre,Precio FROM productos WHERE `Status` = 1 AND ID = {id}";
+
+            return consulta;
+
+        }
     }
-}  
+}   
