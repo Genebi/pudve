@@ -27,6 +27,7 @@ namespace PuntoDeVentaV2
         int ContadorDescuento5 = 0;
         int Contadorescuetnos6 = 0;
         int ContadorDescuentos7 = 0;
+        string IDProducto;
         public PreciosProducto()
         {
             InitializeComponent();
@@ -47,8 +48,16 @@ namespace PuntoDeVentaV2
 
         private void PreciosConDescuentoOSinDescuento()
         {
-            var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
-            string IDProducto = ConsultaID.Rows[0]["ID"].ToString();
+            
+            if (ConsultaPrecio.OriginalOExtra.Equals(true))
+            {
+                var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
+                IDProducto = ConsultaID.Rows[0]["ID"].ToString();
+            }
+            if (ConsultaPrecio.OriginalOExtra.Equals(false))
+            {
+                IDProducto = ConsultaPrecio.id;
+            }
             var ConsultaDescuantos = cn.CargarDatos(cs.BuscarDescuentosPorMayoreo(IDProducto));
             int tiempoTablas = ConsultaDescuantos.Rows.Count * 3;
             counter = tiempoTablas + 5;
@@ -80,8 +89,11 @@ namespace PuntoDeVentaV2
                     flowLayoutPanel1.Visible = true;
                     mas++;
                     numerosPrecios++;
-                    
                     ContadorDescuentos += 3;
+                    if (mas.Equals(3))
+                    {
+                        flowLayoutPanel1.Location = new Point(10, 149);
+                    }
                 }
                 if (ConsultaDescuantos.Rows.Count > 2)
                 {
@@ -105,57 +117,113 @@ namespace PuntoDeVentaV2
         private void TomarNombreCodigoDeBarrasYImagen()
         {
             DataTable producto;
-            using (producto = cn.CargarDatos(cs.BuscarProductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras)))
+            if (ConsultaPrecio.OriginalOExtra.Equals(true))
             {
-                foreach (DataRow item in producto.Rows)
+                using (producto = cn.CargarDatos(cs.BuscarProductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras)))
                 {
-                    lblNombre.Text = item["Nombre"].ToString();
-                    decimal precio = Convert.ToDecimal(item["Precio"]);
-
-                    var servidor = Properties.Settings.Default.Hosting;
-                    string DirectorioImagen;
-                    if (!string.IsNullOrWhiteSpace(servidor))
+                    foreach (DataRow item in producto.Rows)
                     {
-                        saveDirectoryImg = $@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\";
-                        DirectorioImagen = $@"\\{servidor}\pudve\Productos\";
-                    }
-                    else
-                    {
-                        DirectorioImagen = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
-                    }
-                    string nombrIemagen = item["Nombre"].ToString();
-                    var nombrefinal = nombrIemagen.Replace('/', '_').Replace('\\', '_').Replace(':', '_').Replace('*', '_').Replace('?', '_').Replace('\"', '_').Replace('<', '_').Replace('>', '_').Replace('|', '_').Replace('-', '_').Replace(' ', '_');
-                    string directorfinal = DirectorioImagen + nombrefinal + ".jpg";
+                        lblNombre.Text = item["Nombre"].ToString();
+                        decimal precio = Convert.ToDecimal(item["Precio"]);
 
-                    using (DataTable consultalogo = cn.CargarDatos(cs.buscarNombreLogoTipo(FormPrincipal.userID)))
-                    {
-                        string NombreLogo = consultalogo.Rows[0]["LogoTipo"].ToString();
-
-                        if (File.Exists(directorfinal))
+                        var servidor = Properties.Settings.Default.Hosting;
+                        string DirectorioImagen;
+                        if (!string.IsNullOrWhiteSpace(servidor))
                         {
-                            pictureBox1.Image = Image.FromFile(directorfinal);
-                        }
-                        else if (!NombreLogo.Equals(""))
-                        {
-                            if (!string.IsNullOrWhiteSpace(servidor))
-                            {
-                                pictureBox1.Image = Image.FromFile(saveDirectoryImg + NombreLogo);
-                            }
-                            else
-                            {
-                                saveDirectoryImg = @"C:\Archivos PUDVE\MisDatos\Usuarios\";
-                                pictureBox1.Image = Image.FromFile(saveDirectoryImg + NombreLogo);
-                            }
-                           
+                            saveDirectoryImg = $@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\";
+                            DirectorioImagen = $@"\\{servidor}\pudve\Productos\";
                         }
                         else
                         {
-                            pictureBox1.Visible = false;
-                            lblImagen.Visible = true;
+                            DirectorioImagen = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
+                        }
+                        string nombrIemagen = item["Nombre"].ToString();
+                        var nombrefinal = nombrIemagen.Replace('/', '_').Replace('\\', '_').Replace(':', '_').Replace('*', '_').Replace('?', '_').Replace('\"', '_').Replace('<', '_').Replace('>', '_').Replace('|', '_').Replace('-', '_').Replace(' ', '_');
+                        string directorfinal = DirectorioImagen + nombrefinal + ".jpg";
+
+                        using (DataTable consultalogo = cn.CargarDatos(cs.buscarNombreLogoTipo(FormPrincipal.userID)))
+                        {
+                            string NombreLogo = consultalogo.Rows[0]["LogoTipo"].ToString();
+
+                            if (File.Exists(directorfinal))
+                            {
+                                pictureBox1.Image = Image.FromFile(directorfinal);
+                            }
+                            else if (!NombreLogo.Equals(""))
+                            {
+                                if (!string.IsNullOrWhiteSpace(servidor))
+                                {
+                                    pictureBox1.Image = Image.FromFile(saveDirectoryImg + NombreLogo);
+                                }
+                                else
+                                {
+                                    saveDirectoryImg = @"C:\Archivos PUDVE\MisDatos\Usuarios\";
+                                    pictureBox1.Image = Image.FromFile(saveDirectoryImg + NombreLogo);
+                                }
+                            }
+                            else
+                            {
+                                pictureBox1.Visible = false;
+                                lblImagen.Visible = true;
+                            }
                         }
                     }
                 }
             }
+            else
+            {
+                using (producto = cn.CargarDatos(cs.BuscarProductoPorCodigoDeBarrasExtra(ConsultaPrecio.id)))
+                {
+                    foreach (DataRow item in producto.Rows)
+                    {
+                        lblNombre.Text = item["Nombre"].ToString();
+                        decimal precio = Convert.ToDecimal(item["Precio"]);
+
+                        var servidor = Properties.Settings.Default.Hosting;
+                        string DirectorioImagen;
+                        if (!string.IsNullOrWhiteSpace(servidor))
+                        {
+                            saveDirectoryImg = $@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\";
+                            DirectorioImagen = $@"\\{servidor}\pudve\Productos\";
+                        }
+                        else
+                        {
+                            DirectorioImagen = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\Productos\";
+                        }
+                        string nombrIemagen = item["Nombre"].ToString();
+                        var nombrefinal = nombrIemagen.Replace('/', '_').Replace('\\', '_').Replace(':', '_').Replace('*', '_').Replace('?', '_').Replace('\"', '_').Replace('<', '_').Replace('>', '_').Replace('|', '_').Replace('-', '_').Replace(' ', '_');
+                        string directorfinal = DirectorioImagen + nombrefinal + ".jpg";
+
+                        using (DataTable consultalogo = cn.CargarDatos(cs.buscarNombreLogoTipo(FormPrincipal.userID)))
+                        {
+                            string NombreLogo = consultalogo.Rows[0]["LogoTipo"].ToString();
+
+                            if (File.Exists(directorfinal))
+                            {
+                                pictureBox1.Image = Image.FromFile(directorfinal);
+                            }
+                            else if (!NombreLogo.Equals(""))
+                            {
+                                if (!string.IsNullOrWhiteSpace(servidor))
+                                {
+                                    pictureBox1.Image = Image.FromFile(saveDirectoryImg + NombreLogo);
+                                }
+                                else
+                                {
+                                    saveDirectoryImg = @"C:\Archivos PUDVE\MisDatos\Usuarios\";
+                                    pictureBox1.Image = Image.FromFile(saveDirectoryImg + NombreLogo);
+                                }
+                            }
+                            else
+                            {
+                                pictureBox1.Visible = false;
+                                lblImagen.Visible = true;
+                            }
+                        }
+                    }
+                }
+            }
+            
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -204,8 +272,15 @@ namespace PuntoDeVentaV2
                     flowLayoutPanel2.Visible = true;
                     mas++;
                     numerosPrecios++;
-                    
                     ContadorDecuentos2 += 3;
+                    if (mas.Equals(6))
+                    {
+                        flowLayoutPanel2.Location = new Point(10, 149);
+                    }
+                    if (mas.Equals(4))
+                    {
+                        flowLayoutPanel2.Location = new Point(207, 149);
+                    }
                 }
                 if (ConsultaDescuantos.Rows.Count>5)
                 {
@@ -253,8 +328,15 @@ namespace PuntoDeVentaV2
                     flowLayoutPanel3.Visible = true;
                     mas++;
                     numerosPrecios++;
-                    
                     ContadorDescuentos3 += 3;
+                    if (mas.Equals(9))
+                    {
+                        flowLayoutPanel3.Location = new Point(10, 149);
+                    }
+                    if (mas.Equals(7))
+                    {
+                        flowLayoutPanel3.Location = new Point(207, 149);
+                    }
                 }
                 if (ConsultaDescuantos.Rows.Count > 8)
                 {
@@ -302,8 +384,15 @@ namespace PuntoDeVentaV2
                     flowLayoutPanel4.Visible = true;
                     mas++;
                     numerosPrecios++;
-                    
                     ContadorDescuento4 += 3;
+                    if (mas.Equals(12))
+                    {
+                        flowLayoutPanel4.Location = new Point(10, 149);
+                    }
+                    if (mas.Equals(10))
+                    {
+                        flowLayoutPanel4.Location = new Point(207, 149);
+                    }
                 }
                 if (ConsultaDescuantos.Rows.Count > 11)
                 {
@@ -353,6 +442,14 @@ namespace PuntoDeVentaV2
                     numerosPrecios++;
                     
                     ContadorDescuento5 += 3;
+                    if (mas.Equals(15))
+                    {
+                        flowLayoutPanel5.Location = new Point(10, 149);
+                    }
+                    if (mas.Equals(13))
+                    {
+                        flowLayoutPanel5.Location = new Point(207, 149);
+                    }
                 }
                 if (ConsultaDescuantos.Rows.Count > 14)
                 {
@@ -402,6 +499,14 @@ namespace PuntoDeVentaV2
                     numerosPrecios++;
                     
                     Contadorescuetnos6 += 3;
+                    if (mas.Equals(18))
+                    {
+                        flowLayoutPanel6.Location = new Point(10, 149);
+                    }
+                    if (mas.Equals(16))
+                    {
+                        flowLayoutPanel6.Location = new Point(207, 149);
+                    }
                 }
                 if (ConsultaDescuantos.Rows.Count > 17)
                 {
@@ -451,6 +556,14 @@ namespace PuntoDeVentaV2
                     numerosPrecios++;
                     
                     ContadorDescuentos7 += 3;
+                    if (mas.Equals(21))
+                    {
+                        flowLayoutPanel7.Location = new Point(10, 149);
+                    }
+                    if (mas.Equals(19))
+                    {
+                        flowLayoutPanel7.Location = new Point(207, 149);
+                    }
                 }
                 if (ConsultaDescuantos.Rows.Count > 22)
                 {
@@ -498,6 +611,15 @@ namespace PuntoDeVentaV2
                     flowLayoutPanel8.Visible = true;
                     mas++;
                     numerosPrecios++;
+                    if (mas.Equals(24))
+                    {
+                        flowLayoutPanel8.Location = new Point(10, 149);
+                    }
+                    if (mas.Equals(22))
+                    {
+                        flowLayoutPanel8.Location = new Point(207, 149);
+                    }
+
                 }
             }
         }
