@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -4264,6 +4265,32 @@ namespace PuntoDeVentaV2
             MensajeVentasYMensajeInventario mensajes = new MensajeVentasYMensajeInventario();
             nombreProductoEditar = txtNombreProducto.Text;
             mensajes.ShowDialog();
+        }
+
+        private void txtNombreProducto_TextChanged(object sender, EventArgs e)
+        {
+            ValidarEntradaDeTexto(sender, e);
+        }
+        private void ValidarEntradaDeTexto(object sender, EventArgs e)
+        {
+            var resultado = string.Empty;
+            var txtValidarTexto = (TextBox)sender;
+            resultado = txtValidarTexto.Text;
+
+            if (!string.IsNullOrWhiteSpace(resultado))
+            {
+                    var resultadoAuxialiar = Regex.Replace(resultado, @"[^a-zA-Z0-9]", string.Empty).Trim();
+                    resultado = resultadoAuxialiar;
+                    txtValidarTexto.Text = resultado;
+                    txtValidarTexto.Focus();
+                    txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+
+            }
+            else
+            {
+                txtValidarTexto.Focus();
+                txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+            }
         }
 
         private void txtPrecioProducto_KeyDown(object sender, KeyEventArgs e)
