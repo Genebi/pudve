@@ -4297,11 +4297,13 @@ namespace PuntoDeVentaV2
             extraDetallesValores = string.Empty;
         }
 
-        private void AplicandoConsultaFiltros()
+        private void AplicandoConsultaFiltros(int status)
         {
             if (filtros.Count > 0)
             {
                 extraProductos += "AND ";
+
+                string productosConFiltroSIN = "(";
 
                 Dictionary<string, string> dinamicos = new Dictionary<string, string>();
 
@@ -4358,7 +4360,10 @@ namespace PuntoDeVentaV2
                     {
                         if (string.IsNullOrWhiteSpace(extraDetalles))
                         {
-                            extraDetalles += "INNER JOIN DetallesProductoGenerales AS DPG ON (P.ID = DPG.IDProducto AND P.IDUsuario = DPG.IDUsuario AND DPG.StatusDetalleGral = 1) INNER JOIN DetalleGeneral AS DG ON (DPG.IDDetalleGral = DG.ID AND DPG.IDUsuario = DG.IDUsuario) ";
+                            if (!filtro.Value.Item1.Equals("SIN"))
+                            {
+                                extraDetalles += "INNER JOIN DetallesProductoGenerales AS DPG ON (P.ID = DPG.IDProducto AND P.IDUsuario = DPG.IDUsuario AND DPG.StatusDetalleGral = 1) INNER JOIN DetalleGeneral AS DG ON (DPG.IDDetalleGral = DG.ID AND DPG.IDUsuario = DG.IDUsuario) ";
+                             }
                         }
 
                         // Se guardan los valores dinamicos creados por el usuario
@@ -4374,7 +4379,39 @@ namespace PuntoDeVentaV2
                         var valorKey = dinamico.Key.Replace(' ', '_');
                         var valorAux = dinamico.Value.Replace(' ', '_');
 
-                        extraProductos += $"DG.ChckName = '{valorKey}' AND DG.Descripcion = '{valorAux}' AND ";
+                        if (!valorAux.Equals("SIN"))
+                        {
+                            extraProductos += $"DG.ChckName = '{valorKey}' AND DG.Descripcion = '{valorAux}' AND ";
+                        }
+                        else
+                        {
+                            productosConFiltroSIN += $"DPG.panelContenido = 'panelContenido{valorKey}' OR ";
+                        }
+                    }
+
+                    if (!productosConFiltroSIN.Equals("("))
+                    {
+                        productosConFiltroSIN = productosConFiltroSIN.Remove(productosConFiltroSIN.Length - 3);
+                        productosConFiltroSIN += ")";
+
+                        string[] filtros = new string[] { productosConFiltroSIN, FormPrincipal.userID.ToString(), status.ToString() };
+                        List<string> listaIgnorados = mb.ObtenerProductosSinFiltrosDinamicos(filtros);
+
+                        if (listaIgnorados.Count() > 0)
+                        {
+                            string ignorados = "P.ID NOT IN (";
+
+                            foreach (string ignorado in listaIgnorados)
+                            {
+                                ignorados += ignorado + ",";
+                            }
+
+                            ignorados = ignorados.Remove(ignorados.Length - 1);
+
+                            ignorados += ")";
+
+                            extraProductos += ignorados + " AND ";
+                        }
                     }
                 }
                 else if (dinamicos.Count() > 1)
@@ -4388,17 +4425,71 @@ namespace PuntoDeVentaV2
                         var valorKey = dinamico.Key.Replace(' ', '_');
                         var valorAux = dinamico.Value.Replace(' ', '_');
 
-                        extraDetallesNombres += $"DG.ChckName = '{valorKey}' OR ";
-                        extraDetallesValores += $"DG.Descripcion = '{valorAux}' OR ";
+                        if (!valorAux.Equals("SIN"))
+                        {
+                            extraDetallesNombres += $"DG.ChckName = '{valorKey}' OR ";
+                            extraDetallesValores += $"DG.Descripcion = '{valorAux}' OR ";
+                        }
+                        else
+                        {
+                            productosConFiltroSIN += $"DPG.panelContenido = 'panelContenido{valorKey}' OR ";
+                        }
                     }
 
-                    extraDetallesNombres = extraDetallesNombres.Remove(extraDetallesNombres.Length - 4);
-                    extraDetallesValores = extraDetallesValores.Remove(extraDetallesValores.Length - 4);
+                    
+                    if (extraDetallesNombres.Length > 4 && extraDetallesValores.Length > 4)
+                    {
+                        extraDetallesNombres = extraDetallesNombres.Remove(extraDetallesNombres.Length - 4);
+                        extraDetallesValores = extraDetallesValores.Remove(extraDetallesValores.Length - 4);
 
-                    extraDetallesNombres += ")";
-                    extraDetallesValores += ")";
+                        extraDetallesNombres += ")";
+                        extraDetallesValores += ")";
+                    }
+                    
 
-                    extraDetallesNombres += $" AND {extraDetallesValores} GROUP BY P.ID HAVING COUNT(*) = {dinamicos.Count()} AND ";
+                    if (!productosConFiltroSIN.Equals("("))
+                    {
+                        productosConFiltroSIN = productosConFiltroSIN.Remove(productosConFiltroSIN.Length - 3);
+                        productosConFiltroSIN += ")";
+
+                        string[] filtros = new string[] { productosConFiltroSIN, FormPrincipal.userID.ToString(), status.ToString() };
+                        List<string> listaIgnorados = mb.ObtenerProductosSinFiltrosDinamicos(filtros);
+
+                        if (listaIgnorados.Count() > 0)
+                        {
+                            string ignorados = "P.ID NOT IN (";
+
+                            foreach (string ignorado in listaIgnorados)
+                            {
+                                ignorados += ignorado + ",";
+                            }
+
+                            ignorados = ignorados.Remove(ignorados.Length - 1);
+
+                            ignorados += ")";
+
+                            if (extraDetallesValores.Length > 4)
+                            {
+                                extraDetallesValores += $" AND {ignorados}";
+                            }
+                            else
+                            {
+                                //extra = string.Empty;
+                                //extraProductos = string.Empty;
+                                extraDetallesValores = $"{ignorados}";
+                            }
+                        }
+                    }
+
+                    if (extraDetallesNombres.Length > 4)
+                    {
+                        extraDetallesNombres += $" AND {extraDetallesValores} GROUP BY P.ID HAVING COUNT(*) = {dinamicos.Count()} AND ";
+                    }
+                    else
+                    {
+                        extraDetallesNombres = $"{extraDetallesValores} ORDER BY P.ID ASC";
+                    }
+                    
                     extraProductos += extraDetallesNombres;
                 }
 
@@ -4685,7 +4776,7 @@ namespace PuntoDeVentaV2
 
             // DESCRIPCION DEL FUNCIONAMIENTO DE ESTE CODIGO
             // Se comprueba si hay filtros aplicados y si se le dio click al boton aceptar del form de filtros ejecuta el codigo dentro de la condicional
-            AplicandoConsultaFiltros();
+            AplicandoConsultaFiltros(status);
 
             var listasCodigos = DetectarCodigosBarra(busquedaEnProductos, status);
 

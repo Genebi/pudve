@@ -119,6 +119,7 @@ namespace PuntoDeVentaV2
                     Dictionary<int, string> dicProveedores = new Dictionary<int, string>();
 
                     dicProveedores.Add(0, "Seleccionar proveedor...");
+                    dicProveedores.Add(-1, "SIN PROVEEDOR");
 
                     foreach (string proveedor in proveedores)
                     {
@@ -128,8 +129,6 @@ namespace PuntoDeVentaV2
 
                         ultimoAux = info[0].Trim();
                     }
-
-                    dicProveedores.Add(-1, "SIN PROVEEDOR");
 
                     cbProveedor.DataSource = dicProveedores.ToArray();
                     cbProveedor.ValueMember = "Key";
@@ -219,6 +218,7 @@ namespace PuntoDeVentaV2
                     if (datosPropiedad.Count > 0)
                     {
                         sourceCBCustom.Add("NA", $"Seleccione {opcion.Key}");
+                        sourceCBCustom.Add("SIN", $"SIN {opcion.Key}");
 
                         foreach (var valor in datosPropiedad)
                         {
