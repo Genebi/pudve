@@ -164,6 +164,12 @@ namespace PuntoDeVentaV2
 
                     GenerarTicket(datos);
 
+                    
+                    ImpresionTicketAnticipo imprimirAnt = new ImpresionTicketAnticipo();
+                    imprimirAnt.idAnticipo = Convert.ToInt32(idAnticipo);
+                    imprimirAnt.anticipoSinHistorial = 1;
+                    imprimirAnt.ShowDialog();
+
                     this.Close();
                 }
                 else
@@ -175,6 +181,8 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Seleccione un cliente", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            
+
 
         }
 

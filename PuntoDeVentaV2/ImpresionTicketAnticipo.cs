@@ -13,24 +13,27 @@ using System.Windows.Forms;
 
 namespace PuntoDeVentaV2
 {
-    public partial class ImprimirTicketAbono : Form
+    public partial class ImpresionTicketAnticipo : Form
     {
-        public int idAbono { get; set; }
-
+        public int idAnticipo { get; set; }
+        public int anticipoSinHistorial { get; set; }
         Consultas cs = new Consultas();
-        public ImprimirTicketAbono()
+
+        public ImpresionTicketAnticipo()
         {
             InitializeComponent();
         }
 
-        private void ImprimirTicketAbono_Load(object sender, EventArgs e)
+        private void ImpresionTicketAnticipo_Load(object sender, EventArgs e)
         {
-            impresionTicketAbono();
+            cargarDatosTicket();
+
         }
 
-        private void impresionTicketAbono()
+        private void cargarDatosTicket()
         {
             string cadenaConn = string.Empty;
+            string queryVenta = string.Empty;
 
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
             {
@@ -41,7 +44,14 @@ namespace PuntoDeVentaV2
                 cadenaConn = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
             }
 
-            string queryVenta = cs.impresionTicketAnticipo(idAbono);
+            if (anticipoSinHistorial == 1)
+            {
+                queryVenta = cs.visualizadorTicketAnticipo(idAnticipo);
+            }
+            else
+            {
+                queryVenta = cs.impresionTicketAnticipo(idAnticipo);
+            }
 
             MySqlConnection conn = new MySqlConnection();
 
@@ -57,7 +67,7 @@ namespace PuntoDeVentaV2
             }
 
             string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc";
+            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\TicketAnticipo\ReporteTicketAnticipo.rdlc";
 
             MySqlDataAdapter ventaDA = new MySqlDataAdapter(queryVenta, conn);
             DataTable ventaDT = new DataTable();
@@ -69,7 +79,7 @@ namespace PuntoDeVentaV2
             this.reportViewer1.LocalReport.DataSources.Clear();
 
             #region Impresion Ticket de 80 mm
-            ReportDataSource rp = new ReportDataSource("TicketAbono", ventaDT);
+            ReportDataSource rp = new ReportDataSource("TicketAnticipo", ventaDT);
 
             string DirectoryImage = string.Empty;
 
