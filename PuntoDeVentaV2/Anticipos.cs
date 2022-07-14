@@ -380,19 +380,31 @@ namespace PuntoDeVentaV2
                 var importe = float.Parse(DGVAnticipos.Rows[fila].Cells["Importe"].Value.ToString());
                 var idVenta = Convert.ToInt32(DGVAnticipos.Rows[fila].Cells["IDVenta"].Value);
                 var formaPago = DGVAnticipos.Rows[fila].Cells["FormaPago"].Value.ToString();
-
+                VisualizadorTicketAnticipo idanticipoVer = new VisualizadorTicketAnticipo();
+                idanticipoVer.idAnticipoViz = idAnticipo;
 
                 // Generar ticket
                 if (e.ColumnIndex == 6)
                 {
-                    var datosHistorial = cn.CargarDatos($"SELECT vent.ID AS 'ID Venta', IF(vent.IDEmpleado!=0,'Empleado', 'Administrador') AS 'Empleado', ant.Concepto, ant.Cliente, ant.Comentarios, ant.ImporteOriginal AS 'Total Recibido', ((vent.Subtotal+vent.IVA16+vent.IVA8)) AS 'Anticipo Aplicado', vent.anticipo - (vent.Subtotal+vent.IVA16+vent.IVA8 - vent.Total) AS 'Saldo Restante', vent.FechaOperacion AS 'Fecha Operacion' FROM anticipos AS ant INNER JOIN ventas AS vent ON (Vent.IDAnticipo = ant.ID ) WHERE vent.IDAnticipo = '{idAnticipo}' ORDER BY vent.ID DESC");
+                    if (indice.Equals(0))
+                    {
+                        idanticipoVer.anticipoSinHistorial = 1;
+                        idanticipoVer.ShowDialog();
+                    }
+                    else
+                    {
+                        idanticipoVer.anticipoSinHistorial = 0;
 
-                   
-                    HistorialAnticipos historialAnticipo = new HistorialAnticipos();
-                    historialAnticipo.datosHistoria = datosHistorial;
-                    historialAnticipo.ShowDialog();
+                        var datosHistorial = cn.CargarDatos($"SELECT vent.ID AS 'ID Venta', IF(vent.IDEmpleado!=0,'Empleado', 'Administrador') AS 'Empleado', ant.Concepto, ant.Cliente, ant.Comentarios, ant.ImporteOriginal AS 'Total Recibido', ((vent.Subtotal+vent.IVA16+vent.IVA8)) AS 'Anticipo Aplicado', vent.anticipo - (vent.Subtotal+vent.IVA16+vent.IVA8 - vent.Total) AS 'Saldo Restante', vent.FechaOperacion AS 'Fecha Operacion' FROM anticipos AS ant INNER JOIN ventas AS vent ON (Vent.IDAnticipo = ant.ID ) WHERE vent.IDAnticipo = '{idAnticipo}' ORDER BY vent.ID DESC");
 
-                    
+
+                        HistorialAnticipos historialAnticipo = new HistorialAnticipos();
+                        historialAnticipo.datosHistoria = datosHistorial;
+                        historialAnticipo.ShowDialog();
+
+                    }
+
+
                     //if (opcion1 == 0)
                     //{
                     //    Utilidades.MensajePermiso();

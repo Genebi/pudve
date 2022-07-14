@@ -732,6 +732,12 @@
     <Compile Include="HistorialStockProductos.Designer.cs">
       <DependentUpon>HistorialStockProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImpresionTicketAnticipo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImpresionTicketAnticipo.Designer.cs">
+      <DependentUpon>ImpresionTicketAnticipo.cs</DependentUpon>
+    </Compile>
     <Compile Include="ImprimirEtiqueta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1130,6 +1136,12 @@
       <DependentUpon>TicketPresupuesto.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="ReportesImpresion\Ticket\TicketAnticipo\TicketAnticipo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TicketAnticipo.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\VentaCancelada\TicketCancelado.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1341,6 +1353,12 @@
     </Compile>
     <Compile Include="VisualizadorReportes.Designer.cs">
       <DependentUpon>VisualizadorReportes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VisualizadorTicketAnticipo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VisualizadorTicketAnticipo.Designer.cs">
+      <DependentUpon>VisualizadorTicketAnticipo.cs</DependentUpon>
     </Compile>
     <Compile Include="VisualizadorTickets.cs">
       <SubType>Form</SubType>
@@ -1603,6 +1621,9 @@
     <EmbeddedResource Include="HistorialStockProductos.resx">
       <DependentUpon>HistorialStockProductos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ImpresionTicketAnticipo.resx">
+      <DependentUpon>ImpresionTicketAnticipo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ImprimirEtiqueta.resx">
       <DependentUpon>ImprimirEtiqueta.cs</DependentUpon>
     </EmbeddedResource>
@@ -1812,6 +1833,9 @@
     <Content Include="ReportesImpresion\Ticket\DineroAgregado\TicketDineroAgregado.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\TicketAnticipo\ReporteTicketAnticipo.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="ReportesImpresion\Ticket\DineroRetirado\TicketDineroRetirado.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1901,6 +1925,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VisualizadorReportes.resx">
       <DependentUpon>VisualizadorReportes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VisualizadorTicketAnticipo.resx">
+      <DependentUpon>VisualizadorTicketAnticipo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VisualizadorTickets.resx">
       <DependentUpon>VisualizadorTickets.cs</DependentUpon>
@@ -2014,6 +2041,20 @@
     </Content>
     <None Include="ReportesImpresion\Ticket\PresupuestoRealizado\TicketPresupuesto.xss">
       <DependentUpon>TicketPresupuesto.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\TicketAnticipo\TicketAnticipo.xsc">
+      <DependentUpon>TicketAnticipo.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="ReportesImpresion\Ticket\TicketAnticipo\TicketAnticipo.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TicketAnticipo.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ReportesImpresion\Ticket\TicketAnticipo\TicketAnticipo.xss">
+      <DependentUpon>TicketAnticipo.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportesImpresion\Ticket\VentaCancelada\TicketCancelado.xsc">

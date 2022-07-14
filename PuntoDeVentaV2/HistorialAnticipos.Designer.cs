@@ -30,6 +30,16 @@ namespace PuntoDeVentaV2
         private void InitializeComponent()
         {
             this.DGVAnticipos = new System.Windows.Forms.DataGridView();
+            this.idventa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.empleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comentarios = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalrecibido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.anticipoaplicado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.saldorestante = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaoperacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.imagen = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAnticipos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -39,18 +49,81 @@ namespace PuntoDeVentaV2
             this.DGVAnticipos.AllowUserToDeleteRows = false;
             this.DGVAnticipos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVAnticipos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVAnticipos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idventa,
+            this.empleado,
+            this.concepto,
+            this.cliente,
+            this.comentarios,
+            this.totalrecibido,
+            this.anticipoaplicado,
+            this.saldorestante,
+            this.fechaoperacion,
+            this.imagen});
             this.DGVAnticipos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DGVAnticipos.Location = new System.Drawing.Point(0, 0);
             this.DGVAnticipos.Name = "DGVAnticipos";
+            this.DGVAnticipos.ReadOnly = true;
             this.DGVAnticipos.RowHeadersVisible = false;
-            this.DGVAnticipos.Size = new System.Drawing.Size(680, 322);
+            this.DGVAnticipos.Size = new System.Drawing.Size(779, 370);
             this.DGVAnticipos.TabIndex = 0;
+            this.DGVAnticipos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAnticipos_CellClick);
+            // 
+            // idventa
+            // 
+            this.idventa.HeaderText = "ID Venta";
+            this.idventa.Name = "idventa";
+            // 
+            // empleado
+            // 
+            this.empleado.HeaderText = "Empleado";
+            this.empleado.Name = "empleado";
+            // 
+            // concepto
+            // 
+            this.concepto.HeaderText = "Concepto";
+            this.concepto.Name = "concepto";
+            // 
+            // cliente
+            // 
+            this.cliente.HeaderText = "Cliente";
+            this.cliente.Name = "cliente";
+            // 
+            // comentarios
+            // 
+            this.comentarios.HeaderText = "Comentarios";
+            this.comentarios.Name = "comentarios";
+            // 
+            // totalrecibido
+            // 
+            this.totalrecibido.HeaderText = "Total Recibido";
+            this.totalrecibido.Name = "totalrecibido";
+            // 
+            // anticipoaplicado
+            // 
+            this.anticipoaplicado.HeaderText = "Anticipo Aplicado";
+            this.anticipoaplicado.Name = "anticipoaplicado";
+            // 
+            // saldorestante
+            // 
+            this.saldorestante.HeaderText = "Saldo Restante";
+            this.saldorestante.Name = "saldorestante";
+            // 
+            // fechaoperacion
+            // 
+            this.fechaoperacion.HeaderText = "Fecha de Operacion";
+            this.fechaoperacion.Name = "fechaoperacion";
+            // 
+            // imagen
+            // 
+            this.imagen.HeaderText = "Imprimir";
+            this.imagen.Name = "imagen";
             // 
             // HistorialAnticipos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(680, 322);
+            this.ClientSize = new System.Drawing.Size(779, 370);
             this.Controls.Add(this.DGVAnticipos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -68,5 +141,15 @@ namespace PuntoDeVentaV2
         #endregion
 
         private System.Windows.Forms.DataGridView DGVAnticipos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idventa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn empleado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn concepto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn comentarios;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalrecibido;
+        private System.Windows.Forms.DataGridViewTextBoxColumn anticipoaplicado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn saldorestante;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fechaoperacion;
+        private System.Windows.Forms.DataGridViewImageColumn imagen;
     }
 }
