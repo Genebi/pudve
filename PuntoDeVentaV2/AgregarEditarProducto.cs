@@ -4271,6 +4271,7 @@ namespace PuntoDeVentaV2
         {
             ValidarEntradaDeTexto(sender, e);
         }
+
         private void ValidarEntradaDeTexto(object sender, EventArgs e)
         {
             var resultado = string.Empty;
@@ -4279,12 +4280,11 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(resultado))
             {
-                    var resultadoAuxialiar = Regex.Replace(resultado, @"[^a-zA-Z0-9]", string.Empty).Trim();
-                    resultado = resultadoAuxialiar;
-                    txtValidarTexto.Text = resultado;
-                    txtValidarTexto.Focus();
-                    txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
-
+                var resultadoAuxialiar = Regex.Replace(resultado, @"\|", string.Empty);
+                resultado = resultadoAuxialiar;
+                txtValidarTexto.Text = resultado;
+                txtValidarTexto.Focus();
+                txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
             }
             else
             {
