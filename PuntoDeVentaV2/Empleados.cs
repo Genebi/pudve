@@ -208,35 +208,45 @@ namespace PuntoDeVentaV2
             {
                 if (cboMostrados.Text == "Habilitados")
                 {
-                    string nombre = dgv_empleados.Rows[e.RowIndex].Cells[2].Value.ToString();
-                    string idemp = dgv_empleados.Rows[e.RowIndex].Cells[0].Value.ToString();
-                    cn.EjecutarConsulta(cs.deshabilitarEmpleado(nombre,idemp));
-                    string tipo = string.Empty;
-                    if (cboMostrados.Text == "Habilitados")
+                    var Respuesta = MessageBox.Show("¿Esta seguro de Deshabilitar este Empleado?","Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                    if (Respuesta.Equals(DialogResult.Yes))
                     {
-                        tipo = "1";
+                        string nombre = dgv_empleados.Rows[e.RowIndex].Cells[2].Value.ToString();
+                        string idemp = dgv_empleados.Rows[e.RowIndex].Cells[0].Value.ToString();
+                        cn.EjecutarConsulta(cs.deshabilitarEmpleado(nombre, idemp));
+                        string tipo = string.Empty;
+                        if (cboMostrados.Text == "Habilitados")
+                        {
+                            tipo = "1";
+                        }
+                        else if (cboMostrados.Text == "Deshabilitados")
+                        {
+                            tipo = "0";
+                        }
+                        CargarDatos(Convert.ToInt32(tipo));
                     }
-                    else if (cboMostrados.Text == "Deshabilitados")
-                    {
-                        tipo = "0";
-                    }
-                    CargarDatos(Convert.ToInt32(tipo));
+                    
                 }
                 else if (cboMostrados.Text == "Deshabilitados")
                 {
-                    string nombre = dgv_empleados.Rows[e.RowIndex].Cells[2].Value.ToString();
-                    string idemp = dgv_empleados.Rows[e.RowIndex].Cells[0].Value.ToString();
-                    cn.EjecutarConsulta(cs.habilitarEmpleado(nombre,idemp));
-                    string tipo = string.Empty;
-                    if (cboMostrados.Text == "Habilitados")
+                    var Respuesta = MessageBox.Show("¿Esta seguro de Habilitar este Empleado?", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                    if (Respuesta.Equals(DialogResult.Yes))
                     {
-                        tipo = "1";
+                        string nombre = dgv_empleados.Rows[e.RowIndex].Cells[2].Value.ToString();
+                        string idemp = dgv_empleados.Rows[e.RowIndex].Cells[0].Value.ToString();
+                        cn.EjecutarConsulta(cs.habilitarEmpleado(nombre, idemp));
+                        string tipo = string.Empty;
+                        if (cboMostrados.Text == "Habilitados")
+                        {
+                            tipo = "1";
+                        }
+                        else if (cboMostrados.Text == "Deshabilitados")
+                        {
+                            tipo = "0";
+                        }
+                        CargarDatos(Convert.ToInt32(tipo));
                     }
-                    else if (cboMostrados.Text == "Deshabilitados")
-                    {
-                        tipo = "0";
-                    }
-                    CargarDatos(Convert.ToInt32(tipo));
+                    
                 }
 
             }
