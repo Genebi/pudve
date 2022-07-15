@@ -5326,7 +5326,8 @@ namespace PuntoDeVentaV2
                         if (Utilidades.AdobeReaderInstalado())
                         {
                             //GenerarReporte();
-                            generarNuevoReporte();
+                            //generarNuevoReporte();
+                            generarReporteHojaCarta();
                             using (DataTable dtCerrarSesionDesdeCorteCaja = cn.CargarDatos(cs.validarCerrarSesionCorteCaja()))
                             {
                                 if (!dtCerrarSesionDesdeCorteCaja.Rows.Count.Equals(0))
@@ -5397,6 +5398,117 @@ namespace PuntoDeVentaV2
                 //GenerarTicket();
             }
             abonos = 0;
+        }
+
+        private void generarReporteHojaCarta()
+        {
+            #region Variables
+            var UsuarioActivo = cs.validarEmpleado(FormPrincipal.userNickName, true);
+            var obtenerUsuarioPrincipal = cs.validarEmpleadoPorID();
+
+            var cantidadRetiradaAlCorteDeCaja = 0m;
+            var cantidadEnCajaAntesDelCorteDeCaja = 0m;
+            var idUltimoCorteDeCaja = 0;
+
+            var numFolio = obtenerFolioCorte();
+            #endregion
+
+            #region sección ventas
+            var conceptoEfectivoDeVentas = lbTEfectivo.Text;
+            var conceptoTarjetaDeVentas = lbTTarjeta.Text;
+            var conceptoValeDeVentas = lbTVales.Text;
+            var conceptoChequeDeVentas = lbTCheque.Text;
+            var conceptoTransferenciDeVentas = lbTTrans.Text;
+            var conceptoCreditoDeVentas = lbTCredito.Text;
+            var conceptoAbonosDeVentas = lbTCreditoC.Text;
+            var conceptoAnticiposUtilizados = lbTCreditoC.Text;
+            #endregion
+
+            #region sección Anticipos Recibidos
+            var conceptoEfectivoDeAnticipos = lbTEfectivoA.Text;
+            var conceptoTarjetaDeAnticipos = lbTTarjetaA.Text;
+            var conceptoValeDeAnticipos = lbTValesA.Text;
+            var conceptoChequeDeAnticipos = lbTChequeA.Text;
+            var conceptoTransferenciaDeAnticipos = lbTTransA.Text;
+            #endregion
+
+            #region sección Dinero Agregado
+            var conceptoEfectivoDeDineroAgregado = lbTEfectivoD.Text;
+            var conceptoTarjetaDeDineroAgregado = lbTTarjetaD.Text;
+            var conceptoValeDeDineroAgregado = lbTValesD.Text;
+            var conceptoChequeDeDineroAgregado = lbTChequeD.Text;
+            var conceptoTransferenciaDeDineroAgregado = lbTTransD.Text;
+            #endregion
+
+            #region sección Dinero Retirado
+            var conceptoEfectivoDeDineroRetirado = lbEfectivoR.Text;
+            var conceptoTarjetaDeDineroRetirado = lbTarjetaR.Text;
+            var conceptoValeDeDineroRetirado = lbValesR.Text;
+            var conceptoChequeDeDineroRetirado = lbChequeR.Text;
+            var conceptoTransferenciaDeDineroRetirado = lbTransferenciaR.Text;
+            var conceptoDevolucionDeDineroRetirado = lbDevoluciones.Text;
+            #endregion
+
+            #region sección Total de Caja
+            var conceptoEfectivoDeTotalCaja = lbTEfectivoC.Text;
+            var conceptoTarjetaDeTotalCaja = lbTTarjetaC.Text;
+            var conceptoValeDeTotalCaja = lbTValesC.Text;
+            var conceptoChequeDeTotalCaja = lbTChequeC.Text;
+            var conceptoTransferenciaDeTotalCaja = lbTTransC.Text;
+            var conceptoSaldoInicialDeTotalCaja = lbTSaldoInicial.Text;
+            #endregion
+
+            #region Sección Monto Antes del Corte
+            var conceptoCantidadEnCajaAntesDelCorte = Convert.ToString(Convert.ToDecimal(lbTTotalCaja.Text.ToString().Replace("$", string.Empty)));
+            #endregion
+
+            #region Sección Cantidad Retirada en el Corte
+            var conceptoCantidadRetiradaAlCorteDeCaja = string.Empty;
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                using (DataTable dtSaldoInicial = cn.CargarDatos(cs.cargarSaldoInicialAdministrador()))
+                {
+                    conceptoCantidadRetiradaAlCorteDeCaja = obtenerCantidadRetiradaAlCorteDeCaja(dtSaldoInicial).ToString("C2");
+                }
+
+                using (DataTable dtPenultimoSaldoInicial = cn.CargarDatos(cs.cargarPenultimoSaldoInicialAdministrador()))
+                {
+                    idUltimoCorteDeCaja = Convert.ToInt32(obtenerIdCajaUltimoCorteDeCaja(dtPenultimoSaldoInicial).ToString("C2"));
+                }
+            }
+            else
+            {
+                using (DataTable dtSaldoInicial = cn.CargarDatos(cs.cargarSaldoInicialEmpleado(Convert.ToString(FormPrincipal.id_empleado))))
+                {
+                    conceptoCantidadRetiradaAlCorteDeCaja = obtenerCantidadRetiradaAlCorteDeCaja(dtSaldoInicial).ToString("C2");
+                }
+
+                using (DataTable dtPenultimoSaldoInicial = cn.CargarDatos(cs.cargarPenultimaSaldoInicialEmpleado(Convert.ToString(FormPrincipal.id_empleado))))
+                {
+                    idUltimoCorteDeCaja = Convert.ToInt32(obtenerIdCajaUltimoCorteDeCaja(dtPenultimoSaldoInicial).ToString("C2"));
+                }
+            }
+            #endregion
+
+            #region sección Total De Ventas
+            var conceptoTotalVentas = lbTVentas.Text;
+            #endregion
+
+            #region sección Total De Anticipos
+            var conceptoTotalAnticipos = lbTAnticiposA.Text;
+            #endregion
+
+            #region sección Dinero Agregado
+            var conceptoTotalDineroAgregado = lbTAgregado.Text;
+            #endregion
+
+            #region sección Dinero Retirado
+            var conceptoTotalDineroRetirado = lbTRetirado.Text;
+            #endregion
+
+            #region sección Restante al Corte de Caja
+            var conceptoRestanteCorteCaja = ((Convert.ToDecimal(conceptoCantidadEnCajaAntesDelCorte) - Convert.ToDecimal(conceptoCantidadRetiradaAlCorteDeCaja.Replace("$", string.Empty)))).ToString("C2");
+            #endregion
         }
 
         private void btnRedondoAbrirCaja_Click(object sender, EventArgs e)
