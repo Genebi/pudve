@@ -413,7 +413,7 @@ namespace PuntoDeVentaV2
             actualizar_contraseña = 1;
 
             Size = new Size(341, 395);
-            lbContraseñaNueva.Location = new Point(65, 119);
+            //lbContraseñaNueva.Location = new Point(65, 119);
 
             picturebx_editar.Visible = false;
             txtPassword.Text = "";
@@ -427,7 +427,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                lbContraseñaParaConfirmar.Text = "Ingresa la contraseña del Usuario: \n" + FormPrincipal.userNickName + " (Admin) " +"para confirmar.";
+                lbContraseñaParaConfirmar.Text = "Ingresa la contraseña del Usuario: \n" + FormPrincipal.userNickName + " (Admin) " + "\npara confirmar.";
             }
 
         }
@@ -477,6 +477,16 @@ namespace PuntoDeVentaV2
 
                 AsignarPermisos.ShowDialog();
             }
+        }
+
+        private void lbConfrimarContraseña_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPassword_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

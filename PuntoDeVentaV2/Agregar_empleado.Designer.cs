@@ -50,20 +50,21 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(137, 15);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(127, 15);
             this.label2.Name = "label2";
             this.label2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label2.Size = new System.Drawing.Size(56, 17);
+            this.label2.Size = new System.Drawing.Size(63, 16);
             this.label2.TabIndex = 1;
             this.label2.Text = "Nombre";
             // 
             // lbContraseñaNueva
             // 
-            this.lbContraseñaNueva.AutoSize = true;
-            this.lbContraseñaNueva.Location = new System.Drawing.Point(125, 123);
+            this.lbContraseñaNueva.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbContraseñaNueva.Location = new System.Drawing.Point(39, 134);
             this.lbContraseñaNueva.Name = "lbContraseñaNueva";
             this.lbContraseñaNueva.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lbContraseñaNueva.Size = new System.Drawing.Size(77, 17);
+            this.lbContraseñaNueva.Size = new System.Drawing.Size(245, 17);
             this.lbContraseñaNueva.TabIndex = 3;
             this.lbContraseñaNueva.Text = "Contraseña";
             this.lbContraseñaNueva.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -81,33 +82,36 @@
             // lb_usuario
             // 
             this.lb_usuario.AutoSize = true;
+            this.lb_usuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_usuario.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lb_usuario.Location = new System.Drawing.Point(14, 106);
+            this.lb_usuario.Location = new System.Drawing.Point(14, 116);
             this.lb_usuario.Name = "lb_usuario";
-            this.lb_usuario.Size = new System.Drawing.Size(51, 17);
+            this.lb_usuario.Size = new System.Drawing.Size(57, 15);
             this.lb_usuario.TabIndex = 6;
             this.lb_usuario.Text = "Usuario";
             this.lb_usuario.Visible = false;
             // 
             // txtPassword
             // 
-            this.txtPassword.Location = new System.Drawing.Point(65, 143);
+            this.txtPassword.Location = new System.Drawing.Point(65, 154);
             this.txtPassword.MaxLength = 100;
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
             this.txtPassword.Size = new System.Drawing.Size(190, 22);
             this.txtPassword.TabIndex = 7;
             this.txtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_conttraseña_KeyDown);
             this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.solo_letras_digitos);
             // 
             // lb_usuario_completo
             // 
             this.lb_usuario_completo.AutoSize = true;
+            this.lb_usuario_completo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lb_usuario_completo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lb_usuario_completo.Location = new System.Drawing.Point(65, 107);
+            this.lb_usuario_completo.Location = new System.Drawing.Point(77, 117);
             this.lb_usuario_completo.Name = "lb_usuario_completo";
-            this.lb_usuario_completo.Size = new System.Drawing.Size(18, 17);
+            this.lb_usuario_completo.Size = new System.Drawing.Size(20, 15);
             this.lb_usuario_completo.TabIndex = 8;
             this.lb_usuario_completo.Text = "@";
             this.lb_usuario_completo.Visible = false;
@@ -118,9 +122,9 @@
             this.btn_aceptar.BackColor = System.Drawing.Color.Green;
             this.btn_aceptar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_aceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_aceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_aceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_aceptar.ForeColor = System.Drawing.Color.White;
-            this.btn_aceptar.Location = new System.Drawing.Point(194, 227);
+            this.btn_aceptar.Location = new System.Drawing.Point(194, 252);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(119, 30);
             this.btn_aceptar.TabIndex = 9;
@@ -134,9 +138,9 @@
             this.btn_cancelar.BackColor = System.Drawing.Color.Red;
             this.btn_cancelar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_cancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_cancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar.Location = new System.Drawing.Point(12, 225);
+            this.btn_cancelar.Location = new System.Drawing.Point(12, 251);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(119, 30);
             this.btn_cancelar.TabIndex = 11;
@@ -146,9 +150,10 @@
             // 
             // lbContraseñaParaConfirmar
             // 
-            this.lbContraseñaParaConfirmar.Location = new System.Drawing.Point(1, 231);
+            this.lbContraseñaParaConfirmar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbContraseñaParaConfirmar.Location = new System.Drawing.Point(1, 227);
             this.lbContraseñaParaConfirmar.Name = "lbContraseñaParaConfirmar";
-            this.lbContraseñaParaConfirmar.Size = new System.Drawing.Size(323, 38);
+            this.lbContraseñaParaConfirmar.Size = new System.Drawing.Size(323, 57);
             this.lbContraseñaParaConfirmar.TabIndex = 10;
             this.lbContraseñaParaConfirmar.Text = "Ingresar Contraseña del Usuario:";
             this.lbContraseñaParaConfirmar.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -157,20 +162,21 @@
             // cmb_bx_permisos
             // 
             this.cmb_bx_permisos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_bx_permisos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmb_bx_permisos.FormattingEnabled = true;
             this.cmb_bx_permisos.Items.AddRange(new object[] {
             "Todos los permisos",
             "Permisos limitados",
             "Elegir permisos"});
-            this.cmb_bx_permisos.Location = new System.Drawing.Point(64, 174);
+            this.cmb_bx_permisos.Location = new System.Drawing.Point(64, 192);
             this.cmb_bx_permisos.Name = "cmb_bx_permisos";
-            this.cmb_bx_permisos.Size = new System.Drawing.Size(190, 25);
+            this.cmb_bx_permisos.Size = new System.Drawing.Size(190, 24);
             this.cmb_bx_permisos.TabIndex = 13;
             this.cmb_bx_permisos.SelectedIndexChanged += new System.EventHandler(this.cmb_bx_permisos_SelectedIndexChanged);
             // 
             // txt_autorizar
             // 
-            this.txt_autorizar.Location = new System.Drawing.Point(65, 274);
+            this.txt_autorizar.Location = new System.Drawing.Point(65, 281);
             this.txt_autorizar.MaxLength = 100;
             this.txt_autorizar.Name = "txt_autorizar";
             this.txt_autorizar.PasswordChar = '*';
@@ -184,7 +190,7 @@
             // 
             this.picturebx_editar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picturebx_editar.Image = global::PuntoDeVentaV2.Properties.Resources.edit;
-            this.picturebx_editar.Location = new System.Drawing.Point(261, 148);
+            this.picturebx_editar.Location = new System.Drawing.Point(261, 159);
             this.picturebx_editar.Name = "picturebx_editar";
             this.picturebx_editar.Size = new System.Drawing.Size(18, 18);
             this.picturebx_editar.TabIndex = 15;
@@ -193,7 +199,7 @@
             // 
             // txtConfirmeSuPassword
             // 
-            this.txtConfirmeSuPassword.Location = new System.Drawing.Point(65, 193);
+            this.txtConfirmeSuPassword.Location = new System.Drawing.Point(65, 208);
             this.txtConfirmeSuPassword.MaxLength = 100;
             this.txtConfirmeSuPassword.Name = "txtConfirmeSuPassword";
             this.txtConfirmeSuPassword.PasswordChar = '*';
@@ -205,29 +211,32 @@
             // lbConfrimarContraseña
             // 
             this.lbConfrimarContraseña.AutoSize = true;
-            this.lbConfrimarContraseña.Location = new System.Drawing.Point(59, 172);
+            this.lbConfrimarContraseña.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbConfrimarContraseña.Location = new System.Drawing.Point(37, 186);
             this.lbConfrimarContraseña.Name = "lbConfrimarContraseña";
             this.lbConfrimarContraseña.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.lbConfrimarContraseña.Size = new System.Drawing.Size(201, 17);
+            this.lbConfrimarContraseña.Size = new System.Drawing.Size(231, 16);
             this.lbConfrimarContraseña.TabIndex = 16;
             this.lbConfrimarContraseña.Text = "Confimela Su Nueva Contraseña";
             this.lbConfrimarContraseña.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbConfrimarContraseña.Visible = false;
+            this.lbConfrimarContraseña.Click += new System.EventHandler(this.lbConfrimarContraseña_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(138, 61);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(128, 66);
             this.label3.Name = "label3";
             this.label3.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label3.Size = new System.Drawing.Size(51, 17);
+            this.label3.Size = new System.Drawing.Size(62, 16);
             this.label3.TabIndex = 2;
             this.label3.Text = "Usuario";
             // 
             // txt_usuario
             // 
             this.txt_usuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txt_usuario.Location = new System.Drawing.Point(68, 81);
+            this.txt_usuario.Location = new System.Drawing.Point(68, 86);
             this.txt_usuario.MaxLength = 15;
             this.txt_usuario.Name = "txt_usuario";
             this.txt_usuario.Size = new System.Drawing.Size(190, 22);
@@ -241,7 +250,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(325, 267);
+            this.ClientSize = new System.Drawing.Size(325, 295);
             this.Controls.Add(this.txtConfirmeSuPassword);
             this.Controls.Add(this.lbConfrimarContraseña);
             this.Controls.Add(this.picturebx_editar);
