@@ -1026,7 +1026,6 @@ namespace PuntoDeVentaV2
             string nombre = tb.Name.Replace("tbMayoreo", "");
             string[] tmp = nombre.Split('_');
             //Hace referencia al segundo TextBox
-            
             TextBox tb1 = (TextBox)this.Controls.Find("tbMayoreo" + tmp[0] + "_2", true).FirstOrDefault();
             tb1.TextChanged+= new EventHandler(ValidarEntradaDeTexto);
             //Hace referencia al tercer TextBox
