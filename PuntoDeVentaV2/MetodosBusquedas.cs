@@ -2706,6 +2706,33 @@ namespace PuntoDeVentaV2
             return existe;
         }
 
+        public List<string> ObtenerProductosSinFiltrosDinamicos(string[] filtros)
+        {
+            List<string> lista = new List<string>();
+
+            string consulta = $"SELECT P.ID AS ID FROM Productos AS P LEFT JOIN DetallesProductoGenerales AS DPG ON (P.ID = DPG.IDProducto AND P.IDUsuario = DPG.IDUsuario AND {filtros[0]}) LEFT JOIN DetalleGeneral DG ON (DPG.IDDetalleGral = DG.ID AND DPG.IDUsuario = DG.IDUsuario AND DG.Mostrar = 1) WHERE P.IDUsuario = {filtros[1]} AND P.Status = {filtros[2]} AND DG.Mostrar IS NOT NULL";
+
+            DatosConexion(consulta);
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+
+            if (dr.HasRows)
+            {
+                while (dr.Read())
+                {
+                    if (!lista.Contains(dr["ID"].ToString()))
+                    {
+                        lista.Add(dr["ID"].ToString());
+                    }
+                }
+            }
+
+            dr.Close();
+            CerrarConexion();
+
+            return lista;
+        }
+
         public static string ObtenerResponsable()
         {
             string responsable = string.Empty;
