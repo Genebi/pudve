@@ -49,7 +49,6 @@ namespace PuntoDeVentaV2
 
         private void PreciosConDescuentoOSinDescuento()
         {
-            
             if (ConsultaPrecio.OriginalOExtra.Equals(true))
             {
                 var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
@@ -244,8 +243,15 @@ namespace PuntoDeVentaV2
             if (ContadorDescuentos == 0)
             {
                 TimerProductos.Stop();
-                var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
-                string IDProducto = ConsultaID.Rows[0]["ID"].ToString();
+                if (ConsultaPrecio.OriginalOExtra.Equals(true))
+                {
+                    var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
+                    IDProducto = ConsultaID.Rows[0]["ID"].ToString();
+                }
+                if (ConsultaPrecio.OriginalOExtra.Equals(false))
+                {
+                    IDProducto = ConsultaPrecio.id;
+                }
                 var ConsultaDescuantos = cn.CargarDatos(cs.BuscarDescuentosPorMayoreo(IDProducto));
                 for (int i = 3; i < ConsultaDescuantos.Rows.Count && i <= 5; i++)
                 {
@@ -300,8 +306,15 @@ namespace PuntoDeVentaV2
             if (ContadorDecuentos2 == 0)
             {
                 timerProductos2.Stop();
-                var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
-                string IDProducto = ConsultaID.Rows[0]["ID"].ToString();
+                if (ConsultaPrecio.OriginalOExtra.Equals(true))
+                {
+                    var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
+                    IDProducto = ConsultaID.Rows[0]["ID"].ToString();
+                }
+                if (ConsultaPrecio.OriginalOExtra.Equals(false))
+                {
+                    IDProducto = ConsultaPrecio.id;
+                }
                 var ConsultaDescuantos = cn.CargarDatos(cs.BuscarDescuentosPorMayoreo(IDProducto));
                 for (int i = 6; i < ConsultaDescuantos.Rows.Count && i <= 8; i++)
                 {
@@ -356,8 +369,15 @@ namespace PuntoDeVentaV2
             if (ContadorDescuentos3 == 0)
             {
                 timerProductos3.Stop();
-                var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
-                string IDProducto = ConsultaID.Rows[0]["ID"].ToString();
+                if (ConsultaPrecio.OriginalOExtra.Equals(true))
+                {
+                    var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
+                    IDProducto = ConsultaID.Rows[0]["ID"].ToString();
+                }
+                if (ConsultaPrecio.OriginalOExtra.Equals(false))
+                {
+                    IDProducto = ConsultaPrecio.id;
+                }
                 var ConsultaDescuantos = cn.CargarDatos(cs.BuscarDescuentosPorMayoreo(IDProducto));
                 for (int i = 9; i < ConsultaDescuantos.Rows.Count && i <= 11; i++)
                 {
@@ -412,8 +432,15 @@ namespace PuntoDeVentaV2
             if (ContadorDescuento4 == 0)
             {
                 timerProdcutos4.Stop();
-                var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
-                string IDProducto = ConsultaID.Rows[0]["ID"].ToString();
+                if (ConsultaPrecio.OriginalOExtra.Equals(true))
+                {
+                    var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
+                    IDProducto = ConsultaID.Rows[0]["ID"].ToString();
+                }
+                if (ConsultaPrecio.OriginalOExtra.Equals(false))
+                {
+                    IDProducto = ConsultaPrecio.id;
+                }
                 var ConsultaDescuantos = cn.CargarDatos(cs.BuscarDescuentosPorMayoreo(IDProducto));
                 for (int i = 12; i < ConsultaDescuantos.Rows.Count && i <= 14; i++)
                 {
@@ -469,8 +496,15 @@ namespace PuntoDeVentaV2
             if (ContadorDescuento5 == 0)
             {
                 timerproducto5.Stop();
-                var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
-                string IDProducto = ConsultaID.Rows[0]["ID"].ToString();
+                if (ConsultaPrecio.OriginalOExtra.Equals(true))
+                {
+                    var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
+                    IDProducto = ConsultaID.Rows[0]["ID"].ToString();
+                }
+                if (ConsultaPrecio.OriginalOExtra.Equals(false))
+                {
+                    IDProducto = ConsultaPrecio.id;
+                }
                 var ConsultaDescuantos = cn.CargarDatos(cs.BuscarDescuentosPorMayoreo(IDProducto));
                 for (int i = 15; i < ConsultaDescuantos.Rows.Count && i <= 17; i++)
                 {
@@ -526,8 +560,15 @@ namespace PuntoDeVentaV2
             if (Contadorescuetnos6 == 0)
             {
                 timerProductos6.Stop();
-                var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
-                string IDProducto = ConsultaID.Rows[0]["ID"].ToString();
+                if (ConsultaPrecio.OriginalOExtra.Equals(true))
+                {
+                    var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
+                    IDProducto = ConsultaID.Rows[0]["ID"].ToString();
+                }
+                if (ConsultaPrecio.OriginalOExtra.Equals(false))
+                {
+                    IDProducto = ConsultaPrecio.id;
+                }
                 var ConsultaDescuantos = cn.CargarDatos(cs.BuscarDescuentosPorMayoreo(IDProducto));
                 for (int i = 18; i < ConsultaDescuantos.Rows.Count && i <= 21; i++)
                 {
@@ -583,8 +624,15 @@ namespace PuntoDeVentaV2
             if (Contadorescuetnos6 == 0)
             {
                 timerProductos7.Stop();
-                var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
-                string IDProducto = ConsultaID.Rows[0]["ID"].ToString();
+                if (ConsultaPrecio.OriginalOExtra.Equals(true))
+                {
+                    var ConsultaID = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(ConsultaPrecio.CodigoDeBarras));
+                    IDProducto = ConsultaID.Rows[0]["ID"].ToString();
+                }
+                if (ConsultaPrecio.OriginalOExtra.Equals(false))
+                {
+                    IDProducto = ConsultaPrecio.id;
+                }
                 var ConsultaDescuantos = cn.CargarDatos(cs.BuscarDescuentosPorMayoreo(IDProducto));
                 for (int i = 22; i < ConsultaDescuantos.Rows.Count && i <= 24; i++)
                 {
