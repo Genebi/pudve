@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -266,6 +267,7 @@ namespace PuntoDeVentaV2
                 tb1.Enabled = false;
                 tb1.BackColor = Color.White;
                 tb1.Text = precioProducto.ToString("0.00");
+                tb1.KeyPress += new KeyPressEventHandler(soloDecimales);
 
                 Label lb2 = new Label();
                 lb2.Text = "% de Descuento";
@@ -284,6 +286,7 @@ namespace PuntoDeVentaV2
                 tb2.TextAlign = HorizontalAlignment.Center;
                 tb2.KeyPress += new KeyPressEventHandler(soloDecimales);
                 tb2.KeyUp += new KeyEventHandler(calculoDescuento);
+                
 
                 Label lb3 = new Label();
                 lb3.Text = "Precio con Descuento";
@@ -302,6 +305,7 @@ namespace PuntoDeVentaV2
                 tb3.TextAlign = HorizontalAlignment.Center;
                 tb3.Enabled = false;
                 tb3.BackColor = Color.White;
+                tb3.KeyPress += new KeyPressEventHandler(soloDecimales);
 
                 Label lb4 = new Label();
                 lb4.Text = "Descuento";
@@ -320,6 +324,7 @@ namespace PuntoDeVentaV2
                 tb4.TextAlign = HorizontalAlignment.Center;
                 tb4.Enabled = false;
                 tb4.BackColor = Color.White;
+                tb4.KeyPress += new KeyPressEventHandler(soloDecimales);
 
                 panelHijo.Controls.Add(lb1);
                 panelHijo.Controls.Add(tb1);
@@ -382,6 +387,7 @@ namespace PuntoDeVentaV2
                 tb2.Margin = new Padding(50, 5, 0, 0);
                 tb2.TextAlign = HorizontalAlignment.Center;
                 tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
+                tb2.KeyPress += new KeyPressEventHandler(soloDecimales);
 
                 TextBox tb3 = new TextBox();
                 tb3.Name = "tbMayoreo1_3";
@@ -601,6 +607,7 @@ namespace PuntoDeVentaV2
                     tb3.TextAlign = HorizontalAlignment.Center;
                     tb3.Enabled = false;
                     tb3.BackColor = Color.White;
+                    tb3.KeyPress += new KeyPressEventHandler(soloDecimales);
 
                     Label lb4 = new Label();
                     lb4.Text = "Descuento";
@@ -619,6 +626,7 @@ namespace PuntoDeVentaV2
                     tb4.TextAlign = HorizontalAlignment.Center;
                     tb4.Enabled = false;
                     tb4.BackColor = Color.White;
+                    tb4.KeyPress += new KeyPressEventHandler(soloDecimales);
 
                     panelHijo.Controls.Add(lb1);
                     panelHijo.Controls.Add(tb1);
@@ -1018,9 +1026,12 @@ namespace PuntoDeVentaV2
             string nombre = tb.Name.Replace("tbMayoreo", "");
             string[] tmp = nombre.Split('_');
             //Hace referencia al segundo TextBox
+            
             TextBox tb1 = (TextBox)this.Controls.Find("tbMayoreo" + tmp[0] + "_2", true).FirstOrDefault();
+            tb1.TextChanged+= new EventHandler(ValidarEntradaDeTexto);
             //Hace referencia al tercer TextBox
             TextBox tb2 = (TextBox)this.Controls.Find("tbMayoreo" + tmp[0] + "_3", true).FirstOrDefault();
+            tb2.TextChanged += new EventHandler(ValidarEntradaDeTexto);
             //Se cambia el mensaje del CheckBox
             CheckBox cb = (CheckBox)this.Controls.Find("checkMayoreo" + tmp[0], true).FirstOrDefault();
 
@@ -1042,7 +1053,7 @@ namespace PuntoDeVentaV2
                     int idTemp = Convert.ToInt32(tmp[0]);
 
                     TextBox tbCantidadFinalAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_2", true).FirstOrDefault();
-                    TextBox tbPrecioAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_3", true).FirstOrDefault();
+                    tbCantidadFinalAnterior.KeyPress += (soloDecimales);                    TextBox tbPrecioAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_3", true).FirstOrDefault();
 
 
                     
@@ -1102,7 +1113,6 @@ namespace PuntoDeVentaV2
                 generarLineaMayoreo();
             }
         }
-
         private void generarLineaMayoreo()
         {
             FlowLayoutPanel panelHijo = new FlowLayoutPanel();
@@ -1555,6 +1565,27 @@ namespace PuntoDeVentaV2
             if (e.KeyCode.Equals(Keys.Escape))
             {
                 this.Close();
+            }
+        }
+        private void ValidarEntradaDeTexto(object sender, EventArgs e)
+        {
+            var resultado = string.Empty;
+            var txtValidarTexto = (TextBox)sender;
+            resultado = txtValidarTexto.Text;
+
+            if (!string.IsNullOrWhiteSpace(resultado))
+            {
+                var resultadoAuxialiar = Regex.Replace(resultado, @"[^0-9]", string.Empty).Trim();
+                resultado = resultadoAuxialiar;
+                txtValidarTexto.Text = resultado;
+                txtValidarTexto.Focus();
+                txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+
+            }
+            else
+            {
+                txtValidarTexto.Focus();
+                txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
             }
         }
     }

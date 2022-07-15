@@ -332,6 +332,7 @@
             this.txtClaveProducto.Size = new System.Drawing.Size(110, 20);
             this.txtClaveProducto.TabIndex = 48;
             this.txtClaveProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtClaveProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtClaveProducto_KeyPress);
             // 
             // label10
             // 
