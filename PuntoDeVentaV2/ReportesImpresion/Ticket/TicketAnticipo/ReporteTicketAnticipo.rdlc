@@ -539,7 +539,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>Total recibido:</Value>
+                <Value>Total de anticipo:</Value>
                 <Style>
                   <FontWeight>Bold</FontWeight>
                 </Style>

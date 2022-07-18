@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         Conexion cn = new Conexion();
         public int idAnticipoViz { get; set; }
+        public int idVentaViz { get; set; }
         public int anticipoSinHistorial { get; set; }
         public VisualizadorTicketAnticipo()
         {
@@ -48,7 +49,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                queryVenta = cs.impresionTicketAnticipo(idAnticipoViz);
+                queryVenta = cs.impresionTicketAnticipo(idAnticipoViz, idVentaViz);
             }
            
 
@@ -118,7 +119,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                queryVenta = cs.impresionTicketAnticipo(idAnticipoViz);
+                queryVenta = cs.impresionTicketAnticipo(idAnticipoViz, idVentaViz);
             }
 
 
