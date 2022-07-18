@@ -1325,6 +1325,11 @@ namespace PuntoDeVentaV2
 
         private void txtStockMinimo_KeyPress(object sender, KeyPressEventArgs e)
         {
+            //Que no Acepte Ctrl V
+            if (e.KeyChar == 22)
+            {
+                e.Handled = true;
+            }
             //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
@@ -1442,6 +1447,11 @@ namespace PuntoDeVentaV2
 
         private void txtStockMaximo_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (e.KeyChar == 22)
+            {
+                e.Handled = true;
+            }
+
             //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
@@ -1550,6 +1560,11 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioMayoreo_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (e.KeyChar == 22)
+            {
+                e.Handled = true;
+            }
+
             //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
@@ -4782,6 +4797,11 @@ namespace PuntoDeVentaV2
 
         private void txtStockProducto_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (e.KeyChar == 22)
+            {
+                e.Handled = true;
+            }
+
             //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
@@ -4851,6 +4871,11 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioCompra_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (e.KeyChar == 22)
+            {
+                e.Handled = true;
+            }
+
             //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
@@ -4895,6 +4920,11 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioProducto_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (e.KeyChar == 22)
+            {
+                e.Handled = true;
+            }
+
             //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
@@ -9012,6 +9042,11 @@ namespace PuntoDeVentaV2
 
         private void txtCantPaqServ_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (e.KeyChar == 22)
+            {
+                e.Handled = true;
+            }
+
             // Para obligar a que sólo se introduzcan números
             //if (Char.IsDigit(e.KeyChar))
             //{

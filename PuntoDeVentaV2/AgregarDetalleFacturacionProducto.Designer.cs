@@ -440,6 +440,7 @@
             this.txtIVA.Size = new System.Drawing.Size(100, 20);
             this.txtIVA.TabIndex = 53;
             this.txtIVA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtIVA.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIVA_KeyPress);
             // 
             // label12
             // 
@@ -471,6 +472,7 @@
             this.txtTotal.Size = new System.Drawing.Size(100, 21);
             this.txtTotal.TabIndex = 56;
             this.txtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTotal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTotal_KeyPress);
             // 
             // btnKeyWordSearch
             // 
