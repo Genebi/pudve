@@ -73,51 +73,61 @@ namespace PuntoDeVentaV2
             // 
             this.idventa.HeaderText = "ID Venta";
             this.idventa.Name = "idventa";
+            this.idventa.ReadOnly = true;
             // 
             // empleado
             // 
             this.empleado.HeaderText = "Empleado";
             this.empleado.Name = "empleado";
+            this.empleado.ReadOnly = true;
             // 
             // concepto
             // 
             this.concepto.HeaderText = "Concepto";
             this.concepto.Name = "concepto";
+            this.concepto.ReadOnly = true;
             // 
             // cliente
             // 
             this.cliente.HeaderText = "Cliente";
             this.cliente.Name = "cliente";
+            this.cliente.ReadOnly = true;
             // 
             // comentarios
             // 
             this.comentarios.HeaderText = "Comentarios";
             this.comentarios.Name = "comentarios";
+            this.comentarios.ReadOnly = true;
             // 
             // totalrecibido
             // 
             this.totalrecibido.HeaderText = "Total Recibido";
             this.totalrecibido.Name = "totalrecibido";
+            this.totalrecibido.ReadOnly = true;
             // 
             // anticipoaplicado
             // 
             this.anticipoaplicado.HeaderText = "Anticipo Aplicado";
             this.anticipoaplicado.Name = "anticipoaplicado";
+            this.anticipoaplicado.ReadOnly = true;
             // 
             // saldorestante
             // 
             this.saldorestante.HeaderText = "Saldo Restante";
             this.saldorestante.Name = "saldorestante";
+            this.saldorestante.ReadOnly = true;
             // 
             // fechaoperacion
             // 
             this.fechaoperacion.HeaderText = "Fecha de Operacion";
             this.fechaoperacion.Name = "fechaoperacion";
+            this.fechaoperacion.ReadOnly = true;
             // 
             // imagen
             // 
-            this.imagen.HeaderText = "Imprimir";
+            this.imagen.HeaderText = "Ver Ticket";
             this.imagen.Name = "imagen";
+            this.imagen.ReadOnly = true;
             // 
             // HistorialAnticipos
             // 

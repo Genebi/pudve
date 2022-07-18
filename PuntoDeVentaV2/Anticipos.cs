@@ -386,7 +386,7 @@ namespace PuntoDeVentaV2
                 // Generar ticket
                 if (e.ColumnIndex == 6)
                 {
-                    if (indice.Equals(0))
+                    if (indice.Equals(0) || indice.Equals(1) || indice.Equals(3))
                     {
                         idanticipoVer.anticipoSinHistorial = 1;
                         idanticipoVer.ShowDialog();
