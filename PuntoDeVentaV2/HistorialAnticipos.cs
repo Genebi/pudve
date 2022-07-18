@@ -25,7 +25,7 @@ namespace PuntoDeVentaV2
         private void HistorialAnticipos_Load(object sender, EventArgs e)
         {
             int number_of_rows;
-            System.Drawing.Image imprimir = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\print.png");
+            System.Drawing.Image imprimir = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\clipboard_invoice16px.png");
             if (!datosHistoria.Rows.Count.Equals(0))
             {
                 //DGVAnticipos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -69,9 +69,14 @@ namespace PuntoDeVentaV2
                     var idVenta = Convert.ToInt32(DGVAnticipos.Rows[e.RowIndex].Cells["idventa"].Value.ToString());
                     var id = cn.CargarDatos($"SELECT IDAnticipo FROM Ventas WHERE ID = '{idVenta}'");
                     var idAnticipo = Convert.ToInt32(id.Rows[0]["IDAnticipo"].ToString());
-                    ImpresionTicketAnticipo anticipo = new ImpresionTicketAnticipo();
-                    anticipo.idAnticipo = idAnticipo;
-                    anticipo.ShowDialog();
+
+                    VisualizadorTicketAnticipo ticketAnt = new VisualizadorTicketAnticipo();
+                    ticketAnt.idAnticipoViz = idAnticipo;
+                    ticketAnt.idVentaViz = idVenta;
+                    ticketAnt.ShowDialog();
+                    //ImpresionTicketAnticipo anticipo = new ImpresionTicketAnticipo();
+                    //anticipo.idAnticipo = idAnticipo;
+                    //anticipo.ShowDialog();
                 }
             }
         }
