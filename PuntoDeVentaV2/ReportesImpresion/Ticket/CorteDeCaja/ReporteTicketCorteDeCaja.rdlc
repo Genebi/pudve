@@ -14,6 +14,7 @@
                   <TextRun>
                     <Value>Efectivo</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Normal</FontWeight>
                     </Style>
                   </TextRun>
@@ -22,7 +23,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>3.97912cm</Top>
+            <Top>5.43962cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -44,14 +45,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Tarjeta</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox19</rd:DefaultName>
-            <Top>4.60647cm</Top>
+            <Top>6.06697cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -74,14 +77,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Vales</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
-            <Top>5.23618cm</Top>
+            <Top>6.69668cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -104,14 +109,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Cheque</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox23</rd:DefaultName>
-            <Top>5.87118cm</Top>
+            <Top>7.33168cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -134,14 +141,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Transferencia</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox25</rd:DefaultName>
-            <Top>6.4903cm</Top>
+            <Top>7.9508cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -164,14 +173,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Total Credito</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox27</rd:DefaultName>
-            <Top>7.1253cm</Top>
+            <Top>8.5858cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -194,14 +205,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Abonos</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox29</rd:DefaultName>
-            <Top>7.73384cm</Top>
+            <Top>9.19434cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -224,14 +237,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Anticipos utilizados al corte</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox34</rd:DefaultName>
-            <Top>8.35297cm</Top>
+            <Top>9.81347cm</Top>
             <Left>0.1cm</Left>
             <Height>0.99829cm</Height>
             <Width>3.85cm</Width>
@@ -255,6 +270,7 @@
                   <TextRun>
                     <Value>Ventas</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -265,7 +281,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox97</rd:DefaultName>
-            <Top>3.34645cm</Top>
+            <Top>4.80695cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -289,6 +305,7 @@
                   <TextRun>
                     <Value>Efectivo</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Normal</FontWeight>
                     </Style>
                   </TextRun>
@@ -297,8 +314,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>11.22412cm</Top>
-            <Left>0.10773cm</Left>
+            <Top>13.63712cm</Top>
+            <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
             <ZIndex>9</ZIndex>
@@ -320,15 +337,17 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Tarjeta</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox19</rd:DefaultName>
-            <Top>11.85147cm</Top>
-            <Left>0.10773cm</Left>
+            <Top>14.26447cm</Top>
+            <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
             <ZIndex>10</ZIndex>
@@ -350,15 +369,17 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Vales</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
-            <Top>12.48118cm</Top>
-            <Left>0.10773cm</Left>
+            <Top>14.89418cm</Top>
+            <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
             <ZIndex>11</ZIndex>
@@ -380,14 +401,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Cheque</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox23</rd:DefaultName>
-            <Top>13.11618cm</Top>
+            <Top>15.52918cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -410,14 +433,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Transferencia</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox25</rd:DefaultName>
-            <Top>13.76705cm</Top>
+            <Top>16.18005cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -441,6 +466,7 @@
                   <TextRun>
                     <Value>Anticipos recibidos</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -451,7 +477,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox97</rd:DefaultName>
-            <Top>10.59237cm</Top>
+            <Top>13.00537cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -475,6 +501,7 @@
                   <TextRun>
                     <Value>Total de ventas:</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -485,7 +512,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox46</rd:DefaultName>
-            <Top>9.39006cm</Top>
+            <Top>10.85056cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -509,6 +536,7 @@
                   <TextRun>
                     <Value>Total anticipos:</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -519,7 +547,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox46</rd:DefaultName>
-            <Top>14.38469cm</Top>
+            <Top>16.79769cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -543,6 +571,7 @@
                   <TextRun>
                     <Value>Efectivo</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Normal</FontWeight>
                     </Style>
                   </TextRun>
@@ -551,7 +580,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>16.30059cm</Top>
+            <Top>19.66609cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -574,14 +603,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Tarjeta</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox19</rd:DefaultName>
-            <Top>16.92794cm</Top>
+            <Top>20.29344cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -604,14 +635,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Vales</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
-            <Top>17.55765cm</Top>
+            <Top>20.92315cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -634,14 +667,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Cheque</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox23</rd:DefaultName>
-            <Top>18.19265cm</Top>
+            <Top>21.55815cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -664,14 +699,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Transferencia</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox25</rd:DefaultName>
-            <Top>18.84352cm</Top>
+            <Top>22.20902cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -695,6 +732,7 @@
                   <TextRun>
                     <Value>Dinero agregado</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -705,7 +743,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox97</rd:DefaultName>
-            <Top>15.66884cm</Top>
+            <Top>19.03434cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -729,6 +767,7 @@
                   <TextRun>
                     <Value>Total agregado:</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -739,7 +778,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox46</rd:DefaultName>
-            <Top>19.46116cm</Top>
+            <Top>22.82666cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -763,6 +802,7 @@
                   <TextRun>
                     <Value>Efectivo</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Normal</FontWeight>
                     </Style>
                   </TextRun>
@@ -771,7 +811,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>21.38059cm</Top>
+            <Top>25.69859cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -794,14 +834,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Tarjeta</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox19</rd:DefaultName>
-            <Top>22.00794cm</Top>
+            <Top>26.32594cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -824,14 +866,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Vales</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
-            <Top>22.63765cm</Top>
+            <Top>26.95565cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -854,14 +898,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Cheque</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox23</rd:DefaultName>
-            <Top>23.27265cm</Top>
+            <Top>27.59065cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -884,14 +930,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Transferencia</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox25</rd:DefaultName>
-            <Top>23.92352cm</Top>
+            <Top>28.24152cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -915,6 +963,7 @@
                   <TextRun>
                     <Value>Dinero retirado</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -925,7 +974,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox97</rd:DefaultName>
-            <Top>20.74884cm</Top>
+            <Top>25.06684cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -949,6 +998,7 @@
                   <TextRun>
                     <Value>Total retirado:</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -959,7 +1009,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox46</rd:DefaultName>
-            <Top>25.19733cm</Top>
+            <Top>29.51533cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -982,14 +1032,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Devoluciones</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox120</rd:DefaultName>
-            <Top>24.56074cm</Top>
+            <Top>28.87874cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -1013,6 +1065,7 @@
                   <TextRun>
                     <Value>Efectivo</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Normal</FontWeight>
                     </Style>
                   </TextRun>
@@ -1021,8 +1074,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
-            <Top>27.08501cm</Top>
-            <Left>0.09525cm</Left>
+            <Top>32.03801cm</Top>
+            <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
             <ZIndex>32</ZIndex>
@@ -1044,14 +1097,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Tarjeta</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox19</rd:DefaultName>
-            <Top>27.71236cm</Top>
+            <Top>32.66536cm</Top>
             <Left>0.09525cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -1074,14 +1129,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Vales</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox21</rd:DefaultName>
-            <Top>28.34207cm</Top>
+            <Top>33.29507cm</Top>
             <Left>0.09525cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -1104,14 +1161,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Cheque</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox23</rd:DefaultName>
-            <Top>28.97706cm</Top>
+            <Top>33.93006cm</Top>
             <Left>0.09525cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -1134,14 +1193,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Transferencia</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox25</rd:DefaultName>
-            <Top>29.62794cm</Top>
+            <Top>34.58094cm</Top>
             <Left>0.09525cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -1165,6 +1226,7 @@
                   <TextRun>
                     <Value>Total en caja</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -1175,7 +1237,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox97</rd:DefaultName>
-            <Top>26.45326cm</Top>
+            <Top>31.40626cm</Top>
             <Left>0.09525cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -1198,14 +1260,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Saldo inicial</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox120</rd:DefaultName>
-            <Top>30.26516cm</Top>
+            <Top>35.21816cm</Top>
             <Left>0.09525cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -1228,14 +1292,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Total en caja antes del corte:</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox129</rd:DefaultName>
-            <Top>30.89487cm</Top>
+            <Top>35.84787cm</Top>
             <Left>0.1cm</Left>
             <Height>1.04979cm</Height>
             <Width>3.85cm</Width>
@@ -1258,14 +1324,16 @@
                 <TextRuns>
                   <TextRun>
                     <Value>Cantidad retirada al corte:</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox129</rd:DefaultName>
-            <Top>31.97685cm</Top>
+            <Top>36.92985cm</Top>
             <Left>0.1cm</Left>
             <Height>1.04979cm</Height>
             <Width>3.85cm</Width>
@@ -1289,6 +1357,7 @@
                   <TextRun>
                     <Value>Total en caja despues del corte:</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -1297,7 +1366,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox131</rd:DefaultName>
-            <Top>33.03799cm</Top>
+            <Top>37.99099cm</Top>
             <Left>0.1cm</Left>
             <Height>1.02333cm</Height>
             <Width>3.85cm</Width>
@@ -1320,7 +1389,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!conceptoEfectivoDeVentas.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -1329,7 +1400,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>conceptoEfectivoDeVentas</rd:DefaultName>
-            <Top>3.98173cm</Top>
+            <Top>5.44223cm</Top>
             <Left>3.95cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -1352,7 +1423,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!conceptoTarjetaDeVentas.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -1361,7 +1434,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>conceptoTarjetaDeVentas</rd:DefaultName>
-            <Top>4.57912cm</Top>
+            <Top>6.03962cm</Top>
             <Left>3.95cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -1384,7 +1457,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!conceptoValeDeVentas.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -1393,7 +1468,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>conceptoValeDeVentas</rd:DefaultName>
-            <Top>5.23822cm</Top>
+            <Top>6.69872cm</Top>
             <Left>3.95cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -1416,7 +1491,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!conceptoChequeDeVentas.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -1425,7 +1502,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>conceptoChequeDeVentas</rd:DefaultName>
-            <Top>5.87118cm</Top>
+            <Top>7.33168cm</Top>
             <Left>3.95cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -1448,7 +1525,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!conceptoTransferenciDeVentas.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -1457,7 +1536,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>conceptoTransferenciDeVentas</rd:DefaultName>
-            <Top>6.47824cm</Top>
+            <Top>7.93874cm</Top>
             <Left>3.95cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -1480,7 +1559,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!conceptoCreditoDeVentas.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -1489,7 +1570,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>conceptoCreditoDeVentas</rd:DefaultName>
-            <Top>7.12911cm</Top>
+            <Top>8.58961cm</Top>
             <Left>3.95cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -1512,7 +1593,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!conceptoAbonosDeVentas.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -1521,7 +1604,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>conceptoAbonosDeVentas</rd:DefaultName>
-            <Top>7.73263cm</Top>
+            <Top>9.19313cm</Top>
             <Left>3.95cm</Left>
             <Height>0.6cm</Height>
             <Width>3.85cm</Width>
@@ -1544,7 +1627,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!conceptoAnticiposUtilizados.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -1553,7 +1638,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>conceptoAnticiposUtilizados</rd:DefaultName>
-            <Top>8.36912cm</Top>
+            <Top>9.82962cm</Top>
             <Left>3.95cm</Left>
             <Height>0.98214cm</Height>
             <Width>3.84525cm</Width>
@@ -1568,9 +1653,1186 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="conceptoEfectivoDeAnticipos">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoEfectivoDeAnticipos.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoEfectivoDeAnticipos</rd:DefaultName>
+            <Top>13.63712cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>50</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoTarjetaDeAnticipos">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoTarjetaDeAnticipos.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoTarjetaDeAnticipos</rd:DefaultName>
+            <Top>14.26447cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>51</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoValeDeAnticipos">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoValeDeAnticipos.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoValeDeAnticipos</rd:DefaultName>
+            <Top>14.89418cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>52</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoChequeDeAnticipos">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoChequeDeAnticipos.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoChequeDeAnticipos</rd:DefaultName>
+            <Top>15.52918cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>53</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoTransferenciaDeAnticipos">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoTransferenciaDeAnticipos.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoTransferenciaDeAnticipos</rd:DefaultName>
+            <Top>16.18005cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>54</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoEfectivoDeDineroAgregado">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoEfectivoDeDineroAgregado.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoEfectivoDeDineroAgregado</rd:DefaultName>
+            <Top>19.66609cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>55</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoTarjetaDeDineroAgregado">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoTarjetaDeDineroAgregado.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoTarjetaDeDineroAgregado</rd:DefaultName>
+            <Top>20.29344cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>56</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoValeDeDineroAgregado">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoValeDeDineroAgregado.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoValeDeDineroAgregado</rd:DefaultName>
+            <Top>20.92315cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>57</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoChequeDeDineroAgregado">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoChequeDeDineroAgregado.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoChequeDeDineroAgregado</rd:DefaultName>
+            <Top>21.55815cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>58</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoTransferenciaDeDineroAgregado">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoTransferenciaDeDineroAgregado.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoTransferenciaDeDineroAgregado</rd:DefaultName>
+            <Top>22.20902cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>59</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoEfectivoDeDineroRetirado">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoEfectivoDeDineroRetirado.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoEfectivoDeDineroRetirado</rd:DefaultName>
+            <Top>25.69859cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>60</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoTarjetaDeDineroRetirado">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoTarjetaDeDineroRetirado.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoTarjetaDeDineroRetirado</rd:DefaultName>
+            <Top>26.32594cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>61</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoValeDeDineroRetirado">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoValeDeDineroRetirado.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoValeDeDineroRetirado</rd:DefaultName>
+            <Top>26.95565cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>62</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoChequeDeDineroRetirado">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoChequeDeDineroRetirado.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoChequeDeDineroRetirado</rd:DefaultName>
+            <Top>27.59065cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>63</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoTransferenciaDeDineroRetirado">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoTransferenciaDeDineroRetirado.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoTransferenciaDeDineroRetirado</rd:DefaultName>
+            <Top>28.24152cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>64</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoDevolucionDeDineroRetirado">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoDevolucionDeDineroRetirado.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoDevolucionDeDineroRetirado</rd:DefaultName>
+            <Top>28.87874cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>65</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoEfectivoDeTotalCaja">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoEfectivoDeTotalCaja.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoEfectivoDeTotalCaja</rd:DefaultName>
+            <Top>32.03801cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>66</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoTarjetaDeTotalCaja">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoTarjetaDeTotalCaja.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoTarjetaDeTotalCaja</rd:DefaultName>
+            <Top>32.66536cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>67</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoValeDeTotalCaja">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoValeDeTotalCaja.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoValeDeTotalCaja</rd:DefaultName>
+            <Top>33.29507cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>68</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoChequeDeTotalCaja">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoChequeDeTotalCaja.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoChequeDeTotalCaja</rd:DefaultName>
+            <Top>33.93006cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>69</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoTransferenciaDeTotalCaja">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoTransferenciaDeTotalCaja.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoTransferenciaDeTotalCaja</rd:DefaultName>
+            <Top>34.58094cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>70</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoSaldoInicialDeTotalCaja">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoSaldoInicialDeTotalCaja.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoSaldoInicialDeTotalCaja</rd:DefaultName>
+            <Top>35.21816cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>71</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoCantidadEnCajaAntesDelCorte">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoCantidadEnCajaAntesDelCorte.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoCantidadEnCajaAntesDelCorte</rd:DefaultName>
+            <Top>35.85344cm</Top>
+            <Left>3.95cm</Left>
+            <Height>1.04422cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>72</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoCantidadRetiradaAlCorteDeCaja">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoCantidadRetiradaAlCorteDeCaja.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoCantidadRetiradaAlCorteDeCaja</rd:DefaultName>
+            <Top>36.92985cm</Top>
+            <Left>3.95cm</Left>
+            <Height>1.04979cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>73</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoTotalVentas">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoTotalVentas.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoTotalVentas</rd:DefaultName>
+            <Top>10.85056cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>74</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <BottomBorder>
+                <Style>Double</Style>
+              </BottomBorder>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoTotalAnticipos">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoTotalAnticipos.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoTotalAnticipos</rd:DefaultName>
+            <Top>16.79769cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>75</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <BottomBorder>
+                <Style>Double</Style>
+              </BottomBorder>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoTotalDineroAgregado">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoTotalDineroAgregado.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoTotalDineroAgregado</rd:DefaultName>
+            <Top>22.82666cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>76</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <BottomBorder>
+                <Style>Double</Style>
+              </BottomBorder>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoTotalDineroRetirado">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoTotalDineroRetirado.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoTotalDineroRetirado</rd:DefaultName>
+            <Top>29.51533cm</Top>
+            <Left>3.95cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>77</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <BottomBorder>
+                <Style>Double</Style>
+              </BottomBorder>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="conceptoRestanteCorteCaja">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoRestanteCorteCaja.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>conceptoRestanteCorteCaja</rd:DefaultName>
+            <Top>37.99099cm</Top>
+            <Left>3.95cm</Left>
+            <Height>1.02333cm</Height>
+            <Width>3.85cm</Width>
+            <ZIndex>78</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <BottomBorder>
+                <Style>Double</Style>
+              </BottomBorder>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="nombreUsuario">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!nombreUsuario.Value</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>nombreUsuario</rd:DefaultName>
+            <Top>0.16087cm</Top>
+            <Left>0.1cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.7cm</Width>
+            <ZIndex>79</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="nombreEmpleado">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!nombreEmpleado.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>nombreEmpleado</rd:DefaultName>
+            <Top>0.79587cm</Top>
+            <Left>0.1cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.7cm</Width>
+            <ZIndex>80</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="numFolio">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!numFolio.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>numFolio</rd:DefaultName>
+            <Top>1.41499cm</Top>
+            <Left>0.1cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.7cm</Width>
+            <ZIndex>81</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox66">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>CORTE DE CAJA</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox66</rd:DefaultName>
+            <Top>2.0447cm</Top>
+            <Left>0.1cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.7cm</Width>
+            <ZIndex>82</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="fechaCorteCaja">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!fechaCorteCaja.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>fechaCorteCaja</rd:DefaultName>
+            <Top>2.66912cm</Top>
+            <Left>0.1cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.7cm</Width>
+            <ZIndex>83</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>39.02739cm</Height>
-        <Style />
+        <Height>39.58301cm</Height>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <BottomBorder>
+            <Color>Black</Color>
+            <Style>Double</Style>
+            <Width>1pt</Width>
+          </BottomBorder>
+        </Style>
       </Body>
       <Width>8cm</Width>
       <Page>
@@ -1618,11 +2880,143 @@
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="conceptoEfectivoDeAnticipos">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoTarjetaDeAnticipos">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoValeDeAnticipos">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoChequeDeAnticipos">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoTransferenciaDeAnticipos">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoEfectivoDeDineroAgregado">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoTarjetaDeDineroAgregado">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoValeDeDineroAgregado">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoChequeDeDineroAgregado">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoTransferenciaDeDineroAgregado">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoEfectivoDeDineroRetirado">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoTarjetaDeDineroRetirado">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoValeDeDineroRetirado">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoChequeDeDineroRetirado">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoTransferenciaDeDineroRetirado">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoDevolucionDeDineroRetirado">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoEfectivoDeTotalCaja">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoTarjetaDeTotalCaja">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoValeDeTotalCaja">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoChequeDeTotalCaja">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoTransferenciaDeTotalCaja">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoSaldoInicialDeTotalCaja">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoCantidadEnCajaAntesDelCorte">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoCantidadRetiradaAlCorteDeCaja">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoTotalVentas">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoTotalAnticipos">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoTotalDineroAgregado">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoTotalDineroRetirado">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="conceptoRestanteCorteCaja">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="nombreUsuario">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="nombreEmpleado">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="fechaCorteCaja">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="numFolio">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>2</NumberOfRows>
+      <NumberOfRows>11</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
@@ -1663,6 +3057,171 @@
           <ColumnIndex>3</ColumnIndex>
           <RowIndex>1</RowIndex>
           <ParameterName>conceptoAnticiposUtilizados</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>2</RowIndex>
+          <ParameterName>conceptoEfectivoDeAnticipos</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>2</RowIndex>
+          <ParameterName>conceptoTarjetaDeAnticipos</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>2</RowIndex>
+          <ParameterName>conceptoValeDeAnticipos</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>2</RowIndex>
+          <ParameterName>conceptoChequeDeAnticipos</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>3</RowIndex>
+          <ParameterName>conceptoTransferenciaDeAnticipos</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>3</RowIndex>
+          <ParameterName>conceptoEfectivoDeDineroAgregado</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>3</RowIndex>
+          <ParameterName>conceptoTarjetaDeDineroAgregado</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>3</RowIndex>
+          <ParameterName>conceptoValeDeDineroAgregado</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>4</RowIndex>
+          <ParameterName>conceptoChequeDeDineroAgregado</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>4</RowIndex>
+          <ParameterName>conceptoTransferenciaDeDineroAgregado</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>4</RowIndex>
+          <ParameterName>conceptoEfectivoDeDineroRetirado</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>4</RowIndex>
+          <ParameterName>conceptoTarjetaDeDineroRetirado</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>5</RowIndex>
+          <ParameterName>conceptoValeDeDineroRetirado</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>5</RowIndex>
+          <ParameterName>conceptoChequeDeDineroRetirado</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>5</RowIndex>
+          <ParameterName>conceptoTransferenciaDeDineroRetirado</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>5</RowIndex>
+          <ParameterName>conceptoDevolucionDeDineroRetirado</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>6</RowIndex>
+          <ParameterName>conceptoEfectivoDeTotalCaja</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>6</RowIndex>
+          <ParameterName>conceptoTarjetaDeTotalCaja</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>6</RowIndex>
+          <ParameterName>conceptoValeDeTotalCaja</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>6</RowIndex>
+          <ParameterName>conceptoChequeDeTotalCaja</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>7</RowIndex>
+          <ParameterName>conceptoTransferenciaDeTotalCaja</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>7</RowIndex>
+          <ParameterName>conceptoSaldoInicialDeTotalCaja</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>7</RowIndex>
+          <ParameterName>conceptoCantidadEnCajaAntesDelCorte</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>7</RowIndex>
+          <ParameterName>conceptoCantidadRetiradaAlCorteDeCaja</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>8</RowIndex>
+          <ParameterName>conceptoTotalVentas</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>8</RowIndex>
+          <ParameterName>conceptoTotalAnticipos</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>8</RowIndex>
+          <ParameterName>conceptoTotalDineroAgregado</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>8</RowIndex>
+          <ParameterName>conceptoTotalDineroRetirado</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>conceptoRestanteCorteCaja</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>nombreUsuario</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>nombreEmpleado</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>fechaCorteCaja</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>10</RowIndex>
+          <ParameterName>numFolio</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

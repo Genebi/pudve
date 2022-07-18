@@ -19,6 +19,9 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         Conexion cn = new Conexion();
 
+        #region Variables globales
+
+        #region Tabla de Ventas
         public string conceptoEfectivoDeVentas { get; set; }
         public string conceptoTarjetaDeVentas { get; set; }
         public string conceptoValeDeVentas { get; set; }
@@ -27,6 +30,72 @@ namespace PuntoDeVentaV2
         public string conceptoCreditoDeVentas { get; set; }
         public string conceptoAbonosDeVentas { get; set; }
         public string conceptoAnticiposUtilizados { get; set; }
+        #endregion
+        #region Tabla de Anticipos
+        public string conceptoEfectivoDeAnticipos { get; set; }
+        public string conceptoTarjetaDeAnticipos { get; set; }
+        public string conceptoValeDeAnticipos { get; set; }
+        public string conceptoChequeDeAnticipos { get; set; }
+        public string conceptoTransferenciaDeAnticipos { get; set; }
+        #endregion
+        #region Tabla de Dinero Agregado
+        public string conceptoEfectivoDeDineroAgregado { get; set; }
+        public string conceptoTarjetaDeDineroAgregado { get; set; }
+        public string conceptoValeDeDineroAgregado { get; set; }
+        public string conceptoChequeDeDineroAgregado { get; set; }
+        public string conceptoTransferenciaDeDineroAgregado { get; set; }
+        #endregion
+        #region Tabla de Dinero Retirado
+        public string conceptoEfectivoDeDineroRetirado { get; set; }
+        public string conceptoTarjetaDeDineroRetirado { get; set; }
+        public string conceptoValeDeDineroRetirado { get; set; }
+        public string conceptoChequeDeDineroRetirado { get; set; }
+        public string conceptoTransferenciaDeDineroRetirado { get; set; }
+        public string conceptoDevolucionDeDineroRetirado { get; set; }
+        #endregion
+        #region Tabla de Total de Caja
+        public string conceptoEfectivoDeTotalCaja { get; set; }
+        public string conceptoTarjetaDeTotalCaja { get; set; }
+        public string conceptoValeDeTotalCaja { get; set; }
+        public string conceptoChequeDeTotalCaja { get; set; }
+        public string conceptoTransferenciaDeTotalCaja { get; set; }
+        public string conceptoSaldoInicialDeTotalCaja { get; set; }
+        #endregion
+        #region Monto antes del corte
+        public string conceptoCantidadEnCajaAntesDelCorte { get; set; }
+        #endregion
+        #region Cantidad retirada en el corte
+        public string conceptoCantidadRetiradaAlCorteDeCaja { get; set; }
+        #endregion
+        #region Total de ventas
+        public string conceptoTotalVentas { get; set; }
+        #endregion
+        #region Total de Anticipos
+        public string conceptoTotalAnticipos { get; set; }
+        #endregion
+        #region Total de Dinero Agregado
+        public string conceptoTotalDineroAgregado { get; set; }
+        #endregion
+        #region Total de Dinero Retirado
+        public string conceptoTotalDineroRetirado { get; set; }
+        #endregion
+        #region Total de Restante al Corte de Caja
+        public string conceptoRestanteCorteCaja { get; set; }
+        #endregion
+        #region Nombre de Usuario
+        public string nombreUsuario { get; set; }
+        #endregion
+        #region Nombre de Empleado
+        public string nombreEmpleado { get; set; }
+        #endregion
+        #region Número de folio
+        public string numFolio { get; set; }
+        #endregion
+        #region Fecha de corte de caja
+        public string fechaCorteCaja { get; set; }
+        #endregion
+
+        #endregion
 
         public visualizadorCorteDeCaja()
         {
@@ -57,33 +126,89 @@ namespace PuntoDeVentaV2
             #region Impresion Ticket de 80 mm
             ReportParameterCollection reportParameters = new ReportParameterCollection();
 
-            //01 parametro integer para mostrar / ocultar Logo
+            #region tabla Ventas
             reportParameters.Add(new ReportParameter("conceptoEfectivoDeVentas", conceptoEfectivoDeVentas.ToString()));
-            //02 parametro integer para mostrar / ocultar Nombre
             reportParameters.Add(new ReportParameter("conceptoTarjetaDeVentas", conceptoTarjetaDeVentas.ToString()));
-            //03 parametro integer para mostrar / ocultar Nombre Comercial
             reportParameters.Add(new ReportParameter("conceptoValeDeVentas", conceptoValeDeVentas.ToString()));
-            //04 parametro integer para mostrar / ocultar Direccion Ciudad
             reportParameters.Add(new ReportParameter("conceptoChequeDeVentas", conceptoChequeDeVentas.ToString()));
-            //05 parametro integer para mostrar / ocultar Colonia Codigo Postal
             reportParameters.Add(new ReportParameter("conceptoTransferenciDeVentas", conceptoTransferenciDeVentas.ToString()));
-            //06 parametro integer para mostrar / ocultar RFC
             reportParameters.Add(new ReportParameter("conceptoCreditoDeVentas", conceptoCreditoDeVentas.ToString()));
-            //07 parametro integer para mostrar / ocultar Correo
             reportParameters.Add(new ReportParameter("conceptoAbonosDeVentas", conceptoAbonosDeVentas.ToString()));
-            //08 parametro integer para mostrar / ocultar Telefono
             reportParameters.Add(new ReportParameter("conceptoAnticiposUtilizados", conceptoAnticiposUtilizados.ToString()));
+            #endregion
+            #region tabla Anticipos
+            reportParameters.Add(new ReportParameter("conceptoEfectivoDeAnticipos", conceptoEfectivoDeAnticipos.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTarjetaDeAnticipos", conceptoTarjetaDeAnticipos.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoValeDeAnticipos", conceptoValeDeAnticipos.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoChequeDeAnticipos", conceptoChequeDeAnticipos.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTransferenciaDeAnticipos", conceptoTransferenciaDeAnticipos.ToString()));
+            #endregion
+            #region tabla Depositos
+            reportParameters.Add(new ReportParameter("conceptoEfectivoDeDineroAgregado", conceptoEfectivoDeDineroAgregado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTarjetaDeDineroAgregado", conceptoTarjetaDeDineroAgregado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoValeDeDineroAgregado", conceptoValeDeDineroAgregado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoChequeDeDineroAgregado", conceptoChequeDeDineroAgregado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTransferenciaDeDineroAgregado", conceptoTransferenciaDeDineroAgregado.ToString()));
+            #endregion
+            #region tabla Retiros
+            reportParameters.Add(new ReportParameter("conceptoEfectivoDeDineroRetirado", conceptoEfectivoDeDineroRetirado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTarjetaDeDineroRetirado", conceptoTarjetaDeDineroRetirado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoValeDeDineroRetirado", conceptoValeDeDineroRetirado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoChequeDeDineroRetirado", conceptoChequeDeDineroRetirado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTransferenciaDeDineroRetirado", conceptoTransferenciaDeDineroRetirado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoDevolucionDeDineroRetirado", conceptoDevolucionDeDineroRetirado.ToString()));
+            #endregion
+            #region tabla Total de caja
+            reportParameters.Add(new ReportParameter("conceptoEfectivoDeTotalCaja", conceptoEfectivoDeTotalCaja.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTarjetaDeTotalCaja", conceptoTarjetaDeTotalCaja.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoValeDeTotalCaja", conceptoValeDeTotalCaja.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoChequeDeTotalCaja", conceptoChequeDeTotalCaja.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTransferenciaDeTotalCaja", conceptoTransferenciaDeTotalCaja.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoSaldoInicialDeTotalCaja", conceptoSaldoInicialDeTotalCaja.ToString()));
+            #endregion
+            #region Monto antes del corte
+            reportParameters.Add(new ReportParameter("conceptoCantidadEnCajaAntesDelCorte", conceptoCantidadEnCajaAntesDelCorte.ToString()));
+            #endregion
+            #region Cantidad retirada en el corte
+            reportParameters.Add(new ReportParameter("conceptoCantidadRetiradaAlCorteDeCaja", conceptoCantidadRetiradaAlCorteDeCaja.ToString()));
+            #endregion
+            #region Total de ventas
+            reportParameters.Add(new ReportParameter("conceptoTotalVentas", conceptoTotalVentas.ToString()));
+            #endregion
+            #region Total de anticipos
+            reportParameters.Add(new ReportParameter("conceptoTotalAnticipos", conceptoTotalAnticipos.ToString()));
+            #endregion
+            #region Total de depositos
+            reportParameters.Add(new ReportParameter("conceptoTotalDineroAgregado", conceptoTotalDineroAgregado.ToString()));
+            #endregion
+            #region Total de retiros
+            reportParameters.Add(new ReportParameter("conceptoTotalDineroRetirado", conceptoTotalDineroRetirado.ToString()));
+            #endregion
+            #region Restante al corte de caja
+            reportParameters.Add(new ReportParameter("conceptoRestanteCorteCaja", conceptoRestanteCorteCaja.ToString()));
+            #endregion
+            #region Nombre de Usuario
+            reportParameters.Add(new ReportParameter("nombreUsuario", nombreUsuario.ToString()));
+            #endregion
+            #region Nombre de Empleado
+            reportParameters.Add(new ReportParameter("nombreEmpleado", nombreEmpleado.ToString()));
+            #endregion
+            #region Número de folio
+            reportParameters.Add(new ReportParameter("numFolio", numFolio.ToString()));
+            #endregion
+            #region Fecha de corte de caja
+            reportParameters.Add(new ReportParameter("fechaCorteCaja", fechaCorteCaja.ToString()));
+            #endregion
 
             LocalReport rdlc = new LocalReport();
-            rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;
             rdlc.SetParameters(reportParameters);
             #endregion
 
             EnviarImprimir imp = new EnviarImprimir();
-            imp.Imprime(rdlc);
+        imp.Imprime(rdlc);
 
             this.Close();
-        }
     }
+}
 }
