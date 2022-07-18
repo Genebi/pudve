@@ -5473,7 +5473,7 @@ namespace PuntoDeVentaV2
 
                 using (DataTable dtPenultimoSaldoInicial = cn.CargarDatos(cs.cargarPenultimoSaldoInicialAdministrador()))
                 {
-                    idUltimoCorteDeCaja = Convert.ToInt32(obtenerIdCajaUltimoCorteDeCaja(dtPenultimoSaldoInicial).ToString("C2"));
+                    idUltimoCorteDeCaja = Convert.ToInt32(obtenerIdCajaUltimoCorteDeCaja(dtPenultimoSaldoInicial));
                 }
             }
             else
@@ -5485,7 +5485,7 @@ namespace PuntoDeVentaV2
 
                 using (DataTable dtPenultimoSaldoInicial = cn.CargarDatos(cs.cargarPenultimaSaldoInicialEmpleado(Convert.ToString(FormPrincipal.id_empleado))))
                 {
-                    idUltimoCorteDeCaja = Convert.ToInt32(obtenerIdCajaUltimoCorteDeCaja(dtPenultimoSaldoInicial).ToString("C2"));
+                    idUltimoCorteDeCaja = Convert.ToInt32(obtenerIdCajaUltimoCorteDeCaja(dtPenultimoSaldoInicial));
                 }
             }
             #endregion
@@ -5509,6 +5509,20 @@ namespace PuntoDeVentaV2
             #region sección Restante al Corte de Caja
             var conceptoRestanteCorteCaja = ((Convert.ToDecimal(conceptoCantidadEnCajaAntesDelCorte) - Convert.ToDecimal(conceptoCantidadRetiradaAlCorteDeCaja.Replace("$", string.Empty)))).ToString("C2");
             #endregion
+
+            using (visualizadorCorteDeCaja verCorteDeCaja = new visualizadorCorteDeCaja())
+            {
+                verCorteDeCaja.conceptoEfectivoDeVentas = conceptoEfectivoDeVentas;
+                verCorteDeCaja.conceptoTarjetaDeVentas = conceptoTarjetaDeVentas;
+                verCorteDeCaja.conceptoValeDeVentas = conceptoValeDeVentas;
+                verCorteDeCaja.conceptoChequeDeVentas = conceptoChequeDeVentas;
+                verCorteDeCaja.conceptoTransferenciDeVentas = conceptoTransferenciDeVentas;
+                verCorteDeCaja.conceptoCreditoDeVentas = conceptoCreditoDeVentas;
+                verCorteDeCaja.conceptoAbonosDeVentas = conceptoAbonosDeVentas;
+                verCorteDeCaja.conceptoAnticiposUtilizados = conceptoAnticiposUtilizados;
+
+                verCorteDeCaja.ShowDialog();
+            }
         }
 
         private void btnRedondoAbrirCaja_Click(object sender, EventArgs e)
