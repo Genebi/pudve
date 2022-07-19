@@ -40,6 +40,7 @@ namespace PuntoDeVentaV2
         private int tipoOperacion = 0;
 
         public static string mensaje = string.Empty;
+        string proveedor = string.Empty;
 
         //apartado 1 = Productos
         //apartado 2 = Inventario
@@ -318,7 +319,7 @@ namespace PuntoDeVentaV2
             if (rbProducto.Checked)
             {
                 var rfc = string.Empty;
-                var proveedor = string.Empty;
+               
                 var fechaCompra = dpFechaCompra.Text;
                 var precioCompra = txtPrecioCompra.Text;
                 var cantidadCompra = txtCantidadCompra.Text;
@@ -845,6 +846,11 @@ namespace PuntoDeVentaV2
             {
                 productos.CargarDatos();
             }
+
+            var Consultaid = cn.CargarDatos($"SELECT ID FROM proveedores WHERE Nombre= '{proveedor}' AND IDUsuario = {FormPrincipal.userID}");
+            string id = Consultaid.Rows[0]["ID"].ToString();
+            cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{proveedor}', IDProveedor = {id} WHERE IDProducto = {IDProducto}");
+
         }
 
         private void RestaurarValores(int valorCB)
