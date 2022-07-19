@@ -5324,6 +5324,7 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta($"UPDATE Anticipos Set AnticipoAplicado = 0 WHERE IDUsuario = '{FormPrincipal.userID}'");
 
                         generarReporteHojaCarta();
+
                         using (DataTable dtCerrarSesionDesdeCorteCaja = cn.CargarDatos(cs.validarCerrarSesionCorteCaja()))
                         {
                             if (!dtCerrarSesionDesdeCorteCaja.Rows.Count.Equals(0))
@@ -5425,6 +5426,7 @@ namespace PuntoDeVentaV2
             var cantidadRetiradaAlCorteDeCaja = 0m;
             var cantidadEnCajaAntesDelCorteDeCaja = 0m;
             var idUltimoCorteDeCaja = 0;
+            var idPenultimoCorteDeCaja = 0;
 
             var numFolio = obtenerFolioCorte();
             var nombreUsuario = string.Empty;
@@ -5504,6 +5506,7 @@ namespace PuntoDeVentaV2
                 using (DataTable dtPenultimoSaldoInicial = cn.CargarDatos(cs.cargarPenultimoSaldoInicialAdministrador()))
                 {
                     idUltimoCorteDeCaja = idCorteCaja;
+                    idPenultimoCorteDeCaja = obtenerIdCajaUltimoCorteDeCaja(dtPenultimoSaldoInicial);
                 }
             }
             else
@@ -5525,6 +5528,7 @@ namespace PuntoDeVentaV2
                 using (DataTable dtPenultimoSaldoInicial = cn.CargarDatos(cs.cargarPenultimaSaldoInicialEmpleado(Convert.ToString(FormPrincipal.id_empleado))))
                 {
                     idUltimoCorteDeCaja = idCorteCaja;
+                    idPenultimoCorteDeCaja = obtenerIdCajaUltimoCorteDeCaja(dtPenultimoSaldoInicial);
                 }
             }
             #endregion
@@ -5660,6 +5664,9 @@ namespace PuntoDeVentaV2
                 #endregion
                 #region Fecha de corte de caja
                 verCorteDeCaja.fechaCorteCaja = fechaCorteCaja;
+                #endregion
+                #region 
+                verCorteDeCaja.idPenultimoCorteDeCaja = idPenultimoCorteDeCaja;
                 #endregion
 
                 verCorteDeCaja.ShowDialog();
