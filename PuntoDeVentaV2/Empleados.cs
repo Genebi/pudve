@@ -28,7 +28,7 @@ namespace PuntoDeVentaV2
         int opcion1 = 1; // Nuevo empleado
         int opcion2 = 1; // Editar empleado
         int opcion3 = 1; // Permisos empleado
-
+        public static bool SIoNO = false;
         string mensajeParaMostrar = string.Empty;
 
         public Empleados()
@@ -208,8 +208,10 @@ namespace PuntoDeVentaV2
             {
                 if (cboMostrados.Text == "Habilitados")
                 {
-                    var Respuesta = MessageBox.Show("¿Esta seguro de Deshabilitar este Empleado?","Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                    if (Respuesta.Equals(DialogResult.Yes))
+                    string texto = "¿Esta seguro de Deshabilitar este Empleado?";
+                    MensajeConfirmacionDeHabilitarODeshabilitar mensaje = new MensajeConfirmacionDeHabilitarODeshabilitar(texto);
+                    mensaje.ShowDialog();
+                    if (SIoNO.Equals(true))
                     {
                         string nombre = dgv_empleados.Rows[e.RowIndex].Cells[2].Value.ToString();
                         string idemp = dgv_empleados.Rows[e.RowIndex].Cells[0].Value.ToString();
@@ -224,13 +226,15 @@ namespace PuntoDeVentaV2
                             tipo = "0";
                         }
                         CargarDatos(Convert.ToInt32(tipo));
+
                     }
-                    
                 }
                 else if (cboMostrados.Text == "Deshabilitados")
                 {
-                    var Respuesta = MessageBox.Show("¿Esta seguro de Habilitar este Empleado?", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                    if (Respuesta.Equals(DialogResult.Yes))
+                    string texto = "¿Esta seguro de Habilitar este Empleado?";
+                    MensajeConfirmacionDeHabilitarODeshabilitar mensaje = new MensajeConfirmacionDeHabilitarODeshabilitar(texto);
+                    mensaje.ShowDialog(); 
+                    if (SIoNO.Equals(true))
                     {
                         string nombre = dgv_empleados.Rows[e.RowIndex].Cells[2].Value.ToString();
                         string idemp = dgv_empleados.Rows[e.RowIndex].Cells[0].Value.ToString();

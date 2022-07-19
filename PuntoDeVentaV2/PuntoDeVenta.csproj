@@ -913,6 +913,12 @@
     <Compile Include="MensajeAgregarEditarCopiarProducto.Designer.cs">
       <DependentUpon>MensajeAgregarEditarCopiarProducto.cs</DependentUpon>
     </Compile>
+    <Compile Include="MensajeConfirmacionDeHabilitarODeshabilitar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MensajeConfirmacionDeHabilitarODeshabilitar.Designer.cs">
+      <DependentUpon>MensajeConfirmacionDeHabilitarODeshabilitar.cs</DependentUpon>
+    </Compile>
     <Compile Include="MensajePorFavorEspere.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1710,6 +1716,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MensajeAgregarEditarCopiarProducto.resx">
       <DependentUpon>MensajeAgregarEditarCopiarProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MensajeConfirmacionDeHabilitarODeshabilitar.resx">
+      <DependentUpon>MensajeConfirmacionDeHabilitarODeshabilitar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MensajePorFavorEspere.resx">
       <DependentUpon>MensajePorFavorEspere.cs</DependentUpon>
