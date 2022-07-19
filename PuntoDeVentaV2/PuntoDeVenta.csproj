@@ -1354,6 +1354,12 @@
     <Compile Include="VincularPC.Designer.cs">
       <DependentUpon>VincularPC.cs</DependentUpon>
     </Compile>
+    <Compile Include="visualizadorCorteDeCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="visualizadorCorteDeCaja.Designer.cs">
+      <DependentUpon>visualizadorCorteDeCaja.cs</DependentUpon>
+    </Compile>
     <Compile Include="VisualizadorReportes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1848,6 +1854,12 @@
     <Content Include="ReportesImpresion\Ticket\DineroRetirado\TicketDineroRetirado.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="ReportesImpresion\Ticket\CorteDeCaja\ReporteCorteDeCaja.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Content Include="ReportesImpresion\Ticket\CorteDeCaja\ReporteTicketCorteDeCaja.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -1931,6 +1943,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VincularPC.resx">
       <DependentUpon>VincularPC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="visualizadorCorteDeCaja.resx">
+      <DependentUpon>visualizadorCorteDeCaja.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VisualizadorReportes.resx">
       <DependentUpon>VisualizadorReportes.cs</DependentUpon>

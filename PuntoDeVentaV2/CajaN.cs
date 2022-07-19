@@ -5323,29 +5323,46 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta($"UPDATE Anticipos Set AnticipoAplicado = 0 WHERE IDUsuario = '{FormPrincipal.userID}'");
 
-                        if (Utilidades.AdobeReaderInstalado())
+                        generarReporteHojaCarta();
+                        using (DataTable dtCerrarSesionDesdeCorteCaja = cn.CargarDatos(cs.validarCerrarSesionCorteCaja()))
                         {
-                            //GenerarReporte();
-                            generarNuevoReporte();
-                            using (DataTable dtCerrarSesionDesdeCorteCaja = cn.CargarDatos(cs.validarCerrarSesionCorteCaja()))
+                            if (!dtCerrarSesionDesdeCorteCaja.Rows.Count.Equals(0))
                             {
-                                if (!dtCerrarSesionDesdeCorteCaja.Rows.Count.Equals(0))
+                                foreach (DataRow item in dtCerrarSesionDesdeCorteCaja.Rows)
                                 {
-                                    foreach (DataRow item in dtCerrarSesionDesdeCorteCaja.Rows)
+                                    if (item["CerrarSesionAuto"].ToString().Equals("1"))
                                     {
-                                        if (item["CerrarSesionAuto"].ToString().Equals("1"))
-                                        {
-                                            recargarDatos = true;
-                                            clickBotonCorteDeCaja = 1;
-                                        }
+                                        recargarDatos = true;
+                                        clickBotonCorteDeCaja = 1;
                                     }
                                 }
                             }
                         }
-                        else
-                        {
-                            Utilidades.MensajeAdobeReader();
-                        }
+
+                        //if (Utilidades.AdobeReaderInstalado())
+                        //{
+                        //    //GenerarReporte();
+                        //    //generarNuevoReporte();
+                        //    generarReporteHojaCarta();
+                        //    using (DataTable dtCerrarSesionDesdeCorteCaja = cn.CargarDatos(cs.validarCerrarSesionCorteCaja()))
+                        //    {
+                        //        if (!dtCerrarSesionDesdeCorteCaja.Rows.Count.Equals(0))
+                        //        {
+                        //            foreach (DataRow item in dtCerrarSesionDesdeCorteCaja.Rows)
+                        //            {
+                        //                if (item["CerrarSesionAuto"].ToString().Equals("1"))
+                        //                {
+                        //                    recargarDatos = true;
+                        //                    clickBotonCorteDeCaja = 1;
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    Utilidades.MensajeAdobeReader();
+                        //}
 
                         botones = false;
 
@@ -5397,6 +5414,256 @@ namespace PuntoDeVentaV2
                 //GenerarTicket();
             }
             abonos = 0;
+        }
+
+        private void generarReporteHojaCarta()
+        {
+            #region Variables
+            var UsuarioActivo = cs.validarEmpleado(FormPrincipal.userNickName, true);
+            var obtenerUsuarioPrincipal = cs.validarEmpleadoPorID();
+
+            var cantidadRetiradaAlCorteDeCaja = 0m;
+            var cantidadEnCajaAntesDelCorteDeCaja = 0m;
+            var idUltimoCorteDeCaja = 0;
+
+            var numFolio = obtenerFolioCorte();
+            var nombreUsuario = string.Empty;
+            var nombreEmpleado = string.Empty;
+            var fechaCorteCaja = string.Empty;
+            #endregion
+
+            #region sección ventas
+            var conceptoEfectivoDeVentas = lbTEfectivo.Text;
+            var conceptoTarjetaDeVentas = lbTTarjeta.Text;
+            var conceptoValeDeVentas = lbTVales.Text;
+            var conceptoChequeDeVentas = lbTCheque.Text;
+            var conceptoTransferenciDeVentas = lbTTrans.Text;
+            var conceptoCreditoDeVentas = lbTCredito.Text;
+            var conceptoAbonosDeVentas = lbTCreditoC.Text;
+            var conceptoAnticiposUtilizados = lbTCreditoC.Text;
+            #endregion
+
+            #region sección Anticipos Recibidos
+            var conceptoEfectivoDeAnticipos = lbTEfectivoA.Text;
+            var conceptoTarjetaDeAnticipos = lbTTarjetaA.Text;
+            var conceptoValeDeAnticipos = lbTValesA.Text;
+            var conceptoChequeDeAnticipos = lbTChequeA.Text;
+            var conceptoTransferenciaDeAnticipos = lbTTransA.Text;
+            #endregion
+
+            #region sección Dinero Agregado
+            var conceptoEfectivoDeDineroAgregado = lbTEfectivoD.Text;
+            var conceptoTarjetaDeDineroAgregado = lbTTarjetaD.Text;
+            var conceptoValeDeDineroAgregado = lbTValesD.Text;
+            var conceptoChequeDeDineroAgregado = lbTChequeD.Text;
+            var conceptoTransferenciaDeDineroAgregado = lbTTransD.Text;
+            #endregion
+
+            #region sección Dinero Retirado
+            var conceptoEfectivoDeDineroRetirado = lbEfectivoR.Text;
+            var conceptoTarjetaDeDineroRetirado = lbTarjetaR.Text;
+            var conceptoValeDeDineroRetirado = lbValesR.Text;
+            var conceptoChequeDeDineroRetirado = lbChequeR.Text;
+            var conceptoTransferenciaDeDineroRetirado = lbTransferenciaR.Text;
+            var conceptoDevolucionDeDineroRetirado = lbDevoluciones.Text;
+            #endregion
+
+            #region sección Total de Caja
+            var conceptoEfectivoDeTotalCaja = lbTEfectivoC.Text;
+            var conceptoTarjetaDeTotalCaja = lbTTarjetaC.Text;
+            var conceptoValeDeTotalCaja = lbTValesC.Text;
+            var conceptoChequeDeTotalCaja = lbTChequeC.Text;
+            var conceptoTransferenciaDeTotalCaja = lbTTransC.Text;
+            var conceptoSaldoInicialDeTotalCaja = lbTSaldoInicial.Text;
+            #endregion
+
+            #region Sección Monto Antes del Corte
+            var conceptoCantidadEnCajaAntesDelCorte = Convert.ToString(Convert.ToDecimal(lbTTotalCaja.Text.ToString().Replace("$", string.Empty)));
+            #endregion
+
+            #region Sección Cantidad Retirada en el Corte
+            var conceptoCantidadRetiradaAlCorteDeCaja = string.Empty;
+            var consultaIdUltimoCorteCaja = string.Empty;
+            var idCorteCaja = 0;
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                consultaIdUltimoCorteCaja = $"Select ID from caja where IDUsuario = '{FormPrincipal.userID}' and Operacion = 'corte' order by ID desc limit 1";
+                using (DataTable dtIdCorteCajaRealizado = cn.CargarDatos(consultaIdUltimoCorteCaja))
+                {
+                    if (!dtIdCorteCajaRealizado.Rows.Count.Equals(0))
+                    {
+                        DataRow drIdCorteCajaRealizado = dtIdCorteCajaRealizado.Rows[0];
+                        idCorteCaja = Convert.ToInt32(drIdCorteCajaRealizado["ID"].ToString());
+                    }
+                }
+                using (DataTable dtSaldoInicial = cn.CargarDatos(cs.cargarSaldoInicialAdministrador()))
+                {
+                    conceptoCantidadRetiradaAlCorteDeCaja = obtenerCantidadRetiradaAlCorteDeCaja(dtSaldoInicial).ToString("C2");
+                }
+
+                using (DataTable dtPenultimoSaldoInicial = cn.CargarDatos(cs.cargarPenultimoSaldoInicialAdministrador()))
+                {
+                    idUltimoCorteDeCaja = idCorteCaja;
+                }
+            }
+            else
+            {
+                consultaIdUltimoCorteCaja = $"Select ID from caja where IDUsuario = '{FormPrincipal.userID}' and IdEmpleado = '{FormPrincipal.id_empleado}' and Operacion = 'corte' order by ID desc limit 1";
+                using (DataTable dtIdCorteCajaRealizado = cn.CargarDatos(consultaIdUltimoCorteCaja))
+                {
+                    if (!dtIdCorteCajaRealizado.Rows.Count.Equals(0))
+                    {
+                        DataRow drIdCorteCajaRealizado = dtIdCorteCajaRealizado.Rows[0];
+                        idCorteCaja = Convert.ToInt32(drIdCorteCajaRealizado["ID"].ToString());
+                    }
+                }
+                using (DataTable dtSaldoInicial = cn.CargarDatos(cs.cargarSaldoInicialEmpleado(Convert.ToString(FormPrincipal.id_empleado))))
+                {
+                    conceptoCantidadRetiradaAlCorteDeCaja = obtenerCantidadRetiradaAlCorteDeCaja(dtSaldoInicial).ToString("C2");
+                }
+
+                using (DataTable dtPenultimoSaldoInicial = cn.CargarDatos(cs.cargarPenultimaSaldoInicialEmpleado(Convert.ToString(FormPrincipal.id_empleado))))
+                {
+                    idUltimoCorteDeCaja = idCorteCaja;
+                }
+            }
+            #endregion
+
+            #region sección Total De Ventas
+            var conceptoTotalVentas = lbTVentas.Text;
+            #endregion
+
+            #region sección Total De Anticipos
+            var conceptoTotalAnticipos = lbTAnticiposA.Text;
+            #endregion
+
+            #region sección Dinero Agregado
+            var conceptoTotalDineroAgregado = lbTAgregado.Text;
+            #endregion
+
+            #region sección Dinero Retirado
+            var conceptoTotalDineroRetirado = lbTRetirado.Text;
+            #endregion
+
+            #region sección Restante al Corte de Caja
+            var conceptoRestanteCorteCaja = ((Convert.ToDecimal(conceptoCantidadEnCajaAntesDelCorte) - Convert.ToDecimal(conceptoCantidadRetiradaAlCorteDeCaja.Replace("$", string.Empty)))).ToString("C2");
+            #endregion
+
+            #region Nombre de usuario
+            using (DataTable dtUsuario = cn.CargarDatos($"SELECT Usuario, RazonSocial FROM usuarios WHERE ID = '{FormPrincipal.userID}'"))
+            {
+                if (!dtUsuario.Rows.Count.Equals(0))
+                {
+                    DataRow drRazonSocialUsuario = dtUsuario.Rows[0];
+                    nombreUsuario = drRazonSocialUsuario["RazonSocial"].ToString();
+                    nombreEmpleado = drRazonSocialUsuario["Usuario"].ToString();
+                }
+            }
+            #endregion
+
+            #region Nombre de empleado
+            if (FormPrincipal.id_empleado > 0)
+            {
+                using (DataTable dtEmpleado = cn.CargarDatos($"SELECT usuario FROM empleados WHERE ID = '{FormPrincipal.id_empleado}'"))
+                {
+                    if (!dtEmpleado.Rows.Count.Equals(0))
+                    {
+                        DataRow drEmpleado = dtEmpleado.Rows[0];
+                        nombreEmpleado = drEmpleado["usuario"].ToString();
+                    }
+                }
+            }
+            #endregion
+
+            #region Fecha de corte de caja
+            using (DataTable dtCorteDeCaja = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE ID = '{idUltimoCorteDeCaja}'"))
+            {
+                if (!dtCorteDeCaja.Rows.Count.Equals(0))
+                {
+                    DataRow drFechaCorteCaja = dtCorteDeCaja.Rows[0];
+                    fechaCorteCaja = drFechaCorteCaja["FechaOperacion"].ToString();
+                }
+            }
+            #endregion
+
+            using (visualizadorCorteDeCaja verCorteDeCaja = new visualizadorCorteDeCaja())
+            {
+                #region Tabla de los totales de ventas
+                verCorteDeCaja.conceptoEfectivoDeVentas = conceptoEfectivoDeVentas;
+                verCorteDeCaja.conceptoTarjetaDeVentas = conceptoTarjetaDeVentas;
+                verCorteDeCaja.conceptoValeDeVentas = conceptoValeDeVentas;
+                verCorteDeCaja.conceptoChequeDeVentas = conceptoChequeDeVentas;
+                verCorteDeCaja.conceptoTransferenciDeVentas = conceptoTransferenciDeVentas;
+                verCorteDeCaja.conceptoCreditoDeVentas = conceptoCreditoDeVentas;
+                verCorteDeCaja.conceptoAbonosDeVentas = conceptoAbonosDeVentas;
+                verCorteDeCaja.conceptoAnticiposUtilizados = conceptoAnticiposUtilizados;
+                #endregion
+                #region Tabla de los totales de Anticipos
+                verCorteDeCaja.conceptoEfectivoDeAnticipos = conceptoEfectivoDeAnticipos;
+                verCorteDeCaja.conceptoTarjetaDeAnticipos = conceptoTarjetaDeAnticipos;
+                verCorteDeCaja.conceptoValeDeAnticipos = conceptoValeDeAnticipos;
+                verCorteDeCaja.conceptoChequeDeAnticipos = conceptoChequeDeAnticipos;
+                verCorteDeCaja.conceptoTransferenciaDeAnticipos = conceptoTransferenciaDeAnticipos;
+                #endregion
+                #region Tabla de los totales de Depositos
+                verCorteDeCaja.conceptoEfectivoDeDineroAgregado = conceptoEfectivoDeDineroAgregado;
+                verCorteDeCaja.conceptoTarjetaDeDineroAgregado = conceptoTarjetaDeDineroAgregado;
+                verCorteDeCaja.conceptoValeDeDineroAgregado = conceptoValeDeDineroAgregado;
+                verCorteDeCaja.conceptoChequeDeDineroAgregado = conceptoChequeDeDineroAgregado;
+                verCorteDeCaja.conceptoTransferenciaDeDineroAgregado = conceptoTransferenciaDeDineroAgregado;
+                #endregion
+                #region Tabla de los totales de Retiros
+                verCorteDeCaja.conceptoEfectivoDeDineroRetirado = conceptoEfectivoDeDineroRetirado;
+                verCorteDeCaja.conceptoTarjetaDeDineroRetirado = conceptoTarjetaDeDineroRetirado;
+                verCorteDeCaja.conceptoValeDeDineroRetirado = conceptoValeDeDineroRetirado;
+                verCorteDeCaja.conceptoChequeDeDineroRetirado = conceptoChequeDeDineroRetirado;
+                verCorteDeCaja.conceptoTransferenciaDeDineroRetirado = conceptoTransferenciaDeDineroRetirado;
+                verCorteDeCaja.conceptoDevolucionDeDineroRetirado = conceptoDevolucionDeDineroRetirado;
+                #endregion
+                #region Tabla de los totales de Caja
+                verCorteDeCaja.conceptoEfectivoDeTotalCaja = conceptoEfectivoDeTotalCaja;
+                verCorteDeCaja.conceptoTarjetaDeTotalCaja = conceptoTarjetaDeTotalCaja;
+                verCorteDeCaja.conceptoValeDeTotalCaja = conceptoValeDeTotalCaja;
+                verCorteDeCaja.conceptoChequeDeTotalCaja = conceptoChequeDeTotalCaja;
+                verCorteDeCaja.conceptoTransferenciaDeTotalCaja = conceptoTransferenciaDeTotalCaja;
+                verCorteDeCaja.conceptoSaldoInicialDeTotalCaja = conceptoSaldoInicialDeTotalCaja;
+                #endregion
+                #region Total monto antes del corte
+                verCorteDeCaja.conceptoCantidadEnCajaAntesDelCorte = conceptoCantidadEnCajaAntesDelCorte;
+                #endregion
+                #region Total monto cantidad retirada en el corte
+                verCorteDeCaja.conceptoCantidadRetiradaAlCorteDeCaja = conceptoCantidadRetiradaAlCorteDeCaja;
+                #endregion
+                #region Total de ventas
+                verCorteDeCaja.conceptoTotalVentas = conceptoTotalVentas;
+                #endregion
+                #region Total de anticipos
+                verCorteDeCaja.conceptoTotalAnticipos = conceptoTotalAnticipos;
+                #endregion
+                #region Total de depositos
+                verCorteDeCaja.conceptoTotalDineroAgregado = conceptoTotalDineroAgregado;
+                #endregion
+                #region Total de retiros
+                verCorteDeCaja.conceptoTotalDineroRetirado = conceptoTotalDineroRetirado;
+                #endregion
+                #region Restante al corte de caja
+                verCorteDeCaja.conceptoRestanteCorteCaja = conceptoRestanteCorteCaja;
+                #endregion
+                #region Nombre de usuario
+                verCorteDeCaja.nombreUsuario = nombreUsuario;
+                #endregion
+                #region Nombre de empleado
+                verCorteDeCaja.nombreEmpleado = nombreEmpleado;
+                #endregion
+                #region Número de folio
+                verCorteDeCaja.numFolio = numFolio.ToString();
+                #endregion
+                #region Fecha de corte de caja
+                verCorteDeCaja.fechaCorteCaja = fechaCorteCaja;
+                #endregion
+
+                verCorteDeCaja.ShowDialog();
+            }
         }
 
         private void btnRedondoAbrirCaja_Click(object sender, EventArgs e)
