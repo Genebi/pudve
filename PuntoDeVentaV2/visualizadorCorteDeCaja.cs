@@ -104,10 +104,10 @@ namespace PuntoDeVentaV2
 
         private void visualizadorCorteDeCaja_Load(object sender, EventArgs e)
         {
-
+            reporteCarta();
         }
 
-        private void btnImprimir_Click(object sender, EventArgs e)
+        private void reporteTicket()
         {
             string cadenaConn = string.Empty;
 
@@ -206,9 +206,120 @@ namespace PuntoDeVentaV2
             #endregion
 
             EnviarImprimir imp = new EnviarImprimir();
-        imp.Imprime(rdlc);
+            imp.Imprime(rdlc);
 
             this.Close();
+        }
+
+        private void reporteCarta()
+        {
+            string cadenaConn = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                cadenaConn = $"datasource={Properties.Settings.Default.Hosting};port=6666;username=root;password=;database=pudve;";
+            }
+            else
+            {
+                cadenaConn = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
+            }
+
+            string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\CorteDeCaja\ReporteCorteDeCaja.rdlc";
+
+            #region Impresion Ticket de 80 mm
+            ReportParameterCollection reportParameters = new ReportParameterCollection();
+
+            #region tabla Ventas
+            reportParameters.Add(new ReportParameter("conceptoEfectivoDeVentas", conceptoEfectivoDeVentas.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTarjetaDeVentas", conceptoTarjetaDeVentas.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoValeDeVentas", conceptoValeDeVentas.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoChequeDeVentas", conceptoChequeDeVentas.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTransferenciDeVentas", conceptoTransferenciDeVentas.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoCreditoDeVentas", conceptoCreditoDeVentas.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoAbonosDeVentas", conceptoAbonosDeVentas.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoAnticiposUtilizados", conceptoAnticiposUtilizados.ToString()));
+            #endregion
+            #region tabla Anticipos
+            reportParameters.Add(new ReportParameter("conceptoEfectivoDeAnticipos", conceptoEfectivoDeAnticipos.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTarjetaDeAnticipos", conceptoTarjetaDeAnticipos.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoValeDeAnticipos", conceptoValeDeAnticipos.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoChequeDeAnticipos", conceptoChequeDeAnticipos.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTransferenciaDeAnticipos", conceptoTransferenciaDeAnticipos.ToString()));
+            #endregion
+            #region tabla Depositos
+            reportParameters.Add(new ReportParameter("conceptoEfectivoDeDineroAgregado", conceptoEfectivoDeDineroAgregado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTarjetaDeDineroAgregado", conceptoTarjetaDeDineroAgregado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoValeDeDineroAgregado", conceptoValeDeDineroAgregado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoChequeDeDineroAgregado", conceptoChequeDeDineroAgregado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTransferenciaDeDineroAgregado", conceptoTransferenciaDeDineroAgregado.ToString()));
+            #endregion
+            #region tabla Retiros
+            reportParameters.Add(new ReportParameter("conceptoEfectivoDeDineroRetirado", conceptoEfectivoDeDineroRetirado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTarjetaDeDineroRetirado", conceptoTarjetaDeDineroRetirado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoValeDeDineroRetirado", conceptoValeDeDineroRetirado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoChequeDeDineroRetirado", conceptoChequeDeDineroRetirado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTransferenciaDeDineroRetirado", conceptoTransferenciaDeDineroRetirado.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoDevolucionDeDineroRetirado", conceptoDevolucionDeDineroRetirado.ToString()));
+            #endregion
+            #region tabla Total de caja
+            reportParameters.Add(new ReportParameter("conceptoEfectivoDeTotalCaja", conceptoEfectivoDeTotalCaja.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTarjetaDeTotalCaja", conceptoTarjetaDeTotalCaja.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoValeDeTotalCaja", conceptoValeDeTotalCaja.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoChequeDeTotalCaja", conceptoChequeDeTotalCaja.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoTransferenciaDeTotalCaja", conceptoTransferenciaDeTotalCaja.ToString()));
+            reportParameters.Add(new ReportParameter("conceptoSaldoInicialDeTotalCaja", conceptoSaldoInicialDeTotalCaja.ToString()));
+            #endregion
+            #region Monto antes del corte
+            reportParameters.Add(new ReportParameter("conceptoCantidadEnCajaAntesDelCorte", conceptoCantidadEnCajaAntesDelCorte.ToString()));
+            #endregion
+            #region Cantidad retirada en el corte
+            reportParameters.Add(new ReportParameter("conceptoCantidadRetiradaAlCorteDeCaja", conceptoCantidadRetiradaAlCorteDeCaja.ToString()));
+            #endregion
+            #region Total de ventas
+            reportParameters.Add(new ReportParameter("conceptoTotalVentas", conceptoTotalVentas.ToString()));
+            #endregion
+            #region Total de anticipos
+            reportParameters.Add(new ReportParameter("conceptoTotalAnticipos", conceptoTotalAnticipos.ToString()));
+            #endregion
+            #region Total de depositos
+            reportParameters.Add(new ReportParameter("conceptoTotalDineroAgregado", conceptoTotalDineroAgregado.ToString()));
+            #endregion
+            #region Total de retiros
+            reportParameters.Add(new ReportParameter("conceptoTotalDineroRetirado", conceptoTotalDineroRetirado.ToString()));
+            #endregion
+            #region Restante al corte de caja
+            reportParameters.Add(new ReportParameter("conceptoRestanteCorteCaja", conceptoRestanteCorteCaja.ToString()));
+            #endregion
+            #region Nombre de Usuario
+            reportParameters.Add(new ReportParameter("nombreUsuario", nombreUsuario.ToString()));
+            #endregion
+            #region Nombre de Empleado
+            reportParameters.Add(new ReportParameter("nombreEmpleado", nombreEmpleado.ToString()));
+            #endregion
+            #region Número de folio
+            reportParameters.Add(new ReportParameter("numFolio", numFolio.ToString()));
+            #endregion
+            #region Fecha de corte de caja
+            reportParameters.Add(new ReportParameter("fechaCorteCaja", fechaCorteCaja.ToString()));
+            #endregion
+
+            this.reportViewer1.ProcessingMode = ProcessingMode.Local;
+            this.reportViewer1.LocalReport.ReportPath = FullReportPath;
+            this.reportViewer1.LocalReport.DataSources.Clear();
+            this.reportViewer1.LocalReport.SetParameters(reportParameters);
+            this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
+            this.reportViewer1.RefreshReport();
+
+            //LocalReport rdlc = new LocalReport();
+            //rdlc.ReportPath = FullReportPath;
+            //rdlc.SetParameters(reportParameters);
+            #endregion
+        }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            reporteTicket();
+        }
     }
-}
 }

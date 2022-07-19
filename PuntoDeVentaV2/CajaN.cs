@@ -5323,30 +5323,46 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta($"UPDATE Anticipos Set AnticipoAplicado = 0 WHERE IDUsuario = '{FormPrincipal.userID}'");
 
-                        if (Utilidades.AdobeReaderInstalado())
+                        generarReporteHojaCarta();
+                        using (DataTable dtCerrarSesionDesdeCorteCaja = cn.CargarDatos(cs.validarCerrarSesionCorteCaja()))
                         {
-                            //GenerarReporte();
-                            //generarNuevoReporte();
-                            generarReporteHojaCarta();
-                            using (DataTable dtCerrarSesionDesdeCorteCaja = cn.CargarDatos(cs.validarCerrarSesionCorteCaja()))
+                            if (!dtCerrarSesionDesdeCorteCaja.Rows.Count.Equals(0))
                             {
-                                if (!dtCerrarSesionDesdeCorteCaja.Rows.Count.Equals(0))
+                                foreach (DataRow item in dtCerrarSesionDesdeCorteCaja.Rows)
                                 {
-                                    foreach (DataRow item in dtCerrarSesionDesdeCorteCaja.Rows)
+                                    if (item["CerrarSesionAuto"].ToString().Equals("1"))
                                     {
-                                        if (item["CerrarSesionAuto"].ToString().Equals("1"))
-                                        {
-                                            recargarDatos = true;
-                                            clickBotonCorteDeCaja = 1;
-                                        }
+                                        recargarDatos = true;
+                                        clickBotonCorteDeCaja = 1;
                                     }
                                 }
                             }
                         }
-                        else
-                        {
-                            Utilidades.MensajeAdobeReader();
-                        }
+
+                        //if (Utilidades.AdobeReaderInstalado())
+                        //{
+                        //    //GenerarReporte();
+                        //    //generarNuevoReporte();
+                        //    generarReporteHojaCarta();
+                        //    using (DataTable dtCerrarSesionDesdeCorteCaja = cn.CargarDatos(cs.validarCerrarSesionCorteCaja()))
+                        //    {
+                        //        if (!dtCerrarSesionDesdeCorteCaja.Rows.Count.Equals(0))
+                        //        {
+                        //            foreach (DataRow item in dtCerrarSesionDesdeCorteCaja.Rows)
+                        //            {
+                        //                if (item["CerrarSesionAuto"].ToString().Equals("1"))
+                        //                {
+                        //                    recargarDatos = true;
+                        //                    clickBotonCorteDeCaja = 1;
+                        //                }
+                        //            }
+                        //        }
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    Utilidades.MensajeAdobeReader();
+                        //}
 
                         botones = false;
 
