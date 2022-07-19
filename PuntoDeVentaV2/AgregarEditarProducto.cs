@@ -1326,10 +1326,10 @@ namespace PuntoDeVentaV2
         private void txtStockMinimo_KeyPress(object sender, KeyPressEventArgs e)
         {
             //Que no Acepte Ctrl V
-            if (e.KeyChar == 22)
-            {
-                e.Handled = true;
-            }
+            //if (e.KeyChar == 22)
+            //{
+            //    e.Handled = true;
+            //}
             //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
@@ -1447,10 +1447,10 @@ namespace PuntoDeVentaV2
 
         private void txtStockMaximo_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 22)
-            {
-                e.Handled = true;
-            }
+            //if (e.KeyChar == 22)
+            //{
+            //    e.Handled = true;
+            //}
 
             //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -1560,11 +1560,6 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioMayoreo_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 22)
-            {
-                e.Handled = true;
-            }
-
             //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
@@ -4308,6 +4303,61 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void txtStockMinimo_TextChanged(object sender, EventArgs e)
+        {
+            ValidarEntradaDeTextoNumeros(sender, e);
+        }
+        private void ValidarEntradaDeTextoNumeros(object sender, EventArgs e)
+        {
+            var resultado = string.Empty;
+            var txtValidarTexto = (TextBox)sender;
+            resultado = txtValidarTexto.Text;
+
+            if (!string.IsNullOrWhiteSpace(resultado))
+            {
+                var resultadoAuxialiar = Regex.Replace(resultado, @"[^0-9.]", "").Trim();
+                resultado = resultadoAuxialiar;
+                txtValidarTexto.Text = resultado;
+                txtValidarTexto.Focus();
+                txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+            }
+            else
+            {
+                txtValidarTexto.Focus();
+                txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+            }
+        }
+
+        private void txtCantPaqServ_TextChanged(object sender, EventArgs e)
+        {
+            ValidarEntradaDeTextoNumeros(sender, e);
+        }
+
+        private void txtPrecioMayoreo_TextChanged(object sender, EventArgs e)
+        {
+            ValidarEntradaDeTextoNumeros(sender, e);
+        }
+
+        private void txtPrecioProducto_TextChanged(object sender, EventArgs e)
+        {
+            ValidarEntradaDeTextoNumeros(sender, e);
+        }
+
+        private void txtPrecioCompra_TextChanged(object sender, EventArgs e)
+        {
+            ValidarEntradaDeTextoNumeros(sender, e);
+        }
+
+        private void txtStockProducto_TextChanged(object sender, EventArgs e)
+        {
+            ValidarEntradaDeTextoNumeros(sender, e);
+        }
+
+        private void txtStockMaximo_TextChanged(object sender, EventArgs e)
+        {
+            ValidarEntradaDeTextoNumeros(sender, e);
+        }
+
         private void txtPrecioProducto_KeyDown(object sender, KeyEventArgs e)
         {
             //Aqui se condicionara para ver si el "Empleado" tiene permisos
@@ -4797,10 +4847,10 @@ namespace PuntoDeVentaV2
 
         private void txtStockProducto_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 22)
-            {
-                e.Handled = true;
-            }
+            //if (e.KeyChar == 22)
+            //{
+            //    e.Handled = true;
+            //}
 
             //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -4871,10 +4921,10 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioCompra_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 22)
-            {
-                e.Handled = true;
-            }
+            //if (e.KeyChar == 22)
+            //{
+            //    e.Handled = true;
+            //}
 
             //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -4920,10 +4970,10 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioProducto_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 22)
-            {
-                e.Handled = true;
-            }
+            //if (e.KeyChar == 22)
+            //{
+            //    e.Handled = true;
+            //}
 
             //Verificar que la tecla presionada no sea CTRL u otra tecla no Numerica
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -9042,10 +9092,6 @@ namespace PuntoDeVentaV2
 
         private void txtCantPaqServ_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 22)
-            {
-                e.Handled = true;
-            }
 
             // Para obligar a que sólo se introduzcan números
             //if (Char.IsDigit(e.KeyChar))

@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -1923,59 +1924,95 @@ namespace PuntoDeVentaV2
 
         private void txtClaveProducto_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 22)
-            {
-                e.Handled = true;
-            }
+            //if (e.KeyChar == 22)
+            //{
+            //    e.Handled = true;
+            //}
 
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
+            //if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            //{
+            //    e.Handled = true;
+            //}
 
-            // solo 1 punto decimal
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
+            //// solo 1 punto decimal
+            //if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            //{
+            //    e.Handled = true;
+            //}
         }
 
         private void txtIVA_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 22)
-            {
-                e.Handled = true;
-            }
+            //if (e.KeyChar == 22)
+            //{
+            //    e.Handled = true;
+            //}
 
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
+            //if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            //{
+            //    e.Handled = true;
+            //}
 
-            // solo 1 punto decimal
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
-            {
-                e.Handled = true;
-            }
+            //// solo 1 punto decimal
+            //if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            //{
+            //    e.Handled = true;
+            //}
         }
 
         private void txtTotal_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 22)
-            {
-                e.Handled = true;
-            }
+            //if (e.KeyChar == 22)
+            //{
+            //    e.Handled = true;
+            //}
 
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-            {
-                e.Handled = true;
-            }
+            //if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            //{
+            //    e.Handled = true;
+            //}
 
-            // solo 1 punto decimal
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            //// solo 1 punto decimal
+            //if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            //{
+            //    e.Handled = true;
+            //}
+        }
+
+        private void txtClaveProducto_TextChanged(object sender, EventArgs e)
+        {
+            ValidarEntradaDeTexto(sender, e);
+        }
+
+        private void ValidarEntradaDeTexto(object sender, EventArgs e)
+        {
+            var resultado = string.Empty;
+            var txtValidarTexto = (TextBox)sender;
+            resultado = txtValidarTexto.Text;
+
+            if (!string.IsNullOrWhiteSpace(resultado))
             {
-                e.Handled = true;
+                var resultadoAuxialiar = Regex.Replace(resultado, @"[^0-9.]", "").Trim();
+                resultado = resultadoAuxialiar;
+                txtValidarTexto.Text = resultado;
+                txtValidarTexto.Focus();
+                txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
             }
+            else
+            {
+                txtValidarTexto.Focus();
+                txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+            }
+        }
+
+        private void txtTotal_TextChanged(object sender, EventArgs e)
+        {
+            ValidarEntradaDeTexto(sender, e);
+        }
+
+        private void txtIVA_TextChanged(object sender, EventArgs e)
+        {
+            ValidarEntradaDeTexto(sender, e);
         }
 
         private void cargar_impuestos_dexml()

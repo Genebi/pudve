@@ -332,6 +332,7 @@
             this.txtClaveProducto.Size = new System.Drawing.Size(110, 20);
             this.txtClaveProducto.TabIndex = 48;
             this.txtClaveProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtClaveProducto.TextChanged += new System.EventHandler(this.txtClaveProducto_TextChanged);
             this.txtClaveProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtClaveProducto_KeyPress);
             // 
             // label10
@@ -440,6 +441,7 @@
             this.txtIVA.Size = new System.Drawing.Size(100, 20);
             this.txtIVA.TabIndex = 53;
             this.txtIVA.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtIVA.TextChanged += new System.EventHandler(this.txtIVA_TextChanged);
             this.txtIVA.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIVA_KeyPress);
             // 
             // label12
@@ -472,6 +474,7 @@
             this.txtTotal.Size = new System.Drawing.Size(100, 21);
             this.txtTotal.TabIndex = 56;
             this.txtTotal.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTotal.TextChanged += new System.EventHandler(this.txtTotal_TextChanged);
             this.txtTotal.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTotal_KeyPress);
             // 
             // btnKeyWordSearch
