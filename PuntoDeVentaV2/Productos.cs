@@ -4818,10 +4818,9 @@ namespace PuntoDeVentaV2
                     consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extraQuery}";
                 }
             }
-               
             else
             {
-                if (!busquedaEnProductos.Length.Equals(0))
+                if (!busquedaEnProductos.Length.Equals(0) && productosEncontrados == 0 && listasCodigos.ElementAt(0).Count == 0)
                 {
                     DGVProductos.Rows.Clear();
                     consultaFiltro = "SELECT * FROM Productos WHERE ID = 0";
@@ -4837,7 +4836,8 @@ namespace PuntoDeVentaV2
                 }
                
             }
-           Console.WriteLine(consultaFiltro);
+
+            Console.WriteLine(consultaFiltro);
 
             //================================================================================================================================================
             //================================================================================================================================================
