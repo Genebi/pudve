@@ -28,6 +28,7 @@ namespace PuntoDeVentaV2
         int opcion3 = 1; // Deshabilitar
         int opcion4 = 1; // Habilitar
 
+        public static bool HabilitarODeshabilitar = false;
         string mensajeParaMostrar = string.Empty;
         bool YaExiste = false;
         public Proveedores()
@@ -257,14 +258,14 @@ namespace PuntoDeVentaV2
 
                     if (cbStatus.SelectedIndex + 1 == 1)
                     {
-                        textoStatus = "deshabilitar";
+                        textoStatus = "¿Estás seguro de deshabilitar este proveedor?";
 
                         status = 2;
                         
                     }
                     else
                     {
-                        textoStatus = "habilitar";
+                        textoStatus = "¿Estás seguro de habilitar este proveedor?";
 
                         status = 1;
                         
@@ -290,9 +291,10 @@ namespace PuntoDeVentaV2
                     
                     if (YaExiste.Equals(false))
                     {
-                        var respuesta = MessageBox.Show($"¿Estás seguro de {textoStatus} este proveedor?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        MensajeDeHabilitarODeshabilitarProveedor Mensaje = new MensajeDeHabilitarODeshabilitarProveedor(textoStatus);
+                        Mensaje.ShowDialog();
 
-                        if (respuesta == DialogResult.Yes)
+                        if (HabilitarODeshabilitar.Equals(true))
                         {
 
                             string[] datos = new string[] { idProveedor.ToString(), FormPrincipal.userID.ToString(), status.ToString() };
