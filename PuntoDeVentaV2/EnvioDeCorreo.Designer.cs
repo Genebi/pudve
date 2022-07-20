@@ -165,6 +165,7 @@
             this.cbCorreoCorteCaja.TabIndex = 121;
             this.cbCorreoCorteCaja.Text = "Al hacer corte de caja";
             this.cbCorreoCorteCaja.UseVisualStyleBackColor = true;
+            this.cbCorreoCorteCaja.CheckedChanged += new System.EventHandler(this.cbCorreoCorteCaja_CheckedChanged);
             this.cbCorreoCorteCaja.Click += new System.EventHandler(this.cbCorreoCorteCaja_Click);
             this.cbCorreoCorteCaja.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoCorteCaja_MouseClick);
             // 

@@ -109,8 +109,8 @@ namespace PuntoDeVentaV2
                 cbCorreoEliminarListaProductosVentas.Checked = Convert.ToBoolean(datosConfig[19]);
                 check22 = cbCorreoEliminarListaProductosVentas.Checked;
 
-                cbCorreoCorteCaja.Checked = Convert.ToBoolean(datosConfig[20]);
-                check23 = cbCorreoCorteCaja.Checked;
+                //cbCorreoCorteCaja.Checked = Convert.ToBoolean(datosConfig[20]);
+                //check23 = cbCorreoCorteCaja.Checked;
 
                 cbCorreoVenta.Checked = Convert.ToBoolean(datosConfig[21]);
 
@@ -125,6 +125,7 @@ namespace PuntoDeVentaV2
                 cn.EjecutarConsulta($"INSERT INTO Configuracion (IDUsuario) VALUES ('{FormPrincipal.userID}')");
             }
         }
+
         private void cbCorreoAgregarDineroCaja_CheckedChanged(object sender, EventArgs e)
         {
            
@@ -137,15 +138,25 @@ namespace PuntoDeVentaV2
 
         private void cbCorreoCorteCaja_CheckedChanged(object sender, EventArgs e)
         {
+            if (cbCorreoCorteCaja.Checked.Equals(true))
+            {
+                MessageBox.Show("Estamos trabajando en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                cbCorreoCorteCaja.Checked = false;
+            }
             
+            //if (!usuariosPermitidos.Contains(FormPrincipal.userNickName))
+            //{
+            //    MessageBox.Show("Estamos trabajando en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
         }
 
         private void cbCorreoCorteCaja_Click(object sender, EventArgs e)
         {
-            if (!usuariosPermitidos.Contains(FormPrincipal.userNickName))
-            {
-                MessageBox.Show("Estamos trabajando en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            //if (!usuariosPermitidos.Contains(FormPrincipal.userNickName))
+            //{
+            //    MessageBox.Show("Estamos trabajando en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
         }
 
         private void cbCorreoStockMinimo_CheckedChanged(object sender, EventArgs e)
@@ -1196,7 +1207,6 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-
             foreach (var item in confiCorreo)
             {
                 cn.EjecutarConsulta(item);
@@ -1204,11 +1214,8 @@ namespace PuntoDeVentaV2
 
             MessageBox.Show("Configuracion Guardada con Exito", "Mensaje de sistema", MessageBoxButtons.OK,MessageBoxIcon.Information);
             guardado = 1;
+
             this.Close();
-
-            
-
-
         }
 
         private void EnvioDeCorreo_FormClosing(object sender, FormClosingEventArgs e)
