@@ -4805,13 +4805,17 @@ namespace PuntoDeVentaV2
             if (productosEncontrados > 0)
             {
                 var busqueda = busquedaEnProductos.TrimEnd().Split(' ');
-                if (busqueda.Length > 1)
-                {
 
-                }
-                else
+                if (busqueda.Length < 1)
                 {
-                    consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} AND (Nombre LIKE '%{busquedaEnProductos}%' OR CodigoBarras LIKE '%{busquedaEnProductos}')";
+                    string extraQuery = string.Empty;
+
+                    if (!string.IsNullOrWhiteSpace(busquedaEnProductos))
+                    {
+                        extraQuery = $"AND (Nombre LIKE '%{busquedaEnProductos}%' OR CodigoBarras LIKE '%{busquedaEnProductos}')";
+                    }
+
+                    consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extraQuery}";
                 }
             }
                
