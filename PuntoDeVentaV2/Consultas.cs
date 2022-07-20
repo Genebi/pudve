@@ -4219,7 +4219,7 @@ namespace PuntoDeVentaV2
 
         public string obtenerProductoPorCodigoExtra(string codigoExtra)
         {
-            var consulta = $"SELECT IDProducto FROM codigobarrasextras WHERE CodigoBarraExtra = {codigoExtra}";
+            var consulta = $"SELECT IDProducto FROM codigobarrasextras WHERE CodigoBarraExtra ='{codigoExtra}'";
             return consulta;
         }
 
