@@ -209,7 +209,9 @@ namespace PuntoDeVentaV2
         {
             string cadenaConn = string.Empty;
             string queryDepositos = string.Empty;
+            string querySumaDepositos = string.Empty;
             string queryRetiros = string.Empty;
+            string querySumaRetiros = string.Empty;
 
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
             {
@@ -223,12 +225,18 @@ namespace PuntoDeVentaV2
             if (!FormPrincipal.userNickName.Contains("@"))
             {
                 queryDepositos = cs.HistorialDepositosAdminsitrador(idPenultimoCorteDeCaja);
+                querySumaDepositos = cs.cargarHistorialdepositosAdministradorSumaTotal(idPenultimoCorteDeCaja);
+
                 queryRetiros = cs.HistorialRetirosAdminsitrador(idPenultimoCorteDeCaja);
+                querySumaRetiros = cs.cargarHistorialRetirosAdministradorSumaTotal(idPenultimoCorteDeCaja);
             }
             else if (!FormPrincipal.userNickName.Contains("@"))
             {
                 queryDepositos = cs.HistorialRetirosEmpleado(idPenultimoCorteDeCaja, FormPrincipal.id_empleado);
+                querySumaDepositos = cs.cargarHistorialdepositosEmpleadoSumaTotal(idPenultimoCorteDeCaja, FormPrincipal.id_empleado);
+
                 queryRetiros = cs.HistorialRetirosEmpleado(idPenultimoCorteDeCaja, FormPrincipal.id_empleado);
+                querySumaRetiros = cs.cargarHistorialRetirosEmpleadoSumaTotal(idPenultimoCorteDeCaja, FormPrincipal.id_empleado);
             }
 
             MySqlConnection conn = new MySqlConnection();
@@ -251,16 +259,27 @@ namespace PuntoDeVentaV2
             DataTable depositoDT = new DataTable();
             depositoDA.Fill(depositoDT);
 
-            MySqlDataAdapter retiroDA = new MySqlDataAdapter(queryDepositos, conn);
+            MySqlDataAdapter sumaDepositosDA = new MySqlDataAdapter(querySumaDepositos, conn);
+            DataTable sumaDepositosDT = new DataTable();
+            sumaDepositosDA.Fill(sumaDepositosDT);
+
+            MySqlDataAdapter retiroDA = new MySqlDataAdapter(queryRetiros, conn);
             DataTable retiroDT = new DataTable();
             retiroDA.Fill(retiroDT);
+
+            MySqlDataAdapter sumaRetirosDA = new MySqlDataAdapter(querySumaRetiros, conn);
+            DataTable sumaRetirosDT = new DataTable();
+            sumaRetirosDA.Fill(sumaRetirosDT);
 
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             this.reportViewer1.LocalReport.DataSources.Clear();
 
-            ReportDataSource rp1 = new ReportDataSource("DSDepositos", depositoDT);
-            ReportDataSource rp2 = new ReportDataSource("DSRetiros", retiroDT);
+            ReportDataSource depositos = new ReportDataSource("DSDepositos", depositoDT);
+            ReportDataSource sumaDepositos = new ReportDataSource("DSSumaDepositos", sumaDepositosDT);
+
+            ReportDataSource retiros = new ReportDataSource("DSRetiros", retiroDT);
+            ReportDataSource sumaRetiros = new ReportDataSource("DSSumaRetiros", sumaRetirosDT);
 
             #region Impresion Ticket de 80 mm
             ReportParameterCollection reportParameters = new ReportParameterCollection();
@@ -347,8 +366,10 @@ namespace PuntoDeVentaV2
 
             
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
-            this.reportViewer1.LocalReport.DataSources.Add(rp1);
-            this.reportViewer1.LocalReport.DataSources.Add(rp2);
+            this.reportViewer1.LocalReport.DataSources.Add(depositos);
+            this.reportViewer1.LocalReport.DataSources.Add(sumaDepositos);
+            this.reportViewer1.LocalReport.DataSources.Add(retiros);
+            this.reportViewer1.LocalReport.DataSources.Add(sumaRetiros);
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
             this.reportViewer1.RefreshReport();
             #endregion
