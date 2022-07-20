@@ -29,7 +29,7 @@ namespace PuntoDeVentaV2
         int opcion4 = 1; // Habilitar
 
         string mensajeParaMostrar = string.Empty;
-
+        bool YaExiste = false;
         public Proveedores()
         {
             InitializeComponent();
@@ -254,36 +254,61 @@ namespace PuntoDeVentaV2
                     int status = 0;
 
                     string textoStatus = string.Empty;
-                    
+
                     if (cbStatus.SelectedIndex + 1 == 1)
                     {
                         textoStatus = "deshabilitar";
 
                         status = 2;
+                        
                     }
                     else
                     {
                         textoStatus = "habilitar";
 
                         status = 1;
+                        
                     }
 
-                    var respuesta = MessageBox.Show($"¿Estás seguro de {textoStatus} este proveedor?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                    if (respuesta == DialogResult.Yes)
+                    if (status.Equals(1))
                     {
-
-                        string[] datos = new string[] { idProveedor.ToString(), FormPrincipal.userID.ToString(), status.ToString() };
-
-                        int resultado = cn.EjecutarConsulta(cs.GuardarProveedor(datos, 2));
-
-                        if (resultado > 0)
+                        string Nombre = DGVProveedores.CurrentRow.Cells[1].Value.ToString();
+                        using (var ConsultaNombre = cn.CargarDatos($"SELECT Nombre FROM proveedores WHERE `Status` = 1 AND IDUsuario = {FormPrincipal.userID}"))
                         {
-                            CargarDatos();
+                            foreach (DataRow Nombres in ConsultaNombre.Rows)
+                            {
+                                string unNombre = Nombres[0].ToString();
+                                if (Nombre.Equals(unNombre))
+                                {
+                                    YaExiste = true;
+                                    MessageBox.Show("Este Proveedor no puede Habilitarse ya que\nexiste otro con el mismo nombre", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                }
+
+                            }
                         }
                     }
-                }
+                    
+                    if (YaExiste.Equals(false))
+                    {
+                        var respuesta = MessageBox.Show($"¿Estás seguro de {textoStatus} este proveedor?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
+                        if (respuesta == DialogResult.Yes)
+                        {
+
+                            string[] datos = new string[] { idProveedor.ToString(), FormPrincipal.userID.ToString(), status.ToString() };
+
+                            int resultado = cn.EjecutarConsulta(cs.GuardarProveedor(datos, 2));
+
+                            if (resultado > 0)
+                            {
+                                CargarDatos();
+                            }
+                            cbStatus.SelectedIndex = 0;
+                        }
+                    }
+                   
+                }
+                YaExiste = false;
                 DGVProveedores.ClearSelection();
             }
         }

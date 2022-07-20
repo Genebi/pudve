@@ -62,64 +62,84 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-                var nombre = txtNombre.Text;
-                var rfc = txtRFC.Text;
-                var calle = txtCalle.Text;
-                var noExt = txtNoExterior.Text;
-                var noInt = txtNoInterior.Text;
-                var colonia = txtColonia.Text;
-                var municipio = txtMunicipio.Text;
-                var estado = txtEstado.Text;
-                var cp = txtCodigoPostal.Text;
-                var email = txtEmail.Text;
-                var telefono = txtTelefono.Text;
-                var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-                if (string.IsNullOrWhiteSpace(nombre))
-                {
-                    MessageBox.Show("Ingrese un nombre para el proveedor", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-            var cantidadCamposRFC = rfc.Length;
-
-            if (cantidadCamposRFC > 0 && cantidadCamposRFC < 12)
+            bool YaExiste = false;
+            using (var ConsultaNombre = cn.CargarDatos($"SELECT Nombre FROM proveedores WHERE `Status` = 1 AND IDUsuario = {FormPrincipal.userID}"))
             {
-                txtRFC.Focus();
-                MessageBox.Show("El RFC no tiene el formato correcto", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtRFC.ForeColor = Color.Red;
-                //txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Bold);
-                return;
-            }
-            else
-            {
-                txtRFC.ForeColor = Color.Black;
-                txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Regular);
 
-            }
+                  foreach (DataRow Nombres in ConsultaNombre.Rows)
+                  {
+                        string unNombre = Nombres[0].ToString();
+                        if (txtNombre.Text.Equals(unNombre))
+                        {
+                        YaExiste = true;
+                        MessageBox.Show("Ya existe un proveedor Registrado con ese Nombre", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            txtNombre.SelectAll();
+                            txtNombre.Focus();
+                        }
+                       
+                  }
 
-            string[] datos = new string[] { FormPrincipal.userID.ToString(), nombre, rfc, calle, noExt, noInt, colonia, municipio, estado, cp, email, telefono, fechaOperacion, idProveedor.ToString() };
-
-                if (tipo == 1)
+                if (YaExiste.Equals(false))
                 {
-                    //Insertar
-                    int respuesta = cn.EjecutarConsulta(cs.GuardarProveedor(datos));
+                    var nombre = txtNombre.Text;
+                    var rfc = txtRFC.Text;
+                    var calle = txtCalle.Text;
+                    var noExt = txtNoExterior.Text;
+                    var noInt = txtNoInterior.Text;
+                    var colonia = txtColonia.Text;
+                    var municipio = txtMunicipio.Text;
+                    var estado = txtEstado.Text;
+                    var cp = txtCodigoPostal.Text;
+                    var email = txtEmail.Text;
+                    var telefono = txtTelefono.Text;
+                    var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                    if (respuesta > 0)
+                    if (string.IsNullOrWhiteSpace(nombre))
                     {
-                        Close();
+                        MessageBox.Show("Ingrese un nombre para el proveedor", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    var cantidadCamposRFC = rfc.Length;
+
+                    if (cantidadCamposRFC > 0 && cantidadCamposRFC < 12)
+                    {
+                        txtRFC.Focus();
+                        MessageBox.Show("El RFC no tiene el formato correcto", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        txtRFC.ForeColor = Color.Red;
+                        //txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Bold);
+                        return;
+                    }
+                    else
+                    {
+                        txtRFC.ForeColor = Color.Black;
+                        txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Regular);
+
+                    }
+
+                    string[] datos = new string[] { FormPrincipal.userID.ToString(), nombre, rfc, calle, noExt, noInt, colonia, municipio, estado, cp, email, telefono, fechaOperacion, idProveedor.ToString() };
+
+                    if (tipo == 1)
+                    {
+                        //Insertar
+                        int respuesta = cn.EjecutarConsulta(cs.GuardarProveedor(datos));
+
+                        if (respuesta > 0)
+                        {
+                            Close();
+                        }
+                    }
+                    else
+                    {
+                        //Actualizar
+                        int respuesta = cn.EjecutarConsulta(cs.GuardarProveedor(datos, 1));
+
+                        if (respuesta > 0)
+                        {
+                            Close();
+                        }
                     }
                 }
-                else
-                {
-                    //Actualizar
-                    int respuesta = cn.EjecutarConsulta(cs.GuardarProveedor(datos, 1));
-
-                    if (respuesta > 0)
-                    {
-                        Close();
-                    }
-                }
-            
+            }  
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
