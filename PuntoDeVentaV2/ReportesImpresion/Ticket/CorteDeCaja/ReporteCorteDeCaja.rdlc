@@ -1,6 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="DSReporteCorteDeCaja">
+      <ConnectionProperties>
+        <DataProvider>System.Data.DataSet</DataProvider>
+        <ConnectString>/* Local Connection */</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>b15bda84-01bb-4bef-bd4c-0292254553a6</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="DSDepositos">
+      <Query>
+        <DataSourceName>DSReporteCorteDeCaja</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Realizo">
+          <DataField>Realizo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Efectivo">
+          <DataField>Efectivo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Tarjeta">
+          <DataField>Tarjeta</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Vales">
+          <DataField>Vales</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Cheque">
+          <DataField>Cheque</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Transferencia">
+          <DataField>Transferencia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Fecha">
+          <DataField>Fecha</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Concepto">
+          <DataField>Concepto</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DSReporteCorteDeCaja</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\Dell\source\repos\pudve\PuntoDeVentaV2\ReportesImpresion\Ticket\CorteDeCaja\DSReporteCorteDeCaja.xsd</rd:SchemaPath>
+        <rd:TableName>DTDepositosCorteDeCaja</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DSRetiros">
+      <Query>
+        <DataSourceName>DSReporteCorteDeCaja</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Realizo">
+          <DataField>Realizo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Efectivo">
+          <DataField>Efectivo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Tarjeta">
+          <DataField>Tarjeta</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Vales">
+          <DataField>Vales</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Cheque">
+          <DataField>Cheque</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Transferencia">
+          <DataField>Transferencia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Fecha">
+          <DataField>Fecha</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Concepto">
+          <DataField>Concepto</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DSReporteCorteDeCaja</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\Dell\source\repos\pudve\PuntoDeVentaV2\ReportesImpresion\Ticket\CorteDeCaja\DSReporteCorteDeCaja.xsd</rd:SchemaPath>
+        <rd:TableName>DTRetirosCorteDeCaja</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DSSumaDepositos">
+      <Query>
+        <DataSourceName>DSReporteCorteDeCaja</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Efectivo">
+          <DataField>Efectivo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Tarjeta">
+          <DataField>Tarjeta</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Vales">
+          <DataField>Vales</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Cheque">
+          <DataField>Cheque</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Transferencia">
+          <DataField>Transferencia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DSReporteCorteDeCaja</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\Dell\source\repos\pudve\PuntoDeVentaV2\ReportesImpresion\Ticket\CorteDeCaja\DSReporteCorteDeCaja.xsd</rd:SchemaPath>
+        <rd:TableName>DTSumaDepositosDeCaja</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
+    <DataSet Name="DSSumaRetiros">
+      <Query>
+        <DataSourceName>DSReporteCorteDeCaja</DataSourceName>
+        <CommandText>/* Local Query */</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="Efectivo">
+          <DataField>Efectivo</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Tarjeta">
+          <DataField>Tarjeta</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Vales">
+          <DataField>Vales</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Cheque">
+          <DataField>Cheque</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Transferencia">
+          <DataField>Transferencia</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+      <rd:DataSetInfo>
+        <rd:DataSetName>DSReporteCorteDeCaja</rd:DataSetName>
+        <rd:SchemaPath>C:\Users\Dell\source\repos\pudve\PuntoDeVentaV2\ReportesImpresion\Ticket\CorteDeCaja\DSReporteCorteDeCaja.xsd</rd:SchemaPath>
+        <rd:TableName>DTSumaRetirosDeCaja</rd:TableName>
+        <rd:TableAdapterFillMethod />
+        <rd:TableAdapterGetDataMethod />
+        <rd:TableAdapterName />
+      </rd:DataSetInfo>
+    </DataSet>
+  </DataSets>
   <ReportSections>
     <ReportSection>
       <Body>
@@ -16,6 +195,7 @@
                       <TextRun>
                         <Value>Efectivo</Value>
                         <Style>
+                          <FontSize>9pt</FontSize>
                           <FontWeight>Normal</FontWeight>
                         </Style>
                       </TextRun>
@@ -46,7 +226,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Tarjeta</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -76,7 +258,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Vales</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -106,7 +290,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Cheque</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -136,7 +322,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Transferencia</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -166,7 +354,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Total Credito</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -196,7 +386,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Abonos</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -226,7 +418,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Anticipos utilizados al corte</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -242,6 +436,7 @@
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -256,7 +451,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoEfectivoDeVentas.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -288,7 +485,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoTarjetaDeVentas.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -320,7 +519,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoValeDeVentas.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -352,7 +553,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoChequeDeVentas.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -384,7 +587,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoTransferenciDeVentas.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -416,7 +621,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoCreditoDeVentas.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -448,7 +655,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoAbonosDeVentas.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -480,7 +689,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoAnticiposUtilizados.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -498,6 +709,7 @@
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -506,7 +718,7 @@
               </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>6.02403cm</Top>
+            <Top>4.18253cm</Top>
             <Left>0.60775cm</Left>
             <Height>6.00896cm</Height>
             <Width>5.3627cm</Width>
@@ -527,6 +739,7 @@
                       <TextRun>
                         <Value>Efectivo</Value>
                         <Style>
+                          <FontSize>9pt</FontSize>
                           <FontWeight>Normal</FontWeight>
                         </Style>
                       </TextRun>
@@ -557,7 +770,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Tarjeta</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -587,7 +802,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Vales</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -617,7 +834,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Cheque</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -647,7 +866,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Transferencia</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -677,7 +898,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoEfectivoDeAnticipos.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -709,7 +932,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoTarjetaDeAnticipos.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -741,7 +966,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoValeDeAnticipos.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -773,7 +1000,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoChequeDeAnticipos.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -805,7 +1034,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoTransferenciaDeAnticipos.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -831,7 +1062,7 @@
               </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>6.02403cm</Top>
+            <Top>4.18253cm</Top>
             <Left>5.95281cm</Left>
             <Height>6.00896cm</Height>
             <Width>5.35917cm</Width>
@@ -853,6 +1084,7 @@
                       <TextRun>
                         <Value>Efectivo</Value>
                         <Style>
+                          <FontSize>9pt</FontSize>
                           <FontWeight>Normal</FontWeight>
                         </Style>
                       </TextRun>
@@ -883,7 +1115,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Tarjeta</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -913,7 +1147,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Vales</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -943,7 +1179,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Cheque</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -973,7 +1211,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Transferencia</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -1003,7 +1243,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoEfectivoDeDineroAgregado.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -1035,7 +1277,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoTarjetaDeDineroAgregado.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -1067,7 +1311,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoValeDeDineroAgregado.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -1099,7 +1345,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoChequeDeDineroAgregado.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -1131,7 +1379,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoTransferenciaDeDineroAgregado.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -1157,7 +1407,7 @@
               </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>6.02406cm</Top>
+            <Top>4.18256cm</Top>
             <Left>11.29434cm</Left>
             <Height>6.00893cm</Height>
             <Width>5.35917cm</Width>
@@ -1179,6 +1429,7 @@
                       <TextRun>
                         <Value>Efectivo</Value>
                         <Style>
+                          <FontSize>9pt</FontSize>
                           <FontWeight>Normal</FontWeight>
                         </Style>
                       </TextRun>
@@ -1209,7 +1460,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Tarjeta</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -1239,7 +1492,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Vales</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -1269,7 +1524,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Cheque</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -1299,7 +1556,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Transferencia</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -1329,7 +1588,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Devoluciones</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -1359,7 +1620,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoEfectivoDeDineroRetirado.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -1391,7 +1654,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoTarjetaDeDineroRetirado.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -1423,7 +1688,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoValeDeDineroRetirado.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -1455,7 +1722,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoChequeDeDineroRetirado.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -1487,7 +1756,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoTransferenciaDeDineroRetirado.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -1519,7 +1790,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoDevolucionDeDineroRetirado.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -1545,7 +1818,7 @@
               </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>6.02406cm</Top>
+            <Top>4.18256cm</Top>
             <Left>16.65087cm</Left>
             <Height>6.00893cm</Height>
             <Width>5.35917cm</Width>
@@ -1567,6 +1840,7 @@
                       <TextRun>
                         <Value>Efectivo</Value>
                         <Style>
+                          <FontSize>9pt</FontSize>
                           <FontWeight>Normal</FontWeight>
                         </Style>
                       </TextRun>
@@ -1597,7 +1871,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Tarjeta</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -1627,7 +1903,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Vales</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -1657,7 +1935,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Cheque</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -1687,7 +1967,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Transferencia</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -1717,7 +1999,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Saldo inicial</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -1747,7 +2031,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoEfectivoDeTotalCaja.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -1779,7 +2065,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoTarjetaDeTotalCaja.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -1811,7 +2099,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoValeDeTotalCaja.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -1843,7 +2133,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoChequeDeTotalCaja.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -1875,7 +2167,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoTransferenciaDeTotalCaja.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -1907,7 +2201,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoSaldoInicialDeTotalCaja.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -1933,7 +2229,7 @@
               </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>6.02406cm</Top>
+            <Top>4.18256cm</Top>
             <Left>21.99593cm</Left>
             <Height>6.00893cm</Height>
             <Width>5.35917cm</Width>
@@ -1953,7 +2249,6 @@
                   <TextRun>
                     <Value>Ventas</Value>
                     <Style>
-                      <FontSize>12pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -1964,9 +2259,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox146</rd:DefaultName>
-            <Top>5.12656cm</Top>
+            <Top>3.65548cm</Top>
             <Left>0.60775cm</Left>
-            <Height>0.89807cm</Height>
+            <Height>0.52765cm</Height>
             <Width>5.35917cm</Width>
             <ZIndex>5</ZIndex>
             <Style>
@@ -1988,7 +2283,6 @@
                   <TextRun>
                     <Value>Anticipos recibidos</Value>
                     <Style>
-                      <FontSize>12pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -1999,9 +2293,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox146</rd:DefaultName>
-            <Top>5.12656cm</Top>
+            <Top>3.65548cm</Top>
             <Left>5.96868cm</Left>
-            <Height>0.89457cm</Height>
+            <Height>0.52415cm</Height>
             <Width>5.34329cm</Width>
             <ZIndex>6</ZIndex>
             <Style>
@@ -2023,7 +2317,6 @@
                   <TextRun>
                     <Value>Dinero agregado</Value>
                     <Style>
-                      <FontSize>12pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -2034,9 +2327,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox146</rd:DefaultName>
-            <Top>5.12656cm</Top>
+            <Top>3.65548cm</Top>
             <Left>11.32961cm</Left>
-            <Height>0.89104cm</Height>
+            <Height>0.52062cm</Height>
             <Width>5.34329cm</Width>
             <ZIndex>7</ZIndex>
             <Style>
@@ -2058,7 +2351,6 @@
                   <TextRun>
                     <Value>Dinero retirado</Value>
                     <Style>
-                      <FontSize>12pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -2069,9 +2361,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox146</rd:DefaultName>
-            <Top>5.11538cm</Top>
+            <Top>3.65548cm</Top>
             <Left>16.67998cm</Left>
-            <Height>0.89104cm</Height>
+            <Height>0.50944cm</Height>
             <Width>5.34329cm</Width>
             <ZIndex>8</ZIndex>
             <Style>
@@ -2093,7 +2385,6 @@
                   <TextRun>
                     <Value>Total en caja</Value>
                     <Style>
-                      <FontSize>12pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -2104,9 +2395,9 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox146</rd:DefaultName>
-            <Top>5.12597cm</Top>
+            <Top>3.65548cm</Top>
             <Left>22.00916cm</Left>
-            <Height>0.89104cm</Height>
+            <Height>0.52003cm</Height>
             <Width>5.34329cm</Width>
             <ZIndex>9</ZIndex>
             <Style>
@@ -2129,7 +2420,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Total en caja antes del corte:</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
@@ -2138,12 +2431,13 @@
                 <rd:DefaultName>Textbox16</rd:DefaultName>
                 <Top>0.15584cm</Top>
                 <Left>0.13473cm</Left>
-                <Height>1.36729cm</Height>
+                <Height>1.24382cm</Height>
                 <Width>2.316cm</Width>
                 <Style>
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -2158,14 +2452,16 @@
                     <TextRuns>
                       <TextRun>
                         <Value>Cantidad retirada al corte:</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style />
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox45</rd:DefaultName>
-                <Top>1.54077cm</Top>
+                <Top>1.41377cm</Top>
                 <Left>0.13473cm</Left>
                 <Height>1.42021cm</Height>
                 <Width>2.316cm</Width>
@@ -2174,6 +2470,7 @@
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -2188,7 +2485,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoCantidadEnCajaAntesDelCorte.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -2199,13 +2498,14 @@
                 <rd:DefaultName>conceptoCantidadEnCajaAntesDelCorte</rd:DefaultName>
                 <Top>0.15584cm</Top>
                 <Left>2.48954cm</Left>
-                <Height>1.36729cm</Height>
+                <Height>1.22618cm</Height>
                 <Width>2.7cm</Width>
                 <ZIndex>2</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -2220,7 +2520,9 @@
                     <TextRuns>
                       <TextRun>
                         <Value>=Parameters!conceptoCantidadRetiradaAlCorteDeCaja.Value</Value>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
                       </TextRun>
                     </TextRuns>
                     <Style>
@@ -2229,7 +2531,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>conceptoCantidadRetiradaAlCorteDeCaja</rd:DefaultName>
-                <Top>1.55841cm</Top>
+                <Top>1.43141cm</Top>
                 <Left>2.48954cm</Left>
                 <Height>1.40257cm</Height>
                 <Width>2.7cm</Width>
@@ -2238,6 +2540,7 @@
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -2246,9 +2549,9 @@
               </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>12.03299cm</Top>
+            <Top>10.19149cm</Top>
             <Left>22.00916cm</Left>
-            <Height>3.14267cm</Height>
+            <Height>2.97806cm</Height>
             <Width>5.33867cm</Width>
             <ZIndex>10</ZIndex>
             <Style>
@@ -2268,6 +2571,7 @@
                       <TextRun>
                         <Value>Total en caja despues del corte:</Value>
                         <Style>
+                          <FontSize>9pt</FontSize>
                           <FontWeight>Bold</FontWeight>
                           <Color>White</Color>
                         </Style>
@@ -2279,12 +2583,13 @@
                 <rd:DefaultName>Textbox46</rd:DefaultName>
                 <Top>0.20108cm</Top>
                 <Left>0.13473cm</Left>
-                <Height>1.90204cm</Height>
+                <Height>1.37287cm</Height>
                 <Width>2.316cm</Width>
                 <Style>
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -2300,6 +2605,7 @@
                       <TextRun>
                         <Value>=Parameters!conceptoRestanteCorteCaja.Value</Value>
                         <Style>
+                          <FontSize>9pt</FontSize>
                           <Color>White</Color>
                         </Style>
                       </TextRun>
@@ -2312,13 +2618,14 @@
                 <rd:DefaultName>conceptoRestanteCorteCaja</rd:DefaultName>
                 <Top>0.20917cm</Top>
                 <Left>2.45073cm</Left>
-                <Height>1.89396cm</Height>
+                <Height>1.36478cm</Height>
                 <Width>2.73881cm</Width>
                 <ZIndex>1</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -2327,9 +2634,9 @@
               </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>15.15216cm</Top>
+            <Top>13.15191cm</Top>
             <Left>22.00916cm</Left>
-            <Height>2.36771cm</Height>
+            <Height>1.73271cm</Height>
             <Width>5.34594cm</Width>
             <ZIndex>11</ZIndex>
             <Style>
@@ -2350,6 +2657,7 @@
                       <TextRun>
                         <Value>Total retirado:</Value>
                         <Style>
+                          <FontSize>9pt</FontSize>
                           <FontWeight>Bold</FontWeight>
                           <Color>White</Color>
                         </Style>
@@ -2361,12 +2669,13 @@
                 <rd:DefaultName>Textbox46</rd:DefaultName>
                 <Top>0.20917cm</Top>
                 <Left>0.1162cm</Left>
-                <Height>1.89396cm</Height>
+                <Height>1.36478cm</Height>
                 <Width>2.316cm</Width>
                 <Style>
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -2382,6 +2691,7 @@
                       <TextRun>
                         <Value>=Parameters!conceptoTotalDineroRetirado.Value</Value>
                         <Style>
+                          <FontSize>9pt</FontSize>
                           <Color>White</Color>
                         </Style>
                       </TextRun>
@@ -2394,13 +2704,14 @@
                 <rd:DefaultName>conceptoTotalDineroRetirado</rd:DefaultName>
                 <Top>0.20917cm</Top>
                 <Left>2.4322cm</Left>
-                <Height>1.89396cm</Height>
+                <Height>1.36478cm</Height>
                 <Width>2.7cm</Width>
                 <ZIndex>1</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -2409,9 +2720,9 @@
               </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>15.15216cm</Top>
+            <Top>13.15191cm</Top>
             <Left>16.65087cm</Left>
-            <Height>2.36771cm</Height>
+            <Height>1.73271cm</Height>
             <Width>5.35476cm</Width>
             <ZIndex>12</ZIndex>
             <Style>
@@ -2432,6 +2743,7 @@
                       <TextRun>
                         <Value>Total agregado:</Value>
                         <Style>
+                          <FontSize>9pt</FontSize>
                           <FontWeight>Bold</FontWeight>
                           <Color>White</Color>
                         </Style>
@@ -2443,12 +2755,13 @@
                 <rd:DefaultName>Textbox46</rd:DefaultName>
                 <Top>0.21081cm</Top>
                 <Left>0.13121cm</Left>
-                <Height>1.8956cm</Height>
+                <Height>1.36643cm</Height>
                 <Width>2.316cm</Width>
                 <Style>
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -2464,6 +2777,7 @@
                       <TextRun>
                         <Value>=Parameters!conceptoTotalDineroAgregado.Value</Value>
                         <Style>
+                          <FontSize>9pt</FontSize>
                           <Color>White</Color>
                         </Style>
                       </TextRun>
@@ -2476,13 +2790,14 @@
                 <rd:DefaultName>conceptoTotalDineroAgregado</rd:DefaultName>
                 <Top>0.21246cm</Top>
                 <Left>2.47896cm</Left>
-                <Height>1.89396cm</Height>
+                <Height>1.36478cm</Height>
                 <Width>2.69766cm</Width>
                 <ZIndex>1</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -2491,9 +2806,9 @@
               </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>15.14887cm</Top>
+            <Top>13.14862cm</Top>
             <Left>11.32961cm</Left>
-            <Height>2.371cm</Height>
+            <Height>1.736cm</Height>
             <Width>5.34329cm</Width>
             <ZIndex>13</ZIndex>
             <Style>
@@ -2514,6 +2829,7 @@
                       <TextRun>
                         <Value>Total anticipos:</Value>
                         <Style>
+                          <FontSize>9pt</FontSize>
                           <FontWeight>Bold</FontWeight>
                           <Color>White</Color>
                         </Style>
@@ -2525,12 +2841,13 @@
                 <rd:DefaultName>Textbox46</rd:DefaultName>
                 <Top>0.21081cm</Top>
                 <Left>0.14288cm</Left>
-                <Height>1.8956cm</Height>
+                <Height>1.36643cm</Height>
                 <Width>2.3806cm</Width>
                 <Style>
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -2546,6 +2863,7 @@
                       <TextRun>
                         <Value>=Parameters!conceptoTotalAnticipos.Value</Value>
                         <Style>
+                          <FontSize>9pt</FontSize>
                           <Color>White</Color>
                         </Style>
                       </TextRun>
@@ -2558,13 +2876,14 @@
                 <rd:DefaultName>conceptoTotalAnticipos</rd:DefaultName>
                 <Top>0.21246cm</Top>
                 <Left>2.52348cm</Left>
-                <Height>1.89396cm</Height>
+                <Height>1.36478cm</Height>
                 <Width>2.7cm</Width>
                 <ZIndex>1</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -2573,9 +2892,9 @@
               </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>15.14887cm</Top>
+            <Top>13.14862cm</Top>
             <Left>5.96868cm</Left>
-            <Height>2.371cm</Height>
+            <Height>1.736cm</Height>
             <Width>5.34329cm</Width>
             <ZIndex>14</ZIndex>
             <Style>
@@ -2596,6 +2915,7 @@
                       <TextRun>
                         <Value>Total de ventas:</Value>
                         <Style>
+                          <FontSize>9pt</FontSize>
                           <FontWeight>Bold</FontWeight>
                           <Color>White</Color>
                         </Style>
@@ -2607,12 +2927,13 @@
                 <rd:DefaultName>Textbox46</rd:DefaultName>
                 <Top>0.20037cm</Top>
                 <Left>0.08874cm</Left>
-                <Height>1.90204cm</Height>
+                <Height>1.37287cm</Height>
                 <Width>2.35658cm</Width>
                 <Style>
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -2628,6 +2949,7 @@
                       <TextRun>
                         <Value>=Parameters!conceptoTotalVentas.Value</Value>
                         <Style>
+                          <FontSize>9pt</FontSize>
                           <Color>White</Color>
                         </Style>
                       </TextRun>
@@ -2640,13 +2962,14 @@
                 <rd:DefaultName>conceptoTotalVentas</rd:DefaultName>
                 <Top>0.20846cm</Top>
                 <Left>2.44532cm</Left>
-                <Height>1.89396cm</Height>
+                <Height>1.36478cm</Height>
                 <Width>2.73175cm</Width>
                 <ZIndex>1</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
                   </Border>
+                  <VerticalAlign>Middle</VerticalAlign>
                   <PaddingLeft>2pt</PaddingLeft>
                   <PaddingRight>2pt</PaddingRight>
                   <PaddingTop>2pt</PaddingTop>
@@ -2655,9 +2978,9 @@
               </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
-            <Top>15.15287cm</Top>
+            <Top>13.15262cm</Top>
             <Left>0.60775cm</Left>
-            <Height>2.367cm</Height>
+            <Height>1.732cm</Height>
             <Width>5.3627cm</Width>
             <ZIndex>15</ZIndex>
             <Style>
@@ -2676,6 +2999,7 @@
                   <TextRun>
                     <Value>=Parameters!nombreUsuario.Value</Value>
                     <Style>
+                      <FontSize>9pt</FontSize>
                       <FontWeight>Bold</FontWeight>
                     </Style>
                   </TextRun>
@@ -2686,7 +3010,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>nombreUsuario</rd:DefaultName>
-            <Top>0.30374cm</Top>
+            <Top>0.17674cm</Top>
             <Left>0.60775cm</Left>
             <Height>0.6cm</Height>
             <Width>26.74008cm</Width>
@@ -2709,7 +3033,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>="USUARIO: ("+Parameters!nombreEmpleado.Value+")"</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -2718,7 +3044,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>nombreEmpleado</rd:DefaultName>
-            <Top>0.9108cm</Top>
+            <Top>0.7838cm</Top>
             <Left>0.60775cm</Left>
             <Height>0.6cm</Height>
             <Width>26.74735cm</Width>
@@ -2741,7 +3067,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>="No. Folio: "+Parameters!numFolio.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -2750,7 +3078,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>numFolio</rd:DefaultName>
-            <Top>1.52612cm</Top>
+            <Top>1.39912cm</Top>
             <Left>0.60775cm</Left>
             <Height>0.6cm</Height>
             <Width>26.74735cm</Width>
@@ -2773,7 +3101,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>CORTE DE CAJA</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -2782,7 +3112,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox4</rd:DefaultName>
-            <Top>2.14524cm</Top>
+            <Top>2.01824cm</Top>
             <Left>0.60775cm</Left>
             <Height>0.6cm</Height>
             <Width>26.74735cm</Width>
@@ -2805,7 +3135,9 @@
                 <TextRuns>
                   <TextRun>
                     <Value>="Fecha: "+Parameters!fechaCorteCaja.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style>
@@ -2814,7 +3146,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>fechaCorteCaja</rd:DefaultName>
-            <Top>2.76437cm</Top>
+            <Top>2.63737cm</Top>
             <Left>0.60775cm</Left>
             <Height>0.6cm</Height>
             <Width>26.74735cm</Width>
@@ -2829,9 +3161,1743 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Rectangle Name="Rectangle7">
+            <ReportItems>
+              <Textbox Name="Textbox1">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>HISTORIAL DE DEPOSITOS</Value>
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Center</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox1</rd:DefaultName>
+                <Top>0.127cm</Top>
+                <Left>0.18759cm</Left>
+                <Height>0.6cm</Height>
+                <Width>26.74008cm</Width>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Tablix Name="Tablix1">
+                <TablixBody>
+                  <TablixColumns>
+                    <TablixColumn>
+                      <Width>4.19064cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>1.99278cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>2.22999cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>2.19941cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>2.4886cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>2.91802cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>5.52933cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>5.19858cm</Width>
+                    </TablixColumn>
+                  </TablixColumns>
+                  <TablixRows>
+                    <TablixRow>
+                      <Height>0.65853cm</Height>
+                      <TablixCells>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox2">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Realizo</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox2</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>Gainsboro</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox5">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Efectivo</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox5</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>Gainsboro</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox9">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Tarjeta</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox9</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>Gainsboro</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox11">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Vales</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox11</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>Gainsboro</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox13">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Cheque</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox13</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>Gainsboro</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox15">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Transferencia</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox15</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>Gainsboro</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox52">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Fecha</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox52</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>Gainsboro</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox54">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Concepto</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox54</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>Gainsboro</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                      </TablixCells>
+                    </TablixRow>
+                    <TablixRow>
+                      <Height>0.65853cm</Height>
+                      <TablixCells>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Realizo">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Realizo.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Realizo</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Efectivo">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Efectivo.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Right</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Efectivo</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Tarjeta">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Tarjeta.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Right</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Tarjeta</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Vales">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Vales.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Right</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Vales</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Cheque">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Cheque.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Right</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Cheque</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Transferencia">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Transferencia.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Right</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Transferencia</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Fecha">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Fecha.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Right</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Fecha</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Concepto">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Concepto.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Concepto</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                      </TablixCells>
+                    </TablixRow>
+                  </TablixRows>
+                </TablixBody>
+                <TablixColumnHierarchy>
+                  <TablixMembers>
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                  </TablixMembers>
+                </TablixColumnHierarchy>
+                <TablixRowHierarchy>
+                  <TablixMembers>
+                    <TablixMember>
+                      <KeepWithGroup>After</KeepWithGroup>
+                    </TablixMember>
+                    <TablixMember>
+                      <Group Name="Details" />
+                    </TablixMember>
+                  </TablixMembers>
+                </TablixRowHierarchy>
+                <DataSetName>DSDepositos</DataSetName>
+                <Top>0.70379cm</Top>
+                <Left>0.18759cm</Left>
+                <Height>1.31705cm</Height>
+                <Width>26.74735cm</Width>
+                <ZIndex>1</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                </Style>
+              </Tablix>
+              <Textbox Name="Efectivo2">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=First(Fields!Efectivo.Value, "DSSumaDepositos")</Value>
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Efectivo2</rd:DefaultName>
+                <Top>2.0279cm</Top>
+                <Left>4.37823cm</Left>
+                <Height>0.6cm</Height>
+                <Width>1.99278cm</Width>
+                <ZIndex>2</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                  <BackgroundColor>DeepSkyBlue</BackgroundColor>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Tarjeta2">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=First(Fields!Tarjeta.Value, "DSSumaDepositos")</Value>
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Tarjeta2</rd:DefaultName>
+                <Top>2.0279cm</Top>
+                <Left>6.37101cm</Left>
+                <Height>0.6cm</Height>
+                <Width>2.22999cm</Width>
+                <ZIndex>3</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                  <BackgroundColor>DeepSkyBlue</BackgroundColor>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Vales2">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=First(Fields!Vales.Value, "DSSumaDepositos")</Value>
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Vales2</rd:DefaultName>
+                <Top>2.0279cm</Top>
+                <Left>8.601cm</Left>
+                <Height>0.6cm</Height>
+                <Width>2.19671cm</Width>
+                <ZIndex>4</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                  <BackgroundColor>DeepSkyBlue</BackgroundColor>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Cheque2">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=First(Fields!Cheque.Value, "DSSumaDepositos")</Value>
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Cheque2</rd:DefaultName>
+                <Top>2.0279cm</Top>
+                <Left>10.79771cm</Left>
+                <Height>0.6cm</Height>
+                <Width>2.48227cm</Width>
+                <ZIndex>5</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                  <BackgroundColor>DeepSkyBlue</BackgroundColor>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Transferencia2">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=First(Fields!Transferencia.Value, "DSSumaDepositos")</Value>
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Transferencia2</rd:DefaultName>
+                <Top>2.0279cm</Top>
+                <Left>13.27998cm</Left>
+                <Height>0.6cm</Height>
+                <Width>2.92705cm</Width>
+                <ZIndex>6</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                  <BackgroundColor>DeepSkyBlue</BackgroundColor>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+            </ReportItems>
+            <KeepTogether>true</KeepTogether>
+            <Top>15.02926cm</Top>
+            <Left>0.39445cm</Left>
+            <Height>2.85015cm</Height>
+            <Width>27.19917cm</Width>
+            <ZIndex>21</ZIndex>
+            <Visibility>
+              <Hidden>=iif(Parameters!CantidadDSDepositos.Value.ToString() = "0", True, False)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Rectangle>
+          <Rectangle Name="Rectangle8">
+            <ReportItems>
+              <Textbox Name="Textbox56">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>HISTORIAL DE RETIROS</Value>
+                        <Style>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Center</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox56</rd:DefaultName>
+                <Top>0.13378cm</Top>
+                <Left>0.18759cm</Left>
+                <Height>0.6cm</Height>
+                <Width>26.74735cm</Width>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Tablix Name="Tablix2">
+                <TablixBody>
+                  <TablixColumns>
+                    <TablixColumn>
+                      <Width>4.16957cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>1.99579cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>2.233cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>2.17401cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>2.52002cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>2.96674cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>5.48663cm</Width>
+                    </TablixColumn>
+                    <TablixColumn>
+                      <Width>5.20159cm</Width>
+                    </TablixColumn>
+                  </TablixColumns>
+                  <TablixRows>
+                    <TablixRow>
+                      <Height>0.6cm</Height>
+                      <TablixCells>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox57">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Realizo</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox57</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>Gainsboro</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox59">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Efectivo</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox59</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>Gainsboro</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox61">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Tarjeta</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox61</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>Gainsboro</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox63">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Vales</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox63</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>Gainsboro</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox65">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Cheque</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox65</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>Gainsboro</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox67">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Transferencia</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox67</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>Gainsboro</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox69">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Fecha</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox69</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>Gainsboro</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Textbox71">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>Concepto</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                        <FontWeight>Bold</FontWeight>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Center</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Textbox71</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <BackgroundColor>Gainsboro</BackgroundColor>
+                                <VerticalAlign>Middle</VerticalAlign>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                      </TablixCells>
+                    </TablixRow>
+                    <TablixRow>
+                      <Height>0.6cm</Height>
+                      <TablixCells>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Realizo1">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Realizo.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Realizo1</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Efectivo1">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Efectivo.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Right</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Efectivo1</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Tarjeta1">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Tarjeta.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Right</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Tarjeta1</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Vales1">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Vales.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Right</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Vales1</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Cheque1">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Cheque.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Right</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Cheque1</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Transferencia1">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Transferencia.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Right</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Transferencia1</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Fecha1">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Fecha.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style>
+                                    <TextAlign>Right</TextAlign>
+                                  </Style>
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Fecha1</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                        <TablixCell>
+                          <CellContents>
+                            <Textbox Name="Concepto1">
+                              <CanGrow>true</CanGrow>
+                              <KeepTogether>true</KeepTogether>
+                              <Paragraphs>
+                                <Paragraph>
+                                  <TextRuns>
+                                    <TextRun>
+                                      <Value>=Fields!Concepto.Value</Value>
+                                      <Style>
+                                        <FontSize>9pt</FontSize>
+                                      </Style>
+                                    </TextRun>
+                                  </TextRuns>
+                                  <Style />
+                                </Paragraph>
+                              </Paragraphs>
+                              <rd:DefaultName>Concepto1</rd:DefaultName>
+                              <Style>
+                                <Border>
+                                  <Color>LightGrey</Color>
+                                  <Style>Solid</Style>
+                                </Border>
+                                <PaddingLeft>2pt</PaddingLeft>
+                                <PaddingRight>2pt</PaddingRight>
+                                <PaddingTop>2pt</PaddingTop>
+                                <PaddingBottom>2pt</PaddingBottom>
+                              </Style>
+                            </Textbox>
+                          </CellContents>
+                        </TablixCell>
+                      </TablixCells>
+                    </TablixRow>
+                  </TablixRows>
+                </TablixBody>
+                <TablixColumnHierarchy>
+                  <TablixMembers>
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                    <TablixMember />
+                  </TablixMembers>
+                </TablixColumnHierarchy>
+                <TablixRowHierarchy>
+                  <TablixMembers>
+                    <TablixMember>
+                      <KeepWithGroup>After</KeepWithGroup>
+                    </TablixMember>
+                    <TablixMember>
+                      <Group Name="Details1" />
+                    </TablixMember>
+                  </TablixMembers>
+                </TablixRowHierarchy>
+                <DataSetName>DSRetiros</DataSetName>
+                <Top>0.74232cm</Top>
+                <Left>0.18759cm</Left>
+                <Height>1.2cm</Height>
+                <Width>26.74735cm</Width>
+                <ZIndex>1</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                </Style>
+              </Tablix>
+              <Textbox Name="Transferencia3">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=First(Fields!Transferencia.Value, "DSSumaRetiros")</Value>
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Transferencia3</rd:DefaultName>
+                <Top>1.94232cm</Top>
+                <Left>13.28901cm</Left>
+                <Height>0.6103cm</Height>
+                <Width>2.95771cm</Width>
+                <ZIndex>2</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                  <BackgroundColor>DeepSkyBlue</BackgroundColor>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Cheque3">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=First(Fields!Cheque.Value, "DSSumaRetiros")</Value>
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Cheque3</rd:DefaultName>
+                <Top>1.95263cm</Top>
+                <Left>10.75996cm</Left>
+                <Height>0.6cm</Height>
+                <Width>2.52905cm</Width>
+                <ZIndex>3</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                  <BackgroundColor>DeepSkyBlue</BackgroundColor>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Vales3">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=First(Fields!Vales.Value, "DSSumaRetiros")</Value>
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Vales3</rd:DefaultName>
+                <Top>1.95263cm</Top>
+                <Left>8.601cm</Left>
+                <Height>0.6cm</Height>
+                <Width>2.15896cm</Width>
+                <ZIndex>4</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                  <BackgroundColor>DeepSkyBlue</BackgroundColor>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Tarjeta3">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=First(Fields!Tarjeta.Value, "DSSumaRetiros")</Value>
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Tarjeta3</rd:DefaultName>
+                <Top>1.95263cm</Top>
+                <Left>6.35295cm</Left>
+                <Height>0.6cm</Height>
+                <Width>2.233cm</Width>
+                <ZIndex>5</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                  <BackgroundColor>DeepSkyBlue</BackgroundColor>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Efectivo3">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=First(Fields!Efectivo.Value, "DSSumaRetiros")</Value>
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Efectivo3</rd:DefaultName>
+                <Top>1.95263cm</Top>
+                <Left>4.35716cm</Left>
+                <Height>0.6cm</Height>
+                <Width>1.99579cm</Width>
+                <ZIndex>6</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>Solid</Style>
+                  </Border>
+                  <BackgroundColor>DeepSkyBlue</BackgroundColor>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+            </ReportItems>
+            <KeepTogether>true</KeepTogether>
+            <Top>18.35362cm</Top>
+            <Left>0.39445cm</Left>
+            <Height>2.65141cm</Height>
+            <Width>27.19917cm</Width>
+            <ZIndex>22</ZIndex>
+            <Visibility>
+              <Hidden>=iif(Parameters!CantidadDSRetiros.Value.ToString() = "0", True, False)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Rectangle>
         </ReportItems>
-        <Height>21.59cm</Height>
+        <Height>21.63853cm</Height>
         <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
           <BackgroundColor>White</BackgroundColor>
         </Style>
       </Body>
@@ -3015,6 +5081,14 @@
     <ReportParameter Name="fechaCorteCaja">
       <DataType>String</DataType>
       <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CantidadDSDepositos">
+      <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="CantidadDSRetiros">
+      <DataType>Integer</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>
@@ -3227,6 +5301,16 @@
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>10</RowIndex>
           <ParameterName>fechaCorteCaja</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>10</RowIndex>
+          <ParameterName>CantidadDSDepositos</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>10</RowIndex>
+          <ParameterName>CantidadDSRetiros</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

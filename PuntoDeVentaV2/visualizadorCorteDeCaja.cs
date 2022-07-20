@@ -94,6 +94,9 @@ namespace PuntoDeVentaV2
         #region Fecha de corte de caja
         public string fechaCorteCaja { get; set; }
         #endregion
+        #region id Corte de Caja
+        public int idPenultimoCorteDeCaja { get; set; }
+        #endregion
 
         #endregion
 
@@ -110,16 +113,7 @@ namespace PuntoDeVentaV2
         private void reporteTicket()
         {
             string cadenaConn = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
-            {
-                cadenaConn = $"datasource={Properties.Settings.Default.Hosting};port=6666;username=root;password=;database=pudve;";
-            }
-            else
-            {
-                cadenaConn = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
-            }
-
+            
             string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\CorteDeCaja\ReporteTicketCorteDeCaja.rdlc";
 
@@ -214,6 +208,10 @@ namespace PuntoDeVentaV2
         private void reporteCarta()
         {
             string cadenaConn = string.Empty;
+            string queryDepositos = string.Empty;
+            string querySumaDepositos = string.Empty;
+            string queryRetiros = string.Empty;
+            string querySumaRetiros = string.Empty;
 
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
             {
@@ -224,8 +222,64 @@ namespace PuntoDeVentaV2
                 cadenaConn = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
             }
 
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                queryDepositos = cs.HistorialDepositosAdminsitrador(idPenultimoCorteDeCaja);
+                querySumaDepositos = cs.cargarHistorialdepositosAdministradorSumaTotal(idPenultimoCorteDeCaja);
+
+                queryRetiros = cs.HistorialRetirosAdminsitrador(idPenultimoCorteDeCaja);
+                querySumaRetiros = cs.cargarHistorialRetirosAdministradorSumaTotal(idPenultimoCorteDeCaja);
+            }
+            else if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                queryDepositos = cs.HistorialRetirosEmpleado(idPenultimoCorteDeCaja, FormPrincipal.id_empleado);
+                querySumaDepositos = cs.cargarHistorialdepositosEmpleadoSumaTotal(idPenultimoCorteDeCaja, FormPrincipal.id_empleado);
+
+                queryRetiros = cs.HistorialRetirosEmpleado(idPenultimoCorteDeCaja, FormPrincipal.id_empleado);
+                querySumaRetiros = cs.cargarHistorialRetirosEmpleadoSumaTotal(idPenultimoCorteDeCaja, FormPrincipal.id_empleado);
+            }
+
+            MySqlConnection conn = new MySqlConnection();
+
+            conn.ConnectionString = cadenaConn;
+
+            try
+            {
+                conn.Open();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+
             string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\CorteDeCaja\ReporteCorteDeCaja.rdlc";
+
+            MySqlDataAdapter depositoDA = new MySqlDataAdapter(queryDepositos, conn);
+            DataTable depositoDT = new DataTable();
+            depositoDA.Fill(depositoDT);
+
+            MySqlDataAdapter sumaDepositosDA = new MySqlDataAdapter(querySumaDepositos, conn);
+            DataTable sumaDepositosDT = new DataTable();
+            sumaDepositosDA.Fill(sumaDepositosDT);
+
+            MySqlDataAdapter retiroDA = new MySqlDataAdapter(queryRetiros, conn);
+            DataTable retiroDT = new DataTable();
+            retiroDA.Fill(retiroDT);
+
+            MySqlDataAdapter sumaRetirosDA = new MySqlDataAdapter(querySumaRetiros, conn);
+            DataTable sumaRetirosDT = new DataTable();
+            sumaRetirosDA.Fill(sumaRetirosDT);
+
+            this.reportViewer1.ProcessingMode = ProcessingMode.Local;
+            this.reportViewer1.LocalReport.ReportPath = FullReportPath;
+            this.reportViewer1.LocalReport.DataSources.Clear();
+
+            ReportDataSource depositos = new ReportDataSource("DSDepositos", depositoDT);
+            ReportDataSource sumaDepositos = new ReportDataSource("DSSumaDepositos", sumaDepositosDT);
+
+            ReportDataSource retiros = new ReportDataSource("DSRetiros", retiroDT);
+            ReportDataSource sumaRetiros = new ReportDataSource("DSSumaRetiros", sumaRetirosDT);
 
             #region Impresion Ticket de 80 mm
             ReportParameterCollection reportParameters = new ReportParameterCollection();
@@ -303,17 +357,21 @@ namespace PuntoDeVentaV2
             #region Fecha de corte de caja
             reportParameters.Add(new ReportParameter("fechaCorteCaja", fechaCorteCaja.ToString()));
             #endregion
+            #region filas de depositos en la tabla
+            reportParameters.Add(new ReportParameter("CantidadDSDepositos", depositoDT.Rows.Count.ToString()));
+            #endregion
+            #region filas de retiros en la tabla
+            reportParameters.Add(new ReportParameter("CantidadDSRetiros", retiroDT.Rows.Count.ToString()));
+            #endregion
 
-            this.reportViewer1.ProcessingMode = ProcessingMode.Local;
-            this.reportViewer1.LocalReport.ReportPath = FullReportPath;
-            this.reportViewer1.LocalReport.DataSources.Clear();
+            
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
+            this.reportViewer1.LocalReport.DataSources.Add(depositos);
+            this.reportViewer1.LocalReport.DataSources.Add(sumaDepositos);
+            this.reportViewer1.LocalReport.DataSources.Add(retiros);
+            this.reportViewer1.LocalReport.DataSources.Add(sumaRetiros);
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
             this.reportViewer1.RefreshReport();
-
-            //LocalReport rdlc = new LocalReport();
-            //rdlc.ReportPath = FullReportPath;
-            //rdlc.SetParameters(reportParameters);
             #endregion
         }
 

@@ -1114,6 +1114,12 @@
       <DependentUpon>TicketAbrirCaja.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="ReportesImpresion\Ticket\CorteDeCaja\DSReporteCorteDeCaja.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSReporteCorteDeCaja.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\CreditoRealizado\TicketCredito.cs">
       <DependentUpon>TicketCredito.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -2009,6 +2015,20 @@
     </Content>
     <None Include="ReportesImpresion\Ticket\AbrirCaja\TicketAbrirCaja.xss">
       <DependentUpon>TicketAbrirCaja.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\CorteDeCaja\DSReporteCorteDeCaja.xsc">
+      <DependentUpon>DSReporteCorteDeCaja.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="ReportesImpresion\Ticket\CorteDeCaja\DSReporteCorteDeCaja.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSReporteCorteDeCaja.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ReportesImpresion\Ticket\CorteDeCaja\DSReporteCorteDeCaja.xss">
+      <DependentUpon>DSReporteCorteDeCaja.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportesImpresion\Ticket\CreditoRealizado\TicketCredito.xsc">
