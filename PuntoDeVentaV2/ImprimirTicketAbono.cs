@@ -41,7 +41,7 @@ namespace PuntoDeVentaV2
                 cadenaConn = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
             }
 
-            string queryVenta = cs.impresionTicketAnticipo(idAbono);
+            string queryVenta = cs.ImpresionTicketAbono(idAbono);
 
             MySqlConnection conn = new MySqlConnection();
 
