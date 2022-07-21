@@ -1027,10 +1027,12 @@ namespace PuntoDeVentaV2
             string[] tmp = nombre.Split('_');
             //Hace referencia al segundo TextBox
             TextBox tb1 = (TextBox)this.Controls.Find("tbMayoreo" + tmp[0] + "_2", true).FirstOrDefault();
-            tb1.TextChanged+= new EventHandler(ValidarEntradaDeTexto);
+            tb1.TextChanged += new EventHandler(ValidarEntradaDeTexto);
+            tb1.KeyPress += new KeyPressEventHandler(soloDecimales);
             //Hace referencia al tercer TextBox
             TextBox tb2 = (TextBox)this.Controls.Find("tbMayoreo" + tmp[0] + "_3", true).FirstOrDefault();
             tb2.TextChanged += new EventHandler(ValidarEntradaDeTexto);
+            tb2.KeyPress += new KeyPressEventHandler(soloDecimales);
             //Se cambia el mensaje del CheckBox
             CheckBox cb = (CheckBox)this.Controls.Find("checkMayoreo" + tmp[0], true).FirstOrDefault();
 
@@ -1566,6 +1568,7 @@ namespace PuntoDeVentaV2
                 this.Close();
             }
         }
+
         private void ValidarEntradaDeTexto(object sender, EventArgs e)
         {
             var resultado = string.Empty;
@@ -1574,18 +1577,38 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(resultado))
             {
-                var resultadoAuxialiar = Regex.Replace(resultado, @"[^0-9]", string.Empty).Trim();
-                resultado = resultadoAuxialiar;
-                txtValidarTexto.Text = resultado;
-                txtValidarTexto.Focus();
-                txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
-
+                var esDecimal = new Regex("/[+-] ? ([0 - 9] *[.])?[0 - 9] +/");
+                Match match = esDecimal.Match(resultado);
+                if (match.Success)
+                {
+                    txtValidarTexto.Text = resultado;
+                    txtValidarTexto.Focus();
+                    txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+                }
+                else
+                {
+                    return;
+                }
             }
             else
             {
-                txtValidarTexto.Focus();
-                txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+                return;
             }
+
+            //if (!string.IsNullOrWhiteSpace(resultado))
+            //{
+            //    var resultadoAuxialiar = Regex.Replace(resultado, @"[^0-9.]", string.Empty).Trim();
+            //    resultado = resultadoAuxialiar;
+            //    txtValidarTexto.Text = resultado;
+            //    txtValidarTexto.Focus();
+            //    txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+
+            //}
+            //else
+            //{
+            //    txtValidarTexto.Focus();
+            //    txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+            //}
         }
     }
 }

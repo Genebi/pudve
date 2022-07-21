@@ -1869,9 +1869,9 @@
     <Content Include="ReportesImpresion\Ticket\DineroRetirado\TicketDineroRetirado.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="ReportesImpresion\Ticket\CorteDeCaja\ReporteCorteDeCaja.rdlc">
+    <Content Include="ReportesImpresion\Ticket\CorteDeCaja\ReporteCorteDeCaja.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
     <Content Include="ReportesImpresion\Ticket\CorteDeCaja\ReporteTicketCorteDeCaja.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
