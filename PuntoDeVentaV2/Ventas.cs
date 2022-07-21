@@ -861,7 +861,7 @@ namespace PuntoDeVentaV2
                 return;
             }
             // Se agrega la nueva fila y se obtiene el ID que tendrá
-            int rowId = DGVentas.Rows.Add();
+            int rowId = DGVentas.Rows.Add(); 
 
             // Obtener la nueva fila
             DataGridViewRow row = DGVentas.Rows[rowId];
