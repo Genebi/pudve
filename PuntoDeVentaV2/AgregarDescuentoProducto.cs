@@ -1027,11 +1027,11 @@ namespace PuntoDeVentaV2
             string[] tmp = nombre.Split('_');
             //Hace referencia al segundo TextBox
             TextBox tb1 = (TextBox)this.Controls.Find("tbMayoreo" + tmp[0] + "_2", true).FirstOrDefault();
-            //tb1.TextChanged+= new EventHandler(ValidarEntradaDeTexto);
+            tb1.TextChanged += new EventHandler(ValidarEntradaDeTexto);
             tb1.KeyPress += new KeyPressEventHandler(soloDecimales);
             //Hace referencia al tercer TextBox
             TextBox tb2 = (TextBox)this.Controls.Find("tbMayoreo" + tmp[0] + "_3", true).FirstOrDefault();
-            //tb2.TextChanged += new EventHandler(ValidarEntradaDeTexto);
+            tb2.TextChanged += new EventHandler(ValidarEntradaDeTexto);
             tb2.KeyPress += new KeyPressEventHandler(soloDecimales);
             //Se cambia el mensaje del CheckBox
             CheckBox cb = (CheckBox)this.Controls.Find("checkMayoreo" + tmp[0], true).FirstOrDefault();
