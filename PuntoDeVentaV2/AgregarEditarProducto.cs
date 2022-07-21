@@ -4294,12 +4294,12 @@ namespace PuntoDeVentaV2
                 resultado = resultadoAuxialiar;
                 txtValidarTexto.Text = resultado;
                 txtValidarTexto.Focus();
-                txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+                //txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
             }
             else
             {
                 txtValidarTexto.Focus();
-                txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+                //txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
             }
         }
 
