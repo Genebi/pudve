@@ -262,7 +262,7 @@ namespace PuntoDeVentaV2
                     lCalculadora.Text = lCalculadora.Text + "6";
                 }
             }
-            if (lCalculadora.Text == "" || lCalculadora.Text == "0")
+            else if (lCalculadora.Text == "" || lCalculadora.Text == "0")
             {
                 lCalculadora.Text = "6";
             }
