@@ -4085,7 +4085,7 @@ namespace PuntoDeVentaV2
 
         public string BuscarIDPreductoPorCodigoDeBarras(string Codigo)
         {
-            var consulta = $"SELECT ID FROM productos WHERE CodigoBarras = '{Codigo}'";
+            var consulta = $"SELECT ID FROM productos WHERE CodigoBarras = {Codigo} AND `Status` = 1";
             return consulta;
         }
 
