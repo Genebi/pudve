@@ -230,7 +230,7 @@ namespace PuntoDeVentaV2
                 queryRetiros = cs.HistorialRetirosAdminsitrador(idPenultimoCorteDeCaja);
                 querySumaRetiros = cs.cargarHistorialRetirosAdministradorSumaTotal(idPenultimoCorteDeCaja);
             }
-            else if (!FormPrincipal.userNickName.Contains("@"))
+            else if (FormPrincipal.userNickName.Contains("@"))
             {
                 queryDepositos = cs.HistorialRetirosEmpleado(idPenultimoCorteDeCaja, FormPrincipal.id_empleado);
                 querySumaDepositos = cs.cargarHistorialdepositosEmpleadoSumaTotal(idPenultimoCorteDeCaja, FormPrincipal.id_empleado);
