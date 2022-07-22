@@ -107,7 +107,7 @@ namespace PuntoDeVentaV2
             else
             {
                 var consutaPrecio = cn.CargarDatos(cs.BuscarPrecioPorIDdelProducto(IDProducto));
-                int precio =  Convert.ToInt32(consutaPrecio.Rows[0]["Precio"]);
+                decimal precio =  Convert.ToDecimal(consutaPrecio.Rows[0]["Precio"]);
                 flowLayoutPanel1.Visible = false;
                 lblPrecioSinDescuentos.Visible = true;
                 lblPrecioSinDescuentos.Text = precio.ToString("C2");
