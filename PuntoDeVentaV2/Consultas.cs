@@ -4096,6 +4096,7 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+
         public string BuscarPrecioPorIDdelProducto(string IDproducto)
         {
             var consuta = $"SELECT Precio FROM productos WHERE ID = {IDproducto}";
