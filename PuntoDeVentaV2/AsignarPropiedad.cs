@@ -983,7 +983,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    MessageBox.Show("Favor de rellenar los 2 campos contengan informacion.");
+                    MessageBox.Show("Favor de rellenar los 2 campos contengan informacion.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
             else if (propiedad == "MensajeInventario")
@@ -1117,11 +1117,38 @@ namespace PuntoDeVentaV2
                     }
                     MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema",3,true);
                 }
+                else if (stateChkEliminarMensajes.Equals(false) && stateChkMostrarMensaje.Equals(false) && stateChkOcultarMensajes.Equals(true))
+                {
+                    foreach (var producto in productos)
+                    {
+                        using (DataTable datosV = cn.CargarDatos($"SELECT * FROM productmessage WHERE IDProducto = '{producto.Key}'"))
+                        {
+                            if (!datosV.Rows.Count.Equals(0))
+                            {
+                                cn.EjecutarConsulta($"UPDATE productmessage SET ProductMessageActivated = 0 WHERE IDProducto = '{producto.Key}'");
+                            }
+                            else
+                            {
+                                var status = 0;
+                                if (stateChkMostrarMensaje)
+                                {
+                                    status = 1;
+                                }
+                                else
+                                {
+                                    status = 0;
+                                }
+                                cn.EjecutarConsulta($"INSERT INTO productmessage (IDProducto,ProductOfMessage,ProductMessageActivated,CantidadMinimaDeCompra) VALUES ('{producto.Key}','{mensaje}','{status}','0')");
+                            }
+                        }
+                    }
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
+                }
                 else
                 {
                     if (stateChkEliminarMensajes == false)
                     {
-                        MessageBox.Show("Favor de rellenar los 2 campos contengan informacion.");
+                        MessageBox.Show("Favor de rellenar los 2 campos contengan informacion.","Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
                 
