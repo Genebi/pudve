@@ -3694,7 +3694,7 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta($"UPDATE DetallesVenta SET Anticipo = '{Anticipo}' WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
                     }
 
-                    GenerarTicket(infoProductos);
+                    //GenerarTicket(infoProductos);
 
                     using (DataTable dtConfiguracionTipoTicket = cn.CargarDatos(cs.tipoDeTicket()))
                     {
