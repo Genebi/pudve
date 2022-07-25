@@ -1080,7 +1080,7 @@ namespace PuntoDeVentaV2
         }
 
         public string GuardarHistorialPrecios(string[] datos)
-        {
+       {
             var consulta = "INSERT INTO HistorialPrecios (IDUsuario, IDEmpleado, IDProducto, PrecioAnterior, PrecioNuevo, Origen, FechaOperacion)";
             consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}')";
 
@@ -4086,6 +4086,7 @@ namespace PuntoDeVentaV2
         public string BuscarIDPreductoPorCodigoDeBarras(string Codigo)
         {
             var consulta = $"SELECT ID FROM productos WHERE CodigoBarras = '{Codigo}' AND `Status` = 1";
+
             return consulta;
         }
 
@@ -4251,6 +4252,12 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT usr.RazonSocial, CONCAT( IF ( Usr.Calle = '' OR Usr.Calle IS NULL, '', CONCAT( 'DIRECCION: ', Usr.Calle ) ), IF ( Usr.NoExterior = '' OR Usr.NoExterior IS NULL, '', CONCAT( ' #', Usr.NoExterior ) ), IF ( Usr.NoInterior = '' OR Usr.NoInterior IS NULL, '', CONCAT( ', INTERIOR: ', Usr.NoInterior ) ), IF ( Usr.Municipio = '' OR Usr.Municipio IS NULL, '', CONCAT( ', ', Usr.Municipio ) ), IF ( Usr.Estado = '' OR Usr.Estado IS NULL, '', CONCAT( ', ', Usr.Estado ) ) ) AS 'Domicilio', CONCAT( IF ( Usr.Colonia = '' OR Usr.Colonia IS NULL, '', CONCAT( 'COLONIA: ', Usr.Colonia ) ), IF ( Usr.CodigoPostal = '' OR Usr.CodigoPostal IS NULL, '', CONCAT( ', C.P.:', Usr.CodigoPostal ) ) ) AS 'ColyCP', IF ( Usr.RFC = '' OR Usr.RFC IS NULL, '', Usr.RFC ) AS 'RFC', IF ( Usr.Email = '' OR Usr.Email IS NULL, '', Usr.Email ) AS 'Correo', IF ( Usr.Telefono = '' OR Usr.Telefono IS NULL, '', Usr.Telefono ) AS 'Telefono', IF ( ant.IDVenta = '' OR ant.IDVenta IS NULL, 'N/A', ant.IDVenta ) AS 'IDVenta', IF ( ant.IDEmpleado != 0, 'Empleado', 'Administrador' ) AS 'Empleado', ant.Concepto, ant.Cliente, ant.Comentarios, ant.ImporteOriginal AS 'TotalRecibido', IF ( vent.IDAnticipo = 0 OR vent.IDAnticipo IS NULL, 'N/A', vent.IDAnticipo ) AS 'AnticipoAplicado', IF ( vent.IDAnticipo = 0, '', ant.ImporteOriginal ) AS 'SaldoRestante', ant.Fecha AS 'fechaOperacion' FROM anticipos AS ant INNER JOIN usuarios AS usr ON ( usr.ID = ant.IDUsuario ) LEFT JOIN ventas AS vent ON ( vent.ID = ant.IDVenta ) WHERE ant.ID = '{idAnticpo}'";
 
             return consulta;
+        }
+
+        public string NombreClientePorID(string ID)
+        {
+            var consulta = $"SELECT RazonSocial FROM clientes WHERE ID = {ID} AND IDUsuario = {FormPrincipal.userID}";
+                return  consulta;
         }
 
     }

@@ -43,8 +43,12 @@ namespace PuntoDeVentaV2
         {
             if (!Ventas.idCliente.Equals(""))
             {
-                lblCliente.Visible = true;
-                lblCliente.Text = $"Cliente Recomendado: {Ventas.NombreCliente}";
+                using (DataTable ConsultaNombre= cn.CargarDatos(cs.NombreClientePorID(Ventas.idCliente)))
+                {
+                    string Nombre = ConsultaNombre.Rows[0]["RazonSocial"].ToString();
+                    lblCliente.Visible = true;
+                    lblCliente.Text = $"Cliente Recomendado: {Nombre}";
+                }
             }
             CargarDatos();
         }
