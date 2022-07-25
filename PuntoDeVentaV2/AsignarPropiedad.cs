@@ -977,6 +977,10 @@ namespace PuntoDeVentaV2
 
                     //porFavorEspere.Dispose();
                 }
+                else if (stateChkOcultarMensajes.Equals(true))
+                {
+                    OperacionBoton();
+                }
                 else
                 {
                     MessageBox.Show("Favor de rellenar los 2 campos contengan informacion.");
