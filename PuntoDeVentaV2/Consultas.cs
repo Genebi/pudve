@@ -4261,5 +4261,11 @@ namespace PuntoDeVentaV2
                 return  consulta;
         }
 
+        public string NombreUsuarioActivo(int idAdministrador)
+        {
+            var consulta = $"SELECT Usuario FROM usuarios WHERE ID = '{idAdministrador}'";
+
+            return consulta;
+        }
     }
 }   

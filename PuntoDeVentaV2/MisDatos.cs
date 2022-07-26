@@ -155,6 +155,32 @@ namespace PuntoDeVentaV2
             LblRegimenActual.Text = regimen;
             txt_nombre_comercial.Text = string.IsNullOrWhiteSpace(nombre_comercial) ? txt_nombre_comercial.Text : nombre_comercial;
 
+            var servidor = Properties.Settings.Default.Hosting;
+            var NombreUsuario = string.Empty;
+
+            using (DataTable dtNombreUsuario = cn.CargarDatos(cs.NombreUsuarioActivo(FormPrincipal.userID)))
+            {
+                if (!dtNombreUsuario.Rows.Count.Equals(0))
+                {
+                    DataRow drNombreUsuario = dtNombreUsuario.Rows[0];
+                    NombreUsuario = drNombreUsuario["Usuario"].ToString();
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                // direccion de la carpeta donde se va poner las imagenes
+                saveDirectoryImg = $@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\";
+                // ruta donde estan guardados los archivos digitales
+                ruta_archivos_guadados = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_{NombreUsuario}\";
+            }
+            else
+            {
+                // direccion de la carpeta donde se va poner las imagenes
+                saveDirectoryImg = $@"C:\Archivos PUDVE\MisDatos\Usuarios\";
+                // ruta donde estan guardados los archivos digitales
+                ruta_archivos_guadados = $@"C:\Archivos PUDVE\MisDatos\CSD_{NombreUsuario}\";
+            }
 
             // si el campo de la base de datos es difrente a null
             if (logoTipo != "")
