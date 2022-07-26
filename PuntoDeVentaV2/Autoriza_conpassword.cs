@@ -14,7 +14,6 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
 
-
         public Autoriza_conpassword()
         {
             InitializeComponent();

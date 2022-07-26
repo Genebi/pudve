@@ -155,32 +155,7 @@ namespace PuntoDeVentaV2
             LblRegimenActual.Text = regimen;
             txt_nombre_comercial.Text = string.IsNullOrWhiteSpace(nombre_comercial) ? txt_nombre_comercial.Text : nombre_comercial;
 
-            var servidor = Properties.Settings.Default.Hosting;
-            var NombreUsuario = string.Empty;
-
-            using (DataTable dtNombreUsuario = cn.CargarDatos(cs.NombreUsuarioActivo(FormPrincipal.userID)))
-            {
-                if (!dtNombreUsuario.Rows.Count.Equals(0))
-                {
-                    DataRow drNombreUsuario = dtNombreUsuario.Rows[0];
-                    NombreUsuario = drNombreUsuario["Usuario"].ToString();
-                }
-            }
-
-            if (!string.IsNullOrWhiteSpace(servidor))
-            {
-                // direccion de la carpeta donde se va poner las imagenes
-                saveDirectoryImg = $@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\";
-                // ruta donde estan guardados los archivos digitales
-                ruta_archivos_guadados = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_{NombreUsuario}\";
-            }
-            else
-            {
-                // direccion de la carpeta donde se va poner las imagenes
-                saveDirectoryImg = $@"C:\Archivos PUDVE\MisDatos\Usuarios\";
-                // ruta donde estan guardados los archivos digitales
-                ruta_archivos_guadados = $@"C:\Archivos PUDVE\MisDatos\CSD_{NombreUsuario}\";
-            }
+            actualizarVariablesDePathDeInstalacionLocalRed();
 
             // si el campo de la base de datos es difrente a null
             if (logoTipo != "")
@@ -232,6 +207,36 @@ namespace PuntoDeVentaV2
             // Cargar datos de los archivos digitales
 
             cargar_archivos();
+        }
+
+        private void actualizarVariablesDePathDeInstalacionLocalRed()
+        {
+            var servidor = Properties.Settings.Default.Hosting;
+            var NombreUsuario = string.Empty;
+
+            using (DataTable dtNombreUsuario = cn.CargarDatos(cs.NombreUsuarioActivo(FormPrincipal.userID)))
+            {
+                if (!dtNombreUsuario.Rows.Count.Equals(0))
+                {
+                    DataRow drNombreUsuario = dtNombreUsuario.Rows[0];
+                    NombreUsuario = drNombreUsuario["Usuario"].ToString();
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                // direccion de la carpeta donde se va poner las imagenes
+                saveDirectoryImg = $@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\";
+                // ruta donde estan guardados los archivos digitales
+                ruta_archivos_guadados = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_{NombreUsuario}\";
+            }
+            else
+            {
+                // direccion de la carpeta donde se va poner las imagenes
+                saveDirectoryImg = $@"C:\Archivos PUDVE\MisDatos\Usuarios\";
+                // ruta donde estan guardados los archivos digitales
+                ruta_archivos_guadados = $@"C:\Archivos PUDVE\MisDatos\CSD_{NombreUsuario}\";
+            }
         }
 
         public void cargarComboBox()
@@ -434,8 +439,6 @@ namespace PuntoDeVentaV2
             bool result = false; 
             bool respuesta = false;
             
-
-
             if (opcion1 == 0 || opcion4 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -480,7 +483,6 @@ namespace PuntoDeVentaV2
                     respuesta = ActualizarPassword();
                 }
             }
-
 
             if (result == true && respuesta == true)
             {
@@ -541,6 +543,7 @@ namespace PuntoDeVentaV2
         private bool ActualizarDatos(int tipo = 0)
         {
             bool validarDatos = true;
+
             if (txtNombre.Text.Trim() == "")
             {
                 MessageBox.Show("El nombre no debe estar vacío.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -549,9 +552,6 @@ namespace PuntoDeVentaV2
             }
 
             validarDatos = validarRfc();
-
-
-            
 
             //if (txtRFC.Text.Trim() == "")
             //{
@@ -582,7 +582,6 @@ namespace PuntoDeVentaV2
             //    return false;
             //}
 
-
             // mandamos llamar la funcion actualizarVariables()
             actualizarVariables();
 
@@ -596,8 +595,6 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
-            
 
             // el string para hacer el UPDATE
             actualizar = $"UPDATE Usuarios SET RFC = '{rfc}', Telefono = '{telefono}', Email = '{email}', NombreCompleto = '{nomComp}', RazonSocial = '{nomComp}', Calle = '{calle}', NoExterior = '{numExt}', NoInterior = '{numInt}', Colonia = '{colonia}', Municipio = '{mpio}', Estado = '{estado}', CodigoPostal = '{codPostal}', Regimen = '{regimen}', TipoPersona = '{tipoPersona}', nombre_comercial='{nombre_comercial}' WHERE ID = '{id}'";
@@ -614,7 +611,6 @@ namespace PuntoDeVentaV2
 
         private bool validarRfc()
         {
-           
             var cantidadCamposRFC = txtRFC.Text.Length;
             bool validacion = true;
 
@@ -648,6 +644,7 @@ namespace PuntoDeVentaV2
 
                 return validar;
             }
+
             validar = validarRfc();
 
             //if (!VerificarRFC(txtRFC.Text))
@@ -1050,6 +1047,8 @@ namespace PuntoDeVentaV2
                 return;
             }
 
+            actualizarVariablesDePathDeInstalacionLocalRed();
+
             using (f = new OpenFileDialog())	// abrimos el opneDialog para seleccionar la imagen
             {
                 // le aplicamos un filtro para solo ver 
@@ -1074,10 +1073,12 @@ namespace PuntoDeVentaV2
                     btnBorrarImg.Visible = true;
                 }
             }
+
             if (!Directory.Exists(saveDirectoryImg))	// verificamos que si no existe el directorio
             {
                 Directory.CreateDirectory(saveDirectoryImg);	// lo crea para poder almacenar la imagen
             }
+
             if (f.CheckFileExists)		// si el archivo existe
             {
                 try 	// hacemos el intento de realizar la actualizacion de la imagen
