@@ -1515,7 +1515,6 @@ namespace PuntoDeVentaV2
 
                 CalculoMayoreo();
                 CantidadesFinalesVenta();
-
                 //try
                 //{
                 //    var celda = DGVentas.CurrentCell.RowIndex;
@@ -2906,12 +2905,12 @@ namespace PuntoDeVentaV2
 
                         detalle.ShowDialog();
                         noDuplicadoVentas = 1;
-                        txtBuscadorProducto.Focus();
+                        //txtBuscadorProducto.Focus();
                     }
-                    txtBuscadorProducto.Focus();
+                    //txtBuscadorProducto.Focus();
                 }
             }
-            txtBuscadorProducto.Focus();
+            //txtBuscadorProducto.Focus();
         }
 
         private void ultimaVentaInformacion()
@@ -6592,7 +6591,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            txtBuscadorProducto.Focus();
+            //txtBuscadorProducto.Focus();
         }
 
 
@@ -7469,7 +7468,7 @@ namespace PuntoDeVentaV2
                 }
                 contadorChangeValue++;
             }
-            txtBuscadorProducto.Focus();
+            //txtBuscadorProducto.Focus();
         }
 
         private void DGVentas_Enter(object sender, EventArgs e)
@@ -7486,7 +7485,7 @@ namespace PuntoDeVentaV2
         {
             //Aqui reproducir sonido de producto al carrito
             ReproducirSonido();
-            txtBuscadorProducto.Focus();
+            //txtBuscadorProducto.Focus();
             txtBuscadorProducto.Select();
         }
 
