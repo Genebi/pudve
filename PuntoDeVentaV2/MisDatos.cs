@@ -1210,7 +1210,7 @@ namespace PuntoDeVentaV2
                 // borramos el archivo de la imagen
                 System.IO.File.Delete(logoTipo);
                 // ponemos la ruta del logoTipo en null
-                logoTipo = null;
+                logoTipo = null; 
                 // hacemos la nueva cadena de consulta para hacer el update
                 string consultaUpdate = $"UPDATE Usuarios SET LogoTipo = '{logoTipo}' WHERE ID = '{id}'";
                 // hacemos que se ejecute la consulta
