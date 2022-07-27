@@ -577,7 +577,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            InitializarTimerAndroid();
+            //InitializarTimerAndroid();
 
             //====================================================================
 
