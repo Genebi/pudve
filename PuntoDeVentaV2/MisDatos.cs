@@ -779,11 +779,13 @@ namespace PuntoDeVentaV2
                     {
                         cargar_archivos();
 
+                        actualizarVariablesDePathDeInstalacionLocalRed();
+
                         // Los archivos no fueron subidos completos, por lo tanto los elimina 
-                        
+
                         if (subir_arch.ban == true)
                         {
-                            string ruta = @"C:\Archivos PUDVE\MisDatos\CSD\";
+                            string ruta = ruta_archivos_guadados;
 
                             if (usuario_ini == true)
                             {
@@ -792,12 +794,12 @@ namespace PuntoDeVentaV2
 
                                 if (!Directory.Exists(ruta_archivos_guadados))
                                 {
-                                    ruta = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                                    ruta = ruta_archivos_guadados;
                                 }
                             }
                             else
                             {
-                                ruta = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                                ruta = ruta_archivos_guadados;
                             }
 
 
@@ -1266,7 +1268,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    ruta_archivos_guadados = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                    //ruta_archivos_guadados = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
 
                     usuario_ini = false;
                 }                    
