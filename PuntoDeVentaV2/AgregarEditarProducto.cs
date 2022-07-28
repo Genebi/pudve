@@ -4290,7 +4290,7 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(resultado))
             {
-                var resultadoAuxialiar = Regex.Replace(resultado, @"\|", string.Empty);
+                var resultadoAuxialiar = Regex.Replace(resultado, @"[+\|]", string.Empty);
                 resultado = resultadoAuxialiar;
                 txtValidarTexto.Text = resultado;
                 txtValidarTexto.Focus();
