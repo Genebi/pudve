@@ -357,9 +357,6 @@ namespace PuntoDeVentaV2
 
             iniciarBasculaPredeterminada();
             txtBuscadorProducto.Focus();
-
-            
-
         }
 
         private void mostrarBotonCSV()
@@ -1153,6 +1150,7 @@ namespace PuntoDeVentaV2
                 // Descuento
                 if (columnaCellClick.Equals(8))
                 {
+                    //txtBuscadorProducto.Text = string.Empty;
                     //txtBuscadorProducto.Focus();
                     if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                     {
@@ -1171,6 +1169,7 @@ namespace PuntoDeVentaV2
                             if (descuentosDirectos.ContainsKey(Convert.ToInt32(idProducto)))
                             {
                                 quitarDescuento = true;
+                                //txtBuscadorProducto.Text = string.Empty;
                                 txtBuscadorProducto.Focus();
                             }
                             var resultado = formDescuento.ShowDialog();
@@ -5971,7 +5970,7 @@ namespace PuntoDeVentaV2
 
             if (e.KeyCode == Keys.Enter)
             {
-                txtBuscadorProducto.Focus();
+                //txtBuscadorProducto.Focus();
             }
 
 
@@ -6405,7 +6404,7 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
-                string[] words = txtDescuentoGeneral.Text.ToString().Split('%');
+                 string[] words = txtDescuentoGeneral.Text.ToString().Split('%');
 
                 if (words.Count() > 0)
                 {
@@ -6464,6 +6463,8 @@ namespace PuntoDeVentaV2
 
         private void btnAplicarDescuento_Click(object sender, EventArgs e)
         {
+            productosDescuentoG.Clear();
+            descuentosDirectos.Clear();
             if (!txtDescuentoGeneral.Text.Equals("."))
             {
                 if (opcion19 == 0)
@@ -6663,7 +6664,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            //txtBuscadorProducto.Focus();
+           //txtBuscadorProducto.Focus();
         }
 
 
@@ -7485,7 +7486,8 @@ namespace PuntoDeVentaV2
 
         private void txtDescuentoGeneral_KeyDown(object sender, KeyEventArgs e)
         {
-            var cantidadDescuento = txtDescuentoGeneral.Text;
+            
+            var cantidadDescuento = txtDescuentoGeneral.Text;           
             if (e.KeyCode == Keys.Enter)
             {
                 btnAplicarDescuento.PerformClick();
@@ -8172,10 +8174,23 @@ namespace PuntoDeVentaV2
 
         private void txtDescuentoGeneral_KeyUp(object sender, KeyEventArgs e)
         {
+           
+ 
             if (txtDescuentoGeneral.Text == ".")
             {
                 txtDescuentoGeneral.Text = "0.";
                 txtDescuentoGeneral.Select(txtDescuentoGeneral.Text.Length, 0);
+            }
+
+            var cantidadDescuento = txtDescuentoGeneral.Text;
+            if (cantidadDescuento.Length > 0)
+            {
+                if (Convert.ToDecimal(cantidadDescuento) > 99)
+                {
+                    MessageBox.Show("Favor de ingresar un porcentaje menor al 100%");
+                    txtDescuentoGeneral.Text = "";
+                    return;
+                }
             }
         }
 

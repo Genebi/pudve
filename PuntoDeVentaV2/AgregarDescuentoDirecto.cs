@@ -254,6 +254,7 @@ namespace PuntoDeVentaV2
             //    lbTotalDescuento.Text = "0.00";
             //    lbTotalFinal.Text = "0.00";
             //}
+            Ventas.descuentosDirectos.Remove(idProducto);
             var descuento = Convert.ToDouble(lbTotalDescuento.Text);
 
             // Esto es para guardar cual campo es el que aplico el descuento y la cantidad
