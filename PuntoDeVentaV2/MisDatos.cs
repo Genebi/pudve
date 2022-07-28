@@ -1255,27 +1255,24 @@ namespace PuntoDeVentaV2
         {
             // Obtiene el número de usuarios. 
 
-            DataTable dt_usuarios = cn.CargarDatos("SELECT ID, Usuario FROM usuarios");
+            DataTable dt_usuarios = cn.CargarDatos($"SELECT ID, Usuario FROM usuarios WHERE ID = '{FormPrincipal.userID}'");
             int tam_usuarios = dt_usuarios.Rows.Count;
             
-            if(tam_usuarios > 1)
+            if(!dt_usuarios.Rows.Count.Equals(0))
             {
                 DataRow dr_usuarios = dt_usuarios.Rows[0];
+                var nameUsuario = dr_usuarios["Usuario"].ToString();
                 
-                if(dr_usuarios["Usuario"].ToString() == FormPrincipal.userNickName)
+                if(nameUsuario == FormPrincipal.userNickName)
                 {
                     usuario_ini = true;
                 }
                 else
                 {
-                    //ruta_archivos_guadados = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
-
+                    //ruta_archivos_guadados = $@"C:\Archivos PUDVE\MisDatos\CSD_{nameUsuario}\";
                     usuario_ini = false;
-                }                    
-                 
+                }
             }   
-
-                       
 
             if (Directory.Exists(ruta_archivos_guadados))
             {
@@ -1284,7 +1281,6 @@ namespace PuntoDeVentaV2
                 string[] id_usuario = new string[] { FormPrincipal.userID.ToString() };
                 DataTable result;
                 DataRow row;
-
 
                 DirectoryInfo dir = new DirectoryInfo(ruta_archivos_guadados);
                 int cant_arch = dir.GetFiles().Count();
@@ -1309,9 +1305,7 @@ namespace PuntoDeVentaV2
                 //txt_certificado.Text = nombres[0];
                 //txt_llave.Text = nombres[1];
 
-
                 // Obtiene fecha de caducidad
-
                 if(txt_certificado.Text != "")
                 {
                     result = cn.CargarDatos(cs.archivos_digitales(id_usuario, 2));
@@ -1337,6 +1331,10 @@ namespace PuntoDeVentaV2
                     txt_llave.Text = "";
                     lb_fvencimiento.Text = "";
                 }
+            }
+            else
+            {
+                MessageBox.Show("Favor de revisar permisos de acceso a las carpetas\nde los archivos CSD o ponerse en contacto\ncon el soporte tecnico del sistema", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
