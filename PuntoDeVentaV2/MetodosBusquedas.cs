@@ -2517,6 +2517,9 @@ namespace PuntoDeVentaV2
                 respuesta = true;
             }
 
+            dr.Close();
+            CerrarConexion();
+
             return respuesta;
         }
          

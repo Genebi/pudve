@@ -4817,6 +4817,10 @@ namespace PuntoDeVentaV2
 
         private void clasificarTipoDeUsuario()
         {
+            if (cbFiltroAdminEmpleado.SelectedItem == null)
+            {
+                llenarComboBoxTipoDeEmpleado();
+            }
             //opcionComboBoxFiltroAdminEmp = (string)cbFiltroAdminEmpleado.SelectedValue;
             opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
 
