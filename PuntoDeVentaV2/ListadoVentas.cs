@@ -992,6 +992,7 @@ namespace PuntoDeVentaV2
                 foreach (DataRow filaDatos in dtDatos.Rows)
                 {
                     int idVenta = Convert.ToInt32(filaDatos["ID"].ToString());
+
                     int status = Convert.ToInt32(filaDatos["Status"].ToString());
 
                     //string cliente = "Público General";
@@ -1554,6 +1555,7 @@ namespace PuntoDeVentaV2
                 var fila = DGVListadoVentas.CurrentCell.RowIndex;
 
                 int idVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
+                
                 folioVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["Folio"].Value);
 
                 if (e.ColumnIndex == 0)
@@ -2285,103 +2287,108 @@ namespace PuntoDeVentaV2
                         return;
                     }
 
+                    int id = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
+                    FormNotaDeVenta fndv = new FormNotaDeVenta(id);
+                    fndv.ShowDialog();
+
+
                     // Comprobar si adobe esta instalado
-                    if (!Utilidades.AdobeReaderInstalado())
-                    {
-                        Utilidades.MensajeAdobeReader();
-                        return;
-                    }
+                    //if (!Utilidades.AdobeReaderInstalado())
+                    //{
+                    //    Utilidades.MensajeAdobeReader();
+                    //    return;
+                    //}
 
                     // Verifica si el PDF ya esta creado
-                    var servidor = Properties.Settings.Default.Hosting;
-                    var Usuario = FormPrincipal.userNickName;
-                    var Folio = string.Empty;
-                    var Serie = string.Empty;
+                    //var servidor = Properties.Settings.Default.Hosting;
+                    //var Usuario = FormPrincipal.userNickName;
+                    //var Folio = string.Empty;
+                    //var Serie = string.Empty;
 
-                    string ruta_archivo = string.Empty;
+                    //string ruta_archivo = string.Empty;
 
-                    using (DataTable dtDatosVentas = cn.CargarDatos(cs.DatosVentaParaLaNota(idVenta)))
-                    {
-                        if (!dtDatosVentas.Rows.Count.Equals(0))
-                        {
-                            foreach (DataRow item in dtDatosVentas.Rows)
-                            {
-                                Folio = item["Folio"].ToString();
-                                Serie = item["Serie"].ToString();
+                    //using (DataTable dtDatosVentas = cn.CargarDatos(cs.DatosVentaParaLaNota(idVenta)))
+                    //{
+                    //    if (!dtDatosVentas.Rows.Count.Equals(0))
+                    //    {
+                    //        foreach (DataRow item in dtDatosVentas.Rows)
+                    //        {
+                    //            Folio = item["Folio"].ToString();
+                    //            Serie = item["Serie"].ToString();
 
-                                if (Folio.Equals("0"))
-                                {
-                                    MessageBox.Show($"En esta operación se realizo la apertura de la Caja\nRealizada por el Usuario: {item["Usuario"].ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    return;
-                                }
-                            }
-                        }
-                    }
+                    //            if (Folio.Equals("0"))
+                    //            {
+                    //                MessageBox.Show($"En esta operación se realizo la apertura de la Caja\nRealizada por el Usuario: {item["Usuario"].ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //                return;
+                    //            }
+                    //        }
+                    //    }
+                    //}
 
-                    if (!string.IsNullOrWhiteSpace(servidor))
-                    {
-                        ruta_archivo = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\{Usuario}\";
-                    }
-                    else
-                    {
-                        ruta_archivo = $@"C:\Archivos PUDVE\Ventas\PDF\{Usuario}\";
-                    }
+                    //if (!string.IsNullOrWhiteSpace(servidor))
+                    //{
+                    //    ruta_archivo = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\{Usuario}\";
+                    //}
+                    //else
+                    //{
+                    //    ruta_archivo = $@"C:\Archivos PUDVE\Ventas\PDF\{Usuario}\";
+                    //}
 
-                    if (!Directory.Exists(ruta_archivo))
-                    {
-                        Directory.CreateDirectory(ruta_archivo);
-                    }
+                    //if (!Directory.Exists(ruta_archivo))
+                    //{
+                    //    Directory.CreateDirectory(ruta_archivo);
+                    //}
 
-                    if (!string.IsNullOrWhiteSpace(servidor))
-                    {
-                        ruta_archivo = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\{Usuario}\VENTA_NoVenta{idVenta}_Folio{Folio}{Serie}.pdf";
-                    }
-                    else
-                    {
-                        ruta_archivo = $@"C:\Archivos PUDVE\Ventas\PDF\{Usuario}\VENTA_NoVenta{idVenta}_Folio{Folio}{Serie}.pdf";
-                    }
+                    //if (!string.IsNullOrWhiteSpace(servidor))
+                    //{
+                    //    ruta_archivo = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\{Usuario}\VENTA_NoVenta{idVenta}_Folio{Folio}{Serie}.pdf";
+                    //}
+                    //else
+                    //{
+                    //    ruta_archivo = $@"C:\Archivos PUDVE\Ventas\PDF\{Usuario}\VENTA_NoVenta{idVenta}_Folio{Folio}{Serie}.pdf";
+                    //}
 
-                    Thread hilo;
-                    //pictureBox1.Visible = true;
-                    if (!File.Exists(ruta_archivo) || File.Exists(ruta_archivo))
-                    {// () => mnsj(),
-                     //Parallel.Invoke(() => mnsj(), () => verfactura(idVenta));
+                    //Thread hilo;
+                    ////pictureBox1.Visible = true;
+                    //if (!File.Exists(ruta_archivo) || File.Exists(ruta_archivo))
+                    //{// () => mnsj(),
+                    // //Parallel.Invoke(() => mnsj(), () => verfactura(idVenta));
 
-                        //pBar_descarga_verpdf.Visible = true;
-                        //lb_texto_descarga_verpdf.Visible = true;
-                        //lb_texto_descarga_verpdf.Text = "Cargando PDF. (La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado.)";
-                        ///Thread hilo = new Thread(() => RealizarProcesoProductos());
-                        hilo = new Thread(() => mnsj());
-                        hilo.Start();
+                    //    //pBar_descarga_verpdf.Visible = true;
+                    //    //lb_texto_descarga_verpdf.Visible = true;
+                    //    //lb_texto_descarga_verpdf.Text = "Cargando PDF. (La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado.)";
+                    //    ///Thread hilo = new Thread(() => RealizarProcesoProductos());
+                    //    hilo = new Thread(() => mnsj());
+                    //    hilo.Start();
 
-                        hilo = new Thread(verfactura);
-                        hilo.Start(idVenta);
+                    //    hilo = new Thread(verfactura);
+                    //    hilo.Start(idVenta);
 
-                        hilo.Join();
-                        //MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
-                        // Genera PDF
-                        //ver_factura(idVenta);
-                    }
+                    //    hilo.Join();
+                    //    //MessageBox.Show("La generación del PDF tardará 10 segundos (aproximadamente) en ser visualizado. Un momento por favor...", "", MessageBoxButtons.OK);
+                    //    // Genera PDF
+                    //    //ver_factura(idVenta);
+                    //}
 
-                    // poner marca de agua a la nota si es presupuesto
-                    using (var dtVentaRealizada = cn.CargarDatos(cs.consulta_dventa(1, idVenta)))
-                    {
-                        if (!dtVentaRealizada.Rows.Count.Equals(0))
-                        {
-                            foreach (DataRow item in dtVentaRealizada.Rows)
-                            {
-                                if (item["Status"].ToString().Equals("2"))
-                                {
-                                    Utilidades.CrearMarcaDeAguaNotaVenta(idVenta, "PRESUPUESTO");
-                                }
-                            }
-                        }
-                    }
+                    //// poner marca de agua a la nota si es presupuesto
+                    //using (var dtVentaRealizada = cn.CargarDatos(cs.consulta_dventa(1, idVenta)))
+                    //{
+                    //    if (!dtVentaRealizada.Rows.Count.Equals(0))
+                    //    {
+                    //        foreach (DataRow item in dtVentaRealizada.Rows)
+                    //        {
+                    //            if (item["Status"].ToString().Equals("2"))
+                    //            {
+                    //                Utilidades.CrearMarcaDeAguaNotaVenta(idVenta, "PRESUPUESTO");
+                    //            }
+                    //        }
+                    //    }
+                    //}
 
-                    // Visualiza PDF
+                    //// Visualiza PDF
 
-                    VisualizadorReportes vr = new VisualizadorReportes(ruta_archivo);
-                    vr.ShowDialog();
+                    //VisualizadorReportes vr = new VisualizadorReportes(ruta_archivo);
+                    //vr.ShowDialog();
 
                     //string nombre = "VENTA_" + idVenta;
 
@@ -2393,6 +2400,7 @@ namespace PuntoDeVentaV2
                     //};
 
                     //ver_nota.ShowDialog();
+
                 }
 
                 //Ver ticket

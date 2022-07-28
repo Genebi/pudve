@@ -213,6 +213,7 @@
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -693,6 +694,12 @@
     <Compile Include="FiltroRevisarInventario.Designer.cs">
       <DependentUpon>FiltroRevisarInventario.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormNotaDeVenta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNotaDeVenta.Designer.cs">
+      <DependentUpon>FormNotaDeVenta.cs</DependentUpon>
+    </Compile>
     <Compile Include="HistorialAnticipos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1146,6 +1153,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TicketDineroRetirado.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="ReportesImpresion\Ticket\NotasVentas\NotaVentaRealizada.cs">
+      <DependentUpon>NotaVentaRealizada.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="ReportesImpresion\Ticket\NotasVentas\NotaVentaRealizada.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotaVentaRealizada.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ReportesImpresion\Ticket\PresupuestoRealizado\TicketPresupuesto.Designer.cs">
@@ -1627,6 +1644,9 @@
     <EmbeddedResource Include="FiltroRevisarInventario.resx">
       <DependentUpon>FiltroRevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormNotaDeVenta.resx">
+      <DependentUpon>FormNotaDeVenta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
@@ -1875,6 +1895,9 @@
     <Content Include="ReportesImpresion\Ticket\CorteDeCaja\ReporteTicketCorteDeCaja.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\NotasVentas\ReporteVenta.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -2080,6 +2103,20 @@
     </Content>
     <None Include="ReportesImpresion\Ticket\DineroRetirado\TicketDineroRetirado.xss">
       <DependentUpon>TicketDineroRetirado.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\NotasVentas\NotaVentaRealizada.xsc">
+      <DependentUpon>NotaVentaRealizada.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="ReportesImpresion\Ticket\NotasVentas\NotaVentaRealizada.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>NotaVentaRealizada.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ReportesImpresion\Ticket\NotasVentas\NotaVentaRealizada.xss">
+      <DependentUpon>NotaVentaRealizada.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportesImpresion\Ticket\PresupuestoRealizado\TicketPresupuesto.xsc">
