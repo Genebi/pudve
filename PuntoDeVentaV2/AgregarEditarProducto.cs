@@ -4290,16 +4290,18 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(resultado))
             {
-                var resultadoAuxialiar = Regex.Replace(resultado, @"[+\|]", string.Empty);
-                resultado = resultadoAuxialiar;
-                txtValidarTexto.Text = resultado;
-                txtValidarTexto.Focus();
-                //txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+                if (resultado.Contains("|") || resultado.Contains("+"))
+                {
+                    var resultadoAuxialiar = Regex.Replace(resultado, @"[+\|]", string.Empty);
+                    resultado = resultadoAuxialiar;
+                    txtValidarTexto.Text = resultado;
+                    txtValidarTexto.Focus();
+                    txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+                }
             }
             else
             {
                 txtValidarTexto.Focus();
-                //txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
             }
         }
 
