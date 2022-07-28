@@ -48,6 +48,7 @@ namespace PuntoDeVentaV2
             this.ClientSize = new System.Drawing.Size(551, 315);
             this.Controls.Add(this.reportViewer1);
             this.Name = "FormNotaDeVenta";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormNotaDeVenta";
             this.Load += new System.EventHandler(this.FormNotaDeVenta_Load);
             this.ResumeLayout(false);

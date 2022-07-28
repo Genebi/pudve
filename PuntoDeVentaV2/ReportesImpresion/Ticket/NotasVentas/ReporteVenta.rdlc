@@ -22,7 +22,7 @@
         <Top>1.92828cm</Top>
         <Left>0.76411cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.21811cm</Width>
+        <Width>4.3945cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -99,6 +99,9 @@
         <Height>0.46771cm</Height>
         <Width>10.45683cm</Width>
         <ZIndex>2</ZIndex>
+        <Visibility>
+          <Hidden>=iif(First(Fields!RFC.Value, "DTNotaVenta").ToString()="",true,false)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -137,6 +140,9 @@
         <Height>0.46771cm</Height>
         <Width>10.45683cm</Width>
         <ZIndex>3</ZIndex>
+        <Visibility>
+          <Hidden>=iif(First(Fields!Regimen.Value, "DTNotaVenta").ToString()="",true,false)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -175,6 +181,9 @@
         <Height>0.46771cm</Height>
         <Width>14.31975cm</Width>
         <ZIndex>4</ZIndex>
+        <Visibility>
+          <Hidden>=iif(First(Fields!Domicilio.Value, "DTNotaVenta").ToString()="",true,false)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -213,6 +222,9 @@
         <Height>0.46771cm</Height>
         <Width>10.45683cm</Width>
         <ZIndex>5</ZIndex>
+        <Visibility>
+          <Hidden>=iif(First(Fields!Colonia.Value, "DTNotaVenta").ToString()="",true,false)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -255,6 +267,9 @@
         <Height>0.46771cm</Height>
         <Width>10.45683cm</Width>
         <ZIndex>6</ZIndex>
+        <Visibility>
+          <Hidden>=iif(First(Fields!Correo.Value, "DTNotaVenta").ToString()="",true,false)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -297,6 +312,9 @@
         <Height>0.46771cm</Height>
         <Width>10.45683cm</Width>
         <ZIndex>7</ZIndex>
+        <Visibility>
+          <Hidden>=iif(First(Fields!telefono.Value, "DTNotaVenta").ToString()="",true,false)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -315,7 +333,9 @@
             <TextRuns>
               <TextRun>
                 <Value>Fecha:</Value>
-                <Style />
+                <Style>
+                  <FontFamily>Arial Black</FontFamily>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style>
@@ -381,17 +401,19 @@
             <TextRuns>
               <TextRun>
                 <Value>Forma de Pago:</Value>
-                <Style />
+                <Style>
+                  <FontFamily>Arial Black</FontFamily>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox20</rd:DefaultName>
-        <Top>8.43704cm</Top>
-        <Left>17.46594cm</Left>
+        <Top>7.80204cm</Top>
+        <Left>17.29293cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.85719cm</Width>
+        <Width>3.2032cm</Width>
         <ZIndex>10</ZIndex>
         <Style>
           <Border>
@@ -726,7 +748,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DTNotaVenta</DataSetName>
-        <Top>11.46387cm</Top>
+        <Top>10.19387cm</Top>
         <Left>1.29328cm</Left>
         <Height>1.2cm</Height>
         <Width>19.38042cm</Width>
@@ -751,12 +773,12 @@
               </TextRun>
             </TextRuns>
             <Style>
-              <TextAlign>Left</TextAlign>
+              <TextAlign>Center</TextAlign>
             </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>FormadePago</rd:DefaultName>
-        <Top>9.07231cm</Top>
+        <Top>8.11981cm</Top>
         <Left>17.64453cm</Left>
         <Height>0.6cm</Height>
         <Width>2.5cm</Width>
@@ -803,7 +825,7 @@
           </Textbox>
         </ReportItems>
         <KeepTogether>true</KeepTogether>
-        <Top>12.66387cm</Top>
+        <Top>11.39387cm</Top>
         <Left>1.29328cm</Left>
         <Height>3.25967cm</Height>
         <Width>14.39271cm</Width>
@@ -816,7 +838,7 @@
       </Rectangle>
       <Rectangle Name="Rectangle7">
         <KeepTogether>true</KeepTogether>
-        <Top>12.66386cm</Top>
+        <Top>11.39386cm</Top>
         <Left>15.68599cm</Left>
         <Height>2.06493cm</Height>
         <Width>2.43385cm</Width>
@@ -829,7 +851,7 @@
       </Rectangle>
       <Rectangle Name="Rectangle9">
         <KeepTogether>true</KeepTogether>
-        <Top>12.66387cm</Top>
+        <Top>11.39387cm</Top>
         <Left>18.11984cm</Left>
         <Height>2.06492cm</Height>
         <Width>2.55386cm</Width>
@@ -860,7 +882,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox17</rd:DefaultName>
-        <Top>15.32616cm</Top>
+        <Top>14.05616cm</Top>
         <Left>15.68952cm</Left>
         <Height>0.59737cm</Height>
         <Width>2.43032cm</Width>
@@ -894,7 +916,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox17</rd:DefaultName>
-        <Top>14.72879cm</Top>
+        <Top>13.45879cm</Top>
         <Left>18.12337cm</Left>
         <Height>0.59149cm</Height>
         <Width>2.54578cm</Width>
@@ -928,7 +950,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox17</rd:DefaultName>
-        <Top>15.32028cm</Top>
+        <Top>14.05028cm</Top>
         <Left>18.11984cm</Left>
         <Height>0.59737cm</Height>
         <Width>2.5493cm</Width>
@@ -963,7 +985,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox17</rd:DefaultName>
-        <Top>14.72879cm</Top>
+        <Top>13.45879cm</Top>
         <Left>15.68952cm</Left>
         <Height>0.59737cm</Height>
         <Width>2.43032cm</Width>
@@ -997,11 +1019,14 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>RazonSocial</rd:DefaultName>
-        <Top>6.99864cm</Top>
+        <Top>6.36364cm</Top>
         <Left>0.51276cm</Left>
         <Height>0.46771cm</Height>
         <Width>8.31688cm</Width>
         <ZIndex>20</ZIndex>
+        <Visibility>
+          <Hidden>=iif(First(Fields!NombreCliente.Value, "DTNotaVenta").ToString()="",true,false)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1039,7 +1064,7 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>RFC</rd:DefaultName>
-        <Top>7.50163cm</Top>
+        <Top>6.86663cm</Top>
         <Left>0.51276cm</Left>
         <Height>0.46771cm</Height>
         <Width>8.31688cm</Width>
@@ -1077,11 +1102,14 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Domicilio</rd:DefaultName>
-        <Top>7.96933cm</Top>
+        <Top>7.33433cm</Top>
         <Left>0.02328cm</Left>
         <Height>0.46771cm</Height>
         <Width>9.45778cm</Width>
         <ZIndex>22</ZIndex>
+        <Visibility>
+          <Hidden>=iif(First(Fields!DomicilioCliente.Value, "DTNotaVenta").ToString()="",true,false)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1115,11 +1143,14 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Colonia</rd:DefaultName>
-        <Top>8.43704cm</Top>
+        <Top>7.80204cm</Top>
         <Left>0.51276cm</Left>
         <Height>0.46771cm</Height>
         <Width>8.31688cm</Width>
         <ZIndex>23</ZIndex>
+        <Visibility>
+          <Hidden>=iif(First(Fields!ColoniaCliente.Value, "DTNotaVenta").ToString()="",true,false)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1157,11 +1188,14 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Correo</rd:DefaultName>
-        <Top>8.94003cm</Top>
+        <Top>8.30503cm</Top>
         <Left>0.51276cm</Left>
         <Height>0.46771cm</Height>
         <Width>8.31688cm</Width>
         <ZIndex>24</ZIndex>
+        <Visibility>
+          <Hidden>=iif(First(Fields!CorreoCliente.Value, "DTNotaVenta").ToString()="",true,false)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1199,11 +1233,14 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>telefono</rd:DefaultName>
-        <Top>9.44301cm</Top>
+        <Top>8.80801cm</Top>
         <Left>0.51277cm</Left>
         <Height>0.46771cm</Height>
         <Width>8.31688cm</Width>
         <ZIndex>25</ZIndex>
+        <Visibility>
+          <Hidden>=iif(First(Fields!TelefonoCliente.Value, "DTNotaVenta").ToString()="",true,false)</Hidden>
+        </Visibility>
         <Style>
           <Border>
             <Style>None</Style>
