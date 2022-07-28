@@ -155,6 +155,7 @@ namespace PuntoDeVentaV2
             LblRegimenActual.Text = regimen;
             txt_nombre_comercial.Text = string.IsNullOrWhiteSpace(nombre_comercial) ? txt_nombre_comercial.Text : nombre_comercial;
 
+            actualizarVariablesDePathDeInstalacionLocalRed();
 
             // si el campo de la base de datos es difrente a null
             if (logoTipo != "")
@@ -206,6 +207,36 @@ namespace PuntoDeVentaV2
             // Cargar datos de los archivos digitales
 
             cargar_archivos();
+        }
+
+        private void actualizarVariablesDePathDeInstalacionLocalRed()
+        {
+            var servidor = Properties.Settings.Default.Hosting;
+            var NombreUsuario = string.Empty;
+
+            using (DataTable dtNombreUsuario = cn.CargarDatos(cs.NombreUsuarioActivo(FormPrincipal.userID)))
+            {
+                if (!dtNombreUsuario.Rows.Count.Equals(0))
+                {
+                    DataRow drNombreUsuario = dtNombreUsuario.Rows[0];
+                    NombreUsuario = drNombreUsuario["Usuario"].ToString();
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                // direccion de la carpeta donde se va poner las imagenes
+                saveDirectoryImg = $@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\";
+                // ruta donde estan guardados los archivos digitales
+                ruta_archivos_guadados = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_{NombreUsuario}\";
+            }
+            else
+            {
+                // direccion de la carpeta donde se va poner las imagenes
+                saveDirectoryImg = $@"C:\Archivos PUDVE\MisDatos\Usuarios\";
+                // ruta donde estan guardados los archivos digitales
+                ruta_archivos_guadados = $@"C:\Archivos PUDVE\MisDatos\CSD_{NombreUsuario}\";
+            }
         }
 
         public void cargarComboBox()
@@ -408,8 +439,6 @@ namespace PuntoDeVentaV2
             bool result = false; 
             bool respuesta = false;
             
-
-
             if (opcion1 == 0 || opcion4 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -454,7 +483,6 @@ namespace PuntoDeVentaV2
                     respuesta = ActualizarPassword();
                 }
             }
-
 
             if (result == true && respuesta == true)
             {
@@ -515,6 +543,7 @@ namespace PuntoDeVentaV2
         private bool ActualizarDatos(int tipo = 0)
         {
             bool validarDatos = true;
+
             if (txtNombre.Text.Trim() == "")
             {
                 MessageBox.Show("El nombre no debe estar vacío.", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -523,9 +552,6 @@ namespace PuntoDeVentaV2
             }
 
             validarDatos = validarRfc();
-
-
-            
 
             //if (txtRFC.Text.Trim() == "")
             //{
@@ -556,7 +582,6 @@ namespace PuntoDeVentaV2
             //    return false;
             //}
 
-
             // mandamos llamar la funcion actualizarVariables()
             actualizarVariables();
 
@@ -570,8 +595,6 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
-            
 
             // el string para hacer el UPDATE
             actualizar = $"UPDATE Usuarios SET RFC = '{rfc}', Telefono = '{telefono}', Email = '{email}', NombreCompleto = '{nomComp}', RazonSocial = '{nomComp}', Calle = '{calle}', NoExterior = '{numExt}', NoInterior = '{numInt}', Colonia = '{colonia}', Municipio = '{mpio}', Estado = '{estado}', CodigoPostal = '{codPostal}', Regimen = '{regimen}', TipoPersona = '{tipoPersona}', nombre_comercial='{nombre_comercial}' WHERE ID = '{id}'";
@@ -588,7 +611,6 @@ namespace PuntoDeVentaV2
 
         private bool validarRfc()
         {
-           
             var cantidadCamposRFC = txtRFC.Text.Length;
             bool validacion = true;
 
@@ -622,6 +644,7 @@ namespace PuntoDeVentaV2
 
                 return validar;
             }
+
             validar = validarRfc();
 
             //if (!VerificarRFC(txtRFC.Text))
@@ -756,11 +779,13 @@ namespace PuntoDeVentaV2
                     {
                         cargar_archivos();
 
+                        actualizarVariablesDePathDeInstalacionLocalRed();
+
                         // Los archivos no fueron subidos completos, por lo tanto los elimina 
-                        
+
                         if (subir_arch.ban == true)
                         {
-                            string ruta = @"C:\Archivos PUDVE\MisDatos\CSD\";
+                            string ruta = ruta_archivos_guadados;
 
                             if (usuario_ini == true)
                             {
@@ -769,12 +794,12 @@ namespace PuntoDeVentaV2
 
                                 if (!Directory.Exists(ruta_archivos_guadados))
                                 {
-                                    ruta = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                                    ruta = ruta_archivos_guadados;
                                 }
                             }
                             else
                             {
-                                ruta = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                                ruta = ruta_archivos_guadados;
                             }
 
 
@@ -1024,6 +1049,8 @@ namespace PuntoDeVentaV2
                 return;
             }
 
+            actualizarVariablesDePathDeInstalacionLocalRed();
+
             using (f = new OpenFileDialog())	// abrimos el opneDialog para seleccionar la imagen
             {
                 // le aplicamos un filtro para solo ver 
@@ -1048,10 +1075,12 @@ namespace PuntoDeVentaV2
                     btnBorrarImg.Visible = true;
                 }
             }
+
             if (!Directory.Exists(saveDirectoryImg))	// verificamos que si no existe el directorio
             {
                 Directory.CreateDirectory(saveDirectoryImg);	// lo crea para poder almacenar la imagen
             }
+
             if (f.CheckFileExists)		// si el archivo existe
             {
                 try 	// hacemos el intento de realizar la actualizacion de la imagen
@@ -1183,7 +1212,7 @@ namespace PuntoDeVentaV2
                 // borramos el archivo de la imagen
                 System.IO.File.Delete(logoTipo);
                 // ponemos la ruta del logoTipo en null
-                logoTipo = null;
+                logoTipo = null; 
                 // hacemos la nueva cadena de consulta para hacer el update
                 string consultaUpdate = $"UPDATE Usuarios SET LogoTipo = '{logoTipo}' WHERE ID = '{id}'";
                 // hacemos que se ejecute la consulta
@@ -1226,27 +1255,24 @@ namespace PuntoDeVentaV2
         {
             // Obtiene el número de usuarios. 
 
-            DataTable dt_usuarios = cn.CargarDatos("SELECT ID, Usuario FROM usuarios");
+            DataTable dt_usuarios = cn.CargarDatos($"SELECT ID, Usuario FROM usuarios WHERE ID = '{FormPrincipal.userID}'");
             int tam_usuarios = dt_usuarios.Rows.Count;
             
-            if(tam_usuarios > 1)
+            if(!dt_usuarios.Rows.Count.Equals(0))
             {
                 DataRow dr_usuarios = dt_usuarios.Rows[0];
+                var nameUsuario = dr_usuarios["Usuario"].ToString();
                 
-                if(dr_usuarios["Usuario"].ToString() == FormPrincipal.userNickName)
+                if(nameUsuario == FormPrincipal.userNickName)
                 {
                     usuario_ini = true;
                 }
                 else
                 {
-                    ruta_archivos_guadados = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
-
+                    //ruta_archivos_guadados = $@"C:\Archivos PUDVE\MisDatos\CSD_{nameUsuario}\";
                     usuario_ini = false;
-                }                    
-                 
+                }
             }   
-
-                       
 
             if (Directory.Exists(ruta_archivos_guadados))
             {
@@ -1255,7 +1281,6 @@ namespace PuntoDeVentaV2
                 string[] id_usuario = new string[] { FormPrincipal.userID.ToString() };
                 DataTable result;
                 DataRow row;
-
 
                 DirectoryInfo dir = new DirectoryInfo(ruta_archivos_guadados);
                 int cant_arch = dir.GetFiles().Count();
@@ -1280,9 +1305,7 @@ namespace PuntoDeVentaV2
                 //txt_certificado.Text = nombres[0];
                 //txt_llave.Text = nombres[1];
 
-
                 // Obtiene fecha de caducidad
-
                 if(txt_certificado.Text != "")
                 {
                     result = cn.CargarDatos(cs.archivos_digitales(id_usuario, 2));
@@ -1308,6 +1331,10 @@ namespace PuntoDeVentaV2
                     txt_llave.Text = "";
                     lb_fvencimiento.Text = "";
                 }
+            }
+            else
+            {
+                MessageBox.Show("Favor de revisar permisos de acceso a las carpetas\nde los archivos CSD o ponerse en contacto\ncon el soporte tecnico del sistema", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
