@@ -106,6 +106,9 @@
             this.lblCIVA0Exento = new System.Windows.Forms.Label();
             this.lblIVA0Exento = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.btnBascula = new System.Windows.Forms.Button();
+            this.lblPesoRecibido = new System.Windows.Forms.Label();
+            this.btnCSV = new System.Windows.Forms.Button();
             this.btnAbrirCaja = new PuntoDeVentaV2.BotonRedondo();
             this.btnAnticipos = new PuntoDeVentaV2.BotonRedondo();
             this.btnUltimoTicket = new PuntoDeVentaV2.BotonRedondo();
@@ -113,9 +116,6 @@
             this.btnGuardarVenta = new PuntoDeVentaV2.BotonRedondo();
             this.btnVentasGuardadas = new PuntoDeVentaV2.BotonRedondo();
             this.btn_cancelar_venta = new PuntoDeVentaV2.BotonRedondo();
-            this.btnBascula = new System.Windows.Forms.Button();
-            this.lblPesoRecibido = new System.Windows.Forms.Label();
-            this.btnCSV = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -283,6 +283,7 @@
             // 
             this.Cantidad.HeaderText = "Cantidad";
             this.Cantidad.Name = "Cantidad";
+            this.Cantidad.ReadOnly = true;
             this.Cantidad.Width = 55;
             // 
             // Precio
@@ -303,6 +304,7 @@
             // 
             this.Descuento.HeaderText = "Descuento";
             this.Descuento.Name = "Descuento";
+            this.Descuento.ReadOnly = true;
             this.Descuento.Width = 75;
             // 
             // Importe
@@ -686,8 +688,10 @@
             this.txtDescuentoGeneral.TabIndex = 35;
             this.txtDescuentoGeneral.Text = "% descuento";
             this.txtDescuentoGeneral.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDescuentoGeneral.TextChanged += new System.EventHandler(this.txtDescuentoGeneral_TextChanged);
             this.txtDescuentoGeneral.Enter += new System.EventHandler(this.txtDescuentoGeneral_Enter);
             this.txtDescuentoGeneral.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDescuentoGeneral_KeyDown);
+            this.txtDescuentoGeneral.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescuentoGeneral_KeyPress);
             this.txtDescuentoGeneral.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtDescuentoGeneral_KeyUp);
             // 
             // btnEliminarDescuentos
@@ -1037,6 +1041,42 @@
             this.panel5.TabIndex = 63;
             this.panel5.Click += new System.EventHandler(this.panel5_Click);
             // 
+            // btnBascula
+            // 
+            this.btnBascula.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBascula.Image = global::PuntoDeVentaV2.Properties.Resources.peso;
+            this.btnBascula.Location = new System.Drawing.Point(253, 20);
+            this.btnBascula.Name = "btnBascula";
+            this.btnBascula.Size = new System.Drawing.Size(105, 40);
+            this.btnBascula.TabIndex = 0;
+            this.btnBascula.Text = "Tomar Peso Ctrl + T";
+            this.btnBascula.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnBascula.UseVisualStyleBackColor = true;
+            this.btnBascula.Click += new System.EventHandler(this.btnBascula_Click);
+            // 
+            // lblPesoRecibido
+            // 
+            this.lblPesoRecibido.AutoSize = true;
+            this.lblPesoRecibido.Location = new System.Drawing.Point(364, 26);
+            this.lblPesoRecibido.Name = "lblPesoRecibido";
+            this.lblPesoRecibido.Size = new System.Drawing.Size(13, 13);
+            this.lblPesoRecibido.TabIndex = 64;
+            this.lblPesoRecibido.Text = "0";
+            this.lblPesoRecibido.Visible = false;
+            // 
+            // btnCSV
+            // 
+            this.btnCSV.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCSV.Image = global::PuntoDeVentaV2.Properties.Resources.file_excel_o1;
+            this.btnCSV.Location = new System.Drawing.Point(383, 20);
+            this.btnCSV.Name = "btnCSV";
+            this.btnCSV.Size = new System.Drawing.Size(105, 40);
+            this.btnCSV.TabIndex = 50;
+            this.btnCSV.Text = "Operación CSV";
+            this.btnCSV.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCSV.UseVisualStyleBackColor = true;
+            this.btnCSV.Click += new System.EventHandler(this.btnCSV_Click);
+            // 
             // btnAbrirCaja
             // 
             this.btnAbrirCaja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(68)))), ((int)(((byte)(53)))));
@@ -1186,42 +1226,6 @@
             this.btn_cancelar_venta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btn_cancelar_venta.UseVisualStyleBackColor = false;
             this.btn_cancelar_venta.Click += new System.EventHandler(this.botonRedondo6_Click);
-            // 
-            // btnBascula
-            // 
-            this.btnBascula.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBascula.Image = global::PuntoDeVentaV2.Properties.Resources.peso;
-            this.btnBascula.Location = new System.Drawing.Point(253, 20);
-            this.btnBascula.Name = "btnBascula";
-            this.btnBascula.Size = new System.Drawing.Size(105, 40);
-            this.btnBascula.TabIndex = 0;
-            this.btnBascula.Text = "Tomar Peso Ctrl + T";
-            this.btnBascula.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnBascula.UseVisualStyleBackColor = true;
-            this.btnBascula.Click += new System.EventHandler(this.btnBascula_Click);
-            // 
-            // lblPesoRecibido
-            // 
-            this.lblPesoRecibido.AutoSize = true;
-            this.lblPesoRecibido.Location = new System.Drawing.Point(364, 26);
-            this.lblPesoRecibido.Name = "lblPesoRecibido";
-            this.lblPesoRecibido.Size = new System.Drawing.Size(13, 13);
-            this.lblPesoRecibido.TabIndex = 64;
-            this.lblPesoRecibido.Text = "0";
-            this.lblPesoRecibido.Visible = false;
-            // 
-            // btnCSV
-            // 
-            this.btnCSV.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCSV.Image = global::PuntoDeVentaV2.Properties.Resources.file_excel_o1;
-            this.btnCSV.Location = new System.Drawing.Point(383, 20);
-            this.btnCSV.Name = "btnCSV";
-            this.btnCSV.Size = new System.Drawing.Size(105, 40);
-            this.btnCSV.TabIndex = 50;
-            this.btnCSV.Text = "Operación CSV";
-            this.btnCSV.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnCSV.UseVisualStyleBackColor = true;
-            this.btnCSV.Click += new System.EventHandler(this.btnCSV_Click);
             // 
             // Ventas
             // 
