@@ -356,6 +356,7 @@ namespace PuntoDeVentaV2
         #region Reporte de articulos no comprados por el cliente
         private void GenerarReporteNoComprado(bool multiplesID, string idMultiples = "", int id = 0)
         {
+            
             var mostrarClave = FormPrincipal.clave;
             //var numFolio = obtenerFolio(num);
 
@@ -449,6 +450,7 @@ namespace PuntoDeVentaV2
 
             DataTable consulta = new DataTable();
 
+           
             MessageBox.Show("Este proceso tardará unos segundos", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             var nombreClienteEncabezado = string.Empty;

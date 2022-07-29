@@ -323,6 +323,12 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.NotasVentas {
             
             private global::System.Data.DataColumn columnTelefonoCliente;
             
+            private global::System.Data.DataColumn columnDescuentoDirectoProducto;
+            
+            private global::System.Data.DataColumn columnDescuento;
+            
+            private global::System.Data.DataColumn columnSubTotal;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DTNotaVentaDataTable() {
@@ -534,6 +540,30 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.NotasVentas {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DescuentoDirectoProductoColumn {
+                get {
+                    return this.columnDescuentoDirectoProducto;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DescuentoColumn {
+                get {
+                    return this.columnDescuento;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn SubTotalColumn {
+                get {
+                    return this.columnSubTotal;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -591,7 +621,10 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.NotasVentas {
                         string DomicilioCliente, 
                         string ColoniaCliente, 
                         string CorreoCliente, 
-                        string TelefonoCliente) {
+                        string TelefonoCliente, 
+                        string DescuentoDirectoProducto, 
+                        string Descuento, 
+                        string SubTotal) {
                 DTNotaVentaRow rowDTNotaVentaRow = ((DTNotaVentaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         RazonSocial,
@@ -615,7 +648,10 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.NotasVentas {
                         DomicilioCliente,
                         ColoniaCliente,
                         CorreoCliente,
-                        TelefonoCliente};
+                        TelefonoCliente,
+                        DescuentoDirectoProducto,
+                        Descuento,
+                        SubTotal};
                 rowDTNotaVentaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDTNotaVentaRow);
                 return rowDTNotaVentaRow;
@@ -660,6 +696,9 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.NotasVentas {
                 this.columnColoniaCliente = base.Columns["ColoniaCliente"];
                 this.columnCorreoCliente = base.Columns["CorreoCliente"];
                 this.columnTelefonoCliente = base.Columns["TelefonoCliente"];
+                this.columnDescuentoDirectoProducto = base.Columns["DescuentoDirectoProducto"];
+                this.columnDescuento = base.Columns["Descuento"];
+                this.columnSubTotal = base.Columns["SubTotal"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -709,6 +748,12 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.NotasVentas {
                 base.Columns.Add(this.columnCorreoCliente);
                 this.columnTelefonoCliente = new global::System.Data.DataColumn("TelefonoCliente", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTelefonoCliente);
+                this.columnDescuentoDirectoProducto = new global::System.Data.DataColumn("DescuentoDirectoProducto", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDescuentoDirectoProducto);
+                this.columnDescuento = new global::System.Data.DataColumn("Descuento", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDescuento);
+                this.columnSubTotal = new global::System.Data.DataColumn("SubTotal", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSubTotal);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1203,6 +1248,55 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.NotasVentas {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DescuentoDirectoProducto {
+                get {
+                    try {
+                        return ((string)(this[this.tableDTNotaVenta.DescuentoDirectoProductoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'DescuentoDirectoProducto\' in table \'DTNotaVenta\' is DBNull." +
+                                "", e);
+                    }
+                }
+                set {
+                    this[this.tableDTNotaVenta.DescuentoDirectoProductoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Descuento {
+                get {
+                    try {
+                        return ((string)(this[this.tableDTNotaVenta.DescuentoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Descuento\' in table \'DTNotaVenta\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDTNotaVenta.DescuentoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string SubTotal {
+                get {
+                    try {
+                        return ((string)(this[this.tableDTNotaVenta.SubTotalColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SubTotal\' in table \'DTNotaVenta\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDTNotaVenta.SubTotalColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsRazonSocialNull() {
                 return this.IsNull(this.tableDTNotaVenta.RazonSocialColumn);
             }
@@ -1463,6 +1557,42 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.NotasVentas {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetTelefonoClienteNull() {
                 this[this.tableDTNotaVenta.TelefonoClienteColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDescuentoDirectoProductoNull() {
+                return this.IsNull(this.tableDTNotaVenta.DescuentoDirectoProductoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDescuentoDirectoProductoNull() {
+                this[this.tableDTNotaVenta.DescuentoDirectoProductoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDescuentoNull() {
+                return this.IsNull(this.tableDTNotaVenta.DescuentoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDescuentoNull() {
+                this[this.tableDTNotaVenta.DescuentoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsSubTotalNull() {
+                return this.IsNull(this.tableDTNotaVenta.SubTotalColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetSubTotalNull() {
+                this[this.tableDTNotaVenta.SubTotalColumn] = global::System.Convert.DBNull;
             }
         }
         
