@@ -55,7 +55,7 @@ namespace PuntoDeVentaV2
             // Si la variable es false entonces el nombre de la carpeta cambiará.
             if (MisDatos.usuario_ini == false)
             {
-                ruta_guardar_archivos = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                ruta_guardar_archivos = MisDatos.ruta_archivos_guadados;
             }
 
 
@@ -140,7 +140,6 @@ namespace PuntoDeVentaV2
 
 
                 // Obtiene la ruta donde esta almacenado el zip.
-
                 string[] rt= ruta_origen.Split('\\');
 
                 for(int i=0; i<rt.Length; i++)
@@ -151,9 +150,7 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                
-                // Verifica si la carpeta ya fue creada o no, de no ser asi, la crea.
-                
+                // Verifica si la carpeta ya fue creada o no, de no ser asi, la crea.                
                 if (!Directory.Exists(ruta_guardar_archivos))
                 {
                     Directory.CreateDirectory(ruta_guardar_archivos);
@@ -161,7 +158,6 @@ namespace PuntoDeVentaV2
 
 
                 // Descomprime el zip y lo mueve solo si es el archivo correcto
-
                 var ruta_origen_pem = ruta_origen_sinzip + @"Pudve_gpem";
 
                 if (Directory.Exists(ruta_origen_pem + @"\"))
@@ -189,13 +185,10 @@ namespace PuntoDeVentaV2
                     // Si ya existe una carpeta con el mismo nombre procede a eliminarla. 
                 }
 
-
                 // Saca los archivos que estan en la carpeta pudve_gpem y la anidada
-
                 var ruta_carpeta_pem = ruta_guardar_archivos + @"Pudve_gpem\";
                 
                 DirectoryInfo dir = new DirectoryInfo(ruta_carpeta_pem);
-
 
                 foreach (var arch in dir.GetDirectories())
                 {
@@ -215,9 +208,7 @@ namespace PuntoDeVentaV2
                     arch.Delete();
                 }
 
-
-                // Eliminar carpeta Pudve_gpem 
-
+                // Eliminar carpeta Pudve_gpem
                 DirectoryInfo dir_csd = new DirectoryInfo(ruta_guardar_archivos);
 
                 foreach (var arch in dir_csd.GetDirectories())
@@ -228,9 +219,7 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-
                 // Obtiene key del txt y acomoda archivos 
-
                 DirectoryInfo dirar = new DirectoryInfo(ruta_guardar_archivos);
 
                 foreach (var arch in dirar.GetFiles())
@@ -289,7 +278,6 @@ namespace PuntoDeVentaV2
                         txt_password.Text = key;
                     }
                 }
-
 
                 MessageBox.Show("Archivo subido corrrectamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -371,9 +359,7 @@ namespace PuntoDeVentaV2
             {
                 mnsj = "No ha subido su certificado (.cer).";
             }
-                     
-
-
+            
             if (mnsj == "")
             {
                 ban = false;
@@ -450,6 +436,10 @@ namespace PuntoDeVentaV2
 
         private void Subir_archivos_digitales_Load(object sender, EventArgs e)
         {
+            if (!string.IsNullOrWhiteSpace(MisDatos.ruta_archivos_guadados))
+            {
+                ruta_guardar_archivos = MisDatos.ruta_archivos_guadados;
+            }
             cargar_datos();
             label19.Font = new Font(label19.Font, FontStyle.Underline);
         }

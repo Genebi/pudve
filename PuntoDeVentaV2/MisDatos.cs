@@ -63,7 +63,7 @@ namespace PuntoDeVentaV2
         // direccion de la carpeta donde se va poner las imagenes
         string saveDirectoryImg = @"C:\Archivos PUDVE\MisDatos\Usuarios\";
         // ruta donde estan guardados los archivos digitales
-        string ruta_archivos_guadados = @"C:\Archivos PUDVE\MisDatos\CSD\";
+        public static string ruta_archivos_guadados = @"C:\Archivos PUDVE\MisDatos\CSD\";
         // ruta donde estan guardada la carpeta CSD
         string ruta_carpetas_csd = @"C:\Archivos PUDVE\MisDatos\";
 
@@ -1097,11 +1097,12 @@ namespace PuntoDeVentaV2
                         TxtBoxNombreArchivo.Text = NvoFileName;		// ponemos en el TxtBox el nombre con el cual se va guardar el archivo
                         if (logoTipo != "")		// si el valor de la vairable es diferente a Null o de ""
                         {
+                            string insertImagen = string.Empty;
                             if (File1 != null)		// si file1 es igual a null
                             {
                                 File1.Dispose();    // Dasactivamos el objeto File1
                                 // hacemos la nueva cadena de consulta para hacer el update
-                                string insertImagen = $"UPDATE Usuarios SET LogoTipo = '{NvoFileName}' WHERE ID = '{id} '";
+                                insertImagen = $"UPDATE Usuarios SET LogoTipo = '{NvoFileName}' WHERE ID = '{id}'";
                                 cn.EjecutarConsulta(insertImagen);		// hacemos que se ejecute la consulta
                                 actualizarVariables();		// actualizamos las variables
                                 cargarComboBox();		// cargamos los datos de nuevo
@@ -1126,6 +1127,9 @@ namespace PuntoDeVentaV2
                             {
                                 // realizamos la copia de la imagen origen hacia el nuevo destino
                                 System.IO.File.Copy(oldDirectory + @"\" + fileName, saveDirectoryImg + NvoFileName, true);
+                                // hacemos la nueva cadena de consulta para hacer el update
+                                insertImagen = $"UPDATE Usuarios SET LogoTipo = '{NvoFileName}' WHERE ID = '{id}'";
+                                cn.EjecutarConsulta(insertImagen);		// hacemos que se ejecute la consulta
                                 logoTipo = saveDirectoryImg + NvoFileName;		// obtenemos el nuevo path
                             }
                         }
