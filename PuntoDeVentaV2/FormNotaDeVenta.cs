@@ -15,7 +15,8 @@ namespace PuntoDeVentaV2
     public partial class FormNotaDeVenta : Form
     {
         Consultas cs = new Consultas();
-        Conexion cn = new Conexion();
+        Conexion cn = new Conexion(); 
+        Moneda oMoneda = new Moneda();
         int IDVenta;
         public FormNotaDeVenta(int IDDeLaVEnta)
         {
@@ -25,6 +26,7 @@ namespace PuntoDeVentaV2
 
         private void FormNotaDeVenta_Load(object sender, EventArgs e)
         {
+            
             CargarNotaDeVenta();
         }
 
@@ -67,6 +69,16 @@ namespace PuntoDeVentaV2
             DataTable DTNotaDeVentas = new DataTable();
             retiroDA.Fill(DTNotaDeVentas);
 
+            decimal Total = Convert.ToDecimal(DTNotaDeVentas.Rows[0]["total"]);
+            string resultado = oMoneda.Convertir(Total.ToString(), true, "PESOS");
+
+            ReportParameterCollection reportParameters = new ReportParameterCollection();
+            reportParameters.Add(new ReportParameter("TotalEnTexto", resultado));
+
+            LocalReport rdlc = new LocalReport();
+            rdlc.ReportPath = FullReportPath;
+            rdlc.SetParameters(reportParameters);
+
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             this.reportViewer1.LocalReport.DataSources.Clear();
@@ -75,6 +87,7 @@ namespace PuntoDeVentaV2
 
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
             this.reportViewer1.LocalReport.DataSources.Add(NotasVENTAS);
+            this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.RefreshReport();
         }
     }

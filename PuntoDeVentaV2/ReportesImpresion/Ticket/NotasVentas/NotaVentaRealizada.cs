@@ -4,5 +4,8 @@
 
     partial class NotaVentaRealizada
     {
+        partial class DTNotaVentaDataTable
+        {
+        }
     }
 }
