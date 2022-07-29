@@ -276,7 +276,7 @@ namespace PuntoDeVentaV2
 
         private void Ventas_Load(object sender, EventArgs e)
         {
-              CBTipo.SelectedItem = "Todos";
+            CBTipo.SelectedItem = "Todos";
             CBTipo.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
 
             mostrarBotonCSV();
@@ -2684,6 +2684,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene artículos agregados\na la venta para eliminar", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+            txtBuscadorProducto.Focus();
         }
 
         private void btnCancelarVenta_Click(object sender, EventArgs e)
@@ -2700,7 +2701,7 @@ namespace PuntoDeVentaV2
         }
 
         private void btnTerminarVenta_Click(object sender, EventArgs e)
-        {
+         {
             foreach (DataGridViewRow fila in DGVentas.Rows)
             {
                 var idProdutoInactivo = fila.Cells["IDProducto"].Value.ToString();
@@ -2984,7 +2985,7 @@ namespace PuntoDeVentaV2
                     //txtBuscadorProducto.Focus();
                 }
             }
-            //txtBuscadorProducto.Focus();
+            txtBuscadorProducto.Focus();
         }
 
         private void ultimaVentaInformacion()
@@ -6519,6 +6520,7 @@ namespace PuntoDeVentaV2
             descuentosDirectos.Clear();
 
             CantidadesFinalesVenta();
+            txtBuscadorProducto.Focus();
         }
 
         private void ProductoSeleccionado()
@@ -7499,9 +7501,9 @@ namespace PuntoDeVentaV2
                 btnAplicarDescuento.PerformClick();
                 txtBuscadorProducto.Text = string.Empty;
                 txtBuscadorProducto.Focus();
+                txtDescuentoGeneral.Text = "% descuento";
             }
-
-            txtDescuentoGeneral.Text = cantidadDescuento.Replace("\r\n", "");
+            
            
         }
 
