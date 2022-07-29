@@ -274,7 +274,7 @@ namespace PuntoDeVentaV2
             {
                 tipo = 2;
                 cantidadElegida = float.Parse(porcentaje);
-                porcentaje = $" - {porcentaje}%";
+                porcentaje = $"";
             }
 
             // Guardamos los datos en el diccionario de Ventas para el momento en que se quiera editar

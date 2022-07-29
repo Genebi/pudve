@@ -1211,7 +1211,7 @@ namespace PuntoDeVentaV2
                             AgregarMultiplesProductos();
                             agregarMultiple.Dispose();
                         };
-
+                        
                         agregarMultiple.ShowDialog();
                     }
                 }
@@ -1258,6 +1258,7 @@ namespace PuntoDeVentaV2
                             CalcularDescuento(datosDescuento, tipoDescuento, (int)cantidad, celdaCellClick);
                         }
                         reproducirProductoAgregado();
+                        txtBuscadorProducto.Focus();
                     }
                 }
 
@@ -1416,6 +1417,7 @@ namespace PuntoDeVentaV2
                         }
                     }
                     reproducirProductoAgregado();
+                    txtBuscadorProducto.Focus();
                 }
 
                 // Eliminar individual
@@ -1497,6 +1499,7 @@ namespace PuntoDeVentaV2
                     {
                         btnCSV.Enabled = true;
                     }
+                    txtBuscadorProducto.Focus();
                 }
                 
                 if (!DGVentas.Rows.Count.Equals(0))
@@ -6231,7 +6234,7 @@ namespace PuntoDeVentaV2
         {
             timerBusqueda.Interval = 1000;
             timerBusqueda.Stop();
-            OperacionBusqueda();
+            //OperacionBusqueda();
             funteListBox();
         }
 
@@ -6475,24 +6478,26 @@ namespace PuntoDeVentaV2
 
                 DescuentoGeneral();
 
-                var mensaje = "¿Desea aplicar este descuento a los siguientes\nproductos que se agreguen a esta venta?";
+                //var mensaje = "¿Desea aplicar este descuento a los siguientes\nproductos que se agreguen a esta venta?";
 
-                var respuesta = MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                //var respuesta = MessageBox.Show(mensaje, "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                if (respuesta == DialogResult.Yes)
-                {
-                    aplicarDescuentoG = true;
-                }
-                else
-                {
-                    aplicarDescuentoG = false;
-                }
+                //if (respuesta == DialogResult.Yes)
+                //{
+                //    aplicarDescuentoG = true;
+                //}
+                //else
+                //{
+                //    aplicarDescuentoG = false;
+                //}
             }
             else
             {
                 MessageBox.Show("Porfavor introduzca un porcentaje", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtDescuentoGeneral.Text = "% descuento";
             }
+            txtBuscadorProducto.Focus();
+            txtDescuentoGeneral.Text = "% descuento";
         }
 
         private void btnEliminarDescuentos_Click(object sender, EventArgs e)
@@ -6807,6 +6812,7 @@ namespace PuntoDeVentaV2
         private void Ventas_Shown(object sender, EventArgs e)
         {
             txtBuscadorProducto.Focus();
+            txtBuscadorProducto.Text = string.Empty;
         }
 
         private void lbEliminarCliente_Click(object sender, EventArgs e)
@@ -7491,9 +7497,12 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Enter)
             {
                 btnAplicarDescuento.PerformClick();
+                txtBuscadorProducto.Text = string.Empty;
+                txtBuscadorProducto.Focus();
             }
 
             txtDescuentoGeneral.Text = cantidadDescuento.Replace("\r\n", "");
+           
         }
 
         private void DGVentas_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -7691,54 +7700,80 @@ namespace PuntoDeVentaV2
 
         }
 
+        private void txtDescuentoGeneral_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // solo 1 punto decimal
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtDescuentoGeneral_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void txtBuscadorProducto_TextChanged(object sender, EventArgs e)
         {
-            if (!txtBuscadorProducto.Text.Equals("BUSCAR PRODUCTO O SERVICIO..."))
+            if (!string.IsNullOrEmpty(txtBuscadorProducto.Text.Trim()))
             {
-                // Detecta si esta habilitado el checkbox para cancelar venta, si esta
-                // habilitado se detienen todas las operaciones normales del evento keyup
-                if (checkCancelar.Checked)
+                if (!txtBuscadorProducto.Text.Equals("BUSCAR PRODUCTO O SERVICIO...") && txtBuscadorProducto.Text.Length > 2)
                 {
-                    return;
-                }
-
-                var busqueda = txtBuscadorProducto.Text.Trim();
-
-                // Verificar si el primer caracter es + o - para evitar la busqueda
-                // y que tome en cuenta el atajo para aumentar o disminuir cantidad
-                if (!string.IsNullOrWhiteSpace(busqueda))
-                {
-                    var caracter = busqueda[0].ToString();
-
-                    if (caracter.Equals("+") || caracter.Equals("-"))
+                    // Detecta si esta habilitado el checkbox para cancelar venta, si esta
+                    // habilitado se detienen todas las operaciones normales del evento keyup
+                    if (checkCancelar.Checked)
                     {
-                        reproducirProductoAgregado();
                         return;
                     }
-                }
 
-                // Combinación para abrir caja
-                if (busqueda.Equals(".4."))
+                    var busqueda = txtBuscadorProducto.Text.Trim();
+
+                    // Verificar si el primer caracter es + o - para evitar la busqueda
+                    // y que tome en cuenta el atajo para aumentar o disminuir cantidad
+                    if (!string.IsNullOrWhiteSpace(busqueda))
+                    {
+                        var caracter = busqueda[0].ToString();
+
+                        if (caracter.Equals("+") || caracter.Equals("-"))
+                        {
+                            reproducirProductoAgregado();
+                            return;
+                        }
+                    }
+
+                    // Combinación para abrir caja
+                    if (busqueda.Equals(".4."))
+                    {
+                        timerBusqueda.Interval = 1;
+                        txtBuscadorProducto.Text = string.Empty;
+                        btnAbrirCaja.PerformClick();
+                        return;
+                    }
+
+                    // Si encuentra una coincidencia de los patrones cambia el tiempo de busqueda
+                    // del timer para que haga la operación más rápido
+                    txtBuscadorProducto.Text = VerificarPatronesBusqueda(txtBuscadorProducto.Text);
+
+                    if (string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
+                    {
+                        timerBusqueda.Interval = 1;
+                    }
+
+                    timerBusqueda.Stop();
+                    timerBusqueda.Start();
+                    OperacionBusqueda();
+                }
+                else
                 {
-                    timerBusqueda.Interval = 1;
-                    txtBuscadorProducto.Text = string.Empty;
-                    btnAbrirCaja.PerformClick();
-                    return;
+                    listaProductos.Visible = false;
                 }
-
-                // Si encuentra una coincidencia de los patrones cambia el tiempo de busqueda
-                // del timer para que haga la operación más rápido
-                txtBuscadorProducto.Text = VerificarPatronesBusqueda(txtBuscadorProducto.Text);
-
-                if (string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
-                {
-                    timerBusqueda.Interval = 1;
-                }
-
-                timerBusqueda.Stop();
-                timerBusqueda.Start();
             }
-           
         }
 
         private void DGVentas_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -8185,7 +8220,7 @@ namespace PuntoDeVentaV2
             var cantidadDescuento = txtDescuentoGeneral.Text;
             if (cantidadDescuento.Length > 0)
             {
-                if (Convert.ToDecimal(cantidadDescuento) > 99)
+                if (Convert.ToDouble(cantidadDescuento) >= 99.999999999999999)
                 {
                     MessageBox.Show("Favor de ingresar un porcentaje menor al 100%");
                     txtDescuentoGeneral.Text = "";
