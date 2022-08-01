@@ -51,6 +51,7 @@ namespace PuntoDeVentaV2
                 }
             }
             CargarDatos();
+            btnPublicoGeneral.Focus();
         }
 
         private void CargarDatos(string busqueda = "")
@@ -242,7 +243,7 @@ namespace PuntoDeVentaV2
 
         private void ListaClientes_Shown(object sender, EventArgs e)
         {
-            txtBuscador.Focus();
+            btnPublicoGeneral.Focus();
         }
 
         private void btnPublicoG_Click(object sender, EventArgs e)

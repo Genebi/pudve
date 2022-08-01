@@ -3885,7 +3885,7 @@ namespace PuntoDeVentaV2
                             // Imprimir Ticket Venta Guardada
                             if (tipoDeVentaRealizada.Equals(2))
                             {
-                                DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket Del Presupuesto", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket Del Presupuesto", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
                                 if (respuestaImpresion.Equals(DialogResult.Yes))
                                 {
                                     if (ticket6cm.Equals(1))
