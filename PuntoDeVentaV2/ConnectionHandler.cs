@@ -711,6 +711,7 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
         public void registrarInicio(string usr, string fecha)
         {
             string connectionString = string.Empty;
