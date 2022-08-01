@@ -134,6 +134,7 @@
             this.DGVListadoVentas.Name = "DGVListadoVentas";
             this.DGVListadoVentas.ReadOnly = true;
             this.DGVListadoVentas.RowHeadersVisible = false;
+            this.DGVListadoVentas.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.DGVListadoVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVListadoVentas.Size = new System.Drawing.Size(886, 217);
             this.DGVListadoVentas.TabIndex = 5;
