@@ -245,7 +245,6 @@ namespace PuntoDeVentaV2
             //if (Ventas.descuentosDirectos.ContainsKey(idProducto))
             //{
             //    Ventas.descuentosDirectos.Remove(idProducto);
-
             //    txtCantidad.Text = string.Empty;
             //    txtCantidad.Enabled = true;
             //    txtPorcentaje.Text = string.Empty;
@@ -254,6 +253,8 @@ namespace PuntoDeVentaV2
             //    lbTotalDescuento.Text = "0.00";
             //    lbTotalFinal.Text = "0.00";
             //}
+
+            lbTotalDescuento.Text = "0.00";
             Ventas.descuentosDirectos.Remove(idProducto);
             var descuento = Convert.ToDouble(lbTotalDescuento.Text);
 

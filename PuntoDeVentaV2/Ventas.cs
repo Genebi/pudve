@@ -1192,6 +1192,8 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
+                        
+                        
                         SendKeys.Send("{ENTER}");
                         SendKeys.Send("{ENTER}");
                     }
