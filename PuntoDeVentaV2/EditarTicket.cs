@@ -751,7 +751,7 @@ namespace PuntoDeVentaV2
             else if (chkReferenciaVenta.Checked == true)
             {
                 lblReferenciaVenta.Visible = true;
-                lblReferenciaVenta.Height = 20;
+                lblReferenciaVenta.Height = 20;  
             }
         }
     }
