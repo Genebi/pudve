@@ -740,5 +740,19 @@ namespace PuntoDeVentaV2
                 lblNombreComercial.Height = 25;
             }
         }
+
+        private void chkReferenciaVenta_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkReferenciaVenta.Checked == false)
+            {
+                lblReferenciaVenta.Visible = false;
+                lblReferenciaVenta.Height = 0;
+            }
+            else if (chkReferenciaVenta.Checked == true)
+            {
+                lblReferenciaVenta.Visible = true;
+                lblReferenciaVenta.Height = 20;
+            }
+        }
     }
 }

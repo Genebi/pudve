@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditarTicket));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.chkReferenciaVenta = new System.Windows.Forms.CheckBox();
+            this.label29 = new System.Windows.Forms.Label();
             this.rbTicket8cm = new System.Windows.Forms.RadioButton();
             this.rbTicket6cm = new System.Windows.Forms.RadioButton();
             this.label28 = new System.Windows.Forms.Label();
@@ -99,9 +101,7 @@
             this.lblCorreoCl = new System.Windows.Forms.Label();
             this.lblTelefonoCl = new System.Windows.Forms.Label();
             this.lblFormaPagoCl = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.chkReferenciaVenta = new System.Windows.Forms.CheckBox();
-            this.label30 = new System.Windows.Forms.Label();
+            this.lblReferenciaVenta = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
@@ -172,6 +172,27 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(298, 693);
             this.panel1.TabIndex = 28;
+            // 
+            // chkReferenciaVenta
+            // 
+            this.chkReferenciaVenta.AutoSize = true;
+            this.chkReferenciaVenta.Checked = true;
+            this.chkReferenciaVenta.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkReferenciaVenta.Location = new System.Drawing.Point(242, 493);
+            this.chkReferenciaVenta.Name = "chkReferenciaVenta";
+            this.chkReferenciaVenta.Size = new System.Drawing.Size(15, 14);
+            this.chkReferenciaVenta.TabIndex = 58;
+            this.chkReferenciaVenta.UseVisualStyleBackColor = true;
+            this.chkReferenciaVenta.CheckedChanged += new System.EventHandler(this.chkReferenciaVenta_CheckedChanged);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(9, 494);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(59, 13);
+            this.label29.TabIndex = 57;
+            this.label29.Text = "Referencia";
             // 
             // rbTicket8cm
             // 
@@ -717,7 +738,7 @@
             this.fLPVistaPreTickect.Controls.Add(this.lblCorreoCl);
             this.fLPVistaPreTickect.Controls.Add(this.lblTelefonoCl);
             this.fLPVistaPreTickect.Controls.Add(this.lblFormaPagoCl);
-            this.fLPVistaPreTickect.Controls.Add(this.label30);
+            this.fLPVistaPreTickect.Controls.Add(this.lblReferenciaVenta);
             this.fLPVistaPreTickect.Controls.Add(this.label34);
             this.fLPVistaPreTickect.Controls.Add(this.label35);
             this.fLPVistaPreTickect.Controls.Add(this.label39);
@@ -897,34 +918,14 @@
             this.lblFormaPagoCl.Text = "Forma de Pago:";
             this.lblFormaPagoCl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label29
+            // lblReferenciaVenta
             // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(9, 494);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(59, 13);
-            this.label29.TabIndex = 57;
-            this.label29.Text = "Referencia";
-            // 
-            // chkReferenciaVenta
-            // 
-            this.chkReferenciaVenta.AutoSize = true;
-            this.chkReferenciaVenta.Checked = true;
-            this.chkReferenciaVenta.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkReferenciaVenta.Location = new System.Drawing.Point(242, 493);
-            this.chkReferenciaVenta.Name = "chkReferenciaVenta";
-            this.chkReferenciaVenta.Size = new System.Drawing.Size(15, 14);
-            this.chkReferenciaVenta.TabIndex = 58;
-            this.chkReferenciaVenta.UseVisualStyleBackColor = true;
-            // 
-            // label30
-            // 
-            this.label30.Location = new System.Drawing.Point(3, 367);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(543, 23);
-            this.label30.TabIndex = 27;
-            this.label30.Text = "Referencia:";
-            this.label30.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblReferenciaVenta.Location = new System.Drawing.Point(3, 367);
+            this.lblReferenciaVenta.Name = "lblReferenciaVenta";
+            this.lblReferenciaVenta.Size = new System.Drawing.Size(543, 23);
+            this.lblReferenciaVenta.TabIndex = 27;
+            this.lblReferenciaVenta.Text = "Referencia:";
+            this.lblReferenciaVenta.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label34
             // 
@@ -1088,7 +1089,7 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.CheckBox chkReferenciaVenta;
         private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label lblReferenciaVenta;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label39;
