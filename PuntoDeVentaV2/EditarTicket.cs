@@ -337,11 +337,13 @@ namespace PuntoDeVentaV2
             //////Referencia de venta 
             if (chkReferenciaVenta.Checked == true)
             {
-
+                var status = 1;
+                cn.EjecutarConsulta(cs.referenciaTicket(status));
             }
             else
             {
-
+                var status = 0;
+                cn.EjecutarConsulta(cs.referenciaTicket(status));
             }
             //////RFC Cliente
             if (chkRfcCl.Checked == true)

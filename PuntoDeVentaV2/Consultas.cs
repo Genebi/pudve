@@ -4077,6 +4077,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string referenciaTicket(int referencia)
+        {
+            var consulta = $"UPDATE editarticket SET Referencia = {referencia} WHERE IDUsuario = '{FormPrincipal.userID}';";
+
+            return consulta;
+        }
+
         public string RangosDePrecioConDescuento(int idProducto)
         {
             var consulta = $"SELECT RangoInicial,RangoFinal,Precio FROM descuentomayoreo WHERE IDProducto ={idProducto}";

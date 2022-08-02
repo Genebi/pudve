@@ -170,7 +170,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(4, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(298, 693);
+            this.panel1.Size = new System.Drawing.Size(298, 676);
             this.panel1.TabIndex = 28;
             // 
             // chkReferenciaVenta
@@ -197,7 +197,7 @@
             // rbTicket8cm
             // 
             this.rbTicket8cm.AutoSize = true;
-            this.rbTicket8cm.Location = new System.Drawing.Point(174, 604);
+            this.rbTicket8cm.Location = new System.Drawing.Point(174, 590);
             this.rbTicket8cm.Name = "rbTicket8cm";
             this.rbTicket8cm.Size = new System.Drawing.Size(88, 17);
             this.rbTicket8cm.TabIndex = 56;
@@ -208,7 +208,7 @@
             // rbTicket6cm
             // 
             this.rbTicket6cm.AutoSize = true;
-            this.rbTicket6cm.Location = new System.Drawing.Point(12, 604);
+            this.rbTicket6cm.Location = new System.Drawing.Point(12, 590);
             this.rbTicket6cm.Name = "rbTicket6cm";
             this.rbTicket6cm.Size = new System.Drawing.Size(97, 17);
             this.rbTicket6cm.TabIndex = 55;
@@ -220,7 +220,7 @@
             // 
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(95, 575);
+            this.label28.Location = new System.Drawing.Point(95, 561);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(117, 13);
             this.label28.TabIndex = 54;
@@ -229,7 +229,7 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.panel4.Location = new System.Drawing.Point(2, 560);
+            this.panel4.Location = new System.Drawing.Point(2, 547);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(295, 2);
             this.panel4.TabIndex = 53;
@@ -660,7 +660,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(5, 649);
+            this.button1.Location = new System.Drawing.Point(5, 635);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(283, 35);
             this.button1.TabIndex = 4;
@@ -701,7 +701,7 @@
             this.panel2.Controls.Add(this.fLPVistaPreTickect);
             this.panel2.Location = new System.Drawing.Point(308, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(559, 693);
+            this.panel2.Size = new System.Drawing.Size(559, 676);
             this.panel2.TabIndex = 29;
             // 
             // label3
@@ -747,7 +747,7 @@
             this.fLPVistaPreTickect.Controls.Add(this.label22);
             this.fLPVistaPreTickect.Location = new System.Drawing.Point(5, 44);
             this.fLPVistaPreTickect.Name = "fLPVistaPreTickect";
-            this.fLPVistaPreTickect.Size = new System.Drawing.Size(558, 666);
+            this.fLPVistaPreTickect.Size = new System.Drawing.Size(558, 649);
             this.fLPVistaPreTickect.TabIndex = 0;
             // 
             // pnlLogo
@@ -991,7 +991,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(875, 703);
+            this.ClientSize = new System.Drawing.Size(875, 689);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
