@@ -1753,3 +1753,6 @@ ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS ticket80mm INT DEFAULT 1;
 
 -- Se agrego una nueva columna a Ventas para cuando se aplica un anticipo tener una relacion con Anticipos
 ALTER TABLE ventas ADD COLUMN IF NOT EXISTS IDAnticipo INT DEFAULT 0;
+
+-- Agregar columna de 80mm en la tabla de EditarTicket 
+ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS Referencia INT DEFAULT 1;

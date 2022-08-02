@@ -334,6 +334,15 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.formapagoCTicket(status));
             }
+            //////Referencia de venta 
+            if (chkReferenciaVenta.Checked == true)
+            {
+
+            }
+            else
+            {
+
+            }
             //////RFC Cliente
             if (chkRfcCl.Checked == true)
             {
@@ -645,6 +654,7 @@ namespace PuntoDeVentaV2
                 chkColoniaCl.Checked = true;
                 chkFormaPagoCl.Checked = true;
                 chkMostrarMensaje.Checked = true;
+                chkReferenciaVenta.Checked = true;
             }
             else
             {
@@ -656,6 +666,7 @@ namespace PuntoDeVentaV2
                 chkColoniaCl.Checked = false;
                 chkFormaPagoCl.Checked = false;
                 chkMostrarMensaje.Checked = false;
+                chkReferenciaVenta.Checked = false;
             }
         }
 
