@@ -214,6 +214,7 @@ namespace PuntoDeVentaV2
             imp.Imprime(rdlc);
 
             File.Delete($"{pathBarCode}{folioVentaRealizada}.png");
+
             if (File.Exists(finalLogoTipoPath))
             {
                 File.Delete(finalLogoTipoPath);
