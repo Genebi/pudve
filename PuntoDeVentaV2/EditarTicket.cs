@@ -59,6 +59,7 @@ namespace PuntoDeVentaV2
                 int nComercial = Convert.ToInt32(datos2[17]);
                 int ticket58mm = Convert.ToInt32(datos2[18]);
                 int ticket80mm = Convert.ToInt32(datos2[19]);
+                int referencia = Convert.ToInt32(datos2[20]);
 
                 if (nComercial == 1)//////Logo  
                 {
@@ -179,6 +180,14 @@ namespace PuntoDeVentaV2
                 else
                 {
                     chkFormaPagoCl.Checked = false;
+                }
+                if (referencia.Equals(1))
+                {
+                    chkReferenciaVenta.Checked = true;
+                }
+                else
+                {
+                    chkReferenciaVenta.Checked = false;
                 }
                 if (ticket58mm.Equals(1))
                 {
