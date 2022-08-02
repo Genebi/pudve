@@ -3475,10 +3475,11 @@ namespace PuntoDeVentaV2
                                         if (!dato.Rows.Count.Equals(0))
                                         {
                                             decimal stockActual = Convert.ToDecimal(dato.Rows[0]["Stock"]);
-                                            decimal stockNuevo = stockActual - Convert.ToDecimal(guardar[3]);
+                                            decimal stockNuevo = stockActual - Decimal.Parse(guardar[3], NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint);
+                                            //decimal stockNuevo = stockActual - Convert.ToDecimal(guardar[3]);
                                             idComboServicio = 0;
 
-                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}','{tipoDeVenta}','{idComboServicio}')");
+                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Decimal.Parse(guardar[3], NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint)}','{tipoDeVenta}','{idComboServicio}')");
                                         }
                                     }
                                 }
@@ -5638,8 +5639,10 @@ namespace PuntoDeVentaV2
 
                                     if (tipoDescuento > 0)
                                     {
+                                        var cantidadNueva = Decimal.Parse(cantidad.ToString(), NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint);
+                                        var cantidadInt = Convert.ToInt32(cantidadNueva);
                                         string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
-                                        CalcularDescuento(datosDescuento, tipoDescuento, Int32.Parse(cantidad.ToString()), 0);
+                                        CalcularDescuento(datosDescuento, tipoDescuento, cantidadInt, 0);
                                     }
 
                                     CalculoMayoreo();
@@ -7736,6 +7739,113 @@ namespace PuntoDeVentaV2
                     }
 
                     var busqueda = txtBuscadorProducto.Text.Trim();
+
+                    if (!DGVentas.Rows.Count.Equals(0))
+                    {
+                        string cantidadProductos = DGVentas.Rows[0].Cells[5].Value.ToString();
+                        var esNumeroVaido = false;
+                        var cantidadAgregada = 0;
+
+                        if (Convert.ToDecimal(cantidadProductos) <= 2139999999)
+                        {
+                            esNumeroVaido = true;
+                        }
+                        esNumeroVaido = int.TryParse(cantidadProductos, out cantidadAgregada);
+
+                        if (esNumeroVaido.Equals(true))
+                        {
+                            #region Validacion de cantidad
+                            string segundoPatron = @"^(\+\d+)|(\d+\+)|(\+)|(\+\+)$";
+                            string tercerPatron = @"^(\-\d+)|(\d+\-)|(\-)|(\-\-)$";
+
+                            Match segundaCoincidencia = Regex.Match(busqueda, segundoPatron, RegexOptions.IgnoreCase);
+                            Match terceraCoincidencia = Regex.Match(busqueda, tercerPatron, RegexOptions.IgnoreCase);
+
+                            if (segundaCoincidencia.Success)
+                            {
+                                var infoTmp = busqueda.Split('+');
+                                string number = infoTmp[1].ToString();
+
+                                if (number.All(char.IsDigit))
+                                {
+                                    if (!string.IsNullOrWhiteSpace(infoTmp[0].ToString()))
+                                    {
+                                        esNumeroVaido = int.TryParse(infoTmp[0].ToString(), out cantidadAgregada);
+
+                                        if (esNumeroVaido.Equals(false))
+                                        {
+                                            MessageBox.Show("La cantidad es mayor a la permitida");
+                                            string result = busqueda.Remove(busqueda.Length - 1);
+                                            txtBuscadorProducto.Text = result;
+                                            txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
+                                            return;
+                                        }
+                                    }
+                                    if (!string.IsNullOrWhiteSpace(infoTmp[1].ToString()))
+                                    {
+                                        esNumeroVaido = int.TryParse(infoTmp[1].ToString(), out cantidadAgregada);
+
+                                        if (esNumeroVaido.Equals(false))
+                                        {
+                                            MessageBox.Show("La cantidad es mayor a la permitida");
+                                            string result = busqueda.Remove(busqueda.Length - 1);
+                                            txtBuscadorProducto.Text = result;
+                                            txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
+                                            return;
+                                        }
+                                    }
+                                }
+
+                                
+                            }
+                            else if (terceraCoincidencia.Success)
+                            {
+                                var infoTmp = busqueda.Split('-');
+
+                                string number = infoTmp[1].ToString();
+
+                                if (number.All(char.IsDigit))
+                                {
+                                    if (!string.IsNullOrWhiteSpace(infoTmp[0].ToString()))
+                                    {
+                                        esNumeroVaido = int.TryParse(infoTmp[0].ToString(), out cantidadAgregada);
+
+                                        if (esNumeroVaido.Equals(false))
+                                        {
+                                            MessageBox.Show("La cantidad es mayor a la permitida");
+                                            string result = busqueda.Remove(busqueda.Length - 1);
+                                            txtBuscadorProducto.Text = result;
+                                            txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
+                                            return;
+                                        }
+                                    }
+                                    if (!string.IsNullOrWhiteSpace(infoTmp[1].ToString()))
+                                    {
+                                        esNumeroVaido = int.TryParse(infoTmp[1].ToString(), out cantidadAgregada);
+
+                                        if (esNumeroVaido.Equals(false))
+                                        {
+                                            MessageBox.Show("La cantidad es mayor a la permitida");
+                                            string result = busqueda.Remove(busqueda.Length - 1);
+                                            txtBuscadorProducto.Text = result;
+                                            txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
+                                            return;
+                                        }
+                                    }
+                                }
+                                
+                            }
+                            #endregion
+                        }
+                        else
+                        {
+                            MessageBox.Show("La cantidad agregada es mayor a la Maxima permitida...");
+                            txtBuscadorProducto.Clear();
+                            return;
+                        }
+                    }
+
+                    
 
                     // Verificar si el primer caracter es + o - para evitar la busqueda
                     // y que tome en cuenta el atajo para aumentar o disminuir cantidad
