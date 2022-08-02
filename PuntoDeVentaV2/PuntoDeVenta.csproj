@@ -1183,6 +1183,9 @@
       <DependentUpon>TicketCancelado.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.cs">
+      <DependentUpon>TicketVenta.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

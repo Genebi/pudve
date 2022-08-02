@@ -36,6 +36,7 @@ namespace PuntoDeVentaV2
         public int TelefonoCliente { get; set; }
         public int FormaDePagoCliente { get; set; }
         public int CodigoBarra { get; set; }
+        public int Referencia { get; set; }
         #endregion
 
         public int idVentaRealizada { get; set; }
@@ -198,6 +199,8 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("PathLogo", path));
             //18 parametro string para mostrar / ocultar Codigo de Barras
             reportParameters.Add(new ReportParameter("PathBarCode", pathBarCodeFull));
+            //18 parametro string para mostrar / ocultar Codigo de Barras
+            reportParameters.Add(new ReportParameter(""))
 
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Add(rp);
