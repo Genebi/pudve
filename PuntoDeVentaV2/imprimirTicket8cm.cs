@@ -200,7 +200,7 @@ namespace PuntoDeVentaV2
             //18 parametro string para mostrar / ocultar Codigo de Barras
             reportParameters.Add(new ReportParameter("PathBarCode", pathBarCodeFull));
             //18 parametro string para mostrar / ocultar Codigo de Barras
-            reportParameters.Add(new ReportParameter(""))
+            reportParameters.Add(new ReportParameter("Referencia", Referencia.ToString()));
 
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Add(rp);
