@@ -1460,7 +1460,8 @@ namespace PuntoDeVentaV2
 
                             if (!descripcionEncontrada)
                             {
-                                var count = Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString());
+                                var count = Decimal.Parse(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString(), NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint);
+                                //var count = Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString());
 
                                 // MIRI.
                                 // Primero debe eliminar de la cadena el porcentaje del descuento para que no de error al momento de convertirlo a decimal.
@@ -5608,7 +5609,10 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                cantidadExtra = Convert.ToInt32(infoTmp[1]);
+                                if (!DGVentas.Rows.Count.Equals(0))
+                                {
+                                    cantidadExtra = Convert.ToInt32(infoTmp[1]);
+                                }
                             }
                         }
 
@@ -8650,7 +8654,8 @@ namespace PuntoDeVentaV2
                     DGVentas.BeginEdit(true);
                     if (indexColumn.Equals(5))
                     {
-                        cantidadAnterior = Convert.ToDecimal(DGVentas.Rows[indexRow].Cells[indexColumn].Value.ToString());
+                        cantidadAnterior = Decimal.Parse(DGVentas.Rows[indexRow].Cells[indexColumn].Value.ToString(), NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint);
+                        //cantidadAnterior = Convert.ToDecimal(DGVentas.Rows[indexRow].Cells[indexColumn].Value.ToString()); 
                     }
                 }
                 else
