@@ -19,10 +19,10 @@ namespace PuntoDeVentaV2
             InitializeComponent();
         }
 
-        private void btn_aceptar_Click(object sender, EventArgs e)
+        private void btn_aceptar_Click(object sender, EventArgs e) 
         {
             // Comprueba que el password sea el correcto
-            bool password_correcto = (bool) cn.EjecutarSelect($"SELECT * FROM usuarios WHERE Usuario='{FormPrincipal.userNickName}' AND Password='{txt_password.Text}'");
+            bool password_correcto = (bool) cn.EjecutarSelect($"SELECT * FROM usuarios WHERE ID ='{FormPrincipal.userID}' AND Password='{txt_password.Text}'");
 
             if(password_correcto == true)
             {
