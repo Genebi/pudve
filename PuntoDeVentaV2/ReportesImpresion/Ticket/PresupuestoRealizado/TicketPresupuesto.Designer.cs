@@ -331,6 +331,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.PresupuestoRealizado {
             
             private global::System.Data.DataColumn columnCodigoBarrasTickectVenta;
             
+            private global::System.Data.DataColumn columnReferencia;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DTTicketPresupuestoDataTable() {
@@ -574,6 +576,14 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.PresupuestoRealizado {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ReferenciaColumn {
+                get {
+                    return this.columnReferencia;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -635,7 +645,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.PresupuestoRealizado {
                         string DescuentosDeProductos, 
                         string TotalGeneral, 
                         string MensajeDelTicket, 
-                        string CodigoBarrasTickectVenta) {
+                        string CodigoBarrasTickectVenta, 
+                        string Referencia) {
                 DTTicketPresupuestoRow rowDTTicketPresupuestoRow = ((DTTicketPresupuestoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         FechaDeCompra,
@@ -663,7 +674,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.PresupuestoRealizado {
                         DescuentosDeProductos,
                         TotalGeneral,
                         MensajeDelTicket,
-                        CodigoBarrasTickectVenta};
+                        CodigoBarrasTickectVenta,
+                        Referencia};
                 rowDTTicketPresupuestoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDTTicketPresupuestoRow);
                 return rowDTTicketPresupuestoRow;
@@ -712,6 +724,7 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.PresupuestoRealizado {
                 this.columnTotalGeneral = base.Columns["TotalGeneral"];
                 this.columnMensajeDelTicket = base.Columns["MensajeDelTicket"];
                 this.columnCodigoBarrasTickectVenta = base.Columns["CodigoBarrasTickectVenta"];
+                this.columnReferencia = base.Columns["Referencia"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -769,6 +782,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.PresupuestoRealizado {
                 base.Columns.Add(this.columnMensajeDelTicket);
                 this.columnCodigoBarrasTickectVenta = new global::System.Data.DataColumn("CodigoBarrasTickectVenta", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCodigoBarrasTickectVenta);
+                this.columnReferencia = new global::System.Data.DataColumn("Referencia", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReferencia);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1334,6 +1349,22 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.PresupuestoRealizado {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Referencia {
+                get {
+                    try {
+                        return ((string)(this[this.tableDTTicketPresupuesto.ReferenciaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Referencia\' in table \'DTTicketPresupuesto\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDTTicketPresupuesto.ReferenciaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsFechaDeCompraNull() {
                 return this.IsNull(this.tableDTTicketPresupuesto.FechaDeCompraColumn);
             }
@@ -1642,6 +1673,18 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.PresupuestoRealizado {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetCodigoBarrasTickectVentaNull() {
                 this[this.tableDTTicketPresupuesto.CodigoBarrasTickectVentaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsReferenciaNull() {
+                return this.IsNull(this.tableDTTicketPresupuesto.ReferenciaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetReferenciaNull() {
+                this[this.tableDTTicketPresupuesto.ReferenciaColumn] = global::System.Convert.DBNull;
             }
         }
         
