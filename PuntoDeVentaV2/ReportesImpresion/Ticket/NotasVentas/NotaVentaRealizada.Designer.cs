@@ -329,6 +329,12 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.NotasVentas {
             
             private global::System.Data.DataColumn columnSubTotal;
             
+            private global::System.Data.DataColumn columnPais;
+            
+            private global::System.Data.DataColumn columnLocalidad;
+            
+            private global::System.Data.DataColumn columnCP;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DTNotaVentaDataTable() {
@@ -564,6 +570,30 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.NotasVentas {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PaisColumn {
+                get {
+                    return this.columnPais;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn LocalidadColumn {
+                get {
+                    return this.columnLocalidad;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CPColumn {
+                get {
+                    return this.columnCP;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -624,7 +654,10 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.NotasVentas {
                         string TelefonoCliente, 
                         string DescuentoDirectoProducto, 
                         string Descuento, 
-                        string SubTotal) {
+                        string SubTotal, 
+                        string Pais, 
+                        string Localidad, 
+                        string CP) {
                 DTNotaVentaRow rowDTNotaVentaRow = ((DTNotaVentaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         RazonSocial,
@@ -651,7 +684,10 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.NotasVentas {
                         TelefonoCliente,
                         DescuentoDirectoProducto,
                         Descuento,
-                        SubTotal};
+                        SubTotal,
+                        Pais,
+                        Localidad,
+                        CP};
                 rowDTNotaVentaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDTNotaVentaRow);
                 return rowDTNotaVentaRow;
@@ -699,6 +735,9 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.NotasVentas {
                 this.columnDescuentoDirectoProducto = base.Columns["DescuentoDirectoProducto"];
                 this.columnDescuento = base.Columns["Descuento"];
                 this.columnSubTotal = base.Columns["SubTotal"];
+                this.columnPais = base.Columns["Pais"];
+                this.columnLocalidad = base.Columns["Localidad"];
+                this.columnCP = base.Columns["CP"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -754,6 +793,12 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.NotasVentas {
                 base.Columns.Add(this.columnDescuento);
                 this.columnSubTotal = new global::System.Data.DataColumn("SubTotal", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSubTotal);
+                this.columnPais = new global::System.Data.DataColumn("Pais", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPais);
+                this.columnLocalidad = new global::System.Data.DataColumn("Localidad", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLocalidad);
+                this.columnCP = new global::System.Data.DataColumn("CP", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCP);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1297,6 +1342,54 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.NotasVentas {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Pais {
+                get {
+                    try {
+                        return ((string)(this[this.tableDTNotaVenta.PaisColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Pais\' in table \'DTNotaVenta\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDTNotaVenta.PaisColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Localidad {
+                get {
+                    try {
+                        return ((string)(this[this.tableDTNotaVenta.LocalidadColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Localidad\' in table \'DTNotaVenta\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDTNotaVenta.LocalidadColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string CP {
+                get {
+                    try {
+                        return ((string)(this[this.tableDTNotaVenta.CPColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'CP\' in table \'DTNotaVenta\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDTNotaVenta.CPColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsRazonSocialNull() {
                 return this.IsNull(this.tableDTNotaVenta.RazonSocialColumn);
             }
@@ -1593,6 +1686,42 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.NotasVentas {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetSubTotalNull() {
                 this[this.tableDTNotaVenta.SubTotalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsPaisNull() {
+                return this.IsNull(this.tableDTNotaVenta.PaisColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetPaisNull() {
+                this[this.tableDTNotaVenta.PaisColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsLocalidadNull() {
+                return this.IsNull(this.tableDTNotaVenta.LocalidadColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetLocalidadNull() {
+                this[this.tableDTNotaVenta.LocalidadColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsCPNull() {
+                return this.IsNull(this.tableDTNotaVenta.CPColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetCPNull() {
+                this[this.tableDTNotaVenta.CPColumn] = global::System.Convert.DBNull;
             }
         }
         

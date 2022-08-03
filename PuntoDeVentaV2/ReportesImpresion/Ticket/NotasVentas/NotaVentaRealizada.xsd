@@ -12,7 +12,7 @@
   <xs:element name="NotaVentaRealizada" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="NotaVentaRealizada" msprop:Generator_UserDSName="NotaVentaRealizada">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="DTNotaVenta" msprop:Generator_TableClassName="DTNotaVentaDataTable" msprop:Generator_TableVarName="tableDTNotaVenta" msprop:Generator_TablePropName="DTNotaVenta" msprop:Generator_RowDeletingName="DTNotaVentaRowDeleting" msprop:Generator_RowChangingName="DTNotaVentaRowChanging" msprop:Generator_RowEvHandlerName="DTNotaVentaRowChangeEventHandler" msprop:Generator_RowDeletedName="DTNotaVentaRowDeleted" msprop:Generator_UserTableName="DTNotaVenta" msprop:Generator_RowChangedName="DTNotaVentaRowChanged" msprop:Generator_RowEvArgName="DTNotaVentaRowChangeEvent" msprop:Generator_RowClassName="DTNotaVentaRow">
+        <xs:element name="DTNotaVenta" msprop:Generator_TableClassName="DTNotaVentaDataTable" msprop:Generator_TableVarName="tableDTNotaVenta" msprop:Generator_RowChangedName="DTNotaVentaRowChanged" msprop:Generator_TablePropName="DTNotaVenta" msprop:Generator_RowDeletingName="DTNotaVentaRowDeleting" msprop:Generator_RowChangingName="DTNotaVentaRowChanging" msprop:Generator_RowEvHandlerName="DTNotaVentaRowChangeEventHandler" msprop:Generator_RowDeletedName="DTNotaVentaRowDeleted" msprop:Generator_RowClassName="DTNotaVentaRow" msprop:Generator_UserTableName="DTNotaVenta" msprop:Generator_RowEvArgName="DTNotaVentaRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="RazonSocial" msprop:Generator_ColumnVarNameInTable="columnRazonSocial" msprop:Generator_ColumnPropNameInRow="RazonSocial" msprop:Generator_ColumnPropNameInTable="RazonSocialColumn" msprop:Generator_UserColumnName="RazonSocial" type="xs:string" minOccurs="0" />
@@ -40,6 +40,9 @@
               <xs:element name="DescuentoDirectoProducto" msprop:Generator_ColumnVarNameInTable="columnDescuentoDirectoProducto" msprop:Generator_ColumnPropNameInRow="DescuentoDirectoProducto" msprop:Generator_ColumnPropNameInTable="DescuentoDirectoProductoColumn" msprop:Generator_UserColumnName="DescuentoDirectoProducto" type="xs:string" minOccurs="0" />
               <xs:element name="Descuento" msprop:Generator_ColumnVarNameInTable="columnDescuento" msprop:Generator_ColumnPropNameInRow="Descuento" msprop:Generator_ColumnPropNameInTable="DescuentoColumn" msprop:Generator_UserColumnName="Descuento" type="xs:string" minOccurs="0" />
               <xs:element name="SubTotal" msprop:Generator_ColumnVarNameInTable="columnSubTotal" msprop:Generator_ColumnPropNameInRow="SubTotal" msprop:Generator_ColumnPropNameInTable="SubTotalColumn" msprop:Generator_UserColumnName="SubTotal" type="xs:string" minOccurs="0" />
+              <xs:element name="Pais" msprop:Generator_ColumnVarNameInTable="columnPais" msprop:Generator_ColumnPropNameInRow="Pais" msprop:Generator_ColumnPropNameInTable="PaisColumn" msprop:Generator_UserColumnName="Pais" type="xs:string" minOccurs="0" />
+              <xs:element name="Localidad" msprop:Generator_ColumnVarNameInTable="columnLocalidad" msprop:Generator_ColumnPropNameInRow="Localidad" msprop:Generator_ColumnPropNameInTable="LocalidadColumn" msprop:Generator_UserColumnName="Localidad" type="xs:string" minOccurs="0" />
+              <xs:element name="CP" msprop:Generator_ColumnVarNameInTable="columnCP" msprop:Generator_ColumnPropNameInRow="CP" msprop:Generator_ColumnPropNameInTable="CPColumn" msprop:Generator_UserColumnName="CP" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

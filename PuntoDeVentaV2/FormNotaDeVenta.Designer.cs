@@ -30,22 +30,43 @@ namespace PuntoDeVentaV2
         private void InitializeComponent()
         {
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.btnImprimir = new PuntoDeVentaV2.BotonRedondo();
             this.SuspendLayout();
             // 
             // reportViewer1
             // 
-            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.reportViewer1.Location = new System.Drawing.Point(0, 0);
+            this.reportViewer1.Location = new System.Drawing.Point(2, 0);
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(551, 315);
+            this.reportViewer1.Size = new System.Drawing.Size(882, 467);
             this.reportViewer1.TabIndex = 0;
+            // 
+            // btnImprimir
+            // 
+            this.btnImprimir.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.btnImprimir.BackGroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.btnImprimir.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnImprimir.BorderRadius = 20;
+            this.btnImprimir.BorderSize = 0;
+            this.btnImprimir.FlatAppearance.BorderSize = 0;
+            this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImprimir.ForeColor = System.Drawing.Color.White;
+            this.btnImprimir.Location = new System.Drawing.Point(368, 473);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(150, 40);
+            this.btnImprimir.TabIndex = 1;
+            this.btnImprimir.Text = "Imprimir";
+            this.btnImprimir.TextColor = System.Drawing.Color.White;
+            this.btnImprimir.UseVisualStyleBackColor = false;
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
             // FormNotaDeVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(551, 315);
+            this.ClientSize = new System.Drawing.Size(884, 516);
+            this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.reportViewer1);
             this.Name = "FormNotaDeVenta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -58,5 +79,6 @@ namespace PuntoDeVentaV2
         #endregion
 
         private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
+        private BotonRedondo btnImprimir;
     }
 }
