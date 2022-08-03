@@ -27,6 +27,7 @@ namespace PuntoDeVentaV2
         string nombreUsuario;
         string DireccionLogo;
         bool SiHayLogo = false;
+        string pathLogoImage;
         public FormNotaDeVenta(int IDDeLaVEnta)
         {
             InitializeComponent();
@@ -94,19 +95,19 @@ namespace PuntoDeVentaV2
                         if (!string.IsNullOrWhiteSpace(servidor))
                         {
                             // direccion de la carpeta donde se va poner las imagenes
-                            saveDirectoryImg = $@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\";
+                            pathLogoImage = new Uri($"C:/Archivos PUDVE/MisDatos/Usuarios/").AbsoluteUri;
                             // ruta donde estan guardados los archivos digitales
                             ruta_archivos_guadados = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_{Logo}\";
                         }
                         else
                         {
                             // direccion de la carpeta donde se va poner las imagenes
-                            saveDirectoryImg = $@"C:\Archivos PUDVE\MisDatos\Usuarios\";
+                            pathLogoImage = new Uri($"C:/Archivos PUDVE/MisDatos/Usuarios/").AbsoluteUri;
                             // ruta donde estan guardados los archivos digitales
                             ruta_archivos_guadados = $@"C:\Archivos PUDVE\MisDatos\CSD_{Logo}\";
 
-                            DireccionLogo = saveDirectoryImg + Logo;
-
+                            DireccionLogo = pathLogoImage + Logo;
+                           
                         }
                         SiHayLogo = true;
                     }
@@ -151,6 +152,113 @@ namespace PuntoDeVentaV2
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.RefreshReport();
         }
-      
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            string cadenaConn = string.Empty;
+            string queryVentas = string.Empty;
+
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                cadenaConn = $"datasource={Properties.Settings.Default.Hosting};port=6666;username=root;password=;database=pudve;";
+            }
+            else
+            {
+                cadenaConn = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
+            }
+
+            queryVentas = cs.PDFNotaDeVentas(IDVenta);
+
+
+
+            MySqlConnection conn = new MySqlConnection();
+
+            conn.ConnectionString = cadenaConn;
+
+            try
+            {
+                conn.Open();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+
+            string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\NotasVentas\ReporteVenta.rdlc";
+
+            //imagen
+
+            var servidor = Properties.Settings.Default.Hosting;
+            string saveDirectoryImg = @"C:\Archivos PUDVE\MisDatos\Usuarios\";
+
+            using (DataTable ConsultaLogo = cn.CargarDatos(cs.buscarNombreLogoTipo2(FormPrincipal.userID)))
+            {
+                if (!ConsultaLogo.Rows.Count.Equals(0))
+                {
+                    string Logo = ConsultaLogo.Rows[0]["Logo"].ToString();
+                    if (!Logo.Equals(""))
+                    {
+
+                        if (!Directory.Exists(saveDirectoryImg))    // verificamos que si no existe el directorio
+                        {
+                            Directory.CreateDirectory(saveDirectoryImg);    // lo crea para poder almacenar la imagen
+                        }
+                        if (!string.IsNullOrWhiteSpace(servidor))
+                        {
+                            // direccion de la carpeta donde se va poner las imagenes
+                            pathLogoImage = new Uri($"C:/Archivos PUDVE/MisDatos/Usuarios/").AbsoluteUri;
+                            // ruta donde estan guardados los archivos digitales
+                            ruta_archivos_guadados = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_{Logo}\";
+                        }
+                        else
+                        {
+                            // direccion de la carpeta donde se va poner las imagenes
+                            pathLogoImage = new Uri($"C:/Archivos PUDVE/MisDatos/Usuarios/").AbsoluteUri;
+                            // ruta donde estan guardados los archivos digitales
+                            ruta_archivos_guadados = $@"C:\Archivos PUDVE\MisDatos\CSD_{Logo}\";
+
+                            DireccionLogo = pathLogoImage + Logo;
+
+                        }
+                        SiHayLogo = true;
+                    }
+                }
+            }
+            //imagen
+
+            MySqlDataAdapter retiroDA = new MySqlDataAdapter(queryVentas, conn);
+            DataTable DTNotaDeVentas = new DataTable();
+            retiroDA.Fill(DTNotaDeVentas);
+
+            Total = Convert.ToDecimal(DTNotaDeVentas.Rows[0]["total"]);
+            resultado = oMoneda.Convertir(Total.ToString(), true, "PESOS");
+
+            ReportParameterCollection reportParameters = new ReportParameterCollection();
+            reportParameters.Add(new ReportParameter("TotalEnTexto", resultado));
+            if (SiHayLogo.Equals(true))
+            {
+                reportParameters.Add(new ReportParameter("Logo", DireccionLogo));
+            }
+            else
+            {
+                DireccionLogo = "";
+                reportParameters.Add(new ReportParameter("Logo", DireccionLogo));
+            }
+
+            ReportDataSource NotasVENTAS = new ReportDataSource("DTNotaVenta", DTNotaDeVentas);
+
+            LocalReport rdlc = new LocalReport();
+            rdlc.ReportPath = FullReportPath;
+            rdlc.EnableExternalImages = true;
+            rdlc.DataSources.Add(NotasVENTAS);
+            rdlc.SetParameters(reportParameters);
+           
+            FormatoCarta imp = new FormatoCarta();
+            imp.Imprime(rdlc);
+
+            this.Close();
+        }
     }
 }
