@@ -331,6 +331,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.VentaRealizada {
             
             private global::System.Data.DataColumn columnCodigoBarrasTicketVenta;
             
+            private global::System.Data.DataColumn columnReferencia;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DTVentaRealizadaDataTable() {
@@ -574,6 +576,14 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.VentaRealizada {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ReferenciaColumn {
+                get {
+                    return this.columnReferencia;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -635,7 +645,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.VentaRealizada {
                         string DescuentosDeProductos, 
                         string TotalGeneral, 
                         string MensajeDelTicket, 
-                        string CodigoBarrasTicketVenta) {
+                        string CodigoBarrasTicketVenta, 
+                        string Referencia) {
                 DTVentaRealizadaRow rowDTVentaRealizadaRow = ((DTVentaRealizadaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         FechaDeCompra,
@@ -663,7 +674,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.VentaRealizada {
                         DescuentosDeProductos,
                         TotalGeneral,
                         MensajeDelTicket,
-                        CodigoBarrasTicketVenta};
+                        CodigoBarrasTicketVenta,
+                        Referencia};
                 rowDTVentaRealizadaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDTVentaRealizadaRow);
                 return rowDTVentaRealizadaRow;
@@ -712,6 +724,7 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.VentaRealizada {
                 this.columnTotalGeneral = base.Columns["TotalGeneral"];
                 this.columnMensajeDelTicket = base.Columns["MensajeDelTicket"];
                 this.columnCodigoBarrasTicketVenta = base.Columns["CodigoBarrasTicketVenta"];
+                this.columnReferencia = base.Columns["Referencia"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -769,6 +782,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.VentaRealizada {
                 base.Columns.Add(this.columnMensajeDelTicket);
                 this.columnCodigoBarrasTicketVenta = new global::System.Data.DataColumn("CodigoBarrasTicketVenta", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCodigoBarrasTicketVenta);
+                this.columnReferencia = new global::System.Data.DataColumn("Referencia", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnReferencia);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1330,6 +1345,22 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.VentaRealizada {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Referencia {
+                get {
+                    try {
+                        return ((string)(this[this.tableDTVentaRealizada.ReferenciaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Referencia\' in table \'DTVentaRealizada\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDTVentaRealizada.ReferenciaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsFechaDeCompraNull() {
                 return this.IsNull(this.tableDTVentaRealizada.FechaDeCompraColumn);
             }
@@ -1638,6 +1669,18 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.VentaRealizada {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetCodigoBarrasTicketVentaNull() {
                 this[this.tableDTVentaRealizada.CodigoBarrasTicketVentaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsReferenciaNull() {
+                return this.IsNull(this.tableDTVentaRealizada.ReferenciaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetReferenciaNull() {
+                this[this.tableDTVentaRealizada.ReferenciaColumn] = global::System.Convert.DBNull;
             }
         }
         

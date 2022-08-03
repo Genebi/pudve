@@ -59,6 +59,7 @@ namespace PuntoDeVentaV2
                 int nComercial = Convert.ToInt32(datos2[17]);
                 int ticket58mm = Convert.ToInt32(datos2[18]);
                 int ticket80mm = Convert.ToInt32(datos2[19]);
+                int referencia = Convert.ToInt32(datos2[20]);
 
                 if (nComercial == 1)//////Logo  
                 {
@@ -179,6 +180,14 @@ namespace PuntoDeVentaV2
                 else
                 {
                     chkFormaPagoCl.Checked = false;
+                }
+                if (referencia.Equals(1))
+                {
+                    chkReferenciaVenta.Checked = true;
+                }
+                else
+                {
+                    chkReferenciaVenta.Checked = false;
                 }
                 if (ticket58mm.Equals(1))
                 {
@@ -333,6 +342,17 @@ namespace PuntoDeVentaV2
             {
                 var status = 0;
                 cn.EjecutarConsulta(cs.formapagoCTicket(status));
+            }
+            //////Referencia de venta 
+            if (chkReferenciaVenta.Checked == true)
+            {
+                var status = 1;
+                cn.EjecutarConsulta(cs.referenciaTicket(status));
+            }
+            else
+            {
+                var status = 0;
+                cn.EjecutarConsulta(cs.referenciaTicket(status));
             }
             //////RFC Cliente
             if (chkRfcCl.Checked == true)
@@ -645,6 +665,7 @@ namespace PuntoDeVentaV2
                 chkColoniaCl.Checked = true;
                 chkFormaPagoCl.Checked = true;
                 chkMostrarMensaje.Checked = true;
+                chkReferenciaVenta.Checked = true;
             }
             else
             {
@@ -656,6 +677,7 @@ namespace PuntoDeVentaV2
                 chkColoniaCl.Checked = false;
                 chkFormaPagoCl.Checked = false;
                 chkMostrarMensaje.Checked = false;
+                chkReferenciaVenta.Checked = false;
             }
         }
 
@@ -727,6 +749,20 @@ namespace PuntoDeVentaV2
             {
                 lblNombreComercial.Visible = true;
                 lblNombreComercial.Height = 25;
+            }
+        }
+
+        private void chkReferenciaVenta_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkReferenciaVenta.Checked == false)
+            {
+                lblReferenciaVenta.Visible = false;
+                lblReferenciaVenta.Height = 0;
+            }
+            else if (chkReferenciaVenta.Checked == true)
+            {
+                lblReferenciaVenta.Visible = true;
+                lblReferenciaVenta.Height = 20;  
             }
         }
     }
