@@ -2531,6 +2531,7 @@ namespace PuntoDeVentaV2
                                 var ticket8cm = 0;
                                 var ticket6cm = 0;
                                 var codigoBarraTicket = 0;
+                                var referencia = 0;
 
                                 foreach (DataRow item in dtConfiguracionTipoTicket.Rows)
                                 {
@@ -2552,6 +2553,7 @@ namespace PuntoDeVentaV2
                                     ticket6cm = Convert.ToInt32(item["ticket58mm"].ToString());
                                     ticket8cm = Convert.ToInt32(item["ticket80mm"].ToString());
                                     codigoBarraTicket = Convert.ToInt32(item["TicketVenta"].ToString());
+                                    referencia = Convert.ToInt32(item["Referencia"].ToString());
                                 }
 
                                 var tipoDeBusqueda = 0;
@@ -2583,6 +2585,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.TelefonoCliente = TelefonoC;
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                            imprimirTicketVenta.Referencia = referencia;
 
                                             imprimirTicketVenta.ShowDialog();
                                         }
@@ -2609,6 +2612,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.TelefonoCliente = TelefonoC;
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                            imprimirTicketVenta.Referencia = referencia;
 
                                             imprimirTicketVenta.ShowDialog();
                                         }
@@ -2639,6 +2643,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.TelefonoCliente = TelefonoC;
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                            imprimirTicketVenta.Referencia = referencia;
 
                                             imprimirTicketVenta.ShowDialog();
                                         }
@@ -2665,6 +2670,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.TelefonoCliente = TelefonoC;
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                            imprimirTicketVenta.Referencia = referencia;
 
                                             imprimirTicketVenta.ShowDialog();
                                         }

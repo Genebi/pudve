@@ -4030,7 +4030,7 @@ namespace PuntoDeVentaV2
 
         public string tipoDeTicket()
         {
-            var consulta = $"SSELECT EditTicket.Usuario, EditTicket.Direccion, EditTicket.ColyCP, EditTicket.RFC, EditTicket.Correo, EditTicket.Telefono, EditTicket.NombreC, EditTicket.DomicilioC, EditTicket.RFCC, EditTicket.CorreoC, EditTicket.TelefonoC, EditTicket.ColyCPC, EditTicket.FormaPagoC, EditTicket.logo, EditTicket.NombreComercial, EditTicket.ticket58mm, EditTicket.ticket80mm, Conf.TicketVenta, EditTicket.Referencia FROM editarticket AS EditTicket INNER JOIN configuracion AS Conf ON ( Conf.IDUsuario = EditTicket.IDUsuario ) WHERE EditTicket.IDUsuario = '{FormPrincipal.userID}'";
+            var consulta = $"SELECT EditTicket.Usuario, EditTicket.Direccion, EditTicket.ColyCP, EditTicket.RFC, EditTicket.Correo, EditTicket.Telefono, EditTicket.NombreC, EditTicket.DomicilioC, EditTicket.RFCC, EditTicket.CorreoC, EditTicket.TelefonoC, EditTicket.ColyCPC, EditTicket.FormaPagoC, EditTicket.logo, EditTicket.NombreComercial, EditTicket.ticket58mm, EditTicket.ticket80mm, Conf.TicketVenta, EditTicket.Referencia FROM editarticket AS EditTicket INNER JOIN configuracion AS Conf ON ( Conf.IDUsuario = EditTicket.IDUsuario ) WHERE EditTicket.IDUsuario = '{FormPrincipal.userID}'";
 
             return consulta;
         }
