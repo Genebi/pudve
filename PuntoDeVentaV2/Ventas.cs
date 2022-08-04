@@ -1226,13 +1226,21 @@ namespace PuntoDeVentaV2
                     {
                         int idProducto = Convert.ToInt32(DGVentas.Rows[celdaCellClick].Cells["IDProducto"].Value);
                         int tipoDescuento = Convert.ToInt32(DGVentas.Rows[celdaCellClick].Cells["DescuentoTipo"].Value);
-                        var precio = float.Parse(DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString());
+                        var precio = decimal.Parse(DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString());
                         CantidadAnteriorEdit = float.Parse(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString());
-                        float cantidad = float.Parse(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString()) + 1;
-                        NuevaCantidadEdit = cantidad;
 
-                        float importe = cantidad * precio;
+                        var cantidadTexto = DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString();
+                        decimal cantidad = decimal.Parse(cantidadTexto.ToString(), System.Globalization.NumberStyles.Float);
+                        
 
+                        var nuevaCantidad = decimal.Parse(cantidad.ToString(), System.Globalization.NumberStyles.Float);
+                        nuevaCantidad = nuevaCantidad + 1;
+
+                        cantidad = nuevaCantidad;
+
+                        decimal importe = cantidad * precio;
+
+                        MessageBox.Show(importe.ToString());
                         // Verificar si tiene descuento directo
                         if (descuentosDirectos.ContainsKey(idProducto))
                         {
@@ -1241,7 +1249,7 @@ namespace PuntoDeVentaV2
                             // Si el descuento directo es por descuento
                             if (tipoDescuentoDirecto == 2)
                             {
-                                var porcentaje = descuentosDirectos[idProducto].Item2;
+                                decimal porcentaje = (decimal)descuentosDirectos[idProducto].Item2;
 
                                 var descuentoTmp = (precio * cantidad) * (porcentaje / 100);
                                 var importeTmp = (precio * cantidad) - descuentoTmp;
@@ -1270,10 +1278,13 @@ namespace PuntoDeVentaV2
                     contadorChangeValue = 0;
                     if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                     {
-                        float cantidad = float.Parse(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString());
-                        cantidad -= 1;
+                        var cantidadTexto = DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString();
+                        decimal cantidad = decimal.Parse(cantidadTexto.ToString(), System.Globalization.NumberStyles.Float);
+                        //cantidad -= 1;
 
-                        if (cantidad > 0)
+                        var nuevaCantidad = decimal.Parse(cantidad.ToString(), System.Globalization.NumberStyles.Float);
+                        nuevaCantidad = nuevaCantidad - 1;
+                        if (nuevaCantidad > 0)
                         {
                             fechaSistema = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
 
@@ -1343,9 +1354,9 @@ namespace PuntoDeVentaV2
 
                             int idProducto = Convert.ToInt32(DGVentas.Rows[celdaCellClick].Cells["IDProducto"].Value);
                             int tipoDescuento = Convert.ToInt32(DGVentas.Rows[celdaCellClick].Cells["DescuentoTipo"].Value);
-                            var precio = float.Parse(DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString());
+                            var precio = decimal.Parse(DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString());
 
-                            float importe = cantidad * precio;
+                            decimal importe = nuevaCantidad * precio;
 
                             // Verificar si tiene descuento directo
                             if (descuentosDirectos.ContainsKey(idProducto))
@@ -1355,10 +1366,10 @@ namespace PuntoDeVentaV2
                                 // Si el descuento directo es el de cantidad
                                 if (tipoDescuentoDirecto == 1)
                                 {
-                                    var descuento = float.Parse(DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString());
+                                    var descuento = decimal.Parse(DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString());
 
                                     // Cuando cantidad de producto sea igual a 1 hara esto
-                                    if (cantidad == 1)
+                                    if (nuevaCantidad == 1)
                                     {
                                         // Si el importe es menor al descuento debe terminar la operacion
                                         if (importe < descuento)
@@ -1373,23 +1384,23 @@ namespace PuntoDeVentaV2
                                 // Si el descuento directo es por descuento
                                 if (tipoDescuentoDirecto == 2)
                                 {
-                                    var porcentaje = descuentosDirectos[idProducto].Item2;
+                                    var porcentaje = Convert.ToDecimal(descuentosDirectos[idProducto].Item2);
 
-                                    var descuentoTmp = (precio * cantidad) * (porcentaje / 100);
-                                    var importeTmp = (precio * cantidad) - descuentoTmp;
+                                    var descuentoTmp = (precio * nuevaCantidad) * (porcentaje / 100);
+                                    var importeTmp = (precio * nuevaCantidad) - descuentoTmp;
 
                                     importe = importeTmp;
                                     DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value = $"{descuentoTmp.ToString("N2")} - {porcentaje}%";
                                 }
                             }
 
-                            DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value = cantidad;
+                            DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value = nuevaCantidad;
                             DGVentas.Rows[celdaCellClick].Cells["Importe"].Value = importe;
 
                             if (tipoDescuento > 0)
                             {
                                 string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
-                                CalcularDescuento(datosDescuento, tipoDescuento, (int)cantidad, celdaCellClick);
+                                CalcularDescuento(datosDescuento, tipoDescuento, (int)nuevaCantidad, celdaCellClick);
                             }
 
                             noSeBorroFila = true;
