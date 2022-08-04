@@ -2533,7 +2533,8 @@ namespace PuntoDeVentaV2
                                                                             string textoConcepto = string.Empty;
                                                                             if (!contItemSubHijo.Text.Equals(string.Empty))
                                                                             {
-                                                                                textoConcepto = contItemSubHijo.Text;
+                                                                                var conceptoConGuionesBajos = contItemSubHijo.Text.Replace(" ", "_");
+                                                                                textoConcepto = conceptoConGuionesBajos;
                                                                                 string rowDataList = string.Empty;
                                                                                 var idFoundNew = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto);
 
@@ -4486,7 +4487,14 @@ namespace PuntoDeVentaV2
 
         public void cargarDatosExtra()
         {
-            queryBuscarProd = $"SELECT * FROM Productos WHERE Nombre = '{ProdNombre}' AND Precio = '{ProdPrecio}' AND Categoria = '{ProdCategoria}' AND Status = 1 AND IDUsuario = '{FormPrincipal.userID}'";
+            if (DatosSourceFinal.Equals(2))
+            {
+                queryBuscarProd = $"SELECT * FROM Productos WHERE ID = '{Convert.ToInt32(idEditarProducto)}' AND IDUsuario = '{FormPrincipal.userID}'";
+            }
+            else
+            {
+                queryBuscarProd = $"SELECT * FROM Productos WHERE Nombre = '{ProdNombre}' AND Precio = '{ProdPrecio}' AND Categoria = '{ProdCategoria}' AND Status = 1 AND IDUsuario = '{FormPrincipal.userID}'";
+            }
             SearchProdResult = cn.CargarDatos(queryBuscarProd);
 
             if (SearchProdResult.Rows.Count > 0)
