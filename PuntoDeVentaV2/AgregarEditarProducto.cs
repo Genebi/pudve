@@ -2533,7 +2533,8 @@ namespace PuntoDeVentaV2
                                                                             string textoConcepto = string.Empty;
                                                                             if (!contItemSubHijo.Text.Equals(string.Empty))
                                                                             {
-                                                                                textoConcepto = contItemSubHijo.Text;
+                                                                                var conceptoConGuionesBajos = contItemSubHijo.Text.Replace(" ", "_");
+                                                                                textoConcepto = conceptoConGuionesBajos;
                                                                                 string rowDataList = string.Empty;
                                                                                 var idFoundNew = mb.obtenerIdDetalleGeneral(FormPrincipal.userID, textoConcepto);
 
