@@ -1240,8 +1240,8 @@ namespace PuntoDeVentaV2
 
                         decimal importe = cantidad * precio;
 
-                        MessageBox.Show(importe.ToString());
-                        // Verificar si tiene descuento directo
+                        //MessageBox.Show(importe.ToString());
+                        // Verificar si tiene descuento directo 
                         if (descuentosDirectos.ContainsKey(idProducto))
                         {
                             var tipoDescuentoDirecto = descuentosDirectos[idProducto].Item1;
