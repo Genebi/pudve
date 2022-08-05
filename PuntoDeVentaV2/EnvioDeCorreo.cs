@@ -39,6 +39,7 @@ namespace PuntoDeVentaV2
         int opcion21 = 1;   // Correo Eliminar Ultimo Producto agregado listado Ventas
         int opcion22 = 1;   // Correo Eliminar Lista Producto de Ventas
         int opcion23 = 1;   // Correo al hacer Corte de Caja
+        int opcion24 = 1;  // Recibir Anricipo
 
         bool check5 = false;
         bool check6 = false;
@@ -59,7 +60,7 @@ namespace PuntoDeVentaV2
         bool check21 = false;
         bool check22 = false;
         bool check23 = false;
-
+        bool check24 = false;
         int guardado =0;
 
         List<String> confiCorreo;
@@ -119,6 +120,9 @@ namespace PuntoDeVentaV2
                 cbCorreoDescuento.Checked = Convert.ToBoolean(datosConfig[23]);
 
                 chRespaldo.Checked = Convert.ToBoolean(datosConfig[24]);
+
+                cbRecibirAnricipo.Checked = Convert.ToBoolean(datosConfig[27]);
+                check24 = cbRecibirAnricipo.Checked;
             }
             else
             {
@@ -1225,9 +1229,6 @@ namespace PuntoDeVentaV2
                 if (confiCorreo.Count == 0)
                 {
 
-
-
-
                 }
                 else
                 {
@@ -1272,6 +1273,79 @@ namespace PuntoDeVentaV2
 
             //    }
             //}
+        }
+
+        private void cbCorreoAgregarDineroCaja_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbCorreoRetirarDineroCaja_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbRecibirAnricipo_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbRecibirAnricipo_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("PermisoCorreoAnticipo", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    var habilitado = 0;
+
+                    if (cbRecibirAnricipo.Checked)
+                    {
+                        habilitado = 1;
+                    }
+
+                    string consulta = $"UPDATE Configuracion SET CorreoAnticipo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiCorreo.Add(consulta);
+
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            var habilitado = 0;
+
+                            if (cbRecibirAnricipo.Checked)
+                            {
+                                habilitado = 1;
+                            }
+
+                            string consulta = $"UPDATE Configuracion SET CorreoAnticipo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiCorreo.Add(consulta);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbRecibirAnricipo.Checked == true)
+                            {
+                                cbRecibirAnricipo.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbRecibirAnricipo.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
         }
     }
 }

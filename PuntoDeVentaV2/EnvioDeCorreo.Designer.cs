@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EnvioDeCorreo));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbRecibirAnricipo = new System.Windows.Forms.CheckBox();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.chRespaldo = new System.Windows.Forms.CheckBox();
             this.cbCorreoDescuento = new System.Windows.Forms.CheckBox();
@@ -53,6 +54,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox1.Controls.Add(this.cbRecibirAnricipo);
             this.groupBox1.Controls.Add(this.btnAceptar);
             this.groupBox1.Controls.Add(this.chRespaldo);
             this.groupBox1.Controls.Add(this.cbCorreoDescuento);
@@ -75,6 +77,19 @@
             this.groupBox1.TabIndex = 129;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Envío de Correo:";
+            // 
+            // cbRecibirAnricipo
+            // 
+            this.cbRecibirAnricipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbRecibirAnricipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.cbRecibirAnricipo.Location = new System.Drawing.Point(11, 87);
+            this.cbRecibirAnricipo.Name = "cbRecibirAnricipo";
+            this.cbRecibirAnricipo.Size = new System.Drawing.Size(222, 21);
+            this.cbRecibirAnricipo.TabIndex = 134;
+            this.cbRecibirAnricipo.Text = "Al recibir un anticipo";
+            this.cbRecibirAnricipo.UseVisualStyleBackColor = true;
+            this.cbRecibirAnricipo.CheckedChanged += new System.EventHandler(this.cbRecibirAnricipo_CheckedChanged);
+            this.cbRecibirAnricipo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbRecibirAnricipo_MouseClick);
             // 
             // btnAceptar
             // 
@@ -159,7 +174,7 @@
             this.cbCorreoCorteCaja.AutoSize = true;
             this.cbCorreoCorteCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.cbCorreoCorteCaja.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.cbCorreoCorteCaja.Location = new System.Drawing.Point(11, 88);
+            this.cbCorreoCorteCaja.Location = new System.Drawing.Point(11, 113);
             this.cbCorreoCorteCaja.Name = "cbCorreoCorteCaja";
             this.cbCorreoCorteCaja.Size = new System.Drawing.Size(157, 20);
             this.cbCorreoCorteCaja.TabIndex = 121;
@@ -203,6 +218,7 @@
             this.cbCorreoRetirarDineroCaja.TabIndex = 115;
             this.cbCorreoRetirarDineroCaja.Text = "Al retirar dinero en caja";
             this.cbCorreoRetirarDineroCaja.UseVisualStyleBackColor = true;
+            this.cbCorreoRetirarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoRetirarDineroCaja_CheckedChanged_1);
             this.cbCorreoRetirarDineroCaja.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoRetirarDineroCaja_MouseClick);
             // 
             // cbCorreoAgregarDineroCaja
@@ -215,6 +231,7 @@
             this.cbCorreoAgregarDineroCaja.TabIndex = 0;
             this.cbCorreoAgregarDineroCaja.Text = "Al agregar dinero en caja";
             this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
+            this.cbCorreoAgregarDineroCaja.CheckedChanged += new System.EventHandler(this.cbCorreoAgregarDineroCaja_CheckedChanged_1);
             this.cbCorreoAgregarDineroCaja.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoAgregarDineroCaja_MouseClick);
             // 
             // cbCorreoPrecioProducto
@@ -312,5 +329,6 @@
         private System.Windows.Forms.CheckBox cbCorreoStockMinimo;
         private System.Windows.Forms.CheckBox cbCorreoVenderProducto;
         private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.CheckBox cbRecibirAnricipo;
     }
 }

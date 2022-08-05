@@ -18,6 +18,9 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
+        string NombreClienteCorreo;
+        string Dinero;
+        string formadepagoCorreo;
 
         public AgregarAnticipo()
         {
@@ -88,6 +91,7 @@ namespace PuntoDeVentaV2
 
                 var concepto = txtConcepto.Text;
                 var importe = Convert.ToDouble(txtImporte.Text);
+                Dinero = importe.ToString("C2");
 
                 if (importe <= 0)
                 {
@@ -97,7 +101,7 @@ namespace PuntoDeVentaV2
                 }
 
                 var cliente = cbClientes.GetItemText(cbClientes.SelectedItem);
-
+                NombreClienteCorreo = cliente;
                 if (string.IsNullOrWhiteSpace(cliente))
                 {
                     var existenClientes = mb.ObtenerClientes(FormPrincipal.userID);
@@ -118,6 +122,7 @@ namespace PuntoDeVentaV2
                 }
 
                 var formaPago = cbFormaPago.SelectedValue.ToString();
+                formadepagoCorreo = formaPago;
                 var comentario = txtComentarios.Text;
                 var status = "1";
                 var FechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -170,6 +175,28 @@ namespace PuntoDeVentaV2
                     imprimirAnt.anticipoSinHistorial = 1;
                     imprimirAnt.ShowDialog();
 
+                    using (DataTable ConsultaPermisoEnvioAnticipo= cn.CargarDatos($"SELECT CorreoAnticipo FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                    {
+                        string EnvioAnticpo = ConsultaPermisoEnvioAnticipo.Rows[0]["CorreoAnticipo"].ToString();
+                        if (EnvioAnticpo.Equals("1"))
+                        {
+                            if (FormPrincipal.userNickName.Contains("@"))
+                            {
+                                using (DataTable ConsultaPermiso = cn.CargarDatos(cs.PermisoEnviarCorreoAnticipo(FormPrincipal.id_empleado, FormPrincipal.userID)))
+                                {
+                                    string PermisoEnvioAnticpo = ConsultaPermiso.Rows[0]["PermisoCorreoAnticipo"].ToString();
+                                    if (PermisoEnvioAnticpo.Equals("1"))
+                                    {
+                                        EnvioDeCorreoNuevoAnticipo();
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                EnvioDeCorreoNuevoAnticipo();
+                            }
+                        }
+                    }
                     this.Close();
                 }
                 else
@@ -186,6 +213,48 @@ namespace PuntoDeVentaV2
 
         }
 
+        private void EnvioDeCorreoNuevoAnticipo()
+        {
+            string correo;
+
+            using (DataTable email = cn.CargarDatos(cs.BuscarCorreoDelUsuario(FormPrincipal.userID)))
+            {
+                correo = email.Rows[0]["Email"].ToString();
+            }
+            string Usuario;
+            if (FormPrincipal.userNickName.Contains("@"))
+            {
+                var separacion = FormPrincipal.userNickName.Split('@');
+                Usuario = separacion[1].ToString();
+            }
+            else
+            {
+                Usuario = FormPrincipal.userNickName;
+            }
+
+            var FechaHoy = DateTime.Now.ToString("dd-MM-yyyy hh:mm");
+            var asunto = "Nuevo Anticipo Recibido";
+            var html = $@"<div>
+            <div style = 'text-align: center;' >
+            <h3>Anticipo Registrado</h3>
+            </div>
+            <hr>
+            
+               Se registro un nuevo Anticipo a nombre del cliente <b>{NombreClienteCorreo}</b> <br>
+               <br>    
+               fecha: <b>{FechaHoy}</b> <br>
+               <br>
+               Monto: <b>{Dinero}</b><br>
+               <br>
+               Concepto: <b>{txtConcepto.Text}</b> <br>
+               <br>
+               Recibido por: <b>{Usuario}</b>
+              
+             <hr>
+            </div>";
+
+            Utilidades.EnviarEmail(html, asunto, correo);
+        }
 
         private void SoloDecimales(object sender, KeyPressEventArgs e)
         {
