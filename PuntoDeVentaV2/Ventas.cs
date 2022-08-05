@@ -2902,66 +2902,66 @@ namespace PuntoDeVentaV2
                                                 var razonSocialPublicoGeneral = drPublicoGeneral["RazonSocial"].ToString();
                                                 
                                                 idCliente = IDPublicoGeneral.ToString();
-                                                ventaGuardada = true;
+                                                //ventaGuardada = true;
                                             }
                                             else
                                             {
-                                                var UltimoNumeroCliente = string.Empty;
-                                                using (DataTable dtUltimocliente = cn.CargarDatos(cs.UltimoNumerodeCliente()))
-                                                {
-                                                    if (!dtUltimocliente.Rows.Count.Equals(0))
-                                                    {
-                                                        foreach (DataRow item in dtUltimocliente.Rows)
-                                                        {
-                                                            var numCliente = Convert.ToInt32(item["NumeroCliente"]);
-                                                            var longitud = 6 - numCliente.ToString().Length;
-                                                            if (longitud.Equals(5))
-                                                            {
-                                                                UltimoNumeroCliente = $"00000{numCliente + 1}";
-                                                            }
-                                                            if (longitud.Equals(4))
-                                                            {
-                                                                UltimoNumeroCliente = $"0000{numCliente + 1}";
-                                                            }
-                                                            if (longitud.Equals(3))
-                                                            {
-                                                                UltimoNumeroCliente = $"000{numCliente + 1}";
-                                                            }
-                                                            if (longitud.Equals(2))
-                                                            {
-                                                                UltimoNumeroCliente = $"00{numCliente + 1}";
-                                                            }
-                                                            if (longitud.Equals(1))
-                                                            {
-                                                                UltimoNumeroCliente = $"0{numCliente + 1}";
-                                                            }
-                                                            if (longitud.Equals(0))
-                                                            {
-                                                                UltimoNumeroCliente = $"{numCliente + 1}";
-                                                            }
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        UltimoNumeroCliente = "000001";
-                                                    }
-                                                }
-                                                var resultado = cn.EjecutarConsulta(cs.AgregarPublicoGeneral(UltimoNumeroCliente));
-                                                if (resultado.Equals(1))
-                                                {
-                                                    using (DataTable dtNuevoClienteGeneral = cn.CargarDatos(cs.ObtenerDatosClientePublicoGeneral()))
-                                                    {
-                                                        if (!dtNuevoClienteGeneral.Rows.Count.Equals(0))
-                                                        {
-                                                            DataRow drNuevoPublicoGeneral = dtNuevoClienteGeneral.Rows[0];
-                                                            var IDPublicoGeneral = Convert.ToInt32(drNuevoPublicoGeneral["ID"].ToString());
-                                                            var razonSocialPublicoGeneral = drNuevoPublicoGeneral["RazonSocial"].ToString();
-                                                            idCliente = IDPublicoGeneral.ToString();
-                                                            ventaGuardada = true;
+                                                //var UltimoNumeroCliente = string.Empty;
+                                                //using (DataTable dtUltimocliente = cn.CargarDatos(cs.UltimoNumerodeCliente()))
+                                                //{
+                                                //    if (!dtUltimocliente.Rows.Count.Equals(0))
+                                                //    {
+                                                //        foreach (DataRow item in dtUltimocliente.Rows)
+                                                //        {
+                                                //            var numCliente = Convert.ToInt32(item["NumeroCliente"]);
+                                                //            var longitud = 6 - numCliente.ToString().Length;
+                                                //            if (longitud.Equals(5))
+                                                //            {
+                                                //                UltimoNumeroCliente = $"00000{numCliente + 1}";
+                                                //            }
+                                                //            if (longitud.Equals(4))
+                                                //            {
+                                                //                UltimoNumeroCliente = $"0000{numCliente + 1}";
+                                                //            }
+                                                //            if (longitud.Equals(3))
+                                                //            {
+                                                //                UltimoNumeroCliente = $"000{numCliente + 1}";
+                                                //            }
+                                                //            if (longitud.Equals(2))
+                                                //            {
+                                                //                UltimoNumeroCliente = $"00{numCliente + 1}";
+                                                //            }
+                                                //            if (longitud.Equals(1))
+                                                //            {
+                                                //                UltimoNumeroCliente = $"0{numCliente + 1}";
+                                                //            }
+                                                //            if (longitud.Equals(0))
+                                                //            {
+                                                //                UltimoNumeroCliente = $"{numCliente + 1}";
+                                                //            }
+                                                //        }
+                                                //    }
+                                                //    else
+                                                //    {
+                                                //        UltimoNumeroCliente = "000001";
+                                                //    }
+                                                //}
+                                                //var resultado = cn.EjecutarConsulta(cs.AgregarPublicoGeneral(UltimoNumeroCliente));
+                                                //if (resultado.Equals(1))
+                                                //{
+                                                //    using (DataTable dtNuevoClienteGeneral = cn.CargarDatos(cs.ObtenerDatosClientePublicoGeneral()))
+                                                //    {
+                                                //        if (!dtNuevoClienteGeneral.Rows.Count.Equals(0))
+                                                //        {
+                                                //            DataRow drNuevoPublicoGeneral = dtNuevoClienteGeneral.Rows[0];
+                                                //            var IDPublicoGeneral = Convert.ToInt32(drNuevoPublicoGeneral["ID"].ToString());
+                                                //            var razonSocialPublicoGeneral = drNuevoPublicoGeneral["RazonSocial"].ToString();
+                                                //            idCliente = IDPublicoGeneral.ToString();
+                                                //            ventaGuardada = true;
                                                             
-                                                        }
-                                                    }
-                                                }
+                                                //        }
+                                                //    }
+                                                //}
                                             }
                                         }
                                         
@@ -7842,7 +7842,7 @@ namespace PuntoDeVentaV2
                                     }
                                 }
 
-                                
+
                             }
                             else if (terceraCoincidencia.Success)
                             {
@@ -7879,7 +7879,7 @@ namespace PuntoDeVentaV2
                                         }
                                     }
                                 }
-                                
+
                             }
                             #endregion
                         }
@@ -7891,7 +7891,7 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    
+
 
                     // Verificar si el primer caracter es + o - para evitar la busqueda
                     // y que tome en cuenta el atajo para aumentar o disminuir cantidad
