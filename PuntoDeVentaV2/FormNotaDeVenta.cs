@@ -133,7 +133,28 @@ namespace PuntoDeVentaV2
                 DireccionLogo = "";
                 reportParameters.Add(new ReportParameter("Logo", DireccionLogo));
             }
-            
+            string StatusVenta;
+            using (DataTable ConsultaEstatus = cn.CargarDatos($"SELECT `Status` FROM ventas WHERE ID = {IDVenta}"))
+            {
+                string Status = ConsultaEstatus.Rows[0]["Status"].ToString();
+                if (Status.Equals("1"))
+                {
+                    StatusVenta = "Venta Pagada";
+                }
+                else if (Status.Equals("2"))
+                {
+                    StatusVenta = "Presupuesto";
+                }
+                else if (Status.Equals("3"))
+                {
+                    StatusVenta = "Venta Cancelada";
+                }
+                else
+                {
+                    StatusVenta = "Venta a Crédito";
+                }
+            }
+            reportParameters.Add(new ReportParameter("StatusVenta", StatusVenta));
 
             LocalReport rdlc = new LocalReport();
             rdlc.EnableExternalImages = true;
