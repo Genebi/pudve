@@ -27,8 +27,17 @@ namespace PuntoDeVentaV2
 
         private void Visualizar_factura_Load(object sender, EventArgs e)
         {
-            ruta = @"C:\Archivos PUDVE\Facturas\" + nombre_pdf + ".pdf";            
+            var servidor = Properties.Settings.Default.Hosting;
 
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                ruta = $@"\\{servidor}\Archivos PUDVE\Facturas\" + nombre_pdf + ".pdf";
+            }
+            else
+            {
+                ruta = @"C:\Archivos PUDVE\Facturas\" + nombre_pdf + ".pdf";
+            }
+            
             axAcroPDFf.src = ruta;
             axAcroPDFf.setZoom(75);
         }

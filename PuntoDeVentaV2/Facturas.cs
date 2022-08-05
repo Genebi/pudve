@@ -417,14 +417,22 @@ namespace PuntoDeVentaV2
                         //Generar_PDF_factura.generar_PDF(nombre_xml);
                         //generar_PDF(nombre_xml, id_factura);
 
-                        hilo = new Thread(() => mnsj());
-                        hilo.Start();
+                        if (string.IsNullOrWhiteSpace(servidor) && (!File.Exists(ruta_archivo) || File.Exists(ruta_archivo)))
+                        {
+                            hilo = new Thread(() => mnsj());
+                            hilo.Start();
 
-                        hilo = new Thread(() => generarPDF(nombre_xml, id_factura));
-                        hilo.Start();
+                            hilo = new Thread(() => generarPDF(nombre_xml, id_factura));
+                            hilo.Start();
 
 
-                        hilo.Join();
+                            hilo.Join();
+                        }
+                        else if (!string.IsNullOrWhiteSpace(servidor) && !File.Exists(ruta_archivo))
+                        {
+                            MessageBox.Show("El archivo de la nota no esta descargado en el servidor, abrirlo primero en el servidor para verlo en red", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
                     }
 
                     // Ver PDF de factura
