@@ -4284,5 +4284,10 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT IF(LogoTipo ='' OR LogoTipo IS NULL,NULL,LogoTipo)as 'Logo' FROM usuarios WHERE ID = {idusuario}";
             return consulta;
         }
+        public string PermisoEnviarCorreoAnticipo(int IDEmpleado, int IDUsuario)
+        {
+            var consulta = $"SELECT PermisoCorreoAnticipo FROM permisosconfiguracion WHERE IDEmpleado = {IDEmpleado} AND IDUsuario = {IDUsuario} ORDER BY ID DESC LIMIT 1";
+            return consulta;
+        }
     }
 }   
