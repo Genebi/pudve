@@ -31,7 +31,7 @@ namespace PuntoDeVentaV2
         public static double pasarSumaImportes { get; set; }
         public static double pasarTotalAnticipos { get; set; }
         private bool aplicarDescuentoG { get; set; }
-
+       
         public static string etiqeutaCliente { get; set; }
 
         // Almacena los ID de los productos a los que se aplica descuento general
@@ -7047,8 +7047,18 @@ namespace PuntoDeVentaV2
                 return;
             }
 
+           
             if (Application.OpenForms.OfType<ListadoVentasGuardadas>().Count() == 1)
             {
+                ListadoVentasGuardadas ventasFusion = new ListadoVentasGuardadas();
+                if (!DGVentas.Rows.Count.Equals(0))
+                {
+                    ventasFusion.mensajeFusionarProductos = 1;
+                }
+                else
+                {
+                    ventasFusion.mensajeFusionarProductos = 0;
+                }
                 Application.OpenForms.OfType<ListadoVentasGuardadas>().First().BringToFront();
             }
             else
@@ -7081,6 +7091,14 @@ namespace PuntoDeVentaV2
                     }
                 };
 
+                if (!DGVentas.Rows.Count.Equals(0))
+                {
+                    venta.mensajeFusionarProductos = 1;
+                }
+                else
+                {
+                    venta.mensajeFusionarProductos = 0;
+                }
                 venta.Show();
             }
         }
@@ -7744,6 +7762,11 @@ namespace PuntoDeVentaV2
         }
 
         private void txtDescuentoGeneral_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DGVentas_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
 
         }

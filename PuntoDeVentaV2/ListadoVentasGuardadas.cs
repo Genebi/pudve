@@ -17,6 +17,8 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
+        public int mensajeFusionarProductos { get; set; }
+
         public string rutaLocal = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         bool con_filtro = false;
 
@@ -98,6 +100,14 @@ namespace PuntoDeVentaV2
             //Mostrar venta guardada
             if (e.ColumnIndex == 5)
             {
+                
+                if (mensajeFusionarProductos == 1)
+                {
+                    if (MessageBox.Show("Se combinaran los productos de la venta guardada con los que tiene en la lista de nueva venta.\n\n¿Desea Continuar? ", "Aviso del sistema", MessageBoxButtons.YesNo) == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
                 Ventas.mostrarVenta = IDVenta;
                 Ventas.idCliente = IDCliente;
 
