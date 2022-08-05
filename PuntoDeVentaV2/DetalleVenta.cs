@@ -150,7 +150,7 @@ namespace PuntoDeVentaV2
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
-        {
+                {
             Ventas venta = new Ventas();
             float pagado = (CantidadDecimal(txtEfectivo.Text) + SumaMetodos() + credito) * 100 / 100;
 
@@ -280,8 +280,8 @@ namespace PuntoDeVentaV2
                                 IDPublicoGeneral = Convert.ToInt32(drPublicoGeneral["ID"].ToString());
                                 razonSocialPublicoGeneral = drPublicoGeneral["RazonSocial"].ToString();
                                
-                                Ventas.idCliente = IDPublicoGeneral.ToString();     
-                                Ventas.ventaGuardada = true;
+                                Ventas.idCliente = IDPublicoGeneral.ToString();
+                                //Ventas.ventaGuardada = true;
                                 Ventas.cliente = razonSocialPublicoGeneral;
                                 
                             }
