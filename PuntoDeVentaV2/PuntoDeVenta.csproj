@@ -938,12 +938,6 @@
     <Compile Include="MensajePorFavorEspere.Designer.cs">
       <DependentUpon>MensajePorFavorEspere.cs</DependentUpon>
     </Compile>
-    <Compile Include="MensajeSiNo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MensajeSiNo.Designer.cs">
-      <DependentUpon>MensajeSiNo.cs</DependentUpon>
-    </Compile>
     <Compile Include="MensajeSiNoCancelar.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1779,9 +1773,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MensajePorFavorEspere.resx">
       <DependentUpon>MensajePorFavorEspere.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MensajeSiNo.resx">
-      <DependentUpon>MensajeSiNo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MensajeSiNoCancelar.resx">
       <DependentUpon>MensajeSiNoCancelar.cs</DependentUpon>
