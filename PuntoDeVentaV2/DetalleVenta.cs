@@ -152,7 +152,7 @@ namespace PuntoDeVentaV2
         private void btnAceptar_Click(object sender, EventArgs e)
                 {
             Ventas venta = new Ventas();
-            float pagado = (CantidadDecimal(txtEfectivo.Text) + SumaMetodos() + credito) * 100 / 100;
+                    float pagado = (CantidadDecimal(txtEfectivo.Text) + SumaMetodos() + credito) * 100 / 100;
 
             List<string> listaCantidades = new List<string>();
 
