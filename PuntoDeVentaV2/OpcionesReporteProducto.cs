@@ -514,19 +514,19 @@ namespace PuntoDeVentaV2
                     {
                         // Busca el valor de cualquiera de estas columnas y aplica las condiciones
                         // elegidas por el usuario para comparar las cantidades
-                        if (filtro.Key == "Stock" || filtro.Key == "StockMinimo" || filtro.Key == "StockNecesario")
+                        if (filtro.Key.Equals("Stock") || filtro.Key.Equals("StockMinimo") || filtro.Key.Equals("StockNecesario"))
                         {
                             var cantidad = float.Parse(listaProductos.Rows[i][filtro.Key].ToString());
 
                             respuesta = OperadoresComparacion(filtro, cantidad);
                         }
-                        else if (filtro.Key == "Precio" || filtro.Key == "NumeroRevision")
+                        else if (filtro.Key.Equals("Precio") || filtro.Key.Equals("NumeroRevision"))
                         {
                             var cantidad = float.Parse(listaProductos.Rows[i][filtro.Key].ToString());
 
                             respuesta = OperadoresComparacion(filtro, cantidad);
                         }
-                        else if (filtro.Key == "CantidadPedir")
+                        else if (filtro.Key.Equals("CantidadPedir"))
                         {
                             long cantidad = 0;
 
@@ -547,7 +547,7 @@ namespace PuntoDeVentaV2
 
                             respuesta = OperadoresComparacion(filtro, cantidad);
                         }
-                        else if (filtro.Key == "Proveedor")
+                        else if (filtro.Key.Equals("Proveedor"))
                         {
                             var idProducto = Convert.ToInt32(listaProductos.Rows[i]["ID"]);
                             var datosProveedor = mb.DetallesProducto(idProducto, FormPrincipal.userID);
@@ -568,7 +568,7 @@ namespace PuntoDeVentaV2
                             }
 
                         }
-                        else if (filtro.Key == "Tipo")
+                        else if (filtro.Key.Equals("Tipo"))
                         {
                             var tipo = listaProductos.Rows[i][filtro.Key].ToString();
 
@@ -577,12 +577,12 @@ namespace PuntoDeVentaV2
                                 respuesta = false;
                             }
                         }
-                        else if (filtro.Key == "Imagen")
+                        else if (filtro.Key.Equals("Imagen"))
                         {
                             var imagen = listaProductos.Rows[i]["ProdImage"].ToString();
 
                             // Con imagen
-                            if (filtro.Value.Item1 == "1")
+                            if (filtro.Value.Item1.Equals("1"))
                             {
                                 if (string.IsNullOrWhiteSpace(imagen))
                                 {
@@ -591,9 +591,31 @@ namespace PuntoDeVentaV2
                             }
 
                             // Sin imagen
-                            if (filtro.Value.Item1 == "0")
+                            if (filtro.Value.Item1.Equals("0"))
                             {
                                 if (!string.IsNullOrWhiteSpace(imagen))
+                                {
+                                    respuesta = false;
+                                }
+                            }
+                        }
+                        else if (filtro.Key.Equals("Descuento"))
+                        {
+                            var descuentoCliente = Convert.ToInt16(listaProductos.Rows[i]["TieneDescuentoCliente"]);
+                            var descuentoMayoreo = Convert.ToInt16(listaProductos.Rows[i]["TieneDescuentoMayoreo"]);
+
+                            // Con descuento
+                            if (filtro.Value.Item1.Equals("1"))
+                            {
+                                if (descuentoCliente == 0 && descuentoMayoreo == 0)
+                                {
+                                    respuesta = false;
+                                }
+                            }
+                            // Sin descuento
+                            if (filtro.Value.Item1.Equals("0"))
+                            {
+                                if (descuentoCliente == 1 || descuentoMayoreo == 1)
                                 {
                                     respuesta = false;
                                 }
