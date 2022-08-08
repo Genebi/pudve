@@ -311,8 +311,10 @@ namespace PuntoDeVentaV2
 
                 // Actualizamos el precio de la tabla Productos
                 precioProducto = precioAux;
+                var nombreProducto = lbProducto.Text;
 
                 cn.EjecutarConsulta($"UPDATE Productos SET Precio = '{precioProducto}' WHERE ID = {IDProducto} AND IDUsuario = {FormPrincipal.userID}");
+                cn.EjecutarConsulta($"UPDATE Productos SET Nombre = '{nombreProducto}' WHERE ID = {IDProducto} AND IDUsuario = {FormPrincipal.userID}");
             }
 
             //Producto comprado
@@ -848,8 +850,12 @@ namespace PuntoDeVentaV2
             }
 
             var Consultaid = cn.CargarDatos($"SELECT ID FROM proveedores WHERE Nombre= '{proveedor}' AND IDUsuario = {FormPrincipal.userID}");
+            if (!Consultaid.Rows.Count.Equals(0))
+            {
             string id = Consultaid.Rows[0]["ID"].ToString();
             cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{proveedor}', IDProveedor = {id} WHERE IDProducto = {IDProducto}");
+            }
+
 
         }
 
@@ -1047,6 +1053,7 @@ namespace PuntoDeVentaV2
                     txtPrecio.Text = precio;
 
                     txtPrecio.ReadOnly = false;
+                    lbProducto.ReadOnly = false;
                     txtPrecio.SelectAll();
                     txtPrecio.Focus();
                     //txtPrecio.Select(txtPrecio.Text.Length, 0);
@@ -1273,8 +1280,9 @@ namespace PuntoDeVentaV2
                     datoObtenido = descuento.Rows[i]["PorcentajePrecio"].ToString();
                 }
                 var x = float.Parse(datoObtenido);
-                var operacion = (precio * x);
-                txtPrecio.Text = "$ " + operacion.ToString(); 
+                var operacion = (precio * (x / 100));
+                var precioFinal = operacion + precio;
+                txtPrecio.Text = "$ " + precioFinal.ToString(); 
             }
             else
             {

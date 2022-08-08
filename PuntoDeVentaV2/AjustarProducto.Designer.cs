@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AjustarProducto));
-            this.lbProducto = new System.Windows.Forms.Label();
+            this.lbProduct = new System.Windows.Forms.Label();
             this.rbProducto = new System.Windows.Forms.RadioButton();
             this.rbAjustar = new System.Windows.Forms.RadioButton();
             this.panelComprado = new System.Windows.Forms.Panel();
@@ -69,21 +69,23 @@
             this.pnlOpcionesRadioButtons = new System.Windows.Forms.Panel();
             this.pnlMensajeOperacionInventario = new System.Windows.Forms.Panel();
             this.lblOperacionInventario = new System.Windows.Forms.Label();
+            this.lbProducto = new System.Windows.Forms.TextBox();
             this.panelComprado.SuspendLayout();
             this.panelAjustar.SuspendLayout();
             this.pnlOpcionesRadioButtons.SuspendLayout();
             this.pnlMensajeOperacionInventario.SuspendLayout();
             this.SuspendLayout();
             // 
-            // lbProducto
+            // lbProduct
             // 
-            this.lbProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.lbProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbProducto.Location = new System.Drawing.Point(13, 19);
-            this.lbProducto.Name = "lbProducto";
-            this.lbProducto.Size = new System.Drawing.Size(609, 20);
-            this.lbProducto.TabIndex = 0;
-            this.lbProducto.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lbProduct.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbProduct.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbProduct.Location = new System.Drawing.Point(13, 14);
+            this.lbProduct.Name = "lbProduct";
+            this.lbProduct.Size = new System.Drawing.Size(610, 28);
+            this.lbProduct.TabIndex = 0;
+            this.lbProduct.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lbProduct.Visible = false;
             // 
             // rbProducto
             // 
@@ -544,11 +546,23 @@
             this.lblOperacionInventario.Text = "label1";
             this.lblOperacionInventario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lbProducto
+            // 
+            this.lbProducto.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lbProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbProducto.Location = new System.Drawing.Point(13, 13);
+            this.lbProducto.Name = "lbProducto";
+            this.lbProducto.ReadOnly = true;
+            this.lbProducto.Size = new System.Drawing.Size(609, 22);
+            this.lbProducto.TabIndex = 36;
+            this.lbProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // AjustarProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(634, 412);
+            this.Controls.Add(this.lbProducto);
             this.Controls.Add(this.pnlOpcionesRadioButtons);
             this.Controls.Add(this.txtPrecio);
             this.Controls.Add(this.lbEditarPrecio);
@@ -558,7 +572,7 @@
             this.Controls.Add(this.lbSeparador1);
             this.Controls.Add(this.lbComentarios);
             this.Controls.Add(this.txtComentarios);
-            this.Controls.Add(this.lbProducto);
+            this.Controls.Add(this.lbProduct);
             this.Controls.Add(this.pnlMensajeOperacionInventario);
             this.Controls.Add(this.panelAjustar);
             this.Controls.Add(this.panelComprado);
@@ -585,7 +599,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lbProducto;
+        private System.Windows.Forms.Label lbProduct;
         private System.Windows.Forms.RadioButton rbProducto;
         private System.Windows.Forms.RadioButton rbAjustar;
         private System.Windows.Forms.Panel panelComprado;
@@ -625,5 +639,6 @@
         private System.Windows.Forms.Panel pnlOpcionesRadioButtons;
         private System.Windows.Forms.Panel pnlMensajeOperacionInventario;
         private System.Windows.Forms.Label lblOperacionInventario;
+        private System.Windows.Forms.TextBox lbProducto;
     }
 }
