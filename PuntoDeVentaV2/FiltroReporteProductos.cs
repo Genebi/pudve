@@ -51,6 +51,7 @@ namespace PuntoDeVentaV2
             cbStockMinimo.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbStockNecesario.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbTipo.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbDescuento.MouseWheel += new MouseEventHandler (Utilidades.ComboBox_Quitar_MouseWheel);
             
             if (!OpcionesReporteProducto.filtroAbierto || origen == 2)
             {
@@ -108,6 +109,15 @@ namespace PuntoDeVentaV2
                 cbImagen.DataSource = sourceOpciones.ToArray();
                 cbImagen.ValueMember = "Key";
                 cbImagen.DisplayMember = "Value";
+
+                sourceOpciones = new Dictionary<string, string>();
+                sourceOpciones.Add("NA", "No aplica");
+                sourceOpciones.Add("1", "Con descuento");
+                sourceOpciones.Add("0", "Sin descuento");
+
+                cbDescuento.DataSource = sourceOpciones.ToArray();
+                cbDescuento.ValueMember = "Key";
+                cbDescuento.DisplayMember = "Value";
 
                 // Cargar los proveedores para el combobox
                 var proveedores = cn.ObtenerProveedores(FormPrincipal.userID);
@@ -195,7 +205,7 @@ namespace PuntoDeVentaV2
             {
                 Font fuente = new Font("Century Gothic", 9.0f);
 
-                int alturaEjeY = 380;
+                int alturaEjeY = 420;
 
                 foreach (var opcion in opcionesDefault)
                 {
@@ -312,7 +322,7 @@ namespace PuntoDeVentaV2
 
                                 filtros.Add(nombreCB, new Tuple<string, float>(opcion, cantidad));
                             }
-                            else if (nombreCB == "Proveedor" || nombreCB == "Tipo" || nombreCB == "Imagen")
+                            else if (nombreCB == "Proveedor" || nombreCB == "Tipo" || nombreCB == "Imagen" || nombreCB == "Descuento")
                             {
                                 filtros.Add(nombreCB, new Tuple<string, float>(opcion, 0));
                             }
@@ -337,7 +347,7 @@ namespace PuntoDeVentaV2
                 if (origen == 2)
                 {
                     // Actualizar tablas de filtros para las etiquetas
-                    string[] conceptosEstaticos = new string[] { "Stock", "StockMinimo", "StockNecesario", "Precio", "NumeroRevision", "CantidadPedir", "Imagen", "Tipo" };
+                    string[] conceptosEstaticos = new string[] { "Stock", "StockMinimo", "StockNecesario", "Precio", "NumeroRevision", "CantidadPedir", "Imagen", "Tipo", "Descuento" };
 
                     foreach (var filtro in filtros)
                     {
@@ -532,6 +542,19 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+        }
+
+        private void checkDescuento_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkDescuento.Checked)
+            {
+                cbDescuento.Enabled = true;
+            }
+            else
+            {
+                cbDescuento.SelectedValue = "NA";
+                cbDescuento.Enabled = false;
             }
         }
     }

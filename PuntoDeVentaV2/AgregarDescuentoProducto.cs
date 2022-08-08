@@ -1448,6 +1448,7 @@ namespace PuntoDeVentaV2
                     AgregarEditarProducto.SearchDesCliente.Clear();
                     cn.EjecutarConsulta($"DELETE FROM DescuentoMayoreo WHERE IDProducto = {idProducto}");
                     AgregarEditarProducto.SearchDesMayoreo.Clear();
+                    cn.EjecutarConsulta($"UPDATE Productos SET TieneDescuentoCliente = 0, TieneDescuentoMayoreo = 0 WHERE ID = {idProducto}");
 
                     panelContenedor.Controls.Clear();
                     AgregarEditarProducto.descuentos.Clear();

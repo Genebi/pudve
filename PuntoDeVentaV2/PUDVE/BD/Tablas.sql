@@ -1759,5 +1759,18 @@ ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS Referencia INT DEFAULT 1;
 
 -- Agregar Columna de Envio Anticpo a la tabla de configutacion
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoAnticipo INT DEFAULT 0 ;
+
 -- Agregar Columna de PermisoAnticipo a la tabla permisosconfiguracion
 ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoCorreoAnticipo INT DEFAULT 0 ;
+
+-- Agregar columna para descuento por cliente en productos
+ALTER TABLE Productos ADD COLUMN IF NOT EXISTS TieneDescuentoCliente TINYINT(1) DEFAULT 0;
+
+-- Agregar columna para descuento por mayoreo en productos
+ALTER TABLE Productos ADD COLUMN IF NOT EXISTS TieneDescuentoMayoreo TINYINT(1) DEFAULT 0;
+
+-- Actualizar las columnas TieneDescuentoCliente
+UPDATE Productos AS P INNER JOIN DescuentoCliente AS DC ON P.ID = DC.IDProducto SET P.TieneDescuentoCliente = 1;
+
+-- Actualizar las columnas TieneDescuentoMayoreo
+UPDATE Productos AS P INNER JOIN (SELECT DM.IDProducto FROM DescuentoMayoreo AS DM GROUP BY DM.IDProducto) AS DM ON P.ID = DM.IDProducto SET TieneDescuentoMayoreo = 1;
