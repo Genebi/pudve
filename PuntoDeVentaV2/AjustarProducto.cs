@@ -311,10 +311,10 @@ namespace PuntoDeVentaV2
 
                 // Actualizamos el precio de la tabla Productos
                 precioProducto = precioAux;
-                var nombreProducto = lbProducto.Text;
+               
 
                 cn.EjecutarConsulta($"UPDATE Productos SET Precio = '{precioProducto}' WHERE ID = {IDProducto} AND IDUsuario = {FormPrincipal.userID}");
-                cn.EjecutarConsulta($"UPDATE Productos SET Nombre = '{nombreProducto}' WHERE ID = {IDProducto} AND IDUsuario = {FormPrincipal.userID}");
+                
             }
 
             //Producto comprado
@@ -856,7 +856,8 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{proveedor}', IDProveedor = {id} WHERE IDProducto = {IDProducto}");
             }
 
-
+            var nombreProducto = lbProducto.Text;
+            cn.EjecutarConsulta($"UPDATE Productos SET Nombre = '{nombreProducto}' WHERE ID = {IDProducto} AND IDUsuario = {FormPrincipal.userID}");
         }
 
         private void RestaurarValores(int valorCB)
