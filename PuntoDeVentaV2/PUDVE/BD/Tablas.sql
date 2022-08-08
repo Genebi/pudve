@@ -1756,3 +1756,15 @@ ALTER TABLE ventas ADD COLUMN IF NOT EXISTS IDAnticipo INT DEFAULT 0;
 
 -- Agregar columna de 80mm en la tabla de EditarTicket 
 ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS Referencia INT DEFAULT 1;
+
+-- Agregar columna para descuento por cliente en productos
+ALTER TABLE Productos ADD COLUMN IF NOT EXISTS TieneDescuentoCliente TINYINT(1) DEFAULT 0;
+
+-- Agregar columna para descuento por mayoreo en productos
+ALTER TABLE Productos ADD COLUMN IF NOT EXISTS TieneDescuentoMayoreo TINYINT(1) DEFAULT 0;
+
+-- Actualizar las columnas TieneDescuentoCliente
+UPDATE Productos AS P INNER JOIN DescuentoCliente AS DC ON P.ID = DC.IDProducto SET P.TieneDescuentoCliente = 1;
+
+-- Actualizar las columnas TieneDescuentoMayoreo
+UPDATE Productos AS P INNER JOIN (SELECT DM.IDProducto FROM DescuentoMayoreo AS DM GROUP BY DM.IDProducto) AS DM ON P.ID = DM.IDProducto SET TieneDescuentoMayoreo = 1;

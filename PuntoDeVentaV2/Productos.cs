@@ -4356,6 +4356,14 @@ namespace PuntoDeVentaV2
                             extraProductos += filtro.Value.Item1 == "1" ? "P.ProdImage != '' AND " : "P.ProdImage = '' AND ";
                         }
                     }
+                    else if (filtro.Key == "Descuento")
+                    {
+                        // Con descuento = 1 || sin descuento = 0
+                        if (filtro.Value.Item1 == "1" || filtro.Value.Item1 == "0")
+                        {
+                            extraProductos += filtro.Value.Item1 == "1" ? "(P.TieneDescuentoCliente = 1 OR P.TieneDescuentoMayoreo = 1) AND " : "(P.TieneDescuentoCliente = 0 AND P.TieneDescuentoMayoreo = 0) AND ";
+                        }
+                    }
                     else
                     {
                         if (string.IsNullOrWhiteSpace(extraDetalles))
@@ -4363,7 +4371,7 @@ namespace PuntoDeVentaV2
                             if (!filtro.Value.Item1.Equals("SIN"))
                             {
                                 extraDetalles += "INNER JOIN DetallesProductoGenerales AS DPG ON (P.ID = DPG.IDProducto AND P.IDUsuario = DPG.IDUsuario AND DPG.StatusDetalleGral = 1) INNER JOIN DetalleGeneral AS DG ON (DPG.IDDetalleGral = DG.ID AND DPG.IDUsuario = DG.IDUsuario) ";
-                             }
+                            }
                         }
 
                         // Se guardan los valores dinamicos creados por el usuario

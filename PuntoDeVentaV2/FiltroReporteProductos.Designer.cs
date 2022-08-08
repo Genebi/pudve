@@ -32,6 +32,8 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.primerSeparador = new System.Windows.Forms.Label();
             this.panelContenedor = new System.Windows.Forms.Panel();
+            this.cbDescuento = new System.Windows.Forms.ComboBox();
+            this.checkDescuento = new System.Windows.Forms.CheckBox();
             this.cbImagen = new System.Windows.Forms.ComboBox();
             this.checkImagen = new System.Windows.Forms.CheckBox();
             this.cbTipo = new System.Windows.Forms.ComboBox();
@@ -70,7 +72,7 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(140, 413);
+            this.btnCancelar.Location = new System.Drawing.Point(140, 432);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(105, 27);
             this.btnCancelar.TabIndex = 20;
@@ -86,7 +88,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(281, 412);
+            this.btnAceptar.Location = new System.Drawing.Point(281, 431);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(105, 28);
             this.btnAceptar.TabIndex = 19;
@@ -99,7 +101,7 @@
             this.primerSeparador.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.primerSeparador.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.primerSeparador.Location = new System.Drawing.Point(18, 403);
+            this.primerSeparador.Location = new System.Drawing.Point(18, 418);
             this.primerSeparador.Name = "primerSeparador";
             this.primerSeparador.Size = new System.Drawing.Size(480, 2);
             this.primerSeparador.TabIndex = 23;
@@ -108,6 +110,8 @@
             // panelContenedor
             // 
             this.panelContenedor.AutoScroll = true;
+            this.panelContenedor.Controls.Add(this.cbDescuento);
+            this.panelContenedor.Controls.Add(this.checkDescuento);
             this.panelContenedor.Controls.Add(this.cbImagen);
             this.panelContenedor.Controls.Add(this.checkImagen);
             this.panelContenedor.Controls.Add(this.cbTipo);
@@ -134,8 +138,31 @@
             this.panelContenedor.Controls.Add(this.checkStock);
             this.panelContenedor.Location = new System.Drawing.Point(2, 1);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(510, 390);
+            this.panelContenedor.Size = new System.Drawing.Size(510, 414);
             this.panelContenedor.TabIndex = 24;
+            // 
+            // cbDescuento
+            // 
+            this.cbDescuento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbDescuento.Enabled = false;
+            this.cbDescuento.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbDescuento.FormattingEnabled = true;
+            this.cbDescuento.Location = new System.Drawing.Point(138, 380);
+            this.cbDescuento.Name = "cbDescuento";
+            this.cbDescuento.Size = new System.Drawing.Size(336, 24);
+            this.cbDescuento.TabIndex = 51;
+            // 
+            // checkDescuento
+            // 
+            this.checkDescuento.AutoSize = true;
+            this.checkDescuento.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkDescuento.Location = new System.Drawing.Point(10, 380);
+            this.checkDescuento.Name = "checkDescuento";
+            this.checkDescuento.Size = new System.Drawing.Size(92, 21);
+            this.checkDescuento.TabIndex = 50;
+            this.checkDescuento.Text = "Descuento";
+            this.checkDescuento.UseVisualStyleBackColor = true;
+            this.checkDescuento.CheckedChanged += new System.EventHandler(this.checkDescuento_CheckedChanged);
             // 
             // cbImagen
             // 
@@ -414,7 +441,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(514, 461);
+            this.ClientSize = new System.Drawing.Size(514, 481);
             this.Controls.Add(this.panelContenedor);
             this.Controls.Add(this.primerSeparador);
             this.Controls.Add(this.btnCancelar);
@@ -463,5 +490,7 @@
         private System.Windows.Forms.CheckBox checkTipo;
         private System.Windows.Forms.ComboBox cbImagen;
         private System.Windows.Forms.CheckBox checkImagen;
+        private System.Windows.Forms.ComboBox cbDescuento;
+        private System.Windows.Forms.CheckBox checkDescuento;
     }
 }
