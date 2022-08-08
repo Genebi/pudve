@@ -1897,6 +1897,7 @@ namespace PuntoDeVentaV2
             reiniciarVariablesDeSistemaNoRevision();
             reiniciarVariablesDeSistemaTipo();
             reiniciarVariablesImagen();
+            reiniciarVariablesDescuento();
 
             //actualizarBtnFiltro();
 
@@ -3063,6 +3064,13 @@ namespace PuntoDeVentaV2
                                 setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString());
                             }
                         }
+                        if (drFiltroProducto["concepto"].ToString().Equals("chkBoxDescuento"))
+                        {
+                            if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
+                            {
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString());
+                            }
+                        }
                     }
                 }
             }
@@ -3119,6 +3127,18 @@ namespace PuntoDeVentaV2
                         else if (words[1].Equals("="))
                         {
                             textoPanel += "Sin Imagen";
+                        }
+                    }
+                    else if (words[0].Equals("Descuento"))
+                    {
+                        if (words[1].Equals("1"))
+                        {
+                            textoPanel = "Con Descuento";
+                        }
+
+                        if (words[1].Equals("0"))
+                        {
+                            textoPanel = "Sin Descuento";
                         }
                     }
                     else if (!words[0].Equals("ProdImage"))
@@ -3998,6 +4018,10 @@ namespace PuntoDeVentaV2
             {
                 reiniciarVariablesImagen();
             }
+            else if (name.Equals("Descuento"))
+            {
+                reiniciarVariablesDescuento();
+            }
                 
             if (txtBusqueda.Text.Equals(""))
             {
@@ -4047,11 +4071,19 @@ namespace PuntoDeVentaV2
             reiniciarVariablesDeSistemaNoRevision();
             reiniciarVariablesDeSistemaTipo();
             reiniciarVariablesImagen();
+            reiniciarVariablesDescuento();
         }
 
         private void reiniciarVariablesImagen()
         {
             string FiltroProducto = "chkBoxImagen";
+
+            reiniciarFiltroDinamicoDosCampos(FiltroProducto);
+        }
+
+        private void reiniciarVariablesDescuento()
+        {
+            string FiltroProducto = "chkBoxDescuento";
 
             reiniciarFiltroDinamicoDosCampos(FiltroProducto);
         }
@@ -4156,7 +4188,7 @@ namespace PuntoDeVentaV2
                                 }
                             }
 
-                            if (datos[0] == "Tipo")
+                            if (datos[0].Equals("Tipo"))
                             {
                                 if (!filtros.ContainsKey(datos[0]))
                                 {
@@ -4164,13 +4196,21 @@ namespace PuntoDeVentaV2
                                 }
                             }
 
-                            if (datos[0] == "ProdImage")
+                            if (datos[0].Equals("ProdImage"))
                             {
                                 datos[1] = datos[1].Equals("<>") ? "1" : "0";
 
                                 if (!filtros.ContainsKey("Imagen"))
                                 {
                                     filtros.Add("Imagen", new Tuple<string, float>(datos[1], 0));
+                                }
+                            }
+
+                            if (datos[0].Equals("Descuento"))
+                            {
+                                if (!filtros.ContainsKey("Descuento"))
+                                {
+                                    filtros.Add("Descuento", new Tuple<string, float>(datos[1], 0));
                                 }
                             }
                         }

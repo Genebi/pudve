@@ -2643,6 +2643,7 @@ namespace PuntoDeVentaV2
                                                     try
                                                     {
                                                         cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, idProducto));
+                                                        cn.EjecutarConsulta($"UPDATE Productos SET TieneDescuentoCliente = 1 WHERE ID = {idProducto}");
                                                     }
                                                     catch (Exception ex)
                                                     {
@@ -2661,6 +2662,7 @@ namespace PuntoDeVentaV2
                                                         try
                                                         {
                                                             cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, idProducto));
+                                                            cn.EjecutarConsulta($"UPDATE Productos SET TieneDescuentoMayoreo = 1 WHERE ID = {idProducto}");
                                                         }
                                                         catch (Exception ex)
                                                         {
@@ -3207,6 +3209,7 @@ namespace PuntoDeVentaV2
                                                     guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
 
                                                     cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, idProducto));
+                                                    cn.EjecutarConsulta($"UPDATE Productos SET TieneDescuentoCliente = 1 WHERE ID = {idProducto}");
                                                 }
                                                 //Descuento por Mayoreo
                                                 if (descuentos[0] == "2")
@@ -3218,6 +3221,7 @@ namespace PuntoDeVentaV2
                                                         string[] tmp = descuento.Split('-');
 
                                                         cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, idProducto));
+                                                        cn.EjecutarConsulta($"UPDATE Productos SET TieneDescuentoMayoreo = 1 WHERE ID = {idProducto}");
                                                     }
                                                 }
                                             }
@@ -3540,6 +3544,7 @@ namespace PuntoDeVentaV2
                                     {
                                         string[] guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
                                         cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, Convert.ToInt32(idProductoBuscado)));
+                                        cn.EjecutarConsulta($"UPDATE Productos SET TieneDescuentoCliente = 1 WHERE ID = {idProductoBuscado}");
                                     }
                                     //Descuento por Mayoreo
                                     if (descuentos[0] == "2")
@@ -3551,6 +3556,7 @@ namespace PuntoDeVentaV2
                                             string[] tmp = descuento.Split('-');
 
                                             cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, Convert.ToInt32(idProductoBuscado)));
+                                            cn.EjecutarConsulta($"UPDATE Productos SET TieneDescuentoMayoreo = 1 WHERE ID = {idProductoBuscado}");
                                         }
                                     }
                                 }
@@ -4043,6 +4049,7 @@ namespace PuntoDeVentaV2
                                         guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
 
                                         cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, idProducto));
+                                        cn.EjecutarConsulta($"UPDATE Productos SET TieneDescuentoCliente = 1 WHERE ID = {idProducto}");
                                     }
                                     //Descuento por Mayoreo
                                     if (descuentos[0] == "2")
@@ -4054,6 +4061,7 @@ namespace PuntoDeVentaV2
                                             string[] tmp = descuento.Split('-');
 
                                             cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, idProducto));
+                                            cn.EjecutarConsulta($"UPDATE Productos SET TieneDescuentoMayoreo = 1 WHERE ID = {idProducto}");
                                         }
                                     }
                                 }
@@ -6232,6 +6240,7 @@ namespace PuntoDeVentaV2
                                                 try
                                                 {
                                                     cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, idProducto));
+                                                    cn.EjecutarConsulta($"UPDATE Productos SET TieneDescuentoCliente = 1 WHERE ID = {idProducto}");
                                                 }
                                                 catch (Exception ex)
                                                 {
@@ -6250,6 +6259,7 @@ namespace PuntoDeVentaV2
                                                     try
                                                     {
                                                         cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, idProducto));
+                                                        cn.EjecutarConsulta($"UPDATE Productos SET TieneDescuentoMayoreo = 1 WHERE ID = {idProducto}");
                                                     }
                                                     catch (Exception ex)
                                                     {
@@ -6777,6 +6787,7 @@ namespace PuntoDeVentaV2
                                                 guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
 
                                                 cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, idProducto));
+                                                cn.EjecutarConsulta($"UPDATE Productos SET TieneDescuentoCliente = 1 WHERE ID = {idProducto}");
                                             }
                                             //Descuento por Mayoreo
                                             if (descuentos[0] == "2")
@@ -6788,6 +6799,7 @@ namespace PuntoDeVentaV2
                                                     string[] tmp = descuento.Split('-');
 
                                                     cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, idProducto));
+                                                    cn.EjecutarConsulta($"UPDATE Productos SET TieneDescuentoMayoreo = 1 WHERE ID = {idProducto}");
                                                 }
                                             }
                                         }
@@ -7088,6 +7100,7 @@ namespace PuntoDeVentaV2
                                 {
                                     string[] guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
                                     cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, Convert.ToInt32(idProductoBuscado)));
+                                    cn.EjecutarConsulta($"UPDATE Productos SET TieneDescuentoCliente = 1 WHERE ID = {idProductoBuscado}");
                                 }
                                 //Descuento por Mayoreo
                                 if (descuentos[0] == "2")
@@ -7099,6 +7112,7 @@ namespace PuntoDeVentaV2
                                         string[] tmp = descuento.Split('-');
 
                                         cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, Convert.ToInt32(idProductoBuscado)));
+                                        cn.EjecutarConsulta($"UPDATE Productos SET TieneDescuentoMayoreo = 1 WHERE ID = {idProductoBuscado}");
                                     }
                                 }
                             }
@@ -7550,6 +7564,8 @@ namespace PuntoDeVentaV2
                                     guardar = new string[] { descuentos[1], descuentos[2], descuentos[3], descuentos[4] };
 
                                     cn.EjecutarConsulta(cs.GuardarDescuentoCliente(guardar, idProducto));
+                                    cn.EjecutarConsulta($"UPDATE Productos SET TieneDescuentoCliente = 1 WHERE ID = {idProducto}");
+
                                 }
                                 //Descuento por Mayoreo
                                 if (descuentos[0] == "2")
@@ -7561,6 +7577,7 @@ namespace PuntoDeVentaV2
                                         string[] tmp = descuento.Split('-');
 
                                         cn.EjecutarConsulta(cs.GuardarDescuentoMayoreo(tmp, idProducto));
+                                        cn.EjecutarConsulta($"UPDATE Productos SET TieneDescuentoMayoreo = 1 WHERE ID = {idProducto}");
                                     }
                                 }
                             }
