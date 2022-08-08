@@ -2754,7 +2754,7 @@ namespace PuntoDeVentaV2
 
         public string permisosEmpleado(string datosPermisos, int id_empleado)
         {
-            var consulta = $"SELECT {datosPermisos} FROM permisosconfiguracion WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID}";
+            var consulta = $"SELECT {datosPermisos} FROM permisosconfiguracion WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1";
             return consulta;
         }
 
