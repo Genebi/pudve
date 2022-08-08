@@ -8,6 +8,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -175,26 +176,14 @@ namespace PuntoDeVentaV2
                     imprimirAnt.anticipoSinHistorial = 1;
                     imprimirAnt.ShowDialog();
 
-                    using (DataTable ConsultaPermisoEnvioAnticipo= cn.CargarDatos($"SELECT CorreoAnticipo FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                    var datosConfig = mb.ComprobarConfiguracion();
+                    if (datosConfig.Count > 0)
                     {
-                        string EnvioAnticpo = ConsultaPermisoEnvioAnticipo.Rows[0]["CorreoAnticipo"].ToString();
-                        if (EnvioAnticpo.Equals("1"))
+                        int inicio = Convert.ToInt32(datosConfig[27]);
+
+                        if (inicio == 1)
                         {
-                            if (FormPrincipal.userNickName.Contains("@"))
-                            {
-                                using (DataTable ConsultaPermiso = cn.CargarDatos(cs.PermisoEnviarCorreoAnticipo(FormPrincipal.id_empleado, FormPrincipal.userID)))
-                                {
-                                    string PermisoEnvioAnticpo = ConsultaPermiso.Rows[0]["PermisoCorreoAnticipo"].ToString();
-                                    if (PermisoEnvioAnticpo.Equals("1"))
-                                    {
-                                        EnvioDeCorreoNuevoAnticipo();
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                EnvioDeCorreoNuevoAnticipo();
-                            }
+                            EnvioDeCorreoNuevoAnticipo();
                         }
                     }
                     this.Close();
