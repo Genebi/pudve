@@ -487,7 +487,7 @@ namespace PuntoDeVentaV2
         {
             desdeCorteDeCaja = false;
             validacionDesdeCajaN = 0;
-
+            
             //if (ApplicationDeployment.IsNetworkDeployed)
             //{
             //    try
@@ -659,7 +659,9 @@ namespace PuntoDeVentaV2
 
             CorreoDe7DiasParaExpiracion();
             CorreoDe10DiasParaExpiracionDocumentosCSD();
-                
+
+            cn.EjecutarConsulta($"UPDATE correosproducto SET CorreoPrecioProducto = 1 ,CorreoStockProducto = 1,CorreoStockMinimo = 1 ,CorreoVentaProducto = 1 WHERE IDUsuario ={userID}");
+
         }
 
         private void CorreoDe10DiasParaExpiracionDocumentosCSD()
