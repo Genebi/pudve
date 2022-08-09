@@ -8075,7 +8075,7 @@ namespace PuntoDeVentaV2
                     <div>
                         <h3 style='text-align: center;'>VENTA DE PRODUCTOS SELECCIONADOS</h3>
                         <hr>
-                        <ul style='color: red; font-size: 0.9em;'>";
+                        <ul style='color: black; font-size: 0.9em;'>";
 
                     foreach (var producto in enviarVentaProducto)
                     {
