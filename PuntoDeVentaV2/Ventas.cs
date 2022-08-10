@@ -7789,106 +7789,199 @@ namespace PuntoDeVentaV2
                     if (!DGVentas.Rows.Count.Equals(0))
                     {
                         string cantidadProductos = DGVentas.Rows[0].Cells[5].Value.ToString();
-                        var esNumeroVaido = false;
-                        var cantidadAgregada = 0;
+                        var valorMaximo = 2139999999;
+                        var cantidadEnDGVEntas = Convert.ToDecimal(cantidadProductos);
 
-                        if (Convert.ToDecimal(cantidadProductos) <= 2139999999)
+                        var patternInicioSimboloMas = @"^[\+]";
+                        var patternInicioSimboloMenos = @"^[\-]";
+                        var patternFinalizaSimboloMas = @"[\+]$";
+                        var patternFinalizaSimboloMenos = @"[\-]$";
+
+                        if (cantidadEnDGVEntas > valorMaximo + 1)
                         {
-                            esNumeroVaido = true;
-                        }
-                        esNumeroVaido = int.TryParse(cantidadProductos, out cantidadAgregada);
-
-                        if (esNumeroVaido.Equals(true))
-                        {
-                            #region Validacion de cantidad
-                            string segundoPatron = @"^(\+\d+)|(\d+\+)|(\+)|(\+\+)$";
-                            string tercerPatron = @"^(\-\d+)|(\d+\-)|(\-)|(\-\-)$";
-
-                            Match segundaCoincidencia = Regex.Match(busqueda, segundoPatron, RegexOptions.IgnoreCase);
-                            Match terceraCoincidencia = Regex.Match(busqueda, tercerPatron, RegexOptions.IgnoreCase);
-
-                            if (segundaCoincidencia.Success)
-                            {
-                                var infoTmp = busqueda.Split('+');
-                                string number = infoTmp[1].ToString();
-
-                                if (number.All(char.IsDigit))
-                                {
-                                    if (!string.IsNullOrWhiteSpace(infoTmp[0].ToString()))
-                                    {
-                                        esNumeroVaido = int.TryParse(infoTmp[0].ToString(), out cantidadAgregada);
-
-                                        if (esNumeroVaido.Equals(false))
-                                        {
-                                            MessageBox.Show("La cantidad es mayor a la permitida");
-                                            string result = busqueda.Remove(busqueda.Length - 1);
-                                            txtBuscadorProducto.Text = result;
-                                            txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
-                                            return;
-                                        }
-                                    }
-                                    if (!string.IsNullOrWhiteSpace(infoTmp[1].ToString()))
-                                    {
-                                        esNumeroVaido = int.TryParse(infoTmp[1].ToString(), out cantidadAgregada);
-
-                                        if (esNumeroVaido.Equals(false))
-                                        {
-                                            MessageBox.Show("La cantidad es mayor a la permitida");
-                                            string result = busqueda.Remove(busqueda.Length - 1);
-                                            txtBuscadorProducto.Text = result;
-                                            txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
-                                            return;
-                                        }
-                                    }
-                                }
-
-
-                            }
-                            else if (terceraCoincidencia.Success)
-                            {
-                                var infoTmp = busqueda.Split('-');
-
-                                string number = infoTmp[1].ToString();
-
-                                if (number.All(char.IsDigit))
-                                {
-                                    if (!string.IsNullOrWhiteSpace(infoTmp[0].ToString()))
-                                    {
-                                        esNumeroVaido = int.TryParse(infoTmp[0].ToString(), out cantidadAgregada);
-
-                                        if (esNumeroVaido.Equals(false))
-                                        {
-                                            MessageBox.Show("La cantidad es mayor a la permitida");
-                                            string result = busqueda.Remove(busqueda.Length - 1);
-                                            txtBuscadorProducto.Text = result;
-                                            txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
-                                            return;
-                                        }
-                                    }
-                                    if (!string.IsNullOrWhiteSpace(infoTmp[1].ToString()))
-                                    {
-                                        esNumeroVaido = int.TryParse(infoTmp[1].ToString(), out cantidadAgregada);
-
-                                        if (esNumeroVaido.Equals(false))
-                                        {
-                                            MessageBox.Show("La cantidad es mayor a la permitida");
-                                            string result = busqueda.Remove(busqueda.Length - 1);
-                                            txtBuscadorProducto.Text = result;
-                                            txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
-                                            return;
-                                        }
-                                    }
-                                }
-
-                            }
-                            #endregion
-                        }
-                        else
-                        {
-                            MessageBox.Show("La cantidad agregada es mayor a la Maxima permitida...");
+                            MessageBox.Show($"La cantidad maxima para vender es {Convert.ToDecimal(cantidadProductos)}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             txtBuscadorProducto.Clear();
                             return;
                         }
+
+                        if (Regex.IsMatch(busqueda, patternInicioSimboloMas))
+                        {
+                            var words = busqueda.Split('+');
+                            var siEsNumero = false;
+                            var numeroCapturado = 0;
+                            var maximoParaVender = valorMaximo;
+
+                            siEsNumero = int.TryParse(words[1].ToString().Trim(), out numeroCapturado);
+
+                            if (siEsNumero)
+                            {
+                                if ((numeroCapturado + cantidadEnDGVEntas) > maximoParaVender)
+                                {
+                                    MessageBox.Show($"La cantidad maxima para vender es {maximoParaVender}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    txtBuscadorProducto.Clear();
+                                    return;
+                                }
+                            }
+                        }
+                        else if (Regex.IsMatch(busqueda, patternInicioSimboloMenos))
+                        {
+                            var words = busqueda.Split('-');
+                            var siEsNumero = false;
+                            var numeroCapturado = 0;
+                            var minimoParaVender = valorMaximo;
+
+                            siEsNumero = int.TryParse(words[1].ToString().Trim(), out numeroCapturado);
+
+                            if (siEsNumero)
+                            {
+                                if ((numeroCapturado + cantidadEnDGVEntas) > minimoParaVender)
+                                {
+                                    MessageBox.Show($"La cantidad maxima para disminuir es {minimoParaVender}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    txtBuscadorProducto.Clear();
+                                    return;
+                                }
+                            }
+                        }
+                        else if (Regex.IsMatch(busqueda, patternFinalizaSimboloMas))
+                        {
+                            var words = busqueda.Split('+');
+                            var siEsNumero = false;
+                            var numeroCapturado = 0;
+                            var maximoParaVender = valorMaximo;
+
+                            siEsNumero = int.TryParse(words[0].ToString().Trim(), out numeroCapturado);
+
+                            if (siEsNumero)
+                            {
+                                if ((numeroCapturado + cantidadEnDGVEntas) > maximoParaVender)
+                                {
+                                    MessageBox.Show($"La cantidad maxima para vender es {maximoParaVender}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    txtBuscadorProducto.Clear();
+                                    return;
+                                }
+                            }
+                        }
+                        else if (Regex.IsMatch(busqueda, patternFinalizaSimboloMenos))
+                        {
+                            var words = busqueda.Split('-');
+                            var siEsNumero = false;
+                            var numeroCapturado = 0;
+                            var minimoParaVender = valorMaximo;
+
+                            siEsNumero = int.TryParse(words[0].ToString().Trim(), out numeroCapturado);
+
+                            if (siEsNumero)
+                            {
+                                if ((numeroCapturado + cantidadEnDGVEntas) > minimoParaVender)
+                                {
+                                    MessageBox.Show($"La cantidad maxima para disminuir es {minimoParaVender}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    txtBuscadorProducto.Clear();
+                                    return;
+                                }
+                            }
+                        }
+
+                        //string cantidadProductos = DGVentas.Rows[0].Cells[5].Value.ToString();
+                        //var esNumeroVaido = false;
+                        //var cantidadAgregada = 0;
+
+                            //if (Convert.ToDecimal(cantidadProductos) <= 2139999999)
+                            //{
+                            //    esNumeroVaido = true;
+                            //}
+                            //esNumeroVaido = int.TryParse(cantidadProductos, out cantidadAgregada);
+
+                            //if (esNumeroVaido.Equals(true))
+                            //{
+                            //    #region Validacion de cantidad
+                            //    string segundoPatron = @"^(\+\d+)|(\d+\+)|(\+)|(\+\+)$";
+                            //    string tercerPatron = @"^(\-\d+)|(\d+\-)|(\-)|(\-\-)$";
+
+                            //    Match segundaCoincidencia = Regex.Match(busqueda, segundoPatron, RegexOptions.IgnoreCase);
+                            //    Match terceraCoincidencia = Regex.Match(busqueda, tercerPatron, RegexOptions.IgnoreCase);
+
+                            //    if (segundaCoincidencia.Success)
+                            //    {
+                            //        var infoTmp = busqueda.Split('+');
+                            //        string number = infoTmp[1].ToString();
+
+                            //        if (number.All(char.IsDigit))
+                            //        {
+                            //            if (!string.IsNullOrWhiteSpace(infoTmp[0].ToString()))
+                            //            {
+                            //                esNumeroVaido = int.TryParse(infoTmp[0].ToString(), out cantidadAgregada);
+
+                            //                if (esNumeroVaido.Equals(false))
+                            //                {
+                            //                    MessageBox.Show("La cantidad es mayor a la permitida");
+                            //                    string result = busqueda.Remove(busqueda.Length - 1);
+                            //                    txtBuscadorProducto.Text = result;
+                            //                    txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
+                            //                    return;
+                            //                }
+                            //            }
+                            //            if (!string.IsNullOrWhiteSpace(infoTmp[1].ToString()))
+                            //            {
+                            //                esNumeroVaido = int.TryParse(infoTmp[1].ToString(), out cantidadAgregada);
+
+                            //                if (esNumeroVaido.Equals(false))
+                            //                {
+                            //                    MessageBox.Show("La cantidad es mayor a la permitida");
+                            //                    string result = busqueda.Remove(busqueda.Length - 1);
+                            //                    txtBuscadorProducto.Text = result;
+                            //                    txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
+                            //                    return;
+                            //                }
+                            //            }
+                            //        }
+
+
+                            //    }
+                            //    else if (terceraCoincidencia.Success)
+                            //    {
+                            //        var infoTmp = busqueda.Split('-');
+
+                            //        string number = infoTmp[1].ToString();
+
+                            //        if (number.All(char.IsDigit))
+                            //        {
+                            //            if (!string.IsNullOrWhiteSpace(infoTmp[0].ToString()))
+                            //            {
+                            //                esNumeroVaido = int.TryParse(infoTmp[0].ToString(), out cantidadAgregada);
+
+                            //                if (esNumeroVaido.Equals(false))
+                            //                {
+                            //                    MessageBox.Show("La cantidad es mayor a la permitida");
+                            //                    string result = busqueda.Remove(busqueda.Length - 1);
+                            //                    txtBuscadorProducto.Text = result;
+                            //                    txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
+                            //                    return;
+                            //                }
+                            //            }
+                            //            if (!string.IsNullOrWhiteSpace(infoTmp[1].ToString()))
+                            //            {
+                            //                esNumeroVaido = int.TryParse(infoTmp[1].ToString(), out cantidadAgregada);
+
+                            //                if (esNumeroVaido.Equals(false))
+                            //                {
+                            //                    MessageBox.Show("La cantidad es mayor a la permitida");
+                            //                    string result = busqueda.Remove(busqueda.Length - 1);
+                            //                    txtBuscadorProducto.Text = result;
+                            //                    txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
+                            //                    return;
+                            //                }
+                            //            }
+                            //        }
+
+                            //    }
+                            //    #endregion
+                            //}
+                            //else
+                            //{
+                            //    MessageBox.Show("La cantidad agregada es mayor a la Maxima permitida...");
+                            //    txtBuscadorProducto.Clear();
+                            //    return;
+                            //}
                     }
 
 
