@@ -1382,7 +1382,7 @@ namespace PuntoDeVentaV2
                     html = @"
                         <div style='margin-bottom: 50px;'>
                             <h4 style='text-align: center;'>PRODUCTOS CON STOCK MINIMO</h4><hr>
-                            <ul style='color: red; font-size: 0.8em;'>";
+                            <ul style='color: black; font-size: 0.8em;'>";
 
                     foreach (var producto in enviarStockMinimo)
                     {
@@ -1401,11 +1401,11 @@ namespace PuntoDeVentaV2
 
                         var infoEmpleado = usuarioEmpleado.Split('@');
 
-                        footerCorreo = $"<p style='font-size: 12px;'>Este ajuste fue realizado por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b>, los siguientes productos llegaron al stock mínimo con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                        footerCorreo = $"<p style='font-size: 12px;'>Este ajuste fue realizado por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b>, los siguientes productos llegaron al stock mínimo con <span style='color: black;'>fecha de {fechaOperacion}</span></p>";
                     }
                     else
                     {
-                        footerCorreo = $"<p style='font-size: 12px;'>Este ajuste fue realizado por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b>, los siguientes productos llegaron al stock mínimo con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                        footerCorreo = $"<p style='font-size: 12px;'>Este ajuste fue realizado por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b>, los siguientes productos llegaron al stock mínimo con <span style='color: black;'>fecha de {fechaOperacion}</span></p>";
                     }
 
                     html += $@"

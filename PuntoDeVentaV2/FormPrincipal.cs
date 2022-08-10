@@ -653,7 +653,7 @@ namespace PuntoDeVentaV2
             }
 
             Utilidades.registrarNuevoEmpleadoPermisosConfiguracion(id_empleado);
-            Utilidades.registrarEmpleadosAntiguosPermisosConfiguracion();
+            //Utilidades.registrarEmpleadosAntiguosPermisosConfiguracion();
 
             quitarSimbolosDePreguntaRegimenFiscalEnDescripcion();
 
@@ -1583,7 +1583,7 @@ namespace PuntoDeVentaV2
             var html = $@"
                         <div>
                             <h4 style='text-align: center;'>TOP 30 PRODUCTOS {datos[1]} VENDIDOS</h4><hr>
-                            <ol style='color: red; font-size: 0.8em;'>";
+                            <ol style='color: black; font-size: 0.8em;'>";
 
             // Menos vendidos
             if (tipo == 1)
@@ -1651,8 +1651,8 @@ namespace PuntoDeVentaV2
                 var infoEmpleado = usuarioEmpleado.Split('@');
 
                 html += $@"
-                    <p>Se ha iniciado sesión en el sistema por parte del usuario <span style='color: red;'>{infoEmpleado[0]}@{infoEmpleado[1]}</span></p>
-                    <p>El ingreso al sistema fue realizado el día <span style='color: red;'>{fechaOperacion}</span>
+                    <p>Se ha iniciado sesión en el sistema por parte del usuario <span style='color: black;'>{infoEmpleado[0]}@{infoEmpleado[1]}</span></p>
+                    <p>El ingreso al sistema fue realizado el día <span style='color: black;'>{fechaOperacion}</span>
                 </div>";
 
                 asunto = $"INICIO DE SESÍON DE{infoEmpleado[0]}@{infoEmpleado[1]}";
@@ -1660,8 +1660,8 @@ namespace PuntoDeVentaV2
             else
             {
                 html += $@"
-                    <p>Se ha iniciado sesión en el sistema por parte del usuario <span style='color: red;'>{userNickName}</span></p>
-                    <p>El ingreso al sistema fue realizado el día <span style='color: red;'>{fechaOperacion}</span>
+                    <p>Se ha iniciado sesión en el sistema por parte del usuario <span style='color: black;'>{userNickName}</span></p>
+                    <p>El ingreso al sistema fue realizado el día <span style='color: black;'>{fechaOperacion}</span>
                 </div>";
 
                 asunto = $"INICIO DE SESÍON DE {userNickName}";

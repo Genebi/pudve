@@ -1232,11 +1232,11 @@ namespace PuntoDeVentaV2
                                 }
 
                                 var html = $@"<li {clase}>
-                                            <span style='color: red;'>{datosProductoAux[1]}</span> 
+                                            <span style='color: black;'>{datosProductoAux[1]}</span> 
                                             --- <b>STOCK ANTERIOR:</b> 
-                                            <span style='color: red;'>{datosProductoAux[4]}</span> 
+                                            <span style='color: black;'>{datosProductoAux[4]}</span> 
                                             --- <b>STOCK NUEVO:</b> 
-                                            <span style='color: red;'>{stockFisico}</span>
+                                            <span style='color: black;'>{stockFisico}</span>
                                         </li>";
 
 
@@ -1326,11 +1326,11 @@ namespace PuntoDeVentaV2
                                                         }
 
                                                         var html = $@"<li {clase}>
-                                                            <span style='color: red;'>{datosProducto[1]}</span> 
+                                                            <span style='color: black;'>{datosProducto[1]}</span> 
                                                             --- <b>STOCK ANTERIOR:</b> 
-                                                            <span style='color: red;'>{datosProducto[4]}</span> 
+                                                            <span style='color: black;'>{datosProducto[4]}</span> 
                                                             --- <b>STOCK NUEVO:</b> 
-                                                            <span style='color: red;'>{stockFisico}</span>
+                                                            <span style='color: black;'>{stockFisico}</span>
                                                         </li>";
 
                                                         listaProductos.Add(idProducto, html);

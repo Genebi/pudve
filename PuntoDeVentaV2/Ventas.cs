@@ -8033,7 +8033,7 @@ namespace PuntoDeVentaV2
                     html = @"
                     <div style='margin-bottom: 50px;'>
                         <h3 style='text-align: center;'>PRODUCTOS CON STOCK MINIMO</h3><hr>
-                        <ul style='color: red; font-size: 0.9em;'>";
+                        <ul style='color: black; font-size: 0.9em;'>";
 
                     foreach (var producto in enviarStockMinimo)
                     {
@@ -8052,11 +8052,11 @@ namespace PuntoDeVentaV2
 
                         var infoEmpleado = usuarioEmpleado.Split('@');
 
-                        footerCorreo = $"<p style='font-size: 14px;'>En la venta con folio <span style='color: red;'>{FolioVentaCorreo}</span> realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b>, los siguientes productos llegaron al stock mínimo con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                        footerCorreo = $"<p style='font-size: 14px;'>En la venta con folio <span style='color: black;'>{FolioVentaCorreo}</span> realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b>, los siguientes productos llegaron al stock mínimo con <span style='color: black;'>fecha de {fechaOperacion}</span></p>";
                     }
                     else
                     {
-                        footerCorreo = $"<p style='font-size: 14px;'>En la venta con folio <span style='color: red;'>{FolioVentaCorreo}</span> realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b>, los siguientes productos llegaron al stock mínimo con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                        footerCorreo = $"<p style='font-size: 14px;'>En la venta con folio <span style='color: black;'>{FolioVentaCorreo}</span> realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b>, los siguientes productos llegaron al stock mínimo con <span style='color: black;'>fecha de {fechaOperacion}</span></p>";
                     }
 
                     html += $@"
@@ -8091,11 +8091,11 @@ namespace PuntoDeVentaV2
                     var usuarioEmpleado = FormPrincipal.userNickName.ToString();
                     if (usuarioEmpleado.Contains("@"))
                     {
-                        html += $"La venta fue realizada por el <b>EMPLEADO</b> del usuario <b>{FormPrincipal.userNickName}</b> <span style='color: red;'> Fecha de Modificación: {DateTime.Now}</span></span></p></div>";
+                        html += $"La venta fue realizada por el <b>EMPLEADO</b> del usuario <b>{FormPrincipal.userNickName}</b> <span style='color: black;'> Fecha de Modificación: {DateTime.Now}</span></span></p></div>";
                     }
                     else
                     {
-                        html += $"La venta fue realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> <span style='color: red;'> Fecha de Modificación: {DateTime.Now}</span></span></p></div>";
+                        html += $"La venta fue realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> <span style='color: black;'> Fecha de Modificación: {DateTime.Now}</span></span></p></div>";
                     }
                 }
 
@@ -8160,21 +8160,21 @@ namespace PuntoDeVentaV2
                     if (!string.IsNullOrWhiteSpace(formaDePago))
                     {
                         cadenaDatos += "<br><br>";
-                        cadenaDatos += "<span style='font-size: 12px;'>Forma de Pago: <span style='color: red;'>" + formaDePago + "</span></span><br>";
+                        cadenaDatos += "<span style='font-size: 12px;'>Forma de Pago: <span style='color: black;'>" + formaDePago + "</span></span><br>";
                     }
 
                     if (!string.IsNullOrWhiteSpace(cliente))
                     {
-                        cadenaDatos += "<span style='font-size: 12px;'>Cliente: <span style='color: red;'>" + cliente + "</span></span><br>";
+                        cadenaDatos += "<span style='font-size: 12px;'>Cliente: <span style='color: black;'>" + cliente + "</span></span><br>";
                     }
                     else
                     {
-                        cadenaDatos += "<span style='font-size: 12px;'>Cliente: <span style='color: red;'>Público General</span></span>";
+                        cadenaDatos += "<span style='font-size: 12px;'>Cliente: <span style='color: black;'>Público General</span></span>";
                     }
 
                     if (!string.IsNullOrWhiteSpace(folio))
                     {
-                        cadenaDatos += "<span style='font-size: 12px;'>Folio: <span style='color: red;'>" + folio + "</span></span>";
+                        cadenaDatos += "<span style='font-size: 12px;'>Folio: <span style='color: black;'>" + folio + "</span></span>";
                     }
 
                     if (FormPrincipal.id_empleado > 0)
@@ -8195,7 +8195,7 @@ namespace PuntoDeVentaV2
                                             Descuento
                                         </td>
                                         <td style='text-align: right;'>
-                                            <span style='color: red'><b>{float.Parse(descuentoVenta).ToString("0.00")}</b></span>
+                                            <span style='color: black'><b>{float.Parse(descuentoVenta).ToString("0.00")}</b></span>
                                         </td>
                                     </tr>";
                         }
@@ -8210,7 +8210,7 @@ namespace PuntoDeVentaV2
                                             Anticipo recibido
                                         </td>
                                         <td style='text-align: right;'>
-                                            <span style='color: red'><b>{float.Parse(anticipoRecibido).ToString("0.00")}</b></span>
+                                            <span style='color: black'><b>{float.Parse(anticipoRecibido).ToString("0.00")}</b></span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -8218,7 +8218,7 @@ namespace PuntoDeVentaV2
                                             Anticipo utilizado
                                         </td>
                                         <td style='text-align: right;'>
-                                            <span style='color: red'><b>{float.Parse(anticipoUtilizado).ToString("0.00")}</b></span>
+                                            <span style='color: black'><b>{float.Parse(anticipoUtilizado).ToString("0.00")}</b></span>
                                         </td>
                                     </tr>";
 
@@ -8232,14 +8232,14 @@ namespace PuntoDeVentaV2
                                             Total
                                         </td>
                                         <td style='text-align: right;'>
-                                            <span style='color: red'><b>{totalVenta.ToString("0.00")}</b></span>
+                                            <span style='color: black'><b>{totalVenta.ToString("0.00")}</b></span>
                                         </td>
                                     </tr>";
 
                         html += " </table>";
                         html += "<hr>";
                         html += cadenaDatos;
-                        html += $"<p style='font-size: 14px;'>La venta fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                        html += $"<p style='font-size: 14px;'>La venta fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: black;'>fecha de {fechaOperacion}</span></p>";
 
                         asunto = $"VENTA REALIZADA - {infoEmpleado[0]}@{infoEmpleado[1]}";
                         asuntoAdicional = $"Venta realizada con descuento - {infoEmpleado[0]}@{infoEmpleado[1]}";
@@ -8255,7 +8255,7 @@ namespace PuntoDeVentaV2
                                             Descuento
                                         </td>
                                         <td style='text-align: right;'>
-                                            <span style='color: red'><b>{float.Parse(descuentoVenta).ToString("0.00")}</b></span>
+                                            <span style='color: black'><b>{float.Parse(descuentoVenta).ToString("0.00")}</b></span>
                                         </td>
                                     </tr>";
                         }
@@ -8270,7 +8270,7 @@ namespace PuntoDeVentaV2
                                             Anticipo recibido
                                         </td>
                                         <td style='text-align: right;'>
-                                            <span style='color: red'><b>{float.Parse(anticipoRecibido).ToString("0.00")}</b></span>
+                                            <span style='color: black'><b>{float.Parse(anticipoRecibido).ToString("0.00")}</b></span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -8278,7 +8278,7 @@ namespace PuntoDeVentaV2
                                             Anticipo utilizado
                                         </td>
                                         <td style='text-align: right;'>
-                                            <span style='color: red'><b>{float.Parse(anticipoUtilizado).ToString("0.00")}</b></span>
+                                            <span style='color: black'><b>{float.Parse(anticipoUtilizado).ToString("0.00")}</b></span>
                                         </td>
                                     </tr>";
 
@@ -8292,14 +8292,14 @@ namespace PuntoDeVentaV2
                                             Total
                                         </td>
                                         <td style='text-align: right;'>
-                                            <span style='color: red'><b>{totalVenta.ToString("0.00")}</b></span>
+                                            <span style='color: black'><b>{totalVenta.ToString("0.00")}</b></span>
                                         </td>
                                     </tr>";
 
                         html += "</table>";
                         html += "<hr>";
                         html += cadenaDatos;
-                        html += $"<p style='font-size: 14px;'>La venta fue realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                        html += $"<p style='font-size: 14px;'>La venta fue realizada por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> con <span style='color: black;'>fecha de {fechaOperacion}</span></p>";
 
                         asunto = $"VENTA REALIZADA - {FormPrincipal.userNickName}";
                         asuntoAdicional = $"SE REALIZO VENTA CON DESCUENTO - {FormPrincipal.userNickName}";

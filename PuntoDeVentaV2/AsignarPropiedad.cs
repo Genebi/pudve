@@ -1271,11 +1271,11 @@ namespace PuntoDeVentaV2
                                             var datosProducto = cn.BuscarProducto(producto.Key, FormPrincipal.userID);
 
                                             html += $@"<li>
-                                                    <span style='color: red;'>{datosProducto[1]}</span> 
+                                                    <span style='color: black;'>{datosProducto[1]}</span> 
                                                     --- <b>STOCK ANTERIOR:</b> 
-                                                    <span style='color: red;'>{datosProducto[4]}</span> 
+                                                    <span style='color: black;'>{datosProducto[4]}</span> 
                                                     --- <b>STOCK NUEVO:</b> 
-                                                    <span style='color: red;'>{stock}</span>
+                                                    <span style='color: black;'>{stock}</span>
                                                 </li>";
                                         }
                                     }
@@ -1456,11 +1456,11 @@ namespace PuntoDeVentaV2
                                         var datosProducto = cn.BuscarProducto(producto.Key, FormPrincipal.userID);
 
                                         html += $@"<li>
-                                                    <span style='color: red;'>{datosProducto[1]}</span> 
+                                                    <span style='color: black;'>{datosProducto[1]}</span> 
                                                     --- <b>PRECIO ANTERIOR:</b> 
-                                                    <span style='color: red;'>${float.Parse(datosProducto[2]).ToString("N2")}</span> 
+                                                    <span style='color: black;'>${float.Parse(datosProducto[2]).ToString("N2")}</span> 
                                                     --- <b>PRECIO NUEVO:</b> 
-                                                    <span style='color: red;'>${precio.ToString("N2")}</span>
+                                                    <span style='color: black;'>${precio.ToString("N2")}</span>
                                                 </li>";
                                     }
                                 }

@@ -446,11 +446,11 @@ namespace PuntoDeVentaV2
 
                     var infoEmpleado = usuarioEmpleado.Split('@');
 
-                    footerCorreo = $"<p style='font-size: 0.9em;'>El cambio fue realizado por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> desde {origen} con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                    footerCorreo = $"<p style='font-size: 0.9em;'>El cambio fue realizado por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> desde {origen} con <span style='color: black;'>fecha de {fechaOperacion}</span></p>";
                 }
                 else
                 {
-                    footerCorreo = $"<p style='font-size: 0.9em;'>El cambio fue realizado por el<FONT SIZE=2> <b>ADMINISTRADOR</b> </FONT> del usuario<FONT SIZE=2> <FONT SIZE=2>  <b>{FormPrincipal.userNickName}</b> </FONT> </FONT> desde {origen} con <span style='color: red;'>fecha de {fechaOperacion}</span></p>";
+                    footerCorreo = $"<p style='font-size: 0.9em;'>El cambio fue realizado por el<FONT SIZE=2> <b>ADMINISTRADOR</b> </FONT> del usuario<FONT SIZE=2> <FONT SIZE=2>  <b>{FormPrincipal.userNickName}</b> </FONT> </FONT> desde {origen} con <span style='color: black;'>fecha de {fechaOperacion}</span></p>";
                 }
 
                 if (tipo == 0)
@@ -461,9 +461,9 @@ namespace PuntoDeVentaV2
                         html = $@"
                     <div>
                         <h4 style='text-align: center;'>PRECIO DE PRODUCTO AUMENTADO</h4><hr>
-                        <p>El precio del producto <span style='color: red;'>{producto}</span> ha sido modificado desde
-                        {origen}, su precio <b>anterior</b> era de <span style='color: red;'>${precioAnterior}</span> y fue aumentado
-                        por el <b>nuevo</b> precio de <span style='color: red;'>${precioNuevo}</span>.</p>
+                        <p>El precio del producto <span style='color: black;'>{producto}</span> ha sido modificado desde
+                        {origen}, su precio <b>anterior</b> era de <span style='color: black;'>${precioAnterior}</span> y fue aumentado
+                        por el <b>nuevo</b> precio de <span style='color: black;'>${precioNuevo}</span>.</p>
                         {footerCorreo}
                     </div>";
                     }
@@ -473,9 +473,9 @@ namespace PuntoDeVentaV2
                         html = $@"
                     <div>
                         <h4 style='text-align: center;'>PRECIO DE PRODUCTO DISMINUIDO</h4><hr>
-                        <p>El precio del producto <span style='color: red;'>{producto}</span> ha sido modificado desde
-                        {origen}, su precio <b>anterior</b> era de <span style='color: red;'>${precioAnterior}</span> y fue disminuido
-                        por el <b>nuevo</b> precio de <span style='color: red;'>${precioNuevo}</span>.</p>
+                        <p>El precio del producto <span style='color: black;'>{producto}</span> ha sido modificado desde
+                        {origen}, su precio <b>anterior</b> era de <span style='color: black;'>${precioAnterior}</span> y fue disminuido
+                        por el <b>nuevo</b> precio de <span style='color: black;'>${precioNuevo}</span>.</p>
                         {footerCorreo}
                     </div>";
                     }
@@ -525,9 +525,9 @@ namespace PuntoDeVentaV2
                     <div>
                         
                         <h4 style='text-align: center;'>STOCK DE PRODUCTO {titulo}</h4><hr>
-                        <p>El stock del producto <span style='color: red;'>{producto}</span> ha sido modificado desde
-                        {origen}, su stock <b>anterior</b> era de <span style='color: red;'>{stockAnterior}</span>, se {operacion} la cantidad
-                        de <span style='color: red;'>{stockNuevo}</span> y su stock <b>actual</b> es de <span style='color: red;'>{stockActual}</span>.</p>
+                        <p>El stock del producto <span style='color: black'>{producto}</span> ha sido modificado desde
+                        {origen}, su stock <b>anterior</b> era de <span style='color: black;'>{stockAnterior}</span>, se {operacion} la cantidad
+                        de <span style='color: red;'>{stockNuevo}</span> y su stock <b>actual</b> es de <span style='color: black;'>{stockActual}</span>.</p>
                         <p style='font-size: 0.8em;'>Fecha de Modificación: <b>{DateTime.Now}</b></p>
                     </div>";
                 }
@@ -546,7 +546,7 @@ namespace PuntoDeVentaV2
                         {producto}
                          <hr>
                         <p style='font-size: 0.9em;'>
-                            <span>NOTA:El stock de los productos fue modificado desde {origen} por el <b>EMPLEADO</b> del usuario <b>{FormPrincipal.userNickName}</b> <span style='color: red;'> Fecha de Modificación: {DateTime.Now}</span></span></p></div>";
+                            <span>NOTA:El stock de los productos fue modificado desde {origen} por el <b>EMPLEADO</b> del usuario <b>{FormPrincipal.userNickName}</b> <span style='color: black;'> Fecha de Modificación: {DateTime.Now}</span></span></p></div>";
                     }
                     else
                     {
@@ -559,7 +559,7 @@ namespace PuntoDeVentaV2
                         {producto}
                          <hr>
                         <p style='font-size: 1 em;'>
-                            <span>NOTA:El stock de los productos fue modificado desde {origen} por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> <span style='color: red;'> Fecha de Modificación: {DateTime.Now}</span></span></p></div>";
+                            <span>NOTA:El stock de los productos fue modificado desde {origen} por el <b>ADMIN</b> del usuario <b>{FormPrincipal.userNickName}</b> <span style='color: black;'> Fecha de Modificación: {DateTime.Now}</span></span></p></div>";
                     }
                    
                 }
@@ -592,9 +592,9 @@ namespace PuntoDeVentaV2
                 var origen = producto[4];
                 var operacion = producto[5];
 
-                html += $@"<li>El stock del producto <span style='color: red;'>{nombre}</span> ha sido modificado desde
-                        {origen}, su stock <b>anterior</b> era de <span style='color: red;'>{ stockAnterior}</span>, se {operacion}
-                        la cantidad de <span style='color: red;'>{stockNuevo}</span> y su stock <b>actual</b> es de <span style='color: red;'>{stockActual}</span>.</li>";
+                html += $@"<li>El stock del producto <span style='color: black;'>{nombre}</span> ha sido modificado desde
+                        {origen}, su stock <b>anterior</b> era de <span style='color: black;'>{ stockAnterior}</span>, se {operacion}
+                        la cantidad de <span style='color: black;'>{stockNuevo}</span> y su stock <b>actual</b> es de <span style='color: black;'>{stockActual}</span>.</li>";
             }
 
             html += $@"</ul>
@@ -1257,11 +1257,11 @@ namespace PuntoDeVentaV2
 
                 var infoEmpleado = usuarioEmpleado.Split('@');
 
-                footerCorreo = $"<p style='font-size: 0.8em;'>Está operación fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: red;'>fecha de {fechaSistema}</span></p>";
+                footerCorreo = $"<p style='font-size: 0.8em;'>Está operación fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: black;'>fecha de {fechaSistema}</span></p>";
             }
             else
             {
-                footerCorreo = $"<p style='font-size: 0.8em;'>Está operación fue realizada por el<FONT SIZE=2> <b>ADMINISTRADOR</b> </FONT> del usuario<FONT SIZE=2> <FONT SIZE=2>  <b>{FormPrincipal.userNickName}</b> </FONT> </FONT> con <span style='color: red;'>fecha de {fechaSistema}</span></p>";
+                footerCorreo = $"<p style='font-size: 0.8em;'>Está operación fue realizada por el<FONT SIZE=2> <b>ADMINISTRADOR</b> </FONT> del usuario<FONT SIZE=2> <FONT SIZE=2>  <b>{FormPrincipal.userNickName}</b> </FONT> </FONT> con <span style='color: black;'>fecha de {fechaSistema}</span></p>";
             }
 
             pieHTML = $@"           <tr>
@@ -1269,7 +1269,7 @@ namespace PuntoDeVentaV2
                                             Total =
                                         </td>
                                         <td style = 'text-align: right;'>
-                                            <span style='color: red'><b>{cantidadTotal}</b></span>
+                                            <span style='color: black'><b>{cantidadTotal}</b></span>
                                         </td>
                                     </tr>
                                 </table>
@@ -1346,11 +1346,11 @@ namespace PuntoDeVentaV2
                                             Total =
                                         </td>
                                         <td style = 'text-align: right;'>
-                                            <span style='color: red'><b>{monto}</b></span>
+                                            <span style='color: black'><b>{monto}</b></span>
                                         </td>
                                     </tr>
                                </table>
-                               <p>Está operación fue realizada con <span style='color:red;'>fecha de {fechaSistema}</span> por el <span style='color: red'>usuario = {datosUsuario[0].ToString()}</span></p>";
+                               <p>Está operación fue realizada con <span style='color:black;'>fecha de {fechaSistema}</span> por el <span style='color: red'>usuario = {datosUsuario[0].ToString()}</span></p>";
 
             correoHTML = encabezadoHTML + productos + pieHTML;
 
@@ -1420,11 +1420,11 @@ namespace PuntoDeVentaV2
                                             Total =
                                         </td>
                                         <td style = 'text-align: right;'>
-                                            <span style='color: red'><b>{monto}</b></span>
+                                            <span style='color: black'><b>{monto}</b></span>
                                         </td>
                                     </tr>
                                </table>
-                               <p>Está operación fue realizada con <span style='color:red;'>fecha de {fechaSistema}</span> por el <span style='color: red'>usuario = {datosUsuario[0].ToString()}</span></p>";
+                               <p>Está operación fue realizada con <span style='color:black;'>fecha de {fechaSistema}</span> por el <span style='color: red'>usuario = {datosUsuario[0].ToString()}</span></p>";
 
             correoHTML = encabezadoHTML + productos + pieHTML;
 
@@ -1509,11 +1509,11 @@ namespace PuntoDeVentaV2
                                             Total =
                                         </td>
                                         <td style = 'text-align: right;'>
-                                            <span style='color: red'><b>{monto}</b></span>
+                                            <span style='color: black'><b>{monto}</b></span>
                                         </td>
                                     </tr>
                                </table>
-                               <p>Está operación fue realizada con <span style='color:red;'>fecha de {fechaSistema}</span> por el <span style='color: red'>usuario = {datosUsuario[0].ToString()}</span></p>";
+                               <p>Está operación fue realizada con <span style='color:black;'>fecha de {fechaSistema}</span> por el <span style='color: black'>usuario = {datosUsuario[0].ToString()}</span></p>";
 
             correoHTML = encabezadoHTML + productos + pieHTML;
 
@@ -1590,11 +1590,11 @@ namespace PuntoDeVentaV2
 
                 var infoEmpleado = usuarioEmpleado.Split('@');
 
-                footerCorreo = $"<p style='font-size: 0.9em;'>Está operación fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: red;'>fecha de {fechaSistema}</span></p>";
+                footerCorreo = $"<p style='font-size: 0.9em;'>Está operación fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: black;'>fecha de {fechaSistema}</span></p>";
             }
             else
             {
-                footerCorreo = $"<p style='font-size: 0.9em;'>Está operación fue realizada por el <FONT SIZE=2> <b>ADMINISTRADOR</b>  </FONT> del usuario <FONT SIZE=2> <FONT SIZE=2>  <b>{FormPrincipal.userNickName}</b> </FONT> </FONT> con <span style='color: red;'>fecha de {fechaSistema}</span></p>";
+                footerCorreo = $"<p style='font-size: 0.9em;'>Está operación fue realizada por el <FONT SIZE=2> <b>ADMINISTRADOR</b>  </FONT> del usuario <FONT SIZE=2> <FONT SIZE=2>  <b>{FormPrincipal.userNickName}</b> </FONT> </FONT> con <span style='color: black;'>fecha de {fechaSistema}</span></p>";
             }
 
             pieHTML = $@"           <tr>
@@ -1602,7 +1602,7 @@ namespace PuntoDeVentaV2
                                             Total =
                                         </td>
                                         <td style = 'text-align: right;'>
-                                            <span style='color: red'><b>{importeTotal}</b></span>
+                                            <span style='color: black'><b>{importeTotal}</b></span>
                                         </td>
                                     </tr>
                                 </table>
@@ -1784,7 +1784,7 @@ namespace PuntoDeVentaV2
             var asunto = "SE HA REALIZADO CORTE DE CAJA";
             var html = $@"
                 <div style='text-align: center;'>
-                <h1 style='color: red;'>SE HA REALIZADO CORTE DE CAJA</h1>
+                <h1 style='color: black;'>SE HA REALIZADO CORTE DE CAJA</h1>
                 </div>
        
 <div style='display: inline-table;'>
@@ -2010,7 +2010,7 @@ namespace PuntoDeVentaV2
             var asunto = $"Respaldo de la base de datos - {usuarioCreador}";
             var html = $@"
                 <div style='text-align: center;'>
-                <h1 style='color: red;'>SE HA REALIZADO UN RESPALDO DE LA BASE DE DATOS</h1>
+                <h1 style='color: black;'>SE HA REALIZADO UN RESPALDO DE LA BASE DE DATOS</h1>
                 </div>
                 
                 <div style='text-align: center;'>
