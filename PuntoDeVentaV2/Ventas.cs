@@ -7775,7 +7775,7 @@ namespace PuntoDeVentaV2
         {
             if (!string.IsNullOrEmpty(txtBuscadorProducto.Text.Trim()))
             {
-                if (!txtBuscadorProducto.Text.Equals("BUSCAR PRODUCTO O SERVICIO...") && txtBuscadorProducto.Text.Length > 2)
+                if (!txtBuscadorProducto.Text.Equals("BUSCAR PRODUCTO O SERVICIO...")/* && txtBuscadorProducto.Text.Length > 2*/)
                 {
                     // Detecta si esta habilitado el checkbox para cancelar venta, si esta
                     // habilitado se detienen todas las operaciones normales del evento keyup
@@ -7790,95 +7790,114 @@ namespace PuntoDeVentaV2
                     {
                         string cantidadProductos = DGVentas.Rows[0].Cells[5].Value.ToString();
                         var valorMaximo = 2139999999;
-                        var cantidadEnDGVEntas = Convert.ToDecimal(cantidadProductos);
+                        var siEsCantidadValidadDGVentas = false;
+                        var noEsCantidadValidaDGVentas = false;
+                        decimal cantidadEnDGVEntas = 0;
+                        double cantidadDoubleNoValida = 0;
 
-                        var patternInicioSimboloMas = @"^[\+]";
-                        var patternInicioSimboloMenos = @"^[\-]";
-                        var patternFinalizaSimboloMas = @"[\+]$";
-                        var patternFinalizaSimboloMenos = @"[\-]$";
+                        siEsCantidadValidadDGVentas = decimal.TryParse(cantidadProductos, out cantidadEnDGVEntas);
+                        noEsCantidadValidaDGVentas = double.TryParse(cantidadProductos, out cantidadDoubleNoValida);
 
-                        if (cantidadEnDGVEntas > valorMaximo + 1)
+                        if (siEsCantidadValidadDGVentas)
                         {
-                            MessageBox.Show($"La cantidad maxima para vender es {Convert.ToDecimal(cantidadProductos)}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            txtBuscadorProducto.Clear();
+                            var patternInicioSimboloMas = @"^[\+]";
+                            var patternInicioSimboloMenos = @"^[\-]";
+                            var patternFinalizaSimboloMas = @"[\+]$";
+                            var patternFinalizaSimboloMenos = @"[\-]$";
+
+                            //if ((int)cantidadEnDGVEntas > valorMaximo + 1)
+                            //{
+                            //    MessageBox.Show($"La cantidad maxima para vender es {Convert.ToDecimal(cantidadProductos)}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            //    txtBuscadorProducto.Clear();
+                            //    return;
+                            //}
+
+                            if (Regex.IsMatch(busqueda, patternInicioSimboloMas))
+                            {
+                                var words = busqueda.Split('+');
+                                var siEsNumero = false;
+                                var numeroCapturado = 0;
+                                var maximoParaVender = valorMaximo;
+
+                                siEsNumero = int.TryParse(words[1].ToString().Trim(), out numeroCapturado);
+
+                                if (siEsNumero)
+                                {
+                                    if ((numeroCapturado + (int)cantidadEnDGVEntas) > maximoParaVender)
+                                    {
+                                        MessageBox.Show($"La cantidad maxima para vender es {maximoParaVender}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        txtBuscadorProducto.Text = string.Empty;
+                                        txtBuscadorProducto.Focus();
+                                        return;
+                                    }
+                                }
+                            }
+                            else if (Regex.IsMatch(busqueda, patternInicioSimboloMenos))
+                            {
+                                var words = busqueda.Split('-');
+                                var siEsNumero = false;
+                                var numeroCapturado = 0;
+                                var minimoParaVender = valorMaximo;
+
+                                siEsNumero = int.TryParse(words[1].ToString().Trim(), out numeroCapturado);
+
+                                if (siEsNumero)
+                                {
+                                    if ((numeroCapturado + (int)cantidadEnDGVEntas) > minimoParaVender)
+                                    {
+                                        MessageBox.Show($"La cantidad maxima para disminuir es {minimoParaVender}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        txtBuscadorProducto.Text = string.Empty;
+                                        txtBuscadorProducto.Focus();
+                                        return;
+                                    }
+                                }
+                            }
+                            else if (Regex.IsMatch(busqueda, patternFinalizaSimboloMas))
+                            {
+                                var words = busqueda.Split('+');
+                                var siEsNumero = false;
+                                var numeroCapturado = 0;
+                                var maximoParaVender = valorMaximo;
+
+                                siEsNumero = int.TryParse(words[0].ToString().Trim(), out numeroCapturado);
+
+                                if (siEsNumero)
+                                {
+                                    if ((numeroCapturado + (int)cantidadEnDGVEntas) > maximoParaVender)
+                                    {
+                                        MessageBox.Show($"La cantidad maxima para vender es {maximoParaVender}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        txtBuscadorProducto.Text = string.Empty;
+                                        txtBuscadorProducto.Focus();
+                                        return;
+                                    }
+                                }
+                            }
+                            else if (Regex.IsMatch(busqueda, patternFinalizaSimboloMenos))
+                            {
+                                var words = busqueda.Split('-');
+                                var siEsNumero = false;
+                                var numeroCapturado = 0;
+                                var minimoParaVender = valorMaximo;
+
+                                siEsNumero = int.TryParse(words[0].ToString().Trim(), out numeroCapturado);
+
+                                if (siEsNumero)
+                                {
+                                    if ((numeroCapturado + (int)cantidadEnDGVEntas) > minimoParaVender)
+                                    {
+                                        MessageBox.Show($"La cantidad maxima para disminuir es {minimoParaVender}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        txtBuscadorProducto.Text = string.Empty;
+                                        txtBuscadorProducto.Focus();
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                        else if (noEsCantidadValidaDGVentas)
+                        {
+                            MessageBox.Show($"La cantidad maxima para vender es {valorMaximo.ToString("N")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            txtBuscadorProducto.Text = string.Empty;
                             return;
-                        }
-
-                        if (Regex.IsMatch(busqueda, patternInicioSimboloMas))
-                        {
-                            var words = busqueda.Split('+');
-                            var siEsNumero = false;
-                            var numeroCapturado = 0;
-                            var maximoParaVender = valorMaximo;
-
-                            siEsNumero = int.TryParse(words[1].ToString().Trim(), out numeroCapturado);
-
-                            if (siEsNumero)
-                            {
-                                if ((numeroCapturado + cantidadEnDGVEntas) > maximoParaVender)
-                                {
-                                    MessageBox.Show($"La cantidad maxima para vender es {maximoParaVender}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    txtBuscadorProducto.Clear();
-                                    return;
-                                }
-                            }
-                        }
-                        else if (Regex.IsMatch(busqueda, patternInicioSimboloMenos))
-                        {
-                            var words = busqueda.Split('-');
-                            var siEsNumero = false;
-                            var numeroCapturado = 0;
-                            var minimoParaVender = valorMaximo;
-
-                            siEsNumero = int.TryParse(words[1].ToString().Trim(), out numeroCapturado);
-
-                            if (siEsNumero)
-                            {
-                                if ((numeroCapturado + cantidadEnDGVEntas) > minimoParaVender)
-                                {
-                                    MessageBox.Show($"La cantidad maxima para disminuir es {minimoParaVender}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    txtBuscadorProducto.Clear();
-                                    return;
-                                }
-                            }
-                        }
-                        else if (Regex.IsMatch(busqueda, patternFinalizaSimboloMas))
-                        {
-                            var words = busqueda.Split('+');
-                            var siEsNumero = false;
-                            var numeroCapturado = 0;
-                            var maximoParaVender = valorMaximo;
-
-                            siEsNumero = int.TryParse(words[0].ToString().Trim(), out numeroCapturado);
-
-                            if (siEsNumero)
-                            {
-                                if ((numeroCapturado + cantidadEnDGVEntas) > maximoParaVender)
-                                {
-                                    MessageBox.Show($"La cantidad maxima para vender es {maximoParaVender}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    txtBuscadorProducto.Clear();
-                                    return;
-                                }
-                            }
-                        }
-                        else if (Regex.IsMatch(busqueda, patternFinalizaSimboloMenos))
-                        {
-                            var words = busqueda.Split('-');
-                            var siEsNumero = false;
-                            var numeroCapturado = 0;
-                            var minimoParaVender = valorMaximo;
-
-                            siEsNumero = int.TryParse(words[0].ToString().Trim(), out numeroCapturado);
-
-                            if (siEsNumero)
-                            {
-                                if ((numeroCapturado + cantidadEnDGVEntas) > minimoParaVender)
-                                {
-                                    MessageBox.Show($"La cantidad maxima para disminuir es {minimoParaVender}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    txtBuscadorProducto.Clear();
-                                    return;
-                                }
-                            }
                         }
 
                         //string cantidadProductos = DGVentas.Rows[0].Cells[5].Value.ToString();
