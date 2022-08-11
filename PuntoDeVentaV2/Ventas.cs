@@ -31,7 +31,7 @@ namespace PuntoDeVentaV2
         public static double pasarSumaImportes { get; set; }
         public static double pasarTotalAnticipos { get; set; }
         private bool aplicarDescuentoG { get; set; }
-       
+
         public static string etiqeutaCliente { get; set; }
 
         // Almacena los ID de los productos a los que se aplica descuento general
@@ -257,7 +257,7 @@ namespace PuntoDeVentaV2
 
             metodoCancelarVentaDesdeListadoVentas();
 
-            
+
         }
 
         private void metodoCancelarVentaDesdeListadoVentas()
@@ -361,7 +361,7 @@ namespace PuntoDeVentaV2
 
         private void mostrarBotonCSV()
         {
-            if (FormPrincipal.userNickName.Equals("HOUSEDEPOTAUTLAN")|| FormPrincipal.userNickName.Equals("HOUSEDEPOTREPARTO"))
+            if (FormPrincipal.userNickName.Equals("HOUSEDEPOTAUTLAN") || FormPrincipal.userNickName.Equals("HOUSEDEPOTREPARTO"))
             {
                 btnCSV.Visible = true;
             }
@@ -425,6 +425,9 @@ namespace PuntoDeVentaV2
             // Enter
             if (e.KeyData == Keys.Enter)
             {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+
                 contadorMensaje = 0;
                 sonido = true;
                 contador = 0;
@@ -435,6 +438,18 @@ namespace PuntoDeVentaV2
                 //    return;
                 //}
 
+                var busqueda = txtBuscadorProducto.Text.Trim();
+
+                if (!string.IsNullOrWhiteSpace(busqueda))
+                {
+                    var caracter = busqueda[0].ToString();
+
+                    if (caracter.Equals("+") || caracter.Equals("-"))
+                    {
+                        reproducirProductoAgregado();
+                    }
+                }
+
                 if (listaProductos.Visible)
                 {
                     // Si busca un producto por codigo de barras o clave le da prioridad a este metodo
@@ -444,6 +459,7 @@ namespace PuntoDeVentaV2
 
                     if (respuesta)
                     {
+                        reproducirProductoAgregado();
                         return;
                     }
 
@@ -858,7 +874,7 @@ namespace PuntoDeVentaV2
                 return;
             }
             // Se agrega la nueva fila y se obtiene el ID que tendrá
-            int rowId = DGVentas.Rows.Add(); 
+            int rowId = DGVentas.Rows.Add();
 
             // Obtener la nueva fila
             DataGridViewRow row = DGVentas.Rows[rowId];
@@ -1192,8 +1208,8 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
-                        
-                        
+
+
                         SendKeys.Send("{ENTER}");
                         SendKeys.Send("{ENTER}");
                     }
@@ -1213,7 +1229,7 @@ namespace PuntoDeVentaV2
                             AgregarMultiplesProductos();
                             agregarMultiple.Dispose();
                         };
-                        
+
                         agregarMultiple.ShowDialog();
                     }
                 }
@@ -1231,7 +1247,7 @@ namespace PuntoDeVentaV2
 
                         var cantidadTexto = DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString();
                         decimal cantidad = decimal.Parse(cantidadTexto.ToString(), System.Globalization.NumberStyles.Float);
-                        
+
 
                         var nuevaCantidad = decimal.Parse(cantidad.ToString(), System.Globalization.NumberStyles.Float);
                         nuevaCantidad = nuevaCantidad + 1;
@@ -1411,7 +1427,7 @@ namespace PuntoDeVentaV2
 
                             DGVentas.Rows.RemoveAt(celdaCellClick);
 
-                            if (DGVentas.Rows.Count==0)
+                            if (DGVentas.Rows.Count == 0)
                             {
                                 btnCSV.Enabled = true;
                             }
@@ -1515,7 +1531,7 @@ namespace PuntoDeVentaV2
                     }
                     txtBuscadorProducto.Focus();
                 }
-                
+
                 if (!DGVentas.Rows.Count.Equals(0))
                 {
                     if (noSeBorroFila)
@@ -2364,11 +2380,11 @@ namespace PuntoDeVentaV2
             totalAnticipos = Convert.ToDouble(cAnticipo.Text);
             totalAnticipos += importeAnticipo;
 
-            
+
             var sumaImportes = totalImporte + totalImporte8 + total_importe_cero_exe;
-            
-            
-         
+
+
+
             pasarTotalAnticipos = totalAnticipos;
             pasarSumaImportes = sumaImportes;
             //totalAnticipos
@@ -2435,7 +2451,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            if (total_importe_cero_exe >0)
+            if (total_importe_cero_exe > 0)
             {
                 lblIVA0Exento.Visible = true;
                 lblCIVA0Exento.Visible = true;
@@ -2449,7 +2465,7 @@ namespace PuntoDeVentaV2
             {
                 lbIVA8.Visible = true;
                 cIVA8.Visible = true;
-                if (totalIVA16 >0)
+                if (totalIVA16 > 0)
                 {
 
                 }
@@ -2458,7 +2474,7 @@ namespace PuntoDeVentaV2
                     lbIVA.Visible = false;
                     cIVA.Visible = false;
                 }
-                
+
             }
             else
             {
@@ -2478,12 +2494,12 @@ namespace PuntoDeVentaV2
                 lbIVA.Visible = false;
                 cIVA.Visible = false;
             }
-           
+
 
             cIVA.Text = totalIVA16.ToString("N");
-            cIVA8.Text = totalIVA8.ToString("N");           
+            cIVA8.Text = totalIVA8.ToString("N");
             cTotal.Text = sumaImportes.ToString("N");
-            if (sumaImportes <=0)
+            if (sumaImportes <= 0)
             {
                 cTotal.Text = "0.00";
             }
@@ -2715,7 +2731,7 @@ namespace PuntoDeVentaV2
         }
 
         private void btnTerminarVenta_Click(object sender, EventArgs e)
-         {
+        {
             foreach (DataGridViewRow fila in DGVentas.Rows)
             {
                 var idProdutoInactivo = fila.Cells["IDProducto"].Value.ToString();
@@ -2757,7 +2773,7 @@ namespace PuntoDeVentaV2
                 {
                     etiqeutaCliente = "vacio";
                     //this.Visible = false;
-                    
+
                 }
                 else
                 {
@@ -2900,7 +2916,7 @@ namespace PuntoDeVentaV2
                                                 DataRow drPublicoGeneral = dtPublicoGeneral.Rows[0];
                                                 var IDPublicoGeneral = Convert.ToInt32(drPublicoGeneral["ID"].ToString());
                                                 var razonSocialPublicoGeneral = drPublicoGeneral["RazonSocial"].ToString();
-                                                
+
                                                 idCliente = IDPublicoGeneral.ToString();
                                                 //ventaGuardada = true;
                                             }
@@ -2958,13 +2974,13 @@ namespace PuntoDeVentaV2
                                                 //            var razonSocialPublicoGeneral = drNuevoPublicoGeneral["RazonSocial"].ToString();
                                                 //            idCliente = IDPublicoGeneral.ToString();
                                                 //            ventaGuardada = true;
-                                                            
+
                                                 //        }
                                                 //    }
                                                 //}
                                             }
                                         }
-                                        
+
                                     }
                                 }
 
@@ -3012,7 +3028,7 @@ namespace PuntoDeVentaV2
             //    CambioTotal = (float)Convert.ToDouble(item[2]);
             //}
 
-            
+
             InfoUltimaVenta ticketUltimaVenta = new InfoUltimaVenta();
             ticketUltimaVenta.ShowDialog();
         }
@@ -3212,7 +3228,7 @@ namespace PuntoDeVentaV2
                                 {
                                     MessageBox.Show($"Esta venta ya fue guardada y facturada con el cliente {nombreCliente},\npor lo tanto se guardara como una venta nueva.", "Aviso Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     mostrarVenta = 0;
-                                    respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta,idAnticipoVentas));
+                                    respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas));
 
                                 }
                                 else if (!idClienteTmp.Equals(drVentaGuardada["IDCliente"].ToString()))
@@ -3964,7 +3980,7 @@ namespace PuntoDeVentaV2
                             // Imprimir Ticket Venta Cancelada
                             if (tipoDeVentaRealizada.Equals(3))
                             {
-                                
+
                             }
                             // Imprimir Ticket Venta a Credito
                             if (tipoDeVentaRealizada.Equals(4))
@@ -5967,7 +5983,7 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-               
+
 
             }
             if (e.KeyCode.Equals(Keys.End))
@@ -6212,7 +6228,7 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-       
+
 
         private void listaProductos_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -6284,7 +6300,7 @@ namespace PuntoDeVentaV2
                     mostrarDatosTraidosBuscador();
                     reproducirProductoAgregado();
                     contadorMensaje = 0;
-                    if (DGVentas.Rows.Count >0)
+                    if (DGVentas.Rows.Count > 0)
                     {
                         btnCSV.Enabled = false;
                     }
@@ -6331,7 +6347,7 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                nudCantidadPS.Value =(long)Convert.ToDouble(cantidadaPedir);
+                                nudCantidadPS.Value = (long)Convert.ToDouble(cantidadaPedir);
                                 AgregarProducto(datosProducto.ToArray(), Convert.ToDecimal(nudCantidadPS.Value));
                             }
                         }
@@ -6414,13 +6430,13 @@ namespace PuntoDeVentaV2
                             CantidadesFinalesVenta();
                         }
                     }
-                    
-                        lbDatosCliente.Text = cliente;
-                        lbDatosCliente.Visible = true;
-                        lbEliminarCliente.Visible = true;
-                    
-                    
-                    
+
+                    lbDatosCliente.Text = cliente;
+                    lbDatosCliente.Visible = true;
+                    lbEliminarCliente.Visible = true;
+
+
+
                 }
             }
         }
@@ -6435,7 +6451,7 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
-                 string[] words = txtDescuentoGeneral.Text.ToString().Split('%');
+                string[] words = txtDescuentoGeneral.Text.ToString().Split('%');
 
                 if (words.Count() > 0)
                 {
@@ -6698,7 +6714,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-           //txtBuscadorProducto.Focus();
+            //txtBuscadorProducto.Focus();
         }
 
 
@@ -6937,7 +6953,7 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo3_Click(object sender, EventArgs e)
         {
-            
+
             if (opcion16 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -6957,7 +6973,7 @@ namespace PuntoDeVentaV2
                 if (respuesta == DialogResult.OK)
                 {
                     var datos = clientes.datosCliente;
-                     string cliente = string.Empty;
+                    string cliente = string.Empty;
 
                     idCliente = datos[18];
 
@@ -7047,7 +7063,7 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-           
+
             if (Application.OpenForms.OfType<ListadoVentasGuardadas>().Count() == 1)
             {
                 ListadoVentasGuardadas ventasFusion = new ListadoVentasGuardadas();
@@ -7539,8 +7555,8 @@ namespace PuntoDeVentaV2
 
         private void txtDescuentoGeneral_KeyDown(object sender, KeyEventArgs e)
         {
-            
-            var cantidadDescuento = txtDescuentoGeneral.Text;           
+
+            var cantidadDescuento = txtDescuentoGeneral.Text;
             if (e.KeyCode == Keys.Enter)
             {
                 btnAplicarDescuento.PerformClick();
@@ -7548,8 +7564,8 @@ namespace PuntoDeVentaV2
                 txtBuscadorProducto.Focus();
                 txtDescuentoGeneral.Text = "% descuento";
             }
-            
-           
+
+
         }
 
         private void DGVentas_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -7731,19 +7747,19 @@ namespace PuntoDeVentaV2
             {
                 string texto = txtBuscadorProducto.Text;
                 var tamaño = texto.Length;
-                var ultimaLetra = texto[tamaño-1].ToString();
+                var ultimaLetra = texto[tamaño - 1].ToString();
 
                 //Borrar la ultima letra
-                if (txtBuscadorProducto.Text.Length > tamaño-1)
+                if (txtBuscadorProducto.Text.Length > tamaño - 1)
                 {
-                    txtBuscadorProducto.Text = txtBuscadorProducto.Text.Substring(0, tamaño-1);
+                    txtBuscadorProducto.Text = txtBuscadorProducto.Text.Substring(0, tamaño - 1);
                     txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
                     var sinLetra = txtBuscadorProducto.Text;
                     txtBuscadorProducto.Text = $"{sinLetra}{ultimaLetra}";
                 }
-                
+
             }
-            
+
 
         }
 
@@ -7767,6 +7783,11 @@ namespace PuntoDeVentaV2
         }
 
         private void DGVentas_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void txtBuscadorProducto_KeyPress(object sender, KeyPressEventArgs e)
         {
 
         }
@@ -7904,103 +7925,103 @@ namespace PuntoDeVentaV2
                         //var esNumeroVaido = false;
                         //var cantidadAgregada = 0;
 
-                            //if (Convert.ToDecimal(cantidadProductos) <= 2139999999)
-                            //{
-                            //    esNumeroVaido = true;
-                            //}
-                            //esNumeroVaido = int.TryParse(cantidadProductos, out cantidadAgregada);
+                        //if (Convert.ToDecimal(cantidadProductos) <= 2139999999)
+                        //{
+                        //    esNumeroVaido = true;
+                        //}
+                        //esNumeroVaido = int.TryParse(cantidadProductos, out cantidadAgregada);
 
-                            //if (esNumeroVaido.Equals(true))
-                            //{
-                            //    #region Validacion de cantidad
-                            //    string segundoPatron = @"^(\+\d+)|(\d+\+)|(\+)|(\+\+)$";
-                            //    string tercerPatron = @"^(\-\d+)|(\d+\-)|(\-)|(\-\-)$";
+                        //if (esNumeroVaido.Equals(true))
+                        //{
+                        //    #region Validacion de cantidad
+                        //    string segundoPatron = @"^(\+\d+)|(\d+\+)|(\+)|(\+\+)$";
+                        //    string tercerPatron = @"^(\-\d+)|(\d+\-)|(\-)|(\-\-)$";
 
-                            //    Match segundaCoincidencia = Regex.Match(busqueda, segundoPatron, RegexOptions.IgnoreCase);
-                            //    Match terceraCoincidencia = Regex.Match(busqueda, tercerPatron, RegexOptions.IgnoreCase);
+                        //    Match segundaCoincidencia = Regex.Match(busqueda, segundoPatron, RegexOptions.IgnoreCase);
+                        //    Match terceraCoincidencia = Regex.Match(busqueda, tercerPatron, RegexOptions.IgnoreCase);
 
-                            //    if (segundaCoincidencia.Success)
-                            //    {
-                            //        var infoTmp = busqueda.Split('+');
-                            //        string number = infoTmp[1].ToString();
+                        //    if (segundaCoincidencia.Success)
+                        //    {
+                        //        var infoTmp = busqueda.Split('+');
+                        //        string number = infoTmp[1].ToString();
 
-                            //        if (number.All(char.IsDigit))
-                            //        {
-                            //            if (!string.IsNullOrWhiteSpace(infoTmp[0].ToString()))
-                            //            {
-                            //                esNumeroVaido = int.TryParse(infoTmp[0].ToString(), out cantidadAgregada);
+                        //        if (number.All(char.IsDigit))
+                        //        {
+                        //            if (!string.IsNullOrWhiteSpace(infoTmp[0].ToString()))
+                        //            {
+                        //                esNumeroVaido = int.TryParse(infoTmp[0].ToString(), out cantidadAgregada);
 
-                            //                if (esNumeroVaido.Equals(false))
-                            //                {
-                            //                    MessageBox.Show("La cantidad es mayor a la permitida");
-                            //                    string result = busqueda.Remove(busqueda.Length - 1);
-                            //                    txtBuscadorProducto.Text = result;
-                            //                    txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
-                            //                    return;
-                            //                }
-                            //            }
-                            //            if (!string.IsNullOrWhiteSpace(infoTmp[1].ToString()))
-                            //            {
-                            //                esNumeroVaido = int.TryParse(infoTmp[1].ToString(), out cantidadAgregada);
+                        //                if (esNumeroVaido.Equals(false))
+                        //                {
+                        //                    MessageBox.Show("La cantidad es mayor a la permitida");
+                        //                    string result = busqueda.Remove(busqueda.Length - 1);
+                        //                    txtBuscadorProducto.Text = result;
+                        //                    txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
+                        //                    return;
+                        //                }
+                        //            }
+                        //            if (!string.IsNullOrWhiteSpace(infoTmp[1].ToString()))
+                        //            {
+                        //                esNumeroVaido = int.TryParse(infoTmp[1].ToString(), out cantidadAgregada);
 
-                            //                if (esNumeroVaido.Equals(false))
-                            //                {
-                            //                    MessageBox.Show("La cantidad es mayor a la permitida");
-                            //                    string result = busqueda.Remove(busqueda.Length - 1);
-                            //                    txtBuscadorProducto.Text = result;
-                            //                    txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
-                            //                    return;
-                            //                }
-                            //            }
-                            //        }
+                        //                if (esNumeroVaido.Equals(false))
+                        //                {
+                        //                    MessageBox.Show("La cantidad es mayor a la permitida");
+                        //                    string result = busqueda.Remove(busqueda.Length - 1);
+                        //                    txtBuscadorProducto.Text = result;
+                        //                    txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
+                        //                    return;
+                        //                }
+                        //            }
+                        //        }
 
 
-                            //    }
-                            //    else if (terceraCoincidencia.Success)
-                            //    {
-                            //        var infoTmp = busqueda.Split('-');
+                        //    }
+                        //    else if (terceraCoincidencia.Success)
+                        //    {
+                        //        var infoTmp = busqueda.Split('-');
 
-                            //        string number = infoTmp[1].ToString();
+                        //        string number = infoTmp[1].ToString();
 
-                            //        if (number.All(char.IsDigit))
-                            //        {
-                            //            if (!string.IsNullOrWhiteSpace(infoTmp[0].ToString()))
-                            //            {
-                            //                esNumeroVaido = int.TryParse(infoTmp[0].ToString(), out cantidadAgregada);
+                        //        if (number.All(char.IsDigit))
+                        //        {
+                        //            if (!string.IsNullOrWhiteSpace(infoTmp[0].ToString()))
+                        //            {
+                        //                esNumeroVaido = int.TryParse(infoTmp[0].ToString(), out cantidadAgregada);
 
-                            //                if (esNumeroVaido.Equals(false))
-                            //                {
-                            //                    MessageBox.Show("La cantidad es mayor a la permitida");
-                            //                    string result = busqueda.Remove(busqueda.Length - 1);
-                            //                    txtBuscadorProducto.Text = result;
-                            //                    txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
-                            //                    return;
-                            //                }
-                            //            }
-                            //            if (!string.IsNullOrWhiteSpace(infoTmp[1].ToString()))
-                            //            {
-                            //                esNumeroVaido = int.TryParse(infoTmp[1].ToString(), out cantidadAgregada);
+                        //                if (esNumeroVaido.Equals(false))
+                        //                {
+                        //                    MessageBox.Show("La cantidad es mayor a la permitida");
+                        //                    string result = busqueda.Remove(busqueda.Length - 1);
+                        //                    txtBuscadorProducto.Text = result;
+                        //                    txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
+                        //                    return;
+                        //                }
+                        //            }
+                        //            if (!string.IsNullOrWhiteSpace(infoTmp[1].ToString()))
+                        //            {
+                        //                esNumeroVaido = int.TryParse(infoTmp[1].ToString(), out cantidadAgregada);
 
-                            //                if (esNumeroVaido.Equals(false))
-                            //                {
-                            //                    MessageBox.Show("La cantidad es mayor a la permitida");
-                            //                    string result = busqueda.Remove(busqueda.Length - 1);
-                            //                    txtBuscadorProducto.Text = result;
-                            //                    txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
-                            //                    return;
-                            //                }
-                            //            }
-                            //        }
+                        //                if (esNumeroVaido.Equals(false))
+                        //                {
+                        //                    MessageBox.Show("La cantidad es mayor a la permitida");
+                        //                    string result = busqueda.Remove(busqueda.Length - 1);
+                        //                    txtBuscadorProducto.Text = result;
+                        //                    txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
+                        //                    return;
+                        //                }
+                        //            }
+                        //        }
 
-                            //    }
-                            //    #endregion
-                            //}
-                            //else
-                            //{
-                            //    MessageBox.Show("La cantidad agregada es mayor a la Maxima permitida...");
-                            //    txtBuscadorProducto.Clear();
-                            //    return;
-                            //}
+                        //    }
+                        //    #endregion
+                        //}
+                        //else
+                        //{
+                        //    MessageBox.Show("La cantidad agregada es mayor a la Maxima permitida...");
+                        //    txtBuscadorProducto.Clear();
+                        //    return;
+                        //}
                     }
 
 
@@ -8013,7 +8034,7 @@ namespace PuntoDeVentaV2
 
                         if (caracter.Equals("+") || caracter.Equals("-"))
                         {
-                            reproducirProductoAgregado();
+                            //reproducirProductoAgregado();
                             return;
                         }
                     }
@@ -8139,7 +8160,7 @@ namespace PuntoDeVentaV2
                 // Comprobar stock minimo
                 if (enviarStockMinimo.Count > 0)
                 {
-                    correoMultiple ++;
+                    correoMultiple++;
                     asunto = "¡AVISO! STOCK MINIMO ALCANZADO POR VENTAS.";
 
                     html = @"
@@ -8180,7 +8201,7 @@ namespace PuntoDeVentaV2
                 // Comprobar venta producto
                 if (enviarVentaProducto.Count > 0)
                 {
-                    correoMultiple ++;
+                    correoMultiple++;
                     asunto = "INFORMACION DE ESTADO DE PRODUCTOS";
 
                     html += @"
@@ -8291,7 +8312,7 @@ namespace PuntoDeVentaV2
 
                     if (FormPrincipal.id_empleado > 0)
                     {
-                        correoMultiple ++;
+                        correoMultiple++;
                         var datosEmpleado = mb.obtener_permisos_empleado(FormPrincipal.id_empleado, FormPrincipal.userID);
 
                         string nombreEmpleado = datosEmpleado[15];
@@ -8358,7 +8379,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        correoMultiple ++;
+                        correoMultiple++;
                         if (!string.IsNullOrWhiteSpace(descuentoVenta) && !descuentoVenta.Equals("0.00"))
                         {
                             html += $@"
@@ -8480,8 +8501,8 @@ namespace PuntoDeVentaV2
 
         private void txtDescuentoGeneral_KeyUp(object sender, KeyEventArgs e)
         {
-           
- 
+
+
             if (txtDescuentoGeneral.Text == ".")
             {
                 txtDescuentoGeneral.Text = "0.";

@@ -197,6 +197,7 @@
             this.txtBuscadorProducto.Text = "BUSCAR PRODUCTO O SERVICIO...";
             this.txtBuscadorProducto.TextChanged += new System.EventHandler(this.txtBuscadorProducto_TextChanged);
             this.txtBuscadorProducto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyDown);
+            this.txtBuscadorProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscadorProducto_KeyPress);
             // 
             // DGVentas
             // 
