@@ -1470,11 +1470,21 @@ namespace PuntoDeVentaV2
                         {
                             productoEliminado.Add(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Importe"].Value.ToString());
                             primerClickEliminarIndividual = true;
-                            string precio = DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString();
-                            string productoEliminadoCorreo = DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Importe"].Value.ToString();
-                            Thread EliminarProducto = new Thread(
-                                () =>Utilidades.CorreoElimitarVentasConLaX(productoEliminadoCorreo, fechaSistema, precio, FormPrincipal.datosUsuario));
-                            EliminarProducto.Start();
+
+                            var datosConfig = mb.ComprobarConfiguracion();
+
+                            if (datosConfig.Count > 0)
+                            {
+                                if (Convert.ToInt32(datosConfig[19]).Equals(1))
+                                {
+                                    string precio = DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString();
+                                    string productoEliminadoCorreo = DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Importe"].Value.ToString();
+                                    Thread EliminarProducto = new Thread(
+                                        () => Utilidades.CorreoElimitarVentasConLaX(productoEliminadoCorreo, fechaSistema, precio, FormPrincipal.datosUsuario));
+                                    EliminarProducto.Start();
+                                }
+                            }
+                           
                         }
                         else
                         {
@@ -1523,11 +1533,19 @@ namespace PuntoDeVentaV2
                                 //productoEliminado.Add(count + "|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString())));
                     
                             }
-                            string precio = DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString();
-                            string productoEliminadoCorreo = DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Importe"].Value.ToString();
-                            Thread EliminarProducto = new Thread(() => 
-                            Utilidades.CorreoElimitarVentasConLaX(productoEliminadoCorreo, fechaSistema, precio, FormPrincipal.datosUsuario));
-                            EliminarProducto.Start();
+                            var datosConfig = mb.ComprobarConfiguracion();
+
+                            if (datosConfig.Count > 0)
+                            {
+                                if (Convert.ToInt32(datosConfig[19]).Equals(1))
+                                {
+                                    string precio = DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString();
+                                    string productoEliminadoCorreo = DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Importe"].Value.ToString();
+                                    Thread EliminarProducto = new Thread(
+                                        () => Utilidades.CorreoElimitarVentasConLaX(productoEliminadoCorreo, fechaSistema, precio, FormPrincipal.datosUsuario));
+                                    EliminarProducto.Start();
+                                }
+                            }
                         }
 
                         DGVentas.Rows.RemoveAt(celdaCellClick);
