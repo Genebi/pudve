@@ -144,6 +144,30 @@ namespace PuntoDeVentaV2
 
         private void btn_enviar_Click(object sender, EventArgs e)
         {
+            bool agregado = false;
+
+            foreach (Control pnl in pnl_principal.Controls)
+            {
+                if (pnl.Name.Contains("pnl_correo"))
+                {
+                    foreach (Control pnl_sec in pnl.Controls)
+                    {
+                        if (pnl_sec.Name.Contains("lb_correo"))
+                        {
+                            if (txt_correo.Text.Equals(pnl_sec.Text))
+                            {
+                                agregado = true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (!agregado)
+            {
+                btn_agregar.PerformClick();
+            }
+            
             bool yasemando = true;
             foreach (var CosultaIDS in arr_ids_f_enviar)
             {
