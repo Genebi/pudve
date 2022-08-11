@@ -3665,5 +3665,88 @@ namespace PuntoDeVentaV2
             HandledMouseEventArgs ee = (HandledMouseEventArgs)e;
             ee.Handled = true;
         }
+        public static void CorreoElimitarVentasConLaX(string productosNoVendidos, string fechaSistema, string importeTotal, string[] datosUsuario)
+        {
+            
+            string productos = string.Empty,
+                    encabezadoHTML = string.Empty,
+                    pieHTML = string.Empty,
+                    correoHTML = string.Empty,
+                    asunto = string.Empty,
+                    correo = string.Empty,
+                    correo1 = string.Empty;
+
+            encabezadoHTML = @" <h2 style='text-align: center; color: red;'>VENTA NO FINALIZADA (Click en botón borrar todos los productos) EN EL SISTEMA</h2><br>
+                                <p style='font-size: 1.2em;'>Los siguientes productos fueron eliminados de carrito:</p>
+                                <table style='width:100%'>
+                                    <tr>
+                                        <th style = 'text-align: left;'>Cantidad</th>
+                                        <th style = 'text-align: left;'>Precio</th>
+                                        <th>Descripcion</th>
+                                        <th style = 'text-align: left;'>Descuento</th>
+                                        <th style = 'text-align: right;'>Importe</th>
+                                    </tr>";
+
+            var words = productosNoVendidos.Split('|');
+                productos += $@"    <tr>
+                                        <td style = 'text-align: left;'>
+                                            <span style='color: blue;'>{words[0].ToString()}</span>
+                                        </td>
+                                        <td style = 'text-align: left;'>
+                                            <span style='color: blue;'>{words[1].ToString()}</span>
+                                        </td>
+                                        <td style = 'text-align: center;'>
+                                            <span style='color: black;'><b>{words[2].ToString()}</b></span>
+                                        </td>
+                                        <td style = 'text-align: left;'>
+                                            <span style='color: blue;'>{words[3].ToString()}</span>
+                                        </td>
+                                        <td style = 'text-align: right;'>
+                                            <span style='color: blue;'><b>{words[4].ToString()}</b></span>
+                                        </td>
+                                    </tr>";
+            
+
+            string footerCorreo = string.Empty;
+
+            if (FormPrincipal.id_empleado > 0)
+            {
+                MetodosBusquedas mb = new MetodosBusquedas();
+
+                var datosEmpleado = mb.obtener_permisos_empleado(FormPrincipal.id_empleado, FormPrincipal.userID);
+
+                string nombreEmpleado = datosEmpleado[15];
+                string usuarioEmpleado = datosEmpleado[16];
+
+                var infoEmpleado = usuarioEmpleado.Split('@');
+
+                footerCorreo = $"<p style='font-size: 0.9em;'>Está operación fue realizada por el empleado <b>{nombreEmpleado} ({infoEmpleado[1]})</b> del usuario <b>{infoEmpleado[0]}</b> con <span style='color: black;'>fecha de {fechaSistema}</span></p>";
+            }
+            else
+            {
+                footerCorreo = $"<p style='font-size: 0.9em;'>Está operación fue realizada por el <FONT SIZE=2> <b>ADMINISTRADOR</b>  </FONT> del usuario <FONT SIZE=2> <FONT SIZE=2>  <b>{FormPrincipal.userNickName}</b> </FONT> </FONT> con <span style='color: black;'>fecha de {fechaSistema}</span></p>";
+            }
+
+            pieHTML = $@"           <tr>
+                                        <td colspan='4' style = 'text-align: right;'>
+                                            Total =
+                                        </td>
+                                        <td style = 'text-align: right;'>
+                                            <span style='color: black'><b>{importeTotal}</b></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                {footerCorreo}";
+
+            correoHTML = encabezadoHTML + productos + pieHTML;
+
+            asunto = "PRODUCTOS ELIMINADOS DEL CARRITO DE VENTAS";
+            correo = datosUsuario[9].ToString();
+
+            if (!correo.Equals(""))
+            {
+                EnviarEmail(correoHTML, asunto, correo);
+            }
+        }
     }
 }

@@ -1031,7 +1031,7 @@
             <Top>10.51138cm</Top>
             <Left>0.98708cm</Left>
             <Height>1.2cm</Height>
-            <Width>19.39914cm</Width>
+            <Width>19.39916cm</Width>
             <ZIndex>11</ZIndex>
             <Style>
               <Border>
@@ -1819,7 +1819,6 @@
             <Source>External</Source>
             <Value>=Parameters!Logo.Value</Value>
             <Sizing>Fit</Sizing>
-            <Top>1.24918cm</Top>
             <Left>1.01036cm</Left>
             <Height>4.48857cm</Height>
             <Width>6.13443cm</Width>
