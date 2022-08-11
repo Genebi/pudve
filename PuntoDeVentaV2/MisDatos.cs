@@ -614,7 +614,7 @@ namespace PuntoDeVentaV2
             var cantidadCamposRFC = txtRFC.Text.Length;
             bool validacion = true;
 
-            if (cantidadCamposRFC < 12)
+            if (cantidadCamposRFC > 0 && cantidadCamposRFC < 12)
             {
                 txtRFC.Focus();
                 MessageBox.Show("El RFC no tiene el formato correcto", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -645,7 +645,7 @@ namespace PuntoDeVentaV2
                 return validar;
             }
 
-            validar = validarRfc();
+            //validar = validarRfc();
 
             //if (!VerificarRFC(txtRFC.Text))
             //{
@@ -680,21 +680,21 @@ namespace PuntoDeVentaV2
             //    return false;
             //}
 
-            if (!ValidarEmail(txtEmail.Text))
-            {
-                if (!string.IsNullOrWhiteSpace(txtEmail.Text))
-                {
-                    MessageBox.Show("El formato del correo electrónico es incorrecto\n\nEjemplo: micorreo@ejemplo.com", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    MessageBox.Show("El correo electrónico es requerido", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            //if (!ValidarEmail(txtEmail.Text))
+            //{
+            //    if (!string.IsNullOrWhiteSpace(txtEmail.Text))
+            //    {
+            //        MessageBox.Show("El formato del correo electrónico es incorrecto\n\nEjemplo: micorreo@ejemplo.com", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //    else
+            //    {
+            //        MessageBox.Show("El correo electrónico es requerido", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
 
-                txtEmail.Focus();
-                validar = false;
-                return validar;
-            }
+            //    txtEmail.Focus();
+            //    validar = false;
+            //    return validar;
+            //}
 
             //if (string.IsNullOrWhiteSpace(LblRegimenActual.Text))
             //{

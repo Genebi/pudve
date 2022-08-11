@@ -134,30 +134,34 @@ namespace PuntoDeVentaV2
 
         private void EscogerTipoRespaldo_Load(object sender, EventArgs e)
         {
-            var activadoDesactivado = cn.CargarDatos($"SELECT RespaldoAlCerrarSesion FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}");
-            int Estado = Convert.ToInt32(activadoDesactivado.Rows[0]["RespaldoAlCerrarSesion"]);
-            if (Estado == 1)
-            {
-                rbRespaldarCerrarSesion.Checked = true;
-                rbNoRespaldar.Checked = false;
-            }
-            else
-            {
-                rbRespaldarCerrarSesion.Checked = false;
-                rbNoRespaldar.Checked = true;
-            }
+            //var activadoDesactivado = cn.CargarDatos($"SELECT RespaldoAlCerrarSesion FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}");
+            //int Estado = Convert.ToInt32(activadoDesactivado.Rows[0]["RespaldoAlCerrarSesion"]);
+            //if (Estado == 1)
+            //{
+            //    rbRespaldarCerrarSesion.Checked = true;
+            //    rbNoRespaldar.Checked = false;
+            //}
+            //else
+            //{
+            //    rbRespaldarCerrarSesion.Checked = false;
+            //    rbNoRespaldar.Checked = true;
+            //}
+            rbNoRespaldar.Checked = true;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (rbRespaldarCerrarSesion.Checked)
-            {
-                cn.EjecutarConsulta($"UPDATE Configuracion SET RespaldoAlCerrarSesion = 1 WHERE IDUsuario = {FormPrincipal.userID}");
-            }
-            else
-            {
-                cn.EjecutarConsulta($"UPDATE Configuracion SET RespaldoAlCerrarSesion = 0 WHERE IDUsuario = {FormPrincipal.userID}");
-            }
+            //if (rbRespaldarCerrarSesion.Checked)
+            //{
+            //    cn.EjecutarConsulta($"UPDATE Configuracion SET RespaldoAlCerrarSesion = 1 WHERE IDUsuario = {FormPrincipal.userID}");
+            //}
+            //else
+            //{
+            //    cn.EjecutarConsulta($"UPDATE Configuracion SET RespaldoAlCerrarSesion = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+            //}
+
+            cn.EjecutarConsulta($"UPDATE Configuracion SET RespaldoAlCerrarSesion = 0 WHERE IDUsuario = {FormPrincipal.userID}");
+
             this.Close();
         }
     }

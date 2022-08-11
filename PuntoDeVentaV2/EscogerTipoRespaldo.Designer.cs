@@ -48,6 +48,7 @@
             this.rbRespaldarCerrarSesion.TabStop = true;
             this.rbRespaldarCerrarSesion.Text = "Respaldar al cerrar sesion";
             this.rbRespaldarCerrarSesion.UseVisualStyleBackColor = true;
+            this.rbRespaldarCerrarSesion.Visible = false;
             // 
             // rbNoRespaldar
             // 
@@ -60,6 +61,7 @@
             this.rbNoRespaldar.TabStop = true;
             this.rbNoRespaldar.Text = "No respaldar";
             this.rbNoRespaldar.UseVisualStyleBackColor = true;
+            this.rbNoRespaldar.Visible = false;
             this.rbNoRespaldar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rbRespaldoCorreo_KeyDown);
             // 
             // label1

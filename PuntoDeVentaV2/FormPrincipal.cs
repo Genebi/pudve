@@ -1460,7 +1460,8 @@ namespace PuntoDeVentaV2
                     //e.Cancel = true;
                     Application.OpenForms.OfType<Cargando>().First().BringToFront();
                 }
-                backUpDB.crearsaveFile();
+                // Se comento para evitar que haga respaldo al cerrar sesion
+                //backUpDB.crearsaveFile();
             }
             //if (backUpDB.validarMandarRespaldoCorreo())
             //{
