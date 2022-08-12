@@ -589,6 +589,7 @@ namespace PuntoDeVentaV2
                                 OperacionBusqueda();
                                 txtBuscadorProducto.Focus();
                                 txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
+                                return;
                             }
 
                             if (respuesta)
@@ -604,10 +605,7 @@ namespace PuntoDeVentaV2
                             {
                                 listaProductos.SelectedIndex = 0;
                                 listaProductos.Focus();
-                                if (tieneElCursorElTxtBuscadorProducto.Equals(false))
-                                {
-                                    listaProductos_KeyDown(sender, e);
-                                }
+                                listaProductos_KeyDown(sender, e);
                             }
                         }
                         else
@@ -1590,7 +1588,7 @@ namespace PuntoDeVentaV2
                 // Eliminar individual
                 if (columnaCellClick.Equals(13))
                 {
-                   
+
                     if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                     {
                         var idProducto = Convert.ToInt32(DGVentas.Rows[celdaCellClick].Cells["IDProducto"].Value);
@@ -1606,7 +1604,7 @@ namespace PuntoDeVentaV2
                             string precio = DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString();
                             string productoEliminadoCorreo = DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Importe"].Value.ToString();
                             Thread EliminarProducto = new Thread(
-                                () =>Utilidades.CorreoElimitarVentasConLaX(productoEliminadoCorreo, fechaSistema, precio, FormPrincipal.datosUsuario));
+                                () => Utilidades.CorreoElimitarVentasConLaX(productoEliminadoCorreo, fechaSistema, precio, FormPrincipal.datosUsuario));
                             EliminarProducto.Start();
                         }
                         else
@@ -1626,10 +1624,10 @@ namespace PuntoDeVentaV2
                                     count++;
                                     productoEliminado[i] = count + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString()));
                                     break;
-                                   
+
                                 }
                             }
-                            
+
 
                             if (!descripcionEncontrada)
                             {
@@ -1654,11 +1652,11 @@ namespace PuntoDeVentaV2
 
                                 productoEliminado.Add(count + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString())) - descuento_conv));
                                 //productoEliminado.Add(count + "|" + DGVentas.Rows[celda].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celda].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celda].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celda].Cells["Descuento"].Value.ToString())));
-                    
+
                             }
                             string precio = DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString();
                             string productoEliminadoCorreo = DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Importe"].Value.ToString();
-                            Thread EliminarProducto = new Thread(() => 
+                            Thread EliminarProducto = new Thread(() =>
                             Utilidades.CorreoElimitarVentasConLaX(productoEliminadoCorreo, fechaSistema, precio, FormPrincipal.datosUsuario));
                             EliminarProducto.Start();
                         }
