@@ -417,16 +417,16 @@ namespace PuntoDeVentaV2
             if (!string.IsNullOrWhiteSpace(nameMachineServer))
             {
                 string[] temp;
-                string titulo = this.Text += $" |  Usuario: {userNickName}  | Asociada a: {nameMachineServer}";
+                string titulo = this.Text += $" |  Usuario: {userNickName}  | Versión 2.5 | Asociada a: {nameMachineServer}";
                 temp = titulo.Split('|');
-                this.Text = $"{temp[0].ToString()} |  Usuario: {userNickName}  | Asociada a: {nameMachineServer}";
+                this.Text = $"{temp[0].ToString()} |  Usuario: {userNickName}  | Versión 2.5 | Asociada a: {nameMachineServer}";
             }
             else
             {
                 string[] temp;
-                string titulo = this.Text += $" |  Usuario: {userNickName}";
+                string titulo = this.Text += $" |  Usuario: {userNickName} | Versión 2.5";
                 temp = titulo.Split('|');
-                this.Text = $"{temp[0].ToString()} |  Usuario: {userNickName}";
+                this.Text = $"{temp[0].ToString()} |  Usuario: {userNickName} | Versión 2.5";
             }
 
             desdeCorteDeCaja = false;
