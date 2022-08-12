@@ -611,7 +611,13 @@ namespace PuntoDeVentaV2
                         else
                         {
                             // Le da prioridad a buscar un producto por codigo de barras o clave
-                            BuscarProductoPorCodigo();
+                            var respuesta = BuscarProductoPorCodigo();
+
+                            if (respuesta)
+                            {
+                                reproducirProductoAgregado();
+                                //return;
+                            }
 
                             //===============================================================
                             // Este codigo es para cuando intenta agregar mas cantidad de algun producto
