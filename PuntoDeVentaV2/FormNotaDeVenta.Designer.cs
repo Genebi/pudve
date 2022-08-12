@@ -29,17 +29,9 @@ namespace PuntoDeVentaV2
         /// </summary>
         private void InitializeComponent()
         {
-            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.btnImprimir = new PuntoDeVentaV2.BotonRedondo();
+            this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.SuspendLayout();
-            // 
-            // reportViewer1
-            // 
-            this.reportViewer1.Location = new System.Drawing.Point(2, 0);
-            this.reportViewer1.Name = "reportViewer1";
-            this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(882, 467);
-            this.reportViewer1.TabIndex = 0;
             // 
             // btnImprimir
             // 
@@ -61,13 +53,22 @@ namespace PuntoDeVentaV2
             this.btnImprimir.UseVisualStyleBackColor = false;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
             // 
+            // reportViewer1
+            // 
+            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.reportViewer1.Location = new System.Drawing.Point(0, 0);
+            this.reportViewer1.Name = "reportViewer1";
+            this.reportViewer1.ServerReport.BearerToken = null;
+            this.reportViewer1.Size = new System.Drawing.Size(884, 516);
+            this.reportViewer1.TabIndex = 2;
+            // 
             // FormNotaDeVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(884, 516);
-            this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.reportViewer1);
+            this.Controls.Add(this.btnImprimir);
             this.Name = "FormNotaDeVenta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormNotaDeVenta";
@@ -77,8 +78,7 @@ namespace PuntoDeVentaV2
         }
 
         #endregion
-
-        private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
         private BotonRedondo btnImprimir;
+        private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
     }
 }

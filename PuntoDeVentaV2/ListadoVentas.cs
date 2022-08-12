@@ -2288,7 +2288,7 @@ namespace PuntoDeVentaV2
                     }
 
                     int id = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
-                    FormNotaDeVenta fndv = new FormNotaDeVenta(id);
+                    FormNotaVentaHDA fndv = new FormNotaVentaHDA(id);
                     fndv.ShowDialog();
 
 

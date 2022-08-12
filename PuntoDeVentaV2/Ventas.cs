@@ -355,6 +355,11 @@ namespace PuntoDeVentaV2
                 opcion20 = permisos[19];
             }
 
+            if (FormPrincipal.userNickName == "HOUSEDEPOTAUTLAN")
+            {
+                chkHDAutlan.Visible = true;
+            }
+
             iniciarBasculaPredeterminada();
             txtBuscadorProducto.Focus();
         }

@@ -37,7 +37,6 @@ namespace PuntoDeVentaV2
         private void FormNotaDeVenta_Load(object sender, EventArgs e)
         {
             CargarNotaDeVenta();
-            this.reportViewer1.RefreshReport();
         }
 
         private void CargarNotaDeVenta()
@@ -280,6 +279,11 @@ namespace PuntoDeVentaV2
             imp.Imprime(rdlc);
 
             this.Close();
+        }
+
+        private void reportViewer1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
