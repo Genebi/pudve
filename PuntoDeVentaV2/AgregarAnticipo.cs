@@ -220,6 +220,7 @@ namespace PuntoDeVentaV2
             {
                 Usuario = FormPrincipal.userNickName;
             }
+            var FormadePago = cbFormaPago.Text.Split('-');
 
             var FechaHoy = DateTime.Now.ToString("dd-MM-yyyy hh:mm");
             var asunto = "Nuevo Anticipo Recibido";
@@ -235,6 +236,8 @@ namespace PuntoDeVentaV2
                <br>
                Monto: <b>{Dinero}</b><br>
                <br>
+               Metodo de Pago: <b>{FormadePago[1].ToString()}</b><br> 
+               <br> 
                Concepto: <b>{txtConcepto.Text}</b> <br>
                <br>
                Recibido por: <b>{Usuario}</b>

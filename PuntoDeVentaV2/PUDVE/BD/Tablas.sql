@@ -1761,7 +1761,7 @@ ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS Referencia INT DEFAULT 1;
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoAnticipo INT DEFAULT 0 ;
 
 -- Agregar Columna de PermisoAnticipo a la tabla permisosconfiguracion
-ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoCorreoAnticipo INT DEFAULT 0 ;
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoCorreoAnticipo INT DEFAULT 1 ;
 
 -- Agregar columna para descuento por cliente en productos
 ALTER TABLE Productos ADD COLUMN IF NOT EXISTS TieneDescuentoCliente TINYINT(1) DEFAULT 0;
