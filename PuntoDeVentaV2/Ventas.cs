@@ -3837,7 +3837,7 @@ namespace PuntoDeVentaV2
                                         {
                                             if (!enviarVentaProducto.ContainsKey(Convert.ToInt32(IDProducto)))
                                             {
-                                                var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK ACTUAL: {restantes}---CANTIDAD: {Cantidad}";
+                                                var nombre = $"{datosProductoTmp[1]} --- CÓDIGO BARRAS: {datosProductoTmp[7]} --- STOCK ACTUAL: {restantes}---CANTIDAD VENDIDA: {Cantidad}";
                                                 enviarVentaProducto.Add(Convert.ToInt32(IDProducto), nombre);
                                             }
                                         }
