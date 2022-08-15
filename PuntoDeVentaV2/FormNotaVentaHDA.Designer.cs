@@ -55,19 +55,19 @@ namespace PuntoDeVentaV2
             // 
             // reportViewer1
             // 
-            this.reportViewer1.Location = new System.Drawing.Point(0, 0);
+            this.reportViewer1.Location = new System.Drawing.Point(3, 2);
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(864, 467);
-            this.reportViewer1.TabIndex = 2;
+            this.reportViewer1.Size = new System.Drawing.Size(862, 462);
+            this.reportViewer1.TabIndex = 4;
             // 
             // FormNotaVentaHDA
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(868, 511);
-            this.Controls.Add(this.btnImprimir);
             this.Controls.Add(this.reportViewer1);
+            this.Controls.Add(this.btnImprimir);
             this.Name = "FormNotaVentaHDA";
             this.Text = "FormNotaVentaHDA";
             this.Load += new System.EventHandler(this.FormNotaVentaHDA_Load);

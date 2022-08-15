@@ -173,7 +173,7 @@ namespace PuntoDeVentaV2
             this.reportViewer1.RefreshReport();
         }
 
-        private void btnImprimir_Click(object sender, EventArgs e)
+        private void btnImprimir_Click_1(object sender, EventArgs e)
         {
             string cadenaConn = string.Empty;
             string queryVentas = string.Empty;
@@ -188,7 +188,7 @@ namespace PuntoDeVentaV2
                 cadenaConn = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
             }
 
-            queryVentas = cs.PDFNotaDeVentas(IDVenta);
+            queryVentas = cs.PDFNotaDeVentasHDA(IDVenta);
 
 
 
@@ -206,7 +206,7 @@ namespace PuntoDeVentaV2
             }
 
             string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\NotasVentas\ReporteVenta.rdlc";
+            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\NotasVentasHDA\NotaVentaHDA.rdlc";
 
             //imagen
 
@@ -266,6 +266,7 @@ namespace PuntoDeVentaV2
                 DireccionLogo = "";
                 reportParameters.Add(new ReportParameter("Logo", DireccionLogo));
             }
+            reportParameters.Add(new ReportParameter("StatusVenta", ""));
 
             ReportDataSource NotasVENTAS = new ReportDataSource("DTNotaVenta", DTNotaDeVentas);
 
@@ -274,16 +275,11 @@ namespace PuntoDeVentaV2
             rdlc.EnableExternalImages = true;
             rdlc.DataSources.Add(NotasVENTAS);
             rdlc.SetParameters(reportParameters);
-           
+
             FormatoCarta imp = new FormatoCarta();
             imp.Imprime(rdlc);
 
             this.Close();
-        }
-
-        private void reportViewer1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }
