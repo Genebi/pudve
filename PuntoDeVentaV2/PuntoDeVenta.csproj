@@ -94,7 +94,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="CustomControlPUDVE">
-      <HintPath>..\..\..\..\Desktop\CustomControlPUDVE.dll</HintPath>
+      <HintPath>..\..\CustomControlPUDVE.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -700,6 +700,12 @@
     <Compile Include="FormNotaDeVenta.Designer.cs">
       <DependentUpon>FormNotaDeVenta.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormNotaVentaHDA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormNotaVentaHDA.Designer.cs">
+      <DependentUpon>FormNotaVentaHDA.cs</DependentUpon>
+    </Compile>
     <Compile Include="HistorialAnticipos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1154,6 +1160,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TicketDineroRetirado.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="ReportesImpresion\Ticket\NotasVentasHDA\DSNotaVentaHDA.cs">
+      <DependentUpon>DSNotaVentaHDA.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="ReportesImpresion\Ticket\NotasVentasHDA\DSNotaVentaHDA.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSNotaVentaHDA.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ReportesImpresion\Ticket\NotasVentas\NotaVentaRealizada.cs">
@@ -1657,6 +1673,9 @@
     <EmbeddedResource Include="FormNotaDeVenta.resx">
       <DependentUpon>FormNotaDeVenta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormNotaVentaHDA.resx">
+      <DependentUpon>FormNotaVentaHDA.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
@@ -1908,6 +1927,9 @@
     <Content Include="ReportesImpresion\Ticket\NotasVentas\ReporteVenta.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\NotasVentasHDA\ReportNotaVentaHDA.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -2116,6 +2138,20 @@
     </Content>
     <None Include="ReportesImpresion\Ticket\DineroRetirado\TicketDineroRetirado.xss">
       <DependentUpon>TicketDineroRetirado.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\NotasVentasHDA\DSNotaVentaHDA.xsc">
+      <DependentUpon>DSNotaVentaHDA.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="ReportesImpresion\Ticket\NotasVentasHDA\DSNotaVentaHDA.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSNotaVentaHDA.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ReportesImpresion\Ticket\NotasVentasHDA\DSNotaVentaHDA.xss">
+      <DependentUpon>DSNotaVentaHDA.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportesImpresion\Ticket\NotasVentas\NotaVentaRealizada.xsc">
