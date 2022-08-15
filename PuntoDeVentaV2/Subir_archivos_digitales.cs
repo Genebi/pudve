@@ -449,6 +449,14 @@ namespace PuntoDeVentaV2
 
         }
 
+        private void Subir_archivos_digitales_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Escape)
+            {
+                Close();
+            }
+        }
+
         private void tipo_validacion(int opc, string ruta_destino)
         {
             if(opc == 1)

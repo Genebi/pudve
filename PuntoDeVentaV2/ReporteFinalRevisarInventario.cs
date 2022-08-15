@@ -172,6 +172,14 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE NoRevision = {FilterNumActiveRecord} AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
         }
 
+        private void ReporteFinalRevisarInventario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Escape)
+            {
+                Close();
+            }
+        }
+
         private void hacerCalculosDGVRevisionStock()
         {
             var mostrarClave = FormPrincipal.clave;
