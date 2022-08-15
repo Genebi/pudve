@@ -68,10 +68,12 @@ namespace PuntoDeVentaV2
             this.ClientSize = new System.Drawing.Size(884, 516);
             this.Controls.Add(this.reportViewer1);
             this.Controls.Add(this.btnImprimir);
+            this.KeyPreview = true;
             this.Name = "FormNotaDeVenta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormNotaDeVenta";
             this.Load += new System.EventHandler(this.FormNotaDeVenta_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormNotaDeVenta_KeyDown);
             this.ResumeLayout(false);
 
         }

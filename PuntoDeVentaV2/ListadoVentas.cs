@@ -4895,6 +4895,10 @@ namespace PuntoDeVentaV2
             {
                 EsReporteDeHouse = true;
             }
+            else
+            {
+                EsReporteDeHouse = false;
+            }
         }
     }
 }

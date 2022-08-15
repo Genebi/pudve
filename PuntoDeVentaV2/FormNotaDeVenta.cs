@@ -281,5 +281,13 @@ namespace PuntoDeVentaV2
 
             this.Close();
         }
+
+        private void FormNotaDeVenta_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Escape)
+            {
+                Close();
+            }
+        }
     }
 }
