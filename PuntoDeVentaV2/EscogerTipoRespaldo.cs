@@ -54,7 +54,7 @@ namespace PuntoDeVentaV2
                             {
                                 cmd.Connection = con;
                                 con.Open();
-                                backup.ExportInfo.ExcludeTables = new List<string> { "Usuarios" };
+                                //backup.ExportInfo.ExcludeTables = new List<string> { "Usuarios" };
                                 backup.ExportToFile(archivo);
                                 con.Close();
                             }
