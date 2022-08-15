@@ -150,6 +150,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ReporteFinalRevisarInventario";
@@ -157,6 +158,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Reporte final de Inventario";
             this.Load += new System.EventHandler(this.ReporteFinalRevisarInventario_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ReporteFinalRevisarInventario_KeyDown);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGVRevisionStock)).EndInit();
             this.ResumeLayout(false);

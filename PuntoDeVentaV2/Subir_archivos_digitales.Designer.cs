@@ -484,6 +484,7 @@
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -492,6 +493,7 @@
             this.Text = "Actualizar archivos digitales en 3 dias";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.cerrando);
             this.Load += new System.EventHandler(this.Subir_archivos_digitales_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Subir_archivos_digitales_KeyDown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
