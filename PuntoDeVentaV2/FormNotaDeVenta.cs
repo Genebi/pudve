@@ -206,7 +206,7 @@ namespace PuntoDeVentaV2
             }
 
             string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\NotasVentasHDA\NotaVentaHDA.rdlc";
+            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\NotasVentas\ReporteVenta.rdlc";
 
             //imagen
 
@@ -266,7 +266,7 @@ namespace PuntoDeVentaV2
                 DireccionLogo = "";
                 reportParameters.Add(new ReportParameter("Logo", DireccionLogo));
             }
-            reportParameters.Add(new ReportParameter("StatusVenta", ""));
+            reportParameters.Add(new ReportParameter("StatusVenta", "Venta Pagada"));
 
             ReportDataSource NotasVENTAS = new ReportDataSource("DTNotaVenta", DTNotaDeVentas);
 

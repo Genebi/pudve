@@ -29,9 +29,17 @@ namespace PuntoDeVentaV2
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnImprimir = new PuntoDeVentaV2.BotonRedondo();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
+            this.btnImprimir = new PuntoDeVentaV2.BotonRedondo();
             this.SuspendLayout();
+            // 
+            // reportViewer1
+            // 
+            this.reportViewer1.Location = new System.Drawing.Point(0, 0);
+            this.reportViewer1.Name = "reportViewer1";
+            this.reportViewer1.ServerReport.BearerToken = null;
+            this.reportViewer1.Size = new System.Drawing.Size(884, 467);
+            this.reportViewer1.TabIndex = 2;
             // 
             // btnImprimir
             // 
@@ -52,15 +60,6 @@ namespace PuntoDeVentaV2
             this.btnImprimir.TextColor = System.Drawing.Color.White;
             this.btnImprimir.UseVisualStyleBackColor = false;
             this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click_1);
-            // 
-            // reportViewer1
-            // 
-            this.reportViewer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.reportViewer1.Location = new System.Drawing.Point(0, 0);
-            this.reportViewer1.Name = "reportViewer1";
-            this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(884, 516);
-            this.reportViewer1.TabIndex = 2;
             // 
             // FormNotaDeVenta
             // 

@@ -43,7 +43,7 @@ namespace PuntoDeVentaV2
         private DateTime fechaUltimoCorte;
         private bool existenProductos;
         private bool hay_productos_habilitados;
-
+        
         public static bool recargarDatos = false;
         public static bool abrirNuevaVenta = false;
 
@@ -64,6 +64,8 @@ namespace PuntoDeVentaV2
         #endregion Variables Globales Para Paginar
 
         bool ban_ver = false;
+
+        bool EsReporteDeHouse;
 
         CheckBox header_checkb = null;
 
@@ -114,6 +116,10 @@ namespace PuntoDeVentaV2
 
         private void ListadoVentas_Load(object sender, EventArgs e)
         {
+            if (FormPrincipal.userNickName == "HOUSEDEPOTAUTLAN")
+            {
+                chkHDAutlan.Visible = true;
+            }
             cbTipoVentas.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbFiltroAdminEmpleado.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbVentas.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
@@ -2286,10 +2292,19 @@ namespace PuntoDeVentaV2
                         Utilidades.MensajePermiso();
                         return;
                     }
-
-                    int id = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
-                    FormNotaVentaHDA fndv = new FormNotaVentaHDA(id);
-                    fndv.ShowDialog();
+                    if (EsReporteDeHouse.Equals(true))
+                    {
+                        int id = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
+                        FormNotaVentaHDA fndv = new FormNotaVentaHDA(id);
+                        fndv.ShowDialog();
+                    }
+                    else
+                    {
+                        int id = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
+                        FormNotaDeVenta formNota = new FormNotaDeVenta(id);
+                        formNota.ShowDialog();
+                    }
+                 
 
 
                     // Comprobar si adobe esta instalado
@@ -4874,5 +4889,12 @@ namespace PuntoDeVentaV2
             ee.Handled = true;
         }
 
+        private void chkHDAutlan_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (chkHDAutlan.Checked)
+            {
+                EsReporteDeHouse = true;
+            }
+        }
     }
 }

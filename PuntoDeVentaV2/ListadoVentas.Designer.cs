@@ -84,6 +84,7 @@
             this.lb_texto_descarga_verpdf = new System.Windows.Forms.Label();
             this.lb_txt_ruta_descargar = new System.Windows.Forms.Label();
             this.chTodos = new System.Windows.Forms.CheckBox();
+            this.chkHDAutlan = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -724,11 +725,24 @@
             this.chTodos.UseVisualStyleBackColor = true;
             this.chTodos.CheckedChanged += new System.EventHandler(this.chTodos_CheckedChanged);
             // 
+            // chkHDAutlan
+            // 
+            this.chkHDAutlan.AutoSize = true;
+            this.chkHDAutlan.Location = new System.Drawing.Point(159, 171);
+            this.chkHDAutlan.Name = "chkHDAutlan";
+            this.chkHDAutlan.Size = new System.Drawing.Size(170, 17);
+            this.chkHDAutlan.TabIndex = 68;
+            this.chkHDAutlan.Text = "PDF Producto Con Descuento";
+            this.chkHDAutlan.UseVisualStyleBackColor = true;
+            this.chkHDAutlan.Visible = false;
+            this.chkHDAutlan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkHDAutlan_MouseClick);
+            // 
             // ListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(910, 561);
+            this.Controls.Add(this.chkHDAutlan);
             this.Controls.Add(this.chTodos);
             this.Controls.Add(this.lb_txt_ruta_descargar);
             this.Controls.Add(this.btn_timbrar);
@@ -813,5 +827,6 @@
         private System.Windows.Forms.TextBox txtMaximoPorPagina;
         private System.Windows.Forms.Label label7;
         public System.Windows.Forms.ComboBox cbFiltroAdminEmpleado;
+        private System.Windows.Forms.CheckBox chkHDAutlan;
     }
 }
