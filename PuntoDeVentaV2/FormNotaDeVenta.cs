@@ -288,6 +288,7 @@ namespace PuntoDeVentaV2
             {
                 Close();
             }
+
         }
     }
 }
