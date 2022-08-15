@@ -276,7 +276,7 @@ namespace PuntoDeVentaV2
             rdlc.ReportPath = FullReportPath;
             rdlc.EnableExternalImages = true;
             rdlc.DataSources.Add(NotasVENTAS);
-            rdlc.SetParameters(reportParameters);
+            rdlc.SetParameters(reportParameters); 
 
             FormatoCarta imp = new FormatoCarta();
             imp.Imprime(rdlc);
