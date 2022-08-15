@@ -9,6 +9,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -356,7 +357,6 @@ namespace PuntoDeVentaV2
         #region Reporte de articulos no comprados por el cliente
         private void GenerarReporteNoComprado(bool multiplesID, string idMultiples = "", int id = 0)
         {
-            
             var mostrarClave = FormPrincipal.clave;
             //var numFolio = obtenerFolio(num);
 
@@ -450,8 +450,14 @@ namespace PuntoDeVentaV2
 
             DataTable consulta = new DataTable();
 
-           
-            MessageBox.Show("Este proceso tardará unos segundos", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            VentanaDeCarga ventanaDeCarga = new VentanaDeCarga();
+            Thread btnClearAllItemSale = new Thread(
+                                () => ventanaDeCarga.ShowDialog());
+
+            btnClearAllItemSale.Start();
+
+            //MessageBox.Show("Este proceso tardará unos segundos", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             var nombreClienteEncabezado = string.Empty;
 

@@ -147,6 +147,7 @@ namespace PuntoDeVentaV2
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "VentanaDeCarga";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Cargado Datos";
             this.Load += new System.EventHandler(this.VentanaDeCarga_Load);
             this.ResumeLayout(false);
