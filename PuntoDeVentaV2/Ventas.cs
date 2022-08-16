@@ -4737,7 +4737,7 @@ namespace PuntoDeVentaV2
                             {
                                 // Descuento directo
                                 if (info[3].Contains("-"))
-                                {
+                                { 
                                     var cantidadTmp = info[3].Split('-');
                                     cantidadTmp[1] = cantidadTmp[1].Replace('%', ' ');
                                     cantidadDescuento = float.Parse(cantidadTmp[1].Trim());
