@@ -3866,12 +3866,11 @@ namespace PuntoDeVentaV2
                                                 var datosServicioTmp = cn.BuscarProducto(Convert.ToInt32(IDProducto), FormPrincipal.userID);
 
                                                 var nombre = $"{datosServicioTmp[1]} --- CÓDIGO BARRAS: {datosServicioTmp[7]}";
-                                                enviarVentaProducto.Add(idProducto, nombre);
+                                                enviarVentaProducto.Add(Convert.ToInt32(IDProducto), nombre);
                                             }
                                         }
                                     }
                                 }
-
 
                                 var datosServicio = cn.ObtenerProductosServicio(Convert.ToInt32(IDProducto));
 
@@ -4722,22 +4721,37 @@ namespace PuntoDeVentaV2
                             if (tipoDescuento == 3)
                             {
                                 // Descuento cliente
-                                var cantidadTmp = info[3].Split('-');
-                                cantidadTmp[1] = cantidadTmp[1].Replace('%', ' ');
-                                cantidadDescuento = float.Parse(cantidadTmp[1].Trim());
-
+                                if (info[3].Contains("-"))
+                                {
+                                    var cantidadTmp = info[3].Split('-');
+                                    cantidadTmp[1] = cantidadTmp[1].Replace('%', ' ');
+                                    cantidadDescuento = float.Parse(cantidadTmp[1].Trim());
+                                }
+                                else
+                                {
+                                    var cantidadTmp = info[3].ToString().Trim();
+                                    cantidadDescuento = float.Parse(cantidadTmp);
+                                }
                             }
                             else if (tipoDescuento == 2)
                             {
                                 // Descuento directo
-                                var cantidadTmp = info[3].Split('-');
-                                cantidadTmp[1] = cantidadTmp[1].Replace('%', ' ');
-                                cantidadDescuento = float.Parse(cantidadTmp[1].Trim());
+                                if (info[3].Contains("-"))
+                                {
+                                    var cantidadTmp = info[3].Split('-');
+                                    cantidadTmp[1] = cantidadTmp[1].Replace('%', ' ');
+                                    cantidadDescuento = float.Parse(cantidadTmp[1].Trim());
+                                }
+                                else
+                                {
+                                    var cantidadTmp = info[3].ToString().Trim();
+                                    cantidadDescuento = float.Parse(cantidadTmp);
+                                }
                             }
                             else if (tipoDescuento == 1)
                             {
                                 // Descuento directo
-                                cantidadDescuento = float.Parse(info[3].Trim());
+                                cantidadDescuento = float.Parse(info[3].ToString().Trim());
                             }
 
                             descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipoDescuento, cantidadDescuento));
