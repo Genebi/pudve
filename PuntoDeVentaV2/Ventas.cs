@@ -194,7 +194,7 @@ namespace PuntoDeVentaV2
 
         public int idAnticipoVentas;
 
-
+        string descuentoGuardado = string.Empty;
 
         Dictionary<int, string> listaMensajesEnviados = new Dictionary<int, string>();
 
@@ -877,7 +877,6 @@ namespace PuntoDeVentaV2
 
                 foreach (DataGridViewRow fila in DGVentas.Rows)
                 {
-
                     //Compara el valor de la celda con el nombre del producto (Descripcion)
                     if (fila.Cells["Descripcion"].Value.Equals(datosProducto[1]) && fila.Cells["IDProducto"].Value.Equals(datosProducto[0]))
                     {
@@ -1145,7 +1144,27 @@ namespace PuntoDeVentaV2
 
                 // Se agrego esto para calcular el descuento del producto cuando se agrega por primera vez
                 // y se agrega la cantidad con una de las combinaciones del teclado en la barra de busqueda
-                float importe = Convert.ToInt32(cantidad) * float.Parse(datosProducto[2]);
+                //float importe = Convert.ToInt32(cantidad) * float.Parse(datosProducto[2]);
+
+                float importe = 0;
+
+                if (datosProducto.Length.Equals(19))
+                {
+                    var precioProducto = datosProducto[2].ToString();
+                    var montoDescontado = string.Empty;
+                    
+                    if (datosProducto[18].Contains("-"))
+                    {
+                        var cantidadPorciento = datosProducto[18].Split('-');
+                        montoDescontado = cantidadPorciento[0].ToString().Trim();
+                    }
+                    else
+                    {
+                        montoDescontado = datosProducto[18].ToString().Trim();
+                    }
+
+                    importe = ((float)Convert.ToDouble(cantidad) * (float)Convert.ToDouble(precioProducto)) - (float)Convert.ToDouble(montoDescontado);
+                }
 
                 row.Cells["Importe"].Value = importe;
 
@@ -4713,6 +4732,7 @@ namespace PuntoDeVentaV2
                     // Agregamos los descuentos directos de la venta guardada
                     if (Convert.ToInt16(info[4]) > 0)
                     {
+                        descuentoGuardado = info[3].ToString();
                         if (!descuentosDirectos.ContainsKey(idProducto))
                         {
                             var tipoDescuento = Convert.ToInt32(info[4]);
