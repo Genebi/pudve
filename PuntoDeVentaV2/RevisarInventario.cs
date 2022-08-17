@@ -129,6 +129,19 @@ namespace PuntoDeVentaV2
                 lCodigoClave.Text = "Código de Barras o Clave Interna:";
             }
 
+            using (var productos = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(txtBoxBuscarCodigoBarras.Text)))
+            {
+                if (!txtBoxBuscarCodigoBarras.Equals("") && !productos.Rows.Count.Equals(0))
+                {
+                    cbProveedores.Enabled = true;
+                    BusquedaDeProveedor();
+                }
+                else
+                {
+                    cbProveedores.Enabled = false;
+                }
+            }
+
             //var datosInventario = mb.DatosRevisionInventario();
 
             //listaProductos = new Dictionary<int, string>();
@@ -202,6 +215,7 @@ namespace PuntoDeVentaV2
             //    //lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
             //    buscarCodigoBarras();
             //}
+
         }
 
         private string AplicarFiltro(int idProducto)
@@ -1147,6 +1161,64 @@ namespace PuntoDeVentaV2
                 busquedaNormal = true;
                 buscarCodigoBarras();
                 busquedaNormal = false;
+                using (var productos = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(txtBoxBuscarCodigoBarras.Text)))
+                {
+                    if (!txtBoxBuscarCodigoBarras.Equals("") && !productos.Rows.Count.Equals(0))
+                    {
+                        cbProveedores.Enabled = true;
+                        BusquedaDeProveedor();
+                    }
+                    else
+                    {
+                        cbProveedores.Enabled = false;
+                    }
+                }
+                
+            }
+        }
+        private void BusquedaDeProveedor()
+        {
+
+            var listaProveedores = cn.ObtenerProveedores(FormPrincipal.userID);
+
+            Dictionary<string, string> proveedores = new Dictionary<string, string>();
+
+            var enviarStockMinimo = new Dictionary<int, string>();
+
+            proveedores.Add("0", "Seleccionar un proveedor...");
+
+            if (listaProveedores.Length > 0)
+            {
+                foreach (var proveedor in listaProveedores)
+                {
+                    var tmp = proveedor.Split('-');
+
+                    if (tmp.Length > 2)
+                    {
+                        var NombreProveedor = $"{tmp[1]}-{tmp[2]}";
+                        proveedores.Add(tmp[0].Trim(), NombreProveedor.Trim());
+                    }
+                    else
+                    {
+                        proveedores.Add(tmp[0].Trim(), tmp[1].Trim());
+                    }
+                }
+
+                cbProveedores.DataSource = proveedores.ToArray();
+                cbProveedores.DisplayMember = "Value";
+                cbProveedores.ValueMember = "Key";
+
+                var proveedorActual = mb.DetallesProducto(idProducto, FormPrincipal.userID);
+
+                // Comprueba si el producto tiene un proveedor asignado
+                if (proveedorActual.Length > 0)
+                {
+                    cbProveedores.SelectedValue = proveedorActual[1];
+                }
+                else
+                {
+                    cbProveedores.SelectedValue = "0";
+                }
             }
         }
 
@@ -1253,7 +1325,13 @@ namespace PuntoDeVentaV2
                                 cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProducto}','Asignacion por Revision  ','{StockAnterior}','{stockFisico}','{fecha}','{FormPrincipal.userNickName}','0.0')");
                             }
                            
-                            cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}"); 
+                            cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                            //Actualizar Proveedor del Producto 
+                            using (var ConsultaIDProveedor = cn.CargarDatos(cs.ConsultaIDProveedor(cbProveedores.Text)))
+                            {
+                                string IDProveedor = ConsultaIDProveedor.Rows[0]["ID"].ToString();
+                                cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{cbProveedores.Text}' , IDProveedor = '{IDProveedor}' WHERE IDProducto = {idProducto}");
+                            }
 
                             LimpiarCampos();
                             //txtBoxBuscarCodigoBarras.Focus();
@@ -1351,7 +1429,12 @@ namespace PuntoDeVentaV2
 
                                     // Actualizar stock del producto
                                     cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
-
+                                    //Actualizar Proveedor del Producto 
+                                    using (var ConsultaIDProveedor = cn.CargarDatos(cs.ConsultaIDProveedor(cbProveedores.Text)))
+                                    {
+                                        string IDProveedor = ConsultaIDProveedor.Rows[0]["ID"].ToString();
+                                        cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{cbProveedores.Text}' , IDProveedor = '{IDProveedor}' WHERE IDProducto = {idProducto}");
+                                    }
                                     LimpiarCampos();
 
                                     if (tipoFiltro == "Normal")
@@ -1380,6 +1463,15 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            if (btnSiguiente.Text.Equals("Siguiente"))
+            {
+                BusquedaDeProveedor();
+            }
+            else
+            {
+                cbProveedores.Enabled = false;
+                cbProveedores.Text = "";
+            }
         }
 
         private void verificarCodigoFiltroProveedor()
@@ -1955,6 +2047,8 @@ namespace PuntoDeVentaV2
                     txtBoxBuscarCodigoBarras.Text = codBar;
                     llenarCampos(codBar);
                     idProducto = Convert.ToInt32(BusquedaRevisionInventario.id);
+                    cbProveedores.Enabled = true;
+                    BusquedaDeProveedor();
                 }
             };
             busquedaR.ShowDialog();
@@ -2111,6 +2205,16 @@ namespace PuntoDeVentaV2
             {
                 btnTerminar.PerformClick();
             }
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
