@@ -116,9 +116,13 @@ namespace PuntoDeVentaV2
 
         private void ListadoVentas_Load(object sender, EventArgs e)
         {
-            if (FormPrincipal.userNickName == "HOUSEDEPOTAUTLAN")
+            if (FormPrincipal.userNickName.Contains("HOUSEDEPOTAUTLAN"))
             {
                 chkHDAutlan.Visible = true;
+            }
+            else
+            {
+                chkHDAutlan.Visible = false;
             }
             cbTipoVentas.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbFiltroAdminEmpleado.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
@@ -2287,6 +2291,39 @@ namespace PuntoDeVentaV2
                 //Ver nota
                 if (e.ColumnIndex == 12)
                 {
+                    //Comprobar si adobe esta instalado
+                    if (!Utilidades.AdobeReaderInstalado())
+                    {
+                        Utilidades.MensajeAdobeReader();
+                        return;
+                    }
+
+                    //Verifica si el PDF ya esta creado
+                    var servidor = Properties.Settings.Default.Hosting;
+                    var Usuario = FormPrincipal.userNickName;
+                    var Folio = string.Empty;
+                    var Serie = string.Empty;
+
+                    string ruta_archivo = string.Empty;
+
+                    using (DataTable dtDatosVentas = cn.CargarDatos(cs.DatosVentaParaLaNota(idVenta)))
+                    {
+                        if (!dtDatosVentas.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtDatosVentas.Rows)
+                            {
+                                Folio = item["Folio"].ToString();
+                                Serie = item["Serie"].ToString();
+
+                                if (Folio.Equals("0"))
+                                {
+                                    MessageBox.Show($"En esta operación se realizo la apertura de la Caja\nRealizada por el Usuario: {item["Usuario"].ToString()}", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+
                     if (opcion2 == 0)
                     {
                         Utilidades.MensajePermiso();
@@ -4895,6 +4932,11 @@ namespace PuntoDeVentaV2
             {
                 EsReporteDeHouse = true;
             }
+        }
+
+        private void chkHDAutlan_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

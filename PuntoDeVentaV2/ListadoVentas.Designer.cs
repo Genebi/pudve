@@ -727,14 +727,16 @@
             // 
             // chkHDAutlan
             // 
+            this.chkHDAutlan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkHDAutlan.AutoSize = true;
-            this.chkHDAutlan.Location = new System.Drawing.Point(159, 171);
+            this.chkHDAutlan.Location = new System.Drawing.Point(728, 172);
             this.chkHDAutlan.Name = "chkHDAutlan";
             this.chkHDAutlan.Size = new System.Drawing.Size(170, 17);
             this.chkHDAutlan.TabIndex = 68;
             this.chkHDAutlan.Text = "PDF Producto Con Descuento";
             this.chkHDAutlan.UseVisualStyleBackColor = true;
             this.chkHDAutlan.Visible = false;
+            this.chkHDAutlan.CheckedChanged += new System.EventHandler(this.chkHDAutlan_CheckedChanged);
             this.chkHDAutlan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkHDAutlan_MouseClick);
             // 
             // ListadoVentas

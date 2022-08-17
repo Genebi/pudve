@@ -46,7 +46,6 @@ namespace PuntoDeVentaV2
             string cadenaConn = string.Empty;
             string queryVentas = string.Empty;
 
-
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
             {
                 cadenaConn = $"datasource={Properties.Settings.Default.Hosting};port=6666;username=root;password=;database=pudve;";
@@ -58,8 +57,6 @@ namespace PuntoDeVentaV2
 
             queryVentas = cs.PDFNotaDeVentasHDA(IDVenta);
 
-
-             
             MySqlConnection conn = new MySqlConnection();
 
             conn.ConnectionString = cadenaConn;
