@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -249,6 +250,33 @@ namespace PuntoDeVentaV2
             {
                 txtRFC.ForeColor = Color.Red;
                // txtRFC.Font = new Font(Label.DefaultFont, FontStyle.Bold);
+            }
+        }
+
+        private void txtNombre_TextChanged(object sender, EventArgs e)
+        {
+            ValidarEntradaDeTexto(sender, e);
+        }
+        private void ValidarEntradaDeTexto(object sender, EventArgs e)
+        {
+            var resultado = string.Empty;
+            var txtValidarTexto = (TextBox)sender;
+            resultado = txtValidarTexto.Text;
+
+            if (!string.IsNullOrWhiteSpace(resultado))
+            {
+                if (resultado.Contains("|") || resultado.Contains("+") || resultado.Contains("-"))
+                {
+                    var resultadoAuxialiar = Regex.Replace(resultado, @"[+\|\-]", string.Empty);
+                    resultado = resultadoAuxialiar;
+                    txtValidarTexto.Text = resultado;
+                    txtValidarTexto.Focus();
+                    txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+                }
+            }
+            else
+            {
+                txtValidarTexto.Focus();
             }
         }
     }

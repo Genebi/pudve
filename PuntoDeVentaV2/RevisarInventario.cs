@@ -1193,7 +1193,15 @@ namespace PuntoDeVentaV2
                 {
                     var tmp = proveedor.Split('-');
 
-                    proveedores.Add(tmp[0].Trim(), tmp[1].Trim());
+                    if (tmp.Length > 2)
+                    {
+                        var NombreProveedor = $"{tmp[1]}-{tmp[2]}";
+                        proveedores.Add(tmp[0].Trim(), NombreProveedor.Trim());
+                    }
+                    else
+                    {
+                        proveedores.Add(tmp[0].Trim(), tmp[1].Trim());
+                    }
                 }
 
                 cbProveedores.DataSource = proveedores.ToArray();
