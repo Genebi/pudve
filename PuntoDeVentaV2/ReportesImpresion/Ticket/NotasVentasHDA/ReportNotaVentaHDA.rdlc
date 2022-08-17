@@ -633,7 +633,7 @@
             </Paragraphs>
             <rd:DefaultName>StatusVenta</rd:DefaultName>
             <Top>14.31078cm</Top>
-            <Left>10.5537cm</Left>
+            <Left>9.9187cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
             <ZIndex>11</ZIndex>
@@ -650,7 +650,7 @@
           <Rectangle Name="Rectangle7">
             <KeepTogether>true</KeepTogether>
             <Top>16.58935cm</Top>
-            <Left>14.68689cm</Left>
+            <Left>14.55989cm</Left>
             <Height>1.28475cm</Height>
             <Width>1.73513cm</Width>
             <ZIndex>12</ZIndex>
@@ -663,7 +663,7 @@
           <Rectangle Name="Rectangle9">
             <KeepTogether>true</KeepTogether>
             <Top>16.58936cm</Top>
-            <Left>16.42202cm</Left>
+            <Left>16.29502cm</Left>
             <Height>1.28474cm</Height>
             <Width>1.67976cm</Width>
             <ZIndex>13</ZIndex>
@@ -693,7 +693,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
             <Top>18.47147cm</Top>
-            <Left>18.1053cm</Left>
+            <Left>17.9783cm</Left>
             <Height>0.59738cm</Height>
             <Width>2.05977cm</Width>
             <ZIndex>14</ZIndex>
@@ -710,7 +710,7 @@
           <Rectangle Name="Rectangle10">
             <KeepTogether>true</KeepTogether>
             <Top>16.58935cm</Top>
-            <Left>18.1053cm</Left>
+            <Left>17.9783cm</Left>
             <Height>1.28475cm</Height>
             <Width>2.05977cm</Width>
             <ZIndex>15</ZIndex>
@@ -741,7 +741,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
             <Top>19.07237cm</Top>
-            <Left>14.69042cm</Left>
+            <Left>14.56342cm</Left>
             <Height>0.60326cm</Height>
             <Width>1.7316cm</Width>
             <ZIndex>16</ZIndex>
@@ -775,7 +775,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
             <Top>19.07237cm</Top>
-            <Left>16.42202cm</Left>
+            <Left>16.29502cm</Left>
             <Height>0.60326cm</Height>
             <Width>3.74305cm</Width>
             <ZIndex>17</ZIndex>
@@ -809,7 +809,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
             <Top>17.8741cm</Top>
-            <Left>18.1053cm</Left>
+            <Left>17.9783cm</Left>
             <Height>0.59738cm</Height>
             <Width>2.05977cm</Width>
             <ZIndex>18</ZIndex>
@@ -844,7 +844,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
             <Top>18.47147cm</Top>
-            <Left>14.69042cm</Left>
+            <Left>14.56342cm</Left>
             <Height>0.59737cm</Height>
             <Width>1.7316cm</Width>
             <ZIndex>19</ZIndex>
@@ -879,7 +879,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
             <Top>17.8741cm</Top>
-            <Left>16.42202cm</Left>
+            <Left>16.29502cm</Left>
             <Height>0.59738cm</Height>
             <Width>1.67976cm</Width>
             <ZIndex>20</ZIndex>
@@ -914,7 +914,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox17</rd:DefaultName>
             <Top>17.87411cm</Top>
-            <Left>14.6894cm</Left>
+            <Left>14.5624cm</Left>
             <Height>0.59737cm</Height>
             <Width>1.73262cm</Width>
             <ZIndex>21</ZIndex>
@@ -1380,7 +1380,7 @@
             </TablixRowHierarchy>
             <DataSetName>DTNotaVentaHDA</DataSetName>
             <Top>15.38582cm</Top>
-            <Left>0.43765cm</Left>
+            <Left>0.31065cm</Left>
             <Height>1.2cm</Height>
             <Width>19.72742cm</Width>
             <ZIndex>22</ZIndex>
@@ -1844,7 +1844,7 @@
             </Paragraphs>
             <rd:DefaultName>mensaje</rd:DefaultName>
             <Top>16.58936cm</Top>
-            <Left>0.43603cm</Left>
+            <Left>0.30903cm</Left>
             <Height>2.47949cm</Height>
             <Width>14.25086cm</Width>
             <ZIndex>33</ZIndex>
@@ -1874,7 +1874,7 @@
             </Paragraphs>
             <rd:DefaultName>TotalEnTexto</rd:DefaultName>
             <Top>19.06885cm</Top>
-            <Left>0.43603cm</Left>
+            <Left>0.30903cm</Left>
             <Height>0.6cm</Height>
             <Width>14.25086cm</Width>
             <ZIndex>34</ZIndex>
@@ -1922,7 +1922,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox63</rd:DefaultName>
             <Top>18.47148cm</Top>
-            <Left>16.42202cm</Left>
+            <Left>16.29502cm</Left>
             <Height>0.59737cm</Height>
             <Width>1.68328cm</Width>
             <ZIndex>36</ZIndex>
