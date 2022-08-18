@@ -640,8 +640,10 @@ namespace PuntoDeVentaV2
                             buscarVG = false;
                         }
                         listaProductosVenta();
+                        listaProductos.Focus(); 
                     }
                 }
+                listaProductos.Focus();
             }
         }
 
@@ -6537,6 +6539,12 @@ namespace PuntoDeVentaV2
             if (e.KeyData == Keys.Enter)
             {
                 ProductoSeleccionado();
+            }
+            else
+            {
+                txtBuscadorProducto.Focus();
+                txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
+                listaProductos.Visible = false;
             }
         }
 
