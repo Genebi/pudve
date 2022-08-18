@@ -118,6 +118,7 @@
             this.btnImportar.TabIndex = 10;
             this.btnImportar.Text = "Importar ahora";
             this.btnImportar.UseVisualStyleBackColor = true;
+            this.btnImportar.Click += new System.EventHandler(this.btnImportar_Click);
             // 
             // btnRespaldarSU
             // 

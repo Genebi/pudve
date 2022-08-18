@@ -65,7 +65,13 @@ namespace PuntoDeVentaV2
 
                                 if (conUsuario)
                                 {
-                                    backup.ExportInfo.ExcludeTables = new List<string> { "Usuarios" };
+                                    backup.ExportInfo.ExcludeTables = new List<string> { 
+                                        "Usuarios",
+                                        "Catalogo_monedas",
+                                        "Catalogo_claves_producto",
+                                        "RegimenFiscal",
+                                        "CatalogoUnidadesMedida"
+                                    };
                                     backup.ExportInfo.AddCreateDatabase = false;
                                     backup.ExportInfo.AddDropDatabase = false;
                                     backup.ExportInfo.AddDropTable = false;
@@ -180,6 +186,127 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta($"UPDATE Configuracion SET RespaldoAlCerrarSesion = 0 WHERE IDUsuario = {FormPrincipal.userID}");
 
             this.Close();
+        }
+
+        private void btnImportar_Click(object sender, EventArgs e)
+        {
+            var datos = cn.CargarDatos("SELECT * FROM Productos");
+
+            if (datos.Rows.Count > 0)
+            {
+                MessageBox.Show("No se puede importar la información debido a que\nactualmente este usuario ya cuenta con información registrada.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                // Inicializamos los valores por defecto del openFileDialog
+                OpenFileDialog buscarArchivoBD = new OpenFileDialog();
+                buscarArchivoBD.FileName = string.Empty;
+                buscarArchivoBD.Filter = "SQL (*.sql)|*.sql";
+                buscarArchivoBD.FilterIndex = 1;
+                buscarArchivoBD.RestoreDirectory = true;
+
+                // Si ya selecciona el archivo de la base de datos se le muestra el siguiente mensaje
+                if (buscarArchivoBD.ShowDialog() == DialogResult.OK)
+                {
+                    var mensaje = string.Join(
+                        Environment.NewLine,
+                        "¿Estás seguro de importar el siguiente archivo",
+                        $"{buscarArchivoBD.FileName}?"
+                    );
+
+                    var respuesta = MessageBox.Show(mensaje, "Mensaje de confirmación", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+
+                    // Si acepta el mensaje de confirmación realiza el siguiente procedimiento
+                    if (respuesta == DialogResult.OK)
+                    {
+                        // Se guarda la ruta completa junto con el nombre del archivo que se selecciono
+                        var rutaArchivo = buscarArchivoBD.FileName;
+
+                        try
+                        {
+                            string conexion = string.Empty;
+
+                            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+                            {
+                                conexion = "datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;";
+                            }
+                            else
+                            {
+                                conexion = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
+                            }
+
+                            // Important Additional Connection Options
+                            conexion += "charset=utf8;convertzerodatetime=true;";
+
+                            using (MySqlConnection con = new MySqlConnection(conexion))
+                            {
+                                using (MySqlCommand cmd = new MySqlCommand())
+                                {
+                                    using (MySqlBackup backup = new MySqlBackup(cmd))
+                                    {
+                                        cmd.Connection = con;
+                                        con.Open();
+                                        backup.ImportFromFile(rutaArchivo);
+                                        con.Close();
+                                    }
+                                }
+                            }
+
+                            ActualizarTablasConUsuario();
+
+                            MessageBox.Show("Importación realizada con éxito", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ActualizarTablasConUsuario()
+        {
+            Dictionary<string, string> tablas = new Dictionary<string, string>();
+            tablas.Add("Productos", "IDUsuario");
+            tablas.Add("ProductoRelacionadoXML", "IDUsuario");
+            tablas.Add("HistorialCompras", "IDUsuario");
+            tablas.Add("HistorialModificacionRecordProduct", "IDUsuario");
+            tablas.Add("HistorialPrecios", "IDUsuario");
+            tablas.Add("MensajesInventario", "IDUsuario");
+            tablas.Add("Clientes", "IDUsuario");
+            tablas.Add("Empleados", "IDUsuario");
+            tablas.Add("Ventas", "IDUsuario");
+            tablas.Add("Proveedores", "IDUsuario");
+            tablas.Add("DetallesProducto", "IDUsuario");
+            tablas.Add("DetalleGeneral", "IDUsuario");
+            tablas.Add("DetallesProductoGenerales", "IDUsuario");
+            tablas.Add("DetallesVenta", "IDUsuario");
+            tablas.Add("Abonos", "IDUsuario");
+            tablas.Add("Anticipos", "IDUsuario");
+            tablas.Add("appSettings", "IDUsuario");
+            tablas.Add("Caja", "IDUsuario");
+            tablas.Add("CodigoBarrasGenerado", "IDUsuario");
+            tablas.Add("ConceptosDinamicos", "IDUsuario");
+            tablas.Add("Configuracion", "IDUsuario");
+            tablas.Add("CorreosProducto", "IDUsuario");
+            tablas.Add("EmpleadosPermisos", "IDUsuario");
+            tablas.Add("Empresas", "ID_Usuarios");
+            tablas.Add("Facturas", "id_usuario");
+            tablas.Add("FiltroDinamico", "IDUsuario");
+            tablas.Add("FiltroProducto", "IDUsuario");
+            tablas.Add("FiltrosDinamicosVetanaFiltros", "IDUsuario");
+            tablas.Add("RegimenDeUsuarios", "Usuario_ID");
+            tablas.Add("RevisarInventario", "IDUsuario");
+            tablas.Add("RevisarInventarioReportes", "IDUsuario");
+            tablas.Add("TipoClientes", "IDUsuario");
+            tablas.Add("Devoluciones", "IDUsuario");
+            tablas.Add("basculas", "idUsuario");
+
+            foreach (var tabla in tablas)
+            {
+                cn.EjecutarConsulta($"UPDATE {tabla.Key} SET {tabla.Value} = {FormPrincipal.userID}");
+            }
         }
     }
 }
