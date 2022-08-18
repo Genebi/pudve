@@ -30,9 +30,17 @@ namespace PuntoDeVentaV2
 
         private void btnGuadar_Click(object sender, EventArgs e)
         {
-            DateTime fechaCreacion = DateTime.Now;
+            RespaldarBaseDatos();
+        }
 
-            //Stream steam;
+        private void btnRespaldarSU_Click(object sender, EventArgs e)
+        {
+            RespaldarBaseDatos(true);
+        }
+
+        private void RespaldarBaseDatos(bool conUsuario = false)
+        {
+            DateTime fechaCreacion = DateTime.Now;
 
             saveFile.FileName = $"{FormPrincipal.userNickName}";
             saveFile.Filter = "SQL (*.sql)|*.sql";
@@ -54,7 +62,15 @@ namespace PuntoDeVentaV2
                             {
                                 cmd.Connection = con;
                                 con.Open();
-                                //backup.ExportInfo.ExcludeTables = new List<string> { "Usuarios" };
+
+                                if (conUsuario)
+                                {
+                                    backup.ExportInfo.ExcludeTables = new List<string> { "Usuarios" };
+                                    backup.ExportInfo.AddCreateDatabase = false;
+                                    backup.ExportInfo.AddDropDatabase = false;
+                                    backup.ExportInfo.AddDropTable = false;
+                                }
+
                                 backup.ExportToFile(archivo);
                                 con.Close();
                             }
