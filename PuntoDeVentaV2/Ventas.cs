@@ -198,7 +198,7 @@ namespace PuntoDeVentaV2
 
         Dictionary<int, string> listaMensajesEnviados = new Dictionary<int, string>();
 
-
+        int desdeVentaGuardada = 0;
 
         private string FolioVentaCorreo = string.Empty;
 
@@ -1084,30 +1084,48 @@ namespace PuntoDeVentaV2
                 row.Cells["Descripcion"].Value = datosProducto[1];
                 listProductos.Add(datosProducto[0] + "|" + cantidadTmp.ToString());//ID producto
 
-
-                if ((datosProducto.Length - 1) == 14)
+                if (desdeVentaGuardada.Equals(1))
                 {
-                    row.Cells["Descuento"].Value = datosProducto[14];
-                    row.Cells["TipoDescuento"].Value = "0";
-                }
-                else if (datosProducto.Length.Equals(19))
-                {
-                    row.Cells["Descuento"].Value = datosProducto[18];
-                    row.Cells["TipoDescuento"].Value = "0";
+                    if ((datosProducto.Length - 1) == 14)
+                    {
+                        row.Cells["Descuento"].Value = datosProducto[14];
+                        row.Cells["TipoDescuento"].Value = datosProducto[3];
+                    }
+                    else if (datosProducto.Length.Equals(19))
+                    {
+                        row.Cells["Descuento"].Value = datosProducto[18];
+                        row.Cells["TipoDescuento"].Value = datosProducto[3];
+                    }
+                    else
+                    {
+                        row.Cells["Descuento"].Value = "0.00";
+                        row.Cells["TipoDescuento"].Value = "0";
+                    }
                 }
                 else
                 {
-                    row.Cells["Descuento"].Value = "0.00";
-                    row.Cells["TipoDescuento"].Value = "0";
+                    if ((datosProducto.Length - 1) == 14)
+                    {
+                        row.Cells["Descuento"].Value = datosProducto[14];
+                        row.Cells["TipoDescuento"].Value = "0";
+                    }
+                    else if (datosProducto.Length.Equals(19))
+                    {
+                        row.Cells["Descuento"].Value = datosProducto[18];
+                        row.Cells["TipoDescuento"].Value = "0";
+                    }
+                    else
+                    {
+                        row.Cells["Descuento"].Value = "0.00";
+                        row.Cells["TipoDescuento"].Value = "0";
+                    }
                 }
 
                 row.Cells["ImagenProducto"].Value = datosProducto[9];
 
                 var imagen = row.Cells["ImagenProducto"].Value.ToString();
 
-
                 timer_img_producto.Stop();
-
 
                 if (!string.IsNullOrEmpty(imagen))
                 {
@@ -1148,22 +1166,30 @@ namespace PuntoDeVentaV2
 
                 float importe = 0;
 
-                if (datosProducto.Length.Equals(19))
+                if (desdeVentaGuardada.Equals(1))
+                {
+                    if (datosProducto.Length.Equals(19))
+                    {
+                        var precioProducto = datosProducto[2].ToString();
+                        var montoDescontado = string.Empty;
+
+                        if (datosProducto[18].Contains("-"))
+                        {
+                            var cantidadPorciento = datosProducto[18].Split('-');
+                            montoDescontado = cantidadPorciento[0].ToString().Trim();
+                        }
+                        else
+                        {
+                            montoDescontado = datosProducto[18].ToString().Trim();
+                        }
+
+                        importe = ((float)Convert.ToDouble(cantidad) * (float)Convert.ToDouble(precioProducto)) - (float)Convert.ToDouble(montoDescontado);
+                    }
+                }
+                else
                 {
                     var precioProducto = datosProducto[2].ToString();
-                    var montoDescontado = string.Empty;
-                    
-                    if (datosProducto[18].Contains("-"))
-                    {
-                        var cantidadPorciento = datosProducto[18].Split('-');
-                        montoDescontado = cantidadPorciento[0].ToString().Trim();
-                    }
-                    else
-                    {
-                        montoDescontado = datosProducto[18].ToString().Trim();
-                    }
-
-                    importe = ((float)Convert.ToDouble(cantidad) * (float)Convert.ToDouble(precioProducto)) - (float)Convert.ToDouble(montoDescontado);
+                    importe = (float)Convert.ToDouble(cantidad) * (float)Convert.ToDouble(precioProducto);
                 }
 
                 row.Cells["Importe"].Value = importe;
@@ -1171,12 +1197,15 @@ namespace PuntoDeVentaV2
                 int idProducto = Convert.ToInt32(datosProducto[0]);
                 int tipoDescuento = Convert.ToInt32(datosProducto[3]);
 
-                if (tipoDescuento > 0)
+                if (desdeVentaGuardada.Equals(0))
                 {
-                    string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
-                    if (!datosDescuento.Length.Equals(0))
+                    if (tipoDescuento > 0)
                     {
-                        CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToInt32(cantidad), rowId);
+                        string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
+                        if (!datosDescuento.Length.Equals(0))
+                        {
+                            CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToInt32(cantidad), rowId);
+                        }
                     }
                 }
 
@@ -7300,7 +7329,6 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-
             if (Application.OpenForms.OfType<ListadoVentasGuardadas>().Count() == 1)
             {
                 ListadoVentasGuardadas ventasFusion = new ListadoVentasGuardadas();
@@ -7322,6 +7350,8 @@ namespace PuntoDeVentaV2
                 {
                     if (mostrarVenta > 0)
                     {
+                        desdeVentaGuardada = 1;
+
                         // Verifica si los productos guardados tienen descuento
                         var datos = mb.ProductosGuardados(mostrarVenta);
 
@@ -7340,6 +7370,7 @@ namespace PuntoDeVentaV2
 
                         ventasGuardadas.Add(mostrarVenta);
 
+                        desdeVentaGuardada = 0;
                         mostrarVenta = 0;
                     }
                 };
