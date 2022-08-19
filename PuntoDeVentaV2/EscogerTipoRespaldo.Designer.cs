@@ -79,7 +79,7 @@
             // btnRespaldar
             // 
             this.btnRespaldar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRespaldar.Location = new System.Drawing.Point(92, 49);
+            this.btnRespaldar.Location = new System.Drawing.Point(92, 35);
             this.btnRespaldar.Name = "btnRespaldar";
             this.btnRespaldar.Size = new System.Drawing.Size(117, 32);
             this.btnRespaldar.TabIndex = 7;
@@ -112,7 +112,7 @@
             // btnImportar
             // 
             this.btnImportar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnImportar.Location = new System.Drawing.Point(92, 117);
+            this.btnImportar.Location = new System.Drawing.Point(92, 103);
             this.btnImportar.Name = "btnImportar";
             this.btnImportar.Size = new System.Drawing.Size(118, 32);
             this.btnImportar.TabIndex = 10;
@@ -124,7 +124,7 @@
             // 
             this.btnRespaldarSU.AutoSize = true;
             this.btnRespaldarSU.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRespaldarSU.Location = new System.Drawing.Point(92, 83);
+            this.btnRespaldarSU.Location = new System.Drawing.Point(92, 69);
             this.btnRespaldarSU.Name = "btnRespaldarSU";
             this.btnRespaldarSU.Size = new System.Drawing.Size(118, 32);
             this.btnRespaldarSU.TabIndex = 11;

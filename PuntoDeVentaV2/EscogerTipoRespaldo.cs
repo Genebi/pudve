@@ -65,16 +65,8 @@ namespace PuntoDeVentaV2
 
                                 if (conUsuario)
                                 {
-                                    backup.ExportInfo.ExcludeTables = new List<string> { 
-                                        "Usuarios",
-                                        "Catalogo_monedas",
-                                        "Catalogo_claves_producto",
-                                        "RegimenFiscal",
-                                        "CatalogoUnidadesMedida"
-                                    };
-                                    backup.ExportInfo.AddCreateDatabase = false;
-                                    backup.ExportInfo.AddDropDatabase = false;
-                                    backup.ExportInfo.AddDropTable = false;
+                                    backup.ExportInfo.ExcludeTables = new List<string> { "Usuarios", "basculas" };
+                                    backup.ExportInfo.RowsExportMode = RowsDataExportMode.InsertIgnore;
                                 }
 
                                 backup.ExportToFile(archivo);
@@ -194,7 +186,7 @@ namespace PuntoDeVentaV2
 
             if (datos.Rows.Count > 0)
             {
-                MessageBox.Show("No se puede importar la información debido a que\nactualmente este usuario ya cuenta con información registrada.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("No se puede importar la información debido a que\nactualmente el sistema ya cuenta con información\nregistrada.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
@@ -252,9 +244,17 @@ namespace PuntoDeVentaV2
                                 }
                             }
 
-                            ActualizarTablasConUsuario();
+                            var respuestaImportacion = MessageBox.Show("Importación realizada con éxito, espere un\nmomento los datos serán actualizados.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                            MessageBox.Show("Importación realizada con éxito", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            if (respuestaImportacion == DialogResult.OK)
+                            {
+                                var actualizacion = ActualizarTablasConUsuario();
+
+                                if (actualizacion)
+                                {
+                                    MessageBox.Show("Proceso finalizado correctamente.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -265,7 +265,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void ActualizarTablasConUsuario()
+        private bool ActualizarTablasConUsuario()
         {
             Dictionary<string, string> tablas = new Dictionary<string, string>();
             tablas.Add("Productos", "IDUsuario");
@@ -307,6 +307,8 @@ namespace PuntoDeVentaV2
             {
                 cn.EjecutarConsulta($"UPDATE {tabla.Key} SET {tabla.Value} = {FormPrincipal.userID}");
             }
+
+            return true;
         }
     }
 }
