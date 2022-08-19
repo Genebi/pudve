@@ -451,17 +451,17 @@ namespace PuntoDeVentaV2
 
                         var busqueda = txtBuscadorProducto.Text.Trim();
 
-                        var estaDentroDelLimite = false;
-                        var esNumeroLaBusqueda = 0;
+                        //var estaDentroDelLimite = false;
+                        //var esNumeroLaBusqueda = 0;
 
-                        estaDentroDelLimite = int.TryParse(busqueda, out esNumeroLaBusqueda);
+                        //estaDentroDelLimite = int.TryParse(busqueda, out esNumeroLaBusqueda);
 
-                        if (estaDentroDelLimite.Equals(false))
-                        {
-                            MessageBox.Show("El valor que ingreso es mayor al limite permitido");
-                            txtBuscadorProducto.Clear();
-                            return;
-                        }
+                        //if (estaDentroDelLimite.Equals(false))
+                        //{
+                        //    MessageBox.Show("El valor que ingreso es mayor al limite permitido");
+                        //    txtBuscadorProducto.Clear();
+                        //    return;
+                        //}
 
                         contadorMensaje = 0;
                         sonido = true;
@@ -5880,6 +5880,18 @@ namespace PuntoDeVentaV2
 
                 checkFoundPlusAndDot = verifiedContainsPlusSymbol(cadena);
 
+                var estaDentroDelLimite = false;
+                var esNumeroLaBusqueda = 0;
+                string vacia = string.Empty;
+                estaDentroDelLimite = int.TryParse(cadena, out esNumeroLaBusqueda);
+
+                if (estaDentroDelLimite.Equals(false))
+                {
+                    MessageBox.Show("El valor que ingreso es mayor al limite permitido");
+                    txtBuscadorProducto.Clear();
+                    return vacia;
+                }
+
                 if (sumarProducto)
                 {
                     if (checkFoundPlusAndDot)
@@ -6005,6 +6017,18 @@ namespace PuntoDeVentaV2
                 bool checkFoundMinusAndDot = false;
 
                 checkFoundMinusAndDot = verifiedContainsMinusSymbol(cadena);
+
+                var estaDentroDelLimite = false;
+                var esNumeroLaBusqueda = 0;
+                string vacia = string.Empty;
+                estaDentroDelLimite = int.TryParse(cadena, out esNumeroLaBusqueda);
+
+                if (estaDentroDelLimite.Equals(false))
+                {
+                    MessageBox.Show("El valor que ingreso es mayor al limite permitido");
+                    txtBuscadorProducto.Clear();
+                    return vacia;
+                }
 
                 if (restarProducto)
                 {
