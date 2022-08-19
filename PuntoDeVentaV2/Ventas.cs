@@ -4846,7 +4846,6 @@ namespace PuntoDeVentaV2
                         }
 
                         descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipoDescuento, cantidadDescuento));
-
                         datosProducto = new List<string>(datosProducto) { info[3] }.ToArray();
                     }
 
@@ -7425,6 +7424,7 @@ namespace PuntoDeVentaV2
 
                         desdeVentaGuardada = 0;
                         mostrarVenta = 0;
+                        txtDescuentoGeneral.Text = "% descuento";
                     }
                 };
 
