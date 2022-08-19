@@ -764,7 +764,7 @@
             0,
             0});
             this.nudCantidadPS.Minimum = new decimal(new int[] {
-            100,
+            1000000000,
             0,
             0,
             -2147483648});
