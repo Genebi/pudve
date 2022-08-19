@@ -4740,12 +4740,14 @@ namespace PuntoDeVentaV2
                 }
 
                 lbDatosCliente.Text = cliente;
+                lbDatosCliente.Visible = true;
                 lbEliminarCliente.Visible = true;
             }
             else
             {
                 lbDatosCliente.Text = nombreCliente;
-                lbDatosCliente.Visible = false;
+                lbDatosCliente.Visible = true;
+                lbEliminarCliente.Visible = true;
             }
 
             //using (DataTable dtIdCliente = cn.CargarDatos(cs.getIdCliente(nombreCliente)))
