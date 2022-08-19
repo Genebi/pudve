@@ -33,6 +33,8 @@
             this.btnBusqueda = new System.Windows.Forms.Button();
             this.txtBoxBuscarCodigoBarras = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbProveedores = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.btnVerCBExtra = new System.Windows.Forms.Button();
             this.txtCodigoBarras = new System.Windows.Forms.TextBox();
             this.txtNombreProducto = new System.Windows.Forms.TextBox();
@@ -62,8 +64,6 @@
             this.lbCantidadFiltro = new System.Windows.Forms.Label();
             this.btnDeshabilitarProducto = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label5 = new System.Windows.Forms.Label();
-            this.cbProveedores = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -137,6 +137,28 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
+            // 
+            // cbProveedores
+            // 
+            this.cbProveedores.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProveedores.Enabled = false;
+            this.cbProveedores.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cbProveedores.FormattingEnabled = true;
+            this.cbProveedores.Location = new System.Drawing.Point(18, 109);
+            this.cbProveedores.Name = "cbProveedores";
+            this.cbProveedores.Size = new System.Drawing.Size(387, 21);
+            this.cbProveedores.TabIndex = 22;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(15, 92);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(82, 13);
+            this.label5.TabIndex = 21;
+            this.label5.Text = "Proveedores:";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // btnVerCBExtra
             // 
@@ -433,28 +455,6 @@
             this.toolTip1.SetToolTip(this.btnDeshabilitarProducto, "Deshabilitar Producto");
             this.btnDeshabilitarProducto.UseVisualStyleBackColor = true;
             this.btnDeshabilitarProducto.Click += new System.EventHandler(this.btnDeshabilitarProducto_Click);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(15, 92);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(82, 13);
-            this.label5.TabIndex = 21;
-            this.label5.Text = "Proveedores:";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
-            // 
-            // cbProveedores
-            // 
-            this.cbProveedores.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbProveedores.Enabled = false;
-            this.cbProveedores.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbProveedores.FormattingEnabled = true;
-            this.cbProveedores.Location = new System.Drawing.Point(18, 109);
-            this.cbProveedores.Name = "cbProveedores";
-            this.cbProveedores.Size = new System.Drawing.Size(387, 21);
-            this.cbProveedores.TabIndex = 22;
             // 
             // RevisarInventario
             // 

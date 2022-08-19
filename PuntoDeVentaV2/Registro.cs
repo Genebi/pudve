@@ -22,7 +22,7 @@ namespace PuntoDeVentaV2
     public partial class Registro : Form
     {
         Conexion cn = new Conexion();
-
+        Consultas cs = new Consultas();
         public Registro()
         {
             InitializeComponent();
@@ -136,7 +136,7 @@ namespace PuntoDeVentaV2
                         {
                             // Datos para el envio del correo de registro
                             Thread notificacion = new Thread(
-                                () => EnviarEmail(new string[] { usuario, password, email })
+                                () => EnviarEmail(new string[] { usuario, password, email, razonSocial,licencia })
                             );
 
                             notificacion.Start();
@@ -371,20 +371,39 @@ namespace PuntoDeVentaV2
 
         private void EnviarEmail(string[] datos)
         {
-            var usuario = datos[0].Trim();
-            var password = datos[1].Trim();
+            string usuario = datos[0].Trim();
+            string password = datos[1].Trim();
             var email = datos[2].Trim();
-
+            var Nombre = datos[3];
+            var Licencia = datos[4];
             var mensajeHTML = string.Empty;
-
+            DateTime FechaHoy = DateTime.Now;
+            string FechaFin = FechaHoy.AddMonths(1).ToString("dd-MM-yyyy");
             try
             {
                 mensajeHTML += "<div style='text-align: center;'>";
                 mensajeHTML += "    <h2>INFORMACIÓN DE REGISTRO</h2>";
-                mensajeHTML += "    <hr>";
+                mensajeHTML += "    <hr>";  
                 mensajeHTML += "    <h3>USUARIO: <span style='color: red;'>"+ usuario +"</span></h3>";
                 mensajeHTML += "    <h3>PASSWORD: <span style='color: red;'>"+ password +"</span>";
                 mensajeHTML += "</div>";
+                mensajeHTML += $@"<div>
+
+            <div style = 'text-align: center;' >
+            <hr>
+            <h3>Fecha de Expiracion Proxima</h3>
+            </div>
+            <center>
+              Su licencia del punto de venta SIFO <b>{Licencia} </b>esta proxima a vencer <br>
+                <b>{Nombre} </b> el dia <b>{FechaFin}</b>
+             </center>
+             <hr>
+            <center>
+                    <p>
+                        ¿Desea Adquirir el Punto de Venta SIFO? Precione el siguiente enlace https://sifo.com.mx/puntodeventa.php
+                     </ p >
+            </center>
+            </div>";
 
                 MailMessage mensaje = new MailMessage();
                 SmtpClient smtp = new SmtpClient();

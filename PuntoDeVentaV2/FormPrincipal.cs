@@ -656,7 +656,7 @@ namespace PuntoDeVentaV2
             //Utilidades.registrarEmpleadosAntiguosPermisosConfiguracion();
 
             quitarSimbolosDePreguntaRegimenFiscalEnDescripcion();
-
+            
             CorreoDe7DiasParaExpiracion();
             CorreoDe10DiasParaExpiracionDocumentosCSD();
 
@@ -666,48 +666,98 @@ namespace PuntoDeVentaV2
 
         private void CorreoDe10DiasParaExpiracionDocumentosCSD()
         {
-            using (DataTable Fecha = cn.CargarDatos(cs.BusquedaFechaExpiracionDocumentosSCD(userID)))
+            string fechaNuevo = FechaExpiracion.ToString("dd-MM-yyyy");
+
+            if (!fechaNuevo.Equals("01-01-0001"))
             {
-                foreach (DataRow item in Fecha.Rows)
+                using (DataTable Fecha = cn.CargarDatos(cs.BusquedaFechaExpiracionDocumentosSCD(userID)))
                 {
-                    if (!string.IsNullOrWhiteSpace(item["fechaCSD"].ToString()))
+                    foreach (DataRow item in Fecha.Rows)
                     {
-                        var dato = item["fechaCSD"].ToString();
-                        string fechaConError = Fecha.Rows[0]["fechaCSD"].ToString();
-                        if (fechaConError.Contains("a.m.") || fechaConError.Contains("p.m."))
+                        if (!string.IsNullOrWhiteSpace(item["fechaCSD"].ToString()))
                         {
-                            var palabra = fechaConError.Split('.');
-                            if (palabra[1].Equals("m"))
+                            var dato = item["fechaCSD"].ToString();
+                            string fechaConError = Fecha.Rows[0]["fechaCSD"].ToString();
+                            if (fechaConError.Contains("a.m.") || fechaConError.Contains("p.m."))
                             {
-                                palabra[1] = ". m.";
-                            }
-                            string FechaModificada = $"{palabra[0]}{palabra[1]}{palabra[2]}";
-                            
-                            cn.CargarDatos($"UPDATE usuarios SET fecha_caducidad_cer = '{FechaModificada}'WHERE ID = '{FormPrincipal.userID}'");
-                            FechaExpiracion = Convert.ToDateTime(FechaModificada.ToString());
-                            var fechahoy = DateTime.Now;
-                            TimeSpan comparaciondeTiempo = FechaExpiracion.Subtract(fechahoy);
-                            int DiasRestantes = comparaciondeTiempo.Days;
+                                var palabra = fechaConError.Split('.');
+                                if (palabra[1].Equals("m"))
+                                {
+                                    palabra[1] = ". m.";
+                                }
+                                string FechaModificada = $"{palabra[0]}{palabra[1]}{palabra[2]}";
 
-                            if (DiasRestantes <= 10)
-                            {
-                                CorreoFechaCaducidadCertificado();
+                                cn.CargarDatos($"UPDATE usuarios SET fecha_caducidad_cer = '{FechaModificada}'WHERE ID = '{FormPrincipal.userID}'");
+                                FechaExpiracion = Convert.ToDateTime(FechaModificada.ToString());
+                                var fechahoy = DateTime.Now;
+                                TimeSpan comparaciondeTiempo = FechaExpiracion.Subtract(fechahoy);
+                                int DiasRestantes = comparaciondeTiempo.Days;
+
+                                if (DiasRestantes <= 10)
+                                {
+                                    CorreoFechaCaducidadCertificado();
+                                }
                             }
+                            else
+                            {
+                                FechaExpiracion = Convert.ToDateTime(Fecha.Rows[0]["fechaCSD"].ToString());
+
+                                var fechahoy = DateTime.Now;
+                                TimeSpan comparaciondeTiempo = FechaExpiracion.Subtract(fechahoy);
+                                int DiasRestantes = comparaciondeTiempo.Days;
+
+                                if (DiasRestantes <= 10)
+                                {
+                                    CorreoFechaCaducidadCertificado();
+                                }
+                            }
+
                         }
-                        else
+                    }
+                }
+                using (DataTable Fecha = cn.CargarDatos(cs.BusquedaFechaExpiracionDocumentosSCD(userID)))
+                {
+                    foreach (DataRow item in Fecha.Rows)
+                    {
+                        if (!string.IsNullOrWhiteSpace(item["fechaCSD"].ToString()))
                         {
-                            FechaExpiracion = Convert.ToDateTime(Fecha.Rows[0]["fechaCSD"].ToString());
-
-                            var fechahoy = DateTime.Now;
-                            TimeSpan comparaciondeTiempo = FechaExpiracion.Subtract(fechahoy);
-                            int DiasRestantes = comparaciondeTiempo.Days;
-
-                            if (DiasRestantes <= 10)
+                            var dato = item["fechaCSD"].ToString();
+                            string fechaConError = Fecha.Rows[0]["fechaCSD"].ToString();
+                            if (fechaConError.Contains("a.m.") || fechaConError.Contains("p.m."))
                             {
-                                CorreoFechaCaducidadCertificado();
+                                var palabra = fechaConError.Split('.');
+                                if (palabra[1].Equals("m"))
+                                {
+                                    palabra[1] = ". m.";
+                                }
+                                string FechaModificada = $"{palabra[0]}{palabra[1]}{palabra[2]}";
+
+                                cn.CargarDatos($"UPDATE usuarios SET fecha_caducidad_cer = '{FechaModificada}'WHERE ID = '{FormPrincipal.userID}'");
+                                FechaExpiracion = Convert.ToDateTime(FechaModificada.ToString());
+                                var fechahoy = DateTime.Now;
+                                TimeSpan comparaciondeTiempo = FechaExpiracion.Subtract(fechahoy);
+                                int DiasRestantes = comparaciondeTiempo.Days;
+
+                                if (DiasRestantes <= 10)
+                                {
+                                    CorreoFechaCaducidadCertificado();
+                                }
                             }
+                            else
+                            {
+                                FechaExpiracion = Convert.ToDateTime(Fecha.Rows[0]["fechaCSD"].ToString());
+
+                                var fechahoy = DateTime.Now;
+                                TimeSpan comparaciondeTiempo = FechaExpiracion.Subtract(fechahoy);
+                                int DiasRestantes = comparaciondeTiempo.Days;
+
+                                if (DiasRestantes <= 10)
+                                {
+                                    CorreoFechaCaducidadCertificado();
+                                }
+                            }
+
                         }
-                       
                     }
                 }
             }
@@ -750,21 +800,23 @@ namespace PuntoDeVentaV2
 
         private void CorreoDe7DiasParaExpiracion()
         {
-
             using (DataTable Fecha = cn.CargarDatos(cs.BuscarFechaDeExpiracion(userID)))
             {
                 FechaExpiracion = Convert.ToDateTime(Fecha.Rows[0]["FechaFinLicencia"].ToString());
-               
-                var fechahoy = DateTime.Now;  
-                
-                TimeSpan comparaciondeTiempo = FechaExpiracion.Subtract(fechahoy);
-                int DiasRestantes = comparaciondeTiempo.Days;
+                string fechaNuevo = FechaExpiracion.ToString("dd-MM-yyyy");
 
-                if (DiasRestantes <= 7)
+                if (!fechaNuevo.Equals("01-01-0001"))
                 {
-                    EnvioDeCorreoAdvertenciaFechaExpiracion();
-                }
+                    var fechahoy = DateTime.Now;  
+                
+                    TimeSpan comparaciondeTiempo = FechaExpiracion.Subtract(fechahoy);
+                    int DiasRestantes = comparaciondeTiempo.Days;
 
+                     if (DiasRestantes <= 7)
+                     {
+                        EnvioDeCorreoAdvertenciaFechaExpiracion();
+                     }
+                }
             }
         }
 
