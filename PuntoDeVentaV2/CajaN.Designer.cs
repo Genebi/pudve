@@ -371,6 +371,8 @@
             // 
             // tlpDineroRetirado
             // 
+            this.tlpDineroRetirado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tlpDineroRetirado.ColumnCount = 3;
             this.tlpDineroRetirado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tlpDineroRetirado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8F));
@@ -678,6 +680,8 @@
             // 
             // tlpDineroAgregado
             // 
+            this.tlpDineroAgregado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tlpDineroAgregado.ColumnCount = 2;
             this.tlpDineroAgregado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpDineroAgregado.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -912,6 +916,8 @@
             // 
             // tlpAnticposRecibidos
             // 
+            this.tlpAnticposRecibidos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tlpAnticposRecibidos.ColumnCount = 2;
             this.tlpAnticposRecibidos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tlpAnticposRecibidos.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -1150,6 +1156,8 @@
             // 
             // tlpTotalEnCaja
             // 
+            this.tlpTotalEnCaja.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tlpTotalEnCaja.ColumnCount = 3;
             this.tlpTotalEnCaja.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tlpTotalEnCaja.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8F));
@@ -1508,6 +1516,8 @@
             // 
             // tlpVentas
             // 
+            this.tlpVentas.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tlpVentas.ColumnCount = 3;
             this.tlpVentas.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 42F));
             this.tlpVentas.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 8F));
@@ -1529,7 +1539,7 @@
             this.tlpVentas.Controls.Add(this.lbAnticipos, 0, 7);
             this.tlpVentas.Controls.Add(this.lbTEfectivo, 2, 0);
             this.tlpVentas.Controls.Add(this.lbTCreditoC, 2, 6);
-            this.tlpVentas.Location = new System.Drawing.Point(3, 55);
+            this.tlpVentas.Location = new System.Drawing.Point(0, 55);
             this.tlpVentas.Name = "tlpVentas";
             this.tlpVentas.RowCount = 8;
             this.tlpVentas.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
