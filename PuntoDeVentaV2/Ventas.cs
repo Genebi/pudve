@@ -202,6 +202,8 @@ namespace PuntoDeVentaV2
 
         private string FolioVentaCorreo = string.Empty;
 
+        string descuentoDirectoPorAplicar = string.Empty;
+
         #region Proceso de Bascula
         // Constructores
         private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
@@ -443,14 +445,27 @@ namespace PuntoDeVentaV2
                             return;
                         }
 
+
                         e.Handled = true;
                         e.SuppressKeyPress = true;
+
+                        var busqueda = txtBuscadorProducto.Text.Trim();
+
+                        var estaDentroDelLimite = false;
+                        var esNumeroLaBusqueda = 0;
+
+                        estaDentroDelLimite = int.TryParse(busqueda, out esNumeroLaBusqueda);
+
+                        if (estaDentroDelLimite.Equals(false))
+                        {
+                            MessageBox.Show("El valor que ingreso es mayor al limite permitido");
+                            txtBuscadorProducto.Clear();
+                            return;
+                        }
 
                         contadorMensaje = 0;
                         sonido = true;
                         contador = 0;
-
-                        var busqueda = txtBuscadorProducto.Text.Trim();
 
                         if (!DGVentas.Rows.Count.Equals(0))
                         {
@@ -6729,6 +6744,10 @@ namespace PuntoDeVentaV2
 
                 if (words.Count() > 0)
                 {
+                    if (txtDescuentoGeneral.Text.Equals("\r\n% descuento"))
+                    {
+                        return;
+                    }
                     var descuentoG = float.Parse(words[0].ToString());
 
                     if (descuentoG > 0)
@@ -6775,7 +6794,6 @@ namespace PuntoDeVentaV2
                                 productosDescuentoG.Add(idProducto, true);
                             }
                         }
-
                         CantidadesFinalesVenta();
                     }
                 }
@@ -6784,6 +6802,9 @@ namespace PuntoDeVentaV2
 
         private void btnAplicarDescuento_Click(object sender, EventArgs e)
         {
+            descuentoDirectoPorAplicar = txtDescuentoGeneral.Text.Trim();
+            btnEliminarDescuentos.PerformClick();
+            txtDescuentoGeneral.Text = descuentoDirectoPorAplicar;
             productosDescuentoG.Clear();
             descuentosDirectos.Clear();
             if (!txtDescuentoGeneral.Text.Equals("."))
