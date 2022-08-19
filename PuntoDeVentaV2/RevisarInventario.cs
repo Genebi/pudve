@@ -129,6 +129,7 @@ namespace PuntoDeVentaV2
                 lCodigoClave.Text = "Código de Barras o Clave Interna:";
             }
 
+
             using (var productos = cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(txtBoxBuscarCodigoBarras.Text)))
             {
                 if (!txtBoxBuscarCodigoBarras.Equals("") && !productos.Rows.Count.Equals(0))
@@ -1185,7 +1186,7 @@ namespace PuntoDeVentaV2
 
             var enviarStockMinimo = new Dictionary<int, string>();
 
-            proveedores.Add("0", "Seleccionar un proveedor...");
+            proveedores.Add("0", "SIN PROVEEDOR");
 
             if (listaProveedores.Length > 0)
             {
@@ -1329,8 +1330,17 @@ namespace PuntoDeVentaV2
                             //Actualizar Proveedor del Producto 
                             using (var ConsultaIDProveedor = cn.CargarDatos(cs.ConsultaIDProveedor(cbProveedores.Text)))
                             {
-                                string IDProveedor = ConsultaIDProveedor.Rows[0]["ID"].ToString();
-                                cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{cbProveedores.Text}' , IDProveedor = '{IDProveedor}' WHERE IDProducto = {idProducto}");
+                                if (ConsultaIDProveedor.Rows.Count.Equals(0))
+                                {
+                                    string id = "13";
+                                    string nombre = string.Empty;
+                                    cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{nombre}' , IDProveedor = '{id}' WHERE IDProducto =               {idProducto}");
+                                }
+                                else
+                                {
+                                    string IDProveedor = ConsultaIDProveedor.Rows[0]["ID"].ToString();
+                                    cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{cbProveedores.Text}' , IDProveedor =                '{IDProveedor}' WHERE IDProducto = {idProducto}");
+                                }
                             }
 
                             LimpiarCampos();
@@ -1424,6 +1434,7 @@ namespace PuntoDeVentaV2
 
                                     if (Convert.ToDecimal(StockAnterior) != Convert.ToDecimal(stockFisico))
                                     {
+
                                         cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProducto}','Asignacion por Revision  ','{StockAnterior}','{stockFisico}','{fecha}','{FormPrincipal.userNickName}','0.0')");
                                     }
 
@@ -1432,8 +1443,16 @@ namespace PuntoDeVentaV2
                                     //Actualizar Proveedor del Producto 
                                     using (var ConsultaIDProveedor = cn.CargarDatos(cs.ConsultaIDProveedor(cbProveedores.Text)))
                                     {
-                                        string IDProveedor = ConsultaIDProveedor.Rows[0]["ID"].ToString();
-                                        cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{cbProveedores.Text}' , IDProveedor = '{IDProveedor}' WHERE IDProducto = {idProducto}");
+                                        if (ConsultaIDProveedor.Rows.Count.Equals(0))
+                                        {
+                                            cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '' , IDProveedor = '' WHERE IDProducto =               {idProducto}");
+                                        }
+                                        else
+                                        {
+                                            string IDProveedor = ConsultaIDProveedor.Rows[0]["ID"].ToString();
+                                            cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{cbProveedores.Text}' , IDProveedor =                '{IDProveedor}' WHERE IDProducto = {idProducto}");
+                                        }
+                                        
                                     }
                                     LimpiarCampos();
 

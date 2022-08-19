@@ -4299,5 +4299,11 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT ID FROM proveedores where Nombre = '{Nombre}'";
             return consulta;
         }
+
+        public string ConsultaNombreYLicenciaUsuaio(string Usuario)
+        {
+            var consulta = $"SELECT NombreCompleto,Licencia FROM usuarios WHERE Usuario = '{Usuario}'";
+            return consulta;
+        }
     }
 }   
