@@ -4776,7 +4776,7 @@ namespace PuntoDeVentaV2
                     decimal cantidad = (decimal)float.Parse(info[2].ToString());
 
                     // Agregamos los descuentos directos de la venta guardada
-                    if (Convert.ToInt16(info[4]) > 0)
+                    if (Convert.ToInt32(info[4]) > 0)
                     {
                         descuentoGuardado = info[3].ToString();
                         if (!descuentosDirectos.ContainsKey(idProducto))
@@ -4819,11 +4819,35 @@ namespace PuntoDeVentaV2
                                 // Descuento directo
                                 cantidadDescuento = float.Parse(info[3].ToString().Trim());
                             }
-
+                            
                             descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipoDescuento, cantidadDescuento));
 
                             datosProducto = new List<string>(datosProducto) { info[3] }.ToArray();
                         }
+                    }
+                    else if (Convert.ToInt32(info[4]).Equals(0))
+                    {
+                        var tipoDescuento = Convert.ToInt32(info[4]);
+                        var cantidadDescuento = 0f;
+
+                        if (tipoDescuento.Equals(0))
+                        {
+                            if (info[3].Contains("-"))
+                            {
+                                var cantidadTmp = info[3].Split('-');
+                                cantidadTmp[1] = cantidadTmp[1].Replace('%', ' ');
+                                cantidadDescuento = float.Parse(cantidadTmp[1].Trim());
+                            }
+                            else
+                            {
+                                var cantidadTmp = info[3].ToString().Trim();
+                                cantidadDescuento = float.Parse(cantidadTmp);
+                            }
+                        }
+
+                        descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipoDescuento, cantidadDescuento));
+
+                        datosProducto = new List<string>(datosProducto) { info[3] }.ToArray();
                     }
 
                     //AgregarProductoLista(datosProducto, cantidad, true);
