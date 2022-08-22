@@ -154,16 +154,13 @@ namespace PuntoDeVentaV2
                     {
                         if (pnl_sec.Name.Contains("lb_correo"))
                         {
-                            if (txt_correo.Text.Equals(pnl_sec.Text))
-                            {
                                 agregado = true;
-                            }
                         }
                     }
                 }
             }
 
-            if (!agregado)
+            if (agregado.Equals(false))
             {
                 btn_agregar.PerformClick();
             }
