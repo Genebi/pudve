@@ -1404,6 +1404,11 @@ namespace PuntoDeVentaV2
             lbUsuarios.Visible = false;
         }
 
+        private void txtUsuario_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void txtUsuario_Enter(object sender, EventArgs e)
         {
             //if (txtUsuario.Text.Equals(string.Empty))

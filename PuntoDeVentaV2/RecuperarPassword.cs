@@ -58,6 +58,11 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Tu contraseña se ha enviado a tu correo electrónico", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information); 
                 }
             }
+            else
+            {
+                MessageBox.Show("No se encontro ningun usuario registrado con ese nombre", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
             Close();
         }
