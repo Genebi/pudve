@@ -68,10 +68,12 @@
             this.linkLblPaginaSiguiente = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaActual = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaAnterior = new System.Windows.Forms.LinkLabel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.panelBotones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAnticipos)).BeginInit();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tituloSeccion
@@ -332,14 +334,14 @@
             // 
             // btnActualizarMaximoProductos
             // 
-            this.btnActualizarMaximoProductos.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnActualizarMaximoProductos.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnActualizarMaximoProductos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(196)))), ((int)(((byte)(15)))));
             this.btnActualizarMaximoProductos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnActualizarMaximoProductos.FlatAppearance.BorderSize = 0;
             this.btnActualizarMaximoProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizarMaximoProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnActualizarMaximoProductos.ForeColor = System.Drawing.Color.Black;
-            this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(617, 597);
+            this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(605, 40);
             this.btnActualizarMaximoProductos.Name = "btnActualizarMaximoProductos";
             this.btnActualizarMaximoProductos.Size = new System.Drawing.Size(80, 23);
             this.btnActualizarMaximoProductos.TabIndex = 52;
@@ -349,8 +351,8 @@
             // 
             // txtMaximoPorPagina
             // 
-            this.txtMaximoPorPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtMaximoPorPagina.Location = new System.Drawing.Point(517, 598);
+            this.txtMaximoPorPagina.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.txtMaximoPorPagina.Location = new System.Drawing.Point(505, 41);
             this.txtMaximoPorPagina.Name = "txtMaximoPorPagina";
             this.txtMaximoPorPagina.Size = new System.Drawing.Size(91, 20);
             this.txtMaximoPorPagina.TabIndex = 51;
@@ -359,8 +361,8 @@
             // 
             // label7
             // 
-            this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label7.Location = new System.Drawing.Point(390, 580);
+            this.label7.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label7.Location = new System.Drawing.Point(378, 23);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(121, 56);
             this.label7.TabIndex = 50;
@@ -369,11 +371,11 @@
             // 
             // panel4
             // 
-            this.panel4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel4.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel4.Controls.Add(this.linkLblUltimaPagina);
             this.panel4.Controls.Add(this.btnSiguiente);
             this.panel4.Controls.Add(this.btnUltimaPagina);
-            this.panel4.Location = new System.Drawing.Point(316, 590);
+            this.panel4.Location = new System.Drawing.Point(304, 33);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(59, 32);
             this.panel4.TabIndex = 49;
@@ -423,11 +425,11 @@
             // 
             // panel3
             // 
-            this.panel3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel3.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panel3.Controls.Add(this.btnPrimeraPagina);
             this.panel3.Controls.Add(this.btnAnterior);
             this.panel3.Controls.Add(this.linkLblPrimeraPagina);
-            this.panel3.Location = new System.Drawing.Point(182, 590);
+            this.panel3.Location = new System.Drawing.Point(170, 33);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(56, 32);
             this.panel3.TabIndex = 48;
@@ -477,11 +479,11 @@
             // 
             // linkLblPaginaSiguiente
             // 
-            this.linkLblPaginaSiguiente.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linkLblPaginaSiguiente.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.linkLblPaginaSiguiente.AutoSize = true;
             this.linkLblPaginaSiguiente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(293, 600);
+            this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(281, 43);
             this.linkLblPaginaSiguiente.Name = "linkLblPaginaSiguiente";
             this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaSiguiente.TabIndex = 47;
@@ -490,11 +492,11 @@
             // 
             // linkLblPaginaActual
             // 
-            this.linkLblPaginaActual.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linkLblPaginaActual.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.linkLblPaginaActual.AutoSize = true;
             this.linkLblPaginaActual.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaActual.Location = new System.Drawing.Point(270, 600);
+            this.linkLblPaginaActual.Location = new System.Drawing.Point(258, 43);
             this.linkLblPaginaActual.Name = "linkLblPaginaActual";
             this.linkLblPaginaActual.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaActual.TabIndex = 46;
@@ -503,30 +505,40 @@
             // 
             // linkLblPaginaAnterior
             // 
-            this.linkLblPaginaAnterior.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linkLblPaginaAnterior.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.linkLblPaginaAnterior.AutoSize = true;
             this.linkLblPaginaAnterior.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaAnterior.Location = new System.Drawing.Point(246, 600);
+            this.linkLblPaginaAnterior.Location = new System.Drawing.Point(234, 43);
             this.linkLblPaginaAnterior.Name = "linkLblPaginaAnterior";
             this.linkLblPaginaAnterior.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaAnterior.TabIndex = 45;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "2";
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.btnActualizarMaximoProductos);
+            this.panel1.Controls.Add(this.linkLblPaginaAnterior);
+            this.panel1.Controls.Add(this.txtMaximoPorPagina);
+            this.panel1.Controls.Add(this.linkLblPaginaActual);
+            this.panel1.Controls.Add(this.linkLblPaginaSiguiente);
+            this.panel1.Controls.Add(this.panel4);
+            this.panel1.Controls.Add(this.panel3);
+            this.panel1.Location = new System.Drawing.Point(12, 473);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(845, 100);
+            this.panel1.TabIndex = 53;
+            // 
             // Anticipos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 645);
-            this.Controls.Add(this.btnActualizarMaximoProductos);
-            this.Controls.Add(this.txtMaximoPorPagina);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.panel4);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.linkLblPaginaSiguiente);
-            this.Controls.Add(this.linkLblPaginaActual);
-            this.Controls.Add(this.linkLblPaginaAnterior);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.DGVAnticipos);
             this.Controls.Add(this.panelBotones);
             this.Controls.Add(this.tituloSeccion);
@@ -543,6 +555,8 @@
             this.panel4.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -588,5 +602,6 @@
         private System.Windows.Forms.LinkLabel linkLblPaginaSiguiente;
         private System.Windows.Forms.LinkLabel linkLblPaginaActual;
         private System.Windows.Forms.LinkLabel linkLblPaginaAnterior;
+        private System.Windows.Forms.Panel panel1;
     }
 }
