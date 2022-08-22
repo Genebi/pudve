@@ -65,7 +65,7 @@ namespace PuntoDeVentaV2
             {
                 for (int i = 0; i < ConsultaDescuantos.Rows.Count && i <= 2; i++)
                 {
-                    int precio = Convert.ToInt32(ConsultaDescuantos.Rows[mas]["Precio"]);
+                    decimal precio = Convert.ToDecimal(ConsultaDescuantos.Rows[mas]["Precio"]);
                     string rangoinical = ConsultaDescuantos.Rows[mas]["RangoInicial"].ToString();
                     string rangoFinal;
 
