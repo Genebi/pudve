@@ -56,30 +56,30 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(60, 45);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 17);
+            this.label1.Size = new System.Drawing.Size(55, 16);
             this.label1.TabIndex = 0;
             this.label1.Text = "Usuario";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(45, 77);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 17);
+            this.label2.Size = new System.Drawing.Size(68, 16);
             this.label2.TabIndex = 1;
             this.label2.Text = "Password";
             // 
             // txtUsuario
             // 
             this.txtUsuario.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtUsuario.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtUsuario.Location = new System.Drawing.Point(120, 42);
             this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(190, 23);
+            this.txtUsuario.Size = new System.Drawing.Size(190, 22);
             this.txtUsuario.TabIndex = 2;
             this.txtUsuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtUsuario.Click += new System.EventHandler(this.txtUsuario_Click);
@@ -89,13 +89,14 @@
             // 
             // txtPassword
             // 
-            this.txtPassword.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPassword.Location = new System.Drawing.Point(120, 74);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
-            this.txtPassword.Size = new System.Drawing.Size(190, 23);
+            this.txtPassword.Size = new System.Drawing.Size(190, 22);
             this.txtPassword.TabIndex = 3;
             this.txtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPassword.Enter += new System.EventHandler(this.txtPassword_Enter);
             this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPassword_KeyDown);
             // 
             // btnEntrar
@@ -107,7 +108,7 @@
             this.btnEntrar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(190)))));
             this.btnEntrar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(190)))));
             this.btnEntrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEntrar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEntrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEntrar.ForeColor = System.Drawing.Color.White;
             this.btnEntrar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnEntrar.Location = new System.Drawing.Point(121, 163);
@@ -122,18 +123,18 @@
             // 
             this.btnCrearCuenta.AutoSize = true;
             this.btnCrearCuenta.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCrearCuenta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCrearCuenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCrearCuenta.ForeColor = System.Drawing.SystemColors.Highlight;
             this.btnCrearCuenta.Location = new System.Drawing.Point(269, 286);
             this.btnCrearCuenta.Name = "btnCrearCuenta";
-            this.btnCrearCuenta.Size = new System.Drawing.Size(139, 17);
+            this.btnCrearCuenta.Size = new System.Drawing.Size(124, 16);
             this.btnCrearCuenta.TabIndex = 6;
             this.btnCrearCuenta.Text = "Crear cuenta nueva";
             this.btnCrearCuenta.Click += new System.EventHandler(this.btnCrearCuenta_Click);
             // 
             // txtMensaje
             // 
-            this.txtMensaje.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMensaje.ForeColor = System.Drawing.Color.Red;
             this.txtMensaje.Location = new System.Drawing.Point(12, 241);
             this.txtMensaje.Name = "txtMensaje";
@@ -155,7 +156,7 @@
             // btnLimpiarDatos
             // 
             this.btnLimpiarDatos.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.btnLimpiarDatos.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnLimpiarDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.btnLimpiarDatos.ForeColor = System.Drawing.Color.Brown;
             this.btnLimpiarDatos.Location = new System.Drawing.Point(120, 197);
             this.btnLimpiarDatos.Margin = new System.Windows.Forms.Padding(2);
@@ -225,11 +226,11 @@
             // 
             this.btnRecuperarPassword.AutoSize = true;
             this.btnRecuperarPassword.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRecuperarPassword.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRecuperarPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRecuperarPassword.ForeColor = System.Drawing.SystemColors.Highlight;
             this.btnRecuperarPassword.Location = new System.Drawing.Point(12, 286);
             this.btnRecuperarPassword.Name = "btnRecuperarPassword";
-            this.btnRecuperarPassword.Size = new System.Drawing.Size(154, 16);
+            this.btnRecuperarPassword.Size = new System.Drawing.Size(131, 13);
             this.btnRecuperarPassword.TabIndex = 12;
             this.btnRecuperarPassword.Text = "¿Olvidaste tu contraseña?";
             this.btnRecuperarPassword.Click += new System.EventHandler(this.btnRecuperarPassword_Click);
@@ -249,11 +250,11 @@
             // 
             this.OlvidarUsuariosGuardados.AutoSize = true;
             this.OlvidarUsuariosGuardados.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.OlvidarUsuariosGuardados.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OlvidarUsuariosGuardados.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.OlvidarUsuariosGuardados.ForeColor = System.Drawing.SystemColors.Highlight;
             this.OlvidarUsuariosGuardados.Location = new System.Drawing.Point(139, 112);
             this.OlvidarUsuariosGuardados.Name = "OlvidarUsuariosGuardados";
-            this.OlvidarUsuariosGuardados.Size = new System.Drawing.Size(156, 16);
+            this.OlvidarUsuariosGuardados.Size = new System.Drawing.Size(135, 13);
             this.OlvidarUsuariosGuardados.TabIndex = 14;
             this.OlvidarUsuariosGuardados.Text = "Olvidar registros guardados";
             this.OlvidarUsuariosGuardados.Click += new System.EventHandler(this.OlvidarUsuariosGuardados_Click);
@@ -261,7 +262,7 @@
             // lbUsuarios
             // 
             this.lbUsuarios.FormattingEnabled = true;
-            this.lbUsuarios.Location = new System.Drawing.Point(120, 64);
+            this.lbUsuarios.Location = new System.Drawing.Point(120, 63);
             this.lbUsuarios.Name = "lbUsuarios";
             this.lbUsuarios.Size = new System.Drawing.Size(190, 82);
             this.lbUsuarios.TabIndex = 15;
