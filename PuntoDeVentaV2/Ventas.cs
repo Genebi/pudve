@@ -194,13 +194,15 @@ namespace PuntoDeVentaV2
 
         public int idAnticipoVentas;
 
-
+        string descuentoGuardado = string.Empty;
 
         Dictionary<int, string> listaMensajesEnviados = new Dictionary<int, string>();
 
-
+        int desdeVentaGuardada = 0;
 
         private string FolioVentaCorreo = string.Empty;
+
+        string descuentoDirectoPorAplicar = string.Empty;
 
         #region Proceso de Bascula
         // Constructores
@@ -443,14 +445,27 @@ namespace PuntoDeVentaV2
                             return;
                         }
 
+
                         e.Handled = true;
                         e.SuppressKeyPress = true;
+
+                        var busqueda = txtBuscadorProducto.Text.Trim();
+
+                        //var estaDentroDelLimite = false;
+                        //var esNumeroLaBusqueda = 0;
+
+                        //estaDentroDelLimite = int.TryParse(busqueda, out esNumeroLaBusqueda);
+
+                        //if (estaDentroDelLimite.Equals(false))
+                        //{
+                        //    MessageBox.Show("El valor que ingreso es mayor al limite permitido");
+                        //    txtBuscadorProducto.Clear();
+                        //    return;
+                        //}
 
                         contadorMensaje = 0;
                         sonido = true;
                         contador = 0;
-
-                        var busqueda = txtBuscadorProducto.Text.Trim();
 
                         if (!DGVentas.Rows.Count.Equals(0))
                         {
@@ -640,8 +655,10 @@ namespace PuntoDeVentaV2
                             buscarVG = false;
                         }
                         listaProductosVenta();
+                        listaProductos.Focus(); 
                     }
                 }
+                listaProductos.Focus();
             }
         }
 
@@ -877,7 +894,6 @@ namespace PuntoDeVentaV2
 
                 foreach (DataGridViewRow fila in DGVentas.Rows)
                 {
-
                     //Compara el valor de la celda con el nombre del producto (Descripcion)
                     if (fila.Cells["Descripcion"].Value.Equals(datosProducto[1]) && fila.Cells["IDProducto"].Value.Equals(datosProducto[0]))
                     {
@@ -1085,30 +1101,48 @@ namespace PuntoDeVentaV2
                 row.Cells["Descripcion"].Value = datosProducto[1];
                 listProductos.Add(datosProducto[0] + "|" + cantidadTmp.ToString());//ID producto
 
-
-                if ((datosProducto.Length - 1) == 14)
+                if (desdeVentaGuardada.Equals(1))
                 {
-                    row.Cells["Descuento"].Value = datosProducto[14];
-                    row.Cells["TipoDescuento"].Value = "0";
-                }
-                else if (datosProducto.Length.Equals(19))
-                {
-                    row.Cells["Descuento"].Value = datosProducto[18];
-                    row.Cells["TipoDescuento"].Value = "0";
+                    if ((datosProducto.Length - 1) == 14)
+                    {
+                        row.Cells["Descuento"].Value = datosProducto[14];
+                        row.Cells["TipoDescuento"].Value = datosProducto[3];
+                    }
+                    else if (datosProducto.Length.Equals(19))
+                    {
+                        row.Cells["Descuento"].Value = datosProducto[18];
+                        row.Cells["TipoDescuento"].Value = datosProducto[3];
+                    }
+                    else
+                    {
+                        row.Cells["Descuento"].Value = "0.00";
+                        row.Cells["TipoDescuento"].Value = "0";
+                    }
                 }
                 else
                 {
-                    row.Cells["Descuento"].Value = "0.00";
-                    row.Cells["TipoDescuento"].Value = "0";
+                    if ((datosProducto.Length - 1) == 14)
+                    {
+                        row.Cells["Descuento"].Value = datosProducto[14];
+                        row.Cells["TipoDescuento"].Value = "0";
+                    }
+                    else if (datosProducto.Length.Equals(19))
+                    {
+                        row.Cells["Descuento"].Value = datosProducto[18];
+                        row.Cells["TipoDescuento"].Value = "0";
+                    }
+                    else
+                    {
+                        row.Cells["Descuento"].Value = "0.00";
+                        row.Cells["TipoDescuento"].Value = "0";
+                    }
                 }
 
                 row.Cells["ImagenProducto"].Value = datosProducto[9];
 
                 var imagen = row.Cells["ImagenProducto"].Value.ToString();
 
-
                 timer_img_producto.Stop();
-
 
                 if (!string.IsNullOrEmpty(imagen))
                 {
@@ -1145,19 +1179,50 @@ namespace PuntoDeVentaV2
 
                 // Se agrego esto para calcular el descuento del producto cuando se agrega por primera vez
                 // y se agrega la cantidad con una de las combinaciones del teclado en la barra de busqueda
-                float importe = Convert.ToInt32(cantidad) * float.Parse(datosProducto[2]);
+                //float importe = Convert.ToInt32(cantidad) * float.Parse(datosProducto[2]);
+
+                float importe = 0;
+
+                if (desdeVentaGuardada.Equals(1))
+                {
+                    if (datosProducto.Length.Equals(19))
+                    {
+                        var precioProducto = datosProducto[2].ToString();
+                        var montoDescontado = string.Empty;
+
+                        if (datosProducto[18].Contains("-"))
+                        {
+                            var cantidadPorciento = datosProducto[18].Split('-');
+                            montoDescontado = cantidadPorciento[0].ToString().Trim();
+                        }
+                        else
+                        {
+                            montoDescontado = datosProducto[18].ToString().Trim();
+                        }
+
+                        importe = ((float)Convert.ToDouble(cantidad) * (float)Convert.ToDouble(precioProducto)) - (float)Convert.ToDouble(montoDescontado);
+                    }
+                }
+                else
+                {
+                    var precioProducto = datosProducto[2].ToString();
+                    importe = (float)Convert.ToDouble(cantidad) * (float)Convert.ToDouble(precioProducto);
+                }
 
                 row.Cells["Importe"].Value = importe;
 
                 int idProducto = Convert.ToInt32(datosProducto[0]);
                 int tipoDescuento = Convert.ToInt32(datosProducto[3]);
 
-                if (tipoDescuento > 0)
+                if (desdeVentaGuardada.Equals(0))
                 {
-                    string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
-                    if (!datosDescuento.Length.Equals(0))
+                    if (tipoDescuento > 0)
                     {
-                        CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToInt32(cantidad), rowId);
+                        string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
+                        if (!datosDescuento.Length.Equals(0))
+                        {
+                            CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToInt32(cantidad), rowId);
+                        }
                     }
                 }
 
@@ -4675,12 +4740,14 @@ namespace PuntoDeVentaV2
                 }
 
                 lbDatosCliente.Text = cliente;
+                lbDatosCliente.Visible = true;
                 lbEliminarCliente.Visible = true;
             }
             else
             {
                 lbDatosCliente.Text = nombreCliente;
-                lbDatosCliente.Visible = false;
+                lbDatosCliente.Visible = true;
+                lbEliminarCliente.Visible = true;
             }
 
             //using (DataTable dtIdCliente = cn.CargarDatos(cs.getIdCliente(nombreCliente)))
@@ -4711,8 +4778,9 @@ namespace PuntoDeVentaV2
                     decimal cantidad = (decimal)float.Parse(info[2].ToString());
 
                     // Agregamos los descuentos directos de la venta guardada
-                    if (Convert.ToInt16(info[4]) > 0)
+                    if (Convert.ToInt32(info[4]) > 0)
                     {
+                        descuentoGuardado = info[3].ToString();
                         if (!descuentosDirectos.ContainsKey(idProducto))
                         {
                             var tipoDescuento = Convert.ToInt32(info[4]);
@@ -4753,11 +4821,34 @@ namespace PuntoDeVentaV2
                                 // Descuento directo
                                 cantidadDescuento = float.Parse(info[3].ToString().Trim());
                             }
-
+                            
                             descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipoDescuento, cantidadDescuento));
 
                             datosProducto = new List<string>(datosProducto) { info[3] }.ToArray();
                         }
+                    }
+                    else if (Convert.ToInt32(info[4]).Equals(0))
+                    {
+                        var tipoDescuento = Convert.ToInt32(info[4]);
+                        var cantidadDescuento = 0f;
+
+                        if (tipoDescuento.Equals(0))
+                        {
+                            if (info[3].Contains("-"))
+                            {
+                                var cantidadTmp = info[3].Split('-');
+                                cantidadTmp[1] = cantidadTmp[1].Replace('%', ' ');
+                                cantidadDescuento = float.Parse(cantidadTmp[1].Trim());
+                            }
+                            else
+                            {
+                                var cantidadTmp = info[3].ToString().Trim();
+                                cantidadDescuento = float.Parse(cantidadTmp);
+                            }
+                        }
+
+                        descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipoDescuento, cantidadDescuento));
+                        datosProducto = new List<string>(datosProducto) { info[3] }.ToArray();
                     }
 
                     //AgregarProductoLista(datosProducto, cantidad, true);
@@ -5791,6 +5882,18 @@ namespace PuntoDeVentaV2
 
                 checkFoundPlusAndDot = verifiedContainsPlusSymbol(cadena);
 
+                var estaDentroDelLimite = false;
+                var esNumeroLaBusqueda = 0;
+                string vacia = string.Empty;
+                estaDentroDelLimite = int.TryParse(cadena, out esNumeroLaBusqueda);
+
+                if (estaDentroDelLimite.Equals(false))
+                {
+                    MessageBox.Show("El valor que ingreso es mayor al limite permitido");
+                    txtBuscadorProducto.Clear();
+                    return vacia;
+                }
+
                 if (sumarProducto)
                 {
                     if (checkFoundPlusAndDot)
@@ -5916,6 +6019,18 @@ namespace PuntoDeVentaV2
                 bool checkFoundMinusAndDot = false;
 
                 checkFoundMinusAndDot = verifiedContainsMinusSymbol(cadena);
+
+                var estaDentroDelLimite = false;
+                var esNumeroLaBusqueda = 0;
+                string vacia = string.Empty;
+                estaDentroDelLimite = int.TryParse(cadena, out esNumeroLaBusqueda);
+
+                if (estaDentroDelLimite.Equals(false))
+                {
+                    MessageBox.Show("El valor que ingreso es mayor al limite permitido");
+                    txtBuscadorProducto.Clear();
+                    return vacia;
+                }
 
                 if (restarProducto)
                 {
@@ -6489,6 +6604,12 @@ namespace PuntoDeVentaV2
             {
                 ProductoSeleccionado();
             }
+            else
+            {
+                txtBuscadorProducto.Focus();
+                txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
+                listaProductos.Visible = false;
+            }
         }
 
         private void timerBusqueda_Tick(object sender, EventArgs e)
@@ -6672,6 +6793,10 @@ namespace PuntoDeVentaV2
 
                 if (words.Count() > 0)
                 {
+                    if (txtDescuentoGeneral.Text.Equals("\r\n% descuento"))
+                    {
+                        return;
+                    }
                     var descuentoG = float.Parse(words[0].ToString());
 
                     if (descuentoG > 0)
@@ -6718,7 +6843,6 @@ namespace PuntoDeVentaV2
                                 productosDescuentoG.Add(idProducto, true);
                             }
                         }
-
                         CantidadesFinalesVenta();
                     }
                 }
@@ -6727,6 +6851,9 @@ namespace PuntoDeVentaV2
 
         private void btnAplicarDescuento_Click(object sender, EventArgs e)
         {
+            descuentoDirectoPorAplicar = txtDescuentoGeneral.Text.Trim();
+            btnEliminarDescuentos.PerformClick();
+            txtDescuentoGeneral.Text = descuentoDirectoPorAplicar;
             productosDescuentoG.Clear();
             descuentosDirectos.Clear();
             if (!txtDescuentoGeneral.Text.Equals("."))
@@ -7280,7 +7407,6 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-
             if (Application.OpenForms.OfType<ListadoVentasGuardadas>().Count() == 1)
             {
                 ListadoVentasGuardadas ventasFusion = new ListadoVentasGuardadas();
@@ -7302,6 +7428,8 @@ namespace PuntoDeVentaV2
                 {
                     if (mostrarVenta > 0)
                     {
+                        desdeVentaGuardada = 1;
+
                         // Verifica si los productos guardados tienen descuento
                         var datos = mb.ProductosGuardados(mostrarVenta);
 
@@ -7320,7 +7448,9 @@ namespace PuntoDeVentaV2
 
                         ventasGuardadas.Add(mostrarVenta);
 
+                        desdeVentaGuardada = 0;
                         mostrarVenta = 0;
+                        txtDescuentoGeneral.Text = "% descuento";
                     }
                 };
 

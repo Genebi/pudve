@@ -1721,7 +1721,7 @@ ALTER TABLE productos ADD COLUMN IF NOT EXISTS EnWeb text;
 -- Agregar Columna (IDEmpleado) a la tabla "abonos" para saber quien recibe ese abono en el sistema.
 ALTER TABLE Abonos ADD COLUMN IF NOT EXISTS IDEmpleado int DEFAULT 0;
 
-ALTER TABLE Empleados ADD COLUMN IF NOT EXISTS ConsultaPrecio int DEFAULT 0;
+ALTER TABLE Empleados ADD COLUMN IF NOT EXISTS ConsultaPrecio int DEFAULT 1;
 
 
 -- Agregamos tabla de Historial de Cortes de Caja en la base de datos

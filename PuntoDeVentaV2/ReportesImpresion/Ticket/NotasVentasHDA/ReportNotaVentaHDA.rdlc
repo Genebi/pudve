@@ -156,47 +156,22 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!RazonSocial.Value, "DTNotaVentaHDA")</Value>
-                    <Style />
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>RazonSocial</rd:DefaultName>
-            <Top>0.3937cm</Top>
-            <Left>7.29933cm</Left>
+            <Top>1.81335cm</Top>
+            <Left>7.91845cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Logo">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=Parameters!Logo.Value</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Logo</rd:DefaultName>
-            <Top>0.3937cm</Top>
-            <Left>0.49953cm</Left>
-            <Height>5.43918cm</Height>
-            <Width>4.90771cm</Width>
-            <ZIndex>1</ZIndex>
+            <Width>7.00833cm</Width>
+            <Visibility>
+              <Hidden>=iif(First(Fields!RazonSocial.Value, "DTNotaVentaHDA").ToString()= "",true,false)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -214,6 +189,23 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>RFC</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>:</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value xml:space="preserve"> </Value>
+                    <Style />
+                  </TextRun>
+                  <TextRun>
                     <Value>=First(Fields!RFC.Value, "DTNotaVentaHDA")</Value>
                     <Style />
                   </TextRun>
@@ -222,11 +214,14 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>RFC</rd:DefaultName>
-            <Top>1.95474cm</Top>
-            <Left>6.00287cm</Left>
+            <Top>2.43099cm</Top>
+            <Left>7.91845cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>2</ZIndex>
+            <Width>7.00833cm</Width>
+            <ZIndex>1</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!RFC.Value, "DTNotaVentaHDA").ToString()= "",true,false)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -244,6 +239,19 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Régimen</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>: </Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
                     <Value>=First(Fields!Regimen.Value, "DTNotaVentaHDA")</Value>
                     <Style />
                   </TextRun>
@@ -252,11 +260,14 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Regimen</rd:DefaultName>
-            <Top>2.73113cm</Top>
-            <Left>6.00287cm</Left>
+            <Top>3.04863cm</Top>
+            <Left>7.91845cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>3</ZIndex>
+            <Width>7.00833cm</Width>
+            <ZIndex>2</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!Regimen.Value, "DTNotaVentaHDA").ToString()= "",true,false)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -274,6 +285,19 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Domicilio</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>: </Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
                     <Value>=First(Fields!Domicilio.Value, "DTNotaVentaHDA")</Value>
                     <Style />
                   </TextRun>
@@ -282,11 +306,14 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Domicilio</rd:DefaultName>
-            <Top>3.50752cm</Top>
-            <Left>6.00287cm</Left>
+            <Top>3.66627cm</Top>
+            <Left>7.91845cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>4</ZIndex>
+            <Width>7.00833cm</Width>
+            <ZIndex>3</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!Domicilio.Value, "DTNotaVentaHDA").ToString()= "",true,false)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -304,6 +331,19 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Colonia</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>: </Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
                     <Value>=First(Fields!Colonia.Value, "DTNotaVentaHDA")</Value>
                     <Style />
                   </TextRun>
@@ -313,10 +353,13 @@
             </Paragraphs>
             <rd:DefaultName>Colonia</rd:DefaultName>
             <Top>4.28391cm</Top>
-            <Left>6.00287cm</Left>
+            <Left>7.91845cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>5</ZIndex>
+            <Width>7.00833cm</Width>
+            <ZIndex>4</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!Colonia.Value, "DTNotaVentaHDA").ToString()= "",true,false)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -334,6 +377,19 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Correo</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>: </Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
                     <Value>=First(Fields!Correo.Value, "DTNotaVentaHDA")</Value>
                     <Style />
                   </TextRun>
@@ -342,11 +398,14 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Correo</rd:DefaultName>
-            <Top>5.0603cm</Top>
-            <Left>6.00287cm</Left>
+            <Top>4.90155cm</Top>
+            <Left>7.91845cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>6</ZIndex>
+            <Width>7.00833cm</Width>
+            <ZIndex>5</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!Correo.Value, "DTNotaVentaHDA").ToString()= "",true,false)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -364,6 +423,23 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Telefono</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>:</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value xml:space="preserve"> </Value>
+                    <Style />
+                  </TextRun>
+                  <TextRun>
                     <Value>=First(Fields!telefono.Value, "DTNotaVentaHDA")</Value>
                     <Style />
                   </TextRun>
@@ -372,11 +448,14 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>telefono</rd:DefaultName>
-            <Top>5.83668cm</Top>
-            <Left>6.00287cm</Left>
+            <Top>5.51918cm</Top>
+            <Left>7.91845cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>7</ZIndex>
+            <Width>7.00833cm</Width>
+            <ZIndex>6</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!telefono.Value, "DTNotaVentaHDA").ToString()= "",true,false)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -398,15 +477,17 @@
                     <Style />
                   </TextRun>
                 </TextRuns>
-                <Style />
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>fecha</rd:DefaultName>
-            <Top>1.95474cm</Top>
-            <Left>14.0544cm</Left>
+            <Top>2.73113cm</Top>
+            <Left>15.4802cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>8</ZIndex>
+            <Width>4.30564cm</Width>
+            <ZIndex>7</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -425,18 +506,23 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!NombreCliente.Value, "DTNotaVentaHDA")</Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NombreCliente</rd:DefaultName>
-            <Top>8.09307cm</Top>
-            <Left>0.49953cm</Left>
+            <Top>6.63786cm</Top>
+            <Left>0.46778cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>9</ZIndex>
+            <Width>6.51799cm</Width>
+            <ZIndex>8</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!NombreCliente.Value, "DTNotaVentaHDA").ToString()= "",true,false)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -454,6 +540,23 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>RFC</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>:</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value xml:space="preserve"> </Value>
+                    <Style />
+                  </TextRun>
+                  <TextRun>
                     <Value>=First(Fields!RFCCliente.Value, "DTNotaVentaHDA")</Value>
                     <Style />
                   </TextRun>
@@ -462,11 +565,14 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>RFCCliente</rd:DefaultName>
-            <Top>8.86946cm</Top>
-            <Left>0.49953cm</Left>
+            <Top>7.22375cm</Top>
+            <Left>0.43765cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>10</ZIndex>
+            <Width>6.54812cm</Width>
+            <ZIndex>9</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!RFCCliente.Value, "DTNotaVentaHDA").ToString()= "",true,false)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -488,15 +594,17 @@
                     <Style />
                   </TextRun>
                 </TextRuns>
-                <Style />
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>FormadePago</rd:DefaultName>
-            <Top>8.43703cm</Top>
-            <Left>14.0544cm</Left>
+            <Top>14.31078cm</Top>
+            <Left>16.90483cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
-            <ZIndex>11</ZIndex>
+            <ZIndex>10</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -515,81 +623,83 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=Parameters!StatusVenta.Value</Value>
-                    <Style />
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>StatusVenta</rd:DefaultName>
-            <Top>10.02453cm</Top>
-            <Left>9.6012cm</Left>
+            <Top>14.31078cm</Top>
+            <Left>9.9187cm</Left>
             <Height>0.6cm</Height>
             <Width>2.5cm</Width>
+            <ZIndex>11</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Rectangle Name="Rectangle7">
+            <KeepTogether>true</KeepTogether>
+            <Top>16.58935cm</Top>
+            <Left>14.55989cm</Left>
+            <Height>1.28475cm</Height>
+            <Width>1.73513cm</Width>
             <ZIndex>12</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Style>Solid</Style>
               </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
             </Style>
-          </Textbox>
-          <Textbox Name="Cantidad">
-            <CanGrow>true</CanGrow>
+          </Rectangle>
+          <Rectangle Name="Rectangle9">
             <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=First(Fields!Cantidad.Value, "DTNotaVentaHDA")</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Cantidad</rd:DefaultName>
-            <Top>11.13578cm</Top>
-            <Left>1.00224cm</Left>
-            <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
+            <Top>16.58936cm</Top>
+            <Left>16.29502cm</Left>
+            <Height>1.28474cm</Height>
+            <Width>1.67976cm</Width>
             <ZIndex>13</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Style>Solid</Style>
               </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
             </Style>
-          </Textbox>
-          <Textbox Name="Nombre">
+          </Rectangle>
+          <Textbox Name="Textbox23">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!Nombre.Value, "DTNotaVentaHDA")</Value>
-                    <Style />
+                    <Value>=Fields!Descuento.Value</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
-                <Style />
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>Nombre</rd:DefaultName>
-            <Top>11.13578cm</Top>
-            <Left>6.00287cm</Left>
-            <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
+            <rd:DefaultName>Textbox17</rd:DefaultName>
+            <Top>18.47147cm</Top>
+            <Left>17.9783cm</Left>
+            <Height>0.59738cm</Height>
+            <Width>2.05977cm</Width>
             <ZIndex>14</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Style>Double</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -597,29 +707,47 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="PrecioUnidad">
-            <CanGrow>true</CanGrow>
+          <Rectangle Name="Rectangle10">
             <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=First(Fields!PrecioUnidad.Value, "DTNotaVentaHDA")</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>PrecioUnidad</rd:DefaultName>
-            <Top>11.13578cm</Top>
-            <Left>8.70162cm</Left>
-            <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
+            <Top>16.58935cm</Top>
+            <Left>17.9783cm</Left>
+            <Height>1.28475cm</Height>
+            <Width>2.05977cm</Width>
             <ZIndex>15</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Rectangle>
+          <Textbox Name="Textbox28">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Total:</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox17</rd:DefaultName>
+            <Top>19.07237cm</Top>
+            <Left>14.56342cm</Left>
+            <Height>0.60326cm</Height>
+            <Width>1.7316cm</Width>
+            <ZIndex>16</ZIndex>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -627,26 +755,666 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="importe">
+          <Textbox Name="Textbox29">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!importe.Value, "DTNotaVentaHDA")</Value>
+                    <Value>=Fields!total.Value</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox17</rd:DefaultName>
+            <Top>19.07237cm</Top>
+            <Left>16.29502cm</Left>
+            <Height>0.60326cm</Height>
+            <Width>3.74305cm</Width>
+            <ZIndex>17</ZIndex>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox27">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Fields!SubTotal.Value</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox17</rd:DefaultName>
+            <Top>17.8741cm</Top>
+            <Left>17.9783cm</Left>
+            <Height>0.59738cm</Height>
+            <Width>2.05977cm</Width>
+            <ZIndex>18</ZIndex>
+            <Style>
+              <Border>
+                <Style>Double</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox32">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Descuento:</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>7pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox17</rd:DefaultName>
+            <Top>18.47147cm</Top>
+            <Left>14.56342cm</Left>
+            <Height>0.59737cm</Height>
+            <Width>1.7316cm</Width>
+            <ZIndex>19</ZIndex>
+            <Style>
+              <Border>
+                <Style>Double</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox33">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value />
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>8pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox17</rd:DefaultName>
+            <Top>17.8741cm</Top>
+            <Left>16.29502cm</Left>
+            <Height>0.59738cm</Height>
+            <Width>1.67976cm</Width>
+            <ZIndex>20</ZIndex>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox35">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>SubTotal:</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>7pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox17</rd:DefaultName>
+            <Top>17.87411cm</Top>
+            <Left>14.5624cm</Left>
+            <Height>0.59737cm</Height>
+            <Width>1.73262cm</Width>
+            <ZIndex>21</ZIndex>
+            <Style>
+              <Border>
+                <Style>Double</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Tablix Name="Tablix2">
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn>
+                  <Width>2.15525cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>9.17112cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.737cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.67976cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.06329cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.921cm</Width>
+                </TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox38">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Cantidad</Value>
+                                  <Style>
+                                    <FontFamily>Arial Black</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox38</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Double</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox40">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Descripcion</Value>
+                                  <Style>
+                                    <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox40</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Double</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox42">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Sugerido</Value>
+                                  <Style>
+                                    <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox42</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Double</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox48">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>importe</Value>
+                                  <Style>
+                                    <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox48</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Double</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox46">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Descuento</Value>
+                                  <Style>
+                                    <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox46</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Double</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox44">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>P/U Descuento</Value>
+                                  <Style>
+                                    <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox44</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Double</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.6cm</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Cantidad">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Cantidad.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Cantidad</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Double</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Nombre">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Nombre.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Nombre</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Double</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="PrecioUnidad">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!PrecioUnidad.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>PrecioUnidad</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Double</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="importe">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!importe.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>importe</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Double</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="DescuentoDirectoProducto">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!DescuentoDirectoProducto.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>DescuentoDirectoProducto</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Double</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="PrecioConDescuento">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!PrecioConDescuento.Value</Value>
+                                  <Style />
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>PrecioConDescuento</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Double</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember>
+                  <KeepWithGroup>After</KeepWithGroup>
+                </TablixMember>
+                <TablixMember>
+                  <Group Name="Details" />
+                </TablixMember>
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <DataSetName>DTNotaVentaHDA</DataSetName>
+            <Top>15.38582cm</Top>
+            <Left>0.31065cm</Left>
+            <Height>1.2cm</Height>
+            <Width>19.72742cm</Width>
+            <ZIndex>22</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!PrecioConDescuento.Value, "DTNotaVentaHDA").ToString()= "",true,false)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Tablix>
+          <Textbox Name="folio">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!folio.Value, "DTNotaVentaHDA")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
-                <Style />
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>importe</rd:DefaultName>
-            <Top>11.13578cm</Top>
-            <Left>11.34273cm</Left>
+            <rd:DefaultName>folio</rd:DefaultName>
+            <Top>1.42409cm</Top>
+            <Left>15.4802cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>16</ZIndex>
+            <Width>4.30564cm</Width>
+            <ZIndex>23</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -657,26 +1425,397 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
-          <Textbox Name="DescuentoDirectoProducto">
+          <Textbox Name="Textbox52">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!DescuentoDirectoProducto.Value, "DTNotaVentaHDA")</Value>
+                    <Value>FECHA:</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox52</rd:DefaultName>
+            <Top>2.0641cm</Top>
+            <Left>15.82415cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.64418cm</Width>
+            <ZIndex>24</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox20">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Forma de Pago:</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox20</rd:DefaultName>
+            <Top>13.64022cm</Top>
+            <Left>16.51913cm</Left>
+            <Height>0.63528cm</Height>
+            <Width>3.2032cm</Width>
+            <ZIndex>25</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="DomicilioCliente">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Domicilio</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>: </Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=First(Fields!DomicilioCliente.Value, "DTNotaVentaHDA")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <rd:DefaultName>DescuentoDirectoProducto</rd:DefaultName>
-            <Top>11.13578cm</Top>
-            <Left>14.0544cm</Left>
+            <rd:DefaultName>DomicilioCliente</rd:DefaultName>
+            <Top>7.83786cm</Top>
+            <Left>0.43765cm</Left>
             <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>17</ZIndex>
+            <Width>6.54812cm</Width>
+            <ZIndex>26</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!DomicilioCliente.Value, "DTNotaVentaHDA").ToString()= "",true,false)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Colonia1">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Colonia</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>: </Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=First(Fields!Colonia.Value, "DTNotaVentaHDA")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Colonia1</rd:DefaultName>
+            <Top>8.44492cm</Top>
+            <Left>0.43765cm</Left>
+            <Height>0.6cm</Height>
+            <Width>6.54812cm</Width>
+            <ZIndex>27</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!ColoniaCliente.Value, "DTNotaVentaHDA").ToString()= "",true,false)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Localidad">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Localidad</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>:</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value xml:space="preserve"> </Value>
+                    <Style />
+                  </TextRun>
+                  <TextRun>
+                    <Value>=First(Fields!Localidad.Value, "DTNotaVentaHDA")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Localidad</rd:DefaultName>
+            <Top>9.08725cm</Top>
+            <Left>0.43765cm</Left>
+            <Height>0.6cm</Height>
+            <Width>6.54812cm</Width>
+            <ZIndex>28</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!Localidad.Value, "DTNotaVentaHDA").ToString()= "",true,false)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="CP">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Código Postal: </Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=First(Fields!CP.Value, "DTNotaVentaHDA")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>CP</rd:DefaultName>
+            <Top>9.69116cm</Top>
+            <Left>0.44662cm</Left>
+            <Height>0.6cm</Height>
+            <Width>6.54812cm</Width>
+            <ZIndex>29</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!CP.Value, "DTNotaVentaHDA").ToString()= "",true,false)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Pais">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Pais</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>:</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value xml:space="preserve"> </Value>
+                    <Style />
+                  </TextRun>
+                  <TextRun>
+                    <Value>=First(Fields!Pais.Value, "DTNotaVentaHDA")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Pais</rd:DefaultName>
+            <Top>10.27705cm</Top>
+            <Left>0.43765cm</Left>
+            <Height>0.6cm</Height>
+            <Width>6.54812cm</Width>
+            <ZIndex>30</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!Pais.Value, "DTNotaVentaHDA").ToString()= "",true,false)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Correo1">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Correo</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>:</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value xml:space="preserve"> </Value>
+                    <Style />
+                  </TextRun>
+                  <TextRun>
+                    <Value>=First(Fields!Correo.Value, "DTNotaVentaHDA")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Correo1</rd:DefaultName>
+            <Top>10.85941cm</Top>
+            <Left>0.43765cm</Left>
+            <Height>0.6cm</Height>
+            <Width>6.54812cm</Width>
+            <ZIndex>31</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!CorreoCliente.Value, "DTNotaVentaHDA").ToString()= "",true,false)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="telefono1">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Telefono</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>9pt</FontSize>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>:</Value>
+                    <Style>
+                      <FontFamily>Arial Black</FontFamily>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value xml:space="preserve"> </Value>
+                    <Style />
+                  </TextRun>
+                  <TextRun>
+                    <Value>=First(Fields!telefono.Value, "DTNotaVentaHDA")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>telefono1</rd:DefaultName>
+            <Top>11.46646cm</Top>
+            <Left>0.43765cm</Left>
+            <Height>0.6cm</Height>
+            <Width>6.54812cm</Width>
+            <ZIndex>32</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!TelefonoCliente.Value, "DTNotaVentaHDA").ToString()= "",true,false)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -695,141 +1834,23 @@
                 <TextRuns>
                   <TextRun>
                     <Value>=First(Fields!mensaje.Value, "DTNotaVentaHDA")</Value>
-                    <Style />
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                    </Style>
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>mensaje</rd:DefaultName>
-            <Top>13.0937cm</Top>
-            <Left>0.49953cm</Left>
-            <Height>3.16646cm</Height>
-            <Width>10.70208cm</Width>
-            <ZIndex>18</ZIndex>
+            <Top>16.58936cm</Top>
+            <Left>0.30903cm</Left>
+            <Height>2.47949cm</Height>
+            <Width>14.25086cm</Width>
+            <ZIndex>33</ZIndex>
             <Style>
               <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="SubTotal">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=First(Fields!SubTotal.Value, "DTNotaVentaHDA")</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>SubTotal</rd:DefaultName>
-            <Top>14.88377cm</Top>
-            <Left>11.37801cm</Left>
-            <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>19</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="PrecioConDescuento">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=First(Fields!PrecioConDescuento.Value, "DTNotaVentaHDA")</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>PrecioConDescuento</rd:DefaultName>
-            <Top>11.13578cm</Top>
-            <Left>16.73079cm</Left>
-            <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>20</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Descuento">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=First(Fields!Descuento.Value, "DTNotaVentaHDA")</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Descuento</rd:DefaultName>
-            <Top>15.6337cm</Top>
-            <Left>11.37801cm</Left>
-            <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>21</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="total">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=First(Fields!total.Value, "DTNotaVentaHDA")</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>total</rd:DefaultName>
-            <Top>16.43655cm</Top>
-            <Left>11.37801cm</Left>
-            <Height>0.6cm</Height>
-            <Width>2.5cm</Width>
-            <ZIndex>22</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
+                <Style>Double</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -852,14 +1873,62 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TotalEnTexto</rd:DefaultName>
-            <Top>16.43655cm</Top>
-            <Left>0.49953cm</Left>
+            <Top>19.06885cm</Top>
+            <Left>0.30903cm</Left>
             <Height>0.6cm</Height>
-            <Width>10.70208cm</Width>
-            <ZIndex>23</ZIndex>
+            <Width>14.25086cm</Width>
+            <ZIndex>34</ZIndex>
+            <Style>
+              <Border>
+                <Style>Double</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Image Name="Image5">
+            <Source>External</Source>
+            <Value>=Parameters!Logo.Value</Value>
+            <Sizing>Fit</Sizing>
+            <Top>0.21392in</Top>
+            <Left>0.43603cm</Left>
+            <Height>4.5944cm</Height>
+            <Width>6.08151cm</Width>
+            <ZIndex>35</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Parameters!Logo.Value, "DTNotaVentaHDA").ToString = "", True, False)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
+              </Border>
+            </Style>
+          </Image>
+          <Textbox Name="Textbox63">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value />
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox63</rd:DefaultName>
+            <Top>18.47148cm</Top>
+            <Left>16.29502cm</Left>
+            <Height>0.59737cm</Height>
+            <Width>1.68328cm</Width>
+            <ZIndex>36</ZIndex>
+            <Style>
+              <Border>
+                <Style>Double</Style>
               </Border>
               <PaddingLeft>2pt</PaddingLeft>
               <PaddingRight>2pt</PaddingRight>
@@ -868,10 +1937,10 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>17.55662cm</Height>
+        <Height>19.70738cm</Height>
         <Style />
       </Body>
-      <Width>22.2612cm</Width>
+      <Width>20.40658cm</Width>
       <Page>
         <PageHeight>27.94cm</PageHeight>
         <PageWidth>21.59cm</PageWidth>
@@ -922,6 +1991,23 @@
       </CellDefinitions>
     </GridLayoutDefinition>
   </ReportParametersLayout>
+  <EmbeddedImages>
+    <EmbeddedImage Name="Screenshot20220815145640">
+      <MIMEType>image/png</MIMEType>
+      <ImageData>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</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>87f9593a-f3a4-4089-96e6-a8fcf01d65da</rd:ReportID>
 </Report>
