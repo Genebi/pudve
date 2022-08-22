@@ -877,41 +877,49 @@ namespace PuntoDeVentaV2
 
         private void filtrarUsuariosGuardados()
         {
-            string verificarArchivo = @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt";
-            bool result = File.Exists(verificarArchivo);
-            if (result == true)
+            if (txtUsuario.Text.Equals("") || txtUsuario.Text.Equals(string.Empty))
             {
-                if (!Properties.Settings.Default.Hosting.Equals(string.Empty))
+                lbUsuarios.Visible = false;
+            }
+            else
+            {
+                string verificarArchivo = @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt";
+                bool result = File.Exists(verificarArchivo);
+                if (result == true)
                 {
-                    //vs.printProductVersion();
-                }
-
-                using (StreamReader sr = File.OpenText(verificarArchivo)) 
-                {
-                    //MessageBox.Show("Proceso de lectura");
-                    if (new FileInfo(verificarArchivo).Length != 0)
+                    if (!Properties.Settings.Default.Hosting.Equals(string.Empty))
                     {
-                        lbUsuarios.Items.Clear();
-                        string s = "";
-                        while ((s = sr.ReadLine()) != null)
+                        //vs.printProductVersion();
+                    }
+
+                    using (StreamReader sr = File.OpenText(verificarArchivo))
+                    {
+                        //MessageBox.Show("Proceso de lectura");
+                        if (new FileInfo(verificarArchivo).Length != 0)
                         {
-                            var user = s.Split(',');
-                            usuarioGuardado = user[0].ToString().Replace("[", "");
-                            if (usuarioGuardado.StartsWith(txtUsuario.Text))
+                            lbUsuarios.Items.Clear();
+                            string s = "";
+                            while ((s = sr.ReadLine()) != null)
                             {
+                                var user = s.Split(',');
+                                usuarioGuardado = user[0].ToString().Replace("[", "");
+                                if (usuarioGuardado.StartsWith(txtUsuario.Text))
+                                {
 
-                                lbUsuarios.Visible = true;
-                                lbUsuarios.Items.Add(usuarioGuardado);
+                                    lbUsuarios.Visible = true;
+                                    lbUsuarios.Items.Add(usuarioGuardado);
+                                }
+                                else if (lbUsuarios.Items.Count == 0 || string.IsNullOrEmpty(txtUsuario.Text))
+                                {
+
+                                    lbUsuarios.Visible = false;
+                                }
+
                             }
-                            else if (lbUsuarios.Items.Count == 0 || string.IsNullOrEmpty(txtUsuario.Text))
-                            {
-
-                                lbUsuarios.Visible = false;
-                            }
-
                         }
                     }
                 }
+            
 
                 //string path = @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt";
                 //if (new FileInfo(verificarArchivo).Length != 0)
@@ -1061,8 +1069,8 @@ namespace PuntoDeVentaV2
         }
 
         private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            e.Handled = (e.KeyChar == (char)Keys.Space);
+        {    
+                e.Handled = (e.KeyChar == (char)Keys.Space);
         }
 
         private void vincularPCEnRedMenuItem_Click(object sender, EventArgs e)
@@ -1315,10 +1323,10 @@ namespace PuntoDeVentaV2
 
         private void txtUsuario_Click(object sender, EventArgs e)
         {
-            if (txtUsuario.Text.Equals(string.Empty))
-            {
-                lbUsuarios.Visible = true;
-            }
+            //if (txtUsuario.Text.Equals(string.Empty))
+            //{
+            //    lbUsuarios.Visible = true;
+            //}
         }
 
         private void Login_Click(object sender, EventArgs e)
@@ -1386,20 +1394,26 @@ namespace PuntoDeVentaV2
 
         private void txtUsuario_KeyUp(object sender, KeyEventArgs e)
         {
+
+            
             filtrarUsuariosGuardados();
+        }
+
+        private void txtPassword_Enter(object sender, EventArgs e)
+        {
+            lbUsuarios.Visible = false;
         }
 
         private void txtUsuario_Enter(object sender, EventArgs e)
         {
-            if (txtUsuario.Text.Equals(string.Empty))
-            {
-                lbUsuarios.Visible = true;
-            }
-            else
-            {
-                lbUsuarios.Visible = false;
-            }
-            
+            //if (txtUsuario.Text.Equals(string.Empty))
+            //{
+            //    lbUsuarios.Visible = true;
+            //}
+            //else
+            //{
+            //    lbUsuarios.Visible = false;
+            //}
         }
 
         private bool ComprobarInternetMensualmente(string usuario)
