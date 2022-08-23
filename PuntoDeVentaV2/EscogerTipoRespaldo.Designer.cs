@@ -35,13 +35,15 @@
             this.btnRespaldar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
+            this.btnImportar = new System.Windows.Forms.Button();
+            this.btnRespaldarSU = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // rbRespaldarCerrarSesion
             // 
             this.rbRespaldarCerrarSesion.AutoSize = true;
             this.rbRespaldarCerrarSesion.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rbRespaldarCerrarSesion.Location = new System.Drawing.Point(24, 44);
+            this.rbRespaldarCerrarSesion.Location = new System.Drawing.Point(3, 32);
             this.rbRespaldarCerrarSesion.Name = "rbRespaldarCerrarSesion";
             this.rbRespaldarCerrarSesion.Size = new System.Drawing.Size(147, 17);
             this.rbRespaldarCerrarSesion.TabIndex = 3;
@@ -54,7 +56,7 @@
             // 
             this.rbNoRespaldar.AutoSize = true;
             this.rbNoRespaldar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rbNoRespaldar.Location = new System.Drawing.Point(24, 77);
+            this.rbNoRespaldar.Location = new System.Drawing.Point(3, 55);
             this.rbNoRespaldar.Name = "rbNoRespaldar";
             this.rbNoRespaldar.Size = new System.Drawing.Size(85, 17);
             this.rbNoRespaldar.TabIndex = 4;
@@ -76,9 +78,10 @@
             // 
             // btnRespaldar
             // 
-            this.btnRespaldar.Location = new System.Drawing.Point(100, 109);
+            this.btnRespaldar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRespaldar.Location = new System.Drawing.Point(92, 35);
             this.btnRespaldar.Name = "btnRespaldar";
-            this.btnRespaldar.Size = new System.Drawing.Size(104, 32);
+            this.btnRespaldar.Size = new System.Drawing.Size(117, 32);
             this.btnRespaldar.TabIndex = 7;
             this.btnRespaldar.Text = "Respaldar ahora";
             this.btnRespaldar.UseVisualStyleBackColor = true;
@@ -86,6 +89,7 @@
             // 
             // btnCancelar
             // 
+            this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancelar.Location = new System.Drawing.Point(198, 152);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(79, 33);
@@ -96,6 +100,7 @@
             // 
             // btnAceptar
             // 
+            this.btnAceptar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAceptar.Location = new System.Drawing.Point(24, 152);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(85, 33);
@@ -104,11 +109,36 @@
             this.btnAceptar.UseVisualStyleBackColor = true;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
+            // btnImportar
+            // 
+            this.btnImportar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImportar.Location = new System.Drawing.Point(92, 103);
+            this.btnImportar.Name = "btnImportar";
+            this.btnImportar.Size = new System.Drawing.Size(118, 32);
+            this.btnImportar.TabIndex = 10;
+            this.btnImportar.Text = "Importar ahora";
+            this.btnImportar.UseVisualStyleBackColor = true;
+            this.btnImportar.Click += new System.EventHandler(this.btnImportar_Click);
+            // 
+            // btnRespaldarSU
+            // 
+            this.btnRespaldarSU.AutoSize = true;
+            this.btnRespaldarSU.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRespaldarSU.Location = new System.Drawing.Point(92, 69);
+            this.btnRespaldarSU.Name = "btnRespaldarSU";
+            this.btnRespaldarSU.Size = new System.Drawing.Size(118, 32);
+            this.btnRespaldarSU.TabIndex = 11;
+            this.btnRespaldarSU.Text = "Respaldar sin usuario";
+            this.btnRespaldarSU.UseVisualStyleBackColor = true;
+            this.btnRespaldarSU.Click += new System.EventHandler(this.btnRespaldarSU_Click);
+            // 
             // EscogerTipoRespaldo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(299, 197);
+            this.Controls.Add(this.btnRespaldarSU);
+            this.Controls.Add(this.btnImportar);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnRespaldar);
@@ -138,5 +168,7 @@
         private System.Windows.Forms.Button btnRespaldar;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Button btnImportar;
+        private System.Windows.Forms.Button btnRespaldarSU;
     }
 }
