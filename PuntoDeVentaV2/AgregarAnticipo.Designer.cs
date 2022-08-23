@@ -40,11 +40,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
-            this.cbClientes = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.cbConceptoConBusqueda = new CustomControlPUDVE.ComboBoxPUDVE();
+            this.cbClientes = new CustomControlPUDVE.ComboBoxPUDVE();
             this.SuspendLayout();
             // 
             // tituloSeccion
@@ -52,7 +51,7 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(-11, -1);
+            this.tituloSeccion.Location = new System.Drawing.Point(-2, -1);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(203, 25);
             this.tituloSeccion.TabIndex = 6;
@@ -185,17 +184,6 @@
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
-            // cbClientes
-            // 
-            this.cbClientes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbClientes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbClientes.FormattingEnabled = true;
-            this.cbClientes.Location = new System.Drawing.Point(30, 122);
-            this.cbClientes.Name = "cbClientes";
-            this.cbClientes.Size = new System.Drawing.Size(275, 21);
-            this.cbClientes.TabIndex = 28;
-            this.cbClientes.Visible = false;
-            // 
             // label18
             // 
             this.label18.AutoSize = true;
@@ -229,25 +217,24 @@
             this.label7.TabIndex = 75;
             this.label7.Text = "*";
             // 
-            // cbConceptoConBusqueda
+            // cbClientes
             // 
-            this.cbConceptoConBusqueda.FormattingEnabled = true;
-            this.cbConceptoConBusqueda.Location = new System.Drawing.Point(30, 122);
-            this.cbConceptoConBusqueda.MaxDropDownItems = 12;
-            this.cbConceptoConBusqueda.Name = "cbConceptoConBusqueda";
-            this.cbConceptoConBusqueda.Size = new System.Drawing.Size(275, 21);
-            this.cbConceptoConBusqueda.TabIndex = 220;
+            this.cbClientes.FormattingEnabled = true;
+            this.cbClientes.Location = new System.Drawing.Point(30, 122);
+            this.cbClientes.MaxDropDownItems = 12;
+            this.cbClientes.Name = "cbClientes";
+            this.cbClientes.Size = new System.Drawing.Size(275, 21);
+            this.cbClientes.TabIndex = 220;
             // 
             // AgregarAnticipo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(608, 325);
-            this.Controls.Add(this.cbConceptoConBusqueda);
+            this.Controls.Add(this.cbClientes);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label18);
-            this.Controls.Add(this.cbClientes);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.label5);
@@ -289,10 +276,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Button btnCancelar;
-        private System.Windows.Forms.ComboBox cbClientes;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private CustomControlPUDVE.ComboBoxPUDVE cbConceptoConBusqueda;
+        private CustomControlPUDVE.ComboBoxPUDVE cbClientes;
     }
 }

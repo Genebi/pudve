@@ -62,8 +62,8 @@ namespace PuntoDeVentaV2
 
             if (clientes.Length > 0)
             {
-                cbConceptoConBusqueda.Items.AddRange(clientes);
-                cbConceptoConBusqueda.SelectedIndex = 0;
+                cbClientes.Items.AddRange(clientes);
+                cbClientes.SelectedIndex = 0;
             }
         }
 
