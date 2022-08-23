@@ -1332,7 +1332,7 @@ namespace PuntoDeVentaV2
                             {
                                 if (ConsultaIDProveedor.Rows.Count.Equals(0))
                                 {
-                                    string id = "13";
+                                    string id = "0";
                                     string nombre = string.Empty;
                                     cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{nombre}' , IDProveedor = '{id}' WHERE IDProducto =               {idProducto}");
                                 }
@@ -1445,7 +1445,9 @@ namespace PuntoDeVentaV2
                                     {
                                         if (ConsultaIDProveedor.Rows.Count.Equals(0))
                                         {
-                                            cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '' , IDProveedor = '' WHERE IDProducto =               {idProducto}");
+                                            string id = "0";
+                                            string nombre = string.Empty;
+                                            cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{nombre}' , IDProveedor = '{id}' WHERE IDProducto ={idProducto}");
                                         }
                                         else
                                         {
