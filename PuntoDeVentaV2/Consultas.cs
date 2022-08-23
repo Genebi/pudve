@@ -4305,5 +4305,19 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT NombreCompleto,Licencia FROM usuarios WHERE Usuario = '{Usuario}'";
             return consulta;
         }
+
+        public string BuscadorReportesCorteDeCajaAdministrador(string fechaInicio, string fechaFinal, string busqueda)
+        {
+            var consulta = $"SELECT HistCorteCaja.IDCorteDeCaja AS 'ID', HistCorteCaja.FechaOperacion, HistCorteCaja.IDEmpleado AS 'IdEmpleado', Emp.nombre, Usr.Usuario FROM historialcortesdecaja AS HistCorteCaja INNER JOIN caja AS Box ON ( Box.ID = HistCorteCaja.IDCorteDeCaja ) INNER JOIN usuarios AS Usr ON ( Usr.ID = HistCorteCaja.IDUsuario ) LEFT JOIN empleados AS Emp ON ( Emp.ID = HistCorteCaja.IDEmpleado ) WHERE HistCorteCaja.IDUsuario = '{FormPrincipal.userID}' AND HistCorteCaja.FechaOperacion >= '{fechaInicio} 00:00:00' AND HistCorteCaja.FechaOperacion <= '{fechaFinal} 23:59:59' AND ( ( Usr.Usuario LIKE '%{busqueda}%' AND Emp.nombre IS NULL ) OR ( Emp.nombre LIKE '%{busqueda}%' ) ) ORDER BY HistCorteCaja.FechaOperacion DESC";
+
+            return consulta;
+        }
+
+        public string BuscadorReporteCorteDeCajaEmpleado(string fechaInicio,string fechaFinal,string busqueda)
+        {
+            var consulta = $"SELECT HistCorteCaja.IDCorteDeCaja AS 'ID', HistCorteCaja.FechaOperacion, HistCorteCaja.IDEmpleado AS 'IdEmpleado', Emp.nombre, Usr.Usuario FROM historialcortesdecaja AS HistCorteCaja INNER JOIN caja AS Box ON ( Box.ID = HistCorteCaja.IDCorteDeCaja ) INNER JOIN usuarios AS Usr ON ( Usr.ID = HistCorteCaja.IDUsuario ) LEFT JOIN empleados AS Emp ON ( Emp.ID = HistCorteCaja.IDEmpleado ) WHERE HistCorteCaja.IDUsuario = '{FormPrincipal.userID}' AND HistCorteCaja.IDEmpleado = '{FormPrincipal.id_empleado}' AND HistCorteCaja.FechaOperacion >= '{fechaInicio} 00:00:00' AND HistCorteCaja.FechaOperacion <= '{fechaFinal} 23:59:59' AND ( Usr.Usuario LIKE '%{busqueda}%' OR Emp.nombre LIKE '%{busqueda}%' ) ORDER BY HistCorteCaja.FechaOperacion DESC";
+
+            return consulta;
+        }
     }
 }   

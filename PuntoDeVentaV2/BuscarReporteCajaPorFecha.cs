@@ -46,7 +46,7 @@ namespace PuntoDeVentaV2
 
         private void BuscarReporteCajaPorFecha_Load(object sender, EventArgs e)
         {
-            cargarDGVInicial();
+            //cargarDGVInicial();
             DateTime date = DateTime.Now;
             DateTime PrimerDia = new DateTime(date.Year, date.Month -1, 1);
             primerDatePicker.Value = PrimerDia;
@@ -56,14 +56,22 @@ namespace PuntoDeVentaV2
             conBusqueda = true;
 
             var datoBuscar = txtBuscador.Text.ToString().Replace("\r\n", string.Empty);
-            var primerFecha = primerDatePicker.Value.ToString("yyyy/MM/dd");
-            var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy/MM/dd");
+            var primerFecha = primerDatePicker.Value.ToString("yyyy-MM-dd");
+            var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy-MM-dd");
 
             var cantidadCortes = validarNewCuentas();
             var primerId = obtenerPrimerCorte();
             var name = string.Empty; var fecha = string.Empty; var empleado = string.Empty; var idCorte = string.Empty; var idEmpleado = 0;
-            var nombreUser = string.Empty;          
-            filtroConSinFiltroAvanzado = cs.BuscadorDeReportesCaja(datoBuscar, primerFecha, segundaFecha, primerId);       
+            var nombreUser = string.Empty;
+            //filtroConSinFiltroAvanzado = cs.BuscadorDeReportesCaja(datoBuscar, primerFecha, segundaFecha, primerId);       
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                filtroConSinFiltroAvanzado = cs.BuscadorReportesCorteDeCajaAdministrador(primerFecha, segundaFecha, datoBuscar);
+            }
+            else
+            {
+                filtroConSinFiltroAvanzado = cs.BuscadorReporteCorteDeCajaEmpleado(primerFecha, segundaFecha, datoBuscar);
+            }
             txtBuscador.Text = string.Empty;
             txtBuscador.Focus();            
             CargarDatos();
@@ -71,13 +79,11 @@ namespace PuntoDeVentaV2
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            DGVReporteCaja.Rows.Clear();
-
             conBusqueda = true;
 
             var datoBuscar = txtBuscador.Text.ToString().Replace("\r\n", string.Empty);
-            var primerFecha = primerDatePicker.Value.ToString("yyyy/MM/dd");
-            var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy/MM/dd");
+            var primerFecha = primerDatePicker.Value.ToString("yyyy-MM-dd");
+            var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy-MM-dd");
 
             var cantidadCortes = validarNewCuentas();
             var primerId = obtenerPrimerCorte();
@@ -86,7 +92,16 @@ namespace PuntoDeVentaV2
             var nombreUser = string.Empty;
             //var querry = cn.CargarDatos(cs.BuscadorDeReportesCaja(datoBuscar, primerFecha, segundaFecha, primerId));
 
-            filtroConSinFiltroAvanzado = cs.BuscadorDeReportesCaja(datoBuscar, primerFecha, segundaFecha, primerId);
+            //filtroConSinFiltroAvanzado = cs.BuscadorDeReportesCaja(datoBuscar, primerFecha, segundaFecha, primerId);
+
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                filtroConSinFiltroAvanzado = cs.BuscadorReportesCorteDeCajaAdministrador(primerFecha, segundaFecha, datoBuscar);
+            }
+            else
+            {
+                filtroConSinFiltroAvanzado = cs.BuscadorReporteCorteDeCajaEmpleado(primerFecha, segundaFecha, datoBuscar);
+            }
 
             //if (!querry.Rows.Count.Equals(0))
             //{
@@ -120,6 +135,22 @@ namespace PuntoDeVentaV2
             //    txtBuscador.Focus();
             //}
             CargarDatos();
+
+            if (DGVReporteCaja.Rows.Count.Equals(0))
+            {
+                datoBuscar = string.Empty;
+
+                if (!FormPrincipal.userNickName.Contains("@"))
+                {
+                    filtroConSinFiltroAvanzado = cs.BuscadorReportesCorteDeCajaAdministrador(primerFecha, segundaFecha, datoBuscar);
+                }
+                else
+                {
+                    filtroConSinFiltroAvanzado = cs.BuscadorReporteCorteDeCajaEmpleado(primerFecha, segundaFecha, datoBuscar);
+                }
+
+                CargarDatos();
+            }
         }
 
         private void cargarDGVInicial()
