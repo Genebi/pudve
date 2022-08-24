@@ -320,7 +320,6 @@ namespace PuntoDeVentaV2
                             {
                                 guardarUsuarioyContraseñaEntxt();
                             }
-                            
                         }
                         else // Empleado
                         {
@@ -349,7 +348,6 @@ namespace PuntoDeVentaV2
                             {
                                 guardarUsuarioyContraseñaEntxt();
                             }
-
                         }
 
                         if (!ComprobarEstadoLicencia(usuario))
@@ -414,6 +412,30 @@ namespace PuntoDeVentaV2
 
         private void guardarUsuarioyContraseñaEntxt()
         {
+            using (StreamWriter fileWrite = new StreamWriter(@"C:\Archivos PUDVE\DatosDeUsuarios\temp.txt"))
+            {
+                using (StreamReader fielRead = new StreamReader(@"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt"))
+                {
+                    String line;
+
+                    while ((line = fielRead.ReadLine()) != null)
+                    {
+                        string[] usuario;
+                        usuario = line.Split(',');
+
+                        if (txtUsuario.Text != usuario[0].ToString().Replace("[", ""))
+                        {
+                            fileWrite.WriteLine(line);
+                        }
+
+                    }
+                }
+            }
+
+            //aqui se renombrea el archivo temporal
+            File.Delete(@"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt");
+            File.Move(@"C:\Archivos PUDVE\DatosDeUsuarios\temp.txt", @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt");
+
             ///// SE CREA LA CARPETA DONDE ESTARA EL ARCHIVO CON LAS CONTRASEÑAS Y USUARIOS RECORDADOS.
             string folderPath = @"C:\Archivos PUDVE\DatosDeUsuarios";
             if (!Directory.Exists(folderPath))
@@ -432,7 +454,7 @@ namespace PuntoDeVentaV2
 
             if (!txtUsuario.Text.Equals(string.Empty) && !txtPassword.Text.Equals(string.Empty))
             {
-                if (File.Exists(path))
+                if (File.Exists(path))//--------------------------------------------------------------------------------------------------
                 {
                     if (new FileInfo(path).Length.Equals(0))
                     {
@@ -445,8 +467,8 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                            var contraseñaEncriptada = Encriptar(password);
-                            sw.WriteLine("[" + usuario + "," + contraseñaEncriptada + "]");
+                                var contraseñaEncriptada = Encriptar(password);
+                                sw.WriteLine("[" + usuario + "," + contraseñaEncriptada + "]");
                             }
                             
                         }
@@ -494,7 +516,6 @@ namespace PuntoDeVentaV2
                 var lines = File.ReadAllLines(path).Where(line => line.Trim() != item).ToArray();
                 File.WriteAllLines(path, lines);
             }
-
 
 
             if (guardarUsuario == 1)
@@ -1364,8 +1385,29 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            
-            
+            using (StreamReader fielRead = new StreamReader(@"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt"))
+            {
+                String line;
+
+                while ((line = fielRead.ReadLine()) != null)
+                {
+                    string[] usuario;
+                    usuario = line.Split(',');
+
+                    if ("o8VKT4mG4Gg=" != usuario[1].ToString().Replace("]", "") && txtUsuario.Text == usuario[0].ToString().Replace("[", ""))
+                    {
+                        chkRecordarContraseña.Checked = true;
+                        checkBoxRecordarUsuarui.Checked = true;
+                    }
+                    else if("o8VKT4mG4Gg=" == usuario[1].ToString().Replace("]", "") && txtUsuario.Text == usuario[0].ToString().Replace("[", ""))
+                    {
+                        checkBoxRecordarUsuarui.Checked = true;
+                        chkRecordarContraseña.Checked = false;
+                    }
+
+                }
+            }
+
         }
 
         private void OlvidarUsuariosGuardados_Click(object sender, EventArgs e)
