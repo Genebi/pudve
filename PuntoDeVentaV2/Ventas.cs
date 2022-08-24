@@ -5883,9 +5883,9 @@ namespace PuntoDeVentaV2
                 checkFoundPlusAndDot = verifiedContainsPlusSymbol(cadena);
 
                 var estaDentroDelLimite = false;
-                var esNumeroLaBusqueda = 0;
+                decimal esNumeroLaBusqueda;
                 string vacia = string.Empty;
-                estaDentroDelLimite = int.TryParse(cadena, out esNumeroLaBusqueda);
+                estaDentroDelLimite = decimal.TryParse(cadena, out esNumeroLaBusqueda);//Se cambio el tipo de dato INT por DECIMAL
 
                 if (estaDentroDelLimite.Equals(false))
                 {

@@ -189,7 +189,7 @@
             // 
             this.txtBuscadorProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBuscadorProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscadorProducto.Location = new System.Drawing.Point(94, 29);
+            this.txtBuscadorProducto.Location = new System.Drawing.Point(96, 29);
             this.txtBuscadorProducto.Name = "txtBuscadorProducto";
             this.txtBuscadorProducto.Size = new System.Drawing.Size(790, 22);
             this.txtBuscadorProducto.TabIndex = 0;
