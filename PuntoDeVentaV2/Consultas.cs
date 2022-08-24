@@ -4313,6 +4313,27 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string encabezadoCorteDeCaja(int IDCorteDeCaja)
+        {
+            var consulta = $"SET lc_time_names = 'es_MX'; SELECT Usr.RazonSocial, CONCAT( 'USUARIO (', IF ( Emp.nombre = '' OR Emp.nombre IS NULL, IF ( Usr.Usuario = '' OR Usr.Usuario IS NULL, '', Usr.Usuario ), Emp.nombre ), ')' ) AS 'Usuario', CONCAT( 'No Folio: ', Box.NumFolio ) AS 'Folio', 'CORTE DE CAJA' AS 'Movimiento', CONCAT( 'Fecha: ', DATE_FORMAT( HistCorteCaja.FechaOperacion, '%W - %e/%M/%Y' ), ' ', TIME_FORMAT( HistCorteCaja.FechaOperacion, '%h:%i:%s %p' ) ) AS 'FechaDeCorte' FROM historialcortesdecaja AS HistCorteCaja INNER JOIN caja AS Box ON ( Box.ID = HistCorteCaja.IDCorteDeCaja ) INNER JOIN usuarios AS Usr ON ( Usr.ID = HistCorteCaja.IDUsuario ) LEFT JOIN empleados AS Emp ON ( Emp.ID = HistCorteCaja.IDEmpleado ) WHERE HistCorteCaja.IDCorteDeCaja = '{IDCorteDeCaja}'";
+
+            return consulta;
+        }
+
+        public string intervaloVentasRealizadasAdministrador(int IDCorteDeCaja)
+        {
+            var consulta = $"SELECT HistCorteCaja.IDCorteDeCaja FROM historialcortesdecaja AS HistCorteCaja WHERE HistCorteCaja.IDUsuario = '{FormPrincipal.userID}' AND HistCorteCaja.IDEmpleado = '0' AND HistCorteCaja.IDCorteDeCaja <= '{IDCorteDeCaja}' ORDER BY ID DESC LIMIT 2";
+
+            return consulta;
+        }
+
+        public string tablaVentasRealizadasAdministrador(int IDCajaInicio, int IDCajaFin)
+        {
+            var consulta = $"SELECT CONCAT( '$ ', FORMAT( SUM( Efectivo ), 2 ) ) AS 'Efectivo', CONCAT( '$ ', FORMAT( SUM( Tarjeta ), 2 ) ) AS 'Tarjeta', CONCAT( '$ ', FORMAT( SUM( Vales ), 2 ) ) AS 'Vales', CONCAT( '$ ', FORMAT( SUM( Cheque ), 2 ) ) AS 'Cheque', CONCAT( '$ ', FORMAT( SUM( Transferencia ), 2 ) ) AS 'Transferencia', CONCAT( '$ ', FORMAT( SUM( Credito ), 2 ) ) AS 'Credito', CONCAT( '$ ', FORMAT( SUM( Anticipo ), 2 ) ) AS 'Anticipo', CONCAT( '$ ', FORMAT( ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) + SUM( Credito ) + SUM( Anticipo ) ), 2 ) ) AS 'TotalVentas' FROM caja WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0' AND ID <= '{IDCajaInicio}' AND ID >= '{IDCajaFin}' AND Operacion = 'venta'";
+
+            return consulta;
+        }
+
         public string BuscadorReporteCorteDeCajaEmpleado(string fechaInicio,string fechaFinal,string busqueda)
         {
             var consulta = $"SELECT HistCorteCaja.IDCorteDeCaja AS 'ID', HistCorteCaja.FechaOperacion, HistCorteCaja.IDEmpleado AS 'IdEmpleado', Emp.nombre, Usr.Usuario FROM historialcortesdecaja AS HistCorteCaja INNER JOIN caja AS Box ON ( Box.ID = HistCorteCaja.IDCorteDeCaja ) INNER JOIN usuarios AS Usr ON ( Usr.ID = HistCorteCaja.IDUsuario ) LEFT JOIN empleados AS Emp ON ( Emp.ID = HistCorteCaja.IDEmpleado ) WHERE HistCorteCaja.IDUsuario = '{FormPrincipal.userID}' AND HistCorteCaja.IDEmpleado = '{FormPrincipal.id_empleado}' AND HistCorteCaja.FechaOperacion >= '{fechaInicio} 00:00:00' AND HistCorteCaja.FechaOperacion <= '{fechaFinal} 23:59:59' AND ( Usr.Usuario LIKE '%{busqueda}%' OR Emp.nombre LIKE '%{busqueda}%' ) ORDER BY HistCorteCaja.FechaOperacion DESC";

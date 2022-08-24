@@ -1188,6 +1188,12 @@
       <DependentUpon>TicketPresupuesto.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="ReportesImpresion\Ticket\ReimprimirCorteDeCaja\DSReimprimirCorteDeCaja.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSReimprimirCorteDeCaja.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\TicketAnticipo\TicketAnticipo.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1414,6 +1420,12 @@
     </Compile>
     <Compile Include="visualizadorCorteDeCaja.Designer.cs">
       <DependentUpon>visualizadorCorteDeCaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="visualizadorReimprimirCorteDeCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="visualizadorReimprimirCorteDeCaja.Designer.cs">
+      <DependentUpon>visualizadorReimprimirCorteDeCaja.cs</DependentUpon>
     </Compile>
     <Compile Include="VisualizadorReportes.cs">
       <SubType>Form</SubType>
@@ -1930,6 +1942,9 @@
     <Content Include="ReportesImpresion\Ticket\NotasVentasHDA\ReportNotaVentaHDA.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\ReimprimirCorteDeCaja\CorteDeCaja.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -2019,6 +2034,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="visualizadorCorteDeCaja.resx">
       <DependentUpon>visualizadorCorteDeCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="visualizadorReimprimirCorteDeCaja.resx">
+      <DependentUpon>visualizadorReimprimirCorteDeCaja.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VisualizadorReportes.resx">
       <DependentUpon>VisualizadorReportes.cs</DependentUpon>
@@ -2180,6 +2198,20 @@
     </Content>
     <None Include="ReportesImpresion\Ticket\PresupuestoRealizado\TicketPresupuesto.xss">
       <DependentUpon>TicketPresupuesto.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\ReimprimirCorteDeCaja\DSReimprimirCorteDeCaja.xsc">
+      <DependentUpon>DSReimprimirCorteDeCaja.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="ReportesImpresion\Ticket\ReimprimirCorteDeCaja\DSReimprimirCorteDeCaja.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSReimprimirCorteDeCaja.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ReportesImpresion\Ticket\ReimprimirCorteDeCaja\DSReimprimirCorteDeCaja.xss">
+      <DependentUpon>DSReimprimirCorteDeCaja.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportesImpresion\Ticket\TicketAnticipo\TicketAnticipo.xsc">
