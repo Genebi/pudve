@@ -326,6 +326,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.ReimprimirCorteDeCaja {
             
             private global::System.Data.DataColumn columnCredito;
             
+            private global::System.Data.DataColumn columnAbonos;
+            
             private global::System.Data.DataColumn columnAnticipo;
             
             private global::System.Data.DataColumn columnTotalVentas;
@@ -413,6 +415,14 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.ReimprimirCorteDeCaja {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn AbonosColumn {
+                get {
+                    return this.columnAbonos;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn AnticipoColumn {
                 get {
                     return this.columnAnticipo;
@@ -464,7 +474,7 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.ReimprimirCorteDeCaja {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DTVentasRealizadasRow AddDTVentasRealizadasRow(string Efectivo, string Tarjeta, string Vales, string Cheque, string Transferencia, string Credito, string Anticipo, string TotalVentas) {
+            public DTVentasRealizadasRow AddDTVentasRealizadasRow(string Efectivo, string Tarjeta, string Vales, string Cheque, string Transferencia, string Credito, string Abonos, string Anticipo, string TotalVentas) {
                 DTVentasRealizadasRow rowDTVentasRealizadasRow = ((DTVentasRealizadasRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Efectivo,
@@ -473,6 +483,7 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.ReimprimirCorteDeCaja {
                         Cheque,
                         Transferencia,
                         Credito,
+                        Abonos,
                         Anticipo,
                         TotalVentas};
                 rowDTVentasRealizadasRow.ItemArray = columnValuesArray;
@@ -503,6 +514,7 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.ReimprimirCorteDeCaja {
                 this.columnCheque = base.Columns["Cheque"];
                 this.columnTransferencia = base.Columns["Transferencia"];
                 this.columnCredito = base.Columns["Credito"];
+                this.columnAbonos = base.Columns["Abonos"];
                 this.columnAnticipo = base.Columns["Anticipo"];
                 this.columnTotalVentas = base.Columns["TotalVentas"];
             }
@@ -522,6 +534,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.ReimprimirCorteDeCaja {
                 base.Columns.Add(this.columnTransferencia);
                 this.columnCredito = new global::System.Data.DataColumn("Credito", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCredito);
+                this.columnAbonos = new global::System.Data.DataColumn("Abonos", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAbonos);
                 this.columnAnticipo = new global::System.Data.DataColumn("Anticipo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAnticipo);
                 this.columnTotalVentas = new global::System.Data.DataColumn("TotalVentas", typeof(string), null, global::System.Data.MappingType.Element);
@@ -1067,6 +1081,22 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.ReimprimirCorteDeCaja {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Abonos {
+                get {
+                    try {
+                        return ((string)(this[this.tableDTVentasRealizadas.AbonosColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Abonos\' in table \'DTVentasRealizadas\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDTVentasRealizadas.AbonosColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string Anticipo {
                 get {
                     try {
@@ -1167,6 +1197,18 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.ReimprimirCorteDeCaja {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetCreditoNull() {
                 this[this.tableDTVentasRealizadas.CreditoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsAbonosNull() {
+                return this.IsNull(this.tableDTVentasRealizadas.AbonosColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetAbonosNull() {
+                this[this.tableDTVentasRealizadas.AbonosColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

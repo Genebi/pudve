@@ -288,7 +288,24 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        DataTable dtVentasRealizadas = cn.CargarDatos(cs.tablaVentasRealizadasAdministrador(IDCajaInicio, IDCajaFin));
+                        var fechaLimiteSuperior = string.Empty;
+                        var fechaLimiteInferior = string.Empty;
+
+                        using (DataTable dtRangoFechasAbonos = cn.CargarDatos(cs.intervaloFechasAbonosRealizadosAdministrador(IDCajaInicio, IDCajaFin)))
+                        {
+                            if (!dtRangoFechasAbonos.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtRangoFechasAbonos.Rows)
+                                {
+                                    var fecha1 = Convert.ToDateTime(item["LimiteSuperior"].ToString()).ToString("yyyy-MM-dd HH:mm:ss");
+                                    var fecha2 = Convert.ToDateTime(item["LimiteInferior"].ToString()).ToString("yyyy-MM-dd HH:mm:ss");
+                                    fechaLimiteSuperior = fecha1;
+                                    fechaLimiteInferior = fecha2;
+                                }
+                            }
+                        }
+
+                        DataTable dtVentasRealizadas = cn.CargarDatos(cs.tablaVentasRealizadasAdministrador(fechaLimiteSuperior, fechaLimiteInferior, IDCajaInicio, IDCajaFin));
 
                         dtVenta = dtVentasRealizadas;
                     }
