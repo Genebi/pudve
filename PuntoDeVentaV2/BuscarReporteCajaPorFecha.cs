@@ -259,6 +259,7 @@ namespace PuntoDeVentaV2
                 DataTable dtVenta = null;
                 DataTable dtAnticipo = null;
                 DataTable dtDineroAgregado = null;
+                DataTable dtDineroRetirado = null;
 
                 using (DataTable dtContenidoEncabezado = cn.CargarDatos(cs.encabezadoCorteDeCaja(id)))
                 {
@@ -323,6 +324,11 @@ namespace PuntoDeVentaV2
                     dtDineroAgregado = dtDineroAgregadoCaja;
                 }
 
+                using (DataTable dtDineroRetiradoCaja = cn.CargarDatos(cs.tablaDineroRetiradoAdministrador(IDCajaInicio, IDCajaFin)))
+                {
+                    dtDineroRetirado = dtDineroRetiradoCaja;
+                }
+
                 using (visualizadorReimprimirCorteDeCaja form = new visualizadorReimprimirCorteDeCaja())
                 {
                     form.FormClosed += delegate
@@ -335,12 +341,15 @@ namespace PuntoDeVentaV2
                         dtAnticipo = null;
                         dtDineroAgregado.Dispose();
                         dtDineroAgregado = null;
+                        dtDineroRetirado.Dispose();
+                        dtDineroRetirado = null;
                     };
 
                     form.dtEncabezado = dtEncabezado;
                     form.dtVentasRealizadas = dtVenta;
                     form.dtAnticiposRecibidos = dtAnticipo;
                     form.dtDineroAgregado = dtDineroAgregado;
+                    form.dtDineroRetirado = dtDineroRetirado;
                     form.ShowDialog();
                 }
             }
