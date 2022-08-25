@@ -1938,7 +1938,6 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo4_Click(object sender, EventArgs e)
         {
-
             if (txtPrecioProducto.Text == "" || txtPrecioProducto.Text == "0.0" || txtPrecioProducto.Text == "0")
             {
                 MessageBox.Show("Es necesario agregar el precio del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -9073,49 +9072,105 @@ namespace PuntoDeVentaV2
             float procedimiento;
             string[] words;
 
-            if (txtPrecioCompra.Text.Equals(""))
+            if (txtPrecioProducto.Text != "0")
             {
-                txtPrecioCompra.Text = "0";
-            }
-            else if (!txtPrecioCompra.Text.Equals(""))
-            {
-                words = txtPrecioCompra.Text.Split('.');
-                if (words[0].Equals(""))
+                var confirmacion = MessageBox.Show("Se ajustara el precio de venta en base al porcentaje de ganancia que se tiene desea mantener el precio de venta actual","Aviso del sistema", MessageBoxButtons.YesNo,MessageBoxIcon.Information);
+
+                if (confirmacion == DialogResult.No)
                 {
-                    words[0] = "0";
-                }
-                if (words.Length > 1)
-                {
-                    if (words[1].Equals(""))
+                    if (txtPrecioCompra.Text.Equals(""))
                     {
-                        words[1] = "00";
+                        txtPrecioCompra.Text = "0";
                     }
-                    txtPrecioCompra.Text = words[0] + "." + words[1];
+                    else if (!txtPrecioCompra.Text.Equals(""))
+                    {
+                        words = txtPrecioCompra.Text.Split('.');
+                        if (words[0].Equals(""))
+                        {
+                            words[0] = "0";
+                        }
+                        if (words.Length > 1)
+                        {
+                            if (words[1].Equals(""))
+                            {
+                                words[1] = "00";
+                            }
+                            txtPrecioCompra.Text = words[0] + "." + words[1];
+                        }
+                    }
+                    precioOriginalConIVA = (float)Convert.ToDouble(txtPrecioCompra.Text);
+                    procedimiento = (porcentajeGanancia / 100) + 1;
+                    PrecioRecomendado = precioOriginalConIVA * procedimiento;
+
+                    decimal cantidadPrecioProducto = 0;
+                    bool siEsNumero = false;
+
+                    siEsNumero = Decimal.TryParse(txtPrecioProducto.Text, out cantidadPrecioProducto);
+
+                    if (siEsNumero.Equals(true))
+                    {
+                        if (precioOriginalConIVA > 0)
+                        {
+                            txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
+                        }
+                        else
+                        {
+                            txtPrecioProducto.Text = "0";
+                        }
+                    }
+
+                    txtPrecioProducto.Focus();
+                    txtPrecioProducto.Select(txtPrecioProducto.Text.Length, 0);
                 }
             }
-            precioOriginalConIVA = (float)Convert.ToDouble(txtPrecioCompra.Text);
-            procedimiento = (porcentajeGanancia / 100) + 1;
-            PrecioRecomendado = precioOriginalConIVA * procedimiento;
-
-            decimal cantidadPrecioProducto = 0;
-            bool siEsNumero = false;
-
-            siEsNumero = Decimal.TryParse(txtPrecioProducto.Text, out cantidadPrecioProducto);
-
-            if (siEsNumero.Equals(true))
+            else
             {
-                if (precioOriginalConIVA > 0)
+                if (txtPrecioCompra.Text.Equals(""))
                 {
-                    txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
+                    txtPrecioCompra.Text = "0";
                 }
-                else
+                else if (!txtPrecioCompra.Text.Equals(""))
                 {
-                    txtPrecioProducto.Text = "0";
+                    words = txtPrecioCompra.Text.Split('.');
+                    if (words[0].Equals(""))
+                    {
+                        words[0] = "0";
+                    }
+                    if (words.Length > 1)
+                    {
+                        if (words[1].Equals(""))
+                        {
+                            words[1] = "00";
+                        }
+                        txtPrecioCompra.Text = words[0] + "." + words[1];
+                    }
                 }
+                precioOriginalConIVA = (float)Convert.ToDouble(txtPrecioCompra.Text);
+                procedimiento = (porcentajeGanancia / 100) + 1;
+                PrecioRecomendado = precioOriginalConIVA * procedimiento;
+
+                decimal cantidadPrecioProducto = 0;
+                bool siEsNumero = false;
+
+                siEsNumero = Decimal.TryParse(txtPrecioProducto.Text, out cantidadPrecioProducto);
+
+                if (siEsNumero.Equals(true))
+                {
+                    if (precioOriginalConIVA > 0)
+                    {
+                        txtPrecioProducto.Text = PrecioRecomendado.ToString("N2");
+                    }
+                    else
+                    {
+                        txtPrecioProducto.Text = "0";
+                    }
+                }
+
+                txtPrecioProducto.Focus();
+                txtPrecioProducto.Select(txtPrecioProducto.Text.Length, 0);
             }
 
-            txtPrecioProducto.Focus();
-            txtPrecioProducto.Select(txtPrecioProducto.Text.Length, 0);
+           
         }
 
         private void txtCantPaqServ_KeyPress(object sender, KeyPressEventArgs e)
