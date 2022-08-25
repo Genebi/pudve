@@ -238,7 +238,6 @@
             this.DGVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellClick);
             this.DGVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellContentClick_1);
             this.DGVentas.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellEndEdit);
-            this.DGVentas.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellEnter);
             this.DGVentas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellMouseEnter);
             this.DGVentas.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.DGVentas_CellStateChanged);
             this.DGVentas.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellValueChanged);
@@ -681,7 +680,6 @@
             this.txtDescuentoGeneral.TabIndex = 35;
             this.txtDescuentoGeneral.Text = "% descuento";
             this.txtDescuentoGeneral.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtDescuentoGeneral.TextChanged += new System.EventHandler(this.txtDescuentoGeneral_TextChanged);
             this.txtDescuentoGeneral.Enter += new System.EventHandler(this.txtDescuentoGeneral_Enter);
             this.txtDescuentoGeneral.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDescuentoGeneral_KeyDown);
             this.txtDescuentoGeneral.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescuentoGeneral_KeyPress);
