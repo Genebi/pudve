@@ -257,6 +257,7 @@ namespace PuntoDeVentaV2
 
                 DataTable dtEncabezado = null;
                 DataTable dtVenta = null;
+                DataTable dtAnticipo = null;
 
                 using (DataTable dtContenidoEncabezado = cn.CargarDatos(cs.encabezadoCorteDeCaja(id)))
                 {
@@ -311,6 +312,11 @@ namespace PuntoDeVentaV2
                     }
                 }
 
+                using (DataTable dtAnticiposRecibidos = cn.CargarDatos(cs.tablaAnticiposRecibidosAdministrador(IDCajaInicio, IDCajaFin)))
+                {
+                    dtAnticipo = dtAnticiposRecibidos;
+                }
+
                 using (visualizadorReimprimirCorteDeCaja form = new visualizadorReimprimirCorteDeCaja())
                 {
                     form.FormClosed += delegate
@@ -319,10 +325,13 @@ namespace PuntoDeVentaV2
                         dtEncabezado = null;
                         dtVenta.Dispose();
                         dtVenta = null;
+                        dtAnticipo.Dispose();
+                        dtAnticipo = null;
                     };
 
                     form.dtEncabezado = dtEncabezado;
                     form.dtVentasRealizadas = dtVenta;
+                    form.dtAnticiposRecibidos = dtAnticipo;
                     form.ShowDialog();
                 }
             }
