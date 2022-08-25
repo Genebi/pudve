@@ -436,6 +436,14 @@ namespace PuntoDeVentaV2
             // Enter
             if (e.KeyData == Keys.Enter)
             {
+                if (txtBuscadorProducto.Text == "+")
+                {
+                    txtBuscadorProducto.Text = "+1";
+                }
+                if (txtBuscadorProducto.Text == "+")
+                {
+                    txtBuscadorProducto.Text = "-1";
+                }
                 if (!string.IsNullOrWhiteSpace(txtBuscadorProducto.Text.Trim()))
                 {
                     if (!txtBuscadorProducto.Text.Equals("BUSCAR PRODUCTO O SERVICIO..."))
@@ -6021,9 +6029,9 @@ namespace PuntoDeVentaV2
                 checkFoundMinusAndDot = verifiedContainsMinusSymbol(cadena);
 
                 var estaDentroDelLimite = false;
-                var esNumeroLaBusqueda = 0;
+                decimal esNumeroLaBusqueda = 0;
                 string vacia = string.Empty;
-                estaDentroDelLimite = int.TryParse(cadena, out esNumeroLaBusqueda);
+                estaDentroDelLimite = decimal.TryParse(cadena, out esNumeroLaBusqueda);
 
                 if (estaDentroDelLimite.Equals(false))
                 {
@@ -6115,7 +6123,7 @@ namespace PuntoDeVentaV2
                                 cantidadExtra = Convert.ToInt32(infoTmp[1]) * -1;
                             }
                         }
-
+                         
                         cadena = Regex.Replace(cadena, tercerPatron, string.Empty);
 
                         //Verifica que exista algun producto o servicio en el datagridview
