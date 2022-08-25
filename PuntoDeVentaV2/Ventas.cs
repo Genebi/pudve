@@ -440,7 +440,7 @@ namespace PuntoDeVentaV2
                 {
                     txtBuscadorProducto.Text = "+1";
                 }
-                if (txtBuscadorProducto.Text == "+")
+                if (txtBuscadorProducto.Text == "-")
                 {
                     txtBuscadorProducto.Text = "-1";
                 }

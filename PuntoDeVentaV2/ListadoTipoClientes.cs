@@ -30,7 +30,6 @@ namespace PuntoDeVentaV2
         private void CargarDatos()
         {
             var servidor = Properties.Settings.Default.Hosting;
-
             MySqlConnection sql_con;
             MySqlCommand sql_cmd;
             MySqlDataReader dr;
@@ -114,6 +113,7 @@ namespace PuntoDeVentaV2
                 }
 
                 DGVClientes.ClearSelection();
+                CargarDatos();
             }
         }
 
