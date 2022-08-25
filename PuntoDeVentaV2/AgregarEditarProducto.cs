@@ -1938,7 +1938,8 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo4_Click(object sender, EventArgs e)
         {
-            if (txtPrecioProducto.Text == "")
+
+            if (txtPrecioProducto.Text == "" || txtPrecioProducto.Text == "0.0" || txtPrecioProducto.Text == "0")
             {
                 MessageBox.Show("Es necesario agregar el precio del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
