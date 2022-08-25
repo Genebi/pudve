@@ -36,7 +36,7 @@ namespace PuntoDeVentaV2
         decimal cantidd_productos = 0;
         int excede_montomax_xproducto = 0;
 
-        
+        string RazonS, RFC, Telefono, Nombre, CFDI, Correo, Pais, Estado, Municipio, Localidad, CP, Colonia, Calle, NumInt, NumExt,NumeroCliente;
 
         private void RemoveText(object sender, EventArgs e)
         {
@@ -934,6 +934,22 @@ namespace PuntoDeVentaV2
                             groupb_productos.Visible = false;
                         }
                     }
+                    RazonS = txt_razon_social.Text;
+                    RFC = txt_rfc.Text;
+                    Telefono = txt_telefono.Text;
+                    Nombre = txt_nombre_comercial.Text;
+                    CFDI = cmb_bx_uso_cfdi.Text;
+                    Correo = txt_correo.Text;
+                    Pais = txt_pais.Text;
+                    Estado = txt_estado.Text;
+                    Municipio = txt_municipio.Text;
+                    Localidad = txt_localidad.Text;
+                    CP = txt_cp.Text;
+                    Colonia = txt_colonia.Text;
+                    Calle = txt_calle.Text;
+                    NumInt = txt_num_int.Text;
+                    NumExt = txt_num_ext.Text;
+                    NumeroCliente = GenerarNumeroCliente();
 
 
                     // CREAR LA FACTURA
@@ -1002,6 +1018,8 @@ namespace PuntoDeVentaV2
                             botones_visibles(2);
                             return;
                         }
+
+                     
 
                         // Monto máximo de cada factura
 
@@ -1076,7 +1094,13 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-
+                        using (DataTable ConsultaCliente = cn.CargarDatos($"SELECT * FROM clientes WHERE RazonSocial = '{RazonS}' AND RFC = '{RFC}'"))
+                        {
+                            if (ConsultaCliente.Rows.Count.Equals(0))
+                            {
+                                cn.EjecutarConsulta($"INSERT INTO clientes ( RazonSocial, RFC, Telefono, NombreComercial, UsoCFDI, Email, Pais, Estado, Municipio, Localidad, CodigoPostal, Colonia, Calle, NoInterior, NoExterior, IDUsuario,NumeroCliente )VALUES( '{RazonS}', '{RFC}', '{Telefono}', '{Nombre}', '{CFDI}', '{Correo}', '{Pais}', '{Estado}', '{Municipio}', '{Localidad}', '{CP}', '{Colonia}', '{Calle}', '{NumInt}', '{NumExt}', '{FormPrincipal.userID}','{NumeroCliente}')");
+                            }
+                        }
 
 
                         // .....................
@@ -1768,6 +1792,24 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Sin conexión a internet. Esta accción requiere una conexión.", "", MessageBoxButtons.OK);
             }
+        }
+
+        private string GenerarNumeroCliente()
+        {
+            var auxiliar = mb.ObtenerNumeroCliente();
+
+            if (string.IsNullOrWhiteSpace(auxiliar))
+            {
+                auxiliar = "0";
+            }
+            else
+            {
+                auxiliar = auxiliar.TrimStart('0');
+            }
+
+            var numero = Convert.ToInt16(auxiliar) + 1;
+
+            return numero.ToString("D6");
         }
 
         public void botones_visibles(int opc)
