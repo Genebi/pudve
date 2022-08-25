@@ -1036,7 +1036,7 @@
         <KeepTogether>true</KeepTogether>
         <Top>13.56561cm</Top>
         <Left>22.10622cm</Left>
-        <Height>1.73271cm</Height>
+        <Height>1.36229cm</Height>
         <Width>5.37769cm</Width>
         <ZIndex>16</ZIndex>
         <Style>
@@ -1050,7 +1050,7 @@
         <KeepTogether>true</KeepTogether>
         <Top>13.56561cm</Top>
         <Left>16.74793cm</Left>
-        <Height>1.73271cm</Height>
+        <Height>1.36229cm</Height>
         <Width>5.35917cm</Width>
         <ZIndex>17</ZIndex>
         <Style>
@@ -1064,7 +1064,7 @@
         <KeepTogether>true</KeepTogether>
         <Top>13.56232cm</Top>
         <Left>11.3914cm</Left>
-        <Height>1.736cm</Height>
+        <Height>1.36558cm</Height>
         <Width>5.35917cm</Width>
         <ZIndex>18</ZIndex>
         <Style>
@@ -1078,7 +1078,7 @@
         <KeepTogether>true</KeepTogether>
         <Top>13.56232cm</Top>
         <Left>6.04987cm</Left>
-        <Height>1.736cm</Height>
+        <Height>1.36558cm</Height>
         <Width>5.35917cm</Width>
         <ZIndex>19</ZIndex>
         <Style>
@@ -1199,7 +1199,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DTVentasRealizadas</DataSetName>
-            <Top>0.40937cm</Top>
+            <Top>0.15537cm</Top>
             <Left>0.09525cm</Left>
             <Height>0.94396cm</Height>
             <Width>5.2cm</Width>
@@ -1214,7 +1214,7 @@
         <KeepTogether>true</KeepTogether>
         <Top>13.56232cm</Top>
         <Left>0.58129cm</Left>
-        <Height>1.736cm</Height>
+        <Height>1.36558cm</Height>
         <Width>5.48269cm</Width>
         <ZIndex>20</ZIndex>
         <Style>
