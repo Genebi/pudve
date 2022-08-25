@@ -54,6 +54,7 @@
             this.cbFiltroAdminEmpleado = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnCrearVentaGlobal = new System.Windows.Forms.Button();
             this.btnReportes = new System.Windows.Forms.Button();
             this.btn_descargar = new System.Windows.Forms.Button();
             this.txtBuscador = new System.Windows.Forms.TextBox();
@@ -64,7 +65,6 @@
             this.btnBuscarVentas = new System.Windows.Forms.Button();
             this.cbVentas = new System.Windows.Forms.ComboBox();
             this.cbTipoVentas = new System.Windows.Forms.ComboBox();
-            this.btn_timbrar = new System.Windows.Forms.Button();
             this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnActualizarMaximoProductos = new System.Windows.Forms.Button();
@@ -276,6 +276,7 @@
             this.panelBotones.Controls.Add(this.cbFiltroAdminEmpleado);
             this.panelBotones.Controls.Add(this.label2);
             this.panelBotones.Controls.Add(this.label1);
+            this.panelBotones.Controls.Add(this.btnCrearVentaGlobal);
             this.panelBotones.Controls.Add(this.btnReportes);
             this.panelBotones.Controls.Add(this.btn_descargar);
             this.panelBotones.Controls.Add(this.txtBuscador);
@@ -286,9 +287,9 @@
             this.panelBotones.Controls.Add(this.btnBuscarVentas);
             this.panelBotones.Controls.Add(this.cbVentas);
             this.panelBotones.Controls.Add(this.cbTipoVentas);
-            this.panelBotones.Location = new System.Drawing.Point(12, 77);
+            this.panelBotones.Location = new System.Drawing.Point(12, 55);
             this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(886, 76);
+            this.panelBotones.Size = new System.Drawing.Size(886, 110);
             this.panelBotones.TabIndex = 6;
             // 
             // cbFiltroAdminEmpleado
@@ -299,7 +300,7 @@
             this.cbFiltroAdminEmpleado.Items.AddRange(new object[] {
             "Administrador",
             "Todos"});
-            this.cbFiltroAdminEmpleado.Location = new System.Drawing.Point(222, 10);
+            this.cbFiltroAdminEmpleado.Location = new System.Drawing.Point(251, 10);
             this.cbFiltroAdminEmpleado.Name = "cbFiltroAdminEmpleado";
             this.cbFiltroAdminEmpleado.Size = new System.Drawing.Size(185, 21);
             this.cbFiltroAdminEmpleado.TabIndex = 15;
@@ -308,7 +309,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(531, 29);
+            this.label2.Location = new System.Drawing.Point(531, 69);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 13);
             this.label2.TabIndex = 14;
@@ -317,11 +318,27 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(422, 29);
+            this.label1.Location = new System.Drawing.Point(422, 69);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 13;
             this.label1.Text = "Fecha incial";
+            // 
+            // btnCrearVentaGlobal
+            // 
+            this.btnCrearVentaGlobal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCrearVentaGlobal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnCrearVentaGlobal.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCrearVentaGlobal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCrearVentaGlobal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCrearVentaGlobal.ForeColor = System.Drawing.Color.White;
+            this.btnCrearVentaGlobal.Location = new System.Drawing.Point(639, 75);
+            this.btnCrearVentaGlobal.Name = "btnCrearVentaGlobal";
+            this.btnCrearVentaGlobal.Size = new System.Drawing.Size(244, 27);
+            this.btnCrearVentaGlobal.TabIndex = 10;
+            this.btnCrearVentaGlobal.Text = "Crear venta global";
+            this.btnCrearVentaGlobal.UseVisualStyleBackColor = false;
+            this.btnCrearVentaGlobal.Click += new System.EventHandler(this.btnCrearVentaGlobal_Click);
             // 
             // btnReportes
             // 
@@ -448,7 +465,7 @@
             this.cbVentas.Items.AddRange(new object[] {
             "Todas las ventas",
             "Mis ventas"});
-            this.cbVentas.Location = new System.Drawing.Point(222, 10);
+            this.cbVentas.Location = new System.Drawing.Point(252, 10);
             this.cbVentas.Name = "cbVentas";
             this.cbVentas.Size = new System.Drawing.Size(156, 21);
             this.cbVentas.TabIndex = 0;
@@ -461,27 +478,10 @@
             this.cbTipoVentas.FormattingEnabled = true;
             this.cbTipoVentas.Location = new System.Drawing.Point(3, 10);
             this.cbTipoVentas.Name = "cbTipoVentas";
-            this.cbTipoVentas.Size = new System.Drawing.Size(213, 21);
+            this.cbTipoVentas.Size = new System.Drawing.Size(243, 21);
             this.cbTipoVentas.TabIndex = 1;
             this.cbTipoVentas.SelectedIndexChanged += new System.EventHandler(this.cbTipoVentas_SelectedIndexChanged);
             this.cbTipoVentas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbTipoVentas_KeyDown);
-            // 
-            // btn_timbrar
-            // 
-            this.btn_timbrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_timbrar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btn_timbrar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_timbrar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_timbrar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_timbrar.ForeColor = System.Drawing.Color.White;
-            this.btn_timbrar.Location = new System.Drawing.Point(806, 47);
-            this.btn_timbrar.Name = "btn_timbrar";
-            this.btn_timbrar.Size = new System.Drawing.Size(89, 24);
-            this.btn_timbrar.TabIndex = 10;
-            this.btn_timbrar.Text = "Timbrar";
-            this.btn_timbrar.UseVisualStyleBackColor = false;
-            this.btn_timbrar.Visible = false;
-            this.btn_timbrar.Click += new System.EventHandler(this.btn_timbrar_Click);
             // 
             // TTMensaje
             // 
@@ -629,7 +629,7 @@
             this.linkLblPaginaSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(475, 28);
             this.linkLblPaginaSiguiente.Name = "linkLblPaginaSiguiente";
-            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(15, 16);
+            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(14, 16);
             this.linkLblPaginaSiguiente.TabIndex = 24;
             this.linkLblPaginaSiguiente.TabStop = true;
             this.linkLblPaginaSiguiente.Text = "3";
@@ -643,7 +643,7 @@
             this.linkLblPaginaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaActual.Location = new System.Drawing.Point(448, 28);
             this.linkLblPaginaActual.Name = "linkLblPaginaActual";
-            this.linkLblPaginaActual.Size = new System.Drawing.Size(15, 16);
+            this.linkLblPaginaActual.Size = new System.Drawing.Size(14, 16);
             this.linkLblPaginaActual.TabIndex = 23;
             this.linkLblPaginaActual.TabStop = true;
             this.linkLblPaginaActual.Text = "2";
@@ -657,7 +657,7 @@
             this.linkLblPaginaAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaAnterior.Location = new System.Drawing.Point(418, 28);
             this.linkLblPaginaAnterior.Name = "linkLblPaginaAnterior";
-            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(15, 16);
+            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(14, 16);
             this.linkLblPaginaAnterior.TabIndex = 22;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "1";
@@ -747,7 +747,6 @@
             this.Controls.Add(this.chkHDAutlan);
             this.Controls.Add(this.chTodos);
             this.Controls.Add(this.lb_txt_ruta_descargar);
-            this.Controls.Add(this.btn_timbrar);
             this.Controls.Add(this.lb_texto_descarga_verpdf);
             this.Controls.Add(this.pBar_descarga_verpdf);
             this.Controls.Add(this.panel1);
@@ -799,7 +798,7 @@
         private System.Windows.Forms.FolderBrowserDialog elegir_carpeta_descarga;
         private System.Windows.Forms.ProgressBar pBar_descarga_verpdf;
         private System.Windows.Forms.Label lb_texto_descarga_verpdf;
-        private System.Windows.Forms.Button btn_timbrar;
+        private System.Windows.Forms.Button btnCrearVentaGlobal;
         public System.Windows.Forms.Button btnNuevaVenta;
         public System.Windows.Forms.ComboBox cbTipoVentas;
         private System.Windows.Forms.Label lb_txt_ruta_descargar;

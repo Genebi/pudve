@@ -156,10 +156,11 @@ namespace PuntoDeVentaV2
 
             // Opciones para el combobox
             Dictionary<string, string> ventas = new Dictionary<string, string>();
-            ventas.Add("VP", "Ventas pagadas");
-            ventas.Add("VG", "Ventas guardadas (Presupuestos)");
-            ventas.Add("VC", "Ventas canceladas");
-            ventas.Add("VCC", "Ventas a crédito");
+            ventas.Add("VP", "VENTAS PAGADAS");
+            ventas.Add("VG", "VENTAS GUARDADAS (PRESUPUESTOS)");
+            ventas.Add("VC", "VENTAS CANCELADAS");
+            ventas.Add("VCC", "VENTAS A CRÉDITO");
+            ventas.Add("VGG", "VENTAS GLOBALES");
 
             cbTipoVentas.DataSource = ventas.ToArray();
             cbTipoVentas.DisplayMember = "Value";
@@ -444,6 +445,8 @@ namespace PuntoDeVentaV2
                     if (opcion == "VC") { estado = 3; }
                     // Ventas a credito
                     if (opcion == "VCC") { estado = 4; }
+                    // Ventas globales
+                    if (opcion == "VGG") { estado = 5; }
 
 
                     if (buscador.Equals("BUSCAR POR RFC, CLIENTE, EMPLEADO O FOLIO..."))
@@ -472,7 +475,7 @@ namespace PuntoDeVentaV2
                             {
                                 consulta = cs.VerComoEpleadoTodasMisVentasPagadasPorFechas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal);
                             }
-                            else if (estado.Equals(2)) // Ventas guardadas
+                            else if (estado.Equals(2) || estado.Equals(5)) // Ventas guardadas o ventas globales
                             {
                                 consulta = cs.VerComoEpleadoTodasLaVentasGuardadasPorFechas(estado, fechaInicial, fechaFinal);
                             }
@@ -503,7 +506,7 @@ namespace PuntoDeVentaV2
                                     consulta = cs.filtroPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
                                 }
                             }
-                            else if (estado.Equals(2)) // Ventas guardadas
+                            else if (estado.Equals(2) || estado.Equals(5)) // Ventas guardadas o ventas globales
                             {
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                 {
@@ -598,7 +601,7 @@ namespace PuntoDeVentaV2
                                 {
                                     buscarSoloEmpleado(buscador, fechaInicial, fechaFinal);
                                 }
-                                else if (opcionFiltrado == "VG") //Ventas guardadas
+                                else if (opcionFiltrado == "VG" || opcionFiltrado == "VGG") //Ventas guardadas o ventas globales
                                 {
                                     buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
                                 }
@@ -630,7 +633,7 @@ namespace PuntoDeVentaV2
                                         buscarSoloEmpleado(buscador, fechaInicial, fechaFinal);
                                     }
                                 }
-                                else if (opcionFiltrado == "VG") //Ventas guardadas
+                                else if (opcionFiltrado == "VG" || opcionFiltrado == "VGG") //Ventas guardadas o ventas globales
                                 {
                                     buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
                                 }
@@ -680,7 +683,7 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                             }
-                            else if (estado.Equals(2)) // Ventas guardadas
+                            else if (estado.Equals(2) || estado.Equals(5)) // Ventas guardadas o ventas globales
                             {
                                 consulta = cs.VerComoEmpleadoTodasLasVentasGuardadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
                             }
@@ -712,7 +715,7 @@ namespace PuntoDeVentaV2
                                     consulta = cs.filtroPorEmpleadoDesdeAdministradorConParamettro(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra);
                                 }
                             }
-                            else if (estado.Equals(2)) // Ventas guardadas
+                            else if (estado.Equals(2) || estado.Equals(5)) // Ventas guardadas o ventas globales
                             {
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                 {
@@ -808,7 +811,7 @@ namespace PuntoDeVentaV2
                         {
                             consulta = cs.VerComoEmpleadoTodasMisVentasPagadas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal);
                         }
-                        else if (estado.Equals(2)) // Ventas guardadas
+                        else if (estado.Equals(2) || estado.Equals(5)) // Ventas guardadas o ventas globales
                         {
                             consulta = cs.VerComoEmpleadoTodasLasVentasGuardadas(estado, fechaInicial, fechaFinal);
                         }
@@ -906,7 +909,7 @@ namespace PuntoDeVentaV2
                                 consulta = cs.filtroPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
                             }
                         }
-                        else if (estado.Equals(2)) // Ventas guardadas
+                        else if (estado.Equals(2) || estado.Equals(5)) // Ventas guardadas o ventas globales
                         {
                             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                             {
@@ -1463,6 +1466,8 @@ namespace PuntoDeVentaV2
             if (opcion == "VC") { CargarDatos(3); }
             //Ventas a credito
             if (opcion == "VCC") { CargarDatos(4); }
+            //Ventas globales
+            if (opcion == "VGG") { CargarDatos(5); }
         }
 
         #region Manejo del evento MouseEnter para el DataGridView
@@ -4383,68 +4388,6 @@ namespace PuntoDeVentaV2
             return true;
         }
 
-        private void btn_timbrar_Click(object sender, EventArgs e)
-        {
-            /*int cont = 0;
-            int b = 0;
-            int c = 0;
-            int t = DGVListadoVentas.Rows.Count - 2;
-            string mnsj_error = "";
-            int[] arr_id_timb;
-
-
-            foreach (DataGridViewRow row in DGVListadoVentas.Rows)
-            {
-                if (c < t)
-                {
-                    bool estado = (bool)row.Cells["col_checkbox"].Value;
-
-                    if (estado == true)
-                    {
-                        cont++;
-                    }
-                    else
-                    {
-                        mnsj_error = "No ha seleccionado alguna nota de venta para timbrar.";
-                    }
-
-                    c++;
-                }
-            }
-
-
-            // Obtener el id de la factura a enviar
-
-            if (cont > 0)
-            {
-                c = 0;
-                arr_id_timb = new int[cont];
-
-                foreach (DataGridViewRow row in DGVListadoVentas.Rows)
-                {
-                    if (c < t)
-                    {
-                        bool estado = (bool)row.Cells["col_checkbox"].Value;
-
-                        if (estado == true)
-                        {
-                            arr_id_timb[b] = Convert.ToInt32(row.Cells["ID"].Value);
-
-                            b++;
-                        }
-                        c++;
-                    }
-                }
-
-
-            }
-            else
-            {
-                MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
-            agregarFocus();
-        }
-
         private void agregarFocus()
         {
             this.Focus();
@@ -4939,6 +4882,11 @@ namespace PuntoDeVentaV2
         }
 
         private void chkHDAutlan_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnCrearVentaGlobal_Click(object sender, EventArgs e)
         {
 
         }
