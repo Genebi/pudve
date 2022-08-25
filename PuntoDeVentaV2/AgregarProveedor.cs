@@ -21,6 +21,7 @@ namespace PuntoDeVentaV2
         //tipo 2 = editar
         private int tipo = 0;
         private int idProveedor = 0;
+        public static string editarAgregar = "editar";
 
         public AgregarProveedor(int tipo = 1, int idProveedor = 0)
         {
@@ -66,9 +67,11 @@ namespace PuntoDeVentaV2
             bool YaExiste = false;
             using (var ConsultaNombre = cn.CargarDatos($"SELECT Nombre FROM proveedores WHERE `Status` = 1 AND IDUsuario = {FormPrincipal.userID}"))
             {
-
+                if (editarAgregar == "agregar")
+                {
                   foreach (DataRow Nombres in ConsultaNombre.Rows)
                   {
+
                         string unNombre = Nombres[0].ToString();
                         if (txtNombre.Text.Equals(unNombre))
                         {
@@ -79,6 +82,7 @@ namespace PuntoDeVentaV2
                         }
                        
                   }
+                }
 
                 if (YaExiste.Equals(false))
                 {
@@ -147,7 +151,6 @@ namespace PuntoDeVentaV2
         {
             this.Close();
         }
-
 
         private void CargarDatosProveedor(string[] datos)
         {
