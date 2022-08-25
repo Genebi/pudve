@@ -182,5 +182,22 @@ namespace PuntoDeVentaV2
                 this.Close();
             }
         }
+
+        private void txtDescuento_TextChanged(object sender, EventArgs e)
+        {
+            decimal Descuento;
+            if (string.IsNullOrWhiteSpace(txtDescuento.Text))
+            {
+                Descuento = 0;
+            }
+            else
+            {
+                Descuento = Convert.ToDecimal(txtDescuento.Text);
+            }
+            if (Descuento>99)
+            {
+                txtDescuento.Text = "99";
+            }
+        }
     }
 }
