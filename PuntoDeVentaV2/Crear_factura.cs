@@ -949,6 +949,8 @@ namespace PuntoDeVentaV2
                     Calle = txt_calle.Text;
                     NumInt = txt_num_int.Text;
                     NumExt = txt_num_ext.Text;
+                    DateTime FechaHoy = DateTime.Now;
+                    string FechaFin = FechaHoy.ToString("yyyy-MM-dd hh:mm:ss");
                     NumeroCliente = GenerarNumeroCliente();
 
 
@@ -1018,9 +1020,6 @@ namespace PuntoDeVentaV2
                             botones_visibles(2);
                             return;
                         }
-
-                     
-
                         // Monto máximo de cada factura
 
                         /*if(txt_cantidad_max.Text.Trim() == "" | txt_cantidad_max.Text.Trim() == "0")
@@ -1098,7 +1097,7 @@ namespace PuntoDeVentaV2
                         {
                             if (ConsultaCliente.Rows.Count.Equals(0))
                             {
-                                cn.EjecutarConsulta($"INSERT INTO clientes ( RazonSocial, RFC, Telefono, NombreComercial, UsoCFDI, Email, Pais, Estado, Municipio, Localidad, CodigoPostal, Colonia, Calle, NoInterior, NoExterior, IDUsuario,NumeroCliente )VALUES( '{RazonS}', '{RFC}', '{Telefono}', '{Nombre}', '{CFDI}', '{Correo}', '{Pais}', '{Estado}', '{Municipio}', '{Localidad}', '{CP}', '{Colonia}', '{Calle}', '{NumInt}', '{NumExt}', '{FormPrincipal.userID}','{NumeroCliente}')");
+                                cn.EjecutarConsulta($"INSERT INTO clientes ( RazonSocial, RFC, Telefono, NombreComercial, UsoCFDI, Email, Pais, Estado, Municipio, Localidad, CodigoPostal, Colonia, Calle, NoInterior, NoExterior, IDUsuario,NumeroCliente,FechaOperacion)VALUES( '{RazonS}', '{RFC}', '{Telefono}', '{Nombre}', '{CFDI}', '{Correo}', '{Pais}', '{Estado}', '{Municipio}', '{Localidad}', '{CP}', '{Colonia}', '{Calle}', '{NumInt}', '{NumExt}', '{FormPrincipal.userID}','{NumeroCliente}','{FechaFin}')");
                             }
                         }
 

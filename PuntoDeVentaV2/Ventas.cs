@@ -38,7 +38,7 @@ namespace PuntoDeVentaV2
         private Dictionary<int, bool> productosDescuentoG = new Dictionary<int, bool>();
         float porcentajeGeneral = 0;
         float descuentoCliente = 0;
-
+        bool yasemando = false;
 
         List<string> productoEliminadoCorreo;
         string PrecioDelProducto;
@@ -1385,8 +1385,14 @@ namespace PuntoDeVentaV2
                 {
                     //txtBuscadorProducto.Text = string.Empty;
                     //txtBuscadorProducto.Focus();
+
                     if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                     {
+                        if (opcion19 == 0)
+                        {
+                            Utilidades.MensajePermiso();
+                            return;
+                        }
                         var idProducto = DGVentas.Rows[celdaCellClick].Cells["IDProducto"].Value.ToString();
                         var nombreProducto = DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString();
                         var precioProducto = DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString();
@@ -1426,7 +1432,19 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-
+                        
+                        
+                        if (yasemando.Equals(false))
+                        {
+                            string Folio = Contenido;
+                            string datosCorreoVenta = formaDePagoDeVenta + "|" + cliente + "|" + Folio;
+                            foreach (DataGridViewRow articulo in DGVentas.Rows)
+                            {
+                                enviarVenta.Add(articulo.Cells["Cantidad"].Value.ToString() + "|" + articulo.Cells["Precio"].Value.ToString() + "|" + articulo.Cells["Descripcion"].Value.ToString() + "|" + articulo.Cells["Descuento"].Value.ToString() + "|" + articulo.Cells["Importe"].Value.ToString() + "|" + datosCorreoVenta + "|" + cAnticipo.Text.Trim() + "|" + cAnticipoUtilizado.Text.Trim() + "|" + cDescuento.Text.Trim());
+                            }
+                            yasemando = true;
+                        }
+                        
                         SendKeys.Send("{ENTER}");
                         SendKeys.Send("{ENTER}");
                     }
@@ -3291,6 +3309,7 @@ namespace PuntoDeVentaV2
                 }
             }
             txtBuscadorProducto.Focus();
+            yasemando = false;
         }
 
         private void ultimaVentaInformacion()
@@ -7990,11 +8009,6 @@ namespace PuntoDeVentaV2
             txtBuscadorProducto.Select();
         }
 
-        private void DGVentas_CellEnter(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void nudCantidadPS_Click(object sender, EventArgs e)
         {
             var canitdad = Convert.ToDecimal(nudCantidadPS.Value);
@@ -8130,11 +8144,6 @@ namespace PuntoDeVentaV2
             {
                 e.Handled = true;
             }
-        }
-
-        private void txtDescuentoGeneral_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void DGVentas_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
