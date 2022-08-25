@@ -713,10 +713,6 @@ namespace PuntoDeVentaV2
                             // Agregamos marca de agua al PDF del ticket de la venta cancelada
                             Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
 
-                            var mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                            if (mensaje == DialogResult.Yes)
-                            {
                                 var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
                                 // Operacion para que la devolucion del dinero afecte al apartado Caja
@@ -741,7 +737,7 @@ namespace PuntoDeVentaV2
 
                                     cn.EjecutarConsulta(cs.OperacionCaja(datos));
                                 }
-                            }
+                            
                         }
                         //Cargar la venta cancelada 
                         CargarVentaGuardada();
@@ -7109,7 +7105,7 @@ namespace PuntoDeVentaV2
             txtDescuentoGeneral.Select(0, 0);
         }
 
-        private void checkCancelar_MouseClick(object sender, MouseEventArgs e)
+        private void checkCancelar_MouseClick(object sender, MouseEventArgs e)  
         {
             if (checkCancelar.Checked)
             {

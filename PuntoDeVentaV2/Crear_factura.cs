@@ -36,7 +36,7 @@ namespace PuntoDeVentaV2
         decimal cantidd_productos = 0;
         int excede_montomax_xproducto = 0;
 
-        string RazonS, RFC, Telefono, Nombre, CFDI, Correo, Pais, Estado, Municipio, Localidad, CP, Colonia, Calle, NumInt, NumExt,NumeroCliente;
+        string RazonS, RFC, Telefono, Nombre, Correo, Pais, Estado, Municipio, Localidad, CP, Colonia, Calle, NumInt, NumExt,NumeroCliente;
 
         private void RemoveText(object sender, EventArgs e)
         {
@@ -938,7 +938,7 @@ namespace PuntoDeVentaV2
                     RFC = txt_rfc.Text;
                     Telefono = txt_telefono.Text;
                     Nombre = txt_nombre_comercial.Text;
-                    CFDI = cmb_bx_uso_cfdi.Text;
+                    var CFDI = cmb_bx_uso_cfdi.SelectedValue;
                     Correo = txt_correo.Text;
                     Pais = txt_pais.Text;
                     Estado = txt_estado.Text;
@@ -1097,7 +1097,7 @@ namespace PuntoDeVentaV2
                         {
                             if (ConsultaCliente.Rows.Count.Equals(0))
                             {
-                                cn.EjecutarConsulta($"INSERT INTO clientes ( RazonSocial, RFC, Telefono, NombreComercial, UsoCFDI, Email, Pais, Estado, Municipio, Localidad, CodigoPostal, Colonia, Calle, NoInterior, NoExterior, IDUsuario,NumeroCliente,FechaOperacion)VALUES( '{RazonS}', '{RFC}', '{Telefono}', '{Nombre}', '{CFDI}', '{Correo}', '{Pais}', '{Estado}', '{Municipio}', '{Localidad}', '{CP}', '{Colonia}', '{Calle}', '{NumInt}', '{NumExt}', '{FormPrincipal.userID}','{NumeroCliente}','{FechaFin}')");
+                                cn.EjecutarConsulta($"INSERT INTO clientes ( RazonSocial, RFC, Telefono, NombreComercial, UsoCFDI, Email, Pais, Estado, Municipio, Localidad, CodigoPostal, Colonia, Calle, NoInterior, NoExterior, IDUsuario,NumeroCliente,FechaOperacion)VALUES( '{RazonS}', '{RFC}', '{Telefono}', '{Nombre}', '{CFDI.ToString()}', '{Correo}', '{Pais}', '{Estado}', '{Municipio}', '{Localidad}', '{CP}', '{Colonia}', '{Calle}', '{NumInt}', '{NumExt}', '{FormPrincipal.userID}','{NumeroCliente}','{FechaFin}')");
                             }
                         }
 
