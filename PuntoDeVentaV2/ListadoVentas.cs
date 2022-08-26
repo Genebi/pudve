@@ -1727,11 +1727,8 @@ namespace PuntoDeVentaV2
 
                                 if (totalObtenidoAbono > 0)
                                 {
-                                    mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    //mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                                 }
-
-                                if (mensaje == DialogResult.Yes)
-                                {
                                     var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
                                     var t = formasPago.Sum().ToString();
@@ -1921,7 +1918,7 @@ namespace PuntoDeVentaV2
                                             cn.EjecutarConsulta(cs.OperacionCaja(datos));
                                         }
                                     }
-                                }
+                                
                             }
                             else if (obtenerValorSiSeAbono.Rows.Count.Equals(0))
                             {

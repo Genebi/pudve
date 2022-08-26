@@ -95,18 +95,18 @@ namespace PuntoDeVentaV2
 
                                     bool tieneAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDUsuario = {FormPrincipal.userID} AND IDVenta = {idVenta}");
 
-                                    if (fueACredito && tieneAbonos)
-                                    {
-                                        mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                                    }
+                                    //if (fueACredito && tieneAbonos)
+                                    //{
+                                    //    mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    //}
 
-                                    if (!fueACredito)
-                                    {
-                                        mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                                    }
+                                    //if (!fueACredito)
+                                    //{
+                                    //    mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    //}
 
-                                    if (mensaje == DialogResult.Yes)
-                                    {
+                                    //if (mensaje == DialogResult.Yes)
+                                    //{
                                         if (estatusVenta.Equals(1))
                                         {
 
@@ -148,7 +148,7 @@ namespace PuntoDeVentaV2
                                         {
                                             validarDatos(idVenta);
                                         }
-                                    }
+                                    //}
 
                                     venta_cancelada = 1;
 
@@ -292,9 +292,9 @@ namespace PuntoDeVentaV2
                                                 referencia = Convert.ToInt32(item["Referencia"].ToString());
                                             }
 
-                                            DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket De La Cancelación", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                                            if (respuestaImpresion.Equals(DialogResult.Yes))
-                                            {
+                                            //DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket De La Cancelación", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                            //if (respuestaImpresion.Equals(DialogResult.Yes))
+                                            //{
                                                 if (ticket6cm.Equals(1))
                                                 {
                                                     using (ImprimirTicketCancelado8cm imprimirTicketVenta = new ImprimirTicketCancelado8cm())
@@ -349,7 +349,7 @@ namespace PuntoDeVentaV2
                                                         imprimirTicketVenta.ShowDialog();
                                                     }
                                                 }
-                                            }
+                                            //}
                                         }
                                     }
                                 }

@@ -4208,9 +4208,8 @@ namespace PuntoDeVentaV2
                             // Imprimir Ticket Venta Guardada
                             if (tipoDeVentaRealizada.Equals(2))
                             {
-                                DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket Del Presupuesto", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
-                                if (respuestaImpresion.Equals(DialogResult.Yes))
-                                {
+                                //DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket Del Presupuesto", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+                                
                                     if (ticket6cm.Equals(1))
                                     {
                                         using (imprimirTicketPresupuesto8cm imprimirTicketVenta = new imprimirTicketPresupuesto8cm())
@@ -4265,7 +4264,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.ShowDialog();
                                         }
                                     }
-                                }
+                                
                             }
                             // Imprimir Ticket Venta Cancelada
                             if (tipoDeVentaRealizada.Equals(3))
@@ -5675,16 +5674,9 @@ namespace PuntoDeVentaV2
             ticket.Close();
             writer.Close();
 
-            var respuesta = MessageBox.Show("¿Desea imprimir el ticket?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (respuesta == DialogResult.Yes)
-            {
                 ImprimirTicket(folioTicket.ToString(), 1);
-            }
-            else
-            {
-                txtBuscadorProducto.Focus();
-            }
+            
+           
         }
 
         private void ImprimirTicket(string idVenta, int tipo = 0)
