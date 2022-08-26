@@ -993,7 +993,8 @@ namespace PuntoDeVentaV2
 
             float descuentoProductos = 0;
             float descuentoGeneral = 0;
-            float totalDescuento = float.Parse(productos[0][8]);
+            var PorcentajePrecio = productos[0][8].Split('-');
+            float totalDescuento = float.Parse(PorcentajePrecio[0]);
             float totalTicket = float.Parse(totalTicketVenta.ToString("#.##"));
             float totalAnticipo = float.Parse(productos[0][11]);
 

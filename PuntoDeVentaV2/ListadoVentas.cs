@@ -1955,10 +1955,10 @@ namespace PuntoDeVentaV2
 
                                     }
 
-                                    mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    //mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                                      
-                                    if (mensaje == DialogResult.Yes)
-                                    {
+                                    //if (mensaje == DialogResult.Yes)
+                                    //{
                                         float tot = 0f, efe = 0f, tar = 0f, val = 0f, che = 0f, trans = 0f;
 
                                         var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
@@ -2089,7 +2089,7 @@ namespace PuntoDeVentaV2
                                                 stopCancelar = false;
                                             }
                                         }
-                                    }
+                                    //}
                                     //stopCancelar = false;
                                 }
                             }

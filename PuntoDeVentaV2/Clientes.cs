@@ -460,6 +460,8 @@ namespace PuntoDeVentaV2
             }
 
             CargarDatos(busqueda);
+            txtBuscador.Clear();
+            txtBuscador.Focus();
         }
 
         private void txtBuscador_KeyDown(object sender, KeyEventArgs e)
