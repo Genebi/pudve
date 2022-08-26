@@ -2013,6 +2013,9 @@
                 <Height>0.6cm</Height>
                 <Width>2.316cm</Width>
                 <ZIndex>5</ZIndex>
+                <Visibility>
+                  <Hidden>true</Hidden>
+                </Visibility>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -2217,6 +2220,9 @@
                 <Height>0.6cm</Height>
                 <Width>2.7cm</Width>
                 <ZIndex>11</ZIndex>
+                <Visibility>
+                  <Hidden>true</Hidden>
+                </Visibility>
                 <Style>
                   <Border>
                     <Style>None</Style>
