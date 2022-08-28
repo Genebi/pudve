@@ -40,22 +40,25 @@ namespace PuntoDeVentaV2
         #endregion
 
         public int idVentaRealizada { get; set; }
+        private int tipoBusqueda;
 
-        public VerTicketPresupuesto8cmListadoVentas()
+        public VerTicketPresupuesto8cmListadoVentas(int tipoBusqueda = 2)
         {
             InitializeComponent();
+
+            this.tipoBusqueda = tipoBusqueda;
         }
 
         private void VerTicketPresupuesto8cmListadoVentas_Load(object sender, EventArgs e)
         {
-            CargarDatosTicket();
+            CargarDatosTicket(tipoBusqueda);
         }
 
-        private void CargarDatosTicket()
+        private void CargarDatosTicket(int tipoBusqueda)
         {
             var servidor = Properties.Settings.Default.Hosting;
             string cadenaConn = string.Empty;
-            string queryPresupuestoRealizado = cs.imprimirTicketPresupuesto(idVentaRealizada);
+            string queryPresupuestoRealizado = cs.imprimirTicketPresupuesto(idVentaRealizada, tipoBusqueda);
             MySqlConnection conn = new MySqlConnection();
             string pathApplication = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc";
@@ -232,7 +235,7 @@ namespace PuntoDeVentaV2
         {
             var servidor = Properties.Settings.Default.Hosting;
             string cadenaConn = string.Empty;
-            string queryPresupuestoRealizado = cs.imprimirTicketPresupuesto(idVentaRealizada);
+            string queryPresupuestoRealizado = cs.imprimirTicketPresupuesto(idVentaRealizada, tipoBusqueda);
             MySqlConnection conn = new MySqlConnection();
             string pathApplication = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc";

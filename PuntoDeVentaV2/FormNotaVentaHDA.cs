@@ -147,6 +147,10 @@ namespace PuntoDeVentaV2
                 {
                     StatusVenta = "Venta Cancelada";
                 }
+                else if (Status.Equals("5"))
+                {
+                    StatusVenta = "Venta Global";
+                }
                 else
                 {
                     StatusVenta = "Venta a Crédito";

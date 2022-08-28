@@ -1354,6 +1354,10 @@ namespace PuntoDeVentaV2
             {
                 estado = 4;
             }
+            else if (opcion == "VGG") // Ventas globales
+            {
+                estado = 5;
+            }
 
             return estado;
         }
@@ -2677,11 +2681,11 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                                 // Venta Guardada
-                                if (tipoDeBusqueda.Equals(2))
+                                if (tipoDeBusqueda.Equals(2) || tipoDeBusqueda.Equals(5))
                                 {
                                     if (ticket6cm.Equals(1))
                                     {
-                                        using (VerTicketPresupuesto8cmListadoVentas imprimirTicketVenta = new VerTicketPresupuesto8cmListadoVentas())
+                                        using (VerTicketPresupuesto8cmListadoVentas imprimirTicketVenta = new VerTicketPresupuesto8cmListadoVentas(tipoDeBusqueda))
                                         {
                                             imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
 
@@ -2708,7 +2712,7 @@ namespace PuntoDeVentaV2
                                     }
                                     else if (ticket8cm.Equals(1))
                                     {
-                                        using (VerTicketPresupuesto8cmListadoVentas imprimirTicketVenta = new VerTicketPresupuesto8cmListadoVentas())
+                                        using (VerTicketPresupuesto8cmListadoVentas imprimirTicketVenta = new VerTicketPresupuesto8cmListadoVentas(tipoDeBusqueda))
                                         {
                                             imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
 
@@ -4889,6 +4893,7 @@ namespace PuntoDeVentaV2
 
         private void btnCrearVentaGlobal_Click(object sender, EventArgs e)
         {
+            // Obtenemos los ID de las ventas seleccionadas
             if (DGVListadoVentas.Rows.Count > 0)
             {
                 List<int> ventas = new List<int>();
@@ -4909,6 +4914,8 @@ namespace PuntoDeVentaV2
                 }
 
 
+                // Guardamos los productos relacionados a la venta y hacemos las operaciones correspondientes
+                // con los precios, cantidades y descuentos
                 if (ventas.Count > 0)
                 {
                     var lista = new Dictionary<int, Tuple<string, decimal, decimal, decimal>>();
@@ -4951,11 +4958,8 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    /*213590
-                    213589
-                    213588
-                    */
 
+                    // Sacamos los totales de la venta y creamos los registros necesarios para el funcionamiento correcto
                     if (lista.Count > 0)
                     {
                         decimal total = 0;
@@ -4978,7 +4982,6 @@ namespace PuntoDeVentaV2
                         var folio = mb.ObtenerMaximoFolio(FormPrincipal.userID);
                         var folioVenta = long.Parse(folio) + 1;
 
-                        //Console.WriteLine($"TOTAL: {total} SUB: {subTotal} IVA: {iva} DESCUENTO: {descuento}");
 
                         string consulta = string.Empty;
 
@@ -5002,6 +5005,10 @@ namespace PuntoDeVentaV2
 
                             cn.EjecutarConsulta(consulta);
                         }
+
+                        // Al terminar el proceso desmarcamos los checkbox seleccionados previamente
+                        chTodos.Checked = false;
+                        obtenerIDSeleccionados();
 
                         MessageBox.Show("Proceso finalizado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }

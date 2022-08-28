@@ -40,6 +40,7 @@ namespace PuntoDeVentaV2
         #endregion
 
         public int idVentaRealizada { get; set; }
+        private int estado;
 
         public imprimirTicketPresupuesto8cm()
         {
