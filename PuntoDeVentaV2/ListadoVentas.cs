@@ -17,6 +17,7 @@ using System.IO.Compression;
 using System.Threading;
 using System.Globalization;
 using System.Collections;
+using Org.BouncyCastle.Bcpg;
 
 namespace PuntoDeVentaV2
 {
@@ -4888,7 +4889,124 @@ namespace PuntoDeVentaV2
 
         private void btnCrearVentaGlobal_Click(object sender, EventArgs e)
         {
+            if (DGVListadoVentas.Rows.Count > 0)
+            {
+                List<int> ventas = new List<int>();
 
+                foreach (DataGridViewRow row in DGVListadoVentas.Rows)
+                {
+                    bool seleccionado = (bool)row.Cells["col_checkbox"].Value;
+
+                    if (seleccionado)
+                    {
+                        int venta = (int)row.Cells["ID"].Value;
+
+                        if (!ventas.Contains(venta))
+                        {
+                            ventas.Add(venta);
+                        }
+                    }
+                }
+
+
+                if (ventas.Count > 0)
+                {
+                    var lista = new Dictionary<int, Tuple<string, decimal, decimal, decimal>>();
+
+                    foreach (var venta in ventas)
+                    {
+                        var datosProductos = cn.CargarDatos($"SELECT * FROM ProductosVenta WHERE IDVenta = {venta}");
+
+                        if (datosProductos.Rows.Count > 0)
+                        {
+                            foreach (DataRow item in datosProductos.Rows)
+                            {
+                                var id = (int)item["IDProducto"];
+                                var nombre = (string)item["Nombre"];
+                                var cantidad = (decimal)item["Cantidad"];
+                                var precio = (decimal)item["Precio"];
+                                var desc = (string)item["descuento"];
+                                //var tipoDesc = (int)item["TipoDescuento"];
+
+                                if (lista.ContainsKey(id))
+                                {
+                                    var descAux = desc.Split('-');
+                                    descAux[0] = descAux[0].Trim();
+
+                                    var cantidadAux = lista[id].Item2;
+                                    var precioAux = lista[id].Item3;
+                                    var cantidadDesc = Convert.ToDecimal(descAux[0]) + Convert.ToDecimal(lista[id].Item4);
+
+                                    lista[id] = Tuple.Create(nombre, cantidad + cantidadAux, precio + precioAux, cantidadDesc);
+                                }
+                                else
+                                {
+                                    var descAux = desc.Split('-');
+                                    descAux[0] = descAux[0].Trim();
+                                    var cantidadDesc = Convert.ToDecimal(descAux[0]);
+
+                                    lista.Add(id, Tuple.Create(nombre, cantidad, precio, cantidadDesc));
+                                }
+                            }
+                        }
+                    }
+
+                    /*213590
+                    213589
+                    213588
+                    */
+
+                    if (lista.Count > 0)
+                    {
+                        decimal total = 0;
+                        decimal subTotal = 0;
+                        decimal descuento = 0;
+                        decimal iva = 0;
+
+                        foreach (var producto in lista)
+                        {
+                            total += producto.Value.Item2 * producto.Value.Item3;
+
+                            descuento += producto.Value.Item4;
+                        }
+
+                        descuento = Math.Round(descuento, 2);
+                        total = Math.Round(total - descuento, 2);
+                        subTotal = Math.Round(total / (decimal)1.16, 2);
+                        iva = Math.Round(subTotal * (decimal)0.16, 2);
+
+                        var folio = mb.ObtenerMaximoFolio(FormPrincipal.userID);
+                        var folioVenta = long.Parse(folio) + 1;
+
+                        //Console.WriteLine($"TOTAL: {total} SUB: {subTotal} IVA: {iva} DESCUENTO: {descuento}");
+
+                        string consulta = string.Empty;
+
+                        consulta = $@"INSERT INTO Ventas (IDUsuario, IDCliente, Subtotal, IVA16, Total, Descuento, Folio, Status, FechaOperacion, FormaPago, Cliente, RFC)
+                                   VALUES ('{FormPrincipal.userID}', 646, '{subTotal}', '{iva}', '{total}', '{descuento}', '{folioVenta}', 5, '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 'Efectivo', 'PUBLICO GENERAL', 'XAXX010101000')";
+
+                        int idVenta = cn.EjecutarConsulta(consulta, regresarID: true);
+
+                        if (idVenta > 0)
+                        {
+                            foreach (var item in lista)
+                            {
+                                consulta = $@"INSERT INTO ProductosVenta (IDVenta, IDProducto, Nombre, Cantidad, Precio, descuento)
+                                VALUES ('{idVenta}', '{item.Key}', '{item.Value.Item1}', '{item.Value.Item2}', '{item.Value.Item3}', '{item.Value.Item4}')";
+
+                                cn.EjecutarConsulta(consulta);
+                            }
+
+                            consulta = $@"INSERT INTO DetallesVenta (IDVenta, IDUsuario, Efectivo, IDCliente, Cliente)
+                                        VALUES ('{idVenta}', '{FormPrincipal.userID}', '{total}', 646, 'PUBLICO GENERAL')";
+
+                            cn.EjecutarConsulta(consulta);
+                        }
+
+                        MessageBox.Show("Proceso finalizado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
         }
     }
 }
