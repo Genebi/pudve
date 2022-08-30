@@ -4361,6 +4361,8 @@ namespace PuntoDeVentaV2
 
             // Comprimir carpeta
 
+
+
             if (opc == 6)
             {
                 DateTime fecha_actual = DateTime.UtcNow;
