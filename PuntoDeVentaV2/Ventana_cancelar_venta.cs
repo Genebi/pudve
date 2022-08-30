@@ -138,7 +138,7 @@ namespace PuntoDeVentaV2
                                                 };
 
                                                 cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
-                                                //Yo le movi aqui xD
+                                                //Yo le movi aqui ATTE: El destroyer xD
                                                 cn.EjecutarConsulta($"INSERT INTO caja ( Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IDEmpleado, NumFolio, CantidadRetiradaCorte )VALUES( 'retiro', '{total}', '0.00', '{concepto}', '{fechaOperacion}', '{FormPrincipal.userID}', '{efectivo}', '{tarjeta}', '{vales}', '{cheque}', '{transferencia}', '{credito}', '{anticipo}', '{FormPrincipal.id_empleado}', '{folio}', '0.00' )");
                                                 //cn.EjecutarConsulta(cs.OperacionCaja(datos));
                                             }

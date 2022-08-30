@@ -4338,13 +4338,20 @@ namespace PuntoDeVentaV2
 
             if (opc == 5)
             {
+                string ruta_archivos;
+                string FolioSerie;
                 for (var i = 0; i < idnv.Length; i++)
                 {
-                    string ruta_archivos = @"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + idnv[i];
+                    using (DataTable Consulta = cn.CargarDatos($"SELECT CONCAT(Folio,Serie)AS FolioySerie FROM ventas WHERE ID = {idnv[i]}"))
+                    {
+                        FolioSerie = Consulta.Rows[0]["FolioySerie"].ToString();
+                    }
+                    ruta_archivos = $@"C:\Archivos PUDVE\Ventas\PDF\{FormPrincipal.userNickName}\VENTA_NoVenta" + idnv[i]+$"_Folio{FolioSerie}";
+                    
                     // Si la conexión es en red cambia ruta de guardado
                     if (!string.IsNullOrWhiteSpace(servidor))
                     {
-                        ruta_archivos = $@"\\{servidor}\Archivos PUDVE\Facturas\PDF\VENTA_" + idnv[i];
+                        ruta_archivos = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\{FormPrincipal.userNickName}\VENTA_NoVenta" + idnv[i] + $"_Folio{FolioSerie}";
                     }
 
                     File.Copy(ruta_archivos + ".pdf", ruta_new_carpeta + "\\VENTA_" + idnv[i] + ".pdf");
