@@ -2685,7 +2685,7 @@ namespace PuntoDeVentaV2
                                 {
                                     if (ticket6cm.Equals(1))
                                     {
-                                        using (VerTicketPresupuesto8cmListadoVentas imprimirTicketVenta = new VerTicketPresupuesto8cmListadoVentas(tipoDeBusqueda))
+                                        using (VerTicketPresupuesto8cmListadoVentas imprimirTicketVenta = new VerTicketPresupuesto8cmListadoVentas())
                                         {
                                             imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
 
@@ -2706,6 +2706,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                             imprimirTicketVenta.Referencia = referencia;
+                                            imprimirTicketVenta.tipoImpresion = tipoDeBusqueda;
 
                                             imprimirTicketVenta.ShowDialog();
                                         }

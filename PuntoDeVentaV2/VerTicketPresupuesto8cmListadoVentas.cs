@@ -42,11 +42,9 @@ namespace PuntoDeVentaV2
         public int idVentaRealizada { get; set; }
         private int tipoBusqueda;
 
-        public VerTicketPresupuesto8cmListadoVentas(int tipoBusqueda = 2)
+        public VerTicketPresupuesto8cmListadoVentas()
         {
             InitializeComponent();
-
-            this.tipoBusqueda = tipoBusqueda;
         }
 
         private void VerTicketPresupuesto8cmListadoVentas_Load(object sender, EventArgs e)
