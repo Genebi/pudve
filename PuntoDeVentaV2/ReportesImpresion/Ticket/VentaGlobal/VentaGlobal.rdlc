@@ -223,6 +223,16 @@
             <Height>5cm</Height>
             <Width>5cm</Width>
             <ZIndex>3</ZIndex>
+            <Visibility>
+              <Hidden>=iif(Parameters!Logo.Value = "0", 
+	True,
+	iif(
+		First(Fields!LogoTipo.Value, "DTTicketVentaGlobal").ToString() = "",
+		True,
+		False
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -248,7 +258,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>RazonSocial</rd:DefaultName>
-            <Top>7.89226cm</Top>
+            <Top>7.85698cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -296,38 +306,17 @@
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>5</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="NombreComercial1">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=First(Fields!NombreComercial.Value, "DTTicketVentaGlobal")</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Center</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>NombreComercial1</rd:DefaultName>
-            <Top>9.10574cm</Top>
-            <Left>0.1cm</Left>
-            <Height>0.6cm</Height>
-            <Width>7.7cm</Width>
-            <ZIndex>6</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!NombreComercial.Value.ToString() = "0",
+	true,
+	iif(
+		First(Fields!NombreComercial.Value, "DTTicketVentaGlobal").ToString() = "",
+		true,
+		false
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -355,11 +344,22 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Direccion1</rd:DefaultName>
-            <Top>9.7056cm</Top>
+            <Top>9.1341cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>7</ZIndex>
+            <ZIndex>6</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!DireccionCiudad.Value.ToString() = "0",
+	true,
+	iif(
+		First(Fields!Direccion1.Value, "DTTicketVentaGlobal").ToString() = "",
+		true,
+		false
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -387,11 +387,22 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Direccion2</rd:DefaultName>
-            <Top>10.32843cm</Top>
+            <Top>9.78868cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>8</ZIndex>
+            <ZIndex>7</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!ColoniaCodigoPostal.Value.ToString() = "0",
+	true,
+	iif(
+		First(Fields!Direccion2.Value, "DTTicketVentaGlobal").ToString() = "",
+		true,
+		false
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -419,11 +430,22 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>RFC</rd:DefaultName>
-            <Top>10.93785cm</Top>
+            <Top>10.4616cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>9</ZIndex>
+            <ZIndex>8</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!RFC.Value.ToString() = "0",
+	true,
+	iif(
+		First(Fields!RFC.Value, "DTTicketVentaGlobal").ToString() = "",
+		true,
+		false
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -451,11 +473,22 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Correo</rd:DefaultName>
-            <Top>11.55196cm</Top>
+            <Top>11.13921cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>10</ZIndex>
+            <ZIndex>9</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!Correo.Value.ToString() = "0",
+	true,
+	iif(
+		First(Fields!Correo.Value, "DTTicketVentaGlobal").ToString() = "",
+		true,
+		false
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -483,11 +516,22 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Telefono</rd:DefaultName>
-            <Top>12.17126cm</Top>
+            <Top>11.82201cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>11</ZIndex>
+            <ZIndex>10</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!Telefono.Value.ToString() = "0",
+	true,
+	iif(
+		First(Fields!Telefono.Value, "DTTicketVentaGlobal").ToString() = "",
+		true,
+		false
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -519,7 +563,18 @@
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>12</ZIndex>
+            <ZIndex>11</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!NombreCliente.Value.ToString() = "0",
+	true,
+	iif(
+		First(Fields!ClienteNombre.Value, "DTTicketVentaGlobal").ToString() = "",
+		true,
+		false
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -549,7 +604,18 @@
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>13</ZIndex>
+            <ZIndex>12</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!RFCCliente.Value.ToString() = "0",
+	true,
+	iif(
+		First(Fields!ClienteRFC.Value, "DTTicketVentaGlobal").ToString() = "",
+		true,
+		false
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -579,7 +645,18 @@
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>14</ZIndex>
+            <ZIndex>13</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!DomicilioCliente.Value.ToString() = "0",
+	true,
+	iif(
+		First(Fields!ClienteDomicilio.Value, "DTTicketVentaGlobal").ToString() = "",
+		true,
+		false
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -605,11 +682,22 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteColoniaCodigoPostal</rd:DefaultName>
-            <Top>14.92391cm</Top>
+            <Top>14.95137cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>15</ZIndex>
+            <ZIndex>14</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!ColoniaCodigoPostalCliente.Value.ToString() = "0",
+	true,
+	iif(
+		First(Fields!ClienteColoniaCodigoPostal.Value, "DTTicketVentaGlobal").ToString() = "",
+		true,
+		false
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -639,7 +727,18 @@
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>16</ZIndex>
+            <ZIndex>15</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!CorreoCliente.Value.ToString() = "0",
+	true,
+	iif(
+		First(Fields!ClienteCorreo.Value, "DTTicketVentaGlobal").ToString() = "",
+		true,
+		false
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -669,7 +768,18 @@
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>17</ZIndex>
+            <ZIndex>16</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!TelefonoCliente.Value.ToString() = "0",
+	true,
+	iif(
+		First(Fields!ClienteTelefono.Value, "DTTicketVentaGlobal").ToString() = "",
+		true,
+		false
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -701,7 +811,18 @@
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>18</ZIndex>
+            <ZIndex>17</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!FormaDePagoCliente.Value.ToString() = "0",
+	true,
+	iif(
+		First(Fields!FormaDePago.Value, "DTTicketVentaGlobal").ToString() = "",
+		true,
+		false
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -731,7 +852,18 @@
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>19</ZIndex>
+            <ZIndex>18</ZIndex>
+            <Visibility>
+              <Hidden>=iif(
+	Parameters!Referencia.Value.ToString() = "0",
+	true,
+	iif(
+		First(Fields!Referencia.Value, "DTTicketVentaGlobal").ToString() = "",
+		true,
+		false
+	)
+)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1123,7 +1255,7 @@
             <Left>0.1cm</Left>
             <Height>1.2cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>20</ZIndex>
+            <ZIndex>19</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1152,7 +1284,7 @@
             <Left>1.098cm</Left>
             <Height>0.6cm</Height>
             <Width>6.702cm</Width>
-            <ZIndex>21</ZIndex>
+            <ZIndex>20</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1184,7 +1316,7 @@
             <Left>1.098cm</Left>
             <Height>0.6cm</Height>
             <Width>6.702cm</Width>
-            <ZIndex>22</ZIndex>
+            <ZIndex>21</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1218,7 +1350,7 @@
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>23</ZIndex>
+            <ZIndex>22</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1237,7 +1369,7 @@
             <Left>1.5cm</Left>
             <Height>1.15604cm</Height>
             <Width>5cm</Width>
-            <ZIndex>24</ZIndex>
+            <ZIndex>23</ZIndex>
             <Visibility>
               <Hidden>=iif(Parameters!CodigoBarra.Value = "0", True, False)</Hidden>
             </Visibility>

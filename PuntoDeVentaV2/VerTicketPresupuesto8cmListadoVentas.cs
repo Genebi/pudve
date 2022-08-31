@@ -40,26 +40,37 @@ namespace PuntoDeVentaV2
         #endregion
 
         public int idVentaRealizada { get; set; }
-        private int tipoBusqueda;
+        //public int tipoImpresion { get; set; }
+        private int tipoImpresion;
 
-        public VerTicketPresupuesto8cmListadoVentas()
+        public VerTicketPresupuesto8cmListadoVentas(int tipoImpresion = 2)
         {
             InitializeComponent();
+
+            this.tipoImpresion = tipoImpresion;
         }
 
         private void VerTicketPresupuesto8cmListadoVentas_Load(object sender, EventArgs e)
         {
-            CargarDatosTicket(tipoBusqueda);
+            CargarDatosTicket(tipoImpresion);
         }
 
-        private void CargarDatosTicket(int tipoBusqueda)
+        private void CargarDatosTicket(int tipoImpresion)
         {
             var servidor = Properties.Settings.Default.Hosting;
             string cadenaConn = string.Empty;
-            string queryPresupuestoRealizado = cs.imprimirTicketPresupuesto(idVentaRealizada, tipoBusqueda);
+            string queryPresupuestoRealizado = cs.imprimirTicketPresupuesto(idVentaRealizada, tipoImpresion);
             MySqlConnection conn = new MySqlConnection();
             string pathApplication = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc";
+
+            string rutaTicket = @"PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc";
+
+            if (tipoImpresion.Equals(5))
+            {
+                rutaTicket = @"VentaGlobal\VentaGlobal.rdlc";
+            }
+
+            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\{rutaTicket}";
             string DirectoryImage = string.Empty;
             string path = string.Empty;
             string pathBarCode = $@"C:\Archivos PUDVE\Ventas\Tickets\BarCode\";
@@ -96,7 +107,15 @@ namespace PuntoDeVentaV2
             this.reportViewer1.LocalReport.DataSources.Clear();
 
             #region Impresion Ticket de 8 cm (80 mm)
-            ReportDataSource rp = new ReportDataSource("TicketPresupuesto", presupuestoDT);
+
+            var nombreXSD = "TicketPresupuesto";
+
+            if (tipoImpresion.Equals(5))
+            {
+                nombreXSD = "DTTicketVentaGlobal";
+            }
+
+            ReportDataSource rp = new ReportDataSource(nombreXSD, presupuestoDT);
 
             this.reportViewer1.LocalReport.EnableExternalImages = true;
 
@@ -233,10 +252,17 @@ namespace PuntoDeVentaV2
         {
             var servidor = Properties.Settings.Default.Hosting;
             string cadenaConn = string.Empty;
-            string queryPresupuestoRealizado = cs.imprimirTicketPresupuesto(idVentaRealizada, tipoBusqueda);
+            string queryPresupuestoRealizado = cs.imprimirTicketPresupuesto(idVentaRealizada, tipoImpresion);
             MySqlConnection conn = new MySqlConnection();
             string pathApplication = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc";
+            string rutaTicket = @"PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc";
+
+            if (tipoImpresion.Equals(5))
+            {
+                rutaTicket = @"VentaGlobal\VentaGlobal.rdlc";
+            }
+
+            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\{rutaTicket}";
             string DirectoryImage = string.Empty;
             string path = string.Empty;
             string pathBarCode = $@"C:\Archivos PUDVE\Ventas\Tickets\BarCode\";
@@ -269,7 +295,14 @@ namespace PuntoDeVentaV2
             presupuestoDA.Fill(presupuestoDT);
 
             #region Impresion Ticket de 8 cm (80 mm)
-            ReportDataSource rp = new ReportDataSource("TicketPresupuesto", presupuestoDT);
+            var nombreXSD = "TicketPresupuesto";
+
+            if (tipoImpresion.Equals(5))
+            {
+                nombreXSD = "TicketVentaGlobal";
+            }
+
+            ReportDataSource rp = new ReportDataSource(nombreXSD, presupuestoDT);
 
             ReportParameterCollection reportParameters = new ReportParameterCollection();
 
