@@ -268,6 +268,22 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public int ExisteClientePublicoGeneral(int usuarioId)
+        {
+            int clienteId = 0;
+
+            DatosConexion($"SELECT * FROM Clientes WHERE IDUsuario = {usuarioId} AND RFC = 'XAXX010101000' AND Status = 1");
+
+            var dr = sql_cmd.ExecuteReader();
+
+            if (dr.Read())
+            {
+                clienteId = Convert.ToInt32(dr["Id"]);
+            }
+
+            return clienteId;
+        }
+
         public string[] ObtenerDetalleGral(int idDetalleGral, int idUsr)
         {
             List<string> lista = new List<string>();

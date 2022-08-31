@@ -21,6 +21,8 @@ namespace PuntoDeVentaV2
         
 
         public string[] datosCliente;
+        public string origenOperacion { get; set; }
+        public int clienteId { get; set; }
 
         private int idVenta = 0;
         private int tipo = 0;
@@ -50,6 +52,7 @@ namespace PuntoDeVentaV2
                     lblCliente.Text = $"Cliente Recomendado: {Nombre}";
                 }
             }
+
             CargarDatos();
             btnPublicoGeneral.Focus();
         }
@@ -131,22 +134,30 @@ namespace PuntoDeVentaV2
 
                     if (tipo == 0)
                     {
-                        if (idVenta > 0)
+                        if (origenOperacion.Equals("VentaGlobal"))
                         {
-                            AsignarCliente(idVenta, idCliente, cliente);
+                            clienteId = idCliente;
+                            DialogResult = DialogResult.OK;
                         }
                         else
                         {
-                            DetalleVenta.idCliente = idCliente;
-                            DetalleVenta.cliente = cliente;
-                            DetalleVenta.nameClienteNameVenta = cliente;
+                            if (idVenta > 0)
+                            {
+                                AsignarCliente(idVenta, idCliente, cliente);
+                            }
+                            else
+                            {
+                                DetalleVenta.idCliente = idCliente;
+                                DetalleVenta.cliente = cliente;
+                                DetalleVenta.nameClienteNameVenta = cliente;
 
-                            AsignarCreditoVenta.idCliente = idCliente;
-                            AsignarCreditoVenta.cliente = cliente;
+                                AsignarCreditoVenta.idCliente = idCliente;
+                                AsignarCreditoVenta.cliente = cliente;
 
-                            Ventas.idCliente = idCliente.ToString();
-                            Ventas.statusVenta = "2";
-                            Ventas.ventaGuardada = true;
+                                Ventas.idCliente = idCliente.ToString();
+                                Ventas.statusVenta = "2";
+                                Ventas.ventaGuardada = true;
+                            }
                         }
                     }
 
@@ -300,84 +311,101 @@ namespace PuntoDeVentaV2
 
         private void btnPublicoGeneral_Click(object sender, EventArgs e)
         {
-            using (DataTable dtPublicoGeneral = cn.CargarDatos(cs.BuscarPublicaGeneral()))
+            if (origenOperacion.Equals("VentaGlobal"))
             {
-                if (!dtPublicoGeneral.Rows.Count.Equals(0))
+                var clientePG = mb.ExisteClientePublicoGeneral(FormPrincipal.userID);
+
+                if (clientePG == 0)
                 {
-                    DataRow drPublicoGeneral = dtPublicoGeneral.Rows[0];
-                    var IDPublicoGeneral = Convert.ToInt32(drPublicoGeneral["ID"].ToString());
-                    var razonSocialPublicoGeneral = drPublicoGeneral["RazonSocial"].ToString();
-                    DetalleVenta.idCliente = IDPublicoGeneral;
-                    DetalleVenta.cliente = razonSocialPublicoGeneral;
-                    DetalleVenta.nameClienteNameVenta = razonSocialPublicoGeneral;
-                    AsignarCreditoVenta.idCliente = IDPublicoGeneral;
-                    AsignarCreditoVenta.cliente = razonSocialPublicoGeneral;
-                    Ventas.idCliente = IDPublicoGeneral.ToString();
-                    Ventas.statusVenta = "2";
-                    Ventas.ventaGuardada = true;
-                    this.Close();
+                    clientePG = cn.EjecutarConsulta($"INSERT INTO Clientes (IDUsuario, RazonSocial, RFC, FechaOperacion) VALUES ('{FormPrincipal.userID}', 'PUBLICO GENERAL', 'XAXX010101000', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')", regresarID: true);
                 }
-                else
+
+                clienteId = clientePG;
+                DialogResult = DialogResult.OK;
+
+                this.Close();
+            }
+            else
+            {
+                using (DataTable dtPublicoGeneral = cn.CargarDatos(cs.BuscarPublicaGeneral()))
                 {
-                    var UltimoNumeroCliente = string.Empty;
-                    using (DataTable dtUltimocliente = cn.CargarDatos(cs.UltimoNumerodeCliente()))
+                    if (!dtPublicoGeneral.Rows.Count.Equals(0))
                     {
-                        if (!dtUltimocliente.Rows.Count.Equals(0))
+                        DataRow drPublicoGeneral = dtPublicoGeneral.Rows[0];
+                        var IDPublicoGeneral = Convert.ToInt32(drPublicoGeneral["ID"].ToString());
+                        var razonSocialPublicoGeneral = drPublicoGeneral["RazonSocial"].ToString();
+                        DetalleVenta.idCliente = IDPublicoGeneral;
+                        DetalleVenta.cliente = razonSocialPublicoGeneral;
+                        DetalleVenta.nameClienteNameVenta = razonSocialPublicoGeneral;
+                        AsignarCreditoVenta.idCliente = IDPublicoGeneral;
+                        AsignarCreditoVenta.cliente = razonSocialPublicoGeneral;
+                        Ventas.idCliente = IDPublicoGeneral.ToString();
+                        Ventas.statusVenta = "2";
+                        Ventas.ventaGuardada = true;
+                        this.Close();
+                    }
+                    else
+                    {
+                        var UltimoNumeroCliente = string.Empty;
+                        using (DataTable dtUltimocliente = cn.CargarDatos(cs.UltimoNumerodeCliente()))
                         {
-                            foreach (DataRow item in dtUltimocliente.Rows)
+                            if (!dtUltimocliente.Rows.Count.Equals(0))
                             {
-                                var numCliente = Convert.ToInt32(item["NumeroCliente"]);
-                                var longitud = 6 - numCliente.ToString().Length;
-                                if (longitud.Equals(5))
+                                foreach (DataRow item in dtUltimocliente.Rows)
                                 {
-                                    UltimoNumeroCliente = $"00000{numCliente + 1}";
-                                }
-                                if (longitud.Equals(4))
-                                {
-                                    UltimoNumeroCliente = $"0000{numCliente + 1}";
-                                }
-                                if (longitud.Equals(3))
-                                {
-                                    UltimoNumeroCliente = $"000{numCliente + 1}";
-                                }
-                                if (longitud.Equals(2))
-                                {
-                                    UltimoNumeroCliente = $"00{numCliente + 1}";
-                                }
-                                if (longitud.Equals(1))
-                                {
-                                    UltimoNumeroCliente = $"0{numCliente + 1}";
-                                }
-                                if (longitud.Equals(0))
-                                {
-                                    UltimoNumeroCliente = $"{numCliente + 1}";
+                                    var numCliente = Convert.ToInt32(item["NumeroCliente"]);
+                                    var longitud = 6 - numCliente.ToString().Length;
+                                    if (longitud.Equals(5))
+                                    {
+                                        UltimoNumeroCliente = $"00000{numCliente + 1}";
+                                    }
+                                    if (longitud.Equals(4))
+                                    {
+                                        UltimoNumeroCliente = $"0000{numCliente + 1}";
+                                    }
+                                    if (longitud.Equals(3))
+                                    {
+                                        UltimoNumeroCliente = $"000{numCliente + 1}";
+                                    }
+                                    if (longitud.Equals(2))
+                                    {
+                                        UltimoNumeroCliente = $"00{numCliente + 1}";
+                                    }
+                                    if (longitud.Equals(1))
+                                    {
+                                        UltimoNumeroCliente = $"0{numCliente + 1}";
+                                    }
+                                    if (longitud.Equals(0))
+                                    {
+                                        UltimoNumeroCliente = $"{numCliente + 1}";
+                                    }
                                 }
                             }
-                        }
-                        else
-                        {
-                            UltimoNumeroCliente = "000001";
-                        }
-                    }
-                    var resultado = cn.EjecutarConsulta(cs.AgregarPublicoGeneral(UltimoNumeroCliente));
-                    if (resultado.Equals(1))
-                    {
-                        using (DataTable dtNuevoClienteGeneral = cn.CargarDatos(cs.ObtenerDatosClientePublicoGeneral()))
-                        {
-                            if (!dtNuevoClienteGeneral.Rows.Count.Equals(0))
+                            else
                             {
-                                DataRow drNuevoPublicoGeneral = dtNuevoClienteGeneral.Rows[0];
-                                var IDPublicoGeneral = Convert.ToInt32(drNuevoPublicoGeneral["ID"].ToString());
-                                var razonSocialPublicoGeneral = drNuevoPublicoGeneral["RazonSocial"].ToString();
-                                DetalleVenta.idCliente = IDPublicoGeneral;
-                                DetalleVenta.cliente = razonSocialPublicoGeneral;
-                                DetalleVenta.nameClienteNameVenta = razonSocialPublicoGeneral;
-                                AsignarCreditoVenta.idCliente = IDPublicoGeneral;
-                                AsignarCreditoVenta.cliente = razonSocialPublicoGeneral;
-                                Ventas.idCliente = IDPublicoGeneral.ToString();
-                                Ventas.statusVenta = "2";
-                                Ventas.ventaGuardada = true;
-                                this.Close();
+                                UltimoNumeroCliente = "000001";
+                            }
+                        }
+                        var resultado = cn.EjecutarConsulta(cs.AgregarPublicoGeneral(UltimoNumeroCliente));
+                        if (resultado.Equals(1))
+                        {
+                            using (DataTable dtNuevoClienteGeneral = cn.CargarDatos(cs.ObtenerDatosClientePublicoGeneral()))
+                            {
+                                if (!dtNuevoClienteGeneral.Rows.Count.Equals(0))
+                                {
+                                    DataRow drNuevoPublicoGeneral = dtNuevoClienteGeneral.Rows[0];
+                                    var IDPublicoGeneral = Convert.ToInt32(drNuevoPublicoGeneral["ID"].ToString());
+                                    var razonSocialPublicoGeneral = drNuevoPublicoGeneral["RazonSocial"].ToString();
+                                    DetalleVenta.idCliente = IDPublicoGeneral;
+                                    DetalleVenta.cliente = razonSocialPublicoGeneral;
+                                    DetalleVenta.nameClienteNameVenta = razonSocialPublicoGeneral;
+                                    AsignarCreditoVenta.idCliente = IDPublicoGeneral;
+                                    AsignarCreditoVenta.cliente = razonSocialPublicoGeneral;
+                                    Ventas.idCliente = IDPublicoGeneral.ToString();
+                                    Ventas.statusVenta = "2";
+                                    Ventas.ventaGuardada = true;
+                                    this.Close();
+                                }
                             }
                         }
                     }

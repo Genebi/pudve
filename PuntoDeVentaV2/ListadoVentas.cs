@@ -4901,126 +4901,149 @@ namespace PuntoDeVentaV2
 
         private void btnCrearVentaGlobal_Click(object sender, EventArgs e)
         {
-            // Obtenemos los ID de las ventas seleccionadas
-            if (DGVListadoVentas.Rows.Count > 0)
+            int clienteId = 0;
+
+            using (var listaClientes = new ListaClientes())
             {
-                List<int> ventas = new List<int>();
-
-                foreach (DataGridViewRow row in DGVListadoVentas.Rows)
+                listaClientes.origenOperacion = "VentaGlobal";
+                
+                if (listaClientes.ShowDialog() == DialogResult.OK)
                 {
-                    bool seleccionado = (bool)row.Cells["col_checkbox"].Value;
-
-                    if (seleccionado)
-                    {
-                        int venta = (int)row.Cells["ID"].Value;
-
-                        if (!ventas.Contains(venta))
-                        {
-                            ventas.Add(venta);
-                        }
-                    }
+                    clienteId = listaClientes.clienteId;
                 }
+            }
 
-
-                // Guardamos los productos relacionados a la venta y hacemos las operaciones correspondientes
-                // con los precios, cantidades y descuentos
-                if (ventas.Count > 0)
+            if (clienteId > 0)
+            {
+                // Obtenemos los ID de las ventas seleccionadas
+                if (DGVListadoVentas.Rows.Count > 0)
                 {
-                    var lista = new Dictionary<int, Tuple<string, decimal, decimal, decimal>>();
+                    List<int> ventas = new List<int>();
 
-                    foreach (var venta in ventas)
+                    foreach (DataGridViewRow row in DGVListadoVentas.Rows)
                     {
-                        var datosProductos = cn.CargarDatos($"SELECT * FROM ProductosVenta WHERE IDVenta = {venta}");
+                        bool seleccionado = (bool)row.Cells["col_checkbox"].Value;
 
-                        if (datosProductos.Rows.Count > 0)
+                        if (seleccionado)
                         {
-                            foreach (DataRow item in datosProductos.Rows)
+                            int venta = (int)row.Cells["ID"].Value;
+
+                            if (!ventas.Contains(venta))
                             {
-                                var id = (int)item["IDProducto"];
-                                var nombre = (string)item["Nombre"];
-                                var cantidad = (decimal)item["Cantidad"];
-                                var precio = (decimal)item["Precio"];
-                                var desc = (string)item["descuento"];
-                                //var tipoDesc = (int)item["TipoDescuento"];
-
-                                if (lista.ContainsKey(id))
-                                {
-                                    var descAux = desc.Split('-');
-                                    descAux[0] = descAux[0].Trim();
-
-                                    var cantidadAux = lista[id].Item2;
-                                    var precioAux = lista[id].Item3;
-                                    var cantidadDesc = Convert.ToDecimal(descAux[0]) + Convert.ToDecimal(lista[id].Item4);
-
-                                    lista[id] = Tuple.Create(nombre, cantidad + cantidadAux, precio + precioAux, cantidadDesc);
-                                }
-                                else
-                                {
-                                    var descAux = desc.Split('-');
-                                    descAux[0] = descAux[0].Trim();
-                                    var cantidadDesc = Convert.ToDecimal(descAux[0]);
-
-                                    lista.Add(id, Tuple.Create(nombre, cantidad, precio, cantidadDesc));
-                                }
+                                ventas.Add(venta);
                             }
                         }
                     }
 
 
-                    // Sacamos los totales de la venta y creamos los registros necesarios para el funcionamiento correcto
-                    if (lista.Count > 0)
+                    // Guardamos los productos relacionados a la venta y hacemos las operaciones correspondientes
+                    // con los precios, cantidades y descuentos
+                    if (ventas.Count > 0)
                     {
-                        decimal total = 0;
-                        decimal subTotal = 0;
-                        decimal descuento = 0;
-                        decimal iva = 0;
+                        var lista = new Dictionary<int, Tuple<string, decimal, decimal, decimal>>();
 
-                        foreach (var producto in lista)
+                        foreach (var venta in ventas)
                         {
-                            total += producto.Value.Item2 * producto.Value.Item3;
+                            var datosProductos = cn.CargarDatos($"SELECT * FROM ProductosVenta WHERE IDVenta = {venta}");
 
-                            descuento += producto.Value.Item4;
+                            if (datosProductos.Rows.Count > 0)
+                            {
+                                foreach (DataRow item in datosProductos.Rows)
+                                {
+                                    var id = (int)item["IDProducto"];
+                                    var nombre = (string)item["Nombre"];
+                                    var cantidad = (decimal)item["Cantidad"];
+                                    var precio = (decimal)item["Precio"];
+                                    var desc = (string)item["descuento"];
+                                    //var tipoDesc = (int)item["TipoDescuento"];
+
+                                    if (lista.ContainsKey(id))
+                                    {
+                                        var descAux = desc.Split('-');
+                                        descAux[0] = descAux[0].Trim();
+
+                                        var cantidadAux = lista[id].Item2;
+                                        var precioAux = lista[id].Item3;
+                                        var cantidadDesc = Convert.ToDecimal(descAux[0]) + Convert.ToDecimal(lista[id].Item4);
+
+                                        lista[id] = Tuple.Create(nombre, cantidad + cantidadAux, precio + precioAux, cantidadDesc);
+                                    }
+                                    else
+                                    {
+                                        var descAux = desc.Split('-');
+                                        descAux[0] = descAux[0].Trim();
+                                        var cantidadDesc = Convert.ToDecimal(descAux[0]);
+
+                                        lista.Add(id, Tuple.Create(nombre, cantidad, precio, cantidadDesc));
+                                    }
+                                }
+                            }
                         }
 
-                        descuento = Math.Round(descuento, 2);
-                        total = Math.Round(total - descuento, 2);
-                        subTotal = Math.Round(total / (decimal)1.16, 2);
-                        iva = Math.Round(subTotal * (decimal)0.16, 2);
 
-                        var folio = mb.ObtenerMaximoFolio(FormPrincipal.userID);
-                        var folioVenta = long.Parse(folio) + 1;
-
-
-                        string consulta = string.Empty;
-
-                        consulta = $@"INSERT INTO Ventas (IDUsuario, IDCliente, Subtotal, IVA16, Total, Descuento, Folio, Status, FechaOperacion, FormaPago, Cliente, RFC)
-                                   VALUES ('{FormPrincipal.userID}', 646, '{subTotal}', '{iva}', '{total}', '{descuento}', '{folioVenta}', 5, '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 'Efectivo', 'PUBLICO GENERAL', 'XAXX010101000')";
-
-                        int idVenta = cn.EjecutarConsulta(consulta, regresarID: true);
-
-                        if (idVenta > 0)
+                        // Sacamos los totales de la venta y creamos los registros necesarios para el funcionamiento correcto
+                        if (lista.Count > 0)
                         {
-                            foreach (var item in lista)
+                            decimal total = 0;
+                            decimal subTotal = 0;
+                            decimal descuento = 0;
+                            decimal iva = 0;
+
+                            foreach (var producto in lista)
                             {
-                                consulta = $@"INSERT INTO ProductosVenta (IDVenta, IDProducto, Nombre, Cantidad, Precio, descuento)
-                                VALUES ('{idVenta}', '{item.Key}', '{item.Value.Item1}', '{item.Value.Item2}', '{item.Value.Item3}', '{item.Value.Item4}')";
+                                total += producto.Value.Item2 * producto.Value.Item3;
+
+                                descuento += producto.Value.Item4;
+                            }
+
+                            descuento = Math.Round(descuento, 2);
+                            total = Math.Round(total - descuento, 2);
+                            subTotal = Math.Round(total / (decimal)1.16, 2);
+                            iva = Math.Round(subTotal * (decimal)0.16, 2);
+
+                            var folio = mb.ObtenerMaximoFolio(FormPrincipal.userID);
+                            var folioVenta = long.Parse(folio) + 1;
+
+
+                            string consulta = string.Empty;
+
+                            consulta = $@"INSERT INTO Ventas (IDUsuario, IDCliente, Subtotal, IVA16, Total, Descuento, Folio, Status, FechaOperacion, FormaPago, Cliente, RFC)
+                                        VALUES ('{FormPrincipal.userID}', '{clienteId}', '{subTotal}', '{iva}', '{total}', '{descuento}', '{folioVenta}', 5, '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 'Efectivo', 'PUBLICO GENERAL', 'XAXX010101000')";
+
+                            int idVenta = cn.EjecutarConsulta(consulta, regresarID: true);
+
+                            if (idVenta > 0)
+                            {
+                                foreach (var item in lista)
+                                {
+                                    consulta = $@"INSERT INTO ProductosVenta (IDVenta, IDProducto, Nombre, Cantidad, Precio, descuento)
+                                                VALUES ('{idVenta}', '{item.Key}', '{item.Value.Item1}', '{item.Value.Item2}', '{item.Value.Item3}', '{item.Value.Item4}')";
+
+                                    cn.EjecutarConsulta(consulta);
+                                }
+
+                                consulta = $@"INSERT INTO DetallesVenta (IDVenta, IDUsuario, Efectivo, IDCliente, Cliente)
+                                           VALUES ('{idVenta}', '{FormPrincipal.userID}', '{total}', '{clienteId}', 'PUBLICO GENERAL')";
 
                                 cn.EjecutarConsulta(consulta);
                             }
 
-                            consulta = $@"INSERT INTO DetallesVenta (IDVenta, IDUsuario, Efectivo, IDCliente, Cliente)
-                                        VALUES ('{idVenta}', '{FormPrincipal.userID}', '{total}', 646, 'PUBLICO GENERAL')";
+                            // Al terminar el proceso desmarcamos los checkbox seleccionados previamente
+                            chTodos.Checked = false;
+                            obtenerIDSeleccionados();
 
-                            cn.EjecutarConsulta(consulta);
+                            MessageBox.Show("Proceso finalizado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-
-                        // Al terminar el proceso desmarcamos los checkbox seleccionados previamente
-                        chTodos.Checked = false;
-                        obtenerIDSeleccionados();
-
-                        MessageBox.Show("Proceso finalizado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se ha seleccionado ninguna venta.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Se requiere elegir un cliente para realizar el proceso.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
