@@ -194,6 +194,7 @@ namespace PuntoDeVentaV2
 
         private void btnNuevoProveedor_Click(object sender, EventArgs e)
         {
+            AgregarProveedor.editarAgregar = "agregar";
             if (opcion2 == 0)
             {
                 Utilidades.MensajePermiso();

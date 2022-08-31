@@ -38,7 +38,7 @@ namespace PuntoDeVentaV2
         private Dictionary<int, bool> productosDescuentoG = new Dictionary<int, bool>();
         float porcentajeGeneral = 0;
         float descuentoCliente = 0;
-
+        bool yasemando = false;
 
         List<string> productoEliminadoCorreo;
         string PrecioDelProducto;
@@ -436,6 +436,14 @@ namespace PuntoDeVentaV2
             // Enter
             if (e.KeyData == Keys.Enter)
             {
+                if (txtBuscadorProducto.Text == "+")
+                {
+                    txtBuscadorProducto.Text = "+1";
+                }
+                if (txtBuscadorProducto.Text == "-")
+                {
+                    txtBuscadorProducto.Text = "-1";
+                }
                 if (!string.IsNullOrWhiteSpace(txtBuscadorProducto.Text.Trim()))
                 {
                     if (!txtBuscadorProducto.Text.Equals("BUSCAR PRODUCTO O SERVICIO..."))
@@ -705,10 +713,6 @@ namespace PuntoDeVentaV2
                             // Agregamos marca de agua al PDF del ticket de la venta cancelada
                             Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
 
-                            var mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                            if (mensaje == DialogResult.Yes)
-                            {
                                 var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
                                 // Operacion para que la devolucion del dinero afecte al apartado Caja
@@ -733,7 +737,7 @@ namespace PuntoDeVentaV2
 
                                     cn.EjecutarConsulta(cs.OperacionCaja(datos));
                                 }
-                            }
+                            
                         }
                         //Cargar la venta cancelada 
                         CargarVentaGuardada();
@@ -1377,8 +1381,14 @@ namespace PuntoDeVentaV2
                 {
                     //txtBuscadorProducto.Text = string.Empty;
                     //txtBuscadorProducto.Focus();
+
                     if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                     {
+                        if (opcion19 == 0)
+                        {
+                            Utilidades.MensajePermiso();
+                            return;
+                        }
                         var idProducto = DGVentas.Rows[celdaCellClick].Cells["IDProducto"].Value.ToString();
                         var nombreProducto = DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString();
                         var precioProducto = DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString();
@@ -1418,7 +1428,19 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-
+                        
+                        
+                        if (yasemando.Equals(false))
+                        {
+                            string Folio = Contenido;
+                            string datosCorreoVenta = formaDePagoDeVenta + "|" + cliente + "|" + Folio;
+                            foreach (DataGridViewRow articulo in DGVentas.Rows)
+                            {
+                                enviarVenta.Add(articulo.Cells["Cantidad"].Value.ToString() + "|" + articulo.Cells["Precio"].Value.ToString() + "|" + articulo.Cells["Descripcion"].Value.ToString() + "|" + articulo.Cells["Descuento"].Value.ToString() + "|" + articulo.Cells["Importe"].Value.ToString() + "|" + datosCorreoVenta + "|" + cAnticipo.Text.Trim() + "|" + cAnticipoUtilizado.Text.Trim() + "|" + cDescuento.Text.Trim());
+                            }
+                            yasemando = true;
+                        }
+                        
                         SendKeys.Send("{ENTER}");
                         SendKeys.Send("{ENTER}");
                     }
@@ -3283,6 +3305,7 @@ namespace PuntoDeVentaV2
                 }
             }
             txtBuscadorProducto.Focus();
+            yasemando = false;
         }
 
         private void ultimaVentaInformacion()
@@ -4185,9 +4208,8 @@ namespace PuntoDeVentaV2
                             // Imprimir Ticket Venta Guardada
                             if (tipoDeVentaRealizada.Equals(2))
                             {
-                                DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket Del Presupuesto", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
-                                if (respuestaImpresion.Equals(DialogResult.Yes))
-                                {
+                                //DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket Del Presupuesto", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+                                
                                     if (ticket6cm.Equals(1))
                                     {
                                         using (imprimirTicketPresupuesto8cm imprimirTicketVenta = new imprimirTicketPresupuesto8cm())
@@ -4242,7 +4264,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.ShowDialog();
                                         }
                                     }
-                                }
+                                
                             }
                             // Imprimir Ticket Venta Cancelada
                             if (tipoDeVentaRealizada.Equals(3))
@@ -5652,16 +5674,9 @@ namespace PuntoDeVentaV2
             ticket.Close();
             writer.Close();
 
-            var respuesta = MessageBox.Show("¿Desea imprimir el ticket?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (respuesta == DialogResult.Yes)
-            {
                 ImprimirTicket(folioTicket.ToString(), 1);
-            }
-            else
-            {
-                txtBuscadorProducto.Focus();
-            }
+            
+           
         }
 
         private void ImprimirTicket(string idVenta, int tipo = 0)
@@ -6021,9 +6036,9 @@ namespace PuntoDeVentaV2
                 checkFoundMinusAndDot = verifiedContainsMinusSymbol(cadena);
 
                 var estaDentroDelLimite = false;
-                var esNumeroLaBusqueda = 0;
+                decimal esNumeroLaBusqueda = 0;
                 string vacia = string.Empty;
-                estaDentroDelLimite = int.TryParse(cadena, out esNumeroLaBusqueda);
+                estaDentroDelLimite = decimal.TryParse(cadena, out esNumeroLaBusqueda);
 
                 if (estaDentroDelLimite.Equals(false))
                 {
@@ -6115,7 +6130,7 @@ namespace PuntoDeVentaV2
                                 cantidadExtra = Convert.ToInt32(infoTmp[1]) * -1;
                             }
                         }
-
+                         
                         cadena = Regex.Replace(cadena, tercerPatron, string.Empty);
 
                         //Verifica que exista algun producto o servicio en el datagridview
@@ -7082,7 +7097,7 @@ namespace PuntoDeVentaV2
             txtDescuentoGeneral.Select(0, 0);
         }
 
-        private void checkCancelar_MouseClick(object sender, MouseEventArgs e)
+        private void checkCancelar_MouseClick(object sender, MouseEventArgs e)  
         {
             if (checkCancelar.Checked)
             {
@@ -7982,11 +7997,6 @@ namespace PuntoDeVentaV2
             txtBuscadorProducto.Select();
         }
 
-        private void DGVentas_CellEnter(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void nudCantidadPS_Click(object sender, EventArgs e)
         {
             var canitdad = Convert.ToDecimal(nudCantidadPS.Value);
@@ -8122,11 +8132,6 @@ namespace PuntoDeVentaV2
             {
                 e.Handled = true;
             }
-        }
-
-        private void txtDescuentoGeneral_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void DGVentas_CellContentClick_1(object sender, DataGridViewCellEventArgs e)

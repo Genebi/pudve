@@ -1737,11 +1737,8 @@ namespace PuntoDeVentaV2
 
                                 if (totalObtenidoAbono > 0)
                                 {
-                                    mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    //mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                                 }
-
-                                if (mensaje == DialogResult.Yes)
-                                {
                                     var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
                                     var t = formasPago.Sum().ToString();
@@ -1931,7 +1928,7 @@ namespace PuntoDeVentaV2
                                             cn.EjecutarConsulta(cs.OperacionCaja(datos));
                                         }
                                     }
-                                }
+                                
                             }
                             else if (obtenerValorSiSeAbono.Rows.Count.Equals(0))
                             {
@@ -1968,10 +1965,10 @@ namespace PuntoDeVentaV2
 
                                     }
 
-                                    mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    //mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                                      
-                                    if (mensaje == DialogResult.Yes)
-                                    {
+                                    //if (mensaje == DialogResult.Yes)
+                                    //{
                                         float tot = 0f, efe = 0f, tar = 0f, val = 0f, che = 0f, trans = 0f;
 
                                         var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
@@ -2102,7 +2099,7 @@ namespace PuntoDeVentaV2
                                                 stopCancelar = false;
                                             }
                                         }
-                                    }
+                                    //}
                                     //stopCancelar = false;
                                 }
                             }
@@ -4353,13 +4350,20 @@ namespace PuntoDeVentaV2
 
             if (opc == 5)
             {
+                string ruta_archivos;
+                string FolioSerie;
                 for (var i = 0; i < idnv.Length; i++)
                 {
-                    string ruta_archivos = @"C:\Archivos PUDVE\Ventas\PDF\VENTA_" + idnv[i];
+                    using (DataTable Consulta = cn.CargarDatos($"SELECT CONCAT(Folio,Serie)AS FolioySerie FROM ventas WHERE ID = {idnv[i]}"))
+                    {
+                        FolioSerie = Consulta.Rows[0]["FolioySerie"].ToString();
+                    }
+                    ruta_archivos = $@"C:\Archivos PUDVE\Ventas\PDF\{FormPrincipal.userNickName}\VENTA_NoVenta" + idnv[i]+$"_Folio{FolioSerie}";
+                    
                     // Si la conexión es en red cambia ruta de guardado
                     if (!string.IsNullOrWhiteSpace(servidor))
                     {
-                        ruta_archivos = $@"\\{servidor}\Archivos PUDVE\Facturas\PDF\VENTA_" + idnv[i];
+                        ruta_archivos = $@"\\{servidor}\Archivos PUDVE\Ventas\PDF\{FormPrincipal.userNickName}\VENTA_NoVenta" + idnv[i] + $"_Folio{FolioSerie}";
                     }
 
                     File.Copy(ruta_archivos + ".pdf", ruta_new_carpeta + "\\VENTA_" + idnv[i] + ".pdf");
@@ -4368,6 +4372,8 @@ namespace PuntoDeVentaV2
 
 
             // Comprimir carpeta
+
+
 
             if (opc == 6)
             {

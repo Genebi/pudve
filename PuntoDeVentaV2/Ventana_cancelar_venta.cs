@@ -95,18 +95,18 @@ namespace PuntoDeVentaV2
 
                                     bool tieneAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDUsuario = {FormPrincipal.userID} AND IDVenta = {idVenta}");
 
-                                    if (fueACredito && tieneAbonos)
-                                    {
-                                        mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                                    }
+                                    //if (fueACredito && tieneAbonos)
+                                    //{
+                                    //    mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    //}
 
-                                    if (!fueACredito)
-                                    {
-                                        mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                                    }
+                                    //if (!fueACredito)
+                                    //{
+                                    //    mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    //}
 
-                                    if (mensaje == DialogResult.Yes)
-                                    {
+                                    //if (mensaje == DialogResult.Yes)
+                                    //{
                                         if (estatusVenta.Equals(1))
                                         {
 
@@ -138,7 +138,8 @@ namespace PuntoDeVentaV2
                                                 };
 
                                                 cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
-
+                                                //Yo le movi aqui ATTE: El destroyer xD
+                                                cn.EjecutarConsulta($"INSERT INTO caja ( Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IDEmpleado, NumFolio, CantidadRetiradaCorte )VALUES( 'retiro', '{total}', '0.00', '{concepto}', '{fechaOperacion}', '{FormPrincipal.userID}', '{efectivo}', '{tarjeta}', '{vales}', '{cheque}', '{transferencia}', '{credito}', '{anticipo}', '{FormPrincipal.id_empleado}', '{folio}', '0.00' )");
                                                 //cn.EjecutarConsulta(cs.OperacionCaja(datos));
                                             }
 
@@ -148,7 +149,7 @@ namespace PuntoDeVentaV2
                                         {
                                             validarDatos(idVenta);
                                         }
-                                    }
+                                    //}
 
                                     venta_cancelada = 1;
 
@@ -292,9 +293,9 @@ namespace PuntoDeVentaV2
                                                 referencia = Convert.ToInt32(item["Referencia"].ToString());
                                             }
 
-                                            DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket De La Cancelación", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                                            if (respuestaImpresion.Equals(DialogResult.Yes))
-                                            {
+                                            //DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket De La Cancelación", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                            //if (respuestaImpresion.Equals(DialogResult.Yes))
+                                            //{
                                                 if (ticket6cm.Equals(1))
                                                 {
                                                     using (ImprimirTicketCancelado8cm imprimirTicketVenta = new ImprimirTicketCancelado8cm())
@@ -349,7 +350,7 @@ namespace PuntoDeVentaV2
                                                         imprimirTicketVenta.ShowDialog();
                                                     }
                                                 }
-                                            }
+                                            //}
                                         }
                                     }
                                 }
