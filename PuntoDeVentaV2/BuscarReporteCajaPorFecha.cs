@@ -352,7 +352,73 @@ namespace PuntoDeVentaV2
                     }
                     else if (idEmpleado > 0)
                     {
+                        using (DataTable dtIntervaloDeIDCorteDeCaja = cn.CargarDatos(cs.intervaloVentasRealizadasEnEmpleadoDesdeAdministrador(idEmpleado, id)))
+                        {
+                            if (!dtIntervaloDeIDCorteDeCaja.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtIntervaloDeIDCorteDeCaja.Rows)
+                                {
+                                    auxIntervaloIDCaja += $"{item["IDCorteDeCaja"].ToString()}|";
+                                }
+                                intervaloIDCaja = auxIntervaloIDCaja.Substring(0, auxIntervaloIDCaja.Length - 1);
 
+                                var IDsCaja = intervaloIDCaja.Split('|');
+
+                                if (IDsCaja.Length > 0)
+                                {
+                                    if (IDsCaja.Length.Equals(2))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                        IDCajaFin = Convert.ToInt32(IDsCaja[1].ToString());
+                                    }
+                                    else if (IDsCaja.Length.Equals(1))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                    }
+                                }
+
+                                var fechaLimiteSuperior = string.Empty;
+                                var fechaLimiteInferior = string.Empty;
+
+                                using (DataTable dtRangoFechasAbonos = cn.CargarDatos(cs.intervaloFechasAbonosRealizadosEnEmpleadoDesdeAdministrador(idEmpleado, IDCajaInicio, IDCajaFin)))
+                                {
+                                    if (!dtRangoFechasAbonos.Rows.Count.Equals(0))
+                                    {
+                                        foreach (DataRow item in dtRangoFechasAbonos.Rows)
+                                        {
+                                            var fecha1 = Convert.ToDateTime(item["LimiteSuperior"].ToString()).ToString("yyyy-MM-dd HH:mm:ss");
+                                            var fecha2 = Convert.ToDateTime(item["LimiteInferior"].ToString()).ToString("yyyy-MM-dd HH:mm:ss");
+                                            fechaLimiteSuperior = fecha1;
+                                            fechaLimiteInferior = fecha2;
+                                        }
+                                    }
+                                }
+
+                                DataTable dtVentasRealizadas = cn.CargarDatos(cs.tablaVentasRealizadasEnEmpleadoDesdeAdministrador(idEmpleado, fechaLimiteSuperior, fechaLimiteInferior, IDCajaInicio, IDCajaFin));
+
+                                dtVenta = dtVentasRealizadas;
+                            }
+                        }
+
+                        using (DataTable dtAnticiposRecibidos = cn.CargarDatos(cs.tablaAnticiposRecibidosEnEmpleadoDesdeAdministrador(idEmpleado, IDCajaInicio, IDCajaFin)))
+                        {
+                            dtAnticipo = dtAnticiposRecibidos;
+                        }
+
+                        using (DataTable dtDineroAgregadoCaja = cn.CargarDatos(cs.tablaDineroAgregadoEnEmpleadoDesdeAdministrador(idEmpleado, IDCajaInicio, IDCajaFin)))
+                        {
+                            dtDineroAgregado = dtDineroAgregadoCaja;
+                        }
+
+                        using (DataTable dtDineroRetiradoCaja = cn.CargarDatos(cs.tablaDineroRetiradoEnEmpleadoDesdeAdministrador(idEmpleado, IDCajaInicio, IDCajaFin)))
+                        {
+                            dtDineroRetirado = dtDineroRetiradoCaja;
+                        }
+
+                        using (DataTable dtTotalDeCajaAlCorte = cn.CargarDatos(cs.tablaTotalDeCajaAlCorteEnEmpleadoDesdeAdministrador(idEmpleado, IDCajaInicio, IDCajaFin)))
+                        {
+                            dtTotalCaja = dtTotalDeCajaAlCorte;
+                        }
                     }
                 }
                 else if (FormPrincipal.userNickName.Contains("@"))
