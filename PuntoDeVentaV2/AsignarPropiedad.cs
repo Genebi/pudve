@@ -146,6 +146,7 @@ namespace PuntoDeVentaV2
                 txtCantidadCompra.Leave += new EventHandler(txtCantidadCompra_Leave);
                 txtCantidadCompra.KeyPress += new KeyPressEventHandler(txtCantidadCompra_Keypress);
                 txtCantidadCompra.Location = new Point(265, 33);
+                txtCantidadCompra.ShortcutsEnabled = false;
 
                 TextBox tbMensaje = new TextBox();
                 tbMensaje.Name = "tb" + propiedad;
@@ -707,6 +708,34 @@ namespace PuntoDeVentaV2
                     Dispose();
                 }
             }
+            else if (propiedad == "AgregarDescuento")
+            {
+                TextBox tbAgregarDescuento = new TextBox();
+                tbAgregarDescuento.Name = "tb" + propiedad;
+                tbAgregarDescuento.Width = 200;
+                tbAgregarDescuento.Height = 40;
+                tbAgregarDescuento.CharacterCasing = CharacterCasing.Upper;
+                tbAgregarDescuento.Font = fuente;
+                tbAgregarDescuento.Location = new Point(65, 50);
+
+                panelContenedor.Controls.Add(tbAgregarDescuento);
+                panelContenedor.Controls.Add(GenerarBoton(0, "cancelarMensaje"));
+                panelContenedor.Controls.Add(GenerarBoton(1, "aceptarMensaje"));
+            }
+            else if (propiedad == "EliminarDescuento")
+            {
+                //TextBox tbEliminarDescuento = new TextBox();
+                //tbEliminarDescuento.Name = "tb" + propiedad;
+                //tbEliminarDescuento.Width = 200;
+                //tbEliminarDescuento.Height = 40;
+                //tbEliminarDescuento.CharacterCasing = CharacterCasing.Upper;
+                //tbEliminarDescuento.Font = fuente;
+                //tbEliminarDescuento.Location = new Point(65, 50);
+
+                //panelContenedor.Controls.Add(tbEliminarDescuento);
+                panelContenedor.Controls.Add(GenerarBoton(0, "cancelarMensaje"));
+                panelContenedor.Controls.Add(GenerarBoton(1, "aceptarMensaje"));
+            }
             else
             {
                 // Consulta para obtener todas las opciones registradas para esa propiedad
@@ -1021,9 +1050,8 @@ namespace PuntoDeVentaV2
             //porFavorEspere.ShowDialog();
             //Thread.Sleep(500);
             
-                this.Close();          
-                      
-            
+                this.Close();
+
         }
 
         private void OperacionBoton()
@@ -1327,7 +1355,7 @@ namespace PuntoDeVentaV2
                     return;
                 }
             }
-            else if (propiedad == "StockMinimo")
+            else if (propiedad == "StockMinimo")//////////////////////////////////////////////////////////StockMinimo
             {
                 TextBox txtStock = (TextBox)this.Controls.Find("tbStockMinimo", true)[0];
 
@@ -1363,7 +1391,7 @@ namespace PuntoDeVentaV2
                     return;
                 }
             }
-            else if (propiedad == "StockMaximo")
+            else if (propiedad == "StockMaximo")/////////////////////////////////////////////////////////////////
             {
                 TextBox txtStock = (TextBox)this.Controls.Find("tbStockMaximo", true)[0];
 
@@ -1399,7 +1427,7 @@ namespace PuntoDeVentaV2
                     return;
                 }
             }
-            else if (propiedad == "Precio")
+            else if (propiedad == "Precio")/////////////////////////////////////////////////////////////////
             {
                 TextBox txtPrecio = (TextBox)this.Controls.Find("tbPrecio", true)[0];
 
@@ -1506,7 +1534,7 @@ namespace PuntoDeVentaV2
                 }
 
             }
-            else if (propiedad == "NumeroRevision")
+            else if (propiedad == "NumeroRevision")/////////////////////////////////////////////////////////////////
             {
                 TextBox txtRevision = (TextBox)this.Controls.Find("tbNumeroRevision", true)[0];
 
@@ -1539,7 +1567,7 @@ namespace PuntoDeVentaV2
                     return;
                 }
             }
-            else if (propiedad == "TipoIVA")
+            else if (propiedad == "TipoIVA")/////////////////////////////////////////////////////////////////
             {
                 ComboBox combo = (ComboBox)this.Controls.Find("cbTipoIVA", true)[0];
 
@@ -1564,7 +1592,7 @@ namespace PuntoDeVentaV2
                     MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
                 }
             }
-            else if (propiedad == "ClaveProducto")
+            else if (propiedad == "ClaveProducto")/////////////////////////////////////////////////////////////////
             {
                 TextBox txtClave = (TextBox)this.Controls.Find("tbClaveProducto", true).FirstOrDefault();
 
@@ -1605,7 +1633,7 @@ namespace PuntoDeVentaV2
                 
                
             }
-            else if (propiedad == "ClaveUnidad")
+            else if (propiedad == "ClaveUnidad")/////////////////////////////////////////////////////////////////
             {
                 TextBox txtClave = (TextBox)this.Controls.Find("tbClaveUnidad", true).FirstOrDefault();
                 ComboBox combo = (ComboBox)this.Controls.Find("cbClaveUnidad", true).FirstOrDefault();
@@ -1640,7 +1668,7 @@ namespace PuntoDeVentaV2
                     return;
                 }
             }
-            else if (propiedad == "Correos")
+            else if (propiedad == "Correos")/////////////////////////////////////////////////////////////////
             {
                 //var checkPrimero = (CheckBox)Controls.Find("CorreoPrecioProducto", true).First();
                 //var checkSegundo = (CheckBox)Controls.Find("CorreoStockProducto", true).First();
@@ -1682,7 +1710,7 @@ namespace PuntoDeVentaV2
                     MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
                 }
             }
-            else if (propiedad == "Proveedor")
+            else if (propiedad == "Proveedor")/////////////////////////////////////////////////////////////////
             {
                 // Acceder al combobox de proveedores
                 ComboBox combo = (ComboBox)this.Controls.Find("cbProveedor", true)[0];
@@ -1724,6 +1752,63 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Es necesario seleccionar un proveedor", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
+            }
+            else if (propiedad == "AgregarDescuento")/////////////////////////////////////////////////////////////////AGREGAR DESCUENTO
+            {
+                DialogResult dialogResult = MessageBox.Show("El descuento se aplicara a todo los productos seleccionados\n si uno de estos productos ya contaba con un descuento se remplazara por este nuevo descuento.", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    TextBox txtDescuento = (TextBox)this.Controls.Find("tbAgregarDescuento", true)[0];
+                    var descuento = txtDescuento.Text;
+
+                    foreach (var item in productos)
+                    {
+                        var idprod = item.Key;
+
+                        var datosProd = cn.CargarDatos($"SELECT * FROM productos WHERE ID = {idprod}");
+                        string precioproducto = datosProd.Rows[0]["Precio"].ToString();
+                        TextBox porcentaje = (TextBox)this.Controls.Find("tbAgregarDescuento", true)[0];
+                        var porcentajedescuento = porcentaje.Text;
+                        decimal preciodescuento = ((Convert.ToDecimal(precioproducto) * Convert.ToDecimal(porcentajedescuento)) / 100);
+                        decimal preciodescuentofinal = Convert.ToDecimal(precioproducto) - preciodescuento;
+                        decimal descuentoaplicado = ((Convert.ToDecimal(precioproducto) * Convert.ToDecimal(porcentajedescuento)) / 100);
+
+                        var insAct = cn.CargarDatos($"SELECT * FROM descuentocliente WHERE IDProducto = {idprod}");
+
+                        if (!insAct.Rows.Count.Equals(0))
+                        {
+                            cn.EjecutarConsulta($"UPDATE descuentocliente SET PorcentajeDescuento = {descuento}, PrecioDescuento = {preciodescuentofinal}, Descuento = {descuentoaplicado} WHERE IDProducto = {idprod}");
+                        }
+                        else
+                        {
+                            cn.EjecutarConsulta($"INSERT INTO descuentocliente (PrecioProducto,PorcentajeDescuento,PrecioDescuento,Descuento,IDProducto) VALUES ({precioproducto},{porcentajedescuento},{preciodescuentofinal},{descuentoaplicado},{idprod})");
+                        }
+                    }
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    return;
+                }
+               
+            }
+            else if (propiedad == "EliminarDescuento")/////////////////////////////////////////////////////////////////ELIMINAR DESCUENTO
+            {
+
+                DialogResult dialogResult = MessageBox.Show("Se eliminaran los descuentos de todos\n los productos seleccionados.", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    foreach (var item in productos)
+                    {
+                        var idprod = item.Key;
+
+                        cn.EjecutarConsulta($"DELETE FROM descuentocliente WHERE IDProducto = {idprod}");
+                    }
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    return;
+                }
+
             }
             else
             {

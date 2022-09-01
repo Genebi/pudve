@@ -119,6 +119,7 @@ namespace PuntoDeVentaV2
                 txtCantidadCompra.Width = 35;
                 txtCantidadCompra.Height = 20;
                 txtCantidadCompra.Location = new Point(270,33);
+                txtCantidadCompra.ShortcutsEnabled = false;
 
                 panelDatos.Controls.Add(lbNombreProducto);
                 panelDatos.Controls.Add(lbCantidadCompra);

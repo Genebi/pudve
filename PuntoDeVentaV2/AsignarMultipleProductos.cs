@@ -162,7 +162,6 @@ namespace PuntoDeVentaV2
 
         private void AgregarOpcion(string nombre, string texto, int altura)
         {
-            // PANEL MENSAJE VENTAS
             FlowLayoutPanel panelCustom = new FlowLayoutPanel();
             panelCustom.Name = "panel" + nombre;
             panelCustom.Width = 350;
@@ -215,9 +214,12 @@ namespace PuntoDeVentaV2
             AgregarOpcion("ClaveUnidad", "Clave de Unidad", 325);
             // PANEL CORREOS PRODUCTO
             AgregarOpcion("Correos", "Correos", 360);
+            //PANEL ASIGNAR DESCUENTO POR PORCENTAJE
+            AgregarOpcion("AgregarDescuento", "Agregar Descuento", 395);
+            //PANEL ELIMINAR DESCUENTO POR PORCENTAJE
+            AgregarOpcion("EliminarDescuento", "Elimnar Descuento", 430);
 
-
-            int alturaEjeY = 395;
+            int alturaEjeY = 430;
 
             var conceptos = mb.ConceptosAppSettings();
 
