@@ -1466,10 +1466,10 @@ namespace PuntoDeVentaV2
 
         private void AgregarDescuentoProducto_Activated(object sender, EventArgs e)
         {
-            if (refrescarForm)
-            {
-                obtenerTipoDescuento();
-            }
+            //if (refrescarForm)
+            //{
+            //    obtenerTipoDescuento();
+            //}
         }
 
         private void timer1_Tick(object sender, EventArgs e)
