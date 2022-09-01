@@ -146,6 +146,7 @@ namespace PuntoDeVentaV2
                 txtCantidadCompra.Leave += new EventHandler(txtCantidadCompra_Leave);
                 txtCantidadCompra.KeyPress += new KeyPressEventHandler(txtCantidadCompra_Keypress);
                 txtCantidadCompra.Location = new Point(265, 33);
+                txtCantidadCompra.ShortcutsEnabled = false;
 
                 TextBox tbMensaje = new TextBox();
                 tbMensaje.Name = "tb" + propiedad;

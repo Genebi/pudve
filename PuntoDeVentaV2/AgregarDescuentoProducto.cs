@@ -28,6 +28,9 @@ namespace PuntoDeVentaV2
         private bool refrescarForm = true;
         private bool eliminarDescuento = false;
 
+        private const Keys CopyKeys = Keys.Control | Keys.C;
+        private const Keys PasteKeys = Keys.Control | Keys.V;
+
         public AgregarDescuentoProducto()
         {
             InitializeComponent();
@@ -268,6 +271,7 @@ namespace PuntoDeVentaV2
                 tb1.BackColor = Color.White;
                 tb1.Text = precioProducto.ToString("0.00");
                 tb1.KeyPress += new KeyPressEventHandler(soloDecimales);
+                tb1.ShortcutsEnabled = false;
 
                 Label lb2 = new Label();
                 lb2.Text = "% de Descuento";
@@ -286,6 +290,7 @@ namespace PuntoDeVentaV2
                 tb2.TextAlign = HorizontalAlignment.Center;
                 tb2.KeyPress += new KeyPressEventHandler(soloDecimales);
                 tb2.KeyUp += new KeyEventHandler(calculoDescuento);
+                tb2.ShortcutsEnabled = false;
                 
 
                 Label lb3 = new Label();
@@ -306,6 +311,7 @@ namespace PuntoDeVentaV2
                 tb3.Enabled = false;
                 tb3.BackColor = Color.White;
                 tb3.KeyPress += new KeyPressEventHandler(soloDecimales);
+                tb3.ShortcutsEnabled = false;
 
                 Label lb4 = new Label();
                 lb4.Text = "Descuento";
@@ -325,6 +331,7 @@ namespace PuntoDeVentaV2
                 tb4.Enabled = false;
                 tb4.BackColor = Color.White;
                 tb4.KeyPress += new KeyPressEventHandler(soloDecimales);
+                tb4.ShortcutsEnabled = false;
 
                 panelHijo.Controls.Add(lb1);
                 panelHijo.Controls.Add(tb1);
@@ -388,6 +395,7 @@ namespace PuntoDeVentaV2
                 tb2.TextAlign = HorizontalAlignment.Center;
                 tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
                 tb2.KeyPress += new KeyPressEventHandler(soloDecimales);
+                tb2.ShortcutsEnabled = false;
 
                 TextBox tb3 = new TextBox();
                 tb3.Name = "tbMayoreo1_3";
@@ -471,6 +479,7 @@ namespace PuntoDeVentaV2
                         tb1.Enabled = false;
                         tb1.BackColor = Color.White;
                         tb1.Text = precioProducto.ToString("0.00");
+                        tb1.ShortcutsEnabled = false;
 
                         Label lb2 = new Label();
                         lb2.Text = "% de Descuento";
@@ -491,6 +500,7 @@ namespace PuntoDeVentaV2
                         tb2.KeyPress += new KeyPressEventHandler(soloDecimales);
                         tb2.KeyUp += new KeyEventHandler(calculoDescuento);
                         tb2.Text = renglon[2].ToString();
+                        tb2.ShortcutsEnabled = false;
 
                         Label lb3 = new Label();
                         lb3.Text = "Precio con Descuento";
@@ -510,6 +520,7 @@ namespace PuntoDeVentaV2
                         tb3.Enabled = false;
                         tb3.BackColor = Color.White;
                         tb3.Text = renglon[3].ToString();
+                        tb3.ShortcutsEnabled = false;
 
                         Label lb4 = new Label();
                         lb4.Text = "Descuento";
@@ -529,6 +540,7 @@ namespace PuntoDeVentaV2
                         tb4.Enabled = false;
                         tb4.BackColor = Color.White;
                         tb4.Text = renglon[4].ToString();
+                        tb4.ShortcutsEnabled = false;
 
                         panelHijo.Controls.Add(lb1);
                         panelHijo.Controls.Add(tb1);
@@ -570,6 +582,7 @@ namespace PuntoDeVentaV2
                     tb1.Enabled = false;
                     tb1.BackColor = Color.White;
                     tb1.Text = precioProducto.ToString("0.00");
+                    tb1.ShortcutsEnabled = false;
 
                     Label lb2 = new Label();
                     lb2.Text = "% de Descuento";
@@ -589,6 +602,7 @@ namespace PuntoDeVentaV2
                     tb2.Leave += new EventHandler(borrarTextoMensaje);
                     tb2.KeyPress += new KeyPressEventHandler(soloDecimales);
                     tb2.KeyUp += new KeyEventHandler(calculoDescuento);
+                    tb2.ShortcutsEnabled = false;
 
                     Label lb3 = new Label();
                     lb3.Text = "Precio con Descuento";
@@ -608,6 +622,7 @@ namespace PuntoDeVentaV2
                     tb3.Enabled = false;
                     tb3.BackColor = Color.White;
                     tb3.KeyPress += new KeyPressEventHandler(soloDecimales);
+                    tb3.ShortcutsEnabled = false;
 
                     Label lb4 = new Label();
                     lb4.Text = "Descuento";
@@ -627,6 +642,7 @@ namespace PuntoDeVentaV2
                     tb4.Enabled = false;
                     tb4.BackColor = Color.White;
                     tb4.KeyPress += new KeyPressEventHandler(soloDecimales);
+                    tb4.ShortcutsEnabled = false;
 
                     panelHijo.Controls.Add(lb1);
                     panelHijo.Controls.Add(tb1);
@@ -704,6 +720,7 @@ namespace PuntoDeVentaV2
                         tb1.Text = renglon[1].ToString();
                         tb1.ReadOnly = true;
                         tb1.BackColor = Color.White;
+                        tb1.ShortcutsEnabled = false;
 
                         TextBox tb2 = new TextBox();
                         tb2.Name = $"tbMayoreo{idGenerado}_2";
@@ -715,6 +732,7 @@ namespace PuntoDeVentaV2
                         tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
                         tb2.Text = renglon[2].ToString() != "N" ? renglon[2].ToString() : "";
                         tb2.Enabled = habilitado;
+                        tb2.ShortcutsEnabled = false;
 
                         Label lb = new Label();
                         lb.Text = "";
@@ -729,6 +747,7 @@ namespace PuntoDeVentaV2
                         tb3.Margin = new Padding(95, 5, 0, 0);
                         tb3.TextAlign = HorizontalAlignment.Center;
                         tb3.Text = precioProducto.ToString("0.00");
+                        tb3.ShortcutsEnabled = false;
 
                         if (cantidadRangos != idGenerado)
                         {
@@ -866,6 +885,7 @@ namespace PuntoDeVentaV2
                     tb1.Text = "1";
                     tb1.ReadOnly = true;
                     tb1.BackColor = Color.White;
+                    tb1.ShortcutsEnabled = false;
 
                     TextBox tb2 = new TextBox();
                     tb2.Name = "tbMayoreo1_2";
@@ -875,6 +895,7 @@ namespace PuntoDeVentaV2
                     tb2.TextAlign = HorizontalAlignment.Center;
                     tb2.Leave += new EventHandler(borrarTextoMensaje);
                     tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
+                    tb2.ShortcutsEnabled = false;
 
                     TextBox tb3 = new TextBox();
                     tb3.Name = "tbMayoreo1_3";
@@ -885,6 +906,7 @@ namespace PuntoDeVentaV2
                     tb3.Text = precioProducto.ToString("0.00");
                     tb3.ReadOnly = true;
                     tb3.BackColor = Color.White;
+                    tb3.ShortcutsEnabled = false;
 
                     Button btAgregar = new Button();
                     btAgregar.Cursor = Cursors.Hand;
@@ -1130,6 +1152,7 @@ namespace PuntoDeVentaV2
             tb1.Text = (Convert.ToInt32(rangoInicial) + 1).ToString();
             tb1.ReadOnly = true;
             tb1.BackColor = Color.White;
+            tb1.ShortcutsEnabled = false;
 
             TextBox tb2 = new TextBox();
             tb2.Name = $"tbMayoreo{idGenerado}_2";
@@ -1138,6 +1161,7 @@ namespace PuntoDeVentaV2
             tb2.Margin = new Padding(50, 5, 0, 0);
             tb2.TextAlign = HorizontalAlignment.Center;
             tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
+            tb2.ShortcutsEnabled = false;
 
             Label lb = new Label();
             lb.Text = "o más";
@@ -1152,6 +1176,7 @@ namespace PuntoDeVentaV2
             tb3.Margin = new Padding(50, 5, 0, 0);
             tb3.TextAlign = HorizontalAlignment.Center;
             tb3.KeyUp += new KeyEventHandler(rangoProductosTB);
+            tb3.ShortcutsEnabled = false;
 
             Button btAgregar = new Button();
             btAgregar.Cursor = Cursors.Hand;
@@ -1206,6 +1231,7 @@ namespace PuntoDeVentaV2
 
         private void soloDecimales(object sender, KeyPressEventArgs e)
         {
+
             //permite 0-9, eliminar y decimal
             if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
             {
