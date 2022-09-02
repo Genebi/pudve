@@ -1347,6 +1347,10 @@ namespace PuntoDeVentaV2
                 }
 
                 // Comparando precio nuevo con la linea anterior
+                if (string.IsNullOrWhiteSpace(tb2.Text))
+                {
+                    return;
+                }
                 if (float.Parse(tb2.Text.Trim()) >= float.Parse(tbPrecioAnterior.Text.Trim()))
                 {
                     refrescarForm = false;
