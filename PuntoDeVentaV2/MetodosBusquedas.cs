@@ -2481,6 +2481,7 @@ namespace PuntoDeVentaV2
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("MensajeVentas"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("MensajeInventario"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("PermisoVentaClienteDescuento"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("PermisoVentaClienteDescuentoSinAutorizacion"))));
                 using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
                 {
 

@@ -1772,6 +1772,9 @@ ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoVentaClienteDescuento I
 --Agregar Columana de Permiso Venta a Cliente con descuento a la tabla empeladospermisos
 ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS PermisoVentaClienteDescuento INT DEFAULT 1 ;
 
+--Agrega Columna VentaAClienteDescuentoSinAutorizacion a la tabla de empleadospermisos
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS PermisoVentaClienteDescuentoSinAutorizacion INT DEFAULT 1 ;
+
 -- Agregar columna para descuento por cliente en productos
 ALTER TABLE Productos ADD COLUMN IF NOT EXISTS TieneDescuentoCliente TINYINT(1) DEFAULT 0;
 

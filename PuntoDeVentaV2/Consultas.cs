@@ -4313,7 +4313,7 @@ namespace PuntoDeVentaV2
 
         public string PermissoVentaClienteDescuento(int IDUsuario, int IDEmpleado)
         {
-            var consulta = $"SELECT PermisoVentaClienteDescuento FROM empleadospermisoS WHERE IDUsuario = {IDUsuario} AND IDEmpleado ={IDEmpleado} AND Seccion = 'ventas'";
+            var consulta = $"SELECT PermisoVentaClienteDescuento,PermisoVentaClienteDescuentoSinAutorizacion FROM empleadospermisoS WHERE IDUsuario = {IDUsuario} AND IDEmpleado ={IDEmpleado} AND Seccion = 'ventas'";
             return consulta;
         }
     }

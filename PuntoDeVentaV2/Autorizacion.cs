@@ -39,6 +39,9 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                MessageBox.Show("Contraseña incorrecta","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                txtContraseña.Clear();
+                txtContraseña.Focus();
                 intetnos++;
             }
             if (intetnos.Equals(3))
@@ -47,6 +50,12 @@ namespace PuntoDeVentaV2
                 Ventas.AutorizacionConfirmada = false;
                 this.Close();
             }
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Ventas.AutorizacionConfirmada = false;
+            this.Close();
         }
     }
 }

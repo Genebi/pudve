@@ -3029,14 +3029,21 @@ namespace PuntoDeVentaV2
             {
                 if (!FormPrincipal.id_empleado.Equals(0))
                 {
-                    int permiso;
+
+                    int permisoVentaSinAutorizacion,permisoVentaConAutorizacion;
                     using (DataTable DTPermisoClienteDescuento = cn.CargarDatos(cs.PermissoVentaClienteDescuento(FormPrincipal.userID,FormPrincipal.id_empleado)))
                     {
-                        permiso =Convert.ToInt32(DTPermisoClienteDescuento.Rows[0]["PermisoVentaClienteDescuento"]);
+                        permisoVentaConAutorizacion = Convert.ToInt32(DTPermisoClienteDescuento.Rows[0]["PermisoVentaClienteDescuento"]);
+                        permisoVentaSinAutorizacion = Convert.ToInt32(DTPermisoClienteDescuento.Rows[0]["PermisoVentaClienteDescuentoSinAutorizacion"]);
                     }
-                    if (permiso.Equals(0))
+                    if (permisoVentaSinAutorizacion.Equals(0))
                     {
-                        MessageBox.Show("No tienes permiso para realizar esta venta\n Solicita la autorizacion del Gerente", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("No tienes permiso para realizar una\n venta a un cliente con descuento","Aviso del Sistema",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    if (permisoVentaConAutorizacion.Equals(0))
+                    {
+                        MessageBox.Show("No tienes permiso para realizar esta venta\n Solicita la autorizacion del Administrador", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         Autorizacion aut = new Autorizacion();
                         aut.ShowDialog();
                         if (AutorizacionConfirmada.Equals(false))
@@ -3295,7 +3302,6 @@ namespace PuntoDeVentaV2
                                                 //}
                                             }
                                         }
-
                                     }
                                 }
 
@@ -3339,26 +3345,37 @@ namespace PuntoDeVentaV2
                                     }
                                     string asunto = "Venta a un Cliente con Descento";
                                     string correo;
+                                    int TipoCliente;
+                                    string[] TipoClienteDatos;
+                                    string idUltimaVenta;
+                                    string[] Precios;
+                                    using (DataTable dtTipoCliente = cn.CargarDatos($"SELECT TipoCliente FROM clientes WHERE ID ={IDClienteConDescuento}"))
+                                    {
+                                        TipoCliente = Convert.ToInt32(dtTipoCliente.Rows[0]["TipoCliente"]);
+                                    }
+                                    using (DataTable DTDatos = cn.CargarDatos($"SELECT CONCAT(Nombre,'|',DescuentoPorcentaje) AS Datos FROM `tipoclientes` WHERE ID = {TipoCliente}"))
+                                    {
+                                        string abc = DTDatos.Rows[0]["Datos"].ToString();
+                                        TipoClienteDatos = abc.Split('|');
+                                    }
                                     using (DataTable ConsultaCorreo = cn.CargarDatos(cs.BuscarCorreoDelUsuario(Convert.ToInt32(FormPrincipal.userID))))
                                     {
                                         correo = ConsultaCorreo.Rows[0]["Email"].ToString();
                                     }
+                                    using (DataTable DTIdventa = cn.CargarDatos($"SELECT ID FROM ventas ORDER BY ID DESC LIMIT 1"))
+                                    {
+                                        idUltimaVenta = DTIdventa.Rows[0]["ID"].ToString();
+                                    }
+                                    using (DataTable DTDatosPrecios = cn.CargarDatos($"SELECT CONCAT(Total + Descuento,'|',Descuento,'|',Total) 'DatosPrecio' FROM ventas WHERE ID = {idUltimaVenta}"))
+                                    {
+                                        string PreciosPegados = DTDatosPrecios.Rows[0]["DatosPrecio"].ToString();
+                                        Precios = PreciosPegados.Split('|');
+                                    }
                                     DateTime fecha = DateTime.Now;
-                                    string html = $@"<!DOCTYPE html> <html> <head> </head> <body> <H1 style='text-align: center;'>Venta a Cliente con descuento</H1> <hr> <p style='text-align: center;'> Se realizo una venta al Cliente <b>{ClienteConDescuentoNombre}</b><br><br>El dia <b>{fecha.ToString("dd-MM-yyyy hh:mm:ss")}</b><br><br> Por el {UsuOEmp} <b>{nombre}</b>";
-                                    html += @"
-                    <div>
-                        <h4 style='text-align: center;'>LISTADO DE PRODUCTOS VENDIDOS</h4><hr>
- 
-                        <table style= 'width:100%'>
-                            <tr>
-                                <th style='text-align: left;'>Cantidad</th>
-                                <th style='text-align: left;'>Precio</th>
-                                <th>Descripcion</th>
-                                <th style='text-align: left;'>Descuento</th>
-                                <th style='text-align: right;'>Importe</th>
-                            </tr></p> </body> </html>";
+                                    string html = $@"<!DOCTYPE html> <html> <head> </head> <body> <H1 style='text-align: center;'>Venta a Cliente con descuento</H1> <hr> <p style='text-align: center;'> Se realizo una venta al Cliente <b>{ClienteConDescuentoNombre}</b><br><br>El dia <b>{fecha.ToString("dd-MM-yyyy hh:mm:ss")}</b><br><br> Por el {UsuOEmp} <b>{nombre}</b><br>";
+                                    html += $@"<br>Por el concepto de <b>{TipoClienteDatos[0]}</b><br><br> Con un descuento del <b>{TipoClienteDatos[1].ToString()}% <br><br>SubTotal: <b>{Precios[0]}</b>----Descuento:{Precios[1]}----Total:{Precios[2]}</p> </body> </html>";
 
-                                    
+                                   
                                     Thread btnClearAllItemSale = new Thread(
                                      () => Utilidades.EnviarEmail(html, asunto, correo)
                                     );
