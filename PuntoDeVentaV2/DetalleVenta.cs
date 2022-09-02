@@ -370,7 +370,7 @@ namespace PuntoDeVentaV2
 
                 //idCliente = 0 ;
                 //nameClienteNameVenta = string.Empty;
-
+                Ventas.VentaRealizada = true;
                 this.Hide();
                 this.Close();
             }

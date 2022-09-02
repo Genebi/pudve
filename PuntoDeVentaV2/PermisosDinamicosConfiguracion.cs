@@ -57,7 +57,8 @@ namespace PuntoDeVentaV2
                     "IniciarSesion",
                     "HacerVentaDescuento",
                     "EviarRespaldoCerrarSesion",
-                    "PermisoCorreoAnticipo"};
+                    "PermisoCorreoAnticipo",
+                    "VentaClienteDescuento"};
 
                 var permisosConfiguracion = String.Join(", ", datos);
                 var permisos = mb.PermisosEmpleadoConfiguracion(permisosConfiguracion, FormPrincipal.id_empleado);
@@ -85,6 +86,7 @@ namespace PuntoDeVentaV2
                 GenerarCheckbox(220, 10, 200, "Enviar respaldo al cerrar sesion", permisos[12]);
 
                 GenerarCheckbox(220, 220, 220, "Enviar Nuevo Anticpo al recibirlo", permisos[13]);
+                GenerarCheckbox(250, 10, 220, "Enviar venta a cliente con descuento", permisos[14]);
             }
             if (tipoPermisos == "configuracionGeneral")
             {

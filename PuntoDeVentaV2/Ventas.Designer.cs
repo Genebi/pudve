@@ -115,6 +115,7 @@
             this.btnBascula = new System.Windows.Forms.Button();
             this.lblPesoRecibido = new System.Windows.Forms.Label();
             this.btnCSV = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -1218,6 +1219,12 @@
             this.btnCSV.UseVisualStyleBackColor = true;
             this.btnCSV.Click += new System.EventHandler(this.btnCSV_Click);
             // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1356,5 +1363,6 @@
         private System.Windows.Forms.Label lblCIVA0Exento;
         private System.Windows.Forms.Label lblIVA0Exento;
         private System.Windows.Forms.ComboBox CBTipo;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     }
 }

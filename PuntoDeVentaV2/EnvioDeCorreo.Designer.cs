@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EnvioDeCorreo));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.CBXClienteDescuento = new System.Windows.Forms.CheckBox();
             this.cbRecibirAnricipo = new System.Windows.Forms.CheckBox();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.chRespaldo = new System.Windows.Forms.CheckBox();
@@ -54,6 +55,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox1.Controls.Add(this.CBXClienteDescuento);
             this.groupBox1.Controls.Add(this.cbRecibirAnricipo);
             this.groupBox1.Controls.Add(this.btnAceptar);
             this.groupBox1.Controls.Add(this.chRespaldo);
@@ -78,6 +80,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Envío de Correo:";
             // 
+            // CBXClienteDescuento
+            // 
+            this.CBXClienteDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CBXClienteDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.CBXClienteDescuento.Location = new System.Drawing.Point(468, 113);
+            this.CBXClienteDescuento.Name = "CBXClienteDescuento";
+            this.CBXClienteDescuento.Size = new System.Drawing.Size(261, 21);
+            this.CBXClienteDescuento.TabIndex = 135;
+            this.CBXClienteDescuento.Text = "Al hacer venta a cliente con descuento";
+            this.CBXClienteDescuento.UseVisualStyleBackColor = true;
+            this.CBXClienteDescuento.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBox1_MouseClick);
+            // 
             // cbRecibirAnricipo
             // 
             this.cbRecibirAnricipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -88,7 +102,6 @@
             this.cbRecibirAnricipo.TabIndex = 134;
             this.cbRecibirAnricipo.Text = "Al recibir un anticipo";
             this.cbRecibirAnricipo.UseVisualStyleBackColor = true;
-            this.cbRecibirAnricipo.CheckedChanged += new System.EventHandler(this.cbRecibirAnricipo_CheckedChanged);
             this.cbRecibirAnricipo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbRecibirAnricipo_MouseClick);
             // 
             // btnAceptar
@@ -137,9 +150,9 @@
             // 
             this.cbCorreoIniciar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCorreoIniciar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.cbCorreoIniciar.Location = new System.Drawing.Point(468, 113);
+            this.cbCorreoIniciar.Location = new System.Drawing.Point(11, 109);
             this.cbCorreoIniciar.Name = "cbCorreoIniciar";
-            this.cbCorreoIniciar.Size = new System.Drawing.Size(381, 21);
+            this.cbCorreoIniciar.Size = new System.Drawing.Size(202, 21);
             this.cbCorreoIniciar.TabIndex = 124;
             this.cbCorreoIniciar.Text = "Al iniciar sesión";
             this.cbCorreoIniciar.UseVisualStyleBackColor = true;
@@ -174,7 +187,7 @@
             this.cbCorreoCorteCaja.AutoSize = true;
             this.cbCorreoCorteCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.cbCorreoCorteCaja.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.cbCorreoCorteCaja.Location = new System.Drawing.Point(11, 113);
+            this.cbCorreoCorteCaja.Location = new System.Drawing.Point(11, 136);
             this.cbCorreoCorteCaja.Name = "cbCorreoCorteCaja";
             this.cbCorreoCorteCaja.Size = new System.Drawing.Size(157, 20);
             this.cbCorreoCorteCaja.TabIndex = 121;
@@ -330,5 +343,6 @@
         private System.Windows.Forms.CheckBox cbCorreoVenderProducto;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.CheckBox cbRecibirAnricipo;
+        private System.Windows.Forms.CheckBox CBXClienteDescuento;
     }
 }
