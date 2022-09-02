@@ -415,6 +415,12 @@
     <Compile Include="AsignarPropiedad.Designer.cs">
       <DependentUpon>AsignarPropiedad.cs</DependentUpon>
     </Compile>
+    <Compile Include="Autorizacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Autorizacion.Designer.cs">
+      <DependentUpon>Autorizacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Autoriza_conpassword.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1582,6 +1588,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AsignarPropiedad.resx">
       <DependentUpon>AsignarPropiedad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Autorizacion.resx">
+      <DependentUpon>Autorizacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Autoriza_conpassword.resx">
       <DependentUpon>Autoriza_conpassword.cs</DependentUpon>

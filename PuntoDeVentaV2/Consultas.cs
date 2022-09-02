@@ -4305,17 +4305,6 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT NombreCompleto,Licencia FROM usuarios WHERE Usuario = '{Usuario}'";
             return consulta;
         }
-<<<<<<< HEAD
-        public string ContreseñaDeUsuarioPorID(int idUsuario)
-        {
-            var consulta = $"SELECT `Password` FROM usuarios WHERE ID ={idUsuario}";
-            return consulta;
-        }
-
-        public string PermissoVentaClienteDescuento(int IDUsuario, int IDEmpleado)
-        {
-            var consulta = $"SELECT PermisoVentaClienteDescuento,PermisoVentaClienteDescuentoSinAutorizacion FROM empleadospermisoS WHERE IDUsuario = {IDUsuario} AND IDEmpleado ={IDEmpleado} AND Seccion = 'ventas'";
-=======
 
         public string encabezadoCorteDeCaja(int IDCorteDeCaja)
         {
@@ -4594,7 +4583,17 @@ namespace PuntoDeVentaV2
         {
             var consulta = $"SELECT IF ( SUM( Box.Efectivo ) = '' OR SUM( Box.Efectivo ) IS NULL, 0, SUM( Box.Efectivo ) ) AS 'Efectivo', IF ( SUM( Box.Tarjeta ) = '' OR SUM( Box.Tarjeta ) IS NULL, 0, SUM( Box.Tarjeta ) ) AS 'Tarjeta', IF ( SUM( Box.Vales ) = '' OR SUM( Box.Vales ) IS NULL, 0, SUM( Box.Vales ) ) AS 'Vales', IF ( SUM( Box.Cheque ) = '' OR SUM( Box.Cheque ) IS NULL, 0, SUM( Box.Cheque ) ) AS 'Cheque', IF ( SUM( Box.Transferencia ) = '' OR SUM( Box.Transferencia ) IS NULL, 0, SUM( Box.Transferencia ) ) AS 'Transferencia' FROM caja AS Box INNER JOIN usuarios AS Usr ON ( Usr.ID = Box.IDUsuario ) WHERE Box.ID >= '{IDCajaFin}' AND Box.ID <= '{IDCajaInicio}' AND Box.Operacion = 'retiro' AND Box.IDUsuario = '{FormPrincipal.userID}' AND Box.IdEmpleado = '{FormPrincipal.id_empleado}'";
 
->>>>>>> reportesCorteDeCajaDesdeReportes
+            return consulta;
+        }
+        public string ContreseñaDeUsuarioPorID(int idUsuario)
+        {
+            var consulta = $"SELECT `Password` FROM usuarios WHERE ID ={idUsuario}";
+            return consulta;
+        }
+
+        public string PermissoVentaClienteDescuento(int IDUsuario, int IDEmpleado)
+        {
+            var consulta = $"SELECT PermisoVentaClienteDescuento,PermisoVentaClienteDescuentoSinAutorizacion FROM empleadospermisoS WHERE IDUsuario = {IDUsuario} AND IDEmpleado ={IDEmpleado} AND Seccion = 'ventas'";
             return consulta;
         }
     }
