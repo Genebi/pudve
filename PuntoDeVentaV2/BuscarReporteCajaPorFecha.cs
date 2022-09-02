@@ -522,14 +522,91 @@ namespace PuntoDeVentaV2
             else if (e.ColumnIndex.Equals(4))//Dinero Agregado
             {
                 //var dato = obtenerDatosReporte(id, "deposito");
-                var dato = cdc.obtenerDepositosRetiros("Reportes", "deposito", id);
-                if (!dato.Rows.Count.Equals(0))
+                //var dato = cdc.obtenerDepositosRetiros("Reportes", "deposito", id);
+                //if (!dato.Rows.Count.Equals(0))
+                //{
+                //    GenerarReporteAgregarRetirar("DINERO AGREGADO", dato, id);
+                //}
+                //else
+                //{
+                //    MessageBox.Show("No existe información para generar reporte", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //}
+                var intervaloIDCaja = string.Empty;
+                var auxIntervaloIDCaja = string.Empty;
+                var IDCajaInicio = 0;
+                var IDCajaFin = 0;
+
+                DataTable dtEncabezado = null;
+                DataTable dtDepositos = null;
+                DataTable dtDepositosSuma = null;
+                DataTable dtRetiros = null;
+                DataTable dtRetirosSuma = null;
+
+                using (DataTable dtContenidoEncabezado = cn.CargarDatos(cs.encabezadoCorteDeCaja(id)))
                 {
-                    GenerarReporteAgregarRetirar("DINERO AGREGADO", dato, id);
+                    dtEncabezado = dtContenidoEncabezado;
                 }
-                else
+
+                if (!FormPrincipal.userNickName.Contains("@"))
                 {
-                    MessageBox.Show("No existe información para generar reporte", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    var idEmpleado = 0;
+
+                    using (DataTable dtVerificarSiEsCorteDeEmpleado = cn.CargarDatos(cs.VerificarSiEsCorteDeEmpleado(id)))
+                    {
+                        if (!dtVerificarSiEsCorteDeEmpleado.Rows.Count.Equals(0))
+                        {
+                            DataRow drVerificarSiEsEmpleado = dtVerificarSiEsCorteDeEmpleado.Rows[0];
+                            idEmpleado = Convert.ToInt32(drVerificarSiEsEmpleado["IdEmpleado"].ToString());
+                        }
+                    }
+
+                    if (idEmpleado.Equals(0))
+                    {
+                        using (DataTable dtIntervaloDeIDCorteDeCaja = cn.CargarDatos(cs.intervaloMovimientosRealizadasAdministrador(id)))
+                        {
+                            if (!dtIntervaloDeIDCorteDeCaja.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtIntervaloDeIDCorteDeCaja.Rows)
+                                {
+                                    auxIntervaloIDCaja += $"{item["IDCorteDeCaja"].ToString()}|";
+                                }
+                                intervaloIDCaja = auxIntervaloIDCaja.Substring(0, auxIntervaloIDCaja.Length - 1);
+
+                                var IDsCaja = intervaloIDCaja.Split('|');
+
+                                if (IDsCaja.Length > 0)
+                                {
+                                    if (IDsCaja.Length.Equals(2))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                        IDCajaFin = Convert.ToInt32(IDsCaja[1].ToString());
+                                    }
+                                    else if (IDsCaja.Length.Equals(1))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                    }
+                                }
+                            }
+                        }
+
+                        using (DataTable dtDepositosRealizados = cn.CargarDatos(cs.ReimprimirHistorialDepositosAdminsitrador(IDCajaInicio, IDCajaFin)))
+                        {
+                            dtDepositos = dtDepositosRealizados;
+                        }
+
+                        using (DataTable dtSumaDepositosRealizados = cn.CargarDatos(cs.ReimprimirCargarHistorialDepositosAdministradorSumaTotal(IDCajaInicio, IDCajaFin)))
+                        {
+                            dtDepositosSuma = dtSumaDepositosRealizados;
+                        }
+                    }
+                    else if (idEmpleado > 0)
+                    {
+
+                    }
+                }
+                else if (FormPrincipal.userNickName.Contains("@"))
+                {
+
                 }
             }
             else if (e.ColumnIndex.Equals(5))//Dinero Retirado
