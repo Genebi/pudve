@@ -1203,6 +1203,12 @@
       <DependentUpon>DSReimprimirDepositosRealizados.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="ReportesImpresion\Ticket\ReimprimirRetirosRealizados\DSReimprimirRetirosRealizados.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSReimprimirRetirosRealizados.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\TicketAnticipo\TicketAnticipo.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1441,6 +1447,12 @@
     </Compile>
     <Compile Include="visualizadorReimprimirDepositosRealizados.Designer.cs">
       <DependentUpon>visualizadorReimprimirDepositosRealizados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="visualizadorReimprimirRetirosRealizados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="visualizadorReimprimirRetirosRealizados.Designer.cs">
+      <DependentUpon>visualizadorReimprimirRetirosRealizados.cs</DependentUpon>
     </Compile>
     <Compile Include="VisualizadorReportes.cs">
       <SubType>Form</SubType>
@@ -1963,6 +1975,9 @@
     <Content Include="ReportesImpresion\Ticket\ReimprimirDepositosRealizados\DepositosRealizados.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\ReimprimirRetirosRealizados\RetirosRealizados.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -2058,6 +2073,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="visualizadorReimprimirDepositosRealizados.resx">
       <DependentUpon>visualizadorReimprimirDepositosRealizados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="visualizadorReimprimirRetirosRealizados.resx">
+      <DependentUpon>visualizadorReimprimirRetirosRealizados.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VisualizadorReportes.resx">
       <DependentUpon>VisualizadorReportes.cs</DependentUpon>
@@ -2247,6 +2265,20 @@
     </Content>
     <None Include="ReportesImpresion\Ticket\ReimprimirDepositosRealizados\DSReimprimirDepositosRealizados.xss">
       <DependentUpon>DSReimprimirDepositosRealizados.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\ReimprimirRetirosRealizados\DSReimprimirRetirosRealizados.xsc">
+      <DependentUpon>DSReimprimirRetirosRealizados.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="ReportesImpresion\Ticket\ReimprimirRetirosRealizados\DSReimprimirRetirosRealizados.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSReimprimirRetirosRealizados.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ReportesImpresion\Ticket\ReimprimirRetirosRealizados\DSReimprimirRetirosRealizados.xss">
+      <DependentUpon>DSReimprimirRetirosRealizados.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportesImpresion\Ticket\TicketAnticipo\TicketAnticipo.xsc">
@@ -7678,7 +7710,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PUDVE\Plantillas\Tmp\" />
-    <Folder Include="ReportesImpresion\Ticket\ReimprimirRetirosRealizados\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets')" />
