@@ -539,8 +539,6 @@ namespace PuntoDeVentaV2
                 DataTable dtEncabezado = null;
                 DataTable dtDepositos = null;
                 DataTable dtDepositosSuma = null;
-                DataTable dtRetiros = null;
-                DataTable dtRetirosSuma = null;
 
                 using (DataTable dtContenidoEncabezado = cn.CargarDatos(cs.encabezadoCorteDeCaja(id)))
                 {
@@ -607,6 +605,24 @@ namespace PuntoDeVentaV2
                 else if (FormPrincipal.userNickName.Contains("@"))
                 {
 
+                }
+
+                using (visualizadorReimprimirDepositosRealizados form = new visualizadorReimprimirDepositosRealizados())
+                {
+                    form.FormClosed += delegate
+                    {
+                        dtEncabezado.Dispose();
+                        dtEncabezado = null;
+                        dtDepositos.Dispose();
+                        dtDepositos = null;
+                        dtDepositosSuma.Dispose();
+                        dtDepositosSuma = null;
+                    };
+
+                    form.dtEncabezado = dtEncabezado;
+                    form.dtDepositosRealizados = dtDepositos;
+                    form.dtSumaDepositosRealizados = dtDepositosSuma;
+                    form.ShowDialog();
                 }
             }
             else if (e.ColumnIndex.Equals(5))//Dinero Retirado
