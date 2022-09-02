@@ -1763,6 +1763,18 @@ ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoAnticipo INT DEFAULT 0 
 -- Agregar Columna de PermisoAnticipo a la tabla permisosconfiguracion
 ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoCorreoAnticipo INT DEFAULT 1 ;
 
+--Agregar Columande de permiso venta a cliente con descuento en la tabla permisos configuracion
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS VentaClienteDescuento INT DEFAULT 1 ;
+
+--Agregar Columna de Correo Cliente descuento venta a la tabla de configuracion
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS CorreoVentaClienteDescuento INT DEFAULT 0 ;
+
+--Agregar Columana de Permiso Venta a Cliente con descuento a la tabla empeladospermisos
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS PermisoVentaClienteDescuento INT DEFAULT 1 ;
+
+--Agrega Columna VentaAClienteDescuentoSinAutorizacion a la tabla de empleadospermisos
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS PermisoVentaClienteDescuentoSinAutorizacion INT DEFAULT 1 ;
+
 -- Agregar columna para descuento por cliente en productos
 ALTER TABLE Productos ADD COLUMN IF NOT EXISTS TieneDescuentoCliente TINYINT(1) DEFAULT 0;
 

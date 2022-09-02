@@ -2110,7 +2110,7 @@ namespace PuntoDeVentaV2
                 var correoTicketVentas = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("HabilitarTicketVentas")));
                 var cerrarSesion = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CerrarSesionAuto")));
                 var PermisoCorreoAnticipo = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoAnticipo")));
-
+                var PermisoCorreoVentaClienteDescuento= Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoVentaClienteDescuento")));
                 config.Add(correoPrecio);                   // 0
                 config.Add(correoStock);                    // 1
                 config.Add(correoStockMinimo);              // 2
@@ -2139,6 +2139,7 @@ namespace PuntoDeVentaV2
                 config.Add(correoTicketVentas); //25
                 config.Add(cerrarSesion);//26
                 config.Add(PermisoCorreoAnticipo);//27
+                config.Add(PermisoCorreoVentaClienteDescuento); ;//28
             }
 
             dr.Close();
@@ -2457,44 +2458,46 @@ namespace PuntoDeVentaV2
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion3"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion4"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion5"))));
-                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion6"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion6"))));//5
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion7"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion8"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion9"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion10"))));
-                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion11"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion11"))));//10
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion12"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion13"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion14"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion15"))));
-                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion16"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion16"))));//15
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion17"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion18"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion19"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion20"))));
-                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion21"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion21"))));//20
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion22"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion23"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Opcion24"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("mensajeVentas"))));
-                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("mensajeInventario"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("mensajeInventario"))));//25
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("stock"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("stockMinimo"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("stockMaximo"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("precio"))));
-                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("numeroRevision"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("numeroRevision"))));//30
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("tipoIVA"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("claveProducto"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("claveUnidad"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("correos"))));
-                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("editarTicket"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("editarTicket"))));//35
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("EnvioCorreo"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("confiGeneral"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("porcentajeGanancia"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("tipoMoneda"))));
-                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("RespaldarInfo"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("RespaldarInfo"))));//40
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("MensajeVentas"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("MensajeInventario"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("PermisoVentaClienteDescuento"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("PermisoVentaClienteDescuentoSinAutorizacion"))));
                 using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
                 {
 

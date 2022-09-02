@@ -339,7 +339,11 @@ namespace PuntoDeVentaV2
                     {
                         if (tipo_factura != 3)
                         {
-                            correo.Attachments.Add(new Attachment(@"C:\Archivos PUDVE\Facturas\XML_" + tipo_comprobante + arr_ids_f_enviar[i][0] + ".pdf"));
+                            bool Existe = File.Exists($@"C:\Archivos PUDVE\Facturas\XML_" + tipo_comprobante + arr_ids_f_enviar[i][0] + ".pdf");
+                            if (Existe)
+                            {
+                                correo.Attachments.Add(new Attachment(@"C:\Archivos PUDVE\Facturas\XML_" + tipo_comprobante + arr_ids_f_enviar[i][0] + ".pdf"));
+                            }
                         }
 
                         correo.Attachments.Add(new Attachment(@"C:\Archivos PUDVE\Facturas\XML_" + tipo_comprobante + arr_ids_f_enviar[i][0] + ".xml"));

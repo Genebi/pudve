@@ -61,6 +61,7 @@ namespace PuntoDeVentaV2
         bool check22 = false;
         bool check23 = false;
         bool check24 = false;
+        bool check25 = false;
         int guardado =0;
 
         List<String> confiCorreo;
@@ -123,6 +124,8 @@ namespace PuntoDeVentaV2
 
                 cbRecibirAnricipo.Checked = Convert.ToBoolean(datosConfig[27]);
                 check24 = cbRecibirAnricipo.Checked;
+                CBXClienteDescuento.Checked = Convert.ToBoolean(datosConfig[28]);
+                check25 = CBXClienteDescuento.Checked;
             }
             else
             {
@@ -1285,11 +1288,6 @@ namespace PuntoDeVentaV2
 
         }
 
-        private void cbRecibirAnricipo_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void cbRecibirAnricipo_MouseClick(object sender, MouseEventArgs e)
         {
             using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("PermisoCorreoAnticipo", FormPrincipal.id_empleado)))
@@ -1335,6 +1333,64 @@ namespace PuntoDeVentaV2
                             else
                             {
                                 cbRecibirAnricipo.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void checkBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("VentaClienteDescuento", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    var habilitado = 0;
+
+                    if (CBXClienteDescuento.Checked)
+                    {
+                        habilitado = 1;
+                    }
+
+                    string consulta = $"UPDATE Configuracion SET CorreoVentaClienteDescuento = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiCorreo.Add(consulta);
+
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            var habilitado = 0;
+
+                            if (CBXClienteDescuento.Checked)
+                            {
+                                habilitado = 1;
+                            }
+
+                            string consulta = $"UPDATE Configuracion SET CorreoVentaClienteDescuento = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiCorreo.Add(consulta);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (CBXClienteDescuento.Checked == true)
+                            {
+                                CBXClienteDescuento.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                CBXClienteDescuento.Checked = true;
                                 return;
                             }
                         }

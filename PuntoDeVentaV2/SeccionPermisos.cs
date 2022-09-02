@@ -289,6 +289,9 @@ namespace PuntoDeVentaV2
             //=============================================================
             GenerarCheckbox(230, 10, 115, "Aplicar Descuento", datos[18]);
             GenerarCheckbox(230, 130, 110, "Terminar Venta", datos[19]);
+            GenerarCheckbox(230, 250, 200,"Venta a Cliente con descuento",datos[43]);
+            //=============================================================
+            GenerarCheckbox(260, 10, 250, "Venta a Cliente con descuento sin autorizacion", datos[44]);
         }
 
         private void GenerarInventario()
@@ -449,9 +452,16 @@ namespace PuntoDeVentaV2
                     foreach (var opcion in datos)
                     {
                         cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion{numero} = {opcion} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = '{apartado}'");
-
+                        
                         numero++;
                     }
+                }
+                if (seccion.Equals("Ventas"))
+                {
+                    var datos = PermisosElegidos();
+
+                    cn.EjecutarConsulta($"UPDATE empleadospermisos SET PermisoVentaClienteDescuento = {datos[20]} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = '{apartado}'");
+                    cn.EjecutarConsulta($"UPDATE empleadospermisos SET PermisoVentaClienteDescuentoSinAutorizacion = {datos[21]} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = '{apartado}'");
                 }
             }
 

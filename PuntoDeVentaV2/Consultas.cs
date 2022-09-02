@@ -4305,5 +4305,16 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT NombreCompleto,Licencia FROM usuarios WHERE Usuario = '{Usuario}'";
             return consulta;
         }
+        public string ContreseñaDeUsuarioPorID(int idUsuario)
+        {
+            var consulta = $"SELECT `Password` FROM usuarios WHERE ID ={idUsuario}";
+            return consulta;
+        }
+
+        public string PermissoVentaClienteDescuento(int IDUsuario, int IDEmpleado)
+        {
+            var consulta = $"SELECT PermisoVentaClienteDescuento,PermisoVentaClienteDescuentoSinAutorizacion FROM empleadospermisoS WHERE IDUsuario = {IDUsuario} AND IDEmpleado ={IDEmpleado} AND Seccion = 'ventas'";
+            return consulta;
+        }
     }
 }   
