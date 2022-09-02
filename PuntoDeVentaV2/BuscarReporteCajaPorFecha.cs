@@ -599,7 +599,42 @@ namespace PuntoDeVentaV2
                     }
                     else if (idEmpleado > 0)
                     {
+                        using (DataTable dtIntervaloDeIDCorteDeCaja = cn.CargarDatos(cs.intervaloMovimientosRealizadasEnEmpleadoDesdeAdministrador(idEmpleado, id)))
+                        {
+                            if (!dtIntervaloDeIDCorteDeCaja.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtIntervaloDeIDCorteDeCaja.Rows)
+                                {
+                                    auxIntervaloIDCaja += $"{item["IDCorteDeCaja"].ToString()}|";
+                                }
+                                intervaloIDCaja = auxIntervaloIDCaja.Substring(0, auxIntervaloIDCaja.Length - 1);
 
+                                var IDsCaja = intervaloIDCaja.Split('|');
+
+                                if (IDsCaja.Length > 0)
+                                {
+                                    if (IDsCaja.Length.Equals(2))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                        IDCajaFin = Convert.ToInt32(IDsCaja[1].ToString());
+                                    }
+                                    else if (IDsCaja.Length.Equals(1))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                    }
+                                }
+                            }
+                        }
+
+                        using (DataTable dtDepositosRealizados = cn.CargarDatos(cs.ReimprimirHistorialDepositosEmpleadoDesdeAdministrador(IDCajaInicio, IDCajaFin, idEmpleado)))
+                        {
+                            dtDepositos = dtDepositosRealizados;
+                        }
+
+                        using (DataTable dtSumaDepositosRealizados = cn.CargarDatos(cs.ReimprimirCargarHistorialdepositosEmpleadoSumaTotalDesdeAdministrador(IDCajaInicio, IDCajaFin, idEmpleado)))
+                        {
+                            dtDepositosSuma = dtSumaDepositosRealizados;
+                        }
                     }
                 }
                 else if (FormPrincipal.userNickName.Contains("@"))

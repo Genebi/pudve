@@ -4516,6 +4516,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string intervaloMovimientosRealizadasEnEmpleadoDesdeAdministrador(int IDEmpleado, int IDCorteDeCaja)
+        {
+            var consulta = $"SELECT HistCorteCaja.IDCorteDeCaja FROM historialcortesdecaja AS HistCorteCaja WHERE HistCorteCaja.IDUsuario = '{FormPrincipal.userID}' AND HistCorteCaja.IDEmpleado = '{IDEmpleado}' AND HistCorteCaja.IDCorteDeCaja <= '{IDCorteDeCaja}' ORDER BY ID DESC LIMIT 2";
+
+            return consulta;
+        }
+
         public string ReimprimirHistorialDepositosEmpleadoDesdeAdministrador(int IDCajaInicio, int IDCajaFin, int idEmpleado)
         {
             var consulta = $"SELECT Usr.nombre AS 'Realizo', IF ( Box.Efectivo = '' OR Box.Efectivo IS NULL, 0, Box.Efectivo ) AS 'Efectivo', IF ( Box.Tarjeta = '' OR Box.Tarjeta IS NULL, 0, Box.Tarjeta ) AS 'Tarjeta', IF ( Box.Vales = '' OR Box.Vales IS NULL, 0, Box.Vales ) AS 'Vales', IF ( Box.Cheque = '' OR Box.Cheque IS NULL, 0, Box.Cheque ) AS 'Cheque', IF ( Box.Transferencia = '' OR Box.Transferencia IS NULL, 0, Box.Transferencia ) AS 'Transferencia', Box.FechaOperacion AS 'Fecha', IF ( Box.Concepto IS NULL OR Box.Concepto = '', 'N/A', Box.Concepto ) AS 'Concepto' FROM caja AS Box INNER JOIN empleados AS Usr ON ( Usr.ID = Box.IdEmpleado ) WHERE Box.ID >= '{IDCajaFin}' AND Box.ID <= '{IDCajaInicio}' AND Box.Operacion = 'deposito' AND Box.IDUsuario = '{FormPrincipal.userID}' AND Box.IdEmpleado = '{idEmpleado}'";
