@@ -1197,6 +1197,11 @@
       <DependentUpon>DSReimprimirCorteDeCaja.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="ReportesImpresion\Ticket\ReimprimirDepositosRealizados\DSReimprimirDepositosRealizados.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSReimprimirDepositosRealizados.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\TicketAnticipo\TicketAnticipo.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2216,6 +2221,17 @@
     <None Include="ReportesImpresion\Ticket\ReimprimirCorteDeCaja\DSReimprimirCorteDeCaja.xss">
       <DependentUpon>DSReimprimirCorteDeCaja.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\ReimprimirDepositosRealizados\DSReimprimirDepositosRealizados.xsc">
+      <DependentUpon>DSReimprimirDepositosRealizados.xsd</DependentUpon>
+    </None>
+    <None Include="ReportesImpresion\Ticket\ReimprimirDepositosRealizados\DSReimprimirDepositosRealizados.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSReimprimirDepositosRealizados.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ReportesImpresion\Ticket\ReimprimirDepositosRealizados\DSReimprimirDepositosRealizados.xss">
+      <DependentUpon>DSReimprimirDepositosRealizados.xsd</DependentUpon>
     </None>
     <None Include="ReportesImpresion\Ticket\TicketAnticipo\TicketAnticipo.xsc">
       <DependentUpon>TicketAnticipo.xsd</DependentUpon>
@@ -7646,7 +7662,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PUDVE\Plantillas\Tmp\" />
-    <Folder Include="ReportesImpresion\Ticket\ReimprimirDepositosRealizados\" />
     <Folder Include="ReportesImpresion\Ticket\ReimprimirRetirosRealizados\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
