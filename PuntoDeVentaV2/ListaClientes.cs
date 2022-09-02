@@ -73,7 +73,7 @@ namespace PuntoDeVentaV2
 
             if (string.IsNullOrWhiteSpace(busqueda))
             {
-                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
+                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND TipoCliente > 0";
             }
             else
             {
