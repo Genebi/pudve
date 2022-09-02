@@ -46,9 +46,9 @@ namespace PuntoDeVentaV2
 
         private void BuscarReporteCajaPorFecha_Load(object sender, EventArgs e)
         {
-            cargarDGVInicial();
+            //cargarDGVInicial();
             DateTime date = DateTime.Now;
-            DateTime PrimerDia = new DateTime(date.Year, date.Month -1, 1);
+            DateTime PrimerDia = new DateTime(date.Year, date.Month - 1, 1);
             primerDatePicker.Value = PrimerDia;
             segundoDatePicker.Value = DateTime.Now;
             DGVReporteCaja.Rows.Clear();
@@ -56,28 +56,34 @@ namespace PuntoDeVentaV2
             conBusqueda = true;
 
             var datoBuscar = txtBuscador.Text.ToString().Replace("\r\n", string.Empty);
-            var primerFecha = primerDatePicker.Value.ToString("yyyy/MM/dd");
-            var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy/MM/dd");
+            var primerFecha = primerDatePicker.Value.ToString("yyyy-MM-dd");
+            var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy-MM-dd");
 
             var cantidadCortes = validarNewCuentas();
             var primerId = obtenerPrimerCorte();
             var name = string.Empty; var fecha = string.Empty; var empleado = string.Empty; var idCorte = string.Empty; var idEmpleado = 0;
-            var nombreUser = string.Empty;          
-            filtroConSinFiltroAvanzado = cs.BuscadorDeReportesCaja(datoBuscar, primerFecha, segundaFecha, primerId);       
+            var nombreUser = string.Empty;
+            //filtroConSinFiltroAvanzado = cs.BuscadorDeReportesCaja(datoBuscar, primerFecha, segundaFecha, primerId);       
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                filtroConSinFiltroAvanzado = cs.BuscadorReportesCorteDeCajaAdministrador(primerFecha, segundaFecha, datoBuscar);
+            }
+            else
+            {
+                filtroConSinFiltroAvanzado = cs.BuscadorReporteCorteDeCajaEmpleado(primerFecha, segundaFecha, datoBuscar);
+            }
             txtBuscador.Text = string.Empty;
-            txtBuscador.Focus();            
+            txtBuscador.Focus();
             CargarDatos();
         }
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            DGVReporteCaja.Rows.Clear();
-
             conBusqueda = true;
 
             var datoBuscar = txtBuscador.Text.ToString().Replace("\r\n", string.Empty);
-            var primerFecha = primerDatePicker.Value.ToString("yyyy/MM/dd");
-            var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy/MM/dd");
+            var primerFecha = primerDatePicker.Value.ToString("yyyy-MM-dd");
+            var segundaFecha = segundoDatePicker.Value.AddDays(1).ToString("yyyy-MM-dd");
 
             var cantidadCortes = validarNewCuentas();
             var primerId = obtenerPrimerCorte();
@@ -86,7 +92,16 @@ namespace PuntoDeVentaV2
             var nombreUser = string.Empty;
             //var querry = cn.CargarDatos(cs.BuscadorDeReportesCaja(datoBuscar, primerFecha, segundaFecha, primerId));
 
-            filtroConSinFiltroAvanzado = cs.BuscadorDeReportesCaja(datoBuscar, primerFecha, segundaFecha, primerId);
+            //filtroConSinFiltroAvanzado = cs.BuscadorDeReportesCaja(datoBuscar, primerFecha, segundaFecha, primerId);
+
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                filtroConSinFiltroAvanzado = cs.BuscadorReportesCorteDeCajaAdministrador(primerFecha, segundaFecha, datoBuscar);
+            }
+            else
+            {
+                filtroConSinFiltroAvanzado = cs.BuscadorReporteCorteDeCajaEmpleado(primerFecha, segundaFecha, datoBuscar);
+            }
 
             //if (!querry.Rows.Count.Equals(0))
             //{
@@ -120,6 +135,22 @@ namespace PuntoDeVentaV2
             //    txtBuscador.Focus();
             //}
             CargarDatos();
+
+            if (DGVReporteCaja.Rows.Count.Equals(0))
+            {
+                datoBuscar = string.Empty;
+
+                if (!FormPrincipal.userNickName.Contains("@"))
+                {
+                    filtroConSinFiltroAvanzado = cs.BuscadorReportesCorteDeCajaAdministrador(primerFecha, segundaFecha, datoBuscar);
+                }
+                else
+                {
+                    filtroConSinFiltroAvanzado = cs.BuscadorReporteCorteDeCajaEmpleado(primerFecha, segundaFecha, datoBuscar);
+                }
+
+                CargarDatos();
+            }
         }
 
         private void cargarDGVInicial()
@@ -163,7 +194,7 @@ namespace PuntoDeVentaV2
             //}
             CargarDatos();
         }
-        
+
         private void txtBuscador_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -218,32 +249,626 @@ namespace PuntoDeVentaV2
                 ////var dato = traerDatosCaja(id);
                 //var dato = cdc.CargarSaldo("Reportes", id);
                 //GenerarReporte(dato, "CORTE DE CAJA", id);
-                recargarReporteExistente(id);
+                //recargarReporteExistente(id);
+                var intervaloIDCaja = string.Empty;
+                var auxIntervaloIDCaja = string.Empty;
+                var IDCajaInicio = 0;
+                var IDCajaFin = 0;
+
+                DataTable dtEncabezado = null;
+                DataTable dtVenta = null;
+                DataTable dtAnticipo = null;
+                DataTable dtDineroAgregado = null;
+                DataTable dtDineroRetirado = null;
+                DataTable dtTotalCaja = null;
+
+                using (DataTable dtContenidoEncabezado = cn.CargarDatos(cs.encabezadoCorteDeCaja(id)))
+                {
+                    dtEncabezado = dtContenidoEncabezado;
+                }
+
+                if (!FormPrincipal.userNickName.Contains("@"))
+                {
+                    var idEmpleado = 0;
+
+                    using (DataTable dtVerificarSiEsCorteDeEmpleado = cn.CargarDatos(cs.VerificarSiEsCorteDeEmpleado(id)))
+                    {
+                        if (!dtVerificarSiEsCorteDeEmpleado.Rows.Count.Equals(0))
+                        {
+                            DataRow drVerificarSiEsEmpleado = dtVerificarSiEsCorteDeEmpleado.Rows[0];
+                            idEmpleado = Convert.ToInt32(drVerificarSiEsEmpleado["IdEmpleado"].ToString());
+                        }
+                    }
+
+                    if (idEmpleado.Equals(0))
+                    {
+                        using (DataTable dtIntervaloDeIDCorteDeCaja = cn.CargarDatos(cs.intervaloVentasRealizadasAdministrador(id)))
+                        {
+                            if (!dtIntervaloDeIDCorteDeCaja.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtIntervaloDeIDCorteDeCaja.Rows)
+                                {
+                                    auxIntervaloIDCaja += $"{item["IDCorteDeCaja"].ToString()}|";
+                                }
+                                intervaloIDCaja = auxIntervaloIDCaja.Substring(0, auxIntervaloIDCaja.Length - 1);
+
+                                var IDsCaja = intervaloIDCaja.Split('|');
+
+                                if (IDsCaja.Length > 0)
+                                {
+                                    if (IDsCaja.Length.Equals(2))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                        IDCajaFin = Convert.ToInt32(IDsCaja[1].ToString());
+                                    }
+                                    else if (IDsCaja.Length.Equals(1))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                    }
+                                }
+
+                                var fechaLimiteSuperior = string.Empty;
+                                var fechaLimiteInferior = string.Empty;
+
+                                using (DataTable dtRangoFechasAbonos = cn.CargarDatos(cs.intervaloFechasAbonosRealizadosAdministrador(IDCajaInicio, IDCajaFin)))
+                                {
+                                    if (!dtRangoFechasAbonos.Rows.Count.Equals(0))
+                                    {
+                                        foreach (DataRow item in dtRangoFechasAbonos.Rows)
+                                        {
+                                            var fecha1 = Convert.ToDateTime(item["LimiteSuperior"].ToString()).ToString("yyyy-MM-dd HH:mm:ss");
+                                            var fecha2 = Convert.ToDateTime(item["LimiteInferior"].ToString()).ToString("yyyy-MM-dd HH:mm:ss");
+                                            fechaLimiteSuperior = fecha1;
+                                            fechaLimiteInferior = fecha2;
+                                        }
+                                    }
+                                }
+
+                                DataTable dtVentasRealizadas = cn.CargarDatos(cs.tablaVentasRealizadasAdministrador(fechaLimiteSuperior, fechaLimiteInferior, IDCajaInicio, IDCajaFin));
+
+                                dtVenta = dtVentasRealizadas;
+                            }
+                        }
+
+                        using (DataTable dtAnticiposRecibidos = cn.CargarDatos(cs.tablaAnticiposRecibidosAdministrador(IDCajaInicio, IDCajaFin)))
+                        {
+                            dtAnticipo = dtAnticiposRecibidos;
+                        }
+
+                        using (DataTable dtDineroAgregadoCaja = cn.CargarDatos(cs.tablaDineroAgregadoAdministrador(IDCajaInicio, IDCajaFin)))
+                        {
+                            dtDineroAgregado = dtDineroAgregadoCaja;
+                        }
+
+                        using (DataTable dtDineroRetiradoCaja = cn.CargarDatos(cs.tablaDineroRetiradoAdministrador(IDCajaInicio, IDCajaFin)))
+                        {
+                            dtDineroRetirado = dtDineroRetiradoCaja;
+                        }
+
+                        using (DataTable dtTotalDeCajaAlCorte = cn.CargarDatos(cs.tablaTotalDeCajaAlCorteAdministrador(IDCajaInicio, IDCajaFin)))
+                        {
+                            dtTotalCaja = dtTotalDeCajaAlCorte;
+                        }
+                    }
+                    else if (idEmpleado > 0)
+                    {
+                        using (DataTable dtIntervaloDeIDCorteDeCaja = cn.CargarDatos(cs.intervaloVentasRealizadasEnEmpleadoDesdeAdministrador(idEmpleado, id)))
+                        {
+                            if (!dtIntervaloDeIDCorteDeCaja.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtIntervaloDeIDCorteDeCaja.Rows)
+                                {
+                                    auxIntervaloIDCaja += $"{item["IDCorteDeCaja"].ToString()}|";
+                                }
+                                intervaloIDCaja = auxIntervaloIDCaja.Substring(0, auxIntervaloIDCaja.Length - 1);
+
+                                var IDsCaja = intervaloIDCaja.Split('|');
+
+                                if (IDsCaja.Length > 0)
+                                {
+                                    if (IDsCaja.Length.Equals(2))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                        IDCajaFin = Convert.ToInt32(IDsCaja[1].ToString());
+                                    }
+                                    else if (IDsCaja.Length.Equals(1))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                    }
+                                }
+
+                                var fechaLimiteSuperior = string.Empty;
+                                var fechaLimiteInferior = string.Empty;
+
+                                using (DataTable dtRangoFechasAbonos = cn.CargarDatos(cs.intervaloFechasAbonosRealizadosEnEmpleadoDesdeAdministrador(idEmpleado, IDCajaInicio, IDCajaFin)))
+                                {
+                                    if (!dtRangoFechasAbonos.Rows.Count.Equals(0))
+                                    {
+                                        foreach (DataRow item in dtRangoFechasAbonos.Rows)
+                                        {
+                                            var fecha1 = Convert.ToDateTime(item["LimiteSuperior"].ToString()).ToString("yyyy-MM-dd HH:mm:ss");
+                                            var fecha2 = Convert.ToDateTime(item["LimiteInferior"].ToString()).ToString("yyyy-MM-dd HH:mm:ss");
+                                            fechaLimiteSuperior = fecha1;
+                                            fechaLimiteInferior = fecha2;
+                                        }
+                                    }
+                                }
+
+                                DataTable dtVentasRealizadas = cn.CargarDatos(cs.tablaVentasRealizadasEnEmpleadoDesdeAdministrador(idEmpleado, fechaLimiteSuperior, fechaLimiteInferior, IDCajaInicio, IDCajaFin));
+
+                                dtVenta = dtVentasRealizadas;
+                            }
+                        }
+
+                        using (DataTable dtAnticiposRecibidos = cn.CargarDatos(cs.tablaAnticiposRecibidosEnEmpleadoDesdeAdministrador(idEmpleado, IDCajaInicio, IDCajaFin)))
+                        {
+                            dtAnticipo = dtAnticiposRecibidos;
+                        }
+
+                        using (DataTable dtDineroAgregadoCaja = cn.CargarDatos(cs.tablaDineroAgregadoEnEmpleadoDesdeAdministrador(idEmpleado, IDCajaInicio, IDCajaFin)))
+                        {
+                            dtDineroAgregado = dtDineroAgregadoCaja;
+                        }
+
+                        using (DataTable dtDineroRetiradoCaja = cn.CargarDatos(cs.tablaDineroRetiradoEnEmpleadoDesdeAdministrador(idEmpleado, IDCajaInicio, IDCajaFin)))
+                        {
+                            dtDineroRetirado = dtDineroRetiradoCaja;
+                        }
+
+                        using (DataTable dtTotalDeCajaAlCorte = cn.CargarDatos(cs.tablaTotalDeCajaAlCorteEnEmpleadoDesdeAdministrador(idEmpleado, IDCajaInicio, IDCajaFin)))
+                        {
+                            dtTotalCaja = dtTotalDeCajaAlCorte;
+                        }
+                    }
+                }
+                else if (FormPrincipal.userNickName.Contains("@"))
+                {
+                    using (DataTable dtIntervaloDeIDCorteDeCaja = cn.CargarDatos(cs.intervaloVentasRealizadasEmpleado(id)))
+                    {
+                        if (!dtIntervaloDeIDCorteDeCaja.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtIntervaloDeIDCorteDeCaja.Rows)
+                            {
+                                auxIntervaloIDCaja += $"{item["IDCorteDeCaja"].ToString()}|";
+                            }
+                            intervaloIDCaja = auxIntervaloIDCaja.Substring(0, auxIntervaloIDCaja.Length - 1);
+
+                            var IDsCaja = intervaloIDCaja.Split('|');
+
+                            if (IDsCaja.Length > 0)
+                            {
+                                if (IDsCaja.Length.Equals(2))
+                                {
+                                    IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                    IDCajaFin = Convert.ToInt32(IDsCaja[1].ToString());
+                                }
+                                else if (IDsCaja.Length.Equals(1))
+                                {
+                                    IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                }
+                            }
+
+                            var fechaLimiteSuperior = string.Empty;
+                            var fechaLimiteInferior = string.Empty;
+
+                            using (DataTable dtRangoFechasAbonos = cn.CargarDatos(cs.intervaloFechasAbonosRealizadosEmpleado(IDCajaInicio, IDCajaFin)))
+                            {
+                                if (!dtRangoFechasAbonos.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow item in dtRangoFechasAbonos.Rows)
+                                    {
+                                        var fecha1 = Convert.ToDateTime(item["LimiteSuperior"].ToString()).ToString("yyyy-MM-dd HH:mm:ss");
+                                        var fecha2 = Convert.ToDateTime(item["LimiteInferior"].ToString()).ToString("yyyy-MM-dd HH:mm:ss");
+                                        fechaLimiteSuperior = fecha1;
+                                        fechaLimiteInferior = fecha2;
+                                    }
+                                }
+                            }
+
+                            DataTable dtVentasRealizadas = cn.CargarDatos(cs.tablaVentasRealizadasEmpleado(fechaLimiteSuperior, fechaLimiteInferior, IDCajaInicio, IDCajaFin));
+
+                            dtVenta = dtVentasRealizadas;
+                        }
+                    }
+
+                    using (DataTable dtAnticiposRecibidos = cn.CargarDatos(cs.tablaAnticiposRecibidosEmpleado(IDCajaInicio, IDCajaFin)))
+                    {
+                        dtAnticipo = dtAnticiposRecibidos;
+                    }
+
+                    using (DataTable dtDineroAgregadoCaja = cn.CargarDatos(cs.tablaDineroAgregadoEmpleado(IDCajaInicio, IDCajaFin)))
+                    {
+                        dtDineroAgregado = dtDineroAgregadoCaja;
+                    }
+
+                    using (DataTable dtDineroRetiradoCaja = cn.CargarDatos(cs.tablaDineroRetiradoEmpleado(IDCajaInicio, IDCajaFin)))
+                    {
+                        dtDineroRetirado = dtDineroRetiradoCaja;
+                    }
+
+                    using (DataTable dtTotalDeCajaAlCorte = cn.CargarDatos(cs.tablaTotalDeCajaAlCorteEmpleado(IDCajaInicio, IDCajaFin)))
+                    {
+                        dtTotalCaja = dtTotalDeCajaAlCorte;
+                    }
+                }
+
+                using (visualizadorReimprimirCorteDeCaja form = new visualizadorReimprimirCorteDeCaja())
+                {
+                    form.FormClosed += delegate
+                    {
+                        dtEncabezado.Dispose();
+                        dtEncabezado = null;
+                        dtVenta.Dispose();
+                        dtVenta = null;
+                        dtAnticipo.Dispose();
+                        dtAnticipo = null;
+                        dtDineroAgregado.Dispose();
+                        dtDineroAgregado = null;
+                        dtDineroRetirado.Dispose();
+                        dtDineroRetirado = null;
+                        dtTotalCaja.Dispose();
+                        dtTotalCaja = null;
+                    };
+
+                    form.dtEncabezado = dtEncabezado;
+                    form.dtVentasRealizadas = dtVenta;
+                    form.dtAnticiposRecibidos = dtAnticipo;
+                    form.dtDineroAgregado = dtDineroAgregado;
+                    form.dtDineroRetirado = dtDineroRetirado;
+                    form.dtTotalCorteDeCaja = dtTotalCaja;
+                    form.ShowDialog();
+                }
             }
             else if (e.ColumnIndex.Equals(4))//Dinero Agregado
             {
                 //var dato = obtenerDatosReporte(id, "deposito");
-                var dato = cdc.obtenerDepositosRetiros("Reportes", "deposito", id);
-                if (!dato.Rows.Count.Equals(0))
+                //var dato = cdc.obtenerDepositosRetiros("Reportes", "deposito", id);
+                //if (!dato.Rows.Count.Equals(0))
+                //{
+                //    GenerarReporteAgregarRetirar("DINERO AGREGADO", dato, id);
+                //}
+                //else
+                //{
+                //    MessageBox.Show("No existe información para generar reporte", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //}
+                var intervaloIDCaja = string.Empty;
+                var auxIntervaloIDCaja = string.Empty;
+                var IDCajaInicio = 0;
+                var IDCajaFin = 0;
+
+                DataTable dtEncabezado = null;
+                DataTable dtDepositos = null;
+                DataTable dtDepositosSuma = null;
+
+                using (DataTable dtContenidoEncabezado = cn.CargarDatos(cs.encabezadoCorteDeCaja(id)))
                 {
-                    GenerarReporteAgregarRetirar("DINERO AGREGADO", dato, id);
+                    dtEncabezado = dtContenidoEncabezado;
                 }
-                else
+
+                if (!FormPrincipal.userNickName.Contains("@"))
                 {
-                    MessageBox.Show("No existe información para generar reporte", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    var idEmpleado = 0;
+
+                    using (DataTable dtVerificarSiEsCorteDeEmpleado = cn.CargarDatos(cs.VerificarSiEsCorteDeEmpleado(id)))
+                    {
+                        if (!dtVerificarSiEsCorteDeEmpleado.Rows.Count.Equals(0))
+                        {
+                            DataRow drVerificarSiEsEmpleado = dtVerificarSiEsCorteDeEmpleado.Rows[0];
+                            idEmpleado = Convert.ToInt32(drVerificarSiEsEmpleado["IdEmpleado"].ToString());
+                        }
+                    }
+
+                    if (idEmpleado.Equals(0))
+                    {
+                        using (DataTable dtIntervaloDeIDCorteDeCaja = cn.CargarDatos(cs.intervaloMovimientosRealizadasAdministrador(id)))
+                        {
+                            if (!dtIntervaloDeIDCorteDeCaja.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtIntervaloDeIDCorteDeCaja.Rows)
+                                {
+                                    auxIntervaloIDCaja += $"{item["IDCorteDeCaja"].ToString()}|";
+                                }
+                                intervaloIDCaja = auxIntervaloIDCaja.Substring(0, auxIntervaloIDCaja.Length - 1);
+
+                                var IDsCaja = intervaloIDCaja.Split('|');
+
+                                if (IDsCaja.Length > 0)
+                                {
+                                    if (IDsCaja.Length.Equals(2))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                        IDCajaFin = Convert.ToInt32(IDsCaja[1].ToString());
+                                    }
+                                    else if (IDsCaja.Length.Equals(1))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                    }
+                                }
+                            }
+                        }
+
+                        using (DataTable dtDepositosRealizados = cn.CargarDatos(cs.ReimprimirHistorialDepositosAdminsitrador(IDCajaInicio, IDCajaFin)))
+                        {
+                            dtDepositos = dtDepositosRealizados;
+                        }
+
+                        using (DataTable dtSumaDepositosRealizados = cn.CargarDatos(cs.ReimprimirCargarHistorialDepositosAdministradorSumaTotal(IDCajaInicio, IDCajaFin)))
+                        {
+                            dtDepositosSuma = dtSumaDepositosRealizados;
+                        }
+                    }
+                    else if (idEmpleado > 0)
+                    {
+                        using (DataTable dtIntervaloDeIDCorteDeCaja = cn.CargarDatos(cs.intervaloMovimientosRealizadasEnEmpleadoDesdeAdministrador(idEmpleado, id)))
+                        {
+                            if (!dtIntervaloDeIDCorteDeCaja.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtIntervaloDeIDCorteDeCaja.Rows)
+                                {
+                                    auxIntervaloIDCaja += $"{item["IDCorteDeCaja"].ToString()}|";
+                                }
+                                intervaloIDCaja = auxIntervaloIDCaja.Substring(0, auxIntervaloIDCaja.Length - 1);
+
+                                var IDsCaja = intervaloIDCaja.Split('|');
+
+                                if (IDsCaja.Length > 0)
+                                {
+                                    if (IDsCaja.Length.Equals(2))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                        IDCajaFin = Convert.ToInt32(IDsCaja[1].ToString());
+                                    }
+                                    else if (IDsCaja.Length.Equals(1))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                    }
+                                }
+                            }
+                        }
+
+                        using (DataTable dtDepositosRealizados = cn.CargarDatos(cs.ReimprimirHistorialDepositosEmpleadoDesdeAdministrador(IDCajaInicio, IDCajaFin, idEmpleado)))
+                        {
+                            dtDepositos = dtDepositosRealizados;
+                        }
+
+                        using (DataTable dtSumaDepositosRealizados = cn.CargarDatos(cs.ReimprimirCargarHistorialdepositosEmpleadoSumaTotalDesdeAdministrador(IDCajaInicio, IDCajaFin, idEmpleado)))
+                        {
+                            dtDepositosSuma = dtSumaDepositosRealizados;
+                        }
+                    }
+                }
+                else if (FormPrincipal.userNickName.Contains("@"))
+                {
+                    using (DataTable dtIntervaloDeIDCorteDeCaja = cn.CargarDatos(cs.intervaloMovimientosRealizadasEmpleado(id)))
+                    {
+                        if (!dtIntervaloDeIDCorteDeCaja.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtIntervaloDeIDCorteDeCaja.Rows)
+                            {
+                                auxIntervaloIDCaja += $"{item["IDCorteDeCaja"].ToString()}|";
+                            }
+                            intervaloIDCaja = auxIntervaloIDCaja.Substring(0, auxIntervaloIDCaja.Length - 1);
+
+                            var IDsCaja = intervaloIDCaja.Split('|');
+
+                            if (IDsCaja.Length > 0)
+                            {
+                                if (IDsCaja.Length.Equals(2))
+                                {
+                                    IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                    IDCajaFin = Convert.ToInt32(IDsCaja[1].ToString());
+                                }
+                                else if (IDsCaja.Length.Equals(1))
+                                {
+                                    IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                }
+                            }
+                        }
+                    }
+
+                    using (DataTable dtDepositosRealizados = cn.CargarDatos(cs.ReimprimirHistorialDepositosEmpleado(IDCajaInicio, IDCajaFin)))
+                    {
+                        dtDepositos = dtDepositosRealizados;
+                    }
+
+                    using (DataTable dtSumaDepositosRealizados = cn.CargarDatos(cs.ReimprimirCargarHistorialdepositosEmpleadoSumaTotal(IDCajaInicio, IDCajaFin)))
+                    {
+                        dtDepositosSuma = dtSumaDepositosRealizados;
+                    }
+                }
+
+                using (visualizadorReimprimirDepositosRealizados form = new visualizadorReimprimirDepositosRealizados())
+                {
+                    form.FormClosed += delegate
+                    {
+                        dtEncabezado.Dispose();
+                        dtEncabezado = null;
+                        dtDepositos.Dispose();
+                        dtDepositos = null;
+                        dtDepositosSuma.Dispose();
+                        dtDepositosSuma = null;
+                    };
+
+                    form.dtEncabezado = dtEncabezado;
+                    form.dtDepositosRealizados = dtDepositos;
+                    form.dtSumaDepositosRealizados = dtDepositosSuma;
+                    form.ShowDialog();
                 }
             }
             else if (e.ColumnIndex.Equals(5))//Dinero Retirado
             {
                 //var dato = obtenerDatosReporte(id, "retiro");
-                var dato = cdc.obtenerDepositosRetiros("Reportes", "retiro", id);
-                if (!dato.Rows.Count.Equals(0))
+                //var dato = cdc.obtenerDepositosRetiros("Reportes", "retiro", id);
+                //if (!dato.Rows.Count.Equals(0))
+                //{
+                //    GenerarReporteAgregarRetirar("DINERO RETIRADO", dato, id);
+                //}
+                //else
+                //{
+                //    MessageBox.Show("No existe información para generar reporte", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //}
+                var intervaloIDCaja = string.Empty;
+                var auxIntervaloIDCaja = string.Empty;
+                var IDCajaInicio = 0;
+                var IDCajaFin = 0;
+
+                DataTable dtEncabezado = null;
+                DataTable dtRetiros = null;
+                DataTable dtRetirosSuma = null;
+
+                using (DataTable dtContenidoEncabezado = cn.CargarDatos(cs.encabezadoCorteDeCaja(id)))
                 {
-                    GenerarReporteAgregarRetirar("DINERO RETIRADO", dato, id);
+                    dtEncabezado = dtContenidoEncabezado;
                 }
-                else
+
+                if (!FormPrincipal.userNickName.Contains("@"))
                 {
-                    MessageBox.Show("No existe información para generar reporte", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    var idEmpleado = 0;
+
+                    using (DataTable dtVerificarSiEsCorteDeEmpleado = cn.CargarDatos(cs.VerificarSiEsCorteDeEmpleado(id)))
+                    {
+                        if (!dtVerificarSiEsCorteDeEmpleado.Rows.Count.Equals(0))
+                        {
+                            DataRow drVerificarSiEsEmpleado = dtVerificarSiEsCorteDeEmpleado.Rows[0];
+                            idEmpleado = Convert.ToInt32(drVerificarSiEsEmpleado["IdEmpleado"].ToString());
+                        }
+                    }
+
+                    if (idEmpleado.Equals(0))
+                    {
+                        using (DataTable dtIntervaloDeIDCorteDeCaja = cn.CargarDatos(cs.intervaloMovimientosRealizadasAdministrador(id)))
+                        {
+                            if (!dtIntervaloDeIDCorteDeCaja.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtIntervaloDeIDCorteDeCaja.Rows)
+                                {
+                                    auxIntervaloIDCaja += $"{item["IDCorteDeCaja"].ToString()}|";
+                                }
+                                intervaloIDCaja = auxIntervaloIDCaja.Substring(0, auxIntervaloIDCaja.Length - 1);
+
+                                var IDsCaja = intervaloIDCaja.Split('|');
+
+                                if (IDsCaja.Length > 0)
+                                {
+                                    if (IDsCaja.Length.Equals(2))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                        IDCajaFin = Convert.ToInt32(IDsCaja[1].ToString());
+                                    }
+                                    else if (IDsCaja.Length.Equals(1))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                    }
+                                }
+                            }
+                        }
+
+                        using (DataTable dtRetirosRealizados = cn.CargarDatos(cs.ReimprimirHistorialDepositosEmpleado(IDCajaInicio, IDCajaFin)))
+                        {
+                            dtRetiros = dtRetirosRealizados;
+                        }
+
+                        using (DataTable dtSumaRetirosRealizados = cn.CargarDatos(cs.ReimprimirCargarHistorialdepositosEmpleadoSumaTotal(IDCajaInicio, IDCajaFin)))
+                        {
+                            dtRetirosSuma = dtSumaRetirosRealizados;
+                        }
+                    }
+                    else if (idEmpleado > 0)
+                    {
+                        using (DataTable dtIntervaloDeIDCorteDeCaja = cn.CargarDatos(cs.intervaloMovimientosRealizadasEnEmpleadoDesdeAdministrador(idEmpleado, id)))
+                        {
+                            if (!dtIntervaloDeIDCorteDeCaja.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtIntervaloDeIDCorteDeCaja.Rows)
+                                {
+                                    auxIntervaloIDCaja += $"{item["IDCorteDeCaja"].ToString()}|";
+                                }
+                                intervaloIDCaja = auxIntervaloIDCaja.Substring(0, auxIntervaloIDCaja.Length - 1);
+
+                                var IDsCaja = intervaloIDCaja.Split('|');
+
+                                if (IDsCaja.Length > 0)
+                                {
+                                    if (IDsCaja.Length.Equals(2))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                        IDCajaFin = Convert.ToInt32(IDsCaja[1].ToString());
+                                    }
+                                    else if (IDsCaja.Length.Equals(1))
+                                    {
+                                        IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                    }
+                                }
+                            }
+                        }
+
+                        using (DataTable dtRetirosRealizados = cn.CargarDatos(cs.ReimprimirHistorialRetirosEmpleadoDesdeAdministrador(IDCajaInicio, IDCajaFin, idEmpleado)))
+                        {
+                            dtRetiros = dtRetirosRealizados;
+                        }
+
+                        using (DataTable dtSumaRetirosRealizados = cn.CargarDatos(cs.ReimprimirCargarHistorialdepositosEmpleadoSumaTotalDesdeAdministrador(IDCajaInicio, IDCajaFin, idEmpleado)))
+                        {
+                            dtRetirosSuma = dtSumaRetirosRealizados;
+                        }
+                    }
+                }
+                else if (FormPrincipal.userNickName.Contains("@"))
+                {
+                    using (DataTable dtIntervaloDeIDCorteDeCaja = cn.CargarDatos(cs.intervaloMovimientosRealizadasEmpleado(id)))
+                    {
+                        if (!dtIntervaloDeIDCorteDeCaja.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtIntervaloDeIDCorteDeCaja.Rows)
+                            {
+                                auxIntervaloIDCaja += $"{item["IDCorteDeCaja"].ToString()}|";
+                            }
+                            intervaloIDCaja = auxIntervaloIDCaja.Substring(0, auxIntervaloIDCaja.Length - 1);
+
+                            var IDsCaja = intervaloIDCaja.Split('|');
+
+                            if (IDsCaja.Length > 0)
+                            {
+                                if (IDsCaja.Length.Equals(2))
+                                {
+                                    IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                    IDCajaFin = Convert.ToInt32(IDsCaja[1].ToString());
+                                }
+                                else if (IDsCaja.Length.Equals(1))
+                                {
+                                    IDCajaInicio = Convert.ToInt32(IDsCaja[0].ToString());
+                                }
+                            }
+                        }
+                    }
+
+                    using (DataTable dtRetirosRealizados = cn.CargarDatos(cs.ReimprimirHistorialRetirosEmpleado(IDCajaInicio, IDCajaFin)))
+                    {
+                        dtRetiros = dtRetirosRealizados;
+                    }
+
+                    using (DataTable dtSumaRetirosRealizados = cn.CargarDatos(cs.ReimprimirCargarHistorialRetirosEmpleadoSumaTotal(IDCajaInicio, IDCajaFin)))
+                    {
+                        dtRetirosSuma = dtSumaRetirosRealizados;
+                    }
+                }
+
+                using (visualizadorReimprimirRetirosRealizados form = new visualizadorReimprimirRetirosRealizados())
+                {
+                    form.FormClosed += delegate
+                    {
+                        dtEncabezado.Dispose();
+                        dtEncabezado = null;
+                        dtRetiros.Dispose();
+                        dtRetiros = null;
+                        dtRetirosSuma.Dispose();
+                        dtRetirosSuma = null;
+                    };
+
+                    form.dtEncabezado = dtEncabezado;
+                    form.dtRetirosRealizados = dtRetiros;
+                    form.dtSumaRetirosRealizados = dtRetirosSuma;
+                    form.ShowDialog();
                 }
             }
         }
@@ -290,7 +915,7 @@ namespace PuntoDeVentaV2
         {
             List<string> lista = new List<string>();
 
-            var fechas =  obtenerFechas(id);
+            var fechas = obtenerFechas(id);
             DateTime fecha1 = Convert.ToDateTime(fechas[1]);
             DateTime fecha2 = Convert.ToDateTime(fechas[0]);
 
@@ -304,12 +929,12 @@ namespace PuntoDeVentaV2
 
             //Consulta caja
             var totalCantidadCaja = 0f;
-             var consultaRetiradoCorte = cn.CargarDatos(/*consultaAlterna*/$"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion != 'retiro' AND Operacion != 'corte' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd HH:mm:ss")}')");
+            var consultaRetiradoCorte = cn.CargarDatos(/*consultaAlterna*/$"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion != 'retiro' AND Operacion != 'corte' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd HH:mm:ss")}')");
 
             //Consulta Ventas
             var totalC = string.Empty; var efectivoC = string.Empty; var tarjetaC = string.Empty; var valesC = string.Empty; var chequeC = string.Empty; var transC = string.Empty; var creditoC = string.Empty;
             var consulta = cn.CargarDatos($"SELECT Cantidad, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'venta' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd HH:mm:ss")}')");
-            
+
             //Consulta Abonos
             var totalA = string.Empty; var efectivoA = string.Empty; var tarjetaA = string.Empty; var valesA = string.Empty; var chequeA = string.Empty; var transA = string.Empty;
             var segundaConsulta = cn.CargarDatos($"SELECT IFNULL(SUM(Total),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd HH:mm:ss")}')");
@@ -325,13 +950,13 @@ namespace PuntoDeVentaV2
             //Consulta Anticipos
             var totalAnt = string.Empty; var efectivoAnt = string.Empty; var tarjetaAnt = string.Empty; var valesAnt = string.Empty; var chequeAnt = string.Empty; var transAnt = string.Empty;
             var consultaAnticipos = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'anticipo' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd HH:mm:ss")}')");
-            
+
 
             //Consulta Dinero Agregado
             var totalAg = string.Empty; var efectivoAg = string.Empty; var tarjetaAg = string.Empty; var valesAg = string.Empty; var chequeAg = string.Empty; var transAg = string.Empty; var anticiposA = string.Empty;
             var consultaDineroAgregado = cn.CargarDatos($"SELECT IFNULL(SUM(Cantidad),0) AS Total, IFNULL(SUM(Efectivo),0) AS Efectivo, IFNULL(SUM(Tarjeta),0) AS Tarjeta, IFNULL(SUM(Vales),0) AS Vales, IFNULL(SUM(Cheque),0) AS Cheque, IFNULL(SUM(Transferencia),0) AS Trans, IFNULL(SUM(Credito),0) AS Credito, IFNULL(SUM(Anticipo),0) AS Anticipo FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'deposito' AND (FechaOperacion BETWEEN '{fecha1.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{fecha2.ToString("yyyy-MM-dd HH:mm:ss")}')");
 
-            
+
 
             var dTotal = 0f; var dEfectivo = 0f; var dTarjeta = 0f; var dVales = 0f; var dCheque = 0f; var dTrans = 0f; var dCredito = 0f;
             var saltar = 0;
@@ -368,7 +993,8 @@ namespace PuntoDeVentaV2
                 chequeC = dCheque.ToString();
                 transC = dTrans.ToString();
                 creditoC = dCredito.ToString();
-            }else
+            }
+            else
             {
                 totalC = dTotal.ToString();
                 efectivoC = dEfectivo.ToString();
@@ -413,7 +1039,7 @@ namespace PuntoDeVentaV2
                 valesAnt = consultaAnticipos.Rows[0]["Vales"].ToString();
                 chequeAnt = consultaAnticipos.Rows[0]["Cheque"].ToString();
                 transAnt = consultaAnticipos.Rows[0]["Trans"].ToString();
-                
+
             }
 
             if (!consultaDineroAgregado.Rows.Count.Equals(0))//Dinero Agregado
@@ -473,7 +1099,7 @@ namespace PuntoDeVentaV2
             lista.Add("Tarjeta:|" + Convert.ToDecimal(tarjetaC).ToString("C") + "|Tarjeta:|" + Convert.ToDecimal(tarjetaAnt).ToString("C") + "|Tarjeta:|" + Convert.ToDecimal(tarjetaAg).ToString("C") + "|Tarjeta:|" + Convert.ToDecimal(tarjetaR).ToString("C") + "|Tarjeta:|" + totTarjeta.ToString("C"));
 
             var totVales = (((float)Convert.ToDecimal(valesC) + (float)Convert.ToDecimal(valesAnt) + (float)Convert.ToDecimal(valesAg) + (float)Convert.ToDecimal(valesA)) - (float)Convert.ToDecimal(valesR));
-            if (totVales < 0 ) { totVales = 0; }
+            if (totVales < 0) { totVales = 0; }
             lista.Add("Vales:|" + Convert.ToDecimal(valesC).ToString("C") + "|Vales:|" + Convert.ToDecimal(valesAnt).ToString("C") + "|Vales:|" + Convert.ToDecimal(valesAg).ToString("C") + "|Vales:|" + Convert.ToDecimal(valesR).ToString("C") + "|Vales:|" + totVales.ToString("C"));
 
             var totCheque = (((float)Convert.ToDecimal(chequeC) + (float)Convert.ToDecimal(chequeAnt) + (float)Convert.ToDecimal(chequeAg) + (float)Convert.ToDecimal(chequeA)) - (float)Convert.ToDecimal(chequeR));
@@ -484,11 +1110,11 @@ namespace PuntoDeVentaV2
             if (totTrans < 0) { totTrans = 0; }
             lista.Add("Transferencia:|" + Convert.ToDecimal(transC).ToString("C") + "|Transferencia:|" + Convert.ToDecimal(transAnt).ToString("C") + "|Transferencia:|" + Convert.ToDecimal(transAg).ToString("C") + "|Transferencia:|" + Convert.ToDecimal(transR).ToString("C") + "|Transferencia:|" + totTrans.ToString("C"));
 
-            lista.Add("Crédito:|" + Convert.ToDecimal(creditoC).ToString("C") + "|" + string.Empty + "|" + string.Empty + "|"+string.Empty+"|"+ string.Empty+"|Anticipos Utilizados:|" + Convert.ToDecimal(anticiposR).ToString("C") + "|Saldo Inicial:|" + saldoInicial.ToString("C"));
+            lista.Add("Crédito:|" + Convert.ToDecimal(creditoC).ToString("C") + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|Anticipos Utilizados:|" + Convert.ToDecimal(anticiposR).ToString("C") + "|Saldo Inicial:|" + saldoInicial.ToString("C"));
 
-            lista.Add("Abonos:|" + Convert.ToDecimal(totalA).ToString("C") + "|" + string.Empty + "|" +string.Empty +"|" +string.Empty+"|"+ string.Empty + "|Devoluciones:|" + Convert.ToDecimal(totalDevol).ToString("C") + "|Crédito:|" + Convert.ToDecimal(creditoC).ToString("C"));
+            lista.Add("Abonos:|" + Convert.ToDecimal(totalA).ToString("C") + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|Devoluciones:|" + Convert.ToDecimal(totalDevol).ToString("C") + "|Crédito:|" + Convert.ToDecimal(creditoC).ToString("C"));
 
-            lista.Add("Anticipos Utilizados:|" + Convert.ToDecimal(anticiposA).ToString("C") + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty+ "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty);
+            lista.Add("Anticipos Utilizados:|" + Convert.ToDecimal(anticiposA).ToString("C") + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty);
 
             lista.Add(string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + string.Empty + "|" + "Cantidad retirada al corte:" + "|" + cantidadFinal.ToString("C"));
 
@@ -498,7 +1124,7 @@ namespace PuntoDeVentaV2
 
             lista.Add("Total Ventas:|" + ventas.ToString("C") + "|Total Anticipos:|" + anticipos.ToString("C") + "|Total Agregado:|" + agregado.ToString("C") + "|Total Retirado:|" + retirado.ToString("C") + "|Total en Caja despues del corte:|" + restoCash.ToString("C"));
 
-            
+
 
             return lista.ToArray();
         }
@@ -534,15 +1160,15 @@ namespace PuntoDeVentaV2
 
             //if (tipoBusqueda.Equals("Corte"))//Cuando es corte de caja
             //{
-                
+
             //}
             //else if (tipoBusqueda.Equals("DA"))//Cuanto es dinero agregado
             //{
-               
+
             //}
             //else if (tipoBusqueda.Equals("DR"))//Cuando es dinero retirado
             //{
-                
+
             //}
             return lista.ToArray();
         }
@@ -553,7 +1179,7 @@ namespace PuntoDeVentaV2
             var mostrarClave = FormPrincipal.clave;
 
             //Datos del usuario
-           var datos = FormPrincipal.datosUsuario;
+            var datos = FormPrincipal.datosUsuario;
 
             //Fuentes y Colores
             var colorFuenteNegrita = new BaseColor(Color.Black);
@@ -568,7 +1194,7 @@ namespace PuntoDeVentaV2
             var numRow = 0;
 
             //Ruta donde se creara el archivo PDF
-           var servidor = Properties.Settings.Default.Hosting;
+            var servidor = Properties.Settings.Default.Hosting;
             var rutaArchivo = string.Empty;
             if (!string.IsNullOrWhiteSpace(servidor))
             {
@@ -621,11 +1247,11 @@ namespace PuntoDeVentaV2
 
             titulo.Alignment = Element.ALIGN_CENTER;
             Usuario.Alignment = Element.ALIGN_CENTER;
-            if (!string.IsNullOrEmpty(UsuarioActivo)){ Empleado.Alignment = Element.ALIGN_CENTER; }
+            if (!string.IsNullOrEmpty(UsuarioActivo)) { Empleado.Alignment = Element.ALIGN_CENTER; }
             NumeroFolio.Alignment = Element.ALIGN_CENTER;
             subTitulo.Alignment = Element.ALIGN_CENTER;
 
-            float[] anchoColumnas = new float[] {60f, 40f, 60f, 40f, 60f, 40f,  60f, 40f, 60f, 40f };
+            float[] anchoColumnas = new float[] { 60f, 40f, 60f, 40f, 60f, 40f, 60f, 40f, 60f, 40f };
 
             //Linea serapadora
             Paragraph linea = new Paragraph(new Chunk(new LineSeparator(0.0F, 100.0F, new BaseColor(Color.Black), Element.ALIGN_LEFT, 1)));
@@ -924,9 +1550,9 @@ namespace PuntoDeVentaV2
                     int usuario = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("IdEmpleado")));
 
                     var autorMovimiento = string.Empty;
-                    if (usuario != 0 )
+                    if (usuario != 0)
                     {
-                        autorMovimiento =  cs.BuscarEmpleadoCaja(usuario);
+                        autorMovimiento = cs.BuscarEmpleadoCaja(usuario);
                     }
                     else
                     {
@@ -989,7 +1615,7 @@ namespace PuntoDeVentaV2
             sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
             sql_con.Open();
 
-            var visualizarConuslta= $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'retiro' AND Cantidad != '0.00' AND (FechaOperacion BETWEEN '{primerFecha.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{segundaFecha.ToString("yyyy-MM-dd HH:mm:ss")}')";
+            var visualizarConuslta = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'retiro' AND Cantidad != '0.00' AND (FechaOperacion BETWEEN '{primerFecha.ToString("yyyy-MM-dd HH:mm:ss")}' AND  '{segundaFecha.ToString("yyyy-MM-dd HH:mm:ss")}')";
 
             sql_cmd = new MySqlCommand(visualizarConuslta, sql_con);
             dr = sql_cmd.ExecuteReader();
@@ -1150,7 +1776,7 @@ namespace PuntoDeVentaV2
             //    result = FormPrincipal.userNickName.ToString();
 
             //}
-            
+
             return result;
         }
 
@@ -1476,18 +2102,18 @@ namespace PuntoDeVentaV2
             reporte.Add(tablaDineroRetirado);
             reporte.Add(linea);
 
-                //reporte.Add(tablaTotalesDineroRetirado);
-                #endregion Tabla de Dinero Agregado
-                //=====================================
-                //=== FIN TABLA DE Reporte General  ===
-                //=====================================
-                reporte.AddTitle("Reporte Dinero Retirado");
-                reporte.AddAuthor("PUDVE");
-                reporte.Close();
-                writer.Close();
+            //reporte.Add(tablaTotalesDineroRetirado);
+            #endregion Tabla de Dinero Agregado
+            //=====================================
+            //=== FIN TABLA DE Reporte General  ===
+            //=====================================
+            reporte.AddTitle("Reporte Dinero Retirado");
+            reporte.AddAuthor("PUDVE");
+            reporte.Close();
+            writer.Close();
 
-                VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
-                vr.ShowDialog();
+            VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
+            vr.ShowDialog();
         }
         #endregion
 

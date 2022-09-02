@@ -2013,6 +2013,9 @@
                 <Height>0.6cm</Height>
                 <Width>2.316cm</Width>
                 <ZIndex>5</ZIndex>
+                <Visibility>
+                  <Hidden>true</Hidden>
+                </Visibility>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -2217,6 +2220,9 @@
                 <Height>0.6cm</Height>
                 <Width>2.7cm</Width>
                 <ZIndex>11</ZIndex>
+                <Visibility>
+                  <Hidden>true</Hidden>
+                </Visibility>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -2260,7 +2266,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox146</rd:DefaultName>
             <Top>3.65548cm</Top>
-            <Left>0.60775cm</Left>
+            <Left>0.58129cm</Left>
             <Height>0.52765cm</Height>
             <Width>5.35917cm</Width>
             <ZIndex>5</ZIndex>
@@ -2294,7 +2300,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox146</rd:DefaultName>
             <Top>3.65548cm</Top>
-            <Left>5.96868cm</Left>
+            <Left>5.94222cm</Left>
             <Height>0.52415cm</Height>
             <Width>5.34329cm</Width>
             <ZIndex>6</ZIndex>
@@ -2328,7 +2334,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox146</rd:DefaultName>
             <Top>3.65548cm</Top>
-            <Left>11.32961cm</Left>
+            <Left>11.30315cm</Left>
             <Height>0.52062cm</Height>
             <Width>5.34329cm</Width>
             <ZIndex>7</ZIndex>
@@ -2362,7 +2368,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox146</rd:DefaultName>
             <Top>3.65548cm</Top>
-            <Left>16.67998cm</Left>
+            <Left>16.65352cm</Left>
             <Height>0.50944cm</Height>
             <Width>5.34329cm</Width>
             <ZIndex>8</ZIndex>
