@@ -1938,6 +1938,12 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo4_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtNombreProducto.Text))
+            {
+                MessageBox.Show("Favor de llenar todos los datos antes de asignar un descuento","Aviso del sistema",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
             if (txtPrecioProducto.Text == "" || txtPrecioProducto.Text == "0.0" || txtPrecioProducto.Text == "0")
             {
                 MessageBox.Show("Es necesario agregar el precio del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
