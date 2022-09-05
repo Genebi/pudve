@@ -969,7 +969,7 @@ namespace PuntoDeVentaV2
                                         intoSubControlHijo.Enabled = true;
                                         ComboBox ComBo = (ComboBox)intoSubControlHijo;
 
-                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(nameChkBox, FormPrincipal.userID)))
+                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(nameChkBox, FormPrincipal.userID, FormPrincipal.userNickName)))
                                         {
                                             if (!dtItemChckStok.Rows.Count.Equals(0))
                                             {
@@ -986,7 +986,7 @@ namespace PuntoDeVentaV2
                                             try
                                             {
                                                 //var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, valorChkBox));
-                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorChkBox.ToString(), nameChkBox, ComBo.Text, FormPrincipal.userID));
+                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorChkBox.ToString(), nameChkBox, ComBo.Text, FormPrincipal.userID, FormPrincipal.userNickName));
                                             }
                                             catch (Exception ex)
                                             {
@@ -998,7 +998,7 @@ namespace PuntoDeVentaV2
                                             try
                                             {
                                                 //var insertChkBoxStock = cn.EjecutarConsulta(cs.InsertarChk(nameChkBox, valorChkBox));
-                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(valorChkBox.ToString(), nameChkBox, ComBo.Text, FormPrincipal.userID));
+                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(valorChkBox.ToString(), nameChkBox, ComBo.Text, FormPrincipal.userID, FormPrincipal.userNickName));
                                             }
                                             catch (Exception ex)
                                             {
@@ -1031,7 +1031,7 @@ namespace PuntoDeVentaV2
                                         comBox.SelectedIndex = 0;
                                         comBox.Enabled = false;
 
-                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(nameChkBox, FormPrincipal.userID)))
+                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(nameChkBox, FormPrincipal.userID, FormPrincipal.userNickName)))
                                         {
                                             if (!dtItemChckStok.Rows.Count.Equals(0))
                                             {
@@ -1047,7 +1047,7 @@ namespace PuntoDeVentaV2
                                         {
                                             try
                                             {
-                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorChkBox.ToString(), nameChkBox, comBox.Text, FormPrincipal.userID));
+                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorChkBox.ToString(), nameChkBox, comBox.Text, FormPrincipal.userID, FormPrincipal.userNickName));
                                             }
                                             catch (Exception ex)
                                             {
@@ -1058,7 +1058,7 @@ namespace PuntoDeVentaV2
                                         {
                                             try
                                             {
-                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(valorChkBox.ToString(), nameChkBox, comBox.Text, FormPrincipal.userID));
+                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(valorChkBox.ToString(), nameChkBox, comBox.Text, FormPrincipal.userID, FormPrincipal.userNickName));
                                             }
                                             catch (Exception ex)
                                             {
@@ -1105,7 +1105,7 @@ namespace PuntoDeVentaV2
 
                                         textoComboBox = ComBox.Text;
 
-                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(nameChkBox, FormPrincipal.userID)))
+                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(nameChkBox, FormPrincipal.userID, FormPrincipal.userNickName)))
                                         {
                                             if (!dtItemChckStok.Rows.Count.Equals(0))
                                             {
@@ -1122,7 +1122,7 @@ namespace PuntoDeVentaV2
                                             try
                                             {
                                                 //var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, valorChkBox));
-                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorChkBox.ToString(), nameChkBox, textoComboBox, FormPrincipal.userID));
+                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorChkBox.ToString(), nameChkBox, textoComboBox, FormPrincipal.userID, FormPrincipal.userNickName));
                                             }
                                             catch (Exception ex)
                                             {
@@ -1133,7 +1133,7 @@ namespace PuntoDeVentaV2
                                         {
                                             try
                                             {
-                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(valorChkBox.ToString(), nameChkBox, textoComboBox, FormPrincipal.userID));
+                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(valorChkBox.ToString(), nameChkBox, textoComboBox, FormPrincipal.userID, FormPrincipal.userNickName));
                                             }
                                             catch (Exception ex)
                                             {
@@ -1166,7 +1166,7 @@ namespace PuntoDeVentaV2
                                         comBox.SelectedIndex = 0;
                                         comBox.Enabled = false;
 
-                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(nameChkBox, FormPrincipal.userID)))
+                                        using (DataTable dtItemChckStok = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(nameChkBox, FormPrincipal.userID, FormPrincipal.userNickName)))
                                         {
                                             if (!dtItemChckStok.Rows.Count.Equals(0))
                                             {
@@ -1183,7 +1183,7 @@ namespace PuntoDeVentaV2
                                             try
                                             {
                                                 //var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarChk(nameChkBox, valorChkBox));
-                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorChkBox.ToString(), nameChkBox, comBox.Text, FormPrincipal.userID));
+                                                var updateChkBoxStock = cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorChkBox.ToString(), nameChkBox, comBox.Text, FormPrincipal.userID, FormPrincipal.userNickName));
                                             }
                                             catch (Exception ex)
                                             {
@@ -1195,7 +1195,7 @@ namespace PuntoDeVentaV2
                                             try
                                             {
                                                 //var insertChkBoxStock = cn.EjecutarConsulta(cs.InsertarChk(nameChkBox, valorChkBox));
-                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(valorChkBox.ToString(), nameChkBox, comBox.Text, FormPrincipal.userID));
+                                                var insertChkBoxStock = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(valorChkBox.ToString(), nameChkBox, comBox.Text, FormPrincipal.userID, FormPrincipal.userNickName));
                                             }
                                             catch (Exception ex)
                                             {
@@ -2054,7 +2054,7 @@ namespace PuntoDeVentaV2
 
         private void validarCheckBoxFiltrosDinamicos()
         {
-            using (DataTable dtValidarCheckBoxFiltrosDinamicos = cn.CargarDatos(cs.VerificarVentanaFiltros(FormPrincipal.userID)))
+            using (DataTable dtValidarCheckBoxFiltrosDinamicos = cn.CargarDatos(cs.VerificarVentanaFiltros(FormPrincipal.userID, FormPrincipal.userNickName)))
             {
                 if (!dtValidarCheckBoxFiltrosDinamicos.Rows.Count.Equals(0))
                 {
@@ -2154,7 +2154,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            using (DataTable dtVerificarVentanaFiltros = cn.CargarDatos(cs.VerificarVentanaFiltros(FormPrincipal.userID)))
+            using (DataTable dtVerificarVentanaFiltros = cn.CargarDatos(cs.VerificarVentanaFiltros(FormPrincipal.userID, FormPrincipal.userNickName)))
             {
                 if (dtVerificarVentanaFiltros.Rows.Count.Equals(0))
                 {
@@ -2177,7 +2177,7 @@ namespace PuntoDeVentaV2
                     {
                         try
                         {
-                            var agregarVentanaFiltros = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(auxArray[1].ToString(), auxArray[2].ToString(), auxArray[0].ToString(), FormPrincipal.userID));
+                            var agregarVentanaFiltros = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(auxArray[1].ToString(), auxArray[2].ToString(), auxArray[0].ToString(), FormPrincipal.userID, FormPrincipal.userNickName));
                         }
                         catch (Exception ex)
                         {
@@ -2186,13 +2186,13 @@ namespace PuntoDeVentaV2
                     }
                     else if (EmptyFuel.Equals(1))
                     {
-                        using (DataTable dtChecarDatoDelFiltro = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(auxArray[2].ToString(), FormPrincipal.userID)))
+                        using (DataTable dtChecarDatoDelFiltro = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(auxArray[2].ToString(), FormPrincipal.userID, FormPrincipal.userNickName)))
                         {
                             if (dtChecarDatoDelFiltro.Rows.Count.Equals(0))
                             {
                                 try
                                 {
-                                    var agregarVentanaFiltros = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(auxArray[1].ToString(), auxArray[2].ToString(), auxArray[0].ToString(), FormPrincipal.userID));
+                                    var agregarVentanaFiltros = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(auxArray[1].ToString(), auxArray[2].ToString(), auxArray[0].ToString(), FormPrincipal.userID, FormPrincipal.userNickName));
                                 }
                                 catch (Exception ex)
                                 {
@@ -2203,7 +2203,7 @@ namespace PuntoDeVentaV2
                             {
                                 try
                                 {
-                                    var ActualizarVentanaFiltros = cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(auxArray[1].ToString(), auxArray[2].ToString(), auxArray[0].ToString(), FormPrincipal.userID));
+                                    var ActualizarVentanaFiltros = cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(auxArray[1].ToString(), auxArray[2].ToString(), auxArray[0].ToString(), FormPrincipal.userID, FormPrincipal.userNickName));
                                 }
                                 catch (Exception ex)
                                 {
@@ -2649,7 +2649,7 @@ namespace PuntoDeVentaV2
                         {
                             nameChkBox = chkBoxStock.Name;
 
-                            var datosFiltroStock = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
+                            var datosFiltroStock = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID, FormPrincipal.userNickName);
 
                             if (!datosFiltroStock.Count().Equals(0))
                             {
@@ -2692,7 +2692,7 @@ namespace PuntoDeVentaV2
                         {
                             nameChkBox = chkBoxPrecio.Name;
 
-                            var datosFiltrosPrecio = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
+                            var datosFiltrosPrecio = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID, FormPrincipal.userNickName);
 
                             if (!datosFiltrosPrecio.Count().Equals(0))
                             {
@@ -2737,7 +2737,7 @@ namespace PuntoDeVentaV2
                     {
                         nameChkBox = chkBoxTipo.Name;
 
-                        var datosFiltrosTipo = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
+                        var datosFiltrosTipo = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID, FormPrincipal.userNickName);
 
                         if (!datosFiltrosTipo.Count().Equals(0))
                         {
@@ -2775,7 +2775,7 @@ namespace PuntoDeVentaV2
 
                         nameChkBox = chkBoxRevision.Name;
 
-                        var datosFiltrosRevision = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
+                        var datosFiltrosRevision = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID, FormPrincipal.userNickName);
 
                         if (!datosFiltrosRevision.Count().Equals(0))
                         {
@@ -2806,7 +2806,7 @@ namespace PuntoDeVentaV2
                     {
                         nameChkBox = chkBoxImagen.Name;
 
-                        var datosFiltroImagen = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID);
+                        var datosFiltroImagen = mb.ObtenerDatosFiltro(nameChkBox, FormPrincipal.userID, FormPrincipal.userNickName);
 
                         if (!datosFiltroImagen.Count().Equals(0))
                         {
@@ -2898,7 +2898,7 @@ namespace PuntoDeVentaV2
 
                 words = itemRow.Split('|');
 
-                using (DataTable dtFiltrosDinamicosVetanaFiltros = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(words[1].ToString(), FormPrincipal.userID)))
+                using (DataTable dtFiltrosDinamicosVetanaFiltros = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(words[1].ToString(), FormPrincipal.userID, FormPrincipal.userNickName)))
                 {
                     if (!dtFiltrosDinamicosVetanaFiltros.Rows.Count.Equals(0))
                     {
@@ -2914,7 +2914,7 @@ namespace PuntoDeVentaV2
                 {
                     try
                     {
-                        var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(words[0].ToString(), words[1].ToString(), words[2].ToString(), Convert.ToInt32(words[3].ToString())));
+                        var UpdateDatoDinamico = cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(words[0].ToString(), words[1].ToString(), words[2].ToString(), Convert.ToInt32(words[3].ToString()), FormPrincipal.userNickName));
                     }
                     catch (Exception ex)
                     {
@@ -2925,7 +2925,7 @@ namespace PuntoDeVentaV2
                 {
                     try
                     {
-                        var AgregarDatoDinamico = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(words[0].ToString(), words[1].ToString(), words[2].ToString(), Convert.ToInt32(words[3].ToString())));
+                        var AgregarDatoDinamico = cn.EjecutarConsulta(cs.GuardarVentanaFiltros(words[0].ToString(), words[1].ToString(), words[2].ToString(), Convert.ToInt32(words[3].ToString()), FormPrincipal.userNickName));
                     }
                     catch (Exception ex)
                     {
@@ -3056,7 +3056,7 @@ namespace PuntoDeVentaV2
                                         conceptoCheckBox = intoSubControlHijo.Name.ToString().Remove(0, 9);
                                         cadenaFiltro = "Selecciona " + conceptoCheckBox;
                                     }
-                                    cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorCheckBox, conceptoCheckBox, cadenaFiltro, FormPrincipal.userID));
+                                    cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorCheckBox, conceptoCheckBox, cadenaFiltro, FormPrincipal.userID, FormPrincipal.userNickName));
                                 }
                             }
                         }
@@ -3095,7 +3095,7 @@ namespace PuntoDeVentaV2
                                         conceptoCheckBox = intoSubControlHijo.Name.ToString().Remove(0, 9);
                                         cadenaFiltro = "Selecciona " + conceptoCheckBox;
                                     }
-                                    cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorCheckBox, conceptoCheckBox, cadenaFiltro, FormPrincipal.userID));
+                                    cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros(valorCheckBox, conceptoCheckBox, cadenaFiltro, FormPrincipal.userID, FormPrincipal.userNickName));
                                 }
                             }
                         }

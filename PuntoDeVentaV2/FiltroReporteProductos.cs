@@ -383,17 +383,17 @@ namespace PuntoDeVentaV2
                             
                             var nombreCheckbox = $"chkBox{concepto}";
 
-                            var existenConceptos = mb.ObtenerDatosFiltro(nombreCheckbox, FormPrincipal.userID);
+                            var existenConceptos = mb.ObtenerDatosFiltro(nombreCheckbox, FormPrincipal.userID, FormPrincipal.userNickName);
 
                             if (existenConceptos.Count() > 0)
                             {
-                                consulta = $"UPDATE FiltroProducto SET checkBoxConcepto = 1, textComboBoxConcepto = '{nombreConcepto}', textCantidad = '{filtro.Value.Item2}' WHERE concepto = '{nombreCheckbox}' AND IDUsuario = {FormPrincipal.userID}";
+                                consulta = $"UPDATE FiltroProducto SET checkBoxConcepto = 1, textComboBoxConcepto = '{nombreConcepto}', textCantidad = '{filtro.Value.Item2}' WHERE concepto = '{nombreCheckbox}' AND IDUsuario = {FormPrincipal.userID} AND Username = '{FormPrincipal.userNickName}'";
                                 cn.EjecutarConsulta(consulta);
                             }
                             else
                             {
-                                consulta = "INSERT INTO FiltroProducto (concepto, checkBoxConcepto, textComboBoxConcepto, textCantidad, IDUsuario) VALUES";
-                                consulta += $"('{nombreCheckbox}', 1, '{nombreConcepto}', '{filtro.Value.Item2}', '{FormPrincipal.userID}')";
+                                consulta = "INSERT INTO FiltroProducto (concepto, checkBoxConcepto, textComboBoxConcepto, textCantidad, IDUsuario, Username) VALUES";
+                                consulta += $"('{nombreCheckbox}', 1, '{nombreConcepto}', '{filtro.Value.Item2}', '{FormPrincipal.userID}', '{FormPrincipal.userNickName}')";
                                 cn.EjecutarConsulta(consulta);
                             }
                         }
@@ -411,15 +411,15 @@ namespace PuntoDeVentaV2
                                 }
                             }
 
-                            var existenConceptos = (bool)cn.EjecutarSelect(cs.BuscarDatoEnVentanaFiltros(filtro.Key, FormPrincipal.userID));
+                            var existenConceptos = (bool)cn.EjecutarSelect(cs.BuscarDatoEnVentanaFiltros(filtro.Key, FormPrincipal.userID, FormPrincipal.userNickName));
                             
                             if (existenConceptos)
                             {
-                                cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros("1", filtro.Key, valorFiltro, FormPrincipal.userID));
+                                cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros("1", filtro.Key, valorFiltro, FormPrincipal.userID, FormPrincipal.userNickName));
                             }
                             else
                             {
-                                cn.EjecutarConsulta(cs.GuardarVentanaFiltros("1", filtro.Key, valorFiltro, FormPrincipal.userID));
+                                cn.EjecutarConsulta(cs.GuardarVentanaFiltros("1", filtro.Key, valorFiltro, FormPrincipal.userID, FormPrincipal.userNickName));
                             }
                         }
                     }

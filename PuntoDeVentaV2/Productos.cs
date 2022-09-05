@@ -1866,7 +1866,7 @@ namespace PuntoDeVentaV2
                             fLPDynamicTags.Controls.Remove(panel);
                             panel.Dispose();
 
-                            cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros("0", etiqueta, $"Selecciona {etiqueta}", FormPrincipal.userID));
+                            cn.EjecutarConsulta(cs.ActualizarDatoVentanaFiltros("0", etiqueta, $"Selecciona {etiqueta}", FormPrincipal.userID, FormPrincipal.userNickName));
                         }
                     }
                 }
@@ -2353,7 +2353,7 @@ namespace PuntoDeVentaV2
              * se carga los datos del contenido de la tabla FiltrosDinamicosVetanaFiltros
              * tabla en la cual se guardan el filtro de Proveedor y los conceptos dinamicos
              */
-            using (DataTable dtFiltrosDinamicosVetanaFiltros = cn.CargarDatos(cs.VerificarVentanaFiltros(FormPrincipal.userID)))
+            using (DataTable dtFiltrosDinamicosVetanaFiltros = cn.CargarDatos(cs.VerificarVentanaFiltros(FormPrincipal.userID, FormPrincipal.userNickName)))
             {
                 if (dtFiltrosDinamicosVetanaFiltros.Rows.Count.Equals(0))   // verificacmos que si es que esta vacia la tabla
                 {
@@ -3000,7 +3000,7 @@ namespace PuntoDeVentaV2
 
             setUpVariable.Clear();
 
-            queryFiltroProducto = $"SELECT * FROM FiltroProducto WHERE IDUsuario = '{FormPrincipal.userID}'";
+            queryFiltroProducto = $"SELECT * FROM FiltroProducto WHERE IDUsuario = '{FormPrincipal.userID}' AND Username = '{FormPrincipal.userNickName}'";
 
             using (DataTable dtFiltroProducto = cn.CargarDatos(queryFiltroProducto))
             {
@@ -4106,7 +4106,7 @@ namespace PuntoDeVentaV2
         {
             string msgFiltroProducto = filtroProducto.Remove(0, 6);
 
-            using (DataTable dtFiltroProducto = cn.CargarDatos(cs.ReiniciarFiltroDinamico(FormPrincipal.userID, filtroProducto)))
+            using (DataTable dtFiltroProducto = cn.CargarDatos(cs.ReiniciarFiltroDinamico(FormPrincipal.userID, filtroProducto, FormPrincipal.userNickName)))
             {
                 if (!dtFiltroProducto.Rows.Count.Equals(0))
                 {
@@ -4150,13 +4150,13 @@ namespace PuntoDeVentaV2
         {
             string msgFiltroProducto = filtroProducto.Remove(0, 6);
 
-            using (DataTable dtFiltroProducto = cn.CargarDatos(cs.ReiniciarFiltroDinamico(FormPrincipal.userID, filtroProducto)))
+            using (DataTable dtFiltroProducto = cn.CargarDatos(cs.ReiniciarFiltroDinamico(FormPrincipal.userID, filtroProducto, FormPrincipal.userNickName)))
             {
                 if (!dtFiltroProducto.Rows.Count.Equals(0))
                 {
                     try
                     {
-                        var updateFiltroProducto = cn.EjecutarConsulta(cs.ReiniciarFiltroDinamicoTresCampos(0, string.Empty, FormPrincipal.userID, filtroProducto));
+                        var updateFiltroProducto = cn.EjecutarConsulta(cs.ReiniciarFiltroDinamicoTresCampos(0, string.Empty, FormPrincipal.userID, filtroProducto, FormPrincipal.userNickName));
                     }
                     catch (Exception ex)
                     {
@@ -4168,7 +4168,7 @@ namespace PuntoDeVentaV2
 
         public void actualizarBtnFiltro()
         {
-            using (DataTable dtFiltroProducto = cn.CargarDatos(cs.VerificarContenidoFiltroProducto(FormPrincipal.userID)))
+            using (DataTable dtFiltroProducto = cn.CargarDatos(cs.VerificarContenidoFiltroProducto(FormPrincipal.userID, FormPrincipal.userNickName)))
             {
                 if (!dtFiltroProducto.Rows.Count.Equals(0))
                 {
@@ -4218,7 +4218,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            using (DataTable dtFiltrosDinamicosVetanaFiltros = cn.CargarDatos(cs.VerificarVentanaFiltros(FormPrincipal.userID)))
+            using (DataTable dtFiltrosDinamicosVetanaFiltros = cn.CargarDatos(cs.VerificarVentanaFiltros(FormPrincipal.userID, FormPrincipal.userNickName)))
             {
                 if (!dtFiltrosDinamicosVetanaFiltros.Rows.Count.Equals(0))
                 {

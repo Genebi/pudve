@@ -1725,11 +1725,11 @@ namespace PuntoDeVentaV2
             {
                 try
                 {
-                    using (DataTable dtFiltrosDinamicosVetanaFiltros = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(name.Remove(0, 3), FormPrincipal.userID)))
+                    using (DataTable dtFiltrosDinamicosVetanaFiltros = cn.CargarDatos(cs.BuscarDatoEnVentanaFiltros(name.Remove(0, 3), FormPrincipal.userID, FormPrincipal.userNickName)))
                     {
                         if (dtFiltrosDinamicosVetanaFiltros.Rows.Count.Equals(0))
                         {
-                            var Guardarfiltro = cn.EjecutarConsulta(cs.GuardarVentanaFiltros("0", name.Remove(0, 3), "Selecciona " + name.Remove(0, 3), FormPrincipal.userID));
+                            var Guardarfiltro = cn.EjecutarConsulta(cs.GuardarVentanaFiltros("0", name.Remove(0, 3), "Selecciona " + name.Remove(0, 3), FormPrincipal.userID, FormPrincipal.userNickName));
                         }
                     }
                 }
