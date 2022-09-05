@@ -2125,6 +2125,11 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo5_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtNombreProducto.Text))
+            {
+                MessageBox.Show("Por favor poner Datos Validos\npara el campo de NOMBRE DE PRODUCTO", "Alerta del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
                 contador++;
                 var tituloVentana = string.Empty;
 
