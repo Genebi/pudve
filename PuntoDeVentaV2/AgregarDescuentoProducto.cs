@@ -24,7 +24,7 @@ namespace PuntoDeVentaV2
         //string rangoInicial = null;
         float rangoInicial;
         int vecesMostradas = 0;
-
+        decimal op1, op2;
         private bool refrescarForm = true;
         private bool eliminarDescuento = false;
 
@@ -159,6 +159,7 @@ namespace PuntoDeVentaV2
 
                     foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
                     {
+                        
                         string descuentoMayoreo = string.Empty;
 
                         if (panel.Name == "panelMayoreoTitulos") { continue; }
@@ -171,6 +172,28 @@ namespace PuntoDeVentaV2
 
                                 // Validar precios para el descuento por rangos
                                 string[] datosAux = item.Name.Split('_');
+
+                                if (datosAux[1] == "1")
+                                {
+                                    op1 = Convert.ToDecimal(tb);
+                                }
+                                if (datosAux[1] == "2")
+                                {
+                                    op2 = Convert.ToDecimal(tb);
+                                }
+                                if (!op2.Equals(0))
+                                {
+                                    if (op1 >= op2)
+                                    {
+                                        MessageBox.Show("El precio nuevo no puede ser mayor o igual al precio anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        op1 = 0;
+                                        op2 = 0;
+                                    }
+                                }
 
                                 if (datosAux[1] == "3")
                                 {
