@@ -74,14 +74,30 @@ namespace PuntoDeVentaV2
 
             var consulta = string.Empty;
 
-            if (string.IsNullOrWhiteSpace(busqueda))
+            if (Ventas.EsClienteConDescuento.Equals(true))
             {
-                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND TipoCliente > 0";
+                if (string.IsNullOrWhiteSpace(busqueda))
+                {
+                    consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND TipoCliente > 0";
+                }
+                else
+                {
+                    consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (RazonSocial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR NumeroCliente LIKE '%{busqueda}%') AND TipoCliente > 0";
+                }
             }
             else
             {
-                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (RazonSocial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR NumeroCliente LIKE '%{busqueda}%')";
+                if (string.IsNullOrWhiteSpace(busqueda))
+                {
+                    consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
+                }
+                else
+                {
+                    consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (RazonSocial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR NumeroCliente LIKE '%{busqueda}%')";
+                }
             }
+            
+            
 
             sql_con.Open();
             sql_cmd = new MySqlCommand(consulta, sql_con);

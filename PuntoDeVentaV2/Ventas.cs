@@ -33,7 +33,7 @@ namespace PuntoDeVentaV2
         private bool aplicarDescuentoG { get; set; }
 
         public static string etiqeutaCliente { get; set; }
-
+        public static bool EsClienteConDescuento;
 
         List<string> ListaProdutos;
         // Almacena los ID de los productos a los que se aplica descuento general
@@ -3025,6 +3025,7 @@ namespace PuntoDeVentaV2
         }
         private void btnTerminarVenta_Click(object sender, EventArgs e)
         {
+            EsClienteConDescuento = false;
             if (ClienteConDescuento.Equals(true))
             {
                 if (!FormPrincipal.id_empleado.Equals(0))
@@ -7398,7 +7399,7 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo3_Click(object sender, EventArgs e)
         {
-
+            EsClienteConDescuento = true;
             if (opcion16 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -7461,6 +7462,7 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo4_Click(object sender, EventArgs e)
         {
+            EsClienteConDescuento = false;
             ventaGuardadappt = 1;
             if (opcion10 == 0)
             {

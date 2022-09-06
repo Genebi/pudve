@@ -537,7 +537,7 @@ namespace PuntoDeVentaV2
                         cbProveedor.Width = 815;
                         cbProveedor.Height = 30;
                         cbProveedor.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
-                        cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
+                         cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
                         cbProveedor.SelectedIndexChanged += new EventHandler(comboBoxProveedor_SelectValueChanged);
                         cbProveedor.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
 
