@@ -54,6 +54,8 @@
             this.txtEfectivo = new System.Windows.Forms.TextBox();
             this.txtTotalVenta = new System.Windows.Forms.Label();
             this.tituloDetalle = new System.Windows.Forms.Label();
+            this.txtCredito = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbEliminarCliente
@@ -76,7 +78,7 @@
             // 
             this.lbTotalCambio.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lbTotalCambio.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTotalCambio.Location = new System.Drawing.Point(195, 271);
+            this.lbTotalCambio.Location = new System.Drawing.Point(286, 271);
             this.lbTotalCambio.Name = "lbTotalCambio";
             this.lbTotalCambio.Size = new System.Drawing.Size(256, 25);
             this.lbTotalCambio.TabIndex = 120;
@@ -87,7 +89,7 @@
             // 
             this.lbCambio.AutoSize = true;
             this.lbCambio.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCambio.Location = new System.Drawing.Point(397, 248);
+            this.lbCambio.Location = new System.Drawing.Point(478, 248);
             this.lbCambio.Name = "lbCambio";
             this.lbCambio.Size = new System.Drawing.Size(62, 17);
             this.lbCambio.TabIndex = 119;
@@ -98,7 +100,7 @@
             this.label1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label1.Location = new System.Drawing.Point(14, 239);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(460, 2);
+            this.label1.Size = new System.Drawing.Size(550, 2);
             this.label1.TabIndex = 118;
             // 
             // lbTotalCredito
@@ -111,6 +113,7 @@
             this.lbTotalCredito.Size = new System.Drawing.Size(29, 16);
             this.lbTotalCredito.TabIndex = 117;
             this.lbTotalCredito.Text = "0.00";
+            this.lbTotalCredito.Visible = false;
             // 
             // lbCredito
             // 
@@ -122,6 +125,7 @@
             this.lbCredito.Size = new System.Drawing.Size(98, 16);
             this.lbCredito.TabIndex = 116;
             this.lbCredito.Text = "Total a crédito: $";
+            this.lbCredito.Visible = false;
             // 
             // btnCredito
             // 
@@ -138,6 +142,7 @@
             this.btnCredito.TabIndex = 103;
             this.btnCredito.Text = "Asignar Crédito";
             this.btnCredito.UseVisualStyleBackColor = false;
+            this.btnCredito.Visible = false;
             this.btnCredito.Click += new System.EventHandler(this.btnCredito_Click);
             this.btnCredito.Enter += new System.EventHandler(this.btnCredito_Enter);
             // 
@@ -163,7 +168,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(343, 320);
+            this.btnAceptar.Location = new System.Drawing.Point(434, 320);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(130, 28);
             this.btnAceptar.TabIndex = 104;
@@ -177,7 +182,7 @@
             this.lbSeparadorDetalle2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lbSeparadorDetalle2.Location = new System.Drawing.Point(13, 209);
             this.lbSeparadorDetalle2.Name = "lbSeparadorDetalle2";
-            this.lbSeparadorDetalle2.Size = new System.Drawing.Size(460, 2);
+            this.lbSeparadorDetalle2.Size = new System.Drawing.Size(550, 2);
             this.lbSeparadorDetalle2.TabIndex = 115;
             // 
             // lbSeparadorDetalle3
@@ -185,7 +190,7 @@
             this.lbSeparadorDetalle3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lbSeparadorDetalle3.Location = new System.Drawing.Point(13, 310);
             this.lbSeparadorDetalle3.Name = "lbSeparadorDetalle3";
-            this.lbSeparadorDetalle3.Size = new System.Drawing.Size(460, 2);
+            this.lbSeparadorDetalle3.Size = new System.Drawing.Size(550, 2);
             this.lbSeparadorDetalle3.TabIndex = 114;
             // 
             // lbSeparadorDetalle1
@@ -193,7 +198,7 @@
             this.lbSeparadorDetalle1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lbSeparadorDetalle1.Location = new System.Drawing.Point(14, 70);
             this.lbSeparadorDetalle1.Name = "lbSeparadorDetalle1";
-            this.lbSeparadorDetalle1.Size = new System.Drawing.Size(460, 2);
+            this.lbSeparadorDetalle1.Size = new System.Drawing.Size(550, 2);
             this.lbSeparadorDetalle1.TabIndex = 113;
             // 
             // txtReferencia
@@ -202,7 +207,7 @@
             this.txtReferencia.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtReferencia.Location = new System.Drawing.Point(109, 168);
             this.txtReferencia.Name = "txtReferencia";
-            this.txtReferencia.Size = new System.Drawing.Size(364, 22);
+            this.txtReferencia.Size = new System.Drawing.Size(454, 22);
             this.txtReferencia.TabIndex = 101;
             this.txtReferencia.Enter += new System.EventHandler(this.txtReferencia_Enter);
             // 
@@ -361,11 +366,37 @@
             this.tituloDetalle.TabIndex = 105;
             this.tituloDetalle.Text = "Total a pagar";
             // 
+            // txtCredito
+            // 
+            this.txtCredito.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCredito.Location = new System.Drawing.Point(486, 126);
+            this.txtCredito.MaxLength = 10;
+            this.txtCredito.Name = "txtCredito";
+            this.txtCredito.Size = new System.Drawing.Size(80, 22);
+            this.txtCredito.TabIndex = 122;
+            this.txtCredito.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCredito.TextChanged += new System.EventHandler(this.txtCredito_TextChanged);
+            this.txtCredito.Enter += new System.EventHandler(this.txtCredito_Enter);
+            this.txtCredito.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCredito_KeyDown);
+            this.txtCredito.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCredito_KeyUp);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(502, 95);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(48, 16);
+            this.label2.TabIndex = 123;
+            this.label2.Text = "Crédito";
+            // 
             // DetalleVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 361);
+            this.ClientSize = new System.Drawing.Size(575, 361);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.txtCredito);
             this.Controls.Add(this.lbEliminarCliente);
             this.Controls.Add(this.lbTotalCambio);
             this.Controls.Add(this.lbCambio);
@@ -434,5 +465,7 @@
         private System.Windows.Forms.TextBox txtEfectivo;
         private System.Windows.Forms.Label txtTotalVenta;
         private System.Windows.Forms.Label tituloDetalle;
+        private System.Windows.Forms.TextBox txtCredito;
+        private System.Windows.Forms.Label label2;
     }
 }

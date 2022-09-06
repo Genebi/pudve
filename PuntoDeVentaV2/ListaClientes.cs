@@ -26,7 +26,7 @@ namespace PuntoDeVentaV2
 
         private int idVenta = 0;
         private int tipo = 0;
-
+        
         int idClienteGlobal = 0;
 
         // Tipo: 0 = Por defecto
@@ -150,12 +150,7 @@ namespace PuntoDeVentaV2
 
                     if (tipo == 0)
                     {
-                        if (origenOperacion.Equals("VentaGlobal"))
-                        {
-                            clienteId = idCliente;
-                            DialogResult = DialogResult.OK;
-                        }
-                        else
+                        if (origenOperacion == null)
                         {
                             if (idVenta > 0)
                             {
@@ -175,6 +170,16 @@ namespace PuntoDeVentaV2
                                 Ventas.ventaGuardada = true;
                             }
                         }
+                        else
+                        {
+                            if (origenOperacion.Equals("VentaGlobal"))
+                            {
+                                clienteId = idCliente;
+                                DialogResult = DialogResult.OK;
+                            }
+                        }
+                        
+                        
                     }
 
                     //Editar
@@ -327,21 +332,7 @@ namespace PuntoDeVentaV2
 
         private void btnPublicoGeneral_Click(object sender, EventArgs e)
         {
-            if (origenOperacion.Equals("VentaGlobal"))
-            {
-                var clientePG = mb.ExisteClientePublicoGeneral(FormPrincipal.userID);
-
-                if (clientePG == 0)
-                {
-                    clientePG = cn.EjecutarConsulta($"INSERT INTO Clientes (IDUsuario, RazonSocial, RFC, FechaOperacion) VALUES ('{FormPrincipal.userID}', 'PUBLICO GENERAL', 'XAXX010101000', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')", regresarID: true);
-                }
-
-                clienteId = clientePG;
-                DialogResult = DialogResult.OK;
-
-                this.Close();
-            }
-            else
+            if (origenOperacion == null)
             {
                 using (DataTable dtPublicoGeneral = cn.CargarDatos(cs.BuscarPublicaGeneral()))
                 {
@@ -425,6 +416,23 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
+                }
+            }
+            else
+            {
+                if (origenOperacion.Equals("VentaGlobal"))
+                {
+                    var clientePG = mb.ExisteClientePublicoGeneral(FormPrincipal.userID);
+
+                    if (clientePG == 0)
+                    {
+                        clientePG = cn.EjecutarConsulta($"INSERT INTO Clientes (IDUsuario, RazonSocial, RFC, FechaOperacion) VALUES ('{FormPrincipal.userID}', 'PUBLICO GENERAL', 'XAXX010101000', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')", regresarID: true);
+                    }
+
+                    clienteId = clientePG;
+                    DialogResult = DialogResult.OK;
+
+                    this.Close();
                 }
             }
         }

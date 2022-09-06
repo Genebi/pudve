@@ -150,23 +150,28 @@ namespace PuntoDeVentaV2
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
-                {
+        {
+            if (idCliente.Equals(0) && !txtCredito.Text.Equals(""))
+            {
+                MessageBox.Show("Asigné un Cliente para hacer una venta a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             Ventas venta = new Ventas();
-                    float pagado = (CantidadDecimal(txtEfectivo.Text) + SumaMetodos() + credito) * 100 / 100;
+                    float pagado = (CantidadDecimal(txtEfectivo.Text) + SumaMetodos()) * 100 / 100;
 
             List<string> listaCantidades = new List<string>();
 
             //Comprobamos si las cantidades a pagar son mayores o igual al total de la venta para poder terminarla
-            if ((pagado >= total) || credito > 0)
+            if ((pagado >= total))
             {
                 float totalEfectivo = 0f;
 
                 //Si la suma de todos los metodos de pago excepto el de efectivo es mayor a cero
                 //se hace la operacion para sacar el total de efectivo que se guardara en la tabla
                 //DetallesVenta
-                if ((SumaMetodos() + credito) > 0)
+                if (SumaMetodos() > 0)
                 {
-                    totalEfectivo = total - (SumaMetodos() + credito);
+                    totalEfectivo = total - SumaMetodos();
                 }
                 else
                 {
@@ -179,7 +184,7 @@ namespace PuntoDeVentaV2
                 Ventas.cheque = CantidadDecimal(txtCheque.Text).ToString("0.00");
                 Ventas.transferencia = CantidadDecimal(txtTransferencia.Text).ToString("0.00");
                 Ventas.referencia = txtReferencia.Text;
-
+                
                 listaCantidades.Add(txtEfectivo.Text);
                 listaCantidades.Add(txtTarjeta.Text);
                 listaCantidades.Add(txtTransferencia.Text);
@@ -192,7 +197,8 @@ namespace PuntoDeVentaV2
                         checarTarjeta = 0,
                         checarTransferencia = 0,
                         checarCheque = 0,
-                        checarVales = 0;
+                        checarVales = 0,
+                        checarCredito = 0;
 
                 if (!txtEfectivo.Text.Equals(""))
                 {
@@ -214,6 +220,10 @@ namespace PuntoDeVentaV2
                 {
                     checarVales = float.Parse(txtVales.Text);
                 }
+                if (!txtCredito.Text.Equals(""))
+                {
+                    checarCredito = float.Parse(txtCredito.Text);
+                }
 
                 Properties.Settings.Default.efectivoRecibido = (float)Convert.ToDouble(checarEfectivo.ToString());
                 Properties.Settings.Default.tarjetaRecibido = (float)Convert.ToDouble(checarTarjeta.ToString());
@@ -221,45 +231,54 @@ namespace PuntoDeVentaV2
                 Properties.Settings.Default.chequeRecibido = (float)Convert.ToDouble(checarCheque.ToString());
                 Properties.Settings.Default.valesRecibido = (float)Convert.ToDouble(checarVales.ToString());
 
+
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
-
-                if (checarEfectivo.Equals((float)mayor))
-                {
-                    Ventas.formaDePagoDeVenta = "Efectivo";
-                }
-                else if (checarTarjeta.Equals((float)mayor))
-                {
-                    Ventas.formaDePagoDeVenta = "Tarjeta";
-                }
-                else if (checarTransferencia.Equals((float)mayor))
-                {
-                    Ventas.formaDePagoDeVenta = "Transferencia";
-                }
-                else if (checarCheque.Equals((float)mayor))
-                {
-                    Ventas.formaDePagoDeVenta = "Cheque";
-                }
-                else if (checarVales.Equals((float)mayor))
-                {
-                    Ventas.formaDePagoDeVenta = "Vales";
-                }
-
-                if (idCliente == 0)
-                {
-                    //validarCliente = cliente;
-                    cliente = string.Empty;
-                }
-
-                if (credito > 0)
+                
+                if (!txtCredito.Text.Equals(""))
                 {
                     Ventas.statusVenta = "4";
                     Ventas.formaDePagoDeVenta = "Crédito";
                 }
                 else
                 {
+                    if (checarEfectivo.Equals((float)mayor))
+                    {
+                        Ventas.formaDePagoDeVenta = "Efectivo";
+                    }
+                    else if (checarTarjeta.Equals((float)mayor))
+                    {
+                        Ventas.formaDePagoDeVenta = "Tarjeta";
+                    }
+                    else if (checarTransferencia.Equals((float)mayor))
+                    {
+                        Ventas.formaDePagoDeVenta = "Transferencia";
+                    }
+                    else if (checarCheque.Equals((float)mayor))
+                    {
+                        Ventas.formaDePagoDeVenta = "Cheque";
+                    }
+                    else if (checarVales.Equals((float)mayor))
+                    {
+                        Ventas.formaDePagoDeVenta = "Vales";
+                    }
                     Ventas.statusVenta = "1";
                 }
+                if (idCliente == 0)
+                {
+                    //validarCliente = cliente;
+                    cliente = string.Empty;
+                }
+
+                //if (credito > 0)
+                //{
+                //    Ventas.statusVenta = "4";
+                //    Ventas.formaDePagoDeVenta = "Crédito";
+                //}
+                //else
+                //{
+                //    Ventas.statusVenta = "1";
+                //}
 
                 if (Ventas.etiqeutaCliente == "vacio")
                 {
@@ -339,7 +358,6 @@ namespace PuntoDeVentaV2
                                             razonSocialPublicoGeneral = drNuevoPublicoGeneral["RazonSocial"].ToString();
                                             
                                             Ventas.idCliente = IDPublicoGeneral.ToString();
-                                            Ventas.ventaGuardada = true;
                                             Ventas.cliente = razonSocialPublicoGeneral;
                                         }
                                     }
@@ -544,8 +562,8 @@ namespace PuntoDeVentaV2
             float vales = CantidadDecimal(txtVales.Text);
             float cheque = CantidadDecimal(txtCheque.Text);
             float transferencia = CantidadDecimal(txtTransferencia.Text);
-
-            float suma = tarjeta + vales + cheque + transferencia;
+            float creditotxt = CantidadDecimal(txtCredito.Text);
+            float suma = tarjeta + vales + cheque + transferencia+ creditotxt;
 
             return suma;
         }
@@ -657,13 +675,14 @@ namespace PuntoDeVentaV2
             float vales = CantidadDecimal(txtVales.Text);
             float cheque = CantidadDecimal(txtCheque.Text);
             float transferencia = CantidadDecimal(txtTransferencia.Text);
+            float creditotxt = CantidadDecimal(txtCredito.Text);
 
             float suma = tarjeta + vales + cheque + transferencia;
 
 
             if (escredito == 1)
             {
-                cambio = (CantidadDecimal(txtEfectivo.Text) + suma + credito) - total;
+                cambio = (CantidadDecimal(txtEfectivo.Text) + suma + creditotxt) - total;
 
                 if (cambio < 0)
                 {
@@ -674,7 +693,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                cambio = (CantidadDecimal(txtEfectivo.Text) + suma + credito) - total;
+                cambio = (CantidadDecimal(txtEfectivo.Text) + suma + creditotxt) - total;
 
                 if (cambio < 0)
                 {
@@ -1079,10 +1098,11 @@ namespace PuntoDeVentaV2
             float vales = CantidadDecimal(txtVales.Text);
             float cheque = CantidadDecimal(txtCheque.Text);
             float transferencia = CantidadDecimal(txtTransferencia.Text);
+            float creditotxt = CantidadDecimal(txtCredito.Text);
 
             if (escredito == 1)
             {
-                float suma = efectivo + tarjeta + vales + cheque + transferencia + credito;
+                float suma = efectivo + tarjeta + vales + cheque + transferencia + creditotxt;
                 float restante = total - suma;
 
                 if (restante < 0)
@@ -1097,7 +1117,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                float suma = efectivo + tarjeta + vales + cheque + transferencia;
+                float suma = efectivo + tarjeta + vales + cheque + transferencia + creditotxt;
                 float restante = total - suma;
                 if (restante < 0)
                 {
@@ -1179,5 +1199,40 @@ namespace PuntoDeVentaV2
             if (e.KeyCode.Equals(Keys.Left))
                 SendKeys.Send("+{TAB}");
         }
+
+        private void txtCredito_Enter(object sender, EventArgs e)
+        {
+            var contenidoTexto = txtEfectivo.Text;
+
+            nameOfControl = txtCredito.Name.ToString();
+
+            if (dioClickEnTextBox)
+            {
+                obtenerCantidad(txtCredito.Text, nameOfControl);
+                dioClickEnTextBox = false;
+            }
+        }
+
+        private void txtCredito_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode.Equals(Keys.Left))
+                SendKeys.Send("+{TAB}");
+        }
+
+        private void txtCredito_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (txtCredito.TextLength == 1 && txtCredito.Text.Equals("."))
+            {
+                txtCredito.Text = "0.";
+                txtCredito.Select(txtCredito.Text.Length, 0);
+            }
+        }
+        private void txtCredito_TextChanged(object sender, EventArgs e)
+        {
+            CalcularCambio();
+            RestaPrecio();
+        }
+
+       
     }
 }
