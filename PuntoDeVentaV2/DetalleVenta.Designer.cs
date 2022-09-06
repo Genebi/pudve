@@ -78,18 +78,18 @@
             // 
             this.lbTotalCambio.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lbTotalCambio.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTotalCambio.Location = new System.Drawing.Point(286, 271);
+            this.lbTotalCambio.Location = new System.Drawing.Point(161, 271);
             this.lbTotalCambio.Name = "lbTotalCambio";
             this.lbTotalCambio.Size = new System.Drawing.Size(256, 25);
             this.lbTotalCambio.TabIndex = 120;
             this.lbTotalCambio.Text = "$0.00";
-            this.lbTotalCambio.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lbTotalCambio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbCambio
             // 
             this.lbCambio.AutoSize = true;
             this.lbCambio.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCambio.Location = new System.Drawing.Point(478, 248);
+            this.lbCambio.Location = new System.Drawing.Point(258, 248);
             this.lbCambio.Name = "lbCambio";
             this.lbCambio.Size = new System.Drawing.Size(62, 17);
             this.lbCambio.TabIndex = 119;
@@ -149,10 +149,10 @@
             // lbCliente
             // 
             this.lbCliente.AutoSize = true;
-            this.lbCliente.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCliente.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbCliente.Location = new System.Drawing.Point(22, 217);
             this.lbCliente.Name = "lbCliente";
-            this.lbCliente.Size = new System.Drawing.Size(85, 16);
+            this.lbCliente.Size = new System.Drawing.Size(88, 15);
             this.lbCliente.TabIndex = 102;
             this.lbCliente.TabStop = true;
             this.lbCliente.Text = "Asignar cliente";
@@ -350,7 +350,7 @@
             // 
             this.txtTotalVenta.AutoSize = true;
             this.txtTotalVenta.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalVenta.Location = new System.Drawing.Point(207, 37);
+            this.txtTotalVenta.Location = new System.Drawing.Point(256, 37);
             this.txtTotalVenta.Name = "txtTotalVenta";
             this.txtTotalVenta.Size = new System.Drawing.Size(66, 25);
             this.txtTotalVenta.TabIndex = 106;
@@ -360,7 +360,7 @@
             // 
             this.tituloDetalle.AutoSize = true;
             this.tituloDetalle.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloDetalle.Location = new System.Drawing.Point(192, 12);
+            this.tituloDetalle.Location = new System.Drawing.Point(241, 12);
             this.tituloDetalle.Name = "tituloDetalle";
             this.tituloDetalle.Size = new System.Drawing.Size(96, 17);
             this.tituloDetalle.TabIndex = 105;
