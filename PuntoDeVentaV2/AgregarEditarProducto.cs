@@ -4202,8 +4202,17 @@ namespace PuntoDeVentaV2
                         #endregion Final de Guardado de Producto
                     }
                 }
-                #endregion Final  Sección De Copiado Producto
-                /* Fin del codigo de Emmanuel */
+            #endregion Final  Sección De Copiado Producto
+            /* Fin del codigo de Emmanuel */
+
+            var dato = cn.CargarDatos($"SELECT PrecioCompra FROM productos WHERE ID = {idEditarProducto}");
+            var precioProdActual = dato.Rows[0]["PrecioCompra"].ToString();
+            var fecha2 = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            if (precioProdActual != txtPrecioCompra.Text)
+            {
+                cn.EjecutarConsulta($"UPDATE productos SET PrecioCompra = {txtPrecioCompra.Text} WHERE ID = {idEditarProducto}; ");
+                cn.EjecutarConsulta($"INSERT INTO historialcompras ( Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario ) VALUES ( '{nombre}', '0', '{txtPrecioCompra.Text}', '0','{precio}', '{fecha2}','N/A', 'AJUSTE PRECIO DE COMPRA', 'N/A', 'N/A', '{fecha2}', '{Inventario.idReporte}', '{idEditarProducto}', '{FormPrincipal.userID}')");
+            }
 
                 listaProductoToCombo.Clear();
                 ProductosDeServicios.Clear();
@@ -9793,7 +9802,7 @@ namespace PuntoDeVentaV2
                 txtStockProducto.Enabled = false;
                 button1.Visible = true;
                 cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Producto, Paquete, Servicio)
-                txtPrecioCompra.Enabled = false;
+                //txtPrecioCompra.Enabled = false;
 
                 var detallesProductoTmp = cn.BuscarProducto(Convert.ToInt32(idEditarProducto), FormPrincipal.userID);
 
