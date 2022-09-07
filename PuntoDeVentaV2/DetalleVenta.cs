@@ -239,6 +239,7 @@ namespace PuntoDeVentaV2
                 {
                     Ventas.statusVenta = "4";
                     Ventas.formaDePagoDeVenta = "Crédito";
+                    credito = (float)Convert.ToDecimal(txtCredito.Text);
                 }
                 else
                 {
