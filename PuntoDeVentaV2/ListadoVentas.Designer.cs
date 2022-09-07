@@ -85,6 +85,7 @@
             this.lb_txt_ruta_descargar = new System.Windows.Forms.Label();
             this.chTodos = new System.Windows.Forms.CheckBox();
             this.chkHDAutlan = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -629,7 +630,7 @@
             this.linkLblPaginaSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(475, 28);
             this.linkLblPaginaSiguiente.Name = "linkLblPaginaSiguiente";
-            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(14, 16);
+            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaSiguiente.TabIndex = 24;
             this.linkLblPaginaSiguiente.TabStop = true;
             this.linkLblPaginaSiguiente.Text = "3";
@@ -643,7 +644,7 @@
             this.linkLblPaginaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaActual.Location = new System.Drawing.Point(448, 28);
             this.linkLblPaginaActual.Name = "linkLblPaginaActual";
-            this.linkLblPaginaActual.Size = new System.Drawing.Size(14, 16);
+            this.linkLblPaginaActual.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaActual.TabIndex = 23;
             this.linkLblPaginaActual.TabStop = true;
             this.linkLblPaginaActual.Text = "2";
@@ -657,7 +658,7 @@
             this.linkLblPaginaAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaAnterior.Location = new System.Drawing.Point(418, 28);
             this.linkLblPaginaAnterior.Name = "linkLblPaginaAnterior";
-            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(14, 16);
+            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaAnterior.TabIndex = 22;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "1";
@@ -739,11 +740,28 @@
             this.chkHDAutlan.CheckedChanged += new System.EventHandler(this.chkHDAutlan_CheckedChanged);
             this.chkHDAutlan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkHDAutlan_MouseClick);
             // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(354, 167);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(213, 25);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "Asignar Cliente/Metodo de Pago";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(910, 561);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.chkHDAutlan);
             this.Controls.Add(this.chTodos);
             this.Controls.Add(this.lb_txt_ruta_descargar);
@@ -829,5 +847,6 @@
         private System.Windows.Forms.Label label7;
         public System.Windows.Forms.ComboBox cbFiltroAdminEmpleado;
         private System.Windows.Forms.CheckBox chkHDAutlan;
+        private System.Windows.Forms.Button button1;
     }
 }

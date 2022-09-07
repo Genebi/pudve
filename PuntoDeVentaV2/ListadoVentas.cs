@@ -5046,5 +5046,57 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Se requiere elegir un cliente para realizar el proceso.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int cont = 0;
+            int en = 0;
+            int c = 0;
+            int t = DGVListadoVentas.Rows.Count - 2;
+            string mnsj_error = "";
+
+            foreach (DataGridViewRow row in DGVListadoVentas.Rows)
+            {
+                if (c < t)
+                {
+                    bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                    if (estado == true)
+                    {
+                        cont++;
+                    }
+                    else
+                    {
+                        mnsj_error = "No ha seleccionado una nota de venta";
+                    }
+
+                    c++;
+                }
+            }
+
+            if (cont > 0)
+            {
+                c = 0;
+
+                foreach (DataGridViewRow row in DGVListadoVentas.Rows)
+                {
+                    if (c < t)
+                    {
+                        bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                        if (estado == true)
+                        {
+                           string ID = Convert.ToString(row.Cells["ID"].Value);
+                            en++;
+                        }
+                        c++;
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
