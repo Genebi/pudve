@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DGVClientes = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,6 +48,7 @@
             this.btnPublicoGeneral = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.lblCliente = new System.Windows.Forms.LinkLabel();
+            this.CBXConDescuento = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVClientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,14 +58,14 @@
             this.DGVClientes.AllowUserToDeleteRows = false;
             this.DGVClientes.BackgroundColor = System.Drawing.SystemColors.Control;
             this.DGVClientes.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVClientes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
             this.DGVClientes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVClientes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
@@ -75,17 +76,17 @@
             this.DGVClientes.Location = new System.Drawing.Point(2, 84);
             this.DGVClientes.Name = "DGVClientes";
             this.DGVClientes.ReadOnly = true;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVClientes.RowHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVClientes.RowHeadersDefaultCellStyle = dataGridViewCellStyle23;
             this.DGVClientes.RowHeadersVisible = false;
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DGVClientes.RowsDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DGVClientes.RowsDefaultCellStyle = dataGridViewCellStyle24;
             this.DGVClientes.Size = new System.Drawing.Size(579, 168);
             this.DGVClientes.TabIndex = 0;
             this.DGVClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellClick);
@@ -95,8 +96,8 @@
             // 
             // ID
             // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ID.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ID.DefaultCellStyle = dataGridViewCellStyle20;
             this.ID.HeaderText = "ID";
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
@@ -104,8 +105,8 @@
             // 
             // RFC
             // 
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.RFC.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.RFC.DefaultCellStyle = dataGridViewCellStyle21;
             this.RFC.HeaderText = "RFC";
             this.RFC.Name = "RFC";
             this.RFC.ReadOnly = true;
@@ -114,8 +115,8 @@
             // RazonSocial
             // 
             this.RazonSocial.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.RazonSocial.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.RazonSocial.DefaultCellStyle = dataGridViewCellStyle22;
             this.RazonSocial.HeaderText = "Razón Social";
             this.RazonSocial.Name = "RazonSocial";
             this.RazonSocial.ReadOnly = true;
@@ -153,7 +154,7 @@
             this.txtBuscador.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBuscador.Location = new System.Drawing.Point(121, 32);
             this.txtBuscador.Name = "txtBuscador";
-            this.txtBuscador.Size = new System.Drawing.Size(287, 23);
+            this.txtBuscador.Size = new System.Drawing.Size(306, 23);
             this.txtBuscador.TabIndex = 2;
             this.txtBuscador.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBuscador.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscador_KeyDown);
@@ -188,7 +189,7 @@
             // btnBucarCliente
             // 
             this.btnBucarCliente.Image = global::PuntoDeVentaV2.Properties.Resources.search;
-            this.btnBucarCliente.Location = new System.Drawing.Point(412, 32);
+            this.btnBucarCliente.Location = new System.Drawing.Point(428, 32);
             this.btnBucarCliente.Name = "btnBucarCliente";
             this.btnBucarCliente.Size = new System.Drawing.Size(25, 24);
             this.btnBucarCliente.TabIndex = 114;
@@ -239,11 +240,24 @@
             this.lblCliente.Visible = false;
             this.lblCliente.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
+            // CBXConDescuento
+            // 
+            this.CBXConDescuento.AutoSize = true;
+            this.CBXConDescuento.Location = new System.Drawing.Point(442, 64);
+            this.CBXConDescuento.Name = "CBXConDescuento";
+            this.CBXConDescuento.Size = new System.Drawing.Size(139, 17);
+            this.CBXConDescuento.TabIndex = 119;
+            this.CBXConDescuento.Text = "Clientes con Descuento";
+            this.CBXConDescuento.UseVisualStyleBackColor = true;
+            this.CBXConDescuento.Visible = false;
+            this.CBXConDescuento.CheckedChanged += new System.EventHandler(this.CBXConDescuento_CheckedChanged);
+            // 
             // ListaClientes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 311);
+            this.Controls.Add(this.CBXConDescuento);
             this.Controls.Add(this.lblCliente);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnPublicoGeneral);
@@ -284,5 +298,6 @@
         private System.Windows.Forms.Button btnPublicoGeneral;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.LinkLabel lblCliente;
+        private System.Windows.Forms.CheckBox CBXConDescuento;
     }
 }

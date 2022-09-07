@@ -1110,7 +1110,7 @@
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Size = new System.Drawing.Size(119, 73);
             this.btnClientes.TabIndex = 67;
-            this.btnClientes.Text = "Descuento cliente (Ctrl + D)";
+            this.btnClientes.Text = "Asignar cliente/Desc (Ctrl + D)";
             this.btnClientes.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnClientes.TextColor = System.Drawing.Color.White;
             this.btnClientes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
