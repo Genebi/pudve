@@ -73,6 +73,7 @@ namespace PuntoDeVentaV2
 
         private void DetalleVenta_Load(object sender, EventArgs e)
         {
+
             txtTotalVenta.Text = "$" + total.ToString("0.00");
 
             txtEfectivo.KeyPress += new KeyPressEventHandler(SoloDecimales);
