@@ -1678,11 +1678,11 @@ namespace PuntoDeVentaV2
                                 
                                 restaurarBusqueda();
 
-                                //var mensajeCancelar = string.Empty;
+                                var mensajeCancelar = string.Empty;
 
-                                //mensajeCancelar = cancelarMensajeExitoso();
+                                mensajeCancelar = cancelarMensajeExitoso();
 
-                                //MessageBox.Show(mensajeCancelar, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(mensajeCancelar, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                             else
                             {
