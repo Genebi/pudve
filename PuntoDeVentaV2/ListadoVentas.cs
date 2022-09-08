@@ -44,7 +44,7 @@ namespace PuntoDeVentaV2
         private DateTime fechaUltimoCorte;
         private bool existenProductos;
         private bool hay_productos_habilitados;
-        
+
         public static bool recargarDatos = false;
         public static bool abrirNuevaVenta = false;
 
@@ -106,7 +106,7 @@ namespace PuntoDeVentaV2
         string razonSocialUsuario = string.Empty;
 
         string tipo = string.Empty;
-        int buscarPorFecha = 0; 
+        int buscarPorFecha = 0;
 
         public ListadoVentas()
         {
@@ -152,7 +152,7 @@ namespace PuntoDeVentaV2
             {
                 dpFechaInicial.Value = fechaUltimoCorte;
             }
-            
+
             dpFechaFinal.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             // Opciones para el combobox
@@ -433,8 +433,8 @@ namespace PuntoDeVentaV2
                         var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}'");
                         fechaInicial = fechaInicial2.Rows[0]["FechaOperacion"].ToString();
                     }
-                   
-                    
+
+
                     var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd HH:mm:ss");
                     var opcion = cbTipoVentas.SelectedValue.ToString();
 
@@ -832,7 +832,7 @@ namespace PuntoDeVentaV2
 
                         if (estado.Equals(1)) // Ventas pagadas
                         {
-                                    if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                             {
                                 if (buscarPorFecha == 1)
                                 {
@@ -853,7 +853,7 @@ namespace PuntoDeVentaV2
                                 var ultimoCorteEmpleado = string.Empty;
                                 var empleados = cn.CargarDatos($"SELECT ID FROM empleados WHERE IDUsuario = '{FormPrincipal.userID}' AND estatus = '1'");
                                 List<string> QuerysDeTodasLasVentas = new List<string>();
-                               
+
 
                                 for (int i = 0; i < empleados.Rows.Count; i++)
                                 {
@@ -881,7 +881,7 @@ namespace PuntoDeVentaV2
 
                                 foreach (var item in idFechas)
                                 {
-                                    
+
                                     var datosEmp = item.Split('|');
 
                                     QuerysDeTodasLasVentas.Add($"(SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT( Usr.Usuario, ' (ADMIN)' ), CONCAT( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario )	LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente )	LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '1' AND Vent.IDEmpleado = '{datosEmp[0]}' AND Vent.FechaOperacion BETWEEN '{datosEmp[1]}.999999' AND '{fechaHoy}.999999' ORDER BY ID DESC)");
@@ -1459,7 +1459,7 @@ namespace PuntoDeVentaV2
 
         private void cbTipoVentas_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             var opcion = cbTipoVentas.SelectedValue.ToString();
             clickBoton = 0;
 
@@ -1540,7 +1540,7 @@ namespace PuntoDeVentaV2
                     }
 
                     // Si es diferente a la fila donde se muestran los totales
-                    if (e.RowIndex != DGVListadoVentas.Rows.Count - 1 && e.RowIndex != DGVListadoVentas.Rows.Count -2)
+                    if (e.RowIndex != DGVListadoVentas.Rows.Count - 1 && e.RowIndex != DGVListadoVentas.Rows.Count - 2)
                     {
                         VerToolTip(textoTT, cellRect.X, coordenadaX, cellRect.Y, permitir);
 
@@ -1575,7 +1575,7 @@ namespace PuntoDeVentaV2
                 var fila = DGVListadoVentas.CurrentCell.RowIndex;
 
                 int idVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
-                
+
                 folioVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["Folio"].Value);
 
                 if (e.ColumnIndex == 0)
@@ -1633,10 +1633,14 @@ namespace PuntoDeVentaV2
 
                     var ultimaFechaCorte = mb.ObtenerFechaUltimoCorte();
                     var fechaVenta = mb.ObtenerFechaVenta(idVenta);
+
                     DateTime validarFechaCorte = Convert.ToDateTime(ultimaFechaCorte);
                     DateTime validarFechaVenta = Convert.ToDateTime(fechaVenta);
+
                     var fechasUltimoCorte = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' ORDER BY FechaOperacion DESC LIMIT 1");
+
                     var ultimoCorte = string.Empty;
+
                     if (!fechasUltimoCorte.Rows.Count.Equals(0))
                     {
                         ultimoCorte = fechasUltimoCorte.Rows[0]["FechaOperacion"].ToString();
@@ -1660,90 +1664,104 @@ namespace PuntoDeVentaV2
 
                         if (mensaje == DialogResult.Yes)
                         {
-                            var idUltimoCorteDeCaja = 0;
-                            var fechaUltimoCorteDeCaja = string.Empty;
-                            var EfectivoEnCaja = 0m;
-                            var TarjetaEnCaja = 0m;
-                            var ValesEnCaja = 0m;
-                            var ChequeEnCaja = 0m;
-                            var TransferenciaEnCaja = 0m;
-                            var CreditoEnCaja = 0m;
-                            var AnticipoEnCaja = 0m;
+                            var statusVentaParaCancelar = 0;
 
-                            using (DataTable dtSaldosInicialesDeCaja = cn.CargarDatos(cs.CargarSaldoInicialSinAbrirCaja(FormPrincipal.userID, FormPrincipal.id_empleado)))
+                            using (DataTable dtStatusVenta = cn.CargarDatos(cs.StatusVenta(idVenta)))
                             {
-                                if (!dtSaldosInicialesDeCaja.Rows.Count.Equals(0))
-                                {
-                                    foreach (DataRow item in dtSaldosInicialesDeCaja.Rows)
-                                    {
-                                        idUltimoCorteDeCaja = Convert.ToInt32(item["IDCaja"].ToString());
-                                        var fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());
-                                        fechaUltimoCorteDeCaja = fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss");
-                                        EfectivoEnCaja += (decimal)Convert.ToDouble(item["Efectivo"].ToString());
-                                        TarjetaEnCaja += (decimal)Convert.ToDouble(item["Tarjeta"].ToString());
-                                        ValesEnCaja += (decimal)Convert.ToDouble(item["Vales"].ToString());
-                                        ChequeEnCaja += (decimal)Convert.ToDouble(item["Cheque"].ToString());
-                                        TransferenciaEnCaja += (decimal)Convert.ToDouble(item["Transferencia"].ToString());
-                                        CreditoEnCaja += (decimal)Convert.ToDouble(item["Credito"].ToString());
-                                        AnticipoEnCaja += (decimal)Convert.ToDouble(item["Anticipo"].ToString());
-                                    }
-
-                                    using (DataTable dtSaldosInicialVentasDepostos = cn.CargarDatos(cs.SaldoVentasDepositos(FormPrincipal.userID, FormPrincipal.id_empleado, idUltimoCorteDeCaja)))
-                                    {
-                                        if (!dtSaldosInicialVentasDepostos.Rows.Count.Equals(0))
-                                        {
-                                            foreach (DataRow item in dtSaldosInicialVentasDepostos.Rows)
-                                            {
-                                                EfectivoEnCaja += (decimal)Convert.ToDouble(item["Efectivo"].ToString());
-                                                TarjetaEnCaja += (decimal)Convert.ToDouble(item["Tarjeta"].ToString());
-                                                ValesEnCaja += (decimal)Convert.ToDouble(item["Vales"].ToString());
-                                                ChequeEnCaja += (decimal)Convert.ToDouble(item["Cheque"].ToString());
-                                                TransferenciaEnCaja += (decimal)Convert.ToDouble(item["Transferencia"].ToString());
-                                            }
-                                        }
-                                    }
-
-                                    using (DataTable dtSaldoInicialRetiros = cn.CargarDatos(cs.SaldoInicialRetiros(FormPrincipal.userID, FormPrincipal.id_empleado, idUltimoCorteDeCaja)))
-                                    {
-                                        if (!dtSaldoInicialRetiros.Rows.Count.Equals(0))
-                                        {
-                                            foreach (DataRow item in dtSaldoInicialRetiros.Rows)
-                                            {
-                                                EfectivoEnCaja -= (decimal)Convert.ToDouble(item["Efectivo"].ToString());
-                                                TarjetaEnCaja -= (decimal)Convert.ToDouble(item["Tarjeta"].ToString());
-                                                ValesEnCaja -= (decimal)Convert.ToDouble(item["Vales"].ToString());
-                                                ChequeEnCaja -= (decimal)Convert.ToDouble(item["Cheque"].ToString());
-                                                TransferenciaEnCaja -= (decimal)Convert.ToDouble(item["Transferencia"].ToString());
-                                            }
-                                        }
-                                    }
-                                }
+                                DataRow drStatusVenta = dtStatusVenta.Rows[0];
+                                statusVentaParaCancelar = Convert.ToInt32(drStatusVenta["Status"].ToString());
                             }
 
-                            var obtenerValorSiSeAbono = cn.CargarDatos($"SELECT * FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IDVenta = '{idVenta}'");
-                            var abonoObtenido = string.Empty;
-
-                            var cantidadesAbono = cantidadAbonada(idVenta);
-
-                            //var credit = revisarSiFueVentaACredito(idVenta);
-
-                            if (!obtenerValorSiSeAbono.Rows.Count.Equals(0))
+                            if (statusVentaParaCancelar.Equals(2))
                             {
-                                foreach (DataRow result in obtenerValorSiSeAbono.Rows)
-                                {
-                                    abonoObtenido = result["Total"].ToString();
-                                }
-                                var totalObtenidoAbono = float.Parse(abonoObtenido);
+                                cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
+                            }
+                            else
+                            {
+                                var idUltimoCorteDeCaja = 0;
+                                var fechaUltimoCorteDeCaja = string.Empty;
+                                var EfectivoEnCaja = 0m;
+                                var TarjetaEnCaja = 0m;
+                                var ValesEnCaja = 0m;
+                                var ChequeEnCaja = 0m;
+                                var TransferenciaEnCaja = 0m;
+                                var CreditoEnCaja = 0m;
+                                var AnticipoEnCaja = 0m;
 
-                                if (totalObtenidoAbono > 0)
+                                using (DataTable dtSaldosInicialesDeCaja = cn.CargarDatos(cs.CargarSaldoInicialSinAbrirCaja(FormPrincipal.userID, FormPrincipal.id_empleado)))
                                 {
-                                    //mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    if (!dtSaldosInicialesDeCaja.Rows.Count.Equals(0))
+                                    {
+                                        foreach (DataRow item in dtSaldosInicialesDeCaja.Rows)
+                                        {
+                                            idUltimoCorteDeCaja = Convert.ToInt32(item["IDCaja"].ToString());
+                                            var fechaUltimoCorte = Convert.ToDateTime(item["Fecha"].ToString());
+                                            fechaUltimoCorteDeCaja = fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss");
+                                            EfectivoEnCaja += (decimal)Convert.ToDouble(item["Efectivo"].ToString());
+                                            TarjetaEnCaja += (decimal)Convert.ToDouble(item["Tarjeta"].ToString());
+                                            ValesEnCaja += (decimal)Convert.ToDouble(item["Vales"].ToString());
+                                            ChequeEnCaja += (decimal)Convert.ToDouble(item["Cheque"].ToString());
+                                            TransferenciaEnCaja += (decimal)Convert.ToDouble(item["Transferencia"].ToString());
+                                            CreditoEnCaja += (decimal)Convert.ToDouble(item["Credito"].ToString());
+                                            AnticipoEnCaja += (decimal)Convert.ToDouble(item["Anticipo"].ToString());
+                                        }
+
+                                        using (DataTable dtSaldosInicialVentasDepostos = cn.CargarDatos(cs.SaldoVentasDepositos(FormPrincipal.userID, FormPrincipal.id_empleado, idUltimoCorteDeCaja)))
+                                        {
+                                            if (!dtSaldosInicialVentasDepostos.Rows.Count.Equals(0))
+                                            {
+                                                foreach (DataRow item in dtSaldosInicialVentasDepostos.Rows)
+                                                {
+                                                    EfectivoEnCaja += (decimal)Convert.ToDouble(item["Efectivo"].ToString());
+                                                    TarjetaEnCaja += (decimal)Convert.ToDouble(item["Tarjeta"].ToString());
+                                                    ValesEnCaja += (decimal)Convert.ToDouble(item["Vales"].ToString());
+                                                    ChequeEnCaja += (decimal)Convert.ToDouble(item["Cheque"].ToString());
+                                                    TransferenciaEnCaja += (decimal)Convert.ToDouble(item["Transferencia"].ToString());
+                                                }
+                                            }
+                                        }
+
+                                        using (DataTable dtSaldoInicialRetiros = cn.CargarDatos(cs.SaldoInicialRetiros(FormPrincipal.userID, FormPrincipal.id_empleado, idUltimoCorteDeCaja)))
+                                        {
+                                            if (!dtSaldoInicialRetiros.Rows.Count.Equals(0))
+                                            {
+                                                foreach (DataRow item in dtSaldoInicialRetiros.Rows)
+                                                {
+                                                    EfectivoEnCaja -= (decimal)Convert.ToDouble(item["Efectivo"].ToString());
+                                                    TarjetaEnCaja -= (decimal)Convert.ToDouble(item["Tarjeta"].ToString());
+                                                    ValesEnCaja -= (decimal)Convert.ToDouble(item["Vales"].ToString());
+                                                    ChequeEnCaja -= (decimal)Convert.ToDouble(item["Cheque"].ToString());
+                                                    TransferenciaEnCaja -= (decimal)Convert.ToDouble(item["Transferencia"].ToString());
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
+
+                                var obtenerValorSiSeAbono = cn.CargarDatos($"SELECT * FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IDVenta = '{idVenta}'");
+                                var abonoObtenido = string.Empty;
+
+                                var cantidadesAbono = cantidadAbonada(idVenta);
+
+                                if (!obtenerValorSiSeAbono.Rows.Count.Equals(0))
+                                {
+                                    foreach (DataRow result in obtenerValorSiSeAbono.Rows)
+                                    {
+                                        abonoObtenido = result["Total"].ToString();
+                                    }
+                                    var totalObtenidoAbono = float.Parse(abonoObtenido);
+
+                                    if (totalObtenidoAbono > 0)
+                                    {
+                                        //mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                    }
+
                                     var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
                                     var t = formasPago.Sum().ToString();
                                     var total = float.Parse(t);
                                     var ventaCancelada = 0;
+
                                     if (cbTipoVentas.SelectedIndex != 3)
                                     {
                                         ventaCancelada = 1;
@@ -1753,17 +1771,7 @@ namespace PuntoDeVentaV2
                                         ventaCancelada = 2;
                                     }
 
-                                    //var obtenerMontoAbonado = cn.CargarDatos($"SELECT Total FROM Abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IDVenta = '{idVenta}'");
-                                    //var obtenerTotalAbonado = string.Empty;
                                     var totalAbonado = 0f;
-                                    //if (!obtenerMontoAbonado.Rows.Count.Equals(0))
-                                    //{
-                                    //    foreach (DataRow datosConsulta in obtenerMontoAbonado.Rows)
-                                    //    {
-                                    //        obtenerTotalAbonado = datosConsulta["Total"].ToString();
-                                    //    }
-                                    //    totalAbonado = float.Parse(obtenerTotalAbonado);
-                                    //}
                                     totalAbonado = float.Parse(cantidadesAbono[0]);
 
                                     if (totalAbonado > 0)
@@ -1773,25 +1781,26 @@ namespace PuntoDeVentaV2
 
                                         var revisarSiTieneAbono = cn.CargarDatos($"SELECT sum(Total), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia), FechaOperacion FROM Abonos WHERE IDUsuario = {FormPrincipal.userID} AND IDVenta = {idVenta}");
                                         string ultimoDate = string.Empty;
+
                                         if (!revisarSiTieneAbono.Rows.Count.Equals(0))// valida si la consulta esta vacia 
                                         {
                                             var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
                                             if (!fechaCorteUltima.Rows.Count.Equals(0))
                                             {
-                                                var resultadoConsultaAbonos = string.Empty; var efectivoAbonadoADevolver = string.Empty; var tarjetaAbonadoADevolver = string.Empty; var valesAbonadoADevolver = string.Empty; var chequeAbonadoADevolver = string.Empty; var transAbonadoADevolver = string.Empty; var fechaOperacionAbonadoADevolver = string.Empty;
+                                                var resultadoConsultaAbonos = string.Empty;
+                                                var efectivoAbonadoADevolver = string.Empty;
+                                                var tarjetaAbonadoADevolver = string.Empty;
+                                                var valesAbonadoADevolver = string.Empty;
+                                                var chequeAbonadoADevolver = string.Empty;
+                                                var transAbonadoADevolver = string.Empty;
+                                                var fechaOperacionAbonadoADevolver = string.Empty;
+
                                                 foreach (DataRow fechaUltimoCorte in fechaCorteUltima.Rows)
                                                 {
                                                     ultimoDate = fechaUltimoCorte["FechaOperacion"].ToString();
                                                 }
-                                                DateTime fechaDelCorteCaja = DateTime.Parse(ultimoDate);
 
-                                                //var resultadoConsultaAbonos = string.Empty;
-                                                //var efectivoAbonadoADevolver = string.Empty;
-                                                //var tarjetaAbonadoADevolver = string.Empty;
-                                                //var valesAbonadoADevolver = string.Empty;
-                                                //var chequeAbonadoADevolver = string.Empty;
-                                                //var transAbonadoADevolver = string.Empty;
-                                                //var fechaOperacionAbonadoADevolver = string.Empty;
+                                                DateTime fechaDelCorteCaja = DateTime.Parse(ultimoDate);
 
                                                 foreach (DataRow contenido in revisarSiTieneAbono.Rows)
                                                 {
@@ -1805,102 +1814,14 @@ namespace PuntoDeVentaV2
                                                 }
                                                 DateTime fechaAbonoRealizado = DateTime.Parse(fechaOperacionAbonadoADevolver);
 
-                                                //string[] datos = new string[] {
-                                                //    "retiro", resultadoConsultaAbonos, "0", conceptoCredito, fechaDelCorteCaja.ToString("yyyy-MM-dd HH:mm:ss"), FormPrincipal.userID.ToString(),
-                                                //    efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver, chequeAbonadoADevolver, transAbonadoADevolver, formasPago[5].ToString(), "0"
-                                                //};
-
                                                 string[] datos = new string[]
-                                                        {
-                                                            idVenta.ToString(), FormPrincipal.userID.ToString(), resultadoConsultaAbonos, efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver,
-                                                            chequeAbonadoADevolver, transAbonadoADevolver, conceptoCredito, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-                                                        };
+                                                {
+                                                idVenta.ToString(), FormPrincipal.userID.ToString(), resultadoConsultaAbonos, efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver, chequeAbonadoADevolver, transAbonadoADevolver, conceptoCredito, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                                                };
 
-                                                //cn.EjecutarConsulta(cs.OperacionCaja(datos));
                                                 cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
 
-                                                //if (fechaAbonoRealizado > fechaDelCorteCaja)//Escoger como devolver dinero
-                                                //{
-                                                //    if (!string.IsNullOrEmpty(abonoObtenido)) { total = float.Parse(abonoObtenido); }
-                                                //    DevolverAnticipo da = new DevolverAnticipo(idVenta, total, 3, ventaCancelada);
-                                                //    da.ShowDialog();
-
-                                                //    if (DevolverAnticipo.cancel == 1)
-                                                //    {
-                                                //        stopCancelar = true;
-                                                //    }
-                                                //    else
-                                                //    {
                                                 stopCancelar = false;
-                                                //    }
-                                                //    //cbTipoVentas.SelectedIndex = 1;
-                                                //    //cbTipoVentas.SelectedIndex = 3;
-                                                //    CargarDatos(4);
-                                                //}
-                                                //else if (fechaAbonoRealizado < fechaDelCorteCaja)//Devolver dinero en efectivo
-                                                //{
-                                                //    saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
-                                                //    var sEfectivo = MetodosBusquedas.efectivoInicial;
-                                                //    var sTarjeta = MetodosBusquedas.tarjetaInicial;
-                                                //    var sVales = MetodosBusquedas.valesInicial;
-                                                //    var sCheque = MetodosBusquedas.chequeInicial;
-                                                //    var sTrans = MetodosBusquedas.transInicial;
-
-                                                //    float efe = 0f, tar = 0f, val = 0f, che = 0f, trans = 0f;
-
-                                                //    //Comprovar que se cuente con dinero suficiente
-                                                //    var obtenerDinero = cn.CargarDatos($"SELECT sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM CAJA WHERE IDUsuario = '{FormPrincipal.userID}' AND FechaOperacion > '{fechaDelCorteCaja.ToString("yyyy-MM:dd HH:mm:ss")}'");
-
-                                                //    var efectivoObtenido = string.Empty; var tarjetaObtenido = string.Empty; var valesObtenido = string.Empty; var chequeObtenido = string.Empty; var transObtenido = string.Empty;
-                                                //    if (!obtenerDinero.Rows.Count.Equals(0))
-                                                //    {
-                                                //        foreach (DataRow getCash in obtenerDinero.Rows)
-                                                //        {
-                                                //            efectivoObtenido = getCash["sum(Efectivo)"].ToString();
-                                                //            //tarjetaObtenido = getCash["sum(Tarjeta)"].ToString();
-                                                //            //valesObtenido = getCash["sum(Vales)"].ToString();
-                                                //            //chequeObtenido = getCash["sum(Cheque)"].ToString();
-                                                //            //transObtenido = getCash["sum(Transferencia)"].ToString();
-                                                //        }
-                                                //        efe = (float.Parse(efectivoObtenido) + sEfectivo);
-                                                //        //tar = (float.Parse(tarjetaObtenido) + sTarjeta);
-                                                //        //val = (float.Parse(valesObtenido) + sVales);
-                                                //        //che = (float.Parse(chequeObtenido) + sCheque);
-                                                //        //trans = (float.Parse(transObtenido) +sTrans);
-
-                                                //    }
-
-                                                //    var totalCaja = (efe + tar + val + che + trans);
-
-                                                //    var efectivoAbonado = float.Parse(efectivoAbonadoADevolver);
-                                                //    //var tarjetaAbonado = float.Parse(tarjetaAbonadoADevolver);
-                                                //    //var valesAbonado = float.Parse(valesAbonadoADevolver);
-                                                //    //var chequeAbonado = float.Parse(chequeAbonadoADevolver);
-                                                //    //var transAbonado = float.Parse(transAbonadoADevolver);
-
-                                                //    if (efectivoAbonado > efe /*|| tarjetaAbonado > tar || valesAbonado > val || chequeAbonado > che || transAbonado > trans*/)
-                                                //    {
-                                                //        MessageBox.Show("No tiene suficiente dinero en efectivo para retirar", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                //        //cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
-                                                //        stopCancelar = true;
-                                                //    }
-                                                //    else
-                                                //    {
-                                                //        string[] datos = new string[]
-                                                //        {
-                                                //            idVenta.ToString(), FormPrincipal.userID.ToString(), resultadoConsultaAbonos, efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver,
-                                                //            chequeAbonadoADevolver, transAbonadoADevolver, conceptoCredito, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-                                                //        };
-
-                                                //         cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
-
-                                                //        //    string[] datos2 = new string[] {
-                                                //        //"retiro", resultadoConsultaAbonos, "0", conceptoCredito, fechaOperacion, FormPrincipal.userID.ToString(),
-                                                //        //    efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver, chequeAbonadoADevolver, transAbonadoADevolver, /*credito*/"0.00", /*anticipo*/"0"
-                                                //        //};
-                                                //        //    cn.EjecutarConsulta(cs.OperacionCaja(datos2));
-                                                //    }
-                                                //}
                                             }
                                         }
                                     }
@@ -1917,58 +1838,52 @@ namespace PuntoDeVentaV2
                                             var cheque1 = formasPago[3].ToString();
                                             var transferencia1 = formasPago[4].ToString();
                                             var credito1 = formasPago[5].ToString();
-                                            //var anticipo1 = "0";
 
                                             var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                                            string[] datos = new string[] {
-                                                        "retiro", total1, "0", conceptoCredito, fechaOperacion1, FormPrincipal.userID.ToString(),
-                                                        efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0", FormPrincipal.id_empleado.ToString()
-                                                    };
+                                            string[] datos = new string[]
+                                            {
+                                            "retiro", total1, "0", conceptoCredito, fechaOperacion1, FormPrincipal.userID.ToString(), efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, /*anticipo*/"0", FormPrincipal.id_empleado.ToString()
+                                            };
                                             cn.EjecutarConsulta(cs.OperacionCaja(datos));
                                         }
                                     }
-                                
-                            }
-                            else if (obtenerValorSiSeAbono.Rows.Count.Equals(0))
-                            {
-                                if (cbTipoVentas.SelectedIndex == 0)
+                                }
+                                else if (obtenerValorSiSeAbono.Rows.Count.Equals(0))
                                 {
-                                    saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
-                                    var sEfectivo = (MetodosBusquedas.efectivoInicial + float.Parse(cantidadesAbono[1]));
-                                    var sTarjeta = (MetodosBusquedas.tarjetaInicial + float.Parse(cantidadesAbono[2]));
-                                    var sVales = (MetodosBusquedas.valesInicial + float.Parse(cantidadesAbono[3]));
-                                    var sCheque = (MetodosBusquedas.chequeInicial + float.Parse(cantidadesAbono[4]));
-                                    var sTrans = (MetodosBusquedas.transInicial + float.Parse(cantidadesAbono[5]));
-
-                                    //Valida las cantidades para cuando sea una cuenta nueva
-                                    var totalUno = string.Empty; var efectivoUno = string.Empty; var tarjetaUno = string.Empty; var valesUno = string.Empty; var chequeUno = string.Empty; var transUno = string.Empty;
-                                    var validarCuentaNuevaCaja = cn.CargarDatos($"SELECT ID FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'corte'");
-
-                                    if (validarCuentaNuevaCaja.Rows.Count.Equals(0))
+                                    if (cbTipoVentas.SelectedIndex == 0)
                                     {
-                                        var cantidandesNuevaCuenta = cn.CargarDatos($"SELECT sum(Cantidad), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM Caja WHERE IDUsuario = {FormPrincipal.userID}");
+                                        saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
+                                        var sEfectivo = (MetodosBusquedas.efectivoInicial + float.Parse(cantidadesAbono[1]));
+                                        var sTarjeta = (MetodosBusquedas.tarjetaInicial + float.Parse(cantidadesAbono[2]));
+                                        var sVales = (MetodosBusquedas.valesInicial + float.Parse(cantidadesAbono[3]));
+                                        var sCheque = (MetodosBusquedas.chequeInicial + float.Parse(cantidadesAbono[4]));
+                                        var sTrans = (MetodosBusquedas.transInicial + float.Parse(cantidadesAbono[5]));
 
-                                        totalUno = cantidandesNuevaCuenta.Rows[0]["sum(Cantidad)"].ToString();
-                                        efectivoUno = cantidandesNuevaCuenta.Rows[0]["sum(Efectivo)"].ToString();
-                                        tarjetaUno = cantidandesNuevaCuenta.Rows[0]["sum(Tarjeta)"].ToString();
-                                        valesUno = cantidandesNuevaCuenta.Rows[0]["sum(Vales)"].ToString();
-                                        chequeUno = cantidandesNuevaCuenta.Rows[0]["sum(Cheque)"].ToString();
-                                        transUno = cantidandesNuevaCuenta.Rows[0]["sum(Transferencia)"].ToString();
+                                        //Valida las cantidades para cuando sea una cuenta nueva
+                                        var totalUno = string.Empty; var efectivoUno = string.Empty; var tarjetaUno = string.Empty; var valesUno = string.Empty; var chequeUno = string.Empty; var transUno = string.Empty;
+                                        var validarCuentaNuevaCaja = cn.CargarDatos($"SELECT ID FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = 'corte'");
 
-                                        //Agregamos las cantidades que se tienen en caja a estas variables (solo en cuentas nuevas)
-                                        sEfectivo = (float.Parse(efectivoUno) + float.Parse(cantidadesAbono[1]));
-                                        sTarjeta = (float.Parse(tarjetaUno) + float.Parse(cantidadesAbono[2]));
-                                        sVales = (float.Parse(valesUno) + float.Parse(cantidadesAbono[3]));
-                                        sCheque = (float.Parse(chequeUno) + float.Parse(cantidadesAbono[4]));
-                                        sTrans = (float.Parse(transUno) + float.Parse(cantidadesAbono[5]));
+                                        if (validarCuentaNuevaCaja.Rows.Count.Equals(0))
+                                        {
+                                            var cantidandesNuevaCuenta = cn.CargarDatos($"SELECT sum(Cantidad), sum(Efectivo), sum(Tarjeta), sum(Vales), sum(Cheque), sum(Transferencia) FROM Caja WHERE IDUsuario = {FormPrincipal.userID}");
 
-                                    }
+                                            totalUno = cantidandesNuevaCuenta.Rows[0]["sum(Cantidad)"].ToString();
+                                            efectivoUno = cantidandesNuevaCuenta.Rows[0]["sum(Efectivo)"].ToString();
+                                            tarjetaUno = cantidandesNuevaCuenta.Rows[0]["sum(Tarjeta)"].ToString();
+                                            valesUno = cantidandesNuevaCuenta.Rows[0]["sum(Vales)"].ToString();
+                                            chequeUno = cantidandesNuevaCuenta.Rows[0]["sum(Cheque)"].ToString();
+                                            transUno = cantidandesNuevaCuenta.Rows[0]["sum(Transferencia)"].ToString();
 
-                                    //mensaje = MessageBox.Show("¿Desea devolver el dinero?", "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                                     
-                                    //if (mensaje == DialogResult.Yes)
-                                    //{
+                                            //Agregamos las cantidades que se tienen en caja a estas variables (solo en cuentas nuevas)
+                                            sEfectivo = (float.Parse(efectivoUno) + float.Parse(cantidadesAbono[1]));
+                                            sTarjeta = (float.Parse(tarjetaUno) + float.Parse(cantidadesAbono[2]));
+                                            sVales = (float.Parse(valesUno) + float.Parse(cantidadesAbono[3]));
+                                            sCheque = (float.Parse(chequeUno) + float.Parse(cantidadesAbono[4]));
+                                            sTrans = (float.Parse(transUno) + float.Parse(cantidadesAbono[5]));
+
+                                        }
+
                                         float tot = 0f, efe = 0f, tar = 0f, val = 0f, che = 0f, trans = 0f;
 
                                         var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
@@ -2003,7 +1918,7 @@ namespace PuntoDeVentaV2
                                                 var rTotal = string.Empty; var rEfectivo = string.Empty; var rTarjeta = string.Empty; var rVales = string.Empty; var rCheque = string.Empty; var rTrans = string.Empty;
 
 
-                                                if (!dineroRetiradoCorte.Rows.Count.Equals(0) && !dineroRetiradoCorte.Equals(null)/* && !string.IsNullOrWhiteSpace(dineroRetiradoCorte.ToString())*/)
+                                                if (!dineroRetiradoCorte.Rows.Count.Equals(0) && !dineroRetiradoCorte.Equals(null))
                                                 {
                                                     foreach (DataRow getRetirado in dineroRetiradoCorte.Rows)
                                                     {
@@ -2080,213 +1995,172 @@ namespace PuntoDeVentaV2
                                             if (tot < totalActual)
                                             {
                                                 MessageBox.Show("No tiene suficiente dinero en efectivo para retirar", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                //cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
                                                 stopCancelar = true;
                                             }
                                             else
                                             {
-                                                string[] datos = new string[] {
-                                                    "retiro", total1, "0", conceptoCredito, fechaOperacion1, FormPrincipal.userID.ToString(), efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, anticipo1, FormPrincipal.id_empleado.ToString()
+                                                string[] datos = new string[]
+                                                {
+                                                "retiro", total1, "0", conceptoCredito, fechaOperacion1, FormPrincipal.userID.ToString(), efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1/*"0.00"*/, anticipo1, FormPrincipal.id_empleado.ToString()
                                                 };
-                                                cn.EjecutarConsulta(cs.OperacionCaja(datos));
-                                                //string[] datos = new string[]
-                                                //        {
-                                                //            idVenta.ToString(), FormPrincipal.userID.ToString(), total1, efectivo1, tarjeta1, vales1,
-                                                //            cheque1, transferencia1, conceptoCredito, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
-                                                //        };
 
-                                                //cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
+                                                cn.EjecutarConsulta(cs.OperacionCaja(datos));
+
                                                 stopCancelar = false;
                                             }
                                         }
-                                    //}
-                                    //stopCancelar = false;
+                                    }
                                 }
-                            }
 
-                            if (stopCancelar == false)
-                            {
-                                //Obtener Status de la venta
-                                var obtenerStatusVenta = $"SELECT Status FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idVenta}'";
-                                var statusObtenido = cn.CargarDatos(obtenerStatusVenta);
-
-                                datoResultado = statusObtenido.Rows[0]["Status"].ToString();
-
-                                // Cancelar la venta
-                                int resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
-
-                                if (resultado > 0)
+                                if (stopCancelar == false)
                                 {
-                                    // Miri. Modificado.
-                                    // Obtiene el id del combo cancelado
-                                    DataTable d_prod_venta = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM ProductosVenta WHERE IDVenta='{idVenta}'");
-                                    //var productos = cn.ObtenerProductosVenta(idVenta);
+                                    //Obtener Status de la venta
+                                    var obtenerStatusVenta = $"SELECT Status FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idVenta}'";
+                                    var statusObtenido = cn.CargarDatos(obtenerStatusVenta);
 
-                                    if (!d_prod_venta.Rows.Equals(0))
+                                    datoResultado = statusObtenido.Rows[0]["Status"].ToString();
+
+                                    // Cancelar la venta
+                                    int resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
+
+                                    if (resultado > 0)
                                     {
-                                        foreach (DataRow item in d_prod_venta.Rows)
-                                        {
-                                            var idprod = item["IDProducto"].ToString();
-                                            var cantidad = item["Cantidad"].ToString();
-                                            var consulta = cn.CargarDatos($"SELECT * FROM productosdeservicios WHERE IDServicio = {idprod}");
-                                            var consultaCombo = cn.CargarDatos($"SELECT IDProducto FROM productosdeservicios WHERE IDServicio = {idprod}");
-                                            if (!consultaCombo.Rows.Count.Equals(0))
-                                            {
-                                                var idproduct = consultaCombo.Rows[0]["IDProducto"].ToString();
+                                        // Miri. Modificado.
+                                        // Obtiene el id del combo cancelado
+                                        DataTable d_prod_venta = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM ProductosVenta WHERE IDVenta='{idVenta}'");
+                                        //var productos = cn.ObtenerProductosVenta(idVenta);
 
-                                                if (!consulta.Rows.Count.Equals(0) && idproduct != "0") //En caso que el producto sea un combo o servicio
+                                        if (!d_prod_venta.Rows.Equals(0))
+                                        {
+                                            foreach (DataRow item in d_prod_venta.Rows)
+                                            {
+                                                var idprod = item["IDProducto"].ToString();
+                                                var cantidad = item["Cantidad"].ToString();
+                                                var consulta = cn.CargarDatos($"SELECT * FROM productosdeservicios WHERE IDServicio = {idprod}");
+                                                var consultaCombo = cn.CargarDatos($"SELECT IDProducto FROM productosdeservicios WHERE IDServicio = {idprod}");
+                                                if (!consultaCombo.Rows.Count.Equals(0))
                                                 {
-                                                    var cantidadCombo = consulta.Rows[0]["Cantidad"].ToString();
-                                                    var idProd = consulta.Rows[0]["IDProducto"].ToString();
-                                                    var stock = cn.CargarDatos($"SELECT StockNuevo FROM `historialstock` WHERE IDProducto = {idProd} ORDER BY ID DESC");
-                                                    var stockOriginal = stock.Rows[0]["StockNuevo"].ToString();
-                                                    var stockActual = Convert.ToDecimal(stockOriginal) + Convert.ToDecimal(Convert.ToDecimal(cantidadCombo) * Convert.ToDecimal(cantidad));
+                                                    var idproduct = consultaCombo.Rows[0]["IDProducto"].ToString();
+
+                                                    if (!consulta.Rows.Count.Equals(0) && idproduct != "0") //En caso que el producto sea un combo o servicio
+                                                    {
+                                                        var cantidadCombo = consulta.Rows[0]["Cantidad"].ToString();
+                                                        var idProd = consulta.Rows[0]["IDProducto"].ToString();
+                                                        var stock = cn.CargarDatos($"SELECT StockNuevo FROM `historialstock` WHERE IDProducto = {idProd} ORDER BY ID DESC");
+                                                        var stockOriginal = stock.Rows[0]["StockNuevo"].ToString();
+                                                        var stockActual = Convert.ToDecimal(stockOriginal) + Convert.ToDecimal(Convert.ToDecimal(cantidadCombo) * Convert.ToDecimal(cantidad));
+                                                        var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
+                                                        var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
+                                                        decimal stockAnterior = Convert.ToDecimal(stockOriginal);
+                                                        decimal stockNuevo = Convert.ToInt32(stockActual);
+                                                        var cantidadR = Convert.ToDecimal(cantidad) * Convert.ToDecimal(cantidadCombo);
+                                                        var fechaDeOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                                        var paqueteServicio = string.Empty;
+
+                                                        var tipoComboSerbicio = cn.CargarDatos($"SELECT tipoDeVenta FROM `historialstock` WHERE idComboServicio = {idprod} ");
+                                                        paqueteServicio = tipoComboSerbicio.Rows[0]["tipoDeVenta"].ToString();
+
+                                                        if (paqueteServicio.Equals("PQ"))
+                                                        {
+                                                            paqueteServicio = "de combo";
+                                                        }
+                                                        else
+                                                        {
+                                                            paqueteServicio = "de servicio";
+                                                        }
+
+                                                        if (!consulta.Rows.Count.Equals(1))
+                                                        {
+                                                            foreach (DataRow products in consulta.Rows)
+                                                            {
+                                                                int cant = Convert.ToInt32(products[5]);
+                                                                var stockActual2 = cn.CargarDatos($"SELECT StockNuevo FROM `historialstock` WHERE IDProducto = {products[3]} ORDER BY ID DESC");
+                                                                var stockAnterior2 = stockActual2.Rows[0]["StockNuevo"].ToString();
+                                                                var multiplicacionComboServicio = Convert.ToDecimal(cantidad) * Convert.ToDecimal(cant);
+                                                                var cantidadNuevoStock = Convert.ToDecimal(stockAnterior2) + multiplicacionComboServicio;
+
+                                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{products[3]}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior2}','{cantidadNuevoStock}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{multiplicacionComboServicio.ToString("N")}')");
+
+                                                                cn.EjecutarConsulta($"UPDATE Productos SET Stock = {cantidadNuevoStock} WHERE ID = {products[3]} AND IDUsuario = {FormPrincipal.userID}");
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProd}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidadR.ToString("N")}')");
+
+                                                            cn.EjecutarConsulta($"UPDATE Productos SET Stock ={stockNuevo} WHERE ID = {idProd} AND IDUsuario = {FormPrincipal.userID}");
+                                                        }
+                                                    }
+                                                    else if (idproduct == "0")
+                                                    {
+
+                                                    }
+                                                }
+                                                else //En caso de ser un producto
+                                                {
+                                                    var stock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = '{idprod}'");
+                                                    var stockOriginal = stock.Rows[0]["Stock"].ToString();
+                                                    var stockActual = Convert.ToDecimal(stockOriginal) + Convert.ToDecimal(cantidad);
                                                     var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
                                                     var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
                                                     decimal stockAnterior = Convert.ToDecimal(stockOriginal);
                                                     decimal stockNuevo = Convert.ToInt32(stockActual);
-                                                    var cantidadR = Convert.ToDecimal(cantidad) * Convert.ToDecimal(cantidadCombo);
+
                                                     var fechaDeOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                                    var paqueteServicio = string.Empty;
 
-                                                    var tipoComboSerbicio = cn.CargarDatos($"SELECT tipoDeVenta FROM `historialstock` WHERE idComboServicio = {idprod} ");
-                                                    paqueteServicio = tipoComboSerbicio.Rows[0]["tipoDeVenta"].ToString();
+                                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idprod}','Venta Cancelada folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidad}')");
 
-                                                    if (paqueteServicio.Equals("PQ"))
-                                                    {
-                                                        paqueteServicio = "de combo";
-                                                    }
-                                                    else
-                                                    {
-                                                        paqueteServicio = "de servicio";
-                                                    }
-
-                                                    if (!consulta.Rows.Count.Equals(1))
-                                                    {
-                                                        foreach (DataRow products in consulta.Rows)
-                                                        {
-                                                            int cant = Convert.ToInt32(products[5]);
-                                                            var stockActual2 = cn.CargarDatos($"SELECT StockNuevo FROM `historialstock` WHERE IDProducto = {products[3]} ORDER BY ID DESC");
-                                                            var stockAnterior2 = stockActual2.Rows[0]["StockNuevo"].ToString();
-                                                            var multiplicacionComboServicio = Convert.ToDecimal(cantidad) * Convert.ToDecimal(cant);
-                                                            var cantidadNuevoStock = Convert.ToDecimal(stockAnterior2) + multiplicacionComboServicio;
-
-                                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{products[3]}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior2}','{cantidadNuevoStock}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{multiplicacionComboServicio.ToString("N")}')");
-
-                                                            cn.EjecutarConsulta($"UPDATE Productos SET Stock = {cantidadNuevoStock} WHERE ID = {products[3]} AND IDUsuario = {FormPrincipal.userID}");
-                                                        }
-                                                    }
-                                                    else
-                                                    {
-                                                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProd}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidadR.ToString("N")}')");
-
-                                                        cn.EjecutarConsulta($"UPDATE Productos SET Stock ={stockNuevo} WHERE ID = {idProd} AND IDUsuario = {FormPrincipal.userID}");
-                                                    }
-                                                }
-                                                else if (idproduct == "0")
-                                                {
+                                                    cn.EjecutarConsulta($"UPDATE Productos SET Stock ={stockNuevo} WHERE ID = {idprod} AND IDUsuario = {FormPrincipal.userID}");
 
                                                 }
-                                            }
-                                            else //En caso de ser un producto
-                                            {
-                                                var stock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = '{idprod}'");
-                                                var stockOriginal = stock.Rows[0]["Stock"].ToString();
-                                                var stockActual = Convert.ToDecimal(stockOriginal) + Convert.ToDecimal(cantidad);
-                                                var datoFolio = cn.CargarDatos($"SELECT Folio FROM ventas WHERE ID = {idVenta}");
-                                                var FolioDeCancelacion = datoFolio.Rows[0]["Folio"];
-                                                decimal stockAnterior = Convert.ToDecimal(stockOriginal);
-                                                decimal stockNuevo = Convert.ToInt32(stockActual);
-
-                                                var fechaDeOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idprod}','Venta Cancelada folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidad}')");
-
-                                                cn.EjecutarConsulta($"UPDATE Productos SET Stock ={stockNuevo} WHERE ID = {idprod} AND IDUsuario = {FormPrincipal.userID}");
-
                                             }
                                         }
-                                    }
 
-                                    if (d_prod_venta.Rows.Count > 0)
-                                    {
-                                        //    foreach (DataRow prods in d_prod_venta.Rows)
-                                        //    {
-
-                                        //        var id_prod = Convert.ToInt32(prods[0]);
-                                        //        decimal cantidad_combo = Convert.ToDecimal(prods[1]);
-
-                                        //        // Busca los productos relacionados al combo y trae la cantidad para aumentar el stock
-                                        //        DataTable dtprod_relacionados = cn.CargarDatos(cs.productos_relacionados(id_prod));
-
-                                        //    if(dtprod_relacionados.Rows.Count > 0)
-                                        //    {
-                                        //        foreach(DataRow drprod_relacionados in dtprod_relacionados.Rows)
-                                        //        {
-                                        //            decimal cantidad_prod_rel = Convert.ToDecimal(drprod_relacionados["Cantidad"]);
-                                        //            decimal cantidad_prod_rel_canc = cantidad_combo * cantidad_prod_rel;
-
-                                        //            cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {cantidad_prod_rel_canc} WHERE ID = {drprod_relacionados["IDProducto"]} AND IDUsuario = {FormPrincipal.userID}");
-                                        //        }
-                                        //    }
-                                        //    else if (dtprod_relacionados.Rows.Count.Equals(0))
-                                        //    {
-                                        //        using (DataTable dtProdVenta = cn.CargarDatos(cs.ObtenerProdDeLaVenta(idVenta)))
-                                        //        {
-                                        //            if (!dtProdVenta.Rows.Count.Equals(0))
-                                        //            {
-                                        //                foreach (DataRow drProdVenta in dtProdVenta.Rows)
-                                        //                {
-                                        //                    cn.EjecutarConsulta(cs.aumentarStockVentaCancelada(Convert.ToInt32(drProdVenta["ID"].ToString()), (float)(Convert.ToDecimal(drProdVenta["Stock"].ToString()) + Convert.ToDecimal(drProdVenta["Cantidad"].ToString()))));
-                                        //                }
-                                        //            }
-                                        //        }
-                                        //    }
-
-                                        //}
-
-                                        var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
-                                        var abonosAVenta = cn.CargarDatos(cs.ConsultarAbonosVentaACredito(idVenta));
-                                         var conceptoCreditoC = $"DELOLUVION CREDITO VENTA CANCELADA ID {idVenta}";
-                                        if (formasPago2.Length > 0)
+                                        if (d_prod_venta.Rows.Count > 0)
                                         {
-                                            var total1 = "0";
-                                            var efectivo1 = abonosAVenta.Rows[0]["Efectivo"].ToString(); ;
-                                            var tarjeta1 = abonosAVenta.Rows[0]["Tarjeta"].ToString(); ;
-                                            var vales1 = abonosAVenta.Rows[0]["Vales"].ToString(); ;
-                                            var cheque1 = abonosAVenta.Rows[0]["Cheque"].ToString(); ;
-                                            var transferencia1 = abonosAVenta.Rows[0]["Transferencia"].ToString(); ;
-                                            var credito1 = formasPago2[5].ToString();
-                                            //var anticipo1 = "0";
-
-                                            var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-                                            if (!DevolverAnticipo.ventaCanceladaCredito.Equals(true))
+                                            var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+                                            var abonosAVenta = cn.CargarDatos(cs.ConsultarAbonosVentaACredito(idVenta));
+                                            var conceptoCreditoC = $"DELOLUVION CREDITO VENTA CANCELADA ID {idVenta}";
+                                            if (formasPago2.Length > 0)
                                             {
-                                                string[] datos = new string[] {
+                                                var total1 = "0";
+                                                var efectivo1 = abonosAVenta.Rows[0]["Efectivo"].ToString(); ;
+                                                var tarjeta1 = abonosAVenta.Rows[0]["Tarjeta"].ToString(); ;
+                                                var vales1 = abonosAVenta.Rows[0]["Vales"].ToString(); ;
+                                                var cheque1 = abonosAVenta.Rows[0]["Cheque"].ToString(); ;
+                                                var transferencia1 = abonosAVenta.Rows[0]["Transferencia"].ToString(); ;
+                                                var credito1 = formasPago2[5].ToString();
+                                                //var anticipo1 = "0";
+
+                                                var fechaOperacion1 = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                                                if (!DevolverAnticipo.ventaCanceladaCredito.Equals(true))
+                                                {
+                                                    string[] datos = new string[] {
                                                     "retiro", total1, "0", conceptoCreditoC, fechaOperacion1, FormPrincipal.userID.ToString(), efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1 /*"0.00"*/, /*anticipo*/ "0", FormPrincipal.id_empleado.ToString()
                                                 };
-                                                cn.EjecutarConsulta(cs.OperacionCaja(datos));
-                                            } 
+                                                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                                }
+                                            }
+
+                                            // Agregamos marca de agua al PDF del ticket de la venta cancelada
+                                            Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
+
+                                            // Agregamos marca de agua al PDF de la nota de venta cancelada
+                                            Utilidades.CrearMarcaDeAguaNota(idVenta, "CANCELADA");
+
+                                            //CargarDatos();
+                                            restaurarBusqueda();
                                         }
-
-                                        // Agregamos marca de agua al PDF del ticket de la venta cancelada
-                                        Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
-
-                                        // Agregamos marca de agua al PDF de la nota de venta cancelada
-                                        Utilidades.CrearMarcaDeAguaNota(idVenta, "CANCELADA");
-
-                                        //CargarDatos();
-                                        restaurarBusqueda();
                                     }
                                 }
+
+                                var mensajeCancelar = string.Empty;
+
+                                mensajeCancelar = cancelarMensajeExitoso();
+
+                                MessageBox.Show(mensajeCancelar, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
-
-                            var mensajeCancelar = string.Empty;
-
-                            mensajeCancelar = cancelarMensajeExitoso();
-
-                            MessageBox.Show(mensajeCancelar, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                     else
@@ -2348,7 +2222,7 @@ namespace PuntoDeVentaV2
                         FormNotaDeVenta formNota = new FormNotaDeVenta(id);
                         formNota.ShowDialog();
                     }
-                 
+
 
 
                     // Comprobar si adobe esta instalado
@@ -4150,7 +4024,7 @@ namespace PuntoDeVentaV2
                         celda.Value = false;
                         DGVListadoVentas.Rows[e.RowIndex].Selected = false;
                     }
-                }   
+                }
             }
         }
 
@@ -4358,8 +4232,8 @@ namespace PuntoDeVentaV2
                     {
                         FolioSerie = Consulta.Rows[0]["FolioySerie"].ToString();
                     }
-                    ruta_archivos = $@"C:\Archivos PUDVE\Ventas\PDF\{FormPrincipal.userNickName}\VENTA_NoVenta" + idnv[i]+$"_Folio{FolioSerie}";
-                    
+                    ruta_archivos = $@"C:\Archivos PUDVE\Ventas\PDF\{FormPrincipal.userNickName}\VENTA_NoVenta" + idnv[i] + $"_Folio{FolioSerie}";
+
                     // Si la conexión es en red cambia ruta de guardado
                     if (!string.IsNullOrWhiteSpace(servidor))
                     {
@@ -4792,13 +4666,13 @@ namespace PuntoDeVentaV2
             buscarPorFecha = 0;
             if (!FormPrincipal.userNickName.Contains("@"))
             {
-               opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
+                opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
             }
             var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{opcionComboBoxFiltroAdminEmp.ToString()}' ORDER BY FechaOperacion DESC LIMIT 1");
 
             if (fechaInicial2.Rows.Count.Equals(0))
             {
-                DateTime fechaEstandar = new DateTime(2018,01,01,00,00,00);
+                DateTime fechaEstandar = new DateTime(2018, 01, 01, 00, 00, 00);
                 dpFechaInicial.Value = fechaEstandar;
             }
             else
@@ -4815,7 +4689,7 @@ namespace PuntoDeVentaV2
             }
 
             var indexCombo = cbFiltroAdminEmpleado.SelectedValue;
-            
+
 
             if (indexCombo.Equals("ADMIN"))
             {
@@ -4906,7 +4780,7 @@ namespace PuntoDeVentaV2
             using (var listaClientes = new ListaClientes())
             {
                 listaClientes.origenOperacion = "VentaGlobal";
-                
+
                 if (listaClientes.ShowDialog() == DialogResult.OK)
                 {
                     clienteId = listaClientes.clienteId;
