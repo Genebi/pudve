@@ -1675,6 +1675,14 @@ namespace PuntoDeVentaV2
                             if (statusVentaParaCancelar.Equals(2))
                             {
                                 cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
+                                
+                                restaurarBusqueda();
+
+                                //var mensajeCancelar = string.Empty;
+
+                                //mensajeCancelar = cancelarMensajeExitoso();
+
+                                //MessageBox.Show(mensajeCancelar, "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                             else
                             {
