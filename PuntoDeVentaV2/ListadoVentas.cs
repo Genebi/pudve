@@ -779,13 +779,32 @@ namespace PuntoDeVentaV2
                         {
                             opcionComboBoxFiltroAdminEmp = FormPrincipal.id_empleado.ToString();
                         }
-                        var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{opcionComboBoxFiltroAdminEmp.ToString()}' ORDER BY FechaOperacion DESC");
+
+                        var queryClasificacionUsuario = string.Empty;
+                        var clasificacionUsuario = opcionComboBoxFiltroAdminEmp.ToString();
+
+                        if (clasificacionUsuario.Equals("Admin"))
+                        {
+                            queryClasificacionUsuario = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0' ORDER BY FechaOperacion DESC";
+                        }
+                        else if (clasificacionUsuario.Equals("All"))
+                        {
+                            queryClasificacionUsuario = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC";
+                        }
+                        else
+                        {
+                            queryClasificacionUsuario = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{clasificacionUsuario}' ORDER BY FechaOperacion DESC";
+                        }
+
+                        var fechaInicial2 = cn.CargarDatos(queryClasificacionUsuario);
+
                         if (!fechaInicial2.Rows.Count.Equals(0))
                         {
                             var fechaInicialDP = Convert.ToDateTime(fechaInicial2.Rows[0]["FechaOperacion"].ToString());
                             fechaInicial = fechaInicialDP.ToString("yyyy-MM-dd HH:mm:ss");
                         }
                     }
+
                     dpFechaFinal.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -900,7 +919,24 @@ namespace PuntoDeVentaV2
                                 }
                                 else
                                 {
-                                    var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{opcionComboBoxFiltroAdminEmp.ToString()}' ORDER BY FechaOperacion DESC");
+                                    var queryFechaInicial2 = string.Empty;
+                                    var tipoUsuarioParaFechaInicial = opcionComboBoxFiltroAdminEmp.ToString();
+
+                                    if (tipoUsuarioParaFechaInicial.Equals("Admin"))
+                                    {
+                                        queryFechaInicial2 = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0' ORDER BY FechaOperacion DESC";
+                                    }
+                                    else if (tipoUsuarioParaFechaInicial.Equals("All"))
+                                    {
+                                        queryFechaInicial2 = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC";
+                                    }
+                                    else
+                                    {
+                                        queryFechaInicial2 = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{opcionComboBoxFiltroAdminEmp.ToString()}' ORDER BY FechaOperacion DESC";
+                                    }
+
+                                    var fechaInicial2 = cn.CargarDatos(queryFechaInicial2);
+
                                     if (!fechaInicial2.Rows.Count.Equals(0))
                                     {
                                         var fechaInicialDP = Convert.ToDateTime(fechaInicial2.Rows[0]["FechaOperacion"].ToString());
@@ -4671,12 +4707,30 @@ namespace PuntoDeVentaV2
         private void cbFiltroAdminEmpleado_SelectedIndexChanged(object sender, EventArgs e)
         {
             var tipoDeBusqueda = 0;
+            var queryFechaInicial2 = string.Empty;
             buscarPorFecha = 0;
-            if (!FormPrincipal.userNickName.Contains("@"))
+
+            opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
+
+            //if (!FormPrincipal.userNickName.Contains("@"))
+            //{
+            //    opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
+            //}
+
+            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
             {
-                opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
+                queryFechaInicial2 = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0' ORDER BY FechaOperacion DESC LIMIT 1";
             }
-            var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{opcionComboBoxFiltroAdminEmp.ToString()}' ORDER BY FechaOperacion DESC LIMIT 1");
+            else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+            {
+                queryFechaInicial2 = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC LIMIT 1";
+            }
+            else
+            {
+                queryFechaInicial2 = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{opcionComboBoxFiltroAdminEmp.ToString()}' ORDER BY FechaOperacion DESC LIMIT 1";
+            }
+
+            var fechaInicial2 = cn.CargarDatos(queryFechaInicial2);
 
             if (fechaInicial2.Rows.Count.Equals(0))
             {
@@ -4699,15 +4753,15 @@ namespace PuntoDeVentaV2
             var indexCombo = cbFiltroAdminEmpleado.SelectedValue;
 
 
-            if (indexCombo.Equals("ADMIN"))
+            if (indexCombo.Equals("Admin"))
             {
                 tipo = "admin";
             }
-            else if (indexCombo.Equals("ALL"))
+            else if (indexCombo.Equals("All"))
             {
                 tipo = "todos";
             }
-            else if (!indexCombo.Equals("ADMIN") && !indexCombo.Equals("All"))
+            else if (!indexCombo.Equals("Admin") && !indexCombo.Equals("All"))
             {
                 tipo = "empleado";
             }
