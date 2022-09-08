@@ -18,7 +18,6 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
 
 
-        
 
         public string[] datosCliente;
         public string origenOperacion { get; set; }
@@ -26,7 +25,7 @@ namespace PuntoDeVentaV2
 
         private int idVenta = 0;
         private int tipo = 0;
-
+        
         int idClienteGlobal = 0;
 
         // Tipo: 0 = Por defecto
@@ -76,13 +75,17 @@ namespace PuntoDeVentaV2
 
             if (string.IsNullOrWhiteSpace(busqueda))
             {
-                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND TipoCliente > 0";
+                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
             }
             else
             {
                 consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (RazonSocial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR NumeroCliente LIKE '%{busqueda}%')";
             }
-
+            if (Ventas.EsGuardarVenta.Equals(false))
+            {
+                CBXConDescuento.Visible = true;
+                
+            }
             sql_con.Open();
             sql_cmd = new MySqlCommand(consulta, sql_con);
             dr = sql_cmd.ExecuteReader();
@@ -134,12 +137,7 @@ namespace PuntoDeVentaV2
 
                     if (tipo == 0)
                     {
-                        if (origenOperacion.Equals("VentaGlobal"))
-                        {
-                            clienteId = idCliente;
-                            DialogResult = DialogResult.OK;
-                        }
-                        else
+                        if (origenOperacion == null)
                         {
                             if (idVenta > 0)
                             {
@@ -159,6 +157,16 @@ namespace PuntoDeVentaV2
                                 Ventas.ventaGuardada = true;
                             }
                         }
+                        else
+                        {
+                            if (origenOperacion.Equals("VentaGlobal"))
+                            {
+                                clienteId = idCliente;
+                                DialogResult = DialogResult.OK;
+                            }
+                        }
+                        
+                        
                     }
 
                     //Editar
@@ -311,21 +319,7 @@ namespace PuntoDeVentaV2
 
         private void btnPublicoGeneral_Click(object sender, EventArgs e)
         {
-            if (origenOperacion.Equals("VentaGlobal"))
-            {
-                var clientePG = mb.ExisteClientePublicoGeneral(FormPrincipal.userID);
-
-                if (clientePG == 0)
-                {
-                    clientePG = cn.EjecutarConsulta($"INSERT INTO Clientes (IDUsuario, RazonSocial, RFC, FechaOperacion) VALUES ('{FormPrincipal.userID}', 'PUBLICO GENERAL', 'XAXX010101000', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')", regresarID: true);
-                }
-
-                clienteId = clientePG;
-                DialogResult = DialogResult.OK;
-
-                this.Close();
-            }
-            else
+            if (origenOperacion == null)
             {
                 using (DataTable dtPublicoGeneral = cn.CargarDatos(cs.BuscarPublicaGeneral()))
                 {
@@ -411,6 +405,23 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            else
+            {
+                if (origenOperacion.Equals("VentaGlobal"))
+                {
+                    var clientePG = mb.ExisteClientePublicoGeneral(FormPrincipal.userID);
+
+                    if (clientePG == 0)
+                    {
+                        clientePG = cn.EjecutarConsulta($"INSERT INTO Clientes (IDUsuario, RazonSocial, RFC, FechaOperacion) VALUES ('{FormPrincipal.userID}', 'PUBLICO GENERAL', 'XAXX010101000', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')", regresarID: true);
+                    }
+
+                    clienteId = clientePG;
+                    DialogResult = DialogResult.OK;
+
+                    this.Close();
+                }
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -480,6 +491,85 @@ namespace PuntoDeVentaV2
             }
 
             this.Close();
+        }
+        
+        private void CBXConDescuento_CheckedChanged(object sender, EventArgs e)
+        {
+
+            MySqlConnection sql_con;
+            MySqlCommand sql_cmd;
+            MySqlDataReader dr;
+            string busqueda = txtBuscador.Text;
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                sql_con = new MySqlConnection("datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;");
+            }
+            else
+            {
+                sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
+            }
+
+            var consulta = string.Empty;
+
+            if (CBXConDescuento.Checked.Equals(true))
+            {
+                if (string.IsNullOrWhiteSpace(busqueda))
+                {
+                    consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND TipoCliente > 0 ";
+                }
+                else
+                {
+                    consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (RazonSocial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR NumeroCliente LIKE '%{busqueda}%') AND TipoCliente > 0";
+                }
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(busqueda))
+                {
+                    consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
+                }
+                else
+                {
+                    consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (RazonSocial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR NumeroCliente LIKE '%{busqueda}%')";
+                }
+            }
+               
+            
+
+
+
+            sql_con.Open();
+            sql_cmd = new MySqlCommand(consulta, sql_con);
+            dr = sql_cmd.ExecuteReader();
+
+            DGVClientes.Rows.Clear();
+
+            while (dr.Read())
+            {
+                int rowId = DGVClientes.Rows.Add();
+
+                DataGridViewRow row = DGVClientes.Rows[rowId];
+
+                Image agregar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
+
+                var numeroCliente = dr.GetValue(dr.GetOrdinal("NumeroCliente")).ToString();
+
+                if (string.IsNullOrWhiteSpace(numeroCliente))
+                {
+                    numeroCliente = "N/A";
+                }
+
+                row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
+                row.Cells["RFC"].Value = dr.GetValue(dr.GetOrdinal("RFC"));
+                row.Cells["RazonSocial"].Value = dr.GetValue(dr.GetOrdinal("RazonSocial"));
+                row.Cells["NumeroCliente"].Value = numeroCliente;
+                row.Cells["Agregar"].Value = agregar;
+            }
+
+            DGVClientes.ClearSelection();
+
+            dr.Close();
+            sql_con.Close();
         }
     }
 }

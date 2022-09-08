@@ -763,12 +763,12 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        using (DataTable dtRetirosRealizados = cn.CargarDatos(cs.ReimprimirHistorialDepositosEmpleado(IDCajaInicio, IDCajaFin)))
+                        using (DataTable dtRetirosRealizados = cn.CargarDatos(cs.ReimprmirHistorialRetirosAdminsitrador(IDCajaInicio, IDCajaFin)))
                         {
                             dtRetiros = dtRetirosRealizados;
                         }
 
-                        using (DataTable dtSumaRetirosRealizados = cn.CargarDatos(cs.ReimprimirCargarHistorialdepositosEmpleadoSumaTotal(IDCajaInicio, IDCajaFin)))
+                        using (DataTable dtSumaRetirosRealizados = cn.CargarDatos(cs.ReimprimirCargarHistorialRetirosAdministradorSumaTotal(IDCajaInicio, IDCajaFin)))
                         {
                             dtRetirosSuma = dtSumaRetirosRealizados;
                         }
@@ -807,7 +807,7 @@ namespace PuntoDeVentaV2
                             dtRetiros = dtRetirosRealizados;
                         }
 
-                        using (DataTable dtSumaRetirosRealizados = cn.CargarDatos(cs.ReimprimirCargarHistorialdepositosEmpleadoSumaTotalDesdeAdministrador(IDCajaInicio, IDCajaFin, idEmpleado)))
+                        using (DataTable dtSumaRetirosRealizados = cn.CargarDatos(cs.ReimprimirCargarHistorialRetirosEmpleadoSumaTotalDesdeAdministrador(IDCajaInicio, IDCajaFin, idEmpleado)))
                         {
                             dtRetirosSuma = dtSumaRetirosRealizados;
                         }

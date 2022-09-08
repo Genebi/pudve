@@ -33,7 +33,7 @@ namespace PuntoDeVentaV2
         private bool aplicarDescuentoG { get; set; }
 
         public static string etiqeutaCliente { get; set; }
-
+        public static bool EsGuardarVenta;
 
         List<string> ListaProdutos;
         // Almacena los ID de los productos a los que se aplica descuento general
@@ -3025,6 +3025,7 @@ namespace PuntoDeVentaV2
         }
         private void btnTerminarVenta_Click(object sender, EventArgs e)
         {
+            EsGuardarVenta = true;
             if (ClienteConDescuento.Equals(true))
             {
                 if (!FormPrincipal.id_empleado.Equals(0))
@@ -3320,7 +3321,7 @@ namespace PuntoDeVentaV2
                             {
                                 idCliente = string.Empty;
                                 DetalleVenta.idCliente = 0;
-                                DetalleVenta.cliente = string.Empty;
+                                        DetalleVenta.cliente = string.Empty;
                                 AsignarCreditoVenta.idCliente = 0;
                                 AsignarCreditoVenta.cliente = string.Empty;
                             }
@@ -3328,63 +3329,68 @@ namespace PuntoDeVentaV2
                             panel1.Focus();
                         };
                         detalle.ShowDialog();
-                        if (VentaRealizada.Equals(true))
-                        {
-                            var datosConfig = mb.ComprobarConfiguracion();
-                            if (datosConfig.Count > 0)
+                       
+                            if (VentaRealizada.Equals(true))
                             {
-                                if (datosConfig[28].Equals(1))
+                                if (ClienteConDescuento.Equals(true))
                                 {
-                                    string UsuOEmp = "usuario";
-                                    string nombre = FormPrincipal.userNickName;
-                                    if (FormPrincipal.userNickName.Contains('@'))
-                                    {
-                                        var split = FormPrincipal.userNickName.Split('@');
-                                        nombre = split[1].ToString();
-                                        UsuOEmp = "empleado";
-                                    }
-                                    string asunto = "Venta a un Cliente con Descento";
-                                    string correo;
-                                    int TipoCliente;
-                                    string[] TipoClienteDatos;
-                                    string idUltimaVenta;
-                                    string[] Precios;
-                                    using (DataTable dtTipoCliente = cn.CargarDatos($"SELECT TipoCliente FROM clientes WHERE ID ={IDClienteConDescuento}"))
-                                    {
-                                        TipoCliente = Convert.ToInt32(dtTipoCliente.Rows[0]["TipoCliente"]);
-                                    }
-                                    using (DataTable DTDatos = cn.CargarDatos($"SELECT CONCAT(Nombre,'|',DescuentoPorcentaje) AS Datos FROM `tipoclientes` WHERE ID = {TipoCliente}"))
-                                    {
-                                        string abc = DTDatos.Rows[0]["Datos"].ToString();
-                                        TipoClienteDatos = abc.Split('|');
-                                    }
-                                    using (DataTable ConsultaCorreo = cn.CargarDatos(cs.BuscarCorreoDelUsuario(Convert.ToInt32(FormPrincipal.userID))))
-                                    {
-                                        correo = ConsultaCorreo.Rows[0]["Email"].ToString();
-                                    }
-                                    using (DataTable DTIdventa = cn.CargarDatos($"SELECT ID FROM ventas ORDER BY ID DESC LIMIT 1"))
-                                    {
-                                        idUltimaVenta = DTIdventa.Rows[0]["ID"].ToString();
-                                    }
-                                    using (DataTable DTDatosPrecios = cn.CargarDatos($"SELECT CONCAT(Total + Descuento,'|',Descuento,'|',Total) 'DatosPrecio' FROM ventas WHERE ID = {idUltimaVenta}"))
-                                    {
-                                        string PreciosPegados = DTDatosPrecios.Rows[0]["DatosPrecio"].ToString();
-                                        Precios = PreciosPegados.Split('|');
-                                    }
-                                    DateTime fecha = DateTime.Now;
-                                    string html = $@"<!DOCTYPE html> <html> <head> </head> <body> <H1 style='text-align: center;'>Venta a Cliente con descuento</H1> <hr> <p style='text-align: center;'> Se realizo una venta al Cliente <b>{ClienteConDescuentoNombre}</b><br><br>El dia <b>{fecha.ToString("dd-MM-yyyy hh:mm:ss")}</b><br><br> Por el {UsuOEmp} <b>{nombre}</b><br>";
-                                    html += $@"<br>Por el concepto de <b>{TipoClienteDatos[0]}</b><br><br> Con un descuento del <b>{TipoClienteDatos[1].ToString()}% <br><br>SubTotal: <b>{Precios[0]}</b>----Descuento:{Precios[1]}----Total:{Precios[2]}</p> </body> </html>";
+                                    var datosConfig = mb.ComprobarConfiguracion();
+                                    if (datosConfig.Count > 0)
+                                        {
+                                        if (datosConfig[28].Equals(1))
+                                        {
+                                            string UsuOEmp = "usuario";
+                                            string nombre = FormPrincipal.userNickName;
+                                            if (FormPrincipal.userNickName.Contains('@'))
+                                            {
+                                                var split = FormPrincipal.userNickName.Split('@');
+                                                nombre = split[1].ToString();
+                                                UsuOEmp = "empleado";
+                                            }
+                                            string asunto = "Venta a un Cliente con Descento";
+                                            string correo;
+                                            int TipoCliente;
+                                            string[] TipoClienteDatos;
+                                            string idUltimaVenta;
+                                            string[] Precios;
+                                            using (DataTable dtTipoCliente = cn.CargarDatos($"SELECT TipoCliente FROM clientes WHERE ID ={IDClienteConDescuento}"))
+                                            {
+                                                TipoCliente = Convert.ToInt32(dtTipoCliente.Rows[0]["TipoCliente"]);
+                                            }
+                                            using (DataTable DTDatos = cn.CargarDatos($"SELECT CONCAT(Nombre,'|',DescuentoPorcentaje) AS Datos FROM `tipoclientes` WHERE ID = {TipoCliente}"))
+                                            {
+                                                string abc = DTDatos.Rows[0]["Datos"].ToString();
+                                                TipoClienteDatos = abc.Split('|');
+                                            }
+                                            using (DataTable ConsultaCorreo = cn.CargarDatos(cs.BuscarCorreoDelUsuario(Convert.ToInt32(FormPrincipal.userID))))
+                                            {
+                                                correo = ConsultaCorreo.Rows[0]["Email"].ToString();
+                                            }
+                                            using (DataTable DTIdventa = cn.CargarDatos($"SELECT ID FROM ventas ORDER BY ID DESC LIMIT 1"))
+                                            {
+                                                idUltimaVenta = DTIdventa.Rows[0]["ID"].ToString();
+                                            }
+                                            using (DataTable DTDatosPrecios = cn.CargarDatos($"SELECT CONCAT(Total + Descuento,'|',Descuento,'|',Total) 'DatosPrecio' FROM ventas WHERE ID = {idUltimaVenta}"))
+                                            {
+                                                string PreciosPegados = DTDatosPrecios.Rows[0]["DatosPrecio"].ToString();
+                                                Precios = PreciosPegados.Split('|');
+                                            }
+                                            DateTime fecha = DateTime.Now;
+                                            string html = $@"<!DOCTYPE html> <html> <head> </head> <body> <H1 style='text-align: center;'>Venta a Cliente con descuento</H1> <hr> <p style='text-align: center;'> Se realizo una venta al Cliente <b>{ClienteConDescuentoNombre}</b><br><br>El dia <b>{fecha.ToString("dd-MM-yyyy hh:mm:ss")}</b><br><br> Por el {UsuOEmp} <b>{nombre}</b><br>";
+                                            html += $@"<br>Por el concepto de <b>{TipoClienteDatos[0]}</b><br><br> Con un descuento del <b>{TipoClienteDatos[1].ToString()}% <br><br>SubTotal: <b>{Precios[0]}</b>----Descuento:{Precios[1]}----Total:{Precios[2]}</p> </body> </html>";
 
-                                   
-                                    Thread btnClearAllItemSale = new Thread(
-                                     () => Utilidades.EnviarEmail(html, asunto, correo)
-                                    );
 
-                                    btnClearAllItemSale.Start();
+                                            Thread btnClearAllItemSale = new Thread(
+                                             () => Utilidades.EnviarEmail(html, asunto, correo)
+                                            );
 
+                                            btnClearAllItemSale.Start();
+
+                                        }
+                                    }
                                 }
                             }
-                        }
+                        VentaRealizada = false;
                         noDuplicadoVentas = 1;
                     }
                 }
@@ -7398,7 +7404,7 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo3_Click(object sender, EventArgs e)
         {
-
+            EsGuardarVenta = false;
             if (opcion16 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -7461,6 +7467,7 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo4_Click(object sender, EventArgs e)
         {
+            EsGuardarVenta = true;
             ventaGuardadappt = 1;
             if (opcion10 == 0)
             {
