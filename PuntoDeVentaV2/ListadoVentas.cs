@@ -869,47 +869,44 @@ namespace PuntoDeVentaV2
                             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                             {
                                 List<string> idFechas = new List<string>();
-                                var ultimoCorteEmpleado = string.Empty;
-                                var empleados = cn.CargarDatos($"SELECT ID FROM empleados WHERE IDUsuario = '{FormPrincipal.userID}' AND estatus = '1'");
                                 List<string> QuerysDeTodasLasVentas = new List<string>();
 
+                                var ultimoCorteEmpleado = string.Empty;
+                                var empleados = cn.CargarDatos($"SELECT ID FROM empleados WHERE IDUsuario = '{FormPrincipal.userID}' AND estatus = '1'");
 
-                                for (int i = 0; i < empleados.Rows.Count; i++)
+                                var listaEmpleados = empleados.AsEnumerable().Select(r => r["ID"].ToString());
+                                var listaIDEmpleados = "0,";
+                                listaIDEmpleados += string.Join(",", listaEmpleados);
+
+                                var fechasCortesDeTodosAdministradorEmpleados = cn.CargarDatos($"SELECT IDEmpleado, MAX(FechaOperacion) AS 'FechaOperacion' FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' AND IDEmpleado IN ( {listaIDEmpleados} ) GROUP BY IDEmpleado ORDER BY FechaOperacion DESC");
+
+                                if (!fechasCortesDeTodosAdministradorEmpleados.Rows.Count.Equals(0))
                                 {
-                                    var idEmpleado = empleados.Rows[i]["ID"].ToString();
-                                    var fechasUltimoCorte = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{idEmpleado}' ORDER BY FechaOperacion DESC LIMIT 1");
-                                    if (!fechasUltimoCorte.Rows.Count.Equals(0))
+                                    foreach (DataRow item in fechasCortesDeTodosAdministradorEmpleados.Rows)
                                     {
-                                        ultimoCorteEmpleado = fechasUltimoCorte.Rows[0]["FechaOperacion"].ToString();
-                                        var ultimoCorteEmpleado2 = Convert.ToDateTime(ultimoCorteEmpleado.ToString());
-                                        ultimoCorteEmpleado = ultimoCorteEmpleado2.ToString("yyyy-MM-dd HH:mm:ss");
+                                        if (item["IDEmpleado"].ToString().Equals("0"))
+                                        {
+                                            ultimoCorteEmpleado = item["FechaOperacion"].ToString();
+                                            var ultimoCorteEmpleado2 = Convert.ToDateTime(ultimoCorteEmpleado.ToString());
+                                            ultimoCorteEmpleado = ultimoCorteEmpleado2.ToString("yyyy-MM-dd HH:mm:ss");
+                                            var fechaHoy = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                                            QuerysDeTodasLasVentas.Add($"(SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT( Usr.Usuario, ' (ADMIN)' ), CONCAT( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario )	LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente )	LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '1' AND Vent.IDUsuario = '{item["IDEmpleado"].ToString()}' AND Vent.FechaOperacion BETWEEN '{ultimoCorteEmpleado}.999999' AND '{fechaHoy}.999999' ORDER BY ID DESC)");
+                                        }
+                                        else
+                                        {
+                                            ultimoCorteEmpleado = item["FechaOperacion"].ToString();
+                                            var ultimoCorteEmpleado2 = Convert.ToDateTime(ultimoCorteEmpleado.ToString());
+                                            ultimoCorteEmpleado = ultimoCorteEmpleado2.ToString("yyyy-MM-dd HH:mm:ss");
+                                            var fechaHoy = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                                            QuerysDeTodasLasVentas.Add($"(SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT( Usr.Usuario, ' (ADMIN)' ), CONCAT( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario )	LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente )	LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '1' AND Vent.IDEmpleado = '{item["IDEmpleado"].ToString()}' AND Vent.FechaOperacion BETWEEN '{ultimoCorteEmpleado}.999999' AND '{fechaHoy}.999999' ORDER BY ID DESC)");
+                                        }
                                     }
-                                    else
-                                    {
-                                        ultimoCorteEmpleado = "0000-00-00 00:00:00";
-                                    }
-                                    idFechas.Add($"{idEmpleado}|{ultimoCorteEmpleado}");
+
+                                    var UnionQuerysTodosLosTotales = string.Join("UNION", QuerysDeTodasLasVentas);
+                                    consulta = UnionQuerysTodosLosTotales;
                                 }
-
-                                var fechaHoy = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                var fechasUltimoCorteUsr = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{0}' ORDER BY FechaOperacion DESC LIMIT 1");
-                                var ultimoCorteUsr2 = Convert.ToDateTime(fechasUltimoCorteUsr.Rows[0]["FechaOperacion"].ToString());
-                                ultimoCorteEmpleado = ultimoCorteUsr2.ToString("yyyy-MM-dd HH:mm:ss");
-
-                                QuerysDeTodasLasVentas.Add($"(SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT( Usr.Usuario, ' (ADMIN)' ), CONCAT( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario )	LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente )	LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '1' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.FechaOperacion BETWEEN '{ultimoCorteEmpleado}.999999' AND '{fechaHoy}.999999' ORDER BY ID DESC)");
-
-                                foreach (var item in idFechas)
-                                {
-
-                                    var datosEmp = item.Split('|');
-
-                                    QuerysDeTodasLasVentas.Add($"(SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT( Usr.Usuario, ' (ADMIN)' ), CONCAT( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario )	LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente )	LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '1' AND Vent.IDEmpleado = '{datosEmp[0]}' AND Vent.FechaOperacion BETWEEN '{datosEmp[1]}.999999' AND '{fechaHoy}.999999' ORDER BY ID DESC)");
-                                }
-
-                                var UnionQuerysTodosLosTotales = string.Join("UNION", QuerysDeTodasLasVentas);
-                                consulta = UnionQuerysTodosLosTotales;
-
-                                //consulta = cs.filtroMostrarTodasLasVentasPagadasEnAdministrador(estado, fechaInicial, fechaFinal);
                             }
                             else
                             {
@@ -1711,7 +1708,7 @@ namespace PuntoDeVentaV2
                             if (statusVentaParaCancelar.Equals(2))
                             {
                                 cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
-                                
+
                                 restaurarBusqueda();
 
                                 var mensajeCancelar = string.Empty;
