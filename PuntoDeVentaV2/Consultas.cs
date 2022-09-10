@@ -3275,9 +3275,19 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string ParametroDeBusquedaFolioSiendoAdministrador(string campoFolio)
+        public string ParametroDeBusquedaFolioSiendoAdministrador(string campoFolio, int tipo = 1)
         {
-            var consulta = $"AND Folio LIKE '%{campoFolio}%' ";
+            var consulta = string.Empty;
+
+            if (tipo == 1)
+            {
+                consulta = $"AND Folio LIKE '%{campoFolio}%' ";
+            }
+
+            if (tipo == 2)
+            {
+                consulta = $"AND Folio IN ({campoFolio}) ";
+            }
 
             return consulta;
         }
