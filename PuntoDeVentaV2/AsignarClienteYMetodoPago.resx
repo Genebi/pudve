@@ -132,4 +132,14 @@
   <metadata name="Agregar.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnEliminarCliente.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
+        WQAAAFkBqp2phgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAACGSURBVDhPY/ji
+        ZB77xdnsLRD/JxED9ZhGM0AYWBUQg9+ADMAmQTSmjQFffeyJEgNhDAO++jr8//X9+//vU3rhYiA2SAyb
+        IVhd8H1Kz/9fv379/z5zMgobm1qcYQC29edPMEZ2DTqmjQEUeYEqgUhRNJKKqWIApZnJNBrEQJMgBr/5
+        4mIWBQD9VYZbwXtg2gAAAABJRU5ErkJggg==
+</value>
+  </data>
 </root>

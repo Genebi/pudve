@@ -106,8 +106,8 @@ namespace PuntoDeVentaV2
         string razonSocialUsuario = string.Empty;
 
         string tipo = string.Empty;
-        int buscarPorFecha = 0; 
-
+        int buscarPorFecha = 0;
+        List<string> IDsVenta = new List<string>();
         public ListadoVentas()
         {
             InitializeComponent();
@@ -5054,6 +5054,7 @@ namespace PuntoDeVentaV2
             int c = 0;
             int t = DGVListadoVentas.Rows.Count - 2;
             string mnsj_error = "";
+            
 
             foreach (DataGridViewRow row in DGVListadoVentas.Rows)
             {
@@ -5088,15 +5089,30 @@ namespace PuntoDeVentaV2
                         {
                            string ID = Convert.ToString(row.Cells["ID"].Value);
                             en++;
+
+                            var DTDatosVenta = cn.CargarDatos($"SELECT `Status` FROM ventas WHERE ID = {ID}");
+                            string status = DTDatosVenta.Rows[0]["Status"].ToString();
+                            if (status.Equals("3"))
+                            {
+                                MessageBox.Show("No se puede modificar una Venta Cancelada", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            IDsVenta.Add(ID);
+                            
                         }
                         c++;
                     }
                 }
+                
+                AsignarClienteYMetodoPago asignar = new AsignarClienteYMetodoPago(IDsVenta);
+                asignar.ShowDialog();
             }
             else
             {
                 MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            
         }
     }
 }
