@@ -1233,6 +1233,29 @@ namespace PuntoDeVentaV2
         {
             CalcularCambio();
             RestaPrecio();
+            if (string.IsNullOrEmpty(txtCheque.Text) && string.IsNullOrEmpty(txtTarjeta.Text)&& string.IsNullOrEmpty(txtTransferencia.Text))
+            {
+                decimal credito;
+                decimal newTotal;
+                if (txtCredito.Text == "")
+                {
+                    credito = 0;
+                }
+                else
+                {
+                    credito = Convert.ToDecimal(txtCredito.Text);
+                }
+                if (Convert.ToDecimal(total) < credito)
+                {
+                   newTotal = 0;
+                }
+                else
+                {
+                    newTotal = Convert.ToDecimal(total) - credito;
+                }
+                
+                txtEfectivo.Text = newTotal.ToString();
+            }
         }
 
        

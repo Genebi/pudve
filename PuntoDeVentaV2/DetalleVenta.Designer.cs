@@ -373,7 +373,7 @@
             this.txtCredito.MaxLength = 10;
             this.txtCredito.Name = "txtCredito";
             this.txtCredito.Size = new System.Drawing.Size(80, 22);
-            this.txtCredito.TabIndex = 122;
+            this.txtCredito.TabIndex = 101;
             this.txtCredito.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCredito.TextChanged += new System.EventHandler(this.txtCredito_TextChanged);
             this.txtCredito.Enter += new System.EventHandler(this.txtCredito_Enter);

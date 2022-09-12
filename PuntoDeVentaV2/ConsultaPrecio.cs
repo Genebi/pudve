@@ -56,7 +56,6 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-
                         MessageBoxTemporal.Show("El producto no Existe en la base de datos", "Aviso del Sistema", 3, true);
                     }
                 } 

@@ -85,6 +85,7 @@
             this.lb_txt_ruta_descargar = new System.Windows.Forms.Label();
             this.chTodos = new System.Windows.Forms.CheckBox();
             this.chkHDAutlan = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -273,6 +274,7 @@
             // 
             this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBotones.Controls.Add(this.button1);
             this.panelBotones.Controls.Add(this.cbFiltroAdminEmpleado);
             this.panelBotones.Controls.Add(this.label2);
             this.panelBotones.Controls.Add(this.label1);
@@ -332,7 +334,7 @@
             this.btnCrearVentaGlobal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCrearVentaGlobal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCrearVentaGlobal.ForeColor = System.Drawing.Color.White;
-            this.btnCrearVentaGlobal.Location = new System.Drawing.Point(639, 75);
+            this.btnCrearVentaGlobal.Location = new System.Drawing.Point(639, 54);
             this.btnCrearVentaGlobal.Name = "btnCrearVentaGlobal";
             this.btnCrearVentaGlobal.Size = new System.Drawing.Size(244, 27);
             this.btnCrearVentaGlobal.TabIndex = 10;
@@ -348,7 +350,7 @@
             this.btnReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReportes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.btnReportes.ForeColor = System.Drawing.Color.White;
-            this.btnReportes.Location = new System.Drawing.Point(639, 14);
+            this.btnReportes.Location = new System.Drawing.Point(639, 0);
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Size = new System.Drawing.Size(127, 25);
             this.btnReportes.TabIndex = 12;
@@ -364,7 +366,7 @@
             this.btn_descargar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_descargar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_descargar.ForeColor = System.Drawing.Color.White;
-            this.btn_descargar.Location = new System.Drawing.Point(772, 45);
+            this.btn_descargar.Location = new System.Drawing.Point(772, 27);
             this.btn_descargar.Name = "btn_descargar";
             this.btn_descargar.Size = new System.Drawing.Size(111, 25);
             this.btn_descargar.TabIndex = 10;
@@ -392,7 +394,7 @@
             this.btn_enviar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_enviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_enviar.ForeColor = System.Drawing.Color.White;
-            this.btn_enviar.Location = new System.Drawing.Point(772, 14);
+            this.btn_enviar.Location = new System.Drawing.Point(772, 0);
             this.btn_enviar.Name = "btn_enviar";
             this.btn_enviar.Size = new System.Drawing.Size(111, 25);
             this.btn_enviar.TabIndex = 8;
@@ -431,7 +433,7 @@
             this.btnNuevaVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevaVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevaVenta.ForeColor = System.Drawing.Color.White;
-            this.btnNuevaVenta.Location = new System.Drawing.Point(639, 45);
+            this.btnNuevaVenta.Location = new System.Drawing.Point(639, 27);
             this.btnNuevaVenta.Name = "btnNuevaVenta";
             this.btnNuevaVenta.Size = new System.Drawing.Size(127, 25);
             this.btnNuevaVenta.TabIndex = 5;
@@ -629,7 +631,7 @@
             this.linkLblPaginaSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(475, 28);
             this.linkLblPaginaSiguiente.Name = "linkLblPaginaSiguiente";
-            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(14, 16);
+            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaSiguiente.TabIndex = 24;
             this.linkLblPaginaSiguiente.TabStop = true;
             this.linkLblPaginaSiguiente.Text = "3";
@@ -643,7 +645,7 @@
             this.linkLblPaginaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaActual.Location = new System.Drawing.Point(448, 28);
             this.linkLblPaginaActual.Name = "linkLblPaginaActual";
-            this.linkLblPaginaActual.Size = new System.Drawing.Size(14, 16);
+            this.linkLblPaginaActual.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaActual.TabIndex = 23;
             this.linkLblPaginaActual.TabStop = true;
             this.linkLblPaginaActual.Text = "2";
@@ -657,7 +659,7 @@
             this.linkLblPaginaAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaAnterior.Location = new System.Drawing.Point(418, 28);
             this.linkLblPaginaAnterior.Name = "linkLblPaginaAnterior";
-            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(14, 16);
+            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaAnterior.TabIndex = 22;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "1";
@@ -738,6 +740,22 @@
             this.chkHDAutlan.Visible = false;
             this.chkHDAutlan.CheckedChanged += new System.EventHandler(this.chkHDAutlan_CheckedChanged);
             this.chkHDAutlan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkHDAutlan_MouseClick);
+            // 
+            // button1
+            // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(639, 83);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(244, 25);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "Asignar Cliente/Metodo de Pago";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // ListadoVentas
             // 
@@ -829,5 +847,6 @@
         private System.Windows.Forms.Label label7;
         public System.Windows.Forms.ComboBox cbFiltroAdminEmpleado;
         private System.Windows.Forms.CheckBox chkHDAutlan;
+        private System.Windows.Forms.Button button1;
     }
 }

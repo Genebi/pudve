@@ -397,6 +397,12 @@
     <Compile Include="AsignarCantidadProdACombo.Designer.cs">
       <DependentUpon>AsignarCantidadProdACombo.cs</DependentUpon>
     </Compile>
+    <Compile Include="AsignarClienteYMetodoPago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AsignarClienteYMetodoPago.Designer.cs">
+      <DependentUpon>AsignarClienteYMetodoPago.cs</DependentUpon>
+    </Compile>
     <Compile Include="AsignarCreditoVenta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1579,6 +1585,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AsignarCantidadProdACombo.resx">
       <DependentUpon>AsignarCantidadProdACombo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AsignarClienteYMetodoPago.resx">
+      <DependentUpon>AsignarClienteYMetodoPago.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AsignarCreditoVenta.resx">
       <DependentUpon>AsignarCreditoVenta.cs</DependentUpon>

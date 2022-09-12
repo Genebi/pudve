@@ -108,6 +108,7 @@ namespace PuntoDeVentaV2
         string tipo = string.Empty;
         int buscarPorFecha = 0;
 
+        List<string> IDsVenta = new List<string>();
         public ListadoVentas()
         {
             InitializeComponent();
@@ -4978,6 +4979,74 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("Se requiere elegir un cliente para realizar el proceso.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            int cont = 0;
+            int en = 0;
+            int c = 0;
+            int t = DGVListadoVentas.Rows.Count - 2;
+            string mnsj_error = "";
+            
+
+            foreach (DataGridViewRow row in DGVListadoVentas.Rows)
+            {
+                if (c < t)
+                {
+                    bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                    if (estado == true)
+                    {
+                        cont++;
+                    }
+                    else
+                    {
+                        mnsj_error = "No ha seleccionado una nota de venta";
+                    }
+
+                    c++;
+                }
+            }
+
+            if (cont > 0)
+            {
+                c = 0;
+
+                foreach (DataGridViewRow row in DGVListadoVentas.Rows)
+                {
+                    if (c < t)
+                    {
+                        bool estado = (bool)row.Cells["col_checkbox"].Value;
+
+                        if (estado == true)
+                        {
+                           string ID = Convert.ToString(row.Cells["ID"].Value);
+                            en++;
+
+                            var DTDatosVenta = cn.CargarDatos($"SELECT `Status` FROM ventas WHERE ID = {ID}");
+                            string status = DTDatosVenta.Rows[0]["Status"].ToString();
+                            if (status.Equals("3"))
+                            {
+                                MessageBox.Show("No se puede modificar una Venta Cancelada", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            IDsVenta.Add(ID);
+                            
+                        }
+                        c++;
+                    }
+                }
+                
+                AsignarClienteYMetodoPago asignar = new AsignarClienteYMetodoPago(IDsVenta);
+                asignar.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            
         }
     }
 }
