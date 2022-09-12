@@ -5045,7 +5045,7 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
+            btnBuscarVentas.PerformClick();
             
         }
     }
