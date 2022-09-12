@@ -139,7 +139,7 @@
             this.btnCredito.Location = new System.Drawing.Point(13, 273);
             this.btnCredito.Name = "btnCredito";
             this.btnCredito.Size = new System.Drawing.Size(125, 28);
-            this.btnCredito.TabIndex = 103;
+            this.btnCredito.TabIndex = 104;
             this.btnCredito.Text = "Asignar Crédito";
             this.btnCredito.UseVisualStyleBackColor = false;
             this.btnCredito.Visible = false;
@@ -153,7 +153,7 @@
             this.lbCliente.Location = new System.Drawing.Point(22, 217);
             this.lbCliente.Name = "lbCliente";
             this.lbCliente.Size = new System.Drawing.Size(88, 15);
-            this.lbCliente.TabIndex = 102;
+            this.lbCliente.TabIndex = 103;
             this.lbCliente.TabStop = true;
             this.lbCliente.Text = "Asignar cliente";
             this.lbCliente.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbCliente_LinkClicked);
@@ -171,7 +171,7 @@
             this.btnAceptar.Location = new System.Drawing.Point(434, 320);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(130, 28);
-            this.btnAceptar.TabIndex = 104;
+            this.btnAceptar.TabIndex = 105;
             this.btnAceptar.Text = "Terminar";
             this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -208,7 +208,7 @@
             this.txtReferencia.Location = new System.Drawing.Point(109, 168);
             this.txtReferencia.Name = "txtReferencia";
             this.txtReferencia.Size = new System.Drawing.Size(454, 22);
-            this.txtReferencia.TabIndex = 101;
+            this.txtReferencia.TabIndex = 102;
             this.txtReferencia.Enter += new System.EventHandler(this.txtReferencia_Enter);
             // 
             // lbReferencia

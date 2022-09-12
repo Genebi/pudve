@@ -1197,6 +1197,8 @@ namespace PuntoDeVentaV2
 
         private void txtVales_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode.Equals(Keys.Right))
+                SendKeys.Send("{TAB}");
 
             if (e.KeyCode.Equals(Keys.Left))
                 SendKeys.Send("+{TAB}");
