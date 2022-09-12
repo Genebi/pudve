@@ -1226,16 +1226,16 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string ReiniciarFiltroDinamico(int userID, string searchFiltroDinamico)
+        public string ReiniciarFiltroDinamico(int userID, string searchFiltroDinamico, string username)
         {
-            var consulta = $"SELECT * FROM FiltroProducto WHERE IDUsuario = '{userID}' AND concepto = '{searchFiltroDinamico}'";
+            var consulta = $"SELECT * FROM FiltroProducto WHERE IDUsuario = '{userID}' AND concepto = '{searchFiltroDinamico}' AND Username = '{username}'";
 
             return consulta;
         }
 
-        public string ReiniciarFiltroDinamicoTresCampos(int valueIntFiltroDinamico, string valueStrFiltroDinamico, int idUser, string searchFiltroDinamico)
+        public string ReiniciarFiltroDinamicoTresCampos(int valueIntFiltroDinamico, string valueStrFiltroDinamico, int idUser, string searchFiltroDinamico, string username)
         {
-            var consulta = $"UPDATE FiltroProducto SET checkBoxConcepto = '{valueIntFiltroDinamico}', textComboBoxConcepto = '{valueStrFiltroDinamico}', textCantidad = '{valueIntFiltroDinamico}' WHERE IDUsuario = '{idUser}' AND concepto = '{searchFiltroDinamico}'";
+            var consulta = $"UPDATE FiltroProducto SET checkBoxConcepto = '{valueIntFiltroDinamico}', textComboBoxConcepto = '{valueStrFiltroDinamico}', textCantidad = '{valueIntFiltroDinamico}' WHERE IDUsuario = '{idUser}' AND concepto = '{searchFiltroDinamico}' AND Username = '{username}'";
 
             return consulta;
         }
@@ -1247,9 +1247,9 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string VerificarContenidoFiltroProducto(int idUsuario)
+        public string VerificarContenidoFiltroProducto(int idUsuario, string username)
         {
-            var consulta = $"SELECT * FROM FiltroProducto WHERE IDUsuario = '{idUsuario}'";
+            var consulta = $"SELECT * FROM FiltroProducto WHERE IDUsuario = '{idUsuario}' AND Username = '{username}'";
 
             return consulta;
         }
@@ -1261,31 +1261,31 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string VerificarVentanaFiltros(int userID)
+        public string VerificarVentanaFiltros(int userID, string username)
         {
-            var consulta = $"SELECT * FROM FiltrosDinamicosVetanaFiltros WHERE IDUsuario = '{userID}'";
+            var consulta = $"SELECT * FROM FiltrosDinamicosVetanaFiltros WHERE IDUsuario = '{userID}' AND Username = '{username}'";
 
             return consulta;
         }
 
-        public string GuardarVentanaFiltros(string valueChkBox, string conceptoChkBox, string textComboBox, int idUsuario)
+        public string GuardarVentanaFiltros(string valueChkBox, string conceptoChkBox, string textComboBox, int idUsuario, string username)
         {
-            var consulta = "INSERT INTO FiltrosDinamicosVetanaFiltros (checkBoxValue, concepto, strFiltro, IDUsuario)";
-            consulta += $"VALUES ('{valueChkBox}', '{conceptoChkBox}', '{textComboBox}', '{idUsuario}')";
+            var consulta = "INSERT INTO FiltrosDinamicosVetanaFiltros (checkBoxValue, concepto, strFiltro, IDUsuario, Username)";
+            consulta += $"VALUES ('{valueChkBox}', '{conceptoChkBox}', '{textComboBox}', '{idUsuario}', '{username}')";
 
             return consulta;
         }
 
-        public string BuscarDatoEnVentanaFiltros(string strConcepto, int userID)
+        public string BuscarDatoEnVentanaFiltros(string strConcepto, int userID, string username)
         {
-            var consulta = $"SELECT * FROM FiltrosDinamicosVetanaFiltros WHERE concepto = '{strConcepto}' AND IDUsuario = '{userID}'";
+            var consulta = $"SELECT * FROM FiltrosDinamicosVetanaFiltros WHERE concepto = '{strConcepto}' AND IDUsuario = '{userID}' AND Username = '{username}'";
 
             return consulta;
         }
 
-        public string ActualizarDatoVentanaFiltros(string valueChkBox, string conceptoChkBox, string textComboBox, int idUsuario)
+        public string ActualizarDatoVentanaFiltros(string valueChkBox, string conceptoChkBox, string textComboBox, int idUsuario, string username)
         {
-            var consulta = $"UPDATE FiltrosDinamicosVetanaFiltros SET checkBoxValue = '{valueChkBox}', strFiltro = '{textComboBox}' WHERE concepto = '{conceptoChkBox}' AND IDUsuario = '{idUsuario}'";
+            var consulta = $"UPDATE FiltrosDinamicosVetanaFiltros SET checkBoxValue = '{valueChkBox}', strFiltro = '{textComboBox}' WHERE concepto = '{conceptoChkBox}' AND IDUsuario = '{idUsuario}' AND Username = '{username}'";
 
             return consulta;
         }

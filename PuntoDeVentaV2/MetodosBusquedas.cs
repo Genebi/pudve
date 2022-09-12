@@ -2418,11 +2418,11 @@ namespace PuntoDeVentaV2
         }
 
         #region Operaciones Datos Dinamicos
-        public string[] ObtenerDatosFiltro(string chkConcepto, int idUsuario)
+        public string[] ObtenerDatosFiltro(string chkConcepto, int idUsuario, string username)
         {
             List<string> lista = new List<string>();
 
-            DatosConexion($"SELECT * FROM FiltroProducto WHERE concepto = '{chkConcepto}' AND IDUsuario = '{idUsuario}'");
+            DatosConexion($"SELECT * FROM FiltroProducto WHERE concepto = '{chkConcepto}' AND IDUsuario = '{idUsuario}' AND Username = '{username}'");
 
             MySqlDataReader dr = sql_cmd.ExecuteReader();
 

@@ -1786,3 +1786,9 @@ UPDATE Productos AS P INNER JOIN DescuentoCliente AS DC ON P.ID = DC.IDProducto 
 
 -- Actualizar las columnas TieneDescuentoMayoreo
 UPDATE Productos AS P INNER JOIN (SELECT DM.IDProducto FROM DescuentoMayoreo AS DM GROUP BY DM.IDProducto) AS DM ON P.ID = DM.IDProducto SET TieneDescuentoMayoreo = 1;
+
+-- Agregar columna para guardar el username para filtros de productos
+ALTER TABLE FiltroProducto ADD COLUMN IF NOT EXISTS Username VARCHAR(100) DEFAULT NULL;
+
+-- Agregar columna para guardar el username para filtros de dinamicos
+ALTER TABLE FiltrosDinamicosVetanaFiltros ADD COLUMN IF NOT EXISTS Username VARCHAR(100) DEFAULT NULL;
