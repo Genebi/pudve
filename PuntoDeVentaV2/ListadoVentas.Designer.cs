@@ -51,6 +51,7 @@
             this.cInformacion = new System.Windows.Forms.DataGridViewImageColumn();
             this.retomarVenta = new System.Windows.Forms.DataGridViewImageColumn();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.cbFiltroAdminEmpleado = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -85,7 +86,6 @@
             this.lb_txt_ruta_descargar = new System.Windows.Forms.Label();
             this.chTodos = new System.Windows.Forms.CheckBox();
             this.chkHDAutlan = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -98,7 +98,7 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(409, 27);
+            this.tituloSeccion.Location = new System.Drawing.Point(446, 27);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(102, 25);
             this.tituloSeccion.TabIndex = 4;
@@ -138,7 +138,7 @@
             this.DGVListadoVentas.RowHeadersVisible = false;
             this.DGVListadoVentas.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.DGVListadoVentas.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGVListadoVentas.Size = new System.Drawing.Size(886, 217);
+            this.DGVListadoVentas.Size = new System.Drawing.Size(960, 217);
             this.DGVListadoVentas.TabIndex = 5;
             this.DGVListadoVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListadoVentas_CellClick);
             this.DGVListadoVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clickcellc_checkbox);
@@ -291,8 +291,24 @@
             this.panelBotones.Controls.Add(this.cbTipoVentas);
             this.panelBotones.Location = new System.Drawing.Point(12, 55);
             this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(886, 110);
+            this.panelBotones.Size = new System.Drawing.Size(960, 110);
             this.panelBotones.TabIndex = 6;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(713, 83);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(244, 25);
+            this.button1.TabIndex = 16;
+            this.button1.Text = "Asignar Cliente/Metodo de Pago";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // cbFiltroAdminEmpleado
             // 
@@ -311,7 +327,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(531, 69);
+            this.label2.Location = new System.Drawing.Point(590, 29);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(59, 13);
             this.label2.TabIndex = 14;
@@ -320,7 +336,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(422, 69);
+            this.label1.Location = new System.Drawing.Point(450, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 13;
@@ -334,7 +350,7 @@
             this.btnCrearVentaGlobal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCrearVentaGlobal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCrearVentaGlobal.ForeColor = System.Drawing.Color.White;
-            this.btnCrearVentaGlobal.Location = new System.Drawing.Point(639, 54);
+            this.btnCrearVentaGlobal.Location = new System.Drawing.Point(713, 54);
             this.btnCrearVentaGlobal.Name = "btnCrearVentaGlobal";
             this.btnCrearVentaGlobal.Size = new System.Drawing.Size(244, 27);
             this.btnCrearVentaGlobal.TabIndex = 10;
@@ -350,7 +366,7 @@
             this.btnReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReportes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.btnReportes.ForeColor = System.Drawing.Color.White;
-            this.btnReportes.Location = new System.Drawing.Point(639, 0);
+            this.btnReportes.Location = new System.Drawing.Point(713, 0);
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Size = new System.Drawing.Size(127, 25);
             this.btnReportes.TabIndex = 12;
@@ -366,7 +382,7 @@
             this.btn_descargar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_descargar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_descargar.ForeColor = System.Drawing.Color.White;
-            this.btn_descargar.Location = new System.Drawing.Point(772, 27);
+            this.btn_descargar.Location = new System.Drawing.Point(846, 27);
             this.btn_descargar.Name = "btn_descargar";
             this.btn_descargar.Size = new System.Drawing.Size(111, 25);
             this.btn_descargar.TabIndex = 10;
@@ -394,7 +410,7 @@
             this.btn_enviar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_enviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_enviar.ForeColor = System.Drawing.Color.White;
-            this.btn_enviar.Location = new System.Drawing.Point(772, 0);
+            this.btn_enviar.Location = new System.Drawing.Point(846, 0);
             this.btn_enviar.Name = "btn_enviar";
             this.btn_enviar.Size = new System.Drawing.Size(111, 25);
             this.btn_enviar.TabIndex = 8;
@@ -404,22 +420,22 @@
             // 
             // dpFechaFinal
             // 
-            this.dpFechaFinal.CustomFormat = "yyyy-MM-dd";
+            this.dpFechaFinal.CustomFormat = "yyyy-MM-dd HH:mm";
             this.dpFechaFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dpFechaFinal.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dpFechaFinal.Location = new System.Drawing.Point(510, 45);
+            this.dpFechaFinal.Location = new System.Drawing.Point(560, 44);
             this.dpFechaFinal.Name = "dpFechaFinal";
-            this.dpFechaFinal.Size = new System.Drawing.Size(100, 22);
+            this.dpFechaFinal.Size = new System.Drawing.Size(135, 22);
             this.dpFechaFinal.TabIndex = 7;
             // 
             // dpFechaInicial
             // 
-            this.dpFechaInicial.CustomFormat = "yyyy-MM-dd";
+            this.dpFechaInicial.CustomFormat = "yyyy-MM-dd HH:mm";
             this.dpFechaInicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dpFechaInicial.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dpFechaInicial.Location = new System.Drawing.Point(404, 45);
+            this.dpFechaInicial.Location = new System.Drawing.Point(417, 45);
             this.dpFechaInicial.Name = "dpFechaInicial";
-            this.dpFechaInicial.Size = new System.Drawing.Size(100, 22);
+            this.dpFechaInicial.Size = new System.Drawing.Size(137, 22);
             this.dpFechaInicial.TabIndex = 6;
             // 
             // btnNuevaVenta
@@ -433,7 +449,7 @@
             this.btnNuevaVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevaVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevaVenta.ForeColor = System.Drawing.Color.White;
-            this.btnNuevaVenta.Location = new System.Drawing.Point(639, 27);
+            this.btnNuevaVenta.Location = new System.Drawing.Point(713, 27);
             this.btnNuevaVenta.Name = "btnNuevaVenta";
             this.btnNuevaVenta.Size = new System.Drawing.Size(127, 25);
             this.btnNuevaVenta.TabIndex = 5;
@@ -451,9 +467,9 @@
             this.btnBuscarVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscarVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscarVentas.ForeColor = System.Drawing.Color.White;
-            this.btnBuscarVentas.Location = new System.Drawing.Point(616, 45);
+            this.btnBuscarVentas.Location = new System.Drawing.Point(417, 72);
             this.btnBuscarVentas.Name = "btnBuscarVentas";
-            this.btnBuscarVentas.Size = new System.Drawing.Size(75, 24);
+            this.btnBuscarVentas.Size = new System.Drawing.Size(278, 24);
             this.btnBuscarVentas.TabIndex = 4;
             this.btnBuscarVentas.Text = "Buscar";
             this.btnBuscarVentas.UseVisualStyleBackColor = false;
@@ -507,7 +523,7 @@
             this.panel1.ForeColor = System.Drawing.Color.Red;
             this.panel1.Location = new System.Drawing.Point(0, 495);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(910, 66);
+            this.panel1.Size = new System.Drawing.Size(984, 66);
             this.panel1.TabIndex = 7;
             // 
             // btnActualizarMaximoProductos
@@ -519,7 +535,7 @@
             this.btnActualizarMaximoProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizarMaximoProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizarMaximoProductos.ForeColor = System.Drawing.Color.Black;
-            this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(796, 25);
+            this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(833, 25);
             this.btnActualizarMaximoProductos.Name = "btnActualizarMaximoProductos";
             this.btnActualizarMaximoProductos.Size = new System.Drawing.Size(89, 23);
             this.btnActualizarMaximoProductos.TabIndex = 29;
@@ -531,7 +547,7 @@
             // 
             this.txtMaximoPorPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtMaximoPorPagina.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMaximoPorPagina.Location = new System.Drawing.Point(730, 26);
+            this.txtMaximoPorPagina.Location = new System.Drawing.Point(767, 26);
             this.txtMaximoPorPagina.Name = "txtMaximoPorPagina";
             this.txtMaximoPorPagina.Size = new System.Drawing.Size(56, 20);
             this.txtMaximoPorPagina.TabIndex = 28;
@@ -544,7 +560,7 @@
             this.panel4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel4.Controls.Add(this.btnSiguiente);
             this.panel4.Controls.Add(this.btnUltimaPagina);
-            this.panel4.Location = new System.Drawing.Point(503, 20);
+            this.panel4.Location = new System.Drawing.Point(540, 20);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(59, 32);
             this.panel4.TabIndex = 26;
@@ -586,7 +602,7 @@
             this.panel3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel3.Controls.Add(this.btnPrimeraPagina);
             this.panel3.Controls.Add(this.btnAnterior);
-            this.panel3.Location = new System.Drawing.Point(348, 20);
+            this.panel3.Location = new System.Drawing.Point(385, 20);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(56, 32);
             this.panel3.TabIndex = 25;
@@ -629,9 +645,9 @@
             this.linkLblPaginaSiguiente.AutoSize = true;
             this.linkLblPaginaSiguiente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(475, 28);
+            this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(512, 28);
             this.linkLblPaginaSiguiente.Name = "linkLblPaginaSiguiente";
-            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(15, 16);
+            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(14, 16);
             this.linkLblPaginaSiguiente.TabIndex = 24;
             this.linkLblPaginaSiguiente.TabStop = true;
             this.linkLblPaginaSiguiente.Text = "3";
@@ -643,9 +659,9 @@
             this.linkLblPaginaActual.AutoSize = true;
             this.linkLblPaginaActual.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaActual.Location = new System.Drawing.Point(448, 28);
+            this.linkLblPaginaActual.Location = new System.Drawing.Point(485, 28);
             this.linkLblPaginaActual.Name = "linkLblPaginaActual";
-            this.linkLblPaginaActual.Size = new System.Drawing.Size(15, 16);
+            this.linkLblPaginaActual.Size = new System.Drawing.Size(14, 16);
             this.linkLblPaginaActual.TabIndex = 23;
             this.linkLblPaginaActual.TabStop = true;
             this.linkLblPaginaActual.Text = "2";
@@ -657,9 +673,9 @@
             this.linkLblPaginaAnterior.AutoSize = true;
             this.linkLblPaginaAnterior.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaAnterior.Location = new System.Drawing.Point(418, 28);
+            this.linkLblPaginaAnterior.Location = new System.Drawing.Point(455, 28);
             this.linkLblPaginaAnterior.Name = "linkLblPaginaAnterior";
-            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(15, 16);
+            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(14, 16);
             this.linkLblPaginaAnterior.TabIndex = 22;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "1";
@@ -670,7 +686,7 @@
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Black;
-            this.label7.Location = new System.Drawing.Point(623, 8);
+            this.label7.Location = new System.Drawing.Point(660, 8);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(107, 51);
             this.label7.TabIndex = 27;
@@ -683,7 +699,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pBar_descarga_verpdf.Location = new System.Drawing.Point(136, 421);
             this.pBar_descarga_verpdf.Name = "pBar_descarga_verpdf";
-            this.pBar_descarga_verpdf.Size = new System.Drawing.Size(668, 23);
+            this.pBar_descarga_verpdf.Size = new System.Drawing.Size(742, 23);
             this.pBar_descarga_verpdf.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.pBar_descarga_verpdf.TabIndex = 8;
             this.pBar_descarga_verpdf.Visible = false;
@@ -731,7 +747,7 @@
             // 
             this.chkHDAutlan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkHDAutlan.AutoSize = true;
-            this.chkHDAutlan.Location = new System.Drawing.Point(728, 172);
+            this.chkHDAutlan.Location = new System.Drawing.Point(802, 172);
             this.chkHDAutlan.Name = "chkHDAutlan";
             this.chkHDAutlan.Size = new System.Drawing.Size(170, 17);
             this.chkHDAutlan.TabIndex = 68;
@@ -741,27 +757,11 @@
             this.chkHDAutlan.CheckedChanged += new System.EventHandler(this.chkHDAutlan_CheckedChanged);
             this.chkHDAutlan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkHDAutlan_MouseClick);
             // 
-            // button1
-            // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(639, 83);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(244, 25);
-            this.button1.TabIndex = 16;
-            this.button1.Text = "Asignar Cliente/Metodo de Pago";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // ListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(910, 561);
+            this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.chkHDAutlan);
             this.Controls.Add(this.chTodos);
             this.Controls.Add(this.lb_txt_ruta_descargar);
