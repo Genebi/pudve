@@ -18,6 +18,7 @@ using System.Threading;
 using System.Globalization;
 using System.Collections;
 using Org.BouncyCastle.Bcpg;
+using Org.BouncyCastle.Asn1.Cms;
 
 namespace PuntoDeVentaV2
 {
@@ -558,14 +559,55 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        int n;
 
-                        esNumero = int.TryParse(buscador, out n);
+                        var posiblesFolios = buscador.Split(' ');
+                        var queryAux = string.Empty;
+
+                        if (posiblesFolios.Count() >= 2)
+                        {
+                            foreach (var item in posiblesFolios)
+                            {
+                                if (!string.IsNullOrWhiteSpace(item))
+                                {
+                                    int auxFolio;
+
+                                    esNumero = int.TryParse(item, out auxFolio);
+
+                                    queryAux += $"{auxFolio},";
+
+                                    if (!esNumero)
+                                    {
+                                        queryAux = string.Empty;
+                                        break;
+                                    }
+                                }  
+                            }
+
+                            if (!string.IsNullOrWhiteSpace(queryAux))
+                            {
+                                queryAux = queryAux.Remove(queryAux.Length - 1);
+                            }
+
+                        }
+                        else
+                        {
+                            int n;
+
+                            esNumero = int.TryParse(buscador, out n);
+                        }
 
                         if (esNumero)
                         {
-                            //extra = $"AND Folio = {buscador}";
-                            extra = cs.ParametroDeBusquedaFolioSiendoAdministrador(buscador);
+                            int tipoBusquedaFolio = 1;
+
+                            if (!string.IsNullOrWhiteSpace(queryAux))
+                            {
+                                buscador = queryAux;
+
+                                tipoBusquedaFolio = 2;
+                            }
+
+                            extra = cs.ParametroDeBusquedaFolioSiendoAdministrador(buscador, tipoBusquedaFolio);
                         }
                         else
                         {
