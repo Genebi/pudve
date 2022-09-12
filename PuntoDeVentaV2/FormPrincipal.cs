@@ -1034,9 +1034,9 @@ namespace PuntoDeVentaV2
 
         }
 
-        private void progressBar1_Click(object sender, EventArgs e)
+        private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            mg.EliminarFiltros();
         }
 
         private void BtnConsulta_Click(object sender, EventArgs e)
@@ -1440,6 +1440,8 @@ namespace PuntoDeVentaV2
                 mensajeDelMessageBox = "¿Estás seguro de cerrar la Sesion\nde: " + userNickName + "?";
             }
 
+            mg.EliminarFiltros();
+
             if (desdeCorteDeCaja.Equals(true) && this.Visible.Equals(true))
             {
                 mostrarMensajeDeCerrarSesion(mensajeDelMessageBox, tituloDelMessageBox);
@@ -1526,11 +1528,6 @@ namespace PuntoDeVentaV2
             //    }
             //    backUpDB.crearsaveFile();
             //}
-        }
-
-        private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            
         }
 
         private void timerProductos_Tick(object sender, EventArgs e)
