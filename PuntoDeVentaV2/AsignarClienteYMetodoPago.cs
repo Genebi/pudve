@@ -251,7 +251,7 @@ namespace PuntoDeVentaV2
             {
                 RFC = RFCCliente.Rows[0]["RFC"].ToString();
             }
-            cn.EjecutarConsulta($"UPDATE ventas SET IDCliente = '{idClienteGlobal}', Cliente = '{NombreCliente}',RFC ='{RFC}' WHERE ID = {id} AND s ");
+            cn.EjecutarConsulta($"UPDATE ventas SET IDCliente = '{idClienteGlobal}', Cliente = '{NombreCliente}',RFC ='{RFC}' WHERE ID = {id}");
         }
 
         private void CambiarSoloStatus(string id)

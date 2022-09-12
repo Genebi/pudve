@@ -283,15 +283,15 @@ namespace PuntoDeVentaV2
             GenerarCheckbox(170, 130, 110, "Ver Último Ticket", datos[13]);
             GenerarCheckbox(170, 250, 135, "Guardar Presupuesto", datos[14]);
             //=============================================================
-            GenerarCheckbox(200, 10, 115, "Descuento Cliente", datos[15]);
+            GenerarCheckbox(200, 10, 115, "Asignar Cliente", datos[15]);
             GenerarCheckbox(200, 130, 110, "Elimininar Último", datos[16]);
             GenerarCheckbox(200, 250, 135, "Eliminar Todos", datos[17]);
             //=============================================================
             GenerarCheckbox(230, 10, 115, "Aplicar Descuento", datos[18]);
             GenerarCheckbox(230, 130, 110, "Terminar Venta", datos[19]);
-            GenerarCheckbox(230, 250, 200,"Venta a Cliente con descuento",datos[43]);
+            GenerarCheckbox(230, 250, 200,"Venta con descuento",datos[43]);
             //=============================================================
-            GenerarCheckbox(260, 10, 250, "Venta a Cliente con descuento sin autorizacion", datos[44]);
+            //GenerarCheckbox(260, 10, 250, "Venta a Cliente con descuento sin autorizacion", datos[44]);
         }
 
         private void GenerarInventario()
