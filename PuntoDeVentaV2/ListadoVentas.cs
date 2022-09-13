@@ -5082,6 +5082,10 @@ namespace PuntoDeVentaV2
                 
                 AsignarClienteYMetodoPago asignar = new AsignarClienteYMetodoPago(IDsVenta);
                 asignar.ShowDialog();
+                chTodos.Checked = false;
+                obtenerIDSeleccionados();
+                MessageBox.Show("Proceso Finalizado","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+              
             }
             else
             {

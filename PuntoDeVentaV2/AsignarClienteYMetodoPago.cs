@@ -420,11 +420,11 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta($"UPDATE detallesventa SET Credito = {cambioCredito} WHERE IDVenta = '{id}'");
                     }
-                    cn.EjecutarConsulta($"UPDATE ventas SET FormaPago = '{FormaPago}', `Status` = '{status}',DineroRecibido = '0.00' WHERE ID = {id}");
+                    cn.EjecutarConsulta($"UPDATE ventas SET IDCliente = '{idClienteGlobal}', Cliente = '{NombreCliente}',RFC ='{RFC}', FormaPago = '{FormaPago}', `Status` = '{status}',DineroRecibido = '0.00' WHERE ID = {id}");
                 }
                 else
                 {
-                    cn.EjecutarConsulta($"UPDATE ventas SET FormaPago = '{FormaPago}', `Status` = '{status}' WHERE ID = {id}");
+                    cn.EjecutarConsulta($"UPDATE ventas SET IDCliente = '{idClienteGlobal}', Cliente = '{NombreCliente}',RFC ='{RFC}', FormaPago = '{FormaPago}', `Status` = '{status}' WHERE ID = {id}");
                 }
                 cn.EjecutarConsulta($"UPDATE caja SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE FechaOperacion = '{FechaDePago}'");
                 
@@ -487,11 +487,11 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta($"UPDATE detallesventa SET Credito = {cambioCredito} WHERE IDVenta = '{id}'");
                     }
-                    cn.EjecutarConsulta($"UPDATE ventas SET FormaPago = '{FormaPago}', `Status` = '{status}',DineroRecibido = '0.00' WHERE ID = {id}");
+                    cn.EjecutarConsulta($"UPDATE ventas SET IDCliente = '{idClienteGlobal}', Cliente = '{NombreCliente}',RFC ='{RFC}', FormaPago = '{FormaPago}', `Status` = '{status}',DineroRecibido = '0.00' WHERE ID = {id}");
                 }
                 else
                 {
-                    cn.EjecutarConsulta($"UPDATE ventas SET FormaPago = '{FormaPago}', `Status` = '{status}' WHERE ID = {id}");
+                    cn.EjecutarConsulta($"UPDATE ventas SET IDCliente = '{idClienteGlobal}', Cliente = '{NombreCliente}',RFC ='{RFC}',FormaPago = '{FormaPago}', `Status` = '{status}' WHERE ID = {id}");
                 }
                 cn.EjecutarConsulta($"UPDATE caja SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE FechaOperacion = '{FechaDePago}'");
                 
