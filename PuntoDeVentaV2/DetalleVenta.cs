@@ -40,7 +40,7 @@ namespace PuntoDeVentaV2
         int escredito = 0;
         int primer = 0;
         bool dioClickEnCredito = false;
-       
+
 
         public DetalleVenta(float total, string idCliente = "")
         {
@@ -81,25 +81,27 @@ namespace PuntoDeVentaV2
             txtVales.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtCheque.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtTransferencia.KeyPress += new KeyPressEventHandler(SoloDecimales);
+            txtCredito.KeyPress += new KeyPressEventHandler(SoloDecimales);
 
             txtEfectivo.KeyDown += new KeyEventHandler(TerminarVenta);
             txtTarjeta.KeyDown += new KeyEventHandler(TerminarVenta);
             txtVales.KeyDown += new KeyEventHandler(TerminarVenta);
             txtCheque.KeyDown += new KeyEventHandler(TerminarVenta);
             txtTransferencia.KeyDown += new KeyEventHandler(TerminarVenta);
+            txtCredito.KeyDown += new KeyEventHandler(TerminarVenta);
 
-            //txtEfectivo.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
-            //txtTarjeta.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
-            //txtVales.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
-            //txtCheque.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
-            //txtTransferencia.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            txtEfectivo.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            txtTarjeta.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            txtVales.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            txtCheque.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            txtTransferencia.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
+            txtCredito.PreviewKeyDown += new PreviewKeyDownEventHandler(EventoTab);
 
             //txtTarjeta.KeyUp += new KeyEventHandler(SumaMetodosPago);
             //txtVales.KeyUp += new KeyEventHandler(SumaMetodosPago);
             //txtCheque.KeyUp += new KeyEventHandler(SumaMetodosPago);
             //txtTransferencia.KeyUp += new KeyEventHandler(SumaMetodosPago);
 
-            txtEfectivo.Text = total.ToString("0.00");
             if (!idCliente.Equals(0))
             {
                 lbCliente.Text = cliente;
@@ -113,6 +115,8 @@ namespace PuntoDeVentaV2
             {
                 txtTotalVenta.Text = total.ToString("C2");
             }
+
+            txtEfectivo.Text = total.ToString("0.00");
         }
 
         private double getMayorNumber(List<string> listaNumeros)
@@ -158,7 +162,7 @@ namespace PuntoDeVentaV2
                 return;
             }
             Ventas venta = new Ventas();
-                    float pagado = (CantidadDecimal(txtEfectivo.Text) + SumaMetodos()) * 100 / 100;
+            float pagado = (CantidadDecimal(txtEfectivo.Text) + SumaMetodos()) * 100 / 100;
 
             List<string> listaCantidades = new List<string>();
 
@@ -185,7 +189,7 @@ namespace PuntoDeVentaV2
                 Ventas.cheque = CantidadDecimal(txtCheque.Text).ToString("0.00");
                 Ventas.transferencia = CantidadDecimal(txtTransferencia.Text).ToString("0.00");
                 Ventas.referencia = txtReferencia.Text;
-                
+
                 listaCantidades.Add(txtEfectivo.Text);
                 listaCantidades.Add(txtTarjeta.Text);
                 listaCantidades.Add(txtTransferencia.Text);
@@ -235,7 +239,7 @@ namespace PuntoDeVentaV2
 
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
-                
+
                 if (!txtCredito.Text.Equals(""))
                 {
                     Ventas.statusVenta = "4";
@@ -300,11 +304,11 @@ namespace PuntoDeVentaV2
                                 DataRow drPublicoGeneral = dtPublicoGeneral.Rows[0];
                                 IDPublicoGeneral = Convert.ToInt32(drPublicoGeneral["ID"].ToString());
                                 razonSocialPublicoGeneral = drPublicoGeneral["RazonSocial"].ToString();
-                               
+
                                 Ventas.idCliente = IDPublicoGeneral.ToString();
                                 //Ventas.ventaGuardada = true;
                                 Ventas.cliente = razonSocialPublicoGeneral;
-                                
+
                             }
                             else
                             {
@@ -358,7 +362,7 @@ namespace PuntoDeVentaV2
                                             DataRow drNuevoPublicoGeneral = dtNuevoClienteGeneral.Rows[0];
                                             IDPublicoGeneral = Convert.ToInt32(drNuevoPublicoGeneral["ID"].ToString());
                                             razonSocialPublicoGeneral = drNuevoPublicoGeneral["RazonSocial"].ToString();
-                                            
+
                                             Ventas.idCliente = IDPublicoGeneral.ToString();
                                             Ventas.cliente = razonSocialPublicoGeneral;
                                         }
@@ -366,8 +370,8 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
-                        
-                        
+
+
                     }
                 }
                 else if (Ventas.etiqeutaCliente != "vacio")
@@ -516,10 +520,10 @@ namespace PuntoDeVentaV2
                 {
                     lbEliminarCliente.Visible = true;
                 }
-                
+
                 restante = total - credito;
                 txtEfectivo.Text = restante.ToString();
-                
+
 
             };
             escredito = 1;
@@ -565,7 +569,7 @@ namespace PuntoDeVentaV2
             float cheque = CantidadDecimal(txtCheque.Text);
             float transferencia = CantidadDecimal(txtTransferencia.Text);
             float creditotxt = CantidadDecimal(txtCredito.Text);
-            float suma = tarjeta + vales + cheque + transferencia+ creditotxt;
+            float suma = tarjeta + vales + cheque + transferencia + creditotxt;
 
             return suma;
         }
@@ -655,8 +659,6 @@ namespace PuntoDeVentaV2
 
         private void CalcularCambio()
         {
-
-
             //if (credito >= total)
             //{
             //    cambio = 0;
@@ -707,7 +709,6 @@ namespace PuntoDeVentaV2
 
             decimal mandar = Convert.ToDecimal(cambio);
             InformacionVenta informacionVenta = new InformacionVenta((long)Convert.ToDouble(mandar));
-
         }
 
         private void lbEliminarCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -747,90 +748,54 @@ namespace PuntoDeVentaV2
 
         private void DetalleVenta_KeyDown(object sender, KeyEventArgs e)
         {
-            //if (e.KeyData == Keys.End)
-            //{
-            //    btnAceptar.PerformClick();
-            //}
-
             if (e.KeyData == Keys.Escape)
             {
                 Close();
             }
-
-            //var campos = new string[] {
-            //    "txtEfectivo",
-            //    "txtTarjeta",
-            //    "txtTransferencia",
-            //    "txtCheque",
-            //    "txtVales"
-            //};
-
-            //if (e.KeyData.Equals(Keys.Right))
-            //{
-            //    var indexCampos = Array.IndexOf(campos, nameOfControl);
-            //    var indexAnteriorSiguiente = indexCampos + 1;
-
-            //    if (indexAnteriorSiguiente >= 0 && indexAnteriorSiguiente <= 4)
-            //    {
-            //        TextBox actual, siguiente;
-            //        var textBoxActual = campos[indexCampos].ToString();
-            //        var textBoxSiguiente = campos[indexAnteriorSiguiente].ToString();
-            //        actual = (TextBox)Controls.Find(textBoxActual, true)[0];
-            //        siguiente = (TextBox)Controls.Find(textBoxSiguiente, true)[0];
-
-            //        //obtenerCantidad(actual.Text, textBoxSiguiente);
-            //        siguiente.SelectAll();
-            //        siguiente.Focus();
-            //    }
-            //}
-            //else if (e.KeyData.Equals(Keys.Left))
-            //{
-            //    var indexCampos = Array.IndexOf(campos, nameOfControl);
-            //    var indexAnteriorSiguiente = indexCampos - 1;
-
-            //    if (indexAnteriorSiguiente >= 0 && indexAnteriorSiguiente <= 4)
-            //    {
-            //        TextBox actual, anterior;
-            //        var textBoxActual = campos[indexCampos].ToString();
-            //        var textBoxAnterior = campos[indexAnteriorSiguiente].ToString();
-            //        actual = (TextBox)Controls.Find(textBoxActual, true)[0];
-            //        anterior = (TextBox)Controls.Find(textBoxAnterior, true)[0];
-
-            //        //obtenerCantidad(actual.Text, textBoxAnterior);
-            //        anterior.SelectAll();
-            //        anterior.Focus();
-            //    }
-            //}
         }
 
         private void EventoTab(object sender, PreviewKeyDownEventArgs e)
         {
             var campos = new string[] {
-                "txtEfectivo", "txtTarjeta", "txtTransferencia",
-                "txtCheque", "txtVales"
+                "txtEfectivo", "txtTarjeta",
+                "txtTransferencia", "txtCheque",
+                "txtVales", "txtCredito"
             };
 
             if (e.KeyData == Keys.Tab)
             {
-                var actual = (TextBox)sender;
+                var txtOrigen = (TextBox)sender;
+                nameOfControl = txtOrigen.Name;
 
-                if (actual.SelectionLength > 0)
+                var indexCampos = Array.IndexOf(campos, nameOfControl);
+                var indexAnteriorSiguiente = indexCampos + 1;
+
+                if (indexAnteriorSiguiente >= 0 && indexAnteriorSiguiente <= 5)
                 {
-                    if (campos.Contains(actual.Name))
+                    var textBoxSiguiente = campos[indexAnteriorSiguiente].ToString();
+
+                    foreach (Control frmControls in this.Controls)
                     {
-                        var posicion = Array.IndexOf(campos, actual.Name);
-
-                        if ((posicion + 1) >= 0 & (posicion + 1) <= 4)
+                        if (frmControls is TextBox && frmControls.Name.Equals(textBoxSiguiente))
                         {
-                            var cantidad = actual.Text.Trim();
-                            var siguiente = (TextBox)Controls.Find(campos[posicion + 1], true).First();
+                            var txtFrmControl = (TextBox)frmControls;
 
-                            actual.Text = string.Empty;
-                            siguiente.Text = cantidad;
+                            txtFrmControl.SelectAll();
+                            break;
                         }
                     }
                 }
             }
+        }
+
+        private decimal calcularRestanteDePago()
+        {
+            decimal faltante = 0;
+            var cantidadTotalVenta = txtTotalVenta.Text.ToString().Replace("$", string.Empty);
+
+            faltante = Convert.ToDecimal(cantidadTotalVenta);
+
+            return faltante;
         }
 
         private void txtTarjeta_KeyUp(object sender, KeyEventArgs e)
@@ -877,34 +842,74 @@ namespace PuntoDeVentaV2
 
             if (string.IsNullOrWhiteSpace(contenidoTexto) && dioClickEnTextBox.Equals(false))
             {
-                obtenerCantidad(txtEfectivo.Text, nameOfControl);
+                //obtenerCantidad(txtEfectivo.Text, nameOfControl);
+                var faltanteDePago = calcularRestanteDePago();
+
+                if (faltanteDePago > 0)
+                {
+                    txtEfectivo.Text = faltanteDePago.ToString("N2");
+                }
             }
 
             if (dioClickEnTextBox)
             {
-                obtenerCantidad(txtEfectivo.Text, nameOfControl);
+                //obtenerCantidad(txtEfectivo.Text, nameOfControl);
+                var faltanteDePago = calcularRestanteDePago();
+
+                if (faltanteDePago > 0)
+                {
+                    txtEfectivo.Text = faltanteDePago.ToString("N2");
+                }
                 dioClickEnTextBox = false;
             }
         }
 
         private void txtTarjeta_Enter(object sender, EventArgs e)
         {
-            var contenidoTexto = txtEfectivo.Text;
+            var contenidoTexto = txtTarjeta.Text;
 
             nameOfControl = txtTarjeta.Name.ToString();
 
+            if (string.IsNullOrWhiteSpace(contenidoTexto) && dioClickEnTextBox.Equals(false))
+            {
+                //obtenerCantidad(txtEfectivo.Text, nameOfControl);
+                var faltanteDePago = calcularRestanteDePago();
+
+                if (faltanteDePago > 0)
+                {
+                    txtTarjeta.Text = faltanteDePago.ToString("N2");
+                }
+            }
+
             if (dioClickEnTextBox)
             {
-                obtenerCantidad(txtTarjeta.Text, nameOfControl);
+                //obtenerCantidad(txtTarjeta.Text, nameOfControl);
+                var faltanteDePago = calcularRestanteDePago();
+
+                if (faltanteDePago > 0)
+                {
+                    txtTarjeta.Text = faltanteDePago.ToString("N2");
+                }
                 dioClickEnTextBox = false;
             }
         }
 
         private void txtTransferencia_Enter(object sender, EventArgs e)
         {
-            var contenidoTexto = txtEfectivo.Text;
+            var contenidoTexto = txtTransferencia.Text;
 
             nameOfControl = txtTransferencia.Name.ToString();
+
+            if (string.IsNullOrWhiteSpace(contenidoTexto) && dioClickEnTextBox.Equals(false))
+            {
+                //obtenerCantidad(txtEfectivo.Text, nameOfControl);
+                var faltanteDePago = calcularRestanteDePago();
+
+                if (faltanteDePago > 0)
+                {
+                    txtTransferencia.Text = faltanteDePago.ToString("N2");
+                }
+            }
 
             if (dioClickEnTextBox)
             {
@@ -915,9 +920,20 @@ namespace PuntoDeVentaV2
 
         private void txtCheque_Enter(object sender, EventArgs e)
         {
-            var contenidoTexto = txtEfectivo.Text;
+            var contenidoTexto = txtCheque.Text;
 
             nameOfControl = txtCheque.Name.ToString();
+
+            if (string.IsNullOrWhiteSpace(contenidoTexto) && dioClickEnTextBox.Equals(false))
+            {
+                //obtenerCantidad(txtEfectivo.Text, nameOfControl);
+                var faltanteDePago = calcularRestanteDePago();
+
+                if (faltanteDePago > 0)
+                {
+                    txtCheque.Text = faltanteDePago.ToString("N2");
+                }
+            }
 
             if (dioClickEnTextBox)
             {
@@ -928,9 +944,20 @@ namespace PuntoDeVentaV2
 
         private void txtVales_Enter(object sender, EventArgs e)
         {
-            var contenidoTexto = txtEfectivo.Text;
+            var contenidoTexto = txtVales.Text;
 
             nameOfControl = txtVales.Name.ToString();
+
+            if (string.IsNullOrWhiteSpace(contenidoTexto) && dioClickEnTextBox.Equals(false))
+            {
+                //obtenerCantidad(txtEfectivo.Text, nameOfControl);
+                var faltanteDePago = calcularRestanteDePago();
+
+                if (faltanteDePago > 0)
+                {
+                    txtVales.Text = faltanteDePago.ToString("N2");
+                }
+            }
 
             if (dioClickEnTextBox)
             {
@@ -1067,30 +1094,23 @@ namespace PuntoDeVentaV2
 
         private void txtEfectivo_TextChanged(object sender, EventArgs e)
         {
-            
+            if (txtEfectivo.TextLength == 1 && txtEfectivo.Text.Equals("."))
+            {
+                //txtEfectivo.Text = string.Empty;
+                txtEfectivo.Text = "0.";
+                txtEfectivo.Select(txtEfectivo.Text.Length, 0);
+            }
 
-            
-                if (txtEfectivo.TextLength == 1 && txtEfectivo.Text.Equals("."))
-                {
-                    //txtEfectivo.Text = string.Empty;
-                    txtEfectivo.Text = "0.";
-                    txtEfectivo.Select(txtEfectivo.Text.Length, 0);
-                }
+            var totalVenta = float.Parse(txtTotalVenta.Text.Remove(0, 1));
+            var totalEfectivo = 0f;
 
-                var totalVenta = float.Parse(txtTotalVenta.Text.Remove(0, 1));
-                var totalEfectivo = 0f;
+            if (!string.IsNullOrWhiteSpace(txtEfectivo.Text.Trim()))
+            {
+                totalEfectivo = float.Parse(txtEfectivo.Text.Trim());
+            }
 
-                if (!string.IsNullOrWhiteSpace(txtEfectivo.Text.Trim()))
-                {
-                    totalEfectivo = float.Parse(txtEfectivo.Text.Trim());
-                }
-
-
-
-                CalcularCambio();
-                RestaPrecio();
-            
-            
+            CalcularCambio();
+            RestaPrecio();
         }
 
         private void RestaPrecio()
@@ -1131,9 +1151,6 @@ namespace PuntoDeVentaV2
                 }
 
             }
-
-           
-
         }
 
         private void txtTransferencia_TextChanged(object sender, EventArgs e)
@@ -1163,52 +1180,79 @@ namespace PuntoDeVentaV2
         private void txtEfectivo_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode.Equals(Keys.Right))
+            {
                 SendKeys.Send("{TAB}");
-
-            
+            }
         }
 
         private void txtTarjeta_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode.Equals(Keys.Right))
+            {
                 SendKeys.Send("{TAB}");
+            }
 
             if (e.KeyCode.Equals(Keys.Left))
+            {
                 SendKeys.Send("+{TAB}");
+            }
         }
 
         private void txtTransferencia_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode.Equals(Keys.Right))
+            {
                 SendKeys.Send("{TAB}");
+            }
 
             if (e.KeyCode.Equals(Keys.Left))
+            {
                 SendKeys.Send("+{TAB}");
+            }
         }
 
         private void txtCheque_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode.Equals(Keys.Right))
+            {
                 SendKeys.Send("{TAB}");
+            }
 
             if (e.KeyCode.Equals(Keys.Left))
+            {
                 SendKeys.Send("+{TAB}");
+            }
         }
 
         private void txtVales_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode.Equals(Keys.Right))
+            {
                 SendKeys.Send("{TAB}");
+            }
 
             if (e.KeyCode.Equals(Keys.Left))
+            {
                 SendKeys.Send("+{TAB}");
+            }
         }
 
         private void txtCredito_Enter(object sender, EventArgs e)
         {
-            var contenidoTexto = txtEfectivo.Text;
+            var contenidoTexto = txtCredito.Text;
 
             nameOfControl = txtCredito.Name.ToString();
+
+            if (string.IsNullOrWhiteSpace(contenidoTexto) && dioClickEnTextBox.Equals(false))
+            {
+                //obtenerCantidad(txtEfectivo.Text, nameOfControl);
+                var faltanteDePago = calcularRestanteDePago();
+
+                if (faltanteDePago > 0)
+                {
+                    txtCredito.Text = faltanteDePago.ToString("N2");
+                }
+            }
 
             if (dioClickEnTextBox)
             {
@@ -1220,7 +1264,9 @@ namespace PuntoDeVentaV2
         private void txtCredito_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode.Equals(Keys.Left))
+            {
                 SendKeys.Send("+{TAB}");
+            }
         }
 
         private void txtCredito_KeyUp(object sender, KeyEventArgs e)
@@ -1231,11 +1277,12 @@ namespace PuntoDeVentaV2
                 txtCredito.Select(txtCredito.Text.Length, 0);
             }
         }
+
         private void txtCredito_TextChanged(object sender, EventArgs e)
         {
             CalcularCambio();
             RestaPrecio();
-            if (string.IsNullOrEmpty(txtCheque.Text) && string.IsNullOrEmpty(txtTarjeta.Text)&& string.IsNullOrEmpty(txtTransferencia.Text))
+            if (string.IsNullOrEmpty(txtCheque.Text) && string.IsNullOrEmpty(txtTarjeta.Text) && string.IsNullOrEmpty(txtTransferencia.Text))
             {
                 decimal credito;
                 decimal newTotal;
@@ -1249,17 +1296,15 @@ namespace PuntoDeVentaV2
                 }
                 if (Convert.ToDecimal(total) < credito)
                 {
-                   newTotal = 0;
+                    newTotal = 0;
                 }
                 else
                 {
                     newTotal = Convert.ToDecimal(total) - credito;
                 }
-                
+
                 txtEfectivo.Text = newTotal.ToString();
             }
         }
-
-       
     }
 }
