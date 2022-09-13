@@ -1061,8 +1061,7 @@ namespace PuntoDeVentaV2
                     {
                         habilitado = 1;
                     }
-
-                        string consulta =$"UPDATE Configuracion SET CorreoVentaDescuento = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    string consulta =$"UPDATE Configuracion SET CorreoVentaDescuento = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                     confiCorreo.Add(consulta);
 
                 }
@@ -1402,6 +1401,11 @@ namespace PuntoDeVentaV2
                     return;
                 }
             }
+        }
+
+        private void CBXClienteDescuento_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

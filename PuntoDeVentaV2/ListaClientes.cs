@@ -72,52 +72,66 @@ namespace PuntoDeVentaV2
             }
 
             var consulta = string.Empty;
-
-            if (string.IsNullOrWhiteSpace(busqueda))
-            {
-                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
-            }
-            else
-            {
-                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (RazonSocial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR NumeroCliente LIKE '%{busqueda}%')";
-            }
+           
+                if (string.IsNullOrWhiteSpace(busqueda))
+                {
+                    consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
+                }
+                else
+                {
+                    consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (RazonSocial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR NumeroCliente LIKE '%{busqueda}%')";
+                }
+          
             if (Ventas.EsGuardarVenta.Equals(false))
             {
-                CBXConDescuento.Visible = true;
+                if (FormPrincipal.userNickName.Contains('@'))
+                {
+                    var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+                    if (datos[15].Equals(1))
+                    {
+                        CBXConDescuento.Visible = true;
+                    }
+                }
+                else
+                {
+                    CBXConDescuento.Visible = true;
+                }
                 
             }
-            sql_con.Open();
-            sql_cmd = new MySqlCommand(consulta, sql_con);
-            dr = sql_cmd.ExecuteReader();
+                sql_con.Open();
+                sql_cmd = new MySqlCommand(consulta, sql_con);
+                dr = sql_cmd.ExecuteReader();
 
-            DGVClientes.Rows.Clear();
+                DGVClientes.Rows.Clear();
 
-            while (dr.Read())
-            {
-                int rowId = DGVClientes.Rows.Add();
-
-                DataGridViewRow row = DGVClientes.Rows[rowId];
-
-                Image agregar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
-
-                var numeroCliente = dr.GetValue(dr.GetOrdinal("NumeroCliente")).ToString();
-
-                if (string.IsNullOrWhiteSpace(numeroCliente))
+                while (dr.Read())
                 {
-                    numeroCliente = "N/A";
+                    int rowId = DGVClientes.Rows.Add();
+
+                    DataGridViewRow row = DGVClientes.Rows[rowId];
+
+                    Image agregar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
+
+                    var numeroCliente = dr.GetValue(dr.GetOrdinal("NumeroCliente")).ToString();
+
+                    if (string.IsNullOrWhiteSpace(numeroCliente))
+                    {
+                        numeroCliente = "N/A";
+                    }
+
+                    row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
+                    row.Cells["RFC"].Value = dr.GetValue(dr.GetOrdinal("RFC"));
+                    row.Cells["RazonSocial"].Value = dr.GetValue(dr.GetOrdinal("RazonSocial"));
+                    row.Cells["NumeroCliente"].Value = numeroCliente;
+                    row.Cells["Agregar"].Value = agregar;
                 }
 
-                row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
-                row.Cells["RFC"].Value = dr.GetValue(dr.GetOrdinal("RFC"));
-                row.Cells["RazonSocial"].Value = dr.GetValue(dr.GetOrdinal("RazonSocial"));
-                row.Cells["NumeroCliente"].Value = numeroCliente;
-                row.Cells["Agregar"].Value = agregar;
-            }
+                DGVClientes.ClearSelection();
 
-            DGVClientes.ClearSelection();
-
-            dr.Close();
-            sql_con.Close();
+                dr.Close();
+                sql_con.Close();
+            
+            
         }
 
         private void realizarMovimiento()
@@ -515,11 +529,11 @@ namespace PuntoDeVentaV2
             {
                 if (string.IsNullOrWhiteSpace(busqueda))
                 {
-                    consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND TipoCliente > 0 ";
+                   consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND TipoCliente > 0 ";
                 }
                 else
                 {
-                    consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (RazonSocial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR NumeroCliente LIKE '%{busqueda}%') AND TipoCliente > 0";
+                   consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (RazonSocial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR NumeroCliente LIKE '%{busqueda}%') AND TipoCliente > 0";
                 }
             }
             else
@@ -533,11 +547,8 @@ namespace PuntoDeVentaV2
                     consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (RazonSocial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR NumeroCliente LIKE '%{busqueda}%')";
                 }
             }
-               
+                
             
-
-
-
             sql_con.Open();
             sql_cmd = new MySqlCommand(consulta, sql_con);
             dr = sql_cmd.ExecuteReader();
