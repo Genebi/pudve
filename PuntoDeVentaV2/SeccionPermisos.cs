@@ -283,7 +283,7 @@ namespace PuntoDeVentaV2
             GenerarCheckbox(170, 130, 110, "Ver Último Ticket", datos[13]);
             GenerarCheckbox(170, 250, 135, "Guardar Presupuesto", datos[14]);
             //=============================================================
-            GenerarCheckbox(200, 10, 115, "Asignar Cliente", datos[15]);
+            GenerarCheckbox(200, 10, 115, "Asignar Cliente con Descuento", datos[15]);
             GenerarCheckbox(200, 130, 110, "Elimininar Último", datos[16]);
             GenerarCheckbox(200, 250, 135, "Eliminar Todos", datos[17]);
             //=============================================================
@@ -461,7 +461,8 @@ namespace PuntoDeVentaV2
                     var datos = PermisosElegidos();
 
                     cn.EjecutarConsulta($"UPDATE empleadospermisos SET PermisoVentaClienteDescuento = {datos[20]} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = '{apartado}'");
-                    cn.EjecutarConsulta($"UPDATE empleadospermisos SET PermisoVentaClienteDescuentoSinAutorizacion = {datos[21]} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = '{apartado}'");
+                   //
+                   //cn.EjecutarConsulta($"UPDATE empleadospermisos SET PermisoVentaClienteDescuentoSinAutorizacion = {datos[21]} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = '{apartado}'");
                 }
             }
 
@@ -484,7 +485,7 @@ namespace PuntoDeVentaV2
 
                         if (cb.Checked)
                         {
-                        seleccionado = 1;
+                            seleccionado = 1;
                         }
                         opciones.Add(seleccionado);
                     }

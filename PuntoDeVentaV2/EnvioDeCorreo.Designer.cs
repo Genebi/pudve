@@ -84,12 +84,14 @@
             // 
             this.CBXClienteDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.CBXClienteDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.CBXClienteDescuento.Location = new System.Drawing.Point(468, 113);
+            this.CBXClienteDescuento.Location = new System.Drawing.Point(468, 136);
             this.CBXClienteDescuento.Name = "CBXClienteDescuento";
             this.CBXClienteDescuento.Size = new System.Drawing.Size(261, 21);
             this.CBXClienteDescuento.TabIndex = 135;
             this.CBXClienteDescuento.Text = "Al hacer venta a cliente con descuento";
             this.CBXClienteDescuento.UseVisualStyleBackColor = true;
+            this.CBXClienteDescuento.Visible = false;
+            this.CBXClienteDescuento.CheckedChanged += new System.EventHandler(this.CBXClienteDescuento_CheckedChanged);
             this.CBXClienteDescuento.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBox1_MouseClick);
             // 
             // cbRecibirAnricipo
@@ -138,7 +140,7 @@
             // 
             this.cbCorreoDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCorreoDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.cbCorreoDescuento.Location = new System.Drawing.Point(468, 136);
+            this.cbCorreoDescuento.Location = new System.Drawing.Point(468, 115);
             this.cbCorreoDescuento.Name = "cbCorreoDescuento";
             this.cbCorreoDescuento.Size = new System.Drawing.Size(381, 21);
             this.cbCorreoDescuento.TabIndex = 125;

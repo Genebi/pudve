@@ -406,6 +406,14 @@ namespace PuntoDeVentaV2
 
         private void DescuentoTieneFoco(object sender, EventArgs e)
         {
+            if (FormPrincipal.userNickName.Contains('@'))
+            {
+                var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+                if (datos[18].Equals(0))
+                {
+                    return;
+                }
+            }
             if (txtDescuentoGeneral.Text == "% descuento")
             {
                 txtDescuentoGeneral.Text = "";
@@ -1383,6 +1391,15 @@ namespace PuntoDeVentaV2
                 // Descuento
                 if (columnaCellClick.Equals(8))
                 {
+                    if (FormPrincipal.userNickName.Contains('@'))
+                    {
+                        var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+                        if (datos[18].Equals(0))
+                        {
+                            Utilidades.MensajePermiso();
+                            return;
+                        }
+                    }
                     //txtBuscadorProducto.Text = string.Empty;
                     //txtBuscadorProducto.Focus();
 
@@ -3026,35 +3043,49 @@ namespace PuntoDeVentaV2
         private void btnTerminarVenta_Click(object sender, EventArgs e)
         {
             EsGuardarVenta = true;
-            if (ClienteConDescuento.Equals(true))
+            if (FormPrincipal.userNickName.Contains("@"))
             {
-                if (!FormPrincipal.id_empleado.Equals(0))
+                decimal tieneDescuento = Convert.ToDecimal(cDescuento.Text);
+                if (tieneDescuento>0)
                 {
-
-                    int permisoVentaSinAutorizacion,permisoVentaConAutorizacion;
-                    using (DataTable DTPermisoClienteDescuento = cn.CargarDatos(cs.PermissoVentaClienteDescuento(FormPrincipal.userID,FormPrincipal.id_empleado)))
+                    var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+                    if (datos[43].Equals(0))
                     {
-                        permisoVentaConAutorizacion = Convert.ToInt32(DTPermisoClienteDescuento.Rows[0]["PermisoVentaClienteDescuento"]);
-                        permisoVentaSinAutorizacion = Convert.ToInt32(DTPermisoClienteDescuento.Rows[0]["PermisoVentaClienteDescuentoSinAutorizacion"]);
-                    }
-                    if (permisoVentaSinAutorizacion.Equals(0))
-                    {
-                        MessageBox.Show("No tienes permiso para realizar una\n venta a un cliente con descuento","Aviso del Sistema",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("No cuenta con permiso para realizar una venta con Descuento", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
-                    if (permisoVentaConAutorizacion.Equals(0))
-                    {
-                        MessageBox.Show("No tienes permiso para realizar esta venta\n Solicita la autorizacion del Administrador", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        Autorizacion aut = new Autorizacion();
-                        aut.ShowDialog();
-                        if (AutorizacionConfirmada.Equals(false))
-                        {
-                            MessageBox.Show("No se puede Ejecutar esta venta", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
-                    }
-                } 
+                }
             }
+            
+            //if (ClienteConDescuento.Equals(true))
+            //{
+            //    if (!FormPrincipal.id_empleado.Equals(0))
+            //    {
+
+            //        int permisoVentaSinAutorizacion,permisoVentaConAutorizacion;
+            //        using (DataTable DTPermisoClienteDescuento = cn.CargarDatos(cs.PermissoVentaClienteDescuento(FormPrincipal.userID,FormPrincipal.id_empleado)))
+            //        {
+            //            permisoVentaConAutorizacion = Convert.ToInt32(DTPermisoClienteDescuento.Rows[0]["PermisoVentaClienteDescuento"]);
+            //            permisoVentaSinAutorizacion = Convert.ToInt32(DTPermisoClienteDescuento.Rows[0]["PermisoVentaClienteDescuentoSinAutorizacion"]);
+            //        }
+            //        if (permisoVentaSinAutorizacion.Equals(0))
+            //        {
+            //            MessageBox.Show("No tienes permiso para realizar una\n venta a un cliente con descuento","Aviso del Sistema",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //            return;
+            //        }
+            //        if (permisoVentaConAutorizacion.Equals(0))
+            //        {
+            //            MessageBox.Show("No tienes permiso para realizar esta venta\n Solicita la autorizacion del Administrador", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            //            Autorizacion aut = new Autorizacion();
+            //            aut.ShowDialog();
+            //            if (AutorizacionConfirmada.Equals(false))
+            //            {
+            //                MessageBox.Show("No se puede Ejecutar esta venta", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //                return;
+            //            }
+            //        }
+            //    } 
+            //}
             
             foreach (DataGridViewRow fila in DGVentas.Rows)
             {
@@ -3337,7 +3368,7 @@ namespace PuntoDeVentaV2
                                     var datosConfig = mb.ComprobarConfiguracion();
                                     if (datosConfig.Count > 0)
                                         {
-                                        if (datosConfig[28].Equals(1))
+                                        if (datosConfig[23].Equals(1))
                                         {
                                             string UsuOEmp = "usuario";
                                             string nombre = FormPrincipal.userNickName;
@@ -7184,6 +7215,16 @@ namespace PuntoDeVentaV2
 
         private void txtDescuentoGeneral_Enter(object sender, EventArgs e)
         {
+            if (FormPrincipal.userNickName.Contains('@'))
+            {
+                var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+                if (datos[18].Equals(0))
+                {
+                    Utilidades.MensajePermiso();
+                    return;
+                }
+            }
+            
             txtDescuentoGeneral.Text = "";
             txtDescuentoGeneral.Select(0, 0);
         }
@@ -7405,11 +7446,11 @@ namespace PuntoDeVentaV2
         private void botonRedondo3_Click(object sender, EventArgs e)
         {
             EsGuardarVenta = false;
-            if (opcion16 == 0)
-            {
-                Utilidades.MensajePermiso();
-                return;
-            }
+            //if (opcion16 == 0)
+            //{
+            //    Utilidades.MensajePermiso();
+            //    return;
+            //}
 
             if (DGVentas.RowCount == 0)
             {
