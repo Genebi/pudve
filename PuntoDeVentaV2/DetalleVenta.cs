@@ -102,6 +102,8 @@ namespace PuntoDeVentaV2
             //txtCheque.KeyUp += new KeyEventHandler(SumaMetodosPago);
             //txtTransferencia.KeyUp += new KeyEventHandler(SumaMetodosPago);
 
+            txtEfectivo.Text = total.ToString("0.00");
+
             if (!idCliente.Equals(0))
             {
                 lbCliente.Text = cliente;
@@ -115,8 +117,6 @@ namespace PuntoDeVentaV2
             {
                 txtTotalVenta.Text = total.ToString("C2");
             }
-
-            txtEfectivo.Text = total.ToString("0.00");
         }
 
         private double getMayorNumber(List<string> listaNumeros)
@@ -790,10 +790,40 @@ namespace PuntoDeVentaV2
 
         private decimal calcularRestanteDePago()
         {
+            decimal Efectivo = 0,
+                    Tarjeta = 0,
+                    Transferencia = 0,
+                    Cheque = 0,
+                    Vales = 0,
+                    Credito = 0;
             decimal faltante = 0;
-            var cantidadTotalVenta = txtTotalVenta.Text.ToString().Replace("$", string.Empty);
 
-            faltante = Convert.ToDecimal(cantidadTotalVenta);
+            if (!string.IsNullOrWhiteSpace(txtEfectivo.Text))
+            {
+                Efectivo = Convert.ToDecimal(txtEfectivo.Text);
+            }
+            if (!string.IsNullOrWhiteSpace(txtTarjeta.Text))
+            {
+                Tarjeta = Convert.ToDecimal(txtTarjeta.Text);
+            }
+            if (!string.IsNullOrWhiteSpace(txtTransferencia.Text))
+            {
+                Transferencia = Convert.ToDecimal(txtTransferencia.Text);
+            }
+            if (!string.IsNullOrWhiteSpace(txtCheque.Text))
+            {
+                Cheque = Convert.ToDecimal(txtCheque.Text);
+            }
+            if (!string.IsNullOrWhiteSpace(txtVales.Text))
+            {
+                Vales = Convert.ToDecimal(txtVales.Text);
+            }
+            if (!string.IsNullOrWhiteSpace(txtCredito.Text))
+            {
+                Credito = Convert.ToDecimal(txtCredito.Text);
+            }
+
+            faltante = Convert.ToDecimal(total) - (Efectivo + Tarjeta + Transferencia + Cheque + Vales + Credito);
 
             return faltante;
         }
@@ -988,8 +1018,12 @@ namespace PuntoDeVentaV2
             {
                 contenidoCantidad = txtVales.Text;
             }
+            else if (!string.IsNullOrWhiteSpace(txtCredito.Text.ToString()))
+            {
+                contenidoCantidad = txtCredito.Text;
+            }
 
-            limpiarTextBoxMetodoDePago();
+            //limpiarTextBoxMetodoDePago();
 
             if (txtEfectivo.Name.Equals(nombreControl))
             {
@@ -1011,6 +1045,10 @@ namespace PuntoDeVentaV2
             {
                 txtVales.Text = contenidoCantidad;
             }
+            else if (txtCredito.Name.Equals(nombreControl))
+            {
+                txtCredito.Text = contenidoCantidad;
+            }
         }
 
         private void limpiarTextBoxMetodoDePago()
@@ -1020,6 +1058,7 @@ namespace PuntoDeVentaV2
             txtTransferencia.Clear();
             txtCheque.Clear();
             txtVales.Clear();
+            txtCredito.Clear();
         }
 
         private void txtVales_Click(object sender, EventArgs e)
@@ -1304,6 +1343,90 @@ namespace PuntoDeVentaV2
                 }
 
                 txtEfectivo.Text = newTotal.ToString();
+            }
+        }
+
+        private void txtEfectivo_Leave(object sender, EventArgs e)
+        {
+            var contenido = txtEfectivo.Text;
+            var siEsNumero = false;
+            decimal cantidad = 0;
+
+            siEsNumero = decimal.TryParse(contenido, out cantidad);
+
+            if (siEsNumero)
+            {
+                txtEfectivo.Text = Convert.ToDecimal(cantidad).ToString("N2");
+            }
+        }
+
+        private void txtTarjeta_Leave(object sender, EventArgs e)
+        {
+            var contenido = txtTarjeta.Text;
+            var siEsNumero = false;
+            decimal cantidad = 0;
+
+            siEsNumero = decimal.TryParse(contenido, out cantidad);
+
+            if (siEsNumero)
+            {
+                txtTarjeta.Text = Convert.ToDecimal(cantidad).ToString("N2");
+            }
+        }
+
+        private void txtTransferencia_Leave(object sender, EventArgs e)
+        {
+            var contenido = txtTransferencia.Text;
+            var siEsNumero = false;
+            decimal cantidad = 0;
+
+            siEsNumero = decimal.TryParse(contenido, out cantidad);
+
+            if (siEsNumero)
+            {
+                txtTransferencia.Text = Convert.ToDecimal(cantidad).ToString("N2");
+            }
+        }
+
+        private void txtCheque_Leave(object sender, EventArgs e)
+        {
+            var contenido = txtCheque.Text;
+            var siEsNumero = false;
+            decimal cantidad = 0;
+
+            siEsNumero = decimal.TryParse(contenido, out cantidad);
+
+            if (siEsNumero)
+            {
+                txtCheque.Text = Convert.ToDecimal(cantidad).ToString("N2");
+            }
+        }
+
+        private void txtVales_Leave(object sender, EventArgs e)
+        {
+            var contenido = txtVales.Text;
+            var siEsNumero = false;
+            decimal cantidad = 0;
+
+            siEsNumero = decimal.TryParse(contenido, out cantidad);
+
+            if (siEsNumero)
+            {
+                txtVales.Text = Convert.ToDecimal(cantidad).ToString("N2");
+            }
+        }
+
+        private void txtCredito_Leave(object sender, EventArgs e)
+        {
+            var contenido = txtCredito.Text;
+            var siEsNumero = false;
+            decimal cantidad = 0;
+
+            siEsNumero = decimal.TryParse(contenido, out cantidad);
+
+            if (siEsNumero)
+            {
+                txtCredito.Text = Convert.ToDecimal(cantidad).ToString("N2");
             }
         }
     }
