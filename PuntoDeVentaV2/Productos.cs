@@ -1192,38 +1192,59 @@ namespace PuntoDeVentaV2
                     numfila = e.RowIndex;
                     obtenerDatosDGVProductos(numfila);
 
-                    if (!MakeBarCode.Visible)
+                    codiBarProd = CodigoBarras.Replace("\r\n", string.Empty);
+
+                    if (!string.IsNullOrWhiteSpace(codiBarProd))
                     {
-                        MakeBarCode.NombreProd = Nombre;
-                        MakeBarCode.PrecioProd = Precio;
-                        codiBarProd = CodigoBarras;
-                        if (codiBarProd != "")
+                        verEtiquetaDelProductoCodigosDeBarras etiqueta = new verEtiquetaDelProductoCodigosDeBarras();
+
+                        etiqueta.FormClosed += delegate
                         {
-                            MakeBarCode.CodigoBarProd = codiBarProd.Replace("\r\n", string.Empty);
-                            MakeBarCode.ShowDialog();
-                        }
-                        else if (codiBarProd == "")
-                        {
-                            MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado",
-                                            "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+
+                        };
+
+                        etiqueta.NombreDelProducto = Nombre;
+                        etiqueta.PrecioDelProducto = Precio;
+                        etiqueta.CodigoBarraDelProducto = codiBarProd;
+                        etiqueta.ShowDialog();
                     }
                     else
                     {
-                        MakeBarCode.NombreProd = Nombre;
-                        MakeBarCode.PrecioProd = Precio;
-                        codiBarProd = CodigoBarras;
-                        if (codiBarProd != "")
-                        {
-                            MakeBarCode.CodigoBarProd = codiBarProd.Replace("\r\n", string.Empty);
-                            MakeBarCode.BringToFront();
-                        }
-                        else if (codiBarProd == "")
-                        {
-                            MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado",
-                                            "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado", "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+
+                    //if (!MakeBarCode.Visible)
+                    //{
+                    //    MakeBarCode.NombreProd = Nombre;
+                    //    MakeBarCode.PrecioProd = Precio;
+                    //    codiBarProd = CodigoBarras;
+                    //    if (codiBarProd != "")
+                    //    {
+                    //        MakeBarCode.CodigoBarProd = codiBarProd.Replace("\r\n", string.Empty);
+                    //        MakeBarCode.ShowDialog();
+                    //    }
+                    //    else if (codiBarProd == "")
+                    //    {
+                    //        MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado",
+                    //                        "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    MakeBarCode.NombreProd = Nombre;
+                    //    MakeBarCode.PrecioProd = Precio;
+                    //    codiBarProd = CodigoBarras;
+                    //    if (codiBarProd != "")
+                    //    {
+                    //        MakeBarCode.CodigoBarProd = codiBarProd.Replace("\r\n", string.Empty);
+                    //        MakeBarCode.BringToFront();
+                    //    }
+                    //    else if (codiBarProd == "")
+                    //    {
+                    //        MessageBox.Show("No se puede generar el codigo de barras\nPuesto que no tiene codigo de barras asignado",
+                    //                        "Error de Generar Codigo de Barras", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //    }
+                    //}
                 }
                 else if (e.ColumnIndex == 11)
                 {

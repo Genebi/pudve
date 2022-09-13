@@ -1394,6 +1394,12 @@
     <Compile Include="Ventas_ventana_informacion.Designer.cs">
       <DependentUpon>Ventas_ventana_informacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="verEtiquetaDelProductoCodigosDeBarras.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="verEtiquetaDelProductoCodigosDeBarras.Designer.cs">
+      <DependentUpon>verEtiquetaDelProductoCodigosDeBarras.cs</DependentUpon>
+    </Compile>
     <Compile Include="verificarBasesSQLite.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2058,6 +2064,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Ventas_ventana_informacion.resx">
       <DependentUpon>Ventas_ventana_informacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="verEtiquetaDelProductoCodigosDeBarras.resx">
+      <DependentUpon>verEtiquetaDelProductoCodigosDeBarras.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="verificarBasesSQLite.resx">
       <DependentUpon>verificarBasesSQLite.cs</DependentUpon>
