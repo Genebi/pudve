@@ -139,7 +139,7 @@
             this.btnCredito.Location = new System.Drawing.Point(13, 273);
             this.btnCredito.Name = "btnCredito";
             this.btnCredito.Size = new System.Drawing.Size(125, 28);
-            this.btnCredito.TabIndex = 103;
+            this.btnCredito.TabIndex = 104;
             this.btnCredito.Text = "Asignar Crédito";
             this.btnCredito.UseVisualStyleBackColor = false;
             this.btnCredito.Visible = false;
@@ -153,7 +153,7 @@
             this.lbCliente.Location = new System.Drawing.Point(22, 217);
             this.lbCliente.Name = "lbCliente";
             this.lbCliente.Size = new System.Drawing.Size(88, 15);
-            this.lbCliente.TabIndex = 102;
+            this.lbCliente.TabIndex = 103;
             this.lbCliente.TabStop = true;
             this.lbCliente.Text = "Asignar cliente";
             this.lbCliente.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbCliente_LinkClicked);
@@ -171,7 +171,7 @@
             this.btnAceptar.Location = new System.Drawing.Point(434, 320);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(130, 28);
-            this.btnAceptar.TabIndex = 104;
+            this.btnAceptar.TabIndex = 105;
             this.btnAceptar.Text = "Terminar";
             this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
@@ -208,7 +208,7 @@
             this.txtReferencia.Location = new System.Drawing.Point(109, 168);
             this.txtReferencia.Name = "txtReferencia";
             this.txtReferencia.Size = new System.Drawing.Size(454, 22);
-            this.txtReferencia.TabIndex = 101;
+            this.txtReferencia.TabIndex = 102;
             this.txtReferencia.Enter += new System.EventHandler(this.txtReferencia_Enter);
             // 
             // lbReferencia
@@ -285,6 +285,7 @@
             this.txtTransferencia.Enter += new System.EventHandler(this.txtTransferencia_Enter);
             this.txtTransferencia.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTransferencia_KeyDown);
             this.txtTransferencia.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTransferencia_KeyUp);
+            this.txtTransferencia.Leave += new System.EventHandler(this.txtTransferencia_Leave);
             // 
             // txtCheque
             // 
@@ -300,6 +301,7 @@
             this.txtCheque.Enter += new System.EventHandler(this.txtCheque_Enter);
             this.txtCheque.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCheque_KeyDown);
             this.txtCheque.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCheque_KeyUp);
+            this.txtCheque.Leave += new System.EventHandler(this.txtCheque_Leave);
             // 
             // txtVales
             // 
@@ -315,6 +317,7 @@
             this.txtVales.Enter += new System.EventHandler(this.txtVales_Enter);
             this.txtVales.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtVales_KeyDown);
             this.txtVales.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtVales_KeyUp);
+            this.txtVales.Leave += new System.EventHandler(this.txtVales_Leave);
             // 
             // txtTarjeta
             // 
@@ -330,6 +333,7 @@
             this.txtTarjeta.Enter += new System.EventHandler(this.txtTarjeta_Enter);
             this.txtTarjeta.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTarjeta_KeyDown);
             this.txtTarjeta.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTarjeta_KeyUp);
+            this.txtTarjeta.Leave += new System.EventHandler(this.txtTarjeta_Leave);
             // 
             // txtEfectivo
             // 
@@ -345,6 +349,7 @@
             this.txtEfectivo.Enter += new System.EventHandler(this.txtEfectivo_Enter);
             this.txtEfectivo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyDown);
             this.txtEfectivo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyUp);
+            this.txtEfectivo.Leave += new System.EventHandler(this.txtEfectivo_Leave);
             // 
             // txtTotalVenta
             // 
@@ -379,6 +384,7 @@
             this.txtCredito.Enter += new System.EventHandler(this.txtCredito_Enter);
             this.txtCredito.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCredito_KeyDown);
             this.txtCredito.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCredito_KeyUp);
+            this.txtCredito.Leave += new System.EventHandler(this.txtCredito_Leave);
             // 
             // label2
             // 
