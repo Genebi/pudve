@@ -757,9 +757,12 @@ namespace PuntoDeVentaV2
         private void EventoTab(object sender, PreviewKeyDownEventArgs e)
         {
             var campos = new string[] {
-                "txtEfectivo", "txtTarjeta",
-                "txtTransferencia", "txtCheque",
-                "txtVales", "txtCredito"
+                "txtEfectivo", 
+                "txtTarjeta",
+                "txtTransferencia", 
+                "txtCheque",
+                "txtVales", 
+                "txtCredito"
             };
 
             if (e.KeyData == Keys.Tab)
@@ -767,21 +770,48 @@ namespace PuntoDeVentaV2
                 var txtOrigen = (TextBox)sender;
                 nameOfControl = txtOrigen.Name;
 
-                var indexCampos = Array.IndexOf(campos, nameOfControl);
-                var indexAnteriorSiguiente = indexCampos + 1;
-
-                if (indexAnteriorSiguiente >= 0 && indexAnteriorSiguiente <= 5)
+                if (txtOrigen.SelectionLength.Equals(txtOrigen.Text.Length))
                 {
-                    var textBoxSiguiente = campos[indexAnteriorSiguiente].ToString();
+                    var textoContenido = txtOrigen.Text;
+                    var indexCampos = Array.IndexOf(campos, nameOfControl);
+                    var indexAnteriorSiguiente = indexCampos + 1;
 
-                    foreach (Control frmControls in this.Controls)
+                    if (indexAnteriorSiguiente >= 0 && indexAnteriorSiguiente <= 5)
                     {
-                        if (frmControls is TextBox && frmControls.Name.Equals(textBoxSiguiente))
-                        {
-                            var txtFrmControl = (TextBox)frmControls;
+                        var textBoxSiguiente = campos[indexAnteriorSiguiente].ToString();
 
-                            txtFrmControl.SelectAll();
-                            break;
+                        foreach (Control frmControls in this.Controls)
+                        {
+                            if (frmControls is TextBox && frmControls.Name.Equals(textBoxSiguiente))
+                            {
+                                var txtFrmControl = (TextBox)frmControls;
+
+                                txtOrigen.Text = string.Empty;
+                                txtFrmControl.Text = textoContenido;
+                                txtFrmControl.SelectAll();
+                                break;
+                            }
+                        }
+                    }
+                }
+                else if (txtOrigen.SelectionLength.Equals(0))
+                {
+                    var indexCampos = Array.IndexOf(campos, nameOfControl);
+                    var indexAnteriorSiguiente = indexCampos + 1;
+
+                    if (indexAnteriorSiguiente >= 0 && indexAnteriorSiguiente <= 5)
+                    {
+                        var textBoxSiguiente = campos[indexAnteriorSiguiente].ToString();
+
+                        foreach (Control frmControls in this.Controls)
+                        {
+                            if (frmControls is TextBox && frmControls.Name.Equals(textBoxSiguiente))
+                            {
+                                var txtFrmControl = (TextBox)frmControls;
+
+                                txtFrmControl.SelectAll();
+                                break;
+                            }
                         }
                     }
                 }
