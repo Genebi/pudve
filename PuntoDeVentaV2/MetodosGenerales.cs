@@ -10,6 +10,7 @@ namespace PuntoDeVentaV2
     class MetodosGenerales
     {
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
 
         string[] preposiciones = new string[] {
             "A", "ANTE", "BAJO", "CABE", "CON", "CONTRA", "DE", "DESDE", "DURANTE", "EN",
@@ -80,6 +81,16 @@ namespace PuntoDeVentaV2
             }
 
             return result;
-        } 
+        }
+
+        public bool EliminarFiltros()
+        {
+            bool respuesta = true;
+
+            cn.EjecutarConsulta(cs.EliminarFiltrosProductos(FormPrincipal.userID, FormPrincipal.userNickName, 1));
+            cn.EjecutarConsulta(cs.EliminarFiltrosProductos(FormPrincipal.userID, FormPrincipal.userNickName, 2));
+
+            return respuesta;
+        }
     }
 }

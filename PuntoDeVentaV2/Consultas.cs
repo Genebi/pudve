@@ -4606,5 +4606,22 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT PermisoVentaClienteDescuento,PermisoVentaClienteDescuentoSinAutorizacion FROM empleadospermisoS WHERE IDUsuario = {IDUsuario} AND IDEmpleado ={IDEmpleado} AND Seccion = 'ventas'";
             return consulta;
         }
+
+        public string EliminarFiltrosProductos(int idUsuario, string username, int tipo)
+        {
+            var consulta = string.Empty;
+
+            if (tipo == 1)
+            {
+                consulta = $"DELETE FROM FiltroProducto WHERE IDUsuario = {idUsuario} AND Username = '{username}'";
+            }
+
+            if (tipo == 2)
+            {
+                consulta = $"DELETE FROM FiltrosDinamicosVetanaFiltros WHERE IDUsuario = {idUsuario} AND Username = '{username}'";
+            }
+
+            return consulta;
+        }
     }
 }   
