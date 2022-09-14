@@ -1132,6 +1132,7 @@
     <Compile Include="Reportes.Designer.cs">
       <DependentUpon>Reportes.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReportesImpresion\ImprimirEtiqueta.cs" />
     <Compile Include="ReportesImpresion\FormatoCarta.cs" />
     <Compile Include="ReportesImpresion\EnviarImprimir.cs" />
     <Compile Include="ReportesImpresion\Ticket\AbonoRealizado\TicketAbono.Designer.cs">
@@ -2000,6 +2001,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ReportesImpresion\Ticket\ReimprimirRetirosRealizados\RetirosRealizados.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Etiqueta\BrotherQL800\EtiquetaCodigoDeBarras.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="RevisarInventario.resx">

@@ -30,48 +30,18 @@ namespace PuntoDeVentaV2
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.reportViewer1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(661, 387);
+            this.panel1.Size = new System.Drawing.Size(661, 450);
             this.panel1.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.botonRedondo1);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 387);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(661, 63);
-            this.panel2.TabIndex = 1;
-            // 
-            // botonRedondo1
-            // 
-            this.botonRedondo1.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.botonRedondo1.BackGroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.botonRedondo1.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.botonRedondo1.BorderRadius = 40;
-            this.botonRedondo1.BorderSize = 0;
-            this.botonRedondo1.FlatAppearance.BorderSize = 0;
-            this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.botonRedondo1.ForeColor = System.Drawing.Color.White;
-            this.botonRedondo1.Location = new System.Drawing.Point(487, 11);
-            this.botonRedondo1.Name = "botonRedondo1";
-            this.botonRedondo1.Size = new System.Drawing.Size(150, 40);
-            this.botonRedondo1.TabIndex = 0;
-            this.botonRedondo1.Text = "botonRedondo1";
-            this.botonRedondo1.TextColor = System.Drawing.Color.White;
-            this.botonRedondo1.UseVisualStyleBackColor = false;
             // 
             // reportViewer1
             // 
@@ -79,7 +49,7 @@ namespace PuntoDeVentaV2
             this.reportViewer1.Location = new System.Drawing.Point(0, 0);
             this.reportViewer1.Name = "reportViewer1";
             this.reportViewer1.ServerReport.BearerToken = null;
-            this.reportViewer1.Size = new System.Drawing.Size(661, 387);
+            this.reportViewer1.Size = new System.Drawing.Size(661, 450);
             this.reportViewer1.TabIndex = 0;
             // 
             // verEtiquetaDelProductoCodigosDeBarras
@@ -87,7 +57,6 @@ namespace PuntoDeVentaV2
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(661, 450);
-            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
@@ -98,7 +67,6 @@ namespace PuntoDeVentaV2
             this.Text = "verEtiquetaDelProductoCodigosDeBarras";
             this.Load += new System.EventHandler(this.verEtiquetaDelProductoCodigosDeBarras_Load);
             this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -106,8 +74,6 @@ namespace PuntoDeVentaV2
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panel2;
-        private BotonRedondo botonRedondo1;
         private Microsoft.Reporting.WinForms.ReportViewer reportViewer1;
     }
 }
