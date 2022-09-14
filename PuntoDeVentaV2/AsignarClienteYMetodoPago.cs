@@ -26,10 +26,11 @@ namespace PuntoDeVentaV2
         string formadepagoantigua;
         private int idVenta = 0;
         private int tipo = 0;
-
+        string ultimoCorteDeCaja;
         int idClienteGlobal = 0;
         string NombreCliente = string.Empty, metodoDePago =string.Empty;
         List<string> IDVenta = new List<string>();
+        decimal totalEfectivoVentaEnCaja = 0;
         public AsignarClienteYMetodoPago(List<string> ID)
         {
             InitializeComponent();
@@ -252,6 +253,8 @@ namespace PuntoDeVentaV2
                 RFC = RFCCliente.Rows[0]["RFC"].ToString();
             }
             cn.EjecutarConsulta($"UPDATE ventas SET IDCliente = '{idClienteGlobal}', Cliente = '{NombreCliente}',RFC ='{RFC}' WHERE ID = {id}");
+            cn.EjecutarConsulta($"UPDATE detallesventa SET IDCliente = {idClienteGlobal}, Cliente = '{NombreCliente}' WHERE IDVenta ={id}");
+            
         }
 
         private void CambiarSoloStatus(string id)
@@ -262,11 +265,51 @@ namespace PuntoDeVentaV2
                 var DTDatosVenta = cn.CargarDatos($"SELECT Total,`Status`,FormaPago,FechaOperacion FROM ventas WHERE ID = {id}");
                 string total = DTDatosVenta.Rows[0]["Total"].ToString();
                 string status = "1";
-                string FormaPago;
+                string FormaPago = DTDatosVenta.Rows[0]["FormaPago"].ToString();
                 DateTime FechaDePagoSinFormato = Convert.ToDateTime(DTDatosVenta.Rows[0]["FechaOperacion"]);
                 string FechaDePago = FechaDePagoSinFormato.ToString("yyyy-MM-dd hh:mm:ss");
                 bool esCredito = false;
                 formadepagoantigua = DTDatosVenta.Rows[0]["FormaPago"].ToString();
+                if (FormaPago.Equals("Efectivo"))
+                {
+                    using (DataTable dtHistorialCorteDeCaja = cn.CargarDatos(cs.cargarSaldoInicialAdministrador()))
+                    {
+                        if (!dtHistorialCorteDeCaja.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtHistorialCorteDeCaja.Rows)
+                            {
+                                ultimoCorteDeCaja = item["IDCaja"].ToString();
+                            }
+                        }
+                    }
+                    var idCajaUltimoCorte = ultimoCorteDeCaja;
+                    decimal cantidadEfectivo = 0;
+                    using (DataTable dtSeccionVentaAdministrador = cn.CargarDatos(cs.totalCantidadesVentasAdministrador(idCajaUltimoCorte)))
+                    {
+                        if (!dtSeccionVentaAdministrador.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtSeccionVentaAdministrador.Rows)
+                            {
+                                if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                {
+                                    cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                    totalEfectivoVentaEnCaja = cantidadEfectivo;
+                                }
+                            }
+                        }
+                    }
+                    var datos = cdc.CargarSaldo("Caja");
+                    decimal ventas = cantidadEfectivo;
+                    decimal anticipos = Convert.ToDecimal(datos[14]);
+                    decimal dineroAgregado = Convert.ToDecimal(datos[20]);
+                    decimal dineroRtirado = Convert.ToDecimal(datos[26]);
+                    decimal EfectivoCaja = ventas + anticipos + dineroAgregado - dineroRtirado;
+                    if (Convert.ToDecimal(EfectivoCaja) < Convert.ToDecimal(total))
+                    {
+                        MessageBox.Show("No cuenta con suficiente Efectivo en caja", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
                 if (metodoDePago.Equals("Crédito"))
                 {
                     FormaPago = "Credito";
@@ -284,7 +327,7 @@ namespace PuntoDeVentaV2
                 {
                     using (var DTDetalleVenta = cn.CargarDatos($"SELECT {formadepagoantigua} FROM `detallesventa` WHERE IDVenta = {id} ORDER BY IDVenta DESC LIMIT 1"))
                     {
-                        cn.EjecutarConsulta("UPDATE detallesventa SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE IDVenta = '219513'");
+                        cn.EjecutarConsulta($"UPDATE detallesventa SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE IDVenta = '{id}'");
                         string cambioCredito = DTDetalleVenta.Rows[0][$"{formadepagoantigua}"].ToString();
 
                         cn.EjecutarConsulta($"UPDATE detallesventa SET Credito = {cambioCredito} WHERE IDVenta = '{id}'");
@@ -312,19 +355,8 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                var datos = cdc.CargarSaldo("Caja");
-                decimal ventas = Convert.ToDecimal(datos[0]);
-                decimal anticipos = Convert.ToDecimal(datos[14]);
-                decimal dineroAgregado = Convert.ToDecimal(datos[20]);
-                decimal dineroRtirado = Convert.ToDecimal(datos[26]);
-                decimal EfectivoCaja = ventas + anticipos + dineroAgregado - dineroRtirado;
                 var DTDatosVenta = cn.CargarDatos($"SELECT Total,`Status`,FormaPago,FechaOperacion FROM ventas WHERE ID = {id}");
                 string total = DTDatosVenta.Rows[0]["Total"].ToString();
-                if (EfectivoCaja < Convert.ToDecimal(total))
-                {
-                    MessageBox.Show("No cuenta con suficiente Efectivo en caja","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-                    return;
-                }
                 string status = "1";
                 string FormaPago;
                 DateTime FechaDePagoSinFormato = Convert.ToDateTime(DTDatosVenta.Rows[0]["FechaOperacion"]);
@@ -344,7 +376,7 @@ namespace PuntoDeVentaV2
                 {
                     using (var DTDetalleVenta = cn.CargarDatos($"SELECT {formadepagoantigua} FROM `detallesventa` WHERE IDVenta = {id} ORDER BY IDVenta DESC LIMIT 1"))
                     {
-                        cn.EjecutarConsulta("UPDATE detallesventa SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE IDVenta = '219513'");
+                        cn.EjecutarConsulta($"UPDATE detallesventa SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE IDVenta = '{id}'");
                         string cambioCredito = DTDetalleVenta.Rows[0][$"{formadepagoantigua}"].ToString();
 
                         cn.EjecutarConsulta($"UPDATE detallesventa SET Credito = {cambioCredito} WHERE IDVenta = '{id}'");
@@ -375,11 +407,11 @@ namespace PuntoDeVentaV2
             string Columna;
             string total;
             string status = "1";
-            string FormaPago;
+            string FormaPago= string.Empty;
             string FechaDePago;
             string RFC;
             bool esCredito = false;
-            
+
             if (!metodoDePago.Equals("Efectivo") && !metodoDePago.Equals(""))
             {
                 using (DataTable DTDatosVenta = cn.CargarDatos($"SELECT Total,`Status`,FormaPago,FechaOperacion FROM ventas WHERE ID = {id}"))
@@ -387,20 +419,66 @@ namespace PuntoDeVentaV2
                     total = DTDatosVenta.Rows[0]["Total"].ToString();
                     status = "1";
                     formadepagoantigua = DTDatosVenta.Rows[0]["FormaPago"].ToString();
-                    DateTime FechaDePagoSinFormato =Convert.ToDateTime(DTDatosVenta.Rows[0]["FechaOperacion"]);
+                    DateTime FechaDePagoSinFormato = Convert.ToDateTime(DTDatosVenta.Rows[0]["FechaOperacion"]);
                     FechaDePago = FechaDePagoSinFormato.ToString("yyyy-MM-dd hh:mm:ss");
-
+                    FormaPago = DTDatosVenta.Rows[0]["FormaPago"].ToString();
 
                 }
                 using (var RFCCliente = cn.CargarDatos($"SELECT RFC FROM clientes WHERE ID = {idClienteGlobal}"))
                 {
                     RFC = RFCCliente.Rows[0]["RFC"].ToString();
                 }
-
-                //if (FormaPago.Equals("Efectivo"))
-                //{
-                //    //Pendiente
-                //}
+                if (FormaPago.Equals("Efectivo"))
+                {
+                    var DTDatosVenta = cn.CargarDatos($"SELECT Total,`Status`,FormaPago,FechaOperacion FROM ventas WHERE ID = {id}");
+                     total = DTDatosVenta.Rows[0]["Total"].ToString();
+                     status = "1";
+                     FormaPago = DTDatosVenta.Rows[0]["FormaPago"].ToString();
+                    DateTime FechaDePagoSinFormato = Convert.ToDateTime(DTDatosVenta.Rows[0]["FechaOperacion"]);
+                     FechaDePago = FechaDePagoSinFormato.ToString("yyyy-MM-dd hh:mm:ss");
+                     esCredito = false;
+                    formadepagoantigua = DTDatosVenta.Rows[0]["FormaPago"].ToString();
+                    if (FormaPago.Equals("Efectivo"))
+                    {
+                        using (DataTable dtHistorialCorteDeCaja = cn.CargarDatos(cs.cargarSaldoInicialAdministrador()))
+                        {
+                            if (!dtHistorialCorteDeCaja.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtHistorialCorteDeCaja.Rows)
+                                {
+                                    ultimoCorteDeCaja = item["IDCaja"].ToString();
+                                }
+                            }
+                        }
+                        var idCajaUltimoCorte = ultimoCorteDeCaja;
+                        decimal cantidadEfectivo = 0;
+                        using (DataTable dtSeccionVentaAdministrador = cn.CargarDatos(cs.totalCantidadesVentasAdministrador(idCajaUltimoCorte)))
+                        {
+                            if (!dtSeccionVentaAdministrador.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtSeccionVentaAdministrador.Rows)
+                                {
+                                    if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                    {
+                                        cantidadEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
+                                        totalEfectivoVentaEnCaja = cantidadEfectivo;
+                                    }
+                                }
+                            }
+                        }
+                        var datos = cdc.CargarSaldo("Caja");
+                        decimal ventas = cantidadEfectivo;
+                        decimal anticipos = Convert.ToDecimal(datos[14]);
+                        decimal dineroAgregado = Convert.ToDecimal(datos[20]);
+                        decimal dineroRtirado = Convert.ToDecimal(datos[26]);
+                        decimal EfectivoCaja = ventas + anticipos + dineroAgregado - dineroRtirado;
+                        if (Convert.ToDecimal(EfectivoCaja) < Convert.ToDecimal(total))
+                        {
+                            MessageBox.Show("No cuenta con suficiente Efectivo en caja", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+                }
                 if (metodoDePago.Equals("Crédito"))
                 {
                     status = "4";
@@ -415,7 +493,7 @@ namespace PuntoDeVentaV2
                 {
                     using (var DTDetalleVenta = cn.CargarDatos($"SELECT {formadepagoantigua} FROM `detallesventa` WHERE IDVenta = {id} ORDER BY IDVenta DESC LIMIT 1"))
                     {
-                        cn.EjecutarConsulta("UPDATE detallesventa SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE IDVenta = '219513'");
+                        cn.EjecutarConsulta($"UPDATE detallesventa SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE IDVenta = '{id}'");
                         string cambioCredito = DTDetalleVenta.Rows[0][$"{formadepagoantigua}"].ToString();
 
                         cn.EjecutarConsulta($"UPDATE detallesventa SET Credito = {cambioCredito} WHERE IDVenta = '{id}'");
@@ -427,8 +505,8 @@ namespace PuntoDeVentaV2
                     cn.EjecutarConsulta($"UPDATE ventas SET IDCliente = '{idClienteGlobal}', Cliente = '{NombreCliente}',RFC ='{RFC}', FormaPago = '{FormaPago}', `Status` = '{status}' WHERE ID = {id}");
                 }
                 cn.EjecutarConsulta($"UPDATE caja SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE FechaOperacion = '{FechaDePago}'");
-                
-               
+                cn.EjecutarConsulta($"UPDATE detallesventa SET IDCliente = {idClienteGlobal}, Cliente = '{NombreCliente}' WHERE IDVenta ={id}");
+
                 if (metodoDePago.Equals("Crédito"))
                 {
                     Columna = "Credito";
@@ -442,12 +520,6 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                var datos = cdc.CargarSaldo("Caja");
-                decimal ventas = Convert.ToDecimal(datos[0]);
-                decimal anticipos = Convert.ToDecimal(datos[14]);
-                decimal dineroAgregado = Convert.ToDecimal(datos[20]);
-                decimal dineroRtirado = Convert.ToDecimal(datos[26]);
-                decimal EfectivoCaja = ventas + anticipos + dineroAgregado - dineroRtirado;
                 using (DataTable DTDatosVenta = cn.CargarDatos($"SELECT Total,`Status`,FormaPago,FechaOperacion FROM ventas WHERE ID = {id}"))
                 {
                     total = DTDatosVenta.Rows[0]["Total"].ToString();
@@ -455,11 +527,6 @@ namespace PuntoDeVentaV2
                     DateTime FechaDePagoSinFormato = Convert.ToDateTime(DTDatosVenta.Rows[0]["FechaOperacion"]);
                     FechaDePago = FechaDePagoSinFormato.ToString("yyyy-MM-dd hh:mm:ss");
                     formadepagoantigua = DTDatosVenta.Rows[0]["FormaPago"].ToString();
-                }
-                if (Convert.ToDecimal(EfectivoCaja) < Convert.ToDecimal(total))
-                {
-                    MessageBox.Show("No cuenta con suficiente Efectivo en caja", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
                 }
                 using (var RFCCliente = cn.CargarDatos($"SELECT RFC FROM clientes WHERE ID = {idClienteGlobal}"))
                 {
@@ -482,19 +549,20 @@ namespace PuntoDeVentaV2
                 {
                     using (var DTDetalleVenta = cn.CargarDatos($"SELECT {formadepagoantigua} FROM `detallesventa` WHERE IDVenta = {id} ORDER BY IDVenta DESC LIMIT 1"))
                     {
-                        cn.EjecutarConsulta("UPDATE detallesventa SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE IDVenta = '219513'");
+                        cn.EjecutarConsulta($"UPDATE detallesventa SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE IDVenta = '{id}'");
                         string cambioCredito = DTDetalleVenta.Rows[0][$"{formadepagoantigua}"].ToString();
 
                         cn.EjecutarConsulta($"UPDATE detallesventa SET Credito = {cambioCredito} WHERE IDVenta = '{id}'");
                     }
                     cn.EjecutarConsulta($"UPDATE ventas SET IDCliente = '{idClienteGlobal}', Cliente = '{NombreCliente}',RFC ='{RFC}', FormaPago = '{FormaPago}', `Status` = '{status}',DineroRecibido = '0.00' WHERE ID = {id}");
+
                 }
                 else
                 {
                     cn.EjecutarConsulta($"UPDATE ventas SET IDCliente = '{idClienteGlobal}', Cliente = '{NombreCliente}',RFC ='{RFC}',FormaPago = '{FormaPago}', `Status` = '{status}' WHERE ID = {id}");
                 }
                 cn.EjecutarConsulta($"UPDATE caja SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE FechaOperacion = '{FechaDePago}'");
-                
+                cn.EjecutarConsulta($"UPDATE detallesventa SET IDCliente = {idClienteGlobal}, Cliente = '{NombreCliente}' WHERE IDVenta ={id}");
                 if (metodoDePago.Equals("Crédito"))
                 {
                     Columna = "Credito";

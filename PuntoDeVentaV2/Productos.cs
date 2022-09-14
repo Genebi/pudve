@@ -4980,8 +4980,8 @@ namespace PuntoDeVentaV2
             DGVProductos.Columns["Column8"].Visible = false;
             DGVProductos.Columns["Ajustar"].Visible = false;
 
-
-            if (!usuarios.Contains(FormPrincipal.userNickName))
+            //cambio aqui usuarios
+            if (FormPrincipal.userNickName.Contains('@'))
             {
                 // Clave interna, generar codigo y etiqueta
                 DGVProductos.Columns["Column5"].Visible = false;
