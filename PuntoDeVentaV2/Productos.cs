@@ -5006,10 +5006,9 @@ namespace PuntoDeVentaV2
             {
                 // Clave interna, generar codigo y etiqueta
                 DGVProductos.Columns["Column5"].Visible = false;
-                DGVProductos.Columns["Column10"].Visible = false;
+                //DGVProductos.Columns["Column10"].Visible = false;
                 DGVProductos.Columns["Column12"].Visible = false;
             }
-
 
             // Pixel en blanco para poner en las columnas que no va a mostrar un icono
             Bitmap sinImagen = new Bitmap(1, 1);
