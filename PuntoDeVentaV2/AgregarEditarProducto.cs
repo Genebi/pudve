@@ -1352,7 +1352,13 @@ namespace PuntoDeVentaV2
 
                     calculadora.FormClosed += delegate
                     {
-                        txtStockMinimo.Text = calculadora.lCalculadora.Text;
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                           
+                            txtStockMinimo.Text = calculadora.lCalculadora.Text;
+                            
+                        }
+                       
                     };
 
                     calcu = 0;
@@ -1474,7 +1480,10 @@ namespace PuntoDeVentaV2
 
                     calculadora.FormClosed += delegate
                    {
-                       txtStockMaximo.Text = calculadora.lCalculadora.Text;
+                       if (calculadora.seEnvia.Equals(true))
+                       {
+                           txtStockMinimo.Text = calculadora.lCalculadora.Text;
+                       }
                    };
 
                     calcu = 0;
@@ -1582,7 +1591,10 @@ namespace PuntoDeVentaV2
 
                     calculadora.FormClosed += delegate
                     {
-                        txtPrecioMayoreo.Text = calculadora.lCalculadora.Text;
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                          txtStockMinimo.Text = calculadora.lCalculadora.Text; 
+                        }
                         calcu = 0;
                     };
                     if (!calculadora.Visible)
@@ -4912,7 +4924,10 @@ namespace PuntoDeVentaV2
 
                     calculadora.FormClosed += delegate
                     {
-                        txtStockProducto.Text = calculadora.lCalculadora.Text;
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                           txtStockMinimo.Text = calculadora.lCalculadora.Text;
+                        }
                         calcu = 0;
                     };
                     if (!calculadora.Visible)
@@ -4986,7 +5001,10 @@ namespace PuntoDeVentaV2
 
                     calculadora.FormClosed += delegate
                     {
-                        txtPrecioCompra.Text = calculadora.lCalculadora.Text;
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtStockMinimo.Text = calculadora.lCalculadora.Text;  
+                        }
                         calcu = 0;
                     };
                     if (!calculadora.Visible)
@@ -5035,7 +5053,10 @@ namespace PuntoDeVentaV2
 
                     calculadora.FormClosed += delegate
                     {
-                        txtPrecioProducto.Text = calculadora.lCalculadora.Text;
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtStockMinimo.Text = calculadora.lCalculadora.Text;
+                        }
                         calcu = 0;
                     };
                     if (!calculadora.Visible)
