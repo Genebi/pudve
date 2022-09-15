@@ -567,7 +567,7 @@ namespace PuntoDeVentaV2
             }
             else if (e.KeyChar == 32)//ESPACIO
             {
-                this.Close();
+                btnEnviar.PerformClick();
             }
             else if (e.KeyChar == 46)//Punto
             {

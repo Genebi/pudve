@@ -5084,7 +5084,7 @@ namespace PuntoDeVentaV2
                 asignar.ShowDialog();
                 chTodos.Checked = false;
                 obtenerIDSeleccionados();
-                MessageBox.Show("Proceso Finalizado","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                MessageBox.Show("CAMBIOS REALIZADOS CON EXITO", "Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
               
             }
             else

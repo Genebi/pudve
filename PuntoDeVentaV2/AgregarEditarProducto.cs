@@ -1485,7 +1485,7 @@ namespace PuntoDeVentaV2
                    {
                        if (calculadora.seEnvia.Equals(true))
                        {
-                           txtStockMinimo.Text = calculadora.lCalculadora.Text;
+                           txtStockMaximo.Text = calculadora.lCalculadora.Text;
                        }
                    };
 
