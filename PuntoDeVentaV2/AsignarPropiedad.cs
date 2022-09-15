@@ -1755,7 +1755,7 @@ namespace PuntoDeVentaV2
             }
             else if (propiedad == "AgregarDescuento")/////////////////////////////////////////////////////////////////AGREGAR DESCUENTO
             {
-                DialogResult dialogResult = MessageBox.Show("El descuento se aplicara a todo los productos seleccionados\n si uno de estos productos ya contaba con un descuento se remplazara por este nuevo descuento.", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                DialogResult dialogResult = MessageBox.Show("El descuento se aplicara a todo los productos seleccionados\n si uno de estos productos ya contaba con un descuento se remplazara.", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (dialogResult == DialogResult.Yes)
                 {
                     TextBox txtDescuento = (TextBox)this.Controls.Find("tbAgregarDescuento", true)[0];
@@ -1802,6 +1802,8 @@ namespace PuntoDeVentaV2
                         var idprod = item.Key;
 
                         cn.EjecutarConsulta($"DELETE FROM descuentocliente WHERE IDProducto = {idprod}");
+                        cn.EjecutarConsulta($"DELETE FROM descuentomayoreo WHERE IDProducto = {idprod}");
+
                     }
                 }
                 else if (dialogResult == DialogResult.No)
