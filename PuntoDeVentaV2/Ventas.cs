@@ -7221,12 +7221,17 @@ namespace PuntoDeVentaV2
                 if (datos[18].Equals(0))
                 {
                     Utilidades.MensajePermiso();
+                    txtDescuentoGeneral.Enabled = false;
                     return;
+                }
+                else
+                {
+                    txtDescuentoGeneral.Text = "";
+                    txtDescuentoGeneral.Select(0, 0);
                 }
             }
             
-            txtDescuentoGeneral.Text = "";
-            txtDescuentoGeneral.Select(0, 0);
+            
         }
 
         private void checkCancelar_MouseClick(object sender, MouseEventArgs e)  

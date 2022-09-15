@@ -420,9 +420,9 @@
             this.chkPrecio.AutoSize = true;
             this.chkPrecio.Location = new System.Drawing.Point(176, 214);
             this.chkPrecio.Name = "chkPrecio";
-            this.chkPrecio.Size = new System.Drawing.Size(61, 19);
+            this.chkPrecio.Size = new System.Drawing.Size(113, 19);
             this.chkPrecio.TabIndex = 119;
-            this.chkPrecio.Text = "Precio";
+            this.chkPrecio.Text = "Precio Producto";
             this.chkPrecio.UseVisualStyleBackColor = true;
             this.chkPrecio.CheckedChanged += new System.EventHandler(this.chkPrecio_CheckedChanged);
             // 

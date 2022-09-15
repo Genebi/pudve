@@ -31,6 +31,7 @@ namespace PuntoDeVentaV2
         //Para los impuestos obtenidos desde el XML
         static public string impuestoProductoXML = string.Empty;
         static public string importeProductoXML = string.Empty;
+        bool SinPermiso= false;
 
         // Para los detalles del producto: Proveedor, Categoria, etc.
         static public string detallesProducto = null;
@@ -4414,6 +4415,35 @@ namespace PuntoDeVentaV2
         private void txtStockMaximo_TextChanged(object sender, EventArgs e)
         {
             ValidarEntradaDeTextoNumeros(sender, e);
+        }
+
+        private void txtPrecioCompra_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (FormPrincipal.userNickName.Contains('@'))
+            {
+                var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+                if (datos[29].Equals(0))
+                {
+                    SinPermiso = true;
+                    Utilidades.MensajePermiso();
+                    txtPrecioCompra.Enabled = false;
+                    return;
+                }
+            }
+        }
+
+        private void txtPrecioProducto_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (FormPrincipal.userNickName.Contains('@'))
+            {
+                var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+                if (datos[29].Equals(0))
+                {
+                    Utilidades.MensajePermiso();
+                    txtPrecioProducto.Enabled = false;
+                    return;
+                }
+            }
         }
 
         private void txtPrecioProducto_KeyDown(object sender, KeyEventArgs e)
@@ -9127,6 +9157,10 @@ namespace PuntoDeVentaV2
         {
             float procedimiento;
             string[] words;
+            if (SinPermiso.Equals(true))
+            {
+                return;
+            }
 
             if (txtPrecioProducto.Text != "0")
             {
@@ -9636,7 +9670,6 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioProducto_Enter(object sender, EventArgs e)
         {
-
             int comprobar = 0;
             string idempleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
 
