@@ -137,9 +137,10 @@ namespace PuntoDeVentaV2
 
             txt_en_stock.Text = stockProducto.ToString();
             cantidadStockActual.Text = stockProducto.ToString();
-            
+
 
             //Eventos para los campos que solo requieren cantidades
+            txtPrecioCompra.Click += txtPrecioCompra_Click;
             txtPrecioCompra.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtCantidadCompra.KeyPress += new KeyPressEventHandler(SoloDecimales);
             txtAumentar.KeyPress += new KeyPressEventHandler(SoloDecimales);
@@ -189,7 +190,19 @@ namespace PuntoDeVentaV2
             {
                 mensaje = mensajeInventario.Rows[0]["Mensaje"].ToString();
             }
+        }
 
+        private void Permiso(object sender, KeyPressEventArgs e)
+        {
+            if (FormPrincipal.userNickName.Contains('@'))
+            {
+                var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+                if (datos[29].Equals(0))
+                {
+                    Utilidades.MensajePermiso();
+                    return;
+                }
+            }
         }
 
         private void CargarConceptos()
@@ -1043,6 +1056,15 @@ namespace PuntoDeVentaV2
 
         private void lbEditarPrecio_Click(object sender, EventArgs e)
         {
+            if (FormPrincipal.userNickName.Contains('@'))
+            {
+                var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+                if (datos[29].Equals(0))
+                {
+                    Utilidades.MensajePermiso();
+                    return;
+                }
+            }
             int comprobar = 0;
             string idempleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
 
@@ -1238,17 +1260,11 @@ namespace PuntoDeVentaV2
                 }
             }
         }
-
-        private void btnActualizar_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void btnUpdate_Click(object sender, EventArgs e)
         {
             
         }
-
+        
         private void btnActualiza_Click(object sender, EventArgs e)
         {
             var obtenerTxt = string.Empty;
@@ -1475,6 +1491,20 @@ namespace PuntoDeVentaV2
             }
             
            
+        }
+
+        private void txtPrecioCompra_Click(object sender, EventArgs e)
+        {
+            if (FormPrincipal.userNickName.Contains('@'))
+            {
+                var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+                if (datos[29].Equals(0))
+                {
+                    txtPrecioCompra.Enabled = false;
+                    Utilidades.MensajePermiso();
+                    return;
+                }
+            }
         }
     }
 }
