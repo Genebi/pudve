@@ -47,6 +47,8 @@ namespace PuntoDeVentaV2
         static public List<string> detalleProductoBasico = new List<string>();
         static public List<string> detalleProductoGeneral = new List<string>();
         static public int validacionUpdateDescuentos = 0;
+        static public int descuentosSinGuardar = 0;
+        static public int rbDescuentoSinGuardar = 0;
 
 
         //Miooooooooooo
@@ -1938,6 +1940,16 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo4_Click(object sender, EventArgs e)
         {
+            if (!descuentos.Count.Equals(0))
+            {
+                //MessageBox.Show("ya hay un descuento pero no se como ponerlo por lo dinamico");
+                descuentosSinGuardar = 1;
+            }
+            else
+            {
+                //MessageBox.Show("no hay descuento");
+                descuentosSinGuardar = 0;
+            }
             if (string.IsNullOrWhiteSpace(txtNombreProducto.Text))
             {
                 MessageBox.Show("Favor de llenar todos los datos antes de asignar un descuento","Aviso del sistema",MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -4205,13 +4217,16 @@ namespace PuntoDeVentaV2
             #endregion Final  Sección De Copiado Producto
             /* Fin del codigo de Emmanuel */
 
-            var dato = cn.CargarDatos($"SELECT PrecioCompra FROM productos WHERE ID = {idEditarProducto}");
-            var precioProdActual = dato.Rows[0]["PrecioCompra"].ToString();
-            var fecha2 = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-            if (precioProdActual != txtPrecioCompra.Text)
+            if (DatosSource == 2 )
             {
-                cn.EjecutarConsulta($"UPDATE productos SET PrecioCompra = {txtPrecioCompra.Text} WHERE ID = {idEditarProducto}; ");
-                cn.EjecutarConsulta($"INSERT INTO historialcompras ( Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario ) VALUES ( '{nombre}', '0', '{txtPrecioCompra.Text}', '0','{precio}', '{fecha2}','N/A', 'AJUSTE PRECIO DE COMPRA', 'N/A', 'N/A', '{fecha2}', '{Inventario.idReporte}', '{idEditarProducto}', '{FormPrincipal.userID}')");
+                var dato = cn.CargarDatos($"SELECT PrecioCompra FROM productos WHERE ID = {idEditarProducto}");//VALIDAR PARA HACERSE SOLO UANDO SE EDITA
+                var precioProdActual = dato.Rows[0]["PrecioCompra"].ToString();
+                var fecha2 = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                if (precioProdActual != txtPrecioCompra.Text)
+                {
+                    cn.EjecutarConsulta($"UPDATE productos SET PrecioCompra = {txtPrecioCompra.Text} WHERE ID = {idEditarProducto}; ");
+                    cn.EjecutarConsulta($"INSERT INTO historialcompras ( Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario ) VALUES ( '{nombre}', '0', '{txtPrecioCompra.Text}', '0','{precio}', '{fecha2}','N/A', 'AJUSTE PRECIO DE COMPRA', 'N/A', 'N/A', '{fecha2}', '{Inventario.idReporte}', '{idEditarProducto}', '{FormPrincipal.userID}')");
+                }
             }
 
                 listaProductoToCombo.Clear();

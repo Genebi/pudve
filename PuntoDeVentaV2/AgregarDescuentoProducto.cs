@@ -144,7 +144,9 @@ namespace PuntoDeVentaV2
                     AgregarEditarProducto.descuentos.Add(porcentaje.Text);
                     AgregarEditarProducto.descuentos.Add(precioDesc.Text);
                     AgregarEditarProducto.descuentos.Add(descuento.Text);
+                    AgregarEditarProducto.descuentos.Add("0");
                 }
+                AgregarEditarProducto.rbDescuentoSinGuardar = 1;
             }
             //Mayoreo
             if (tipoDescuento == 2)
@@ -250,6 +252,7 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Es necesario agregar minímo 2 descuentos a mayoreo.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+                AgregarEditarProducto.rbDescuentoSinGuardar = 2;
             }
             AgregarEditarProducto.validacionUpdateDescuentos = 1;
             refrescarForm = false;
@@ -682,7 +685,7 @@ namespace PuntoDeVentaV2
                     panelContenedor.FlowDirection = FlowDirection.TopDown;
                 }
             }
-            if (tipoDescuento.Equals(2))
+            if (tipoDescuento.Equals(2))//APARTADO PARA MAYOREO
             {
                 if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
                 {
@@ -973,6 +976,528 @@ namespace PuntoDeVentaV2
             }
         }
 
+        public void cargarDescuentosNuevosProductos()
+        {
+            var tipoDescuentoSinGuardar = 0;
+            if (AgregarEditarProducto.rbDescuentoSinGuardar == 2)
+            {
+                tipoDescuentoSinGuardar = 2;
+                rbMayoreo.Checked = true;
+            }
+            else
+            {
+                tipoDescuentoSinGuardar = 0;
+                rbCliente.Checked = true;
+            }
+
+            if (tipoDescuentoSinGuardar.Equals(0))
+            {
+                if (AgregarEditarProducto.descuentos.Count > 0)
+                {
+
+                        //var datos = AgregarEditarProducto.descuentos[i];
+                        //datos2[0] = valor inicial del rango del descuento 
+                        //datos2[1] = valor final rango del descuento
+                        //datos2[2] = precio del producto con el descuento
+
+                        FlowLayoutPanel panelHijo = new FlowLayoutPanel();
+                        panelHijo.Name = "panelGeneradoCliente";
+                        panelHijo.Width = 725;
+                        panelHijo.Height = 250;
+
+                        Label lb1 = new Label();
+                        lb1.Text = "Precio de producto";
+                        lb1.Margin = new Padding(270, 10, 0, 0);
+                        lb1.Font = new Font("Century Gothic", 11);
+                        lb1.AutoSize = false;
+                        lb1.Width = 220;
+                        lb1.Height = 20;
+                        lb1.TextAlign = ContentAlignment.MiddleCenter;
+
+                        TextBox tb1 = new TextBox();
+                        tb1.Name = "txtPrecio";
+                        tb1.Width = 220;
+                        tb1.Height = 20;
+                        tb1.Margin = new Padding(270, 5, 0, 0);
+                        tb1.TextAlign = HorizontalAlignment.Center;
+                        tb1.Enabled = false;
+                        tb1.BackColor = Color.White;
+                        tb1.Text = precioProducto.ToString("0.00");
+                        tb1.ShortcutsEnabled = false;
+
+                        Label lb2 = new Label();
+                        lb2.Text = "% de Descuento";
+                        lb2.AutoSize = false;
+                        lb2.Width = 220;
+                        lb2.Height = 20;
+                        lb2.Margin = new Padding(270, 20, 0, 0);
+                        lb2.Font = new Font("Century Gothic", 11);
+                        lb2.TextAlign = ContentAlignment.MiddleCenter;
+
+                        TextBox tb2 = new TextBox();
+                        tb2.Name = "txtPorcentaje";
+                        tb2.Width = 220;
+                        tb2.Height = 20;
+                        tb2.Margin = new Padding(270, 5, 0, 0);
+                        tb2.TextAlign = HorizontalAlignment.Center;
+                        tb2.Leave += new EventHandler(borrarTextoMensaje);
+                        tb2.KeyPress += new KeyPressEventHandler(soloDecimales);
+                        tb2.KeyUp += new KeyEventHandler(calculoDescuento);
+                        tb2.Text = AgregarEditarProducto.descuentos[2].ToString();
+                        tb2.ShortcutsEnabled = false;
+
+                        Label lb3 = new Label();
+                        lb3.Text = "Precio con Descuento";
+                        lb3.AutoSize = false;
+                        lb3.Width = 220;
+                        lb3.Height = 20;
+                        lb3.Margin = new Padding(270, 20, 0, 0);
+                        lb3.Font = new Font("Century Gothic", 11);
+                        lb3.TextAlign = ContentAlignment.MiddleCenter;
+
+                        TextBox tb3 = new TextBox();
+                        tb3.Name = "txtPrecioDescuento";
+                        tb3.Width = 220;
+                        tb3.Height = 20;
+                        tb3.Margin = new Padding(270, 5, 0, 0);
+                        tb3.TextAlign = HorizontalAlignment.Center;
+                        tb3.Enabled = false;
+                        tb3.BackColor = Color.White;
+                        tb3.Text = AgregarEditarProducto.descuentos[3].ToString();
+                        tb3.ShortcutsEnabled = false;
+
+                        Label lb4 = new Label();
+                        lb4.Text = "Descuento";
+                        lb4.AutoSize = false;
+                        lb4.Width = 220;
+                        lb4.Height = 20;
+                        lb4.Margin = new Padding(270, 20, 0, 0);
+                        lb4.Font = new Font("Century Gothic", 11);
+                        lb4.TextAlign = ContentAlignment.MiddleCenter;
+
+                        TextBox tb4 = new TextBox();
+                        tb4.Name = "txtDescuento";
+                        tb4.Width = 220;
+                        tb4.Height = 20;
+                        tb4.Margin = new Padding(270, 5, 0, 0);
+                        tb4.TextAlign = HorizontalAlignment.Center;
+                        tb4.Enabled = false;
+                        tb4.BackColor = Color.White;
+                        tb4.Text = AgregarEditarProducto.descuentos[4].ToString();
+                        tb4.ShortcutsEnabled = false;
+
+                        panelHijo.Controls.Add(lb1);
+                        panelHijo.Controls.Add(tb1);
+                        panelHijo.Controls.Add(lb2);
+                        panelHijo.Controls.Add(tb2);
+                        panelHijo.Controls.Add(lb3);
+                        panelHijo.Controls.Add(tb3);
+                        panelHijo.Controls.Add(lb4);
+                        panelHijo.Controls.Add(tb4);
+
+                        panelHijo.FlowDirection = FlowDirection.TopDown;
+
+                        panelContenedor.Controls.Add(panelHijo);
+                        panelContenedor.FlowDirection = FlowDirection.TopDown;
+                    
+                }
+                if (AgregarEditarProducto.descuentos.Count == 0)
+                {
+                    FlowLayoutPanel panelHijo = new FlowLayoutPanel();
+                    panelHijo.Name = "panelGeneradoCliente";
+                    panelHijo.Width = 725;
+                    panelHijo.Height = 250;
+
+                    Label lb1 = new Label();
+                    lb1.Text = "Precio de producto";
+                    lb1.Margin = new Padding(270, 10, 0, 0);
+                    lb1.Font = new Font("Century Gothic", 11);
+                    lb1.AutoSize = false;
+                    lb1.Width = 220;
+                    lb1.Height = 20;
+                    lb1.TextAlign = ContentAlignment.MiddleCenter;
+
+                    TextBox tb1 = new TextBox();
+                    tb1.Name = "txtPrecio";
+                    tb1.Width = 220;
+                    tb1.Height = 20;
+                    tb1.Margin = new Padding(270, 5, 0, 0);
+                    tb1.TextAlign = HorizontalAlignment.Center;
+                    tb1.Enabled = false;
+                    tb1.BackColor = Color.White;
+                    tb1.Text = precioProducto.ToString("0.00");
+                    tb1.ShortcutsEnabled = false;
+
+                    Label lb2 = new Label();
+                    lb2.Text = "% de Descuento";
+                    lb2.AutoSize = false;
+                    lb2.Width = 220;
+                    lb2.Height = 20;
+                    lb2.Margin = new Padding(270, 20, 0, 0);
+                    lb2.Font = new Font("Century Gothic", 11);
+                    lb2.TextAlign = ContentAlignment.MiddleCenter;
+
+                    TextBox tb2 = new TextBox();
+                    tb2.Name = "txtPorcentaje";
+                    tb2.Width = 220;
+                    tb2.Height = 20;
+                    tb2.Margin = new Padding(270, 5, 0, 0);
+                    tb2.TextAlign = HorizontalAlignment.Center;
+                    tb2.Leave += new EventHandler(borrarTextoMensaje);
+                    tb2.KeyPress += new KeyPressEventHandler(soloDecimales);
+                    tb2.KeyUp += new KeyEventHandler(calculoDescuento);
+                    tb2.ShortcutsEnabled = false;
+
+                    Label lb3 = new Label();
+                    lb3.Text = "Precio con Descuento";
+                    lb3.AutoSize = false;
+                    lb3.Width = 220;
+                    lb3.Height = 20;
+                    lb3.Margin = new Padding(270, 20, 0, 0);
+                    lb3.Font = new Font("Century Gothic", 11);
+                    lb3.TextAlign = ContentAlignment.MiddleCenter;
+
+                    TextBox tb3 = new TextBox();
+                    tb3.Name = "txtPrecioDescuento";
+                    tb3.Width = 220;
+                    tb3.Height = 20;
+                    tb3.Margin = new Padding(270, 5, 0, 0);
+                    tb3.TextAlign = HorizontalAlignment.Center;
+                    tb3.Enabled = false;
+                    tb3.BackColor = Color.White;
+                    tb3.KeyPress += new KeyPressEventHandler(soloDecimales);
+                    tb3.ShortcutsEnabled = false;
+
+                    Label lb4 = new Label();
+                    lb4.Text = "Descuento";
+                    lb4.AutoSize = false;
+                    lb4.Width = 220;
+                    lb4.Height = 20;
+                    lb4.Margin = new Padding(270, 20, 0, 0);
+                    lb4.Font = new Font("Century Gothic", 11);
+                    lb4.TextAlign = ContentAlignment.MiddleCenter;
+
+                    TextBox tb4 = new TextBox();
+                    tb4.Name = "txtDescuento";
+                    tb4.Width = 220;
+                    tb4.Height = 20;
+                    tb4.Margin = new Padding(270, 5, 0, 0);
+                    tb4.TextAlign = HorizontalAlignment.Center;
+                    tb4.Enabled = false;
+                    tb4.BackColor = Color.White;
+                    tb4.KeyPress += new KeyPressEventHandler(soloDecimales);
+                    tb4.ShortcutsEnabled = false;
+
+                    panelHijo.Controls.Add(lb1);
+                    panelHijo.Controls.Add(tb1);
+                    panelHijo.Controls.Add(lb2);
+                    panelHijo.Controls.Add(tb2);
+                    panelHijo.Controls.Add(lb3);
+                    panelHijo.Controls.Add(tb3);
+                    panelHijo.Controls.Add(lb4);
+                    panelHijo.Controls.Add(tb4);
+
+                    panelHijo.FlowDirection = FlowDirection.TopDown;
+
+                    panelContenedor.Controls.Add(panelHijo);
+                    panelContenedor.FlowDirection = FlowDirection.TopDown;
+                }
+            }
+            if (tipoDescuentoSinGuardar.Equals(2))//APARTADO PARA MAYOREO
+            {
+                if (AgregarEditarProducto.descuentos.Count > 0)
+                {
+                    idGenerado = 1;
+
+                    FlowLayoutPanel panelHijo1 = new FlowLayoutPanel();
+                    panelHijo1.Name = "panelMayoreoTitulos";
+                    panelHijo1.Width = 725;
+                    panelHijo1.Height = 50;
+
+                    Label lb1 = new Label();
+                    lb1.Text = "Rango de Productos";
+                    lb1.AutoSize = false;
+                    lb1.Width = 220;
+                    lb1.Height = 20;
+                    lb1.Margin = new Padding(150, 20, 0, 0);
+                    lb1.Font = new Font("Century Gothic", 11);
+                    lb1.TextAlign = ContentAlignment.MiddleCenter;
+
+                    Label lb2 = new Label();
+                    lb2.Text = "Precios";
+                    lb2.AutoSize = false;
+                    lb2.Width = 220;
+                    lb2.Height = 20;
+                    lb2.Margin = new Padding(30, 20, 0, 0);
+                    lb2.Font = new Font("Century Gothic", 11);
+                    lb2.TextAlign = ContentAlignment.MiddleCenter;
+
+                    panelHijo1.Controls.Add(lb1);
+                    panelHijo1.Controls.Add(lb2);
+
+                    panelHijo1.FlowDirection = FlowDirection.LeftToRight;
+
+                    panelContenedor.Controls.Add(panelHijo1);
+
+                    //int cantidadRangos = AgregarEditarProducto.SearchDesMayoreo.Rows.Count;
+
+                    for (int i = 1; i < AgregarEditarProducto.descuentos.Count; i++)
+                    {
+                        var datos = AgregarEditarProducto.descuentos[i];
+                        var datos2 = datos.Split('-');
+
+                        bool habilitado = true;
+
+                        //if (cantidadRangos != idGenerado)
+                        //{
+                        //    habilitado = false;
+                        //}
+
+                        FlowLayoutPanel panelHijo2 = new FlowLayoutPanel();
+                        panelHijo2.Name = $"panelMayoreo{idGenerado}";
+                        panelHijo2.Width = 725;
+                        panelHijo2.Height = 50;
+
+                        TextBox tb1 = new TextBox();
+                        tb1.Name = $"tbMayoreo{idGenerado}_1";
+                        tb1.Width = 100;
+                        tb1.Height = 20;
+                        tb1.Margin = new Padding(120, 5, 0, 0);
+                        tb1.TextAlign = HorizontalAlignment.Center;
+                        tb1.Text = datos2[0].ToString();
+                        tb1.ReadOnly = true;
+                        tb1.BackColor = Color.White;
+                        tb1.ShortcutsEnabled = false;
+
+                        TextBox tb2 = new TextBox();
+                        tb2.Name = $"tbMayoreo{idGenerado}_2";
+                        tb2.Width = 100;
+                        tb2.Height = 20;
+                        tb2.Margin = new Padding(50, 5, 0, 0);
+                        tb2.TextAlign = HorizontalAlignment.Center;
+                        tb2.Leave += new EventHandler(borrarTextoMensaje);
+                        tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
+                        tb2.Text = datos2[1].ToString() != "N" ? datos2[1].ToString() : "";
+                        tb2.Enabled = habilitado;
+                        tb2.ShortcutsEnabled = false;
+
+                        Label lb = new Label();
+                        lb.Text = "";
+                        lb.Name = $"fraseMas{idGenerado}";
+                        lb.Width = 40;
+                        lb.TextAlign = ContentAlignment.MiddleLeft;
+
+                        TextBox tb3 = new TextBox();
+                        tb3.Name = $"tbMayoreo{idGenerado}_3";
+                        tb3.Width = 100;
+                        tb3.Height = 20;
+                        tb3.Margin = new Padding(95, 5, 0, 0);
+                        tb3.TextAlign = HorizontalAlignment.Center;
+                        tb3.Text = precioProducto.ToString("0.00");
+                        tb3.ShortcutsEnabled = false;
+
+                        //if (cantidadRangos != idGenerado)
+                        //{
+                        //    tb3.ReadOnly = true;
+                        //}
+                        //else
+                        //{
+                        //    lb.Text = "o más";
+                        //}
+
+                        tb3.BackColor = Color.White;
+                        tb3.Text = datos2[2].ToString();
+                        tb3.Enabled = habilitado;
+
+                        Button btAgregar = new Button();
+                        btAgregar.Cursor = Cursors.Hand;
+                        btAgregar.Text = "+";
+                        btAgregar.Name = $"btnAgregarD{idGenerado}";
+                        btAgregar.Width = 20;
+                        btAgregar.Height = 20;
+                        btAgregar.BackColor = ColorTranslator.FromHtml("#4CAC18");
+                        btAgregar.ForeColor = ColorTranslator.FromHtml("white");
+                        btAgregar.FlatStyle = FlatStyle.Flat;
+                        btAgregar.Click += new EventHandler(AgregarLineaDescuento);
+                        btAgregar.Margin = new Padding(5, 5, 0, 0);
+                        btAgregar.Enabled = habilitado;
+
+                        Button bt = new Button();
+                        bt.Cursor = Cursors.Hand;
+                        bt.Text = "X";
+                        bt.Name = $"btnEliminarD{idGenerado}";
+                        bt.Width = 20;
+                        bt.Height = 20;
+                        bt.BackColor = ColorTranslator.FromHtml("#C00000");
+                        bt.ForeColor = ColorTranslator.FromHtml("white");
+                        bt.FlatStyle = FlatStyle.Flat;
+                        bt.Click += new EventHandler(eliminarDescuentos);
+                        bt.Margin = new Padding(5, 5, 0, 0);
+                        bt.Enabled = habilitado;
+
+                        string textoCheckbox = string.Empty;
+
+                        if (idGenerado == 1)
+                        {
+                            textoCheckbox = $"Las primeras {tb2.Text} siempre costarán {precioProducto.ToString("0.00")}";
+
+                        }
+                        else if (idGenerado > 1)
+                        {
+                            if (string.IsNullOrWhiteSpace(tb2.Text))
+                            {
+                                textoCheckbox = $"De {tb1.Text} en adelante siempre costarán {tb3.Text}";
+                            }
+                            else
+                            {
+                                textoCheckbox = $"De entre {tb1.Text} a {tb2.Text} siempre costarán {tb3.Text}";
+                            }
+
+                        }
+
+                        CheckBox cb1 = new CheckBox();
+                        cb1.Name = $"checkMayoreo{idGenerado}";
+                        cb1.Text = textoCheckbox;
+                        cb1.Margin = new Padding(120, 5, 0, 0);
+                        cb1.TextAlign = ContentAlignment.MiddleLeft;
+                        cb1.CheckedChanged += seleccionCheckBoxes;
+                        cb1.Width = 400;
+                        cb1.Tag = idGenerado;
+                        cb1.Checked = Convert.ToInt16(datos2[3].ToString()) == 0 ? true : false;
+
+                        panelHijo2.Controls.Add(tb1);
+                        panelHijo2.Controls.Add(tb2);
+                        panelHijo2.Controls.Add(lb);
+                        panelHijo2.Controls.Add(tb3);
+
+                        // Condiciones para cuando carga el descuento por rango al editar
+                        // al primer rango no debe de agregarle la opcion de eliminar (boton rojo)
+                        if (idGenerado == 1)
+                        {
+                            panelHijo2.Controls.Add(btAgregar);
+                            panelHijo2.SetFlowBreak(btAgregar, true);
+                            panelHijo2.Controls.Add(cb1);
+                        }
+
+                        if (idGenerado > 1)
+                        {
+                            panelHijo2.Controls.Add(btAgregar);
+                            panelHijo2.Controls.Add(bt);
+                            panelHijo2.SetFlowBreak(bt, true);
+                            panelHijo2.Controls.Add(cb1);
+                        }
+
+                        panelHijo2.FlowDirection = FlowDirection.LeftToRight;
+                        panelContenedor.Controls.Add(panelHijo2);
+                        panelContenedor.FlowDirection = FlowDirection.TopDown;
+
+                        idGenerado++;
+                    }
+                }
+                //if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count == 0)
+                //{
+                //    FlowLayoutPanel panelHijo1 = new FlowLayoutPanel();
+                //    panelHijo1.Name = "panelMayoreoTitulos";
+                //    panelHijo1.Width = 725;
+                //    panelHijo1.Height = 50;
+
+                //    Label lb1 = new Label();
+                //    lb1.Text = "Rango de Productos";
+                //    lb1.AutoSize = false;
+                //    lb1.Width = 220;
+                //    lb1.Height = 20;
+                //    lb1.Margin = new Padding(150, 20, 0, 0);
+                //    lb1.Font = new Font("Century Gothic", 11);
+                //    lb1.TextAlign = ContentAlignment.MiddleCenter;
+
+                //    Label lb2 = new Label();
+                //    lb2.Text = "Precios";
+                //    lb2.AutoSize = false;
+                //    lb2.Width = 220;
+                //    lb2.Height = 20;
+                //    lb2.Margin = new Padding(30, 20, 0, 0);
+                //    lb2.Font = new Font("Century Gothic", 11);
+                //    lb2.TextAlign = ContentAlignment.MiddleCenter;
+
+                //    FlowLayoutPanel panelHijo2 = new FlowLayoutPanel();
+                //    panelHijo2.Name = "panelMayoreo1";
+                //    panelHijo2.Width = 725;
+                //    panelHijo2.Height = 50;
+
+                //    TextBox tb1 = new TextBox();
+                //    tb1.Name = "tbMayoreo1_1";
+                //    tb1.Width = 100;
+                //    tb1.Height = 20;
+                //    tb1.Margin = new Padding(120, 5, 0, 0);
+                //    tb1.TextAlign = HorizontalAlignment.Center;
+                //    tb1.Text = "1";
+                //    tb1.ReadOnly = true;
+                //    tb1.BackColor = Color.White;
+                //    tb1.ShortcutsEnabled = false;
+
+                //    TextBox tb2 = new TextBox();
+                //    tb2.Name = "tbMayoreo1_2";
+                //    tb2.Width = 100;
+                //    tb2.Height = 20;
+                //    tb2.Margin = new Padding(50, 5, 0, 0);
+                //    tb2.TextAlign = HorizontalAlignment.Center;
+                //    tb2.Leave += new EventHandler(borrarTextoMensaje);
+                //    tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
+                //    tb2.ShortcutsEnabled = false;
+
+                //    TextBox tb3 = new TextBox();
+                //    tb3.Name = "tbMayoreo1_3";
+                //    tb3.Width = 100;
+                //    tb3.Height = 20;
+                //    tb3.Margin = new Padding(95, 5, 0, 0);
+                //    tb3.TextAlign = HorizontalAlignment.Center;
+                //    tb3.Text = precioProducto.ToString("0.00");
+                //    tb3.ReadOnly = true;
+                //    tb3.BackColor = Color.White;
+                //    tb3.ShortcutsEnabled = false;
+
+                //    Button btAgregar = new Button();
+                //    btAgregar.Cursor = Cursors.Hand;
+                //    btAgregar.Text = "+";
+                //    btAgregar.Name = $"btnAgregarD1";
+                //    btAgregar.Width = 20;
+                //    btAgregar.Height = 20;
+                //    btAgregar.BackColor = ColorTranslator.FromHtml("#4CAC18");
+                //    btAgregar.ForeColor = ColorTranslator.FromHtml("white");
+                //    btAgregar.FlatStyle = FlatStyle.Flat;
+                //    btAgregar.Click += new EventHandler(AgregarLineaDescuento);
+                //    btAgregar.Margin = new Padding(5, 5, 0, 0);
+
+                //    CheckBox cb1 = new CheckBox();
+                //    cb1.Name = "checkMayoreo1";
+                //    cb1.Text = $"Las primeras siempre costarán {precioProducto.ToString("0.00")}";
+                //    cb1.Margin = new Padding(120, 5, 0, 0);
+                //    cb1.TextAlign = ContentAlignment.MiddleLeft;
+                //    cb1.CheckedChanged += seleccionCheckBoxes;
+                //    cb1.Checked = true;
+                //    cb1.Width = 400;
+                //    cb1.Tag = 1;
+
+                //    panelHijo1.Controls.Add(lb1);
+                //    panelHijo1.Controls.Add(lb2);
+                //    panelHijo2.Controls.Add(tb1);
+                //    panelHijo2.Controls.Add(tb2);
+                //    panelHijo2.Controls.Add(tb3);
+                //    panelHijo2.Controls.Add(btAgregar);
+                //    panelHijo2.SetFlowBreak(btAgregar, true);
+                //    panelHijo2.Controls.Add(cb1);
+
+                //    panelHijo1.FlowDirection = FlowDirection.LeftToRight;
+                //    panelHijo2.FlowDirection = FlowDirection.LeftToRight;
+
+                //    panelContenedor.Controls.Add(panelHijo1);
+                //    panelContenedor.Controls.Add(panelHijo2);
+
+                //    panelContenedor.FlowDirection = FlowDirection.TopDown;
+                //}
+            }
+        }
+
         private void borrarTextoMensaje(object sender, EventArgs e)
         {
             TextBox tbPorcentaje = (TextBox)sender;
@@ -994,11 +1519,26 @@ namespace PuntoDeVentaV2
                     AgregarEditarProducto.DatosSourceFinal == 4 ||
                     AgregarEditarProducto.DatosSourceFinal == 5)
                 {
-                    cargarNvoDescuentos();
+                    if (AgregarEditarProducto.descuentosSinGuardar == 1)
+                    {
+                        cargarDescuentosNuevosProductos();
+                    }
+                    else
+                    {
+                        cargarNvoDescuentos();
+                    }
                 }
                 else if (AgregarEditarProducto.DatosSourceFinal == 2)
                 {
-                    cargarDescuentos();
+                    if (AgregarEditarProducto.descuentosSinGuardar == 1)
+                    {
+                        cargarDescuentosNuevosProductos();
+                    }
+                    else
+                    {
+                        cargarDescuentos();
+                    }
+                        
                 }
             }
             else if (tipo.Equals(2))
@@ -1012,7 +1552,15 @@ namespace PuntoDeVentaV2
                 }
                 else if (AgregarEditarProducto.DatosSourceFinal == 2)
                 {
-                    cargarDescuentos();
+                    if (AgregarEditarProducto.descuentosSinGuardar == 1)
+                    {
+                        cargarDescuentosNuevosProductos();
+                    }
+                    else
+                    {
+                        cargarDescuentos();
+                    }
+                    
                 }
             }
         }
@@ -1021,7 +1569,7 @@ namespace PuntoDeVentaV2
         private void rbCliente_CheckedChanged(object sender, EventArgs e)
         {
             if (AgregarEditarProducto.descuentos.Any())
-            {
+             {
                 return;
             }
 
@@ -1542,7 +2090,8 @@ namespace PuntoDeVentaV2
 
         private void rbMayoreo_Click(object sender, EventArgs e)
         {
-            var productoNuevo = AgregarEditarProducto.DatosSourceFinal;
+
+        var productoNuevo = AgregarEditarProducto.DatosSourceFinal;
             //cn.CargarDatos($"SELECT * FROM descuentomayoreo where IDProducto = {}");
         if (productoNuevo == 2)
         {
@@ -1559,6 +2108,7 @@ namespace PuntoDeVentaV2
                     rbMayoreo.Checked = true;
                     tipoDescuento = 2;
                     CargarFormularios(tipoDescuento);
+                    this.Close();
                 }
 
             }
@@ -1575,19 +2125,40 @@ namespace PuntoDeVentaV2
                         eliminarDescuento = true;
 
                         btnEliminarDescuentos.PerformClick();
-                    }
+                        this.Close();
+                        }
                 }
             }
         }
-    }
+
+            if (!AgregarEditarProducto.descuentos.Count.Equals(0))
+            {
+                var respuesta = MessageBox.Show("Este producto ya tiene asignado Descuento por Producto, si desea cambiar el tipo de descuento es necesario eliminar el descuento actual.\n\n¿Desea eliminarlo?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (respuesta == DialogResult.Yes)
+                {
+                    eliminarDescuento = true;
+                    AgregarEditarProducto.descuentos.Clear();
+                    btnEliminarDescuentos.PerformClick();
+                     tipoDescuento = 2;
+                    CargarFormularios(tipoDescuento);
+                    this.Close();
+                }
+            }
+        }
         private void rbCliente_Click(object sender, EventArgs e)
         {
+            //if (!AgregarEditarProducto.descuentos.Count.Equals(0))
+            //{
+            //    eliminarDescuento = true;
+            //    btnEliminarDescuentos.PerformClick();
+            //}
             if (AgregarEditarProducto.descuentos.Any())
             {
                 rbMayoreo.Checked = true;
 
                 var respuesta = MessageBox.Show("Este producto ya tiene asignado Descuento por Mayoreo, si desea cambiar el tipo de descuento es necesario eliminar el descuento actual.\n\n¿Desea eliminarlo?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                
+
                 if (respuesta == DialogResult.Yes)
                 {
                     AgregarEditarProducto.descuentos.Clear();
@@ -1595,7 +2166,8 @@ namespace PuntoDeVentaV2
                     rbCliente.Checked = true;
                     tipoDescuento = 1;
                     CargarFormularios(tipoDescuento);
-                } 
+                    this.Close();
+                }
             }
 
             if (AgregarEditarProducto.DatosSourceFinal.Equals(2))
@@ -1603,14 +2175,30 @@ namespace PuntoDeVentaV2
                 if (AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
                 {
                     //lblMensaje.Text = "Este producto ya tiene asignado descuento por Mayoreo desea cambiarlo";
-                    var respuesta = MessageBox.Show("Este producto ya tiene asignado Descuento por Mayoreo, si desea cambiar el tipo de descuento es necesario eliminar el descuento actual.\n\n¿Desea eliminarlo?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);   
-                    
+                    var respuesta = MessageBox.Show("Este producto ya tiene asignado Descuento por Mayoreo, si desea cambiar el tipo de descuento es necesario eliminar el descuento actual.\n\n¿Desea eliminarlo?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
                     if (respuesta == DialogResult.Yes)
                     {
                         eliminarDescuento = true;
 
                         btnEliminarDescuentos.PerformClick();
+                        this.Close();
                     }
+                }
+            }
+
+            if (!AgregarEditarProducto.descuentos.Count.Equals(0))
+            {
+                var respuesta = MessageBox.Show("Este producto ya tiene asignado Descuento por Producto, si desea cambiar el tipo de descuento es necesario eliminar el descuento actual.\n\n¿Desea eliminarlo?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (respuesta == DialogResult.Yes)
+                {
+                    eliminarDescuento = true;
+                    AgregarEditarProducto.descuentos.Clear();
+                    btnEliminarDescuentos.PerformClick();
+                    tipoDescuento = 1;
+                    CargarFormularios(tipoDescuento);
+                    this.Close();
                 }
             }
         }
