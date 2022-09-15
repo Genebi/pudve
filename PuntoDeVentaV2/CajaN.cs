@@ -389,12 +389,12 @@ namespace PuntoDeVentaV2
                                 lbCambioAbonos.Visible = true;
                                 foreach (DataRow item in dtAbonos.Rows)
                                 {
-                                    totalAbonoEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
-                                    totalAbonoTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
-                                    totalAbonoVales = Convert.ToDecimal(item["Vales"].ToString());
-                                    totalAbonoCheque = Convert.ToDecimal(item["Cheque"].ToString());
-                                    totalAbonoTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
-                                    totalAbonoRealizado = Convert.ToDecimal(item["Total"].ToString());
+                                    totalAbonoEfectivo += Convert.ToDecimal(item["Efectivo"].ToString());
+                                    totalAbonoTarjeta += Convert.ToDecimal(item["Tarjeta"].ToString());
+                                    totalAbonoVales += Convert.ToDecimal(item["Vales"].ToString());
+                                    totalAbonoCheque += Convert.ToDecimal(item["Cheque"].ToString());
+                                    totalAbonoTransferencia += Convert.ToDecimal(item["Transferencia"].ToString());
+                                    totalAbonoRealizado += Convert.ToDecimal(item["Total"].ToString());
                                     lbTCreditoC.Text = totalAbonoRealizado.ToString("C2");
                                 }
                             }
