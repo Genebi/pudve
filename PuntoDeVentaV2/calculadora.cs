@@ -14,7 +14,7 @@ namespace PuntoDeVentaV2
     {
         double a = 0, b = 0, resultado = 0, d = 0;
         string c = "";
-        
+        public static bool seEnvia = false;
 
         public calculadora()
         {
@@ -631,7 +631,7 @@ namespace PuntoDeVentaV2
 
         private void btnEnviar_Click(object sender, EventArgs e)
         {
-            
+            seEnvia = true;
             this.Close();
         }
 
