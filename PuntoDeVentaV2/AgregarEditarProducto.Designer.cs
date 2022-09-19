@@ -84,7 +84,13 @@
             this.tLPCombo = new System.Windows.Forms.TableLayoutPanel();
             this.tLPProducto = new System.Windows.Forms.TableLayoutPanel();
             this.PAccion = new System.Windows.Forms.Panel();
+            this.btnMensajeVenta = new PuntoDeVentaV2.BotonRedondo();
+            this.button1 = new PuntoDeVentaV2.BotonRedondo();
+            this.btnAgregarDescuento = new PuntoDeVentaV2.BotonRedondo();
+            this.btnDetalleProducto = new PuntoDeVentaV2.BotonRedondo();
             this.btnProdUpdate = new System.Windows.Forms.Button();
+            this.btnDetalleFacturacion = new PuntoDeVentaV2.BotonRedondo();
+            this.btnGuardarProducto = new PuntoDeVentaV2.BotonRedondo();
             this.PType = new System.Windows.Forms.Panel();
             this.fLPType = new System.Windows.Forms.FlowLayoutPanel();
             this.fLPDetalleProducto = new System.Windows.Forms.FlowLayoutPanel();
@@ -97,12 +103,6 @@
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.errorProvAgregarEditarProducto = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnMensajeVenta = new PuntoDeVentaV2.BotonRedondo();
-            this.button1 = new PuntoDeVentaV2.BotonRedondo();
-            this.btnAgregarDescuento = new PuntoDeVentaV2.BotonRedondo();
-            this.btnDetalleProducto = new PuntoDeVentaV2.BotonRedondo();
-            this.btnDetalleFacturacion = new PuntoDeVentaV2.BotonRedondo();
-            this.btnGuardarProducto = new PuntoDeVentaV2.BotonRedondo();
             this.PDetalleProdcuto.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -809,6 +809,92 @@
             this.PAccion.Size = new System.Drawing.Size(999, 82);
             this.PAccion.TabIndex = 32;
             // 
+            // btnMensajeVenta
+            // 
+            this.btnMensajeVenta.BackColor = System.Drawing.Color.Crimson;
+            this.btnMensajeVenta.BackGroundColor = System.Drawing.Color.Crimson;
+            this.btnMensajeVenta.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnMensajeVenta.BorderRadius = 20;
+            this.btnMensajeVenta.BorderSize = 0;
+            this.btnMensajeVenta.FlatAppearance.BorderSize = 0;
+            this.btnMensajeVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMensajeVenta.ForeColor = System.Drawing.Color.White;
+            this.btnMensajeVenta.Image = global::PuntoDeVentaV2.Properties.Resources.commenting_o1;
+            this.btnMensajeVenta.Location = new System.Drawing.Point(685, 5);
+            this.btnMensajeVenta.Name = "btnMensajeVenta";
+            this.btnMensajeVenta.Size = new System.Drawing.Size(150, 75);
+            this.btnMensajeVenta.TabIndex = 21;
+            this.btnMensajeVenta.Text = "Mensaje Venta Y Mensaje Inventario";
+            this.btnMensajeVenta.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnMensajeVenta.TextColor = System.Drawing.Color.White;
+            this.btnMensajeVenta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnMensajeVenta.UseVisualStyleBackColor = false;
+            this.btnMensajeVenta.Click += new System.EventHandler(this.btnMensajeVenta_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(109)))), ((int)(((byte)(126)))));
+            this.button1.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(109)))), ((int)(((byte)(126)))));
+            this.button1.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.button1.BorderRadius = 20;
+            this.button1.BorderSize = 0;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.inbox_empty;
+            this.button1.Location = new System.Drawing.Point(29, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(150, 75);
+            this.button1.TabIndex = 0;
+            this.button1.TextColor = System.Drawing.Color.White;
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.botonRedondo1_Click);
+            // 
+            // btnAgregarDescuento
+            // 
+            this.btnAgregarDescuento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(170)))), ((int)(((byte)(23)))));
+            this.btnAgregarDescuento.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(170)))), ((int)(((byte)(23)))));
+            this.btnAgregarDescuento.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnAgregarDescuento.BorderRadius = 20;
+            this.btnAgregarDescuento.BorderSize = 0;
+            this.btnAgregarDescuento.FlatAppearance.BorderSize = 0;
+            this.btnAgregarDescuento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregarDescuento.ForeColor = System.Drawing.Color.White;
+            this.btnAgregarDescuento.Image = global::PuntoDeVentaV2.Properties.Resources.tag_yellow;
+            this.btnAgregarDescuento.Location = new System.Drawing.Point(185, 3);
+            this.btnAgregarDescuento.Name = "btnAgregarDescuento";
+            this.btnAgregarDescuento.Size = new System.Drawing.Size(166, 75);
+            this.btnAgregarDescuento.TabIndex = 3;
+            this.btnAgregarDescuento.Text = "Agregar descuento";
+            this.btnAgregarDescuento.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnAgregarDescuento.TextColor = System.Drawing.Color.White;
+            this.btnAgregarDescuento.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnAgregarDescuento.UseVisualStyleBackColor = false;
+            this.btnAgregarDescuento.Click += new System.EventHandler(this.botonRedondo4_Click);
+            // 
+            // btnDetalleProducto
+            // 
+            this.btnDetalleProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(88)))), ((int)(((byte)(168)))));
+            this.btnDetalleProducto.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(88)))), ((int)(((byte)(168)))));
+            this.btnDetalleProducto.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnDetalleProducto.BorderRadius = 20;
+            this.btnDetalleProducto.BorderSize = 0;
+            this.btnDetalleProducto.FlatAppearance.BorderSize = 0;
+            this.btnDetalleProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDetalleProducto.ForeColor = System.Drawing.Color.White;
+            this.btnDetalleProducto.Image = global::PuntoDeVentaV2.Properties.Resources.product_hunt1;
+            this.btnDetalleProducto.Location = new System.Drawing.Point(357, 3);
+            this.btnDetalleProducto.Name = "btnDetalleProducto";
+            this.btnDetalleProducto.Size = new System.Drawing.Size(165, 75);
+            this.btnDetalleProducto.TabIndex = 1;
+            this.btnDetalleProducto.Text = "Detalle de producto";
+            this.btnDetalleProducto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnDetalleProducto.TextColor = System.Drawing.Color.White;
+            this.btnDetalleProducto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnDetalleProducto.UseVisualStyleBackColor = false;
+            this.btnDetalleProducto.Click += new System.EventHandler(this.botonRedondo2_Click);
+            // 
             // btnProdUpdate
             // 
             this.btnProdUpdate.BackColor = System.Drawing.Color.Teal;
@@ -822,6 +908,50 @@
             this.btnProdUpdate.UseVisualStyleBackColor = false;
             this.btnProdUpdate.Visible = false;
             this.btnProdUpdate.Click += new System.EventHandler(this.btnProdUpdate_Click);
+            // 
+            // btnDetalleFacturacion
+            // 
+            this.btnDetalleFacturacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(153)))), ((int)(((byte)(191)))));
+            this.btnDetalleFacturacion.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(153)))), ((int)(((byte)(191)))));
+            this.btnDetalleFacturacion.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnDetalleFacturacion.BorderRadius = 20;
+            this.btnDetalleFacturacion.BorderSize = 0;
+            this.btnDetalleFacturacion.FlatAppearance.BorderSize = 0;
+            this.btnDetalleFacturacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDetalleFacturacion.ForeColor = System.Drawing.Color.White;
+            this.btnDetalleFacturacion.Image = global::PuntoDeVentaV2.Properties.Resources.bellColor;
+            this.btnDetalleFacturacion.Location = new System.Drawing.Point(528, 3);
+            this.btnDetalleFacturacion.Name = "btnDetalleFacturacion";
+            this.btnDetalleFacturacion.Size = new System.Drawing.Size(150, 75);
+            this.btnDetalleFacturacion.TabIndex = 2;
+            this.btnDetalleFacturacion.Text = "Detalle facturación";
+            this.btnDetalleFacturacion.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnDetalleFacturacion.TextColor = System.Drawing.Color.White;
+            this.btnDetalleFacturacion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnDetalleFacturacion.UseVisualStyleBackColor = false;
+            this.btnDetalleFacturacion.Click += new System.EventHandler(this.botonRedondo3_Click);
+            // 
+            // btnGuardarProducto
+            // 
+            this.btnGuardarProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(132)))), ((int)(((byte)(49)))));
+            this.btnGuardarProducto.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(132)))), ((int)(((byte)(49)))));
+            this.btnGuardarProducto.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnGuardarProducto.BorderRadius = 20;
+            this.btnGuardarProducto.BorderSize = 0;
+            this.btnGuardarProducto.FlatAppearance.BorderSize = 0;
+            this.btnGuardarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardarProducto.ForeColor = System.Drawing.Color.White;
+            this.btnGuardarProducto.Image = global::PuntoDeVentaV2.Properties.Resources.disk;
+            this.btnGuardarProducto.Location = new System.Drawing.Point(841, 3);
+            this.btnGuardarProducto.Name = "btnGuardarProducto";
+            this.btnGuardarProducto.Size = new System.Drawing.Size(150, 75);
+            this.btnGuardarProducto.TabIndex = 4;
+            this.btnGuardarProducto.Text = "Guardar producto";
+            this.btnGuardarProducto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnGuardarProducto.TextColor = System.Drawing.Color.White;
+            this.btnGuardarProducto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnGuardarProducto.UseVisualStyleBackColor = false;
+            this.btnGuardarProducto.Click += new System.EventHandler(this.botonRedondo5_Click);
             // 
             // PType
             // 
@@ -936,136 +1066,6 @@
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
-            // 
-            // btnMensajeVenta
-            // 
-            this.btnMensajeVenta.BackColor = System.Drawing.Color.Crimson;
-            this.btnMensajeVenta.BackGroundColor = System.Drawing.Color.Crimson;
-            this.btnMensajeVenta.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnMensajeVenta.BorderRadius = 20;
-            this.btnMensajeVenta.BorderSize = 0;
-            this.btnMensajeVenta.FlatAppearance.BorderSize = 0;
-            this.btnMensajeVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMensajeVenta.ForeColor = System.Drawing.Color.White;
-            this.btnMensajeVenta.Image = global::PuntoDeVentaV2.Properties.Resources.commenting_o1;
-            this.btnMensajeVenta.Location = new System.Drawing.Point(685, 5);
-            this.btnMensajeVenta.Name = "btnMensajeVenta";
-            this.btnMensajeVenta.Size = new System.Drawing.Size(150, 75);
-            this.btnMensajeVenta.TabIndex = 21;
-            this.btnMensajeVenta.Text = "Mensaje Venta Y Mensaje Inventario";
-            this.btnMensajeVenta.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnMensajeVenta.TextColor = System.Drawing.Color.White;
-            this.btnMensajeVenta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnMensajeVenta.UseVisualStyleBackColor = false;
-            this.btnMensajeVenta.Click += new System.EventHandler(this.btnMensajeVenta_Click);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(109)))), ((int)(((byte)(126)))));
-            this.button1.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(93)))), ((int)(((byte)(109)))), ((int)(((byte)(126)))));
-            this.button1.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.button1.BorderRadius = 20;
-            this.button1.BorderSize = 0;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.inbox_empty;
-            this.button1.Location = new System.Drawing.Point(29, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 75);
-            this.button1.TabIndex = 0;
-            this.button1.TextColor = System.Drawing.Color.White;
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.botonRedondo1_Click);
-            // 
-            // btnAgregarDescuento
-            // 
-            this.btnAgregarDescuento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(170)))), ((int)(((byte)(23)))));
-            this.btnAgregarDescuento.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(209)))), ((int)(((byte)(170)))), ((int)(((byte)(23)))));
-            this.btnAgregarDescuento.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnAgregarDescuento.BorderRadius = 20;
-            this.btnAgregarDescuento.BorderSize = 0;
-            this.btnAgregarDescuento.FlatAppearance.BorderSize = 0;
-            this.btnAgregarDescuento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregarDescuento.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarDescuento.Image = global::PuntoDeVentaV2.Properties.Resources.tag_yellow;
-            this.btnAgregarDescuento.Location = new System.Drawing.Point(185, 3);
-            this.btnAgregarDescuento.Name = "btnAgregarDescuento";
-            this.btnAgregarDescuento.Size = new System.Drawing.Size(166, 75);
-            this.btnAgregarDescuento.TabIndex = 3;
-            this.btnAgregarDescuento.Text = "Agregar descuento";
-            this.btnAgregarDescuento.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnAgregarDescuento.TextColor = System.Drawing.Color.White;
-            this.btnAgregarDescuento.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnAgregarDescuento.UseVisualStyleBackColor = false;
-            this.btnAgregarDescuento.Click += new System.EventHandler(this.botonRedondo4_Click);
-            // 
-            // btnDetalleProducto
-            // 
-            this.btnDetalleProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(88)))), ((int)(((byte)(168)))));
-            this.btnDetalleProducto.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(88)))), ((int)(((byte)(168)))));
-            this.btnDetalleProducto.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnDetalleProducto.BorderRadius = 20;
-            this.btnDetalleProducto.BorderSize = 0;
-            this.btnDetalleProducto.FlatAppearance.BorderSize = 0;
-            this.btnDetalleProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDetalleProducto.ForeColor = System.Drawing.Color.White;
-            this.btnDetalleProducto.Image = global::PuntoDeVentaV2.Properties.Resources.product_hunt1;
-            this.btnDetalleProducto.Location = new System.Drawing.Point(357, 3);
-            this.btnDetalleProducto.Name = "btnDetalleProducto";
-            this.btnDetalleProducto.Size = new System.Drawing.Size(165, 75);
-            this.btnDetalleProducto.TabIndex = 1;
-            this.btnDetalleProducto.Text = "Detalle de producto";
-            this.btnDetalleProducto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnDetalleProducto.TextColor = System.Drawing.Color.White;
-            this.btnDetalleProducto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnDetalleProducto.UseVisualStyleBackColor = false;
-            this.btnDetalleProducto.Click += new System.EventHandler(this.botonRedondo2_Click);
-            // 
-            // btnDetalleFacturacion
-            // 
-            this.btnDetalleFacturacion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(153)))), ((int)(((byte)(191)))));
-            this.btnDetalleFacturacion.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(153)))), ((int)(((byte)(191)))));
-            this.btnDetalleFacturacion.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnDetalleFacturacion.BorderRadius = 20;
-            this.btnDetalleFacturacion.BorderSize = 0;
-            this.btnDetalleFacturacion.FlatAppearance.BorderSize = 0;
-            this.btnDetalleFacturacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnDetalleFacturacion.ForeColor = System.Drawing.Color.White;
-            this.btnDetalleFacturacion.Image = global::PuntoDeVentaV2.Properties.Resources.bellColor;
-            this.btnDetalleFacturacion.Location = new System.Drawing.Point(528, 3);
-            this.btnDetalleFacturacion.Name = "btnDetalleFacturacion";
-            this.btnDetalleFacturacion.Size = new System.Drawing.Size(150, 75);
-            this.btnDetalleFacturacion.TabIndex = 2;
-            this.btnDetalleFacturacion.Text = "Detalle facturación";
-            this.btnDetalleFacturacion.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnDetalleFacturacion.TextColor = System.Drawing.Color.White;
-            this.btnDetalleFacturacion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnDetalleFacturacion.UseVisualStyleBackColor = false;
-            this.btnDetalleFacturacion.Click += new System.EventHandler(this.botonRedondo3_Click);
-            // 
-            // btnGuardarProducto
-            // 
-            this.btnGuardarProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(132)))), ((int)(((byte)(49)))));
-            this.btnGuardarProducto.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(132)))), ((int)(((byte)(49)))));
-            this.btnGuardarProducto.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnGuardarProducto.BorderRadius = 20;
-            this.btnGuardarProducto.BorderSize = 0;
-            this.btnGuardarProducto.FlatAppearance.BorderSize = 0;
-            this.btnGuardarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGuardarProducto.ForeColor = System.Drawing.Color.White;
-            this.btnGuardarProducto.Image = global::PuntoDeVentaV2.Properties.Resources.disk;
-            this.btnGuardarProducto.Location = new System.Drawing.Point(841, 3);
-            this.btnGuardarProducto.Name = "btnGuardarProducto";
-            this.btnGuardarProducto.Size = new System.Drawing.Size(150, 75);
-            this.btnGuardarProducto.TabIndex = 4;
-            this.btnGuardarProducto.Text = "Guardar producto";
-            this.btnGuardarProducto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnGuardarProducto.TextColor = System.Drawing.Color.White;
-            this.btnGuardarProducto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnGuardarProducto.UseVisualStyleBackColor = false;
-            this.btnGuardarProducto.Click += new System.EventHandler(this.botonRedondo5_Click);
             // 
             // AgregarEditarProducto
             // 
