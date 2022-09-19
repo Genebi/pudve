@@ -3531,7 +3531,7 @@ namespace PuntoDeVentaV2
         private void DatosVenta()
         {
             // Datos generales de la venta
-            var IdEmpresa = FormPrincipal.userID.ToString();
+            var IdEmpresa = FormPrincipal.userID.ToString(); 
             var Subtotal = formatoNumericoEstandar(cSubtotal.Text);
             var IVA16 = formatoNumericoEstandar(cIVA.Text);
             var Descuento = formatoNumericoEstandar(cDescuento.Text);
