@@ -181,7 +181,14 @@ namespace PuntoDeVentaV2
                                 }
                                 if (datosAux[1] == "2")
                                 {
-                                    op2 = Convert.ToDecimal(tb);
+                                    if (string.IsNullOrWhiteSpace(tb))
+                                    {
+                                        op2 = op1 + 1;
+                                    }
+                                    else
+                                    {
+                                        op2 = Convert.ToDecimal(tb);
+                                    }
                                 }
                                 if (!op2.Equals(0))
                                 {

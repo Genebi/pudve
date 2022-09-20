@@ -495,6 +495,21 @@ namespace PuntoDeVentaV2
                     Dispose();
                 }
             }
+            else if (propiedad == "CantidadMayoreo")
+            {
+                TextBox tbCantidad = new TextBox();
+                tbCantidad.Name = "tb" + propiedad;
+                tbCantidad.Width = 200;
+                tbCantidad.Height = 20;
+                tbCantidad.TextAlign = HorizontalAlignment.Center;
+                tbCantidad.Font = fuente;
+                tbCantidad.KeyPress += new KeyPressEventHandler(SoloDecimales);
+                tbCantidad.Location = new Point(65, 70);
+
+                panelContenedor.Controls.Add(tbCantidad);
+                panelContenedor.Controls.Add(GenerarBoton(0, "cancelarPrecio"));
+                panelContenedor.Controls.Add(GenerarBoton(1, "aceptarPrecio"));
+            }
             else if (propiedad == "NumeroRevision")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
                 TextBox tbRevision = new TextBox();
@@ -1465,7 +1480,7 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(cs.GuardarHistorialPrecios(info));
                     }
-
+                
                     foreach (var producto in productos)
                     {
                         var datosConfig = mb.ComprobarConfiguracion();
@@ -1533,6 +1548,32 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
+            }
+            else if (propiedad == "CantidadMayoreo")
+            {
+                TextBox txtmayoreo = (TextBox)this.Controls.Find("tbCantidadMayoreo", true)[0];
+
+                var cantidadprodicto = txtmayoreo.Text;
+
+                if (!string.IsNullOrWhiteSpace(cantidadprodicto))
+                {
+                    foreach (var dato in datosHistPrecio)
+                    {
+                        var idProd = dato.Key;
+                        var precioActual = dato.Value;
+                        var precioConDescuento = precioActual * 0.70;
+                        float rangoFinalSinDescuento = (float)Convert.ToDecimal(cantidadprodicto) - 1;
+                        cn.EjecutarConsulta($"DELETE FROM descuentomayoreo WHERE IDProducto = {idProd}");
+                        cn.EjecutarConsulta($"INSERT INTO descuentomayoreo(RangoInicial,RangoFinal,Precio,Checkbox,IDProducto) VALUES('1','{rangoFinalSinDescuento}','{precioActual}','0','{idProd}')");
+                        cn.EjecutarConsulta($"INSERT INTO descuentomayoreo(RangoInicial,RangoFinal,Precio,Checkbox,IDProducto) VALUES('{cantidadprodicto}','N','{precioConDescuento}','0','{idProd}')");
+                    }
+                    MessageBox.Show("Asignacion realizada con Exito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Ingrese la cantidad maxima de productos\n  para tener un descuento", "Aviso del sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    return;
+                }
             }
             else if (propiedad == "NumeroRevision")/////////////////////////////////////////////////////////////////
             {
@@ -1755,7 +1796,7 @@ namespace PuntoDeVentaV2
             }
             else if (propiedad == "AgregarDescuento")/////////////////////////////////////////////////////////////////AGREGAR DESCUENTO
             {
-                DialogResult dialogResult = MessageBox.Show("El descuento se aplicara a todo los productos seleccionados\n si uno de estos productos ya contaba con un descuento se remplazara.", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                DialogResult dialogResult = MessageBox.Show("El descuento se aplicara a todo los productos seleccionados\n si uno de estos productos ya contaba con un descuento se remplazara por este nuevo descuento.", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (dialogResult == DialogResult.Yes)
                 {
                     TextBox txtDescuento = (TextBox)this.Controls.Find("tbAgregarDescuento", true)[0];
@@ -1802,8 +1843,6 @@ namespace PuntoDeVentaV2
                         var idprod = item.Key;
 
                         cn.EjecutarConsulta($"DELETE FROM descuentocliente WHERE IDProducto = {idprod}");
-                        cn.EjecutarConsulta($"DELETE FROM descuentomayoreo WHERE IDProducto = {idprod}");
-
                     }
                 }
                 else if (dialogResult == DialogResult.No)

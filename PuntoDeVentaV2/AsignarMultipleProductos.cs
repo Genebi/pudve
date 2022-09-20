@@ -218,6 +218,10 @@ namespace PuntoDeVentaV2
             AgregarOpcion("AgregarDescuento", "Agregar Descuento", 395);
             //PANEL ELIMINAR DESCUENTO POR PORCENTAJE
             AgregarOpcion("EliminarDescuento", "Elimnar Descuento", 430);
+            if (FormPrincipal.userNickName.Contains("HOUSEDEPOTAUTLAN"))
+            {
+                AgregarOpcion("CantidadMayoreo", "Cantidad Mayoreo", 465);
+            }
 
             int alturaEjeY = 430;
 
