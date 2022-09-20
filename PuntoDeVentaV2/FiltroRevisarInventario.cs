@@ -59,6 +59,8 @@ namespace PuntoDeVentaV2
             cbFiltro.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbFiltroDinamico.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbOperadores.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbProveedor.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbTipoRevision.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             
             RevisarInventario.mensajeInventario = 0;
             //Esta condicion es para que solo se muestren todos los tipos de filtros para los primeros usuarios y para los demas solo tenga el filtro normal
@@ -155,6 +157,25 @@ namespace PuntoDeVentaV2
 
                 operadorFiltro = fieldTable;
                 textoFiltroDinamico = strFiltro;
+            }
+            else if (filtro.Equals("Proveedor"))
+            {
+                var idProveedor = ((KeyValuePair<int, string>)cbProveedor.SelectedItem).Key;
+
+                if (idProveedor > 0)
+                {
+                    var tipoRevision = ((KeyValuePair<int, string>)cbTipoRevision.SelectedItem).Key;
+
+                    operadorFiltro = operador;
+                    cantidadFiltro = Convert.ToInt32(cantidad);
+                }
+                else
+                {
+                    MessageBox.Show("Seleccione un proveedor para continuar.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cbProveedor.Focus();
+                    cbProveedor.DroppedDown = true;
+                    return;
+                }
             }
             else
             {
