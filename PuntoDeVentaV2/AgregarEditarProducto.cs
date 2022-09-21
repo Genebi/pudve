@@ -1953,7 +1953,7 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo4_Click(object sender, EventArgs e)
         {
-            if (!descuentos.Count.Equals(0))
+            if (!descuentos.Count.Equals(0) || Productos.copiarDatos.Equals(1))
             {
                 //MessageBox.Show("ya hay un descuento pero no se como ponerlo por lo dinamico");
                 descuentosSinGuardar = 1;

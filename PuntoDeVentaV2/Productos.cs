@@ -218,6 +218,8 @@ namespace PuntoDeVentaV2
         public static int dobleClickProducto = 0;
         public static int idprodDobleClick = 0;
 
+        static public int copiarDatos = 0;
+
         List<string> usuarios = new List<string>()
         {
             "HOUSEDEPOTAUTLAN",
@@ -1368,9 +1370,15 @@ namespace PuntoDeVentaV2
                     // Copiar el Producto
                     if (seleccionadoDato == 0)
                     {
+                        int idProds = Convert.ToInt32(DGVProductos.Rows[fila].Cells["_IDProducto"].Value);
                         seleccionadoDato = 1;
                         numerofila = e.RowIndex;
                         obtenerDatosDGVProductos(numerofila);
+                        var detallesProd = cn.CargarDatos(cs.obtenerDetallesProductoParaCopiar(idProds));
+                        var detallesFact = cn.CargarDatos(cs.obtenerDetallesFacturacionParaCopiar(idProds));
+                        var detallesDescProd = cn.CargarDatos(cs.obtenerDescuentosProductoParaCopiar(idProds));
+                        var detallesDescMay = cn.CargarDatos(cs.obtenerDescuentosMayoreoParaCopiar(idProds));
+                        copiarDatos = 1;
                         origenDeLosDatos = 4;
                         noMostrarClave = true;
                     }
