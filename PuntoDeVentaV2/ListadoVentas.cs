@@ -921,7 +921,7 @@ namespace PuntoDeVentaV2
                                 var listaIDEmpleados = "0,";
                                 listaIDEmpleados += string.Join(",", listaEmpleados);
 
-                                var fechasCortesDeTodosAdministradorEmpleados = cn.CargarDatos($"SELECT IDEmpleado, MAX(FechaOperacion) AS 'FechaOperacion' FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' AND IDEmpleado IN ( {listaIDEmpleados} ) GROUP BY IDEmpleado ORDER BY FechaOperacion DESC");
+                                var fechasCortesDeTodosAdministradorEmpleados = cn.CargarDatos($"SELECT IDEmpleado, MAX(FechaOperacion) AS 'FechaOperacion' FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' AND IDEmpleado IN ( {listaIDEmpleados.TrimEnd(',')} ) GROUP BY IDEmpleado ORDER BY FechaOperacion DESC");
 
                                 if (!fechasCortesDeTodosAdministradorEmpleados.Rows.Count.Equals(0))
                                 {

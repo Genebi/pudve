@@ -4434,16 +4434,16 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioProducto_MouseClick(object sender, MouseEventArgs e)
         {
-            if (FormPrincipal.userNickName.Contains('@'))
-            {
-                var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
-                if (datos[29].Equals(0))
-                {
-                    Utilidades.MensajePermiso();
-                    txtPrecioProducto.Enabled = false;
-                    return;
-                }
-            }
+            //if (FormPrincipal.userNickName.Contains('@'))
+            //{
+            //    var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+            //    if (datos[29].Equals(0))
+            //    {
+            //        Utilidades.MensajePermiso();
+            //        txtPrecioProducto.Enabled = false;
+            //        return;
+            //    }
+            //}
         }
 
         private void txtPrecioProducto_KeyDown(object sender, KeyEventArgs e)
@@ -5048,7 +5048,7 @@ namespace PuntoDeVentaV2
                     {
                         if (calculadora.seEnvia.Equals(true))
                         {
-                            txtStockMinimo.Text = calculadora.lCalculadora.Text;  
+                            txtPrecioCompra.Text = calculadora.lCalculadora.Text;  
                         }
                         calcu = 0;
                     };
@@ -5100,7 +5100,7 @@ namespace PuntoDeVentaV2
                     {
                         if (calculadora.seEnvia.Equals(true))
                         {
-                            txtStockMinimo.Text = calculadora.lCalculadora.Text;
+                            txtPrecioProducto.Text = calculadora.lCalculadora.Text;
                         }
                         calcu = 0;
                     };
@@ -10161,6 +10161,16 @@ namespace PuntoDeVentaV2
             //        }
             //    }
             //}
+            if (FormPrincipal.userNickName.Contains('@'))
+            {
+                var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+                if (datos[29].Equals(0))
+                {
+                    txtPrecioProducto.Enabled = false;
+                    txtPrecioCompra.Enabled = false;
+                    return;
+                }
+            }
         }
 
         private void llenarListaDatosDinamicos()

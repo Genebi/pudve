@@ -325,6 +325,7 @@ namespace PuntoDeVentaV2
 
             if (e.ColumnIndex.Equals(0))// columna del CheckBox
             {
+               
                 var estado = Convert.ToBoolean(DGVReportesClientes.Rows[fila].Cells["marcar"].Value);
 
                 //En esta condicion se ponen 

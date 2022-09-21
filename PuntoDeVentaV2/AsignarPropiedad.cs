@@ -1564,6 +1564,8 @@ namespace PuntoDeVentaV2
                         var precioConDescuento = precioActual * 0.70;
                         float rangoFinalSinDescuento = (float)Convert.ToDecimal(cantidadprodicto) - 1;
                         cn.EjecutarConsulta($"DELETE FROM descuentomayoreo WHERE IDProducto = {idProd}");
+                        cn.EjecutarConsulta($"DELETE FROM descuentocliente WHERE IDProducto = {idProd}");
+                        cn.EjecutarConsulta($"UPDATE productos SET TipoDescuento = '2' WHERE ID = '{idProd}'");
                         cn.EjecutarConsulta($"INSERT INTO descuentomayoreo(RangoInicial,RangoFinal,Precio,Checkbox,IDProducto) VALUES('1','{rangoFinalSinDescuento}','{precioActual}','0','{idProd}')");
                         cn.EjecutarConsulta($"INSERT INTO descuentomayoreo(RangoInicial,RangoFinal,Precio,Checkbox,IDProducto) VALUES('{cantidadprodicto}','N','{precioConDescuento}','0','{idProd}')");
                     }
