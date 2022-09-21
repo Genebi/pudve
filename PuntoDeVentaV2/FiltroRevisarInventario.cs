@@ -166,8 +166,8 @@ namespace PuntoDeVentaV2
                 {
                     var tipoRevision = ((KeyValuePair<int, string>)cbTipoRevision.SelectedItem).Key;
 
-                    operadorFiltro = operador;
-                    cantidadFiltro = Convert.ToInt32(cantidad);
+                    tipoFiltro = "Proveedores";
+                    operadorFiltro = $"{idProveedor}|{tipoRevision}";
                 }
                 else
                 {
