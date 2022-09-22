@@ -9923,6 +9923,15 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+                if (FormPrincipal.userNickName.Contains('@'))
+                {
+                    var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+                    if (datos[29].Equals(0))
+                    {
+                        txtPrecioProducto.Enabled = false;
+                        txtPrecioCompra.Enabled = false;
+                    }
+                }
             }
             else if (DatosSourceFinal == 1)      // si el llamado de la ventana proviene del Boton Productos (Ventana Productos)
             {
@@ -10161,16 +10170,7 @@ namespace PuntoDeVentaV2
             //        }
             //    }
             //}
-            if (FormPrincipal.userNickName.Contains('@'))
-            {
-                var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
-                if (datos[29].Equals(0))
-                {
-                    txtPrecioProducto.Enabled = false;
-                    txtPrecioCompra.Enabled = false;
-                    return;
-                }
-            }
+            
         }
 
         private void llenarListaDatosDinamicos()

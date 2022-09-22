@@ -34,7 +34,7 @@ namespace PuntoDeVentaV2
 
         public static string etiqeutaCliente { get; set; }
         public static bool EsGuardarVenta;
-
+        decimal primeraCantidad;
         List<string> ListaProdutos;
         // Almacena los ID de los productos a los que se aplica descuento general
         private Dictionary<int, bool> productosDescuentoG = new Dictionary<int, bool>();
@@ -60,7 +60,7 @@ namespace PuntoDeVentaV2
         string cargarmensaje;
 
         public static bool ventaGuardada = false; //Para saber si la venta se guardo o no
-        int cantidadExtra = 0;
+        decimal cantidadExtra = 0;
 
         public static int indiceFila = 0; //Para guardar el indice de la fila cuando se elige agregar multiples productos
         public static int cantidadFila = 0; //Para guardar la cantidad de productos que se agregará a la fila correspondiente
@@ -894,7 +894,7 @@ namespace PuntoDeVentaV2
             {
                 if (cnt >= 1)
                 {
-                    AgregarProductoLista(datosProducto);
+                    AgregarProductoLista(datosProducto,1,false);
                     validarStockDGV();
                 }
                 else if (cnt < 1)
@@ -959,7 +959,7 @@ namespace PuntoDeVentaV2
                         if (tipoDescuento > 0)
                         {
                             string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
-                            CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToInt32(cantidad), numeroFila);
+                            CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToDecimal(cantidad), numeroFila);
                         }
 
                         CantidadesFinalesVenta();
@@ -1040,7 +1040,7 @@ namespace PuntoDeVentaV2
 
         }
 
-        private void AgregarProductoLista(string[] datosProducto, decimal cantidad = 1, bool ignorar = false)
+        private void AgregarProductoLista(string[] datosProducto, decimal cantidad , bool ignorar = false)
         {
             decimal cantidadTmp = cantidad;
 
@@ -1086,13 +1086,14 @@ namespace PuntoDeVentaV2
                 {
                     if (cantidad.Equals(1))
                     {
-                        if (Convert.ToInt32(nudCantidadPS.Value) > 0)
+                        if (Convert.ToDecimal(nudCantidadPS.Value) > 0)
                         {
                             cantidad = Convert.ToDecimal(nudCantidadPS.Value);
+                            primeraCantidad = cantidad;
                         }
                     }
 
-                    nudCantidadPS.Value = 1;
+                    nudCantidadPS.Value = cantidad;
                 }
 
 
@@ -1237,7 +1238,7 @@ namespace PuntoDeVentaV2
                         string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
                         if (!datosDescuento.Length.Equals(0))
                         {
-                            CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToInt32(cantidad), rowId);
+                            CalcularDescuento(datosDescuento, tipoDescuento, Convert.ToDecimal(cantidad), rowId);
                         }
                     }
                 }
@@ -2180,14 +2181,14 @@ namespace PuntoDeVentaV2
             cantidadFila = 0;
         }
 
-        private void CalcularDescuento(string[] datosDescuento, int tipo, int cantidad, int fila = 0)
+        private void CalcularDescuento(string[] datosDescuento, int tipo, decimal cantidad, int fila = 0)
         {
             //Cliente
             if (tipo == 1)
             {
                 var descuento = datosDescuento[0].Split('-');
-                var precioAux = float.Parse(descuento[0]) * cantidad;
-                var porcentajeAux = float.Parse(descuento[1]);
+                var precioAux = Convert.ToDecimal(descuento[0]) * Convert.ToDecimal(cantidad);
+                var porcentajeAux = Convert.ToDecimal(descuento[1]);
 
                 var descuentoFinal = precioAux * (porcentajeAux / 100);
 
@@ -2198,19 +2199,21 @@ namespace PuntoDeVentaV2
             //Mayoreo
             if (tipo == 2)
             {
-                var totalImporte = 0f;
+                decimal totalImporte = 0;
+                
                 // Esta variable almace el ultimo checkbox al que se le marco casilla en el descuento
                 var ultimoCheckbox = string.Empty;
 
                 List<string> tomarDescuentos = new List<string>();
                 string ultimoCheck = string.Empty;
                 var precioUltimoDescuento = string.Empty;
-
+                bool menorACero = false;
                 foreach (var descuento in datosDescuento.Reverse())
                 {
                     var descIndividual = descuento.Split('-');
+                    
 
-                    if (cantidad >= Convert.ToInt32(descIndividual[0]))
+                    if (cantidad >= Convert.ToDecimal(descIndividual[0]))
                     {
                         tomarDescuentos.Add(descuento);
 
@@ -2220,6 +2223,16 @@ namespace PuntoDeVentaV2
                         {
                             ultimoCheck = descuento;
                         }
+                        menorACero = true;
+                    }
+                    else
+                    {
+                        if (menorACero.Equals(false))
+                        {
+                            precioUltimoDescuento = descIndividual[2];
+                            menorACero = true;
+                        }
+                        
                     }
                 }
 
@@ -2230,33 +2243,41 @@ namespace PuntoDeVentaV2
                 {
                     var descIndividual = descuento.Split('-');
 
-                    if (cantidad >= Convert.ToInt32(descIndividual[0]) && descIndividual[3] == "0")
+                    if (cantidad >= Convert.ToDecimal(descIndividual[0]) && descIndividual[3] == "0")
                     {
                         //restantes = cantidad;
-                        int diferencia = Math.Abs(cantidad - Convert.ToInt32(descIndividual[0]));
-                        totalImporte += diferencia * float.Parse(descIndividual[2]);
+                        decimal diferencia = Math.Abs(cantidad - Convert.ToInt32(descIndividual[0]));
+                        totalImporte += diferencia * Convert.ToDecimal(descIndividual[2]);
+                        primeraCantidad = cantidad;
                         cantidad = cantidad - diferencia;
                     }
 
-                    if (cantidad >= Convert.ToInt32(descIndividual[0]) && descIndividual[3] == "1")
+                    if (cantidad >= Convert.ToDecimal(descIndividual[0]) && descIndividual[3] == "1")
                     {
                         var datosUltimoCheck = ultimoCheck.Split('-');
 
-                        int diferencia = Math.Abs(cantidad - Convert.ToInt32(descIndividual[0]));
-                        totalImporte += diferencia * float.Parse(datosUltimoCheck[2]);
+                        decimal diferencia = Math.Abs(cantidad - Convert.ToInt32(descIndividual[0]));
+                        totalImporte += diferencia * Convert.ToDecimal(datosUltimoCheck[2]);
                         cantidad = cantidad - diferencia;
                     }
                 }
 
                 if (cantidad == 1)
                 {
-                    totalImporte += cantidad * float.Parse(precioUltimoDescuento);
+                    totalImporte += cantidad * Convert.ToDecimal(precioUltimoDescuento);
                 }
-
-
                 float importe = float.Parse(DGVentas.Rows[fila].Cells["Importe"].Value.ToString());
                 float descuentoFinal = importe - float.Parse(totalImporte.ToString("0.00"));
 
+                if (primeraCantidad > 0 && primeraCantidad < 1)
+                {
+                    totalImporte += primeraCantidad * Convert.ToDecimal(precioUltimoDescuento);
+                    importe = float.Parse(DGVentas.Rows[fila].Cells["Importe"].Value.ToString());
+                    descuentoFinal = importe - float.Parse(totalImporte.ToString("0.00"));
+                }
+
+
+                
                 if (descuentoFinal < 0)
                 {
                     descuentoFinal = 0;
@@ -5980,7 +6001,7 @@ namespace PuntoDeVentaV2
             string tercerPatron = @"^(\-\d+)|(\d+\-)|(\-)|(\-\-)$";
             string cuartoPatron = @"^\d+\*\s";
             string quintoPatron = @"^\d+\s\*";
-            string sextoPatron = @"^\d+\*";
+            string sextoPatron = @"^-?[0-9]*\.?[0-9]+\*$";
             string septimoPatron = @"^.#\d+\.";
             //string septimoPatron = @"^#\s\d+";
 
@@ -6001,7 +6022,7 @@ namespace PuntoDeVentaV2
             {
                 var resultado = primeraCoincidencia.Value.Trim().Split(' ');
 
-                cantidadExtra = Convert.ToInt32(resultado[0]);
+                cantidadExtra = Convert.ToDecimal(resultado[0]);
 
                 if (cantidadExtra != 0)
                 {
@@ -6119,12 +6140,12 @@ namespace PuntoDeVentaV2
                                 if (cantidadExtra >= nudCantidadPS.Minimum && cantidadExtra <= nudCantidadPS.Maximum)
                                 {
                                     //Se obtiene la cantidad del ultimo producto agregado para despues sumarse la que se puso con el comando
-                                    var cantidad = float.Parse(DGVentas.Rows[0].Cells["Cantidad"].Value.ToString());
+                                    var cantidad = Convert.ToDecimal(DGVentas.Rows[0].Cells["Cantidad"].Value.ToString());
 
                                     cantidad += cantidadExtra;
 
                                     // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
-                                    float importe = cantidad * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
+                                    decimal importe = cantidad * Convert.ToDecimal(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
 
                                     DGVentas.Rows[0].Cells["Cantidad"].Value = cantidad;
                                     DGVentas.Rows[0].Cells["Importe"].Value = importe;
@@ -6264,7 +6285,7 @@ namespace PuntoDeVentaV2
                                 if (cantidadExtra >= nudCantidadPS.Minimum && cantidadExtra <= nudCantidadPS.Maximum)
                                 {
                                     //Se obtiene la cantidad del ultimo producto agregado para despues sumarse la que se puso con el comando
-                                    var cantidad = Convert.ToInt32(DGVentas.Rows[0].Cells["Cantidad"].Value);
+                                    var cantidad = Convert.ToDecimal(DGVentas.Rows[0].Cells["Cantidad"].Value);
 
                                     cantidad += cantidadExtra;
 
@@ -6284,7 +6305,7 @@ namespace PuntoDeVentaV2
 
 
                                     // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
-                                    float importe = cantidad * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
+                                    decimal importe = cantidad * Convert.ToDecimal(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
 
                                     DGVentas.Rows[0].Cells["Cantidad"].Value = cantidad;
                                     DGVentas.Rows[0].Cells["Importe"].Value = importe;
@@ -6353,7 +6374,7 @@ namespace PuntoDeVentaV2
                 // 5*652651651651
                 var resultado = sextaCoincidencia.Value.Trim().Split('*');
 
-                cantidadExtra = Convert.ToInt32(resultado[0]);
+                cantidadExtra = Convert.ToDecimal(resultado[0]);
 
                 if (cantidadExtra != 0)
                 {
@@ -6530,6 +6551,7 @@ namespace PuntoDeVentaV2
         }
 
         private void OperacionBusqueda(int tipo = 0)
+        
         {
             listaProductos.Items.Clear();
 
