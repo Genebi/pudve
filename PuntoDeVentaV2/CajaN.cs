@@ -145,7 +145,8 @@ namespace PuntoDeVentaV2
                 totalAbonoVales = 0,
                 totalAbonoCheque = 0,
                 totalAbonoTransferencia = 0,
-                totalAbonoRealizado = 0;
+                totalAbonoRealizado = 0,
+                totalAbonoRealizadoOtrasVentas = 0;
 
         string ultimaFechaDeCorteParaAbonos = string.Empty,
                 fechaFormateadaCorteParaAbonos = string.Empty,
@@ -366,7 +367,7 @@ namespace PuntoDeVentaV2
 
         private void mostrarInformacionAnticipos()
         {
-            
+
         }
 
         private void mostrarInformacionAbonos()
@@ -387,6 +388,7 @@ namespace PuntoDeVentaV2
                             if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Count.Equals(0))
                             {
                                 lbCambioAbonos.Visible = true;
+                                limpirVariablesDeAbonos();
                                 foreach (DataRow item in dtAbonos.Rows)
                                 {
                                     totalAbonoEfectivo += Convert.ToDecimal(item["Efectivo"].ToString());
@@ -394,8 +396,15 @@ namespace PuntoDeVentaV2
                                     totalAbonoVales += Convert.ToDecimal(item["Vales"].ToString());
                                     totalAbonoCheque += Convert.ToDecimal(item["Cheque"].ToString());
                                     totalAbonoTransferencia += Convert.ToDecimal(item["Transferencia"].ToString());
-                                    totalAbonoRealizado += Convert.ToDecimal(item["Total"].ToString());
-                                    lbTCreditoC.Text = totalAbonoRealizado.ToString("C2");
+                                    if (item["IDEmpleado"].ToString().Equals("0"))
+                                    {
+                                        totalAbonoRealizado += Convert.ToDecimal(item["Total"].ToString());
+                                    }
+                                    else
+                                    {
+                                        totalAbonoRealizadoOtrasVentas += Convert.ToDecimal(item["Total"].ToString());
+                                    }
+                                    lbTCreditoC.Text = (totalAbonoRealizado + totalAbonoRealizadoOtrasVentas).ToString("C2");
                                 }
                             }
                             else
@@ -419,6 +428,7 @@ namespace PuntoDeVentaV2
                             if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Count.Equals(0))
                             {
                                 lbCambioAbonos.Visible = true;
+                                limpirVariablesDeAbonos();
                                 foreach (DataRow item in dtAbonos.Rows)
                                 {
                                     totalAbonoEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
@@ -457,16 +467,25 @@ namespace PuntoDeVentaV2
                         {
                             if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Count.Equals(0))
                             {
+                                limpirVariablesDeAbonos();
                                 lbCambioAbonos.Visible = true;
                                 foreach (DataRow item in dtAbonos.Rows)
                                 {
-                                    totalAbonoEfectivo = Convert.ToDecimal(item["Efectivo"].ToString());
-                                    totalAbonoTarjeta = Convert.ToDecimal(item["Tarjeta"].ToString());
-                                    totalAbonoVales = Convert.ToDecimal(item["Vales"].ToString());
-                                    totalAbonoCheque = Convert.ToDecimal(item["Cheque"].ToString());
-                                    totalAbonoTransferencia = Convert.ToDecimal(item["Transferencia"].ToString());
-                                    totalAbonoRealizado = Convert.ToDecimal(item["Total"].ToString());
-                                    lbTCreditoC.Text = totalAbonoRealizado.ToString("C2");
+                                    totalAbonoEfectivo += Convert.ToDecimal(item["Efectivo"].ToString());
+                                    totalAbonoTarjeta += Convert.ToDecimal(item["Tarjeta"].ToString());
+                                    totalAbonoVales += Convert.ToDecimal(item["Vales"].ToString());
+                                    totalAbonoCheque += Convert.ToDecimal(item["Cheque"].ToString());
+                                    totalAbonoTransferencia += Convert.ToDecimal(item["Transferencia"].ToString());
+                                    var idEmpleadoRecibioAbonoACredito = item["IDEmpleado"].ToString();
+                                    if (!idEmpleadoRecibioAbonoACredito.Equals("0"))
+                                    {
+                                        totalAbonoRealizado += Convert.ToDecimal(item["Total"].ToString());
+                                    }
+                                    else
+                                    {
+                                        totalAbonoRealizadoOtrasVentas += Convert.ToDecimal(item["Total"].ToString());
+                                    }
+                                    lbTCreditoC.Text = (totalAbonoRealizado + totalAbonoRealizadoOtrasVentas).ToString("C2");
                                 }
                             }
                             else
@@ -483,7 +502,7 @@ namespace PuntoDeVentaV2
 
         private void limpirVariablesDeAbonos()
         {
-            totalAbonoEfectivo = totalAbonoTarjeta = totalAbonoVales = totalAbonoCheque = totalAbonoTransferencia = totalAbonoRealizado = 0;
+            totalAbonoEfectivo = totalAbonoTarjeta = totalAbonoVales = totalAbonoCheque = totalAbonoTransferencia = totalAbonoRealizado = totalAbonoRealizadoOtrasVentas = 0;
         }
 
         private void verComboBoxAdministradorEmpleado()
@@ -3476,7 +3495,7 @@ namespace PuntoDeVentaV2
             }
             #endregion
             #endregion
-            
+
             #endregion
 
             reporte.AddTitle("Reporte Corte de Caja");
@@ -5692,7 +5711,7 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta(cs.GuardarAperturaDeCaja(datos));
 
             //Utilidades.GenerarTicketCaja();
-            imprimirUltimoTicket(); 
+            imprimirUltimoTicket();
 
             recargarDatosConCantidades(sender, e);
         }
@@ -7048,7 +7067,7 @@ namespace PuntoDeVentaV2
 
                                 if (cantidadCreditoResultadoBaseDeDatos > 0)
                                 {
-                                    cantidadCredito = cantidadCreditoResultadoBaseDeDatos - totalAbonoRealizado;
+                                    cantidadCredito = cantidadCreditoResultadoBaseDeDatos - (totalAbonoRealizado + totalAbonoRealizadoOtrasVentas);
                                 }
                                 else if (cantidadCreditoResultadoBaseDeDatos.Equals(0))
                                 {
@@ -7077,9 +7096,9 @@ namespace PuntoDeVentaV2
                             lbTCheque.Text = cantidadCheque.ToString("C2");
                             lbTTrans.Text = cantidadTransferencia.ToString("C2");
                             lbTCredito.Text = cantidadCredito.ToString("C2");
-                            //lbTCreditoC.Text = cantidadAbonos.ToString("C2");
+                            lbTCreditoC.Text = (totalAbonoRealizado + totalAbonoRealizadoOtrasVentas).ToString("C2");
                             lbTAnticipos.Text = cantidadAnticipos.ToString("C2");
-                            lbTVentas.Text = cantidadTotalVentas.ToString("C2");
+                            lbTVentas.Text = (cantidadEfectivo + cantidadTarjeta + cantidadVales + cantidadCheque + cantidadTransferencia + cantidadCredito + totalAbonoRealizado + totalAbonoRealizadoOtrasVentas).ToString("C2");
                         }
                     }
                 }
@@ -7418,9 +7437,9 @@ namespace PuntoDeVentaV2
                             lbTCheque.Text = cantidadCheque.ToString("C2");
                             lbTTrans.Text = cantidadTransferencia.ToString("C2");
                             lbTCredito.Text = cantidadCredito.ToString("C2");
-                            lbTCreditoC.Text = totalAbonoRealizado.ToString("C2");
+                            lbTCreditoC.Text = (totalAbonoRealizado + totalAbonoRealizadoOtrasVentas).ToString("C2");
                             lbTAnticipos.Text = cantidadAnticipos.ToString("C2");
-                            lbTVentas.Text = (cantidadEfectivo + cantidadTarjeta + cantidadVales + cantidadCheque + cantidadTransferencia + cantidadCredito + totalAbonoRealizado).ToString("C2");
+                            lbTVentas.Text = (cantidadEfectivo + cantidadTarjeta + cantidadVales + cantidadCheque + cantidadTransferencia + cantidadCredito + totalAbonoRealizado + totalAbonoRealizadoOtrasVentas).ToString("C2");
                         }
                     }
                 }
