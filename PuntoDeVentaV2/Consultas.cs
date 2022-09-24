@@ -4304,9 +4304,9 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT PermisoCorreoAnticipo FROM permisosconfiguracion WHERE IDEmpleado = {IDEmpleado} AND IDUsuario = {IDUsuario} ORDER BY ID DESC LIMIT 1";
             return consulta;
         }
-        public string ConsultaIDProveedor(string Nombre)
+        public string ConsultaIDProveedor(string Nombre, int idUsuario)
         {
-            var consulta = $"SELECT ID FROM proveedores where Nombre = '{Nombre}'";
+            var consulta = $"SELECT ID FROM proveedores WHERE IDUsuario = {idUsuario} AND Nombre = '{Nombre}'";
             return consulta;
         }
 

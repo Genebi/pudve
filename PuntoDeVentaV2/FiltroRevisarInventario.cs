@@ -168,6 +168,15 @@ namespace PuntoDeVentaV2
 
                     tipoFiltro = "Proveedores";
                     operadorFiltro = $"{idProveedor}|{tipoRevision}";
+
+                    var operador = string.Empty;
+
+                    if (tipoRevision.Equals(1))
+                    {
+                        var consulta = $"UPDATE Productos P INNER JOIN DetallesProducto D ON (P.ID = D.IDProducto AND D.IDProveedor = {idProveedor}) SET P.NumeroRevision = 0 WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1 AND P.Tipo = 'P' AND (P.CodigoBarras != '' OR P.ClaveInterna != '')";
+
+                        cn.EjecutarConsulta(consulta);
+                    }
                 }
                 else
                 {

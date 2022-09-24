@@ -250,7 +250,7 @@ namespace PuntoDeVentaV2
                             operador = "!=";
                         }
 
-                        consulta = $"SELECT P.* FROM Productos P INNER JOIN DetallesProducto D ON (P.ID = D.IDProducto AND D.IDProveedor = {idProveedor}) WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1 AND P.Tipo = 'P' AND P.NumeroRevision {operador} 0 AND (P.CodigoBarras != '' OR P.ClaveInterna != '')";
+                        consulta = $"SELECT P.* FROM Productos P INNER JOIN DetallesProducto D ON (P.ID = D.IDProducto AND D.IDProveedor = {idProveedor}) WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1 AND P.Tipo = 'P' AND P.NumeroRevision {operador} 0 AND P.ID > {idProducto} AND (P.CodigoBarras != '' OR P.ClaveInterna != '') ORDER BY ID ASC LIMIT 1";
                     }
                     else
                     {
@@ -1239,6 +1239,15 @@ namespace PuntoDeVentaV2
                 {
                     cbProveedores.SelectedValue = "0";
                 }
+
+                if (tipoFiltro.Equals("Proveedores"))
+                {
+                    var datosRevision = operadorFiltro.Split('|');
+                    var idProveedor = datosRevision[0];
+
+                    cbProveedores.Enabled = false;
+                    cbProveedores.SelectedValue = idProveedor;
+                }
             }
         }
 
@@ -1347,7 +1356,7 @@ namespace PuntoDeVentaV2
                            
                             cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
                             //Actualizar Proveedor del Producto 
-                            using (var ConsultaIDProveedor = cn.CargarDatos(cs.ConsultaIDProveedor(cbProveedores.Text)))
+                            using (var ConsultaIDProveedor = cn.CargarDatos(cs.ConsultaIDProveedor(cbProveedores.Text, FormPrincipal.userID)))
                             {
                                 if (ConsultaIDProveedor.Rows.Count.Equals(0))
                                 {
@@ -1460,7 +1469,7 @@ namespace PuntoDeVentaV2
                                     // Actualizar stock del producto
                                     cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
                                     //Actualizar Proveedor del Producto 
-                                    using (var ConsultaIDProveedor = cn.CargarDatos(cs.ConsultaIDProveedor(cbProveedores.Text)))
+                                    using (var ConsultaIDProveedor = cn.CargarDatos(cs.ConsultaIDProveedor(cbProveedores.Text, FormPrincipal.userID)))
                                     {
                                         if (ConsultaIDProveedor.Rows.Count.Equals(0))
                                         {
@@ -1471,7 +1480,7 @@ namespace PuntoDeVentaV2
                                         else
                                         {
                                             string IDProveedor = ConsultaIDProveedor.Rows[0]["ID"].ToString();
-                                            cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{cbProveedores.Text}' , IDProveedor =                '{IDProveedor}' WHERE IDProducto = {idProducto}");
+                                            cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{cbProveedores.Text}' , IDProveedor = '{IDProveedor}' WHERE IDProducto = {idProducto}");
                                         }
                                         
                                     }
