@@ -1221,7 +1221,7 @@ namespace PuntoDeVentaV2
 
         public string LlenarFiltroDinamicoComboBox(int idUser)
         {
-            var consulta = $"SELECT * FROM FiltroDinamico WHERE IDUsuario = {idUser}";
+            var consulta = $"SELECT * FROM FiltroDinamico WHERE IDUsuario = {idUser} AND checkBoxConcepto = 1";
 
             return consulta;
         }

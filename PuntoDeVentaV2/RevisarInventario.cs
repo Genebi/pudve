@@ -1362,12 +1362,12 @@ namespace PuntoDeVentaV2
                                 {
                                     string id = "0";
                                     string nombre = string.Empty;
-                                    cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{nombre}' , IDProveedor = '{id}' WHERE IDProducto =               {idProducto}");
+                                    cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{nombre}' , IDProveedor = '{id}' WHERE IDProducto = {idProducto}");
                                 }
                                 else
                                 {
                                     string IDProveedor = ConsultaIDProveedor.Rows[0]["ID"].ToString();
-                                    cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{cbProveedores.Text}' , IDProveedor =                '{IDProveedor}' WHERE IDProducto = {idProducto}");
+                                    cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{cbProveedores.Text}' , IDProveedor = '{IDProveedor}' WHERE IDProducto = {idProducto}");
                                 }
                             }
 
