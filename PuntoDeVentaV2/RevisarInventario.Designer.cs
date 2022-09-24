@@ -80,7 +80,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Código de Barras:";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // btnBusqueda
             // 
@@ -158,7 +157,6 @@
             this.label5.Size = new System.Drawing.Size(82, 13);
             this.label5.TabIndex = 21;
             this.label5.Text = "Proveedores:";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // btnVerCBExtra
             // 

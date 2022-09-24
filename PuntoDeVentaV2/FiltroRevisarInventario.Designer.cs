@@ -35,6 +35,8 @@
             this.cbOperadores = new System.Windows.Forms.ComboBox();
             this.txtCantidad = new System.Windows.Forms.TextBox();
             this.cbFiltroDinamico = new System.Windows.Forms.ComboBox();
+            this.cbProveedor = new System.Windows.Forms.ComboBox();
+            this.cbTipoRevision = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // primerSeparador
@@ -128,18 +130,43 @@
             this.cbFiltroDinamico.TabIndex = 125;
             this.cbFiltroDinamico.Visible = false;
             // 
+            // cbProveedor
+            // 
+            this.cbProveedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbProveedor.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbProveedor.FormattingEnabled = true;
+            this.cbProveedor.Location = new System.Drawing.Point(39, 52);
+            this.cbProveedor.Name = "cbProveedor";
+            this.cbProveedor.Size = new System.Drawing.Size(296, 25);
+            this.cbProveedor.TabIndex = 126;
+            this.cbProveedor.Visible = false;
+            this.cbProveedor.SelectedIndexChanged += new System.EventHandler(this.cbProveedor_SelectedIndexChanged);
+            // 
+            // cbTipoRevision
+            // 
+            this.cbTipoRevision.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipoRevision.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTipoRevision.FormattingEnabled = true;
+            this.cbTipoRevision.Location = new System.Drawing.Point(39, 94);
+            this.cbTipoRevision.Name = "cbTipoRevision";
+            this.cbTipoRevision.Size = new System.Drawing.Size(296, 25);
+            this.cbTipoRevision.TabIndex = 127;
+            this.cbTipoRevision.Visible = false;
+            // 
             // FiltroRevisarInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(374, 196);
-            this.Controls.Add(this.cbOperadores);
+            this.Controls.Add(this.cbTipoRevision);
+            this.Controls.Add(this.cbProveedor);
             this.Controls.Add(this.cbFiltro);
             this.Controls.Add(this.primerSeparador);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.cbFiltroDinamico);
             this.Controls.Add(this.txtCantidad);
+            this.Controls.Add(this.cbOperadores);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.MaximizeBox = false;
@@ -163,5 +190,7 @@
         private System.Windows.Forms.ComboBox cbOperadores;
         private System.Windows.Forms.TextBox txtCantidad;
         private System.Windows.Forms.ComboBox cbFiltroDinamico;
+        private System.Windows.Forms.ComboBox cbProveedor;
+        private System.Windows.Forms.ComboBox cbTipoRevision;
     }
 }

@@ -59,27 +59,31 @@ namespace PuntoDeVentaV2
             cbFiltro.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbFiltroDinamico.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbOperadores.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbProveedor.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbTipoRevision.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             
             RevisarInventario.mensajeInventario = 0;
             //Esta condicion es para que solo se muestren todos los tipos de filtros para los primeros usuarios y para los demas solo tenga el filtro normal
             //if (FormPrincipal.clave == 1 )
             //{
-                filtros.Add("Normal", "Revision Normal");
-                filtros.Add("Stock", "Stock");
-                filtros.Add("StockMinimo", "Stock Mínimo");
-                filtros.Add("StockNecesario", "Stock Máximo");
-                filtros.Add("NumeroRevision", "Número de Revisión");
-                filtros.Add("CantidadPedir", "Cantidad a Pedir");
+            filtros.Add("Normal", "Revision Normal");
+            filtros.Add("Stock", "Stock");
+            filtros.Add("StockMinimo", "Stock Mínimo");
+            filtros.Add("StockNecesario", "Stock Máximo");
+            filtros.Add("NumeroRevision", "Número de Revisión");
+            filtros.Add("CantidadPedir", "Cantidad a Pedir");
+            filtros.Add("Proveedor", "Proveedores");
+            
 
 
             //filtros.Add("Filtros", "Por Filtros");
 
-                operadores.Add("NA", "Seleccionar opción...");
-                operadores.Add(">=", "Mayor o igual que");
-                operadores.Add("<=", "Menor o igual que");
-                operadores.Add("=", "Igual que");
-                operadores.Add(">", "Mayor que");
-                operadores.Add("<", "Menor que");
+            operadores.Add("NA", "Seleccionar opción...");
+            operadores.Add(">=", "Mayor o igual que");
+            operadores.Add("<=", "Menor o igual que");
+            operadores.Add("=", "Igual que");
+            operadores.Add(">", "Mayor que");
+            operadores.Add("<", "Menor que");
             //}
             //else
             //{
@@ -88,21 +92,21 @@ namespace PuntoDeVentaV2
             //}
             
 
-            filtroDinamico.Add("NA", "Selecciona filtro...");
+            //filtroDinamico.Add("NA", "Selecciona filtro...");
 
-            using (DataTable dtFiltroDinamico = cn.CargarDatos(cs.LlenarFiltroDinamicoComboBox(FormPrincipal.userID)))
-            {
-                if (!dtFiltroDinamico.Rows.Count.Equals(0))
-                {
-                    foreach (DataRow drFiltroDinamico in dtFiltroDinamico.Rows)
-                    {
-                        if (!filtroDinamico.ContainsKey(drFiltroDinamico["concepto"].ToString()))
-                        {
-                            filtroDinamico.Add(drFiltroDinamico["concepto"].ToString(), drFiltroDinamico["concepto"].ToString().Remove(0, 3));
-                        }
-                    }
-                }
-            }
+            //using (DataTable dtFiltroDinamico = cn.CargarDatos(cs.LlenarFiltroDinamicoComboBox(FormPrincipal.userID)))
+            //{
+            //    if (!dtFiltroDinamico.Rows.Count.Equals(0))
+            //    {
+            //        foreach (DataRow drFiltroDinamico in dtFiltroDinamico.Rows)
+            //        {
+            //            if (!filtroDinamico.ContainsKey(drFiltroDinamico["concepto"].ToString()))
+            //            {
+            //                filtroDinamico.Add(drFiltroDinamico["concepto"].ToString(), drFiltroDinamico["concepto"].ToString().Remove(0, 3));
+            //            }
+            //        }
+            //    }
+            //}
 
             cbFiltro.DataSource = filtros.ToArray();
             cbFiltro.DisplayMember = "Value";
@@ -154,6 +158,34 @@ namespace PuntoDeVentaV2
                 operadorFiltro = fieldTable;
                 textoFiltroDinamico = strFiltro;
             }
+            else if (filtro.Equals("Proveedor"))
+            {
+                var idProveedor = ((KeyValuePair<int, string>)cbProveedor.SelectedItem).Key;
+
+                if (idProveedor > 0)
+                {
+                    var tipoRevision = ((KeyValuePair<int, string>)cbTipoRevision.SelectedItem).Key;
+
+                    tipoFiltro = "Proveedores";
+                    operadorFiltro = $"{idProveedor}|{tipoRevision}";
+
+                    var operador = string.Empty;
+
+                    if (tipoRevision.Equals(1))
+                    {
+                        var consulta = $"UPDATE Productos P INNER JOIN DetallesProducto D ON (P.ID = D.IDProducto AND D.IDProveedor = {idProveedor}) SET P.NumeroRevision = 0 WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1 AND P.Tipo = 'P' AND (P.CodigoBarras != '' OR P.ClaveInterna != '')";
+
+                        cn.EjecutarConsulta(consulta);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Seleccione un proveedor para continuar.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    cbProveedor.Focus();
+                    cbProveedor.DroppedDown = true;
+                    return;
+                }
+            }
             else
             {
                 
@@ -195,8 +227,9 @@ namespace PuntoDeVentaV2
                 cbOperadores.Visible = false;
                 txtCantidad.Visible = false;
                 cbFiltroDinamico.Visible = false;
+                cbProveedor.Visible = false;
             }
-            else if (filtro != "Filtros" && filtro != "Normal")
+            else if (filtro != "Filtros" && filtro != "Normal" && filtro != "Proveedor")
             {
 
                 cbOperadores.DataSource = operadores.ToArray();
@@ -206,6 +239,7 @@ namespace PuntoDeVentaV2
                 cbOperadores.Visible = true;
                 txtCantidad.Visible = true;
                 cbFiltroDinamico.Visible = false;
+                cbProveedor.Visible = false;
             }
             else if (filtro == "Filtros")
             {
@@ -216,6 +250,41 @@ namespace PuntoDeVentaV2
                 cbOperadores.Visible = true;
                 cbFiltroDinamico.Visible = true;
                 txtCantidad.Visible = false;
+                cbProveedor.Visible = false;
+            }
+            else if (filtro.Equals("Proveedor"))
+            {
+                cbOperadores.Visible = false;
+                txtCantidad.Visible = false;
+                cbFiltroDinamico.Visible = false;
+                cbProveedor.Visible = true;
+
+                // Cargar los proveedores para el combobox
+                var proveedores = cn.ObtenerProveedores(FormPrincipal.userID);
+
+                if (proveedores.Length > 0)
+                {
+                    Dictionary<int, string> dicProveedores = new Dictionary<int, string>();
+
+                    dicProveedores.Add(0, "Seleccionar proveedor...");
+
+                    foreach (string proveedor in proveedores)
+                    {
+                        var info = proveedor.Split('-');
+                        var id = Convert.ToInt32(info[0].Trim());
+                        var nombre = info[1].Trim();
+
+                        dicProveedores.Add(id, nombre);
+                    }
+
+                    cbProveedor.DataSource = dicProveedores.ToArray();
+                    cbProveedor.ValueMember = "Key";
+                    cbProveedor.DisplayMember = "Value";
+                }
+                else
+                {
+                    MessageBox.Show("No hay proveedores registrados.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
         }
 
@@ -309,6 +378,27 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+        }
+
+        private void cbProveedor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbTipoRevision.Visible = false;
+
+            var idProveedor = cbProveedor.SelectedIndex;
+            
+            if (idProveedor > 0)
+            {
+                // Tipo de revision cuando es proveedores
+                Dictionary<int, string> dicTipoRevision = new Dictionary<int, string>();
+                dicTipoRevision.Add(1, "INICIAR REVISIÓN DESDE CERO");
+                dicTipoRevision.Add(2, "CONTINUAR CON REVISIÓN PENDIENTE");
+
+                cbTipoRevision.DataSource = dicTipoRevision.ToArray();
+                cbTipoRevision.DisplayMember = "Value";
+                cbTipoRevision.ValueMember = "Key";
+
+                cbTipoRevision.Visible = true;
             }
         }
     }

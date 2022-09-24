@@ -233,6 +233,25 @@ namespace PuntoDeVentaV2
                         
                         consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND  {tipoFiltro} {operadorFiltro} {cantidadFiltro} AND ID > {idProducto} AND (CodigoBarras != '' OR ClaveInterna != '') ORDER BY ID ASC LIMIT 1";
                     }
+                    else if (tipoFiltro.Equals("Proveedores"))
+                    {
+                        var datosRevision = operadorFiltro.Split('|');
+                        var idProveedor = datosRevision[0];
+                        var tipoRevision = datosRevision[1];
+                        var operador = string.Empty;
+
+                        if (tipoRevision.Equals("1"))
+                        {
+                            operador = "=";
+                        }
+
+                        if (tipoRevision.Equals("2"))
+                        {
+                            operador = "!=";
+                        }
+
+                        consulta = $"SELECT P.* FROM Productos P INNER JOIN DetallesProducto D ON (P.ID = D.IDProducto AND D.IDProveedor = {idProveedor}) WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1 AND P.Tipo = 'P' AND P.NumeroRevision {operador} 0 AND P.ID > {idProducto} AND (P.CodigoBarras != '' OR P.ClaveInterna != '') ORDER BY ID ASC LIMIT 1";
+                    }
                     else
                     {
                         consulta = $"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND {tipoFiltro} {operadorFiltro} {cantidadFiltro} AND ID > {idProducto} AND (CodigoBarras != '' OR ClaveInterna != '') ORDER BY ID ASC LIMIT 1";
@@ -1220,6 +1239,15 @@ namespace PuntoDeVentaV2
                 {
                     cbProveedores.SelectedValue = "0";
                 }
+
+                if (tipoFiltro.Equals("Proveedores"))
+                {
+                    var datosRevision = operadorFiltro.Split('|');
+                    var idProveedor = datosRevision[0];
+
+                    cbProveedores.Enabled = false;
+                    cbProveedores.SelectedValue = idProveedor;
+                }
             }
         }
 
@@ -1328,7 +1356,7 @@ namespace PuntoDeVentaV2
                            
                             cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
                             //Actualizar Proveedor del Producto 
-                            using (var ConsultaIDProveedor = cn.CargarDatos(cs.ConsultaIDProveedor(cbProveedores.Text)))
+                            using (var ConsultaIDProveedor = cn.CargarDatos(cs.ConsultaIDProveedor(cbProveedores.Text, FormPrincipal.userID)))
                             {
                                 if (ConsultaIDProveedor.Rows.Count.Equals(0))
                                 {
@@ -1441,7 +1469,7 @@ namespace PuntoDeVentaV2
                                     // Actualizar stock del producto
                                     cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
                                     //Actualizar Proveedor del Producto 
-                                    using (var ConsultaIDProveedor = cn.CargarDatos(cs.ConsultaIDProveedor(cbProveedores.Text)))
+                                    using (var ConsultaIDProveedor = cn.CargarDatos(cs.ConsultaIDProveedor(cbProveedores.Text, FormPrincipal.userID)))
                                     {
                                         if (ConsultaIDProveedor.Rows.Count.Equals(0))
                                         {
@@ -1452,7 +1480,7 @@ namespace PuntoDeVentaV2
                                         else
                                         {
                                             string IDProveedor = ConsultaIDProveedor.Rows[0]["ID"].ToString();
-                                            cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{cbProveedores.Text}' , IDProveedor =                '{IDProveedor}' WHERE IDProducto = {idProducto}");
+                                            cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{cbProveedores.Text}' , IDProveedor = '{IDProveedor}' WHERE IDProducto = {idProducto}");
                                         }
                                         
                                     }
@@ -1769,10 +1797,30 @@ namespace PuntoDeVentaV2
                 if (tipoFiltro != "Filtros")
                 {
                     var consulta = string.Empty;
+
                     if (tipoFiltro.Equals("CantidadPedir"))
                     {
                         verificarAntidadAPedir();
                         consulta = $"SELECT COUNT(ID) AS Total FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND Tipo = 'P' AND Stock < StockMinimo AND (CodigoBarras != '' OR ClaveInterna != '')";
+                    }
+                    else if (tipoFiltro.Equals("Proveedores"))
+                    {
+                        var datosRevision = operadorFiltro.Split('|');
+                        var idProveedor = datosRevision[0];
+                        var tipoRevision = datosRevision[1];
+                        var operador = string.Empty;
+
+                        if (tipoRevision.Equals("1"))
+                        {
+                            operador = "=";
+                        }
+
+                        if (tipoRevision.Equals("2"))
+                        {
+                            operador = "!=";
+                        }
+
+                        consulta = $"SELECT COUNT(P.ID) AS Total FROM Productos P INNER JOIN DetallesProducto D ON (P.ID = D.IDProducto AND D.IDProveedor = {idProveedor}) WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1 AND P.Tipo = 'P' AND P.NumeroRevision {operador} 0 AND (P.CodigoBarras != '' OR P.ClaveInterna != '')";
                     }
                     else
                     {
@@ -2226,16 +2274,6 @@ namespace PuntoDeVentaV2
             {
                 btnTerminar.PerformClick();
             }
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
         }
     }
 }
