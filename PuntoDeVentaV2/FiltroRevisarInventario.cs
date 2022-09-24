@@ -357,7 +357,7 @@ namespace PuntoDeVentaV2
                 // Tipo de revision cuando es proveedores
                 Dictionary<int, string> dicTipoRevision = new Dictionary<int, string>();
                 dicTipoRevision.Add(1, "INICIAR REVISIÓN DESDE CERO");
-                dicTipoRevision.Add(2, "CONTINUAR CON REVISIÓN PENDIENTE");
+                dicTipoRevision.Add(2, "CONTINUAR CON REVISIÓN");
 
                 cbTipoRevision.DataSource = dicTipoRevision.ToArray();
                 cbTipoRevision.DisplayMember = "Value";

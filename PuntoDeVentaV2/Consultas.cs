@@ -647,7 +647,7 @@ namespace PuntoDeVentaV2
 
         public string ListarDetalleGeneral(int idUser, string chkNombre)
         {
-            var consulta = $"SELECT * FROM DetalleGeneral WHERE IDUsuario = {idUser} AND ChckName = '{chkNombre}'";
+            var consulta = $"SELECT * FROM DetalleGeneral WHERE IDUsuario = {idUser} AND ChckName = '{chkNombre}' AND Mostrar = 1";
 
             return consulta;
         }
