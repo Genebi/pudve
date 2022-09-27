@@ -198,7 +198,6 @@
             this.txtBuscadorProducto.TextChanged += new System.EventHandler(this.txtBuscadorProducto_TextChanged);
             this.txtBuscadorProducto.Enter += new System.EventHandler(this.txtBuscadorProducto_Enter);
             this.txtBuscadorProducto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyDown);
-            this.txtBuscadorProducto.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuscadorProducto_KeyPress);
             this.txtBuscadorProducto.Leave += new System.EventHandler(this.txtBuscadorProducto_Leave);
             // 
             // DGVentas
