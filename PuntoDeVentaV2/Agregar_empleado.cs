@@ -162,7 +162,7 @@ namespace PuntoDeVentaV2
 
                     if (cmb_bx_permisos.SelectedIndex == 0)
                     {
-                        cn.EjecutarConsulta($"UPDATE empleados SET p_empleado ='0' WHERE ID='{id_empleado}'");
+                        cn.EjecutarConsulta($"UPDATE empleados SET p_empleado ='1',ConsultaPrecio = 1 WHERE ID='{id_empleado}'");
                     }
 
                     
