@@ -272,7 +272,7 @@ namespace PuntoDeVentaV2
         {
             int clienteId = 0;
 
-            DatosConexion($"SELECT * FROM Clientes WHERE IDUsuario = {usuarioId} AND RFC = 'XAXX010101000' AND Status = 1");
+            DatosConexion($"SELECT * FROM Clientes WHERE IDUsuario = {usuarioId} AND RazonSocial = 'PUBLICO GENERAL' AND RFC = 'XAXX010101000' AND Status = 1");
 
             var dr = sql_cmd.ExecuteReader();
 

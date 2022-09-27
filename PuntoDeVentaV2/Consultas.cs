@@ -647,7 +647,7 @@ namespace PuntoDeVentaV2
 
         public string ListarDetalleGeneral(int idUser, string chkNombre)
         {
-            var consulta = $"SELECT * FROM DetalleGeneral WHERE IDUsuario = {idUser} AND ChckName = '{chkNombre}'";
+            var consulta = $"SELECT * FROM DetalleGeneral WHERE IDUsuario = {idUser} AND ChckName = '{chkNombre}' AND Mostrar = 1";
 
             return consulta;
         }
@@ -1221,7 +1221,7 @@ namespace PuntoDeVentaV2
 
         public string LlenarFiltroDinamicoComboBox(int idUser)
         {
-            var consulta = $"SELECT * FROM FiltroDinamico WHERE IDUsuario = {idUser}";
+            var consulta = $"SELECT * FROM FiltroDinamico WHERE IDUsuario = {idUser} AND checkBoxConcepto = 1";
 
             return consulta;
         }

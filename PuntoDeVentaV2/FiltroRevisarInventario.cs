@@ -63,9 +63,7 @@ namespace PuntoDeVentaV2
             cbTipoRevision.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             
             RevisarInventario.mensajeInventario = 0;
-            //Esta condicion es para que solo se muestren todos los tipos de filtros para los primeros usuarios y para los demas solo tenga el filtro normal
-            //if (FormPrincipal.clave == 1 )
-            //{
+
             filtros.Add("Normal", "Revision Normal");
             filtros.Add("Stock", "Stock");
             filtros.Add("StockMinimo", "Stock Mínimo");
@@ -73,10 +71,8 @@ namespace PuntoDeVentaV2
             filtros.Add("NumeroRevision", "Número de Revisión");
             filtros.Add("CantidadPedir", "Cantidad a Pedir");
             filtros.Add("Proveedor", "Proveedores");
+            filtros.Add("Filtros", "Personalizados");
             
-
-
-            //filtros.Add("Filtros", "Por Filtros");
 
             operadores.Add("NA", "Seleccionar opción...");
             operadores.Add(">=", "Mayor o igual que");
@@ -84,29 +80,27 @@ namespace PuntoDeVentaV2
             operadores.Add("=", "Igual que");
             operadores.Add(">", "Mayor que");
             operadores.Add("<", "Menor que");
-            //}
-            //else
-            //{
-            //    filtros.Add("Normal", "Revision Normal");
 
-            //}
-            
 
-            //filtroDinamico.Add("NA", "Selecciona filtro...");
+            filtroDinamico.Add("NA", "Seleccionar filtro...");
 
-            //using (DataTable dtFiltroDinamico = cn.CargarDatos(cs.LlenarFiltroDinamicoComboBox(FormPrincipal.userID)))
-            //{
-            //    if (!dtFiltroDinamico.Rows.Count.Equals(0))
-            //    {
-            //        foreach (DataRow drFiltroDinamico in dtFiltroDinamico.Rows)
-            //        {
-            //            if (!filtroDinamico.ContainsKey(drFiltroDinamico["concepto"].ToString()))
-            //            {
-            //                filtroDinamico.Add(drFiltroDinamico["concepto"].ToString(), drFiltroDinamico["concepto"].ToString().Remove(0, 3));
-            //            }
-            //        }
-            //    }
-            //}
+            using (DataTable dtFiltroDinamico = cn.CargarDatos(cs.LlenarFiltroDinamicoComboBox(FormPrincipal.userID)))
+            {
+                if (!dtFiltroDinamico.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drFiltroDinamico in dtFiltroDinamico.Rows)
+                    {
+                        if (!filtroDinamico.ContainsKey(drFiltroDinamico["concepto"].ToString()))
+                        {
+                            var nombreFiltro = drFiltroDinamico["concepto"].ToString();
+
+                            if (nombreFiltro.Equals("chkProveedor")) continue;
+
+                            filtroDinamico.Add(nombreFiltro, nombreFiltro.Remove(0, 3));
+                        }
+                    }
+                }
+            }
 
             cbFiltro.DataSource = filtros.ToArray();
             cbFiltro.DisplayMember = "Value";
@@ -293,62 +287,33 @@ namespace PuntoDeVentaV2
             var filtroDinamico = cbOperadores.SelectedValue.ToString();
             string filtroSeleccionado = string.Empty;
 
+            string[] listaOperadores = { "NA", ">=", "<=", "=", ">", "<" };
+
             strFiltroDinamico.Clear();
 
-            if (!filtroDinamico.Equals("NA"))
+            if (!listaOperadores.Contains(filtroDinamico))
             {
-                if (!filtroDinamico.Equals(">="))
+                filtroSeleccionado = filtroDinamico.Remove(0, 3);
+                string inicioStr = "Selecciona " + filtroSeleccionado + "...";
+                string sinFiltro = "Sin " + filtroSeleccionado;
+
+                strFiltroDinamico.Add(inicioStr.ToUpper());
+                strFiltroDinamico.Add(sinFiltro.ToUpper());
+
+                using (DataTable dtStrFiltroDinamico = cn.CargarDatos(cs.ListarDetalleGeneral(FormPrincipal.userID, filtroSeleccionado)))
                 {
-                    if (!filtroDinamico.Equals("<="))
+                    if (!dtStrFiltroDinamico.Rows.Count.Equals(0))
                     {
-                        if (!filtroDinamico.Equals("="))
+                        foreach (DataRow drStrFiltroDinamico in dtStrFiltroDinamico.Rows)
                         {
-                            if (!filtroDinamico.Equals(">"))
-                            {
-                                if (!filtroDinamico.Equals("<"))
-                                {
-                                    filtroSeleccionado = filtroDinamico.Remove(0, 3);
-                                    string inicioStr = "Selecciona " + filtroSeleccionado + "...";
-                                    string sinFiltro = "Sin " + filtroSeleccionado;
-
-                                    strFiltroDinamico.Add(inicioStr.ToUpper());
-                                    strFiltroDinamico.Add(sinFiltro.ToUpper());
-
-                                    if (filtroSeleccionado.Equals("Proveedor"))
-                                    {
-                                        using (DataTable dtStrFiltroDinamico = cn.CargarDatos(cs.ListarProveedores(FormPrincipal.userID)))
-                                        {
-                                            if (!dtStrFiltroDinamico.Rows.Count.Equals(0))
-                                            {
-                                                foreach (DataRow drStrFiltroDinamico in dtStrFiltroDinamico.Rows)
-                                                {
-                                                    strFiltroDinamico.Add(drStrFiltroDinamico["Nombre"].ToString());
-                                                }
-                                            }
-                                        }
-                                    }
-                                    else if (!filtroSeleccionado.Equals("Proveedor"))
-                                    {
-                                        using (DataTable dtStrFiltroDinamico = cn.CargarDatos(cs.ListarDetalleGeneral(FormPrincipal.userID, filtroSeleccionado)))
-                                        {
-                                            if (!dtStrFiltroDinamico.Rows.Count.Equals(0))
-                                            {
-                                                foreach (DataRow drStrFiltroDinamico in dtStrFiltroDinamico.Rows)
-                                                {
-                                                    strFiltroDinamico.Add(drStrFiltroDinamico["Descripcion"].ToString());
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    if (cbFiltroDinamico.Visible.Equals(true))
-                                    {
-                                        cbFiltroDinamico.DataSource = strFiltroDinamico.ToArray();
-                                    }   
-                                }
-                            }
+                            strFiltroDinamico.Add(drStrFiltroDinamico["Descripcion"].ToString());
                         }
                     }
+                }
+
+                if (cbFiltroDinamico.Visible.Equals(true))
+                {
+                    cbFiltroDinamico.DataSource = strFiltroDinamico.ToArray();
                 }
             }
             else if (filtroDinamico.Equals("NA"))
@@ -392,7 +357,7 @@ namespace PuntoDeVentaV2
                 // Tipo de revision cuando es proveedores
                 Dictionary<int, string> dicTipoRevision = new Dictionary<int, string>();
                 dicTipoRevision.Add(1, "INICIAR REVISIÓN DESDE CERO");
-                dicTipoRevision.Add(2, "CONTINUAR CON REVISIÓN PENDIENTE");
+                dicTipoRevision.Add(2, "CONTINUAR CON REVISIÓN");
 
                 cbTipoRevision.DataSource = dicTipoRevision.ToArray();
                 cbTipoRevision.DisplayMember = "Value";

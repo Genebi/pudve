@@ -247,7 +247,7 @@ namespace PuntoDeVentaV2
 
                         if (tipoRevision.Equals("2"))
                         {
-                            operador = "!=";
+                            operador = "="; //!=
                         }
 
                         consulta = $"SELECT P.* FROM Productos P INNER JOIN DetallesProducto D ON (P.ID = D.IDProducto AND D.IDProveedor = {idProveedor}) WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1 AND P.Tipo = 'P' AND P.NumeroRevision {operador} 0 AND P.ID > {idProducto} AND (P.CodigoBarras != '' OR P.ClaveInterna != '') ORDER BY ID ASC LIMIT 1";
@@ -1362,12 +1362,12 @@ namespace PuntoDeVentaV2
                                 {
                                     string id = "0";
                                     string nombre = string.Empty;
-                                    cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{nombre}' , IDProveedor = '{id}' WHERE IDProducto =               {idProducto}");
+                                    cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{nombre}' , IDProveedor = '{id}' WHERE IDProducto = {idProducto}");
                                 }
                                 else
                                 {
                                     string IDProveedor = ConsultaIDProveedor.Rows[0]["ID"].ToString();
-                                    cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{cbProveedores.Text}' , IDProveedor =                '{IDProveedor}' WHERE IDProducto = {idProducto}");
+                                    cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{cbProveedores.Text}' , IDProveedor = '{IDProveedor}' WHERE IDProducto = {idProducto}");
                                 }
                             }
 
@@ -1817,7 +1817,7 @@ namespace PuntoDeVentaV2
 
                         if (tipoRevision.Equals("2"))
                         {
-                            operador = "!=";
+                            operador = "="; //!=
                         }
 
                         consulta = $"SELECT COUNT(P.ID) AS Total FROM Productos P INNER JOIN DetallesProducto D ON (P.ID = D.IDProducto AND D.IDProveedor = {idProveedor}) WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1 AND P.Tipo = 'P' AND P.NumeroRevision {operador} 0 AND (P.CodigoBarras != '' OR P.ClaveInterna != '')";

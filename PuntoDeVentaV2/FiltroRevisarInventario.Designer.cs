@@ -123,10 +123,11 @@
             // cbFiltroDinamico
             // 
             this.cbFiltroDinamico.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFiltroDinamico.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbFiltroDinamico.FormattingEnabled = true;
-            this.cbFiltroDinamico.Location = new System.Drawing.Point(114, 92);
+            this.cbFiltroDinamico.Location = new System.Drawing.Point(39, 94);
             this.cbFiltroDinamico.Name = "cbFiltroDinamico";
-            this.cbFiltroDinamico.Size = new System.Drawing.Size(150, 21);
+            this.cbFiltroDinamico.Size = new System.Drawing.Size(296, 25);
             this.cbFiltroDinamico.TabIndex = 125;
             this.cbFiltroDinamico.Visible = false;
             // 
@@ -158,15 +159,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(374, 196);
-            this.Controls.Add(this.cbTipoRevision);
-            this.Controls.Add(this.cbProveedor);
             this.Controls.Add(this.cbFiltro);
             this.Controls.Add(this.primerSeparador);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.cbFiltroDinamico);
-            this.Controls.Add(this.txtCantidad);
             this.Controls.Add(this.cbOperadores);
+            this.Controls.Add(this.txtCantidad);
+            this.Controls.Add(this.cbFiltroDinamico);
+            this.Controls.Add(this.cbTipoRevision);
+            this.Controls.Add(this.cbProveedor);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.MaximizeBox = false;
