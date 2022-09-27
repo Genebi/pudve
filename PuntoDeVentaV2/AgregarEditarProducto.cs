@@ -4419,17 +4419,17 @@ namespace PuntoDeVentaV2
 
         private void txtPrecioCompra_MouseClick(object sender, MouseEventArgs e)
         {
-            if (FormPrincipal.userNickName.Contains('@'))
-            {
-                var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
-                if (datos[29].Equals(0))
-                {
-                    SinPermiso = true;
-                    Utilidades.MensajePermiso();
-                    txtPrecioCompra.Enabled = false;
-                    return;
-                }
-            }
+            //if (FormPrincipal.userNickName.Contains('@'))
+            //{
+            //    var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+            //    if (datos[29].Equals(0))
+            //    {
+            //        SinPermiso = true;
+            //        Utilidades.MensajePermiso();
+            //        txtPrecioCompra.Enabled = false;
+            //        return;
+            //    }
+            //}
         }
 
         private void txtPrecioProducto_MouseClick(object sender, MouseEventArgs e)

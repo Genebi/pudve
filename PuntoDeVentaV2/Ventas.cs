@@ -8302,10 +8302,6 @@ namespace PuntoDeVentaV2
 
         }
 
-        private void txtBuscadorProducto_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-        }
 
         private void txtBuscadorProducto_Leave(object sender, EventArgs e)
         {
