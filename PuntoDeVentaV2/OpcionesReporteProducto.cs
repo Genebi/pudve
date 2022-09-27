@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using ClosedXML.Excel;
+using SpreadsheetLight;
 
 namespace PuntoDeVentaV2
 {
@@ -26,12 +28,16 @@ namespace PuntoDeVentaV2
         private List<string> ultimos;
         private string ultimoSeleccionado = string.Empty;
 
+        public static string opcionPregunta =string.Empty;
         // Instancia del filtro para el reporte de productos
         FiltroReporteProductos filtroReporte;
 
         public static Dictionary<string, Tuple<string, float>> filtros;
         public static bool filtroAbierto = false;
+        string dtosConsulta,IDSProducto;
 
+        public object ExcelFilePath { get; private set; }
+        public object OfficeOpenXML { get; private set; }
         public OpcionesReporteProducto()
         {
             InitializeComponent();
@@ -134,23 +140,91 @@ namespace PuntoDeVentaV2
         {
             if (seleccionados.Count > 0)
             {
-                if (!Utilidades.AdobeReaderInstalado())
+                SeleccionaOpcion SO = new SeleccionaOpcion("Generar en PDF","Generar en EXCEL","¿Como desea generar el Reporte?");
+                SO.ShowDialog();
+                if (opcionPregunta.Equals("opcion1"))
                 {
-                    Utilidades.MensajeAdobeReader();
-                    return;
-                }
-
-                Dictionary<string, Tuple<string, float>> opcionesFinales = new Dictionary<string, Tuple<string, float>>();
-
-                foreach (var opcion in seleccionados)
-                {
-                    if (opcionesDefault.ContainsKey(opcion))
+                    if (!Utilidades.AdobeReaderInstalado())
                     {
-                        opcionesFinales.Add(opcion, new Tuple<string, float>(opcionesDefault[opcion].Item1, opcionesDefault[opcion].Item2));
+                        Utilidades.MensajeAdobeReader();
+                        return;
                     }
-                }
 
-                GenerarReporte(opcionesFinales);
+                    Dictionary<string, Tuple<string, float>> opcionesFinales = new Dictionary<string, Tuple<string, float>>();
+
+                    foreach (var opcion in seleccionados)
+                    {
+                        if (opcionesDefault.ContainsKey(opcion))
+                        {
+                            opcionesFinales.Add(opcion, new Tuple<string, float>(opcionesDefault[opcion].Item1, opcionesDefault[opcion].Item2));
+                        }
+                    }
+
+                    GenerarReporte(opcionesFinales);
+                }
+                else if (opcionPregunta.Equals("opcion2"))
+                {
+                    foreach (var item in seleccionados)
+                    {
+                        dtosConsulta += item +",";
+                    }
+                    dtosConsulta = dtosConsulta.TrimEnd(',');
+                    var productos = Productos.productosSeleccionados;
+                    foreach (var item in productos)
+                    {
+                         IDSProducto += item.Key + ",";
+                    }
+                    IDSProducto = IDSProducto.TrimEnd(',');
+                    DataTable DTExcel = new DataTable("DatosExcel");
+                    string consulta = string.Empty;
+                    DTExcel = cn.CargarDatos($"SELECT {dtosConsulta} FROM productos WHERE ID IN({IDSProducto})");
+                    string nombre = Environment.UserName;
+                    string rutaparaGGuardar = $@"C:\Users\{nombre}\Desktop\DatosProducto.xlsx";
+
+                    SLDocument sl = new SLDocument();
+                    SLStyle st = new SLStyle();
+                    st.Font.Bold = true;
+                    int titulo = 1;
+
+
+                    foreach (DataColumn item in DTExcel.Columns)
+                    {
+                        string columna = item.ColumnName.ToString();
+                        sl.SetCellValue(1, titulo, columna);
+                        sl.SetCellStyle(1, titulo, st);
+                        titulo++;
+                       
+                    }
+                    int datos = 2;
+                    int columnaNombre = 0;
+                    int posicionColumna = 1;
+                    int dato = 0;
+                    foreach (DataRow item in DTExcel.Rows)
+                    {
+                        foreach (DataColumn otroitem in DTExcel.Columns)
+                        {
+                            sl.SetCellValue(datos, posicionColumna, DTExcel.Rows[dato][columnaNombre].ToString());
+                            columnaNombre++;
+                            posicionColumna++;
+                            
+                        }
+                        dato++;
+                        posicionColumna = 1;
+                        columnaNombre = 0;
+                        datos++;
+                    }
+                    dato = 0;
+                    sl.SaveAs(rutaparaGGuardar);
+                    dtosConsulta = "";
+                    IDSProducto = "";
+                    Productos.productosSeleccionados.Clear();
+                    this.Close();
+                }
+                else
+                {
+                    this.Close();
+                }
+                
             }
             else
             {
