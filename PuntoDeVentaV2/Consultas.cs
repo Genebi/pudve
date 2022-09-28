@@ -4658,6 +4658,14 @@ namespace PuntoDeVentaV2
         public string obtenerDatosFacturacionProductoParaCopiar(int idprod)
         {
             var consulta = $"SELECT * FROM detallesfacturacionproductos WHERE IDProducto = {idprod}";
+
+            return consulta;
+        }
+
+        public string agregarSaldosIniciales(int idHistorialCorteDeCaja, decimal[] cantidadesIniciales)
+        {
+            var consulta = $"UPDATE historialcortesdecaja SET SaldoInicialEfectivo = SaldoInicialEfectivo + '{cantidadesIniciales[0]}', SaldoInicialTarjeta = SaldoInicialTarjeta + '{cantidadesIniciales[1]}', SaldoInicialVales = SaldoInicialVales + '{cantidadesIniciales[2]}', SaldoInicialCheque = SaldoInicialCheque + '{cantidadesIniciales[3]}', SaldoInicialTransferencia = SaldoInicialTransferencia + '{cantidadesIniciales[4]}' WHERE ID = '{idHistorialCorteDeCaja}'";
+
             return consulta;
         }
     }

@@ -144,10 +144,12 @@ namespace PuntoDeVentaV2
             if (!operacion.Equals(0))
             {
                 btnRetirarTodoElDinero.Visible = true;
+                chkBoxDepositoSaldoInicial.Visible = false;
             }
             else
             {
                 btnRetirarTodoElDinero.Visible = false;
+                chkBoxDepositoSaldoInicial.Visible = true;
             }
 
             txtEfectivo.KeyPress += new KeyPressEventHandler(SoloDecimales);
@@ -295,279 +297,6 @@ namespace PuntoDeVentaV2
 
             FormPrincipal.condicionarMensaje = 1;
 
-            // Depositar
-            if (operacion == 0)
-            {
-                tipoOperacion = "deposito";
-            }
-
-            // Retirar
-            if (operacion == 1)
-            {
-                tipoOperacion = "retiro";
-            }
-
-            // Corte de caja
-            if (operacion == 2)
-            {
-                tipoOperacion = "corte";
-            }
-
-            var numFolio = obtenerNumFolio(tipoOperacion);
-
-            //var concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
-            var concepto = cbConceptoConBusqueda.GetItemText(cbConceptoConBusqueda.SelectedItem);
-
-            if (concepto.Equals("Seleccionar concepto..."))
-            {
-                concepto = string.Empty;
-            }
-
-            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            CajaN.fechaUltimoCorte = Convert.ToDateTime(fechaOperacion);
-
-            var efectivo = ValidarCampos(txtEfectivo.Text);
-            var tarjeta = ValidarCampos(txtTarjeta.Text);
-            var cheque = ValidarCampos(txtCheque.Text);
-            var vales = ValidarCampos(txtVales.Text);
-            var trans = ValidarCampos(txtTrans.Text);
-            var credito = ValidarCampos(txtCredito.Text);
-
-            // Se guardan las cantidades que el usuario es lo que va a retirar
-            //var cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
-            float cantidad = 0;
-
-            if (!operacion.Equals(0))
-            {
-                if (efectivo < 0 && efectivo > (float)totalEfectivo)
-                {
-                    if (efectivo < 0)
-                    {
-                        efectivo = 0;
-                    }
-                    else
-                    {
-                        efectivo = (float)totalEfectivo;
-                        MessageBox.Show($"El monto de efectivo tiene que ser menor o igual que el monto que hay en caja: {totalEfectivo.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    txtEfectivo.Text = efectivo.ToString();
-                }
-                else
-                {
-                    siRetiroEfectivo = true;
-                }
-
-                if (tarjeta < 0 && tarjeta > (float)totalTarjeta)
-                {
-                    if (tarjeta < 0)
-                    {
-                        tarjeta = 0;
-                    }
-                    else
-                    {
-                        tarjeta = (float)totalTarjeta;
-                        MessageBox.Show($"El monto de tarjeta tiene que ser menor o igual que el monto que hay en caja: {totalTarjeta.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    txtTarjeta.Text = tarjeta.ToString();
-                }
-                else
-                {
-                    siRetiroTarjeta = true;
-                }
-
-                if (cheque < 0 && cheque > (float)totalCheque)
-                {
-                    if (cheque < 0)
-                    {
-                        cheque = 0;
-                    }
-                    else
-                    {
-                        cheque = (float)totalCheque;
-                        MessageBox.Show($"El monto de cheque tiene que ser menor o igual que el monto que hay en caja: {totalCheque.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    txtCheque.Text = cheque.ToString();
-                }
-                else
-                {
-                    siRetiroCheque = true;
-                }
-
-                if (vales < 0 && vales > (float)totalVales)
-                {
-                    if (vales < 0)
-                    {
-                        vales = 0;
-                    }
-                    else
-                    {
-                        vales = (float)totalVales;
-                        MessageBox.Show($"El monto de vales tiene que ser menor o igual que el monto que hay en caja: {totalVales.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    txtVales.Text = vales.ToString();
-                }
-                else
-                {
-                    siRetiroVales = true;
-                }
-
-                if (trans < 0 && trans > (float)totalTransferencia)
-                {
-                    if (trans < 0)
-                    {
-                        trans = 0;
-                    }
-                    else
-                    {
-                        trans = (float)totalTransferencia;
-                        MessageBox.Show($"El monto de transferencia tiene que ser menor o igual que el monto que hay en caja: {totalTransferencia.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    txtTrans.Text = trans.ToString();
-                }
-                else
-                {
-                    siRetiroTransferencia = true;
-                }
-            }
-
-            cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
-
-            //if (cantidad < 0) { cantidad = 0; }
-
-            if (!operacion.Equals(0))
-            {
-                if (cantidad < 0 && cantidad > (float)totalEnCaja)
-                {
-                    if (cantidad < 0)
-                    {
-                        cantidad = 0;
-                    }
-                    else
-                    {
-                        cantidad = (float)totalEnCaja;
-                        MessageBox.Show($"El monto de retirar tiene que ser menor o igual que el monto que hay en caja: {totalEnCaja.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                }
-            }
-
-            if (operacion.Equals(2))
-            {
-                totalRetiradoCorte = cantidad.ToString();
-            }
-
-            totalRetiradoCorte = !string.IsNullOrWhiteSpace(totalRetiradoCorte) ? totalRetiradoCorte : "0";
-
-            // Si es igual a cero no procede la operacion de depositar o retirar
-            if (cantidad == 0)
-            {
-                if (operacion == 0 || operacion == 1)
-                {
-                    var mensaje = string.Empty;
-
-                    if (operacion == 1)
-                    {
-                        mensaje = "La cantidad a retirar debe ser mayor a cero";
-                    }
-                    else if (operacion == 0)
-                    {
-                        mensaje = "La cantidad a depositar debe ser mayor a cero";
-                    }
-
-                    MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-            }
-
-            string nombreEmpleado = string.Empty;
-            string usuarioEmpleado = string.Empty;
-
-            if (FormPrincipal.id_empleado > 0)
-            {
-                var datosEmpleado = mb.obtener_permisos_empleado(FormPrincipal.id_empleado, FormPrincipal.userID);
-
-                nombreEmpleado = datosEmpleado[14];
-                usuarioEmpleado = datosEmpleado[15];
-            }
-
-            string[] datos = new string[] { };
-            int resultado = 0;
-            bool retirarEfectivoDeSaldoInicial = false,
-                 retirarTarjetaDeSaldoInicial = false,
-                 retirarValesDeSaldoInicial = false,
-                 retirarChequeDeSaldoInicial = false,
-                 retirarTransferenciaDeSaldoInicial = false;
-
-            if (operacion.Equals(1))
-            {
-                if (cantidadTotalEfectivoEnCaja <= 0 && efectivo >= 1)
-                {
-                    retirarEfectivoDeSaldoInicial = true;
-                    concepto += " Retiro de efectivo del Saldo Inicial";
-                    datos = new string[] {
-                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
-                    };
-                }
-                if (cantidadTotalTarjetaEnCaja <= 0 && tarjeta >= 1)
-                {
-                    retirarTarjetaDeSaldoInicial = true;
-                    concepto += " Retiro de tarjeta del Saldo Inicial";
-                    datos = new string[] {
-                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
-                    };
-                }
-                if (cantidadTotalValesEnCaja <= 0 && vales >= 1)
-                {
-                    retirarValesDeSaldoInicial = true;
-                    concepto += " Retiro de vales del Saldo Inicial";
-                    datos = new string[] {
-                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
-                    };
-                }
-                if (cantidadTotalCehqueEnCaja <= 0 && cheque >= 1)
-                {
-                    retirarChequeDeSaldoInicial = true;
-                    concepto += " Retiro de cheque del Saldo Inicial";
-                    datos = new string[] {
-                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
-                    };
-                }
-                if (cantidadTotalTransferenciaEnCaja <= 0 && trans >= 1)
-                {
-                    retirarTransferenciaDeSaldoInicial = true;
-                    concepto += " Retiro de transferencia del Saldo Inicial";
-                    datos = new string[] {
-                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
-                    };
-                }
-                else
-                {
-                    datos = new string[] {
-                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
-                    };
-                }
-            }
-            else
-            {
-                if (operacion.Equals(2))
-                {
-                    fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-                    datos = new string[] {
-                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
-                    };
-
-                    CajaN.botones = true;
-                }
-                else
-                {
-                    datos = new string[] {
-                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
-                    };
-                }
-            }
-
-            tipoCorte = false;
-
             int idHistorialCorteDeCaja = 0;
 
             if (!FormPrincipal.userNickName.Contains("@"))
@@ -579,346 +308,651 @@ namespace PuntoDeVentaV2
                 idHistorialCorteDeCaja = obtenerIDHistorialCorteDeCaja(FormPrincipal.id_empleado.ToString());
             }
 
-            decimal montoRestante = 0;
-
-            using (DataTable dtMontosDeSaldoInicialAModificar = cn.CargarDatos(cs.obtenerSaldoInicialPorIDDelHistorialCorteDeCaja(idHistorialCorteDeCaja)))
+            if (chkBoxDepositoSaldoInicial.Checked.Equals(true))
             {
-                DataRow row = dtMontosDeSaldoInicialAModificar.Rows[0];
+                decimal[] cantidadesIniciales = { 0.00m, 0.00m, 0.00m, 0.00m, 0.00m };
 
-                if (retirarEfectivoDeSaldoInicial)
+                if (!string.IsNullOrWhiteSpace(txtEfectivo.Text.Trim()))
                 {
-                    montoRestante = (Convert.ToDecimal(row["SaldoInicialEfectivo"].ToString()) - (decimal)efectivo);
-                    resultado = cn.EjecutarConsulta(cs.actualizarSaldoInicialDeEfectivo(idHistorialCorteDeCaja, montoRestante));
+                    cantidadesIniciales[0] = Convert.ToDecimal(txtEfectivo.Text.Trim());
                 }
-                if (retirarTarjetaDeSaldoInicial)
+                if (!string.IsNullOrWhiteSpace(txtTarjeta.Text.Trim()))
                 {
-                    montoRestante = (Convert.ToDecimal(row["SaldoInicialTarjeta"].ToString()) - (decimal)tarjeta);
-                    resultado = cn.EjecutarConsulta(cs.actualizarSaldoInicialDeTarjeta(idHistorialCorteDeCaja, montoRestante));
+                    cantidadesIniciales[1] = Convert.ToDecimal(txtTarjeta.Text.Trim());
                 }
-                if (retirarValesDeSaldoInicial)
+                if (!string.IsNullOrWhiteSpace(txtVales.Text.Trim()))
                 {
-                    montoRestante = (Convert.ToDecimal(row["SaldoInicialVales"].ToString()) - (decimal)vales);
-                    resultado = cn.EjecutarConsulta(cs.actualizarSaldoInicialDeVales(idHistorialCorteDeCaja, montoRestante));
+                    cantidadesIniciales[2] = Convert.ToDecimal(txtVales.Text.Trim());
                 }
-                if (retirarChequeDeSaldoInicial)
+                if (!string.IsNullOrWhiteSpace(txtCheque.Text.Trim()))
                 {
-                    montoRestante = (Convert.ToDecimal(row["SaldoInicialCheque"].ToString()) - (decimal)cheque);
-                    resultado = cn.EjecutarConsulta(cs.actualizarSaldoInicialDeCheque(idHistorialCorteDeCaja, montoRestante));
+                    cantidadesIniciales[3] = Convert.ToDecimal(txtCheque.Text.Trim());
                 }
-                if (retirarTransferenciaDeSaldoInicial)
+                if (!string.IsNullOrWhiteSpace(txtTrans.Text.Trim()))
                 {
-                    montoRestante = (Convert.ToDecimal(row["SaldoInicialTransferencia"].ToString()) - (decimal)trans);
-                    resultado = cn.EjecutarConsulta(cs.actualizarSaldoInicialDeTransferencia(idHistorialCorteDeCaja, montoRestante));
+                    cantidadesIniciales[4] = Convert.ToDecimal(txtTrans.Text.Trim());
                 }
+
+                cn.EjecutarConsulta(cs.agregarSaldosIniciales(idHistorialCorteDeCaja, cantidadesIniciales));
+
+                this.Close();
             }
-
-            if (retirarEfectivoDeSaldoInicial.Equals(false) && 
-                retirarTarjetaDeSaldoInicial.Equals(false) && 
-                retirarValesDeSaldoInicial.Equals(false) && 
-                retirarChequeDeSaldoInicial.Equals(false) && 
-                retirarTransferenciaDeSaldoInicial.Equals(false))
+            else
             {
-                if (!FormPrincipal.userNickName.Contains("@"))
+                // Depositar
+                if (operacion == 0)
                 {
-                    resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
+                    tipoOperacion = "deposito";
+                }
+
+                // Retirar
+                if (operacion == 1)
+                {
+                    tipoOperacion = "retiro";
+                }
+
+                // Corte de caja
+                if (operacion == 2)
+                {
+                    tipoOperacion = "corte";
+                }
+
+                var numFolio = obtenerNumFolio(tipoOperacion);
+
+                //var concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
+                var concepto = cbConceptoConBusqueda.GetItemText(cbConceptoConBusqueda.SelectedItem);
+
+                if (concepto.Equals("Seleccionar concepto..."))
+                {
+                    concepto = string.Empty;
+                }
+
+                var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                CajaN.fechaUltimoCorte = Convert.ToDateTime(fechaOperacion);
+
+                var efectivo = ValidarCampos(txtEfectivo.Text);
+                var tarjeta = ValidarCampos(txtTarjeta.Text);
+                var cheque = ValidarCampos(txtCheque.Text);
+                var vales = ValidarCampos(txtVales.Text);
+                var trans = ValidarCampos(txtTrans.Text);
+                var credito = ValidarCampos(txtCredito.Text);
+
+                // Se guardan las cantidades que el usuario es lo que va a retirar
+                //var cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
+                float cantidad = 0;
+
+                if (!operacion.Equals(0))
+                {
+                    if (efectivo < 0 && efectivo > (float)totalEfectivo)
+                    {
+                        if (efectivo < 0)
+                        {
+                            efectivo = 0;
+                        }
+                        else
+                        {
+                            efectivo = (float)totalEfectivo;
+                            MessageBox.Show($"El monto de efectivo tiene que ser menor o igual que el monto que hay en caja: {totalEfectivo.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        txtEfectivo.Text = efectivo.ToString();
+                    }
+                    else
+                    {
+                        siRetiroEfectivo = true;
+                    }
+
+                    if (tarjeta < 0 && tarjeta > (float)totalTarjeta)
+                    {
+                        if (tarjeta < 0)
+                        {
+                            tarjeta = 0;
+                        }
+                        else
+                        {
+                            tarjeta = (float)totalTarjeta;
+                            MessageBox.Show($"El monto de tarjeta tiene que ser menor o igual que el monto que hay en caja: {totalTarjeta.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        txtTarjeta.Text = tarjeta.ToString();
+                    }
+                    else
+                    {
+                        siRetiroTarjeta = true;
+                    }
+
+                    if (cheque < 0 && cheque > (float)totalCheque)
+                    {
+                        if (cheque < 0)
+                        {
+                            cheque = 0;
+                        }
+                        else
+                        {
+                            cheque = (float)totalCheque;
+                            MessageBox.Show($"El monto de cheque tiene que ser menor o igual que el monto que hay en caja: {totalCheque.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        txtCheque.Text = cheque.ToString();
+                    }
+                    else
+                    {
+                        siRetiroCheque = true;
+                    }
+
+                    if (vales < 0 && vales > (float)totalVales)
+                    {
+                        if (vales < 0)
+                        {
+                            vales = 0;
+                        }
+                        else
+                        {
+                            vales = (float)totalVales;
+                            MessageBox.Show($"El monto de vales tiene que ser menor o igual que el monto que hay en caja: {totalVales.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        txtVales.Text = vales.ToString();
+                    }
+                    else
+                    {
+                        siRetiroVales = true;
+                    }
+
+                    if (trans < 0 && trans > (float)totalTransferencia)
+                    {
+                        if (trans < 0)
+                        {
+                            trans = 0;
+                        }
+                        else
+                        {
+                            trans = (float)totalTransferencia;
+                            MessageBox.Show($"El monto de transferencia tiene que ser menor o igual que el monto que hay en caja: {totalTransferencia.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        txtTrans.Text = trans.ToString();
+                    }
+                    else
+                    {
+                        siRetiroTransferencia = true;
+                    }
+                }
+
+                cantidad = efectivo + tarjeta + cheque + vales + trans + credito;
+
+                //if (cantidad < 0) { cantidad = 0; }
+
+                if (!operacion.Equals(0))
+                {
+                    if (cantidad < 0 && cantidad > (float)totalEnCaja)
+                    {
+                        if (cantidad < 0)
+                        {
+                            cantidad = 0;
+                        }
+                        else
+                        {
+                            cantidad = (float)totalEnCaja;
+                            MessageBox.Show($"El monto de retirar tiene que ser menor o igual que el monto que hay en caja: {totalEnCaja.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+
+                if (operacion.Equals(2))
+                {
+                    totalRetiradoCorte = cantidad.ToString();
+                }
+
+                totalRetiradoCorte = !string.IsNullOrWhiteSpace(totalRetiradoCorte) ? totalRetiradoCorte : "0";
+
+                // Si es igual a cero no procede la operacion de depositar o retirar
+                if (cantidad == 0)
+                {
+                    if (operacion == 0 || operacion == 1)
+                    {
+                        var mensaje = string.Empty;
+
+                        if (operacion == 1)
+                        {
+                            mensaje = "La cantidad a retirar debe ser mayor a cero";
+                        }
+                        else if (operacion == 0)
+                        {
+                            mensaje = "La cantidad a depositar debe ser mayor a cero";
+                        }
+
+                        MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+
+                string nombreEmpleado = string.Empty;
+                string usuarioEmpleado = string.Empty;
+
+                if (FormPrincipal.id_empleado > 0)
+                {
+                    var datosEmpleado = mb.obtener_permisos_empleado(FormPrincipal.id_empleado, FormPrincipal.userID);
+
+                    nombreEmpleado = datosEmpleado[14];
+                    usuarioEmpleado = datosEmpleado[15];
+                }
+
+                string[] datos = new string[] { };
+                int resultado = 0;
+                bool retirarEfectivoDeSaldoInicial = false,
+                     retirarTarjetaDeSaldoInicial = false,
+                     retirarValesDeSaldoInicial = false,
+                     retirarChequeDeSaldoInicial = false,
+                     retirarTransferenciaDeSaldoInicial = false;
+
+                if (operacion.Equals(1))
+                {
+                    if (cantidadTotalEfectivoEnCaja <= 0 && efectivo >= 1)
+                    {
+                        retirarEfectivoDeSaldoInicial = true;
+                        concepto += " Retiro de efectivo del Saldo Inicial";
+                        datos = new string[] {
+                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                    };
+                    }
+                    if (cantidadTotalTarjetaEnCaja <= 0 && tarjeta >= 1)
+                    {
+                        retirarTarjetaDeSaldoInicial = true;
+                        concepto += " Retiro de tarjeta del Saldo Inicial";
+                        datos = new string[] {
+                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                    };
+                    }
+                    if (cantidadTotalValesEnCaja <= 0 && vales >= 1)
+                    {
+                        retirarValesDeSaldoInicial = true;
+                        concepto += " Retiro de vales del Saldo Inicial";
+                        datos = new string[] {
+                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                    };
+                    }
+                    if (cantidadTotalCehqueEnCaja <= 0 && cheque >= 1)
+                    {
+                        retirarChequeDeSaldoInicial = true;
+                        concepto += " Retiro de cheque del Saldo Inicial";
+                        datos = new string[] {
+                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                    };
+                    }
+                    if (cantidadTotalTransferenciaEnCaja <= 0 && trans >= 1)
+                    {
+                        retirarTransferenciaDeSaldoInicial = true;
+                        concepto += " Retiro de transferencia del Saldo Inicial";
+                        datos = new string[] {
+                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                    };
+                    }
+                    else
+                    {
+                        datos = new string[] {
+                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                    };
+                    }
                 }
                 else
                 {
-                    tipoCorte = true;
-                    resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
-                }
-            }
-
-            // Ejecutr hilo para enviarnotificación
-            var datosConfig = mb.ComprobarConfiguracion();
-
-            if (datosConfig.Count > 0)
-            {
-                if (Convert.ToInt32(datosConfig[13]).Equals(1) && datos[0].ToString().Equals("deposito"))
-                {
-                    Thread AgregarRetiroDinero = new Thread(
-                        () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
-                    );
-
-                    AgregarRetiroDinero.Start();
-                }
-                else if (Convert.ToInt32(datosConfig[14]).Equals(1) && datos[0].ToString().Equals("retiro"))
-                {
-                    Thread AgregarAgregarDinero = new Thread(
-                        () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
-                    );
-
-                    AgregarAgregarDinero.Start();
-                }
-            }
-
-            if (resultado > 0)
-            {
-                // Para generar Ticket al depositar dinero
-                if (operacion == 0)
-                {
-
-                    DialogResult resultadoAgregarDinero = MessageBox.Show("Desea imprimir ticket de la operación Agregar Dinero", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                    if (resultadoAgregarDinero.Equals(DialogResult.Yes))
+                    if (operacion.Equals(2))
                     {
-                        var idDeposito = 0;
-                        var usuarioActivo = FormPrincipal.userNickName;
+                        fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                        if (!usuarioActivo.Contains("@"))
+                        datos = new string[] {
+                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                    };
+
+                        CajaN.botones = true;
+                    }
+                    else
+                    {
+                        datos = new string[] {
+                        tipoOperacion, cantidad.ToString("0.00"), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(), efectivo.ToString("0.00"), tarjeta.ToString("0.00"), vales.ToString("0.00"), cheque.ToString("0.00"), trans.ToString("0.00"), credito.ToString("0.00"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                    };
+                    }
+                }
+
+                tipoCorte = false;
+
+                decimal montoRestante = 0;
+
+                using (DataTable dtMontosDeSaldoInicialAModificar = cn.CargarDatos(cs.obtenerSaldoInicialPorIDDelHistorialCorteDeCaja(idHistorialCorteDeCaja)))
+                {
+                    DataRow row = dtMontosDeSaldoInicialAModificar.Rows[0];
+
+                    if (retirarEfectivoDeSaldoInicial)
+                    {
+                        montoRestante = (Convert.ToDecimal(row["SaldoInicialEfectivo"].ToString()) - (decimal)efectivo);
+                        resultado = cn.EjecutarConsulta(cs.actualizarSaldoInicialDeEfectivo(idHistorialCorteDeCaja, montoRestante));
+                    }
+                    if (retirarTarjetaDeSaldoInicial)
+                    {
+                        montoRestante = (Convert.ToDecimal(row["SaldoInicialTarjeta"].ToString()) - (decimal)tarjeta);
+                        resultado = cn.EjecutarConsulta(cs.actualizarSaldoInicialDeTarjeta(idHistorialCorteDeCaja, montoRestante));
+                    }
+                    if (retirarValesDeSaldoInicial)
+                    {
+                        montoRestante = (Convert.ToDecimal(row["SaldoInicialVales"].ToString()) - (decimal)vales);
+                        resultado = cn.EjecutarConsulta(cs.actualizarSaldoInicialDeVales(idHistorialCorteDeCaja, montoRestante));
+                    }
+                    if (retirarChequeDeSaldoInicial)
+                    {
+                        montoRestante = (Convert.ToDecimal(row["SaldoInicialCheque"].ToString()) - (decimal)cheque);
+                        resultado = cn.EjecutarConsulta(cs.actualizarSaldoInicialDeCheque(idHistorialCorteDeCaja, montoRestante));
+                    }
+                    if (retirarTransferenciaDeSaldoInicial)
+                    {
+                        montoRestante = (Convert.ToDecimal(row["SaldoInicialTransferencia"].ToString()) - (decimal)trans);
+                        resultado = cn.EjecutarConsulta(cs.actualizarSaldoInicialDeTransferencia(idHistorialCorteDeCaja, montoRestante));
+                    }
+                }
+
+                if (retirarEfectivoDeSaldoInicial.Equals(false) &&
+                    retirarTarjetaDeSaldoInicial.Equals(false) &&
+                    retirarValesDeSaldoInicial.Equals(false) &&
+                    retirarChequeDeSaldoInicial.Equals(false) &&
+                    retirarTransferenciaDeSaldoInicial.Equals(false))
+                {
+                    if (!FormPrincipal.userNickName.Contains("@"))
+                    {
+                        resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
+                    }
+                    else
+                    {
+                        tipoCorte = true;
+                        resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
+                    }
+                }
+
+                // Ejecutr hilo para enviarnotificación
+                var datosConfig = mb.ComprobarConfiguracion();
+
+                if (datosConfig.Count > 0)
+                {
+                    if (Convert.ToInt32(datosConfig[13]).Equals(1) && datos[0].ToString().Equals("deposito"))
+                    {
+                        Thread AgregarRetiroDinero = new Thread(
+                            () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
+                        );
+
+                        AgregarRetiroDinero.Start();
+                    }
+                    else if (Convert.ToInt32(datosConfig[14]).Equals(1) && datos[0].ToString().Equals("retiro"))
+                    {
+                        Thread AgregarAgregarDinero = new Thread(
+                            () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
+                        );
+
+                        AgregarAgregarDinero.Start();
+                    }
+                }
+
+                if (resultado > 0)
+                {
+                    // Para generar Ticket al depositar dinero
+                    if (operacion == 0)
+                    {
+
+                        DialogResult resultadoAgregarDinero = MessageBox.Show("Desea imprimir ticket de la operación Agregar Dinero", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (resultadoAgregarDinero.Equals(DialogResult.Yes))
                         {
-                            using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoAdministrador()))
+                            var idDeposito = 0;
+                            var usuarioActivo = FormPrincipal.userNickName;
+
+                            if (!usuarioActivo.Contains("@"))
                             {
-                                if (!dtDepositoDeDinero.Rows.Count.Equals(0))
+                                using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoAdministrador()))
                                 {
-                                    DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
-                                    idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
-                                    
-                                    using (ImprimirTicketDepositarDineroCaja8cm imprimirTicketDineroAgregado = new ImprimirTicketDepositarDineroCaja8cm())
+                                    if (!dtDepositoDeDinero.Rows.Count.Equals(0))
                                     {
-                                        imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
-                                        imprimirTicketDineroAgregado.ShowDialog();
+                                        DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
+                                        idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
+
+                                        using (ImprimirTicketDepositarDineroCaja8cm imprimirTicketDineroAgregado = new ImprimirTicketDepositarDineroCaja8cm())
+                                        {
+                                            imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
+                                            imprimirTicketDineroAgregado.ShowDialog();
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoEmpleado(FormPrincipal.id_empleado)))
+                                {
+                                    if (!dtDepositoDeDinero.Rows.Count.Equals(0))
+                                    {
+                                        DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
+                                        idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
+
+                                        using (imprimirTicketDineroAgregadoEmpleado imprimirTicketDineroAgregado = new imprimirTicketDineroAgregadoEmpleado())
+                                        {
+                                            imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
+                                            imprimirTicketDineroAgregado.ShowDialog();
+                                        }
                                     }
                                 }
                             }
                         }
-                        else
-                        {
-                            using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoEmpleado(FormPrincipal.id_empleado)))
-                            {
-                                if (!dtDepositoDeDinero.Rows.Count.Equals(0))
-                                {
-                                    DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
-                                    idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
 
-                                    using (imprimirTicketDineroAgregadoEmpleado imprimirTicketDineroAgregado = new imprimirTicketDineroAgregadoEmpleado())
+                        //if (Utilidades.AdobeReaderInstalado())
+                        //{
+                        //    GenerarTicket(datos);
+                        //}
+                        //else
+                        //{
+                        //    Utilidades.MensajeAdobeReader();
+                        //}
+                    }
+
+                    // Para generar Ticket al retirar dinero
+                    if (operacion == 1)
+                    {
+                        DialogResult resultadoRetirarDinero = MessageBox.Show("Desea imprimir ticket de la operación Retirar Dinero", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (resultadoRetirarDinero.Equals(DialogResult.Yes))
+                        {
+                            var idRetiro = 0;
+                            var usuarioActivo = FormPrincipal.userNickName;
+
+                            if (!usuarioActivo.Contains("@"))
+                            {
+                                using (DataTable dtRetiroDeDinero = cn.CargarDatos(cs.obtenerIdUltimoRetiroDeDineroComoAdministrador()))
+                                {
+                                    if (!dtRetiroDeDinero.Rows.Count.Equals(0))
                                     {
-                                        imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
-                                        imprimirTicketDineroAgregado.ShowDialog();
+                                        DataRow drIdReriroDeDinero = dtRetiroDeDinero.Rows[0];
+                                        idRetiro = Convert.ToInt32(drIdReriroDeDinero["ID"].ToString());
+                                        using (ImprimirTicketRetirarDineroCaja8cm imprimirTicketDineroRetirado = new ImprimirTicketRetirarDineroCaja8cm())
+                                        {
+                                            imprimirTicketDineroRetirado.idDineroRetirado = idRetiro;
+                                            imprimirTicketDineroRetirado.ShowDialog();
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                using (DataTable dtRetiroDeDinero = cn.CargarDatos(cs.obtenerIdUltimoRetiroDeDineroComoEmpleado(FormPrincipal.id_empleado)))
+                                {
+                                    if (!dtRetiroDeDinero.Rows.Count.Equals(0))
+                                    {
+                                        DataRow drIdReriroDeDinero = dtRetiroDeDinero.Rows[0];
+                                        idRetiro = Convert.ToInt32(drIdReriroDeDinero["ID"].ToString());
+                                        using (imprimirTicketDineroRetiradoEmpleado imprimirTicketDineroRetirado = new imprimirTicketDineroRetiradoEmpleado())
+                                        {
+                                            imprimirTicketDineroRetirado.idDineroRetirado = idRetiro;
+                                            imprimirTicketDineroRetirado.ShowDialog();
+                                        }
                                     }
                                 }
                             }
                         }
+
+                        //if (Utilidades.AdobeReaderInstalado())
+                        //{
+                        //    GenerarTicket(datos);
+                        //}
+                        //else
+                        //{
+                        //    Utilidades.MensajeAdobeReader();
+                        //}
                     }
 
-                    //if (Utilidades.AdobeReaderInstalado())
-                    //{
-                    //    GenerarTicket(datos);
-                    //}
-                    //else
-                    //{
-                    //    Utilidades.MensajeAdobeReader();
-                    //}
-                }
-
-                // Para generar Ticket al retirar dinero
-                if (operacion == 1)
-                {
-                    DialogResult resultadoRetirarDinero = MessageBox.Show("Desea imprimir ticket de la operación Retirar Dinero", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                    if (resultadoRetirarDinero.Equals(DialogResult.Yes))
+                    // Corte
+                    if (operacion == 2)
                     {
-                        var idRetiro = 0;
-                        var usuarioActivo = FormPrincipal.userNickName;
+                        // Se pausa por 1 segundo
+                        Thread.Sleep(1000);
 
-                        if (!usuarioActivo.Contains("@"))
+                        decimal cantidadObtenido = 0;
+
+                        if (cantidad > 0)
                         {
-                            using (DataTable dtRetiroDeDinero = cn.CargarDatos(cs.obtenerIdUltimoRetiroDeDineroComoAdministrador()))
+                            cantidadObtenido = totalEnCaja - (decimal)cantidad;
+                        }
+                        else if (cantidad.Equals(0))
+                        {
+                            cantidadObtenido = totalEnCaja;
+                        }
+
+                        if (siRetiroEfectivo)
+                        {
+                            totalEfectivo -= (decimal)efectivo;
+                        }
+                        if (siRetiroTarjeta)
+                        {
+                            totalTarjeta -= (decimal)tarjeta;
+                        }
+                        if (siRetiroVales)
+                        {
+                            totalVales -= (decimal)vales;
+                        }
+                        if (siRetiroCheque)
+                        {
+                            totalCheque -= (decimal)cheque;
+                        }
+                        if (siRetiroTransferencia)
+                        {
+                            totalTransferencia -= (decimal)trans;
+                        }
+
+                        fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                        var ultimoIDCaja = string.Empty;
+
+                        using (DataTable dtUltimoIDCaja = cn.CargarDatos(cs.obtenerUltimoIDInsertadoEnCaja()))
+                        {
+                            if (!dtUltimoIDCaja.Rows[0][0].Equals(DBNull.Value) && !dtUltimoIDCaja.Rows.Count.Equals(0))
                             {
-                                if (!dtRetiroDeDinero.Rows.Count.Equals(0))
+                                foreach (DataRow item in dtUltimoIDCaja.Rows)
                                 {
-                                    DataRow drIdReriroDeDinero = dtRetiroDeDinero.Rows[0];
-                                    idRetiro = Convert.ToInt32(drIdReriroDeDinero["ID"].ToString());
-                                    using (ImprimirTicketRetirarDineroCaja8cm imprimirTicketDineroRetirado = new ImprimirTicketRetirarDineroCaja8cm())
-                                    {
-                                        imprimirTicketDineroRetirado.idDineroRetirado = idRetiro;
-                                        imprimirTicketDineroRetirado.ShowDialog();
-                                    }
+                                    ultimoIDCaja = item["ID"].ToString();
                                 }
                             }
                         }
-                        else
-                        {
-                            using (DataTable dtRetiroDeDinero = cn.CargarDatos(cs.obtenerIdUltimoRetiroDeDineroComoEmpleado(FormPrincipal.id_empleado)))
-                            {
-                                if (!dtRetiroDeDinero.Rows.Count.Equals(0))
-                                {
-                                    DataRow drIdReriroDeDinero = dtRetiroDeDinero.Rows[0];
-                                    idRetiro = Convert.ToInt32(drIdReriroDeDinero["ID"].ToString());
-                                    using (imprimirTicketDineroRetiradoEmpleado imprimirTicketDineroRetirado = new imprimirTicketDineroRetiradoEmpleado())
-                                    {
-                                        imprimirTicketDineroRetirado.idDineroRetirado = idRetiro;
-                                        imprimirTicketDineroRetirado.ShowDialog();
-                                    }
-                                }
-                            }
-                        }
-                    }
 
-                    //if (Utilidades.AdobeReaderInstalado())
-                    //{
-                    //    GenerarTicket(datos);
-                    //}
-                    //else
-                    //{
-                    //    Utilidades.MensajeAdobeReader();
-                    //}
-                }
-
-                // Corte
-                if (operacion == 2)
-                {
-                    // Se pausa por 1 segundo
-                    Thread.Sleep(1000);
-
-                    decimal cantidadObtenido = 0;
-
-                    if (cantidad > 0)
-                    {
-                        cantidadObtenido = totalEnCaja - (decimal)cantidad;
-                    }
-                    else if (cantidad.Equals(0))
-                    {
-                        cantidadObtenido = totalEnCaja;
-                    }
-
-                    if (siRetiroEfectivo)
-                    {
-                        totalEfectivo -= (decimal)efectivo;
-                    }
-                    if (siRetiroTarjeta)
-                    {
-                        totalTarjeta -= (decimal)tarjeta;
-                    }
-                    if (siRetiroVales)
-                    {
-                        totalVales -= (decimal)vales;
-                    }
-                    if (siRetiroCheque)
-                    {
-                        totalCheque -= (decimal)cheque;
-                    }
-                    if (siRetiroTransferencia)
-                    {
-                        totalTransferencia -= (decimal)trans;
-                    }
-
-                    fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-                    var ultimoIDCaja = string.Empty;
-
-                    using (DataTable dtUltimoIDCaja = cn.CargarDatos(cs.obtenerUltimoIDInsertadoEnCaja()))
-                    {
-                        if (!dtUltimoIDCaja.Rows[0][0].Equals(DBNull.Value) && !dtUltimoIDCaja.Rows.Count.Equals(0))
-                        {
-                            foreach (DataRow item in dtUltimoIDCaja.Rows)
-                            {
-                                ultimoIDCaja = item["ID"].ToString();
-                            }
-                        }
-                    }
-
-                    datos = new string[] {
+                        datos = new string[] {
                         ultimoIDCaja, FormPrincipal.userID.ToString(), FormPrincipal.id_empleado.ToString(), fechaOperacion, totalEfectivo.ToString(), totalTarjeta.ToString(), totalVales.ToString(), totalCheque.ToString(), totalTransferencia.ToString(), totalCredito.ToString(), "0", cantidad.ToString()
                     };
 
-                    cn.EjecutarConsulta(cs.guardarHistorialCorteDeCaja(datos));
+                        cn.EjecutarConsulta(cs.guardarHistorialCorteDeCaja(datos));
 
-                    CajaN.botones = true;
+                        CajaN.botones = true;
 
-                    //var efectivoRetirar = ValidarCampos(txtEfectivo.Text);
-                    //var tarjetaRetirar = ValidarCampos(txtTarjeta.Text);
-                    //var chequeRetirar = ValidarCampos(txtCheque.Text);
-                    //var valesRetirar = ValidarCampos(txtVales.Text);
-                    //var transRetirar = ValidarCampos(txtTrans.Text);
-                    //var creditoRetirar = ValidarCampos(txtCredito.Text);
+                        //var efectivoRetirar = ValidarCampos(txtEfectivo.Text);
+                        //var tarjetaRetirar = ValidarCampos(txtTarjeta.Text);
+                        //var chequeRetirar = ValidarCampos(txtCheque.Text);
+                        //var valesRetirar = ValidarCampos(txtVales.Text);
+                        //var transRetirar = ValidarCampos(txtTrans.Text);
+                        //var creditoRetirar = ValidarCampos(txtCredito.Text);
 
-                    // Solo cuando es corte se hace esta resta, al total de cada forma de pago
-                    // se le resta lo que el usuario quiere retirar menos el total retirado de cada
-                    // forma de pago antes de que se haga el corte de caja
-                    //var efectivoobtenido = 0f; 
-                    //var tarjetaobtenido = 0f; 
-                    //var chequeobtenido = 0f; 
-                    //var valesobtenido = 0f; 
-                    //var transobtenido = 0f; 
-                    //var creditoobtenido = 0f; 
-                    //var cantidadObtenido = 0f;
+                        // Solo cuando es corte se hace esta resta, al total de cada forma de pago
+                        // se le resta lo que el usuario quiere retirar menos el total retirado de cada
+                        // forma de pago antes de que se haga el corte de caja
+                        //var efectivoobtenido = 0f; 
+                        //var tarjetaobtenido = 0f; 
+                        //var chequeobtenido = 0f; 
+                        //var valesobtenido = 0f; 
+                        //var transobtenido = 0f; 
+                        //var creditoobtenido = 0f; 
+                        //var cantidadObtenido = 0f;
 
-                    //if (CajaN.totCorte != "0")
-                    //{
-                    //efectivoobtenido = (totalEfectivo - efectivoRetirar - (convertEfectivo - CajaN.totalEfectivoAbono));// - CajaN.retiroEfectivo;
-                    //tarjetaobtenido = (totalTarjeta - tarjetaRetirar - (convertTarjeta - CajaN.totalTarjetaAbono));// - CajaN.retiroTarjeta;
-                    //chequeobtenido = (totalCheque - chequeRetirar - (convertCheque - CajaN.totalChequeAbono));// - CajaN.retiroCheque;
-                    //valesobtenido = (totalVales - valesRetirar - (convertVales - CajaN.totalValesAbono));// - CajaN.retiroVales;
-                    //transobtenido = (totalTransferencia - transRetirar - (convertTrans - CajaN.totalTransferenciaAbono));// - CajaN.retiroTrans;
-                    //creditoobtenido = totalCredito - creditoRetirar;
-                    //}
-                    //else
-                    //{
-                    //efectivoobtenido = (totalEfectivo - efectivoRetirar);// - CajaN.retiroEfectivo;
-                    //tarjetaobtenido = (totalTarjeta - tarjetaRetirar);// - CajaN.retiroTarjeta;
-                    //chequeobtenido = (totalCheque - chequeRetirar);// - CajaN.retiroCheque;
-                    //valesobtenido = (totalVales - valesRetirar);// - CajaN.retiroVales;
-                    //transobtenido = (totalTransferencia - transRetirar);// - CajaN.retiroTrans;
-                    //creditoobtenido = totalCredito - creditoRetirar;
-                    //}
+                        //if (CajaN.totCorte != "0")
+                        //{
+                        //efectivoobtenido = (totalEfectivo - efectivoRetirar - (convertEfectivo - CajaN.totalEfectivoAbono));// - CajaN.retiroEfectivo;
+                        //tarjetaobtenido = (totalTarjeta - tarjetaRetirar - (convertTarjeta - CajaN.totalTarjetaAbono));// - CajaN.retiroTarjeta;
+                        //chequeobtenido = (totalCheque - chequeRetirar - (convertCheque - CajaN.totalChequeAbono));// - CajaN.retiroCheque;
+                        //valesobtenido = (totalVales - valesRetirar - (convertVales - CajaN.totalValesAbono));// - CajaN.retiroVales;
+                        //transobtenido = (totalTransferencia - transRetirar - (convertTrans - CajaN.totalTransferenciaAbono));// - CajaN.retiroTrans;
+                        //creditoobtenido = totalCredito - creditoRetirar;
+                        //}
+                        //else
+                        //{
+                        //efectivoobtenido = (totalEfectivo - efectivoRetirar);// - CajaN.retiroEfectivo;
+                        //tarjetaobtenido = (totalTarjeta - tarjetaRetirar);// - CajaN.retiroTarjeta;
+                        //chequeobtenido = (totalCheque - chequeRetirar);// - CajaN.retiroCheque;
+                        //valesobtenido = (totalVales - valesRetirar);// - CajaN.retiroVales;
+                        //transobtenido = (totalTransferencia - transRetirar);// - CajaN.retiroTrans;
+                        //creditoobtenido = totalCredito - creditoRetirar;
+                        //}
 
-                    //if (cantidad > 0)
-                    //{
-                    //    cantidadObtenido = totalEnCaja - (decimal)cantidad;
-                    //}
-                    //else if (cantidad.Equals(0))
-                    //{
-                    //    cantidadObtenido = totalEnCaja;
-                    //}
+                        //if (cantidad > 0)
+                        //{
+                        //    cantidadObtenido = totalEnCaja - (decimal)cantidad;
+                        //}
+                        //else if (cantidad.Equals(0))
+                        //{
+                        //    cantidadObtenido = totalEnCaja;
+                        //}
 
-                    //if (siRetiroEfectivo)
-                    //{
-                    //    totalEfectivo -= (decimal)efectivo;
-                    //}
-                    //if (siRetiroTarjeta)
-                    //{
-                    //    totalTarjeta -= (decimal)tarjeta;
-                    //}
-                    //if (siRetiroVales)
-                    //{
-                    //    totalVales -= (decimal)vales;
-                    //}
-                    //if (siRetiroCheque)
-                    //{
-                    //    totalCheque -= (decimal)cheque;
-                    //}
-                    //if (siRetiroTransferencia)
-                    //{
-                    //    totalTransferencia -= (decimal)trans;
-                    //}
+                        //if (siRetiroEfectivo)
+                        //{
+                        //    totalEfectivo -= (decimal)efectivo;
+                        //}
+                        //if (siRetiroTarjeta)
+                        //{
+                        //    totalTarjeta -= (decimal)tarjeta;
+                        //}
+                        //if (siRetiroVales)
+                        //{
+                        //    totalVales -= (decimal)vales;
+                        //}
+                        //if (siRetiroCheque)
+                        //{
+                        //    totalCheque -= (decimal)cheque;
+                        //}
+                        //if (siRetiroTransferencia)
+                        //{
+                        //    totalTransferencia -= (decimal)trans;
+                        //}
 
-                    //fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        //fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                    //datos = new string[] {
-                    //    "venta", cantidadObtenido.ToString(), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
-                    //    totalEfectivo.ToString(), totalTarjeta.ToString(), totalVales.ToString(), totalCheque.ToString(), totalTransferencia.ToString(), totalCredito.ToString(), "0", FormPrincipal.id_empleado.ToString()
-                    //};
+                        //datos = new string[] {
+                        //    "venta", cantidadObtenido.ToString(), "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
+                        //    totalEfectivo.ToString(), totalTarjeta.ToString(), totalVales.ToString(), totalCheque.ToString(), totalTransferencia.ToString(), totalCredito.ToString(), "0", FormPrincipal.id_empleado.ToString()
+                        //};
 
-                    //cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                        //cn.EjecutarConsulta(cs.OperacionCaja(datos));
 
-                    //Thread CorteDinero = new Thread(
-                    //    () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
-                    //);
+                        //Thread CorteDinero = new Thread(
+                        //    () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
+                        //);
 
-                    //CorteDinero.Start();
+                        //CorteDinero.Start();
 
-                    //CajaN.botones = true;
-                    //if (Utilidades.AdobeReaderInstalado())
-                    //{
-                    //    GenerarTicket(datos);
-                    //}
-                    //else
-                    //{
-                    //    Utilidades.MensajeAdobeReader();
-                    //}
+                        //CajaN.botones = true;
+                        //if (Utilidades.AdobeReaderInstalado())
+                        //{
+                        //    GenerarTicket(datos);
+                        //}
+                        //else
+                        //{
+                        //    Utilidades.MensajeAdobeReader();
+                        //}
+                    }
+                    this.Close();
                 }
-                this.Close();
             }
         }
 
