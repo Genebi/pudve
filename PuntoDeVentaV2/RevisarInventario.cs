@@ -688,7 +688,7 @@ namespace PuntoDeVentaV2
                     }
                     else if (tipoFiltro != "normal" && cantidadRegistrosAux == cantidadRegistros)
                     {
-                        mensajeInventario = 1;
+                        //mensajeInventario = 1;
                         btnTerminar.PerformClick();
                     }
                     else
@@ -1632,108 +1632,110 @@ namespace PuntoDeVentaV2
 
             if (string.IsNullOrEmpty(mensajeNoHay))
             {
-                if (mensajeInventario == 1)
-                {
-                    mensajeMostrar = "NO SE ENCONTRARON RESULTADOS CON EL FILTRO SELECCIONADO";
-                }
-                else
-                {
-                    mensajeMostrar = terminar;
-                }
-                
+                //if (mensajeInventario == 1)
+                //{
+                //    mensajeMostrar = "NO SE ENCONTRARON RESULTADOS CON EL FILTRO SELECCIONADO";
+                //}
+                //else
+                //{
+                //    mensajeMostrar = terminar;
+                //}
+
+                mensajeMostrar = terminar;
+
             }
             else
             {
                 mensajeMostrar = mensajeNoHay;
             }
-            if (mensajeInventario == 1)
-            {
-                MessageBox.Show($"{mensajeMostrar}", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
-            }
-            else
-            {
-                DialogResult deseaTernimar = MessageBox.Show($"{mensajeMostrar}", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            //if (mensajeInventario == 1)
+            //{
+            //    MessageBox.Show($"{mensajeMostrar}", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    this.Close();
+            //}
+            //else
+            //{
+            DialogResult deseaTernimar = MessageBox.Show($"{mensajeMostrar}", "Mensaje de Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-                if (deseaTernimar == DialogResult.Yes)
+            if (deseaTernimar == DialogResult.Yes)
+            {
+                if (FiltroRevisarInventario.datoCbo == "Normal")
                 {
-                    if (FiltroRevisarInventario.datoCbo == "Normal")
-                    {
-                        btnSiguiente.PerformClick();
-                    }
-
-                    agregarDatosTabla();
-
-                    terminarRev = 1;
-                    validarSiguienteTerminar = true;
-
-                    btnSiguiente.PerformClick();
-
-                    // Guardamos los dos Datos de las variables del sistema
-                    //Properties.Settings.Default.InicioFinInventario = 2;
-                    //Properties.Settings.Default.Save();
-
-                    // Actualizar el numero de revision despues de haber terminado el inventario
-                    var numeroRevisionTmp = Convert.ToInt32(numeroRevision) + 1;
-
-                    cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET NoRevision = {numeroRevisionTmp} WHERE IDUsuario = {FormPrincipal.userID}", true);
-
-                    // Cambiamos el valor de la variable para eliminar los registros de la tabla RevisarInventario con el numero de revision
-                    Inventario.limpiarTabla = true;
-
-                    if (listaProductos.Count > 0)
-                    {
-                        var html = string.Empty;
-                        var htmlIncremento = string.Empty;
-                        var htmlDecremento = string.Empty;
-
-                        foreach (var producto in listaProductos)
-                        {
-                            if (producto.Value.Contains("class='aumento'"))
-                            {
-                                htmlIncremento += producto.Value;
-                            }
-                            else if (producto.Value.Contains("class='disminuyo'"))
-                            {
-                                htmlDecremento += producto.Value;
-                            }
-                            else
-                            {
-                                html += producto.Value;
-                            }
-                        }
-
-                        if (!string.IsNullOrWhiteSpace(htmlIncremento))
-                        {
-                            html += $@"<h4 style='text-align: center;'>LISTA DE PRODUCTOS CON STOCK AUMENTADO</h4><hr>
-                                <ul style='font-size: 0.8em;'>
-                                    {htmlIncremento}
-                                </ul><br><br>";
-                        }
-
-                        if (!string.IsNullOrWhiteSpace(htmlDecremento))
-                        {
-                            html += $@"<h4 style='text-align: center;'>LISTA DE PRODUCTOS CON STOCK REDUCIDO</h4><hr>
-                                <ul style='font-size: 0.8em;'>
-                                    {htmlDecremento}
-                                </ul>";
-                        }
-
-                        // Ejecutar hilo para enviar notificacion
-                        var datos = new string[] { html, "", "", "", "REVISAR INVENTARIO", "" };
-
-                        Thread notificacion = new Thread(
-                            () => Utilidades.CambioStockProductoEmail(datos, 1)
-                        );
-
-                        notificacion.Start();
-
-                        listaProductos.Clear();
-                    }
-
-                    this.Hide();
-                    this.Close();
+                    //btnSiguiente.PerformClick();
                 }
+
+                agregarDatosTabla();
+
+                terminarRev = 1;
+                validarSiguienteTerminar = true;
+
+                //btnSiguiente.PerformClick();
+
+                // Guardamos los dos Datos de las variables del sistema
+                //Properties.Settings.Default.InicioFinInventario = 2;
+                //Properties.Settings.Default.Save();
+
+                // Actualizar el numero de revision despues de haber terminado el inventario
+                var numeroRevisionTmp = Convert.ToInt32(numeroRevision) + 1;
+
+                cn.EjecutarConsulta($"UPDATE CodigoBarrasGenerado SET NoRevision = {numeroRevisionTmp} WHERE IDUsuario = {FormPrincipal.userID}", true);
+
+                // Cambiamos el valor de la variable para eliminar los registros de la tabla RevisarInventario con el numero de revision
+                Inventario.limpiarTabla = true;
+
+                if (listaProductos.Count > 0)
+                {
+                    var html = string.Empty;
+                    var htmlIncremento = string.Empty;
+                    var htmlDecremento = string.Empty;
+
+                    foreach (var producto in listaProductos)
+                    {
+                        if (producto.Value.Contains("class='aumento'"))
+                        {
+                            htmlIncremento += producto.Value;
+                        }
+                        else if (producto.Value.Contains("class='disminuyo'"))
+                        {
+                            htmlDecremento += producto.Value;
+                        }
+                        else
+                        {
+                            html += producto.Value;
+                        }
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(htmlIncremento))
+                    {
+                        html += $@"<h4 style='text-align: center;'>LISTA DE PRODUCTOS CON STOCK AUMENTADO</h4><hr>
+                            <ul style='font-size: 0.8em;'>
+                                {htmlIncremento}
+                            </ul><br><br>";
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(htmlDecremento))
+                    {
+                        html += $@"<h4 style='text-align: center;'>LISTA DE PRODUCTOS CON STOCK REDUCIDO</h4><hr>
+                            <ul style='font-size: 0.8em;'>
+                                {htmlDecremento}
+                            </ul>";
+                    }
+
+                    // Ejecutar hilo para enviar notificacion
+                    var datos = new string[] { html, "", "", "", "REVISAR INVENTARIO", "" };
+
+                    Thread notificacion = new Thread(
+                        () => Utilidades.CambioStockProductoEmail(datos, 1)
+                    );
+
+                    notificacion.Start();
+
+                    listaProductos.Clear();
+                }
+
+                this.Hide();
+                this.Close();
+                //}
             }
         }
 
@@ -1858,6 +1860,14 @@ namespace PuntoDeVentaV2
                             cantidadRegistros = mb.CantidadFiltroInventario(consulta);
                         }
                     }
+                }
+
+                if (cantidadRegistros == 0)
+                {
+                    mensajeInventario = 1;
+                    MessageBox.Show($"NO SE ENCONTRARON RESULTADOS CON EL FILTRO SELECCIONADO", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Close();
+                    return;
                 }
                 //lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
                 buscarCodigoBarras();

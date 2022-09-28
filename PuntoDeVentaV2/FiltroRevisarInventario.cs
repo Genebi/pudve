@@ -71,7 +71,7 @@ namespace PuntoDeVentaV2
             filtros.Add("NumeroRevision", "Número de Revisión");
             filtros.Add("CantidadPedir", "Cantidad a Pedir");
             filtros.Add("Proveedor", "Proveedores");
-            filtros.Add("Filtros", "Personalizados");
+            //filtros.Add("Filtros", "Personalizados");
             
 
             operadores.Add("NA", "Seleccionar opción...");
