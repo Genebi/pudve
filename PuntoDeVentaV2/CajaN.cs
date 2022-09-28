@@ -386,7 +386,7 @@ namespace PuntoDeVentaV2
                     {
                         using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoAdministrador(idUsuarioEmpleado, fechaFormateadaCorteParaAbonos)))
                         {
-                            if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Count.Equals(0))
+                            if (!dtAbonos.Rows.Count.Equals(0))
                             {
                                 lbCambioAbonos.Visible = true;
                                 limpirVariablesDeAbonos();
@@ -426,7 +426,7 @@ namespace PuntoDeVentaV2
                     {
                         using (DataTable dtAbonos = cn.CargarDatos(cs.AbonosCreditoDesdeUltimoCorteRealizadoTodos(fechaFormateadaCorteParaAbonos)))
                         {
-                            if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Count.Equals(0))
+                            if (!dtAbonos.Rows.Count.Equals(0))
                             {
                                 lbCambioAbonos.Visible = true;
                                 limpirVariablesDeAbonos();
@@ -468,7 +468,7 @@ namespace PuntoDeVentaV2
 
                         using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoEmpleado(idUsuarioEmpleado, fechaFormateadaCorteParaAbonos)))
                         {
-                            if (!dtAbonos.Rows[0][0].Equals(DBNull.Value) && !dtAbonos.Rows.Count.Equals(0))
+                            if (!dtAbonos.Rows.Count.Equals(0))
                             {
                                 lbCambioAbonos.Visible = true;
                                 foreach (DataRow item in dtAbonos.Rows)
@@ -500,7 +500,7 @@ namespace PuntoDeVentaV2
                         }
                         using (DataTable dtAbonosDeOtrosUsuarios = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoDesdeOtrosUsuarios(idUsuarioEmpleado, fechaFormateadaCorteParaAbonos)))
                         {
-                            if (!dtAbonosDeOtrosUsuarios.Rows[0][0].Equals(DBNull.Value) && !dtAbonosDeOtrosUsuarios.Rows.Count.Equals(0))
+                            if (!dtAbonosDeOtrosUsuarios.Rows.Count.Equals(0))
                             {
                                 lbCambioAbonos.Visible = true;
                                 foreach (DataRow item in dtAbonosDeOtrosUsuarios.Rows)
