@@ -26,11 +26,21 @@ namespace PuntoDeVentaV2
         float chequeI = 0f;
         float transferenciaI = 0f;
 
-        decimal efectivoAbonos = 0, 
-                tarjetaAbonos = 0, 
-                valeAbonos = 0, 
-                chequeAbono = 0, 
+        decimal efectivoAbonos = 0,
+                tarjetaAbonos = 0,
+                valeAbonos = 0,
+                chequeAbono = 0,
                 transferenciaAbono = 0;
+
+        decimal Efectivo = 0,
+                    Tarjeta = 0,
+                    Vales = 0,
+                    Cheque = 0,
+                    Transferencia = 0,
+                    Total = 0,
+                    totalAbonoRealizado = 0, 
+                    totalAbonoRealizadoDeOtrosUsuarios = 0,
+                    totalAbonoRealizadoOtrasVentas = 0;
 
         public CajaAbonos()
         {
@@ -43,18 +53,26 @@ namespace PuntoDeVentaV2
 
             if (todosLosAbonos.Equals("Si"))
             {
+
                 using (DataTable dtTodosLosAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoTodos(ultimaFechaDeCorteDeCaja)))
                 {
                     if (!dtTodosLosAbonos.Rows[0][0].Equals(DBNull.Value) && !dtTodosLosAbonos.Rows.Equals(0))
                     {
                         foreach (DataRow item in dtTodosLosAbonos.Rows)
                         {
-                            lbEfectivoAbonos.Text = convertirCantidadHaciaDecimal(item["Efectivo"].ToString()).ToString("C2");
-                            lbTarjetaAbonos.Text = convertirCantidadHaciaDecimal(item["Tarjeta"].ToString()).ToString("C2");
-                            lbValesAbonos.Text = convertirCantidadHaciaDecimal(item["Vales"].ToString()).ToString("C2");
-                            lbChequeAbonos.Text = convertirCantidadHaciaDecimal(item["Cheque"].ToString()).ToString("C2");
-                            lbTransferenciaAbonos.Text = convertirCantidadHaciaDecimal(item["Transferencia"].ToString()).ToString("C2");
-                            lbTCreditoC.Text = convertirCantidadHaciaDecimal(item["Total"].ToString()).ToString("C2");
+                            Efectivo += convertirCantidadHaciaDecimal(item["Efectivo"].ToString());
+                            Tarjeta += convertirCantidadHaciaDecimal(item["Tarjeta"].ToString());
+                            Vales += convertirCantidadHaciaDecimal(item["Vales"].ToString());
+                            Cheque += convertirCantidadHaciaDecimal(item["Cheque"].ToString());
+                            Transferencia += convertirCantidadHaciaDecimal(item["Transferencia"].ToString());
+                            Total += convertirCantidadHaciaDecimal(item["Total"].ToString());
+
+                            lbEfectivoAbonos.Text = Efectivo.ToString("C2");
+                            lbTarjetaAbonos.Text = Tarjeta.ToString("C2");
+                            lbValesAbonos.Text = Vales.ToString("C2");
+                            lbChequeAbonos.Text = Cheque.ToString("C2");
+                            lbTransferenciaAbonos.Text = Transferencia.ToString("C2");
+                            lbTCreditoC.Text = Total.ToString("C2");
                         }
                     }
                     else
@@ -67,25 +85,59 @@ namespace PuntoDeVentaV2
             {
                 if (IDEmpleado > 0)
                 {
+                    limpiarVariablesAbonos();
+
                     using (DataTable dtEmpleadoAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoEmpleado(IDEmpleado.ToString(), ultimaFechaDeCorteDeCaja)))
                     {
                         if (!dtEmpleadoAbonos.Rows[0][0].Equals(DBNull.Value) && !dtEmpleadoAbonos.Rows.Equals(0))
                         {
                             foreach (DataRow item in dtEmpleadoAbonos.Rows)
                             {
-                                lbEfectivoAbonos.Text = convertirCantidadHaciaDecimal(item["Efectivo"].ToString()).ToString("C2");
-                                lbTarjetaAbonos.Text = convertirCantidadHaciaDecimal(item["Tarjeta"].ToString()).ToString("C2");
-                                lbValesAbonos.Text = convertirCantidadHaciaDecimal(item["Vales"].ToString()).ToString("C2");
-                                lbChequeAbonos.Text = convertirCantidadHaciaDecimal(item["Cheque"].ToString()).ToString("C2");
-                                lbTransferenciaAbonos.Text = convertirCantidadHaciaDecimal(item["Transferencia"].ToString()).ToString("C2");
-                                lbTCreditoC.Text = convertirCantidadHaciaDecimal(item["Total"].ToString()).ToString("C2");
+                                if (!item["IDEmpleado"].ToString().Equals("0"))
+                                {
+                                    Efectivo += convertirCantidadHaciaDecimal(item["Efectivo"].ToString());
+                                    Tarjeta += convertirCantidadHaciaDecimal(item["Tarjeta"].ToString());
+                                    Vales += convertirCantidadHaciaDecimal(item["Vales"].ToString());
+                                    Cheque += convertirCantidadHaciaDecimal(item["Cheque"].ToString());
+                                    Transferencia += convertirCantidadHaciaDecimal(item["Transferencia"].ToString());
+                                    totalAbonoRealizado += Convert.ToDecimal(item["Total"].ToString());
+                                }
+                                else
+                                {
+                                    Efectivo += convertirCantidadHaciaDecimal(item["Efectivo"].ToString());
+                                    Tarjeta += convertirCantidadHaciaDecimal(item["Tarjeta"].ToString());
+                                    Vales += convertirCantidadHaciaDecimal(item["Vales"].ToString());
+                                    Cheque += convertirCantidadHaciaDecimal(item["Cheque"].ToString());
+                                    Transferencia += convertirCantidadHaciaDecimal(item["Transferencia"].ToString());
+                                    totalAbonoRealizadoDeOtrosUsuarios += Convert.ToDecimal(item["Total"].ToString());
+                                }
+                                Total = totalAbonoRealizado + totalAbonoRealizadoDeOtrosUsuarios + totalAbonoRealizadoOtrasVentas;
                             }
                         }
-                        else
+                    }
+                    using (DataTable dtAbonosDeOtrosUsuarios = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoDesdeOtrosUsuarios(IDEmpleado.ToString(), ultimaFechaDeCorteDeCaja)))
+                    {
+                        if (!dtAbonosDeOtrosUsuarios.Rows[0][0].Equals(DBNull.Value) && !dtAbonosDeOtrosUsuarios.Rows.Count.Equals(0))
                         {
-                            limpiarVariablesAbonos();
+                            foreach (DataRow item in dtAbonosDeOtrosUsuarios.Rows)
+                            {
+                                Efectivo += convertirCantidadHaciaDecimal(item["Efectivo"].ToString());
+                                Tarjeta += convertirCantidadHaciaDecimal(item["Tarjeta"].ToString());
+                                Vales += convertirCantidadHaciaDecimal(item["Vales"].ToString());
+                                Cheque += convertirCantidadHaciaDecimal(item["Cheque"].ToString());
+                                Transferencia += convertirCantidadHaciaDecimal(item["Transferencia"].ToString());
+                                totalAbonoRealizadoOtrasVentas += Convert.ToDecimal(item["Total"].ToString());
+                            }
+                            Total = totalAbonoRealizado + totalAbonoRealizadoDeOtrosUsuarios + totalAbonoRealizadoOtrasVentas;
                         }
                     }
+
+                    lbEfectivoAbonos.Text = Efectivo.ToString("C2");
+                    lbTarjetaAbonos.Text = Tarjeta.ToString("C2");
+                    lbValesAbonos.Text = Vales.ToString("C2");
+                    lbChequeAbonos.Text = Cheque.ToString("C2");
+                    lbTransferenciaAbonos.Text = Transferencia.ToString("C2");
+                    lbTCreditoC.Text = Total.ToString("C2");
                 }
                 else
                 {
@@ -95,12 +147,19 @@ namespace PuntoDeVentaV2
                         {
                             foreach (DataRow item in dtAdminstradorAbonos.Rows)
                             {
-                                lbEfectivoAbonos.Text = convertirCantidadHaciaDecimal(item["Efectivo"].ToString()).ToString("C2");
-                                lbTarjetaAbonos.Text = convertirCantidadHaciaDecimal(item["Tarjeta"].ToString()).ToString("C2");
-                                lbValesAbonos.Text = convertirCantidadHaciaDecimal(item["Vales"].ToString()).ToString("C2");
-                                lbChequeAbonos.Text = convertirCantidadHaciaDecimal(item["Cheque"].ToString()).ToString("C2");
-                                lbTransferenciaAbonos.Text = convertirCantidadHaciaDecimal(item["Transferencia"].ToString()).ToString("C2");
-                                lbTCreditoC.Text = convertirCantidadHaciaDecimal(item["Total"].ToString()).ToString("C2");
+                                Efectivo += convertirCantidadHaciaDecimal(item["Efectivo"].ToString());
+                                Tarjeta += convertirCantidadHaciaDecimal(item["Tarjeta"].ToString());
+                                Vales += convertirCantidadHaciaDecimal(item["Vales"].ToString());
+                                Cheque += convertirCantidadHaciaDecimal(item["Cheque"].ToString());
+                                Transferencia += convertirCantidadHaciaDecimal(item["Transferencia"].ToString());
+                                Total += convertirCantidadHaciaDecimal(item["Total"].ToString());
+
+                                lbEfectivoAbonos.Text = Efectivo.ToString("C2");
+                                lbTarjetaAbonos.Text = Tarjeta.ToString("C2");
+                                lbValesAbonos.Text = Vales.ToString("C2");
+                                lbChequeAbonos.Text = Cheque.ToString("C2");
+                                lbTransferenciaAbonos.Text = Transferencia.ToString("C2");
+                                lbTCreditoC.Text = Total.ToString("C2");
                             }
                         }
                         else
@@ -341,6 +400,7 @@ namespace PuntoDeVentaV2
         private void limpiarVariablesAbonos()
         {
             efectivoAbonos = tarjetaAbonos = valeAbonos = chequeAbono = transferenciaAbono = 0;
+            Efectivo = Tarjeta = Vales = Cheque = Transferencia = Total = 0;
         }
 
         private void CajaAbonos_KeyDown(object sender, KeyEventArgs e)
