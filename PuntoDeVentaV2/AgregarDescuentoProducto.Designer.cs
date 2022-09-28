@@ -34,7 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnAceptarDesc = new System.Windows.Forms.Button();
             this.btnCancelarDesc = new System.Windows.Forms.Button();
-            this.txtTituloDescuento = new System.Windows.Forms.Label();
+             this.txtTituloDescuento = new System.Windows.Forms.Label();
             this.panelContenedor = new System.Windows.Forms.FlowLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.rbCliente = new System.Windows.Forms.RadioButton();

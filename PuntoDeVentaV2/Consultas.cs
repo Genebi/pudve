@@ -4623,5 +4623,35 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string obtenerDescuentosMayoreoParaCopiar(int idprod)
+        {
+            var consulta = $"SELECT * FROM descuentomayoreo WHERE IDProducto = {idprod}";
+            return consulta;
+        }
+
+        public string obtenerDescuentosProductoParaCopiar(int idprod)
+        {
+            var consulta = $"SELECT * FROM descuentocliente WHERE IDProducto = {idprod}";
+            return consulta;
+        }
+
+        public string obtenerDetallesFacturacionParaCopiar(int idprod)
+        {
+            var consulta = $"SELECT * FROM detallesfacturacionproductos WHERE IDProducto = {idprod}";
+            return consulta;
+        }
+
+        public string obtenerDetallesProductoParaCopiar(int idprod)
+        {
+            var consulta = $"SELECT * FROM detallesproductogenerales WHERE IDProducto = {idprod}";
+            return consulta;
+        }
+
+        public string obtenerDatosFacturacionProductoParaCopiar(int idprod)
+        {
+            var consulta = $"SELECT * FROM detallesfacturacionproductos WHERE IDProducto = {idprod}";
+            return consulta;
+        }
     }
 }   
