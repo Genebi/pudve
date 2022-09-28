@@ -4647,5 +4647,11 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT * FROM detallesproductogenerales WHERE IDProducto = {idprod}";
             return consulta;
         }
+
+        public string obtenerDatosFacturacionProductoParaCopiar(int idprod)
+        {
+            var consulta = $"SELECT * FROM detallesfacturacionproductos WHERE IDProducto = {idprod}";
+            return consulta;
+        }
     }
 }   

@@ -14,6 +14,7 @@ namespace PuntoDeVentaV2
     public partial class AgregarDescuentoProducto : Form
     {
         Conexion cn = new Conexion();
+        Consultas cs = new Consultas();
         double precioProducto = 0;
         //1 = por cliente
         //2 = por mayoreo
@@ -84,7 +85,11 @@ namespace PuntoDeVentaV2
             //{
             //    rbMayoreo.Visible = false;
             //}
-            
+            var copiado = AgregarEditarProducto.descuentosSinGuardar;
+            if (copiado == 1)
+            {
+
+            } 
         }
 
         private void obtenerTipoDescuento()
@@ -919,7 +924,7 @@ namespace PuntoDeVentaV2
                     tb2.Height = 20;
                     tb2.Margin = new Padding(50, 5, 0, 0);
                     tb2.TextAlign = HorizontalAlignment.Center;
-                    tb2.Leave += new EventHandler(borrarTextoMensaje);
+                    tb2.Leave += new EventHandler(borrarTextoMensaje); 
                     tb2.KeyUp += new KeyEventHandler(rangoProductosTB);
                     tb2.ShortcutsEnabled = false;
 
@@ -992,6 +997,7 @@ namespace PuntoDeVentaV2
 
             if (tipoDescuentoSinGuardar.Equals(0))
             {
+
                 if (AgregarEditarProducto.descuentos.Count > 0)
                 {
 
@@ -1202,6 +1208,7 @@ namespace PuntoDeVentaV2
                     panelContenedor.Controls.Add(panelHijo);
                     panelContenedor.FlowDirection = FlowDirection.TopDown;
                 }
+                //AgregarEditarProducto.descuentos.Clear();
             }
             if (tipoDescuentoSinGuardar.Equals(2))//APARTADO PARA MAYOREO
             {

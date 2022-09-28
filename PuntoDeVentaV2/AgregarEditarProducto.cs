@@ -1957,6 +1957,7 @@ namespace PuntoDeVentaV2
             {
                 //MessageBox.Show("ya hay un descuento pero no se como ponerlo por lo dinamico");
                 descuentosSinGuardar = 1;
+                AgregarDescuentoProducto descuento = new AgregarDescuentoProducto();
             }
             else
             {
@@ -4037,8 +4038,29 @@ namespace PuntoDeVentaV2
                         mg.RemoverPreposiciones(nombreNvoInsert), stockNecesario, stockMinimo, txtPrecioCompra.Text, precioMayoreo
                     };
 
-                        #region Inicio de Guardado de Producto
-                        try
+                    //if (Productos.copiarDatos.Equals(1))
+                    //{
+                    //    var detallesProd = cn.CargarDatos(cs.obtenerDetallesProductoParaCopiar(idProducto));
+                    //    var detallesFact = cn.CargarDatos(cs.obtenerDetallesFacturacionParaCopiar(idProducto));
+                    //    var detallesDescProd = cn.CargarDatos(cs.obtenerDescuentosProductoParaCopiar(idProducto));
+                    //    var detallesDescMay = cn.CargarDatos(cs.obtenerDescuentosMayoreoParaCopiar(idProducto));
+
+                    //    string precioproducto = detallesDescProd.Rows[0]["PrecioProducto"].ToString();
+                    //    string porcentajedescuento = detallesDescProd.Rows[0]["PorcentajeDescuento"].ToString();
+                    //    string preciodescuento = detallesDescProd.Rows[0]["PrecioDescuento"].ToString();
+                    //    string descuento = detallesDescProd.Rows[0]["Descuento"].ToString();
+
+                    //    descuentos.Add("1");
+                    //    descuentos.Add(precioproducto);
+                    //    descuentos.Add(porcentajedescuento);
+                    //    descuentos.Add(preciodescuento);
+                    //    descuentos.Add(descuento);
+                    //    descuentos.Add("0");
+                    //    Productos.copiarDatos = 0;
+                    //}
+
+                    #region Inicio de Guardado de Producto
+                    try
                         {
                             //Se guardan los datos principales del producto
                             int respuesta = cn.EjecutarConsulta(cs.GuardarProducto(guardar, FormPrincipal.userID));
@@ -4232,7 +4254,7 @@ namespace PuntoDeVentaV2
 
             if (DatosSource == 2 )
             {
-                var dato = cn.CargarDatos($"SELECT PrecioCompra FROM productos WHERE ID = {idEditarProducto}");//VALIDAR PARA HACERSE SOLO UANDO SE EDITA
+                var dato = cn.CargarDatos($"SELECT PrecioCompra FROM productos WHERE ID = {idEditarProducto}");//VALIDAR PARA HACERSE SOLO CUANDO SE EDITA
                 var precioProdActual = dato.Rows[0]["PrecioCompra"].ToString();
                 var fecha2 = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                 if (precioProdActual != txtPrecioCompra.Text)
@@ -10161,6 +10183,14 @@ namespace PuntoDeVentaV2
             //        }
             //    }
             //}
+            if (Productos.copiarDatos.Equals(1))
+            {
+                btnAgregarDescuento.PerformClick();
+            }
+            if (Productos.copiarFacturacion.Equals(1))
+            {
+                btnDetalleFacturacion.PerformClick();
+            }
         }
 
         private void llenarListaDatosDinamicos()

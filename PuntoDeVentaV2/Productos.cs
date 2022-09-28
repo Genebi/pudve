@@ -219,6 +219,7 @@ namespace PuntoDeVentaV2
         public static int idprodDobleClick = 0;
 
         static public int copiarDatos = 0;
+        static public int copiarFacturacion = 0;
 
         List<string> usuarios = new List<string>()
         {
@@ -993,7 +994,7 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-                var apartado = cbMostrar.SelectedItem.ToString();
+            var apartado = cbMostrar.SelectedItem.ToString();
             var mensajeDeshabilitadosConOpcionTodosLosProductos = "Este Producto Servicio o Combo, se encuentra deshabilitado,\npara activar esta opción primero debe enviarlo a habilitados ";
 
             if (apartado.Equals("Deshabilitados"))
@@ -1054,6 +1055,8 @@ namespace PuntoDeVentaV2
                         numerofila = e.RowIndex;
                         obtenerDatosDGVProductos(numerofila);
                         origenDeLosDatos = 2;
+                        copiarDatos = 0;
+                        copiarFacturacion = 0;
                     }
 
                     codProductoEditarInventario = Convert.ToInt32(idProductoEditar);// se trae el ID de la tabla DGVProductos de la base PRODUCTOS 'para mensaje inventario'
@@ -1370,15 +1373,47 @@ namespace PuntoDeVentaV2
                     // Copiar el Producto
                     if (seleccionadoDato == 0)
                     {
-                        int idProds = Convert.ToInt32(DGVProductos.Rows[fila].Cells["_IDProducto"].Value);
                         seleccionadoDato = 1;
                         numerofila = e.RowIndex;
                         obtenerDatosDGVProductos(numerofila);
-                        var detallesProd = cn.CargarDatos(cs.obtenerDetallesProductoParaCopiar(idProds));
-                        var detallesFact = cn.CargarDatos(cs.obtenerDetallesFacturacionParaCopiar(idProds));
-                        var detallesDescProd = cn.CargarDatos(cs.obtenerDescuentosProductoParaCopiar(idProds));
-                        var detallesDescMay = cn.CargarDatos(cs.obtenerDescuentosMayoreoParaCopiar(idProds));
+
                         copiarDatos = 1;
+
+                        AgregarDescuentoProducto descProd = new AgregarDescuentoProducto();
+
+
+                        if (Productos.copiarDatos.Equals(1))
+                        {
+                            var detallesProd = cn.CargarDatos(cs.obtenerDetallesProductoParaCopiar(idProducto));
+                            var detallesFact = cn.CargarDatos(cs.obtenerDetallesFacturacionParaCopiar(idProducto));
+                            var detallesDescProd = cn.CargarDatos(cs.obtenerDescuentosProductoParaCopiar(idProducto));
+                            var detallesDescMay = cn.CargarDatos(cs.obtenerDescuentosMayoreoParaCopiar(idProducto));
+
+                            if (!detallesFact.Rows.Count.Equals(0))
+                            {
+                                copiarFacturacion = 1;
+                            }
+                            else
+                            {
+                                copiarFacturacion = 0;
+                            }
+                            if (!detallesDescProd.Rows.Count.Equals(0))
+                            {
+                                string precioproducto = detallesDescProd.Rows[0]["PrecioProducto"].ToString();
+                                string porcentajedescuento = detallesDescProd.Rows[0]["PorcentajeDescuento"].ToString();
+                                string preciodescuento = detallesDescProd.Rows[0]["PrecioDescuento"].ToString();
+                                string descuento = detallesDescProd.Rows[0]["Descuento"].ToString();
+
+                                AgregarEditarProducto.descuentos.Add("1");
+                                AgregarEditarProducto.descuentos.Add(precioproducto);
+                                AgregarEditarProducto.descuentos.Add(porcentajedescuento);
+                                AgregarEditarProducto.descuentos.Add(preciodescuento);
+                                AgregarEditarProducto.descuentos.Add(descuento);
+                                AgregarEditarProducto.descuentos.Add("0");
+                            }
+                           
+                        }
+
                         origenDeLosDatos = 4;
                         noMostrarClave = true;
                     }
@@ -1446,13 +1481,6 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            ///////////////////////////////////////////////
-            ////if (DGVProductos.SelectedRows.Count == 0)
-            ////{
-
-            ////}
-                
-                  
         }
 
         private void btnModificarEstado_Click(object sender, EventArgs e)
@@ -2697,6 +2725,7 @@ namespace PuntoDeVentaV2
             {
                 primeraVez = false;
             }
+            copiarDatos = 0;
         }
 
         private void cbOrden_SelectionChangeCommitted(object sender, EventArgs e)
@@ -5005,7 +5034,7 @@ namespace PuntoDeVentaV2
             DGVProductos.Columns["Column10"].Visible = mostrarColumnas;
             DGVProductos.Columns["Column11"].Visible = mostrarColumnas;
             DGVProductos.Columns["Column12"].Visible = mostrarColumnas;
-            DGVProductos.Columns["Column13"].Visible = mostrarColumnas;
+            DGVProductos.Columns["Column13"].Visible = false;
             DGVProductos.Columns["Column8"].Visible = false;
             DGVProductos.Columns["Ajustar"].Visible = false;
 

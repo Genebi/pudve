@@ -298,9 +298,14 @@ namespace PuntoDeVentaV2
                 CargarClaveUnidad();
             }
 
-            // Miri.
-            // Solo para cuando se edite un producto. Carga los impuestos guardados  
-            if (AgregarEditarProducto.DatosSourceFinal == 2)
+            if (AgregarEditarProducto.DatosSourceFinal == 4)
+            {
+                cargar_impuestos();
+            }
+
+                // Miri.
+                // Solo para cuando se edite un producto. Carga los impuestos guardados  
+                if (AgregarEditarProducto.DatosSourceFinal == 2)
             {
                 // Obtiene la lista de impuestos guardados
                 cargar_impuestos();
