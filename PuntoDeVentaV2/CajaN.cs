@@ -7434,7 +7434,7 @@ namespace PuntoDeVentaV2
 
                                 if (cantidadCreditoResultadoBaseDeDatos > 0)
                                 {
-                                    cantidadCredito = cantidadCreditoResultadoBaseDeDatos - totalAbonoRealizado;
+                                    cantidadCredito = cantidadCreditoResultadoBaseDeDatos - totalAbonoRealizadoDeOtrosUsuarios;
                                 }
                                 else if (cantidadCreditoResultadoBaseDeDatos.Equals(0))
                                 {

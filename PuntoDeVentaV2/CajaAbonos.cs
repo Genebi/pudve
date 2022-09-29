@@ -138,12 +138,21 @@ namespace PuntoDeVentaV2
                         {
                             foreach (DataRow item in dtAdminstradorAbonos.Rows)
                             {
-                                Efectivo += convertirCantidadHaciaDecimal(item["Efectivo"].ToString());
-                                Tarjeta += convertirCantidadHaciaDecimal(item["Tarjeta"].ToString());
-                                Vales += convertirCantidadHaciaDecimal(item["Vales"].ToString());
-                                Cheque += convertirCantidadHaciaDecimal(item["Cheque"].ToString());
-                                Transferencia += convertirCantidadHaciaDecimal(item["Transferencia"].ToString());
-                                Total += convertirCantidadHaciaDecimal(item["Total"].ToString());
+                                var idEmpleadoRecibioAbonoACredito = item["IDEmpleado"].ToString();
+
+                                if (idEmpleadoRecibioAbonoACredito.Equals("0"))
+                                {
+                                    Efectivo += convertirCantidadHaciaDecimal(item["Efectivo"].ToString());
+                                    Tarjeta += convertirCantidadHaciaDecimal(item["Tarjeta"].ToString());
+                                    Vales += convertirCantidadHaciaDecimal(item["Vales"].ToString());
+                                    Cheque += convertirCantidadHaciaDecimal(item["Cheque"].ToString());
+                                    Transferencia += convertirCantidadHaciaDecimal(item["Transferencia"].ToString());
+                                    Total += convertirCantidadHaciaDecimal(item["Total"].ToString());
+                                }
+                                else
+                                {
+                                    totalAbonoRealizadoDeOtrosUsuarios += Convert.ToDecimal(item["Total"].ToString());
+                                }
 
                                 lbEfectivoAbonos.Text = Efectivo.ToString("C2");
                                 lbTarjetaAbonos.Text = Tarjeta.ToString("C2");
