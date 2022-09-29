@@ -37,6 +37,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cbSeleccionarTodas = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // panelContenedor
@@ -110,6 +111,7 @@
             this.btnFiltroReporte.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnFiltroReporte.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnFiltroReporte.UseVisualStyleBackColor = false;
+            this.btnFiltroReporte.Visible = false;
             this.btnFiltroReporte.Click += new System.EventHandler(this.btnFiltroReporte_Click);
             // 
             // cbSeleccionados
@@ -159,11 +161,22 @@
             this.label2.TabIndex = 27;
             this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(19, 13);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(340, 13);
+            this.label3.TabIndex = 28;
+            this.label3.Text = "En el reporte solo se mostraran los articulos seleccionados";
+            // 
             // OpcionesReporteProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 391);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbSeleccionarTodas);
             this.Controls.Add(this.label1);
@@ -199,5 +212,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox cbSeleccionarTodas;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }

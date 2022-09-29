@@ -138,37 +138,33 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (seleccionados.Count > 0)
-            {
-                SeleccionaOpcion SO = new SeleccionaOpcion("Generar en PDF","Generar en EXCEL","¿Como desea generar el Reporte?");
+            SeleccionaOpcion SO = new SeleccionaOpcion("Generar en PDF","Generar en EXCEL","¿Como desea generar el Reporte?");
                 SO.ShowDialog();
                 if (opcionPregunta.Equals("opcion1"))
                 {
-                    if (!Utilidades.AdobeReaderInstalado())
+                    if (seleccionados.Count > 0)
                     {
-                        Utilidades.MensajeAdobeReader();
-                        return;
-                    }
-
-                    Dictionary<string, Tuple<string, float>> opcionesFinales = new Dictionary<string, Tuple<string, float>>();
-
-                    foreach (var opcion in seleccionados)
-                    {
-                        if (opcionesDefault.ContainsKey(opcion))
+                        if (!Utilidades.AdobeReaderInstalado())
                         {
-                            opcionesFinales.Add(opcion, new Tuple<string, float>(opcionesDefault[opcion].Item1, opcionesDefault[opcion].Item2));
+                            Utilidades.MensajeAdobeReader();
+                            return;
                         }
-                    }
 
-                    GenerarReporte(opcionesFinales);
+                         Dictionary<string, Tuple<string, float>> opcionesFinales = new Dictionary<string, Tuple<string, float>>();
+
+                         foreach (var opcion in seleccionados)
+                         {
+                            if (opcionesDefault.ContainsKey(opcion))
+                            {
+                                opcionesFinales.Add(opcion, new Tuple<string, float>(opcionesDefault[opcion].Item1, opcionesDefault[opcion].Item2));
+                            }
+                         }
+
+                         GenerarReporte(opcionesFinales);
+                    }
                 }
                 else if (opcionPregunta.Equals("opcion2"))
                 {
-                    foreach (var item in seleccionados)
-                    {
-                        dtosConsulta += item +",";
-                    }
-                    dtosConsulta = dtosConsulta.TrimEnd(',');
                     var productos = Productos.productosSeleccionados;
                     foreach (var item in productos)
                     {
@@ -177,7 +173,10 @@ namespace PuntoDeVentaV2
                     IDSProducto = IDSProducto.TrimEnd(',');
                     DataTable DTExcel = new DataTable("DatosExcel");
                     string consulta = string.Empty;
-                    DTExcel = cn.CargarDatos($"SELECT {dtosConsulta} FROM productos WHERE ID IN({IDSProducto})");
+                    DTExcel = cn.CargarDatos($"SELECT Prod.*,CBE.CodigoBarraExtra,DetProd.Proveedor FROM productos AS Prod INNER JOIN codigobarrasextras AS CBE ON(CBE.IDProducto = Prod.ID) INNER JOIN detallesproducto AS DetProd ON (DetProd.IDProducto = Prod.ID) WHERE Prod.ID IN ({IDSProducto})");
+                    DTExcel.Columns.Add("UBICACION", typeof(string));
+                    DTExcel.Columns.Add("COLOR", typeof(string));
+                    DTExcel.Columns.Add("MATERIAL_", typeof(string));
                     string nombre = Environment.UserName;
                     string rutaparaGGuardar = $@"C:\Users\{nombre}\Desktop\DatosProducto.xlsx";
 
@@ -185,7 +184,6 @@ namespace PuntoDeVentaV2
                     SLStyle st = new SLStyle();
                     st.Font.Bold = true;
                     int titulo = 1;
-
 
                     foreach (DataColumn item in DTExcel.Columns)
                     {
@@ -195,41 +193,72 @@ namespace PuntoDeVentaV2
                         titulo++;
                        
                     }
+                    
                     int datos = 2;
                     int columnaNombre = 0;
                     int posicionColumna = 1;
                     int dato = 0;
+                    int DetalleRennglon = 0;
                     foreach (DataRow item in DTExcel.Rows)
                     {
+                        int idProducto = Convert.ToInt32(item[0]);
                         foreach (DataColumn otroitem in DTExcel.Columns)
                         {
-                            sl.SetCellValue(datos, posicionColumna, DTExcel.Rows[dato][columnaNombre].ToString());
+
+                            string nombreColumna = otroitem.ColumnName.ToString();
+                            string detalle = string.Empty;
+                            if (nombreColumna.Equals("UBICACION")||nombreColumna.Equals("COLOR") || nombreColumna.Equals("MATERIAL_"))
+                            {
+                                var DTDetalles = cn.CargarDatos($"SELECT DPG.IDProducto, DetGral.Descripcion, IF(DetGral.ChckName = '' OR DetGral.ChckName IS NULL,'S/A',DetGral.ChckName)AS 'Detalle' FROM detallesproductogenerales AS DPG INNER JOIN detallegeneral AS DetGral ON ( DetGral.ID = DPG.IDDetalleGral ) WHERE DPG.IDProducto = '{idProducto}' AND DetGral.ChckName = '{nombreColumna}'");
+
+                                if (!DTDetalles.Rows.Count.Equals(0))
+                                {
+                                   detalle = DTDetalles.Rows[0]["Descripcion"].ToString();
+                                }
+                                else
+                                {
+                                    detalle = "S/A";
+                                }
+                                
+                                sl.SetCellValue(datos, posicionColumna, detalle);
+                                
+                            }
+                            else
+                            {
+                                sl.SetCellValue(datos, posicionColumna, DTExcel.Rows[dato][columnaNombre].ToString());
+                            }
+                           
                             columnaNombre++;
                             posicionColumna++;
                             
                         }
+                        DetalleRennglon++;
                         dato++;
                         posicionColumna = 1;
                         columnaNombre = 0;
                         datos++;
                     }
                     dato = 0;
-                    sl.SaveAs(rutaparaGGuardar);
+
+                    try
+                    {
+                        sl.SaveAs(rutaparaGGuardar);
+                    }
+                     catch (Exception)
+                    {
+                         MessageBox.Show("Necesita cerrar el Archivo de \nExcel para guardar el nuevo","Aviso del sistema",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                    }
+                   
                     dtosConsulta = "";
                     IDSProducto = "";
                     Productos.productosSeleccionados.Clear();
+                    MessageBox.Show("Archivo Excel Generado con Exito","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
                     this.Close();
                 }
                 else
                 {
                     this.Close();
                 }
-                
-            }
-            else
-            {
-                MessageBox.Show("Es necesario seleccionar al menos una opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
         }
 
         private void cbCustom_CheckedChanged(object sender, EventArgs e)
