@@ -644,6 +644,7 @@ namespace PuntoDeVentaV2
                                 listaProductos.Focus();
                                 listaProductos_KeyDown(sender, e);
                             }
+                            
                         }
                         else
                         {
@@ -673,12 +674,14 @@ namespace PuntoDeVentaV2
                             sumarProducto = false;
                             restarProducto = false;
                             buscarVG = false;
+                            
                         }
                         listaProductosVenta();
                         listaProductos.Focus(); 
                     }
                 }
                 listaProductos.Focus();
+                
             }
         }
 
@@ -804,6 +807,7 @@ namespace PuntoDeVentaV2
                         {
                             idProducto = Convert.ToInt32(searchProd.Rows[0]["ID"].ToString());
                         }
+
                     }
 
 

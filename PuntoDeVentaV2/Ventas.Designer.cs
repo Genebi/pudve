@@ -193,7 +193,7 @@
             this.txtBuscadorProducto.Location = new System.Drawing.Point(96, 29);
             this.txtBuscadorProducto.Name = "txtBuscadorProducto";
             this.txtBuscadorProducto.Size = new System.Drawing.Size(790, 22);
-            this.txtBuscadorProducto.TabIndex = 0;
+            this.txtBuscadorProducto.TabIndex = 41;
             this.txtBuscadorProducto.Text = "BUSCAR PRODUCTO O SERVICIO...";
             this.txtBuscadorProducto.TextChanged += new System.EventHandler(this.txtBuscadorProducto_TextChanged);
             this.txtBuscadorProducto.Enter += new System.EventHandler(this.txtBuscadorProducto_Enter);

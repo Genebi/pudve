@@ -1566,8 +1566,8 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta($"DELETE FROM descuentomayoreo WHERE IDProducto = {idProd}");
                         cn.EjecutarConsulta($"DELETE FROM descuentocliente WHERE IDProducto = {idProd}");
                         cn.EjecutarConsulta($"UPDATE productos SET TipoDescuento = '2' WHERE ID = '{idProd}'");
-                        cn.EjecutarConsulta($"INSERT INTO descuentomayoreo(RangoInicial,RangoFinal,Precio,Checkbox,IDProducto) VALUES('1','{rangoFinalSinDescuento}','{precioActual}','0','{idProd}')");
-                        cn.EjecutarConsulta($"INSERT INTO descuentomayoreo(RangoInicial,RangoFinal,Precio,Checkbox,IDProducto) VALUES('{cantidadprodicto}','N','{precioConDescuento}','0','{idProd}')");
+                        cn.EjecutarConsulta($"INSERT INTO descuentomayoreo(RangoInicial,RangoFinal,Precio,Checkbox,IDProducto) VALUES('1','{rangoFinalSinDescuento}','{precioActual}','1','{idProd}')");
+                        cn.EjecutarConsulta($"INSERT INTO descuentomayoreo(RangoInicial,RangoFinal,Precio,Checkbox,IDProducto) VALUES('{cantidadprodicto}','N','{precioConDescuento}','1','{idProd}')");
                     }
                     MessageBox.Show("Asignacion realizada con Exito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
