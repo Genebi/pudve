@@ -522,7 +522,7 @@ namespace PuntoDeVentaV2
         {
             List<string> lista = new List<string>();
 
-            DatosConexion($"SELECT * FROM DetallesProducto WHERE IDProducto = {idProducto} AND IDUsuario = {idUsuario}");
+                DatosConexion($"SELECT * FROM DetallesProducto WHERE IDProducto = {idProducto} AND IDUsuario = {idUsuario}");
 
             MySqlDataReader dr = sql_cmd.ExecuteReader();
 
