@@ -5037,6 +5037,7 @@ namespace PuntoDeVentaV2
 
                     //AgregarProductoLista(datosProducto, cantidad, true);
                     AgregarProducto(datosProducto, cantidad);
+                    nudCantidadPS.Value = 1;
                 }
             }
 
