@@ -833,7 +833,7 @@ namespace PuntoDeVentaV2
                         }
 
                         AgregarProducto(datosProducto);
-
+                        nudCantidadPS.Value = 1;
                         existe = true;
                     }
                 }
@@ -6755,6 +6755,7 @@ namespace PuntoDeVentaV2
         private void listaProductos_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             ProductoSeleccionado();
+            nudCantidadPS.Value = 1;
             sonido = true;
             contador = 0;
             contadorMensaje = 0;
