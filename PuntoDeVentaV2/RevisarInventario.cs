@@ -372,7 +372,14 @@ namespace PuntoDeVentaV2
                                 listaCodigosBarras.Clear();
                                 if (strFiltroDinamico.Equals("SIN " + operadorFiltro.ToUpper().Remove(0, 3)))
                                 {
-                                    using (DataTable dtListaProductosSinConceptoDinamico = cn.CargarDatos(cs.ListarProductosSinConceptoDinamico(FormPrincipal.userID, operadorFiltro.Remove(0, 3), 1)))
+                                    var semiQuery = $"(DPG.panelContenido = 'panelContenido{operadorFiltro.Remove(0, 3)}' )";
+                                    var noIncludos = mb.ObtenerProductosSinFiltrosDinamicos(new string[] { semiQuery, FormPrincipal.userID.ToString(), "1" });
+                                    var noIncludosAux = string.Join(",", noIncludos);
+
+                                    var consulta = $"SELECT P.* FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1 AND P.ID NOT IN ({noIncludosAux})";
+
+                                    //using (DataTable dtListaProductosSinConceptoDinamico = cn.CargarDatos(cs.ListarProductosSinConceptoDinamico(FormPrincipal.userID, operadorFiltro.Remove(0, 3), 1)))
+                                    using (DataTable dtListaProductosSinConceptoDinamico = cn.CargarDatos(consulta))
                                     {// Este es sin conceptoDinamico y con idUsuario y status = 1
                                         if (!dtListaProductosSinConceptoDinamico.Rows.Count.Equals(0))
                                         {
@@ -1851,7 +1858,13 @@ namespace PuntoDeVentaV2
                         string Seleccionado = "SIN " + operadorFiltro.ToUpper().Remove(0, 3);
                         if (strFiltroDinamico.Equals(Seleccionado))
                         {
-                            var consulta = cs.CantidadListarProductosSinConceptoDinamico(FormPrincipal.userID, operadorFiltro.Remove(0, 3), 1);
+                            //var consulta = cs.CantidadListarProductosSinConceptoDinamico(FormPrincipal.userID, operadorFiltro.Remove(0, 3), 1);
+                            //cantidadRegistros = mb.CantidadFiltroInventario(consulta);
+                            var semiQuery = $"(DPG.panelContenido = 'panelContenido{operadorFiltro.Remove(0, 3)}' )";
+                            var noIncludos = mb.ObtenerProductosSinFiltrosDinamicos(new string[] { semiQuery, FormPrincipal.userID.ToString(), "1" });
+                            var noIncludosAux = string.Join(",", noIncludos);
+
+                            var consulta = $"SELECT COUNT(P.ID) AS Total FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = 1 AND P.ID NOT IN ({noIncludosAux})";
                             cantidadRegistros = mb.CantidadFiltroInventario(consulta);
                         }
                         else
