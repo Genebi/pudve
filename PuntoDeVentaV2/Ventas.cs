@@ -6839,6 +6839,7 @@ namespace PuntoDeVentaV2
                 //listProductos.Add(datosProducto[0] + "|" + cantidad.ToString());
                 consulta.ShowDialog();
             }
+            nudCantidadPS.Value = 1;
             //SendKeys.Send("{TAB}");
             //SendKeys.Send("{ENTER}");
         }

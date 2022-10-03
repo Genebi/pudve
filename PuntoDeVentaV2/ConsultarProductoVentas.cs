@@ -35,6 +35,8 @@ namespace PuntoDeVentaV2
         public static List<string> datosDeProducto = new List<string>();
         public static int idABuscar { get; set; }
 
+        public static bool AcepOCanc = false;
+
         // Estanciar objeto de Clase Paginar
         // para usarlo
         private Paginar p;
@@ -715,8 +717,12 @@ namespace PuntoDeVentaV2
                 inputMessageBoxVentas inputMessageBox = new inputMessageBoxVentas(mensajeMostrar, tituloVentana, mensajeDefault);
 
                 inputMessageBox.ShowDialog();
-                multiplesProductosSeleccionados();
-                newObtenerDatoProductoSeleccionado();
+                if (AcepOCanc.Equals(true))
+                {
+                    multiplesProductosSeleccionados();
+                    newObtenerDatoProductoSeleccionado();
+                }
+               
             }
         }
 
@@ -929,7 +935,11 @@ namespace PuntoDeVentaV2
 
             inputMessageBoxVentas inputMessageBox = new inputMessageBoxVentas(mensajeMostrar, tituloVentana, mensajeDefault);
             inputMessageBox.ShowDialog();
-            newObtenerDatoProductoSeleccionado();
+            if (AcepOCanc.Equals(true))
+            {
+                newObtenerDatoProductoSeleccionado();
+            }
+            
         }
     }
 }
