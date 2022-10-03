@@ -1569,6 +1569,20 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta($"INSERT INTO descuentomayoreo(RangoInicial,RangoFinal,Precio,Checkbox,IDProducto) VALUES('1','{rangoFinalSinDescuento}','{precioActual}','1','{idProd}')");
                         cn.EjecutarConsulta($"INSERT INTO descuentomayoreo(RangoInicial,RangoFinal,Precio,Checkbox,IDProducto) VALUES('{cantidadprodicto}','N','{precioConDescuento}','1','{idProd}')");
                     }
+
+                    foreach (var producto in productos)
+                    {
+                        var idProd = producto.Key;
+                        var DTPrecio = cn.CargarDatos($"SELECT Precio FROM productos WHERE ID = {idProd}");
+                        decimal precioActual = Convert.ToDecimal(DTPrecio.Rows[0]["Precio"]);
+                        decimal precioConDescuento = precioActual * Convert.ToDecimal(0.70);
+                        float rangoFinalSinDescuento = (float)Convert.ToDecimal(cantidadprodicto) - 1;
+                        cn.EjecutarConsulta($"DELETE FROM descuentomayoreo WHERE IDProducto = {idProd}");
+                        cn.EjecutarConsulta($"DELETE FROM descuentocliente WHERE IDProducto = {idProd}");
+                        cn.EjecutarConsulta($"UPDATE productos SET TipoDescuento = '2' WHERE ID = '{idProd}'");
+                        cn.EjecutarConsulta($"INSERT INTO descuentomayoreo(RangoInicial,RangoFinal,Precio,Checkbox,IDProducto) VALUES('1','{rangoFinalSinDescuento}','{precioActual}','1','{idProd}')");
+                        cn.EjecutarConsulta($"INSERT INTO descuentomayoreo(RangoInicial,RangoFinal,Precio,Checkbox,IDProducto) VALUES('{cantidadprodicto}','N','{precioConDescuento}','1','{idProd}')");
+                    }
                     MessageBox.Show("Asignacion realizada con Exito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
@@ -1576,6 +1590,7 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Ingrese la cantidad maxima de productos\n  para tener un descuento", "Aviso del sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
                     return;
                 }
+                datosHistPrecio.Clear();
             }
             else if (propiedad == "NumeroRevision")/////////////////////////////////////////////////////////////////
             {

@@ -34,14 +34,15 @@ namespace PuntoDeVentaV2
         {
             Ventas.sonido = false;
             cantidad = "Cancelar";
+            ConsultarProductoVentas.AcepOCanc = false;
             this.Close();
-
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
              Ventas.sonido = true;
              cantidad = txtCantidad.Text;
+             ConsultarProductoVentas.AcepOCanc = true;
              this.Close();
         }
 
