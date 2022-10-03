@@ -29,7 +29,7 @@ namespace PuntoDeVentaV2
         // 2 = Corte
         public int operacion = 0;
 
-
+        
         private decimal totalEfectivo = 0;
         private decimal totalTarjeta = 0;
         private decimal totalVales = 0;
@@ -334,7 +334,49 @@ namespace PuntoDeVentaV2
                 }
 
                 cn.EjecutarConsulta(cs.agregarSaldosIniciales(idHistorialCorteDeCaja, cantidadesIniciales));
+                DialogResult resultadoAgregarDinero = MessageBox.Show("Desea imprimir ticket de la operación Agregar Dinero", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
+                if (resultadoAgregarDinero.Equals(DialogResult.Yes))
+                {
+                    var idDeposito = 0;
+                    var usuarioActivo = FormPrincipal.userNickName;
+
+                    if (!usuarioActivo.Contains("@"))
+                    {
+                        using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoAdministrador()))
+                        {
+                            if (!dtDepositoDeDinero.Rows.Count.Equals(0))
+                            {
+                                DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
+                                idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
+
+                                using (ImprimirTicketDepositarDineroCaja8cm imprimirTicketDineroAgregado = new ImprimirTicketDepositarDineroCaja8cm())
+                                {
+                                    ImprimirTicketDepositarDineroCaja8cm.SaldoACaja = true;
+                                    imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
+                                    imprimirTicketDineroAgregado.ShowDialog();
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoEmpleado(FormPrincipal.id_empleado)))
+                        {
+                            if (!dtDepositoDeDinero.Rows.Count.Equals(0))
+                            {
+                                DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
+                                idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
+
+                                using (imprimirTicketDineroAgregadoEmpleado imprimirTicketDineroAgregado = new imprimirTicketDineroAgregadoEmpleado())
+                                {
+                                    imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
+                                    imprimirTicketDineroAgregado.ShowDialog();
+                                }
+                            }
+                        }
+                    }
+                }
                 this.Close();
             }
             else
