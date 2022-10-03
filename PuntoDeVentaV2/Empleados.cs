@@ -252,6 +252,7 @@ namespace PuntoDeVentaV2
                     }
                     
                 }
+                SIoNO = false;
 
             }
         }
