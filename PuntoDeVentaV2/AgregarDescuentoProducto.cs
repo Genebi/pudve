@@ -26,6 +26,8 @@ namespace PuntoDeVentaV2
         float rangoInicial;
         int vecesMostradas = 0;
         decimal op1, op2;
+        decimal descuentosGenerados = 0;
+        decimal op3, op4;
         private bool refrescarForm = true;
         private bool eliminarDescuento = false;
 
@@ -49,6 +51,22 @@ namespace PuntoDeVentaV2
 
         private void AgregarDescuentoProducto_Load(object sender, EventArgs e)
         {
+
+            //if (Productos.copiarDatos.Equals(1) && AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
+            //{
+            //    var detallesDescMay = cn.CargarDatos(cs.obtenerDescuentosMayoreoParaCopiar(Convert.ToInt32(AgregarEditarProducto.idProductoFinal)));
+
+            //    string rangoinicial = detallesDescMay.Rows[0]["RangoInicial"].ToString();
+            //    string rangofinal = detallesDescMay.Rows[0]["RangoFinal"].ToString();
+            //    string precio = detallesDescMay.Rows[0]["Precio"].ToString();
+
+            //    AgregarEditarProducto.descuentos.Add($"{rangoinicial}-{rangofinal}-{precio}-0");
+            //    //AgregarEditarProducto.descuentos.Add(rangofinal);
+            //    //AgregarEditarProducto.descuentos.Add(precio);
+            //    //AgregarEditarProducto.descuentos.Add("0");
+            //    Productos.copiarDatos = 0;
+            //}
+
             AgregarEditarProducto.validacionUpdateDescuentos = 0;
             precioProducto = Convert.ToDouble(AgregarEditarProducto.precioProducto);
 
@@ -75,7 +93,15 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            var copiadoMayoreo = AgregarEditarProducto.SearchDesMayoreo.Rows.Count;
+            if (copiadoMayoreo > 0 && AgregarEditarProducto.DatosSourceFinal == 4)
+            {
+                rbMayoreo.Checked = true;
+                tipoDescuento = 2;
+                AgregarEditarProducto.descuentosSinGuardar = 1;
+            }
             CargarFormularios(tipoDescuento);
+            
 
             //if (FormPrincipal.userNickName.Equals("HOUSEDEPOTAUTLAN") || FormPrincipal.userNickName.Equals("HOUSEDEPOTREPARTO") || FormPrincipal.userNickName.Equals("OXXITO") || FormPrincipal.userNickName.Equals("CLARAZV1"))
             //{
@@ -85,11 +111,6 @@ namespace PuntoDeVentaV2
             //{
             //    rbMayoreo.Visible = false;
             //}
-            var copiado = AgregarEditarProducto.descuentosSinGuardar;
-            if (copiado == 1)
-            {
-
-            } 
         }
 
         private void obtenerTipoDescuento()
@@ -115,9 +136,27 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    tipoDescuento = 1;
-                    rbCliente.Checked = true;
+                    if (!AgregarEditarProducto.descuentos.Count.Equals(0))
+                    {
+                        tipoDescuento = Convert.ToInt32(AgregarEditarProducto.descuentos[0]);
+                        if (tipoDescuento.Equals(1))
+                        {
+                            rbCliente.Checked = true;
+                        }
+                        else
+                        {
+                            rbMayoreo.Checked = true;
+                        }
+                        
+                    }
+                 
+                   
                 }
+            }
+            if (AgregarEditarProducto.DatosSourceFinal.Equals(4) && AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
+            {
+                tipoDescuento = 2;
+                rbMayoreo.Checked = true;
             }
         }
 
@@ -156,7 +195,7 @@ namespace PuntoDeVentaV2
             //Mayoreo
             if (tipoDescuento == 2)
             {
-                int numeroDescuentosMayoreo = panelContenedor.Controls.Count;
+                    int numeroDescuentosMayoreo = panelContenedor.Controls.Count;
 
                 // Si tiene 2 descuentos por mayoreo en adelante
                 if (numeroDescuentosMayoreo > 2)
@@ -164,9 +203,9 @@ namespace PuntoDeVentaV2
                     AgregarEditarProducto.descuentos.Clear();
                     AgregarEditarProducto.descuentos.Add(tipoDescuento.ToString());
 
+
                     foreach (Control panel in panelContenedor.Controls.OfType<FlowLayoutPanel>())
                     {
-                        
                         string descuentoMayoreo = string.Empty;
 
                         if (panel.Name == "panelMayoreoTitulos") { continue; }
@@ -180,6 +219,8 @@ namespace PuntoDeVentaV2
                                 // Validar precios para el descuento por rangos
                                 string[] datosAux = item.Name.Split('_');
 
+                                descuentosGenerados = idGenerado-1;
+                       
                                 if (datosAux[1] == "1")
                                 {
                                     op1 = Convert.ToDecimal(tb);
@@ -197,9 +238,9 @@ namespace PuntoDeVentaV2
                                 }
                                 if (!op2.Equals(0))
                                 {
-                                    if (op1 >= op2)
+                                    if (op1 > op2)
                                     {
-                                        MessageBox.Show("El precio nuevo no puede ser mayor o igual al precio anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        MessageBox.Show("La cantidad no puede ser menor a la anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                         return;
                                     }
                                     else
@@ -224,6 +265,17 @@ namespace PuntoDeVentaV2
                                 tb = tb == "" ? "N" : tb;
 
                                 descuentoMayoreo += tb + "-";
+
+                                if (item.Name.Equals($"tbMayoreo{descuentosGenerados}_3"))
+                                {
+                                    op4 = Convert.ToDecimal(item.Text);
+                                }
+                                if (item.Name.Equals($"tbMayoreo{descuentosGenerados - 1}_3"))
+                                {
+                                    op3 =Convert.ToDecimal(item.Text);
+                                }
+                               
+                             
                             }
 
                             if (item is CheckBox)
@@ -256,6 +308,12 @@ namespace PuntoDeVentaV2
                         }
 
                         descuentoMayoreo = string.Empty;
+                    }
+
+                    if (op4 > op3)
+                    {
+                        MessageBox.Show("No mames ponle menos precio");
+                        return;
                     }
                 }
                 else
@@ -1219,6 +1277,25 @@ namespace PuntoDeVentaV2
             }
             if (tipoDescuentoSinGuardar.Equals(2))//APARTADO PARA MAYOREO
             {
+                if (Productos.copiarDatos.Equals(1) && AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
+                {
+                    var detallesDescMay = cn.CargarDatos(cs.obtenerDescuentosMayoreoParaCopiar(Convert.ToInt32(AgregarEditarProducto.idProductoFinal)));
+                    AgregarEditarProducto.descuentos.Add($"{"1"}-{"1"}-{"1"}-0");
+                    for (int i = 0; i < AgregarEditarProducto.SearchDesMayoreo.Rows.Count; i++)
+                    {
+                       
+                        string rangoinicial = detallesDescMay.Rows[i]["RangoInicial"].ToString();
+                        string rangofinal = detallesDescMay.Rows[i]["RangoFinal"].ToString();
+                        string precio = detallesDescMay.Rows[i]["Precio"].ToString();
+
+                        AgregarEditarProducto.descuentos.Add($"{rangoinicial}-{rangofinal}-{precio}-0");
+                        //AgregarEditarProducto.descuentos.Add(rangofinal);
+                        //AgregarEditarProducto.descuentos.Add(precio);
+                        //AgregarEditarProducto.descuentos.Add("0");
+                        Productos.copiarDatos = 0;
+                    }
+                   
+                }
                 if (AgregarEditarProducto.descuentos.Count > 0)
                 {
                     idGenerado = 1;
@@ -1535,7 +1612,8 @@ namespace PuntoDeVentaV2
                 {
                     if (AgregarEditarProducto.descuentosSinGuardar == 1)
                     {
-                        cargarDescuentosNuevosProductos();
+
+                            cargarDescuentosNuevosProductos();
                     }
                     else
                     {
@@ -1562,7 +1640,16 @@ namespace PuntoDeVentaV2
                     AgregarEditarProducto.DatosSourceFinal == 4 ||
                     AgregarEditarProducto.DatosSourceFinal == 5)
                 {
-                    cargarNvoDescuentos();
+                    if (AgregarEditarProducto.descuentosSinGuardar == 1 && tipo == 2)
+                    {
+                        AgregarEditarProducto.rbDescuentoSinGuardar = 2;
+                        cargarDescuentosNuevosProductos();
+                    }
+                    else
+                    {
+                        cargarNvoDescuentos();
+                    }
+                    
                 }
                 else if (AgregarEditarProducto.DatosSourceFinal == 2)
                 {
@@ -1668,12 +1755,10 @@ namespace PuntoDeVentaV2
                     // Comparando cantidad final nueva con la linea anterior
                     if (float.Parse(tbCantidadFinalAnterior.Text.Trim()) >= float.Parse(tb1.Text.Trim()))
                     {
-                        
                         refrescarForm = false;
                         MessageBox.Show("La cantidad limite nueva no puede ser menor o igual a la cantidad limite anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         tb1.Focus();
                         return;
-
                     }
 
                     // Comparando precio nuevo con la linea anterior
@@ -1923,7 +2008,7 @@ namespace PuntoDeVentaV2
                 TextBox tbPrecioAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_3", true).FirstOrDefault();
 
                 // Comparando cantidad final nueva con la linea anterior
-                if (Convert.ToInt32(tbCantidadFinalAnterior.Text.Trim()) >= Convert.ToInt32(tb1.Text.Trim()))
+                if (Convert.ToDecimal(tbCantidadFinalAnterior.Text.Trim()) >= Convert.ToDecimal(tb1.Text.Trim()))
                 {
                     refrescarForm = false;
                     MessageBox.Show("La cantidad limite nueva no puede ser menor o igual a la cantidad limite anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -2160,6 +2245,28 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            contarPaneles();
+        }
+
+        private void contarPaneles()
+        {
+            
+                int countTextBox = 0;
+                foreach (Control c in this.Controls) //here is the minor change
+                {
+                    if (c.GetType() == typeof(TextBox) && c.Name.Contains ("_3"))
+                    {
+                    countTextBox++;
+                    }
+                }
+
+            MessageBox.Show("No of textbox: " + countTextBox);
+        }
+
         private void rbCliente_Click(object sender, EventArgs e)
         {
             //if (!AgregarEditarProducto.descuentos.Count.Equals(0))
