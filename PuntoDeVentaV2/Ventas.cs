@@ -4370,8 +4370,10 @@ namespace PuntoDeVentaV2
                             // Imprimir Ticket Venta Guardada
                             if (tipoDeVentaRealizada.Equals(2))
                             {
-                                //DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket Del Presupuesto", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
-                                
+                                DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket Del Presupuesto", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+
+                                if (respuestaImpresion.Equals("Yes"))
+                                {
                                     if (ticket6cm.Equals(1))
                                     {
                                         using (imprimirTicketPresupuesto8cm imprimirTicketVenta = new imprimirTicketPresupuesto8cm())
@@ -4426,7 +4428,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.ShowDialog();
                                         }
                                     }
-                                
+                                }
                             }
                             // Imprimir Ticket Venta Cancelada
                             if (tipoDeVentaRealizada.Equals(3))
