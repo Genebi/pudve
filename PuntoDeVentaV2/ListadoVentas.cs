@@ -4939,10 +4939,10 @@ namespace PuntoDeVentaV2
                                         descAux[0] = descAux[0].Trim();
 
                                         var cantidadAux = lista[id].Item2;
-                                        var precioAux = lista[id].Item3;
+                                        //var precioAux = lista[id].Item3;
                                         var cantidadDesc = Convert.ToDecimal(descAux[0]) + Convert.ToDecimal(lista[id].Item4);
 
-                                        lista[id] = Tuple.Create(nombre, cantidad + cantidadAux, precio + precioAux, cantidadDesc);
+                                        lista[id] = Tuple.Create(nombre, cantidad + cantidadAux, precio, cantidadDesc);
                                     }
                                     else
                                     {
