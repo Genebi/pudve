@@ -1858,8 +1858,9 @@ namespace PuntoDeVentaV2
                     foreach (var item in productos)
                     {
                         var idprod = item.Key;
-
+                        cn.EjecutarConsulta($"UPDATE productos SET TipoDescuento = 0 WHERE ID = {idprod}");
                         cn.EjecutarConsulta($"DELETE FROM descuentocliente WHERE IDProducto = {idprod}");
+                        
                     }
                 }
                 else if (dialogResult == DialogResult.No)
