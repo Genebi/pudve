@@ -3044,9 +3044,10 @@ namespace PuntoDeVentaV2
                     // Guarda los datos de los descuentos directos que se han aplicado
                     descuentosDirectos.Clear();
 
+                    nudCantidadPS.Value = 1;
+
                     CalculoMayoreo();
                     CantidadesFinalesVenta();
-
                     limpiarImagenDelProducto();
                 }
                 else if (dialogoResult == DialogResult.No)

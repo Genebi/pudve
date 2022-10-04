@@ -4038,17 +4038,14 @@ namespace PuntoDeVentaV2
                         mg.RemoverPreposiciones(nombreNvoInsert), stockNecesario, stockMinimo, txtPrecioCompra.Text, precioMayoreo
                     };
 
-                    //if (Productos.copiarDatos.Equals(1))
+                    //if (Productos.copiarDatos.Equals(1) && AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
                     //{
-                    //    var detallesProd = cn.CargarDatos(cs.obtenerDetallesProductoParaCopiar(idProducto));
-                    //    var detallesFact = cn.CargarDatos(cs.obtenerDetallesFacturacionParaCopiar(idProducto));
-                    //    var detallesDescProd = cn.CargarDatos(cs.obtenerDescuentosProductoParaCopiar(idProducto));
                     //    var detallesDescMay = cn.CargarDatos(cs.obtenerDescuentosMayoreoParaCopiar(idProducto));
 
-                    //    string precioproducto = detallesDescProd.Rows[0]["PrecioProducto"].ToString();
-                    //    string porcentajedescuento = detallesDescProd.Rows[0]["PorcentajeDescuento"].ToString();
-                    //    string preciodescuento = detallesDescProd.Rows[0]["PrecioDescuento"].ToString();
-                    //    string descuento = detallesDescProd.Rows[0]["Descuento"].ToString();
+                    //    string precioproducto = detallesDescMay.Rows[0]["PrecioProducto"].ToString();
+                    //    string porcentajedescuento = detallesDescMay.Rows[0]["PorcentajeDescuento"].ToString();
+                    //    string preciodescuento = detallesDescMay.Rows[0]["PrecioDescuento"].ToString();
+                    //    string descuento = detallesDescMay.Rows[0]["Descuento"].ToString();
 
                     //    descuentos.Add("1");
                     //    descuentos.Add(precioproducto);
@@ -4619,9 +4616,22 @@ namespace PuntoDeVentaV2
 
                 queryBuscarDescuentoCliente = $"SELECT * FROM DescuentoCliente WHERE IDProducto = '{idProductoBuscado}'";
                 SearchDesCliente = cn.CargarDatos(queryBuscarDescuentoCliente);
+
+                if (Productos.copiarDatos == 1)
+                {
+
+                }
                 queryDesMayoreo = $"SELECT * FROM DescuentoMayoreo WHERE IDProducto = '{idProductoBuscado}'";
                 SearchDesMayoreo = cn.CargarDatos(queryDesMayoreo);
 
+                var descMayoSinGuardar = SearchDesMayoreo.Rows.Count;
+                if (descMayoSinGuardar>0)
+                {
+                    foreach (DataRow item in SearchDesMayoreo.Rows)
+                    {
+                        //descuentos.Add(item);
+                    }
+                }
             }
         }
 
@@ -9745,6 +9755,7 @@ namespace PuntoDeVentaV2
 
                 LimpiarDatos();
                 Productos.codProductoEditarVenta = 0;
+                AgregarEditarProducto.descuentos.Clear();
         }
 
         private void mostrarOcultarLblArrow()
