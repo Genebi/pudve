@@ -95,8 +95,8 @@ namespace PuntoDeVentaV2
         public static bool usuario_ini = true;
         public static bool autorizacion_correcta = false;
         string correo_anterior = "";
-             
 
+        bool seGuarda = false;
         public MisDatos()
         {
             InitializeComponent();
@@ -438,6 +438,7 @@ namespace PuntoDeVentaV2
         {
             bool result = false; 
             bool respuesta = false;
+            seGuarda = true;
             
             if (opcion1 == 0 || opcion4 == 0)
             {
@@ -601,7 +602,11 @@ namespace PuntoDeVentaV2
 
             // realizamos la consulta desde el metodo
             // que esta en la clase Conexion
-            cn.EjecutarConsulta(actualizar);
+            if (seGuarda.Equals(true))
+            {
+                cn.EjecutarConsulta(actualizar);
+            }
+            seGuarda = false;
 
             // Llamamos a la Funcion consulta
             consulta();

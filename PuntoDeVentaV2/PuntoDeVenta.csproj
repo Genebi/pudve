@@ -1951,6 +1951,7 @@
     <EmbeddedResource Include="RenombrarDetalle.resx">
       <DependentUpon>RenombrarDetalle.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report1.rdlc" />
     <EmbeddedResource Include="ReporteDineroAgregado.resx">
       <DependentUpon>ReporteDineroAgregado.cs</DependentUpon>
     </EmbeddedResource>
