@@ -493,6 +493,11 @@ namespace PuntoDeVentaV2
                                                 totalAbonoTransferencia += Convert.ToDecimal(item["Transferencia"].ToString());
                                             }
 
+                                            if (!string.IsNullOrWhiteSpace(item["Total"].ToString()))
+                                            {
+                                                totalAbonoRealizado += Convert.ToDecimal(item["Total"].ToString());
+                                            }
+
                                             lbTCreditoC.Text = totalAbonoRealizado.ToString("C2");
                                         }
                                     }
