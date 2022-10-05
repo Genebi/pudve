@@ -421,7 +421,7 @@ namespace PuntoDeVentaV2
             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
             {
                 List<int> IDEmpleados = new List<int>();
-                List<string> QuerysDeTodosLosTotals = new List<string>();
+                List<string> QuerysDeTodosLosTotalesAbonos = new List<string>();
 
                 using (DataTable dtIDsEpleados = cn.CargarDatos(cs.cargarIDsDeEmpleados()))
                 {
@@ -444,7 +444,66 @@ namespace PuntoDeVentaV2
                     {
                         if (!dtCargarAbonosTodos.Rows.Count.Equals(0))
                         {
+                            foreach (DataRow item in dtCargarAbonosTodos.Rows)
+                            {
+                                if (item["IDEmpleado"].ToString().Equals("0"))
+                                {
+                                    QuerysDeTodosLosTotalesAbonos.Add($"({cs.CargarAbonosTodosAdministrador(item["IDEmpleado"].ToString(), item["Fecha"].ToString())})");
+                                }
+                                else if (!item["IDEmpleado"].ToString().Equals("0"))
+                                {
+                                    QuerysDeTodosLosTotalesAbonos.Add($"({cs.CargarAbonosTodosEmpleado(item["IDEmpleado"].ToString(), item["Fecha"].ToString())})");
+                                }
+                            }
 
+                            var UnionQuerysTodosLosTotales = string.Join("UNION", QuerysDeTodosLosTotalesAbonos);
+
+                            if (!string.IsNullOrWhiteSpace(UnionQuerysTodosLosTotales))
+                            {
+                                using (DataTable dtUnionQuerysTodosLosTotales = cn.CargarDatos(UnionQuerysTodosLosTotales))
+                                {
+                                    if (!dtUnionQuerysTodosLosTotales.Rows.Count.Equals(0))
+                                    {
+                                        limpirVariablesDeAbonos();
+
+                                        foreach (DataRow item in dtUnionQuerysTodosLosTotales.Rows)
+                                        {
+                                            if (!string.IsNullOrWhiteSpace(item["Efectivo"].ToString()))
+                                            {
+                                                totalAbonoEfectivo += Convert.ToDecimal(item["Efectivo"].ToString());
+                                            }
+
+                                            if (!string.IsNullOrWhiteSpace(item["Tarjeta"].ToString()))
+                                            {
+                                                totalAbonoTarjeta += Convert.ToDecimal(item["Tarjeta"].ToString());
+                                            }
+
+                                            if (!string.IsNullOrWhiteSpace(item["Vales"].ToString()))
+                                            {
+                                                totalAbonoVales += Convert.ToDecimal(item["Vales"].ToString());
+                                            }
+
+                                            if (!string.IsNullOrWhiteSpace(item["Cheque"].ToString()))
+                                            {
+                                                totalAbonoCheque += Convert.ToDecimal(item["Cheque"].ToString());
+                                            }
+
+                                            if (!string.IsNullOrWhiteSpace(item["Transferencia"].ToString()))
+                                            {
+                                                totalAbonoTransferencia += Convert.ToDecimal(item["Transferencia"].ToString());
+                                            }
+
+                                            lbTCreditoC.Text = totalAbonoRealizado.ToString("C2");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        lbCambioAbonos.Visible = false;
+                                        limpirVariablesDeAbonos();
+                                        lbTCreditoC.Text = totalAbonoRealizado.ToString("C2");
+                                    }
+                                }
+                            }
                         }
                     }
                 }
