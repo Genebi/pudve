@@ -4254,10 +4254,19 @@ namespace PuntoDeVentaV2
                 var dato = cn.CargarDatos($"SELECT PrecioCompra FROM productos WHERE ID = {idEditarProducto}");//VALIDAR PARA HACERSE SOLO CUANDO SE EDITA
                 var precioProdActual = dato.Rows[0]["PrecioCompra"].ToString();
                 var fecha2 = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-                if (precioProdActual != txtPrecioCompra.Text)
+                var precioCompra = string.Empty;
+                if (string.IsNullOrWhiteSpace(txtPrecioCompra.Text))
                 {
-                    cn.EjecutarConsulta($"UPDATE productos SET PrecioCompra = {txtPrecioCompra.Text} WHERE ID = {idEditarProducto}; ");
-                    cn.EjecutarConsulta($"INSERT INTO historialcompras ( Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario ) VALUES ( '{nombre}', '0', '{txtPrecioCompra.Text}', '0','{precio}', '{fecha2}','N/A', 'AJUSTE PRECIO DE COMPRA', 'N/A', 'N/A', '{fecha2}', '{Inventario.idReporte}', '{idEditarProducto}', '{FormPrincipal.userID}')");
+                    precioCompra = "0";
+                }
+                else
+                {
+                    precioCompra = txtPrecioCompra.Text;
+                }
+                if (precioProdActual != precioCompra)
+                {
+                    cn.EjecutarConsulta($"UPDATE productos SET PrecioCompra = {precioCompra} WHERE ID = {idEditarProducto}; ");
+                    cn.EjecutarConsulta($"INSERT INTO historialcompras ( Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario ) VALUES ( '{nombre}', '0', '{precioCompra}', '0','{precio}', '{fecha2}','N/A', 'AJUSTE PRECIO DE COMPRA', 'N/A', 'N/A', '{fecha2}', '{Inventario.idReporte}', '{idEditarProducto}', '{FormPrincipal.userID}')");
                 }
             }
 
