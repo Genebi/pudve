@@ -217,7 +217,9 @@ namespace PuntoDeVentaV2
         int productosEncontrados = 0;
         public static int dobleClickProducto = 0;
         public static int idprodDobleClick = 0;
-
+        public static string[] copMensajeVent = new string[3];
+        public static string[] copMensajeInv = new string[2];
+        public static int copiarMensajesProd = 0;
         static public int copiarDatos = 0;
         static public int copiarFacturacion = 0;
 
@@ -1373,14 +1375,27 @@ namespace PuntoDeVentaV2
                     // Copiar el Producto
                     if (seleccionadoDato == 0)
                     {
+                        copiarMensajesProd = 1;
                         seleccionadoDato = 1;
                         numerofila = e.RowIndex;
                         obtenerDatosDGVProductos(numerofila);
+                        var copiarMensajeVentas = cn.CargarDatos(cs.copiarMensajeVentas(idProducto));
+                        var copiarMensajeInventario = cn.CargarDatos(cs.copiarMensajeInventario(idProducto));
+                        if (!copiarMensajeVentas.Rows.Count.Equals(0))
+                        {
+                            copMensajeVent[0] = copiarMensajeVentas.Rows[0]["ProductOfMessage"].ToString();
+                            copMensajeVent[1] = copiarMensajeVentas.Rows[0]["ProductMessageActivated"].ToString();
+                            copMensajeVent[2] = copiarMensajeVentas.Rows[0]["CantidadMinimaDeCompra"].ToString();
+                        }
+                        if (!copiarMensajeInventario.Rows.Count.Equals(0))
+                        {
+                            copMensajeInv[0] = copiarMensajeInventario.Rows[0]["Mensaje"].ToString();
+                            copMensajeInv[1] = copiarMensajeInventario.Rows[0]["Activo"].ToString();
+                        }
 
                         copiarDatos = 1;
 
                         AgregarDescuentoProducto descProd = new AgregarDescuentoProducto();
-
 
                         if (Productos.copiarDatos.Equals(1))
                         {
@@ -2057,6 +2072,8 @@ namespace PuntoDeVentaV2
             {
                 btnAgregarXML.Visible = true;
             }
+
+            copiarMensajesProd = 0;
         }
 
         private void validarConexionServidor()

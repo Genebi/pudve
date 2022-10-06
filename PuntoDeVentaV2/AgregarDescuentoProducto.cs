@@ -312,7 +312,7 @@ namespace PuntoDeVentaV2
 
                     if (op4 > op3)
                     {
-                        MessageBox.Show("No mames ponle menos precio");
+                        MessageBox.Show("El precio nuevo no puede ser mayor o igual al anterior.");
                         return;
                     }
                 }

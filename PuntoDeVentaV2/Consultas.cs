@@ -4668,5 +4668,19 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string copiarMensajeVentas(int idprod)
+        {
+            var consulta = $"SELECT ProductOfMessage, ProductMessageActivated, CantidadMinimaDeCompra FROM productmessage WHERE IDProducto = {idprod}";
+
+            return consulta;
+        }
+
+        public string copiarMensajeInventario(int idprod)
+        {
+            var consulta = $"SELECT Mensaje, Activo FROM mensajesinventario WHERE IDProducto = {idprod}";
+             
+            return consulta;
+        }
     }
 }   

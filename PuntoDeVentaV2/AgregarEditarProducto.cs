@@ -4345,8 +4345,16 @@ namespace PuntoDeVentaV2
         {
             if (Productos.codProductoEditarVenta.Equals(0) && Productos.dobleClickProducto.Equals(0))
             {
-                MessageBox.Show("Se requiere guardar el producto antes de asignarle los mensajes", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                if (Productos.copiarDatos.Equals(1) || Productos.copiarMensajesProd.Equals(1))
+                {
+
+                }
+                else
+                {
+                    MessageBox.Show("Se requiere guardar el producto antes de asignarle los mensajes", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                
             }
             MensajeVentasYMensajeInventario mensajes = new MensajeVentasYMensajeInventario();
             nombreProductoEditar = txtNombreProducto.Text;
