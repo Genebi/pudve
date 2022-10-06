@@ -223,7 +223,7 @@ namespace PuntoDeVentaV2
                 AgregarOpcion("CantidadMayoreo", "Cantidad Mayoreo", 465);
             }
 
-            int alturaEjeY = 430;
+            int alturaEjeY = 500;
 
             var conceptos = mb.ConceptosAppSettings();
 
