@@ -157,6 +157,10 @@ namespace PuntoDeVentaV2
 
             dpFechaFinal.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
+            // Hora inicial y final
+            dpHoraInicial.Text = "00:00";
+            dpHoraFinal.Text = "23:59";
+
             // Opciones para el combobox
             Dictionary<string, string> ventas = new Dictionary<string, string>();
             ventas.Add("VP", "VENTAS PAGADAS");
@@ -419,7 +423,10 @@ namespace PuntoDeVentaV2
 
             extra = string.Empty;
             yaValidado = 0;
+
             var fechaInicial = string.Empty;
+            var horaInicial = string.Empty;
+            var horaFinal = string.Empty;
 
             if (clickBoton == 0)
             {
@@ -428,7 +435,10 @@ namespace PuntoDeVentaV2
                     var buscador = txtBuscador.Text.Trim();
                     if (buscarPorFecha == 1)
                     {
-                        fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                        fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
+                        horaInicial = dpHoraInicial.Value.ToString("HH:mm");
+
+                        fechaInicial = $"{fechaInicial} {horaInicial}:00";
                     }
                     else
                     {
@@ -436,8 +446,11 @@ namespace PuntoDeVentaV2
                         fechaInicial = fechaInicial2.Rows[0]["FechaOperacion"].ToString();
                     }
 
+                    var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
+                    horaFinal = dpHoraFinal.Value.ToString("HH:mm");
 
-                    var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                    fechaFinal = $"{fechaFinal} {horaFinal}:59";
+
                     var opcion = cbTipoVentas.SelectedValue.ToString();
 
                     // Ventas pagadas
@@ -466,7 +479,10 @@ namespace PuntoDeVentaV2
                             //var fechaUltimoCorte = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}'");
                             if (buscarPorFecha == 1)
                             {
-                                fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                                fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
+                                horaInicial = dpHoraInicial.Value.ToString("HH:mm");
+
+                                fechaInicial = $"{fechaInicial} {horaInicial}:00";
                             }
                             else
                             {
@@ -814,7 +830,10 @@ namespace PuntoDeVentaV2
                 {
                     if (buscarPorFecha == 1)
                     {
-                        fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                        fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
+                        horaInicial = dpHoraInicial.Value.ToString("HH:mm");
+
+                        fechaInicial = $"{fechaInicial} {horaInicial}:00";
                     }
                     else
                     {
@@ -844,7 +863,10 @@ namespace PuntoDeVentaV2
                         if (!fechaInicial2.Rows.Count.Equals(0))
                         {
                             var fechaInicialDP = Convert.ToDateTime(fechaInicial2.Rows[0]["FechaOperacion"].ToString());
-                            fechaInicial = fechaInicialDP.ToString("yyyy-MM-dd HH:mm:ss");
+                            fechaInicial = fechaInicialDP.ToString("yyyy-MM-dd");
+                            horaInicial = dpHoraInicial.Value.ToString("HH:mm");
+
+                            fechaInicial = $"{fechaInicial} {horaInicial}:00";
                         }
                     }
 
@@ -856,7 +878,10 @@ namespace PuntoDeVentaV2
                         //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY ID DESC";
                         if (buscarPorFecha == 1)
                         {
-                            fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                            fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
+                            horaInicial = dpHoraInicial.Value.ToString("HH:mm");
+
+                            fechaInicial = $"{fechaInicial} {horaInicial}:00";
                         }
                         else
                         {
@@ -898,7 +923,10 @@ namespace PuntoDeVentaV2
                             {
                                 if (buscarPorFecha == 1)
                                 {
-                                    fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                                    fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
+                                    horaInicial = dpHoraInicial.Value.ToString("HH:mm");
+
+                                    fechaInicial = $"{fechaInicial} {horaInicial}:00";
                                 }
                                 else
                                 {
@@ -955,7 +983,10 @@ namespace PuntoDeVentaV2
                             {
                                 if (buscarPorFecha == 1)
                                 {
-                                    fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd HH:mm:ss");
+                                    fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
+                                    horaInicial = dpHoraInicial.Value.ToString("HH:mm");
+
+                                    fechaInicial = $"{fechaInicial} {horaInicial}:00";
                                 }
                                 else
                                 {
@@ -1443,7 +1474,14 @@ namespace PuntoDeVentaV2
             var validacionFecha = false;
 
             var fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
+            var horaInicial = dpHoraInicial.Value.ToString("HH:mm");
+
+            fechaInicial = $"{fechaInicial} {horaInicial}:00";
+
             var fechaFinal = dpFechaFinal.Value.ToString("yyyy-MM-dd");
+            var horaFinal = dpHoraFinal.Value.ToString("HH:mm");
+
+            fechaFinal = $"{fechaFinal} {horaFinal}:59";
 
             if (DateTime.Parse(fechaInicial) <= DateTime.Parse(fechaFinal))
             {

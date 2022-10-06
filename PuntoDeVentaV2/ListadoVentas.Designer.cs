@@ -86,6 +86,8 @@
             this.lb_txt_ruta_descargar = new System.Windows.Forms.Label();
             this.chTodos = new System.Windows.Forms.CheckBox();
             this.chkHDAutlan = new System.Windows.Forms.CheckBox();
+            this.dpHoraInicial = new System.Windows.Forms.DateTimePicker();
+            this.dpHoraFinal = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -274,8 +276,10 @@
             // 
             this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBotones.Controls.Add(this.button1);
             this.panelBotones.Controls.Add(this.cbFiltroAdminEmpleado);
+            this.panelBotones.Controls.Add(this.dpHoraFinal);
+            this.panelBotones.Controls.Add(this.dpHoraInicial);
+            this.panelBotones.Controls.Add(this.button1);
             this.panelBotones.Controls.Add(this.label2);
             this.panelBotones.Controls.Add(this.label1);
             this.panelBotones.Controls.Add(this.btnCrearVentaGlobal);
@@ -318,29 +322,29 @@
             this.cbFiltroAdminEmpleado.Items.AddRange(new object[] {
             "Administrador",
             "Todos"});
-            this.cbFiltroAdminEmpleado.Location = new System.Drawing.Point(251, 10);
+            this.cbFiltroAdminEmpleado.Location = new System.Drawing.Point(3, 5);
             this.cbFiltroAdminEmpleado.Name = "cbFiltroAdminEmpleado";
-            this.cbFiltroAdminEmpleado.Size = new System.Drawing.Size(185, 21);
+            this.cbFiltroAdminEmpleado.Size = new System.Drawing.Size(240, 21);
             this.cbFiltroAdminEmpleado.TabIndex = 15;
             this.cbFiltroAdminEmpleado.SelectedIndexChanged += new System.EventHandler(this.cbFiltroAdminEmpleado_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(590, 29);
+            this.label2.Location = new System.Drawing.Point(310, 35);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(59, 13);
+            this.label2.Size = new System.Drawing.Size(23, 13);
             this.label2.TabIndex = 14;
-            this.label2.Text = "Fecha final";
+            this.label2.Text = "AL:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(450, 29);
+            this.label1.Location = new System.Drawing.Point(306, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(64, 13);
+            this.label1.Size = new System.Drawing.Size(25, 13);
             this.label1.TabIndex = 13;
-            this.label1.Text = "Fecha incial";
+            this.label1.Text = "DE:";
             // 
             // btnCrearVentaGlobal
             // 
@@ -393,10 +397,10 @@
             // txtBuscador
             // 
             this.txtBuscador.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtBuscador.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscador.Location = new System.Drawing.Point(3, 45);
+            this.txtBuscador.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtBuscador.Location = new System.Drawing.Point(3, 59);
             this.txtBuscador.Name = "txtBuscador";
-            this.txtBuscador.Size = new System.Drawing.Size(375, 22);
+            this.txtBuscador.Size = new System.Drawing.Size(304, 21);
             this.txtBuscador.TabIndex = 9;
             this.txtBuscador.Text = "BUSCAR POR RFC, CLIENTE, EMPLEADO O FOLIO...";
             this.txtBuscador.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -420,22 +424,22 @@
             // 
             // dpFechaFinal
             // 
-            this.dpFechaFinal.CustomFormat = "yyyy-MM-dd HH:mm";
-            this.dpFechaFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dpFechaFinal.CustomFormat = "yyyy-MM-dd";
+            this.dpFechaFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dpFechaFinal.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dpFechaFinal.Location = new System.Drawing.Point(560, 44);
+            this.dpFechaFinal.Location = new System.Drawing.Point(334, 32);
             this.dpFechaFinal.Name = "dpFechaFinal";
-            this.dpFechaFinal.Size = new System.Drawing.Size(135, 22);
+            this.dpFechaFinal.Size = new System.Drawing.Size(101, 21);
             this.dpFechaFinal.TabIndex = 7;
             // 
             // dpFechaInicial
             // 
-            this.dpFechaInicial.CustomFormat = "yyyy-MM-dd HH:mm";
-            this.dpFechaInicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dpFechaInicial.CustomFormat = "yyyy-MM-dd";
+            this.dpFechaInicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dpFechaInicial.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dpFechaInicial.Location = new System.Drawing.Point(417, 45);
+            this.dpFechaInicial.Location = new System.Drawing.Point(334, 6);
             this.dpFechaInicial.Name = "dpFechaInicial";
-            this.dpFechaInicial.Size = new System.Drawing.Size(137, 22);
+            this.dpFechaInicial.Size = new System.Drawing.Size(101, 21);
             this.dpFechaInicial.TabIndex = 6;
             // 
             // btnNuevaVenta
@@ -465,13 +469,13 @@
             this.btnBuscarVentas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
             this.btnBuscarVentas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
             this.btnBuscarVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnBuscarVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscarVentas.ForeColor = System.Drawing.Color.White;
-            this.btnBuscarVentas.Location = new System.Drawing.Point(417, 72);
+            this.btnBuscarVentas.Location = new System.Drawing.Point(319, 59);
             this.btnBuscarVentas.Name = "btnBuscarVentas";
-            this.btnBuscarVentas.Size = new System.Drawing.Size(278, 24);
+            this.btnBuscarVentas.Size = new System.Drawing.Size(176, 21);
             this.btnBuscarVentas.TabIndex = 4;
-            this.btnBuscarVentas.Text = "Buscar";
+            this.btnBuscarVentas.Text = "BUSCAR";
             this.btnBuscarVentas.UseVisualStyleBackColor = false;
             this.btnBuscarVentas.Click += new System.EventHandler(this.btnBuscarVentas_Click);
             // 
@@ -483,7 +487,7 @@
             this.cbVentas.Items.AddRange(new object[] {
             "Todas las ventas",
             "Mis ventas"});
-            this.cbVentas.Location = new System.Drawing.Point(252, 10);
+            this.cbVentas.Location = new System.Drawing.Point(3, 5);
             this.cbVentas.Name = "cbVentas";
             this.cbVentas.Size = new System.Drawing.Size(156, 21);
             this.cbVentas.TabIndex = 0;
@@ -494,9 +498,9 @@
             this.cbTipoVentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTipoVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbTipoVentas.FormattingEnabled = true;
-            this.cbTipoVentas.Location = new System.Drawing.Point(3, 10);
+            this.cbTipoVentas.Location = new System.Drawing.Point(3, 32);
             this.cbTipoVentas.Name = "cbTipoVentas";
-            this.cbTipoVentas.Size = new System.Drawing.Size(243, 21);
+            this.cbTipoVentas.Size = new System.Drawing.Size(240, 21);
             this.cbTipoVentas.TabIndex = 1;
             this.cbTipoVentas.SelectedIndexChanged += new System.EventHandler(this.cbTipoVentas_SelectedIndexChanged);
             this.cbTipoVentas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbTipoVentas_KeyDown);
@@ -757,6 +761,28 @@
             this.chkHDAutlan.CheckedChanged += new System.EventHandler(this.chkHDAutlan_CheckedChanged);
             this.chkHDAutlan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkHDAutlan_MouseClick);
             // 
+            // dpHoraInicial
+            // 
+            this.dpHoraInicial.CustomFormat = "HH:mm";
+            this.dpHoraInicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dpHoraInicial.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dpHoraInicial.Location = new System.Drawing.Point(437, 6);
+            this.dpHoraInicial.Name = "dpHoraInicial";
+            this.dpHoraInicial.ShowUpDown = true;
+            this.dpHoraInicial.Size = new System.Drawing.Size(55, 21);
+            this.dpHoraInicial.TabIndex = 17;
+            // 
+            // dpHoraFinal
+            // 
+            this.dpHoraFinal.CustomFormat = "HH:mm";
+            this.dpHoraFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dpHoraFinal.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dpHoraFinal.Location = new System.Drawing.Point(437, 32);
+            this.dpHoraFinal.Name = "dpHoraFinal";
+            this.dpHoraFinal.ShowUpDown = true;
+            this.dpHoraFinal.Size = new System.Drawing.Size(55, 21);
+            this.dpHoraFinal.TabIndex = 18;
+            // 
             // ListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -848,5 +874,7 @@
         public System.Windows.Forms.ComboBox cbFiltroAdminEmpleado;
         private System.Windows.Forms.CheckBox chkHDAutlan;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DateTimePicker dpHoraInicial;
+        private System.Windows.Forms.DateTimePicker dpHoraFinal;
     }
 }
