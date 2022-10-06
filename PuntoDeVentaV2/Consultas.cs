@@ -3668,7 +3668,7 @@ namespace PuntoDeVentaV2
 
         public string AbonosCreditoDesdeUltimoCorteRealizadoTodos(string ultimaFechaDeCorte)
         {
-            var consulta = $"SELECT IF ( SUM( Abono.Efectivo ) IS NULL, 0, SUM( Abono.Efectivo ) ) AS 'Efectivo', IF ( SUM( Abono.Tarjeta ) IS NULL, 0, SUM( Abono.Tarjeta ) ) AS 'Tarjeta', IF ( SUM( Abono.Vales ) IS NULL, 0, SUM( Abono.Vales ) ) AS 'Vales', IF ( SUM( Abono.Cheque ) IS NULL, 0, SUM( Abono.Cheque ) ) AS 'Cheque', IF ( SUM( Abono.Transferencia ) IS NULL, 0, SUM( Abono.Transferencia ) ) AS 'Transferencia', ( IF ( SUM( Abono.Efectivo ) IS NULL, 0, SUM( Abono.Efectivo ) ) + IF ( SUM( Abono.Tarjeta ) IS NULL, 0, SUM( Abono.Tarjeta ) ) + IF ( SUM( Abono.Vales ) IS NULL, 0, SUM( Abono.Vales ) ) + IF ( SUM( Abono.Cheque ) IS NULL, 0, SUM( Abono.Cheque ) ) + IF ( SUM( Abono.Transferencia ) IS NULL, 0, SUM( Abono.Transferencia ) ) ) AS 'Total' FROM Abonos AS Abono INNER JOIN ventas AS Vent ON ( Vent.ID = Abono.IDVenta ) WHERE Abono.IDUsuario = '{FormPrincipal.userID}' AND Vent.`Status` = '4' AND Abono.FechaOperacion > '{ultimaFechaDeCorte}'";
+            var consulta = $"SELECT IF ( SUM(Abono.Efectivo) = '' OR SUM( Abono.Efectivo ) IS NULL, 0, SUM( Abono.Efectivo ) ) AS 'Efectivo', IF ( SUM(Abono.Tarjeta) = '' OR SUM( Abono.Tarjeta ) IS NULL, 0, SUM( Abono.Tarjeta ) ) AS 'Tarjeta', IF ( SUM(Abono.Vales) = '' OR SUM( Abono.Vales ) IS NULL, 0, SUM( Abono.Vales ) ) AS 'Vales', IF ( SUM(Abono.Cheque) = '' OR SUM( Abono.Cheque ) IS NULL, 0, SUM( Abono.Cheque ) ) AS 'Cheque', IF ( SUM(Abono.Transferencia) = '' OR SUM( Abono.Transferencia ) IS NULL, 0, SUM( Abono.Transferencia ) ) AS 'Transferencia', ( IF ( SUM(Abono.Efectivo) = '' OR SUM( Abono.Efectivo ) IS NULL, 0, SUM( Abono.Efectivo ) ) + IF ( SUM(Abono.Tarjeta) = '' OR SUM( Abono.Tarjeta ) IS NULL, 0, SUM( Abono.Tarjeta ) ) + IF ( SUM(Abono.Vales) = '' OR SUM( Abono.Vales ) IS NULL, 0, SUM( Abono.Vales ) ) + IF ( SUM(Abono.Cheque) = '' OR SUM( Abono.Cheque ) IS NULL, 0, SUM( Abono.Cheque ) ) + IF ( SUM(Abono.Transferencia) = '' OR SUM( Abono.Transferencia ) IS NULL, 0, SUM( Abono.Transferencia ) ) ) AS 'Total' FROM Abonos AS Abono INNER JOIN ventas AS Vent ON ( Vent.ID = Abono.IDVenta ) WHERE Abono.IDUsuario = '{FormPrincipal.userID}' AND Vent.`Status` = '4' AND Abono.FechaOperacion > '{ultimaFechaDeCorte}'";
 
             return consulta;
         }
@@ -4665,6 +4665,27 @@ namespace PuntoDeVentaV2
         public string agregarSaldosIniciales(int idHistorialCorteDeCaja, decimal[] cantidadesIniciales)
         {
             var consulta = $"UPDATE historialcortesdecaja SET SaldoInicialEfectivo = SaldoInicialEfectivo + '{cantidadesIniciales[0]}', SaldoInicialTarjeta = SaldoInicialTarjeta + '{cantidadesIniciales[1]}', SaldoInicialVales = SaldoInicialVales + '{cantidadesIniciales[2]}', SaldoInicialCheque = SaldoInicialCheque + '{cantidadesIniciales[3]}', SaldoInicialTransferencia = SaldoInicialTransferencia + '{cantidadesIniciales[4]}' WHERE ID = '{idHistorialCorteDeCaja}'";
+
+            return consulta;
+        }
+
+        public string CargarAbonosTodos(string losIDsDeEmpleados)
+        {
+            var consulta = $"( SELECT IDUsuario, IDEmpleado, IDCorteDeCaja AS 'IDCaja', FechaOperacion AS 'Fecha' FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' AND IDEmpleado = '0' GROUP BY IDUsuario DESC, IDEmpleado DESC, IDCorteDeCaja DESC ORDER BY IDCorteDeCaja DESC LIMIT 1 ) UNION ( SELECT IDUsuario, IDEmpleado, MAX( IDCorteDeCaja ) AS 'IDCaja', MAX( FechaOperacion ) AS 'Fecha' FROM historialcortesdecaja WHERE IDEmpleado IN ( { losIDsDeEmpleados } ) AND IDUsuario = '{FormPrincipal.userID}' GROUP BY IDEmpleado HAVING ( IDEmpleado ) ORDER BY IDEmpleado )";
+
+            return consulta;
+        }
+
+        public string CargarAbonosTodosAdministrador(string idUsuario, string fechaOperacion)
+        {
+            var consulta = $"SELECT MAX(Abono.ID) AS 'ID', IF(Abono.IDEmpleado = '' OR Abono.IDEmpleado IS NULL, '{idUsuario}', Abono.IDEmpleado) AS 'IDEmpleado', FORMAT( IF ( sum( Abono.Efectivo ) = '' OR sum( Abono.Efectivo ) IS NULL, '0', sum( Abono.Efectivo ) ), 2 ) AS 'Efectivo', FORMAT( IF ( sum( Abono.Tarjeta ) = '' OR sum( Abono.Tarjeta ) IS NULL, '0', sum( Abono.Tarjeta ) ), 2 ) AS 'Tarjeta', FORMAT( IF ( sum( Abono.Vales ) = '' OR sum( Abono.Vales ) IS NULL, '0', sum( Abono.Vales ) ), 2 ) AS 'Vales', FORMAT( IF ( sum( Abono.Cheque ) = '' OR sum( Abono.Cheque ) IS NULL, '0', sum( Abono.Cheque ) ), 2 ) AS 'Cheque', FORMAT( IF ( sum( Abono.Transferencia ) = '' OR sum( Abono.Transferencia ) IS NULL, '0', sum( Abono.Transferencia ) ), 2 ) AS 'Transferencia', FORMAT( ( ( IF ( sum( Abono.Efectivo ) = '' OR sum( Abono.Efectivo ) IS NULL, '0', sum( Abono.Efectivo ) ) ) + ( IF ( sum( Abono.Tarjeta ) = '' OR sum( Abono.Tarjeta ) IS NULL, '0', sum( Abono.Tarjeta ) ) ) + ( IF ( sum( Abono.Vales ) = '' OR sum( Abono.Vales ) IS NULL, '0', sum( Abono.Vales ) ) ) + ( IF ( sum( Abono.Cheque ) = '' OR sum( Abono.Cheque ) IS NULL, '0', sum( Abono.Cheque ) ) ) + ( IF ( sum( Abono.Transferencia ) = '' OR sum( Abono.Transferencia ) IS NULL, '0', sum( Abono.Transferencia ) ) ) ), 2 ) AS 'Total' FROM Abonos AS Abono INNER JOIN Ventas AS Vent ON ( Vent.ID = Abono.IDVenta ) WHERE Abono.IDVenta IN ( SELECT ID FROM abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IDEmpleado = '{idUsuario}' AND FechaOperacion > '{fechaOperacion}' ) AND Abono.IDEmpleado = '{idUsuario}'";
+
+            return consulta;
+        }
+
+        public string CargarAbonosTodosEmpleado(string idUsuario,string fechaOperacion)
+        {
+            var consulta = $"SELECT MAX(Abono.ID) AS 'ID', IF(Abono.IDEmpleado = '' OR Abono.IDEmpleado IS NULL, '{idUsuario}', Abono.IDEmpleado) AS 'IDEmpleado', FORMAT( IF ( sum( Abono.Efectivo ) = '' OR sum( Abono.Efectivo ) IS NULL, '0', sum( Abono.Efectivo ) ), 2 ) AS 'Efectivo', FORMAT( IF ( sum( Abono.Tarjeta ) = '' OR sum( Abono.Tarjeta ) IS NULL, '0', sum( Abono.Tarjeta ) ), 2 ) AS 'Tarjeta', FORMAT( IF ( sum( Abono.Vales ) = '' OR sum( Abono.Vales ) IS NULL, '0', sum( Abono.Vales ) ), 2 ) AS 'Vales', FORMAT( IF ( sum( Abono.Cheque ) = '' OR sum( Abono.Cheque ) IS NULL, '0', sum( Abono.Cheque ) ), 2 ) AS 'Cheque', FORMAT( IF ( sum( Abono.Transferencia ) = '' OR sum( Abono.Transferencia ) IS NULL, '0', sum( Abono.Transferencia ) ), 2 ) AS 'Transferencia', FORMAT( ( ( IF ( sum( Abono.Efectivo ) = '' OR sum( Abono.Efectivo ) IS NULL, '0', sum( Abono.Efectivo ) ) ) + ( IF ( sum( Abono.Tarjeta ) = '' OR sum( Abono.Tarjeta ) IS NULL, '0', sum( Abono.Tarjeta ) ) ) + ( IF ( sum( Abono.Vales ) = '' OR sum( Abono.Vales ) IS NULL, '0', sum( Abono.Vales ) ) ) + ( IF ( sum( Abono.Cheque ) = '' OR sum( Abono.Cheque ) IS NULL, '0', sum( Abono.Cheque ) ) ) + ( IF ( sum( Abono.Transferencia ) = '' OR sum( Abono.Transferencia ) IS NULL, '0', sum( Abono.Transferencia ) ) ) ), 2 ) AS 'Total' FROM Abonos AS Abono INNER JOIN Ventas AS Vent ON ( Vent.ID = Abono.IDVenta ) WHERE Abono.ID IN ( SELECT ID FROM abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IDEmpleado = '{idUsuario}' AND FechaOperacion > '{fechaOperacion}' )";
 
             return consulta;
         }
