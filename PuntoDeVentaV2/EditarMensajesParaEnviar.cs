@@ -33,6 +33,7 @@ namespace PuntoDeVentaV2
             var dato = MensajeVentasYMensajeInventario.enviarDato;
             if (dato == "mensajeVentas")
             {
+                bool activoInactivo = true;
                 if (Productos.dobleClickProducto == 1)
                 {
                     using (var datos = cn.CargarDatos(cs.mensajeVentas(Productos.idprodDobleClick)))
@@ -84,6 +85,25 @@ namespace PuntoDeVentaV2
                             cantidadDeCompra = "";
                         }
                     }
+                }
+
+                if (Productos.copiarMensajesProd.Equals(1))
+                {
+                    mensaje = Productos.copMensajeVent[0];
+                    cantidadDeCompra = Productos.copMensajeVent[2];
+                    if (Productos.copMensajeVent[1].ToString().Equals("True"))
+                    {
+                        activoInactivo = true;
+                    }
+                    else
+                    {
+                        activoInactivo = false;
+                    }
+
+                }
+                else
+                {
+                    mensaje = "";
                 }
                
 
@@ -147,7 +167,7 @@ namespace PuntoDeVentaV2
                 CheckBox chkMostrarMensaje = new CheckBox();
                 chkMostrarMensaje.Text = "Mostrar Mensaje";
                 chkMostrarMensaje.Name = "chkMostrarMensajeVenta";
-                chkMostrarMensaje.Checked = true;
+                chkMostrarMensaje.Checked = activoInactivo;
                 chkMostrarMensaje.AutoCheck = true;
                 chkMostrarMensaje.Location = new Point(190, 3);
                 chkMostrarMensaje.CheckedChanged += new EventHandler(cbxN_CheckedChanged);
@@ -206,6 +226,7 @@ namespace PuntoDeVentaV2
             }
             else if (dato == "mensajeInventario") //EN caso de dar en el boton mensaje inventario--------------------//Panel para el nombre del producto a modificar
             {
+                bool activoInactivo = true;
                 if (Productos.dobleClickProducto == 1)
                 {
                     using (var datos = cn.CargarDatos(cs.mensajeInventario(Productos.idprodDobleClick)))
@@ -226,8 +247,26 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-
                 
+                if (Productos.copiarMensajesProd.Equals(1))
+                {
+                    mensaje = Productos.copMensajeInv[0];
+                    if (Productos.copMensajeInv[1].ToString().Equals("1"))
+                    {
+                        activoInactivo = true;
+                    }
+                    else
+                    {
+                        activoInactivo = false;
+                    }
+
+                }
+                else
+                {
+                    mensaje = "";
+                }
+
+
                 this.Height = 251;
 
                 FlowLayoutPanel flpDatos = new FlowLayoutPanel();
@@ -280,6 +319,7 @@ namespace PuntoDeVentaV2
                 chkMostrarMensaje.Text = "Mostrar Mensaje";
                 chkMostrarMensaje.Name = "chkMostrarMensajeInventario";
                 chkMostrarMensaje.Location = new Point(190, 3);
+                chkMostrarMensaje.Checked = activoInactivo;
                 chkMostrarMensaje.CheckedChanged += new EventHandler(chkEstado_CheckedChanged);
 
                 panelMensaje.Controls.Add(chkMostrarMensaje);
