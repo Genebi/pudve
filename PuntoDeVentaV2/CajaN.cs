@@ -446,15 +446,23 @@ namespace PuntoDeVentaV2
                     {
                         if (!dtCargarAbonosTodos.Rows.Count.Equals(0))
                         {
+                            var idEmpleado = string.Empty;
+                            var fechaUltimaDeCorteConFormatoUSA = string.Empty;
+
                             foreach (DataRow item in dtCargarAbonosTodos.Rows)
                             {
-                                if (item["IDEmpleado"].ToString().Equals("0"))
+                                idEmpleado = item["IDEmpleado"].ToString();
+                                
+                                DateTime fechaUltimaCorte = Convert.ToDateTime(item["Fecha"].ToString());
+                                fechaUltimaDeCorteConFormatoUSA = fechaUltimaCorte.ToString("yyyy-MM-dd HH:mm:ss");
+
+                                if (idEmpleado.Equals("0"))
                                 {
-                                    QuerysDeTodosLosTotalesAbonos.Add($"({cs.CargarAbonosTodosAdministrador(item["IDEmpleado"].ToString(), item["Fecha"].ToString())})");
+                                    QuerysDeTodosLosTotalesAbonos.Add($"({cs.CargarAbonosTodosAdministrador(idEmpleado, fechaUltimaDeCorteConFormatoUSA)})");
                                 }
-                                else if (!item["IDEmpleado"].ToString().Equals("0"))
+                                else if (!idEmpleado.Equals("0"))
                                 {
-                                    QuerysDeTodosLosTotalesAbonos.Add($"({cs.CargarAbonosTodosEmpleado(item["IDEmpleado"].ToString(), item["Fecha"].ToString())})");
+                                    QuerysDeTodosLosTotalesAbonos.Add($"({cs.CargarAbonosTodosEmpleado(idEmpleado, fechaUltimaDeCorteConFormatoUSA)})");
                                 }
                             }
 
