@@ -376,6 +376,8 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("PathLogo", path));
             //18 parametro string para mostrar / ocultar Codigo de Barras
             reportParameters.Add(new ReportParameter("PathBarCode", pathBarCodeFull));
+            //19 parametro integer para mostrar / ocultar Referencia
+            reportParameters.Add(new ReportParameter("Referencia", Referencia.ToString()));
 
             LocalReport rdlc = new LocalReport();
             rdlc.EnableExternalImages = true;
