@@ -299,7 +299,7 @@ namespace PuntoDeVentaV2
 
             if (tipoImpresion.Equals(5))
             {
-                nombreXSD = "TicketVentaGlobal";
+                nombreXSD = "DTTicketVentaGlobal";
             }
 
             ReportDataSource rp = new ReportDataSource(nombreXSD, presupuestoDT);
