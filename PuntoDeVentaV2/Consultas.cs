@@ -4696,5 +4696,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string AbonosRealizadosDeOtrosUsuariosAMisVentasACredito(string fechaOperacion)
+        {
+            var consulta = $"SELECT * FROM abonos AS Abono WHERE Abono.ID > ( SELECT ID FROM abonos WHERE IDVenta = ( SELECT ID FROM ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND IDEmpleado = '0' AND `Status` = '4' AND FechaOperacion > '{fechaOperacion}' ) AND IDEmpleado = '0' LIMIT 1 ) AND Abono.IDUsuario = '{FormPrincipal.userID}' AND Abono.IDEmpleado != '0'";
+
+            return consulta;
+        }
     }
 }   

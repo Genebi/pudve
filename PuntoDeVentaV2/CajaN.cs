@@ -406,10 +406,10 @@ namespace PuntoDeVentaV2
                                         totalAbonoTransferencia += Convert.ToDecimal(item["Transferencia"].ToString());
                                         AbonosAMisVentasACredito += Convert.ToDecimal(item["Total"].ToString());
                                     }
-                                    else
-                                    {
-                                        AbonosAMisVentasACreditoDeOtrosUsuarios += Convert.ToDecimal(item["Total"].ToString());
-                                    }
+                                    //else
+                                    //{
+                                    //    AbonosAMisVentasACreditoDeOtrosUsuarios += Convert.ToDecimal(item["Total"].ToString());
+                                    //}
                                 }
                             }
                             else
@@ -433,6 +433,17 @@ namespace PuntoDeVentaV2
                                     totalAbonoCheque += Convert.ToDecimal(item["Cheque"].ToString());
                                     totalAbonoTransferencia += Convert.ToDecimal(item["Transferencia"].ToString());
                                     AbonosAMisVentasACredito += Convert.ToDecimal(item["Total"].ToString());
+                                }
+                            }
+                        }
+
+                        using (DataTable dtAbonosDesdeOtrosUsuarios = cn.CargarDatos(cs.AbonosRealizadosDeOtrosUsuariosAMisVentasACredito(fechaFormateadaCorteParaAbonos)))
+                        {
+                            if (!dtAbonosDesdeOtrosUsuarios.Rows.Count.Equals(0))
+                            {
+                                foreach (DataRow item in dtAbonosDesdeOtrosUsuarios.Rows)
+                                {
+                                    AbonosAMisVentasACreditoDeOtrosUsuarios += Convert.ToDecimal(item["Total"].ToString());
                                 }
                             }
                         }
@@ -7562,7 +7573,7 @@ namespace PuntoDeVentaV2
                             lbTCredito.Text = (cantidadCredito - AbonosAMisVentasACredito - AbonosAMisVentasACreditoDeOtrosUsuarios).ToString("C2");
                             lbTCreditoC.Text = (totalAbonoRealizado).ToString("C2");
                             lbTAnticipos.Text = cantidadAnticipos.ToString("C2");
-                            lbTVentas.Text = (cantidadEfectivo + cantidadTarjeta + cantidadVales + cantidadCheque + cantidadTransferencia + cantidadCredito + totalAbonoRealizado).ToString("C2");
+                            lbTVentas.Text = (cantidadEfectivo + cantidadTarjeta + cantidadVales + cantidadCheque + cantidadTransferencia + (cantidadCredito - (AbonosAMisVentasACredito + AbonosAMisVentasACreditoDeOtrosUsuarios)) + totalAbonoRealizado).ToString("C2");
                         }
                     }
                 }
