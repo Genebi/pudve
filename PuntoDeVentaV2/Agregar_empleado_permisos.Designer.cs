@@ -63,12 +63,25 @@
             this.cboBascula = new System.Windows.Forms.CheckBox();
             this.chkPrecio = new System.Windows.Forms.CheckBox();
             this.cboxConsultaP = new System.Windows.Forms.CheckBox();
+            this.btnPlantilla = new System.Windows.Forms.Button();
+            this.DGVPlantillas = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Seleccionar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Eliminar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ComboHabilittados = new System.Windows.Forms.ComboBox();
+            this.dDGVDeshabilitados = new System.Windows.Forms.DataGridView();
+            this.IDDeshabilitado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NombreDesha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ImagenDesha = new System.Windows.Forms.DataGridViewImageColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVPlantillas)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dDGVDeshabilitados)).BeginInit();
             this.SuspendLayout();
             // 
             // cbox_anticipos
             // 
             this.cbox_anticipos.AutoSize = true;
-            this.cbox_anticipos.Location = new System.Drawing.Point(34, 41);
+            this.cbox_anticipos.Location = new System.Drawing.Point(371, 39);
             this.cbox_anticipos.Name = "cbox_anticipos";
             this.cbox_anticipos.Size = new System.Drawing.Size(75, 19);
             this.cbox_anticipos.TabIndex = 1;
@@ -78,7 +91,7 @@
             // cbox_caja
             // 
             this.cbox_caja.AutoSize = true;
-            this.cbox_caja.Location = new System.Drawing.Point(176, 41);
+            this.cbox_caja.Location = new System.Drawing.Point(513, 39);
             this.cbox_caja.Name = "cbox_caja";
             this.cbox_caja.Size = new System.Drawing.Size(51, 19);
             this.cbox_caja.TabIndex = 2;
@@ -88,7 +101,7 @@
             // cbox_clientes
             // 
             this.cbox_clientes.AutoSize = true;
-            this.cbox_clientes.Location = new System.Drawing.Point(308, 41);
+            this.cbox_clientes.Location = new System.Drawing.Point(645, 39);
             this.cbox_clientes.Name = "cbox_clientes";
             this.cbox_clientes.Size = new System.Drawing.Size(70, 19);
             this.cbox_clientes.TabIndex = 3;
@@ -98,7 +111,7 @@
             // cbox_configuracion
             // 
             this.cbox_configuracion.AutoSize = true;
-            this.cbox_configuracion.Location = new System.Drawing.Point(34, 84);
+            this.cbox_configuracion.Location = new System.Drawing.Point(371, 82);
             this.cbox_configuracion.Name = "cbox_configuracion";
             this.cbox_configuracion.Size = new System.Drawing.Size(102, 19);
             this.cbox_configuracion.TabIndex = 4;
@@ -108,7 +121,7 @@
             // cbox_empleados
             // 
             this.cbox_empleados.AutoSize = true;
-            this.cbox_empleados.Location = new System.Drawing.Point(176, 84);
+            this.cbox_empleados.Location = new System.Drawing.Point(513, 82);
             this.cbox_empleados.Name = "cbox_empleados";
             this.cbox_empleados.Size = new System.Drawing.Size(89, 19);
             this.cbox_empleados.TabIndex = 5;
@@ -118,7 +131,7 @@
             // cbox_empresas
             // 
             this.cbox_empresas.AutoSize = true;
-            this.cbox_empresas.Location = new System.Drawing.Point(176, 213);
+            this.cbox_empresas.Location = new System.Drawing.Point(513, 211);
             this.cbox_empresas.Name = "cbox_empresas";
             this.cbox_empresas.Size = new System.Drawing.Size(82, 19);
             this.cbox_empresas.TabIndex = 6;
@@ -129,7 +142,7 @@
             // cbox_facturas
             // 
             this.cbox_facturas.AutoSize = true;
-            this.cbox_facturas.Location = new System.Drawing.Point(34, 128);
+            this.cbox_facturas.Location = new System.Drawing.Point(371, 126);
             this.cbox_facturas.Name = "cbox_facturas";
             this.cbox_facturas.Size = new System.Drawing.Size(73, 19);
             this.cbox_facturas.TabIndex = 7;
@@ -139,7 +152,7 @@
             // cbox_inventario
             // 
             this.cbox_inventario.AutoSize = true;
-            this.cbox_inventario.Location = new System.Drawing.Point(176, 128);
+            this.cbox_inventario.Location = new System.Drawing.Point(513, 126);
             this.cbox_inventario.Name = "cbox_inventario";
             this.cbox_inventario.Size = new System.Drawing.Size(79, 19);
             this.cbox_inventario.TabIndex = 8;
@@ -149,7 +162,7 @@
             // cbox_misdatos
             // 
             this.cbox_misdatos.AutoSize = true;
-            this.cbox_misdatos.Location = new System.Drawing.Point(308, 128);
+            this.cbox_misdatos.Location = new System.Drawing.Point(645, 126);
             this.cbox_misdatos.Name = "cbox_misdatos";
             this.cbox_misdatos.Size = new System.Drawing.Size(79, 19);
             this.cbox_misdatos.TabIndex = 9;
@@ -159,7 +172,7 @@
             // cbox_productos
             // 
             this.cbox_productos.AutoSize = true;
-            this.cbox_productos.Location = new System.Drawing.Point(34, 173);
+            this.cbox_productos.Location = new System.Drawing.Point(371, 171);
             this.cbox_productos.Name = "cbox_productos";
             this.cbox_productos.Size = new System.Drawing.Size(81, 19);
             this.cbox_productos.TabIndex = 10;
@@ -169,7 +182,7 @@
             // cbox_proveedores
             // 
             this.cbox_proveedores.AutoSize = true;
-            this.cbox_proveedores.Location = new System.Drawing.Point(176, 173);
+            this.cbox_proveedores.Location = new System.Drawing.Point(513, 171);
             this.cbox_proveedores.Name = "cbox_proveedores";
             this.cbox_proveedores.Size = new System.Drawing.Size(95, 19);
             this.cbox_proveedores.TabIndex = 11;
@@ -179,7 +192,7 @@
             // cbox_reportes
             // 
             this.cbox_reportes.AutoSize = true;
-            this.cbox_reportes.Location = new System.Drawing.Point(308, 173);
+            this.cbox_reportes.Location = new System.Drawing.Point(645, 171);
             this.cbox_reportes.Name = "cbox_reportes";
             this.cbox_reportes.Size = new System.Drawing.Size(76, 19);
             this.cbox_reportes.TabIndex = 12;
@@ -189,7 +202,7 @@
             // cbox_ventas
             // 
             this.cbox_ventas.AutoSize = true;
-            this.cbox_ventas.Location = new System.Drawing.Point(34, 215);
+            this.cbox_ventas.Location = new System.Drawing.Point(371, 213);
             this.cbox_ventas.Name = "cbox_ventas";
             this.cbox_ventas.Size = new System.Drawing.Size(63, 19);
             this.cbox_ventas.TabIndex = 14;
@@ -204,7 +217,7 @@
             this.btn_aceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_aceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_aceptar.ForeColor = System.Drawing.Color.White;
-            this.btn_aceptar.Location = new System.Drawing.Point(217, 267);
+            this.btn_aceptar.Location = new System.Drawing.Point(469, 267);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(119, 30);
             this.btn_aceptar.TabIndex = 15;
@@ -220,7 +233,7 @@
             this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar.Location = new System.Drawing.Point(51, 267);
+            this.btn_cancelar.Location = new System.Drawing.Point(338, 267);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(119, 30);
             this.btn_cancelar.TabIndex = 16;
@@ -232,7 +245,7 @@
             // 
             this.btnCaja.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCaja.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnCaja.Location = new System.Drawing.Point(150, 40);
+            this.btnCaja.Location = new System.Drawing.Point(487, 38);
             this.btnCaja.Name = "btnCaja";
             this.btnCaja.Size = new System.Drawing.Size(20, 20);
             this.btnCaja.TabIndex = 17;
@@ -243,7 +256,7 @@
             // 
             this.btnAnticipos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAnticipos.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnAnticipos.Location = new System.Drawing.Point(8, 40);
+            this.btnAnticipos.Location = new System.Drawing.Point(345, 38);
             this.btnAnticipos.Name = "btnAnticipos";
             this.btnAnticipos.Size = new System.Drawing.Size(20, 20);
             this.btnAnticipos.TabIndex = 18;
@@ -254,7 +267,7 @@
             // 
             this.btnClientes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnClientes.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnClientes.Location = new System.Drawing.Point(282, 40);
+            this.btnClientes.Location = new System.Drawing.Point(619, 38);
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Size = new System.Drawing.Size(20, 20);
             this.btnClientes.TabIndex = 19;
@@ -265,7 +278,7 @@
             // 
             this.btnConfig.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnConfig.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnConfig.Location = new System.Drawing.Point(8, 83);
+            this.btnConfig.Location = new System.Drawing.Point(345, 81);
             this.btnConfig.Name = "btnConfig";
             this.btnConfig.Size = new System.Drawing.Size(20, 20);
             this.btnConfig.TabIndex = 20;
@@ -276,7 +289,7 @@
             // 
             this.btnFacturas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnFacturas.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnFacturas.Location = new System.Drawing.Point(8, 127);
+            this.btnFacturas.Location = new System.Drawing.Point(345, 125);
             this.btnFacturas.Name = "btnFacturas";
             this.btnFacturas.Size = new System.Drawing.Size(20, 20);
             this.btnFacturas.TabIndex = 21;
@@ -287,7 +300,7 @@
             // 
             this.btnProductos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnProductos.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnProductos.Location = new System.Drawing.Point(8, 172);
+            this.btnProductos.Location = new System.Drawing.Point(345, 170);
             this.btnProductos.Name = "btnProductos";
             this.btnProductos.Size = new System.Drawing.Size(20, 20);
             this.btnProductos.TabIndex = 22;
@@ -298,7 +311,7 @@
             // 
             this.btnEmpleados.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEmpleados.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnEmpleados.Location = new System.Drawing.Point(150, 83);
+            this.btnEmpleados.Location = new System.Drawing.Point(487, 81);
             this.btnEmpleados.Name = "btnEmpleados";
             this.btnEmpleados.Size = new System.Drawing.Size(20, 20);
             this.btnEmpleados.TabIndex = 24;
@@ -309,7 +322,7 @@
             // 
             this.btnInventario.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnInventario.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnInventario.Location = new System.Drawing.Point(150, 127);
+            this.btnInventario.Location = new System.Drawing.Point(487, 125);
             this.btnInventario.Name = "btnInventario";
             this.btnInventario.Size = new System.Drawing.Size(20, 20);
             this.btnInventario.TabIndex = 25;
@@ -320,7 +333,7 @@
             // 
             this.btnProveedores.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnProveedores.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnProveedores.Location = new System.Drawing.Point(150, 172);
+            this.btnProveedores.Location = new System.Drawing.Point(487, 170);
             this.btnProveedores.Name = "btnProveedores";
             this.btnProveedores.Size = new System.Drawing.Size(20, 20);
             this.btnProveedores.TabIndex = 26;
@@ -331,7 +344,7 @@
             // 
             this.btnVentas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnVentas.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnVentas.Location = new System.Drawing.Point(8, 214);
+            this.btnVentas.Location = new System.Drawing.Point(345, 212);
             this.btnVentas.Name = "btnVentas";
             this.btnVentas.Size = new System.Drawing.Size(20, 20);
             this.btnVentas.TabIndex = 27;
@@ -342,7 +355,7 @@
             // 
             this.button11.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button11.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.button11.Location = new System.Drawing.Point(150, 212);
+            this.button11.Location = new System.Drawing.Point(487, 210);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(20, 20);
             this.button11.TabIndex = 28;
@@ -353,7 +366,7 @@
             // 
             this.btnMisDatos.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMisDatos.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnMisDatos.Location = new System.Drawing.Point(282, 127);
+            this.btnMisDatos.Location = new System.Drawing.Point(619, 125);
             this.btnMisDatos.Name = "btnMisDatos";
             this.btnMisDatos.Size = new System.Drawing.Size(20, 20);
             this.btnMisDatos.TabIndex = 29;
@@ -364,7 +377,7 @@
             // 
             this.btnReportes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnReportes.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnReportes.Location = new System.Drawing.Point(282, 172);
+            this.btnReportes.Location = new System.Drawing.Point(619, 170);
             this.btnReportes.Name = "btnReportes";
             this.btnReportes.Size = new System.Drawing.Size(20, 20);
             this.btnReportes.TabIndex = 30;
@@ -376,9 +389,9 @@
             this.primerSeparador.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.primerSeparador.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.primerSeparador.Location = new System.Drawing.Point(18, 243);
+            this.primerSeparador.Location = new System.Drawing.Point(356, 245);
             this.primerSeparador.Name = "primerSeparador";
-            this.primerSeparador.Size = new System.Drawing.Size(360, 2);
+            this.primerSeparador.Size = new System.Drawing.Size(350, 2);
             this.primerSeparador.TabIndex = 115;
             this.primerSeparador.Text = "REPORTES";
             this.primerSeparador.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -386,7 +399,7 @@
             // chkMarcarDesmarcar
             // 
             this.chkMarcarDesmarcar.AutoSize = true;
-            this.chkMarcarDesmarcar.Location = new System.Drawing.Point(8, 12);
+            this.chkMarcarDesmarcar.Location = new System.Drawing.Point(469, 12);
             this.chkMarcarDesmarcar.Name = "chkMarcarDesmarcar";
             this.chkMarcarDesmarcar.Size = new System.Drawing.Size(98, 19);
             this.chkMarcarDesmarcar.TabIndex = 116;
@@ -398,7 +411,7 @@
             // 
             this.btnBascula.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnBascula.Image = global::PuntoDeVentaV2.Properties.Resources.gear;
-            this.btnBascula.Location = new System.Drawing.Point(282, 83);
+            this.btnBascula.Location = new System.Drawing.Point(619, 81);
             this.btnBascula.Name = "btnBascula";
             this.btnBascula.Size = new System.Drawing.Size(20, 20);
             this.btnBascula.TabIndex = 118;
@@ -408,7 +421,7 @@
             // cboBascula
             // 
             this.cboBascula.AutoSize = true;
-            this.cboBascula.Location = new System.Drawing.Point(308, 84);
+            this.cboBascula.Location = new System.Drawing.Point(645, 82);
             this.cboBascula.Name = "cboBascula";
             this.cboBascula.Size = new System.Drawing.Size(70, 19);
             this.cboBascula.TabIndex = 117;
@@ -418,7 +431,7 @@
             // chkPrecio
             // 
             this.chkPrecio.AutoSize = true;
-            this.chkPrecio.Location = new System.Drawing.Point(176, 214);
+            this.chkPrecio.Location = new System.Drawing.Point(513, 212);
             this.chkPrecio.Name = "chkPrecio";
             this.chkPrecio.Size = new System.Drawing.Size(113, 19);
             this.chkPrecio.TabIndex = 119;
@@ -428,18 +441,149 @@
             // 
             // cboxConsultaP
             // 
-            this.cboxConsultaP.Location = new System.Drawing.Point(308, 203);
+            this.cboxConsultaP.Location = new System.Drawing.Point(645, 201);
             this.cboxConsultaP.Name = "cboxConsultaP";
             this.cboxConsultaP.Size = new System.Drawing.Size(102, 41);
             this.cboxConsultaP.TabIndex = 120;
             this.cboxConsultaP.Text = "Consutar Precios";
             this.cboxConsultaP.UseVisualStyleBackColor = true;
             // 
+            // btnPlantilla
+            // 
+            this.btnPlantilla.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnPlantilla.BackColor = System.Drawing.Color.RoyalBlue;
+            this.btnPlantilla.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPlantilla.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlantilla.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPlantilla.ForeColor = System.Drawing.Color.White;
+            this.btnPlantilla.Location = new System.Drawing.Point(596, 267);
+            this.btnPlantilla.Name = "btnPlantilla";
+            this.btnPlantilla.Size = new System.Drawing.Size(119, 30);
+            this.btnPlantilla.TabIndex = 121;
+            this.btnPlantilla.Text = "Guardar Plantilla";
+            this.btnPlantilla.UseVisualStyleBackColor = false;
+            this.btnPlantilla.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // DGVPlantillas
+            // 
+            this.DGVPlantillas.AllowUserToAddRows = false;
+            this.DGVPlantillas.AllowUserToDeleteRows = false;
+            this.DGVPlantillas.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVPlantillas.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.DGVPlantillas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVPlantillas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID,
+            this.Nombre,
+            this.Seleccionar,
+            this.Eliminar});
+            this.DGVPlantillas.Location = new System.Drawing.Point(11, 28);
+            this.DGVPlantillas.Margin = new System.Windows.Forms.Padding(1, 8, 3, 0);
+            this.DGVPlantillas.Name = "DGVPlantillas";
+            this.DGVPlantillas.ReadOnly = true;
+            this.DGVPlantillas.RowHeadersVisible = false;
+            this.DGVPlantillas.Size = new System.Drawing.Size(318, 274);
+            this.DGVPlantillas.TabIndex = 122;
+            this.DGVPlantillas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVPlantillas_CellClick);
+            // 
+            // ID
+            // 
+            this.ID.FillWeight = 54.72959F;
+            this.ID.HeaderText = "No.";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            // 
+            // Nombre
+            // 
+            this.Nombre.FillWeight = 258.2662F;
+            this.Nombre.HeaderText = "Plantillas";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            // 
+            // Seleccionar
+            // 
+            this.Seleccionar.FillWeight = 46.39511F;
+            this.Seleccionar.HeaderText = "";
+            this.Seleccionar.Name = "Seleccionar";
+            this.Seleccionar.ReadOnly = true;
+            this.Seleccionar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Seleccionar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Eliminar
+            // 
+            this.Eliminar.FillWeight = 40.60914F;
+            this.Eliminar.HeaderText = "";
+            this.Eliminar.Name = "Eliminar";
+            this.Eliminar.ReadOnly = true;
+            this.Eliminar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Eliminar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // ComboHabilittados
+            // 
+            this.ComboHabilittados.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComboHabilittados.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ComboHabilittados.FormattingEnabled = true;
+            this.ComboHabilittados.Items.AddRange(new object[] {
+            "Habilitados",
+            "Deshabilitados"});
+            this.ComboHabilittados.Location = new System.Drawing.Point(11, 3);
+            this.ComboHabilittados.Name = "ComboHabilittados";
+            this.ComboHabilittados.Size = new System.Drawing.Size(191, 23);
+            this.ComboHabilittados.TabIndex = 123;
+            this.ComboHabilittados.SelectedIndexChanged += new System.EventHandler(this.ComboHabilittados_SelectedIndexChanged);
+            // 
+            // dDGVDeshabilitados
+            // 
+            this.dDGVDeshabilitados.AllowUserToAddRows = false;
+            this.dDGVDeshabilitados.AllowUserToDeleteRows = false;
+            this.dDGVDeshabilitados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dDGVDeshabilitados.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dDGVDeshabilitados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dDGVDeshabilitados.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.IDDeshabilitado,
+            this.NombreDesha,
+            this.ImagenDesha});
+            this.dDGVDeshabilitados.Location = new System.Drawing.Point(10, 28);
+            this.dDGVDeshabilitados.Margin = new System.Windows.Forms.Padding(1, 8, 3, 0);
+            this.dDGVDeshabilitados.Name = "dDGVDeshabilitados";
+            this.dDGVDeshabilitados.ReadOnly = true;
+            this.dDGVDeshabilitados.RowHeadersVisible = false;
+            this.dDGVDeshabilitados.Size = new System.Drawing.Size(318, 274);
+            this.dDGVDeshabilitados.TabIndex = 124;
+            this.dDGVDeshabilitados.Visible = false;
+            this.dDGVDeshabilitados.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dDGVDeshabilitados_CellClick);
+            // 
+            // IDDeshabilitado
+            // 
+            this.IDDeshabilitado.FillWeight = 54.72959F;
+            this.IDDeshabilitado.HeaderText = "No.";
+            this.IDDeshabilitado.Name = "IDDeshabilitado";
+            this.IDDeshabilitado.ReadOnly = true;
+            // 
+            // NombreDesha
+            // 
+            this.NombreDesha.FillWeight = 258.2662F;
+            this.NombreDesha.HeaderText = "Plantillas";
+            this.NombreDesha.Name = "NombreDesha";
+            this.NombreDesha.ReadOnly = true;
+            // 
+            // ImagenDesha
+            // 
+            this.ImagenDesha.FillWeight = 46.39511F;
+            this.ImagenDesha.HeaderText = "";
+            this.ImagenDesha.Name = "ImagenDesha";
+            this.ImagenDesha.ReadOnly = true;
+            this.ImagenDesha.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ImagenDesha.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
             // Agregar_empleado_permisos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(397, 311);
+            this.ClientSize = new System.Drawing.Size(723, 311);
+            this.Controls.Add(this.dDGVDeshabilitados);
+            this.Controls.Add(this.ComboHabilittados);
+            this.Controls.Add(this.DGVPlantillas);
+            this.Controls.Add(this.btnPlantilla);
             this.Controls.Add(this.chkPrecio);
             this.Controls.Add(this.btnBascula);
             this.Controls.Add(this.cboBascula);
@@ -484,8 +628,11 @@
             this.Name = "Agregar_empleado_permisos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Asignar/ajustar permisos";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Agregar_empleado_permisos_FormClosing);
             this.Load += new System.EventHandler(this.cargar_datos);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Agregar_empleado_permisos_KeyDown);
+            ((System.ComponentModel.ISupportInitialize)(this.DGVPlantillas)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dDGVDeshabilitados)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -526,5 +673,16 @@
         private System.Windows.Forms.CheckBox cboBascula;
         private System.Windows.Forms.CheckBox chkPrecio;
         private System.Windows.Forms.CheckBox cboxConsultaP;
+        private System.Windows.Forms.Button btnPlantilla;
+        private System.Windows.Forms.DataGridView DGVPlantillas;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
+        private System.Windows.Forms.DataGridViewImageColumn Seleccionar;
+        private System.Windows.Forms.DataGridViewImageColumn Eliminar;
+        private System.Windows.Forms.ComboBox ComboHabilittados;
+        private System.Windows.Forms.DataGridView dDGVDeshabilitados;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDDeshabilitado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NombreDesha;
+        private System.Windows.Forms.DataGridViewImageColumn ImagenDesha;
     }
 }
