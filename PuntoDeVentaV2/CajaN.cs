@@ -449,6 +449,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
+                        lbCambioAbonos.Visible = false;
                         limpirVariablesDeAbonos();
                     }
                 }
@@ -508,6 +509,8 @@ namespace PuntoDeVentaV2
                                     if (!dtUnionQuerysTodosLosTotales.Rows.Count.Equals(0))
                                     {
                                         limpirVariablesDeAbonos();
+
+                                        lbCambioAbonos.Visible = true;
 
                                         foreach (DataRow item in dtUnionQuerysTodosLosTotales.Rows)
                                         {
@@ -571,11 +574,13 @@ namespace PuntoDeVentaV2
 
                         limpirVariablesDeAbonos();
 
+                        lbCambioAbonos.Visible = true;
+
                         using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoEmpleado(idUsuarioEmpleado, fechaFormateadaCorteParaAbonos)))
                         {
                             if (!dtAbonos.Rows.Count.Equals(0))
                             {
-                                lbCambioAbonos.Visible = true;
+                                //lbCambioAbonos.Visible = true;
                                 foreach (DataRow item in dtAbonos.Rows)
                                 {
                                     var idEmpleadoRecibioAbonoACredito = item["IDEmpleado"].ToString();
@@ -599,15 +604,15 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                lbCambioAbonos.Visible = false;
-                                lbTCreditoC.Text = (totalAbonoRealizado /*+ totalAbonoRealizadoDeOtrosUsuarios*/ + totalAbonoRealizadoOtrasVentas).ToString("C2");
+                                //lbCambioAbonos.Visible = false;
+                                lbTCreditoC.Text = (totalAbonoRealizado + totalAbonoRealizadoOtrasVentas).ToString("C2");
                             }
                         }
                         using (DataTable dtAbonosDeOtrosUsuarios = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoDesdeOtrosUsuarios(idUsuarioEmpleado, fechaFormateadaCorteParaAbonos)))
                         {
                             if (!dtAbonosDeOtrosUsuarios.Rows.Count.Equals(0))
                             {
-                                lbCambioAbonos.Visible = true;
+                                //lbCambioAbonos.Visible = true;
                                 foreach (DataRow item in dtAbonosDeOtrosUsuarios.Rows)
                                 {
                                     totalAbonoEfectivo += Convert.ToDecimal(item["Efectivo"].ToString());
@@ -621,10 +626,14 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                lbCambioAbonos.Visible = false;
+                                //lbCambioAbonos.Visible = false;
                                 lbTCreditoC.Text = (totalAbonoRealizado + totalAbonoRealizadoDeOtrosUsuarios + totalAbonoRealizadoOtrasVentas).ToString("C2");
                             }
                         }
+                    }
+                    else
+                    {
+                        lbCambioAbonos.Visible = false;
                     }
                 }
             }
