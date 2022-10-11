@@ -440,7 +440,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Empleados";
-            this.Text = "Empleados";
+            this.Text = "S";
             this.Load += new System.EventHandler(this.cargar_empleados);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Empleados_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_empleados)).EndInit();

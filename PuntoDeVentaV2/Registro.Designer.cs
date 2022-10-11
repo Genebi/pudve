@@ -51,6 +51,7 @@
             this.txtMensajeError = new System.Windows.Forms.Label();
             this.txtTelefono = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.BtnOJO = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -292,7 +293,6 @@
             this.txtTelefono.ShortcutsEnabled = false;
             this.txtTelefono.Size = new System.Drawing.Size(217, 23);
             this.txtTelefono.TabIndex = 12;
-            
             this.txtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefono_KeyPress);
             // 
             // label14
@@ -307,11 +307,22 @@
             this.label14.Text = "[Ejemplo: ABARROTES2021]";
             this.label14.Visible = false;
             // 
+            // BtnOJO
+            // 
+            this.BtnOJO.Image = ((System.Drawing.Image)(resources.GetObject("BtnOJO.Image")));
+            this.BtnOJO.Location = new System.Drawing.Point(343, 139);
+            this.BtnOJO.Name = "BtnOJO";
+            this.BtnOJO.Size = new System.Drawing.Size(23, 23);
+            this.BtnOJO.TabIndex = 22;
+            this.BtnOJO.UseVisualStyleBackColor = true;
+            this.BtnOJO.Click += new System.EventHandler(this.BtnOJO_Click);
+            // 
             // Registro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(458, 473);
+            this.Controls.Add(this.BtnOJO);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.txtMensajeError);
             this.Controls.Add(this.label13);
@@ -368,5 +379,6 @@
         private System.Windows.Forms.Label txtMensajeError;
         private System.Windows.Forms.TextBox txtTelefono;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button BtnOJO;
     }
 }

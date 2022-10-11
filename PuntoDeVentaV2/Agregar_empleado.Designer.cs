@@ -101,7 +101,6 @@
             this.txtPassword.Size = new System.Drawing.Size(190, 22);
             this.txtPassword.TabIndex = 7;
             this.txtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtPassword.TextChanged += new System.EventHandler(this.txtPassword_TextChanged);
             this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_conttraseña_KeyDown);
             this.txtPassword.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.solo_letras_digitos);
             // 
@@ -221,7 +220,6 @@
             this.lbConfrimarContraseña.Text = "Confimela Su Nueva Contraseña";
             this.lbConfrimarContraseña.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbConfrimarContraseña.Visible = false;
-            this.lbConfrimarContraseña.Click += new System.EventHandler(this.lbConfrimarContraseña_Click);
             // 
             // label3
             // 

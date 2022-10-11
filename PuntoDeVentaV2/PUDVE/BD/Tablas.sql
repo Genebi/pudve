@@ -1792,3 +1792,29 @@ ALTER TABLE FiltroProducto ADD COLUMN IF NOT EXISTS Username VARCHAR(100) DEFAUL
 
 -- Agregar columna para guardar el username para filtros de dinamicos
 ALTER TABLE FiltrosDinamicosVetanaFiltros ADD COLUMN IF NOT EXISTS Username VARCHAR(100) DEFAULT NULL;
+
+--Se crea la tabla de Plantillas Pemrisos
+CREATE TABLE
+IF
+	NOT EXISTS PlantillaPermisos (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		Nombre VARCHAR(100) DEFAULT NULL ,
+		IDUsuario INTEGER NOT NULL DEFAULT 0,
+		Estatus INTEGER DEFAULT 1,
+		Anticipo INTEGER DEFAULT 0,
+		Caja INTEGER DEFAULT 0,
+		clientes INTEGER DEFAULT 0,
+		configuracion INTEGER DEFAULT 0,
+		empleado INTEGER DEFAULT 0,
+		factura INTEGER DEFAULT 0,
+		inventario INTEGER DEFAULT 0,
+		misdatos INTEGER DEFAULT 0,
+		productos INTEGER DEFAULT 0,
+		proveedor INTEGER DEFAULT 0,
+		reportes INTEGER DEFAULT 0,
+		precio INTEGER DEFAULT 0,
+		ventas INTEGER DEFAULT 0,
+		bascula INTEGER DEFAULT 0,
+		ConsultaPrecio INTEGER DEFAULT 0,
+		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
+	);

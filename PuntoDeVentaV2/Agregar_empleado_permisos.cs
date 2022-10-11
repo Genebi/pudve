@@ -17,6 +17,8 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
+        static public int IDPlantilla = 0;
+
         private int id_empleado = 0;
 
         public string[] datos;
@@ -37,8 +39,76 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                cargarCheckboxNvoEmpleado();
+                if (!IDPlantilla.Equals(0))
+                {
+                    CargarPermisosPlantilla();
+                }
+                else
+                {
+                    cargarCheckboxNvoEmpleado();
+                }
+                
             }
+            CargarPlantillas();
+        }
+
+        private void CargarPlantillas()
+        {
+            ComboHabilittados.SelectedIndex = 0;
+            DGVPlantillas.Rows.Clear();
+            DataTable DTPlanttillas = cn.CargarDatos($"SELECT ID,Nombre FROM plantillapermisos WHERE IDUsuario = {FormPrincipal.userID} AND Estatus = 1");
+            var path = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png";
+            System.Drawing.Image deshabilitar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
+            Image agregar = Image.FromFile(path);
+            foreach (DataRow item in DTPlanttillas.Rows)
+            {
+                var numeroDeRows = DGVPlantillas.Rows.Add();
+                DataGridViewRow row = DGVPlantillas.Rows[numeroDeRows];
+
+                // Columna IdProducto 
+                string Nombre = item["Nombre"].ToString();
+                string idProducto = item["ID"].ToString();
+                row.Cells["ID"].Value = idProducto;
+                row.Cells["Nombre"].Value = Nombre;
+                row.Cells["Seleccionar"].Value = agregar;
+                row.Cells["Eliminar"].Value = deshabilitar;
+            }
+        }
+
+        private void CargarPermisosPlantilla()
+        {
+            var DTPlantillaPermisos = cn.CargarDatos($"SELECT Anticipo,Caja,clientes,configuracion,empleado,factura,inventario,misdatos,productos,proveedor,reportes,precio,ventas, bascula,configuracion FROM plantillapermisos WHERE IDUsuario = {FormPrincipal.userID} AND ID = {IDPlantilla} AND Estatus = 1");
+            if (!DTPlantillaPermisos.Rows.Count.Equals(0))
+            {
+                string PermisosJusntos = string.Empty;
+                int contador = 0;
+                foreach (var item in DTPlantillaPermisos.Rows)
+                {
+                    foreach (var itemxd in DTPlantillaPermisos.Columns)
+                    {
+                        PermisosJusntos += DTPlantillaPermisos.Rows[0][contador].ToString() + ",";
+                        contador++;
+                    }
+                }
+                string[] listapermisos = PermisosJusntos.Split(',');
+
+                cbox_anticipos.Checked = Convert.ToBoolean(Convert.ToInt32(listapermisos[0]));
+                cbox_caja.Checked = Convert.ToBoolean(Convert.ToInt32(listapermisos[1]));
+                cbox_clientes.Checked = Convert.ToBoolean(Convert.ToInt32(listapermisos[2]));
+                cbox_configuracion.Checked = Convert.ToBoolean(Convert.ToInt32(listapermisos[3]));
+                cbox_empleados.Checked = Convert.ToBoolean(Convert.ToInt32(listapermisos[4]));
+                cbox_facturas.Checked = Convert.ToBoolean(Convert.ToInt32(listapermisos[5]));
+                cbox_inventario.Checked = Convert.ToBoolean(Convert.ToInt32(listapermisos[6]));
+                cbox_misdatos.Checked = Convert.ToBoolean(Convert.ToInt32(listapermisos[7]));
+                cbox_productos.Checked = Convert.ToBoolean(Convert.ToInt32(listapermisos[8]));
+                cbox_proveedores.Checked = Convert.ToBoolean(Convert.ToInt32(listapermisos[9]));
+                cbox_reportes.Checked = Convert.ToBoolean(Convert.ToInt32(listapermisos[10]));
+                chkPrecio.Checked = Convert.ToBoolean(Convert.ToInt32(listapermisos[11]));
+                cbox_ventas.Checked = Convert.ToBoolean(Convert.ToInt32(listapermisos[12]));
+                cboBascula.Checked = Convert.ToBoolean(Convert.ToInt32(listapermisos[13]));
+                cboxConsultaP.Checked = Convert.ToBoolean(Convert.ToInt32(listapermisos[14]));
+            }
+            CargarPlantillas();
         }
 
         private void cargarCheckboxNvoEmpleado()
@@ -129,11 +199,13 @@ namespace PuntoDeVentaV2
 
                 if (r > 0)
                 {
+                    IDPlantilla = 0;
                     this.Close();
                 }
             }
             else
             {
+                IDPlantilla = 0;
                 this.Close();
             }
         }
@@ -365,6 +437,122 @@ namespace PuntoDeVentaV2
         private void chkPrecio_CheckedChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+            string anticipo = Convert.ToString(Convert.ToInt32(cbox_anticipos.Checked));
+            string caja = Convert.ToString(Convert.ToInt32(cbox_caja.Checked));
+            string client = Convert.ToString(Convert.ToInt32(cbox_clientes.Checked));
+            string config = Convert.ToString(Convert.ToInt32(cbox_configuracion.Checked));
+            string empleado = Convert.ToString(Convert.ToInt32(cbox_empleados.Checked));
+            string factura = Convert.ToString(Convert.ToInt32(cbox_facturas.Checked));
+            string inventario = Convert.ToString(Convert.ToInt32(cbox_inventario.Checked));
+            string mdatos = Convert.ToString(Convert.ToInt32(cbox_misdatos.Checked));
+            string producto = Convert.ToString(Convert.ToInt32(cbox_productos.Checked));
+            string proveedor = Convert.ToString(Convert.ToInt32(cbox_proveedores.Checked));
+            string reporte = Convert.ToString(Convert.ToInt32(cbox_reportes.Checked));
+            string chkPermisoPrecio = Convert.ToString(Convert.ToInt32(chkPrecio.Checked));
+            string venta = Convert.ToString(Convert.ToInt32(cbox_ventas.Checked));
+            string bascula = Convert.ToString(Convert.ToInt32(cboBascula.Checked));
+            string ConsultaPrecio = Convert.ToString(Convert.ToInt32(cboxConsultaP.Checked));
+
+            datos = new string[]
+            {
+                FormPrincipal.userID.ToString(),anticipo, caja, client, config, empleado,factura, inventario, mdatos, producto, proveedor, reporte,chkPermisoPrecio, venta, bascula, ConsultaPrecio
+            };
+            string[] Seleccionados;
+            Seleccionados = new string[]
+            {
+                anticipo, caja, client, config, empleado, factura, inventario, mdatos, producto, proveedor, reporte, chkPermisoPrecio, venta, bascula, ConsultaPrecio
+            };
+            bool HaySeleccionados = false;
+            foreach (var item in Seleccionados)
+            {
+                if (item.Equals("1"))
+                {
+                    HaySeleccionados = true;
+                }
+            }
+            if (HaySeleccionados.Equals(true))
+            {
+                IngresarrNombrePlantilla plantilla = new IngresarrNombrePlantilla(datos);
+                plantilla.ShowDialog();
+                DGVPlantillas.Rows.Clear();
+                CargarPlantillas();
+            }
+            else
+            {
+                MessageBox.Show("Seleecione almenos un permiso","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                return;
+            }
+            IDPlantilla = 0;
+        }
+
+        private void DGVPlantillas_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 2)
+            {
+                IDPlantilla = Convert.ToInt32(DGVPlantillas.Rows[e.RowIndex].Cells[0].Value.ToString());
+                CargarPermisosPlantilla();
+            }
+            if (e.ColumnIndex == 3)
+            {
+                IDPlantilla = Convert.ToInt32(DGVPlantillas.Rows[e.RowIndex].Cells[0].Value.ToString());
+                cn.EjecutarConsulta($"UPDATE  plantillapermisos SET Estatus = 0 WHERE ID = {IDPlantilla} AND IDUsuario = {FormPrincipal.userID}");
+                DGVPlantillas.Rows.Clear();
+                CargarPermisosPlantilla();
+            }
+        }
+
+        private void Agregar_empleado_permisos_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            IDPlantilla = 0;
+        }
+
+        private void ComboHabilittados_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ComboHabilittados.SelectedIndex.Equals(0))
+            {
+                DGVPlantillas.Rows.Clear();
+                DGVPlantillas.Visible = true;
+                dDGVDeshabilitados.Visible = false;
+                CargarPermisosPlantilla();
+            }
+            else
+            {
+                dDGVDeshabilitados.Rows.Clear();
+                DGVPlantillas.Visible = false;
+                dDGVDeshabilitados.Visible = true;
+                DataTable DTPlanttillas = cn.CargarDatos($"SELECT ID,Nombre FROM plantillapermisos WHERE IDUsuario = {FormPrincipal.userID} AND Estatus = 0");
+                var path = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png";
+                System.Drawing.Image deshabilitar = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
+                Image agregar = Image.FromFile(path);
+                foreach (DataRow item in DTPlanttillas.Rows)
+                {
+                    var numeroDeRows = dDGVDeshabilitados.Rows.Add();
+                    DataGridViewRow row = dDGVDeshabilitados.Rows[numeroDeRows];
+
+                    // Columna IdProducto 
+                    string Nombre = item["Nombre"].ToString();
+                    string idProducto = item["ID"].ToString();
+                    row.Cells["IDDeshabilitado"].Value = idProducto;
+                    row.Cells["NombreDesha"].Value = Nombre;
+                    row.Cells["ImagenDesha"].Value = agregar;
+                }
+            }
+        }
+
+        private void dDGVDeshabilitados_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 2)
+            {
+                IDPlantilla = Convert.ToInt32(dDGVDeshabilitados.Rows[e.RowIndex].Cells[0].Value.ToString());
+                cn.EjecutarConsulta($"UPDATE  plantillapermisos SET Estatus = 1 WHERE ID = {IDPlantilla} AND IDUsuario = {FormPrincipal.userID}");
+                dDGVDeshabilitados.Rows.Clear();
+                CargarPermisosPlantilla();
+            }
         }
     }
 }
