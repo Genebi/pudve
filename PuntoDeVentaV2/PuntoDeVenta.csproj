@@ -1254,12 +1254,6 @@
       <DependentUpon>TicketCancelado.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="ReportesImpresion\Ticket\VentaGlobal\TicketVentaGlobal1.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TicketVentaGlobal.xsd</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.cs">
       <DependentUpon>TicketVenta.xsd</DependentUpon>
     </Compile>
@@ -1345,12 +1339,6 @@
     </Compile>
     <Compile Include="Subir_archivos_digitales.Designer.cs">
       <DependentUpon>Subir_archivos_digitales.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TablaDePlantillas.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TablaDePlantillas.Designer.cs">
-      <DependentUpon>TablaDePlantillas.cs</DependentUpon>
     </Compile>
     <Compile Include="TablasMySQL.cs" />
     <Compile Include="TabuladorDeDinero.cs">
@@ -2075,9 +2063,6 @@
     <EmbeddedResource Include="Subir_archivos_digitales.resx">
       <DependentUpon>Subir_archivos_digitales.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TablaDePlantillas.resx">
-      <DependentUpon>TablaDePlantillas.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="TabuladorDeDinero.resx">
       <DependentUpon>TabuladorDeDinero.cs</DependentUpon>
     </EmbeddedResource>
@@ -2388,23 +2373,6 @@
       <DependentUpon>TicketCancelado.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ReportesImpresion\Ticket\VentaGlobal\TicketVentaGlobal.xsc">
-      <DependentUpon>TicketVentaGlobal.xsd</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <Content Include="ReportesImpresion\Ticket\VentaGlobal\TicketVentaGlobal.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>TicketVentaGlobal1.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="ReportesImpresion\Ticket\VentaGlobal\TicketVentaGlobal.xss">
-      <DependentUpon>TicketVentaGlobal.xsd</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <Content Include="ReportesImpresion\Ticket\VentaGlobal\VentaGlobal.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.xsc">
       <DependentUpon>TicketVenta.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
