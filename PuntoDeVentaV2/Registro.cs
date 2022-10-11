@@ -23,6 +23,8 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
+
+        bool verOno = true;
         public Registro()
         {
             InitializeComponent();
@@ -753,6 +755,29 @@ namespace PuntoDeVentaV2
             //txtEmail.Select(txtEmail.Text.Length, 0);
             ValidarEntradaDeTexto(sender, e);
 
-        }       
+        }
+
+        private void BtnOJO_Click(object sender, EventArgs e)
+        {
+            if (verOno.Equals(false))
+            {
+                txtPassword.UseSystemPasswordChar = false;
+                txtPassword2.UseSystemPasswordChar = false;
+                var path = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\eye.png";
+                Image agregar = Image.FromFile(path);
+                BtnOJO.Image = agregar;
+                verOno = true;
+            }
+            else
+            {
+                var path = Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\eye-slash.png";
+                Image agregar = Image.FromFile(path);
+                BtnOJO.Image = agregar;
+                txtPassword.UseSystemPasswordChar = true;
+                txtPassword2.UseSystemPasswordChar = true;
+                verOno = false;
+            }
+
+        }
     }
 }
