@@ -861,6 +861,12 @@
     <Compile Include="InfoUltimaVenta.Designer.cs">
       <DependentUpon>InfoUltimaVenta.cs</DependentUpon>
     </Compile>
+    <Compile Include="IngresarrNombrePlantilla.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IngresarrNombrePlantilla.Designer.cs">
+      <DependentUpon>IngresarrNombrePlantilla.cs</DependentUpon>
+    </Compile>
     <Compile Include="InputBoxMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1333,6 +1339,12 @@
     </Compile>
     <Compile Include="Subir_archivos_digitales.Designer.cs">
       <DependentUpon>Subir_archivos_digitales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TablaDePlantillas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TablaDePlantillas.Designer.cs">
+      <DependentUpon>TablaDePlantillas.cs</DependentUpon>
     </Compile>
     <Compile Include="TablasMySQL.cs" />
     <Compile Include="TabuladorDeDinero.cs">
@@ -1823,6 +1835,9 @@
     <EmbeddedResource Include="InfoUltimaVenta.resx">
       <DependentUpon>InfoUltimaVenta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="IngresarrNombrePlantilla.resx">
+      <DependentUpon>IngresarrNombrePlantilla.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InputBoxMessageBox.resx">
       <DependentUpon>InputBoxMessageBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -2053,6 +2068,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Subir_archivos_digitales.resx">
       <DependentUpon>Subir_archivos_digitales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TablaDePlantillas.resx">
+      <DependentUpon>TablaDePlantillas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TabuladorDeDinero.resx">
       <DependentUpon>TabuladorDeDinero.cs</DependentUpon>
