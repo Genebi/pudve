@@ -662,6 +662,30 @@ namespace PuntoDeVentaV2
 
             cn.EjecutarConsulta($"UPDATE correosproducto SET CorreoPrecioProducto = 1 ,CorreoStockProducto = 1,CorreoStockMinimo = 1 ,CorreoVentaProducto = 1 WHERE IDUsuario ={userID}");
 
+            EnvioCorreoLicenciaActiva();
+
+        }
+
+        private void EnvioCorreoLicenciaActiva()
+        {
+            using (var DTEstadoLicencia = cn.CargarDatos($"SELECT EstadoLicencia FROM usuarios WHERE ID = {IdUsuario}"))
+            {
+                string status = DTEstadoLicencia.Rows[0]["EstadoLicencia"].ToString();
+                if (status.Equals("0"))
+                {
+                    string correo;
+                    using (DataTable email = cn.CargarDatos(cs.BuscarCorreoDelUsuario(IdUsuario)))
+                    {
+                        correo = email.Rows[0]["Email"].ToString();
+                    }
+                    var asunto = "Licencia Activada PUDVE";
+                    var html = "<!DOCTYPE html> <html lang='es'> <head> <meta charset='UTF-8'> <meta http-equiv='X-UA-Compatible' content='IE=edge'> <meta name='viewport' content='width=device-width, initial-scale=1.0'> <title>Document</title> </head> <body> <h1 style='text-align:center;''>Licencia Activada</h1> <hr> <div style='text-align:center;''> Licencia Activa de por vida <b>SIFO Punto de Venta</b> </div> </body> </html>";
+
+                    Utilidades.EnviarEmail(html, asunto, correo);
+                    cn.EjecutarConsulta($"UPDATE usuarios SET CorreoLicenciaPagada = 1 WHERE ID = {IdUsuario}");
+
+                }
+            }
         }
 
         private void CorreoDe10DiasParaExpiracionDocumentosCSD()
