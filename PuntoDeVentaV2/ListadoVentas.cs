@@ -176,6 +176,22 @@ namespace PuntoDeVentaV2
             cbVentas.SelectedIndex = 0;
             cbTipoVentas.SelectedIndex = 0;
 
+            // Combobox formas de pago
+            Dictionary<string, string> formas = new Dictionary<string, string>();
+            formas.Add("NA", "SELECCIONAR FORMA DE PAGO...");
+            formas.Add("Efectivo", "EFECTIVO");
+            formas.Add("Tarjeta", "TARJETA");
+            formas.Add("Vales", "VALES");
+            formas.Add("Transferencia", "TRANSFERENCIA");
+            formas.Add("Cheque", "CHEQUE");
+            formas.Add("Crédito", "CRÉDITO");
+
+            cbFormasPago.DataSource = formas.ToArray();
+            cbFormasPago.DisplayMember = "Value";
+            cbFormasPago.ValueMember = "Key";
+            cbFormasPago.SelectedIndex = 0;
+
+
             //fechaUltimoCorte = Convert.ToDateTime(mb.UltimaFechaCorte());
 
             verComboBoxAdministradorEmpleado();
@@ -5131,6 +5147,13 @@ namespace PuntoDeVentaV2
             }
             btnBuscarVentas.PerformClick();
             IDsVenta.Clear();
+        }
+
+        private void cbFormasPago_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            var formaPago = cbFormasPago.SelectedValue.ToString();
+
+            MessageBox.Show(formaPago);
         }
     }
 }

@@ -51,8 +51,10 @@
             this.cInformacion = new System.Windows.Forms.DataGridViewImageColumn();
             this.retomarVenta = new System.Windows.Forms.DataGridViewImageColumn();
             this.panelBotones = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
             this.cbFiltroAdminEmpleado = new System.Windows.Forms.ComboBox();
+            this.dpHoraFinal = new System.Windows.Forms.DateTimePicker();
+            this.dpHoraInicial = new System.Windows.Forms.DateTimePicker();
+            this.button1 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnCrearVentaGlobal = new System.Windows.Forms.Button();
@@ -86,8 +88,7 @@
             this.lb_txt_ruta_descargar = new System.Windows.Forms.Label();
             this.chTodos = new System.Windows.Forms.CheckBox();
             this.chkHDAutlan = new System.Windows.Forms.CheckBox();
-            this.dpHoraInicial = new System.Windows.Forms.DateTimePicker();
-            this.dpHoraFinal = new System.Windows.Forms.DateTimePicker();
+            this.cbFormasPago = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -276,6 +277,7 @@
             // 
             this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBotones.Controls.Add(this.cbFormasPago);
             this.panelBotones.Controls.Add(this.cbFiltroAdminEmpleado);
             this.panelBotones.Controls.Add(this.dpHoraFinal);
             this.panelBotones.Controls.Add(this.dpHoraInicial);
@@ -298,6 +300,42 @@
             this.panelBotones.Size = new System.Drawing.Size(960, 110);
             this.panelBotones.TabIndex = 6;
             // 
+            // cbFiltroAdminEmpleado
+            // 
+            this.cbFiltroAdminEmpleado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFiltroAdminEmpleado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbFiltroAdminEmpleado.FormattingEnabled = true;
+            this.cbFiltroAdminEmpleado.Items.AddRange(new object[] {
+            "Administrador",
+            "Todos"});
+            this.cbFiltroAdminEmpleado.Location = new System.Drawing.Point(3, 5);
+            this.cbFiltroAdminEmpleado.Name = "cbFiltroAdminEmpleado";
+            this.cbFiltroAdminEmpleado.Size = new System.Drawing.Size(240, 21);
+            this.cbFiltroAdminEmpleado.TabIndex = 15;
+            this.cbFiltroAdminEmpleado.SelectedIndexChanged += new System.EventHandler(this.cbFiltroAdminEmpleado_SelectedIndexChanged);
+            // 
+            // dpHoraFinal
+            // 
+            this.dpHoraFinal.CustomFormat = "HH:mm";
+            this.dpHoraFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dpHoraFinal.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dpHoraFinal.Location = new System.Drawing.Point(437, 32);
+            this.dpHoraFinal.Name = "dpHoraFinal";
+            this.dpHoraFinal.ShowUpDown = true;
+            this.dpHoraFinal.Size = new System.Drawing.Size(55, 21);
+            this.dpHoraFinal.TabIndex = 18;
+            // 
+            // dpHoraInicial
+            // 
+            this.dpHoraInicial.CustomFormat = "HH:mm";
+            this.dpHoraInicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dpHoraInicial.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dpHoraInicial.Location = new System.Drawing.Point(437, 6);
+            this.dpHoraInicial.Name = "dpHoraInicial";
+            this.dpHoraInicial.ShowUpDown = true;
+            this.dpHoraInicial.Size = new System.Drawing.Size(55, 21);
+            this.dpHoraInicial.TabIndex = 17;
+            // 
             // button1
             // 
             this.button1.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -313,20 +351,6 @@
             this.button1.Text = "Asignar Cliente/Metodo de Pago";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // cbFiltroAdminEmpleado
-            // 
-            this.cbFiltroAdminEmpleado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbFiltroAdminEmpleado.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbFiltroAdminEmpleado.FormattingEnabled = true;
-            this.cbFiltroAdminEmpleado.Items.AddRange(new object[] {
-            "Administrador",
-            "Todos"});
-            this.cbFiltroAdminEmpleado.Location = new System.Drawing.Point(3, 5);
-            this.cbFiltroAdminEmpleado.Name = "cbFiltroAdminEmpleado";
-            this.cbFiltroAdminEmpleado.Size = new System.Drawing.Size(240, 21);
-            this.cbFiltroAdminEmpleado.TabIndex = 15;
-            this.cbFiltroAdminEmpleado.SelectedIndexChanged += new System.EventHandler(this.cbFiltroAdminEmpleado_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -398,7 +422,7 @@
             // 
             this.txtBuscador.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBuscador.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscador.Location = new System.Drawing.Point(3, 59);
+            this.txtBuscador.Location = new System.Drawing.Point(3, 81);
             this.txtBuscador.Name = "txtBuscador";
             this.txtBuscador.Size = new System.Drawing.Size(304, 21);
             this.txtBuscador.TabIndex = 9;
@@ -471,7 +495,7 @@
             this.btnBuscarVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscarVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscarVentas.ForeColor = System.Drawing.Color.White;
-            this.btnBuscarVentas.Location = new System.Drawing.Point(319, 59);
+            this.btnBuscarVentas.Location = new System.Drawing.Point(319, 81);
             this.btnBuscarVentas.Name = "btnBuscarVentas";
             this.btnBuscarVentas.Size = new System.Drawing.Size(176, 21);
             this.btnBuscarVentas.TabIndex = 4;
@@ -498,7 +522,7 @@
             this.cbTipoVentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTipoVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbTipoVentas.FormattingEnabled = true;
-            this.cbTipoVentas.Location = new System.Drawing.Point(3, 32);
+            this.cbTipoVentas.Location = new System.Drawing.Point(3, 30);
             this.cbTipoVentas.Name = "cbTipoVentas";
             this.cbTipoVentas.Size = new System.Drawing.Size(240, 21);
             this.cbTipoVentas.TabIndex = 1;
@@ -761,27 +785,16 @@
             this.chkHDAutlan.CheckedChanged += new System.EventHandler(this.chkHDAutlan_CheckedChanged);
             this.chkHDAutlan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkHDAutlan_MouseClick);
             // 
-            // dpHoraInicial
+            // cbFormasPago
             // 
-            this.dpHoraInicial.CustomFormat = "HH:mm";
-            this.dpHoraInicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dpHoraInicial.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dpHoraInicial.Location = new System.Drawing.Point(437, 6);
-            this.dpHoraInicial.Name = "dpHoraInicial";
-            this.dpHoraInicial.ShowUpDown = true;
-            this.dpHoraInicial.Size = new System.Drawing.Size(55, 21);
-            this.dpHoraInicial.TabIndex = 17;
-            // 
-            // dpHoraFinal
-            // 
-            this.dpHoraFinal.CustomFormat = "HH:mm";
-            this.dpHoraFinal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dpHoraFinal.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dpHoraFinal.Location = new System.Drawing.Point(437, 32);
-            this.dpHoraFinal.Name = "dpHoraFinal";
-            this.dpHoraFinal.ShowUpDown = true;
-            this.dpHoraFinal.Size = new System.Drawing.Size(55, 21);
-            this.dpHoraFinal.TabIndex = 18;
+            this.cbFormasPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFormasPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbFormasPago.FormattingEnabled = true;
+            this.cbFormasPago.Location = new System.Drawing.Point(3, 56);
+            this.cbFormasPago.Name = "cbFormasPago";
+            this.cbFormasPago.Size = new System.Drawing.Size(240, 21);
+            this.cbFormasPago.TabIndex = 19;
+            this.cbFormasPago.SelectionChangeCommitted += new System.EventHandler(this.cbFormasPago_SelectionChangeCommitted);
             // 
             // ListadoVentas
             // 
@@ -876,5 +889,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DateTimePicker dpHoraInicial;
         private System.Windows.Forms.DateTimePicker dpHoraFinal;
+        public System.Windows.Forms.ComboBox cbFormasPago;
     }
 }
