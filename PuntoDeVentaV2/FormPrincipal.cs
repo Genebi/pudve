@@ -671,19 +671,26 @@ namespace PuntoDeVentaV2
             using (var DTEstadoLicencia = cn.CargarDatos($"SELECT EstadoLicencia FROM usuarios WHERE ID = {IdUsuario}"))
             {
                 string status = DTEstadoLicencia.Rows[0]["EstadoLicencia"].ToString();
-                if (status.Equals("0"))
+                if (status.Equals("1"))
                 {
-                    string correo;
-                    using (DataTable email = cn.CargarDatos(cs.BuscarCorreoDelUsuario(IdUsuario)))
+                    using (var DTEnvioCorreo = cn.CargarDatos($"SELECT CorreoLicenciaPagada FROM usuarios WHERE ID = {IdUsuario}"))
                     {
-                        correo = email.Rows[0]["Email"].ToString();
+                        string statusCorreo = DTEnvioCorreo.Rows[0]["CorreoLicenciaPagada"].ToString();
+                        if (statusCorreo.Equals("0"))
+                        {
+                            string correo;
+                            using (DataTable email = cn.CargarDatos(cs.BuscarCorreoDelUsuario(IdUsuario)))
+                            {
+                                correo = email.Rows[0]["Email"].ToString();
+                            }
+                            var asunto = "Licencia Activada PUDVE";
+                            var html = $"<!DOCTYPE html> <html lang='es'> <head> <meta charset='UTF-8'> <meta http-equiv='X-UA-Compatible' content='IE=edge'> <meta name='viewport' content='width=device-width, initial-scale=1.0'> <title>Document</title> </head> <body> <h1 style='text-align:center;''>Licencia Activada</h1> <hr> <div style='text-align:center;''> Licencia Activa de por vida con éxito <b>SIFO Punto de Venta</b><br> para el Usuario <b>{userNickName}</b> </div> </body> </html>";
+
+                            Utilidades.EnviarEmail(html, asunto, correo);
+                            cn.EjecutarConsulta($"UPDATE usuarios SET CorreoLicenciaPagada = 1 WHERE ID = {IdUsuario}");
+
+                        }
                     }
-                    var asunto = "Licencia Activada PUDVE";
-                    var html = "<!DOCTYPE html> <html lang='es'> <head> <meta charset='UTF-8'> <meta http-equiv='X-UA-Compatible' content='IE=edge'> <meta name='viewport' content='width=device-width, initial-scale=1.0'> <title>Document</title> </head> <body> <h1 style='text-align:center;''>Licencia Activada</h1> <hr> <div style='text-align:center;''> Licencia Activa de por vida <b>SIFO Punto de Venta</b> </div> </body> </html>";
-
-                    Utilidades.EnviarEmail(html, asunto, correo);
-                    cn.EjecutarConsulta($"UPDATE usuarios SET CorreoLicenciaPagada = 1 WHERE ID = {IdUsuario}");
-
                 }
             }
         }
