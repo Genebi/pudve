@@ -262,7 +262,6 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta($"UPDATE detallesventa SET IDCliente = {idClienteGlobal}, Cliente = '{NombreCliente}' WHERE IDVenta ={id}");
             
         }
-
         private void CambiarSoloStatus(string id)
         {
             string Columna;

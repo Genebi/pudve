@@ -801,7 +801,7 @@ namespace PuntoDeVentaV2
 
                     if (!string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
                     {
-                        string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{codigo}' OR CodigoBarras = '{codigo}') AND Status = 1";
+                        string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{codigo}' OR CodigoBarras = '{codigo}') AND Status = 1 AND Tipo = '{filtro}'";
 
                         DataTable searchProd = cn.CargarDatos(querySearchProd);
 
@@ -8370,6 +8370,18 @@ namespace PuntoDeVentaV2
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
 
+        }
+
+        private void txtDescuentoGeneral_TextChanged(object sender, EventArgs e)
+        {
+            if (txtDescuentoGeneral.Text.Equals("% descuento"))
+            {
+                btnAplicarDescuento.Enabled = false;
+            }
+            else
+            {
+                btnAplicarDescuento.Enabled = true;
+            }
         }
 
         private void txtBuscadorProducto_Enter(object sender, EventArgs e)
