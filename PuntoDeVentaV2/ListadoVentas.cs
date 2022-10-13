@@ -108,7 +108,7 @@ namespace PuntoDeVentaV2
 
         string tipo = string.Empty;
         int buscarPorFecha = 0;
-
+        public static int tipoVenta;
         List<string> IDsVenta = new List<string>();
         public ListadoVentas()
         {
@@ -1535,7 +1535,7 @@ namespace PuntoDeVentaV2
 
         private void cbTipoVentas_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            tipoVenta = cbTipoVentas.SelectedIndex;
             var opcion = cbTipoVentas.SelectedValue.ToString();
             clickBoton = 0;
 
