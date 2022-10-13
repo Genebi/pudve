@@ -109,6 +109,12 @@ namespace PuntoDeVentaV2
         private void AsignarClienteYMetodoPago_Load(object sender, EventArgs e)
         {
             CargarDatos();
+            if (ListadoVentas.tipoVenta.Equals(1))
+            {
+                label1.Visible = false;
+                CBMetodoPago.Visible = false;
+                lblEtiquetaPago.Visible = false;
+            }
             CBMetodoPago.SelectedIndex = 0;
         }
         private void CargarDatos(string busqueda = "")
@@ -256,7 +262,6 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta($"UPDATE detallesventa SET IDCliente = {idClienteGlobal}, Cliente = '{NombreCliente}' WHERE IDVenta ={id}");
             
         }
-
         private void CambiarSoloStatus(string id)
         {
             string Columna;
@@ -267,7 +272,7 @@ namespace PuntoDeVentaV2
                 string status = "1";
                 string FormaPago = DTDatosVenta.Rows[0]["FormaPago"].ToString();
                 DateTime FechaDePagoSinFormato = Convert.ToDateTime(DTDatosVenta.Rows[0]["FechaOperacion"]);
-                string FechaDePago = FechaDePagoSinFormato.ToString("yyyy-MM-dd hh:mm:ss");
+                string FechaDePago = FechaDePagoSinFormato.ToString("yyyy-MM-dd HH:mm:ss");
                 bool esCredito = false;
                 formadepagoantigua = DTDatosVenta.Rows[0]["FormaPago"].ToString();
                 if (FormaPago.Equals("Efectivo"))

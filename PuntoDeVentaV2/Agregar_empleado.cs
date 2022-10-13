@@ -474,14 +474,10 @@ namespace PuntoDeVentaV2
 
         private void cmb_bx_permisos_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cmb_bx_permisos.SelectedIndex == 2)
+            if (cmb_bx_permisos.SelectedIndex == 1)
             {
                 Agregar_empleado_permisos AEP = new Agregar_empleado_permisos(0);
                 AEP.ShowDialog();
-            }
-            if (IDPlantilla.Equals(0))
-            {
-                cmb_bx_permisos.SelectedIndex = 0;
             }
         }
     }

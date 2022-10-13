@@ -506,6 +506,12 @@
     <Compile Include="Cancelar_XML_mensajes.Designer.cs">
       <DependentUpon>Cancelar_XML_mensajes.cs</DependentUpon>
     </Compile>
+    <Compile Include="cantidadComprada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="cantidadComprada.Designer.cs">
+      <DependentUpon>cantidadComprada.cs</DependentUpon>
+    </Compile>
     <Compile Include="CantidadProdServicio.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1663,6 +1669,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar_XML_mensajes.resx">
       <DependentUpon>Cancelar_XML_mensajes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="cantidadComprada.resx">
+      <DependentUpon>cantidadComprada.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CantidadProdServicio.resx">
       <DependentUpon>CantidadProdServicio.cs</DependentUpon>
