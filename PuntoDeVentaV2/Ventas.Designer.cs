@@ -680,6 +680,7 @@
             this.txtDescuentoGeneral.TabIndex = 35;
             this.txtDescuentoGeneral.Text = "% descuento";
             this.txtDescuentoGeneral.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDescuentoGeneral.TextChanged += new System.EventHandler(this.txtDescuentoGeneral_TextChanged);
             this.txtDescuentoGeneral.Enter += new System.EventHandler(this.txtDescuentoGeneral_Enter);
             this.txtDescuentoGeneral.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDescuentoGeneral_KeyDown);
             this.txtDescuentoGeneral.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescuentoGeneral_KeyPress);
