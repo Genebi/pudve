@@ -212,8 +212,15 @@ namespace PuntoDeVentaV2
 
         private void txtbusqueda_TextChanged(object sender, EventArgs e)
         {
+            if (txtbusqueda.Text.Contains("\'"))
+            {
+                string producto = txtbusqueda.Text.Replace("\'", ""); ;
+                txtbusqueda.Text = producto;
+                txtbusqueda.Select(txtbusqueda.Text.Length, 0);
+            }
             CargarDatos();
             txtbusqueda.Focus();
+            
         }
     }
 }

@@ -60,6 +60,7 @@
             this.txtNombreProducto.Name = "txtNombreProducto";
             this.txtNombreProducto.Size = new System.Drawing.Size(499, 20);
             this.txtNombreProducto.TabIndex = 1;
+            this.txtNombreProducto.TextChanged += new System.EventHandler(this.txtNombreProducto_TextChanged);
             // 
             // label1
             // 

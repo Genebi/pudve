@@ -155,6 +155,7 @@
             this.txtBuscar.Size = new System.Drawing.Size(609, 21);
             this.txtBuscar.TabIndex = 0;
             this.txtBuscar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
             this.txtBuscar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscar_KeyDown);
             // 
             // tituloSeccion

@@ -3914,5 +3914,16 @@ namespace PuntoDeVentaV2
             FechaOperacion = false;
             Comentario = false;
         }
+
+        private void txtBusqueda_TextChanged(object sender, EventArgs e)
+        {
+
+            if (txtBusqueda.Text.Contains("\'"))
+            {
+                string producto = txtBusqueda.Text.Replace("\'", ""); ;
+                txtBusqueda.Text = producto;
+                txtBusqueda.Select(txtBusqueda.Text.Length, 0);
+            }
+        }
     }
 }
