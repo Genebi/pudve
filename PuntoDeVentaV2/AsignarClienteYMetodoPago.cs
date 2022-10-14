@@ -365,7 +365,7 @@ namespace PuntoDeVentaV2
                 string status = "1";
                 string FormaPago;
                 DateTime FechaDePagoSinFormato = Convert.ToDateTime(DTDatosVenta.Rows[0]["FechaOperacion"]);
-                string FechaDePago = FechaDePagoSinFormato.ToString("yyyy-MM-dd hh:mm:ss");
+                string FechaDePago = FechaDePagoSinFormato.ToString("yyyy-MM-dd HH:mm:ss");
                 bool esCredito = false;
                 formadepagoantigua = DTDatosVenta.Rows[0]["FormaPago"].ToString();
                 if (metodoDePago.Equals("Crédito"))
@@ -425,7 +425,7 @@ namespace PuntoDeVentaV2
                     status = "1";
                     formadepagoantigua = DTDatosVenta.Rows[0]["FormaPago"].ToString();
                     DateTime FechaDePagoSinFormato = Convert.ToDateTime(DTDatosVenta.Rows[0]["FechaOperacion"]);
-                    FechaDePago = FechaDePagoSinFormato.ToString("yyyy-MM-dd hh:mm:ss");
+                    FechaDePago = FechaDePagoSinFormato.ToString("yyyy-MM-dd HH:mm:ss");
                     FormaPago = DTDatosVenta.Rows[0]["FormaPago"].ToString();
 
                 }
@@ -440,7 +440,7 @@ namespace PuntoDeVentaV2
                      status = "1";
                      FormaPago = DTDatosVenta.Rows[0]["FormaPago"].ToString();
                     DateTime FechaDePagoSinFormato = Convert.ToDateTime(DTDatosVenta.Rows[0]["FechaOperacion"]);
-                     FechaDePago = FechaDePagoSinFormato.ToString("yyyy-MM-dd hh:mm:ss");
+                     FechaDePago = FechaDePagoSinFormato.ToString("yyyy-MM-dd HH:mm:ss");
                      esCredito = false;
                     formadepagoantigua = DTDatosVenta.Rows[0]["FormaPago"].ToString();
                     if (FormaPago.Equals("Efectivo"))
@@ -530,7 +530,7 @@ namespace PuntoDeVentaV2
                     total = DTDatosVenta.Rows[0]["Total"].ToString();
                     status = "1";
                     DateTime FechaDePagoSinFormato = Convert.ToDateTime(DTDatosVenta.Rows[0]["FechaOperacion"]);
-                    FechaDePago = FechaDePagoSinFormato.ToString("yyyy-MM-dd hh:mm:ss");
+                    FechaDePago = FechaDePagoSinFormato.ToString("yyyy-MM-dd HH:mm:ss");
                     formadepagoantigua = DTDatosVenta.Rows[0]["FormaPago"].ToString();
                 }
                 using (var RFCCliente = cn.CargarDatos($"SELECT RFC FROM clientes WHERE ID = {idClienteGlobal}"))
