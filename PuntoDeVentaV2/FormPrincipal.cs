@@ -683,8 +683,9 @@ namespace PuntoDeVentaV2
                             {
                                 correo = email.Rows[0]["Email"].ToString();
                             }
+                            string fecha = DateTime.Now.ToString("dd-MM-yyyy");
                             var asunto = "Licencia Activada PUDVE";
-                            var html = $"<!DOCTYPE html> <html lang='es'> <head> <meta charset='UTF-8'> <meta http-equiv='X-UA-Compatible' content='IE=edge'> <meta name='viewport' content='width=device-width, initial-scale=1.0'> <title>Document</title> </head> <body> <h1 style='text-align:center;''>Licencia Activada</h1> <hr> <div style='text-align:center;''> Licencia Activa de por vida con éxito <b>SIFO Punto de Venta</b><br> para el Usuario <b>{userNickName}</b> </div> </body> </html>";
+                            var html = $"<!DOCTYPE html> <html lang='es'> <head> <meta charset='UTF-8'> <meta http-equiv='X-UA-Compatible' content='IE=edge'> <meta name='viewport' content='width=device-width, initial-scale=1.0'> <title>Document</title> </head> <body> <h1 style='text-align:center;'>Licencia Activada</h1> <hr> <div style='text-align:center;'> <b>LICENCIA ACTIVA DE POR VIDA CON EXITO SIFO PUNTO DE VENTA</b><br> <b>PARA EL USUARIO {userNickName}<br>EL DIA {fecha} </b> </div> </body> </html>";
 
                             Utilidades.EnviarEmail(html, asunto, correo);
                             cn.EjecutarConsulta($"UPDATE usuarios SET CorreoLicenciaPagada = 1 WHERE ID = {IdUsuario}");
