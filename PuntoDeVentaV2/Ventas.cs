@@ -8391,6 +8391,14 @@ namespace PuntoDeVentaV2
 
         private void txtBuscadorProducto_TextChanged(object sender, EventArgs e)
         {
+            if (txtBuscadorProducto.Text.Contains("\'"))
+            {
+                string producto = txtBuscadorProducto.Text.Replace("\'", ""); ;
+                txtBuscadorProducto.Text = producto;
+                txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
+            }
+          
+
             if (string.IsNullOrWhiteSpace(txtBuscadorProducto.Text.Trim()))
             {
                 listaProductos.Visible = false;

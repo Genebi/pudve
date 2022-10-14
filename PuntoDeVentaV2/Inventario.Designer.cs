@@ -295,6 +295,7 @@
             this.txtBusqueda.Size = new System.Drawing.Size(595, 22);
             this.txtBusqueda.TabIndex = 11;
             this.txtBusqueda.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtBusqueda.TextChanged += new System.EventHandler(this.txtBusqueda_TextChanged);
             this.txtBusqueda.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBusqueda_KeyDown);
             this.txtBusqueda.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBusqueda_KeyUp);
             // 

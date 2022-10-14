@@ -3639,6 +3639,17 @@ namespace PuntoDeVentaV2
             }
 
         }
+
+        private void txtBusqueda_TextChanged(object sender, EventArgs e)
+        {
+            if (txtBusqueda.Text.Contains("\'"))
+            {
+                string producto = txtBusqueda.Text.Replace("\'", ""); ;
+                txtBusqueda.Text = producto;
+                txtBusqueda.Select(txtBusqueda.Text.Length, 0);
+            }
+        }
+
         //Atajos para el DataGridView y Botones
         private void txtBusqueda_KeyDown(object sender, KeyEventArgs e)
         {

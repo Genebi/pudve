@@ -75,6 +75,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(327, 52);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // txtBoxSearchProd
             // 
@@ -84,6 +85,7 @@
             this.txtBoxSearchProd.Name = "txtBoxSearchProd";
             this.txtBoxSearchProd.Size = new System.Drawing.Size(296, 20);
             this.txtBoxSearchProd.TabIndex = 1;
+            this.txtBoxSearchProd.TextChanged += new System.EventHandler(this.txtBoxSearchProd_TextChanged);
             this.txtBoxSearchProd.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBoxSearchProd_KeyDown);
             // 
             // label1

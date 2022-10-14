@@ -128,5 +128,15 @@ namespace PuntoDeVentaV2
                 this.Close();
             }
         }
+
+        private void txtNombreProducto_TextChanged(object sender, EventArgs e)
+        {
+            if (txtNombreProducto.Text.Contains("\'"))
+            {
+                string producto = txtNombreProducto.Text.Replace("\'", ""); ;
+                txtNombreProducto.Text = producto;
+                txtNombreProducto.Select(txtNombreProducto.Text.Length, 0);
+            }
+        }
     }
 }

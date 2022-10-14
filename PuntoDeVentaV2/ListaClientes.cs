@@ -582,5 +582,15 @@ namespace PuntoDeVentaV2
             dr.Close();
             sql_con.Close();
         }
+
+        private void txtBuscador_TextChanged(object sender, EventArgs e)
+        {
+            if (txtBuscador.Text.Contains("\'"))
+            {
+                string producto = txtBuscador.Text.Replace("\'", ""); ;
+                txtBuscador.Text = producto;
+                txtBuscador.Select(txtBuscador.Text.Length, 0);
+            }
+        }
     }
 }
