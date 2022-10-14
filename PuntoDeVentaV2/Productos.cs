@@ -5429,7 +5429,19 @@ namespace PuntoDeVentaV2
 
                 maximo_x_pagina = cantidadAMostrar;
                 p.actualizarTope(maximo_x_pagina);
-                CargarDatos();
+                if (cbMostrar.SelectedIndex.Equals(0))
+                {
+                    CargarDatos(1);
+                }
+                else if (cbMostrar.SelectedIndex.Equals(1))
+                {
+                    CargarDatos(0);
+                }
+                else
+                {
+                    CargarDatos();
+                }
+                
                 //actualizarDatosDespuesDeAgregarProducto();
                 actualizar();
             }
