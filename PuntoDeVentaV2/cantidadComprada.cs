@@ -39,5 +39,17 @@ namespace PuntoDeVentaV2
             nuevaCantidadCambio = 1;
             this.Close();
         }
+
+        private void txtCantidad_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
+            if (e.KeyData == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

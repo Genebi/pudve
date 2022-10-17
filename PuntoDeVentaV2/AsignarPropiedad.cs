@@ -1851,7 +1851,6 @@ namespace PuntoDeVentaV2
             }
             else if (propiedad == "EliminarDescuento")/////////////////////////////////////////////////////////////////ELIMINAR DESCUENTO
             {
-
                 DialogResult dialogResult = MessageBox.Show("Se eliminaran los descuentos de todos\n los productos seleccionados.", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (dialogResult == DialogResult.Yes)
                 {
@@ -1867,7 +1866,6 @@ namespace PuntoDeVentaV2
                 {
                     return;
                 }
-
             }
             else
             {
