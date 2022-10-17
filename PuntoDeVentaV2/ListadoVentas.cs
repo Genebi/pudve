@@ -751,27 +751,27 @@ namespace PuntoDeVentaV2
                             //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' {extra} ORDER BY ID DESC";
                             if (estado.Equals(1)) // Ventas pagadas
                             {
-                                consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, extra);
+                                consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
 
                                 using (DataTable dtSeEncontroClientePorNombreRFC = cn.CargarDatos(consulta))
                                 {
                                     if (dtSeEncontroClientePorNombreRFC.Rows.Count.Equals(0))
                                     {
-                                        consulta = cs.VerComoDesdeOtroEmpleadoVentasPagadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                        consulta = cs.VerComoDesdeOtroEmpleadoVentasPagadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                     }
                                 }
                             }
                             else if (estado.Equals(2) || estado.Equals(5)) // Ventas guardadas o ventas globales
                             {
-                                consulta = cs.VerComoEmpleadoTodasLasVentasGuardadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                consulta = cs.VerComoEmpleadoTodasLasVentasGuardadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                             }
                             else if (estado.Equals(3)) // Ventas canceladas
                             {
-                                consulta = cs.VerComoEmpleadoTodasMisVentasCanceladasPorFechasYBusqueda(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, extra);
+                                consulta = cs.VerComoEmpleadoTodasMisVentasCanceladasPorFechasYBusqueda(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                             }
                             else if (estado.Equals(4)) // Ventas a credito
                             {
-                                consulta = cs.VerComoEmpleadoTodasLasVentasACreditoPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                consulta = cs.VerComoEmpleadoTodasLasVentasACreditoPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                             }
                         }
                         else
@@ -782,45 +782,45 @@ namespace PuntoDeVentaV2
                             {
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                 {
-                                    consulta = cs.VerComoAdministradorTodasLaVentasPagadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                    consulta = cs.VerComoAdministradorTodasLaVentasPagadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                                 else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                                 {
-                                    consulta = cs.filtroMostrarTodasLasVentasPagadasEnAdministradorConParametro(estado, fechaInicial, fechaFinal, extra);
+                                    consulta = cs.filtroMostrarTodasLasVentasPagadasEnAdministradorConParametro(estado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                                 else
                                 {
-                                    consulta = cs.filtroPorEmpleadoDesdeAdministradorConParamettro(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra);
+                                    consulta = cs.filtroPorEmpleadoDesdeAdministradorConParamettro(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                             }
                             else if (estado.Equals(2) || estado.Equals(5)) // Ventas guardadas o ventas globales
                             {
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                 {
-                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                                 else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                                 {
-                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                                 else
                                 {
-                                    consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra);
+                                    consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                             }
                             else if (estado.Equals(3)) // Ventas canceladas
                             {
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                 {
-                                    consulta = cs.VerComoAdministradorTodasLaVentasCanceladasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                    consulta = cs.VerComoAdministradorTodasLaVentasCanceladasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                                 else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                                 {
-                                    consulta = cs.VerComoAdministradorTodasLasVentasCanceladasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                    consulta = cs.VerComoAdministradorTodasLasVentasCanceladasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                                 else
                                 {
-                                    consulta = cs.VerComoEmpleadoTodasMisVentasCanceladasPorFechasYBusqueda(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra);
+                                    consulta = cs.VerComoEmpleadoTodasMisVentasCanceladasPorFechasYBusqueda(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                             }
                             else if (estado.Equals(4)) // Ventas a credito
@@ -828,15 +828,15 @@ namespace PuntoDeVentaV2
                                 //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                 {
-                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                                 else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                                 {
-                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                                 else
                                 {
-                                    consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra);
+                                    consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                             }
                         }
