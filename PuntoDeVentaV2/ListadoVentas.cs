@@ -184,7 +184,7 @@ namespace PuntoDeVentaV2
             formas.Add("Vales", "VALES");
             formas.Add("Transferencia", "TRANSFERENCIA");
             formas.Add("Cheque", "CHEQUE");
-            formas.Add("Crédito", "CRÉDITO");
+            //formas.Add("Crédito", "CRÉDITO");
 
             cbFormasPago.DataSource = formas.ToArray();
             cbFormasPago.DisplayMember = "Value";
