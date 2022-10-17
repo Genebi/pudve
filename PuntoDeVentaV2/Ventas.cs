@@ -279,12 +279,13 @@ namespace PuntoDeVentaV2
         private void metodoCancelarVentaDesdeListadoVentas()
         {
             var retomarVentas = ListadoVentas.retomarVentasCanceladas;
+
             if (retomarVentas == 1)
             {
                 var idVentaObtenida = ListadoVentas.obtenerIdVenta;
                 var numFolio = ListadoVentas.folioVenta;
                 mostrarVenta = idVentaObtenida;
-                CargarVentaGuardada();
+                CargarVentaGuardada(true);
                 mostrarVenta = 0;
             }
         }
@@ -4904,7 +4905,7 @@ namespace PuntoDeVentaV2
         }
 
 
-        private void CargarVentaGuardada()
+        private void CargarVentaGuardada(bool ventaCancelada = false)
         {
             string[] datos = cn.BuscarVentaGuardada(mostrarVenta, FormPrincipal.userID);
 
@@ -4947,15 +4948,21 @@ namespace PuntoDeVentaV2
                     cliente += $" --- No. {datosCliente[17]}";
                 }
 
-                lbDatosCliente.Text = cliente;
-                lbDatosCliente.Visible = true;
-                lbEliminarCliente.Visible = true;
+                if (!ventaCancelada)
+                {
+                    lbDatosCliente.Text = cliente;
+                    lbDatosCliente.Visible = true;
+                    lbEliminarCliente.Visible = true;
+                }
             }
             else
             {
-                lbDatosCliente.Text = nombreCliente;
-                lbDatosCliente.Visible = true;
-                lbEliminarCliente.Visible = true;
+                if (!ventaCancelada)
+                {
+                    lbDatosCliente.Text = nombreCliente;
+                    lbDatosCliente.Visible = true;
+                    lbEliminarCliente.Visible = true;
+                }
             }
 
             //using (DataTable dtIdCliente = cn.CargarDatos(cs.getIdCliente(nombreCliente)))
