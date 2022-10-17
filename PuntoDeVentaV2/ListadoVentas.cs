@@ -596,7 +596,7 @@ namespace PuntoDeVentaV2
                                         queryAux = string.Empty;
                                         break;
                                     }
-                                }  
+                                }
                             }
 
                             if (!string.IsNullOrWhiteSpace(queryAux))
@@ -4923,6 +4923,7 @@ namespace PuntoDeVentaV2
 
                 if (listaClientes.ShowDialog() == DialogResult.OK)
                 {
+
                     clienteId = listaClientes.clienteId;
                 }
             }
@@ -5068,13 +5069,16 @@ namespace PuntoDeVentaV2
             int c = 0;
             int t = DGVListadoVentas.Rows.Count - 2;
             string mnsj_error = "";
-            
+            bool estado = false;
 
-            foreach (DataGridViewRow row in DGVListadoVentas.Rows)
+            foreach (var row in idVentas)
             {
                 if (c < t)
                 {
-                    bool estado = (bool)row.Cells["col_checkbox"].Value;
+                    if (row.Key > 0)
+                    {
+                        estado = true;
+                    }
 
                     if (estado == true)
                     {
@@ -5093,37 +5097,30 @@ namespace PuntoDeVentaV2
             {
                 c = 0;
 
-                foreach (DataGridViewRow row in DGVListadoVentas.Rows)
+                foreach (var row in idVentas)
                 {
-                    if (c < t)
+
+                    string ID = row.Key.ToString();
+                    en++;
+                    var DTDatosVenta = cn.CargarDatos($"SELECT `Status` FROM ventas WHERE ID = {ID}");
+                    string status = DTDatosVenta.Rows[0]["Status"].ToString();
+                    if (status.Equals("3"))
                     {
-                        bool estado = (bool)row.Cells["col_checkbox"].Value;
-
-                        if (estado == true)
-                        {
-                           string ID = Convert.ToString(row.Cells["ID"].Value);
-                            en++;
-
-                            var DTDatosVenta = cn.CargarDatos($"SELECT `Status` FROM ventas WHERE ID = {ID}");
-                            string status = DTDatosVenta.Rows[0]["Status"].ToString();
-                            if (status.Equals("3"))
-                            {
-                                MessageBox.Show("No se puede modificar una Venta Cancelada", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
-                            }
-                            IDsVenta.Add(ID);
-                            
-                        }
-                        c++;
+                        MessageBox.Show("No se puede modificar una Venta Cancelada", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
                     }
+                    IDsVenta.Add(ID);
+
+                    c++;
+
                 }
-                
+
                 AsignarClienteYMetodoPago asignar = new AsignarClienteYMetodoPago(IDsVenta);
                 asignar.ShowDialog();
                 chTodos.Checked = false;
                 obtenerIDSeleccionados();
-                MessageBox.Show("CAMBIOS REALIZADOS CON EXITO", "Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
-              
+                MessageBox.Show("CAMBIOS REALIZADOS CON EXITO", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
             else
             {
