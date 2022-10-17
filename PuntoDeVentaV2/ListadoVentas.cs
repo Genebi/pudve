@@ -449,6 +449,8 @@ namespace PuntoDeVentaV2
                 if (busqueda)
                 {
                     var buscador = txtBuscador.Text.Trim();
+                    var formaPagoFiltro = cbFormasPago.SelectedValue.ToString();
+
                     if (buscarPorFecha == 1)
                     {
                         fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
@@ -508,19 +510,19 @@ namespace PuntoDeVentaV2
 
                             if (estado.Equals(1)) // Ventas pagadas
                             {
-                                consulta = cs.VerComoEpleadoTodasMisVentasPagadasPorFechas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal);
+                                consulta = cs.VerComoEpleadoTodasMisVentasPagadasPorFechas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, formaPagoFiltro);
                             }
                             else if (estado.Equals(2) || estado.Equals(5)) // Ventas guardadas o ventas globales
                             {
-                                consulta = cs.VerComoEpleadoTodasLaVentasGuardadasPorFechas(estado, fechaInicial, fechaFinal);
+                                consulta = cs.VerComoEpleadoTodasLaVentasGuardadasPorFechas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
                             }
                             else if (estado.Equals(3)) // Ventas canceladas
                             {
-                                consulta = cs.VerComoEpleadoTodasMisVentasCanceladasPorFechas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal);
+                                consulta = cs.VerComoEpleadoTodasMisVentasCanceladasPorFechas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, formaPagoFiltro);
                             }
                             else if (estado.Equals(4)) // Ventas a credito
                             {
-                                consulta = cs.VerComoEpleadoTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal);
+                                consulta = cs.VerComoEpleadoTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
                             }
                         }
                         else
@@ -530,26 +532,26 @@ namespace PuntoDeVentaV2
                             {
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                 {
-                                    consulta = cs.VerComoAdministradorTodasLaVentasMiasPagadasPorFechas(estado, fechaInicial, fechaFinal);
+                                    consulta = cs.VerComoAdministradorTodasLaVentasMiasPagadasPorFechas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                                 else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                                 {
-                                    consulta = cs.filtroMostrarTodasLasVentasPagadasEnAdministrador(estado, fechaInicial, fechaFinal);
+                                    consulta = cs.filtroMostrarTodasLasVentasPagadasEnAdministrador(estado, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                                 else
                                 {
-                                    consulta = cs.filtroPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
+                                    consulta = cs.filtroPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                             }
                             else if (estado.Equals(2) || estado.Equals(5)) // Ventas guardadas o ventas globales
                             {
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                 {
-                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechas(estado, fechaInicial, fechaFinal);
+                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                                 else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                                 {
-                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechas(estado, fechaInicial, fechaFinal);
+                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                                 else
                                 {
@@ -560,15 +562,15 @@ namespace PuntoDeVentaV2
                             {
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                 {
-                                    consulta = cs.VerComoAdministradorTodasLaVentasCanceladasMiasPorFechas(estado, fechaInicial, fechaFinal);
+                                    consulta = cs.VerComoAdministradorTodasLaVentasCanceladasMiasPorFechas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                                 else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                                 {
-                                    consulta = cs.verVentasCanceladasDeTodosDesdeAdministrador(estado, fechaInicial, fechaFinal);
+                                    consulta = cs.verVentasCanceladasDeTodosDesdeAdministrador(estado, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                                 else
                                 {
-                                    consulta = cs.VerComoEmpleadoTodasMisVentasCanceladas(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
+                                    consulta = cs.VerComoEmpleadoTodasMisVentasCanceladas(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                             }
                             else if (estado.Equals(4)) // Ventas a credito
@@ -576,15 +578,15 @@ namespace PuntoDeVentaV2
                                 //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal);
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                 {
-                                    consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
+                                    consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                                 else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                                 {
-                                    consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
+                                    consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                                 else
                                 {
-                                    consulta = cs.verVentasCreditoPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
+                                    consulta = cs.verVentasCreditoPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                             }
                         }
@@ -5151,9 +5153,9 @@ namespace PuntoDeVentaV2
 
         private void cbFormasPago_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            var formaPago = cbFormasPago.SelectedValue.ToString();
+            //var formaPago = cbFormasPago.SelectedValue.ToString();
 
-            MessageBox.Show(formaPago);
+            //MessageBox.Show(formaPago);
         }
     }
 }
