@@ -1595,6 +1595,17 @@ namespace PuntoDeVentaV2
             var opcion = cbTipoVentas.SelectedValue.ToString();
             clickBoton = 0;
 
+            // Desactivar checkbox al cambios tipos de ventas
+            chTodos.Checked = false;
+            chkHDAutlan.Checked = false;
+
+            if (DGVListadoVentas.Controls.Find("checkBoxMaster", true).Length > 0)
+            {
+                CheckBox headerBox = (CheckBox)DGVListadoVentas.Controls.Find("checkBoxMaster", true)[0];
+                headerBox.Checked = false;
+            }
+            
+
             //Ventas pagadas
             if (opcion == "VP") { CargarDatos(1); }
             //Ventas guardadas
