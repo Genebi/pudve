@@ -51,6 +51,7 @@
             this.cInformacion = new System.Windows.Forms.DataGridViewImageColumn();
             this.retomarVenta = new System.Windows.Forms.DataGridViewImageColumn();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.cbFormasPago = new System.Windows.Forms.ComboBox();
             this.cbFiltroAdminEmpleado = new System.Windows.Forms.ComboBox();
             this.dpHoraFinal = new System.Windows.Forms.DateTimePicker();
             this.dpHoraInicial = new System.Windows.Forms.DateTimePicker();
@@ -88,7 +89,6 @@
             this.lb_txt_ruta_descargar = new System.Windows.Forms.Label();
             this.chTodos = new System.Windows.Forms.CheckBox();
             this.chkHDAutlan = new System.Windows.Forms.CheckBox();
-            this.cbFormasPago = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -300,6 +300,16 @@
             this.panelBotones.Size = new System.Drawing.Size(960, 110);
             this.panelBotones.TabIndex = 6;
             // 
+            // cbFormasPago
+            // 
+            this.cbFormasPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbFormasPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbFormasPago.FormattingEnabled = true;
+            this.cbFormasPago.Location = new System.Drawing.Point(3, 56);
+            this.cbFormasPago.Name = "cbFormasPago";
+            this.cbFormasPago.Size = new System.Drawing.Size(240, 21);
+            this.cbFormasPago.TabIndex = 19;
+            // 
             // cbFiltroAdminEmpleado
             // 
             this.cbFiltroAdminEmpleado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -338,17 +348,17 @@
             // 
             // button1
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(713, 83);
+            this.button1.Location = new System.Drawing.Point(506, 30);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(244, 25);
+            this.button1.Size = new System.Drawing.Size(220, 26);
             this.button1.TabIndex = 16;
-            this.button1.Text = "Asignar Cliente/Metodo de Pago";
+            this.button1.Text = "Asignar Cliente / Método de Pago";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -378,9 +388,9 @@
             this.btnCrearVentaGlobal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCrearVentaGlobal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCrearVentaGlobal.ForeColor = System.Drawing.Color.White;
-            this.btnCrearVentaGlobal.Location = new System.Drawing.Point(713, 54);
+            this.btnCrearVentaGlobal.Location = new System.Drawing.Point(506, 0);
             this.btnCrearVentaGlobal.Name = "btnCrearVentaGlobal";
-            this.btnCrearVentaGlobal.Size = new System.Drawing.Size(244, 27);
+            this.btnCrearVentaGlobal.Size = new System.Drawing.Size(220, 26);
             this.btnCrearVentaGlobal.TabIndex = 10;
             this.btnCrearVentaGlobal.Text = "Crear venta global";
             this.btnCrearVentaGlobal.UseVisualStyleBackColor = false;
@@ -394,9 +404,9 @@
             this.btnReportes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReportes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.btnReportes.ForeColor = System.Drawing.Color.White;
-            this.btnReportes.Location = new System.Drawing.Point(713, 0);
+            this.btnReportes.Location = new System.Drawing.Point(732, 1);
             this.btnReportes.Name = "btnReportes";
-            this.btnReportes.Size = new System.Drawing.Size(127, 25);
+            this.btnReportes.Size = new System.Drawing.Size(120, 26);
             this.btnReportes.TabIndex = 12;
             this.btnReportes.Text = "Generar Reporte";
             this.btnReportes.UseVisualStyleBackColor = false;
@@ -410,9 +420,9 @@
             this.btn_descargar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_descargar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_descargar.ForeColor = System.Drawing.Color.White;
-            this.btn_descargar.Location = new System.Drawing.Point(846, 27);
+            this.btn_descargar.Location = new System.Drawing.Point(858, 30);
             this.btn_descargar.Name = "btn_descargar";
-            this.btn_descargar.Size = new System.Drawing.Size(111, 25);
+            this.btn_descargar.Size = new System.Drawing.Size(100, 26);
             this.btn_descargar.TabIndex = 10;
             this.btn_descargar.Text = "Descargar";
             this.btn_descargar.UseVisualStyleBackColor = false;
@@ -439,9 +449,9 @@
             this.btn_enviar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_enviar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_enviar.ForeColor = System.Drawing.Color.White;
-            this.btn_enviar.Location = new System.Drawing.Point(846, 0);
+            this.btn_enviar.Location = new System.Drawing.Point(858, 0);
             this.btn_enviar.Name = "btn_enviar";
-            this.btn_enviar.Size = new System.Drawing.Size(111, 25);
+            this.btn_enviar.Size = new System.Drawing.Size(100, 26);
             this.btn_enviar.TabIndex = 8;
             this.btn_enviar.Text = "Enviar";
             this.btn_enviar.UseVisualStyleBackColor = false;
@@ -478,9 +488,9 @@
             this.btnNuevaVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNuevaVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNuevaVenta.ForeColor = System.Drawing.Color.White;
-            this.btnNuevaVenta.Location = new System.Drawing.Point(713, 27);
+            this.btnNuevaVenta.Location = new System.Drawing.Point(732, 30);
             this.btnNuevaVenta.Name = "btnNuevaVenta";
-            this.btnNuevaVenta.Size = new System.Drawing.Size(127, 25);
+            this.btnNuevaVenta.Size = new System.Drawing.Size(120, 26);
             this.btnNuevaVenta.TabIndex = 5;
             this.btnNuevaVenta.Text = "Nueva venta";
             this.btnNuevaVenta.UseVisualStyleBackColor = false;
@@ -676,7 +686,7 @@
             this.linkLblPaginaSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(512, 28);
             this.linkLblPaginaSiguiente.Name = "linkLblPaginaSiguiente";
-            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(15, 16);
+            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(14, 16);
             this.linkLblPaginaSiguiente.TabIndex = 24;
             this.linkLblPaginaSiguiente.TabStop = true;
             this.linkLblPaginaSiguiente.Text = "3";
@@ -690,7 +700,7 @@
             this.linkLblPaginaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaActual.Location = new System.Drawing.Point(485, 28);
             this.linkLblPaginaActual.Name = "linkLblPaginaActual";
-            this.linkLblPaginaActual.Size = new System.Drawing.Size(15, 16);
+            this.linkLblPaginaActual.Size = new System.Drawing.Size(14, 16);
             this.linkLblPaginaActual.TabIndex = 23;
             this.linkLblPaginaActual.TabStop = true;
             this.linkLblPaginaActual.Text = "2";
@@ -704,7 +714,7 @@
             this.linkLblPaginaAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaAnterior.Location = new System.Drawing.Point(455, 28);
             this.linkLblPaginaAnterior.Name = "linkLblPaginaAnterior";
-            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(15, 16);
+            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(14, 16);
             this.linkLblPaginaAnterior.TabIndex = 22;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "1";
@@ -785,16 +795,6 @@
             this.chkHDAutlan.Visible = false;
             this.chkHDAutlan.CheckedChanged += new System.EventHandler(this.chkHDAutlan_CheckedChanged);
             this.chkHDAutlan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkHDAutlan_MouseClick);
-            // 
-            // cbFormasPago
-            // 
-            this.cbFormasPago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbFormasPago.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbFormasPago.FormattingEnabled = true;
-            this.cbFormasPago.Location = new System.Drawing.Point(3, 56);
-            this.cbFormasPago.Name = "cbFormasPago";
-            this.cbFormasPago.Size = new System.Drawing.Size(240, 21);
-            this.cbFormasPago.TabIndex = 19;
             // 
             // ListadoVentas
             // 
