@@ -1793,6 +1793,10 @@ ALTER TABLE FiltroProducto ADD COLUMN IF NOT EXISTS Username VARCHAR(100) DEFAUL
 -- Agregar columna para guardar el username para filtros de dinamicos
 ALTER TABLE FiltrosDinamicosVetanaFiltros ADD COLUMN IF NOT EXISTS Username VARCHAR(100) DEFAULT NULL;
 
+-- Agregar Columna de Envio correo cuando la licencia se active
+ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS CorreoLicenciaPagada INT DEFAULT 0 ;
+
+
 --Se crea la tabla de Plantillas Pemrisos
 CREATE TABLE
 IF

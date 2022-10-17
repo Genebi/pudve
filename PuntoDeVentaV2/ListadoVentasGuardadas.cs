@@ -257,5 +257,15 @@ namespace PuntoDeVentaV2
                 CargarDatos();
             }
         }
+
+        private void txt_buscar_por_TextChanged(object sender, EventArgs e)
+        {
+            if (txt_buscar_por.Text.Contains("\'"))
+            {
+                string producto = txt_buscar_por.Text.Replace("\'", ""); ;
+                txt_buscar_por.Text = producto;
+                txt_buscar_por.Select(txt_buscar_por.Text.Length, 0);
+            }
+        }
     }
 }

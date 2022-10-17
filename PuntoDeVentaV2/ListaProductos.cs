@@ -1063,7 +1063,20 @@ namespace PuntoDeVentaV2
             }
         }
 
-      
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void txtBoxSearchProd_TextChanged(object sender, EventArgs e)
+        {
+            if (txtBoxSearchProd.Text.Contains("\'"))
+            {
+                string producto = txtBoxSearchProd.Text.Replace("\'", ""); ;
+                txtBoxSearchProd.Text = producto;
+                txtBoxSearchProd.Select(txtBoxSearchProd.Text.Length, 0);
+            }
+        }
 
         private void mensajeDeRelacionConImagenParaElUsuario(string mensajeMessageBox, string tituloMessageBox)
         {

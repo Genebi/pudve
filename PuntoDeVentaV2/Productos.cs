@@ -423,6 +423,18 @@ namespace PuntoDeVentaV2
                 {
                     txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
                 }
+                if (cbMostrar.SelectedIndex.Equals(0))
+                {
+                    CargarDatos(1);
+                }
+                else if (cbMostrar.SelectedIndex.Equals(1))
+                {
+                    CargarDatos(0);
+                }
+                else
+                {
+                    CargarDatos();
+                }
             }
         }
 
@@ -3639,6 +3651,17 @@ namespace PuntoDeVentaV2
             }
 
         }
+
+        private void txtBusqueda_TextChanged(object sender, EventArgs e)
+        {
+            if (txtBusqueda.Text.Contains("\'"))
+            {
+                string producto = txtBusqueda.Text.Replace("\'", ""); ;
+                txtBusqueda.Text = producto;
+                txtBusqueda.Select(txtBusqueda.Text.Length, 0);
+            }
+        }
+
         //Atajos para el DataGridView y Botones
         private void txtBusqueda_KeyDown(object sender, KeyEventArgs e)
         {
@@ -5418,7 +5441,19 @@ namespace PuntoDeVentaV2
 
                 maximo_x_pagina = cantidadAMostrar;
                 p.actualizarTope(maximo_x_pagina);
-                CargarDatos();
+                if (cbMostrar.SelectedIndex.Equals(0))
+                {
+                    CargarDatos(1);
+                }
+                else if (cbMostrar.SelectedIndex.Equals(1))
+                {
+                    CargarDatos(0);
+                }
+                else
+                {
+                    CargarDatos();
+                }
+                
                 //actualizarDatosDespuesDeAgregarProducto();
                 actualizar();
             }

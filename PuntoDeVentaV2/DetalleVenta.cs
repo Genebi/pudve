@@ -1163,6 +1163,7 @@ namespace PuntoDeVentaV2
 
         private void txtEfectivo_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             if (txtEfectivo.TextLength == 1 && txtEfectivo.Text.Equals("."))
             {
                 //txtEfectivo.Text = string.Empty;
@@ -1180,6 +1181,17 @@ namespace PuntoDeVentaV2
 
             CalcularCambio();
             RestaPrecio();
+        }
+
+        private void validarSoloNumeros(object sender, EventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            string texto = txt.Text;
+            bool esNum = decimal.TryParse(texto, out decimal algo);
+            if (esNum.Equals(false))
+            {
+                txt.Text = "";
+            }
         }
 
         private void RestaPrecio()
@@ -1224,24 +1236,28 @@ namespace PuntoDeVentaV2
 
         private void txtTransferencia_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             CalcularCambio();
             RestaPrecio();
         }
 
         private void txtTarjeta_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             CalcularCambio();
             RestaPrecio();
         }
 
         private void txtCheque_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             CalcularCambio();
             RestaPrecio();
         }
 
         private void txtVales_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             CalcularCambio();
             RestaPrecio();
         }
@@ -1349,6 +1365,7 @@ namespace PuntoDeVentaV2
 
         private void txtCredito_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             CalcularCambio();
             RestaPrecio();
             if (string.IsNullOrEmpty(txtCheque.Text) && string.IsNullOrEmpty(txtTarjeta.Text) && string.IsNullOrEmpty(txtTransferencia.Text))

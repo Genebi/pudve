@@ -175,8 +175,9 @@ namespace PuntoDeVentaV2
                             foreach (DataRow item in dtAbonos.Rows)
                             {
                                 var idEmpleadoRecibioAbonoACredito = item["IDEmpleado"].ToString();
+                                var aQuienPertenece = item["Propia"].ToString();
 
-                                if (idEmpleadoRecibioAbonoACredito.Equals("0"))
+                                if (idEmpleadoRecibioAbonoACredito.Equals("0") && aQuienPertenece.Equals("Propia"))
                                 {
                                     Efectivo += Convert.ToDecimal(item["Efectivo"].ToString());
                                     Tarjeta += Convert.ToDecimal(item["Tarjeta"].ToString());

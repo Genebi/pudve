@@ -1931,6 +1931,12 @@ namespace PuntoDeVentaV2
 
         private void txtBuscador_TextChanged(object sender, EventArgs e)
         {
+            if (txtBuscador.Text.Contains("\'"))
+            {
+                string producto = txtBuscador.Text.Replace("\'", ""); ;
+                txtBuscador.Text = producto;
+                txtBuscador.Select(txtBuscador.Text.Length, 0);
+            }
             txtBuscador.CharacterCasing = CharacterCasing.Upper;
         }
 

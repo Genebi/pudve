@@ -662,6 +662,38 @@ namespace PuntoDeVentaV2
 
             cn.EjecutarConsulta($"UPDATE correosproducto SET CorreoPrecioProducto = 1 ,CorreoStockProducto = 1,CorreoStockMinimo = 1 ,CorreoVentaProducto = 1 WHERE IDUsuario ={userID}");
 
+            EnvioCorreoLicenciaActiva();
+
+        }
+
+        private void EnvioCorreoLicenciaActiva()
+        {
+            using (var DTEstadoLicencia = cn.CargarDatos($"SELECT EstadoLicencia FROM usuarios WHERE ID = {IdUsuario}"))
+            {
+                string status = DTEstadoLicencia.Rows[0]["EstadoLicencia"].ToString();
+                if (status.Equals("1"))
+                {
+                    using (var DTEnvioCorreo = cn.CargarDatos($"SELECT CorreoLicenciaPagada FROM usuarios WHERE ID = {IdUsuario}"))
+                    {
+                        string statusCorreo = DTEnvioCorreo.Rows[0]["CorreoLicenciaPagada"].ToString();
+                        if (statusCorreo.Equals("0"))
+                        {
+                            string correo;
+                            using (DataTable email = cn.CargarDatos(cs.BuscarCorreoDelUsuario(IdUsuario)))
+                            {
+                                correo = email.Rows[0]["Email"].ToString();
+                            }
+                            string fecha = DateTime.Now.ToString("dd-MM-yyyy");
+                            var asunto = "Licencia Activada PUDVE";
+                            var html = $"<!DOCTYPE html> <html lang='es'> <head> <meta charset='UTF-8'> <meta http-equiv='X-UA-Compatible' content='IE=edge'> <meta name='viewport' content='width=device-width, initial-scale=1.0'> <title>Document</title> </head> <body> <h1 style='text-align:center;'>Licencia Activada</h1> <hr> <div style='text-align:center;'> <b>LICENCIA ACTIVA DE POR VIDA CON EXITO SIFO PUNTO DE VENTA</b><br> <b>PARA EL USUARIO {userNickName}<br>EL DIA {fecha} </b> </div> </body> </html>";
+
+                            Utilidades.EnviarEmail(html, asunto, correo);
+                            cn.EjecutarConsulta($"UPDATE usuarios SET CorreoLicenciaPagada = 1 WHERE ID = {IdUsuario}");
+
+                        }
+                    }
+                }
+            }
         }
 
         private void CorreoDe10DiasParaExpiracionDocumentosCSD()

@@ -38,8 +38,15 @@ namespace PuntoDeVentaV2
 
         private void txtBuscar_TextChanged(object sender, EventArgs e)
         {
+            if (txtBuscar.Text.Contains("\'"))
+            {
+                string producto = txtBuscar.Text.Replace("\'", ""); ;
+                txtBuscar.Text = producto;
+                txtBuscar.Select(txtBuscar.Text.Length, 0);
+            }
             //Poner todas las letras mayusculas
             txtBuscar.CharacterCasing = CharacterCasing.Upper;
+
         }
 
         private void dgvRevisarInventario_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)

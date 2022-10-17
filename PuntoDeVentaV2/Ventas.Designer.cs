@@ -417,7 +417,7 @@
             this.listaProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listaProductos.FormattingEnabled = true;
             this.listaProductos.ItemHeight = 16;
-            this.listaProductos.Location = new System.Drawing.Point(94, 51);
+            this.listaProductos.Location = new System.Drawing.Point(96, 51);
             this.listaProductos.Name = "listaProductos";
             this.listaProductos.Size = new System.Drawing.Size(790, 20);
             this.listaProductos.TabIndex = 9;
@@ -560,7 +560,7 @@
             this.cTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cTotal.Location = new System.Drawing.Point(123, 494);
             this.cTotal.Name = "cTotal";
-            this.cTotal.Size = new System.Drawing.Size(189, 39);
+            this.cTotal.Size = new System.Drawing.Size(185, 39);
             this.cTotal.TabIndex = 31;
             this.cTotal.Text = "0.00";
             this.cTotal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -680,6 +680,7 @@
             this.txtDescuentoGeneral.TabIndex = 35;
             this.txtDescuentoGeneral.Text = "% descuento";
             this.txtDescuentoGeneral.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtDescuentoGeneral.TextChanged += new System.EventHandler(this.txtDescuentoGeneral_TextChanged);
             this.txtDescuentoGeneral.Enter += new System.EventHandler(this.txtDescuentoGeneral_Enter);
             this.txtDescuentoGeneral.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDescuentoGeneral_KeyDown);
             this.txtDescuentoGeneral.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescuentoGeneral_KeyPress);

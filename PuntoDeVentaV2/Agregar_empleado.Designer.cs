@@ -166,7 +166,6 @@
             this.cmb_bx_permisos.FormattingEnabled = true;
             this.cmb_bx_permisos.Items.AddRange(new object[] {
             "Todos los permisos",
-            "Permisos limitados",
             "Elegir permisos"});
             this.cmb_bx_permisos.Location = new System.Drawing.Point(64, 192);
             this.cmb_bx_permisos.Name = "cmb_bx_permisos";

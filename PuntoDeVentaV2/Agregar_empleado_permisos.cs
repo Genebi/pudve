@@ -495,6 +495,7 @@ namespace PuntoDeVentaV2
             if (e.ColumnIndex == 2)
             {
                 IDPlantilla = Convert.ToInt32(DGVPlantillas.Rows[e.RowIndex].Cells[0].Value.ToString());
+                Agregar_empleado.IDPlantilla = IDPlantilla;
                 CargarPermisosPlantilla();
             }
             if (e.ColumnIndex == 3)

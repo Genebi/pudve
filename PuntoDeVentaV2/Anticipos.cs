@@ -705,6 +705,12 @@ namespace PuntoDeVentaV2
 
         private void txtBuscarAnticipo_TextChanged(object sender, EventArgs e)
         {
+            if (txtBuscarAnticipo.Text.Contains("\'"))
+            {
+                string producto = txtBuscarAnticipo.Text.Replace("\'", ""); ;
+                txtBuscarAnticipo.Text = producto;
+                txtBuscarAnticipo.Select(txtBuscarAnticipo.Text.Length, 0);
+            }
             txtBuscarAnticipo.CharacterCasing = CharacterCasing.Upper;
         }
 
