@@ -423,6 +423,18 @@ namespace PuntoDeVentaV2
                 {
                     txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
                 }
+                if (cbMostrar.SelectedIndex.Equals(0))
+                {
+                    CargarDatos(1);
+                }
+                else if (cbMostrar.SelectedIndex.Equals(1))
+                {
+                    CargarDatos(0);
+                }
+                else
+                {
+                    CargarDatos();
+                }
             }
         }
 
