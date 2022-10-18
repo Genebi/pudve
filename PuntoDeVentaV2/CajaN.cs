@@ -421,7 +421,6 @@ namespace PuntoDeVentaV2
                             if (!dtAbonosRealizadosRecientementeAdministrador.Rows.Count.Equals(0))
                             {
                                 lbCambioAbonos.Visible = true;
-                                //limpirVariablesDeAbonos();
                                 foreach (DataRow item in dtAbonosRealizadosRecientementeAdministrador.Rows)
                                 {
                                     totalAbonoEfectivo += Convert.ToDecimal(item["Efectivo"].ToString());
