@@ -109,7 +109,7 @@ namespace PuntoDeVentaV2
         private void AsignarClienteYMetodoPago_Load(object sender, EventArgs e)
         {
             CargarDatos();
-            if (ListadoVentas.tipoVenta.Equals(1))
+            if (ListadoVentas.tipoVenta.Equals(1) || ListadoVentas.tipoVenta.Equals(3))
             {
                 label1.Visible = false;
                 CBMetodoPago.Visible = false;
