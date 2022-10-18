@@ -1749,5 +1749,46 @@ namespace PuntoDeVentaV2
             txtTrans.Text = totalTransferencia.ToString();
             btnAceptar.Focus();
         }
+
+        private void txtEfectivo_TextChanged(object sender, EventArgs e)
+        {
+            validarSoloNumeros(sender, e);
+        }
+
+        private void validarSoloNumeros(object sender, EventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            string texto = txt.Text;
+            bool esNum = decimal.TryParse(texto, out decimal algo);
+            if (esNum.Equals(false))
+            {
+                txt.Text = "";
+            }
+        }
+
+        private void txtTarjeta_TextChanged(object sender, EventArgs e)
+        {
+            validarSoloNumeros(sender, e);
+        }
+
+        private void txtVales_TextChanged(object sender, EventArgs e)
+        {
+            validarSoloNumeros(sender, e);
+        }
+
+        private void txtCheque_TextChanged(object sender, EventArgs e)
+        {
+            validarSoloNumeros(sender, e);
+        }
+
+        private void txtTrans_TextChanged(object sender, EventArgs e)
+        {
+            validarSoloNumeros(sender, e);
+        }
+
+        private void txtCredito_TextChanged(object sender, EventArgs e)
+        {
+            validarSoloNumeros(sender, e);
+        }
     }
 }
