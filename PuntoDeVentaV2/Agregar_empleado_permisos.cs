@@ -18,7 +18,7 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
 
         static public int IDPlantilla = 0;
-
+        static public bool SeGuardo = false;
         private int id_empleado = 0;
 
         public string[] datos;
@@ -441,7 +441,6 @@ namespace PuntoDeVentaV2
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
             string anticipo = Convert.ToString(Convert.ToInt32(cbox_anticipos.Checked));
             string caja = Convert.ToString(Convert.ToInt32(cbox_caja.Checked));
             string client = Convert.ToString(Convert.ToInt32(cbox_clientes.Checked));
@@ -479,6 +478,14 @@ namespace PuntoDeVentaV2
             {
                 IngresarrNombrePlantilla plantilla = new IngresarrNombrePlantilla(datos);
                 plantilla.ShowDialog();
+                if (SeGuardo)
+                {
+                    using (var DTIDPlantilla = cn.CargarDatos("SELECT ID from plantillapermisos ORDER BY ID DESC LIMIT 1"))
+                    {
+                        Agregar_empleado.IDPlantilla = Convert.ToInt32(DTIDPlantilla.Rows[0]["ID"]);
+                    }
+                }
+                CargarPermisosPlantilla();
                 DGVPlantillas.Rows.Clear();
                 CargarPlantillas();
             }
