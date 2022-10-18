@@ -2760,7 +2760,7 @@ namespace PuntoDeVentaV2
 
         public string PermisosEmpleadosSetupPudve(int idEmpleado, string dato)
         {
-            var consulta = $"SELECT {dato} from empleadospermisos WHERE IDEmpleado = {idEmpleado} AND Seccion = 'Configuracion'";
+            var consulta = $"SELECT {dato} FROM empleadospermisos WHERE IDEmpleado = '{idEmpleado}' AND IDUsuario = '{FormPrincipal.userID}' AND Seccion = 'Configuracion'";
             return consulta;
         }
 
