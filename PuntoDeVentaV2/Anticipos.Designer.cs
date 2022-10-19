@@ -476,6 +476,7 @@
             this.linkLblPrimeraPagina.TabStop = true;
             this.linkLblPrimeraPagina.Text = "1";
             this.linkLblPrimeraPagina.Visible = false;
+            this.linkLblPrimeraPagina.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblPrimeraPagina_LinkClicked);
             // 
             // linkLblPaginaSiguiente
             // 
@@ -515,6 +516,7 @@
             this.linkLblPaginaAnterior.TabIndex = 45;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "2";
+            this.linkLblPaginaAnterior.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblPaginaAnterior_LinkClicked);
             // 
             // panel1
             // 
