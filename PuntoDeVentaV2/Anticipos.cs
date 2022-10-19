@@ -891,6 +891,14 @@ namespace PuntoDeVentaV2
 
         }
 
+        private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnActualizarMaximoProductos.PerformClick();
+            }
+        }
+
         //private void dpFechaFinal_ValueChanged(object sender, EventArgs e)
         //{
         //    dpFechaFinal.Value = DateTime.Now;
