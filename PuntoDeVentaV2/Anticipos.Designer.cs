@@ -209,6 +209,7 @@
             this.cbAnticipos.TabIndex = 0;
             this.cbAnticipos.SelectedIndexChanged += new System.EventHandler(this.cbAnticipos_SelectedIndexChanged);
             this.cbAnticipos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbAnticipos_KeyDown);
+            this.cbAnticipos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbAnticipos_KeyPress);
             // 
             // DGVAnticipos
             // 
@@ -358,6 +359,7 @@
             this.txtMaximoPorPagina.TabIndex = 51;
             this.txtMaximoPorPagina.Text = "14";
             this.txtMaximoPorPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMaximoPorPagina.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMaximoPorPagina_KeyPress);
             // 
             // label7
             // 

@@ -673,6 +673,32 @@ namespace PuntoDeVentaV2
                 Ventas mostrarVentas = new Ventas();
                 mostrarVentas.Show();
             }
+
+            if ((e.KeyCode == System.Windows.Forms.Keys.Right))
+            {
+                txtBuscarAnticipo.Focus();
+                e.Handled = true;
+                return;
+            }
+            if ((e.KeyCode == System.Windows.Forms.Keys.Left))
+            {
+                txtBuscarAnticipo.Focus();
+                e.Handled = true;
+                return;
+            }
+            if ((e.KeyCode == System.Windows.Forms.Keys.Up))
+            {
+                txtBuscarAnticipo.Focus();
+                e.Handled = true;
+                return;
+            }
+            if ((e.KeyCode == System.Windows.Forms.Keys.Down))
+            {
+                txtBuscarAnticipo.Focus();
+                e.Handled = true;
+                return;
+            }
+
         }
 
         private void btnNuevoAnticipo_KeyDown(object sender, KeyEventArgs e)
@@ -848,6 +874,19 @@ namespace PuntoDeVentaV2
         }
 
         private void linkLblPaginaAnterior_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void txtMaximoPorPagina_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void cbAnticipos_KeyPress(object sender, KeyPressEventArgs e)
         {
 
         }
