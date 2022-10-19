@@ -1349,7 +1349,7 @@ namespace PuntoDeVentaV2
 
         private void MisDatos_paint(object sender, PaintEventArgs e)
         {
-            cargar_archivos();
+            //cargar_archivos();
         }
     }
 }
