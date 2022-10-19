@@ -1521,10 +1521,12 @@ namespace PuntoDeVentaV2
 
                     calculadora.FormClosed += delegate
                     {
-                        txtEfectivo.Text = calculadora.lCalculadora.Text;
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtEfectivo.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
                     };
-
-                    calcu = 0;
                     if (!calculadora.Visible)
                     {
                         calculadora.Show();
@@ -1550,10 +1552,12 @@ namespace PuntoDeVentaV2
 
                     calculadora.FormClosed += delegate
                     {
-                        txtTarjeta.Text = calculadora.lCalculadora.Text;
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtTarjeta.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
                     };
-
-                    calcu = 0;
                     if (!calculadora.Visible)
                     {
                         calculadora.Show();
@@ -1579,10 +1583,12 @@ namespace PuntoDeVentaV2
 
                     calculadora.FormClosed += delegate
                     {
-                        txtVales.Text = calculadora.lCalculadora.Text;
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtVales.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
                     };
-
-                    calcu = 0;
                     if (!calculadora.Visible)
                     {
                         calculadora.Show();
@@ -1608,10 +1614,12 @@ namespace PuntoDeVentaV2
 
                     calculadora.FormClosed += delegate
                     {
-                        txtCheque.Text = calculadora.lCalculadora.Text;
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtCheque.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
                     };
-
-                    calcu = 0;
                     if (!calculadora.Visible)
                     {
                         calculadora.Show();
@@ -1621,6 +1629,7 @@ namespace PuntoDeVentaV2
                         calculadora.Show();
                     }
                 }
+
             }
         }
 
@@ -1637,10 +1646,12 @@ namespace PuntoDeVentaV2
 
                     calculadora.FormClosed += delegate
                     {
-                        txtTrans.Text = calculadora.lCalculadora.Text;
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtTrans.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
                     };
-
-                    calcu = 0;
                     if (!calculadora.Visible)
                     {
                         calculadora.Show();
@@ -1666,10 +1677,12 @@ namespace PuntoDeVentaV2
 
                     calculadora.FormClosed += delegate
                     {
-                        txtCredito.Text = calculadora.lCalculadora.Text;
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtCredito.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
                     };
-
-                    calcu = 0;
                     if (!calculadora.Visible)
                     {
                         calculadora.Show();
