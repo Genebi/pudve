@@ -6843,7 +6843,7 @@ namespace PuntoDeVentaV2
                                         lbTVales.Text = cantidadValesVentaTodos.ToString("C2");
                                         lbTCheque.Text = cantidadChequeVentaTodos.ToString("C2");
                                         lbTTrans.Text = cantidadTransferenciaVentaTodos.ToString("C2");
-                                        lbTCredito.Text = (cantidadCreditoVentaTodos - totalAbonoRealizado).ToString("C2");
+                                        lbTCredito.Text = (cantidadCreditoVentaTodos /*- totalAbonoRealizado*/).ToString("C2");
                                         //lbTCreditoC.Text = totalAbonoRealizado.ToString("C2");
                                         lbTAnticipos.Text = cantidadAnticiposVentaTodos.ToString("C2");
                                         lbTVentas.Text = cantidadTotalVentasVentaTodos.ToString("C2");
