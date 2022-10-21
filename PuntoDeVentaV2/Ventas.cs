@@ -1396,24 +1396,37 @@ namespace PuntoDeVentaV2
                     {
                         nombreprodCantidad = DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString();
                         cantidadAnterior = Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString());
+                        var idProductoModificado = DGVentas.Rows[celdaCellClick].Cells["IDProducto"].Value.ToString();
+                        var datos = cn.CargarDatos($"SELECT CodigoBarras FROM productos WHERE ID = {idProductoModificado}");
+                        var codBarras = datos.Rows[0]["CodigoBarras"].ToString();
+                        
+                        
+                        DGVentas.Rows.Remove(DGVentas.CurrentRow);
+                        DGVentas.Refresh();
+                        txtBuscadorProducto.Text = codBarras;
+                        OperacionBusqueda(1);
+                        funteListBox();
+                        ProductoSeleccionado();
+                        listaProductos.Visible = false;
+
                         cantidadComprada cantidad = new cantidadComprada();
                         cantidad.ShowDialog();
-                        if (cantidadComprada.nuevaCantidad > cantidadAnterior)
-                        {
-                            txtBuscadorProducto.Text = "+"+(cantidadComprada.nuevaCantidad - cantidadAnterior);
+                        //if (cantidadComprada.nuevaCantidad > cantidadAnterior)
+                        //{
+                            txtBuscadorProducto.Text = "+" + (cantidadComprada.nuevaCantidad - 1);
                             txtBuscadorProducto.Focus();
                             SendKeys.Send("{ENTER}");
                             listaProductos.Visible = false;
-                        }
-                        else
-                        {
-                            txtBuscadorProducto.Text = (cantidadAnterior * -1) + cantidadComprada.nuevaCantidad + "";
-                            txtBuscadorProducto.Focus();
-                            SendKeys.Send("{ENTER}");
-                            listaProductos.Visible = false;
-                        }
-
+                        //}
+                        //else
+                        //{
+                        //    txtBuscadorProducto.Text = (cantidadAnterior * -1) + cantidadComprada.nuevaCantidad + "";
+                        //    txtBuscadorProducto.Focus();
+                        //    SendKeys.Send("{ENTER}");
+                        //    listaProductos.Visible = false;
+                        //}
                     }
+                    SendKeys.Send("{BACKSPACE}");
                 }
 
                 // Descuento
@@ -1877,7 +1890,7 @@ namespace PuntoDeVentaV2
 
                 }
 
-                if (!DGVentas.Rows.Count.Equals(0))
+                if (!DGVentas.Rows.Count.Equals(0) && !columnaCellClick.Equals(5))
                 {
                     if (noSeBorroFila)
                     {

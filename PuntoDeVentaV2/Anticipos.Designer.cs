@@ -209,6 +209,7 @@
             this.cbAnticipos.TabIndex = 0;
             this.cbAnticipos.SelectedIndexChanged += new System.EventHandler(this.cbAnticipos_SelectedIndexChanged);
             this.cbAnticipos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbAnticipos_KeyDown);
+            this.cbAnticipos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cbAnticipos_KeyPress);
             // 
             // DGVAnticipos
             // 
@@ -358,6 +359,8 @@
             this.txtMaximoPorPagina.TabIndex = 51;
             this.txtMaximoPorPagina.Text = "14";
             this.txtMaximoPorPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtMaximoPorPagina.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMaximoPorPagina_KeyDown);
+            this.txtMaximoPorPagina.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMaximoPorPagina_KeyPress);
             // 
             // label7
             // 
@@ -476,6 +479,7 @@
             this.linkLblPrimeraPagina.TabStop = true;
             this.linkLblPrimeraPagina.Text = "1";
             this.linkLblPrimeraPagina.Visible = false;
+            this.linkLblPrimeraPagina.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblPrimeraPagina_LinkClicked);
             // 
             // linkLblPaginaSiguiente
             // 
@@ -515,6 +519,7 @@
             this.linkLblPaginaAnterior.TabIndex = 45;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "2";
+            this.linkLblPaginaAnterior.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblPaginaAnterior_LinkClicked);
             // 
             // panel1
             // 

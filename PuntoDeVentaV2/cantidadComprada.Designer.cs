@@ -38,9 +38,10 @@ namespace PuntoDeVentaV2
             // 
             // lblNombreProducto
             // 
+            this.lblNombreProducto.AutoSize = true;
             this.lblNombreProducto.Location = new System.Drawing.Point(9, 9);
             this.lblNombreProducto.Name = "lblNombreProducto";
-            this.lblNombreProducto.Size = new System.Drawing.Size(322, 23);
+            this.lblNombreProducto.Size = new System.Drawing.Size(35, 13);
             this.lblNombreProducto.TabIndex = 1;
             this.lblNombreProducto.Text = "label1";
             this.lblNombreProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -52,6 +53,7 @@ namespace PuntoDeVentaV2
             this.txtCantidad.Size = new System.Drawing.Size(130, 20);
             this.txtCantidad.TabIndex = 2;
             this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCantidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown);
             // 
             // btnAceptar
             // 

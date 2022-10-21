@@ -147,12 +147,9 @@ namespace PuntoDeVentaV2
             DataSet datos = p.cargar();
             DataTable dtDatos = datos.Tables[0];
 
-            //}
-
             sql_cmd = new MySqlCommand(consulta, sql_con);
 
             dr = sql_cmd.ExecuteReader();
-
             if (dr.HasRows )
             {
                 DGVAnticipos.Rows.Clear();
@@ -164,7 +161,8 @@ namespace PuntoDeVentaV2
 
             if (dr.HasRows)
             {
-                while (dr.Read())
+                int rows = 0;
+                foreach (var item in dtDatos.Rows)
                 {
                     Image ticket = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ticket.png");
                     Image deshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\ban.png");
@@ -180,7 +178,7 @@ namespace PuntoDeVentaV2
                     DataGridViewRow row = DGVAnticipos.Rows[rowId];
                     var empleado = string.Empty;
                     var empAdm = string.Empty;
-                    empleado = dr.GetValue(dr.GetOrdinal("IDEmpleado")).ToString();
+                    empleado = dtDatos.Rows[rows]["IDEmpleado"].ToString();
                     if (!empleado.Equals("0"))
                     {
                         empAdm = "Empleado";
@@ -189,18 +187,18 @@ namespace PuntoDeVentaV2
                     {
                         empAdm = "Administrador";
                     }
-                    row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
-                    row.Cells["Concepto"].Value = dr.GetValue(dr.GetOrdinal("Concepto"));
-                    row.Cells["Importe"].Value = dr.GetValue(dr.GetOrdinal("Importe"));
-                    row.Cells["Cliente"].Value = dr.GetValue(dr.GetOrdinal("Cliente"));
+                    row.Cells["ID"].Value = dtDatos.Rows[rows]["ID"].ToString();
+                    row.Cells["Concepto"].Value = dtDatos.Rows[rows]["Concepto"].ToString();
+                    row.Cells["Importe"].Value = dtDatos.Rows[rows]["Importe"].ToString();
+                    row.Cells["Cliente"].Value = dtDatos.Rows[rows]["Cliente"].ToString();
                     row.Cells["Empleado"].Value = empAdm;
-                    row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("Fecha"))).ToString("yyyy-MM-dd HH:mm:ss");
-                    row.Cells["IDVenta"].Value = dr.GetValue(dr.GetOrdinal("IDVenta"));
-                    row.Cells["FormaPago"].Value = dr.GetValue(dr.GetOrdinal("FormaPago"));
+                    row.Cells["Fecha"].Value = Convert.ToDateTime(dtDatos.Rows[rows]["Fecha"]);
+                    row.Cells["IDVenta"].Value = dtDatos.Rows[rows]["IDVenta"].ToString();
+                    row.Cells["FormaPago"].Value = dtDatos.Rows[rows]["FormaPago"].ToString();
                     row.Cells["Ticket"].Value = ticket;
 
-                    var status = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("Status")));
-
+                    var status = Convert.ToInt32(dtDatos.Rows[rows]["Status"]);
+                    rows++;
                     if (status == 1)
                     {
                         row.Cells["Status"].Value = deshabilitar;
@@ -675,6 +673,32 @@ namespace PuntoDeVentaV2
                 Ventas mostrarVentas = new Ventas();
                 mostrarVentas.Show();
             }
+
+            if ((e.KeyCode == System.Windows.Forms.Keys.Right))
+            {
+                txtBuscarAnticipo.Focus();
+                e.Handled = true;
+                return;
+            }
+            if ((e.KeyCode == System.Windows.Forms.Keys.Left))
+            {
+                txtBuscarAnticipo.Focus();
+                e.Handled = true;
+                return;
+            }
+            if ((e.KeyCode == System.Windows.Forms.Keys.Up))
+            {
+                txtBuscarAnticipo.Focus();
+                e.Handled = true;
+                return;
+            }
+            if ((e.KeyCode == System.Windows.Forms.Keys.Down))
+            {
+                txtBuscarAnticipo.Focus();
+                e.Handled = true;
+                return;
+            }
+
         }
 
         private void btnNuevoAnticipo_KeyDown(object sender, KeyEventArgs e)
@@ -743,7 +767,6 @@ namespace PuntoDeVentaV2
         {
             if (!txtMaximoPorPagina.Text.Equals(string.Empty))
             {
-
                 var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
 
                 if (cantidadAMostrar <= 0)
@@ -753,15 +776,12 @@ namespace PuntoDeVentaV2
                     txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
                     return;
                 }
-
-
+                DGVAnticipos.Rows.Clear();
                 maximo_x_pagina = cantidadAMostrar;
                 p.actualizarTope(maximo_x_pagina);
-                int tipo = opcion +1;
-                CargarDatos(tipo);
-                ActualizarPaginador();
+                CargarDatos(cbAnticipos.SelectedIndex + 1);
             }
-            else
+            else if (txtMaximoPorPagina.Text.Equals(string.Empty))
             {
                 txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
             }
@@ -820,7 +840,7 @@ namespace PuntoDeVentaV2
         {
             p.ultimaPagina();
             clickBoton = 1;
-            CargarDatos();
+            CargarDatos(cbAnticipos.SelectedIndex + 1);
             ActualizarPaginador();
         }
 
@@ -828,7 +848,7 @@ namespace PuntoDeVentaV2
         {
             p.adelante();
             clickBoton = 1;
-            CargarDatos();
+            CargarDatos(cbAnticipos.SelectedIndex + 1);
             ActualizarPaginador();
         }
 
@@ -836,7 +856,7 @@ namespace PuntoDeVentaV2
         {
             p.atras();
             clickBoton = 1;
-            CargarDatos();
+            CargarDatos(cbAnticipos.SelectedIndex + 1);
             ActualizarPaginador();
         }
 
@@ -844,8 +864,39 @@ namespace PuntoDeVentaV2
         {
             p.primerPagina();
             clickBoton = 1;
-            CargarDatos();
+            CargarDatos(cbAnticipos.SelectedIndex + 1);
             ActualizarPaginador();
+        }
+
+        private void linkLblPrimeraPagina_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void linkLblPaginaAnterior_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
+        }
+
+        private void txtMaximoPorPagina_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void cbAnticipos_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+
+        private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnActualizarMaximoProductos.PerformClick();
+            }
         }
 
         //private void dpFechaFinal_ValueChanged(object sender, EventArgs e)

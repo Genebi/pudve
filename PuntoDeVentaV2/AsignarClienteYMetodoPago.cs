@@ -109,7 +109,7 @@ namespace PuntoDeVentaV2
         private void AsignarClienteYMetodoPago_Load(object sender, EventArgs e)
         {
             CargarDatos();
-            if (ListadoVentas.tipoVenta.Equals(1))
+            if (ListadoVentas.tipoVenta.Equals(1) || ListadoVentas.tipoVenta.Equals(3))
             {
                 label1.Visible = false;
                 CBMetodoPago.Visible = false;
@@ -344,7 +344,7 @@ namespace PuntoDeVentaV2
                     cn.EjecutarConsulta($"UPDATE ventas SET FormaPago = '{FormaPago}', `Status` = '{status}' WHERE ID = {id}");
                 }
 
-
+                cn.EjecutarConsulta($"UPDATE detallesventa SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE IDVenta = '{id}'");
                 cn.EjecutarConsulta($"UPDATE caja SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE FechaOperacion = '{FechaDePago}'");
 
                 if (metodoDePago.Equals("Crédito"))
@@ -355,7 +355,7 @@ namespace PuntoDeVentaV2
                 {
                     Columna = metodoDePago;
                 }
-
+                cn.EjecutarConsulta($"UPDATE detallesventa SET {Columna} = {total} WHERE IDVenta = {id}");
                 cn.EjecutarConsulta($"UPDATE caja SET {Columna} = {total} WHERE FechaOperacion = '{FechaDePago}'");
             }
             else
@@ -392,6 +392,7 @@ namespace PuntoDeVentaV2
                 {
                     cn.EjecutarConsulta($"UPDATE ventas SET FormaPago = '{FormaPago}', `Status` = '{status}' WHERE ID = {id}");
                 }
+                 cn.EjecutarConsulta($"UPDATE detallesventa SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE IDVenta = '{id}'");
                 cn.EjecutarConsulta($"UPDATE caja SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE FechaOperacion = '{FechaDePago}'");
                 
                 if (metodoDePago.Equals("Crédito"))
@@ -404,6 +405,7 @@ namespace PuntoDeVentaV2
                 }
 
                 cn.EjecutarConsulta($"UPDATE caja SET {Columna} = {total} WHERE FechaOperacion = '{FechaDePago}'");
+                cn.EjecutarConsulta($"UPDATE detallesventa SET {Columna} = {total} WHERE IDVenta = {id}");
             }
         }
 
@@ -511,7 +513,8 @@ namespace PuntoDeVentaV2
                 }
                 cn.EjecutarConsulta($"UPDATE caja SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE FechaOperacion = '{FechaDePago}'");
                 cn.EjecutarConsulta($"UPDATE detallesventa SET IDCliente = {idClienteGlobal}, Cliente = '{NombreCliente}' WHERE IDVenta ={id}");
-
+                cn.EjecutarConsulta($"UPDATE detallesventa SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE IDVenta = '{id}'");
+                
                 if (metodoDePago.Equals("Crédito"))
                 {
                     Columna = "Credito";
@@ -522,6 +525,7 @@ namespace PuntoDeVentaV2
                 }
 
                 cn.EjecutarConsulta($"UPDATE caja SET {Columna} = {total} WHERE FechaOperacion = '{FechaDePago}'");
+                cn.EjecutarConsulta($"UPDATE detallesventa SET {Columna} = {total} WHERE  IDVenta = {id}");
             }
             else
             {
@@ -567,6 +571,7 @@ namespace PuntoDeVentaV2
                     cn.EjecutarConsulta($"UPDATE ventas SET IDCliente = '{idClienteGlobal}', Cliente = '{NombreCliente}',RFC ='{RFC}',FormaPago = '{FormaPago}', `Status` = '{status}' WHERE ID = {id}");
                 }
                 cn.EjecutarConsulta($"UPDATE caja SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE FechaOperacion = '{FechaDePago}'");
+                cn.EjecutarConsulta($"UPDATE detallesventa SET Efectivo = '0.00',Tarjeta = '0.00', Transferencia = '0.00', Vales = '0.00', Cheque = '0.00', Credito = '0.00' WHERE IDVenta = '{id}'");
                 cn.EjecutarConsulta($"UPDATE detallesventa SET IDCliente = {idClienteGlobal}, Cliente = '{NombreCliente}' WHERE IDVenta ={id}");
                 if (metodoDePago.Equals("Crédito"))
                 {
@@ -578,6 +583,7 @@ namespace PuntoDeVentaV2
                 }
 
                 cn.EjecutarConsulta($"UPDATE caja SET {Columna} = {total} WHERE FechaOperacion = '{FechaDePago}'");
+                cn.EjecutarConsulta($"UPDATE detallesventa SET {Columna} = {total} WHERE IDVenta = {id}");
             }
         }
 

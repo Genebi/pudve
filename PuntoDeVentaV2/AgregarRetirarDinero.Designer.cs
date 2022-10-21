@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.gbContenedor = new System.Windows.Forms.GroupBox();
+            this.chkBoxDepositoSaldoInicial = new System.Windows.Forms.CheckBox();
             this.btnRetirarTodoElDinero = new System.Windows.Forms.Button();
             this.cbConceptoConBusqueda = new CustomControlPUDVE.ComboBoxPUDVE();
             this.btnAgregarConcepto = new System.Windows.Forms.Button();
@@ -49,7 +50,6 @@
             this.txtCheque = new System.Windows.Forms.TextBox();
             this.lbTitulo = new System.Windows.Forms.Label();
             this.cbConceptos = new System.Windows.Forms.ComboBox();
-            this.chkBoxDepositoSaldoInicial = new System.Windows.Forms.CheckBox();
             this.gbContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -75,13 +75,23 @@
             this.gbContenedor.Controls.Add(this.btnAceptar);
             this.gbContenedor.Controls.Add(this.txtCheque);
             this.gbContenedor.Controls.Add(this.lbTitulo);
-            this.gbContenedor.Location = new System.Drawing.Point(18, 6);
-            this.gbContenedor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.gbContenedor.Location = new System.Drawing.Point(12, 4);
             this.gbContenedor.Name = "gbContenedor";
-            this.gbContenedor.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.gbContenedor.Size = new System.Drawing.Size(615, 485);
+            this.gbContenedor.Size = new System.Drawing.Size(410, 315);
             this.gbContenedor.TabIndex = 0;
             this.gbContenedor.TabStop = false;
+            // 
+            // chkBoxDepositoSaldoInicial
+            // 
+            this.chkBoxDepositoSaldoInicial.AutoSize = true;
+            this.chkBoxDepositoSaldoInicial.Location = new System.Drawing.Point(126, 166);
+            this.chkBoxDepositoSaldoInicial.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkBoxDepositoSaldoInicial.Name = "chkBoxDepositoSaldoInicial";
+            this.chkBoxDepositoSaldoInicial.Size = new System.Drawing.Size(167, 17);
+            this.chkBoxDepositoSaldoInicial.TabIndex = 221;
+            this.chkBoxDepositoSaldoInicial.Text = "Agregar a saldo inicial de caja";
+            this.chkBoxDepositoSaldoInicial.UseVisualStyleBackColor = true;
+            this.chkBoxDepositoSaldoInicial.Visible = false;
             // 
             // btnRetirarTodoElDinero
             // 
@@ -91,10 +101,9 @@
             this.btnRetirarTodoElDinero.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRetirarTodoElDinero.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.btnRetirarTodoElDinero.ForeColor = System.Drawing.Color.White;
-            this.btnRetirarTodoElDinero.Location = new System.Drawing.Point(188, 249);
-            this.btnRetirarTodoElDinero.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnRetirarTodoElDinero.Location = new System.Drawing.Point(125, 162);
             this.btnRetirarTodoElDinero.Name = "btnRetirarTodoElDinero";
-            this.btnRetirarTodoElDinero.Size = new System.Drawing.Size(240, 37);
+            this.btnRetirarTodoElDinero.Size = new System.Drawing.Size(160, 24);
             this.btnRetirarTodoElDinero.TabIndex = 220;
             this.btnRetirarTodoElDinero.Text = "Retirar Todo";
             this.btnRetirarTodoElDinero.UseVisualStyleBackColor = false;
@@ -103,11 +112,10 @@
             // cbConceptoConBusqueda
             // 
             this.cbConceptoConBusqueda.FormattingEnabled = true;
-            this.cbConceptoConBusqueda.Location = new System.Drawing.Point(84, 349);
-            this.cbConceptoConBusqueda.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cbConceptoConBusqueda.Location = new System.Drawing.Point(56, 227);
             this.cbConceptoConBusqueda.MaxDropDownItems = 12;
             this.cbConceptoConBusqueda.Name = "cbConceptoConBusqueda";
-            this.cbConceptoConBusqueda.Size = new System.Drawing.Size(438, 28);
+            this.cbConceptoConBusqueda.Size = new System.Drawing.Size(293, 21);
             this.cbConceptoConBusqueda.TabIndex = 219;
             // 
             // btnAgregarConcepto
@@ -119,10 +127,9 @@
             this.btnAgregarConcepto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarConcepto.ForeColor = System.Drawing.Color.White;
             this.btnAgregarConcepto.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
-            this.btnAgregarConcepto.Location = new System.Drawing.Point(532, 346);
-            this.btnAgregarConcepto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAgregarConcepto.Location = new System.Drawing.Point(355, 225);
             this.btnAgregarConcepto.Name = "btnAgregarConcepto";
-            this.btnAgregarConcepto.Size = new System.Drawing.Size(42, 38);
+            this.btnAgregarConcepto.Size = new System.Drawing.Size(28, 25);
             this.btnAgregarConcepto.TabIndex = 218;
             this.btnAgregarConcepto.UseVisualStyleBackColor = false;
             this.btnAgregarConcepto.Click += new System.EventHandler(this.btnAgregarConcepto_Click);
@@ -132,10 +139,9 @@
             this.lbCredito.AutoSize = true;
             this.lbCredito.Enabled = false;
             this.lbCredito.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCredito.Location = new System.Drawing.Point(300, 178);
-            this.lbCredito.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbCredito.Location = new System.Drawing.Point(200, 116);
             this.lbCredito.Name = "lbCredito";
-            this.lbCredito.Size = new System.Drawing.Size(82, 23);
+            this.lbCredito.Size = new System.Drawing.Size(57, 17);
             this.lbCredito.TabIndex = 216;
             this.lbCredito.Text = "Crédito";
             this.lbCredito.Visible = false;
@@ -144,10 +150,9 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(300, 125);
-            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Location = new System.Drawing.Point(200, 81);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(138, 23);
+            this.label9.Size = new System.Drawing.Size(91, 17);
             this.label9.TabIndex = 215;
             this.label9.Text = "Transferencia";
             // 
@@ -155,10 +160,9 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(300, 69);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Location = new System.Drawing.Point(200, 45);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(90, 23);
+            this.label7.Size = new System.Drawing.Size(60, 17);
             this.label7.TabIndex = 214;
             this.label7.Text = "Cheque";
             // 
@@ -166,10 +170,9 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(14, 178);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Location = new System.Drawing.Point(9, 116);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 23);
+            this.label6.Size = new System.Drawing.Size(42, 17);
             this.label6.TabIndex = 213;
             this.label6.Text = "Vales";
             // 
@@ -177,10 +180,9 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(14, 125);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label5.Location = new System.Drawing.Point(9, 81);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(75, 23);
+            this.label5.Size = new System.Drawing.Size(51, 17);
             this.label5.TabIndex = 212;
             this.label5.Text = "Tarjeta";
             // 
@@ -188,22 +190,21 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(14, 69);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(9, 45);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(89, 23);
+            this.label4.Size = new System.Drawing.Size(60, 17);
             this.label4.TabIndex = 211;
             this.label4.Text = "Efectivo";
             // 
             // txtVales
             // 
             this.txtVales.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVales.Location = new System.Drawing.Point(106, 174);
-            this.txtVales.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtVales.Location = new System.Drawing.Point(71, 113);
             this.txtVales.Name = "txtVales";
-            this.txtVales.Size = new System.Drawing.Size(152, 31);
+            this.txtVales.Size = new System.Drawing.Size(103, 23);
             this.txtVales.TabIndex = 3;
             this.txtVales.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtVales.TextChanged += new System.EventHandler(this.txtVales_TextChanged);
             this.txtVales.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtVales_KeyDown);
             this.txtVales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtVales_KeyPress);
             this.txtVales.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtVales_KeyUp);
@@ -211,12 +212,12 @@
             // txtTarjeta
             // 
             this.txtTarjeta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTarjeta.Location = new System.Drawing.Point(106, 120);
-            this.txtTarjeta.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtTarjeta.Location = new System.Drawing.Point(71, 78);
             this.txtTarjeta.Name = "txtTarjeta";
-            this.txtTarjeta.Size = new System.Drawing.Size(152, 31);
+            this.txtTarjeta.Size = new System.Drawing.Size(103, 23);
             this.txtTarjeta.TabIndex = 2;
             this.txtTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTarjeta.TextChanged += new System.EventHandler(this.txtTarjeta_TextChanged);
             this.txtTarjeta.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTarjeta_KeyDown);
             this.txtTarjeta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTarjeta_KeyPress);
             this.txtTarjeta.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTarjeta_KeyUp);
@@ -224,12 +225,12 @@
             // txtEfectivo
             // 
             this.txtEfectivo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtEfectivo.Location = new System.Drawing.Point(106, 65);
-            this.txtEfectivo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtEfectivo.Location = new System.Drawing.Point(71, 42);
             this.txtEfectivo.Name = "txtEfectivo";
-            this.txtEfectivo.Size = new System.Drawing.Size(152, 31);
+            this.txtEfectivo.Size = new System.Drawing.Size(103, 23);
             this.txtEfectivo.TabIndex = 1;
             this.txtEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtEfectivo.TextChanged += new System.EventHandler(this.txtEfectivo_TextChanged);
             this.txtEfectivo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyDown);
             this.txtEfectivo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEfectivo_KeyPress);
             this.txtEfectivo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyUp);
@@ -238,25 +239,25 @@
             // 
             this.txtCredito.Enabled = false;
             this.txtCredito.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCredito.Location = new System.Drawing.Point(446, 174);
-            this.txtCredito.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtCredito.Location = new System.Drawing.Point(297, 113);
             this.txtCredito.Name = "txtCredito";
-            this.txtCredito.Size = new System.Drawing.Size(152, 31);
+            this.txtCredito.Size = new System.Drawing.Size(103, 23);
             this.txtCredito.TabIndex = 6;
             this.txtCredito.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCredito.Visible = false;
+            this.txtCredito.TextChanged += new System.EventHandler(this.txtCredito_TextChanged);
             this.txtCredito.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCredito_KeyPress);
             this.txtCredito.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCredito_KeyUp);
             // 
             // txtTrans
             // 
             this.txtTrans.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTrans.Location = new System.Drawing.Point(446, 120);
-            this.txtTrans.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtTrans.Location = new System.Drawing.Point(297, 78);
             this.txtTrans.Name = "txtTrans";
-            this.txtTrans.Size = new System.Drawing.Size(152, 31);
+            this.txtTrans.Size = new System.Drawing.Size(103, 23);
             this.txtTrans.TabIndex = 5;
             this.txtTrans.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTrans.TextChanged += new System.EventHandler(this.txtTrans_TextChanged);
             this.txtTrans.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTrans_KeyDown);
             this.txtTrans.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTrans_KeyPress);
             this.txtTrans.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTrans_KeyUp);
@@ -265,10 +266,9 @@
             // 
             this.lbSubtitulo.AutoSize = true;
             this.lbSubtitulo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSubtitulo.Location = new System.Drawing.Point(202, 305);
-            this.lbSubtitulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbSubtitulo.Location = new System.Drawing.Point(135, 198);
             this.lbSubtitulo.Name = "lbSubtitulo";
-            this.lbSubtitulo.Size = new System.Drawing.Size(240, 23);
+            this.lbSubtitulo.Size = new System.Drawing.Size(160, 17);
             this.lbSubtitulo.TabIndex = 210;
             this.lbSubtitulo.Text = "Concepto del depósito";
             // 
@@ -280,10 +280,9 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnCancelar.Location = new System.Drawing.Point(84, 420);
-            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnCancelar.Location = new System.Drawing.Point(56, 273);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(240, 37);
+            this.btnCancelar.Size = new System.Drawing.Size(160, 24);
             this.btnCancelar.TabIndex = 9;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
@@ -297,10 +296,9 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(333, 420);
-            this.btnAceptar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAceptar.Location = new System.Drawing.Point(222, 273);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(240, 37);
+            this.btnAceptar.Size = new System.Drawing.Size(160, 24);
             this.btnAceptar.TabIndex = 8;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = false;
@@ -309,12 +307,12 @@
             // txtCheque
             // 
             this.txtCheque.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCheque.Location = new System.Drawing.Point(446, 63);
-            this.txtCheque.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtCheque.Location = new System.Drawing.Point(297, 41);
             this.txtCheque.Name = "txtCheque";
-            this.txtCheque.Size = new System.Drawing.Size(152, 31);
+            this.txtCheque.Size = new System.Drawing.Size(103, 23);
             this.txtCheque.TabIndex = 4;
             this.txtCheque.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCheque.TextChanged += new System.EventHandler(this.txtCheque_TextChanged);
             this.txtCheque.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCheque_KeyDown);
             this.txtCheque.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCheque_KeyPress);
             this.txtCheque.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCheque_KeyUp);
@@ -323,10 +321,9 @@
             // 
             this.lbTitulo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbTitulo.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTitulo.Location = new System.Drawing.Point(166, 17);
-            this.lbTitulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lbTitulo.Location = new System.Drawing.Point(111, 11);
             this.lbTitulo.Name = "lbTitulo";
-            this.lbTitulo.Size = new System.Drawing.Size(302, 31);
+            this.lbTitulo.Size = new System.Drawing.Size(201, 20);
             this.lbTitulo.TabIndex = 209;
             this.lbTitulo.Text = "Cantidad a depositar";
             this.lbTitulo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -336,34 +333,21 @@
             this.cbConceptos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbConceptos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbConceptos.FormattingEnabled = true;
-            this.cbConceptos.Location = new System.Drawing.Point(0, 3);
-            this.cbConceptos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cbConceptos.Location = new System.Drawing.Point(0, 2);
             this.cbConceptos.Name = "cbConceptos";
-            this.cbConceptos.Size = new System.Drawing.Size(438, 31);
+            this.cbConceptos.Size = new System.Drawing.Size(293, 25);
             this.cbConceptos.TabIndex = 217;
             this.cbConceptos.Visible = false;
             // 
-            // chkBoxDepositoSaldoInicial
-            // 
-            this.chkBoxDepositoSaldoInicial.AutoSize = true;
-            this.chkBoxDepositoSaldoInicial.Location = new System.Drawing.Point(189, 256);
-            this.chkBoxDepositoSaldoInicial.Name = "chkBoxDepositoSaldoInicial";
-            this.chkBoxDepositoSaldoInicial.Size = new System.Drawing.Size(244, 24);
-            this.chkBoxDepositoSaldoInicial.TabIndex = 221;
-            this.chkBoxDepositoSaldoInicial.Text = "Agregar a saldo inicial de caja";
-            this.chkBoxDepositoSaldoInicial.UseVisualStyleBackColor = true;
-            this.chkBoxDepositoSaldoInicial.Visible = false;
-            // 
             // AgregarRetirarDinero
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(651, 509);
+            this.ClientSize = new System.Drawing.Size(434, 331);
             this.Controls.Add(this.gbContenedor);
             this.Controls.Add(this.cbConceptos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AgregarRetirarDinero";
