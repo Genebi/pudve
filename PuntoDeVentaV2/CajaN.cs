@@ -7206,7 +7206,7 @@ namespace PuntoDeVentaV2
 
                                 if (cantidadCreditoResultadoBaseDeDatos > 0)
                                 {
-                                    cantidadCredito = cantidadCreditoResultadoBaseDeDatos - (totalAbonoRealizado + totalAbonoRealizadoDeOtrosUsuarios);
+                                    cantidadCredito = cantidadCreditoResultadoBaseDeDatos /*- (totalAbonoRealizado + totalAbonoRealizadoDeOtrosUsuarios)*/;
                                 }
                                 else if (cantidadCreditoResultadoBaseDeDatos.Equals(0))
                                 {
@@ -7237,7 +7237,7 @@ namespace PuntoDeVentaV2
                             lbTCredito.Text = cantidadCredito.ToString("C2");
                             lbTCreditoC.Text = (totalAbonoRealizado /*+ totalAbonoRealizadoDeOtrosUsuarios*/ + totalAbonoRealizadoOtrasVentas).ToString("C2");
                             lbTAnticipos.Text = cantidadAnticipos.ToString("C2");
-                            lbTVentas.Text = (cantidadEfectivo + cantidadTarjeta + cantidadVales + cantidadCheque + cantidadTransferencia + cantidadCredito + totalAbonoRealizado /*+ totalAbonoRealizadoDeOtrosUsuarios*/ + totalAbonoRealizadoOtrasVentas).ToString("C2");
+                            lbTVentas.Text = (cantidadEfectivo + cantidadTarjeta + cantidadVales + cantidadCheque + cantidadTransferencia + cantidadCredito /*+ totalAbonoRealizado + totalAbonoRealizadoDeOtrosUsuarios + totalAbonoRealizadoOtrasVentas*/).ToString("C2");
                         }
                     }
                 }
