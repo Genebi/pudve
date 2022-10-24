@@ -297,6 +297,8 @@ namespace PuntoDeVentaV2
 
         int contador = 0;
 
+        int contadorDescuento = 0;
+
         #region Iniciar Varaibles Globales
         List<string> datosProductosBtnGuardar,
                      datosProductoRelacionado;
@@ -1953,7 +1955,7 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo4_Click(object sender, EventArgs e)
         {
-            if (!descuentos.Count.Equals(0) || Productos.copiarDatos.Equals(1))
+            if (!descuentos.Count.Equals(0) && Productos.copiarDatos.Equals(1))
             {
                 //MessageBox.Show("ya hay un descuento pero no se como ponerlo por lo dinamico");
                 descuentosSinGuardar = 1;
@@ -1999,8 +2001,26 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    FormAgregar = new AgregarDescuentoProducto();
-                    FormAgregar.ShowDialog();
+                    var datos = cn.CargarDatos($"SELECT * FROM productos WHERE CodigoBarras = {txtCodigoBarras.Text}");
+                    var tieneDescuento = 0;
+                    if (Productos.tieneDescMay.Equals(1) || Productos.tieneDescIndiv.Equals(1))
+                    {
+                        tieneDescuento = 1;
+                    }
+                    else
+                    {
+                        tieneDescuento = 0;
+                    }
+
+                    if (datos.Rows.Count.Equals(0) && Productos.copiarDatos == 1 && contadorDescuento == 0 && tieneDescuento == 0)
+                    {
+                        contadorDescuento++;
+                    }
+                    else
+                    {
+                        FormAgregar = new AgregarDescuentoProducto();
+                        FormAgregar.ShowDialog();
+                    }
                 }
             }
 
@@ -10223,12 +10243,14 @@ namespace PuntoDeVentaV2
             
             if (Productos.copiarDatos.Equals(1))
             {
+                btnGenerarCB.PerformClick();
                 btnAgregarDescuento.PerformClick();
             }
             if (Productos.copiarFacturacion.Equals(1))
             {
                 btnDetalleFacturacion.PerformClick();
             }
+
         }
 
         private void llenarListaDatosDinamicos()

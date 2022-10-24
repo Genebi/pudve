@@ -222,6 +222,8 @@ namespace PuntoDeVentaV2
         public static int copiarMensajesProd = 0;
         static public int copiarDatos = 0;
         static public int copiarFacturacion = 0;
+        static public int tieneDescMay = 0;
+        static public int tieneDescIndiv = 0;
 
         List<string> usuarios = new List<string>()
         {
@@ -1038,6 +1040,8 @@ namespace PuntoDeVentaV2
                 }
                 else if (e.ColumnIndex == 7)
                 {
+                    copiarDatos = 0;
+                    copiarMensajesProd = 0;
                     if (opcion15 == 0)
                     {
                         Utilidades.MensajePermiso();
@@ -1438,7 +1442,25 @@ namespace PuntoDeVentaV2
                                 AgregarEditarProducto.descuentos.Add(descuento);
                                 AgregarEditarProducto.descuentos.Add("0");
                             }
-                           
+
+                            if (!detallesDescMay.Rows.Count.Equals(0))
+                            {
+                                tieneDescMay = 1;
+                            }
+                            else
+                            {
+                                tieneDescMay = 0;
+                            }
+
+                            if (!detallesDescProd.Rows.Count.Equals(0))
+                            {
+                                tieneDescIndiv = 1;
+                            }
+                            else
+                            {
+                                tieneDescIndiv = 0;
+                            }
+
                         }
 
                         origenDeLosDatos = 4;

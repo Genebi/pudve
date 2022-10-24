@@ -2142,7 +2142,7 @@ namespace PuntoDeVentaV2
             {
                 var idProducto = AgregarEditarProducto.idProductoFinal;
 
-                if (!string.IsNullOrWhiteSpace(idProducto))
+                if (!string.IsNullOrWhiteSpace(idProducto) && Productos.copiarMensajesProd != 1)
                 {
                     cn.EjecutarConsulta($"DELETE FROM DescuentoCliente WHERE IDProducto = {idProducto}");
                     AgregarEditarProducto.SearchDesCliente.Clear();
@@ -2158,6 +2158,15 @@ namespace PuntoDeVentaV2
                     {
                         this.Hide();
                     }
+                }
+                else
+                {
+                    AgregarEditarProducto.SearchDesCliente.Clear();
+                    AgregarEditarProducto.SearchDesMayoreo.Clear();
+                    panelContenedor.Controls.Clear();
+                    AgregarEditarProducto.descuentos.Clear();
+                    this.Close();
+                    //cargarNvoDescuentos();
                 }
             }
 
