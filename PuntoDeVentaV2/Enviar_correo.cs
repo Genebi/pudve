@@ -354,8 +354,21 @@ namespace PuntoDeVentaV2
                 {
                     if (!string.IsNullOrWhiteSpace(servidor))
                     {
-                        
-                        correo.Attachments.Add(new Attachment($@"\\{servidor}\Archivos PUDVE\Ventas\PDF\VENTA_" + arr_ids_f_enviar[i][0] + ".pdf"));
+                        foreach (var CosultaIDS in arr_ids_f_enviar)
+                        {
+                            IDS = CosultaIDS[0].ToString();
+
+                            using (DataTable consultaFolio = cn.CargarDatos($"SELECT Folio from ventas WHERE ID = {IDS}"))
+                            {
+                                folio = consultaFolio.Rows[0]["Folio"].ToString();
+                            }
+                            using (DataTable ConsultaSerie = cn.CargarDatos($"SELECT Serie from ventas WHERE ID = {IDS}"))
+                            {
+                                Serie = ConsultaSerie.Rows[0]["Serie"].ToString();
+                            }
+
+                            correo.Attachments.Add(new Attachment($@"\\{servidor}\Archivos PUDVE\Ventas\PDF\{nombreUsuario}\VENTA_NoVenta{IDS}_Folio{folio}{Serie}.pdf"));
+                        }
                     }
                     else
                     {
