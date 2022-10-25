@@ -4940,7 +4940,7 @@ namespace PuntoDeVentaV2
             }
 
             // CONSULTA GENERAL
-            consultaFiltro = $"SELECT * FROM Productos AS P ";
+             consultaFiltro = $"SELECT * FROM Productos AS P ";
 
             // DESCRIPCION DEL FUNCIONAMIENTO DE ESTE CODIGO
             // Se comprueba si hay filtros aplicados y si se le dio click al boton aceptar del form de filtros ejecuta el codigo dentro de la condicional
