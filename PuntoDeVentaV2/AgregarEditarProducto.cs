@@ -10245,6 +10245,7 @@ namespace PuntoDeVentaV2
             {
                 btnGenerarCB.PerformClick();
                 btnAgregarDescuento.PerformClick();
+                Productos.copiarDatos = 0;
             }
             if (Productos.copiarFacturacion.Equals(1))
             {
