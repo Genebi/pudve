@@ -16,7 +16,23 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
-
+        public static List<int> Anticipos = new List<int>();
+        public static List<int> Configuracion = new List<int>();
+        public static List<int> Facturas = new List<int>();
+        public static List<int> Productos = new List<int>();
+        public static List<int> Ventas = new List<int>();
+        public static List<int> Caja = new List<int>();
+        public static List<int> Empleados = new List<int>();
+        public static List<int> Inventario = new List<int>();
+        public static List<int> Proveedores = new List<int>();
+        public static List<int> Clientes = new List<int>();
+        public static List<int> Bascula = new List<int>();
+        public static List<int> MisDatos = new List<int>();
+        public static List<int> Reportes = new List<int>();
+        private string[] datosUpdate;
+        private string[] secciones;
+        private string[] ListaSeccion;
+        List<int> opciones = new List<int>();
         static public int IDPlantilla = 0;
         static public bool SeGuardo = false;
         private int id_empleado = 0;
@@ -47,7 +63,7 @@ namespace PuntoDeVentaV2
                 {
                     cargarCheckboxNvoEmpleado();
                 }
-                
+
             }
             CargarPlantillas();
         }
@@ -133,7 +149,7 @@ namespace PuntoDeVentaV2
 
         private void cargar_checkbox_permisos(string[] datos_e)
         {
-            cbox_anticipos.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[0])); 
+            cbox_anticipos.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[0]));
             cbox_caja.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[1]));
             cbox_clientes.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[2]));
             cbox_configuracion.Checked = Convert.ToBoolean(Convert.ToInt32(datos_e[3]));
@@ -196,7 +212,7 @@ namespace PuntoDeVentaV2
                 cn.EjecutarConsulta($"UPDATE empleadospermisos SET Precio = '{chkPermisoPrecio}' WHERE IDEmpleado = '{datos[1]}' AND IDUsuario = '{datos[0]}'");
 
                 int r = cn.EjecutarConsulta(cs.guardar_editar_empleado(datos, 2));
-
+                ActualizarSubPermisos();
                 if (r > 0)
                 {
                     IDPlantilla = 0;
@@ -208,6 +224,398 @@ namespace PuntoDeVentaV2
                 IDPlantilla = 0;
                 this.Close();
             }
+        }
+
+        private void ActualizarSubPermisos()
+        {
+            datosUpdate = new string[] { "editarTicket", "EnvioCorreo", "confiGeneral", "porcentajeGanancia", "tipoMoneda", "RespaldarInfo", "MensajeVentas", "MensajeInventario" };
+            secciones = new string[] {
+                "Caja", "Ventas", "Inventario", "Anticipos",
+                "MisDatos", "Facturas", "Configuracion", "Reportes",
+                "Clientes", "Proveedores", "Empleados", "Productos", "Bascula" ,"Permisos"
+            };
+            ListaSeccion = new string[] {
+                "Anticipos", "Configuracion","Facturas","Productos","Ventas","Caja","Empleados","Inventario","Proveedores","Clientes","Bascula","MisDatos","Reportes"
+            };
+            if (!IDPlantilla.Equals(0))
+            {
+                if (Anticipos.Count.Equals(0))
+                {
+                    var DTColumnas = cn.CargarDatos($"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'subpermisos' AND COLUMN_NAME LIKE 'ANT_%'");
+                    var rows = DTColumnas.AsEnumerable()
+                                 .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var columnas = string.Format("{0}", string.Join(",", rows.ToArray()));
+
+                    var DTPermisos = cn.CargarDatos($"SELECT {columnas} FROM subpermisos WHERE IDPlantilla = {Agregar_empleado_permisos.IDPlantilla}");
+
+                    var rows2 = DTPermisos.AsEnumerable()
+                                .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var permisos = string.Format("{0}", string.Join(",", rows2.ToArray()));
+
+                    var datos = permisos.Split(',');
+                    foreach (var item in datos)
+                    {
+                        Anticipos.Add(Convert.ToInt32(item));
+                    }
+                }
+
+                if (Caja.Count.Equals(0))
+                {
+                    var DTColumnas = cn.CargarDatos($"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'subpermisos' AND COLUMN_NAME LIKE 'Caja_%'");
+                    var rows = DTColumnas.AsEnumerable()
+                                 .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var columnas = string.Format("{0}", string.Join(",", rows.ToArray()));
+
+                    var DTPermisos = cn.CargarDatos($"SELECT {columnas} FROM subpermisos WHERE IDPlantilla = {Agregar_empleado_permisos.IDPlantilla}");
+
+                    var rows2 = DTPermisos.AsEnumerable()
+                                .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var permisos = string.Format("{0}", string.Join(",", rows2.ToArray()));
+
+                    var datos = permisos.Split(',');
+                    foreach (var item in datos)
+                    {
+                        Caja.Add(Convert.ToInt32(item));
+                    }
+
+                }
+                if (Ventas.Count.Equals(0))
+                {
+                    var DTColumnas = cn.CargarDatos($"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'subpermisos' AND COLUMN_NAME LIKE 'VEN_%'");
+                    var rows = DTColumnas.AsEnumerable()
+                                 .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var columnas = string.Format("{0}", string.Join(",", rows.ToArray()));
+
+                    var DTPermisos = cn.CargarDatos($"SELECT {columnas} FROM subpermisos WHERE IDPlantilla = {Agregar_empleado_permisos.IDPlantilla}");
+
+                    var rows2 = DTPermisos.AsEnumerable()
+                                .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var permisos = string.Format("{0}", string.Join(",", rows2.ToArray()));
+
+                    var datos = permisos.Split(',');
+                    foreach (var item in datos)
+                    {
+                        Ventas.Add(Convert.ToInt32(item));
+                    }
+                }
+                if (Inventario.Count.Equals(0))
+                {
+                    var DTColumnas = cn.CargarDatos($"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'subpermisos' AND COLUMN_NAME LIKE 'INV_%'");
+                    var rows = DTColumnas.AsEnumerable()
+                                 .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var columnas = string.Format("{0}", string.Join(",", rows.ToArray()));
+
+                    var DTPermisos = cn.CargarDatos($"SELECT {columnas} FROM subpermisos WHERE IDPlantilla = {Agregar_empleado_permisos.IDPlantilla}");
+
+                    var rows2 = DTPermisos.AsEnumerable()
+                                .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var permisos = string.Format("{0}", string.Join(",", rows2.ToArray()));
+
+                    var datos = permisos.Split(',');
+                    foreach (var item in datos)
+                    {
+                        Inventario.Add(Convert.ToInt32(item));
+                    }
+                }
+                if (MisDatos.Count.Equals(0))
+                {
+                    var DTColumnas = cn.CargarDatos($"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'subpermisos' AND COLUMN_NAME LIKE 'MISD_%'");
+                    var rows = DTColumnas.AsEnumerable()
+                                 .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var columnas = string.Format("{0}", string.Join(",", rows.ToArray()));
+
+                    var DTPermisos = cn.CargarDatos($"SELECT {columnas} FROM subpermisos WHERE IDPlantilla = {Agregar_empleado_permisos.IDPlantilla}");
+
+                    var rows2 = DTPermisos.AsEnumerable()
+                                .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var permisos = string.Format("{0}", string.Join(",", rows2.ToArray()));
+
+                    var datos = permisos.Split(',');
+                    foreach (var item in datos)
+                    {
+                        MisDatos.Add(Convert.ToInt32(item));
+                    }
+                }
+
+                if (Facturas.Count.Equals(0))
+                {
+                    var DTColumnas = cn.CargarDatos($"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'subpermisos' AND COLUMN_NAME LIKE 'FAC_%'");
+                    var rows = DTColumnas.AsEnumerable()
+                                 .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var columnas = string.Format("{0}", string.Join(",", rows.ToArray()));
+
+                    var DTPermisos = cn.CargarDatos($"SELECT {columnas} FROM subpermisos WHERE IDPlantilla = {Agregar_empleado_permisos.IDPlantilla}");
+
+                    var rows2 = DTPermisos.AsEnumerable()
+                                .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var permisos = string.Format("{0}", string.Join(",", rows2.ToArray()));
+                    var datos = permisos.Split(',');
+                    foreach (var item in datos)
+                    {
+                        Facturas.Add(Convert.ToInt32(item));
+                    }
+                }
+
+                if (Configuracion.Count.Equals(0))
+                {
+                    var DTColumnas = cn.CargarDatos($"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'subpermisos' AND COLUMN_NAME LIKE 'CONF_%'");
+                    var rows = DTColumnas.AsEnumerable()
+                                 .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var columnas = string.Format("{0}", string.Join(",", rows.ToArray()));
+
+                    var DTPermisos = cn.CargarDatos($"SELECT {columnas} FROM subpermisos WHERE IDPlantilla = {Agregar_empleado_permisos.IDPlantilla}");
+
+                    var rows2 = DTPermisos.AsEnumerable()
+                                .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var permisos = string.Format("{0}", string.Join(",", rows2.ToArray()));
+
+                    var datos = permisos.Split(',');
+                    foreach (var item in datos)
+                    {
+                        Configuracion.Add(Convert.ToInt32(item));
+                    }
+                }
+
+                if (Reportes.Count.Equals(0))
+                {
+
+                    var DTColumnas = cn.CargarDatos($"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'subpermisos' AND COLUMN_NAME LIKE 'REP_%'");
+                    var rows = DTColumnas.AsEnumerable()
+                                 .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var columnas = string.Format("{0}", string.Join(",", rows.ToArray()));
+
+                    var DTPermisos = cn.CargarDatos($"SELECT {columnas} FROM subpermisos WHERE IDPlantilla = {Agregar_empleado_permisos.IDPlantilla}");
+
+                    var rows2 = DTPermisos.AsEnumerable()
+                                .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var permisos = string.Format("{0}", string.Join(",", rows2.ToArray()));
+
+                    var datos = permisos.Split(',');
+                    foreach (var item in datos)
+                    {
+                        Reportes.Add(Convert.ToInt32(item));
+                    }
+                }
+
+                if (Clientes.Count.Equals(0))
+                {
+                    var DTColumnas = cn.CargarDatos($"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'subpermisos' AND COLUMN_NAME LIKE 'CLI_%'");
+                    var rows = DTColumnas.AsEnumerable()
+                                 .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var columnas = string.Format("{0}", string.Join(",", rows.ToArray()));
+
+                    var DTPermisos = cn.CargarDatos($"SELECT {columnas} FROM subpermisos WHERE IDPlantilla = {Agregar_empleado_permisos.IDPlantilla}");
+
+                    var rows2 = DTPermisos.AsEnumerable()
+                                .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var permisos = string.Format("{0}", string.Join(",", rows2.ToArray()));
+
+                    var datos = permisos.Split(',');
+                    foreach (var item in datos)
+                    {
+                        Clientes.Add(Convert.ToInt32(item));
+                    }
+                }
+
+                if (Proveedores.Count.Equals(0))
+                {
+                    var DTColumnas = cn.CargarDatos($"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'subpermisos' AND COLUMN_NAME LIKE 'PROV_%'");
+                    var rows = DTColumnas.AsEnumerable()
+                                 .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var columnas = string.Format("{0}", string.Join(",", rows.ToArray()));
+
+                    var DTPermisos = cn.CargarDatos($"SELECT {columnas} FROM subpermisos WHERE IDPlantilla = {Agregar_empleado_permisos.IDPlantilla}");
+
+                    var rows2 = DTPermisos.AsEnumerable()
+                                .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var permisos = string.Format("{0}", string.Join(",", rows2.ToArray()));
+
+                    var datos = permisos.Split(',');
+                    foreach (var item in datos)
+                    {
+                        Proveedores.Add(Convert.ToInt32(item));
+                    }
+                }
+
+                if (Empleados.Count.Equals(0))
+                {
+                    var DTColumnas = cn.CargarDatos($"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'subpermisos' AND COLUMN_NAME LIKE 'EMP_%'");
+                    var rows = DTColumnas.AsEnumerable()
+                                 .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var columnas = string.Format("{0}", string.Join(",", rows.ToArray()));
+
+                    var DTPermisos = cn.CargarDatos($"SELECT {columnas} FROM subpermisos WHERE IDPlantilla = {Agregar_empleado_permisos.IDPlantilla}");
+
+                    var rows2 = DTPermisos.AsEnumerable()
+                                .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var permisos = string.Format("{0}", string.Join(",", rows2.ToArray()));
+
+                    var datos = permisos.Split(',');
+
+                    foreach (var item in datos)
+                    {
+                        Empleados.Add(Convert.ToInt32(item));
+                    }
+                }
+
+                if (Productos.Count.Equals(0))
+                {
+                    var DTColumnas = cn.CargarDatos($"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'subpermisos' AND COLUMN_NAME LIKE 'PROD_%'");
+                    var rows = DTColumnas.AsEnumerable()
+                                 .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var columnas = string.Format("{0}", string.Join(",", rows.ToArray()));
+
+                    var DTPermisos = cn.CargarDatos($"SELECT {columnas} FROM subpermisos WHERE IDPlantilla = {Agregar_empleado_permisos.IDPlantilla}");
+
+                    var rows2 = DTPermisos.AsEnumerable()
+                                .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var permisos = string.Format("{0}", string.Join(",", rows2.ToArray()));
+
+                    var datos = permisos.Split(',');
+                    foreach (var item in datos)
+                    {
+                        Productos.Add(Convert.ToInt32(item));
+                    }
+                }
+
+                if (Bascula.Count.Equals(0))
+                {
+                    var DTColumnas = cn.CargarDatos($"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'subpermisos' AND COLUMN_NAME LIKE 'BAS_%'");
+                    var rows = DTColumnas.AsEnumerable()
+                                 .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var columnas = string.Format("{0}", string.Join(",", rows.ToArray()));
+
+                    var DTPermisos = cn.CargarDatos($"SELECT {columnas} FROM subpermisos WHERE IDPlantilla = {Agregar_empleado_permisos.IDPlantilla}");
+
+                    var rows2 = DTPermisos.AsEnumerable()
+                                .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
+
+                    var permisos = string.Format("{0}", string.Join(",", rows2.ToArray()));
+
+                    var datos = permisos.Split(',');
+                    foreach (var item in datos)
+                    {
+                        Bascula.Add(Convert.ToInt32(item));
+                    }
+                }
+                int contador = 0;
+                foreach (var seccion in ListaSeccion)
+                {
+                    foreach (var apartado in secciones)
+                    {
+                        if (seccion.Equals("Configuracion"))
+                        {
+                            TomarValoresLista(seccion);
+
+                            foreach (var opcion in opciones)
+                            {
+                                string dato = datosUpdate[contador].ToString();
+                                cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET {dato} = {opcion} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} ");
+                                contador++;
+                            }
+                            contador = 0;
+                        }
+                        if (seccion.Equals(apartado) && !seccion.Equals("Configuracion"))
+                        {
+                            int numero = 1;
+                            TomarValoresLista(seccion);
+                            foreach (var opcion in opciones)
+                            {
+                                cn.EjecutarConsulta($"UPDATE EmpleadosPermisos SET Opcion{numero} = {opcion} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = '{apartado}'");
+
+                                numero++;
+                            }
+                        }
+                        if (seccion.Equals("Ventas"))
+                        {
+                            TomarValoresLista(seccion);
+                            cn.EjecutarConsulta($"UPDATE empleadospermisos SET PermisoVentaClienteDescuento = {opciones[20]} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = '{apartado}'");
+                        }
+                    }
+                }
+            }
+        }
+
+        private object TomarValoresLista(string seccion)
+        {
+            if (seccion.Equals("Anticipos"))
+            {
+                opciones = Anticipos;
+            }
+            if (seccion.Equals("Configuracion"))
+            {
+                opciones = Configuracion;
+            }
+            if (seccion.Equals("Facturas"))
+            {
+                opciones = Facturas;
+            }
+            if (seccion.Equals("Productos"))
+            {
+                opciones = Productos;
+            }
+            if (seccion.Equals("Ventas"))
+            {
+                opciones = Ventas;
+            }
+            if (seccion.Equals("Caja"))
+            {
+                opciones = Caja;
+            }
+            if (seccion.Equals("Empleados"))
+            {
+                opciones = Empleados;
+            }
+            if (seccion.Equals("Inventario"))
+            {
+                opciones = Inventario;
+            }
+            if (seccion.Equals("Proveedores"))
+            {
+                opciones = Proveedores;
+            }
+            if (seccion.Equals("Clientes"))
+            {
+                opciones = Clientes;
+            }
+            if (seccion.Equals("Bascula"))
+            {
+                opciones = Bascula;
+            }
+            if (seccion.Equals("MisDatos"))
+            {
+                opciones = MisDatos;
+            }
+            if (seccion.Equals("Reportes"))
+            {
+                opciones = Reportes;
+            }
+            return opciones.ToList<int>();
         }
 
         private void btnCaja_Click(object sender, EventArgs e)
@@ -387,7 +795,7 @@ namespace PuntoDeVentaV2
                 if (objetos is CheckBox)
                 {
                     CheckBox chkObjetos = (CheckBox)objetos;
-                    if ("Marcar todo" !=chkObjetos.Text )
+                    if ("Marcar todo" != chkObjetos.Text)
                     {
                         bool estado = chkObjetos.Checked;
 
@@ -491,7 +899,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                MessageBox.Show("Seleecione almenos un permiso","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                MessageBox.Show("Seleecione almenos un permiso", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             IDPlantilla = 0;
@@ -499,19 +907,23 @@ namespace PuntoDeVentaV2
 
         private void DGVPlantillas_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 2)
+            if (e.RowIndex >= 0)
             {
-                IDPlantilla = Convert.ToInt32(DGVPlantillas.Rows[e.RowIndex].Cells[0].Value.ToString());
-                Agregar_empleado.IDPlantilla = IDPlantilla;
-                CargarPermisosPlantilla();
+                if (e.ColumnIndex == 2)
+                {
+                    IDPlantilla = Convert.ToInt32(DGVPlantillas.Rows[e.RowIndex].Cells[0].Value.ToString());
+                    Agregar_empleado.IDPlantilla = IDPlantilla;
+                    CargarPermisosPlantilla();
+                }
+                if (e.ColumnIndex == 3)
+                {
+                    IDPlantilla = Convert.ToInt32(DGVPlantillas.Rows[e.RowIndex].Cells[0].Value.ToString());
+                    cn.EjecutarConsulta($"UPDATE  plantillapermisos SET Estatus = 0 WHERE ID = {IDPlantilla} AND IDUsuario = {FormPrincipal.userID}");
+                    DGVPlantillas.Rows.Clear();
+                    CargarPermisosPlantilla();
+                }
             }
-            if (e.ColumnIndex == 3)
-            {
-                IDPlantilla = Convert.ToInt32(DGVPlantillas.Rows[e.RowIndex].Cells[0].Value.ToString());
-                cn.EjecutarConsulta($"UPDATE  plantillapermisos SET Estatus = 0 WHERE ID = {IDPlantilla} AND IDUsuario = {FormPrincipal.userID}");
-                DGVPlantillas.Rows.Clear();
-                CargarPermisosPlantilla();
-            }
+            
         }
 
         private void Agregar_empleado_permisos_FormClosing(object sender, FormClosingEventArgs e)
