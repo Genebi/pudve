@@ -428,7 +428,24 @@ namespace PuntoDeVentaV2
             {
                 panelLicencia.Visible = true;
                 lbLicenciaContenido.Text = Properties.Settings.Default.licencia;
-                lbFechaFinLicenciaContenido.Text = Properties.Settings.Default.fechaFinLicencia;
+
+                string[] fechaFinLicenciaAux = Properties.Settings.Default.fechaFinLicencia.Split('-');
+
+                if (!string.IsNullOrWhiteSpace(fechaFinLicenciaAux[0]))
+                {
+                    if (Convert.ToInt16(fechaFinLicenciaAux[0]) >= 2099)
+                    {
+                        lbFechaFinLicenciaContenido.Text = "LICENCIA PAGADA DE POR VIDA";
+                    }
+                    else
+                    {
+                        lbFechaFinLicenciaContenido.Text = Properties.Settings.Default.fechaFinLicencia;
+                    }
+                }
+                else
+                {
+                    lbFechaFinLicenciaContenido.Text = Properties.Settings.Default.fechaFinLicencia;
+                }
             }
 
             this.Focus();
