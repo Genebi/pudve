@@ -391,14 +391,18 @@ namespace PuntoDeVentaV2
                     row.Cells["id"].Value = ID;
                     row.Cells["nombre"].Value = Nombre;
                     row.Cells["usuario"].Value = Usuario;
+
                     row.Cells["editar"].Value = editar;
                     row.Cells["permisos"].Value = permisos;
+
                     if (cboMostrados.Text == "Habilitados")
                     {
+                        dgv_empleados.Columns["editar"].Visible = true;
                         row.Cells["deshabilitar"].Value = deshabilitar;
                     }
                     else if (cboMostrados.Text == "Deshabilitados")
                     {
+                        dgv_empleados.Columns["editar"].Visible = false;
                         row.Cells["deshabilitar"].Value = habilitar;
                     }
 
