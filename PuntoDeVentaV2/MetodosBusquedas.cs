@@ -1374,7 +1374,7 @@ namespace PuntoDeVentaV2
         {
             var lista = new Dictionary<int, string>();
 
-            var coincidencias = new Dictionary<int, Tuple<int, string>>();
+             var coincidencias = new Dictionary<int, Tuple<int, string>>();
 
             string[] palabras = frase.Split(' ');
 
@@ -1429,6 +1429,78 @@ namespace PuntoDeVentaV2
                 }
             }
             
+            if (coincidencias.Count > 0)
+            {
+                var listaCoincidencias = from entry in coincidencias orderby entry.Value.Item1 descending select entry;
+
+                foreach (var producto in listaCoincidencias)
+                {
+                    lista.Add(producto.Key, producto.Value.Item2);
+                }
+            }
+
+            return lista;
+        }
+
+        public Dictionary<int, string> BusquedaCoincidenciaExacta(string frase, string filtro, int mPrecio = 0, int mCB = 0)
+        {
+            var lista = new Dictionary<int, string>();
+
+            var coincidencias = new Dictionary<int, Tuple<int, string>>();
+
+            string[] palabras = frase.Split(' ');
+
+            if (palabras.Length > 0)
+            {
+                foreach (var palabra in palabras)
+                {
+                    if (filtro.Equals("Todos"))
+                    {
+                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND CodigoBarras = '{palabra}'");
+                    }
+                    else
+                    {
+                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Tipo = '{filtro}' AND Status = 1 AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna = '{palabra}' OR CodigoBarras = '{palabra}')");
+                    }
+
+
+                    var dr = sql_cmd.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            var id = Convert.ToInt32(dr["ID"].ToString());
+                            var precio = Convert.ToDouble(dr["Precio"].ToString());
+                            var codigo = dr["CodigoBarras"].ToString();
+                            var nombre = dr["Nombre"].ToString();
+
+                            if (mPrecio == 1 && !string.IsNullOrWhiteSpace(precio.ToString()))
+                            {
+                                nombre += $" --- ${precio.ToString("0.00")}";
+                            }
+
+                            if (mCB == 1 && !string.IsNullOrWhiteSpace(codigo))
+                            {
+                                nombre += $" --- CB: {codigo}";
+                            }
+
+                            if (coincidencias.ContainsKey(id))
+                            {
+                                coincidencias[id] = Tuple.Create(coincidencias[id].Item1 + 1, nombre);
+                            }
+                            else
+                            {
+                                coincidencias.Add(id, new Tuple<int, string>(1, nombre));
+                            }
+                        }
+                    }
+
+                    dr.Close();
+                    CerrarConexion();
+                }
+            }
+
             if (coincidencias.Count > 0)
             {
                 var listaCoincidencias = from entry in coincidencias orderby entry.Value.Item1 descending select entry;

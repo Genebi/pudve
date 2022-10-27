@@ -213,6 +213,8 @@ namespace PuntoDeVentaV2
 
         string descuentoDirectoPorAplicar = string.Empty;
 
+        int cambioCantidadProd = 0;
+
         #region Proceso de Bascula
         // Constructores
         private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
@@ -1392,41 +1394,43 @@ namespace PuntoDeVentaV2
                 // Cantidad
                 if (columnaCellClick.Equals(5))
                 {
-                    //if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
-                    //{
-                    //    nombreprodCantidad = DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString();
-                    //    cantidadAnterior = Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString());
-                    //    var idProductoModificado = DGVentas.Rows[celdaCellClick].Cells["IDProducto"].Value.ToString();
-                    //    var datos = cn.CargarDatos($"SELECT CodigoBarras FROM productos WHERE ID = {idProductoModificado}");
-                    //    var codBarras = datos.Rows[0]["CodigoBarras"].ToString();
-                        
-                        
-                    //    DGVentas.Rows.Remove(DGVentas.CurrentRow);
-                    //    DGVentas.Refresh();
-                    //    txtBuscadorProducto.Text = codBarras;
-                    //    OperacionBusqueda(1);
-                    //    funteListBox();
-                    //    ProductoSeleccionado();
-                    //    listaProductos.Visible = false;
+                    if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
+                    {
+                        cambioCantidadProd = 1;
+                        nombreprodCantidad = DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString();
+                        cantidadAnterior = Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString());
+                        var idProductoModificado = DGVentas.Rows[celdaCellClick].Cells["IDProducto"].Value.ToString();
+                        var datos = cn.CargarDatos($"SELECT CodigoBarras FROM productos WHERE ID = {idProductoModificado}");
+                        var codBarras = datos.Rows[0]["CodigoBarras"].ToString();
 
-                    //    cantidadComprada cantidad = new cantidadComprada();
-                    //    cantidad.ShowDialog();
-                    //    //if (cantidadComprada.nuevaCantidad > cantidadAnterior)
-                    //    //{
-                    //        txtBuscadorProducto.Text = "+" + (cantidadComprada.nuevaCantidad - 1);
-                    //        txtBuscadorProducto.Focus();
-                    //        SendKeys.Send("{ENTER}");
-                    //        listaProductos.Visible = false;
-                    //    //}
-                    //    //else
-                    //    //{
-                    //    //    txtBuscadorProducto.Text = (cantidadAnterior * -1) + cantidadComprada.nuevaCantidad + "";
-                    //    //    txtBuscadorProducto.Focus();
-                    //    //    SendKeys.Send("{ENTER}");
-                    //    //    listaProductos.Visible = false;
-                    //    //}
-                    //}
-                    //SendKeys.Send("{BACKSPACE}");
+
+                        DGVentas.Rows.Remove(DGVentas.CurrentRow);
+                        DGVentas.Refresh();
+                        txtBuscadorProducto.Text = codBarras;
+                        OperacionBusqueda(1);
+                        funteListBox();
+                        ProductoSeleccionado();
+                        listaProductos.Visible = false;
+
+                        cantidadComprada cantidad = new cantidadComprada();
+                        cantidad.ShowDialog();
+                        //if (cantidadComprada.nuevaCantidad > cantidadAnterior)
+                        //{
+                        txtBuscadorProducto.Text = "+" + (cantidadComprada.nuevaCantidad - 1);
+                        txtBuscadorProducto.Focus();
+                        SendKeys.Send("{ENTER}");
+                        listaProductos.Visible = false;
+                        //}
+                        //else
+                        //{
+                        //    txtBuscadorProducto.Text = (cantidadAnterior * -1) + cantidadComprada.nuevaCantidad + "";
+                        //    txtBuscadorProducto.Focus();
+                        //    SendKeys.Send("{ENTER}");
+                        //    listaProductos.Visible = false;
+                        //}
+                    }
+                   SendKeys.Send("{BACKSPACE}");
+                    cambioCantidadProd = 0;
                 }
 
                 // Descuento
@@ -6664,7 +6668,17 @@ namespace PuntoDeVentaV2
             {
                 // Regresa un diccionario
                 //var resultados = mb.BuscarProducto(txtBuscadorProducto.Text);
-                var resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text.Trim(), filtro, mostrarPrecioProducto, mostrarCBProducto);
+                var resultados = new Dictionary<int, string>();
+                var coincidenciaExacta = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = 10 AND STATUS = 1 AND CodigoBarras = '{txtBuscadorProducto.Text.Trim()}'");
+                if (coincidenciaExacta.Rows.Count.Equals(0))
+                {
+                    resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text.Trim(), filtro, mostrarPrecioProducto, mostrarCBProducto);
+                }
+                else
+                {
+                    resultados = mb.BusquedaCoincidenciaExacta(txtBuscadorProducto.Text.Trim(), filtro, mostrarPrecioProducto, mostrarCBProducto);
+                }
+                 
                 int coincidencias = resultados.Count;
 
                 if (coincidencias > 0)
@@ -6689,7 +6703,10 @@ namespace PuntoDeVentaV2
                         listaProductos.Visible = true;
                         listaProductos.SelectedIndex = 0;
                     }
-
+                    if (coincidenciaExacta.Rows.Count.Equals(1) && cambioCantidadProd.Equals(0))
+                    {
+                        SendKeys.Send("{ENTER}");
+                    }
 
                     //foreach (var item in listaProductos.Items)
                     //{
