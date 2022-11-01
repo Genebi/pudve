@@ -38,7 +38,7 @@ namespace PuntoDeVentaV2
 
         public float getStockAnterior { get; set; }
         public static float stockAnterior = 0;
-
+        public static DataTable DTDatos = new DataTable();
         // Almacena temporalmente los productos encontrados con las coincidencias de la busqueda
         Dictionary<int, string> productos;
 
@@ -66,6 +66,7 @@ namespace PuntoDeVentaV2
         bool UnidadesCompradas = false;
         bool UnidadesDisminuidas = false;
         bool PrecioCompra = false;
+        bool TotalCompra = false;
         bool PrecioVenta = false;
         bool StockAnterior = false;
         bool StockActual = false;
@@ -80,7 +81,9 @@ namespace PuntoDeVentaV2
 
         public static string filtradoParaRealizar = string.Empty;
 
+        public static bool esAumentar = false;
 
+        public static bool Aceptar = false;
         public Inventario()
         {
             listaConceptosSeleccionados = new List<string>();
@@ -1236,6 +1239,16 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
+                DatosSeleccionadoos();
+                if (rbAumentarProducto.Checked)
+                {
+                    esAumentar = true;
+                }
+                else if (rbDisminuirProducto.Checked)
+                {
+                    esAumentar = false;
+                }
+
                 SeleccionarConceptosReporteActualizarInventario SCRA = new SeleccionarConceptosReporteActualizarInventario();
 
                 SCRA.FormClosed += delegate
@@ -1246,53 +1259,64 @@ namespace PuntoDeVentaV2
 
                 SCRA.ShowDialog();
 
-                if (Utilidades.AdobeReaderInstalado())
+                if (Aceptar.Equals(true))
                 {
-                    var servidor = Properties.Settings.Default.Hosting;
-                    var rutaArchivo = string.Empty;
+                    FormReporteInventario xd = new FormReporteInventario();
+                    xd.ShowDialog();
+                    Aceptar = false;
+                }
+                else
+                {
+                    return;
+                }
+                
+                //if (Utilidades.AdobeReaderInstalado())
+                //{
+                //    var servidor = Properties.Settings.Default.Hosting;
+                //    var rutaArchivo = string.Empty;
 
-                    if (!string.IsNullOrWhiteSpace(servidor))
-                    {
-                        rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\";
-                        if (Directory.Exists(rutaArchivo))
-                        {
-                            GenerarReporte(idReporte);
-                            if (rbAumentarProducto.Checked)
-                            {
-                                var NewNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
-                                cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev + 1));
-                                cn.EjecutarConsulta(cs.UpdateStatusActualizacionAumentarInventario());
-                            }
-                            else if (rbDisminuirProducto.Checked)
-                            {
-                                var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
-                                cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
-                                cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
-                            }
+                //    if (!string.IsNullOrWhiteSpace(servidor))
+                //    {
+                //        rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\";
+                //        if (Directory.Exists(rutaArchivo))
+                //        {
+                //            //GenerarReporte(idReporte);
+                //            if (rbAumentarProducto.Checked)
+                //            {
+                //                var NewNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
+                //                cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev + 1));
+                //                cn.EjecutarConsulta(cs.UpdateStatusActualizacionAumentarInventario());
+                //            }
+                //            else if (rbDisminuirProducto.Checked)
+                //            {
+                //                var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
+                //                cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
+                //                cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
+                //            }
 
-                            if (productosAumentoDecremento.Count > 0)
-                            {
-                                var titulo = rbAumentarProducto.Checked == true ? "AUMENTADO" : "DISMINUIDO";
+                //            if (productosAumentoDecremento.Count > 0)
+                //            {
+                //                var titulo = rbAumentarProducto.Checked == true ? "AUMENTADO" : "DISMINUIDO";
 
-                                Thread notificacion = new Thread(
-                                    () => Utilidades.CambioStockAumentoDecremento(productosAumentoDecremento, titulo)
-                                );
+                //                Thread notificacion = new Thread(
+                //                    () => Utilidades.CambioStockAumentoDecremento(productosAumentoDecremento, titulo)
+                //                );
 
-                                notificacion.Start();
-                            }
-                            
-                        }
-                        else if (!Directory.Exists(rutaArchivo))
-                        {
-                            MessageBox.Show("Verificar si las carpetas en la MAQUINA SERVIDOR\nestan compartidas para almacenar los archivos", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
-                    }
+                //                notificacion.Start();
+                //            }
 
-                    if (string.IsNullOrWhiteSpace(servidor))
-                    {
-                        GenerarReporte(idReporte);
-                        if (rbAumentarProducto.Checked)
+                //        }
+                //        else if (!Directory.Exists(rutaArchivo))
+                //        {
+                //            MessageBox.Show("Verificar si las carpetas en la MAQUINA SERVIDOR\nestan compartidas para almacenar los archivos", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //            return;
+                //        }
+                //    }
+
+                //    if (string.IsNullOrWhiteSpace(servidor))
+                //    {
+                //GenerarReporte(idReporte);
+                if (rbAumentarProducto.Checked)
                         {
                             var NewNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
                             cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev + 1));
@@ -1306,22 +1330,22 @@ namespace PuntoDeVentaV2
                         }
 
 
-                        if (productosAumentoDecremento.Count > 0)
-                        {
-                            var titulo = rbAumentarProducto.Checked == true ? "AUMENTADO" : "DISMINUIDO";
+                //        if (productosAumentoDecremento.Count > 0)
+                //        {
+                //            var titulo = rbAumentarProducto.Checked == true ? "AUMENTADO" : "DISMINUIDO";
 
-                            Thread notificacion = new Thread(
-                                () => Utilidades.CambioStockAumentoDecremento(productosAumentoDecremento, titulo)
-                            );
+                //            Thread notificacion = new Thread(
+                //                () => Utilidades.CambioStockAumentoDecremento(productosAumentoDecremento, titulo)
+                //            );
 
-                            notificacion.Start();
-                        }
-                    }
-                }
-                else
-                {
-                    Utilidades.MensajeAdobeReader();
-                }
+                //            notificacion.Start();
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    Utilidades.MensajeAdobeReader();
+                //}
 
                 DGVInventario.Rows.Clear();
 
@@ -1330,6 +1354,34 @@ namespace PuntoDeVentaV2
             else
             {
                 MessageBox.Show("No existen ajustes realizados.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void DatosSeleccionadoos()
+        {
+            if (rbAumentarProducto.Checked)
+            {
+                var NoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
+
+                using (DataTable dtAumentarInventario = cn.CargarDatos(cs.SearchDGVAumentarInventario(NoRev)))
+                {
+                    if (!dtAumentarInventario.Rows.Count.Equals(0))
+                    {
+                        DTDatos = dtAumentarInventario;
+                    }
+                }
+            }
+            else if (rbDisminuirProducto.Checked)
+            {
+                var NoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
+
+                using (DataTable dtDisminuirInventario = cn.CargarDatos(cs.SearchDGVDisminuirInventario(NoRev)))
+                {
+                    if (!dtDisminuirInventario.Rows.Count.Equals(0))
+                    {
+                        DTDatos = dtDisminuirInventario;
+                    }
+                }
             }
         }
 
@@ -3863,6 +3915,11 @@ namespace PuntoDeVentaV2
                         PrecioCompra = true;
                         columnasConcepto++;
                     }
+                    else if (item.Equals("Total Compras") && PrecioVenta.Equals(false))
+                    {
+                        TotalCompra = true;
+                        columnasConcepto++;
+                    }
                     else if (item.Equals("Precio Venta") && PrecioVenta.Equals(false))
                     {
                         PrecioVenta = true;
@@ -3876,11 +3933,6 @@ namespace PuntoDeVentaV2
                     else if (item.Equals("Stock Actual") && StockActual.Equals(false))
                     {
                         StockActual = true;
-                        columnasConcepto++;
-                    }
-                    else if (item.Equals("Fecha de Compra") && FechaCompra.Equals(false))
-                    {
-                        FechaCompra = true;
                         columnasConcepto++;
                     }
                     else if (item.Equals("Fecha de Operacion") && FechaOperacion.Equals(false))
@@ -3924,6 +3976,11 @@ namespace PuntoDeVentaV2
                 txtBusqueda.Text = producto;
                 txtBusqueda.Select(txtBusqueda.Text.Length, 0);
             }
+        }
+
+        private void DGVInventario_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

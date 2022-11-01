@@ -325,6 +325,7 @@
             this.DGVInventario.RowHeadersVisible = false;
             this.DGVInventario.Size = new System.Drawing.Size(845, 289);
             this.DGVInventario.TabIndex = 9;
+            this.DGVInventario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVInventario_CellContentClick);
             // 
             // ID
             // 

@@ -34,7 +34,16 @@ namespace PuntoDeVentaV2
         {
             InitializeComponent();
 
-            itemsCLBConceptosExistentes = new string[] { "Producto", "Proveedor", "Unidades Compradas/Disminuidas", "Precio Compra", "Precio Venta", "Stock Anterior", "Stock Actual", "Fecha de Compra", "Fecha de Operacion", "Comentarios" };
+            if (Inventario.esAumentar.Equals(true))
+            {
+                itemsCLBConceptosExistentes = new string[] { "Producto", "Proveedor", "Unidades Compradas/Disminuidas", "Precio Compra", "Total Compras", "Precio Venta", "Stock Anterior", "Stock Actual", "Fecha de Operacion", "Comentarios" };
+            }
+            else
+            {
+
+                itemsCLBConceptosExistentes = new string[] { "Producto", "Proveedor", "Unidades Compradas/Disminuidas", "Precio Compra","Precio Venta", "Stock Anterior", "Stock Actual", "Fecha de Operacion", "Comentarios" };
+            }
+            
 
             CLBConceptosExistentes.Items.AddRange(itemsCLBConceptosExistentes);
         }
@@ -58,6 +67,7 @@ namespace PuntoDeVentaV2
 
                 MessageBox.Show("Cantidad de conceptos seleccionados debe de ser mayor a: " + cant + "\nFavor de seleccionar al menos uno de los conceptos", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            Inventario.Aceptar = true;
         }
 
         private void chkSelectAllOrNot_CheckedChanged(object sender, EventArgs e)
