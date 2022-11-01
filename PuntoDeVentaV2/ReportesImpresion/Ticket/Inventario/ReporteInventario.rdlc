@@ -88,43 +88,43 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>3.46154cm</Width>
+                  <Width>0.8169cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.46154cm</Width>
+                  <Width>2.85434cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.46154cm</Width>
+                  <Width>2.5367cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.46154cm</Width>
+                  <Width>2.58424cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.46154cm</Width>
+                  <Width>1.63568cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.46154cm</Width>
+                  <Width>1.85142cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.46154cm</Width>
+                  <Width>1.63711cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.46154cm</Width>
+                  <Width>1.77413cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.46154cm</Width>
+                  <Width>1.39876cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.46154cm</Width>
+                  <Width>2.90711cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.46154cm</Width>
+                  <Width>3.43628cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.46154cm</Width>
+                  <Width>2.11336cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.46154cm</Width>
+                  <Width>1.18732cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -143,6 +143,7 @@
                                   <Value>No.</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -178,6 +179,7 @@
                                   <Value>Producto</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -213,6 +215,7 @@
                                   <Value>Proveedor</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -248,6 +251,7 @@
                                   <Value>Unidades</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -261,6 +265,7 @@
                                   <Value> Modificadas</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -274,6 +279,7 @@
                                   <Value />
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -309,6 +315,7 @@
                                   <Value>Precio </Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -322,6 +329,7 @@
                                   <Value>Compra</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -357,6 +365,7 @@
                                   <Value>Total </Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -370,6 +379,7 @@
                                   <Value>Compras</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -405,6 +415,7 @@
                                   <Value>Precio</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -418,6 +429,7 @@
                                   <Value> Venta</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -453,6 +465,7 @@
                                   <Value>Stock</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -466,6 +479,7 @@
                                   <Value> Anterior</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -501,6 +515,7 @@
                                   <Value>Stock </Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -514,6 +529,7 @@
                                   <Value>Actual</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -546,9 +562,24 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Fechade Operacion</Value>
+                                  <Value>Fecha de</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value> Operacion</Value>
+                                  <Style>
+                                    <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -584,6 +615,7 @@
                                   <Value>Comentarios</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -619,6 +651,7 @@
                                   <Value>Ubicacion</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -654,6 +687,7 @@
                                   <Value>Color</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -692,7 +726,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!No.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -724,7 +760,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Producto.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -756,7 +794,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Proveedor.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -788,7 +828,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!UnidadesCompradasDisminuidas.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -820,7 +862,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!PrecioCompra.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -852,7 +896,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!TotalCompras.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -884,7 +930,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!PrecioVenta.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -916,7 +964,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!StockAnterior.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -948,7 +998,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!StockActual.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -980,7 +1032,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!FechadeOperacion.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1012,7 +1066,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Comentarios.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1044,7 +1100,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Ubicacion.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1076,7 +1134,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Color.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontSize>9pt</FontSize>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style>
@@ -1220,6 +1280,7 @@
                                   <Value>=Parameters!UnidadesCompras.Value</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1254,6 +1315,7 @@
                                   <Value>=Parameters!PCompra.Value</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1288,6 +1350,7 @@
                                   <Value>=Parameters!PTotal.Value</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1322,6 +1385,7 @@
                                   <Value>=Parameters!PVenta.Value</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1356,6 +1420,7 @@
                                   <Value>=Parameters!SAnterior.Value</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1390,6 +1455,7 @@
                                   <Value>=Parameters!SActual.Value</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1630,10 +1696,10 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DataTable1</DataSetName>
-            <Top>6.4262cm</Top>
-            <Left>1.93146cm</Left>
+            <Top>6.29391cm</Top>
+            <Left>0.05292cm</Left>
             <Height>1.8cm</Height>
-            <Width>45cm</Width>
+            <Width>26.73335cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1662,7 +1728,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
             <Top>3.59516cm</Top>
-            <Left>19.07328cm</Left>
+            <Left>9.03114cm</Left>
             <Height>0.6cm</Height>
             <Width>9.45923cm</Width>
             <ZIndex>1</ZIndex>
@@ -1702,7 +1768,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox4</rd:DefaultName>
             <Top>4.37155cm</Top>
-            <Left>19.07328cm</Left>
+            <Left>9.03114cm</Left>
             <Height>0.6cm</Height>
             <Width>9.45923cm</Width>
             <ZIndex>2</ZIndex>
@@ -1734,7 +1800,7 @@
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
             <Top>5.07738cm</Top>
-            <Left>19.07329cm</Left>
+            <Left>9.03115cm</Left>
             <Height>0.85428cm</Height>
             <Width>9.45923cm</Width>
             <ZIndex>3</ZIndex>
@@ -1753,7 +1819,7 @@
             <Value>=Parameters!Logo.Value</Value>
             <Sizing>Fit</Sizing>
             <Top>0.28787cm</Top>
-            <Left>21.24287cm</Left>
+            <Left>11.51823cm</Left>
             <Height>3.1309cm</Height>
             <Width>4.80729cm</Width>
             <ZIndex>4</ZIndex>
@@ -1767,17 +1833,17 @@
             </Style>
           </Image>
         </ReportItems>
-        <Height>10.15208cm</Height>
+        <Height>8.14917cm</Height>
         <Style />
       </Body>
-      <Width>48.00396cm</Width>
+      <Width>28.53252cm</Width>
       <Page>
         <PageHeight>21cm</PageHeight>
         <PageWidth>29.7cm</PageWidth>
-        <LeftMargin>2cm</LeftMargin>
-        <RightMargin>2cm</RightMargin>
-        <TopMargin>2cm</TopMargin>
-        <BottomMargin>2cm</BottomMargin>
+        <LeftMargin>1cm</LeftMargin>
+        <RightMargin>1cm</RightMargin>
+        <TopMargin>1cm</TopMargin>
+        <BottomMargin>1cm</BottomMargin>
         <ColumnSpacing>0.13cm</ColumnSpacing>
         <Style />
       </Page>

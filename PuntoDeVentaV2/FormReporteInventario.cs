@@ -104,7 +104,12 @@ namespace PuntoDeVentaV2
                         }
                         SiHayLogo = true;
                     }
+                    else
+                    {
+                        DireccionLogo = "";
+                    }
                 }
+                
             }
             using (var DTDatosUsuarios = cn.CargarDatos($"SELECT Usuario,RazonSocial FROM usuarios WHERE ID = {FormPrincipal.userID}"))
             {
@@ -203,7 +208,9 @@ namespace PuntoDeVentaV2
             foreach (var dato in Inventario.DTDatos.Rows)
             {
                 int ID = Convert.ToInt32(Inventario.DTDatos.Rows[RowsDatosInventario]["No"]);
-                DataTable DTConssulta = cn.CargarDatos($"SELECT P.Nombre AS 'Producto', det.Proveedor AS 'Proveedor', p.PrecioCompra AS 'Precio Compra', p.Precio AS 'Precio Venta', p.Stock AS 'Stock Anterior' FROM productos AS P INNER JOIN detallesproducto AS det ON ( det.IDProducto = P.ID ) WHERE P.ID = {ID}");
+                DataTable DTConssulta = cn.CargarDatos($"SELECT P.Nombre AS 'Producto', p.PrecioCompra AS 'Precio Compra', p.Precio AS 'Precio Venta', p.Stock AS 'Stock Anterior' FROM productos AS P WHERE P.ID = {ID}");
+
+                DataTable DTProveedor = cn.CargarDatos($"SELECT Proveedor FROM detallesproducto WHERE IDProducto ={ID}");
 
                 int contadorRows = 0;
                 foreach (var item in DTFinal.Columns)
@@ -232,8 +239,17 @@ namespace PuntoDeVentaV2
                     {
                         if (Inventario.listaConceptosSeleccionados.Contains("Proveedor"))
                         {
-                            proveedor = DTConssulta.Rows[contadorRows]["Proveedor"].ToString();
+                            if (!DTProveedor.Rows.Count.Equals(0))
+                            {
+                                proveedor = DTProveedor.Rows[contadorRows]["Proveedor"].ToString();
+                            }
+                            else
+                            {
+                                proveedor = "---";
+                            }
+                            
                             datoscompletos += proveedor + ",";
+
                         }
                         else
                         {
