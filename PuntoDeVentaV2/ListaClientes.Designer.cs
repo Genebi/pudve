@@ -211,6 +211,7 @@
             this.btnPublicoGeneral.TabIndex = 116;
             this.btnPublicoGeneral.Text = "Público general";
             this.btnPublicoGeneral.UseVisualStyleBackColor = false;
+            this.btnPublicoGeneral.Visible = false;
             this.btnPublicoGeneral.Click += new System.EventHandler(this.btnPublicoGeneral_Click);
             // 
             // button1
@@ -221,7 +222,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(98, 264);
+            this.button1.Location = new System.Drawing.Point(213, 264);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(154, 25);
             this.button1.TabIndex = 117;
