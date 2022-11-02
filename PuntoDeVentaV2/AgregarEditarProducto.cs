@@ -4430,16 +4430,24 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(resultado))
             {
-                var resultadoAuxialiar = Regex.Replace(resultado, @"[^0-9.]", "").Trim();
-                resultado = resultadoAuxialiar;
-                txtValidarTexto.Text = resultado;
-                txtValidarTexto.Focus();
-                txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+                if (!resultado.Equals("0.00"))
+                {
+                    var resultadoAuxialiar = Regex.Replace(resultado, @"[^0-9.]", "").Trim();
+                    resultado = resultadoAuxialiar;
+                    txtValidarTexto.Text = resultado;
+                    txtValidarTexto.Focus();
+                    txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+                }
+                else
+                {
+                    txtValidarTexto.Focus();
+                    txtValidarTexto.SelectAll();
+                }
+                
             }
             else
             {
-                txtValidarTexto.Focus();
-                txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+                txtValidarTexto.Text = "0.00";
             }
         }
 
@@ -4456,6 +4464,7 @@ namespace PuntoDeVentaV2
         private void txtPrecioProducto_TextChanged(object sender, EventArgs e)
         {
             ValidarEntradaDeTextoNumeros(sender, e);
+           
         }
 
         private void txtPrecioCompra_TextChanged(object sender, EventArgs e)
