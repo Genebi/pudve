@@ -156,7 +156,8 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (idCliente.Equals(0) && !txtCredito.Text.Equals(""))
+            decimal credito2 = Convert.ToDecimal(txtCredito.Text);
+            if (idCliente.Equals(0) && credito2>0)
             {
                 MessageBox.Show("Asigné un Cliente para hacer una venta a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -240,7 +241,7 @@ namespace PuntoDeVentaV2
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
 
-                if (!txtCredito.Text.Equals(""))
+                if (credito2>0)
                 {
                     Ventas.statusVenta = "4";
                     Ventas.formaDePagoDeVenta = "Crédito";
