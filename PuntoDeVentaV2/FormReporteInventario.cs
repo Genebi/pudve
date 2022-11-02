@@ -127,30 +127,90 @@ namespace PuntoDeVentaV2
             }
             int contador = 0;
             foreach (var row in DTFinal.Rows)
-            {
+            { 
                 if (!DTFinal.Rows[contador]["UnidadesCompradasDisminuidas"].Equals(""))
                 {
-                    UnidadesCompras += Convert.ToDecimal(DTFinal.Rows[contador]["UnidadesCompradasDisminuidas"]);
+                    string algoxd = DTFinal.Rows[contador]["UnidadesCompradasDisminuidas"].ToString();
+                    var esNum = decimal.TryParse(algoxd, out decimal validacion);
+                    if (esNum)
+                    {
+                        UnidadesCompras += Convert.ToDecimal(DTFinal.Rows[contador]["UnidadesCompradasDisminuidas"]);
+                    }
+                    else
+                    {
+                        UnidadesCompras += 0;
+                    }
+                    
                 }
                 if (!DTFinal.Rows[contador]["PrecioCompra"].Equals(""))
                 {
-                    PCompra += Convert.ToDecimal(DTFinal.Rows[contador]["PrecioCompra"]);
+                    string algoxd = DTFinal.Rows[contador]["PrecioCompra"].ToString();
+                    var esNum = decimal.TryParse(algoxd, out decimal validacion);
+                    if (esNum)
+                    {
+                        PCompra += Convert.ToDecimal(DTFinal.Rows[contador]["PrecioCompra"]);
+                    }
+                    else
+                    {
+                        PCompra += 0;
+                    }
+                   
                 }
                 if (!DTFinal.Rows[contador]["TotalCompras"].Equals(""))
                 {
-                    PTotal += Convert.ToDecimal(DTFinal.Rows[contador]["TotalCompras"]);
+                    string algoxd = DTFinal.Rows[contador]["TotalCompras"].ToString();
+                    var esNum = decimal.TryParse(algoxd, out decimal validacion);
+                    if (esNum)
+                    {
+                        PTotal += Convert.ToDecimal(DTFinal.Rows[contador]["TotalCompras"]);
+                    }
+                    else
+                    {
+                        PTotal += 0;
+                    }
+                    
                 }
                 if (!DTFinal.Rows[contador]["PrecioVenta"].Equals(""))
                 {
-                    PVenta += Convert.ToDecimal(DTFinal.Rows[contador]["PrecioVenta"]);
+                    string algoxd = DTFinal.Rows[contador]["PrecioVenta"].ToString();
+                    var esNum = decimal.TryParse(algoxd, out decimal validacion);
+                    if (esNum)
+                    {
+                        PVenta += Convert.ToDecimal(DTFinal.Rows[contador]["PrecioVenta"]);
+                    }
+                    else
+                    {
+                        PVenta += 0;
+                    }
+                   
                 }
                 if (!DTFinal.Rows[contador]["StockAnterior"].Equals(""))
                 {
-                    SAnterior += Convert.ToDecimal(DTFinal.Rows[contador]["StockAnterior"]);
+                    string algoxd = DTFinal.Rows[contador]["StockAnterior"].ToString();
+                    var esNum = decimal.TryParse(algoxd, out decimal validacion);
+                    if (esNum)
+                    {
+                        SAnterior += Convert.ToDecimal(DTFinal.Rows[contador]["StockAnterior"]);
+                    }
+                    else
+                    {
+                        SAnterior += 0;
+                    }
+                    
                 }
                 if (!DTFinal.Rows[contador]["StockActual"].Equals(""))
                 {
-                    SActual += Convert.ToDecimal(DTFinal.Rows[contador]["StockActual"]);
+                    string algoxd = DTFinal.Rows[contador]["StockActual"].ToString();
+                    var esNum = decimal.TryParse(algoxd, out decimal validacion);
+                    if (esNum)
+                    {
+                        SActual += Convert.ToDecimal(DTFinal.Rows[contador]["StockActual"]);
+                    }
+                    else
+                    {
+                        SActual += 0;
+                    }
+                    
                 }
                 contador++;
             }
@@ -168,7 +228,12 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("SAnterior", SAnterior.ToString()));
             reportParameters.Add(new ReportParameter("SActual", SActual.ToString()));
 
-
+            UnidadesCompras = 0;
+            PCompra = 0;
+            PTotal = 0;
+            PVenta = 0;
+            SAnterior = 0;
+            SActual = 0;
             LocalReport rdlc = new LocalReport();
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;
