@@ -84,13 +84,7 @@
             this.tLPCombo = new System.Windows.Forms.TableLayoutPanel();
             this.tLPProducto = new System.Windows.Forms.TableLayoutPanel();
             this.PAccion = new System.Windows.Forms.Panel();
-            this.btnMensajeVenta = new PuntoDeVentaV2.BotonRedondo();
-            this.button1 = new PuntoDeVentaV2.BotonRedondo();
-            this.btnAgregarDescuento = new PuntoDeVentaV2.BotonRedondo();
-            this.btnDetalleProducto = new PuntoDeVentaV2.BotonRedondo();
             this.btnProdUpdate = new System.Windows.Forms.Button();
-            this.btnDetalleFacturacion = new PuntoDeVentaV2.BotonRedondo();
-            this.btnGuardarProducto = new PuntoDeVentaV2.BotonRedondo();
             this.PType = new System.Windows.Forms.Panel();
             this.fLPType = new System.Windows.Forms.FlowLayoutPanel();
             this.fLPDetalleProducto = new System.Windows.Forms.FlowLayoutPanel();
@@ -103,6 +97,12 @@
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.errorProvAgregarEditarProducto = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnMensajeVenta = new PuntoDeVentaV2.BotonRedondo();
+            this.button1 = new PuntoDeVentaV2.BotonRedondo();
+            this.btnAgregarDescuento = new PuntoDeVentaV2.BotonRedondo();
+            this.btnDetalleProducto = new PuntoDeVentaV2.BotonRedondo();
+            this.btnDetalleFacturacion = new PuntoDeVentaV2.BotonRedondo();
+            this.btnGuardarProducto = new PuntoDeVentaV2.BotonRedondo();
             this.PDetalleProdcuto.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -126,18 +126,20 @@
             // 
             this.lblTipoProdPaq.AutoSize = true;
             this.lblTipoProdPaq.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTipoProdPaq.Location = new System.Drawing.Point(17, 15);
+            this.lblTipoProdPaq.Location = new System.Drawing.Point(26, 23);
+            this.lblTipoProdPaq.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTipoProdPaq.Name = "lblTipoProdPaq";
-            this.lblTipoProdPaq.Size = new System.Drawing.Size(136, 16);
+            this.lblTipoProdPaq.Size = new System.Drawing.Size(195, 25);
             this.lblTipoProdPaq.TabIndex = 0;
             this.lblTipoProdPaq.Text = "Nombre del Producto";
             // 
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(160, 8);
+            this.label2.Location = new System.Drawing.Point(240, 12);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(121, 36);
+            this.label2.Size = new System.Drawing.Size(182, 55);
             this.label2.TabIndex = 10;
             this.label2.Text = "Código de Barras o Clave Interna";
             this.label2.Visible = false;
@@ -146,9 +148,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 89);
+            this.label4.Location = new System.Drawing.Point(4, 137);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(85, 16);
+            this.label4.Size = new System.Drawing.Size(124, 25);
             this.label4.TabIndex = 4;
             this.label4.Text = "Precio Venta";
             this.label4.Visible = false;
@@ -157,9 +160,10 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(3, 171);
+            this.label5.Location = new System.Drawing.Point(4, 263);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(86, 16);
+            this.label5.Size = new System.Drawing.Size(128, 25);
             this.label5.TabIndex = 8;
             this.label5.Text = "Clave Interna";
             this.label5.Visible = false;
@@ -168,9 +172,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(3, 8);
+            this.label6.Location = new System.Drawing.Point(4, 12);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(42, 16);
+            this.label6.Size = new System.Drawing.Size(62, 25);
             this.label6.TabIndex = 2;
             this.label6.Text = "Stock";
             this.label6.Visible = false;
@@ -178,9 +183,10 @@
             // txtNombreProducto
             // 
             this.txtNombreProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtNombreProducto.Location = new System.Drawing.Point(20, 36);
+            this.txtNombreProducto.Location = new System.Drawing.Point(30, 55);
+            this.txtNombreProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtNombreProducto.Name = "txtNombreProducto";
-            this.txtNombreProducto.Size = new System.Drawing.Size(805, 20);
+            this.txtNombreProducto.Size = new System.Drawing.Size(1206, 26);
             this.txtNombreProducto.TabIndex = 1;
             this.txtNombreProducto.TextChanged += new System.EventHandler(this.txtNombreProducto_TextChanged);
             this.txtNombreProducto.Enter += new System.EventHandler(this.txtNombreProducto_Enter);
@@ -190,10 +196,11 @@
             // 
             this.txtPrecioProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtPrecioProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.txtPrecioProducto.Location = new System.Drawing.Point(6, 106);
+            this.txtPrecioProducto.Location = new System.Drawing.Point(9, 163);
+            this.txtPrecioProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtPrecioProducto.MaxLength = 12;
             this.txtPrecioProducto.Name = "txtPrecioProducto";
-            this.txtPrecioProducto.Size = new System.Drawing.Size(94, 22);
+            this.txtPrecioProducto.Size = new System.Drawing.Size(139, 30);
             this.txtPrecioProducto.TabIndex = 4;
             this.txtPrecioProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPrecioProducto.Visible = false;
@@ -210,10 +217,11 @@
             // 
             this.txtStockProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtStockProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.txtStockProducto.Location = new System.Drawing.Point(6, 25);
+            this.txtStockProducto.Location = new System.Drawing.Point(9, 38);
+            this.txtStockProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtStockProducto.MaxLength = 12;
             this.txtStockProducto.Name = "txtStockProducto";
-            this.txtStockProducto.Size = new System.Drawing.Size(131, 22);
+            this.txtStockProducto.Size = new System.Drawing.Size(194, 30);
             this.txtStockProducto.TabIndex = 2;
             this.txtStockProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtStockProducto.Visible = false;
@@ -226,9 +234,10 @@
             // 
             this.txtClaveProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtClaveProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.txtClaveProducto.Location = new System.Drawing.Point(6, 191);
+            this.txtClaveProducto.Location = new System.Drawing.Point(9, 294);
+            this.txtClaveProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtClaveProducto.Name = "txtClaveProducto";
-            this.txtClaveProducto.Size = new System.Drawing.Size(126, 22);
+            this.txtClaveProducto.Size = new System.Drawing.Size(187, 30);
             this.txtClaveProducto.TabIndex = 6;
             this.txtClaveProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtClaveProducto.Visible = false;
@@ -238,9 +247,10 @@
             // txtCategoriaProducto
             // 
             this.txtCategoriaProducto.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtCategoriaProducto.Location = new System.Drawing.Point(13, 4);
+            this.txtCategoriaProducto.Location = new System.Drawing.Point(20, 6);
+            this.txtCategoriaProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtCategoriaProducto.Name = "txtCategoriaProducto";
-            this.txtCategoriaProducto.Size = new System.Drawing.Size(99, 20);
+            this.txtCategoriaProducto.Size = new System.Drawing.Size(146, 26);
             this.txtCategoriaProducto.TabIndex = 5;
             this.txtCategoriaProducto.TextChanged += new System.EventHandler(this.txtCategoriaProducto_TextChanged);
             this.txtCategoriaProducto.Enter += new System.EventHandler(this.txtCategoriaProducto_Enter);
@@ -249,9 +259,10 @@
             // 
             this.txtCodigoBarras.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCodigoBarras.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.txtCodigoBarras.Location = new System.Drawing.Point(163, 26);
+            this.txtCodigoBarras.Location = new System.Drawing.Point(244, 40);
+            this.txtCodigoBarras.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtCodigoBarras.Name = "txtCodigoBarras";
-            this.txtCodigoBarras.Size = new System.Drawing.Size(137, 22);
+            this.txtCodigoBarras.Size = new System.Drawing.Size(204, 30);
             this.txtCodigoBarras.TabIndex = 7;
             this.txtCodigoBarras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCodigoBarras.Visible = false;
@@ -263,9 +274,10 @@
             // 
             this.panelContenedor.AutoScroll = true;
             this.panelContenedor.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.panelContenedor.Location = new System.Drawing.Point(163, 84);
+            this.panelContenedor.Location = new System.Drawing.Point(244, 129);
+            this.panelContenedor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(216, 77);
+            this.panelContenedor.Size = new System.Drawing.Size(324, 118);
             this.panelContenedor.TabIndex = 20;
             this.panelContenedor.Visible = false;
             this.panelContenedor.WrapContents = false;
@@ -274,10 +286,9 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.label7.Location = new System.Drawing.Point(3, 47);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Location = new System.Drawing.Point(4, 72);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(98, 16);
+            this.label7.Size = new System.Drawing.Size(142, 25);
             this.label7.TabIndex = 22;
             this.label7.Text = "Precio Compra";
             this.label7.Visible = false;
@@ -290,10 +301,9 @@
             "Producto",
             "Combo",
             "Servicio"});
-            this.cbTipo.Location = new System.Drawing.Point(54, 0);
-            this.cbTipo.Margin = new System.Windows.Forms.Padding(2);
+            this.cbTipo.Location = new System.Drawing.Point(81, 0);
             this.cbTipo.Name = "cbTipo";
-            this.cbTipo.Size = new System.Drawing.Size(165, 21);
+            this.cbTipo.Size = new System.Drawing.Size(246, 28);
             this.cbTipo.TabIndex = 1;
             this.cbTipo.Tag = "";
             this.cbTipo.SelectedIndexChanged += new System.EventHandler(this.cbTipo_SelectedIndexChanged);
@@ -307,19 +317,19 @@
             this.PDetalleProdcuto.Controls.Add(this.btnAdd);
             this.PDetalleProdcuto.Controls.Add(this.lblTipoProdPaq);
             this.PDetalleProdcuto.Controls.Add(this.txtNombreProducto);
-            this.PDetalleProdcuto.Location = new System.Drawing.Point(2, 2);
-            this.PDetalleProdcuto.Margin = new System.Windows.Forms.Padding(2);
+            this.PDetalleProdcuto.Location = new System.Drawing.Point(3, 3);
             this.PDetalleProdcuto.Name = "PDetalleProdcuto";
-            this.PDetalleProdcuto.Size = new System.Drawing.Size(885, 62);
+            this.PDetalleProdcuto.Size = new System.Drawing.Size(1328, 95);
             this.PDetalleProdcuto.TabIndex = 0;
             // 
             // lblArrow
             // 
             this.lblArrow.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblArrow.Image = global::PuntoDeVentaV2.Properties.Resources.left_arrow;
-            this.lblArrow.Location = new System.Drawing.Point(853, 36);
+            this.lblArrow.Location = new System.Drawing.Point(1280, 55);
+            this.lblArrow.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblArrow.Name = "lblArrow";
-            this.lblArrow.Size = new System.Drawing.Size(17, 20);
+            this.lblArrow.Size = new System.Drawing.Size(26, 31);
             this.lblArrow.TabIndex = 30;
             this.lblArrow.Visible = false;
             this.lblArrow.Click += new System.EventHandler(this.lblArrow_Click);
@@ -328,9 +338,10 @@
             // 
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(467, 14);
+            this.tituloSeccion.Location = new System.Drawing.Point(700, 22);
+            this.tituloSeccion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(129, 18);
+            this.tituloSeccion.Size = new System.Drawing.Size(194, 28);
             this.tituloSeccion.TabIndex = 21;
             this.tituloSeccion.Text = "AGREGAR PRODUCTO";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -340,10 +351,9 @@
             // 
             this.btnAdd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAdd.Image = global::PuntoDeVentaV2.Properties.Resources.eye;
-            this.btnAdd.Location = new System.Drawing.Point(829, 36);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(2);
+            this.btnAdd.Location = new System.Drawing.Point(1244, 55);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(22, 20);
+            this.btnAdd.Size = new System.Drawing.Size(33, 31);
             this.btnAdd.TabIndex = 29;
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
@@ -353,9 +363,10 @@
             // 
             this.txtStockMaximo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.txtStockMaximo.ForeColor = System.Drawing.Color.Black;
-            this.txtStockMaximo.Location = new System.Drawing.Point(20, 83);
+            this.txtStockMaximo.Location = new System.Drawing.Point(30, 128);
+            this.txtStockMaximo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtStockMaximo.Name = "txtStockMaximo";
-            this.txtStockMaximo.Size = new System.Drawing.Size(144, 22);
+            this.txtStockMaximo.Size = new System.Drawing.Size(214, 30);
             this.txtStockMaximo.TabIndex = 34;
             this.txtStockMaximo.Text = "0";
             this.txtStockMaximo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -370,9 +381,10 @@
             // 
             this.txtStockMinimo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
             this.txtStockMinimo.ForeColor = System.Drawing.Color.Black;
-            this.txtStockMinimo.Location = new System.Drawing.Point(430, 198);
+            this.txtStockMinimo.Location = new System.Drawing.Point(645, 305);
+            this.txtStockMinimo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtStockMinimo.Name = "txtStockMinimo";
-            this.txtStockMinimo.Size = new System.Drawing.Size(144, 22);
+            this.txtStockMinimo.Size = new System.Drawing.Size(214, 30);
             this.txtStockMinimo.TabIndex = 33;
             this.txtStockMinimo.Text = "0";
             this.txtStockMinimo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -387,9 +399,10 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.label12.Location = new System.Drawing.Point(100, 51);
+            this.label12.Location = new System.Drawing.Point(150, 78);
+            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(95, 16);
+            this.label12.Size = new System.Drawing.Size(142, 25);
             this.label12.TabIndex = 32;
             this.label12.Text = "Stock Maximo:";
             this.label12.Visible = false;
@@ -398,27 +411,28 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.label1.Location = new System.Drawing.Point(148, 196);
+            this.label1.Location = new System.Drawing.Point(222, 302);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 16);
+            this.label1.Size = new System.Drawing.Size(136, 25);
             this.label1.TabIndex = 30;
             this.label1.Text = "Stock Minimo:";
             this.label1.Visible = false;
             // 
             // PTypeAndCantProd
             // 
-            this.PTypeAndCantProd.Location = new System.Drawing.Point(403, -1);
+            this.PTypeAndCantProd.Location = new System.Drawing.Point(604, -2);
+            this.PTypeAndCantProd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PTypeAndCantProd.Name = "PTypeAndCantProd";
-            this.PTypeAndCantProd.Size = new System.Drawing.Size(280, 20);
+            this.PTypeAndCantProd.Size = new System.Drawing.Size(420, 31);
             this.PTypeAndCantProd.TabIndex = 31;
             // 
             // chkBoxConProductos
             // 
             this.chkBoxConProductos.AutoSize = true;
-            this.chkBoxConProductos.Location = new System.Drawing.Point(233, 2);
-            this.chkBoxConProductos.Margin = new System.Windows.Forms.Padding(2);
+            this.chkBoxConProductos.Location = new System.Drawing.Point(350, 3);
             this.chkBoxConProductos.Name = "chkBoxConProductos";
-            this.chkBoxConProductos.Size = new System.Drawing.Size(131, 17);
+            this.chkBoxConProductos.Size = new System.Drawing.Size(193, 24);
             this.chkBoxConProductos.TabIndex = 30;
             this.chkBoxConProductos.Text = "Si Contiene Productos";
             this.chkBoxConProductos.UseVisualStyleBackColor = true;
@@ -428,10 +442,9 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(16, 4);
-            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Location = new System.Drawing.Point(24, 6);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(36, 16);
+            this.label10.Size = new System.Drawing.Size(51, 25);
             this.label10.TabIndex = 28;
             this.label10.Text = "Tipo";
             // 
@@ -439,10 +452,11 @@
             // 
             this.txtPrecioCompra.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtPrecioCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.txtPrecioCompra.Location = new System.Drawing.Point(6, 65);
+            this.txtPrecioCompra.Location = new System.Drawing.Point(9, 100);
+            this.txtPrecioCompra.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtPrecioCompra.MaxLength = 12;
             this.txtPrecioCompra.Name = "txtPrecioCompra";
-            this.txtPrecioCompra.Size = new System.Drawing.Size(104, 22);
+            this.txtPrecioCompra.Size = new System.Drawing.Size(154, 30);
             this.txtPrecioCompra.TabIndex = 3;
             this.txtPrecioCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPrecioCompra.Visible = false;
@@ -457,9 +471,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 130);
+            this.label3.Location = new System.Drawing.Point(4, 200);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(104, 16);
+            this.label3.Size = new System.Drawing.Size(149, 25);
             this.label3.TabIndex = 5;
             this.label3.Text = "Precio Mayoreo";
             this.label3.Visible = false;
@@ -468,10 +483,11 @@
             // 
             this.txtPrecioMayoreo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtPrecioMayoreo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.txtPrecioMayoreo.Location = new System.Drawing.Point(6, 148);
+            this.txtPrecioMayoreo.Location = new System.Drawing.Point(9, 228);
+            this.txtPrecioMayoreo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtPrecioMayoreo.MaxLength = 12;
             this.txtPrecioMayoreo.Name = "txtPrecioMayoreo";
-            this.txtPrecioMayoreo.Size = new System.Drawing.Size(94, 22);
+            this.txtPrecioMayoreo.Size = new System.Drawing.Size(139, 30);
             this.txtPrecioMayoreo.TabIndex = 5;
             this.txtPrecioMayoreo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPrecioMayoreo.Visible = false;
@@ -486,9 +502,10 @@
             this.btnGenerarCB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGenerarCB.ForeColor = System.Drawing.Color.White;
             this.btnGenerarCB.Image = global::PuntoDeVentaV2.Properties.Resources.barcode1;
-            this.btnGenerarCB.Location = new System.Drawing.Point(214, 47);
+            this.btnGenerarCB.Location = new System.Drawing.Point(321, 72);
+            this.btnGenerarCB.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnGenerarCB.Name = "btnGenerarCB";
-            this.btnGenerarCB.Size = new System.Drawing.Size(40, 29);
+            this.btnGenerarCB.Size = new System.Drawing.Size(60, 45);
             this.btnGenerarCB.TabIndex = 8;
             this.btnGenerarCB.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnGenerarCB.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -500,9 +517,10 @@
             // txtCantPaqServ
             // 
             this.txtCantPaqServ.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold);
-            this.txtCantPaqServ.Location = new System.Drawing.Point(252, 196);
+            this.txtCantPaqServ.Location = new System.Drawing.Point(378, 302);
+            this.txtCantPaqServ.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtCantPaqServ.Name = "txtCantPaqServ";
-            this.txtCantPaqServ.Size = new System.Drawing.Size(163, 22);
+            this.txtCantPaqServ.Size = new System.Drawing.Size(242, 30);
             this.txtCantPaqServ.TabIndex = 1;
             this.txtCantPaqServ.Text = "0";
             this.txtCantPaqServ.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -514,9 +532,10 @@
             // lblCantPaqServ
             // 
             this.lblCantPaqServ.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.lblCantPaqServ.Location = new System.Drawing.Point(415, 54);
+            this.lblCantPaqServ.Location = new System.Drawing.Point(622, 83);
+            this.lblCantPaqServ.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCantPaqServ.Name = "lblCantPaqServ";
-            this.lblCantPaqServ.Size = new System.Drawing.Size(158, 45);
+            this.lblCantPaqServ.Size = new System.Drawing.Size(237, 69);
             this.lblCantPaqServ.TabIndex = 0;
             this.lblCantPaqServ.Text = "Relacionar con Combo/Servicio";
             this.lblCantPaqServ.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -525,10 +544,9 @@
             // PImagen
             // 
             this.PImagen.Controls.Add(this.groupBox1);
-            this.PImagen.Location = new System.Drawing.Point(617, 8);
-            this.PImagen.Margin = new System.Windows.Forms.Padding(2);
+            this.PImagen.Location = new System.Drawing.Point(926, 12);
             this.PImagen.Name = "PImagen";
-            this.PImagen.Size = new System.Drawing.Size(183, 145);
+            this.PImagen.Size = new System.Drawing.Size(274, 223);
             this.PImagen.TabIndex = 9;
             this.PImagen.Visible = false;
             // 
@@ -539,11 +557,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.pictureBoxProducto);
             this.groupBox1.Controls.Add(this.btnImagenes);
-            this.groupBox1.Location = new System.Drawing.Point(5, 5);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Location = new System.Drawing.Point(8, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(154, 133);
+            this.groupBox1.Size = new System.Drawing.Size(231, 205);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Imagen";
@@ -551,10 +567,9 @@
             // pictureBoxProducto
             // 
             this.pictureBoxProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxProducto.Location = new System.Drawing.Point(29, 13);
-            this.pictureBoxProducto.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBoxProducto.Location = new System.Drawing.Point(44, 20);
             this.pictureBoxProducto.Name = "pictureBoxProducto";
-            this.pictureBoxProducto.Size = new System.Drawing.Size(97, 80);
+            this.pictureBoxProducto.Size = new System.Drawing.Size(146, 123);
             this.pictureBoxProducto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxProducto.TabIndex = 0;
             this.pictureBoxProducto.TabStop = false;
@@ -565,9 +580,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnImagenes.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnImagenes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnImagenes.Location = new System.Drawing.Point(11, 99);
+            this.btnImagenes.Location = new System.Drawing.Point(16, 152);
+            this.btnImagenes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnImagenes.Name = "btnImagenes";
-            this.btnImagenes.Size = new System.Drawing.Size(132, 28);
+            this.btnImagenes.Size = new System.Drawing.Size(198, 43);
             this.btnImagenes.TabIndex = 10;
             this.btnImagenes.Text = "Seleccionar imagen";
             this.btnImagenes.UseVisualStyleBackColor = true;
@@ -576,20 +592,18 @@
             // PCategoria
             // 
             this.PCategoria.Controls.Add(this.txtCategoriaProducto);
-            this.PCategoria.Location = new System.Drawing.Point(473, 39);
-            this.PCategoria.Margin = new System.Windows.Forms.Padding(2);
+            this.PCategoria.Location = new System.Drawing.Point(710, 60);
             this.PCategoria.Name = "PCategoria";
-            this.PCategoria.Size = new System.Drawing.Size(115, 32);
+            this.PCategoria.Size = new System.Drawing.Size(172, 49);
             this.PCategoria.TabIndex = 3;
             // 
             // PConteidoProducto
             // 
             this.PConteidoProducto.BackColor = System.Drawing.SystemColors.Control;
             this.PConteidoProducto.Controls.Add(this.flowLayoutPanel2);
-            this.PConteidoProducto.Location = new System.Drawing.Point(2, 2);
-            this.PConteidoProducto.Margin = new System.Windows.Forms.Padding(2);
+            this.PConteidoProducto.Location = new System.Drawing.Point(3, 3);
             this.PConteidoProducto.Name = "PConteidoProducto";
-            this.PConteidoProducto.Size = new System.Drawing.Size(868, 57);
+            this.PConteidoProducto.Size = new System.Drawing.Size(1302, 88);
             this.PConteidoProducto.TabIndex = 30;
             this.PConteidoProducto.Visible = false;
             // 
@@ -599,10 +613,9 @@
             this.flowLayoutPanel2.AutoScroll = true;
             this.flowLayoutPanel2.BackColor = System.Drawing.SystemColors.Control;
             this.flowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel2.Location = new System.Drawing.Point(36, 4);
-            this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(54, 6);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(805, 51);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(1208, 78);
             this.flowLayoutPanel2.TabIndex = 0;
             this.flowLayoutPanel2.WrapContents = false;
             // 
@@ -642,19 +655,19 @@
             this.PDetalle.Controls.Add(this.txtStockMaximo);
             this.PDetalle.Controls.Add(this.PImagen);
             this.PDetalle.Controls.Add(this.label2);
-            this.PDetalle.Location = new System.Drawing.Point(2, 2);
-            this.PDetalle.Margin = new System.Windows.Forms.Padding(2);
+            this.PDetalle.Location = new System.Drawing.Point(3, 3);
             this.PDetalle.Name = "PDetalle";
-            this.PDetalle.Size = new System.Drawing.Size(868, 257);
+            this.PDetalle.Size = new System.Drawing.Size(1302, 395);
             this.PDetalle.TabIndex = 2;
             // 
             // btnAddCodBar
             // 
             this.btnAddCodBar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAddCodBar.Image = global::PuntoDeVentaV2.Properties.Resources.add_16;
-            this.btnAddCodBar.Location = new System.Drawing.Point(5, 20);
+            this.btnAddCodBar.Location = new System.Drawing.Point(8, 31);
+            this.btnAddCodBar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAddCodBar.Name = "btnAddCodBar";
-            this.btnAddCodBar.Size = new System.Drawing.Size(40, 29);
+            this.btnAddCodBar.Size = new System.Drawing.Size(60, 45);
             this.btnAddCodBar.TabIndex = 45;
             this.btnAddCodBar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAddCodBar.UseVisualStyleBackColor = true;
@@ -665,9 +678,10 @@
             // 
             this.lblCodBarExtra.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCodBarExtra.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lblCodBarExtra.Location = new System.Drawing.Point(2, 47);
+            this.lblCodBarExtra.Location = new System.Drawing.Point(3, 72);
+            this.lblCodBarExtra.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCodBarExtra.Name = "lblCodBarExtra";
-            this.lblCodBarExtra.Size = new System.Drawing.Size(20, 23);
+            this.lblCodBarExtra.Size = new System.Drawing.Size(30, 35);
             this.lblCodBarExtra.TabIndex = 46;
             this.lblCodBarExtra.Visible = false;
             // 
@@ -675,9 +689,10 @@
             // 
             this.lblCodigoBarras.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCodigoBarras.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lblCodigoBarras.Location = new System.Drawing.Point(2, -1);
+            this.lblCodigoBarras.Location = new System.Drawing.Point(3, -2);
+            this.lblCodigoBarras.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCodigoBarras.Name = "lblCodigoBarras";
-            this.lblCodigoBarras.Size = new System.Drawing.Size(20, 23);
+            this.lblCodigoBarras.Size = new System.Drawing.Size(30, 35);
             this.lblCodigoBarras.TabIndex = 44;
             this.lblCodigoBarras.Visible = false;
             // 
@@ -685,9 +700,10 @@
             // 
             this.lblCantCombServ.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCantCombServ.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lblCantCombServ.Location = new System.Drawing.Point(822, 163);
+            this.lblCantCombServ.Location = new System.Drawing.Point(1233, 251);
+            this.lblCantCombServ.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCantCombServ.Name = "lblCantCombServ";
-            this.lblCantCombServ.Size = new System.Drawing.Size(18, 23);
+            this.lblCantCombServ.Size = new System.Drawing.Size(27, 35);
             this.lblCantCombServ.TabIndex = 43;
             this.lblCantCombServ.Visible = false;
             // 
@@ -695,9 +711,10 @@
             // 
             this.lbClaveInterna.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbClaveInterna.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbClaveInterna.Location = new System.Drawing.Point(821, 140);
+            this.lbClaveInterna.Location = new System.Drawing.Point(1232, 215);
+            this.lbClaveInterna.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbClaveInterna.Name = "lbClaveInterna";
-            this.lbClaveInterna.Size = new System.Drawing.Size(20, 23);
+            this.lbClaveInterna.Size = new System.Drawing.Size(30, 35);
             this.lbClaveInterna.TabIndex = 42;
             this.lbClaveInterna.Visible = false;
             // 
@@ -705,9 +722,10 @@
             // 
             this.lbStock.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbStock.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbStock.Location = new System.Drawing.Point(822, 117);
+            this.lbStock.Location = new System.Drawing.Point(1233, 180);
+            this.lbStock.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbStock.Name = "lbStock";
-            this.lbStock.Size = new System.Drawing.Size(20, 23);
+            this.lbStock.Size = new System.Drawing.Size(30, 35);
             this.lbStock.TabIndex = 41;
             this.lbStock.Visible = false;
             // 
@@ -715,9 +733,10 @@
             // 
             this.lbPrecioVenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbPrecioVenta.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbPrecioVenta.Location = new System.Drawing.Point(821, 91);
+            this.lbPrecioVenta.Location = new System.Drawing.Point(1232, 140);
+            this.lbPrecioVenta.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbPrecioVenta.Name = "lbPrecioVenta";
-            this.lbPrecioVenta.Size = new System.Drawing.Size(20, 23);
+            this.lbPrecioVenta.Size = new System.Drawing.Size(30, 35);
             this.lbPrecioVenta.TabIndex = 40;
             this.lbPrecioVenta.Visible = false;
             // 
@@ -725,9 +744,10 @@
             // 
             this.lbStockMaximo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbStockMaximo.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbStockMaximo.Location = new System.Drawing.Point(821, 65);
+            this.lbStockMaximo.Location = new System.Drawing.Point(1232, 100);
+            this.lbStockMaximo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbStockMaximo.Name = "lbStockMaximo";
-            this.lbStockMaximo.Size = new System.Drawing.Size(20, 23);
+            this.lbStockMaximo.Size = new System.Drawing.Size(30, 35);
             this.lbStockMaximo.TabIndex = 39;
             this.lbStockMaximo.Visible = false;
             // 
@@ -735,9 +755,10 @@
             // 
             this.lbPrecioCompra.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbPrecioCompra.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lbPrecioCompra.Location = new System.Drawing.Point(821, 41);
+            this.lbPrecioCompra.Location = new System.Drawing.Point(1232, 63);
+            this.lbPrecioCompra.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbPrecioCompra.Name = "lbPrecioCompra";
-            this.lbPrecioCompra.Size = new System.Drawing.Size(20, 23);
+            this.lbPrecioCompra.Size = new System.Drawing.Size(30, 35);
             this.lbPrecioCompra.TabIndex = 38;
             this.lbPrecioCompra.Visible = false;
             // 
@@ -745,9 +766,10 @@
             // 
             this.lblStockMinimo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblStockMinimo.Image = global::PuntoDeVentaV2.Properties.Resources.exclamation_circle;
-            this.lblStockMinimo.Location = new System.Drawing.Point(821, 13);
+            this.lblStockMinimo.Location = new System.Drawing.Point(1232, 20);
+            this.lblStockMinimo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStockMinimo.Name = "lblStockMinimo";
-            this.lblStockMinimo.Size = new System.Drawing.Size(20, 23);
+            this.lblStockMinimo.Size = new System.Drawing.Size(30, 35);
             this.lblStockMinimo.TabIndex = 37;
             this.lblStockMinimo.Visible = false;
             // 
@@ -755,11 +777,12 @@
             // 
             this.tLPServicio.ColumnCount = 1;
             this.tLPServicio.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPServicio.Location = new System.Drawing.Point(3, 3);
+            this.tLPServicio.Location = new System.Drawing.Point(4, 5);
+            this.tLPServicio.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tLPServicio.Name = "tLPServicio";
             this.tLPServicio.RowCount = 1;
             this.tLPServicio.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPServicio.Size = new System.Drawing.Size(859, 252);
+            this.tLPServicio.Size = new System.Drawing.Size(1288, 388);
             this.tLPServicio.TabIndex = 36;
             this.tLPServicio.Visible = false;
             this.tLPServicio.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tLPServicio_CellPaint);
@@ -768,11 +791,12 @@
             // 
             this.tLPCombo.ColumnCount = 1;
             this.tLPCombo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPCombo.Location = new System.Drawing.Point(20, -2);
+            this.tLPCombo.Location = new System.Drawing.Point(30, -3);
+            this.tLPCombo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tLPCombo.Name = "tLPCombo";
             this.tLPCombo.RowCount = 1;
             this.tLPCombo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPCombo.Size = new System.Drawing.Size(865, 258);
+            this.tLPCombo.Size = new System.Drawing.Size(1298, 397);
             this.tLPCombo.TabIndex = 35;
             this.tLPCombo.Visible = false;
             this.tLPCombo.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tLPCombo_CellPaint);
@@ -782,11 +806,12 @@
             this.tLPProducto.BackColor = System.Drawing.SystemColors.Control;
             this.tLPProducto.ColumnCount = 1;
             this.tLPProducto.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPProducto.Location = new System.Drawing.Point(20, -3);
+            this.tLPProducto.Location = new System.Drawing.Point(30, -5);
+            this.tLPProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tLPProducto.Name = "tLPProducto";
             this.tLPProducto.RowCount = 1;
             this.tLPProducto.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tLPProducto.Size = new System.Drawing.Size(865, 258);
+            this.tLPProducto.Size = new System.Drawing.Size(1298, 397);
             this.tLPProducto.TabIndex = 23;
             this.tLPProducto.Visible = false;
             this.tLPProducto.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tableLayoutPanel1_CellPaint);
@@ -803,11 +828,150 @@
             this.PAccion.Controls.Add(this.btnDetalleFacturacion);
             this.PAccion.Controls.Add(this.btnGuardarProducto);
             this.PAccion.ForeColor = System.Drawing.Color.White;
-            this.PAccion.Location = new System.Drawing.Point(2, 2);
-            this.PAccion.Margin = new System.Windows.Forms.Padding(2);
+            this.PAccion.Location = new System.Drawing.Point(3, 3);
             this.PAccion.Name = "PAccion";
-            this.PAccion.Size = new System.Drawing.Size(999, 82);
+            this.PAccion.Size = new System.Drawing.Size(1498, 126);
             this.PAccion.TabIndex = 32;
+            // 
+            // btnProdUpdate
+            // 
+            this.btnProdUpdate.BackColor = System.Drawing.Color.Teal;
+            this.btnProdUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnProdUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.btnProdUpdate.Location = new System.Drawing.Point(244, 55);
+            this.btnProdUpdate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnProdUpdate.Name = "btnProdUpdate";
+            this.btnProdUpdate.Size = new System.Drawing.Size(270, 43);
+            this.btnProdUpdate.TabIndex = 20;
+            this.btnProdUpdate.Text = "Actualizar Producto";
+            this.btnProdUpdate.UseVisualStyleBackColor = false;
+            this.btnProdUpdate.Visible = false;
+            this.btnProdUpdate.Click += new System.EventHandler(this.btnProdUpdate_Click);
+            // 
+            // PType
+            // 
+            this.PType.Controls.Add(this.chkBoxConProductos);
+            this.PType.Controls.Add(this.label10);
+            this.PType.Controls.Add(this.PTypeAndCantProd);
+            this.PType.Controls.Add(this.cbTipo);
+            this.PType.Location = new System.Drawing.Point(4, 5);
+            this.PType.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.PType.Name = "PType";
+            this.PType.Size = new System.Drawing.Size(1257, 35);
+            this.PType.TabIndex = 34;
+            // 
+            // fLPType
+            // 
+            this.fLPType.Controls.Add(this.PType);
+            this.fLPType.Dock = System.Windows.Forms.DockStyle.Top;
+            this.fLPType.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.fLPType.Location = new System.Drawing.Point(0, 0);
+            this.fLPType.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fLPType.Name = "fLPType";
+            this.fLPType.Size = new System.Drawing.Size(1894, 45);
+            this.fLPType.TabIndex = 35;
+            // 
+            // fLPDetalleProducto
+            // 
+            this.fLPDetalleProducto.BackColor = System.Drawing.SystemColors.Control;
+            this.fLPDetalleProducto.Controls.Add(this.PDetalleProdcuto);
+            this.fLPDetalleProducto.Dock = System.Windows.Forms.DockStyle.Top;
+            this.fLPDetalleProducto.Location = new System.Drawing.Point(0, 45);
+            this.fLPDetalleProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fLPDetalleProducto.Name = "fLPDetalleProducto";
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(1894, 102);
+            this.fLPDetalleProducto.TabIndex = 36;
+            this.fLPDetalleProducto.Paint += new System.Windows.Forms.PaintEventHandler(this.fLPDetalleProducto_Paint);
+            // 
+            // fLPContenidoProducto
+            // 
+            this.fLPContenidoProducto.BackColor = System.Drawing.SystemColors.Control;
+            this.fLPContenidoProducto.Controls.Add(this.PConteidoProducto);
+            this.fLPContenidoProducto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.fLPContenidoProducto.Location = new System.Drawing.Point(0, 1326);
+            this.fLPContenidoProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fLPContenidoProducto.Name = "fLPContenidoProducto";
+            this.fLPContenidoProducto.Size = new System.Drawing.Size(1305, 95);
+            this.fLPContenidoProducto.TabIndex = 37;
+            // 
+            // fLPDetalle
+            // 
+            this.fLPDetalle.BackColor = System.Drawing.SystemColors.Control;
+            this.fLPDetalle.Controls.Add(this.PDetalle);
+            this.fLPDetalle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.fLPDetalle.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.fLPDetalle.Location = new System.Drawing.Point(0, 147);
+            this.fLPDetalle.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fLPDetalle.Name = "fLPDetalle";
+            this.fLPDetalle.Size = new System.Drawing.Size(1894, 323);
+            this.fLPDetalle.TabIndex = 38;
+            // 
+            // fLPAccion
+            // 
+            this.fLPAccion.BackColor = System.Drawing.SystemColors.Control;
+            this.fLPAccion.Controls.Add(this.PAccion);
+            this.fLPAccion.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.fLPAccion.Location = new System.Drawing.Point(0, 894);
+            this.fLPAccion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fLPAccion.Name = "fLPAccion";
+            this.fLPAccion.Size = new System.Drawing.Size(1490, 134);
+            this.fLPAccion.TabIndex = 40;
+            // 
+            // fLPDetallesProducto
+            // 
+            this.fLPDetallesProducto.BackColor = System.Drawing.SystemColors.Control;
+            this.fLPDetallesProducto.Controls.Add(this.groupBox2);
+            this.fLPDetallesProducto.Dock = System.Windows.Forms.DockStyle.Top;
+            this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 470);
+            this.fLPDetallesProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.fLPDetallesProducto.Name = "fLPDetallesProducto";
+            this.fLPDetallesProducto.Size = new System.Drawing.Size(1894, 415);
+            this.fLPDetallesProducto.TabIndex = 39;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.lblMsgSinSelecDetalles);
+            this.groupBox2.Controls.Add(this.flowLayoutPanel3);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(4, 5);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox2.Size = new System.Drawing.Size(1300, 403);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = " Detalles ";
+            this.groupBox2.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBox2_Paint);
+            // 
+            // lblMsgSinSelecDetalles
+            // 
+            this.lblMsgSinSelecDetalles.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMsgSinSelecDetalles.Location = new System.Drawing.Point(22, 35);
+            this.lblMsgSinSelecDetalles.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblMsgSinSelecDetalles.Name = "lblMsgSinSelecDetalles";
+            this.lblMsgSinSelecDetalles.Size = new System.Drawing.Size(1252, 35);
+            this.lblMsgSinSelecDetalles.TabIndex = 3;
+            this.lblMsgSinSelecDetalles.Text = resources.GetString("lblMsgSinSelecDetalles.Text");
+            this.lblMsgSinSelecDetalles.Visible = false;
+            // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.AutoScroll = true;
+            this.flowLayoutPanel3.BackColor = System.Drawing.SystemColors.Control;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(6, 69);
+            this.flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(1287, 326);
+            this.flowLayoutPanel3.TabIndex = 1;
+            // 
+            // errorProvAgregarEditarProducto
+            // 
+            this.errorProvAgregarEditarProducto.ContainerControl = this;
+            this.errorProvAgregarEditarProducto.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvAgregarEditarProducto.Icon")));
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
             // 
             // btnMensajeVenta
             // 
@@ -820,9 +984,10 @@
             this.btnMensajeVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMensajeVenta.ForeColor = System.Drawing.Color.White;
             this.btnMensajeVenta.Image = global::PuntoDeVentaV2.Properties.Resources.commenting_o1;
-            this.btnMensajeVenta.Location = new System.Drawing.Point(685, 5);
+            this.btnMensajeVenta.Location = new System.Drawing.Point(1028, 8);
+            this.btnMensajeVenta.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMensajeVenta.Name = "btnMensajeVenta";
-            this.btnMensajeVenta.Size = new System.Drawing.Size(150, 75);
+            this.btnMensajeVenta.Size = new System.Drawing.Size(225, 115);
             this.btnMensajeVenta.TabIndex = 21;
             this.btnMensajeVenta.Text = "Mensaje Venta Y Mensaje Inventario";
             this.btnMensajeVenta.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -842,9 +1007,10 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.inbox_empty;
-            this.button1.Location = new System.Drawing.Point(29, 3);
+            this.button1.Location = new System.Drawing.Point(44, 5);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 75);
+            this.button1.Size = new System.Drawing.Size(225, 115);
             this.button1.TabIndex = 0;
             this.button1.TextColor = System.Drawing.Color.White;
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -862,9 +1028,10 @@
             this.btnAgregarDescuento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarDescuento.ForeColor = System.Drawing.Color.White;
             this.btnAgregarDescuento.Image = global::PuntoDeVentaV2.Properties.Resources.tag_yellow;
-            this.btnAgregarDescuento.Location = new System.Drawing.Point(185, 3);
+            this.btnAgregarDescuento.Location = new System.Drawing.Point(278, 5);
+            this.btnAgregarDescuento.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAgregarDescuento.Name = "btnAgregarDescuento";
-            this.btnAgregarDescuento.Size = new System.Drawing.Size(166, 75);
+            this.btnAgregarDescuento.Size = new System.Drawing.Size(249, 115);
             this.btnAgregarDescuento.TabIndex = 3;
             this.btnAgregarDescuento.Text = "Agregar descuento";
             this.btnAgregarDescuento.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -884,9 +1051,10 @@
             this.btnDetalleProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDetalleProducto.ForeColor = System.Drawing.Color.White;
             this.btnDetalleProducto.Image = global::PuntoDeVentaV2.Properties.Resources.product_hunt1;
-            this.btnDetalleProducto.Location = new System.Drawing.Point(357, 3);
+            this.btnDetalleProducto.Location = new System.Drawing.Point(536, 5);
+            this.btnDetalleProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDetalleProducto.Name = "btnDetalleProducto";
-            this.btnDetalleProducto.Size = new System.Drawing.Size(165, 75);
+            this.btnDetalleProducto.Size = new System.Drawing.Size(248, 115);
             this.btnDetalleProducto.TabIndex = 1;
             this.btnDetalleProducto.Text = "Detalle de producto";
             this.btnDetalleProducto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -894,20 +1062,6 @@
             this.btnDetalleProducto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnDetalleProducto.UseVisualStyleBackColor = false;
             this.btnDetalleProducto.Click += new System.EventHandler(this.botonRedondo2_Click);
-            // 
-            // btnProdUpdate
-            // 
-            this.btnProdUpdate.BackColor = System.Drawing.Color.Teal;
-            this.btnProdUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnProdUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btnProdUpdate.Location = new System.Drawing.Point(163, 36);
-            this.btnProdUpdate.Name = "btnProdUpdate";
-            this.btnProdUpdate.Size = new System.Drawing.Size(180, 28);
-            this.btnProdUpdate.TabIndex = 20;
-            this.btnProdUpdate.Text = "Actualizar Producto";
-            this.btnProdUpdate.UseVisualStyleBackColor = false;
-            this.btnProdUpdate.Visible = false;
-            this.btnProdUpdate.Click += new System.EventHandler(this.btnProdUpdate_Click);
             // 
             // btnDetalleFacturacion
             // 
@@ -920,9 +1074,10 @@
             this.btnDetalleFacturacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDetalleFacturacion.ForeColor = System.Drawing.Color.White;
             this.btnDetalleFacturacion.Image = global::PuntoDeVentaV2.Properties.Resources.bellColor;
-            this.btnDetalleFacturacion.Location = new System.Drawing.Point(528, 3);
+            this.btnDetalleFacturacion.Location = new System.Drawing.Point(792, 5);
+            this.btnDetalleFacturacion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDetalleFacturacion.Name = "btnDetalleFacturacion";
-            this.btnDetalleFacturacion.Size = new System.Drawing.Size(150, 75);
+            this.btnDetalleFacturacion.Size = new System.Drawing.Size(225, 115);
             this.btnDetalleFacturacion.TabIndex = 2;
             this.btnDetalleFacturacion.Text = "Detalle facturación";
             this.btnDetalleFacturacion.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -942,9 +1097,10 @@
             this.btnGuardarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarProducto.ForeColor = System.Drawing.Color.White;
             this.btnGuardarProducto.Image = global::PuntoDeVentaV2.Properties.Resources.disk;
-            this.btnGuardarProducto.Location = new System.Drawing.Point(841, 3);
+            this.btnGuardarProducto.Location = new System.Drawing.Point(1262, 5);
+            this.btnGuardarProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnGuardarProducto.Name = "btnGuardarProducto";
-            this.btnGuardarProducto.Size = new System.Drawing.Size(150, 75);
+            this.btnGuardarProducto.Size = new System.Drawing.Size(225, 115);
             this.btnGuardarProducto.TabIndex = 4;
             this.btnGuardarProducto.Text = "Guardar producto";
             this.btnGuardarProducto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -953,126 +1109,12 @@
             this.btnGuardarProducto.UseVisualStyleBackColor = false;
             this.btnGuardarProducto.Click += new System.EventHandler(this.botonRedondo5_Click);
             // 
-            // PType
-            // 
-            this.PType.Controls.Add(this.chkBoxConProductos);
-            this.PType.Controls.Add(this.label10);
-            this.PType.Controls.Add(this.PTypeAndCantProd);
-            this.PType.Controls.Add(this.cbTipo);
-            this.PType.Location = new System.Drawing.Point(3, 3);
-            this.PType.Name = "PType";
-            this.PType.Size = new System.Drawing.Size(838, 23);
-            this.PType.TabIndex = 34;
-            // 
-            // fLPType
-            // 
-            this.fLPType.Controls.Add(this.PType);
-            this.fLPType.Dock = System.Windows.Forms.DockStyle.Top;
-            this.fLPType.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPType.Location = new System.Drawing.Point(0, 0);
-            this.fLPType.Name = "fLPType";
-            this.fLPType.Size = new System.Drawing.Size(1239, 29);
-            this.fLPType.TabIndex = 35;
-            // 
-            // fLPDetalleProducto
-            // 
-            this.fLPDetalleProducto.BackColor = System.Drawing.SystemColors.Control;
-            this.fLPDetalleProducto.Controls.Add(this.PDetalleProdcuto);
-            this.fLPDetalleProducto.Dock = System.Windows.Forms.DockStyle.Top;
-            this.fLPDetalleProducto.Location = new System.Drawing.Point(0, 29);
-            this.fLPDetalleProducto.Name = "fLPDetalleProducto";
-            this.fLPDetalleProducto.Size = new System.Drawing.Size(1239, 66);
-            this.fLPDetalleProducto.TabIndex = 36;
-            this.fLPDetalleProducto.Paint += new System.Windows.Forms.PaintEventHandler(this.fLPDetalleProducto_Paint);
-            // 
-            // fLPContenidoProducto
-            // 
-            this.fLPContenidoProducto.BackColor = System.Drawing.SystemColors.Control;
-            this.fLPContenidoProducto.Controls.Add(this.PConteidoProducto);
-            this.fLPContenidoProducto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPContenidoProducto.Location = new System.Drawing.Point(0, 862);
-            this.fLPContenidoProducto.Name = "fLPContenidoProducto";
-            this.fLPContenidoProducto.Size = new System.Drawing.Size(870, 62);
-            this.fLPContenidoProducto.TabIndex = 37;
-            // 
-            // fLPDetalle
-            // 
-            this.fLPDetalle.BackColor = System.Drawing.SystemColors.Control;
-            this.fLPDetalle.Controls.Add(this.PDetalle);
-            this.fLPDetalle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.fLPDetalle.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPDetalle.Location = new System.Drawing.Point(0, 95);
-            this.fLPDetalle.Name = "fLPDetalle";
-            this.fLPDetalle.Size = new System.Drawing.Size(1239, 210);
-            this.fLPDetalle.TabIndex = 38;
-            // 
-            // fLPAccion
-            // 
-            this.fLPAccion.BackColor = System.Drawing.SystemColors.Control;
-            this.fLPAccion.Controls.Add(this.PAccion);
-            this.fLPAccion.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPAccion.Location = new System.Drawing.Point(0, 581);
-            this.fLPAccion.Name = "fLPAccion";
-            this.fLPAccion.Size = new System.Drawing.Size(993, 87);
-            this.fLPAccion.TabIndex = 40;
-            // 
-            // fLPDetallesProducto
-            // 
-            this.fLPDetallesProducto.BackColor = System.Drawing.SystemColors.Control;
-            this.fLPDetallesProducto.Controls.Add(this.groupBox2);
-            this.fLPDetallesProducto.Dock = System.Windows.Forms.DockStyle.Top;
-            this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 305);
-            this.fLPDetallesProducto.Name = "fLPDetallesProducto";
-            this.fLPDetallesProducto.Size = new System.Drawing.Size(1239, 270);
-            this.fLPDetallesProducto.TabIndex = 39;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.lblMsgSinSelecDetalles);
-            this.groupBox2.Controls.Add(this.flowLayoutPanel3);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(3, 3);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(867, 262);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = " Detalles ";
-            this.groupBox2.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBox2_Paint);
-            // 
-            // lblMsgSinSelecDetalles
-            // 
-            this.lblMsgSinSelecDetalles.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMsgSinSelecDetalles.Location = new System.Drawing.Point(15, 23);
-            this.lblMsgSinSelecDetalles.Name = "lblMsgSinSelecDetalles";
-            this.lblMsgSinSelecDetalles.Size = new System.Drawing.Size(835, 23);
-            this.lblMsgSinSelecDetalles.TabIndex = 3;
-            this.lblMsgSinSelecDetalles.Text = resources.GetString("lblMsgSinSelecDetalles.Text");
-            this.lblMsgSinSelecDetalles.Visible = false;
-            // 
-            // flowLayoutPanel3
-            // 
-            this.flowLayoutPanel3.AutoScroll = true;
-            this.flowLayoutPanel3.BackColor = System.Drawing.SystemColors.Control;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(4, 45);
-            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(858, 212);
-            this.flowLayoutPanel3.TabIndex = 1;
-            // 
-            // errorProvAgregarEditarProducto
-            // 
-            this.errorProvAgregarEditarProducto.ContainerControl = this;
-            this.errorProvAgregarEditarProducto.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvAgregarEditarProducto.Icon")));
-            // 
-            // toolTip1
-            // 
-            this.toolTip1.IsBalloon = true;
-            // 
             // AgregarEditarProducto
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1256, 680);
+            this.ClientSize = new System.Drawing.Size(1920, 1046);
             this.Controls.Add(this.fLPContenidoProducto);
             this.Controls.Add(this.fLPDetallesProducto);
             this.Controls.Add(this.fLPAccion);
@@ -1082,8 +1124,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(858, 539);
+            this.MinimumSize = new System.Drawing.Size(1274, 797);
             this.Name = "AgregarEditarProducto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PUDVE - Agregar producto";

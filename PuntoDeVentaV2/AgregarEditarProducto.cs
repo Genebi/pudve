@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -7,6 +9,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -4367,6 +4370,17 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+
+            // Realiza busqueda del codigo de barras en Google
+            if (e.KeyCode == Keys.F8)
+            {
+                var codigo = txtCodigoBarras.Text;
+
+                if (!string.IsNullOrWhiteSpace(codigo))
+                {
+                    BusquedaGoogle(codigo);
+                }
             }
         }
 
@@ -12510,6 +12524,148 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Error al agregar los impuestos del producto.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private List<string> BusquedaGoogle(string codigoBarras)
+        {
+            List<string> sugerencias = new List<string>();
+            Dictionary<string, string> paginas = new Dictionary<string, string>();
+
+            if (Registro.ConectadoInternet())
+            {
+                // Datos para la API del buscador de Google
+                string cx = "254f9dbb02cbf4354";
+                string apiKey = "AIzaSyBe41nyFg8-EDReFlAZzcGNUUL5zqMueVU";
+                string url = $"https://www.googleapis.com/customsearch/v1?key={apiKey}&cx={cx}&q={codigoBarras}";
+
+                MySqlConnection conexion = new MySqlConnection();
+
+                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+                try
+                {
+                    conexion.Open();
+                    MySqlCommand consultar = conexion.CreateCommand();
+
+                    // Verificamos si el usuario que se quiere registrar ya se encuentra registrado en la base de datos online
+                    consultar.CommandText = $"SELECT * FROM paginas";
+                    MySqlDataReader dr = consultar.ExecuteReader();
+
+                    // Los datos del usuario y el numero de serie coincide
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            var pagina = dr["enlace"].ToString();
+                            var codigo = dr["codigo"].ToString();
+
+                            paginas.Add(pagina, codigo);
+                        }
+                    }
+
+                    // Cerrar conexion de MySQL
+                    dr.Close();
+                    conexion.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                
+                // Inicia la abusqueda del codigo de barras en Google
+                var request = WebRequest.Create(url);
+
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream dataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(dataStream);
+
+                string responseString = reader.ReadToEnd();
+                dynamic jsonData = JsonConvert.DeserializeObject(responseString);
+
+                var results = new List<Sugerencia>();
+
+                foreach (var item in jsonData.items)
+                {
+                    results.Add(new Sugerencia
+                    {
+                        Title = item.title,
+                        Link = item.link,
+                        Snippet = item.snippet
+                    });
+                }
+
+
+                foreach (var item in results.ToList())
+                {
+                    foreach (var pagina in paginas)
+                    {
+                        if (item.Link.Contains(pagina.Key))
+                        {
+                            //Console.WriteLine(item.Link);
+                            var nombreProducto = ObtenerNombreProducto(item.Link, pagina.Value);
+
+                            if (!string.IsNullOrWhiteSpace(nombreProducto))
+                            {
+                                sugerencias.Add(nombreProducto);
+                            }
+                        }
+                    }
+                }
+
+                foreach (var sugerencia in sugerencias)
+                {
+                    MessageBox.Show(sugerencia);
+                }
+
+            }
+            else
+            {
+                //MessageBox.Show("Se requiere conexión a internet para el primer inicio de sesión", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return sugerencias;
+        }
+
+
+        private string ObtenerNombreProducto(string pagina, string codigo)
+        {
+            HttpWebRequest webRequest = WebRequest.Create(pagina) as HttpWebRequest;
+            webRequest.Accept = "*/*";
+            webRequest.UserAgent = "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.0.6) Gecko/20060728 Firefox/1.5";
+            webRequest.CookieContainer = new CookieContainer();
+
+            var codigoHtml = string.Empty;
+
+            using (var response = webRequest.GetResponse())
+            {
+                Stream dataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(dataStream);
+                codigoHtml = reader.ReadToEnd();
+                reader.Close();
+                dataStream.Close();
+            }
+
+            if (!string.IsNullOrWhiteSpace(codigoHtml))
+            {
+                var resultado = codigoHtml.IndexOf(codigo);
+
+                if (resultado > -1)
+                {
+                    var primeraCadena = codigoHtml.Substring((resultado + codigo.Length));
+                    resultado = primeraCadena.IndexOf("</");
+
+                    if (resultado > -1)
+                    {
+                        var segundaCadena = primeraCadena.Substring(0, resultado);
+
+                        return segundaCadena.Trim();
+                    }
+                }
+            }
+
+            // Regresa cadena vacia en caso de no encontrar nada
+            return string.Empty;
         }
     }
 }
