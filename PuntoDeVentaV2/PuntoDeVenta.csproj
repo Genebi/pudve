@@ -630,6 +630,12 @@
     <Compile Include="DetalleDescripcion.Designer.cs">
       <DependentUpon>DetalleDescripcion.cs</DependentUpon>
     </Compile>
+    <Compile Include="detallesIngresosRetirosDinero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="detallesIngresosRetirosDinero.Designer.cs">
+      <DependentUpon>detallesIngresosRetirosDinero.cs</DependentUpon>
+    </Compile>
     <Compile Include="DetalleVenta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1720,6 +1726,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DetalleDescripcion.resx">
       <DependentUpon>DetalleDescripcion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="detallesIngresosRetirosDinero.resx">
+      <DependentUpon>detallesIngresosRetirosDinero.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DetalleVenta.resx">
       <DependentUpon>DetalleVenta.cs</DependentUpon>

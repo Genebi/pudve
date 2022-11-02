@@ -102,6 +102,10 @@ namespace PuntoDeVentaV2
 
         public static string opcionComboBoxFiltroAdminEmp = string.Empty;
 
+        public static string detalleAbonoRetiro = string.Empty;
+
+        public static string usuarioEmpleado = string.Empty;
+
         int idAdministradorOrUsuario = 0;
         string nombreDeUsuario = string.Empty;
         string razonSocialUsuario = string.Empty;
@@ -203,6 +207,58 @@ namespace PuntoDeVentaV2
                 cantidadChequeRetirado = 0,
                 cantidadTransferenciaRetirado = 0,
                 cantidadTotalDineroRetirado = 0;
+
+        private void botonRedondo1_Click(object sender, EventArgs e)
+        {
+            detalleAbonoRetiro = "abono";
+            var datosall = cbFiltroAdminEmpleado.SelectedItem.ToString().Split(',');
+            var todos = datosall[0].Replace("[", "");
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) && !todos.Equals("All"))
+                {
+                    usuarioEmpleado = "empleado";
+                    var idEmpleado = cbFiltroAdminEmpleado.SelectedItem.ToString().Split(',');
+                    var idEmp = idEmpleado[0].Replace("[", "");
+                    FormPrincipal.id_empleado = Convert.ToInt32(idEmp);
+                }
+                else if (todos.Equals("All"))
+                {
+                    return;
+                }
+                else
+                {
+                    usuarioEmpleado = "usuario";
+                    FormPrincipal.id_empleado = 0;
+                }
+            }
+           
+            detallesIngresosRetirosDinero detalles = new detallesIngresosRetirosDinero();
+            detalles.ShowDialog();
+        }
+
+        private void botonRedondo2_Click(object sender, EventArgs e)
+        {
+            var datosall = cbFiltroAdminEmpleado.SelectedItem.ToString().Split(',');
+            var todos = datosall[0].Replace("[", "");
+            if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) && !todos.Equals("All"))
+            {
+                usuarioEmpleado = "empleado";
+            }
+            else if (todos.Equals("All"))
+            {
+                return;
+            }
+            else
+            {
+                usuarioEmpleado = "usuario";
+                FormPrincipal.id_empleado = 0;
+            }
+            detalleAbonoRetiro = "retiro";
+            detallesIngresosRetirosDinero detalles = new detallesIngresosRetirosDinero();
+            detalles.ShowDialog();
+        }
+
         // Dinero Retirado de todos
 
         public CajaN()
