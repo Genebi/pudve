@@ -354,13 +354,15 @@ namespace PuntoDeVentaV2
                 txtBuscador.SelectionLength = txtBuscador.Text.Length;
             }
 
-            CargarDatos(busqueda);
+            int status = cbStatus.SelectedIndex + 1;
+
+            CargarDatos(busqueda,status);
             if (datoEncontrado != 1)
             {
                 MessageBox.Show($"No se encontraron resultados con {busqueda}", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtBuscador.Text = string.Empty;
                 txtBuscador.Focus();
-                CargarDatos();
+                CargarDatos(busqueda, status);
             }
         }
 
