@@ -738,6 +738,12 @@
     <Compile Include="FormNotaVentaHDA.Designer.cs">
       <DependentUpon>FormNotaVentaHDA.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReporteInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReporteInventario.Designer.cs">
+      <DependentUpon>FormReporteInventario.cs</DependentUpon>
+    </Compile>
     <Compile Include="HistorialAnticipos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1201,6 +1207,16 @@
       <DependentUpon>TicketDineroRetirado.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Content Include="ReportesImpresion\Ticket\Inventario\DTInventario.cs">
+      <DependentUpon>DTInventario.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\Inventario\DTInventario.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DTInventario.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="ReportesImpresion\Ticket\NotasVentasHDA\DSNotaVentaHDA.cs">
       <DependentUpon>DSNotaVentaHDA.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1778,6 +1794,9 @@
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormReporteInventario.resx">
+      <DependentUpon>FormReporteInventario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HistorialAnticipos.resx">
       <DependentUpon>HistorialAnticipos.cs</DependentUpon>
     </EmbeddedResource>
@@ -2045,6 +2064,9 @@
     <Content Include="ReportesImpresion\Etiqueta\BrotherQL800\EtiquetaCodigoDeBarras.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\Inventario\ReporteInventario.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -2177,6 +2199,7 @@
     <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\PuntoDeVentaV2.ReportesImpresion.Ticket.Inventario.DTIventario+DataTable1DataTable.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -2270,6 +2293,20 @@
       <DependentUpon>TicketDineroRetirado.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="ReportesImpresion\Ticket\Inventario\DTInventario.xsc">
+      <DependentUpon>DTInventario.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\Inventario\DTInventario.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DTInventario.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\Inventario\DTInventario.xss">
+      <DependentUpon>DTInventario.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="ReportesImpresion\Ticket\NotasVentasHDA\DSNotaVentaHDA.xsc">
       <DependentUpon>DSNotaVentaHDA.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
