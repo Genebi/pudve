@@ -63,6 +63,8 @@ namespace PuntoDeVentaV2
 
         List<string> prodServPaq = new List<string>();
 
+        Dictionary<string, string> paginasRegistradas = new Dictionary<string, string>();
+
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
@@ -4379,7 +4381,21 @@ namespace PuntoDeVentaV2
 
                 if (!string.IsNullOrWhiteSpace(codigo))
                 {
-                    BusquedaGoogle(codigo);
+                    //7501011123588 codigo de prueba
+                    var sugerencias = BusquedaGoogle(codigo);
+
+                    if (sugerencias.Count > 0)
+                    {
+                        using (SugerenciasGoogle formSugerencias = new SugerenciasGoogle(sugerencias))
+                        {
+                            var resultado = formSugerencias.ShowDialog();
+
+                            if (resultado == DialogResult.OK)
+                            {
+                                txtNombreProducto.Text = formSugerencias.seleccionada;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -10266,6 +10282,7 @@ namespace PuntoDeVentaV2
                 btnDetalleFacturacion.PerformClick();
             }
 
+            ObtenerPaginasRegistradas();
         }
 
         private void llenarListaDatosDinamicos()
@@ -12529,7 +12546,6 @@ namespace PuntoDeVentaV2
         private List<string> BusquedaGoogle(string codigoBarras)
         {
             List<string> sugerencias = new List<string>();
-            Dictionary<string, string> paginas = new Dictionary<string, string>();
 
             if (Registro.ConectadoInternet())
             {
@@ -12538,41 +12554,6 @@ namespace PuntoDeVentaV2
                 string apiKey = "AIzaSyBe41nyFg8-EDReFlAZzcGNUUL5zqMueVU";
                 string url = $"https://www.googleapis.com/customsearch/v1?key={apiKey}&cx={cx}&q={codigoBarras}";
 
-                MySqlConnection conexion = new MySqlConnection();
-
-                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
-
-                try
-                {
-                    conexion.Open();
-                    MySqlCommand consultar = conexion.CreateCommand();
-
-                    // Verificamos si el usuario que se quiere registrar ya se encuentra registrado en la base de datos online
-                    consultar.CommandText = $"SELECT * FROM paginas";
-                    MySqlDataReader dr = consultar.ExecuteReader();
-
-                    // Los datos del usuario y el numero de serie coincide
-                    if (dr.HasRows)
-                    {
-                        while (dr.Read())
-                        {
-                            var pagina = dr["enlace"].ToString();
-                            var codigo = dr["codigo"].ToString();
-
-                            paginas.Add(pagina, codigo);
-                        }
-                    }
-
-                    // Cerrar conexion de MySQL
-                    dr.Close();
-                    conexion.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-                
                 // Inicia la abusqueda del codigo de barras en Google
                 var request = WebRequest.Create(url);
 
@@ -12598,7 +12579,7 @@ namespace PuntoDeVentaV2
 
                 foreach (var item in results.ToList())
                 {
-                    foreach (var pagina in paginas)
+                    foreach (var pagina in paginasRegistradas)
                     {
                         if (item.Link.Contains(pagina.Key))
                         {
@@ -12612,12 +12593,6 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-
-                foreach (var sugerencia in sugerencias)
-                {
-                    MessageBox.Show(sugerencia);
-                }
-
             }
             else
             {
@@ -12666,6 +12641,43 @@ namespace PuntoDeVentaV2
 
             // Regresa cadena vacia en caso de no encontrar nada
             return string.Empty;
+        }
+
+        private void ObtenerPaginasRegistradas()
+        {
+            MySqlConnection conexion = new MySqlConnection();
+
+            conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+            try
+            {
+                conexion.Open();
+                MySqlCommand consultar = conexion.CreateCommand();
+
+                // Verificamos si el usuario que se quiere registrar ya se encuentra registrado en la base de datos online
+                consultar.CommandText = $"SELECT * FROM paginas";
+                MySqlDataReader dr = consultar.ExecuteReader();
+
+                // Los datos del usuario y el numero de serie coincide
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        var pagina = dr["enlace"].ToString();
+                        var codigo = dr["codigo"].ToString();
+
+                        paginasRegistradas.Add(pagina, codigo);
+                    }
+                }
+
+                // Cerrar conexion de MySQL
+                dr.Close();
+                conexion.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
