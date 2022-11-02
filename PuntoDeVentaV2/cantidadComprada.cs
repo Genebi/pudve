@@ -51,5 +51,20 @@ namespace PuntoDeVentaV2
                 this.Close();
             }
         }
+
+        private void txtCantidad_TextChanged(object sender, EventArgs e)
+        {
+            validarSoloNumeros(sender, e);
+        }
+        private void validarSoloNumeros(object sender, EventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            string texto = txt.Text;
+            bool esNum = decimal.TryParse(texto, out decimal algo);
+            if (esNum.Equals(false))
+            {
+                txt.Text = "";
+            }
+        }
     }
 }
