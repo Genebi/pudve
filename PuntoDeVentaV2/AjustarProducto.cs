@@ -142,8 +142,16 @@ namespace PuntoDeVentaV2
             //Eventos para los campos que solo requieren cantidades
             using (var DTPrecioCommpra = cn.CargarDatos($"SELECT PrecioCompra FROM productos WHERE ID = {IDProducto}"))
             {
-                string Precio = DTPrecioCommpra.Rows[0]["PrecioCompra"].ToString();
-                txtPrecioCompra.Text = Precio;
+                if (!DTPrecioCommpra.Rows.Count.Equals(0))
+                {
+                    string Precio = DTPrecioCommpra.Rows[0]["PrecioCompra"].ToString();
+                    txtPrecioCompra.Text = Precio;
+                }
+                else
+                {
+                    txtPrecioCompra.Text = "0.00";
+                }
+                
             }
             txtPrecioCompra.Click += txtPrecioCompra_Click;
             txtPrecioCompra.KeyPress += new KeyPressEventHandler(SoloDecimales);
