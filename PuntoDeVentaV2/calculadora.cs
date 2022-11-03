@@ -23,6 +23,7 @@ namespace PuntoDeVentaV2
 
         private void calculadora_Load(object sender, EventArgs e)
         {
+            seEnvia = false;
             lCalculadora.Text = "0";
             label1.BackColor = Color.FromArgb(229, 231, 233);
             label2.BackColor = Color.FromArgb(229, 231, 233);
