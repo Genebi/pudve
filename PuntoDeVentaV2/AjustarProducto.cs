@@ -967,6 +967,35 @@ namespace PuntoDeVentaV2
 
         private void SoloDecimales(object sender, KeyPressEventArgs e)
         {
+            TextBox txt = new TextBox();
+            txt = (TextBox)sender;
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txt.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+
+            }
             //permite 0-9, eliminar y decimal
             if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
             {
@@ -980,10 +1009,10 @@ namespace PuntoDeVentaV2
                 if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
                 {
                     e.Handled = true;
-                }  
+                }
             }
+            
         }
-
         private void txtCantidadCompra_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
