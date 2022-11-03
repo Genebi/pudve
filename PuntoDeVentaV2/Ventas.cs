@@ -2677,8 +2677,16 @@ namespace PuntoDeVentaV2
                     {
                         cantidadDescuento = Convert.ToDouble(descuentoIndividual[0]);
                     }
-
-                    var importeProducto = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
+                    double importeProducto;
+                    if (cantidadProducto > 0 && cantidadProducto < 1)
+                    {
+                        importeProducto = (precioOriginal * Convert.ToDouble(cantidadProducto));
+                    }
+                    else
+                    {
+                        importeProducto = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
+                    }
+                   
 
                     fila.Cells["Importe"].Value = importeProducto.ToString("0.00");
 
