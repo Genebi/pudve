@@ -8435,6 +8435,11 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void txtBuscadorProducto_Click(object sender, EventArgs e)
+        {
+            listaProductos.Visible = false;
+        }
+
         private void txtBuscadorProducto_Enter(object sender, EventArgs e)
         {
             tieneElCursorElTxtBuscadorProducto = true;

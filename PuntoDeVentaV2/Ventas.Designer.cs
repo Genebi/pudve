@@ -195,6 +195,7 @@
             this.txtBuscadorProducto.Size = new System.Drawing.Size(790, 22);
             this.txtBuscadorProducto.TabIndex = 41;
             this.txtBuscadorProducto.Text = "BUSCAR PRODUCTO O SERVICIO...";
+            this.txtBuscadorProducto.Click += new System.EventHandler(this.txtBuscadorProducto_Click);
             this.txtBuscadorProducto.TextChanged += new System.EventHandler(this.txtBuscadorProducto_TextChanged);
             this.txtBuscadorProducto.Enter += new System.EventHandler(this.txtBuscadorProducto_Enter);
             this.txtBuscadorProducto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtBuscadorProducto_KeyDown);
