@@ -274,7 +274,10 @@ namespace PuntoDeVentaV2
                         var precioActual = (float)Convert.ToDecimal(valor[1]);
 
                         {
-                            checkboxMarcados.Add(id, tipo);
+                            if (!checkboxMarcados.ContainsKey(id))
+                            {
+                                checkboxMarcados.Add(id, tipo);
+                            }
                         }
 
                         if (!productosSeleccionados.ContainsKey(id))
@@ -2278,6 +2281,8 @@ namespace PuntoDeVentaV2
                     //productosSeleccionados.Clear();
 
                     desmarcarCheckBoxSeleccionados();
+                    productosSeleccionados.Clear();
+                    checkboxMarcados.Clear();
                 };
             }
         }
