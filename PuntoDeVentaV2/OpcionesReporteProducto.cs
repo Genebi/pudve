@@ -178,7 +178,56 @@ namespace PuntoDeVentaV2
                 IDSProducto = IDSProducto.TrimEnd(',');
                 DataTable DTExcel = new DataTable("DatosExcel");
                 string consulta = string.Empty;
-                DTExcel = cn.CargarDatos($"SELECT Prod.*,CBE.CodigoBarraExtra,DetProd.Proveedor FROM productos AS Prod INNER JOIN codigobarrasextras AS CBE ON(CBE.IDProducto = Prod.ID) INNER JOIN detallesproducto AS DetProd ON (DetProd.IDProducto = Prod.ID) WHERE Prod.ID IN ({IDSProducto})");
+                var DTProducto = cn.CargarDatos($"SELECT * FROM productos WHERE ID IN ({IDSProducto})");
+                int Rows = 0;
+                var IDSSeparados = IDSProducto.Split(',');
+                DTProducto.Columns.Add("Codigo de Barras Extra", typeof(string));
+                foreach (var item in DTProducto.Rows)
+                {
+                    var DTCodigoBarrasExtra = cn.CargarDatos($"SELECT CodigoBarraExtra FROM codigobarrasextras WHERE IDProducto = {IDSSeparados[Rows]}");
+                    if (!DTCodigoBarrasExtra.Rows.Count.Equals(0))
+                    {
+                        if (!string.IsNullOrWhiteSpace(DTCodigoBarrasExtra.Rows[0]["CodigoBarraExtra"].ToString()))
+                        {
+                            DTProducto.Rows[Rows]["Codigo de Barras Extra"] = DTCodigoBarrasExtra.Rows[0]["CodigoBarraExtra"];
+                        }
+                        else
+                        {
+                            DTProducto.Rows[Rows]["Codigo de Barras Extra"] = "---";
+                        }
+                        
+                    }
+                    else
+                    {
+                        DTProducto.Rows[Rows]["Codigo de Barras Extra"] = "---";
+                    }
+                    Rows++;
+                }
+                Rows = 0;
+                DTProducto.Columns.Add("Proveedor", typeof(string));
+                foreach (var item in DTProducto.Rows)
+                {
+                    var DTProveedor = cn.CargarDatos($"SELECT Proveedor FROM detallesproducto WHERE IDProducto = {IDSSeparados[Rows]}");
+                    if (!DTProveedor.Rows.Count.Equals(0))
+                    {
+                        if (!string.IsNullOrWhiteSpace(DTProveedor.Rows[0]["Proveedor"].ToString()))
+                        {
+                            DTProducto.Rows[Rows]["Proveedor"] = DTProveedor.Rows[0]["Proveedor"];
+                        }
+                        else
+                        {
+                            DTProducto.Rows[Rows]["Proveedor"] = "---";
+                        }
+                        
+                    }
+                    else
+                    {
+                        DTProducto.Rows[Rows]["Proveedor"] = "---";
+                    }
+                    Rows++;
+                }
+                Rows = 0;
+                DTExcel = DTProducto;
                 DTExcel.Columns.Add("UBICACION", typeof(string));
                 DTExcel.Columns.Add("COLOR", typeof(string));
                 DTExcel.Columns.Add("MATERIAL_", typeof(string));
