@@ -4377,25 +4377,36 @@ namespace PuntoDeVentaV2
             // Realiza busqueda del codigo de barras en Google
             if (e.KeyCode == Keys.F8)
             {
-                var codigo = txtCodigoBarras.Text;
-
-                if (!string.IsNullOrWhiteSpace(codigo))
+                if (Registro.ConectadoInternet())
                 {
-                    //7501011123588 codigo de prueba
-                    var sugerencias = BusquedaGoogle(codigo);
+                    var codigo = txtCodigoBarras.Text;
 
-                    if (sugerencias.Count > 0)
+                    if (!string.IsNullOrWhiteSpace(codigo))
                     {
-                        using (SugerenciasGoogle formSugerencias = new SugerenciasGoogle(sugerencias))
-                        {
-                            var resultado = formSugerencias.ShowDialog();
+                        //7501011123588 codigo de prueba
+                        var sugerencias = BusquedaGoogle(codigo);
 
-                            if (resultado == DialogResult.OK)
+                        if (sugerencias.Count > 0)
+                        {
+                            using (SugerenciasGoogle formSugerencias = new SugerenciasGoogle(sugerencias))
                             {
-                                txtNombreProducto.Text = formSugerencias.seleccionada;
+                                var resultado = formSugerencias.ShowDialog();
+
+                                if (resultado == DialogResult.OK)
+                                {
+                                    txtNombreProducto.Text = formSugerencias.seleccionada;
+                                }
                             }
                         }
+                        else
+                        {
+                            MessageBox.Show("No se ha encontrado ningún resultado.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Se requiere conexión a internet para el funcionamiento del atajo F8", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -12546,26 +12557,26 @@ namespace PuntoDeVentaV2
         private List<string> BusquedaGoogle(string codigoBarras)
         {
             List<string> sugerencias = new List<string>();
+            
+            // Datos para la API del buscador de Google
+            string cx = "254f9dbb02cbf4354";
+            string apiKey = "AIzaSyBe41nyFg8-EDReFlAZzcGNUUL5zqMueVU";
+            string url = $"https://www.googleapis.com/customsearch/v1?key={apiKey}&cx={cx}&q={codigoBarras}";
 
-            if (Registro.ConectadoInternet())
+            // Inicia la abusqueda del codigo de barras en Google
+            var request = WebRequest.Create(url);
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            Stream dataStream = response.GetResponseStream();
+            StreamReader reader = new StreamReader(dataStream);
+
+            string responseString = reader.ReadToEnd();
+            dynamic jsonData = JsonConvert.DeserializeObject(responseString);
+
+            var results = new List<Sugerencia>();
+
+            if (jsonData.items != null)
             {
-                // Datos para la API del buscador de Google
-                string cx = "254f9dbb02cbf4354";
-                string apiKey = "AIzaSyBe41nyFg8-EDReFlAZzcGNUUL5zqMueVU";
-                string url = $"https://www.googleapis.com/customsearch/v1?key={apiKey}&cx={cx}&q={codigoBarras}";
-
-                // Inicia la abusqueda del codigo de barras en Google
-                var request = WebRequest.Create(url);
-
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                Stream dataStream = response.GetResponseStream();
-                StreamReader reader = new StreamReader(dataStream);
-
-                string responseString = reader.ReadToEnd();
-                dynamic jsonData = JsonConvert.DeserializeObject(responseString);
-
-                var results = new List<Sugerencia>();
-
                 foreach (var item in jsonData.items)
                 {
                     results.Add(new Sugerencia
@@ -12594,11 +12605,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            else
-            {
-                //MessageBox.Show("Se requiere conexión a internet para el primer inicio de sesión", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
+            
             return sugerencias;
         }
 
@@ -12645,38 +12652,41 @@ namespace PuntoDeVentaV2
 
         private void ObtenerPaginasRegistradas()
         {
-            MySqlConnection conexion = new MySqlConnection();
-
-            conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
-
-            try
+            if (Registro.ConectadoInternet())
             {
-                conexion.Open();
-                MySqlCommand consultar = conexion.CreateCommand();
+                MySqlConnection conexion = new MySqlConnection();
 
-                // Verificamos si el usuario que se quiere registrar ya se encuentra registrado en la base de datos online
-                consultar.CommandText = $"SELECT * FROM paginas";
-                MySqlDataReader dr = consultar.ExecuteReader();
+                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
 
-                // Los datos del usuario y el numero de serie coincide
-                if (dr.HasRows)
+                try
                 {
-                    while (dr.Read())
+                    conexion.Open();
+                    MySqlCommand consultar = conexion.CreateCommand();
+
+                    // Verificamos si el usuario que se quiere registrar ya se encuentra registrado en la base de datos online
+                    consultar.CommandText = $"SELECT * FROM paginas";
+                    MySqlDataReader dr = consultar.ExecuteReader();
+
+                    // Los datos del usuario y el numero de serie coincide
+                    if (dr.HasRows)
                     {
-                        var pagina = dr["enlace"].ToString();
-                        var codigo = dr["codigo"].ToString();
+                        while (dr.Read())
+                        {
+                            var pagina = dr["enlace"].ToString();
+                            var codigo = dr["codigo"].ToString();
 
-                        paginasRegistradas.Add(pagina, codigo);
+                            paginasRegistradas.Add(pagina, codigo);
+                        }
                     }
-                }
 
-                // Cerrar conexion de MySQL
-                dr.Close();
-                conexion.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    // Cerrar conexion de MySQL
+                    dr.Close();
+                    conexion.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }
