@@ -4400,6 +4400,7 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
+                            RegistrarCodigoNoEncontrados(codigo);
                             MessageBox.Show("No se ha encontrado ningún resultado.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
@@ -12686,6 +12687,42 @@ namespace PuntoDeVentaV2
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void RegistrarCodigoNoEncontrados(string codigo)
+        {
+            if (Registro.ConectadoInternet())
+            {
+                MySqlConnection conexion = new MySqlConnection();
+
+                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+                try
+                {
+                    conexion.Open();
+                    MySqlCommand consultar = conexion.CreateCommand();
+                    MySqlCommand registrar = conexion.CreateCommand();
+
+                    consultar.CommandText = $"SELECT * FROM codigos_buscados WHERE codigo = '{codigo}'";
+                    MySqlDataReader dr = consultar.ExecuteReader();
+
+                    if (!dr.HasRows)
+                    {
+                        dr.Close();
+                        //Consulta de MySQL
+                        registrar.CommandText = $"INSERT INTO codigos_buscados (codigo) VALUES ('{codigo}')";
+                        int resultado = registrar.ExecuteNonQuery();
+                    }
+
+                    //Cerramos la conexion de MySQL
+                    dr.Close();
+                    conexion.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
