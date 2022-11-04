@@ -2272,19 +2272,15 @@ namespace PuntoDeVentaV2
             {
                 var opciones = new OpcionesReporteProducto();
 
-                opciones.Show();
+                opciones.ShowDialog();
 
-                opciones.FormClosed += delegate
-                {
-                    txtBusqueda.Focus();
-
-                    //productosSeleccionados.Clear();
-
-                    desmarcarCheckBoxSeleccionados();
-                    productosSeleccionados.Clear();
-                    checkboxMarcados.Clear();
-                };
+                 txtBusqueda.Focus();
+                 desmarcarCheckBoxSeleccionados();
+                 productosSeleccionados.Clear();
+                 checkboxMarcados.Clear();
+                cbTodos.Checked = false;
             }
+           
         }
 
         private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
