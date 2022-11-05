@@ -4384,7 +4384,7 @@ namespace PuntoDeVentaV2
                     if (!string.IsNullOrWhiteSpace(codigo))
                     {
                         // Comprobar si el codigo de barras ya se encuentra registrado
-                        var existeCodigo = mb.BusquedaCodigosBarrasClaveInterna(codigo);
+                        var existeCodigo = mb.BusquedaCodigosBarrasClaveInterna(codigo, especial: true);
                         var existeCodigoExtra = mb.BuscarCodigoBarrasExtra(codigo);
 
                         if (existeCodigo.Count() == 0 && existeCodigoExtra.Count() == 0)
