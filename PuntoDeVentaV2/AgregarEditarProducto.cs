@@ -12587,6 +12587,9 @@ namespace PuntoDeVentaV2
             // Inicia la abusqueda del codigo de barras en Google
             var request = WebRequest.Create(url);
 
+            Thread cargando = new Thread(() => new Cargando(true).ShowDialog());
+            cargando.Start();
+
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             Stream dataStream = response.GetResponseStream();
             StreamReader reader = new StreamReader(dataStream);
@@ -12626,7 +12629,20 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
+            try
+            {
+                if (cargando.IsAlive)
+                {
+                    cargando.Abort();
+                }
+            }
+            catch (ThreadAbortException e)
+            {
+                Console.WriteLine(e.Message);
+            }
             
+
             return sugerencias;
         }
 
