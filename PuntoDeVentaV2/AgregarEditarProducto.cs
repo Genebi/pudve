@@ -12611,6 +12611,7 @@ namespace PuntoDeVentaV2
                     });
                 }
 
+                List<string> sourceCodeUsado = new List<string>();
 
                 foreach (var item in results.ToList())
                 {
@@ -12618,12 +12619,17 @@ namespace PuntoDeVentaV2
                     {
                         if (item.Link.Contains(pagina.Key))
                         {
-                            //Console.WriteLine(item.Link);
-                            var nombreProducto = ObtenerNombreProducto(item.Link, pagina.Value);
-
-                            if (!string.IsNullOrWhiteSpace(nombreProducto))
+                            if (!sourceCodeUsado.Contains(pagina.Value))
                             {
-                                sugerencias.Add(nombreProducto);
+                                //Console.WriteLine(item.Link);
+                                var nombreProducto = ObtenerNombreProducto(item.Link, pagina.Value);
+
+                                sourceCodeUsado.Add(pagina.Value);
+
+                                if (!string.IsNullOrWhiteSpace(nombreProducto))
+                                {
+                                    sugerencias.Add(nombreProducto);
+                                }
                             }
                         }
                     }
