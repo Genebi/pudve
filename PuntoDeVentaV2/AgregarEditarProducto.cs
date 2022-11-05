@@ -4379,29 +4379,40 @@ namespace PuntoDeVentaV2
             {
                 if (Registro.ConectadoInternet())
                 {
-                    var codigo = txtCodigoBarras.Text;
+                    var codigo = txtCodigoBarras.Text.Trim();
 
                     if (!string.IsNullOrWhiteSpace(codigo))
                     {
-                        //7501011123588 codigo de prueba
-                        var sugerencias = BusquedaGoogle(codigo);
+                        // Comprobar si el codigo de barras ya se encuentra registrado
+                        var existeCodigo = mb.BusquedaCodigosBarrasClaveInterna(codigo);
+                        var existeCodigoExtra = mb.BuscarCodigoBarrasExtra(codigo);
 
-                        if (sugerencias.Count > 0)
+                        if (existeCodigo.Count() == 0 && existeCodigoExtra.Count() == 0)
                         {
-                            using (SugerenciasGoogle formSugerencias = new SugerenciasGoogle(sugerencias))
-                            {
-                                var resultado = formSugerencias.ShowDialog();
+                            //7501011123588 codigo de prueba
+                            var sugerencias = BusquedaGoogle(codigo);
 
-                                if (resultado == DialogResult.OK)
+                            if (sugerencias.Count > 0)
+                            {
+                                using (SugerenciasGoogle formSugerencias = new SugerenciasGoogle(sugerencias))
                                 {
-                                    txtNombreProducto.Text = formSugerencias.seleccionada;
+                                    var resultado = formSugerencias.ShowDialog();
+
+                                    if (resultado == DialogResult.OK)
+                                    {
+                                        txtNombreProducto.Text = formSugerencias.seleccionada;
+                                    }
                                 }
+                            }
+                            else
+                            {
+                                RegistrarCodigoNoEncontrados(codigo);
+                                MessageBox.Show("No se ha encontrado ningún resultado.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                         else
                         {
-                            RegistrarCodigoNoEncontrados(codigo);
-                            MessageBox.Show("No se ha encontrado ningún resultado.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            MessageBox.Show($"El código {codigo} ya se encuentra registrado.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
                 }
