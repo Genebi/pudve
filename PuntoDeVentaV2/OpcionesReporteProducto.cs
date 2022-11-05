@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using System.Xml;
 using ClosedXML.Excel;
 using SpreadsheetLight;
+using System.Threading;
 
 namespace PuntoDeVentaV2
 {
@@ -162,111 +163,171 @@ namespace PuntoDeVentaV2
 
                     GenerarReporte(opcionesFinales);
                 }
+                Productos.productosSeleccionados.Clear();
+                Productos.checkboxMarcados.Clear();
             }
             else if (opcionPregunta.Equals("opcion2"))
             {
-                var productos = Productos.productosSeleccionados;
-                if (productos.Count.Equals(0))
-                {
-                    MessageBox.Show("No tiene Articulos Seleccionados para\ncrear el archivo Excel", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return;
-                }
-                foreach (var item in productos)
-                {
-                    IDSProducto += item.Key + ",";
-                }
-                IDSProducto = IDSProducto.TrimEnd(',');
-                DataTable DTExcel = new DataTable("DatosExcel");
-                string consulta = string.Empty;
-                DTExcel = cn.CargarDatos($"SELECT Prod.*,CBE.CodigoBarraExtra,DetProd.Proveedor FROM productos AS Prod INNER JOIN codigobarrasextras AS CBE ON(CBE.IDProducto = Prod.ID) INNER JOIN detallesproducto AS DetProd ON (DetProd.IDProducto = Prod.ID) WHERE Prod.ID IN ({IDSProducto})");
-                DTExcel.Columns.Add("UBICACION", typeof(string));
-                DTExcel.Columns.Add("COLOR", typeof(string));
-                DTExcel.Columns.Add("MATERIAL_", typeof(string));
-                string nombre = Environment.UserName;
-                string rutaparaGGuardar = $@"C:\Users\{nombre}\Desktop\DatosProducto.xlsx";
-
-                SLDocument sl = new SLDocument();
-                SLStyle st = new SLStyle();
-                st.Font.Bold = true;
-                int titulo = 1;
-
-                foreach (DataColumn item in DTExcel.Columns)
-                {
-                    string columna = item.ColumnName.ToString();
-                    sl.SetCellValue(1, titulo, columna);
-                    sl.SetCellStyle(1, titulo, st);
-                    titulo++;
-
-                }
-
-                int datos = 2;
-                int columnaNombre = 0;
-                int posicionColumna = 1;
-                int dato = 0;
-                int DetalleRennglon = 0;
-                foreach (DataRow item in DTExcel.Rows)
-                {
-                    int idProducto = Convert.ToInt32(item[0]);
-                    foreach (DataColumn otroitem in DTExcel.Columns)
-                    {
-
-                        string nombreColumna = otroitem.ColumnName.ToString();
-                        string detalle = string.Empty;
-                        if (nombreColumna.Equals("UBICACION") || nombreColumna.Equals("COLOR") || nombreColumna.Equals("MATERIAL_"))
-                        {
-                            var DTDetalles = cn.CargarDatos($"SELECT DPG.IDProducto, DetGral.Descripcion, IF(DetGral.ChckName = '' OR DetGral.ChckName IS NULL,'S/A',DetGral.ChckName)AS 'Detalle' FROM detallesproductogenerales AS DPG INNER JOIN detallegeneral AS DetGral ON ( DetGral.ID = DPG.IDDetalleGral ) WHERE DPG.IDProducto = '{idProducto}' AND DetGral.ChckName = '{nombreColumna}'");
-
-                            if (!DTDetalles.Rows.Count.Equals(0))
-                            {
-                                detalle = DTDetalles.Rows[0]["Descripcion"].ToString();
-                            }
-                            else
-                            {
-                                detalle = "S/A";
-                            }
-
-                            sl.SetCellValue(datos, posicionColumna, detalle);
-
-                        }
-                        else
-                        {
-                            sl.SetCellValue(datos, posicionColumna, DTExcel.Rows[dato][columnaNombre].ToString());
-                        }
-
-                        columnaNombre++;
-                        posicionColumna++;
-
-                    }
-                    DetalleRennglon++;
-                    dato++;
-                    posicionColumna = 1;
-                    columnaNombre = 0;
-                    datos++;
-                }
-                dato = 0;
-                bool seGuardo = true;
-                try
-                {
-                    sl.SaveAs(rutaparaGGuardar);
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Necesita cerrar el Archivo de \nExcel para guardar el nuevo", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    seGuardo = false;
-                }
-                dtosConsulta = "";
-                IDSProducto = "";
-                Productos.productosSeleccionados.Clear();
-                if (seGuardo.Equals(true))
-                {
-                    MessageBox.Show("Archivo Excel Generado con Exito en escritorio", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                this.Close();
+                MessageBoxTemporal.Show("El Reporte se esta Generando","Aviso del Sistema",5,true);
+                Thread ProductDeleteSale = new Thread(() => CreacionReporte());
+                ProductDeleteSale.Start();
             }
             else
             {
                 this.Close();
             }
+        }
+
+        private void CreacionReporte()
+        {
+            
+            var productos = Productos.productosSeleccionados;
+            if (productos.Count.Equals(0))
+            {
+                MessageBox.Show("No tiene Articulos Seleccionados para\ncrear el archivo Excel", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+            foreach (var item in productos)
+            {
+                IDSProducto += item.Key + ",";
+            }
+            IDSProducto = IDSProducto.TrimEnd(',');
+            DataTable DTExcel = new DataTable("DatosExcel");
+            string consulta = string.Empty;
+            var DTProducto = cn.CargarDatos($"SELECT * FROM productos WHERE ID IN ({IDSProducto})");
+            int Rows = 0;
+            var IDSSeparados = IDSProducto.Split(',');
+            DTProducto.Columns.Add("Codigo de Barras Extra", typeof(string));
+            foreach (var item in DTProducto.Rows)
+            {
+                var DTCodigoBarrasExtra = cn.CargarDatos($"SELECT CodigoBarraExtra FROM codigobarrasextras WHERE IDProducto = {IDSSeparados[Rows]}");
+                if (!DTCodigoBarrasExtra.Rows.Count.Equals(0))
+                {
+                    if (!string.IsNullOrWhiteSpace(DTCodigoBarrasExtra.Rows[0]["CodigoBarraExtra"].ToString()))
+                    {
+                        DTProducto.Rows[Rows]["Codigo de Barras Extra"] = DTCodigoBarrasExtra.Rows[0]["CodigoBarraExtra"];
+                    }
+                    else
+                    {
+                        DTProducto.Rows[Rows]["Codigo de Barras Extra"] = "---";
+                    }
+
+                }
+                else
+                {
+                    DTProducto.Rows[Rows]["Codigo de Barras Extra"] = "---";
+                }
+                Rows++;
+            }
+            Rows = 0;
+            DTProducto.Columns.Add("Proveedor", typeof(string));
+            foreach (var item in DTProducto.Rows)
+            {
+                var DTProveedor = cn.CargarDatos($"SELECT Proveedor FROM detallesproducto WHERE IDProducto = {IDSSeparados[Rows]}");
+                if (!DTProveedor.Rows.Count.Equals(0))
+                {
+                    if (!string.IsNullOrWhiteSpace(DTProveedor.Rows[0]["Proveedor"].ToString()))
+                    {
+                        DTProducto.Rows[Rows]["Proveedor"] = DTProveedor.Rows[0]["Proveedor"];
+                    }
+                    else
+                    {
+                        DTProducto.Rows[Rows]["Proveedor"] = "---";
+                    }
+
+                }
+                else
+                {
+                    DTProducto.Rows[Rows]["Proveedor"] = "---";
+                }
+                Rows++;
+            }
+            Rows = 0;
+            DTExcel = DTProducto;
+            DTExcel.Columns.Add("UBICACION", typeof(string));
+            DTExcel.Columns.Add("COLOR", typeof(string));
+            DTExcel.Columns.Add("MATERIAL_", typeof(string));
+            string nombre = Environment.UserName;
+            string rutaparaGGuardar = $@"C:\Users\{nombre}\Desktop\DatosProducto.xlsx";
+
+            SLDocument sl = new SLDocument();
+            SLStyle st = new SLStyle();
+            st.Font.Bold = true;
+            int titulo = 1;
+
+            foreach (DataColumn item in DTExcel.Columns)
+            {
+                string columna = item.ColumnName.ToString();
+                sl.SetCellValue(1, titulo, columna);
+                sl.SetCellStyle(1, titulo, st);
+                titulo++;
+
+            }
+
+            int datos = 2;
+            int columnaNombre = 0;
+            int posicionColumna = 1;
+            int dato = 0;
+            int DetalleRennglon = 0;
+            foreach (DataRow item in DTExcel.Rows)
+            {
+                int idProducto = Convert.ToInt32(item[0]);
+                foreach (DataColumn otroitem in DTExcel.Columns)
+                {
+
+                    string nombreColumna = otroitem.ColumnName.ToString();
+                    string detalle = string.Empty;
+                    if (nombreColumna.Equals("UBICACION") || nombreColumna.Equals("COLOR") || nombreColumna.Equals("MATERIAL_"))
+                    {
+                        var DTDetalles = cn.CargarDatos($"SELECT DPG.IDProducto, DetGral.Descripcion, IF(DetGral.ChckName = '' OR DetGral.ChckName IS NULL,'S/A',DetGral.ChckName)AS 'Detalle' FROM detallesproductogenerales AS DPG INNER JOIN detallegeneral AS DetGral ON ( DetGral.ID = DPG.IDDetalleGral ) WHERE DPG.IDProducto = '{idProducto}' AND DetGral.ChckName = '{nombreColumna}'");
+
+                        if (!DTDetalles.Rows.Count.Equals(0))
+                        {
+                            detalle = DTDetalles.Rows[0]["Descripcion"].ToString();
+                        }
+                        else
+                        {
+                            detalle = "S/A";
+                        }
+
+                        sl.SetCellValue(datos, posicionColumna, detalle);
+
+                    }
+                    else
+                    {
+                        sl.SetCellValue(datos, posicionColumna, DTExcel.Rows[dato][columnaNombre].ToString());
+                    }
+
+                    columnaNombre++;
+                    posicionColumna++;
+
+                }
+                DetalleRennglon++;
+                dato++;
+                posicionColumna = 1;
+                columnaNombre = 0;
+                datos++;
+            }
+            dato = 0;
+            bool seGuardo = true;
+            try
+            {
+                sl.SaveAs(rutaparaGGuardar);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Necesita cerrar el Archivo de \nExcel para guardar el nuevo", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                seGuardo = false;
+            }
+            dtosConsulta = "";
+            IDSProducto = "";
+            Productos.productosSeleccionados.Clear();
+            if (seGuardo.Equals(true))
+            {
+                MessageBox.Show("Archivo Excel Generado con Exito en escritorio", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            Productos.productosSeleccionados.Clear();
+            Productos.checkboxMarcados.Clear();
         }
 
         private void cbCustom_CheckedChanged(object sender, EventArgs e)

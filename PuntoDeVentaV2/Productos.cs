@@ -274,7 +274,10 @@ namespace PuntoDeVentaV2
                         var precioActual = (float)Convert.ToDecimal(valor[1]);
 
                         {
-                            checkboxMarcados.Add(id, tipo);
+                            if (!checkboxMarcados.ContainsKey(id))
+                            {
+                                checkboxMarcados.Add(id, tipo);
+                            }
                         }
 
                         if (!productosSeleccionados.ContainsKey(id))
@@ -2269,17 +2272,15 @@ namespace PuntoDeVentaV2
             {
                 var opciones = new OpcionesReporteProducto();
 
-                opciones.Show();
+                opciones.ShowDialog();
 
-                opciones.FormClosed += delegate
-                {
-                    txtBusqueda.Focus();
-
-                    //productosSeleccionados.Clear();
-
-                    desmarcarCheckBoxSeleccionados();
-                };
+                 txtBusqueda.Focus();
+                 desmarcarCheckBoxSeleccionados();
+                 productosSeleccionados.Clear();
+                 checkboxMarcados.Clear();
+                cbTodos.Checked = false;
             }
+           
         }
 
         private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)

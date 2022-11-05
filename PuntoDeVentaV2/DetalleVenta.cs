@@ -156,11 +156,19 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (idCliente.Equals(0) && !txtCredito.Text.Equals(""))
+            decimal credito2 = 0;
+            if (!string.IsNullOrWhiteSpace(txtCredito.Text))
             {
-                MessageBox.Show("Asigné un Cliente para hacer una venta a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                 credito2 = Convert.ToDecimal(txtCredito.Text);
+
+                if (idCliente.Equals(0) && credito2 > 0)
+                {
+                    MessageBox.Show("Asigné un Cliente para hacer una venta a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
             }
+            
+            
             Ventas venta = new Ventas();
             float pagado = (CantidadDecimal(txtEfectivo.Text) + SumaMetodos()) * 100 / 100;
 
@@ -196,7 +204,7 @@ namespace PuntoDeVentaV2
                 listaCantidades.Add(txtCheque.Text);
                 listaCantidades.Add(txtVales.Text);
 
-                var mayor = getMayorNumber(listaCantidades);
+                        var mayor = getMayorNumber(listaCantidades);
 
                 float checarEfectivo = 0,
                         checarTarjeta = 0,
@@ -240,7 +248,7 @@ namespace PuntoDeVentaV2
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
 
-                if (!txtCredito.Text.Equals(""))
+                if (credito2>0)
                 {
                     Ventas.statusVenta = "4";
                     Ventas.formaDePagoDeVenta = "Crédito";

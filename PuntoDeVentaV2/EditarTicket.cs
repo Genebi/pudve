@@ -61,7 +61,7 @@ namespace PuntoDeVentaV2
                 int ticket80mm = Convert.ToInt32(datos2[19]);
                 int referencia = Convert.ToInt32(datos2[20]);
 
-                if (nComercial == 1)//////Logo  
+                if (logo == 1)//////Logo  
                 {
                     chkLogoTicket.Checked = true;
                 }

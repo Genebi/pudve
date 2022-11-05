@@ -53,6 +53,7 @@ namespace PuntoDeVentaV2
             this.txtCantidad.Size = new System.Drawing.Size(130, 20);
             this.txtCantidad.TabIndex = 2;
             this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtCantidad.TextChanged += new System.EventHandler(this.txtCantidad_TextChanged);
             this.txtCantidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown);
             // 
             // btnAceptar
