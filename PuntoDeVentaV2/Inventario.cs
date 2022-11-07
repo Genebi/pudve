@@ -1328,24 +1328,25 @@ namespace PuntoDeVentaV2
                             cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
                             cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
                         }
+                int opcion;
+                using (var Permiso = cn.CargarDatos($"SELECT CorreoStockProducto FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                {
+                    opcion = Convert.ToInt32(Permiso.Rows[0]["CorreoStockProducto"]);
+                }
+                if (opcion.Equals(1))
+                {
+                    if (productosAumentoDecremento.Count > 0)
+                    {
+                        var titulo = rbAumentarProducto.Checked == true ? "AUMENTADO" : "DISMINUIDO";
 
+                        Thread notificacion = new Thread(
+                            () => Utilidades.CambioStockAumentoDecremento(productosAumentoDecremento, titulo)
+                        );
 
-                //        if (productosAumentoDecremento.Count > 0)
-                //        {
-                //            var titulo = rbAumentarProducto.Checked == true ? "AUMENTADO" : "DISMINUIDO";
-
-                //            Thread notificacion = new Thread(
-                //                () => Utilidades.CambioStockAumentoDecremento(productosAumentoDecremento, titulo)
-                //            );
-
-                //            notificacion.Start();
-                //        }
-                //    }
-                //}
-                //else
-                //{
-                //    Utilidades.MensajeAdobeReader();
-                //}
+                        notificacion.Start();
+                    }
+                }
+                
 
                 DGVInventario.Rows.Clear();
 

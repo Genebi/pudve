@@ -118,30 +118,29 @@ namespace PuntoDeVentaV2
             //Con fechas de busqueda
             //if (tipo == 1)
             //{
-                var fechaInicio = dpFechaInicial.Text;
-                 
-                var fechaFinal = dpFechaFinal.Text;
+            var fechaInicio = dpFechaInicial.Text;
 
-                if (string.IsNullOrEmpty(txtBuscarAnticipo.Text))//Busqueda sin Cliente/Empleado
-                {
-                    consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'"; //AND Status != 4
-                    conBusqueda = false;
-                }
-                else//Busqueda con Cliente/Empleado
-                {
-                    //var emp = consultaBuscarEmpledo(txtBuscarAnticipo.Text);
-                    //var client = consultaBuscarCliente(); 
+            var fechaFinal = dpFechaFinal.Text;
 
-                    consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Concepto LIKE '%{txtBuscarAnticipo.Text}%' OR Cliente LIKE '%{txtBuscarAnticipo.Text}%' AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'"; //AND Status != 4
+            if (string.IsNullOrEmpty(txtBuscarAnticipo.Text))//Busqueda sin Cliente/Empleado
+            {
+                consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'"; //AND Status != 4
+                conBusqueda = false;
+            }
+            else//Busqueda con Cliente/Empleado
+            {
+                //var emp = consultaBuscarEmpledo(txtBuscarAnticipo.Text);
+                //var client = consultaBuscarCliente(); 
 
-                    conBusqueda = true;
-                }
+                consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Concepto LIKE '%{txtBuscarAnticipo.Text}%' OR Cliente LIKE '%{txtBuscarAnticipo.Text}%' AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'"; //AND Status != 4
+
+                conBusqueda = true;
+            }
 
             if (DGVAnticipos.Rows.Count.Equals(0) || clickBoton.Equals(0))
             {
                 p = new Paginar(consulta, DataMemberDGV, maximo_x_pagina);
             }
-
             //DGVAnticipos.Rows.Clear();
 
             DataSet datos = p.cargar();
@@ -150,7 +149,7 @@ namespace PuntoDeVentaV2
             sql_cmd = new MySqlCommand(consulta, sql_con);
 
             dr = sql_cmd.ExecuteReader();
-            if (dr.HasRows )
+            if (dr.HasRows)
             {
                 DGVAnticipos.Rows.Clear();
             }
