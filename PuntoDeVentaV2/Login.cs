@@ -412,29 +412,7 @@ namespace PuntoDeVentaV2
 
         private void guardarUsuarioyContraseñaEntxt()
         {
-            using (StreamWriter fileWrite = new StreamWriter(@"C:\Archivos PUDVE\DatosDeUsuarios\temp.txt"))
-            {
-                using (StreamReader fielRead = new StreamReader(@"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt"))
-                {
-                    String line;
-
-                    while ((line = fielRead.ReadLine()) != null)
-                    {
-                        string[] usuario;
-                        usuario = line.Split(',');
-
-                        if (txtUsuario.Text != usuario[0].ToString().Replace("[", ""))
-                        {
-                            fileWrite.WriteLine(line);
-                        }
-
-                    }
-                }
-            }
-
-            //aqui se renombrea el archivo temporal
-            File.Delete(@"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt");
-            File.Move(@"C:\Archivos PUDVE\DatosDeUsuarios\temp.txt", @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt");
+           
 
             ///// SE CREA LA CARPETA DONDE ESTARA EL ARCHIVO CON LAS CONTRASEÑAS Y USUARIOS RECORDADOS.
             string folderPath = @"C:\Archivos PUDVE\DatosDeUsuarios";
@@ -475,6 +453,30 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
+            using (StreamWriter fileWrite = new StreamWriter(@"C:\Archivos PUDVE\DatosDeUsuarios\temp.txt"))
+            {
+                using (StreamReader fielRead = new StreamReader(@"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt"))
+                {
+                    String line;
+
+                    while ((line = fielRead.ReadLine()) != null)
+                    {
+                        string[] usuario;
+                        usuario = line.Split(',');
+
+                        if (txtUsuario.Text != usuario[0].ToString().Replace("[", ""))
+                        {
+                            fileWrite.WriteLine(line);
+                        }
+
+                    }
+                }
+            }
+
+            //aqui se renombrea el archivo temporal
+            File.Delete(@"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt");
+            File.Move(@"C:\Archivos PUDVE\DatosDeUsuarios\temp.txt", @"C:\Archivos PUDVE\DatosDeUsuarios\UsuarioyContraseña.txt");
 
             ///// SE GUARDAN LOS USUARIOS RECORDADOS Y EN SU DEFECTO LAS CONTRASEÑAS.
             using (StreamReader sr = File.OpenText(path))
