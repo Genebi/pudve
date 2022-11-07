@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -42,7 +43,7 @@ namespace PuntoDeVentaV2
 
                     Image agregar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
 
-                    row.Cells["Sugerencia"].Value = sugerencia;
+                    row.Cells["Sugerencia"].Value = WebUtility.HtmlDecode(sugerencia);
                     row.Cells["Agregar"].Value = agregar;
                 }
             }

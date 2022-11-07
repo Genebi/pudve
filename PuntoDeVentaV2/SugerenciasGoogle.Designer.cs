@@ -29,9 +29,9 @@ namespace PuntoDeVentaV2
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DGVSugerencias = new System.Windows.Forms.DataGridView();
             this.Sugerencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Agregar = new System.Windows.Forms.DataGridViewImageColumn();
@@ -46,23 +46,24 @@ namespace PuntoDeVentaV2
             this.DGVSugerencias.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Sugerencia,
             this.Agregar});
-            this.DGVSugerencias.Location = new System.Drawing.Point(30, 38);
+            this.DGVSugerencias.Location = new System.Drawing.Point(11, 25);
+            this.DGVSugerencias.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.DGVSugerencias.Name = "DGVSugerencias";
             this.DGVSugerencias.ReadOnly = true;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVSugerencias.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVSugerencias.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.DGVSugerencias.RowHeadersVisible = false;
             this.DGVSugerencias.RowHeadersWidth = 62;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.DGVSugerencias.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.DGVSugerencias.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.DGVSugerencias.RowTemplate.Height = 28;
-            this.DGVSugerencias.Size = new System.Drawing.Size(555, 264);
+            this.DGVSugerencias.Size = new System.Drawing.Size(562, 172);
             this.DGVSugerencias.TabIndex = 0;
             this.DGVSugerencias.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVSugerencias_CellClick);
             this.DGVSugerencias.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVSugerencias_CellMouseEnter);
@@ -71,9 +72,9 @@ namespace PuntoDeVentaV2
             // Sugerencia
             // 
             this.Sugerencia.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Sugerencia.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Sugerencia.DefaultCellStyle = dataGridViewCellStyle4;
             this.Sugerencia.HeaderText = "SUGERENCIA";
             this.Sugerencia.MinimumWidth = 8;
             this.Sugerencia.Name = "Sugerencia";
@@ -87,19 +88,21 @@ namespace PuntoDeVentaV2
             this.Agregar.ReadOnly = true;
             this.Agregar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Agregar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Agregar.Width = 50;
             // 
             // SugerenciasGoogle
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(620, 330);
+            this.ClientSize = new System.Drawing.Size(584, 214);
             this.Controls.Add(this.DGVSugerencias);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.Name = "SugerenciasGoogle";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SUGERENCIAS";
+            this.Text = "SUGERENCIAS ENCONTRADAS";
             this.Load += new System.EventHandler(this.SugerenciasGoogle_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVSugerencias)).EndInit();
             this.ResumeLayout(false);
