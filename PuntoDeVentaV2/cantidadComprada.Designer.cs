@@ -38,23 +38,23 @@ namespace PuntoDeVentaV2
             // 
             // lblNombreProducto
             // 
-            this.lblNombreProducto.AutoSize = true;
             this.lblNombreProducto.Location = new System.Drawing.Point(9, 9);
             this.lblNombreProducto.Name = "lblNombreProducto";
-            this.lblNombreProducto.Size = new System.Drawing.Size(35, 13);
+            this.lblNombreProducto.Size = new System.Drawing.Size(328, 26);
             this.lblNombreProducto.TabIndex = 1;
             this.lblNombreProducto.Text = "label1";
             this.lblNombreProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // txtCantidad
             // 
-            this.txtCantidad.Location = new System.Drawing.Point(108, 59);
+            this.txtCantidad.Location = new System.Drawing.Point(108, 57);
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(130, 20);
             this.txtCantidad.TabIndex = 2;
             this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCantidad.TextChanged += new System.EventHandler(this.txtCantidad_TextChanged);
             this.txtCantidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown);
+            this.txtCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidad_KeyPress);
             // 
             // btnAceptar
             // 
@@ -65,7 +65,7 @@ namespace PuntoDeVentaV2
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(195, 93);
+            this.btnAceptar.Location = new System.Drawing.Point(195, 91);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(87, 28);
             this.btnAceptar.TabIndex = 60;
@@ -82,7 +82,7 @@ namespace PuntoDeVentaV2
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(57, 92);
+            this.btnCancelar.Location = new System.Drawing.Point(57, 90);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(87, 29);
             this.btnCancelar.TabIndex = 61;
@@ -92,7 +92,7 @@ namespace PuntoDeVentaV2
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(84, 37);
+            this.label1.Location = new System.Drawing.Point(84, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(171, 16);
             this.label1.TabIndex = 62;
@@ -104,15 +104,22 @@ namespace PuntoDeVentaV2
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(343, 127);
+            this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.txtCantidad);
             this.Controls.Add(this.lblNombreProducto);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.KeyPreview = true;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "cantidadComprada";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "cantidadComprada";
+            this.Text = "Nueva Cantidad";
             this.Load += new System.EventHandler(this.cantidadComprada_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cantidadComprada_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -15,6 +15,7 @@ namespace PuntoDeVentaV2
          
         public static decimal nuevaCantidad;
         public static int nuevaCantidadCambio = 0;
+        decimal cantidadAnterior = 0;
         public cantidadComprada()
         {
             InitializeComponent();
@@ -23,6 +24,7 @@ namespace PuntoDeVentaV2
         private void cantidadComprada_Load(object sender, EventArgs e)
         {
             txtCantidad.Text = Convert.ToString(Ventas.cantidadAnterior);
+            cantidadAnterior = Ventas.cantidadAnterior;
             lblNombreProducto.Text = Ventas.nombreprodCantidad;
             nuevaCantidadCambio = 0;
             txtCantidad.SelectAll();
@@ -30,11 +32,17 @@ namespace PuntoDeVentaV2
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
-            this.Close();
+            txtCantidad.Text = cantidadAnterior.ToString();
+            btnAceptar.PerformClick();
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtCantidad.Text))
+            {
+                MessageBox.Show("Favor de ingresar un valor");
+                return;
+            }
             nuevaCantidad = Convert.ToDecimal(txtCantidad.Text);
             nuevaCantidadCambio = 1;
             this.Close();
@@ -48,7 +56,7 @@ namespace PuntoDeVentaV2
             }
             if (e.KeyData == Keys.Escape)
             {
-                this.Close();
+                btnCancelar.PerformClick();
             }
         }
 
@@ -64,6 +72,25 @@ namespace PuntoDeVentaV2
             if (esNum.Equals(false))
             {
                 txt.Text = "";
+            }
+        }
+
+        private void cantidadComprada_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Alt && e.KeyCode == Keys.F4)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+
+            {
+                e.Handled = true;
+
+                return;
             }
         }
     }
