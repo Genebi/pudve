@@ -132,7 +132,7 @@ namespace PuntoDeVentaV2
                 //var emp = consultaBuscarEmpledo(txtBuscarAnticipo.Text);
                 //var client = consultaBuscarCliente(); 
 
-                consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Status = {estado} AND Concepto LIKE '%{txtBuscarAnticipo.Text}%' OR Cliente LIKE '%{txtBuscarAnticipo.Text}%' AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'"; //AND Status != 4
+                consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND `Status` = {estado} AND (Concepto LIKE '%{txtBuscarAnticipo.Text}%' OR Cliente LIKE '%{txtBuscarAnticipo.Text}%')AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'"; //AND Status != 4
 
                 conBusqueda = true;
             }
@@ -363,6 +363,7 @@ namespace PuntoDeVentaV2
 
                 CargarDatos(opcion +1);
             }
+            btnActualizarMaximoProductos.PerformClick();
         }
 
         private void DGVAnticipos_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -841,6 +842,7 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos(cbAnticipos.SelectedIndex + 1);
             ActualizarPaginador();
+           
         }
 
         private void btnSiguiente_Click_1(object sender, EventArgs e)
