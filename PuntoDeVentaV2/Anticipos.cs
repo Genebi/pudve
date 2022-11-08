@@ -363,6 +363,7 @@ namespace PuntoDeVentaV2
 
                 CargarDatos(opcion +1);
             }
+            btnActualizarMaximoProductos.PerformClick();
         }
 
         private void DGVAnticipos_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -841,6 +842,7 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos(cbAnticipos.SelectedIndex + 1);
             ActualizarPaginador();
+           
         }
 
         private void btnSiguiente_Click_1(object sender, EventArgs e)
