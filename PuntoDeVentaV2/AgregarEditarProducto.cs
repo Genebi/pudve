@@ -4440,7 +4440,7 @@ namespace PuntoDeVentaV2
             }
             MensajeVentasYMensajeInventario mensajes = new MensajeVentasYMensajeInventario();
             nombreProductoEditar = txtNombreProducto.Text;
-            mensajes.ShowDialog();
+            mensajes.ShowDialog(); 
         }
 
         private void txtNombreProducto_TextChanged(object sender, EventArgs e)
