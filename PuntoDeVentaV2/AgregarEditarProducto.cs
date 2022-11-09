@@ -10314,7 +10314,7 @@ namespace PuntoDeVentaV2
                 btnDetalleFacturacion.PerformClick();
             }
 
-            ObtenerPaginasRegistradas();
+            ConsultarPaginasRegistradas();
         }
 
         private void llenarListaDatosDinamicos()
@@ -12587,57 +12587,58 @@ namespace PuntoDeVentaV2
             // Inicia la abusqueda del codigo de barras en Google
             var request = WebRequest.Create(url);
 
-            Thread cargando = new Thread(() => new Cargando(true).ShowDialog());
-            cargando.Start();
 
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Stream dataStream = response.GetResponseStream();
-            StreamReader reader = new StreamReader(dataStream);
-
-            string responseString = reader.ReadToEnd();
-            dynamic jsonData = JsonConvert.DeserializeObject(responseString);
-
-            var results = new List<Sugerencia>();
-
-            if (jsonData.items != null)
+            try
             {
-                foreach (var item in jsonData.items)
-                {
-                    results.Add(new Sugerencia
-                    {
-                        Title = item.title,
-                        Link = item.link,
-                        Snippet = item.snippet
-                    });
-                }
+                Thread cargando = new Thread(AbrirModal);
+                cargando.Start();
 
-                List<string> sourceCodeUsado = new List<string>();
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream dataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(dataStream);
 
-                foreach (var item in results.ToList())
+                string responseString = reader.ReadToEnd();
+                dynamic jsonData = JsonConvert.DeserializeObject(responseString);
+
+                var results = new List<Sugerencia>();
+
+                if (jsonData.items != null)
                 {
-                    foreach (var pagina in paginasRegistradas)
+                    foreach (var item in jsonData.items)
                     {
-                        if (item.Link.Contains(pagina.Key))
+                        results.Add(new Sugerencia
                         {
-                            if (!sourceCodeUsado.Contains(pagina.Value))
+                            Title = item.title,
+                            Link = item.link,
+                            Snippet = item.snippet
+                        });
+                    }
+
+                    List<string> sourceCodeUsado = new List<string>();
+
+                    foreach (var item in results.ToList())
+                    {
+                        foreach (var pagina in paginasRegistradas)
+                        {
+                            if (item.Link.Contains(pagina.Key))
                             {
-                                //Console.WriteLine(item.Link);
-                                var nombreProducto = ObtenerNombreProducto(item.Link, pagina.Value);
-
-                                sourceCodeUsado.Add(pagina.Value);
-
-                                if (!string.IsNullOrWhiteSpace(nombreProducto))
+                                if (!sourceCodeUsado.Contains(pagina.Value))
                                 {
-                                    sugerencias.Add(nombreProducto);
+                                    //Console.WriteLine(item.Link);
+                                    var nombreProducto = ObtenerNombreProducto(item.Link, pagina.Value);
+
+                                    sourceCodeUsado.Add(pagina.Value);
+
+                                    if (!string.IsNullOrWhiteSpace(nombreProducto))
+                                    {
+                                        sugerencias.Add(nombreProducto);
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
 
-            try
-            {
                 if (cargando.IsAlive)
                 {
                     cargando.Abort();
@@ -12647,9 +12648,14 @@ namespace PuntoDeVentaV2
             {
                 Console.WriteLine(e.Message);
             }
-            
 
             return sugerencias;
+        }
+
+        private void AbrirModal()
+        {
+            Cargando formCargando = new Cargando(true);
+            formCargando.ShowDialog();
         }
 
 
@@ -12662,14 +12668,22 @@ namespace PuntoDeVentaV2
 
             var codigoHtml = string.Empty;
 
-            using (var response = webRequest.GetResponse())
+            try
             {
-                Stream dataStream = response.GetResponseStream();
-                StreamReader reader = new StreamReader(dataStream);
-                codigoHtml = reader.ReadToEnd();
-                reader.Close();
-                dataStream.Close();
+                using (var response = webRequest.GetResponse())
+                {
+                    Stream dataStream = response.GetResponseStream();
+                    StreamReader reader = new StreamReader(dataStream);
+                    codigoHtml = reader.ReadToEnd();
+                    reader.Close();
+                    dataStream.Close();
+                }
             }
+            catch (WebException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
 
             if (!string.IsNullOrWhiteSpace(codigoHtml))
             {
@@ -12718,7 +12732,10 @@ namespace PuntoDeVentaV2
                             var pagina = dr["enlace"].ToString();
                             var codigo = dr["codigo"].ToString();
 
-                            paginasRegistradas.Add(pagina, codigo);
+                            if (!paginasRegistradas.ContainsKey(pagina))
+                            {
+                                paginasRegistradas.Add(pagina, codigo);
+                            }
                         }
                     }
 
@@ -12767,6 +12784,18 @@ namespace PuntoDeVentaV2
                     MessageBox.Show(ex.Message, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void ConsultarPaginasRegistradas()
+        {
+            var startTimeSpan = TimeSpan.Zero;
+            var periodTimeSpan = TimeSpan.FromMinutes(1);
+
+            var timer = new System.Threading.Timer((resp) =>
+            {
+                ObtenerPaginasRegistradas();
+                Console.WriteLine("se ejecuto");
+            }, null, startTimeSpan, periodTimeSpan);
         }
     }
 }
