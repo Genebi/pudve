@@ -486,7 +486,12 @@ namespace PuntoDeVentaV2
                             var datosCombo = mb.BuscarProductosDeServicios(Convert.ToString(idProducto));
                             if (datosCombo.Count().Equals(0) && (datosProd[4].ToString().Equals("PQ") || datosProd[4].ToString().Equals("S")))
                             {
-                                DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un Paquete\nNo tiene producto relacionado \n\n" + "\n\nDesea actualizar el Stock", "Aviso de Actualziación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un Paquete\nNo tiene producto relacionado \n" + "\nNo es posible actualizar el stock a un Paquete sin productos relacionados", "Aviso de Actualziación", MessageBoxButtons.OK);
+
+                                if (result == DialogResult.OK)
+                                {
+                                    return;
+                                }
 
                                 if (result == DialogResult.Yes)
                                 {
@@ -578,8 +583,12 @@ namespace PuntoDeVentaV2
                             var datosCombo = mb.BuscarProductosDeServicios(Convert.ToString(idProducto));
                             if (datosCombo.Count().Equals(0) && (datosProd[4].ToString().Equals("PQ") || datosProd[4].ToString().Equals("S")))
                             {
-                                DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un Paquete\nNo tiene producto relacionado \n\n" + "\n\nDesea actualizar el Stock", "Aviso de Actualziación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un Paquete\nNo tiene producto relacionado \n" + "\nNo es posible actualizar el stock a un Paquete sin productos relacionados", "Aviso de Actualziación", MessageBoxButtons.OK);
 
+                                if (result == DialogResult.OK)
+                                {
+                                    return;
+                                }
                                 if (result == DialogResult.Yes)
                                 {
 
@@ -651,7 +660,12 @@ namespace PuntoDeVentaV2
                             var datosCombo = mb.BuscarProductosDeServicios(Convert.ToString(idProducto));
                             if (datosCombo.Count().Equals(0) && (datosProd[4].ToString().Equals("PQ") || datosProd[4].ToString().Equals("S")))
                             {
-                                DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un Paquete\nNo tiene producto relacionado \n\n" + "\n\nDesea actualizar el Stock", "Aviso de Actualziación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                DialogResult result = MessageBox.Show("El Código o Clave buscada pertenece a un Paquete\nNo tiene producto relacionado \n" + "\nNo es posible actualizar el stock a un Paquete sin productos relacionados", "Aviso de Actualziación", MessageBoxButtons.OK);
+
+                                if (result == DialogResult.OK)
+                                {
+                                    return;
+                                }
 
                                 if (result == DialogResult.Yes)
                                 {

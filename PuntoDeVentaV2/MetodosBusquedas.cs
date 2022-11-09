@@ -663,7 +663,7 @@ namespace PuntoDeVentaV2
         {
             List<string> lista = new List<string>();
 
-            string consulta = string.Empty;
+           string consulta = string.Empty;
 
             //Buscar por Codigo de Combo en la tabla ProductosDeServicios
             consulta = $"SELECT * FROM ProductosDeServicios WHERE IDServicio ={idCombo}";
