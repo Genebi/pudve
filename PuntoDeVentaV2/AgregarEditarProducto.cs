@@ -4377,49 +4377,7 @@ namespace PuntoDeVentaV2
             // Realiza busqueda del codigo de barras en Google
             if (e.KeyCode == Keys.F8)
             {
-                if (Registro.ConectadoInternet())
-                {
-                    var codigo = txtCodigoBarras.Text.Trim();
-
-                    if (!string.IsNullOrWhiteSpace(codigo))
-                    {
-                        // Comprobar si el codigo de barras ya se encuentra registrado
-                        var existeCodigo = mb.BusquedaCodigosBarrasClaveInterna(codigo, especial: true);
-                        var existeCodigoExtra = mb.BuscarCodigoBarrasExtra(codigo);
-
-                        if (existeCodigo.Count() == 0 && existeCodigoExtra.Count() == 0)
-                        {
-                            //7501011123588 codigo de prueba
-                            var sugerencias = BusquedaGoogle(codigo);
-
-                            if (sugerencias.Count > 0)
-                            {
-                                using (SugerenciasGoogle formSugerencias = new SugerenciasGoogle(sugerencias))
-                                {
-                                    var resultado = formSugerencias.ShowDialog();
-
-                                    if (resultado == DialogResult.OK)
-                                    {
-                                        txtNombreProducto.Text = formSugerencias.seleccionada;
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                RegistrarCodigoNoEncontrados(codigo);
-                                MessageBox.Show("No se ha encontrado ningún resultado.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show($"El código {codigo} ya se encuentra registrado.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Se requiere conexión a internet para el funcionamiento del atajo F8", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                EjecutarBusquedaGoogle();
             }
         }
 
@@ -4943,6 +4901,11 @@ namespace PuntoDeVentaV2
         private void ComboBox_Enter(object sender, EventArgs e)
         {
             _lastEnteredControl = (Control)sender;
+        }
+
+        private void btnBuscarSugerencias_Click(object sender, EventArgs e)
+        {
+            EjecutarBusquedaGoogle();
         }
 
         public void cargarDatosNvoProd()
@@ -12796,6 +12759,53 @@ namespace PuntoDeVentaV2
                 ObtenerPaginasRegistradas();
                 Console.WriteLine("se ejecuto");
             }, null, startTimeSpan, periodTimeSpan);
+        }
+
+        private void EjecutarBusquedaGoogle()
+        {
+            if (Registro.ConectadoInternet())
+            {
+                var codigo = txtCodigoBarras.Text.Trim();
+
+                if (!string.IsNullOrWhiteSpace(codigo))
+                {
+                    // Comprobar si el codigo de barras ya se encuentra registrado
+                    var existeCodigo = mb.BusquedaCodigosBarrasClaveInterna(codigo, especial: true);
+                    var existeCodigoExtra = mb.BuscarCodigoBarrasExtra(codigo);
+
+                    if (existeCodigo.Count() == 0 && existeCodigoExtra.Count() == 0)
+                    {
+                        //7501011123588 codigo de prueba
+                        var sugerencias = BusquedaGoogle(codigo);
+
+                        if (sugerencias.Count > 0)
+                        {
+                            using (SugerenciasGoogle formSugerencias = new SugerenciasGoogle(sugerencias))
+                            {
+                                var resultado = formSugerencias.ShowDialog();
+
+                                if (resultado == DialogResult.OK)
+                                {
+                                    txtNombreProducto.Text = formSugerencias.seleccionada;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            RegistrarCodigoNoEncontrados(codigo);
+                            MessageBox.Show("No se ha encontrado ningún resultado.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show($"El código {codigo} ya se encuentra registrado.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Se requiere conexión a internet para el funcionamiento del atajo F8", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
