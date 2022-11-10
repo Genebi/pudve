@@ -244,7 +244,7 @@ namespace PuntoDeVentaV2
 
                     editar.FormClosed += delegate
                     {
-                        CargarDatos();
+                        CargarDatos("",cbStatus.SelectedIndex+1);
                     };
 
                     editar.ShowDialog();
