@@ -409,6 +409,16 @@ namespace PuntoDeVentaV2
                     concepto = string.Empty;
                 }
 
+                // Deposito o retiro
+                if (operacion == 0 || operacion == 1)
+                {
+                    if (string.IsNullOrWhiteSpace(concepto))
+                    {
+                        MessageBox.Show("Para realizar esta operación seleccione un concepto.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+
                 var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 CajaN.fechaUltimoCorte = Convert.ToDateTime(fechaOperacion);
 
