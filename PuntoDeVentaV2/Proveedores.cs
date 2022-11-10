@@ -240,6 +240,7 @@ namespace PuntoDeVentaV2
                 //Editar
                 if (e.ColumnIndex == 6)
                 {
+                    AgregarProveedor.editarAgregar = "editar";
                     AgregarProveedor editar = new AgregarProveedor(2, idProveedor);
 
                     editar.FormClosed += delegate
