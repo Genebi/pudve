@@ -89,7 +89,7 @@ namespace PuntoDeVentaV2
 
         private void txtPorcentajeProducto_TextChanged(object sender, EventArgs e)
         {
-
+            validarSoloNumeros(sender, e);
             float porcentaje,procedimiento, resultado;
             bool porcent = false;
             porcent = float.TryParse(txtPorcentajeProducto.Text, out porcentaje);
@@ -117,6 +117,16 @@ namespace PuntoDeVentaV2
             }
                     
 
+        }
+        private void validarSoloNumeros(object sender, EventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            string texto = txt.Text;
+            bool esNum = decimal.TryParse(texto, out decimal algo);
+            if (esNum.Equals(false))
+            {
+                txt.Text = "";
+            }
         }
 
         private void txtPorcentajeProducto_KeyPress(object sender, KeyPressEventArgs e)
