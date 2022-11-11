@@ -11468,7 +11468,7 @@ namespace PuntoDeVentaV2
             }
 
             // creamos 6 filas en el TableLayoutPanel
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 7; i++)
             {
                 tLPServicio.RowCount++;
                 tLPServicio.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
@@ -11627,6 +11627,7 @@ namespace PuntoDeVentaV2
                     tLPServicio.Controls.Add(btnAddCodBar, 2, 3);         // Botón de generar códigos de barra extra
                     tLPServicio.Controls.Add(txtCantPaqServ, 0, 3);       // Clave Interna TextBox
                     tLPServicio.Controls.Add(lblCantCombServ, 1, 3);      // Label signo de ayuda
+                    tLPServicio.Controls.Add(btnBuscarSugerencias, 2, 4);
 
                     #endregion End Row 4
 
