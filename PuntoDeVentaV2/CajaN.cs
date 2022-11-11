@@ -242,6 +242,14 @@ namespace PuntoDeVentaV2
             detalles.ShowDialog();
         }
 
+        private void btnRedondoReporteCaja_Click(object sender, EventArgs e)
+        {
+            using (ReporteCaja reporte = new ReporteCaja())
+            {
+                reporte.ShowDialog();
+            }
+        }
+
         private void botonRedondo2_Click(object sender, EventArgs e)
         {
             string todos = string.Empty;
