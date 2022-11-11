@@ -11007,6 +11007,7 @@ namespace PuntoDeVentaV2
                     tLPCombo.Controls.Add(btnAddCodBar, 2, 3);         // Botón de generar códigos de barra extra
                     tLPCombo.Controls.Add(txtCantPaqServ, 0, 3);       // Relacionar con Combo/Servicio TextBox
                     tLPCombo.Controls.Add(lblCantCombServ, 1, 3);      // Label signo de ayuda
+                    tLPCombo.Controls.Add(btnBuscarSugerencias, 2, 4);
 
                     #endregion End Row 4
 
