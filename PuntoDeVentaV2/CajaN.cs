@@ -210,9 +210,14 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo1_Click(object sender, EventArgs e)
         {
+            string todos = string.Empty;
             detalleAbonoRetiro = "abono";
-            var datosall = cbFiltroAdminEmpleado.SelectedItem.ToString().Split(',');
-            var todos = datosall[0].Replace("[", "");
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                var datosall = cbFiltroAdminEmpleado.SelectedItem.ToString().Split(',');
+                todos = datosall[0].Replace("[", "");
+            }
+            
             if (!FormPrincipal.userNickName.Contains("@"))
             {
                 if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) && !todos.Equals("All"))
@@ -228,7 +233,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    usuarioEmpleado = "usuario";
+                    usuarioEmpleado = "usuario"; 
                     FormPrincipal.id_empleado = 0;
                 }
             }
@@ -239,8 +244,14 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo2_Click(object sender, EventArgs e)
         {
-            var datosall = cbFiltroAdminEmpleado.SelectedItem.ToString().Split(',');
-            var todos = datosall[0].Replace("[", "");
+            string todos = string.Empty;
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                var datosall = cbFiltroAdminEmpleado.SelectedItem.ToString().Split(',');
+                todos = datosall[0].Replace("[", "");
+            }
+                
+
             if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) && !todos.Equals("All"))
             {
                 usuarioEmpleado = "empleado";
