@@ -2085,7 +2085,7 @@ namespace PuntoDeVentaV2
             return datos;
         }
 
-        public Dictionary<int, string> ObtenerConceptosDinamicos(int tipo = 1, string origen = "")
+        public Dictionary<int, string> ObtenerConceptosDinamicos(int tipo = 1, string origen = "", bool reporte = false)
         {
             Dictionary<int, string> lista = new Dictionary<int, string>();
 
