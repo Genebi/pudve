@@ -6358,6 +6358,16 @@ namespace PuntoDeVentaV2
                 mostrarInformacionAbonos();
                 filtrarInformacionSeleccionada();
                 mostrarTotalEnCaja();
+                if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                {
+                    botonRedondo1.Visible = false;
+                    botonRedondo2.Visible = false;
+                }
+                else
+                {
+                    botonRedondo1.Visible = true;
+                    botonRedondo2.Visible = true;
+                }
             }
         }
 
