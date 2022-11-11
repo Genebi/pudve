@@ -144,14 +144,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbFiltroAdminEmpleado = new System.Windows.Forms.ComboBox();
+            this.botonRedondo2 = new PuntoDeVentaV2.BotonRedondo();
+            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             this.btnRedondoTabuladorDeDinero = new PuntoDeVentaV2.BotonRedondo();
             this.btnRedondoAbrirCaja = new PuntoDeVentaV2.BotonRedondo();
             this.btnRedondoCorteCaja = new PuntoDeVentaV2.BotonRedondo();
             this.btnRedondoRetirarDinero = new PuntoDeVentaV2.BotonRedondo();
             this.btnRedondoAgregarDinero = new PuntoDeVentaV2.BotonRedondo();
             this.btnRedondoSaldoInicial = new PuntoDeVentaV2.BotonRedondo();
-            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
-            this.botonRedondo2 = new PuntoDeVentaV2.BotonRedondo();
             this.tablaContenedor.SuspendLayout();
             this.panelDineroRetirado.SuspendLayout();
             this.tlpTotalDineroRetirado.SuspendLayout();
@@ -1864,6 +1864,48 @@
             this.cbFiltroAdminEmpleado.TabIndex = 121;
             this.cbFiltroAdminEmpleado.SelectedIndexChanged += new System.EventHandler(this.cbFiltroAdminEmpleado_SelectedIndexChanged);
             // 
+            // botonRedondo2
+            // 
+            this.botonRedondo2.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.botonRedondo2.BackGroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.botonRedondo2.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo2.BorderRadius = 26;
+            this.botonRedondo2.BorderSize = 0;
+            this.botonRedondo2.FlatAppearance.BorderSize = 0;
+            this.botonRedondo2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo2.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo2.Location = new System.Drawing.Point(611, 486);
+            this.botonRedondo2.Margin = new System.Windows.Forms.Padding(2);
+            this.botonRedondo2.Name = "botonRedondo2";
+            this.botonRedondo2.Size = new System.Drawing.Size(199, 26);
+            this.botonRedondo2.TabIndex = 125;
+            this.botonRedondo2.Text = "botonRedondo2";
+            this.botonRedondo2.TextColor = System.Drawing.Color.White;
+            this.botonRedondo2.UseVisualStyleBackColor = false;
+            this.botonRedondo2.Visible = false;
+            this.botonRedondo2.Click += new System.EventHandler(this.botonRedondo2_Click);
+            // 
+            // botonRedondo1
+            // 
+            this.botonRedondo1.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.botonRedondo1.BackGroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.botonRedondo1.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo1.BorderRadius = 26;
+            this.botonRedondo1.BorderSize = 0;
+            this.botonRedondo1.FlatAppearance.BorderSize = 0;
+            this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo1.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo1.Location = new System.Drawing.Point(421, 486);
+            this.botonRedondo1.Margin = new System.Windows.Forms.Padding(2);
+            this.botonRedondo1.Name = "botonRedondo1";
+            this.botonRedondo1.Size = new System.Drawing.Size(185, 26);
+            this.botonRedondo1.TabIndex = 124;
+            this.botonRedondo1.Text = "botonRedondo1";
+            this.botonRedondo1.TextColor = System.Drawing.Color.White;
+            this.botonRedondo1.UseVisualStyleBackColor = false;
+            this.botonRedondo1.Visible = false;
+            this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click);
+            // 
             // btnRedondoTabuladorDeDinero
             // 
             this.btnRedondoTabuladorDeDinero.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
@@ -2001,46 +2043,6 @@
             this.btnRedondoSaldoInicial.TextColor = System.Drawing.Color.White;
             this.btnRedondoSaldoInicial.UseVisualStyleBackColor = false;
             this.btnRedondoSaldoInicial.Click += new System.EventHandler(this.btnRedondoSaldoInicial_Click);
-            // 
-            // botonRedondo1
-            // 
-            this.botonRedondo1.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.botonRedondo1.BackGroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.botonRedondo1.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.botonRedondo1.BorderRadius = 26;
-            this.botonRedondo1.BorderSize = 0;
-            this.botonRedondo1.FlatAppearance.BorderSize = 0;
-            this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.botonRedondo1.ForeColor = System.Drawing.Color.White;
-            this.botonRedondo1.Location = new System.Drawing.Point(421, 486);
-            this.botonRedondo1.Margin = new System.Windows.Forms.Padding(2);
-            this.botonRedondo1.Name = "botonRedondo1";
-            this.botonRedondo1.Size = new System.Drawing.Size(185, 26);
-            this.botonRedondo1.TabIndex = 124;
-            this.botonRedondo1.Text = "botonRedondo1";
-            this.botonRedondo1.TextColor = System.Drawing.Color.White;
-            this.botonRedondo1.UseVisualStyleBackColor = false;
-            this.botonRedondo1.Visible = false;
-            // 
-            // botonRedondo2
-            // 
-            this.botonRedondo2.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.botonRedondo2.BackGroundColor = System.Drawing.Color.MediumSlateBlue;
-            this.botonRedondo2.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.botonRedondo2.BorderRadius = 26;
-            this.botonRedondo2.BorderSize = 0;
-            this.botonRedondo2.FlatAppearance.BorderSize = 0;
-            this.botonRedondo2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.botonRedondo2.ForeColor = System.Drawing.Color.White;
-            this.botonRedondo2.Location = new System.Drawing.Point(611, 486);
-            this.botonRedondo2.Margin = new System.Windows.Forms.Padding(2);
-            this.botonRedondo2.Name = "botonRedondo2";
-            this.botonRedondo2.Size = new System.Drawing.Size(199, 26);
-            this.botonRedondo2.TabIndex = 125;
-            this.botonRedondo2.Text = "botonRedondo2";
-            this.botonRedondo2.TextColor = System.Drawing.Color.White;
-            this.botonRedondo2.UseVisualStyleBackColor = false;
-            this.botonRedondo2.Visible = false;
             // 
             // CajaN
             // 

@@ -6684,7 +6684,8 @@ namespace PuntoDeVentaV2
                 // Regresa un diccionario
                 //var resultados = mb.BuscarProducto(txtBuscadorProducto.Text);
                 var resultados = new Dictionary<int, string>();
-                var coincidenciaExacta = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = 10 AND STATUS = 1 AND CodigoBarras = '{txtBuscadorProducto.Text.Trim()}'");
+                
+                var coincidenciaExacta = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND STATUS = 1 AND CodigoBarras = '{txtBuscadorProducto.Text.Trim()}'");
                 if (coincidenciaExacta.Rows.Count.Equals(0))
                 {
                     resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text.Trim(), filtro, mostrarPrecioProducto, mostrarCBProducto);
