@@ -2094,7 +2094,7 @@ namespace PuntoDeVentaV2
             MySqlDataReader dr = sql_cmd.ExecuteReader();
 
 
-            if (tipo == 1)
+            if (tipo == 1 && !reporte)
             {
                 lista.Add(0, "Seleccionar concepto...");
             }

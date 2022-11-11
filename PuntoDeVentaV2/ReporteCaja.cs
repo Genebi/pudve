@@ -57,6 +57,10 @@ namespace PuntoDeVentaV2
             // Seleccionamos año por defecto
             cbYear.SelectedValue = DateTime.Now.Year;
 
+            // Seleccionar horas por defecto
+            dtpHoraInicio.Text = "00:00:00";
+            dtpHoraFin.Text = "23:59:59";
+
 
             cbYear.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbMonth.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
@@ -99,6 +103,7 @@ namespace PuntoDeVentaV2
 
                 if (!cbTodos.Visible) cbTodos.Visible = true;
                 if (!clbConceptos.Visible) clbConceptos.Visible = true;
+                if (!panelFechaHora.Visible) panelFechaHora.Visible = true;
             }
         }
 
@@ -117,6 +122,7 @@ namespace PuntoDeVentaV2
 
                 if (!cbTodos.Visible) cbTodos.Visible = true;
                 if (!clbConceptos.Visible) clbConceptos.Visible = true;
+                if (!panelFechaHora.Visible) panelFechaHora.Visible = true;
             }
         }
 
@@ -130,6 +136,26 @@ namespace PuntoDeVentaV2
         private void btnGenerarReporte_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Test");
+        }
+
+        private void cbTodos_CheckedChanged(object sender, EventArgs e)
+        {
+            int cantidadCheckbox = clbConceptos.Items.Count;
+
+            if (cbTodos.Checked)
+            {
+                for (int i = 0; i < cantidadCheckbox; i++)
+                {
+                    clbConceptos.SetItemChecked(i, true);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < cantidadCheckbox; i++)
+                {
+                    clbConceptos.SetItemChecked(i, false);
+                }
+            }
         }
     }
 }
