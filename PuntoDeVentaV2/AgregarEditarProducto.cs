@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using DocumentFormat.OpenXml.Drawing;
+using MySql.Data.MySqlClient;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -533,7 +534,7 @@ namespace PuntoDeVentaV2
                         lblNombreProveedor.Width = 815;
                         lblNombreProveedor.Height = 20;
                         lblNombreProveedor.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
-                        lblNombreProveedor.Location = new Point(3, 32);
+                        lblNombreProveedor.Location = new System.Drawing.Point(3, 32);
                         lblNombreProveedor.TextAlign = ContentAlignment.MiddleCenter;
                         lblNombreProveedor.BackColor = Color.White;
 
@@ -547,7 +548,7 @@ namespace PuntoDeVentaV2
                         cbProveedor.Width = 815;
                         cbProveedor.Height = 30;
                         cbProveedor.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
-                         cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
+                         cbProveedor.Location = new System.Drawing.Point(XcbProv - (cbProveedor.Width / 2), 5);
                         cbProveedor.SelectedIndexChanged += new EventHandler(comboBoxProveedor_SelectValueChanged);
                         cbProveedor.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
 
@@ -637,7 +638,7 @@ namespace PuntoDeVentaV2
                         lblNombreDetalleGral.Width = 815;
                         lblNombreDetalleGral.Height = 20;
                         lblNombreDetalleGral.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
-                        lblNombreDetalleGral.Location = new Point(3, 32);
+                        lblNombreDetalleGral.Location = new System.Drawing.Point(3, 32);
                         lblNombreDetalleGral.TextAlign = ContentAlignment.MiddleCenter;
                         lblNombreDetalleGral.BackColor = Color.White;
 
@@ -652,7 +653,7 @@ namespace PuntoDeVentaV2
                         cbDetalleGral.Width = 815;
                         cbDetalleGral.Height = 30;
                         cbDetalleGral.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
-                        cbDetalleGral.Location = new Point(XcbProv - (cbDetalleGral.Width / 2), 5);
+                        cbDetalleGral.Location = new System.Drawing.Point(XcbProv - (cbDetalleGral.Width / 2), 5);
                         cbDetalleGral.SelectedIndexChanged += new System.EventHandler(ComboBoxDetalleGral_SelectValueChanged);
                         cbDetalleGral.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
                         cbDetalleGral.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -4707,7 +4708,7 @@ namespace PuntoDeVentaV2
             Titulo.Width = 400;
             Titulo.Height = 20;
             Titulo.Text = "Descripción de productos que contiene:";
-            Titulo.Location = new Point(0, 0);
+            Titulo.Location = new System.Drawing.Point(0, 0);
 
             flowLayoutPanel2.Controls.Add(Titulo);
             flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
@@ -5699,7 +5700,7 @@ namespace PuntoDeVentaV2
                             {
                                 pictureBoxProducto.Image = Image.FromStream(File);      // Cargamos la imagen en el PictureBox
                                 info = new FileInfo(f.FileName);                        // Obtenemos toda la Informacion de la Imagen
-                                fileName = Path.GetFileName(f.FileName);                // Obtenemos el nombre de la imagen
+                                fileName = System.IO.Path.GetFileName(f.FileName);                // Obtenemos el nombre de la imagen
                                 oldDirectory = info.DirectoryName;                      // Obtenemos el directorio origen de la Imagen
                                 File.Dispose();                                         // Liberamos el objeto File
                             }
@@ -10391,7 +10392,7 @@ namespace PuntoDeVentaV2
             clearSetUpTableLayoutPanel("Producto");
 
             // creamos 6 columnas en el TableLayoutPanel
-            for (int i = 0; i <= 7; i++)
+            for (int i = 0; i <= 8; i++)
             {
                 tLPProducto.ColumnCount++;
                 ///if (i.Equals(2) || i.Equals(5) || i.Equals(8))
@@ -10399,11 +10400,11 @@ namespace PuntoDeVentaV2
                 {
                     tLPProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 135F));
                 }
-                if (i.Equals(1) || i.Equals(3) || i.Equals(5) || i.Equals(6))
+                if (i.Equals(1) || i.Equals(3) || i.Equals(5) || i.Equals(6) || i.Equals(7))
                 {
                     tLPProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
                 }
-                if (i.Equals(7))
+                if (i.Equals(8))
                 {
                     tLPProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 210F));
                 }
@@ -10584,7 +10585,7 @@ namespace PuntoDeVentaV2
                 tLPProducto.Controls.Add(txtCodigoBarras, 4, 3);      // Código de Barras TextBox
                 tLPProducto.Controls.Add(btnGenerarCB, 5, 3);         // Generar Button
                 tLPProducto.Controls.Add(btnAddCodBar, 6, 3);         // Botón de generar códigos de barra extra
-
+                tLPProducto.Controls.Add(btnBuscarSugerencias, 7, 3);
                 #endregion End Row 4
 
                 // Quinta Fila del TableLayoutPanel
@@ -10606,10 +10607,11 @@ namespace PuntoDeVentaV2
                 panelContenedor.TabIndex = 10;
                 panelContenedor.TabStop = true;
                 tLPProducto.Controls.Add(label5, 0, 4);               // Clave Interna Label
+                //tLPProducto.Controls.Add(btnBuscarSugerencias, 5, 4);
                 //tLPProducto.Controls.Add(label2, 2, 4);               // Código de Barras Label
 
                 tLPProducto.Controls.Add(panelContenedor, 4, 4);
-                tLPProducto.SetColumnSpan(panelContenedor, 3);
+                tLPProducto.SetColumnSpan(panelContenedor, 2);
                 tLPProducto.SetRowSpan(panelContenedor, 2);
                 #endregion End Row 5
             }
@@ -10675,7 +10677,7 @@ namespace PuntoDeVentaV2
 
 
             //.SetColumnSpan(btnGenerarCB, 0);           // Columnas hacia derecha
-            tLPProducto.Controls.Add(PImagen, 7, 0);     // Cuadro para agregar Imagen Panel
+            tLPProducto.Controls.Add(PImagen, 8, 0);     // Cuadro para agregar Imagen Panel
             tLPProducto.SetRowSpan(PImagen, 6);          // Filas hacia abajo (Cantidad de filas que abarcará)
                                                          //tLPProducto.SetColumnSpan(PImagen, 2);     // Columnas hacia derecha
 
