@@ -2014,6 +2014,9 @@
       <DependentUpon>RenombrarDetalle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report1.rdlc" />
+    <EmbeddedResource Include="ReporteCaja.resx">
+      <DependentUpon>ReporteCaja.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReporteDineroAgregado.resx">
       <DependentUpon>ReporteDineroAgregado.cs</DependentUpon>
     </EmbeddedResource>

@@ -44,6 +44,7 @@
             this.cbMonth = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnGenerarReporte = new PuntoDeVentaV2.BotonRedondo();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -179,14 +180,9 @@
             // 
             // cbYear
             // 
+            this.cbYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbYear.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbYear.FormattingEnabled = true;
-            this.cbYear.Items.AddRange(new object[] {
-            "2019",
-            "2020",
-            "2021",
-            "2022",
-            "2023"});
             this.cbYear.Location = new System.Drawing.Point(15, 347);
             this.cbYear.Name = "cbYear";
             this.cbYear.Size = new System.Drawing.Size(153, 24);
@@ -194,21 +190,9 @@
             // 
             // cbMonth
             // 
+            this.cbMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMonth.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbMonth.FormattingEnabled = true;
-            this.cbMonth.Items.AddRange(new object[] {
-            "ENERO",
-            "FEBRERO",
-            "MARZO",
-            "ABRIL",
-            "MAYO",
-            "JUNIO",
-            "JULIO",
-            "AGOSTO",
-            "SEPTIEMBRE",
-            "OCTUBRE",
-            "NOVIEMBRE",
-            "DICIEMBRE"});
             this.cbMonth.Location = new System.Drawing.Point(187, 347);
             this.cbMonth.Name = "cbMonth";
             this.cbMonth.Size = new System.Drawing.Size(154, 24);
@@ -234,11 +218,32 @@
             this.label3.TabIndex = 14;
             this.label3.Text = "MES";
             // 
+            // btnGenerarReporte
+            // 
+            this.btnGenerarReporte.BackColor = System.Drawing.Color.Firebrick;
+            this.btnGenerarReporte.BackGroundColor = System.Drawing.Color.Firebrick;
+            this.btnGenerarReporte.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnGenerarReporte.BorderRadius = 40;
+            this.btnGenerarReporte.BorderSize = 0;
+            this.btnGenerarReporte.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGenerarReporte.FlatAppearance.BorderSize = 0;
+            this.btnGenerarReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGenerarReporte.ForeColor = System.Drawing.Color.White;
+            this.btnGenerarReporte.Location = new System.Drawing.Point(314, 459);
+            this.btnGenerarReporte.Name = "btnGenerarReporte";
+            this.btnGenerarReporte.Size = new System.Drawing.Size(150, 40);
+            this.btnGenerarReporte.TabIndex = 15;
+            this.btnGenerarReporte.Text = "GENERAR REPORTE";
+            this.btnGenerarReporte.TextColor = System.Drawing.Color.White;
+            this.btnGenerarReporte.UseVisualStyleBackColor = false;
+            this.btnGenerarReporte.Click += new System.EventHandler(this.btnGenerarReporte_Click);
+            // 
             // ReporteCaja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(477, 453);
+            this.ClientSize = new System.Drawing.Size(477, 511);
+            this.Controls.Add(this.btnGenerarReporte);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbMonth);
@@ -255,6 +260,7 @@
             this.MaximizeBox = false;
             this.Name = "ReporteCaja";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.ReporteCaja_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -282,5 +288,6 @@
         private System.Windows.Forms.ComboBox cbMonth;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private BotonRedondo btnGenerarReporte;
     }
 }
