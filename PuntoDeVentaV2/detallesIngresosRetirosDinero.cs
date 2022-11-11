@@ -89,8 +89,7 @@ namespace PuntoDeVentaV2
                     usuario = FormPrincipal.userNickName;
                 }
                 
-                Image imprimir = Image.FromFile("C:/pudve/PuntoDeVentaV2/PUDVE/icon/black16/print.png");
-
+                Image imprimir = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\print.png");
                 foreach (DataRow item in datos.Rows)
                 {
                     int drow = DGDetalles.Rows.Add();

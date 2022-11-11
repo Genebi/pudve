@@ -32,24 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ListadoVentas));
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.DGVListadoVentas = new System.Windows.Forms.DataGridView();
-            this.col_checkbox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Vendedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IVA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Serie = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cancelar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Factura = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Abono = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Timbrar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.cInformacion = new System.Windows.Forms.DataGridViewImageColumn();
-            this.retomarVenta = new System.Windows.Forms.DataGridViewImageColumn();
             this.panelBotones = new System.Windows.Forms.Panel();
             this.cbFormasPago = new System.Windows.Forms.ComboBox();
             this.cbFiltroAdminEmpleado = new System.Windows.Forms.ComboBox();
@@ -89,6 +71,25 @@
             this.lb_txt_ruta_descargar = new System.Windows.Forms.Label();
             this.chTodos = new System.Windows.Forms.CheckBox();
             this.chkHDAutlan = new System.Windows.Forms.CheckBox();
+            this.col_checkbox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Vendedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IVA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Serie = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cancelar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Factura = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Abono = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Timbrar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.cInformacion = new System.Windows.Forms.DataGridViewImageColumn();
+            this.retomarVenta = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ganancia = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -134,7 +135,8 @@
             this.Abono,
             this.Timbrar,
             this.cInformacion,
-            this.retomarVenta});
+            this.retomarVenta,
+            this.ganancia});
             this.DGVListadoVentas.Location = new System.Drawing.Point(13, 194);
             this.DGVListadoVentas.Name = "DGVListadoVentas";
             this.DGVListadoVentas.ReadOnly = true;
@@ -147,131 +149,6 @@
             this.DGVListadoVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.clickcellc_checkbox);
             this.DGVListadoVentas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListadoVentas_CellMouseEnter);
             this.DGVListadoVentas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVListadoVentas_KeyDown);
-            // 
-            // col_checkbox
-            // 
-            this.col_checkbox.HeaderText = "";
-            this.col_checkbox.Name = "col_checkbox";
-            this.col_checkbox.ReadOnly = true;
-            this.col_checkbox.Width = 35;
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Visible = false;
-            // 
-            // Cliente
-            // 
-            this.Cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Cliente.HeaderText = "Cliente";
-            this.Cliente.Name = "Cliente";
-            this.Cliente.ReadOnly = true;
-            // 
-            // RFC
-            // 
-            this.RFC.HeaderText = "RFC";
-            this.RFC.Name = "RFC";
-            this.RFC.ReadOnly = true;
-            // 
-            // Vendedor
-            // 
-            this.Vendedor.HeaderText = "Vendedor";
-            this.Vendedor.Name = "Vendedor";
-            this.Vendedor.ReadOnly = true;
-            this.Vendedor.Width = 180;
-            // 
-            // Subtotal
-            // 
-            this.Subtotal.HeaderText = "Subtotal";
-            this.Subtotal.Name = "Subtotal";
-            this.Subtotal.ReadOnly = true;
-            this.Subtotal.Visible = false;
-            // 
-            // IVA
-            // 
-            this.IVA.HeaderText = "IVA";
-            this.IVA.Name = "IVA";
-            this.IVA.ReadOnly = true;
-            this.IVA.Visible = false;
-            // 
-            // Total
-            // 
-            this.Total.HeaderText = "Total";
-            this.Total.Name = "Total";
-            this.Total.ReadOnly = true;
-            // 
-            // Folio
-            // 
-            this.Folio.HeaderText = "Folio";
-            this.Folio.Name = "Folio";
-            this.Folio.ReadOnly = true;
-            this.Folio.Width = 50;
-            // 
-            // Serie
-            // 
-            this.Serie.HeaderText = "Serie";
-            this.Serie.Name = "Serie";
-            this.Serie.ReadOnly = true;
-            this.Serie.Width = 50;
-            // 
-            // Fecha
-            // 
-            this.Fecha.HeaderText = "Fecha";
-            this.Fecha.Name = "Fecha";
-            this.Fecha.ReadOnly = true;
-            this.Fecha.Width = 150;
-            // 
-            // Cancelar
-            // 
-            this.Cancelar.HeaderText = "";
-            this.Cancelar.Name = "Cancelar";
-            this.Cancelar.ReadOnly = true;
-            this.Cancelar.Width = 30;
-            // 
-            // Factura
-            // 
-            this.Factura.HeaderText = "";
-            this.Factura.Name = "Factura";
-            this.Factura.ReadOnly = true;
-            this.Factura.Width = 30;
-            // 
-            // Ticket
-            // 
-            this.Ticket.HeaderText = "";
-            this.Ticket.Name = "Ticket";
-            this.Ticket.ReadOnly = true;
-            this.Ticket.Width = 30;
-            // 
-            // Abono
-            // 
-            this.Abono.HeaderText = "";
-            this.Abono.Name = "Abono";
-            this.Abono.ReadOnly = true;
-            this.Abono.Width = 30;
-            // 
-            // Timbrar
-            // 
-            this.Timbrar.HeaderText = "";
-            this.Timbrar.Name = "Timbrar";
-            this.Timbrar.ReadOnly = true;
-            this.Timbrar.Width = 30;
-            // 
-            // cInformacion
-            // 
-            this.cInformacion.HeaderText = "";
-            this.cInformacion.Name = "cInformacion";
-            this.cInformacion.ReadOnly = true;
-            this.cInformacion.Width = 30;
-            // 
-            // retomarVenta
-            // 
-            this.retomarVenta.HeaderText = "";
-            this.retomarVenta.Name = "retomarVenta";
-            this.retomarVenta.ReadOnly = true;
-            this.retomarVenta.ToolTipText = "Retomar Venta Cancelada";
-            this.retomarVenta.Width = 30;
             // 
             // panelBotones
             // 
@@ -686,7 +563,7 @@
             this.linkLblPaginaSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(512, 28);
             this.linkLblPaginaSiguiente.Name = "linkLblPaginaSiguiente";
-            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(14, 16);
+            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaSiguiente.TabIndex = 24;
             this.linkLblPaginaSiguiente.TabStop = true;
             this.linkLblPaginaSiguiente.Text = "3";
@@ -700,7 +577,7 @@
             this.linkLblPaginaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaActual.Location = new System.Drawing.Point(485, 28);
             this.linkLblPaginaActual.Name = "linkLblPaginaActual";
-            this.linkLblPaginaActual.Size = new System.Drawing.Size(14, 16);
+            this.linkLblPaginaActual.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaActual.TabIndex = 23;
             this.linkLblPaginaActual.TabStop = true;
             this.linkLblPaginaActual.Text = "2";
@@ -714,7 +591,7 @@
             this.linkLblPaginaAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaAnterior.Location = new System.Drawing.Point(455, 28);
             this.linkLblPaginaAnterior.Name = "linkLblPaginaAnterior";
-            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(14, 16);
+            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaAnterior.TabIndex = 22;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "1";
@@ -796,6 +673,137 @@
             this.chkHDAutlan.CheckedChanged += new System.EventHandler(this.chkHDAutlan_CheckedChanged);
             this.chkHDAutlan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkHDAutlan_MouseClick);
             // 
+            // col_checkbox
+            // 
+            this.col_checkbox.HeaderText = "";
+            this.col_checkbox.Name = "col_checkbox";
+            this.col_checkbox.ReadOnly = true;
+            this.col_checkbox.Width = 35;
+            // 
+            // ID
+            // 
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
+            // 
+            // Cliente
+            // 
+            this.Cliente.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Cliente.HeaderText = "Cliente";
+            this.Cliente.Name = "Cliente";
+            this.Cliente.ReadOnly = true;
+            // 
+            // RFC
+            // 
+            this.RFC.HeaderText = "RFC";
+            this.RFC.Name = "RFC";
+            this.RFC.ReadOnly = true;
+            // 
+            // Vendedor
+            // 
+            this.Vendedor.HeaderText = "Vendedor";
+            this.Vendedor.Name = "Vendedor";
+            this.Vendedor.ReadOnly = true;
+            this.Vendedor.Width = 180;
+            // 
+            // Subtotal
+            // 
+            this.Subtotal.HeaderText = "Subtotal";
+            this.Subtotal.Name = "Subtotal";
+            this.Subtotal.ReadOnly = true;
+            this.Subtotal.Visible = false;
+            // 
+            // IVA
+            // 
+            this.IVA.HeaderText = "IVA";
+            this.IVA.Name = "IVA";
+            this.IVA.ReadOnly = true;
+            this.IVA.Visible = false;
+            // 
+            // Total
+            // 
+            this.Total.HeaderText = "Total";
+            this.Total.Name = "Total";
+            this.Total.ReadOnly = true;
+            // 
+            // Folio
+            // 
+            this.Folio.HeaderText = "Folio";
+            this.Folio.Name = "Folio";
+            this.Folio.ReadOnly = true;
+            this.Folio.Width = 50;
+            // 
+            // Serie
+            // 
+            this.Serie.HeaderText = "Serie";
+            this.Serie.Name = "Serie";
+            this.Serie.ReadOnly = true;
+            this.Serie.Width = 50;
+            // 
+            // Fecha
+            // 
+            this.Fecha.HeaderText = "Fecha";
+            this.Fecha.Name = "Fecha";
+            this.Fecha.ReadOnly = true;
+            this.Fecha.Width = 150;
+            // 
+            // Cancelar
+            // 
+            this.Cancelar.HeaderText = "";
+            this.Cancelar.Name = "Cancelar";
+            this.Cancelar.ReadOnly = true;
+            this.Cancelar.Width = 30;
+            // 
+            // Factura
+            // 
+            this.Factura.HeaderText = "";
+            this.Factura.Name = "Factura";
+            this.Factura.ReadOnly = true;
+            this.Factura.Width = 30;
+            // 
+            // Ticket
+            // 
+            this.Ticket.HeaderText = "";
+            this.Ticket.Name = "Ticket";
+            this.Ticket.ReadOnly = true;
+            this.Ticket.Width = 30;
+            // 
+            // Abono
+            // 
+            this.Abono.HeaderText = "";
+            this.Abono.Name = "Abono";
+            this.Abono.ReadOnly = true;
+            this.Abono.Width = 30;
+            // 
+            // Timbrar
+            // 
+            this.Timbrar.HeaderText = "";
+            this.Timbrar.Name = "Timbrar";
+            this.Timbrar.ReadOnly = true;
+            this.Timbrar.Width = 30;
+            // 
+            // cInformacion
+            // 
+            this.cInformacion.HeaderText = "";
+            this.cInformacion.Name = "cInformacion";
+            this.cInformacion.ReadOnly = true;
+            this.cInformacion.Width = 30;
+            // 
+            // retomarVenta
+            // 
+            this.retomarVenta.HeaderText = "";
+            this.retomarVenta.Name = "retomarVenta";
+            this.retomarVenta.ReadOnly = true;
+            this.retomarVenta.ToolTipText = "Retomar Venta Cancelada";
+            this.retomarVenta.Width = 30;
+            // 
+            // ganancia
+            // 
+            this.ganancia.HeaderText = "";
+            this.ganancia.Name = "ganancia";
+            this.ganancia.ReadOnly = true;
+            // 
             // ListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -861,6 +869,17 @@
         private System.Windows.Forms.Label lb_txt_ruta_descargar;
         private System.Windows.Forms.Button btnReportes;
         private System.Windows.Forms.CheckBox chTodos;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnActualizarMaximoProductos;
+        private System.Windows.Forms.TextBox txtMaximoPorPagina;
+        private System.Windows.Forms.Label label7;
+        public System.Windows.Forms.ComboBox cbFiltroAdminEmpleado;
+        private System.Windows.Forms.CheckBox chkHDAutlan;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DateTimePicker dpHoraInicial;
+        private System.Windows.Forms.DateTimePicker dpHoraFinal;
+        public System.Windows.Forms.ComboBox cbFormasPago;
         private System.Windows.Forms.DataGridViewCheckBoxColumn col_checkbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
@@ -879,16 +898,6 @@
         private System.Windows.Forms.DataGridViewImageColumn Timbrar;
         private System.Windows.Forms.DataGridViewImageColumn cInformacion;
         private System.Windows.Forms.DataGridViewImageColumn retomarVenta;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnActualizarMaximoProductos;
-        private System.Windows.Forms.TextBox txtMaximoPorPagina;
-        private System.Windows.Forms.Label label7;
-        public System.Windows.Forms.ComboBox cbFiltroAdminEmpleado;
-        private System.Windows.Forms.CheckBox chkHDAutlan;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DateTimePicker dpHoraInicial;
-        private System.Windows.Forms.DateTimePicker dpHoraFinal;
-        public System.Windows.Forms.ComboBox cbFormasPago;
+        private System.Windows.Forms.DataGridViewImageColumn ganancia;
     }
 }
