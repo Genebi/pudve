@@ -329,8 +329,8 @@
             // 
             // botonRedondo1
             // 
-            this.botonRedondo1.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.botonRedondo1.BackGroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.botonRedondo1.BackColor = System.Drawing.Color.Green;
+            this.botonRedondo1.BackGroundColor = System.Drawing.Color.Green;
             this.botonRedondo1.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.botonRedondo1.BorderRadius = 13;
             this.botonRedondo1.BorderSize = 0;
@@ -589,8 +589,8 @@
             // 
             // botonRedondo2
             // 
-            this.botonRedondo2.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.botonRedondo2.BackGroundColor = System.Drawing.Color.MediumSlateBlue;
+            this.botonRedondo2.BackColor = System.Drawing.Color.Green;
+            this.botonRedondo2.BackGroundColor = System.Drawing.Color.Green;
             this.botonRedondo2.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.botonRedondo2.BorderRadius = 13;
             this.botonRedondo2.BorderSize = 0;
