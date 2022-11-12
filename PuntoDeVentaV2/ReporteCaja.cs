@@ -61,9 +61,11 @@ namespace PuntoDeVentaV2
             dtpHoraInicio.Text = "00:00:00";
             dtpHoraFin.Text = "23:59:59";
 
-
             cbYear.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbMonth.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+
+            // Hacer que se puedan marcar los checkbox con un solo click
+            clbConceptos.CheckOnClick = true;
         }
 
         private void rbDineroAgregado_CheckedChanged(object sender, EventArgs e)
@@ -98,7 +100,7 @@ namespace PuntoDeVentaV2
 
                 foreach (var concepto in conceptos)
                 {
-                    clbConceptos.Items.Add(concepto.Value);
+                    AgregarConcepto(concepto);
                 }
 
                 if (!cbTodos.Visible) cbTodos.Visible = true;
@@ -117,13 +119,22 @@ namespace PuntoDeVentaV2
 
                 foreach (var concepto in conceptos)
                 {
-                    clbConceptos.Items.Add(concepto.Value);
+                    AgregarConcepto(concepto);
                 }
 
                 if (!cbTodos.Visible) cbTodos.Visible = true;
                 if (!clbConceptos.Visible) clbConceptos.Visible = true;
                 if (!panelFechaHora.Visible) panelFechaHora.Visible = true;
             }
+        }
+
+        private void AgregarConcepto(KeyValuePair<int, string> concepto)
+        {
+            ListBoxItem cb = new ListBoxItem();
+            cb.Text = concepto.Value;
+            cb.Tag = concepto.Key;
+
+            clbConceptos.Items.Add(cb);
         }
 
         private string ObtenerOperacion()
@@ -135,7 +146,15 @@ namespace PuntoDeVentaV2
 
         private void btnGenerarReporte_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Test");
+            var seleccionados = clbConceptos.CheckedItems;
+
+            if (seleccionados.Count > 0)
+            {
+                foreach (ListBoxItem concepto in seleccionados)
+                {
+                    MessageBox.Show(concepto.Text + "|" + concepto.Tag);
+                }
+            }
         }
 
         private void cbTodos_CheckedChanged(object sender, EventArgs e)
@@ -156,6 +175,16 @@ namespace PuntoDeVentaV2
                     clbConceptos.SetItemChecked(i, false);
                 }
             }
+        }
+    }
+
+    public class ListBoxItem
+    {
+        public string Text { get; set; }
+        public object Tag { get; set; }
+        public override string ToString()
+        {
+            return Text;
         }
     }
 }
