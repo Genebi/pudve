@@ -218,7 +218,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(290, 17);
+            this.label7.Location = new System.Drawing.Point(286, 17);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(138, 16);
             this.label7.TabIndex = 31;
@@ -228,7 +228,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(71, 17);
+            this.label6.Location = new System.Drawing.Point(21, 17);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(121, 16);
             this.label6.TabIndex = 30;
@@ -238,7 +238,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(290, 82);
+            this.label5.Location = new System.Drawing.Point(286, 82);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(35, 16);
             this.label5.TabIndex = 29;
@@ -248,7 +248,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(290, 52);
+            this.label4.Location = new System.Drawing.Point(286, 52);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(21, 16);
             this.label4.TabIndex = 28;
@@ -260,7 +260,7 @@
             this.dtpHoraFin.CustomFormat = "HH:mm:ss";
             this.dtpHoraFin.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpHoraFin.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpHoraFin.Location = new System.Drawing.Point(332, 82);
+            this.dtpHoraFin.Location = new System.Drawing.Point(328, 82);
             this.dtpHoraFin.Name = "dtpHoraFin";
             this.dtpHoraFin.ShowUpDown = true;
             this.dtpHoraFin.Size = new System.Drawing.Size(96, 21);
@@ -272,7 +272,7 @@
             this.dtpHoraInicio.CustomFormat = "HH:mm:ss";
             this.dtpHoraInicio.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpHoraInicio.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpHoraInicio.Location = new System.Drawing.Point(332, 52);
+            this.dtpHoraInicio.Location = new System.Drawing.Point(328, 52);
             this.dtpHoraInicio.Name = "dtpHoraInicio";
             this.dtpHoraInicio.ShowUpDown = true;
             this.dtpHoraInicio.Size = new System.Drawing.Size(96, 21);

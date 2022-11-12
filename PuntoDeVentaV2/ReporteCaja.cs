@@ -14,6 +14,7 @@ namespace PuntoDeVentaV2
 {
     public partial class ReporteCaja : Form
     {
+        Conexion cn = new Conexion();
         MetodosBusquedas mb = new MetodosBusquedas();
 
         private string operacion = string.Empty;
@@ -150,9 +151,38 @@ namespace PuntoDeVentaV2
 
             if (seleccionados.Count > 0)
             {
+                string year = ((KeyValuePair<int, int>)cbYear.SelectedItem).Value.ToString();
+                string mes = ((KeyValuePair<string, string>)cbMonth.SelectedItem).Key;
+                string ultimoDiaMes = DateTime.DaysInMonth(Convert.ToInt16(year), Convert.ToInt16(mes)).ToString();
+
+                string primeraHora = dtpHoraInicio.Text;
+                string segundaHora = dtpHoraFin.Text;
+
+                string primeraFecha = $"{year}-{mes}-01 {primeraHora}";
+                string segundaFecha = $"{year}-{mes}-{ultimoDiaMes} {segundaHora}";
+
+
+                string queryConceptos = "IN (";
+
                 foreach (ListBoxItem concepto in seleccionados)
                 {
-                    MessageBox.Show(concepto.Text + "|" + concepto.Tag);
+                    queryConceptos += $"'{concepto.Text}',";
+                }
+
+                queryConceptos = queryConceptos.Remove(queryConceptos.Length - 1);
+                queryConceptos += ")";
+
+                string query = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = '{ObtenerOperacion()}' AND Concepto {queryConceptos} AND FechaOperacion BETWEEN '{primeraFecha}' AND '{segundaFecha}'";
+                
+                using (var datos = cn.CargarDatos(query))
+                {
+                    if (datos.Rows.Count > 0)
+                    {
+                        foreach (DataRow fila in datos.Rows)
+                        {
+                            Console.WriteLine(fila["Concepto"].ToString());
+                        }
+                    }
                 }
             }
         }
