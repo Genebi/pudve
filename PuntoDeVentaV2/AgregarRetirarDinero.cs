@@ -122,6 +122,8 @@ namespace PuntoDeVentaV2
         {
             cbConceptoConBusqueda.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbConceptos.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbConceptoConBusqueda.DropDownStyle = ComboBoxStyle.DropDownList;
+
             if (operacion == 0)
             {
                 lbTitulo.Text = "Cantidad a depositar";

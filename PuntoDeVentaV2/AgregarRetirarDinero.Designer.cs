@@ -85,7 +85,7 @@
             // 
             this.chkBoxDepositoSaldoInicial.AutoSize = true;
             this.chkBoxDepositoSaldoInicial.Location = new System.Drawing.Point(126, 166);
-            this.chkBoxDepositoSaldoInicial.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkBoxDepositoSaldoInicial.Margin = new System.Windows.Forms.Padding(2);
             this.chkBoxDepositoSaldoInicial.Name = "chkBoxDepositoSaldoInicial";
             this.chkBoxDepositoSaldoInicial.Size = new System.Drawing.Size(167, 17);
             this.chkBoxDepositoSaldoInicial.TabIndex = 221;
@@ -126,7 +126,7 @@
             this.btnAgregarConcepto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarConcepto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarConcepto.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarConcepto.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
+            this.btnAgregarConcepto.Image = global::PuntoDeVentaV2.Properties.Resources.search;
             this.btnAgregarConcepto.Location = new System.Drawing.Point(355, 225);
             this.btnAgregarConcepto.Name = "btnAgregarConcepto";
             this.btnAgregarConcepto.Size = new System.Drawing.Size(28, 25);
