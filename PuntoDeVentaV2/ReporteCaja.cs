@@ -157,9 +157,16 @@ namespace PuntoDeVentaV2
 
                 //string query = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = '{ObtenerOperacion()}' AND Concepto {queryConceptos} AND FechaOperacion BETWEEN '{primeraFecha}' AND '{segundaFecha}'";
                 string query = $"SELECT SUM(CA.Cantidad) AS Cantidad, SUM(CA.Efectivo) AS Efectivo, SUM(CA.Tarjeta) AS Tarjeta, SUM(CA.Vales) AS Vales, SUM(CA.Cheque) AS Cheque, SUM(CA.Transferencia) AS Transferencia, SUM(CA.Credito) AS Credito, SUM(CA.Anticipo) AS Anticipo, CA.Operacion AS Operacion, CA.Concepto AS Concepto, CA.FechaOperacion AS FechaOperacion FROM Caja CA INNER JOIN ConceptosDinamicos CD ON (CA.IDUsuario = CD.IDUsuario AND CA.Concepto = CD.Concepto) WHERE CA.IDUsuario = {FormPrincipal.userID} AND CA.Operacion = '{ObtenerOperacion()}' AND CA.Concepto {queryConceptos} AND CA.FechaOperacion BETWEEN '{primeraFecha}' AND '{segundaFecha}' GROUP BY CD.ID";
-                DataTable datos = cn.CargarDatos(query);
+                //DataTable datos = cn.CargarDatos(query);
 
-                GenerarReporte(datos, new string[] { primeraFecha, segundaFecha });
+                //GenerarReporte(datos, new string[] { primeraFecha, segundaFecha });
+                VisualizadorReporteCaja visualizador = new VisualizadorReporteCaja();
+                visualizador.PrimeraFecha = primeraFecha;
+                visualizador.SegundaFecha = segundaFecha;
+                visualizador.Conceptos = queryConceptos;
+                visualizador.Operacion = ObtenerOperacion();
+                visualizador.ShowDialog();
+                
             }
         }
 

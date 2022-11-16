@@ -4261,6 +4261,18 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string ImprimirReporteCaja(string[] datos)
+        {
+            string primeraFecha = datos[0];
+            string segundaFecha = datos[1];
+            string conceptos = datos[2];
+            string operacion = datos[3];
+
+            var consulta = $"SELECT SUM(CA.Cantidad) AS Cantidad, SUM(CA.Efectivo) AS Efectivo, SUM(CA.Tarjeta) AS Tarjeta, SUM(CA.Vales) AS Vales, SUM(CA.Cheque) AS Cheque, SUM(CA.Transferencia) AS Transferencia, SUM(CA.Credito) AS Credito, SUM(CA.Anticipo) AS Anticipo, CA.Operacion AS Operacion, CA.Concepto AS Concepto, CA.FechaOperacion AS FechaOperacion FROM Caja CA INNER JOIN ConceptosDinamicos CD ON (CA.IDUsuario = CD.IDUsuario AND CA.Concepto = CD.Concepto) WHERE CA.IDUsuario = {FormPrincipal.userID} AND CA.Operacion = '{operacion}' AND CA.Concepto {conceptos} AND CA.FechaOperacion BETWEEN '{primeraFecha}' AND '{segundaFecha}' GROUP BY CD.ID";
+
+            return consulta;
+        }
+
         public string tipoDeTicket()
         {
             var consulta = $"SELECT EditTicket.Usuario, EditTicket.Direccion, EditTicket.ColyCP, EditTicket.RFC, EditTicket.Correo, EditTicket.Telefono, EditTicket.NombreC, EditTicket.DomicilioC, EditTicket.RFCC, EditTicket.CorreoC, EditTicket.TelefonoC, EditTicket.ColyCPC, EditTicket.FormaPagoC, EditTicket.logo, EditTicket.NombreComercial, EditTicket.ticket58mm, EditTicket.ticket80mm, Conf.TicketVenta, EditTicket.Referencia FROM editarticket AS EditTicket INNER JOIN configuracion AS Conf ON ( Conf.IDUsuario = EditTicket.IDUsuario ) WHERE EditTicket.IDUsuario = '{FormPrincipal.userID}'";
