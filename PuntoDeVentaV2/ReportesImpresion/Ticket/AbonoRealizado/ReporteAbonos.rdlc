@@ -23,7 +23,7 @@
         <rd:DefaultName>RazonSocial</rd:DefaultName>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>7.7cm</Width>
+        <Width>7.10896cm</Width>
         <Visibility>
           <Hidden>=iif(First(Fields!RazonSocial.Value, "TicketAbono").ToString()="", true,false)</Hidden>
         </Visibility>
@@ -57,7 +57,7 @@
         <Top>0.67056cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>7.7cm</Width>
+        <Width>7.10896cm</Width>
         <ZIndex>1</ZIndex>
         <Visibility>
           <Hidden>=iif(First(Fields!Domicilio.Value, "TicketAbono").ToString()="",true,false)</Hidden>
@@ -92,7 +92,7 @@
         <Top>1.34817cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>7.7cm</Width>
+        <Width>7.10896cm</Width>
         <ZIndex>2</ZIndex>
         <Visibility>
           <Hidden>=iif(First(Fields!ColyCP.Value, "TicketAbono").ToString="",true,false)</Hidden>
@@ -127,7 +127,7 @@
         <Top>2.01872cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>7.7cm</Width>
+        <Width>7.10896cm</Width>
         <ZIndex>3</ZIndex>
         <Visibility>
           <Hidden>=iif(First(Fields!RFC.Value, "TicketAbono").ToString="",true,false)</Hidden>
@@ -162,7 +162,7 @@
         <Top>2.65753cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>7.7cm</Width>
+        <Width>7.10896cm</Width>
         <ZIndex>4</ZIndex>
         <Visibility>
           <Hidden>=iif(First(Fields!Correo.Value, "TicketAbono").ToString()="",true,false)</Hidden>
@@ -197,7 +197,7 @@
         <Top>3.29281cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>7.7cm</Width>
+        <Width>7.10896cm</Width>
         <ZIndex>5</ZIndex>
         <Visibility>
           <Hidden>=iif(First(Fields!Telefono.Value, "TicketAbono").ToString()="",true,false)</Hidden>
@@ -232,7 +232,7 @@
         <Top>8.15658cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.91001cm</Width>
+        <Width>4.53959cm</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
@@ -262,7 +262,7 @@
         </Paragraphs>
         <rd:DefaultName>IDVenta</rd:DefaultName>
         <Top>8.15658cm</Top>
-        <Left>5.15465cm</Left>
+        <Left>4.51965cm</Left>
         <Height>0.6cm</Height>
         <Width>2.64535cm</Width>
         <ZIndex>7</ZIndex>
@@ -292,9 +292,9 @@
         </Paragraphs>
         <rd:DefaultName>Textbox20</rd:DefaultName>
         <Top>8.60841cm</Top>
-        <Left>0.1cm</Left>
+        <Left>0.07354cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.87826cm</Width>
+        <Width>4.56605cm</Width>
         <ZIndex>8</ZIndex>
         <Style>
           <Border>
@@ -322,7 +322,7 @@
         <Top>9.06024cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.91001cm</Width>
+        <Width>4.53959cm</Width>
         <ZIndex>9</ZIndex>
         <Style>
           <Border>
@@ -350,7 +350,7 @@
         <Top>9.57558cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.8518cm</Width>
+        <Width>4.53959cm</Width>
         <ZIndex>10</ZIndex>
         <Style>
           <Border>
@@ -378,7 +378,7 @@
         </Paragraphs>
         <rd:DefaultName>CantidadRestante</rd:DefaultName>
         <Top>10.05211cm</Top>
-        <Left>5.15465cm</Left>
+        <Left>4.51965cm</Left>
         <Height>0.6cm</Height>
         <Width>2.64535cm</Width>
         <ZIndex>11</ZIndex>
@@ -408,7 +408,7 @@
         </Paragraphs>
         <rd:DefaultName>CantidadAbonada</rd:DefaultName>
         <Top>9.56852cm</Top>
-        <Left>5.15465cm</Left>
+        <Left>4.51965cm</Left>
         <Height>0.6cm</Height>
         <Width>2.64535cm</Width>
         <ZIndex>12</ZIndex>
@@ -438,7 +438,7 @@
         </Paragraphs>
         <rd:DefaultName>SaldoAnterior</rd:DefaultName>
         <Top>9.06024cm</Top>
-        <Left>5.15465cm</Left>
+        <Left>4.51965cm</Left>
         <Height>0.6cm</Height>
         <Width>2.64535cm</Width>
         <ZIndex>13</ZIndex>
@@ -470,7 +470,7 @@
         </Paragraphs>
         <rd:DefaultName>TotalOriginal</rd:DefaultName>
         <Top>8.60841cm</Top>
-        <Left>5.15465cm</Left>
+        <Left>4.51965cm</Left>
         <Height>0.6cm</Height>
         <Width>2.64535cm</Width>
         <ZIndex>14</ZIndex>
@@ -504,7 +504,7 @@
         <Top>11.05251cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>7.7cm</Width>
+        <Width>7.10896cm</Width>
         <ZIndex>15</ZIndex>
         <Style>
           <Border>
@@ -536,7 +536,7 @@
         <Top>11.8289cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>7.7cm</Width>
+        <Width>7.10896cm</Width>
         <ZIndex>16</ZIndex>
         <Style>
           <Border>
@@ -566,7 +566,7 @@
         <Top>10.05211cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>4.8518cm</Width>
+        <Width>4.53959cm</Width>
         <ZIndex>17</ZIndex>
         <Style>
           <Border>
@@ -596,7 +596,7 @@
         <Top>4.17724cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>7.7cm</Width>
+        <Width>7.10896cm</Width>
         <ZIndex>18</ZIndex>
         <Visibility>
           <Hidden>=iif(First(Fields!ClienteNombre.Value, "TicketAbono").ToString()="",TRUE,FALSE)</Hidden>
@@ -629,7 +629,7 @@
         <Top>4.60438cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>7.7cm</Width>
+        <Width>7.10896cm</Width>
         <ZIndex>19</ZIndex>
         <Visibility>
           <Hidden>=iif(First(Fields!ClienteRFC.Value, "TicketAbono").ToString()="",TRUE,FALSE)</Hidden>
@@ -662,7 +662,7 @@
         <Top>5.12677cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>7.7cm</Width>
+        <Width>7.10896cm</Width>
         <ZIndex>20</ZIndex>
         <Visibility>
           <Hidden>=iif(First(Fields!ClienteDomicilio.Value, "TicketAbono").ToString()="",TRUE,FALSE)</Hidden>
@@ -695,7 +695,7 @@
         <Top>6.2668cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>7.7cm</Width>
+        <Width>7.10896cm</Width>
         <ZIndex>21</ZIndex>
         <Visibility>
           <Hidden>=iif(First(Fields!ClienteCorreo.Value, "TicketAbono").ToString()="",TRUE,FALSE)</Hidden>
@@ -728,7 +728,7 @@
         <Top>6.75744cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>7.7cm</Width>
+        <Width>7.10896cm</Width>
         <ZIndex>22</ZIndex>
         <Visibility>
           <Hidden>=iif(First(Fields!ClienteTelefono.Value, "TicketAbono").ToString()="",TRUE,FALSE)</Hidden>
@@ -761,7 +761,7 @@
         <Top>5.77616cm</Top>
         <Left>0.1cm</Left>
         <Height>0.6cm</Height>
-        <Width>7.7cm</Width>
+        <Width>7.10896cm</Width>
         <ZIndex>23</ZIndex>
         <Visibility>
           <Hidden>=iif(First(Fields!ClienteColoniaCodigoPostal.Value, "TicketAbono").ToString() ="", TRUE, FALSE)</Hidden>

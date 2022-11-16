@@ -1264,6 +1264,15 @@
       <DependentUpon>DSReimprimirRetirosRealizados.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Content Include="ReportesImpresion\Ticket\ReporteVentas\DatosReporteVentas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatosReporteVentas.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="ReportesImpresion\Ticket\ReporteVentas\DatosReporteVentas.cs">
+      <DependentUpon>DatosReporteVentas.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\TicketAnticipo\TicketAnticipo.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1526,6 +1535,12 @@
     </Compile>
     <Compile Include="VisualizadorReportes.Designer.cs">
       <DependentUpon>VisualizadorReportes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VisualizadorReporteVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VisualizadorReporteVentas.Designer.cs">
+      <DependentUpon>VisualizadorReporteVentas.cs</DependentUpon>
     </Compile>
     <Compile Include="VisualizadorTicketAnticipo.cs">
       <SubType>Form</SubType>
@@ -2067,6 +2082,9 @@
     <Content Include="ReportesImpresion\Ticket\Inventario\ReporteInventario.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteVentas\VentasReporte.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -2174,6 +2192,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="VisualizadorReportes.resx">
       <DependentUpon>VisualizadorReportes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VisualizadorReporteVentas.resx">
+      <DependentUpon>VisualizadorReporteVentas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VisualizadorTicketAnticipo.resx">
       <DependentUpon>VisualizadorTicketAnticipo.cs</DependentUpon>
@@ -2391,6 +2412,20 @@
       <DependentUpon>DSReimprimirRetirosRealizados.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="ReportesImpresion\Ticket\ReporteVentas\DatosReporteVentas.xsc">
+      <DependentUpon>DatosReporteVentas.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteVentas\DatosReporteVentas.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatosReporteVentas.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteVentas\DatosReporteVentas.xss">
+      <DependentUpon>DatosReporteVentas.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="ReportesImpresion\Ticket\TicketAnticipo\TicketAnticipo.xsc">
       <DependentUpon>TicketAnticipo.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
