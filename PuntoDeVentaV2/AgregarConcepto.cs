@@ -41,6 +41,15 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("Ingrese el nombre del concepto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+
+                var existeConcepto = cn.CargarDatos($"SELECT * FROM ConceptosDinamicos WHERE IDUsuario = {FormPrincipal.userID} AND Concepto = '{concepto}'");
+
+                if (existeConcepto.Rows.Count > 0)
+                {
+                    MessageBox.Show("Este concepto ya se encuentra registrado.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 empty = 1;
 
                 query = "INSERT INTO ConceptosDinamicos (IDUsuario, Concepto, Origen, FechaOperacion)";

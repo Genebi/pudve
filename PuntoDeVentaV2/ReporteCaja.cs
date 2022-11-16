@@ -188,20 +188,10 @@ namespace PuntoDeVentaV2
                 DataTable datos = cn.CargarDatos(query);
 
                 GenerarReporte(datos);
-                //using (var datos = cn.CargarDatos(query))
-                //{
-                //    if (datos.Rows.Count > 0)
-                //    {
-                //        foreach (DataRow fila in datos.Rows)
-                //        {
-                //            Console.WriteLine(fila["Concepto"].ToString());
-                //        }
-                //    }
-                //}
             }
         }
 
-        public static void GenerarReporte(DataTable tablaResult)
+        public void GenerarReporte(DataTable tablaResult)
         {
             Consultas cs = new Consultas();
 
@@ -257,7 +247,6 @@ namespace PuntoDeVentaV2
             var UsuarioActivo = cs.validarEmpleado(FormPrincipal.userNickName, true);
             var obtenerUsuarioPrincipal = cs.validarEmpleadoPorID();
 
-            var sumarTotales = 0.00;
 
             Usuario = new Paragraph($"USUARIO: ADMIN ({obtenerUsuarioPrincipal})", fuenteNegrita);
 
@@ -268,7 +257,7 @@ namespace PuntoDeVentaV2
 
             //NumeroFolio = new Paragraph("No. Folio: " + numFolio, fuenteNormal);
 
-            Paragraph subTitulo = new Paragraph($"DEPOSITOS Y RETIROS" + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+            Paragraph subTitulo = new Paragraph($"{ObtenerOperacion().ToUpper()}" + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
             Usuario.Alignment = Element.ALIGN_CENTER;
