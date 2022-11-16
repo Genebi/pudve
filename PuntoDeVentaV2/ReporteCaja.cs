@@ -38,37 +38,9 @@ namespace PuntoDeVentaV2
             years.Add(2022, 2022);
             years.Add(2023, 2023);
 
-            Dictionary<string, string> meses = new Dictionary<string, string>();
-            meses.Add("01", "ENERO");
-            meses.Add("02", "FEBRERO");
-            meses.Add("03", "MARZO");
-            meses.Add("04", "ABRIL");
-            meses.Add("05", "MAYO");
-            meses.Add("06", "JUNIO");
-            meses.Add("07", "JULIO");
-            meses.Add("08", "AGOSTO");
-            meses.Add("09", "SEPTIEMBRE");
-            meses.Add("10", "OCTUBRE");
-            meses.Add("11", "NOVIEMBRE");
-            meses.Add("12", "DICIEMBRE");
-
-            cbYear.DataSource = years.ToArray();
-            cbYear.ValueMember = "Key";
-            cbYear.DisplayMember = "Value";
-
-            cbMonth.DataSource = meses.ToArray();
-            cbMonth.ValueMember = "Key";
-            cbMonth.DisplayMember = "Value";
-
-            // Seleccionamos año por defecto
-            cbYear.SelectedValue = DateTime.Now.Year;
-
             // Seleccionar horas por defecto
             dtpHoraInicio.Text = "00:00:00";
             dtpHoraFin.Text = "23:59:59";
-
-            cbYear.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
-            cbMonth.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
 
             // Hacer que se puedan marcar los checkbox con un solo click
             clbConceptos.CheckOnClick = true;
@@ -156,15 +128,14 @@ namespace PuntoDeVentaV2
 
             if (seleccionados.Count > 0)
             {
-                string year = ((KeyValuePair<int, int>)cbYear.SelectedItem).Value.ToString();
-                string mes = ((KeyValuePair<string, string>)cbMonth.SelectedItem).Key;
-                string ultimoDiaMes = DateTime.DaysInMonth(Convert.ToInt16(year), Convert.ToInt16(mes)).ToString();
+                string fechaInicio = dpFechaInicial.Text;
+                string fechaFin = dpFechaFinal.Text;
 
                 string primeraHora = dtpHoraInicio.Text;
                 string segundaHora = dtpHoraFin.Text;
 
-                string primeraFecha = $"{year}-{mes}-01 {primeraHora}";
-                string segundaFecha = $"{year}-{mes}-{ultimoDiaMes} {segundaHora}";
+                string primeraFecha = $"{fechaInicio} {primeraHora}";
+                string segundaFecha = $"{fechaFin} {segundaHora}";
 
 
                 if (!Utilidades.AdobeReaderInstalado())
@@ -187,13 +158,17 @@ namespace PuntoDeVentaV2
                 string query = $"SELECT * FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND Operacion = '{ObtenerOperacion()}' AND Concepto {queryConceptos} AND FechaOperacion BETWEEN '{primeraFecha}' AND '{segundaFecha}'";
                 DataTable datos = cn.CargarDatos(query);
 
-                GenerarReporte(datos);
+                GenerarReporte(datos, new string[] { primeraFecha, segundaFecha});
             }
         }
 
-        public void GenerarReporte(DataTable tablaResult)
+        public void GenerarReporte(DataTable tablaResult, string[] fechas)
         {
             Consultas cs = new Consultas();
+
+            // Fechas
+            var primeraFecha = fechas[0];
+            var segundaFecha = fechas[1];
 
             var mostrarClave = FormPrincipal.clave;
 
@@ -257,7 +232,7 @@ namespace PuntoDeVentaV2
 
             //NumeroFolio = new Paragraph("No. Folio: " + numFolio, fuenteNormal);
 
-            Paragraph subTitulo = new Paragraph($"{ObtenerOperacion().ToUpper()}" + "\n\nFecha: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
+            Paragraph subTitulo = new Paragraph($"{ObtenerOperacion().ToUpper()}" + $"\n\nCONSULTA REALIZADA\nDEL {primeraFecha} AL {segundaFecha}\nFecha de creación: " + fechaHoy.ToString("yyyy-MM-dd HH:mm:ss") + "\n\n\n", fuenteNormal);
 
             titulo.Alignment = Element.ALIGN_CENTER;
             Usuario.Alignment = Element.ALIGN_CENTER;
