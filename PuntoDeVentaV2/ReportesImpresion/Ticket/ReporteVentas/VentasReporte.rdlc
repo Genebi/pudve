@@ -92,6 +92,37 @@
     <ReportSection>
       <Body>
         <ReportItems>
+          <Textbox Name="Textbox1">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!TipoVenta.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Top>0.34078cm</Top>
+            <Left>7.45809cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.15667cm</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
           <Chart Name="Chart3">
             <ChartCategoryHierarchy>
               <ChartMembers>
@@ -163,6 +194,7 @@
                         <Width>0.25pt</Width>
                       </Border>
                       <FontSize>8pt</FontSize>
+                      <Format>#,0.00;(#,0.00)</Format>
                       <TextDecoration>None</TextDecoration>
                       <Color>#5c5c5c</Color>
                     </Style>
@@ -174,8 +206,9 @@
                       </Style>
                     </ChartAxisTitle>
                     <Margin>False</Margin>
+                    <Interval>1</Interval>
                     <ChartMajorGridLines>
-                      <Enabled>True</Enabled>
+                      <Enabled>False</Enabled>
                       <Style>
                         <Border>
                           <Color>Gainsboro</Color>
@@ -183,7 +216,7 @@
                       </Style>
                     </ChartMajorGridLines>
                     <ChartMinorGridLines>
-                      <Enabled>True</Enabled>
+                      <Enabled>False</Enabled>
                       <Style>
                         <Border>
                           <Color>Gainsboro</Color>
@@ -214,8 +247,9 @@
                     <Angle>90</Angle>
                     <PreventFontShrink>true</PreventFontShrink>
                     <PreventFontGrow>true</PreventFontGrow>
+                    <PreventLabelOffset>true</PreventLabelOffset>
                     <PreventWordWrap>true</PreventWordWrap>
-                    <AllowLabelRotation>Rotate30</AllowLabelRotation>
+                    <AllowLabelRotation>None</AllowLabelRotation>
                     <LabelsAutoFitDisabled>true</LabelsAutoFitDisabled>
                     <MinFontSize>5pt</MinFontSize>
                     <MaxFontSize>7pt</MaxFontSize>
@@ -438,6 +472,7 @@
             <Top>4.58377cm</Top>
             <Height>11.29097cm</Height>
             <Width>22.08798cm</Width>
+            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Color>LightGrey</Color>
@@ -447,38 +482,6 @@
               <BackgroundGradientType>None</BackgroundGradientType>
             </Style>
           </Chart>
-          <Textbox Name="Textbox1">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=Parameters!TipoVenta.Value</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Center</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>0.34078cm</Top>
-            <Left>7.45809cm</Left>
-            <Height>0.6cm</Height>
-            <Width>7.15667cm</Width>
-            <ZIndex>1</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
           <Textbox Name="Textbox2">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
