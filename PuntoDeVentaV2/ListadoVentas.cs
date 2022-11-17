@@ -4464,16 +4464,13 @@ namespace PuntoDeVentaV2
             {
                 //Se quita el * de la consulta para obtener solo los campos que me interesan y se guarda en una nueva variable
                 //var ajustarQuery = FiltroAvanzado.Replace("*", "Cliente, RFC, IDEmpleado, Total, Folio, Serie, FechaOperacion");
+                VisualizadorReporteVentas VRV = new VisualizadorReporteVentas(codigosBuscar,cbTipoVentas.SelectedIndex);
+                VRV.ShowDialog();
 
-                var ajustarQuery = $"SELECT Cliente, RFC, IDEmpleado, Total, Folio, Serie, FechaOperacion FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar})";
-
-
-                var query = cn.CargarDatos(ajustarQuery);
-
-                if (!query.Rows.Count.Equals(0))
-                {
-                    Utilidades.GenerarReporteVentas(opcion, query);
-                }
+                //if (!query.Rows.Count.Equals(0))
+                //{
+                //    Utilidades.GenerarReporteVentas(opcion, query);
+                //}
             }
             else
             {
