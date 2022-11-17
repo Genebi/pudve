@@ -152,7 +152,12 @@
                         <Y>=Max(Fields!TotalVendido.Value)</Y>
                       </ChartDataPointValues>
                       <ChartDataLabel>
-                        <Style />
+                        <Style>
+                          <FontSize>9pt</FontSize>
+                          <Format>'$'#,0.00;('$'#,0.00)</Format>
+                          <TextDecoration>None</TextDecoration>
+                          <rd:FormatSymbolCulture>es-MX</rd:FormatSymbolCulture>
+                        </Style>
                         <UseValueAsLabel>true</UseValueAsLabel>
                         <Visible>true</Visible>
                       </ChartDataLabel>
@@ -193,7 +198,8 @@
                         <Style>None</Style>
                         <Width>0.25pt</Width>
                       </Border>
-                      <FontSize>8pt</FontSize>
+                      <FontFamily>Arial Black</FontFamily>
+                      <FontSize>9pt</FontSize>
                       <Format>#,0.00;(#,0.00)</Format>
                       <TextDecoration>None</TextDecoration>
                       <Color>#5c5c5c</Color>
@@ -431,26 +437,6 @@
                 </Style>
               </ChartArea>
             </ChartAreas>
-            <ChartLegends>
-              <ChartLegend Name="Default">
-                <Style>
-                  <BackgroundGradientType>None</BackgroundGradientType>
-                  <FontSize>8pt</FontSize>
-                </Style>
-                <Position>TopLeft</Position>
-                <DockOutsideChartArea>true</DockOutsideChartArea>
-                <ChartLegendTitle>
-                  <Caption />
-                  <Style>
-                    <FontSize>8pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </ChartLegendTitle>
-                <HeaderSeparatorColor>Black</HeaderSeparatorColor>
-                <ColumnSeparatorColor>Black</ColumnSeparatorColor>
-              </ChartLegend>
-            </ChartLegends>
             <Palette>Pacific</Palette>
             <ChartBorderSkin>
               <Style>
@@ -469,9 +455,12 @@
               </Style>
             </ChartNoDataMessage>
             <DataSetName>DTGrafica</DataSetName>
-            <Top>4.58377cm</Top>
-            <Height>11.29097cm</Height>
-            <Width>22.08798cm</Width>
+            <PageBreak>
+              <BreakLocation>End</BreakLocation>
+            </PageBreak>
+            <Top>2.5994cm</Top>
+            <Height>13.67789cm</Height>
+            <Width>20.57979cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -1442,10 +1431,9 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DTReporteVenta</DataSetName>
-            <Top>2.64266cm</Top>
-            <Left>0.37043cm</Left>
+            <Top>17.80403cm</Top>
             <Height>1.8cm</Height>
-            <Width>20.57983cm</Width>
+            <Width>20.57979cm</Width>
             <ZIndex>4</ZIndex>
             <Style>
               <Border>
@@ -1454,10 +1442,10 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>15.92766cm</Height>
+        <Height>19.737cm</Height>
         <Style />
       </Body>
-      <Width>22.08798cm</Width>
+      <Width>21cm</Width>
       <Page>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
