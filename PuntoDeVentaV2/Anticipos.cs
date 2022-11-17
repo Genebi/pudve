@@ -592,7 +592,7 @@ namespace PuntoDeVentaV2
                 Utilidades.MensajePermiso();
                 return;
             }
-
+            clickBoton = 0;
             var status = cbAnticipos.SelectedIndex;
 
             CargarDatos(status + 1);
