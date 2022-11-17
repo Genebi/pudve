@@ -85,7 +85,7 @@
             // 
             this.chkBoxDepositoSaldoInicial.AutoSize = true;
             this.chkBoxDepositoSaldoInicial.Location = new System.Drawing.Point(126, 166);
-            this.chkBoxDepositoSaldoInicial.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkBoxDepositoSaldoInicial.Margin = new System.Windows.Forms.Padding(2);
             this.chkBoxDepositoSaldoInicial.Name = "chkBoxDepositoSaldoInicial";
             this.chkBoxDepositoSaldoInicial.Size = new System.Drawing.Size(167, 17);
             this.chkBoxDepositoSaldoInicial.TabIndex = 221;
@@ -201,6 +201,7 @@
             this.txtVales.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtVales.Location = new System.Drawing.Point(71, 113);
             this.txtVales.Name = "txtVales";
+            this.txtVales.ShortcutsEnabled = false;
             this.txtVales.Size = new System.Drawing.Size(103, 23);
             this.txtVales.TabIndex = 3;
             this.txtVales.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -214,6 +215,7 @@
             this.txtTarjeta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTarjeta.Location = new System.Drawing.Point(71, 78);
             this.txtTarjeta.Name = "txtTarjeta";
+            this.txtTarjeta.ShortcutsEnabled = false;
             this.txtTarjeta.Size = new System.Drawing.Size(103, 23);
             this.txtTarjeta.TabIndex = 2;
             this.txtTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -227,6 +229,7 @@
             this.txtEfectivo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEfectivo.Location = new System.Drawing.Point(71, 42);
             this.txtEfectivo.Name = "txtEfectivo";
+            this.txtEfectivo.ShortcutsEnabled = false;
             this.txtEfectivo.Size = new System.Drawing.Size(103, 23);
             this.txtEfectivo.TabIndex = 1;
             this.txtEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -241,6 +244,7 @@
             this.txtCredito.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCredito.Location = new System.Drawing.Point(297, 113);
             this.txtCredito.Name = "txtCredito";
+            this.txtCredito.ShortcutsEnabled = false;
             this.txtCredito.Size = new System.Drawing.Size(103, 23);
             this.txtCredito.TabIndex = 6;
             this.txtCredito.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -254,6 +258,7 @@
             this.txtTrans.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTrans.Location = new System.Drawing.Point(297, 78);
             this.txtTrans.Name = "txtTrans";
+            this.txtTrans.ShortcutsEnabled = false;
             this.txtTrans.Size = new System.Drawing.Size(103, 23);
             this.txtTrans.TabIndex = 5;
             this.txtTrans.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -309,6 +314,7 @@
             this.txtCheque.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCheque.Location = new System.Drawing.Point(297, 41);
             this.txtCheque.Name = "txtCheque";
+            this.txtCheque.ShortcutsEnabled = false;
             this.txtCheque.Size = new System.Drawing.Size(103, 23);
             this.txtCheque.TabIndex = 4;
             this.txtCheque.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
