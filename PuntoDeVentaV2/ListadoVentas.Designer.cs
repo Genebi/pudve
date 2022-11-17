@@ -89,6 +89,7 @@
             this.Timbrar = new System.Windows.Forms.DataGridViewImageColumn();
             this.cInformacion = new System.Windows.Forms.DataGridViewImageColumn();
             this.retomarVenta = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ganancia = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -134,7 +135,8 @@
             this.Abono,
             this.Timbrar,
             this.cInformacion,
-            this.retomarVenta});
+            this.retomarVenta,
+            this.ganancia});
             this.DGVListadoVentas.Location = new System.Drawing.Point(13, 194);
             this.DGVListadoVentas.Name = "DGVListadoVentas";
             this.DGVListadoVentas.ReadOnly = true;
@@ -796,6 +798,13 @@
             this.retomarVenta.ToolTipText = "Retomar Venta Cancelada";
             this.retomarVenta.Width = 30;
             // 
+            // ganancia
+            // 
+            this.ganancia.HeaderText = "";
+            this.ganancia.Name = "ganancia";
+            this.ganancia.ReadOnly = true;
+            this.ganancia.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
             // ListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -890,5 +899,6 @@
         private System.Windows.Forms.DataGridViewImageColumn Timbrar;
         private System.Windows.Forms.DataGridViewImageColumn cInformacion;
         private System.Windows.Forms.DataGridViewImageColumn retomarVenta;
+        private System.Windows.Forms.DataGridViewImageColumn ganancia;
     }
 }

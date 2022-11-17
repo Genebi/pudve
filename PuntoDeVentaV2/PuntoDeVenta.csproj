@@ -753,6 +753,12 @@
     <Compile Include="FormReporteInventario.Designer.cs">
       <DependentUpon>FormReporteInventario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Ganancia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ganancia.Designer.cs">
+      <DependentUpon>Ganancia.cs</DependentUpon>
+    </Compile>
     <Compile Include="HistorialAnticipos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1830,6 +1836,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormReporteInventario.resx">
       <DependentUpon>FormReporteInventario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ganancia.resx">
+      <DependentUpon>Ganancia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HistorialAnticipos.resx">
       <DependentUpon>HistorialAnticipos.cs</DependentUpon>
