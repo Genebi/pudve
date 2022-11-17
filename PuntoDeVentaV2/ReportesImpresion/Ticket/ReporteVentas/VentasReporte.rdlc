@@ -455,11 +455,8 @@
               </Style>
             </ChartNoDataMessage>
             <DataSetName>DTGrafica</DataSetName>
-            <PageBreak>
-              <BreakLocation>End</BreakLocation>
-            </PageBreak>
             <Top>2.5994cm</Top>
-            <Height>13.67789cm</Height>
+            <Height>12.19622cm</Height>
             <Width>20.57979cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
@@ -1431,7 +1428,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DTReporteVenta</DataSetName>
-            <Top>17.11611cm</Top>
+            <Top>14.93673cm</Top>
             <Height>1.8cm</Height>
             <Width>20.57979cm</Width>
             <ZIndex>4</ZIndex>
@@ -1442,7 +1439,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>18.91611cm</Height>
+        <Height>17.01014cm</Height>
         <Style />
       </Body>
       <Width>21cm</Width>
