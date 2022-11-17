@@ -4933,5 +4933,12 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string idsProductos(string idVenta)
+        {
+            var consulta = $"SELECT * FROM productosventa WHERE IDVenta = {ListadoVentas.idGananciaVenta}";
+
+            return consulta;
+        }
     }
 }   
