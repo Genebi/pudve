@@ -6,37 +6,37 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>3cm</Width>
+              <Width>2.3cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>6cm</Width>
+              <Width>4.5cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>5cm</Width>
+              <Width>4cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2.3cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2.3cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2.3cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2.3cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>3cm</Width>
+              <Width>2.8cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2.3cm</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.5cm</Width>
+              <Width>2.3cm</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -52,9 +52,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Operacion</Value>
+                              <Value>OPERACIÓN</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -88,9 +89,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Cantidad</Value>
+                              <Value>CANTIDAD</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -124,9 +126,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Concepto</Value>
+                              <Value>CONCEPTO</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -160,9 +163,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Fecha</Value>
+                              <Value>FECHA</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -196,9 +200,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Efectivo</Value>
+                              <Value>EFECTIVO</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -232,9 +237,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Tarjeta</Value>
+                              <Value>TARJETA</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -268,9 +274,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Vales</Value>
+                              <Value>VALES</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -304,9 +311,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Cheque</Value>
+                              <Value>CHEQUE</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -340,9 +348,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Transferencia</Value>
+                              <Value>TRANSFERENCIA</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -376,9 +385,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Crédito</Value>
+                              <Value>CRÉDITO</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -412,9 +422,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Anticipo</Value>
+                              <Value>ANTICIPO</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -456,7 +467,7 @@
                               <Value>=UCase(Fields!Operacion.Value)</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -491,14 +502,14 @@
                               <Value>$</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                             <TextRun>
                               <Value>=Fields!Cantidad.Value</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -533,7 +544,7 @@
                               <Value>=Fields!Concepto.Value</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -568,7 +579,7 @@
                               <Value>=Fields!FechaOperacion.Value</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -603,14 +614,14 @@
                               <Value>$</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                             <TextRun>
                               <Value>=Fields!Efectivo.Value</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -645,14 +656,14 @@
                               <Value>$</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                             <TextRun>
                               <Value>=Fields!Tarjeta.Value</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -687,14 +698,14 @@
                               <Value>$</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                             <TextRun>
                               <Value>=Fields!Vales.Value</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -729,14 +740,14 @@
                               <Value>$</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                             <TextRun>
                               <Value>=Fields!Cheque.Value</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -771,14 +782,14 @@
                               <Value>$</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                             <TextRun>
                               <Value>=Fields!Transferencia.Value</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -813,14 +824,14 @@
                               <Value>$</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                             <TextRun>
                               <Value>=Fields!Credito.Value</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -855,14 +866,14 @@
                               <Value>$</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                             <TextRun>
                               <Value>=Fields!Anticipo.Value</Value>
                               <Style>
                                 <FontFamily>Century Gothic</FontFamily>
-                                <FontSize>9pt</FontSize>
+                                <FontSize>8pt</FontSize>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -915,10 +926,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DTReporteCaja</DataSetName>
-        <Top>4.8387cm</Top>
-        <Left>0.3175cm</Left>
+        <Top>4.42595cm</Top>
+        <Left>0.127cm</Left>
         <Height>1.2cm</Height>
-        <Width>34.5cm</Width>
+        <Width>29.4cm</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1192,7 +1203,7 @@
         </TablixRowHierarchy>
         <DataSetName>DTEncabezado</DataSetName>
         <Top>0.53673cm</Top>
-        <Left>13.15657cm</Left>
+        <Left>10.29907cm</Left>
         <Height>3.3cm</Height>
         <Width>10.11883cm</Width>
         <ZIndex>1</ZIndex>
@@ -1213,14 +1224,14 @@
                 <Value>$</Value>
                 <Style>
                   <FontFamily>Century Gothic</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
               <TextRun>
                 <Value>=First(Fields!TotalCantidad.Value, "DTTotales")</Value>
                 <Style>
                   <FontFamily>Century Gothic</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1230,10 +1241,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox77</rd:DefaultName>
-        <Top>6.0387cm</Top>
-        <Left>3.3175cm</Left>
+        <Top>5.62595cm</Top>
+        <Left>2.4285cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.5cm</Width>
+        <Width>2cm</Width>
         <ZIndex>2</ZIndex>
         <Style>
           <Border>
@@ -1256,14 +1267,14 @@
                 <Value>$</Value>
                 <Style>
                   <FontFamily>Century Gothic</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
               <TextRun>
                 <Value>=First(Fields!TotalEfectivo.Value, "DTTotales")</Value>
                 <Style>
                   <FontFamily>Century Gothic</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1273,10 +1284,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox85</rd:DefaultName>
-        <Top>6.0387cm</Top>
-        <Left>16.8175cm</Left>
+        <Top>5.62595cm</Top>
+        <Left>12.94325cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.5cm</Width>
+        <Width>2.3cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -1299,14 +1310,14 @@
                 <Value>$</Value>
                 <Style>
                   <FontFamily>Century Gothic</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
               <TextRun>
                 <Value>=First(Fields!TotalTarjeta.Value, "DTTotales")</Value>
                 <Style>
                   <FontFamily>Century Gothic</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1316,10 +1327,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox86</rd:DefaultName>
-        <Top>6.0387cm</Top>
-        <Left>19.3175cm</Left>
+        <Top>5.62595cm</Top>
+        <Left>15.221cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.5cm</Width>
+        <Width>2.3cm</Width>
         <ZIndex>4</ZIndex>
         <Style>
           <Border>
@@ -1342,14 +1353,14 @@
                 <Value>$</Value>
                 <Style>
                   <FontFamily>Century Gothic</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
               <TextRun>
                 <Value>=First(Fields!TotalVales.Value, "DTTotales")</Value>
                 <Style>
                   <FontFamily>Century Gothic</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1359,10 +1370,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox87</rd:DefaultName>
-        <Top>6.0387cm</Top>
-        <Left>21.78928cm</Left>
+        <Top>5.62595cm</Top>
+        <Left>17.53403cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.5cm</Width>
+        <Width>2.3cm</Width>
         <ZIndex>5</ZIndex>
         <Style>
           <Border>
@@ -1385,14 +1396,14 @@
                 <Value>$</Value>
                 <Style>
                   <FontFamily>Century Gothic</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
               <TextRun>
                 <Value>=First(Fields!TotalCheque.Value, "DTTotales")</Value>
                 <Style>
                   <FontFamily>Century Gothic</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1402,10 +1413,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox88</rd:DefaultName>
-        <Top>6.0387cm</Top>
-        <Left>24.28575cm</Left>
+        <Top>5.62595cm</Top>
+        <Left>19.82375cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.5cm</Width>
+        <Width>2.3cm</Width>
         <ZIndex>6</ZIndex>
         <Style>
           <Border>
@@ -1428,14 +1439,14 @@
                 <Value>$</Value>
                 <Style>
                   <FontFamily>Century Gothic</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
               <TextRun>
                 <Value>=First(Fields!TotalTransferencia.Value, "DTTotales")</Value>
                 <Style>
                   <FontFamily>Century Gothic</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1445,10 +1456,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox89</rd:DefaultName>
-        <Top>6.0387cm</Top>
-        <Left>26.78575cm</Left>
+        <Top>5.62595cm</Top>
+        <Left>22.13325cm</Left>
         <Height>0.6cm</Height>
-        <Width>3cm</Width>
+        <Width>2.8cm</Width>
         <ZIndex>7</ZIndex>
         <Style>
           <Border>
@@ -1471,14 +1482,14 @@
                 <Value>$</Value>
                 <Style>
                   <FontFamily>Century Gothic</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
               <TextRun>
                 <Value>=First(Fields!TotalCredito.Value, "DTTotales")</Value>
                 <Style>
                   <FontFamily>Century Gothic</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1488,10 +1499,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox90</rd:DefaultName>
-        <Top>6.0387cm</Top>
-        <Left>29.78575cm</Left>
+        <Top>5.62595cm</Top>
+        <Left>24.94275cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.5cm</Width>
+        <Width>2.3cm</Width>
         <ZIndex>8</ZIndex>
         <Style>
           <Border>
@@ -1514,14 +1525,14 @@
                 <Value>$</Value>
                 <Style>
                   <FontFamily>Century Gothic</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
               <TextRun>
                 <Value>=First(Fields!TotalAnticipo.Value, "DTTotales")</Value>
                 <Style>
                   <FontFamily>Century Gothic</FontFamily>
-                  <FontSize>9pt</FontSize>
+                  <FontSize>8pt</FontSize>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -1531,10 +1542,10 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox91</rd:DefaultName>
-        <Top>6.0387cm</Top>
-        <Left>32.29281cm</Left>
+        <Top>5.62595cm</Top>
+        <Left>27.22756cm</Left>
         <Height>0.6cm</Height>
-        <Width>2.52469cm</Width>
+        <Width>2.3cm</Width>
         <ZIndex>9</ZIndex>
         <Style>
           <Border>
@@ -1548,13 +1559,13 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>21.59cm</Height>
+    <Height>21cm</Height>
     <Style />
   </Body>
-  <Width>38cm</Width>
+  <Width>29.7cm</Width>
   <Page>
-    <PageHeight>21.59cm</PageHeight>
-    <PageWidth>35.56cm</PageWidth>
+    <PageHeight>21cm</PageHeight>
+    <PageWidth>29.7cm</PageWidth>
     <LeftMargin>0cm</LeftMargin>
     <RightMargin>0cm</RightMargin>
     <TopMargin>0cm</TopMargin>
