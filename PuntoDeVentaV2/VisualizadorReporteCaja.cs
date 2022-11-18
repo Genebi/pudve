@@ -66,7 +66,30 @@ namespace PuntoDeVentaV2
             string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\ImpimirReporteCaja\ReporteCaja.rdlc";
 
+            //========================================================================
+            // DATOS PARA EL TITULO DEL REPORTE
+            var usuarioActivo = cs.validarEmpleado(FormPrincipal.userNickName, true);
+            var obtenerUsuarioPrincipal = cs.validarEmpleadoPorID();
 
+
+            var usuarioActual = $"USUARIO: ADMIN ({obtenerUsuarioPrincipal})";
+
+            if (!string.IsNullOrEmpty(usuarioActivo))
+            {
+                usuarioActual = $"EMPLEADO: {usuarioActivo}";
+            }
+
+            var datosEncabezado = new List<DatosEncabezadoReportes>();
+
+            datosEncabezado.Add(new DatosEncabezadoReportes { 
+                TituloReporte = "REPORTE DE CAJA",
+                Usuario = usuarioActual,
+                Subtitulo = Operacion.ToUpper(),
+                TextoExtra = $"CONSULTA REALIZADA\nDEL {PrimeraFecha} AL {SegundaFecha}",
+                FechaCreacion = $"Fecha de creación: {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}"
+            });
+
+            //========================================================================
 
             MySqlDataAdapter reporteCajaDA = new MySqlDataAdapter(queryReporteCaja, conn);
             DataTable reporteCajaDT = new DataTable();
@@ -78,8 +101,10 @@ namespace PuntoDeVentaV2
             this.reportViewer1.LocalReport.DataSources.Clear();
 
             ReportDataSource rp1 = new ReportDataSource("DTReporteCaja", reporteCajaDT);
+            ReportDataSource rp2 = new ReportDataSource("DTEncabezado", datosEncabezado);
 
             this.reportViewer1.LocalReport.DataSources.Add(rp1);
+            this.reportViewer1.LocalReport.DataSources.Add(rp2);
             this.reportViewer1.RefreshReport();
         }
     }
