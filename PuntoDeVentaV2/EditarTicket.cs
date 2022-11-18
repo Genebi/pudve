@@ -17,7 +17,7 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         OpenFileDialog f;
         int valor;
-
+        public static string Mensaje= string.Empty;
         public EditarTicket()
         {
             InitializeComponent();
@@ -25,6 +25,7 @@ namespace PuntoDeVentaV2
 
         private void EditarTicket_Load(object sender, EventArgs e)
         {
+            
             var datos = FormPrincipal.datosUsuario;
             lblNombreUs.Text = (datos[0].ToString());
             lblDireccionUs.Text = ("Direccion: " + datos[1] + ", " + datos[2] + ", " + datos[4] + ", " + datos[5].ToString());
@@ -41,6 +42,7 @@ namespace PuntoDeVentaV2
             foreach (DataRow item in checkboxTicket.Rows)
             {
                 var datos2 = item;
+                Mensaje = datos2[2].ToString();
                 int nombre = Convert.ToInt32(datos2[3]);
                 int direccion = Convert.ToInt32(datos2[4]);
                 int colycp = Convert.ToInt32(datos2[5]);
@@ -234,7 +236,7 @@ namespace PuntoDeVentaV2
             foreach (DataRow item in mensaje.Rows)
             {
                 var mensaje2 = item;
-                lblMensajeTicket.Text = mensaje2[0].ToString();
+                lblMensajeTicket.Text = Mensaje;
             }
         }
         private void button2_Click(object sender, EventArgs e)
@@ -473,6 +475,23 @@ namespace PuntoDeVentaV2
                 int status = 0;
                 cn.EjecutarConsulta($"UPDATE editarticket SET mostrarMensaje = {status} WHERE IDUsuario = '{FormPrincipal.userID}'");
             }
+
+            //mensaje gaurdar
+            var datos = cn.CargarDatos(cs.consultarMensajeTicket(FormPrincipal.userID));
+
+            foreach (DataRow item in datos.Rows)
+            {
+                valor = Convert.ToInt32(item[0].ToString());
+            }
+
+            if (valor == 1)
+            {
+                cn.EjecutarConsulta(cs.editarMensajeDeTicket(FormPrincipal.userID, Mensaje));
+            }
+            else if (valor == 0)
+            {
+                cn.EjecutarConsulta(cs.insertarMensajeDeTicket(FormPrincipal.userID, Mensaje));
+            }
             MessageBox.Show("Guardado Correctamente","Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
@@ -604,7 +623,7 @@ namespace PuntoDeVentaV2
         }
 
         private void chkColUs_CheckedChanged(object sender, EventArgs e)
-        {
+        { 
             if (chkColUs.Checked == false)
             {
                 lblColyCPUs.Visible = false;

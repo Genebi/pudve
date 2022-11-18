@@ -33,21 +33,8 @@ namespace PuntoDeVentaV2
 
         private void btnGuardarMensaje_Click(object sender, EventArgs e)
         {
-            var dato = cn.CargarDatos(cs.consultarMensajeTicket(FormPrincipal.userID));
-            
-            foreach (DataRow item in dato.Rows)
-            {
-                valor = Convert.ToInt32(item[0].ToString());
-            }
-
-            if (valor == 1)
-            {
-                cn.EjecutarConsulta(cs.editarMensajeDeTicket(FormPrincipal.userID, txtMensajeTicket.Text));
-            }
-            else if(valor == 0)
-            {
-                cn.EjecutarConsulta(cs.insertarMensajeDeTicket(FormPrincipal.userID, txtMensajeTicket.Text));
-            }
+          
+            EditarTicket.Mensaje = txtMensajeTicket.Text;
             MessageBox.Show("Guardado Correctamente");
             this.Close();
         }
