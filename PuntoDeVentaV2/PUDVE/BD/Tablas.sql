@@ -1932,3 +1932,7 @@ IF
 		REP_ReporteClientes INTEGER DEFAULT 1,
 		REP_ReporteMMasMenos INTEGER DEFAULT 1
 	);
+
+	-- Agregar Columna de MostraMensaje a Editarticket
+ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS mostrarMensaje INT DEFAULT 0 ;
+
