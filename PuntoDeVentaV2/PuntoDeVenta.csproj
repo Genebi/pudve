@@ -627,6 +627,7 @@
     <Compile Include="datosExtraNvoProductos.Designer.cs">
       <DependentUpon>datosExtraNvoProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="DatosTotalesReporte.cs" />
     <Compile Include="DBTables.cs" />
     <Compile Include="DetalleDescripcion.cs">
       <SubType>Form</SubType>
@@ -2253,6 +2254,7 @@
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\DatosEncabezadoReportes.datasource" />
+    <None Include="Properties\DataSources\DatosTotalesReporte.datasource" />
     <None Include="Properties\DataSources\PuntoDeVentaV2.ReportesImpresion.Ticket.Inventario.DTIventario+DataTable1DataTable.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
