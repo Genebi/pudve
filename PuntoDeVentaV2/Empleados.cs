@@ -117,6 +117,8 @@ namespace PuntoDeVentaV2
 
             dgv_empleados.ClearSelection();
             sql_con.Close();
+
+            btnActualizarMaximoProductos.PerformClick();
         }
 
         private void btn_agregar_empleado_Click(object sender, EventArgs e)
