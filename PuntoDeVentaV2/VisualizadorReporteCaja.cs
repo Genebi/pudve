@@ -20,6 +20,7 @@ namespace PuntoDeVentaV2
         public string SegundaFecha { get; set; }
         public string Conceptos { get; set; }
         public string Operacion { get; set; }
+        public string Status { get; set; }
 
         public VisualizadorReporteCaja()
         {
@@ -46,7 +47,7 @@ namespace PuntoDeVentaV2
             }
 
             //pasar array como parametro, fechas, conceptos, etc
-            string[] datos = new[] { PrimeraFecha, SegundaFecha, Conceptos, Operacion };
+            string[] datos = new[] { PrimeraFecha, SegundaFecha, Conceptos, Operacion, Status };
 
             string queryReporteCaja = cs.ImprimirReporteCaja(datos);
 

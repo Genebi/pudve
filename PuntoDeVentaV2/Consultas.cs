@@ -4267,8 +4267,9 @@ namespace PuntoDeVentaV2
             string segundaFecha = datos[1];
             string conceptos = datos[2];
             string operacion = datos[3];
+            string status = datos[4];
 
-            var consulta = $"SELECT SUM(CA.Cantidad) AS Cantidad, SUM(CA.Efectivo) AS Efectivo, SUM(CA.Tarjeta) AS Tarjeta, SUM(CA.Vales) AS Vales, SUM(CA.Cheque) AS Cheque, SUM(CA.Transferencia) AS Transferencia, SUM(CA.Credito) AS Credito, SUM(CA.Anticipo) AS Anticipo, CA.Operacion AS Operacion, CA.Concepto AS Concepto, CA.FechaOperacion AS FechaOperacion FROM Caja CA INNER JOIN ConceptosDinamicos CD ON (CA.IDUsuario = CD.IDUsuario AND CA.Concepto = CD.Concepto) WHERE CA.IDUsuario = {FormPrincipal.userID} AND CA.Operacion = '{operacion}' AND CA.Concepto {conceptos} AND CA.FechaOperacion BETWEEN '{primeraFecha}' AND '{segundaFecha}' GROUP BY CD.ID";
+            var consulta = $"SELECT SUM(CA.Cantidad) AS Cantidad, SUM(CA.Efectivo) AS Efectivo, SUM(CA.Tarjeta) AS Tarjeta, SUM(CA.Vales) AS Vales, SUM(CA.Cheque) AS Cheque, SUM(CA.Transferencia) AS Transferencia, SUM(CA.Credito) AS Credito, SUM(CA.Anticipo) AS Anticipo, CA.Operacion AS Operacion, CA.Concepto AS Concepto, CA.FechaOperacion AS FechaOperacion FROM Caja CA INNER JOIN ConceptosDinamicos CD ON (CA.IDUsuario = CD.IDUsuario AND CA.Concepto = CD.Concepto) WHERE CA.IDUsuario = {FormPrincipal.userID} AND CA.Operacion = '{operacion}' AND CD.Status = {status} AND CA.Concepto {conceptos} AND CA.FechaOperacion BETWEEN '{primeraFecha}' AND '{segundaFecha}' GROUP BY CD.ID";
 
             return consulta;
         }

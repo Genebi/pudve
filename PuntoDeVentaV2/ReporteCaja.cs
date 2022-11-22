@@ -23,6 +23,7 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
 
         private string operacion = string.Empty;
+        private int status = 0;
 
         public ReporteCaja()
         {
@@ -85,6 +86,8 @@ namespace PuntoDeVentaV2
                 if (!clbConceptos.Visible) clbConceptos.Visible = true;
                 if (!panelFechaHora.Visible) panelFechaHora.Visible = true;
             }
+
+            status = 1;
         }
 
         private void rbDeshabilitados_CheckedChanged(object sender, EventArgs e)
@@ -104,6 +107,8 @@ namespace PuntoDeVentaV2
                 if (!clbConceptos.Visible) clbConceptos.Visible = true;
                 if (!panelFechaHora.Visible) panelFechaHora.Visible = true;
             }
+
+            status = 0;
         }
 
         private void AgregarConcepto(KeyValuePair<int, string> concepto)
@@ -160,6 +165,7 @@ namespace PuntoDeVentaV2
                 visualizador.SegundaFecha = segundaFecha;
                 visualizador.Conceptos = queryConceptos;
                 visualizador.Operacion = ObtenerOperacion();
+                visualizador.Status = status.ToString();
                 visualizador.ShowDialog();
                 
             }
