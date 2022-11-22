@@ -26,7 +26,7 @@ namespace PuntoDeVentaV2
         int actualizar_contraseña = 0;
         public static int IDPlantilla = 0;
 
-        string[] datosPermisosSeleccionados;
+        public static string[] datosPermisosSeleccionados;
 
         public Agregar_empleado(int tipo = 1, int empleado = 0)
         {
@@ -228,19 +228,28 @@ namespace PuntoDeVentaV2
 
                     if (cmb_bx_permisos.SelectedIndex == 1)
                     {
-                        var DTPlantillaPermisos = cn.CargarDatos($"SELECT Anticipo,Caja,clientes,configuracion,empleado,factura,inventario,misdatos,productos,proveedor,reportes,ventas, bascula,configuracion FROM plantillapermisos WHERE IDUsuario = {FormPrincipal.userID} AND ID = {IDPlantilla}");
-                        string PermisosJusntos = string.Empty;
-                        int contador = 0;
-                        foreach (var item in DTPlantillaPermisos.Rows)
+                        if (!IDPlantilla.Equals(0))
                         {
-                            foreach (var itemxd in DTPlantillaPermisos.Columns)
+                            var DTPlantillaPermisos = cn.CargarDatos($"SELECT Anticipo,Caja,clientes,configuracion,empleado,factura,inventario,misdatos,productos,proveedor,reportes,ventas, bascula,configuracion FROM plantillapermisos WHERE IDUsuario = {FormPrincipal.userID} AND ID = {IDPlantilla}");
+                            string PermisosJusntos = string.Empty;
+                            int contador = 0;
+                            foreach (var item in DTPlantillaPermisos.Rows)
                             {
-                                PermisosJusntos += DTPlantillaPermisos.Rows[0][contador].ToString()+",";
-                                contador++;
+                                foreach (var itemxd in DTPlantillaPermisos.Columns)
+                                {
+                                    PermisosJusntos += DTPlantillaPermisos.Rows[0][contador].ToString() + ",";
+                                    contador++;
+                                }
                             }
+                            string[] listapermisos = PermisosJusntos.Split(',');
+                            cn.EjecutarConsulta($"UPDATE empleados SET IDUsuario = {FormPrincipal.userID},p_anticipo ={listapermisos[0]}, p_caja ={listapermisos[1]}, p_cliente = {listapermisos[2]}, p_config ={listapermisos[3]}, p_empleado = {listapermisos[4]}, p_factura = {listapermisos[5]}, p_inventario = {listapermisos[6]}, p_mdatos = {listapermisos[7]}, p_producto = {listapermisos[8]}, p_proveedor ={listapermisos[9]}, p_reporte= {listapermisos[10]}, p_venta = {listapermisos[11]}, Bascula = {listapermisos[12]}, ConsultaPrecio = {listapermisos[13]} WHERE IDUsuario = {FormPrincipal.userID} AND ID = {id_empleado}");
                         }
-                        string[] listapermisos = PermisosJusntos.Split(',');
-                        cn.EjecutarConsulta($"UPDATE empleados SET IDUsuario = {FormPrincipal.userID},p_anticipo ={listapermisos[0]}, p_caja ={listapermisos[1]}, p_cliente = {listapermisos[2]}, p_config ={listapermisos[3]}, p_empleado = {listapermisos[4]}, p_factura = {listapermisos[5]}, p_inventario = {listapermisos[6]}, p_mdatos = {listapermisos[7]}, p_producto = {listapermisos[8]}, p_proveedor ={listapermisos[9]}, p_reporte= {listapermisos[10]}, p_venta = {listapermisos[11]}, Bascula = {listapermisos[12]}, ConsultaPrecio = {listapermisos[13]} WHERE IDUsuario = {FormPrincipal.userID} AND ID = {id_empleado}");
+                        else
+                        {
+                            string[] listapermisos = datosPermisosSeleccionados;
+                            cn.EjecutarConsulta($"UPDATE empleados SET IDUsuario = {FormPrincipal.userID},p_anticipo ={listapermisos[2]}, p_caja ={listapermisos[3]}, p_cliente = {listapermisos[4]}, p_config ={listapermisos[5]}, p_empleado = {listapermisos[6]}, p_factura = {listapermisos[8]}, p_inventario = {listapermisos[9]}, p_mdatos = {listapermisos[10]}, p_producto = {listapermisos[11]}, p_proveedor ={listapermisos[12]}, p_reporte= {listapermisos[13]}, p_venta = {listapermisos[14]}, Bascula = {listapermisos[12]}, ConsultaPrecio = {listapermisos[15]} WHERE IDUsuario = {FormPrincipal.userID} AND ID = {id_empleado}");
+                        }
+                        
                     }
                     
                     btn_aceptar.Enabled = true;
@@ -478,7 +487,7 @@ namespace PuntoDeVentaV2
             {
                 Agregar_empleado_permisos AEP = new Agregar_empleado_permisos(0);
                 AEP.ShowDialog();
-                if (IDPlantilla.Equals(0))
+                if (IDPlantilla.Equals(0) && !tipo.Equals(1))
                 {
                     cmb_bx_permisos.SelectedIndex = 0;
                 }
