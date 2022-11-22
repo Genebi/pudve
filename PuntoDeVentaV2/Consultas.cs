@@ -3864,7 +3864,7 @@ namespace PuntoDeVentaV2
         public string cargarAbonosDesdeUltimoCorteRealizadoEmpleado(string idEmpleado, string ultimaFechaDeCorte)
         {
             var consulta = $"SELECT Abono.ID, Abono.IDUsuario, Abono.IDEmpleado, Abono.IDVenta, FORMAT( IF ( Abono.Efectivo = '' OR Abono.Efectivo IS NULL, '0', Abono.Efectivo ), 2 ) AS 'Efectivo', FORMAT( IF ( Abono.Tarjeta = '' OR Abono.Tarjeta IS NULL, '0', Abono.Tarjeta ), 2 ) AS 'Tarjeta', FORMAT( IF ( Abono.Vales = '' OR Abono.Vales IS NULL, '0', Abono.Vales ), 2 ) AS 'Vales', FORMAT( IF ( Abono.Cheque = '' OR Abono.Cheque IS NULL, '0', Abono.Cheque ), 2 ) AS 'Cheque', FORMAT( IF ( Abono.Transferencia = '' OR Abono.Transferencia IS NULL, '0', Abono.Transferencia ), 2 ) AS 'Transferencia', FORMAT( ( ( IF ( Abono.Efectivo = '' OR Abono.Efectivo IS NULL, '0', Abono.Efectivo ) ) + ( IF ( Abono.Tarjeta = '' OR Abono.Tarjeta IS NULL, '0', Abono.Tarjeta ) ) + ( IF ( Abono.Vales = '' OR Abono.Vales IS NULL, '0', Abono.Vales ) ) + ( IF ( Abono.Cheque = '' OR Abono.Cheque IS NULL, '0', Abono.Cheque ) ) + ( IF ( Abono.Transferencia = '' OR Abono.Transferencia IS NULL, '0', Abono.Transferencia ) ) ), 2 ) AS 'Total' FROM Abonos AS Abono WHERE Abono.IDVenta IN ( SELECT ID FROM ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND IDEmpleado = '{idEmpleado}' AND FormaPago = 'Crédito' AND FechaOperacion > '{ultimaFechaDeCorte}' )";
-
+             
             return consulta;
         }
 
