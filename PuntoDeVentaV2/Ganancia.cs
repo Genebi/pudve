@@ -36,14 +36,20 @@ namespace PuntoDeVentaV2
             foreach (DataRow item in IdsProductVenta.Rows)
             {
                 var productoPAquete = cn.CargarDatos($"SELECT Tipo FROM productos WHERE ID = {item[0]}");
-                if (productoPAquete.Rows[0]["Tipo"].ToString().Equals("PQ"))
+
+                //Validar cuando el Combo/Servicio tiene precio de Compra
+                if (productoPAquete.Rows[0]["Tipo"].ToString().Equals("PQ") || productoPAquete.Rows[0]["Tipo"].ToString().Equals("S"))
                 {
                     var idsProdCombo = cn.CargarDatos($"SELECT IDProducto FROM `productosdeservicios` WHERE IDServicio = {item[0]}");
-                    for (int i = 0; i < idsProdCombo.Rows.Count; i++)
+
+                    if (!idsProdCombo.Rows[0]["IDProducto"].ToString().Equals("0"))
                     {
-                        productosEnCombos.Add(idsProdCombo.Rows[i][0].ToString());
+                        for (int i = 0; i < idsProdCombo.Rows.Count; i++)
+                        {
+                            productosEnCombos.Add(idsProdCombo.Rows[i][0].ToString());
+                        }
+                        combosEliminar.Add(item[0].ToString());
                     }
-                    combosEliminar.Add(item[0].ToString());
                 }
             }
 
@@ -72,27 +78,32 @@ namespace PuntoDeVentaV2
             }
 
             decimal precioTotalDeCompra = 0;
+            var VentaTotal = Convert.ToDecimal(totalDeVenta.Rows[0]["Total"]);
             foreach (DataRow item in IdsProductVenta.Rows)
             {
                 int iterador = 0;
                 var precio = cn.CargarDatos($"SELECT PrecioCompra FROM productos WHERE ID = {item[0]}");
                 var cantidadComp = cn.CargarDatos($"SELECT Cantidad FROM productosventa WHERE IDVenta = {ListadoVentas.idGananciaVenta}");
-                decimal validacion = Convert.ToDecimal(precio.Rows[0]["PrecioCompra"]);
-                decimal cantidad = Convert.ToDecimal(cantidadComp.Rows[iterador]["Cantidad"]);
+                if (!precio.Rows.Count.Equals(0))
+                {
+                    decimal validacion = Convert.ToDecimal(precio.Rows[0]["PrecioCompra"]);
+                    decimal cantidad = Convert.ToDecimal(cantidadComp.Rows[iterador]["Cantidad"]);
 
-                if (validacion.Equals(Convert.ToDecimal(0.00)))
-                {
-                    lblGanancia.Text = "SIN PODER CALCULAR";
-                    precioTotalDeCompra = 0;
-                    return;
+                    if (validacion.Equals(Convert.ToDecimal(0.00)))
+                    {
+                        lblGanancia.Text = "SIN PODER CALCULAR";
+                        precioTotalDeCompra = 0;
+                        return;
+                    }
+                    else
+                    {
+                        precioTotalDeCompra = (validacion * cantidad);
+                        VentaTotal = (VentaTotal - precioTotalDeCompra);
+                        lblGanancia.Text = (VentaTotal.ToString("C"));
+                        iterador++;
+                    }
                 }
-                else
-                {
-                    var VentaTotal = Convert.ToDecimal(totalDeVenta.Rows[0]["Total"]);
-                    precioTotalDeCompra = precioTotalDeCompra + (validacion * cantidad);
-                    lblGanancia.Text = (VentaTotal - precioTotalDeCompra).ToString("C");
-                    iterador++;
-                }
+                
 
             }
         }
