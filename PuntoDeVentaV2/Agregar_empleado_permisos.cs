@@ -203,9 +203,10 @@ namespace PuntoDeVentaV2
 
             datos = new string[]
             {
-                FormPrincipal.userID.ToString(), id_empleado.ToString(), anticipo, caja, client, config, empleado,
-                empresa, factura, inventario, mdatos, producto, proveedor, reporte, venta, bascula, ConsultaPrecio
+                FormPrincipal.userID.ToString(), id_empleado.ToString(), anticipo, caja, client, config, empleado, empresa, factura, inventario, mdatos, producto, proveedor, reporte, venta, bascula, ConsultaPrecio
             };
+
+            Agregar_empleado.datosPermisosSeleccionados = datos;
 
             if (id_empleado > 0)
             {
@@ -242,6 +243,7 @@ namespace PuntoDeVentaV2
                 if (Anticipos.Count.Equals(0))
                 {
                     var DTColumnas = cn.CargarDatos($"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'subpermisos' AND COLUMN_NAME LIKE 'ANT_%'");
+
                     var rows = DTColumnas.AsEnumerable()
                                  .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
 
