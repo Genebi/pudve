@@ -17,7 +17,7 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         OpenFileDialog f;
         int valor;
-
+        public static string Mensaje= string.Empty;
         public EditarTicket()
         {
             InitializeComponent();
@@ -25,6 +25,7 @@ namespace PuntoDeVentaV2
 
         private void EditarTicket_Load(object sender, EventArgs e)
         {
+            
             var datos = FormPrincipal.datosUsuario;
             lblNombreUs.Text = (datos[0].ToString());
             lblDireccionUs.Text = ("Direccion: " + datos[1] + ", " + datos[2] + ", " + datos[4] + ", " + datos[5].ToString());
@@ -41,13 +42,14 @@ namespace PuntoDeVentaV2
             foreach (DataRow item in checkboxTicket.Rows)
             {
                 var datos2 = item;
+                Mensaje = datos2[2].ToString();
                 int nombre = Convert.ToInt32(datos2[3]);
                 int direccion = Convert.ToInt32(datos2[4]);
                 int colycp = Convert.ToInt32(datos2[5]);
                 int rfc = Convert.ToInt32(datos2[6]);
                 int correo = Convert.ToInt32(datos2[7]);
                 int telefono = Convert.ToInt32(datos2[8]);
-                 
+
                 int nombrec = Convert.ToInt32(datos2[9]);
                 int domicilioc = Convert.ToInt32(datos2[10]);
                 int rfcc = Convert.ToInt32(datos2[11]);
@@ -60,6 +62,7 @@ namespace PuntoDeVentaV2
                 int ticket58mm = Convert.ToInt32(datos2[18]);
                 int ticket80mm = Convert.ToInt32(datos2[19]);
                 int referencia = Convert.ToInt32(datos2[20]);
+                int mostrarmensaje = Convert.ToInt32(datos2[21]);
 
                 if (logo == 1)//////Logo  
                 {
@@ -205,6 +208,14 @@ namespace PuntoDeVentaV2
                 {
                     rbTicket8cm.Checked = false;
                 }
+                if (mostrarmensaje.Equals(1))
+                {
+                    chkMostrarMensaje.Checked = true;
+                }
+                else
+                {
+                    chkMostrarMensaje.Checked = false;
+                }
             }
             if (File.Exists($@"C:\Archivos PUDVE\MisDatos\Usuarios\{FormPrincipal.datosUsuario[11].ToString()}"))/////Imagen
             {
@@ -225,7 +236,7 @@ namespace PuntoDeVentaV2
             foreach (DataRow item in mensaje.Rows)
             {
                 var mensaje2 = item;
-                lblMensajeTicket.Text = mensaje2[0].ToString();
+                lblMensajeTicket.Text = Mensaje;
             }
         }
         private void button2_Click(object sender, EventArgs e)
@@ -453,6 +464,34 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.ticket80mm(status));
             }
+            //Mostrar el Mensaje
+            if (chkMostrarMensaje.Checked.Equals(true))
+            {
+                int status = 1;
+                cn.EjecutarConsulta($"UPDATE editarticket SET mostrarMensaje = {status} WHERE IDUsuario = '{FormPrincipal.userID}'");
+            }
+            else
+            {
+                int status = 0;
+                cn.EjecutarConsulta($"UPDATE editarticket SET mostrarMensaje = {status} WHERE IDUsuario = '{FormPrincipal.userID}'");
+            }
+
+            //mensaje gaurdar
+            var datos = cn.CargarDatos(cs.consultarMensajeTicket(FormPrincipal.userID));
+
+            foreach (DataRow item in datos.Rows)
+            {
+                valor = Convert.ToInt32(item[0].ToString());
+            }
+
+            if (valor == 1)
+            {
+                cn.EjecutarConsulta(cs.editarMensajeDeTicket(FormPrincipal.userID, Mensaje));
+            }
+            else if (valor == 0)
+            {
+                cn.EjecutarConsulta(cs.insertarMensajeDeTicket(FormPrincipal.userID, Mensaje));
+            }
             MessageBox.Show("Guardado Correctamente","Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
         }
@@ -584,7 +623,7 @@ namespace PuntoDeVentaV2
         }
 
         private void chkColUs_CheckedChanged(object sender, EventArgs e)
-        {
+        { 
             if (chkColUs.Checked == false)
             {
                 lblColyCPUs.Visible = false;

@@ -76,6 +76,7 @@
             this.txt_nombre.Location = new System.Drawing.Point(66, 35);
             this.txt_nombre.MaxLength = 100;
             this.txt_nombre.Name = "txt_nombre";
+            this.txt_nombre.ShortcutsEnabled = false;
             this.txt_nombre.Size = new System.Drawing.Size(190, 22);
             this.txt_nombre.TabIndex = 4;
             this.txt_nombre.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -98,6 +99,7 @@
             this.txtPassword.MaxLength = 100;
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '*';
+            this.txtPassword.ShortcutsEnabled = false;
             this.txtPassword.Size = new System.Drawing.Size(190, 22);
             this.txtPassword.TabIndex = 7;
             this.txtPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -179,6 +181,7 @@
             this.txt_autorizar.MaxLength = 100;
             this.txt_autorizar.Name = "txt_autorizar";
             this.txt_autorizar.PasswordChar = '*';
+            this.txt_autorizar.ShortcutsEnabled = false;
             this.txt_autorizar.Size = new System.Drawing.Size(190, 22);
             this.txt_autorizar.TabIndex = 9;
             this.txt_autorizar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -202,6 +205,7 @@
             this.txtConfirmeSuPassword.MaxLength = 100;
             this.txtConfirmeSuPassword.Name = "txtConfirmeSuPassword";
             this.txtConfirmeSuPassword.PasswordChar = '*';
+            this.txtConfirmeSuPassword.ShortcutsEnabled = false;
             this.txtConfirmeSuPassword.Size = new System.Drawing.Size(190, 22);
             this.txtConfirmeSuPassword.TabIndex = 8;
             this.txtConfirmeSuPassword.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -237,6 +241,7 @@
             this.txt_usuario.Location = new System.Drawing.Point(68, 86);
             this.txt_usuario.MaxLength = 15;
             this.txt_usuario.Name = "txt_usuario";
+            this.txt_usuario.ShortcutsEnabled = false;
             this.txt_usuario.Size = new System.Drawing.Size(190, 22);
             this.txt_usuario.TabIndex = 5;
             this.txt_usuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;

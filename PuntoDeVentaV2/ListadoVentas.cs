@@ -110,6 +110,9 @@ namespace PuntoDeVentaV2
         int buscarPorFecha = 0;
         public static int tipoVenta;
         List<string> IDsVenta = new List<string>();
+
+        public static int idGananciaVenta { get; set; }
+
         public ListadoVentas()
         {
             InitializeComponent();
@@ -1118,6 +1121,7 @@ namespace PuntoDeVentaV2
             Image timbrar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\bell.png");
             Image informacion = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
             Image reusarVentas = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\repeat.png");
+            Image ganancia = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\statistics.png");
 
 
             Bitmap sinImagen = new Bitmap(1, 1);
@@ -1200,6 +1204,7 @@ namespace PuntoDeVentaV2
                     row.Cells["Factura"].Value = factura;
                     row.Cells["Ticket"].Value = ticket;
                     row.Cells["Abono"].Value = credito;
+                    row.Cells["ganancia"].Value = ganancia;
 
                     row.Cells["Timbrar"].Value = timbrar;
                     // Ventas canceladas
@@ -1270,6 +1275,14 @@ namespace PuntoDeVentaV2
             tipo_venta = estado;
 
             llenarGDV();
+            if (FormPrincipal.userNickName.Contains("@"))
+            {
+                DGVListadoVentas.Columns["ganancia"].Visible = false;
+            }
+            else
+            {
+                DGVListadoVentas.Columns["ganancia"].Visible = true;
+            }
         }
 
         private void validacionSiEstaVaciaLaCadenaExtra()
@@ -1681,6 +1694,11 @@ namespace PuntoDeVentaV2
                         textoTT = "Retomar esta venta";
                         coordenadaX = 120;
                     }
+                    if (e.ColumnIndex == 18)
+                    {
+                        textoTT = "Ganancia";
+                        coordenadaX = 40;
+                    }
 
                     // Si es diferente a la fila donde se muestran los totales
                     if (e.RowIndex != DGVListadoVentas.Rows.Count - 1 && e.RowIndex != DGVListadoVentas.Rows.Count - 2)
@@ -1718,6 +1736,8 @@ namespace PuntoDeVentaV2
                 var fila = DGVListadoVentas.CurrentCell.RowIndex;
 
                 int idVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
+
+                idGananciaVenta = idVenta;
 
                 folioVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["Folio"].Value);
 
@@ -2487,8 +2507,15 @@ namespace PuntoDeVentaV2
 
                 }
 
-                //Ver ticket
-                if (e.ColumnIndex == 13)
+                //
+                if (e.ColumnIndex == 18)
+                {
+                    Ganancia gananciaPorVenta = new Ganancia();
+                    gananciaPorVenta.ShowDialog();
+                }
+
+                    //Ver ticket
+                    if (e.ColumnIndex == 13)
                 {
                     if (opcion3 == 0)
                     {
@@ -4464,16 +4491,13 @@ namespace PuntoDeVentaV2
             {
                 //Se quita el * de la consulta para obtener solo los campos que me interesan y se guarda en una nueva variable
                 //var ajustarQuery = FiltroAvanzado.Replace("*", "Cliente, RFC, IDEmpleado, Total, Folio, Serie, FechaOperacion");
+                VisualizadorReporteVentas VRV = new VisualizadorReporteVentas(codigosBuscar,cbTipoVentas.SelectedIndex);
+                VRV.ShowDialog();
 
-                var ajustarQuery = $"SELECT Cliente, RFC, IDEmpleado, Total, Folio, Serie, FechaOperacion FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar})";
-
-
-                var query = cn.CargarDatos(ajustarQuery);
-
-                if (!query.Rows.Count.Equals(0))
-                {
-                    Utilidades.GenerarReporteVentas(opcion, query);
-                }
+                //if (!query.Rows.Count.Equals(0))
+                //{
+                //    Utilidades.GenerarReporteVentas(opcion, query);
+                //}
             }
             else
             {

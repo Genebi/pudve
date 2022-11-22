@@ -576,7 +576,7 @@ namespace PuntoDeVentaV2
                             }
 
                             var UnionQuerysTodosLosTotales = string.Join("UNION", QuerysDeTodosLosTotalesAbonos);
-
+                             
                             if (!string.IsNullOrWhiteSpace(UnionQuerysTodosLosTotales))
                             {
                                 using (DataTable dtUnionQuerysTodosLosTotales = cn.CargarDatos(UnionQuerysTodosLosTotales))
