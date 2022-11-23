@@ -655,12 +655,11 @@ namespace PuntoDeVentaV2
                         {
                             if (!dtAbonos.Rows.Count.Equals(0))
                             {
-                                //lbCambioAbonos.Visible = true;
                                 foreach (DataRow item in dtAbonos.Rows)
                                 {
                                     var idEmpleadoRecibioAbonoACredito = item["IDEmpleado"].ToString();
 
-                                    if (!idEmpleadoRecibioAbonoACredito.Equals("0"))
+                                    if (idEmpleadoRecibioAbonoACredito.Equals(idUsuarioEmpleado))
                                     {
                                         totalAbonoEfectivo += Convert.ToDecimal(item["Efectivo"].ToString());
                                         totalAbonoTarjeta += Convert.ToDecimal(item["Tarjeta"].ToString());
@@ -679,7 +678,6 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                //lbCambioAbonos.Visible = false;
                                 lbTCreditoC.Text = (totalAbonoRealizado + totalAbonoRealizadoOtrasVentas).ToString("C2");
                             }
                         }
@@ -687,7 +685,6 @@ namespace PuntoDeVentaV2
                         {
                             if (!dtAbonosDeOtrosUsuarios.Rows.Count.Equals(0))
                             {
-                                //lbCambioAbonos.Visible = true;
                                 foreach (DataRow item in dtAbonosDeOtrosUsuarios.Rows)
                                 {
                                     totalAbonoEfectivo += Convert.ToDecimal(item["Efectivo"].ToString());
@@ -701,7 +698,6 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                //lbCambioAbonos.Visible = false;
                                 lbTCreditoC.Text = (totalAbonoRealizado + totalAbonoRealizadoDeOtrosUsuarios + totalAbonoRealizadoOtrasVentas).ToString("C2");
                             }
                         }
