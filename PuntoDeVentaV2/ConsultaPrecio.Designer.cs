@@ -78,11 +78,13 @@ namespace PuntoDeVentaV2
             this.Controls.Add(this.btnBuscar);
             this.Controls.Add(this.txtBusqueda);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.KeyPreview = true;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ConsultaPrecio";
             this.Text = "ConsultaPrecio";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.ConsultaPrecio_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConsultaPrecio_KeyDown);
             this.ResumeLayout(false);
