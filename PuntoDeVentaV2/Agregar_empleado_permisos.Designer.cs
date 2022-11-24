@@ -551,6 +551,7 @@
             this.dDGVDeshabilitados.TabIndex = 124;
             this.dDGVDeshabilitados.Visible = false;
             this.dDGVDeshabilitados.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dDGVDeshabilitados_CellClick);
+            this.dDGVDeshabilitados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dDGVDeshabilitados_CellContentClick);
             // 
             // IDDeshabilitado
             // 
