@@ -2002,6 +2002,7 @@ namespace PuntoDeVentaV2
             filtros.Clear();
 
             reiniciarVariablesDeSistemaPrecio();
+            reiniciarVariablesDeSistemaPrecioCompra();
             reiniciarVariablesDeSistemaStock();
             reiniciarVariablesDeSistemaNoRevision();
             reiniciarVariablesDeSistemaTipo();
@@ -3146,6 +3147,13 @@ namespace PuntoDeVentaV2
                                 setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString());
                             }
                         }
+                        if (drFiltroProducto["concepto"].ToString().Equals("chkBoxPrecioCompra"))
+                        {
+                            if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
+                            {
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString());
+                            }
+                        }
                         if (drFiltroProducto["concepto"].ToString().Equals("chkBoxRevision"))
                         {
                             if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
@@ -4123,6 +4131,10 @@ namespace PuntoDeVentaV2
             {
                 reiniciarVariablesDeSistemaPrecio();
             }
+            else if (name.Equals("PrecioCompra"))
+            {
+                reiniciarVariablesDeSistemaPrecioCompra();
+            }
             else if (name.Equals("Stock") || name.Equals("StockMinimo") || name.Equals("StockNecesario") || name.Equals("CantidadPedir"))
             {
                 reiniciarVariablesDeSistemaStock();
@@ -4188,6 +4200,7 @@ namespace PuntoDeVentaV2
         public void inicializarVariablesFiltro()
         {
             reiniciarVariablesDeSistemaPrecio();
+            reiniciarVariablesDeSistemaPrecioCompra();
             reiniciarVariablesDeSistemaStock();
             reiniciarVariablesDeSistemaNoRevision();
             reiniciarVariablesDeSistemaTipo();
@@ -4263,6 +4276,13 @@ namespace PuntoDeVentaV2
         private void reiniciarVariablesDeSistemaPrecio()
         {
             string FiltroProducto = "chkBoxPrecio";
+
+            reiniciarFiltroDinamicoTresCampos(FiltroProducto);
+        }
+
+        private void reiniciarVariablesDeSistemaPrecioCompra()
+        {
+            string FiltroProducto = "chkBoxPrecioCompra";
 
             reiniciarFiltroDinamicoTresCampos(FiltroProducto);
         }
@@ -4470,7 +4490,7 @@ namespace PuntoDeVentaV2
 
                 string[] columnasComunes = new string[] {
                     "Stock", "StockMinimo", "StockNecesario",
-                    "Precio", "NumeroRevision", "CantidadPedir"
+                    "Precio", "PrecioCompra", "NumeroRevision", "CantidadPedir"
                 };
 
                 foreach (var filtro in filtros)
