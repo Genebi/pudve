@@ -93,7 +93,7 @@ namespace PuntoDeVentaV2
 
         private void CargarPermisosPlantilla()
         {
-            var DTPlantillaPermisos = cn.CargarDatos($"SELECT Anticipo,Caja,clientes,configuracion,empleado,factura,inventario,misdatos,productos,proveedor,reportes,precio,ventas, bascula,configuracion FROM plantillapermisos WHERE IDUsuario = {FormPrincipal.userID} AND ID = {IDPlantilla} AND Estatus = 1");
+            var DTPlantillaPermisos = cn.CargarDatos($"SELECT Anticipo,Caja,clientes,configuracion,empleado,factura,inventario,misdatos,productos,proveedor,reportes,precio,ventas, bascula,ConsultaPrecio FROM plantillapermisos WHERE IDUsuario = {FormPrincipal.userID} AND ID = {IDPlantilla} AND Estatus = 1");
             if (!DTPlantillaPermisos.Rows.Count.Equals(0))
             {
                 string PermisosJusntos = string.Empty;
@@ -975,6 +975,11 @@ namespace PuntoDeVentaV2
                 dDGVDeshabilitados.Rows.Clear();
                 CargarPermisosPlantilla();
             }
+        }
+
+        private void dDGVDeshabilitados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
