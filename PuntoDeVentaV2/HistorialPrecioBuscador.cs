@@ -829,6 +829,11 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+            if (chTodos.Checked.Equals(true))
+            {
+                chTodos.Checked = false;
+                chTodos.Checked = true;
+            }
         }
 
         private void btnAnterior_Click(object sender, EventArgs e)
@@ -837,6 +842,11 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+            if (chTodos.Checked.Equals(true))
+            {
+                chTodos.Checked = false;
+                chTodos.Checked = true;
+            }
         }
 
         private void linkLblPaginaAnterior_Click(object sender, EventArgs e)
@@ -858,6 +868,11 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+            if (chTodos.Checked.Equals(true))
+            {
+                chTodos.Checked = false;
+                chTodos.Checked = true;
+            }
         }
 
         private void btnSiguiente_Click(object sender, EventArgs e)
@@ -866,6 +881,11 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+            if (chTodos.Checked.Equals(true))
+            {
+                chTodos.Checked = false;
+                chTodos.Checked = true;
+            }
         }
 
         private void btnUltimaPagina_Click(object sender, EventArgs e)
@@ -874,6 +894,11 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+            if (chTodos.Checked.Equals(true))
+            {
+                chTodos.Checked = false;
+                chTodos.Checked = true;
+            }
         }
 
         private void btnActualizarMaximoProductos_Click(object sender, EventArgs e)
@@ -1006,6 +1031,11 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private void linkLblPaginaAnterior_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
         }
     }
 }

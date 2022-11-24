@@ -414,6 +414,7 @@
             this.linkLblPaginaAnterior.TabIndex = 42;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "2";
+            this.linkLblPaginaAnterior.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblPaginaAnterior_LinkClicked);
             this.linkLblPaginaAnterior.Click += new System.EventHandler(this.linkLblPaginaAnterior_Click);
             // 
             // btnActualizarMaximoProductos
