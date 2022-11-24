@@ -849,7 +849,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    if (buscarPorFecha == 1)
+                            if (buscarPorFecha == 1)
                     {
                         fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
                         horaInicial = dpHoraInicial.Value.ToString("HH:mm");

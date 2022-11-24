@@ -159,7 +159,7 @@ namespace PuntoDeVentaV2
             decimal credito2 = 0;
             if (!string.IsNullOrWhiteSpace(txtCredito.Text))
             {
-                 credito2 = Convert.ToDecimal(txtCredito.Text);
+                credito2 = Convert.ToDecimal(txtCredito.Text);
 
                 if (idCliente.Equals(0) && credito2 > 0)
                 {
@@ -167,8 +167,8 @@ namespace PuntoDeVentaV2
                     return;
                 }
             }
-            
-            
+
+
             Ventas venta = new Ventas();
             float pagado = (CantidadDecimal(txtEfectivo.Text) + SumaMetodos()) * 100 / 100;
 
@@ -204,7 +204,7 @@ namespace PuntoDeVentaV2
                 listaCantidades.Add(txtCheque.Text);
                 listaCantidades.Add(txtVales.Text);
 
-                        var mayor = getMayorNumber(listaCantidades);
+                var mayor = getMayorNumber(listaCantidades);
 
                 float checarEfectivo = 0,
                         checarTarjeta = 0,
@@ -248,7 +248,7 @@ namespace PuntoDeVentaV2
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
 
-                if (credito2>0)
+                if (credito2 > 0)
                 {
                     Ventas.statusVenta = "4";
                     Ventas.formaDePagoDeVenta = "Crédito";
@@ -294,7 +294,7 @@ namespace PuntoDeVentaV2
                 //    Ventas.statusVenta = "1";
                 //}
 
-                if (Ventas.etiqeutaCliente == "vacio")
+                if (Ventas.etiqeutaCliente == "vacio" || Ventas.idCliente == "")
                 {
                     if (!cliente.Equals(string.Empty))
                     {
@@ -765,11 +765,11 @@ namespace PuntoDeVentaV2
         private void EventoTab(object sender, PreviewKeyDownEventArgs e)
         {
             var campos = new string[] {
-                "txtEfectivo", 
+                "txtEfectivo",
                 "txtTarjeta",
-                "txtTransferencia", 
+                "txtTransferencia",
                 "txtCheque",
-                "txtVales", 
+                "txtVales",
                 "txtCredito"
             };
 
