@@ -46,6 +46,7 @@ namespace PuntoDeVentaV2
             cbImagen.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbNumeroRevision.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbPrecio.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbPrecioCompra.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbProveedor.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbStock.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbStockMinimo.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
@@ -82,6 +83,10 @@ namespace PuntoDeVentaV2
                 cbPrecio.DataSource = sourceOpciones.ToArray();
                 cbPrecio.ValueMember = "Key";
                 cbPrecio.DisplayMember = "Value";
+
+                cbPrecioCompra.DataSource = sourceOpciones.ToArray();
+                cbPrecioCompra.ValueMember= "Key";
+                cbPrecioCompra.DisplayMember= "Value";
 
                 cbCantidadPedir.DataSource = sourceOpciones.ToArray();
                 cbCantidadPedir.ValueMember = "Key";
@@ -170,6 +175,7 @@ namespace PuntoDeVentaV2
                 checkStockMinimo.CheckedChanged += checkEstaticos_CheckedChanged;
                 checkStockNecesario.CheckedChanged += checkEstaticos_CheckedChanged;
                 checkPrecio.CheckedChanged += checkEstaticos_CheckedChanged;
+                checkPrecioCompra.CheckedChanged+= checkEstaticos_CheckedChanged;
                 checkCantidadPedir.CheckedChanged += checkEstaticos_CheckedChanged;
                 checkNumeroRevision.CheckedChanged += checkEstaticos_CheckedChanged;
             }
@@ -205,7 +211,7 @@ namespace PuntoDeVentaV2
             {
                 Font fuente = new Font("Century Gothic", 9.0f);
 
-                int alturaEjeY = 420;
+                int alturaEjeY = 460;
 
                 foreach (var opcion in opcionesDefault)
                 {
@@ -308,7 +314,7 @@ namespace PuntoDeVentaV2
 
                                 filtros.Add(nombreCB, new Tuple<string, float>(opcion, cantidad));
                             }
-                            else if (nombreCB == "Precio" || nombreCB == "CantidadPedir" || nombreCB == "NumeroRevision")
+                            else if (nombreCB.Equals("Precio") || nombreCB.Equals("PrecioCompra") || nombreCB.Equals("CantidadPedir") || nombreCB.Equals("NumeroRevision"))
                             {
                                 var txtCustom = (TextBox)Controls.Find("txt" + nombreCB, true).FirstOrDefault();
 
@@ -347,7 +353,7 @@ namespace PuntoDeVentaV2
                 if (origen == 2)
                 {
                     // Actualizar tablas de filtros para las etiquetas
-                    string[] conceptosEstaticos = new string[] { "Stock", "StockMinimo", "StockNecesario", "Precio", "NumeroRevision", "CantidadPedir", "Imagen", "Tipo", "Descuento" };
+                    string[] conceptosEstaticos = new string[] { "Stock", "StockMinimo", "StockNecesario", "Precio", "PrecioCompra", "NumeroRevision", "CantidadPedir", "Imagen", "Tipo", "Descuento" };
 
                     foreach (var filtro in filtros)
                     {
