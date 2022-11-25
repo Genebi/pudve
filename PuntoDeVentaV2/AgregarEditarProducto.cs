@@ -2182,6 +2182,11 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Por favor poner Datos Validos\npara el campo de NOMBRE DE PRODUCTO", "Alerta del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+            if (Convert.ToDecimal(txtPrecioCompra.Text)>= Convert.ToDecimal(txtPrecioProducto.Text))
+            {
+                MessageBox.Show("El precio del producto debe ser mayor al precio compra", "Alerta del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
                 contador++;
                 var tituloVentana = string.Empty;
 
