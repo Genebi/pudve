@@ -677,6 +677,7 @@
             this.txtDescuentoGeneral.Location = new System.Drawing.Point(8, 8);
             this.txtDescuentoGeneral.Multiline = true;
             this.txtDescuentoGeneral.Name = "txtDescuentoGeneral";
+            this.txtDescuentoGeneral.ShortcutsEnabled = false;
             this.txtDescuentoGeneral.Size = new System.Drawing.Size(100, 23);
             this.txtDescuentoGeneral.TabIndex = 35;
             this.txtDescuentoGeneral.Text = "% descuento";
@@ -777,6 +778,7 @@
             0,
             0,
             0});
+            this.nudCantidadPS.ValueChanged += new System.EventHandler(this.nudCantidadPS_ValueChanged);
             this.nudCantidadPS.Click += new System.EventHandler(this.nudCantidadPS_Click);
             // 
             // lbCantidad

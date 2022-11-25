@@ -8442,9 +8442,14 @@ namespace PuntoDeVentaV2
             listaProductos.Visible = false;
         }
 
+        private void nudCantidadPS_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void txtBuscadorProducto_Enter(object sender, EventArgs e)
         {
-            tieneElCursorElTxtBuscadorProducto = true;
+             tieneElCursorElTxtBuscadorProducto = true;
         }
 
         private void txtBuscadorProducto_TextChanged(object sender, EventArgs e)
