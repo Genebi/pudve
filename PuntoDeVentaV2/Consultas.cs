@@ -4935,7 +4935,7 @@ namespace PuntoDeVentaV2
 
         public string AbonosRealizadosRecientementeAdministrador(string fechaOperacion)
         {
-            var consulta = $"SELECT * FROM abonos AS Abono WHERE Abono.ID > ( SELECT MAX(ID) AS 'ID' FROM abonos WHERE IDVenta < ( SELECT MAX(ID) AS 'ID' FROM ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND IDEmpleado = '0' AND `Status` = '4' AND FechaOperacion > '{fechaOperacion}' ) AND IDEmpleado = '0' ORDER BY ID DESC LIMIT 1 ) AND Abono.IDUsuario = '{FormPrincipal.userID}' AND Abono.IDEmpleado = '0' AND Abono.FechaOperacion > '{fechaOperacion}'";
+            var consulta = $"SELECT * FROM abonos AS Abono WHERE Abono.ID > ( SELECT MAX(ID) AS 'ID' FROM abonos WHERE IDVenta > ( SELECT MAX(ID) AS 'ID' FROM ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND IDEmpleado = '0' AND `Status` = '4' AND FechaOperacion > '{fechaOperacion}' ) AND IDEmpleado = '0' ORDER BY ID DESC LIMIT 1 ) AND Abono.IDUsuario = '{FormPrincipal.userID}' AND Abono.IDEmpleado = '0' AND Abono.FechaOperacion > '{fechaOperacion}'";
 
             return consulta;
         }
