@@ -749,6 +749,12 @@
     <Compile Include="FormNotaVentaHDA.Designer.cs">
       <DependentUpon>FormNotaVentaHDA.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReporteHistorialVentasProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReporteHistorialVentasProducto.Designer.cs">
+      <DependentUpon>FormReporteHistorialVentasProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormReporteInventario.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1240,6 +1246,15 @@
       <DependentUpon>DTInventario.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\HistorialVenta\DatosHistorialVenta.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatosHistorialVenta.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="ReportesImpresion\Ticket\HistorialVenta\DatosHistorialVenta.cs">
+      <DependentUpon>DatosHistorialVenta.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\ImpimirReporteCaja\DSReporteCaja.cs">
       <DependentUpon>DSReporteCaja.xsd</DependentUpon>
     </Compile>
@@ -1857,6 +1872,9 @@
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormReporteHistorialVentasProducto.resx">
+      <DependentUpon>FormReporteHistorialVentasProducto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormReporteInventario.resx">
       <DependentUpon>FormReporteInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -2142,6 +2160,9 @@
     <Content Include="ReportesImpresion\Ticket\ImpimirReporteCaja\ReporteCaja.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\HistorialVenta\ReporteHistorialVenta.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -2391,6 +2412,20 @@
     </Content>
     <Content Include="ReportesImpresion\Ticket\Inventario\DTInventario.xss">
       <DependentUpon>DTInventario.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\HistorialVenta\DatosHistorialVenta.xsc">
+      <DependentUpon>DatosHistorialVenta.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\HistorialVenta\DatosHistorialVenta.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatosHistorialVenta.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\HistorialVenta\DatosHistorialVenta.xss">
+      <DependentUpon>DatosHistorialVenta.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="ReportesImpresion\Ticket\ImpimirReporteCaja\DSReporteCaja.xsc">

@@ -246,6 +246,8 @@ namespace PuntoDeVentaV2
 
         string mensajeParaMostrar = string.Empty;
 
+        public static bool HistorialVenta = false;
+
         // Imagenes para el boton habilitar/deshabilitar productos
         System.Drawing.Image deshabilitarIcon = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
         System.Drawing.Image habilitarIcon = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\arrow-up.png");
@@ -1169,7 +1171,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-
+                    HistorialVenta = true;
                     idProductoHistorialStock = idProducto;
                     using (var historial = new TipoHistorial(idProducto))
                     {
@@ -1186,6 +1188,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
+                    HistorialVenta = false;
                 }
                 else if (e.ColumnIndex == 10)
                 {
