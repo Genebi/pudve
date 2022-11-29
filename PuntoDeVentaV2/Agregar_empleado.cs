@@ -247,7 +247,7 @@ namespace PuntoDeVentaV2
                         else
                         {
                             string[] listapermisos = datosPermisosSeleccionados;
-                            cn.EjecutarConsulta($"UPDATE empleados SET IDUsuario = {FormPrincipal.userID},p_anticipo ={listapermisos[2]}, p_caja ={listapermisos[3]}, p_cliente = {listapermisos[4]}, p_config ={listapermisos[5]}, p_empleado = {listapermisos[6]}, p_factura = {listapermisos[8]}, p_inventario = {listapermisos[9]}, p_mdatos = {listapermisos[10]}, p_producto = {listapermisos[11]}, p_proveedor ={listapermisos[12]}, p_reporte= {listapermisos[13]}, p_venta = {listapermisos[14]}, Bascula = {listapermisos[12]}, ConsultaPrecio = {listapermisos[15]} WHERE IDUsuario = {FormPrincipal.userID} AND ID = {id_empleado}");
+                            cn.EjecutarConsulta($"UPDATE empleados SET IDUsuario = {FormPrincipal.userID},p_anticipo ={listapermisos[2]}, p_caja ={listapermisos[3]}, p_cliente = {listapermisos[4]}, p_config ={listapermisos[5]}, p_empleado = {listapermisos[6]}, p_factura = {listapermisos[8]}, p_inventario = {listapermisos[9]}, p_mdatos = {listapermisos[10]}, p_producto = {listapermisos[11]}, p_proveedor ={listapermisos[12]}, p_reporte= {listapermisos[13]}, p_venta = {listapermisos[14]}, Bascula = {listapermisos[12]}, ConsultaPrecio = {listapermisos[16]} WHERE IDUsuario = {FormPrincipal.userID} AND ID = {id_empleado}");
                         }
                         
                     }
