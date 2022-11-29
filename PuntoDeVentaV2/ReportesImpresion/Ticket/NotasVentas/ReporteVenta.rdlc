@@ -1825,7 +1825,7 @@
             <Source>External</Source>
             <Value>=Parameters!Logo.Value</Value>
             <Sizing>Fit</Sizing>
-            <Left>1.01036cm</Left>
+            <Left>0.98708cm</Left>
             <Height>4.48857cm</Height>
             <Width>6.13443cm</Width>
             <ZIndex>31</ZIndex>

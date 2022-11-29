@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Microsoft.Reporting.WinForms;
+using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,129 +13,36 @@ using System.Windows.Forms;
 
 namespace PuntoDeVentaV2
 {
-    public partial class FechasReportes : Form
+    public partial class FormReporteHistorialVentasProducto : Form
     {
-        MetodosBusquedas mb = new MetodosBusquedas();
         Conexion cn = new Conexion();
-
-        public string concepto { get; set; }
-        public string fechaInicial { get; set; }
-        public string fechaFinal { get; set; }
-
-        private string origen = string.Empty;
-
-        public static string idEncontrado { get; set; }
-        public static string lugarProcedencia { get; set; }
-       
-        public FechasReportes(string origen = "")
+        Consultas cs = new Consultas();
+        int IDProd;
+        string IDSEmple, FechaI, FechaF;
+        string DireccionLogo;
+        bool SiHayLogo = false;
+        string pathLogoImage;
+        public static string ruta_archivos_guadados = @"C:\Archivos PUDVE\MisDatos\CSD\";
+        DataTable DTDatos2 = new DataTable();
+        public FormReporteHistorialVentasProducto(int IDProducto,string IDEmpleado, string FechaIncio, string FechaFinal)
         {
             InitializeComponent();
-
-
-            this.origen = origen;
+            this.IDProd = IDProducto;
+            this.IDSEmple = IDEmpleado;
+            this.FechaI = FechaIncio;
+            this.FechaF = FechaFinal;
         }
 
-        private void FechasReportes_Load(object sender, EventArgs e)
+        private void FormReporteHistorialVentasProducto_Load(object sender, EventArgs e)
         {
-            cbConceptos.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
-            cbEmpleados.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
-
-            primerDatePicker.Value = DateTime.Today.AddDays(-30);
-            DateTime date = DateTime.Now;
-            DateTime PrimerDia = new DateTime(date.Year, date.Month - 1, 1);
-            primerDatePicker.Value = PrimerDia;
-
-            if (!string.IsNullOrEmpty(origen))
-            {
-                var conceptos = mb.ObtenerConceptosDinamicos(origen: origen);
-
-                //cbConceptos.Visible = true;
-                cbConceptos.DataSource = conceptos.ToArray();
-                cbConceptos.DisplayMember = "Value";
-                cbConceptos.ValueMember = "Key";
-            }
-
-            cargarDatosCombo();
+            CargarDatos();
+            CargarRdcl();
+            this.reportViewer1.RefreshReport();
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void btnAceptar_Click(object sender, EventArgs e)
-        {
-            if (Productos.HistorialVenta.Equals(false))
-            {
-                if (cbEmpleados.SelectedIndex.Equals(0))
-                {
-                    MessageBox.Show("Seleccione si es Empleado o Producto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    cbEmpleados.Focus();
-                }
-                else
-                {
-                    fechaInicial = primerDatePicker.Value.ToString("yyyy-MM-dd");
-                    fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd");
-
-                    var tipoBusqurda = cbEmpleados.SelectedItem.ToString();
-
-                    var existencia = verificarExistencia(tipoBusqurda);
-
-                    if (existencia)
-                    {
-                        HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda, fechaInicial, fechaFinal);
-
-                        if (tipoBusqurda.Equals("Seleccionar Empleado/Producto") || tipoBusqurda.Equals("Reporte general"))
-                        {
-                            terminarOperaciones();
-                        }
-                        else
-                        {
-                            hpBuscador.FormClosed += delegate
-                            {
-                                var idBusqueda = HistorialPrecioBuscador.idEmpleadoObtenido;
-                                if (!string.IsNullOrEmpty(idBusqueda))
-                                {
-                                    terminarOperaciones();
-                                }
-                            };
-
-                            hpBuscador.ShowDialog();
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show($"No cuenta con ningun {tipoBusqurda}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
-            }
-            else
-            {
-                fechaInicial = primerDatePicker.Value.ToString("yyyy-MM-dd");
-                fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd");
-                var tipoBusqurda = cbEmpleados.SelectedItem.ToString();
-                if (cbEmpleados.SelectedIndex.Equals(1))
-                {
-                    HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda, fechaInicial, fechaFinal);
-                    hpBuscador.ShowDialog();
-                }
-                else
-                {
-                    var algo = Validacion(Productos.idProductoHistorialStock, "", fechaInicial, fechaFinal);
-                    if (algo.Equals(true))
-                    {
-                        FormReporteHistorialVentasProducto formReporte = new FormReporteHistorialVentasProducto(Productos.idProductoHistorialStock, "", fechaInicial, fechaFinal);
-                        formReporte.ShowDialog();
-                    }
-                }
-            }
-
-        }
-        #region
-        private bool Validacion(int IDProd, string IDSEmple, string FechaI, string FechaF)
+        private void CargarDatos()
         {
             DataTable DTDatos = new DataTable();
-            bool TodoCorrecto = false;
             string IDsVentas = "";
             using (var DTIDVenta1 = cn.CargarDatos($"SELECT IDVenta FROM productosventa WHERE IDProducto = {IDProd}"))
             {
@@ -144,12 +54,12 @@ namespace PuntoDeVentaV2
                         IDsVentas += DTIDVenta1.Rows[row]["IDVenta"].ToString() + ",";
                         row++;
                     }
-                    IDsVentas = IDsVentas.TrimEnd(',');
+                    IDsVentas=IDsVentas.TrimEnd(',');
                 }
                 else
                 {
-                    MessageBox.Show("Este producto no a sido vendido", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return TodoCorrecto;
+                    MessageBox.Show("Este producto no a sido vendido","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    return;
                 }
             }
             if (!IDSEmple.Equals(""))
@@ -176,7 +86,7 @@ namespace PuntoDeVentaV2
                             Usuario = dtusuario.Rows[0]["usuario"].ToString();
                         }
                         MessageBox.Show($"El usuario {Usuario} no a vendido este producto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return TodoCorrecto;
+                        return;
                     }
                 }
 
@@ -228,7 +138,7 @@ namespace PuntoDeVentaV2
                     }
                     rows++;
                 }
-                TodoCorrecto = true;
+
             }
             else
             {
@@ -243,6 +153,7 @@ namespace PuntoDeVentaV2
                         foreach (var item in DTIDSVentaPorEmpleadoYFecha.Rows)
                         {
                             IDsVentasporFechaYEmpleado += DTIDSVentaPorEmpleadoYFecha.Rows[row]["ID"].ToString() + ",";
+                            row++;
                         }
                         IDsVentasporFechaYEmpleado = IDsVentasporFechaYEmpleado.TrimEnd(',');
                     }
@@ -250,7 +161,7 @@ namespace PuntoDeVentaV2
                     {
 
                         MessageBox.Show($"Este producto no se ha vendido", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return TodoCorrecto;
+                        return;
                     }
                 }
 
@@ -310,135 +221,118 @@ namespace PuntoDeVentaV2
                     }
                     rows++;
                 }
-                TodoCorrecto = true;
             }
-            return TodoCorrecto;
-        }
-        #endregion
-        private bool verificarExistencia(string empleadoProducto)
-        {
-            var result = false;
-            var tipoEstado = string.Empty;
-            //if (origen.Equals("Productos"))
-            //{
-
-            if (empleadoProducto.Equals("Reporte general"))
-            {
-                empleadoProducto = "Seleccionar Empleado/Producto";
-            }
-            empleadoProducto = "Productos";
-            tipoEstado = "`Status`";
-
-            if (empleadoProducto.Equals("Empleados"))
-            {
-                tipoEstado = "estatus";
-            }
-            else if (empleadoProducto.Equals("Productos"))
-            {
-                tipoEstado = "`Status`";
-            }
-            else if (empleadoProducto.Equals("Seleccionar Empleado/Producto"))
-            {
-                result = true;
-            }
-            //}
-
-            var query = cn.CargarDatos($"SELECT * FROM {empleadoProducto} WHERE IDUsuario = '{FormPrincipal.userID}' AND {tipoEstado} = 1");
-
-            if (!query.Rows.Count.Equals(0))
-            {
-                result = true;
-            }
-
-            return result;
+            DTDatos2 = DTDatos;
         }
 
-        private void cargarDatosCombo()
+        private void CargarRdcl()
         {
-            if (!origen.Equals("Productos"))
+            string cadenaConn = string.Empty;
+            string queryVentas = string.Empty;
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
             {
-                cbEmpleados.Items.Add("Seleccionar una opción");
+                cadenaConn = $"datasource={Properties.Settings.Default.Hosting};port=6666;username=root;password=;database=pudve;";
             }
             else
             {
-                cbEmpleados.Items.Add("Reporte general");
+                cadenaConn = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
             }
 
-            cbEmpleados.Items.Add("Empleados");
-
-            if (!origen.Equals("Productos"))
+            MySqlConnection conn = new MySqlConnection();
+            conn.ConnectionString = cadenaConn;
+            try
             {
-                cbEmpleados.Items.Add("Productos");
+                conn.Open();
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
             }
 
-            cbEmpleados.SelectedIndex = 0;
-            //var query = cn.CargarDatos($"SELECT Nombre FROM Empleados WHERE IDUsuario = '{FormPrincipal.userID}'");
-            //cbEmpleados.Items.Add("Seleccionar concepto...");
-            //if (!query.Rows.Count.Equals(0))
-            //{
-            //    foreach (DataRow empleados in query.Rows)
-            //    {
-            //        cbEmpleados.Items.Add(empleados["Nombre"].ToString());
-            //    }
-            //}
-        }
+            string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\HistorialVenta\ReporteHistorialVenta.rdlc";
 
-        private void terminarOperaciones()
-        {
-            concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
-            fechaInicial = primerDatePicker.Value.ToString("yyyy-MM-dd");
-            fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd");
 
-            idEncontrado = HistorialPrecioBuscador.idEmpleadoObtenido;
-            lugarProcedencia = HistorialPrecioBuscador.procedencia;
-
-            DialogResult = DialogResult.OK;
-            Reportes.botonAceptar = true;
-            Close();
-        }
-
-        private void FechasReportes_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Escape)
+            var servidor = Properties.Settings.Default.Hosting;
+            string saveDirectoryImg = @"C:\Archivos PUDVE\MisDatos\Usuarios\";
+            using (DataTable ConsultaLogo = cn.CargarDatos(cs.buscarNombreLogoTipo2(FormPrincipal.userID)))
             {
-                this.Close();
-            }
-        }
-
-        private void cbEmpleados_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            if (e.Index.Equals(0))
-            {
-                ComboBox combo = ((ComboBox)sender);
-                using (SolidBrush brush = new SolidBrush(e.ForeColor))
+                if (!ConsultaLogo.Rows.Count.Equals(0))
                 {
-                    Font font = e.Font;
-                    if (combo.Text.Equals("Seleccionar una opción"))
+                    string Logo = ConsultaLogo.Rows[0]["Logo"].ToString();
+                    if (!Logo.Equals(""))
                     {
-                        font = new Font(font, FontStyle.Bold);
+
+                        if (!Directory.Exists(saveDirectoryImg))    // verificamos que si no existe el directorio
+                        {
+                            Directory.CreateDirectory(saveDirectoryImg);    // lo crea para poder almacenar la imagen
+                        }
+                        if (!string.IsNullOrWhiteSpace(servidor))
+                        {
+                            // direccion de la carpeta donde se va poner las imagenes
+                            pathLogoImage = new Uri($"C:/Archivos PUDVE/MisDatos/Usuarios/").AbsoluteUri;
+                            // ruta donde estan guardados los archivos digitales
+                            ruta_archivos_guadados = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_{Logo}\";
+                        }
+                        else
+                        {
+                            // direccion de la carpeta donde se va poner las imagenes
+                            pathLogoImage = new Uri($"C:/Archivos PUDVE/MisDatos/Usuarios/").AbsoluteUri;
+                            // ruta donde estan guardados los archivos digitales
+                            ruta_archivos_guadados = $@"C:\Archivos PUDVE\MisDatos\CSD_{Logo}\";
+
+                            DireccionLogo = pathLogoImage + Logo;
+
+                        }
+                        SiHayLogo = true;
                     }
-                    e.DrawBackground();
-                    e.Graphics.DrawString(combo.Items[e.Index].ToString(), font, brush, e.Bounds);
-                    e.DrawFocusRectangle();
                 }
             }
+            ReportParameterCollection reportParameters = new ReportParameterCollection();
+            if (SiHayLogo.Equals(true))
+            {
+                reportParameters.Add(new ReportParameter("Logo", DireccionLogo));
+            }
+            else
+            {
+                DireccionLogo = "";
+                reportParameters.Add(new ReportParameter("Logo", DireccionLogo));
+            }
+            string Nombre,Email,Telefono;
+            using (var DTusuario = cn.CargarDatos($"SELECT NombreCompleto,Email,Telefono FROM `usuarios` WHERE ID = {FormPrincipal.userID}") )
+            {
+                Nombre = DTusuario.Rows[0]["NombreCompleto"].ToString();
+                Email = DTusuario.Rows[0]["Email"].ToString();
+                Telefono = DTusuario.Rows[0]["Telefono"].ToString();
+            }
+            reportParameters.Add(new ReportParameter("Nombre", Nombre));
+            reportParameters.Add(new ReportParameter("Email", Email));
+            reportParameters.Add(new ReportParameter("Telefono", Telefono));
+            string NombreProducto,CodigoBarras;
+            using (var DTProducto = cn.CargarDatos($"SELECT Nombre,CodigoBarras FROM `productos` WHERE ID = {IDProd}"))
+            {
+                NombreProducto = DTProducto.Rows[0]["Nombre"].ToString();
+                CodigoBarras = DTProducto.Rows[0]["CodigoBarras"].ToString();
+            }
+            reportParameters.Add(new ReportParameter("NombreProducto", NombreProducto));
+            reportParameters.Add(new ReportParameter("CodigoBarras", CodigoBarras));
+
+            LocalReport rdlc = new LocalReport();
+            rdlc.EnableExternalImages = true;
+            rdlc.ReportPath = FullReportPath;
+           rdlc.SetParameters(reportParameters);
+
+            this.reportViewer1.ProcessingMode = ProcessingMode.Local;
+            this.reportViewer1.LocalReport.ReportPath = FullReportPath;
+            this.reportViewer1.LocalReport.DataSources.Clear();
+
+            ReportDataSource ReporteHistorialVenta = new ReportDataSource("DTHistorialVenta", DTDatos2);
+
+            this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
+            this.reportViewer1.LocalReport.DataSources.Add(ReporteHistorialVenta);
+            this.reportViewer1.LocalReport.EnableExternalImages = true;
+            this.reportViewer1.LocalReport.SetParameters(reportParameters);
+            this.reportViewer1.RefreshReport();
         }
-
-        private void primerDatePicker_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        //private void primerDatePicker_ValueChanged(object sender, EventArgs e)
-        //{
-        //    DateTime date = DateTime.Now;
-        //    DateTime PrimerDia = new DateTime(date.Year, date.Month, 1);
-        //    primerDatePicker.Value = PrimerDia;
-        //}
-
-        //private void segundoDatePicker_ValueChanged(object sender, EventArgs e)
-        //{
-        //    segundoDatePicker.Value = DateTime.Now;
-        //}
     }
 }
