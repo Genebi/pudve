@@ -491,22 +491,22 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        using (DataTable dtAbonosRealizadosRecientementeAdministrador = cn.CargarDatos(cs.AbonosRealizadosRecientementeAdministrador(fechaFormateadaCorteParaAbonos)))
-                        {
-                            if (!dtAbonosRealizadosRecientementeAdministrador.Rows.Count.Equals(0))
-                            {
-                                lbCambioAbonos.Visible = true;
-                                foreach (DataRow item in dtAbonosRealizadosRecientementeAdministrador.Rows)
-                                {
-                                    totalAbonoEfectivo += Convert.ToDecimal(item["Efectivo"].ToString());
-                                    totalAbonoTarjeta += Convert.ToDecimal(item["Tarjeta"].ToString());
-                                    totalAbonoVales += Convert.ToDecimal(item["Vales"].ToString());
-                                    totalAbonoCheque += Convert.ToDecimal(item["Cheque"].ToString());
-                                    totalAbonoTransferencia += Convert.ToDecimal(item["Transferencia"].ToString());
-                                    AbonosAOtrasVentasACreditoDeUsuarios += Convert.ToDecimal(item["Total"].ToString());
-                                }
-                            }
-                        }
+                        //using (DataTable dtAbonosRealizadosRecientementeAdministrador = cn.CargarDatos(cs.AbonosRealizadosRecientementeAdministrador(fechaFormateadaCorteParaAbonos)))
+                        //{
+                        //    if (!dtAbonosRealizadosRecientementeAdministrador.Rows.Count.Equals(0))
+                        //    {
+                        //        lbCambioAbonos.Visible = true;
+                        //        foreach (DataRow item in dtAbonosRealizadosRecientementeAdministrador.Rows)
+                        //        {
+                        //            totalAbonoEfectivo += Convert.ToDecimal(item["Efectivo"].ToString());
+                        //            totalAbonoTarjeta += Convert.ToDecimal(item["Tarjeta"].ToString());
+                        //            totalAbonoVales += Convert.ToDecimal(item["Vales"].ToString());
+                        //            totalAbonoCheque += Convert.ToDecimal(item["Cheque"].ToString());
+                        //            totalAbonoTransferencia += Convert.ToDecimal(item["Transferencia"].ToString());
+                        //            AbonosAOtrasVentasACreditoDeUsuarios += Convert.ToDecimal(item["Total"].ToString());
+                        //        }
+                        //    }
+                        //}
 
                         using (DataTable dtAbonosDesdeOtrosUsuarios = cn.CargarDatos(cs.AbonosRealizadosDeOtrosUsuariosAMisVentasACredito(fechaFormateadaCorteParaAbonos)))
                         {       
