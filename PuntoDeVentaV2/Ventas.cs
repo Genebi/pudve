@@ -7602,6 +7602,7 @@ namespace PuntoDeVentaV2
 
                 if (respuesta == DialogResult.OK)
                 {
+                    lbEliminarCliente_Click(lbEliminarCliente, e);
                     var datos = clientes.datosCliente;
                     string cliente = string.Empty;
 
