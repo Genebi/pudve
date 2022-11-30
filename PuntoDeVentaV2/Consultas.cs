@@ -1931,7 +1931,7 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string setBAsculaPrederterminada(int idBascula)
+        public string setBAsculaPredeterminada(int idBascula)
         {
             var consulta = $"UPDATE basculas SET predeterminada = '1' WHERE idUsuario = '{FormPrincipal.userID}' AND idBascula = '{idBascula}'";
 

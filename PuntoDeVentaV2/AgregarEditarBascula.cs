@@ -653,7 +653,7 @@ namespace PuntoDeVentaV2
 
                 if(resultadoReset > 0)
                 {
-                    var resultadoSetPredeterminada = cn.EjecutarConsulta(cs.setBAsculaPrederterminada(IdBascula));
+                    var resultadoSetPredeterminada = cn.EjecutarConsulta(cs.setBAsculaPredeterminada(IdBascula));
 
                     if(resultadoSetPredeterminada > 0)
                     {
