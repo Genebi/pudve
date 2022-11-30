@@ -1931,7 +1931,7 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string setBAsculaPrederterminada(int idBascula)
+        public string setBAsculaPredeterminada(int idBascula)
         {
             var consulta = $"UPDATE basculas SET predeterminada = '1' WHERE idUsuario = '{FormPrincipal.userID}' AND idBascula = '{idBascula}'";
 
@@ -1954,7 +1954,7 @@ namespace PuntoDeVentaV2
 
         public string registrarBasculas(int IdUsuario)
         {
-            var consulta = $@"INSERT IGNORE INTO basculas ( nombreBascula, puerto, baudRate, dataBits, handshake, parity, stopBits, sendData, idUsuario, predeterminada ) VALUES 	( 'TORREY L-PCR-20 KG', 'COM3', '115200', '8 bit', 'None', 'None', 'One', 'P', {IdUsuario}, 0 ), 	( 'TORREY L-PCR-40 KG', 'COM3', '115200', '8 bit', 'None', 'None', 'One', 'P', {IdUsuario}, 1 )";
+            var consulta = $@"INSERT INTO basculas ( nombreBascula, puerto, baudRate, dataBits, handshake, parity, stopBits, sendData, idUsuario, predeterminada ) SELECT * FROM ( SELECT 'TORREY L-PCR-20 KG', 'COM3', '115200', '8 bit', 'None', 'None', 'One', 'P', { IdUsuario }, 0 ) AS tmp WHERE NOT EXISTS ( SELECT nombreBascula FROM basculas WHERE nombreBascula = 'TORREY L-PCR-20 KG' ) LIMIT 1; INSERT INTO basculas ( nombreBascula, puerto, baudRate, dataBits, handshake, parity, stopBits, sendData, idUsuario, predeterminada ) SELECT * FROM ( SELECT 'TORREY L-PCR-40 KG', 'COM3', '115200', '8 bit', 'None', 'None', 'One', 'P', { IdUsuario }, 0 ) AS tmp WHERE NOT EXISTS ( SELECT nombreBascula FROM basculas WHERE nombreBascula = 'TORREY L-PCR-40 KG' ) LIMIT 1; INSERT INTO basculas ( nombreBascula, puerto, baudRate, dataBits, handshake, parity, stopBits, sendData, idUsuario, predeterminada ) SELECT * FROM ( SELECT 'Rhino BAR-6X 20 KG', 'COM3', '9600', '8 bit', 'None', 'None', 'One', 'P', { IdUsuario }, 0 ) AS tmp WHERE NOT EXISTS ( SELECT nombreBascula FROM basculas WHERE nombreBascula = 'Rhino BAR-6X 20 KG' ) LIMIT 1; INSERT INTO basculas ( nombreBascula, puerto, baudRate, dataBits, handshake, parity, stopBits, sendData, idUsuario, predeterminada ) SELECT * FROM ( SELECT 'Rhino BAR-8RS 40 KG', 'COM3', '9600', '8 bit', 'None', 'None', 'One', 'P', { IdUsuario }, 0 ) AS tmp WHERE NOT EXISTS ( SELECT nombreBascula FROM basculas WHERE nombreBascula = 'Rhino BAR-8RS 40 KG' ) LIMIT 1;";
 
             return consulta;
         }
