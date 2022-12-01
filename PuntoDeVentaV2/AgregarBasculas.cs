@@ -377,6 +377,8 @@ namespace PuntoDeVentaV2
                 if (!txtSendData.Text.Equals(string.Empty))
                 {
                     PuertoSerieBascula.Write(txtSendData.Text);
+                    PuertoSerieBascula.Close();
+                    PuertoSerieBascula.Dispose();
                 }
                 else
                 {

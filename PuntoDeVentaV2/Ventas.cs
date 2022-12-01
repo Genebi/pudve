@@ -239,8 +239,10 @@ namespace PuntoDeVentaV2
         // Enviar una solicitud a la bascula
         public void EnviarDatos()
         {
-            // enviar una P para Torrey
+            // enviar una P para Torrey o segun sea el caso
             BasculaCom.Write(sendData);
+            BasculaCom.Close();
+            BasculaCom.Dispose();
         }
 
         // Mostrar los bytes recibidos en el Label recibidos
