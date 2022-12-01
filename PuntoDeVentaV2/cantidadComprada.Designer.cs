@@ -49,10 +49,10 @@ namespace PuntoDeVentaV2
             // 
             this.txtCantidad.Location = new System.Drawing.Point(108, 57);
             this.txtCantidad.Name = "txtCantidad";
+            this.txtCantidad.ShortcutsEnabled = false;
             this.txtCantidad.Size = new System.Drawing.Size(130, 20);
             this.txtCantidad.TabIndex = 2;
             this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtCantidad.TextChanged += new System.EventHandler(this.txtCantidad_TextChanged);
             this.txtCantidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown);
             this.txtCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidad_KeyPress);
             // 
@@ -103,7 +103,7 @@ namespace PuntoDeVentaV2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(343, 127);
+            this.ClientSize = new System.Drawing.Size(339, 123);
             this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAceptar);
@@ -119,7 +119,6 @@ namespace PuntoDeVentaV2
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nueva Cantidad";
             this.Load += new System.EventHandler(this.cantidadComprada_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cantidadComprada_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

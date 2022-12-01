@@ -60,37 +60,17 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void txtCantidad_TextChanged(object sender, EventArgs e)
-        {
-            validarSoloNumeros(sender, e);
-        }
-        private void validarSoloNumeros(object sender, EventArgs e)
-        {
-            TextBox txt = (TextBox)sender;
-            string texto = txt.Text;
-            bool esNum = decimal.TryParse(texto, out decimal algo);
-            if (esNum.Equals(false))
-            {
-                txt.Text = "";
-            }
-        }
-
-        private void cantidadComprada_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Alt && e.KeyCode == Keys.F4)
-            {
-                e.Handled = true;
-            }
-        }
-
         private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
-
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
                 e.Handled = true;
+            }
 
-                return;
+            // solo 1 punto decimal
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
             }
         }
     }
