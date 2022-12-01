@@ -681,14 +681,13 @@ namespace PuntoDeVentaV2
                             sumarProducto = false;
                             restarProducto = false;
                             buscarVG = false;
-                            
+                             
                         }
                         listaProductosVenta();
                         listaProductos.Focus(); 
                     }
                 }
                 listaProductos.Focus();
-                nudCantidadPS.Value = 1;
             }
         }
 
@@ -6877,6 +6876,7 @@ namespace PuntoDeVentaV2
             if (e.KeyData == Keys.Enter)
             {
                 ProductoSeleccionado();
+                nudCantidadPS.Value = 1;
             }
             else
             {
