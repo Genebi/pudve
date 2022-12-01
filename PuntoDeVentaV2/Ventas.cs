@@ -1478,6 +1478,7 @@ namespace PuntoDeVentaV2
 
                             if (resultado == DialogResult.OK)
                             {
+                                enviarVenta.Clear();
                                 DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value = formDescuento.TotalDescuento;
                                 DGVentas.Rows[celdaCellClick].Cells["TipoDescuento"].Value = formDescuento.TipoDescuento;
                             }
@@ -1495,10 +1496,11 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        
-                        
+
+
                         if (yasemando.Equals(false))
                         {
+                            enviarVenta.Clear();
                             string Folio = Contenido;
                             string datosCorreoVenta = formaDePagoDeVenta + "|" + cliente + "|" + Folio;
                             foreach (DataGridViewRow articulo in DGVentas.Rows)
@@ -4255,6 +4257,7 @@ namespace PuntoDeVentaV2
                     {
                         if (correoVenta == 1 || correoDescuento == 1)
                         {
+                            enviarVenta.Clear();
                             foreach (DataGridViewRow articulo in DGVentas.Rows)
                             {
                                 enviarVenta.Add(articulo.Cells["Cantidad"].Value.ToString() + "|" + articulo.Cells["Precio"].Value.ToString() + "|" + articulo.Cells["Descripcion"].Value.ToString() + "|" + articulo.Cells["Descuento"].Value.ToString() + "|" + articulo.Cells["Importe"].Value.ToString() + "|" + datosCorreoVenta + "|" + cAnticipo.Text.Trim() + "|" + cAnticipoUtilizado.Text.Trim() + "|" + cDescuento.Text.Trim());
