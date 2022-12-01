@@ -688,7 +688,7 @@ namespace PuntoDeVentaV2
                     }
                 }
                 listaProductos.Focus();
-                
+                nudCantidadPS.Value = 1;
             }
         }
 
