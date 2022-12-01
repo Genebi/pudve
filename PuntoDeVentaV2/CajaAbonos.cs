@@ -177,41 +177,42 @@ namespace PuntoDeVentaV2
                 {
                     limpiarVariablesAbonos();
 
-                    //using (DataTable dtEmpleadoAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoEmpleado(IDEmpleado.ToString(), ultimaFechaDeCorteDeCaja)))
-                    //{
-                    //    if (!dtEmpleadoAbonos.Rows.Equals(0))
-                    //    {
-                    //        foreach (DataRow item in dtEmpleadoAbonos.Rows)
-                    //        {
-                    //            if (!item["IDEmpleado"].ToString().Equals("0"))
-                    //            {
-                    //                Efectivo += convertirCantidadHaciaDecimal(item["Efectivo"].ToString());
-                    //                Tarjeta += convertirCantidadHaciaDecimal(item["Tarjeta"].ToString());
-                    //                Vales += convertirCantidadHaciaDecimal(item["Vales"].ToString());
-                    //                Cheque += convertirCantidadHaciaDecimal(item["Cheque"].ToString());
-                    //                Transferencia += convertirCantidadHaciaDecimal(item["Transferencia"].ToString());
-                    //                totalAbonoRealizado += Convert.ToDecimal(item["Total"].ToString());
-                    //            }
-                    //            Total = totalAbonoRealizado + totalAbonoRealizadoDeOtrosUsuarios;
-                    //        }
-                    //    }
-                    //}
-                    using (DataTable dtAbonosDeOtrosUsuarios = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoDesdeOtrosUsuarios(IDEmpleado.ToString(), ultimaFechaDeCorteDeCaja)))
+                    using (DataTable dtEmpleadoAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoEmpleado(IDEmpleado.ToString(), ultimaFechaDeCorteDeCaja)))
                     {
-                        if (!dtAbonosDeOtrosUsuarios.Rows.Count.Equals(0))
+                        if (!dtEmpleadoAbonos.Rows.Equals(0))
                         {
-                            foreach (DataRow item in dtAbonosDeOtrosUsuarios.Rows)
+                            foreach (DataRow item in dtEmpleadoAbonos.Rows)
                             {
-                                Efectivo += convertirCantidadHaciaDecimal(item["Efectivo"].ToString());
-                                Tarjeta += convertirCantidadHaciaDecimal(item["Tarjeta"].ToString());
-                                Vales += convertirCantidadHaciaDecimal(item["Vales"].ToString());
-                                Cheque += convertirCantidadHaciaDecimal(item["Cheque"].ToString());
-                                Transferencia += convertirCantidadHaciaDecimal(item["Transferencia"].ToString());
-                                totalAbonoRealizadoOtrasVentas += Convert.ToDecimal(item["Total"].ToString());
+                                if (!item["IDEmpleado"].ToString().Equals("0"))
+                                {
+                                    Efectivo += convertirCantidadHaciaDecimal(item["Efectivo"].ToString());
+                                    Tarjeta += convertirCantidadHaciaDecimal(item["Tarjeta"].ToString());
+                                    Vales += convertirCantidadHaciaDecimal(item["Vales"].ToString());
+                                    Cheque += convertirCantidadHaciaDecimal(item["Cheque"].ToString());
+                                    Transferencia += convertirCantidadHaciaDecimal(item["Transferencia"].ToString());
+                                    totalAbonoRealizado += Convert.ToDecimal(item["Total"].ToString());
+                                }
+                                Total = totalAbonoRealizado + totalAbonoRealizadoDeOtrosUsuarios;
                             }
-                            Total = totalAbonoRealizado + totalAbonoRealizadoOtrasVentas;
                         }
                     }
+
+                    //using (DataTable dtAbonosDeOtrosUsuarios = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoDesdeOtrosUsuarios(IDEmpleado.ToString(), ultimaFechaDeCorteDeCaja)))
+                    //{
+                    //    if (!dtAbonosDeOtrosUsuarios.Rows.Count.Equals(0))
+                    //    {
+                    //        foreach (DataRow item in dtAbonosDeOtrosUsuarios.Rows)
+                    //        {
+                    //            Efectivo += convertirCantidadHaciaDecimal(item["Efectivo"].ToString());
+                    //            Tarjeta += convertirCantidadHaciaDecimal(item["Tarjeta"].ToString());
+                    //            Vales += convertirCantidadHaciaDecimal(item["Vales"].ToString());
+                    //            Cheque += convertirCantidadHaciaDecimal(item["Cheque"].ToString());
+                    //            Transferencia += convertirCantidadHaciaDecimal(item["Transferencia"].ToString());
+                    //            totalAbonoRealizadoOtrasVentas += Convert.ToDecimal(item["Total"].ToString());
+                    //        }
+                    //        Total = totalAbonoRealizado + totalAbonoRealizadoOtrasVentas;
+                    //    }
+                    //}
 
                     lbEfectivoAbonos.Text = Efectivo.ToString("C2");
                     lbTarjetaAbonos.Text = Tarjeta.ToString("C2");
