@@ -3634,6 +3634,7 @@ namespace PuntoDeVentaV2
             var idClienteTmp = idCliente;
             string id_empleado = Convert.ToString(FormPrincipal.id_empleado);
             var tipoDeVenta = "";
+            bool esRenta = checkRenta.Checked;
 
             // variable para saber si esta facturada la venta Guardada
             var estaTimbrada = false;
@@ -3652,6 +3653,11 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                if (esRenta)
+                {
+                    statusVenta = "6";
+                }
+
                 if (idClienteTmp.Equals(""))
                 {
                     idClienteTmp = "0";

@@ -2527,8 +2527,8 @@ namespace PuntoDeVentaV2
                     gananciaPorVenta.ShowDialog();
                 }
 
-                    //Ver ticket
-                    if (e.ColumnIndex == 13)
+                //Ver ticket
+                if (e.ColumnIndex == 13)
                 {
                     if (opcion3 == 0)
                     {
@@ -2861,7 +2861,7 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                                 // Venta a Credito
-                                if (tipoDeBusqueda.Equals(4))
+                                if (tipoDeBusqueda.Equals(4) || tipoDeBusqueda.Equals(6))
                                 {
                                     if (ticket6cm.Equals(1))
                                     {
