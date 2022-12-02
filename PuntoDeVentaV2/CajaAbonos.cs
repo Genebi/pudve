@@ -197,22 +197,22 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    //using (DataTable dtAbonosDeOtrosUsuarios = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoDesdeOtrosUsuarios(IDEmpleado.ToString(), ultimaFechaDeCorteDeCaja)))
-                    //{
-                    //    if (!dtAbonosDeOtrosUsuarios.Rows.Count.Equals(0))
-                    //    {
-                    //        foreach (DataRow item in dtAbonosDeOtrosUsuarios.Rows)
-                    //        {
-                    //            Efectivo += convertirCantidadHaciaDecimal(item["Efectivo"].ToString());
-                    //            Tarjeta += convertirCantidadHaciaDecimal(item["Tarjeta"].ToString());
-                    //            Vales += convertirCantidadHaciaDecimal(item["Vales"].ToString());
-                    //            Cheque += convertirCantidadHaciaDecimal(item["Cheque"].ToString());
-                    //            Transferencia += convertirCantidadHaciaDecimal(item["Transferencia"].ToString());
-                    //            totalAbonoRealizadoOtrasVentas += Convert.ToDecimal(item["Total"].ToString());
-                    //        }
-                    //        Total = totalAbonoRealizado + totalAbonoRealizadoOtrasVentas;
-                    //    }
-                    //}
+                    using (DataTable dtAbonosDeOtrosUsuarios = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoDesdeOtrosUsuarios(IDEmpleado.ToString(), ultimaFechaDeCorteDeCaja)))
+                    {
+                        if (!dtAbonosDeOtrosUsuarios.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtAbonosDeOtrosUsuarios.Rows)
+                            {
+                                Efectivo += convertirCantidadHaciaDecimal(item["Efectivo"].ToString());
+                                Tarjeta += convertirCantidadHaciaDecimal(item["Tarjeta"].ToString());
+                                Vales += convertirCantidadHaciaDecimal(item["Vales"].ToString());
+                                Cheque += convertirCantidadHaciaDecimal(item["Cheque"].ToString());
+                                Transferencia += convertirCantidadHaciaDecimal(item["Transferencia"].ToString());
+                                totalAbonoRealizadoOtrasVentas += Convert.ToDecimal(item["Total"].ToString());
+                            }
+                            Total = totalAbonoRealizado + totalAbonoRealizadoOtrasVentas;
+                        }
+                    }
 
                     lbEfectivoAbonos.Text = Efectivo.ToString("C2");
                     lbTarjetaAbonos.Text = Tarjeta.ToString("C2");
