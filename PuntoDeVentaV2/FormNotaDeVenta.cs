@@ -28,6 +28,7 @@ namespace PuntoDeVentaV2
         string DireccionLogo;
         bool SiHayLogo = false;
         string pathLogoImage;
+
         public FormNotaDeVenta(int IDDeLaVEnta)
         {
             InitializeComponent();
@@ -151,6 +152,10 @@ namespace PuntoDeVentaV2
                 else if (Status.Equals("5"))
                 {
                     StatusVenta = "Venta Global";
+                }
+                else if (Status.Equals("6"))
+                {
+                    StatusVenta = "Renta";
                 }
                 else
                 {
