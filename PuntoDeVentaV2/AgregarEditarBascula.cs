@@ -674,7 +674,6 @@ namespace PuntoDeVentaV2
 
             if (PuertoSerieBascula.IsOpen.Equals(true))
             {
-                PuertoSerieBascula.Close();
                 PuertoSerieBascula.Dispose();
                 isOpen = false;
             }
@@ -689,8 +688,6 @@ namespace PuntoDeVentaV2
                 if (!txtSendData.Text.Equals(string.Empty))
                 {
                     PuertoSerieBascula.Write(txtSendData.Text);
-                    PuertoSerieBascula.Close();
-                    PuertoSerieBascula.Dispose();
                 }
                 else
                 {

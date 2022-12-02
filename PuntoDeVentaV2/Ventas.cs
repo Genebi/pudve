@@ -241,8 +241,6 @@ namespace PuntoDeVentaV2
         {
             // enviar una P para Torrey o segun sea el caso
             BasculaCom.Write(sendData);
-            BasculaCom.Close();
-            BasculaCom.Dispose();
         }
 
         // Mostrar los bytes recibidos en el Label recibidos
@@ -5196,6 +5194,8 @@ namespace PuntoDeVentaV2
                         ventasGuardadas.Clear();
                         descuentosDirectos.Clear();
                     }
+
+                    BasculaCom.Close();
                 }
             }
             else
@@ -5204,15 +5204,12 @@ namespace PuntoDeVentaV2
                 listaAnticipos = string.Empty;
                 ventasGuardadas.Clear();
                 descuentosDirectos.Clear();
+                BasculaCom.Close();
             }
             //PuertoSerieBascula.Close();
             listProductos.Clear();
             liststock.Clear();
         }
-
-
-
-
 
         private void GenerarTicket(string[][] productos)
         {
