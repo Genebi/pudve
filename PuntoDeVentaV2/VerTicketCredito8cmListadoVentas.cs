@@ -37,6 +37,7 @@ namespace PuntoDeVentaV2
         public int FormaDePagoCliente { get; set; }
         public int CodigoBarra { get; set; }
         public int Referencia { get; set; }
+        public int tipoVenta { get; set; }
         #endregion
 
         public int idVentaRealizada { get; set; }
@@ -55,7 +56,7 @@ namespace PuntoDeVentaV2
         {
             var servidor = Properties.Settings.Default.Hosting;
             string cadenaConn = string.Empty;
-            string queryCreditoOtorgado = cs.imprimirTicketCredito(idVentaRealizada);
+            string queryCreditoOtorgado = cs.imprimirTicketCredito(idVentaRealizada, tipoVenta);
             MySqlConnection conn = new MySqlConnection();
             string pathApplication = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\CreditoRealizado\ReporteTicketCredito80mm.rdlc";
