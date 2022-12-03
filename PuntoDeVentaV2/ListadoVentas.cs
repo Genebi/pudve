@@ -1232,7 +1232,7 @@ namespace PuntoDeVentaV2
                     }
 
                     //Retomar Ventas Canceladas
-                    if (status == 1 || status == 4)
+                    if (status == 1 || status == 4 || status == 6)
                     {
                         row.Cells["retomarVenta"].Value = sinImagen;
                     }
