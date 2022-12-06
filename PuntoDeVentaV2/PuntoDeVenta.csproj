@@ -1332,6 +1332,15 @@
       <DependentUpon>TicketCancelado.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="ReportesImpresion\Ticket\VentaGlobal\TicketVentaGlobal.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TicketVentaGlobal.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Content Include="ReportesImpresion\Ticket\VentaGlobal\TicketVentaGlobal1.Designer.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.cs">
       <DependentUpon>TicketVenta.xsd</DependentUpon>
     </Compile>
@@ -2163,6 +2172,9 @@
     <Content Include="ReportesImpresion\Ticket\HistorialVenta\ReporteHistorialVenta.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\VentaGlobal\VentaGlobal.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -2566,6 +2578,20 @@
     </Content>
     <None Include="ReportesImpresion\Ticket\VentaCancelada\TicketCancelado.xss">
       <DependentUpon>TicketCancelado.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\VentaGlobal\TicketVentaGlobal.xsc">
+      <DependentUpon>TicketVentaGlobal.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="ReportesImpresion\Ticket\VentaGlobal\TicketVentaGlobal.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TicketVentaGlobal.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ReportesImpresion\Ticket\VentaGlobal\TicketVentaGlobal.xss">
+      <DependentUpon>TicketVentaGlobal.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.xsc">

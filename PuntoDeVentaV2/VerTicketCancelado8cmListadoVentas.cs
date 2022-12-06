@@ -100,7 +100,7 @@ namespace PuntoDeVentaV2
             this.reportViewer1.LocalReport.EnableExternalImages = true;
 
             ReportParameterCollection reportParameters = new ReportParameterCollection();
-
+            reportParameters.Add(new ReportParameter("Usuario", FormPrincipal.userNickName.ToString()));
             if (!Directory.Exists(pathBarCode))
             {
                 Directory.CreateDirectory(pathBarCode);
