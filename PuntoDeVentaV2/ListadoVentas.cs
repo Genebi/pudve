@@ -131,6 +131,7 @@ namespace PuntoDeVentaV2
                 chkHDAutlan.Visible = false;
             }
             cbTipoVentas.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbTipoRentas.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbFiltroAdminEmpleado.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbVentas.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             recargarDatos = true;
@@ -171,14 +172,25 @@ namespace PuntoDeVentaV2
             ventas.Add("VC", "VENTAS CANCELADAS");
             ventas.Add("VCC", "VENTAS A CRÉDITO");
             ventas.Add("VGG", "VENTAS GLOBALES");
-            ventas.Add("RNT", "RENTAS");
+
+            Dictionary<string, string> rentas = new Dictionary<string, string>();
+            rentas.Add("RP", "RENTAS PAGADAS");
+            rentas.Add("RG", "RENTAS GUARDADAS (PRESUPUESTOS)");
+            rentas.Add("RC", "RENTAS CANCELADAS");
+            rentas.Add("RCC", "RENTAS A CRÉDITO");
+            rentas.Add("RGG", "RENTAS GLOBALES");
 
             cbTipoVentas.DataSource = ventas.ToArray();
             cbTipoVentas.DisplayMember = "Value";
             cbTipoVentas.ValueMember = "Key";
 
+            cbTipoRentas.DataSource = rentas.ToArray();
+            cbTipoRentas.DisplayMember = "Value";
+            cbTipoRentas.ValueMember = "Key";
+
             cbVentas.SelectedIndex = 0;
             cbTipoVentas.SelectedIndex = 0;
+            cbTipoRentas.SelectedIndex = 0;
 
             // Combobox formas de pago
             Dictionary<string, string> formas = new Dictionary<string, string>();
@@ -1640,8 +1652,6 @@ namespace PuntoDeVentaV2
             if (opcion == "VCC") { CargarDatos(4); }
             //Ventas globales
             if (opcion == "VGG") { CargarDatos(5); }
-            // Rentas
-            if (opcion == "RNT") { CargarDatos(6); }
         }
 
         #region Manejo del evento MouseEnter para el DataGridView
@@ -5214,6 +5224,28 @@ namespace PuntoDeVentaV2
                 txtBuscador.Text = producto;
                 txtBuscador.Select(txtBuscador.Text.Length, 0);
             }
+        }
+
+        private void rbVentas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbVentas.Checked)
+            {
+                tituloSeccion.Text = "VENTAS";
+                cbTipoRentas.Visible = false;
+                cbTipoVentas.Visible = true;
+            }
+            
+        }
+
+        private void rbRentas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbRentas.Checked)
+            {
+                tituloSeccion.Text = "RENTAS";
+                cbTipoVentas.Visible = false;
+                cbTipoRentas.Visible = true;
+            }
+            
         }
     }
 }
