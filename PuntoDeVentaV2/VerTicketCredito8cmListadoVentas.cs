@@ -194,7 +194,7 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("PathBarCode", pathBarCodeFull));
             //19 parametro integer para mostrar / ocultar Referencia
             reportParameters.Add(new ReportParameter("Referencia", Referencia.ToString()));
-
+            reportParameters.Add(new ReportParameter("Usuario", FormPrincipal.userNickName.ToString()));
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Add(rp);
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;

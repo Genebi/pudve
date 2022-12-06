@@ -82,14 +82,21 @@ namespace PuntoDeVentaV2
             string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm.rdlc";
 
+           
+            
+
             MySqlDataAdapter ventaDA = new MySqlDataAdapter(queryVenta, conn);
             DataTable ventaDT = new DataTable();
+
+            
 
             ventaDA.Fill(ventaDT);
 
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             this.reportViewer1.LocalReport.DataSources.Clear();
+
+           
 
             #region Impresion Ticket de 80 mm
             ReportDataSource rp = new ReportDataSource("TicketVenta", ventaDT);
@@ -100,7 +107,7 @@ namespace PuntoDeVentaV2
 
             ReportParameterCollection reportParameters = new ReportParameterCollection();
             string path = string.Empty;
-
+            reportParameters.Add(new ReportParameter("Usuario", FormPrincipal.userNickName.ToString()));
             string pathBarCode = $@"C:\Archivos PUDVE\Ventas\Tickets\BarCode\";
 
             var servidor = Properties.Settings.Default.Hosting;

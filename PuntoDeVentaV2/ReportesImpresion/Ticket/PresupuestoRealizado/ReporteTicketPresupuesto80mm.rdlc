@@ -207,7 +207,7 @@
             <Source>External</Source>
             <Value>=Parameters!PathLogo.Value+First(Fields!LogoTipo.Value, "TicketPresupuesto")</Value>
             <Sizing>Fit</Sizing>
-            <Top>2.56328cm</Top>
+            <Top>3.6269cm</Top>
             <Left>1.53175cm</Left>
             <Height>5cm</Height>
             <Width>5cm</Width>
@@ -247,7 +247,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>RazonSocial</rd:DefaultName>
-            <Top>7.827cm</Top>
+            <Top>8.89062cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -290,7 +290,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NombreComercial</rd:DefaultName>
-            <Top>8.4582cm</Top>
+            <Top>9.52182cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -333,7 +333,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Direccion1</rd:DefaultName>
-            <Top>9.08791cm</Top>
+            <Top>10.15153cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -376,7 +376,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Direccion2</rd:DefaultName>
-            <Top>9.72291cm</Top>
+            <Top>10.78653cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -419,7 +419,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>RFC</rd:DefaultName>
-            <Top>10.373cm</Top>
+            <Top>11.43662cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -462,7 +462,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Correo</rd:DefaultName>
-            <Top>11.01408cm</Top>
+            <Top>12.0777cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -505,7 +505,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Telefono</rd:DefaultName>
-            <Top>11.64378cm</Top>
+            <Top>12.7074cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -548,7 +548,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteNombre</rd:DefaultName>
-            <Top>12.53808cm</Top>
+            <Top>13.6017cm</Top>
             <Left>0.148cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -589,7 +589,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteRFC</rd:DefaultName>
-            <Top>13.16778cm</Top>
+            <Top>14.2314cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -630,7 +630,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteDomicilio</rd:DefaultName>
-            <Top>13.78162cm</Top>
+            <Top>14.84524cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -671,7 +671,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteColoniaCodigoPostal</rd:DefaultName>
-            <Top>14.41662cm</Top>
+            <Top>15.48024cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -712,7 +712,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteCorreo</rd:DefaultName>
-            <Top>15.04633cm</Top>
+            <Top>16.10995cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -753,7 +753,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteTelefono</rd:DefaultName>
-            <Top>15.65487cm</Top>
+            <Top>16.71849cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -796,7 +796,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>FormaDePago</rd:DefaultName>
-            <Top>16.51212cm</Top>
+            <Top>17.57574cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -1201,7 +1201,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>TicketPresupuesto</DataSetName>
-            <Top>18.27276cm</Top>
+            <Top>19.33638cm</Top>
             <Left>0.1cm</Left>
             <Height>1.2cm</Height>
             <Width>7.7cm</Width>
@@ -1229,7 +1229,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>DescuentosDeProductos</rd:DefaultName>
-            <Top>19.48603cm</Top>
+            <Top>20.54965cm</Top>
             <Left>1.098cm</Left>
             <Height>0.6cm</Height>
             <Width>6.702cm</Width>
@@ -1261,7 +1261,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TotalGeneral</rd:DefaultName>
-            <Top>20.1319cm</Top>
+            <Top>21.19552cm</Top>
             <Left>1.098cm</Left>
             <Height>0.6cm</Height>
             <Width>6.75cm</Width>
@@ -1295,7 +1295,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>21.04708cm</Top>
+            <Top>22.1107cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -1314,7 +1314,7 @@
             <Source>External</Source>
             <Value>=Parameters!PathBarCode.Value</Value>
             <Sizing>Fit</Sizing>
-            <Top>22.1107cm</Top>
+            <Top>23.17432cm</Top>
             <Left>1.5cm</Left>
             <Height>1.15604cm</Height>
             <Width>5cm</Width>
@@ -1358,7 +1358,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Referencia</rd:DefaultName>
-            <Top>17.14183cm</Top>
+            <Top>18.20545cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
@@ -1384,8 +1384,44 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="Textbox1">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Realizado por:</Value>
+                    <Style />
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!Usuario.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Top>2.54769cm</Top>
+            <Left>0.1cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.66825cm</Width>
+            <ZIndex>24</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>23.93349cm</Height>
+        <Height>24.48912cm</Height>
         <Style />
       </Body>
       <Width>8cm</Width>
@@ -1476,6 +1512,10 @@
     </ReportParameter>
     <ReportParameter Name="Referencia">
       <DataType>Integer</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Usuario">
+      <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>
@@ -1578,6 +1618,11 @@
           <ColumnIndex>2</ColumnIndex>
           <RowIndex>4</RowIndex>
           <ParameterName>Referencia</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>4</RowIndex>
+          <ParameterName>Usuario</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

@@ -61,8 +61,18 @@ namespace PuntoDeVentaV2
 
             MySqlDataAdapter ventaDA = new MySqlDataAdapter(queryVenta, conn);
             DataTable ventaDT = new DataTable();
-
             ventaDA.Fill(ventaDT);
+
+            string algo = ventaDT.Rows[0]["CantidadRestante"].ToString();
+            var algo2 = algo.Split('$');
+            decimal cantidad = Convert.ToDecimal(algo2[1]);
+
+            if (cantidad < 0)
+            {
+                cantidad = 0;
+            }
+            ReportParameterCollection reportParameters = new ReportParameterCollection();
+            reportParameters.Add(new ReportParameter("CantidadRestante", "$" +cantidad.ToString("0.00")));
 
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
@@ -82,6 +92,7 @@ namespace PuntoDeVentaV2
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;
             rdlc.DataSources.Add(rp);
+            rdlc.SetParameters(reportParameters);
             #endregion
 
             EnviarImprimir imp = new EnviarImprimir();
