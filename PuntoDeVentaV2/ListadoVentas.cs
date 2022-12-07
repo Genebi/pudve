@@ -2238,8 +2238,15 @@ namespace PuntoDeVentaV2
 
                                     datoResultado = statusObtenido.Rows[0]["Status"].ToString();
 
+                                    var statusCancelada = 3;
+
+                                    if (cbTipoRentas.Visible)
+                                    {
+                                        statusCancelada = 8;
+                                    }
+
                                     // Cancelar la venta
-                                    int resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
+                                    int resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, statusCancelada, FormPrincipal.userID));
 
                                     if (resultado > 0)
                                     {
@@ -5268,6 +5275,7 @@ namespace PuntoDeVentaV2
                 tituloSeccion.Text = "RENTAS";
                 cbTipoVentas.Visible = false;
                 cbTipoRentas.Visible = true;
+                cbTipoRentas.SelectedIndex = 0;
 
                 CargarDatos(6);
             }
