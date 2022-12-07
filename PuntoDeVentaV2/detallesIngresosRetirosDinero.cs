@@ -78,7 +78,7 @@ namespace PuntoDeVentaV2
             {
                 string usuario = string.Empty;
                 var idemp = datos.Rows[0]["idEmpleado"].ToString();
-                var idusr = datos.Rows[0]["IDUsuario"].ToString();
+                var idusr = datos.Rows[0]["IDUsuario"].ToString(); 
                 if (CajaN.usuarioEmpleado.Equals("empleado"))
                 {
                     var nombUsr = cn.CargarDatos($"SELECT usuario FROM empleados WHERE IDUsuario = {idusr} AND ID = {idemp}");

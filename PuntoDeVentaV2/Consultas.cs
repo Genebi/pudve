@@ -4953,5 +4953,19 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string dineroRetiradoSaldoInicial(int idUsur, int idEmp, string fechaUltimoCorte)
+        {
+            var consulta = $"SELECT ( CONCAT( '$ ', FORMAT( ( IF ( SUM( Efectivo ) = '' OR SUM( Efectivo ) IS NULL, '0', SUM( Efectivo ) ) + IF ( SUM( Tarjeta ) = '' OR SUM( Tarjeta ) IS NULL, '0', SUM( Tarjeta ) ) + IF ( SUM( Vales ) = '' OR SUM( Vales ) IS NULL, '0', SUM( Vales ) ) + IF ( SUM( Cheque ) = '' OR SUM( Cheque ) IS NULL, '0', SUM( Cheque ) ) + IF ( SUM( Transferencia ) = '' OR SUM( Transferencia ) IS NULL, '0', SUM( Transferencia ) ) ), 2 ) ) ) AS 'Total retirado' FROM `caja` WHERE IDUsuario = '{idUsur}' AND IdEmpleado = '{idEmp}' AND Operacion = 'retiro' AND ( Concepto = 'Retiro desde saldo inicial' OR Concepto = 'Complemento de retiro desde saldo inicial' ) AND FechaOperacion >= '{fechaUltimoCorte}'";
+
+            return consulta;
+        }
+
+        public string dineroAgregadoSaldoInicial(int idUsur, int idEmp, string fechaUltimoCorte)
+        {
+            var consulta = $"SELECT ( CONCAT( '$ ', FORMAT( ( IF ( SUM( Efectivo ) = '' OR SUM( Efectivo ) IS NULL, '0', SUM( Efectivo ) ) + IF ( SUM( Tarjeta ) = '' OR SUM( Tarjeta ) IS NULL, '0', SUM( Tarjeta ) ) + IF ( SUM( Vales ) = '' OR SUM( Vales ) IS NULL, '0', SUM( Vales ) ) + IF ( SUM( Cheque ) = '' OR SUM( Cheque ) IS NULL, '0', SUM( Cheque ) ) + IF ( SUM( Transferencia ) = '' OR SUM( Transferencia ) IS NULL, '0', SUM( Transferencia ) ) ), 2 ) ) ) AS 'Total agregado' FROM `caja` WHERE IDUsuario = '{idUsur}' AND IdEmpleado = '{idEmp}' AND Operacion = 'deposito' AND ( Concepto = 'agregado a saldo inicial' ) AND FechaOperacion >= '{fechaUltimoCorte}'";
+
+            return consulta;
+        }
     }
 }   
