@@ -74,6 +74,7 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkRenta = new System.Windows.Forms.CheckBox();
             this.CBTipo = new System.Windows.Forms.ComboBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -116,7 +117,6 @@
             this.lblPesoRecibido = new System.Windows.Forms.Label();
             this.btnCSV = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.checkRenta = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -148,7 +148,7 @@
             this.btnEliminarAnticipos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEliminarAnticipos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminarAnticipos.ForeColor = System.Drawing.Color.White;
-            this.btnEliminarAnticipos.Location = new System.Drawing.Point(216, 316);
+            this.btnEliminarAnticipos.Location = new System.Drawing.Point(295, 315);
             this.btnEliminarAnticipos.Name = "btnEliminarAnticipos";
             this.btnEliminarAnticipos.Size = new System.Drawing.Size(122, 25);
             this.btnEliminarAnticipos.TabIndex = 10;
@@ -618,6 +618,16 @@
             this.panel1.Click += new System.EventHandler(this.panel1_Click);
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // checkRenta
+            // 
+            this.checkRenta.AutoSize = true;
+            this.checkRenta.Location = new System.Drawing.Point(10, 311);
+            this.checkRenta.Name = "checkRenta";
+            this.checkRenta.Size = new System.Drawing.Size(80, 17);
+            this.checkRenta.TabIndex = 66;
+            this.checkRenta.Text = "ES RENTA";
+            this.checkRenta.UseVisualStyleBackColor = true;
+            // 
             // CBTipo
             // 
             this.CBTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -711,7 +721,7 @@
             this.lbEliminarCliente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbEliminarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbEliminarCliente.ForeColor = System.Drawing.Color.Black;
-            this.lbEliminarCliente.Location = new System.Drawing.Point(25, 358);
+            this.lbEliminarCliente.Location = new System.Drawing.Point(11, 358);
             this.lbEliminarCliente.Name = "lbEliminarCliente";
             this.lbEliminarCliente.Size = new System.Drawing.Size(12, 23);
             this.lbEliminarCliente.TabIndex = 57;
@@ -739,7 +749,7 @@
             this.lbMayoreo.ForeColor = System.Drawing.Color.DarkGreen;
             this.lbMayoreo.Image = global::PuntoDeVentaV2.Properties.Resources.check1;
             this.lbMayoreo.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lbMayoreo.Location = new System.Drawing.Point(13, 309);
+            this.lbMayoreo.Location = new System.Drawing.Point(11, 337);
             this.lbMayoreo.Name = "lbMayoreo";
             this.lbMayoreo.Size = new System.Drawing.Size(138, 16);
             this.lbMayoreo.TabIndex = 45;
@@ -1229,16 +1239,6 @@
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
-            // 
-            // checkRenta
-            // 
-            this.checkRenta.AutoSize = true;
-            this.checkRenta.Location = new System.Drawing.Point(337, 321);
-            this.checkRenta.Name = "checkRenta";
-            this.checkRenta.Size = new System.Drawing.Size(80, 17);
-            this.checkRenta.TabIndex = 66;
-            this.checkRenta.Text = "ES RENTA";
-            this.checkRenta.UseVisualStyleBackColor = true;
             // 
             // Ventas
             // 

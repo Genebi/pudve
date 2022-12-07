@@ -21,12 +21,17 @@ namespace PuntoDeVentaV2
 {
     public partial class Ventas : Form
     {
-        // Status 1 = Venta terminada
-        // Status 2 = Venta guardada
-        // Status 3 = Venta cancelada
-        // Status 4 = Venta a credito
-        // Status 5 = Facturas
-        // Status 6 = Presupuestos
+        // status 1 = Venta pagada
+        // status 2 = Venta guardada
+        // status 3 = Venta cancelada
+        // status 4 = Venta a credito
+        // status 5 = Venta global
+
+        // status 6 = Renta pagada
+        // status 7 = Renta guardada
+        // status 8 = Renta cancelada
+        // status 9 = Renta a credito
+        // status 10 = Renta global
 
         public static double pasarSumaImportes { get; set; }
         public static double pasarTotalAnticipos { get; set; }
@@ -3646,6 +3651,14 @@ namespace PuntoDeVentaV2
                     statusVenta = "2";
                 }
 
+                if (esRenta)
+                {
+                    if (statusVenta.Equals("2"))
+                    {
+                        statusVenta = "7";
+                    }
+                }
+
                 if (string.IsNullOrWhiteSpace(idClienteTmp))
                 {
                     idClienteTmp = "0";
@@ -3655,7 +3668,15 @@ namespace PuntoDeVentaV2
             {
                 if (esRenta)
                 {
-                    statusVenta = "6";
+                    if (statusVenta.Equals("1"))
+                    {
+                        statusVenta = "6";
+                    }
+
+                    if (statusVenta.Equals("4"))
+                    {
+                        statusVenta = "9";
+                    }
                 }
 
                 if (idClienteTmp.Equals(""))

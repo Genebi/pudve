@@ -306,8 +306,8 @@
             this.panelBotones.Controls.Add(this.btnNuevaVenta);
             this.panelBotones.Controls.Add(this.btnBuscarVentas);
             this.panelBotones.Controls.Add(this.cbVentas);
-            this.panelBotones.Controls.Add(this.cbTipoRentas);
             this.panelBotones.Controls.Add(this.cbTipoVentas);
+            this.panelBotones.Controls.Add(this.cbTipoRentas);
             this.panelBotones.Location = new System.Drawing.Point(12, 55);
             this.panelBotones.Name = "panelBotones";
             this.panelBotones.Size = new System.Drawing.Size(960, 110);
