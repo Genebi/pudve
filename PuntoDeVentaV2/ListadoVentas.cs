@@ -5268,8 +5268,9 @@ namespace PuntoDeVentaV2
                 tituloSeccion.Text = "RENTAS";
                 cbTipoVentas.Visible = false;
                 cbTipoRentas.Visible = true;
+
+                CargarDatos(6);
             }
-            
         }
 
         private void cbTipoRentas_SelectedIndexChanged(object sender, EventArgs e)
