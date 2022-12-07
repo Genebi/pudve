@@ -70,6 +70,7 @@
             this.btnBuscarVentas = new System.Windows.Forms.Button();
             this.cbVentas = new System.Windows.Forms.ComboBox();
             this.cbTipoVentas = new System.Windows.Forms.ComboBox();
+            this.cbTipoRentas = new System.Windows.Forms.ComboBox();
             this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnActualizarMaximoProductos = new System.Windows.Forms.Button();
@@ -92,7 +93,6 @@
             this.chkHDAutlan = new System.Windows.Forms.CheckBox();
             this.rbVentas = new System.Windows.Forms.RadioButton();
             this.rbRentas = new System.Windows.Forms.RadioButton();
-            this.cbTipoRentas = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -306,8 +306,8 @@
             this.panelBotones.Controls.Add(this.btnNuevaVenta);
             this.panelBotones.Controls.Add(this.btnBuscarVentas);
             this.panelBotones.Controls.Add(this.cbVentas);
-            this.panelBotones.Controls.Add(this.cbTipoVentas);
             this.panelBotones.Controls.Add(this.cbTipoRentas);
+            this.panelBotones.Controls.Add(this.cbTipoVentas);
             this.panelBotones.Location = new System.Drawing.Point(12, 55);
             this.panelBotones.Name = "panelBotones";
             this.panelBotones.Size = new System.Drawing.Size(960, 110);
@@ -552,6 +552,19 @@
             this.cbTipoVentas.TabIndex = 1;
             this.cbTipoVentas.SelectedIndexChanged += new System.EventHandler(this.cbTipoVentas_SelectedIndexChanged);
             this.cbTipoVentas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbTipoVentas_KeyDown);
+            // 
+            // cbTipoRentas
+            // 
+            this.cbTipoRentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipoRentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTipoRentas.FormattingEnabled = true;
+            this.cbTipoRentas.Location = new System.Drawing.Point(3, 30);
+            this.cbTipoRentas.Name = "cbTipoRentas";
+            this.cbTipoRentas.Size = new System.Drawing.Size(240, 21);
+            this.cbTipoRentas.TabIndex = 20;
+            this.cbTipoRentas.Visible = false;
+            this.cbTipoRentas.SelectedIndexChanged += new System.EventHandler(this.cbTipoRentas_SelectedIndexChanged);
+            this.cbTipoRentas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbTipoRentas_KeyDown);
             // 
             // TTMensaje
             // 
@@ -832,17 +845,6 @@
             this.rbRentas.Text = "RENTAS";
             this.rbRentas.UseVisualStyleBackColor = true;
             this.rbRentas.CheckedChanged += new System.EventHandler(this.rbRentas_CheckedChanged);
-            // 
-            // cbTipoRentas
-            // 
-            this.cbTipoRentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTipoRentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbTipoRentas.FormattingEnabled = true;
-            this.cbTipoRentas.Location = new System.Drawing.Point(3, 30);
-            this.cbTipoRentas.Name = "cbTipoRentas";
-            this.cbTipoRentas.Size = new System.Drawing.Size(240, 21);
-            this.cbTipoRentas.TabIndex = 20;
-            this.cbTipoRentas.Visible = false;
             // 
             // ListadoVentas
             // 
