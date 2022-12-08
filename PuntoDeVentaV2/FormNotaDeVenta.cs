@@ -150,7 +150,7 @@ namespace PuntoDeVentaV2
                 if (Status.Equals("7")) { StatusVenta = "Presupuesto"; }
                 if (Status.Equals("8")) { StatusVenta = "Renta Cancelada"; }
                 if (Status.Equals("9")) { StatusVenta = "Renta a Crédito"; }
-                if (Status.Equals("10")) { StatusVenta = "Renta Glonbal"; }
+                if (Status.Equals("10")) { StatusVenta = "Renta Global"; }
             }
 
             reportParameters.Add(new ReportParameter("StatusVenta", StatusVenta));

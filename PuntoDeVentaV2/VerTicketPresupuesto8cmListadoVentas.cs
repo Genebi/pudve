@@ -65,7 +65,7 @@ namespace PuntoDeVentaV2
 
             string rutaTicket = @"PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc";
 
-            if (tipoImpresion.Equals(5))
+            if (tipoImpresion.Equals(5) || tipoImpresion.Equals(10))
             {
                 rutaTicket = @"VentaGlobal\VentaGlobal.rdlc";
             }
@@ -110,7 +110,7 @@ namespace PuntoDeVentaV2
 
             var nombreXSD = "TicketPresupuesto";
 
-            if (tipoImpresion.Equals(5))
+            if (tipoImpresion.Equals(5) || tipoImpresion.Equals(10))
             {
                 nombreXSD = "DTTicketVentaGlobal";
             }
