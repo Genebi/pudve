@@ -24,12 +24,17 @@ namespace PuntoDeVentaV2
 {
     public partial class ListadoVentas : Form
     {
-        //Status 1 = Venta terminada
-        //Status 2 = Venta guardada
-        //Status 3 = Venta cancelada
-        //Status 4 = Venta a credito
-        //Status 5 = Facturas
-        //Status 6 = Presupuestos
+        // status 1 = Venta pagada
+        // status 2 = Venta guardada
+        // status 3 = Venta cancelada
+        // status 4 = Venta a credito
+        // status 5 = Venta global
+
+        // status 6 = Renta pagada
+        // status 7 = Renta guardada
+        // status 8 = Renta cancelada
+        // status 9 = Renta a credito
+        // status 10 = Renta global
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -2720,7 +2725,7 @@ namespace PuntoDeVentaV2
                                 tipoDeBusqueda = verTipoDeBusqueda();
 
                                 // Ventas Realizadas
-                                if (tipoDeBusqueda.Equals(1))
+                                if (tipoDeBusqueda.Equals(1) || tipoDeBusqueda.Equals(6))
                                 {
                                     if (ticket6cm.Equals(1))
                                     {
@@ -2745,6 +2750,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                             imprimirTicketVenta.Referencia = referencia;
+                                            imprimirTicketVenta.tipoVenta = tipoDeBusqueda;
 
                                             imprimirTicketVenta.ShowDialog();
                                         }
@@ -2772,13 +2778,14 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                             imprimirTicketVenta.Referencia = referencia;
+                                            imprimirTicketVenta.tipoVenta = tipoDeBusqueda;
 
                                             imprimirTicketVenta.ShowDialog();
                                         }
                                     }
                                 }
                                 // Venta Guardada
-                                if (tipoDeBusqueda.Equals(2) || tipoDeBusqueda.Equals(5))
+                                if (tipoDeBusqueda.Equals(2) || tipoDeBusqueda.Equals(5) || tipoDeBusqueda.Equals(7) || tipoDeBusqueda.Equals(10))
                                 {
                                     if (ticket6cm.Equals(1))
                                     {
@@ -2838,7 +2845,7 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                                 // Venta Cancelada
-                                if (tipoDeBusqueda.Equals(3))
+                                if (tipoDeBusqueda.Equals(3) || tipoDeBusqueda.Equals(8))
                                 {
                                     if (ticket6cm.Equals(1))
                                     {
@@ -2863,6 +2870,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                             imprimirTicketVenta.Referencia = referencia;
+                                            imprimirTicketVenta.tipoVenta = tipoDeBusqueda;
 
                                             imprimirTicketVenta.ShowDialog();
                                         }
@@ -2890,13 +2898,14 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                             imprimirTicketVenta.Referencia = referencia;
+                                            imprimirTicketVenta.tipoVenta = tipoDeBusqueda;
 
                                             imprimirTicketVenta.ShowDialog();
                                         }
                                     }
                                 }
                                 // Venta a Credito
-                                if (tipoDeBusqueda.Equals(4) || tipoDeBusqueda.Equals(6))
+                                if (tipoDeBusqueda.Equals(4) || tipoDeBusqueda.Equals(9))
                                 {
                                     if (ticket6cm.Equals(1))
                                     {
