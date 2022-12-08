@@ -196,7 +196,7 @@ namespace PuntoDeVentaV2
             //19 parametro integer para mostrar / ocultar Referencia
             reportParameters.Add(new ReportParameter("Referencia", Referencia.ToString()));
             //20 parametro integer para mostrar / ocultar imagen texto
-            reportParameters.Add(new ReportParameter("TipoVenta", tipoVenta.ToString()));
+            //reportParameters.Add(new ReportParameter("TipoVenta", tipoVenta.ToString()));
 
             reportParameters.Add(new ReportParameter("Usuario", FormPrincipal.userNickName.ToString()));
             this.reportViewer1.LocalReport.SetParameters(reportParameters);

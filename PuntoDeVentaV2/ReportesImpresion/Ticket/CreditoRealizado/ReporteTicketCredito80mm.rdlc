@@ -144,61 +144,16 @@
             <Source>Embedded</Source>
             <Value>Credito</Value>
             <Sizing>Fit</Sizing>
-            <Top>1.54199cm</Top>
+            <Top>2.032cm</Top>
             <Left>0.1cm</Left>
             <Height>0.70583cm</Height>
             <Width>7.7cm</Width>
-            <Visibility>
-              <Hidden>=iif(Parameters!TipoVenta.Value = "6", 
-	True,
-	False
-)</Hidden>
-            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
               </Border>
             </Style>
           </Image>
-          <Textbox Name="TextoTitulo">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>RENTA</Value>
-                    <Style>
-                      <FontFamily>Century</FontFamily>
-                      <FontSize>18pt</FontSize>
-                      <FontWeight>Bold</FontWeight>
-                      <Color>Red</Color>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Center</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <Top>1.5911cm</Top>
-            <Left>0.1cm</Left>
-            <Height>0.6cm</Height>
-            <Width>7.7cm</Width>
-            <ZIndex>1</ZIndex>
-            <Visibility>
-              <Hidden>=iif(Parameters!TipoVenta.Value = "6", 
-	False,
-	True
-)</Hidden>
-            </Visibility>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <VerticalAlign>Middle</VerticalAlign>
-            </Style>
-          </Textbox>
           <Textbox Name="FechaDeCompra">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
@@ -216,11 +171,10 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>FechaDeCompra</rd:DefaultName>
-            <Top>0.11853cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>2</ZIndex>
+            <ZIndex>1</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -248,11 +202,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>FolioTicket</rd:DefaultName>
-            <Top>0.73766cm</Top>
+            <Top>1.22767cm</Top>
             <Left>0.1cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>3</ZIndex>
+            <ZIndex>2</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -267,11 +221,11 @@
             <Source>External</Source>
             <Value>=Parameters!PathLogo.Value+First(Fields!LogoTipo.Value, "TicketCredito")</Value>
             <Sizing>FitProportional</Sizing>
-            <Top>3.28295cm</Top>
+            <Top>3.77296cm</Top>
             <Left>1.45cm</Left>
             <Height>5cm</Height>
             <Width>5cm</Width>
-            <ZIndex>4</ZIndex>
+            <ZIndex>3</ZIndex>
             <Visibility>
               <Hidden>=iif(Parameters!Logo.Value = "0", 
 	True,
@@ -307,11 +261,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>RazonSocial</rd:DefaultName>
-            <Top>8.54287cm</Top>
+            <Top>9.03288cm</Top>
             <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>5</ZIndex>
+            <ZIndex>4</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!Nombre.Value = "0",
@@ -350,11 +304,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NombreComercial</rd:DefaultName>
-            <Top>9.17258cm</Top>
+            <Top>9.66259cm</Top>
             <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>6</ZIndex>
+            <ZIndex>5</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!NombreComercial.Value = "0",
@@ -393,11 +347,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Direccion1</rd:DefaultName>
-            <Top>9.77054cm</Top>
+            <Top>10.26055cm</Top>
             <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>7</ZIndex>
+            <ZIndex>6</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!DireccionCiudad.Value = "0",
@@ -436,11 +390,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Direccion2</rd:DefaultName>
-            <Top>10.37908cm</Top>
+            <Top>10.86909cm</Top>
             <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>8</ZIndex>
+            <ZIndex>7</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!ColoniaCodigoPostal.Value = "0",
@@ -479,11 +433,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>RFC</rd:DefaultName>
-            <Top>10.99291cm</Top>
+            <Top>11.48292cm</Top>
             <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>9</ZIndex>
+            <ZIndex>8</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!RFC.Value = "0",
@@ -522,11 +476,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Correo</rd:DefaultName>
-            <Top>11.61204cm</Top>
+            <Top>12.10205cm</Top>
             <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>10</ZIndex>
+            <ZIndex>9</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!Correo.Value = "0",
@@ -565,11 +519,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Telefono</rd:DefaultName>
-            <Top>12.28408cm</Top>
+            <Top>12.77409cm</Top>
             <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>11</ZIndex>
+            <ZIndex>10</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!Telefono.Value = "0",
@@ -608,11 +562,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteNombre</rd:DefaultName>
-            <Top>13.14662cm</Top>
+            <Top>13.63663cm</Top>
             <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>12</ZIndex>
+            <ZIndex>11</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!NombreCliente.Value = "0",
@@ -649,11 +603,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteRFC</rd:DefaultName>
-            <Top>13.78162cm</Top>
+            <Top>14.27163cm</Top>
             <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>13</ZIndex>
+            <ZIndex>12</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!RFCCliente.Value = "0",
@@ -690,11 +644,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteDomicilio</rd:DefaultName>
-            <Top>14.40074cm</Top>
+            <Top>14.89075cm</Top>
             <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>14</ZIndex>
+            <ZIndex>13</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!DomicilioCliente.Value = "0",
@@ -731,11 +685,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteColoniaCodigoPostal</rd:DefaultName>
-            <Top>15.00929cm</Top>
+            <Top>15.4993cm</Top>
             <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>15</ZIndex>
+            <ZIndex>14</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!ColoniaCodigoPostalCliente.Value = "0",
@@ -772,11 +726,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteCorreo</rd:DefaultName>
-            <Top>15.62841cm</Top>
+            <Top>16.11842cm</Top>
             <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>16</ZIndex>
+            <ZIndex>15</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!CorreoCliente.Value = "0",
@@ -813,11 +767,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteTelefono</rd:DefaultName>
-            <Top>16.25283cm</Top>
+            <Top>16.74284cm</Top>
             <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>17</ZIndex>
+            <ZIndex>16</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!TelefonoCliente.Value = "0",
@@ -856,11 +810,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>FormaDePago</rd:DefaultName>
-            <Top>17.11008cm</Top>
+            <Top>17.60009cm</Top>
             <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>18</ZIndex>
+            <ZIndex>17</ZIndex>
             <Visibility>
               <Hidden>=iif(
 	Parameters!FormaDePagoCliente.Value = "0",
@@ -1261,11 +1215,11 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>TicketCredito</DataSetName>
-            <Top>18.83897cm</Top>
+            <Top>19.32898cm</Top>
             <Left>0.05cm</Left>
             <Height>1.2cm</Height>
             <Width>7.71cm</Width>
-            <ZIndex>19</ZIndex>
+            <ZIndex>18</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1289,11 +1243,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>DescuentosDeProductos</rd:DefaultName>
-            <Top>20.05224cm</Top>
+            <Top>20.54225cm</Top>
             <Left>1.05cm</Left>
             <Height>0.6cm</Height>
             <Width>6.7cm</Width>
-            <ZIndex>20</ZIndex>
+            <ZIndex>19</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1321,11 +1275,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TotalGeneral</rd:DefaultName>
-            <Top>20.68195cm</Top>
+            <Top>21.17196cm</Top>
             <Left>1.05cm</Left>
             <Height>0.6cm</Height>
             <Width>6.75cm</Width>
-            <ZIndex>21</ZIndex>
+            <ZIndex>20</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1355,11 +1309,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>21.59741cm</Top>
+            <Top>22.08742cm</Top>
             <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>22</ZIndex>
+            <ZIndex>21</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1374,11 +1328,11 @@
             <Source>External</Source>
             <Value>=Parameters!PathBarCode.Value</Value>
             <Sizing>Fit</Sizing>
-            <Top>22.44408cm</Top>
+            <Top>22.93409cm</Top>
             <Left>1.45cm</Left>
             <Height>1.15604cm</Height>
             <Width>5cm</Width>
-            <ZIndex>23</ZIndex>
+            <ZIndex>22</ZIndex>
             <Visibility>
               <Hidden>=iif(Parameters!CodigoBarra.Value = "0", True, False)</Hidden>
             </Visibility>
@@ -1403,11 +1357,11 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Referencia</rd:DefaultName>
-            <Top>17.73979cm</Top>
+            <Top>18.2298cm</Top>
             <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
-            <ZIndex>24</ZIndex>
+            <ZIndex>23</ZIndex>
             <Visibility>
               <Hidden>=iif(Parameters!Referencia.Value.ToString() = "0", 
 	 True, 
@@ -1443,7 +1397,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox1</rd:DefaultName>
-            <Top>2.42421cm</Top>
+            <Top>2.91422cm</Top>
             <Left>0.12912cm</Left>
             <Height>0.6cm</Height>
             <Width>7.67088cm</Width>
@@ -1459,7 +1413,7 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>23.95995cm</Height>
+        <Height>24.44996cm</Height>
         <Style />
       </Body>
       <Width>8cm</Width>
@@ -1550,16 +1504,6 @@
     </ReportParameter>
     <ReportParameter Name="Referencia">
       <DataType>Integer</DataType>
-      <Prompt>ReportParameter1</Prompt>
-    </ReportParameter>
-    <ReportParameter Name="TipoVenta">
-      <DataType>Integer</DataType>
-      <Nullable>true</Nullable>
-      <DefaultValue>
-        <Values>
-          <Value>4</Value>
-        </Values>
-      </DefaultValue>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="Usuario">
@@ -1671,11 +1615,6 @@
           <ColumnIndex>3</ColumnIndex>
           <RowIndex>4</RowIndex>
           <ParameterName>Usuario</ParameterName>
-        </CellDefinition>
-        <CellDefinition>
-          <ColumnIndex>3</ColumnIndex>
-          <RowIndex>4</RowIndex>
-          <ParameterName>TipoVenta</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
