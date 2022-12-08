@@ -133,35 +133,26 @@ namespace PuntoDeVentaV2
                 DireccionLogo = "";
                 reportParameters.Add(new ReportParameter("Logo", DireccionLogo));
             }
-            string StatusVenta;
+
+            string StatusVenta = "Venta";
+
             using (DataTable ConsultaEstatus = cn.CargarDatos($"SELECT `Status` FROM ventas WHERE ID = {IDVenta}"))
             {
                 string Status = ConsultaEstatus.Rows[0]["Status"].ToString();
-                if (Status.Equals("1"))
-                {
-                    StatusVenta = "Venta Pagada";
-                }
-                else if (Status.Equals("2"))
-                {
-                    StatusVenta = "Presupuesto";
-                }
-                else if (Status.Equals("3"))
-                {
-                    StatusVenta = "Venta Cancelada";
-                }
-                else if (Status.Equals("5"))
-                {
-                    StatusVenta = "Venta Global";
-                }
-                else if (Status.Equals("6"))
-                {
-                    StatusVenta = "Renta";
-                }
-                else
-                {
-                    StatusVenta = "Venta a Crédito";
-                }
+
+                if (Status.Equals("1")) { StatusVenta = "Venta Pagada"; }
+                if (Status.Equals("2")) { StatusVenta = "Presupuesto"; }
+                if (Status.Equals("3")) { StatusVenta = "Venta Cancelada"; }
+                if (Status.Equals("4")) { StatusVenta = "Venta a Crédito"; }
+                if (Status.Equals("5")) { StatusVenta = "Venta Global"; }
+
+                if (Status.Equals("6")) { StatusVenta = "Renta Pagada"; }
+                if (Status.Equals("7")) { StatusVenta = "Presupuesto"; }
+                if (Status.Equals("8")) { StatusVenta = "Renta Cancelada"; }
+                if (Status.Equals("9")) { StatusVenta = "Renta a Crédito"; }
+                if (Status.Equals("10")) { StatusVenta = "Renta Glonbal"; }
             }
+
             reportParameters.Add(new ReportParameter("StatusVenta", StatusVenta));
 
             LocalReport rdlc = new LocalReport();

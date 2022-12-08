@@ -1517,32 +1517,26 @@ namespace PuntoDeVentaV2
             var estado = 1;
 
             var opcion = cbTipoVentas.SelectedValue.ToString();
+
+            if (cbTipoRentas.Visible)
+            {
+                opcion = cbTipoRentas.SelectedValue.ToString();
+            }
+
             clickBoton = 0;
 
-            if (opcion == "VP") //Ventas pagadas
-            {
-                estado = 1;
-            }
-            else if (opcion == "VG") //Ventas guardadas
-            {
-                estado = 2;
-            }
-            else if (opcion == "VC") //Ventas canceladas
-            {
-                estado = 3;
-            }
-            else if (opcion == "VCC") //Ventas a credito
-            {
-                estado = 4;
-            }
-            else if (opcion == "VGG") // Ventas globales
-            {
-                estado = 5;
-            }
-            else if (opcion == "RNT") // Rentas
-            {
-                estado = 6;
-            }
+            
+            if (opcion == "VP") { estado = 1; } //Ventas pagadas
+            if (opcion == "VG") { estado = 2; } //Ventas guardadas
+            if (opcion == "VC") { estado = 3; } //Ventas canceladas
+            if (opcion == "VCC") { estado = 4; } //Ventas a credito
+            if (opcion == "VGG") { estado = 5; } //Ventas globales
+
+            if (opcion == "RP") { estado = 6; } //Rentas pagadas
+            if (opcion == "RG") { estado = 7; } //Rentas pagadas
+            if (opcion == "RC") { estado = 8; } //Rentas pagadas
+            if (opcion == "RCC") { estado = 9; } //Rentas pagadas
+            if (opcion == "RGG") { estado = 10; } //Rentas pagadas
 
             return estado;
         }
