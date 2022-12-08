@@ -120,7 +120,7 @@ namespace PuntoDeVentaV2
             this.reportViewer1.LocalReport.EnableExternalImages = true;
 
             ReportParameterCollection reportParameters = new ReportParameterCollection();
-
+            reportParameters.Add(new ReportParameter("Usuario", FormPrincipal.userNickName.ToString()));
             if (!Directory.Exists(pathBarCode))
             {
                 Directory.CreateDirectory(pathBarCode);
@@ -293,7 +293,6 @@ namespace PuntoDeVentaV2
             DataTable presupuestoDT = new DataTable();
 
             presupuestoDA.Fill(presupuestoDT);
-
             #region Impresion Ticket de 8 cm (80 mm)
             var nombreXSD = "TicketPresupuesto";
 
@@ -409,6 +408,7 @@ namespace PuntoDeVentaV2
 
             EnviarImprimir imp = new EnviarImprimir();
             imp.Imprime(rdlc);
+
 
             File.Delete($"{pathBarCode}{folioVentaRealizada}.png");
             if (File.Exists(finalLogoTipoPath))

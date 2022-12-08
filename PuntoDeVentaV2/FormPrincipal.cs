@@ -602,12 +602,12 @@ namespace PuntoDeVentaV2
             {
                 //string script = File.ReadAllText(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\Basculas.sql");
                 var script = cs.registrarBasculas(userID);
-                cn.EjecutarConsulta(script);
+                foreach (var item in script)
+                {
+                    cn.EjecutarConsulta(item);
+                }
             }
-            catch (Exception ex)
-            {
-
-            }
+            catch (Exception ex){}
 
             cn.EjecutarConsulta(cs.quitarSimboloRaroEspacios());
 

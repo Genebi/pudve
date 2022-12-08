@@ -74,13 +74,25 @@ namespace PuntoDeVentaV2
 
             try
             {
-                int resultado = cn.EjecutarConsulta(cs.agregarEspecificacionAlDetalleDinamico(getChkName, detalleGeneral));
-
-                if (resultado > 0)
+                using (var dtDetalles = cn.CargarDatos($"SELECT * FROM detallegeneral WHERE IDUsuario = {FormPrincipal.userID} AND ChckName = '{getChkName}'"))
                 {
-                    //cargarEspecificacionesDelDatoDinamico();
-                    this.Close();
+                    if (dtDetalles.Rows.Count.Equals(0))
+                    {
+                        int resultado = cn.EjecutarConsulta(cs.agregarEspecificacionAlDetalleDinamico(getChkName, detalleGeneral));
+
+                        if (resultado > 0)
+                        {
+                            //cargarEspecificacionesDelDatoDinamico();
+                            this.Close();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ya existe este detalle","Aviso del sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                        return;
+                    }
                 }
+                
             }
             catch (Exception ex)
             {

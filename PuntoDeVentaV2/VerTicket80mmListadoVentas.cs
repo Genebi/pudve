@@ -103,8 +103,9 @@ namespace PuntoDeVentaV2
             this.reportViewer1.LocalReport.EnableExternalImages = true;
 
             ReportParameterCollection reportParameters = new ReportParameterCollection();
+            reportParameters.Add(new ReportParameter("Usuario", FormPrincipal.userNickName.ToString()));
             string path = string.Empty;
-
+           
             string pathBarCode = $@"C:\Archivos PUDVE\Ventas\Tickets\BarCode\";
 
             var servidor = Properties.Settings.Default.Hosting;
@@ -380,6 +381,7 @@ namespace PuntoDeVentaV2
             //19 parametro integer para mostrar / ocultar Referencia
             reportParameters.Add(new ReportParameter("Referencia", Referencia.ToString()));
 
+            reportParameters.Add(new ReportParameter("Usuario", FormPrincipal.userNickName.ToString()));
             LocalReport rdlc = new LocalReport();
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;

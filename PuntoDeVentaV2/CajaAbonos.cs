@@ -196,6 +196,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
+
                     using (DataTable dtAbonosDeOtrosUsuarios = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoDesdeOtrosUsuarios(IDEmpleado.ToString(), ultimaFechaDeCorteDeCaja)))
                     {
                         if (!dtAbonosDeOtrosUsuarios.Rows.Count.Equals(0))

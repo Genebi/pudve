@@ -198,6 +198,7 @@ namespace PuntoDeVentaV2
             //20 parametro integer para mostrar / ocultar imagen texto
             reportParameters.Add(new ReportParameter("TipoVenta", tipoVenta.ToString()));
 
+            reportParameters.Add(new ReportParameter("Usuario", FormPrincipal.userNickName.ToString()));
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Add(rp);
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;

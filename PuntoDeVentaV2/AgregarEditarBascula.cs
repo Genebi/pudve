@@ -96,6 +96,7 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("El puerto está abierto...", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     PuertoSerieBascula.Close();
+                    PuertoSerieBascula.Dispose();
                 }
             }
         }
@@ -673,7 +674,7 @@ namespace PuntoDeVentaV2
 
             if (PuertoSerieBascula.IsOpen.Equals(true))
             {
-                PuertoSerieBascula.Close();
+                PuertoSerieBascula.Dispose();
                 isOpen = false;
             }
 
@@ -702,6 +703,7 @@ namespace PuntoDeVentaV2
         private void AgregarEditarBascula_FormClosing(object sender, FormClosingEventArgs e)
         {
             PuertoSerieBascula.Close();
+            PuertoSerieBascula.Dispose();
         }
 
         private void AgregarEditarBascula_KeyDown(object sender, KeyEventArgs e)

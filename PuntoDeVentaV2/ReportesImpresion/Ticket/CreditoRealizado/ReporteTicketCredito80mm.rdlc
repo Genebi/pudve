@@ -267,8 +267,8 @@
             <Source>External</Source>
             <Value>=Parameters!PathLogo.Value+First(Fields!LogoTipo.Value, "TicketCredito")</Value>
             <Sizing>FitProportional</Sizing>
-            <Top>2.36749cm</Top>
-            <Left>1.5cm</Left>
+            <Top>3.28295cm</Top>
+            <Left>1.45cm</Left>
             <Height>5cm</Height>
             <Width>5cm</Width>
             <ZIndex>4</ZIndex>
@@ -307,8 +307,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>RazonSocial</rd:DefaultName>
-            <Top>7.62741cm</Top>
-            <Left>0.1cm</Left>
+            <Top>8.54287cm</Top>
+            <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>5</ZIndex>
@@ -350,8 +350,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>NombreComercial</rd:DefaultName>
-            <Top>8.25712cm</Top>
-            <Left>0.1cm</Left>
+            <Top>9.17258cm</Top>
+            <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>6</ZIndex>
@@ -393,8 +393,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Direccion1</rd:DefaultName>
-            <Top>8.85508cm</Top>
-            <Left>0.1cm</Left>
+            <Top>9.77054cm</Top>
+            <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>7</ZIndex>
@@ -436,8 +436,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Direccion2</rd:DefaultName>
-            <Top>9.46362cm</Top>
-            <Left>0.1cm</Left>
+            <Top>10.37908cm</Top>
+            <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>8</ZIndex>
@@ -479,8 +479,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>RFC</rd:DefaultName>
-            <Top>10.07745cm</Top>
-            <Left>0.1cm</Left>
+            <Top>10.99291cm</Top>
+            <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>9</ZIndex>
@@ -522,8 +522,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Correo</rd:DefaultName>
-            <Top>10.69658cm</Top>
-            <Left>0.1cm</Left>
+            <Top>11.61204cm</Top>
+            <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>10</ZIndex>
@@ -565,8 +565,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Telefono</rd:DefaultName>
-            <Top>11.36862cm</Top>
-            <Left>0.1cm</Left>
+            <Top>12.28408cm</Top>
+            <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>11</ZIndex>
@@ -608,8 +608,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteNombre</rd:DefaultName>
-            <Top>12.23116cm</Top>
-            <Left>0.1cm</Left>
+            <Top>13.14662cm</Top>
+            <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>12</ZIndex>
@@ -649,8 +649,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteRFC</rd:DefaultName>
-            <Top>12.86616cm</Top>
-            <Left>0.1cm</Left>
+            <Top>13.78162cm</Top>
+            <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>13</ZIndex>
@@ -690,8 +690,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteDomicilio</rd:DefaultName>
-            <Top>13.48528cm</Top>
-            <Left>0.1cm</Left>
+            <Top>14.40074cm</Top>
+            <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>14</ZIndex>
@@ -731,8 +731,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteColoniaCodigoPostal</rd:DefaultName>
-            <Top>14.09383cm</Top>
-            <Left>0.1cm</Left>
+            <Top>15.00929cm</Top>
+            <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>15</ZIndex>
@@ -772,8 +772,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteCorreo</rd:DefaultName>
-            <Top>14.71295cm</Top>
-            <Left>0.1cm</Left>
+            <Top>15.62841cm</Top>
+            <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>16</ZIndex>
@@ -813,8 +813,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>ClienteTelefono</rd:DefaultName>
-            <Top>15.33737cm</Top>
-            <Left>0.1cm</Left>
+            <Top>16.25283cm</Top>
+            <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>17</ZIndex>
@@ -856,8 +856,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>FormaDePago</rd:DefaultName>
-            <Top>16.19462cm</Top>
-            <Left>0.1cm</Left>
+            <Top>17.11008cm</Top>
+            <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>18</ZIndex>
@@ -1261,8 +1261,8 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>TicketCredito</DataSetName>
-            <Top>17.92351cm</Top>
-            <Left>0.1cm</Left>
+            <Top>18.83897cm</Top>
+            <Left>0.05cm</Left>
             <Height>1.2cm</Height>
             <Width>7.71cm</Width>
             <ZIndex>19</ZIndex>
@@ -1289,8 +1289,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>DescuentosDeProductos</rd:DefaultName>
-            <Top>19.13678cm</Top>
-            <Left>1.1cm</Left>
+            <Top>20.05224cm</Top>
+            <Left>1.05cm</Left>
             <Height>0.6cm</Height>
             <Width>6.7cm</Width>
             <ZIndex>20</ZIndex>
@@ -1321,8 +1321,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>TotalGeneral</rd:DefaultName>
-            <Top>19.76649cm</Top>
-            <Left>1.1cm</Left>
+            <Top>20.68195cm</Top>
+            <Left>1.05cm</Left>
             <Height>0.6cm</Height>
             <Width>6.75cm</Width>
             <ZIndex>21</ZIndex>
@@ -1355,8 +1355,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>20.68195cm</Top>
-            <Left>0.1cm</Left>
+            <Top>21.59741cm</Top>
+            <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>22</ZIndex>
@@ -1374,8 +1374,8 @@
             <Source>External</Source>
             <Value>=Parameters!PathBarCode.Value</Value>
             <Sizing>Fit</Sizing>
-            <Top>21.52862cm</Top>
-            <Left>1.5cm</Left>
+            <Top>22.44408cm</Top>
+            <Left>1.45cm</Left>
             <Height>1.15604cm</Height>
             <Width>5cm</Width>
             <ZIndex>23</ZIndex>
@@ -1403,8 +1403,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Referencia</rd:DefaultName>
-            <Top>16.82433cm</Top>
-            <Left>0.1cm</Left>
+            <Top>17.73979cm</Top>
+            <Left>0.05cm</Left>
             <Height>0.6cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>24</ZIndex>
@@ -1428,8 +1428,38 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="Textbox1">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Realizado por: </Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Top>2.42421cm</Top>
+            <Left>0.12912cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.67088cm</Width>
+            <ZIndex>24</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>23.32495cm</Height>
+        <Height>23.95995cm</Height>
         <Style />
       </Body>
       <Width>8cm</Width>
@@ -1532,6 +1562,10 @@
       </DefaultValue>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="Usuario">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -1632,6 +1666,11 @@
           <ColumnIndex>2</ColumnIndex>
           <RowIndex>4</RowIndex>
           <ParameterName>Referencia</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>4</RowIndex>
+          <ParameterName>Usuario</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>3</ColumnIndex>

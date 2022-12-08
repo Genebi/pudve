@@ -4439,6 +4439,7 @@ namespace PuntoDeVentaV2
         {
             ValidarEntradaDeTextoNumeros(sender, e);
         }
+
         private void ValidarEntradaDeTextoNumeros(object sender, EventArgs e)
         {
             var resultado = string.Empty;
@@ -4491,7 +4492,18 @@ namespace PuntoDeVentaV2
 
         private void txtStockProducto_TextChanged(object sender, EventArgs e)
         {
-            ValidarEntradaDeTextoNumeros(sender, e);
+            validarSoloNumeros(sender, e);
+        }
+
+        private void validarSoloNumeros(object sender, EventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            string texto = txt.Text;
+            bool esNum = decimal.TryParse(texto, out decimal algo);
+            if (esNum.Equals(false))
+            {
+                txt.Text = "";
+            }
         }
 
         private void txtStockMaximo_TextChanged(object sender, EventArgs e)

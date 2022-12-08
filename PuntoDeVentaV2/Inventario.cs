@@ -311,26 +311,26 @@ namespace PuntoDeVentaV2
 
                                 var ocultar = RevisarInventario.mostrar;
 
-                               
-                                    revisar.FormClosed += delegate
+
+                                revisar.FormClosed += delegate
+                                {
+                                    var mostrado = RevisarInventario.mostrar;
+                                    if (mostrado.Equals(0))
                                     {
-                                       var mostrado = RevisarInventario.mostrar;
-                                        if (mostrado.Equals(0))
+                                        ReporteFinalRevisarInventario reporte = new ReporteFinalRevisarInventario();
+                                        reporte.GetFilterNumActiveRecord = NumRevActivo;
+                                        reporte.limpiarTabla = limpiarTabla;
+                                        limpiarTabla = false;
+                                        if (RevisarInventario.mensajeInventario == 1)
                                         {
-                                            ReporteFinalRevisarInventario reporte = new ReporteFinalRevisarInventario();
-                                            reporte.GetFilterNumActiveRecord = NumRevActivo;
-                                            reporte.limpiarTabla = limpiarTabla;
-                                            limpiarTabla = false;
-                                            if (RevisarInventario.mensajeInventario == 1)
-                                            {
-                                            }
-                                            else
-                                            {
-                                                reporte.ShowDialog();
-                                            }
                                         }
-                                    };
-                                    revisar.ShowDialog();
+                                        else
+                                        {
+                                            reporte.ShowDialog();
+                                        }
+                                    }
+                                };
+                                revisar.ShowDialog();
                             }
                         }
                     }
@@ -988,7 +988,7 @@ namespace PuntoDeVentaV2
                 var codigo = fila.Cells[7].Value.ToString();
                 if (codigo.Equals(numCodigo) && contadorMensaje.Equals(0))
                 {
-                   var resultado = MessageBox.Show("Este producto ya fue actualizado. \n ¿Desea volver a actualizarlo?", "Aviso del sistema.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    var resultado = MessageBox.Show("Este producto ya fue actualizado. \n ¿Desea volver a actualizarlo?", "Aviso del sistema.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
 
                     if (resultado.Equals(DialogResult.No))
                     {
@@ -1090,8 +1090,8 @@ namespace PuntoDeVentaV2
 
                 string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString(), idEmplado, empleadoFinal };
 
-                    var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario);
-                    cn.EjecutarConsulta(insertAumentarInventario);
+                var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario);
+                cn.EjecutarConsulta(insertAumentarInventario);
 
 
                 using (DataTable dtRetriveAumentarInventario = cn.CargarDatos(cs.GetAumentarInventario()))
@@ -1155,10 +1155,10 @@ namespace PuntoDeVentaV2
                 var idEmpleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
                 if (string.IsNullOrEmpty(idEmpleado)) { idEmpleado = "0"; }
 
-                string[] datosDisminuirInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString(), idEmpleado, FormPrincipal.userNickName.ToString()};
+                string[] datosDisminuirInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString(), idEmpleado, FormPrincipal.userNickName.ToString() };
 
-                    var insertarDisminuirInventario = cs.InsertarIntoDisminuirInventario(datosDisminuirInventario);
-                    cn.EjecutarConsulta(insertarDisminuirInventario);
+                var insertarDisminuirInventario = cs.InsertarIntoDisminuirInventario(datosDisminuirInventario);
+                cn.EjecutarConsulta(insertarDisminuirInventario);
 
                 using (DataTable dtRetriveDisminuirInventario = cn.CargarDatos(cs.GetDisminuirInventario()))
                 {
@@ -1283,7 +1283,7 @@ namespace PuntoDeVentaV2
                 {
                     return;
                 }
-                
+
                 //if (Utilidades.AdobeReaderInstalado())
                 //{
                 //    var servidor = Properties.Settings.Default.Hosting;
@@ -1331,17 +1331,17 @@ namespace PuntoDeVentaV2
                 //    {
                 //GenerarReporte(idReporte);
                 if (rbAumentarProducto.Checked)
-                        {
-                            var NewNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
-                            cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev + 1));
-                            cn.EjecutarConsulta(cs.UpdateStatusActualizacionAumentarInventario());
-                        }
-                        else if (rbDisminuirProducto.Checked)
-                        {
-                            var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
-                            cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
-                            cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
-                        }
+                {
+                    var NewNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
+                    cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev + 1));
+                    cn.EjecutarConsulta(cs.UpdateStatusActualizacionAumentarInventario());
+                }
+                else if (rbDisminuirProducto.Checked)
+                {
+                    var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
+                    cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
+                    cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
+                }
                 int opcion;
                 using (var Permiso = cn.CargarDatos($"SELECT CorreoStockProducto FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
                 {
@@ -1360,7 +1360,7 @@ namespace PuntoDeVentaV2
                         notificacion.Start();
                     }
                 }
-                
+
 
                 DGVInventario.Rows.Clear();
 
@@ -1406,7 +1406,7 @@ namespace PuntoDeVentaV2
             List<int> idObtenidosDisminuir = new List<int>();
 
             string tablaAumentar = "dgvaumentarinventario";
-            string tablaDisminuir = "dgvdisminuirinventario"; 
+            string tablaDisminuir = "dgvdisminuirinventario";
 
             if (rbAumentarProducto.Checked)
             {
@@ -1418,7 +1418,7 @@ namespace PuntoDeVentaV2
                     idObtenidosAumentar.Add(Convert.ToInt32(dgv.Cells[10].Value));
                 }
 
-                var codigosBuscar = RecorrerLista(idObtenidosAumentar); 
+                var codigosBuscar = RecorrerLista(idObtenidosAumentar);
                 cn.EjecutarConsulta($"UPDATE {tablaAumentar} SET Folio = '{numFolio}' WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) OR Folio = 0");
             }
             else if (rbDisminuirProducto.Checked)
@@ -1456,7 +1456,7 @@ namespace PuntoDeVentaV2
 
             var query = cn.CargarDatos($"SELECT Folio FROM {tabla} WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY Folio DESC LIMIT 2");
 
-            if (!query.Rows.Count.Equals(0))    
+            if (!query.Rows.Count.Equals(0))
             {
                 //if (query.Rows.Count.Equals(1))
                 //{
@@ -1468,7 +1468,6 @@ namespace PuntoDeVentaV2
                 //}
                 result = Convert.ToInt32(query.Rows[0]["Folio"].ToString());
             }
-
             return result;
         }
 

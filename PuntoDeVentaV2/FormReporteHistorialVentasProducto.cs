@@ -112,9 +112,18 @@ namespace PuntoDeVentaV2
                         else if (Columna.Equals("Usuario"))
                         {
                             string Usuario;
-                            using (var DTUsuario = cn.CargarDatos($"SELECT Usuario FROM empleados WHERE ID = {ventas.Rows[rows]["IDEmpleado"].ToString()}"))
+                            string ID = ventas.Rows[rows]["IDEmpleado"].ToString();
+                            using (var DTUsuario = cn.CargarDatos($"SELECT Usuario FROM empleados WHERE ID = {ID}"))
                             {
-                                Usuario = DTUsuario.Rows[0]["Usuario"].ToString();
+                                if (DTUsuario.Rows.Count.Equals(0))
+                                {
+                                    var nombre = FormPrincipal.userNickName.Split('@');
+                                    Usuario = nombre[0];
+                                }
+                                else
+                                {
+                                    Usuario = DTUsuario.Rows[0]["Usuario"].ToString();
+                                }
                             }
                             DTDatos.Rows[rows]["Usuario"] = Usuario;
                         }
@@ -192,7 +201,8 @@ namespace PuntoDeVentaV2
                             {
                                 if (DTUsuario.Rows.Count.Equals(0))
                                 {
-                                    Usuario = FormPrincipal.userNickName;
+                                    var nombre = FormPrincipal.userNickName.Split('@');
+                                     Usuario = nombre[0];
                                 }
                                 else
                                 {
