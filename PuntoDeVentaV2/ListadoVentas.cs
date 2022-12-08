@@ -5135,12 +5135,17 @@ namespace PuntoDeVentaV2
 
                             var folio = mb.ObtenerMaximoFolio(FormPrincipal.userID);
                             var folioVenta = long.Parse(folio) + 1;
+                            var status = 5;
 
+                            if (cbTipoRentas.Visible)
+                            {
+                                status = 10;
+                            }
 
                             string consulta = string.Empty;
 
                             consulta = $@"INSERT INTO Ventas (IDUsuario, IDCliente, Subtotal, IVA16, Total, Descuento, Folio, Status, FechaOperacion, FormaPago, Cliente, RFC)
-                                        VALUES ('{FormPrincipal.userID}', '{clienteId}', '{subTotal}', '{iva}', '{total}', '{descuento}', '{folioVenta}', 5, '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 'Efectivo', 'PUBLICO GENERAL', 'XAXX010101000')";
+                                        VALUES ('{FormPrincipal.userID}', '{clienteId}', '{subTotal}', '{iva}', '{total}', '{descuento}', '{folioVenta}', '{status}', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 'Efectivo', 'PUBLICO GENERAL', 'XAXX010101000')";
 
                             int idVenta = cn.EjecutarConsulta(consulta, regresarID: true);
 
