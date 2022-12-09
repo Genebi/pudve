@@ -74,7 +74,7 @@ namespace PuntoDeVentaV2
 
             try
             {
-                using (var dtDetalles = cn.CargarDatos($"SELECT * FROM detallegeneral WHERE IDUsuario = {FormPrincipal.userID} AND ChckName = '{getChkName}'"))
+                using (var dtDetalles = cn.CargarDatos($"SELECT * FROM detallegeneral WHERE IDUsuario = {FormPrincipal.userID} AND ChckName = '{getChkName}' AND Descripcion = {detalleGeneral}"))
                 {
                     if (dtDetalles.Rows.Count.Equals(0))
                     {
