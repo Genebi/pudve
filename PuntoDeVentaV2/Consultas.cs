@@ -2212,7 +2212,8 @@ namespace PuntoDeVentaV2
         }
         public string agregarDetalleProductoPermisosDinamicos(string detalle)
         {
-            var consulta = $"ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS {detalle.ToString()} int DEFAULT 1";
+            var consulta = $"ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS {detalle.ToString()}" +
+                $" int DEFAULT 1";
             return consulta;
         }
 
