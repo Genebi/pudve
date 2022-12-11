@@ -603,6 +603,8 @@ namespace PuntoDeVentaV2
                         }
                         checkNoVendidos.Checked = valorBooleanoDelCheckBox;
                         #endregion
+
+                        checkRentas.Checked = (bool)item["RealizaRentas"];
                     }
                 }
             }
@@ -1587,6 +1589,20 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private void checkRentas_MouseClick(object sender, MouseEventArgs e)
+        {
+            int realizaRentas = 0;
+
+            if (checkRentas.Checked)
+            {
+                realizaRentas = 1;
+            }
+
+            var consulta = $"UPDATE Configuracion SET RealizaRentas = {realizaRentas} WHERE IDUsuario = {FormPrincipal.userID}";
+
+            confiGeneral.Add(consulta);
         }
     }
 }

@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfiguracionGeneral));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkRentas = new System.Windows.Forms.CheckBox();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.chkMensajeRealizarInventario = new System.Windows.Forms.CheckBox();
             this.chkMensajeVenderProducto = new System.Windows.Forms.CheckBox();
@@ -47,7 +48,6 @@
             this.checkMayoreo = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMinimoMayoreo = new System.Windows.Forms.TextBox();
-            this.checkRentas = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,6 +72,18 @@
             this.groupBox2.TabIndex = 130;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CONFIGURACION GENERAL";
+            // 
+            // checkRentas
+            // 
+            this.checkRentas.AutoSize = true;
+            this.checkRentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRentas.Location = new System.Drawing.Point(325, 109);
+            this.checkRentas.Name = "checkRentas";
+            this.checkRentas.Size = new System.Drawing.Size(199, 21);
+            this.checkRentas.TabIndex = 133;
+            this.checkRentas.Text = "Este negocio realiza rentas";
+            this.checkRentas.UseVisualStyleBackColor = true;
+            this.checkRentas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkRentas_MouseClick);
             // 
             // btnAceptar
             // 
@@ -300,17 +312,6 @@
             this.txtMinimoMayoreo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMinimoMayoreo.Visible = false;
             this.txtMinimoMayoreo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtMinimoMayoreo_KeyUp);
-            // 
-            // checkRentas
-            // 
-            this.checkRentas.AutoSize = true;
-            this.checkRentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkRentas.Location = new System.Drawing.Point(325, 109);
-            this.checkRentas.Name = "checkRentas";
-            this.checkRentas.Size = new System.Drawing.Size(199, 21);
-            this.checkRentas.TabIndex = 133;
-            this.checkRentas.Text = "Este negocio realiza rentas";
-            this.checkRentas.UseVisualStyleBackColor = true;
             // 
             // ConfiguracionGeneral
             // 
