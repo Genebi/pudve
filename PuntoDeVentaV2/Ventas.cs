@@ -353,6 +353,12 @@ namespace PuntoDeVentaV2
                 cantidadMayoreo = Convert.ToInt32(configCorreos[10]);
                 correoVenta = Convert.ToInt32(configCorreos[21]);
                 correoDescuento = Convert.ToInt32(configCorreos[23]);
+
+                // Realiza rentas
+                if (configCorreos[29].Equals(1))
+                {
+                    checkRenta.Checked = Convert.ToBoolean(configCorreos[29]);
+                }
             }
 
             enviarStockMinimo = new Dictionary<int, string>();
