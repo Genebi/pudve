@@ -1936,3 +1936,5 @@ IF
 	-- Agregar Columna de MostraMensaje a Editarticket
 ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS mostrarMensaje INT DEFAULT 0 ;
 
+-- Agregar columna para guardar el si el negocio acepta rentas en configuracion general
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS RealizaRentas tinyint(1) DEFAULT 0;

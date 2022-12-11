@@ -63,7 +63,7 @@ namespace PuntoDeVentaV2
         bool check23 = false;
         bool check26 = false;
 
-        List<String> confiGeneral;
+        List<string> confiGeneral;
 
         bool valorCambioCheckBox = false;
         int guardado = 0;

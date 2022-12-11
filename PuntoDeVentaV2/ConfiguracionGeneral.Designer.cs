@@ -47,12 +47,14 @@
             this.checkMayoreo = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMinimoMayoreo = new System.Windows.Forms.TextBox();
+            this.checkRentas = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox2.Controls.Add(this.checkRentas);
             this.groupBox2.Controls.Add(this.btnAceptar);
             this.groupBox2.Controls.Add(this.chkMensajeRealizarInventario);
             this.groupBox2.Controls.Add(this.chkMensajeVenderProducto);
@@ -92,7 +94,7 @@
             // 
             this.chkMensajeRealizarInventario.AutoSize = true;
             this.chkMensajeRealizarInventario.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMensajeRealizarInventario.Location = new System.Drawing.Point(175, 136);
+            this.chkMensajeRealizarInventario.Location = new System.Drawing.Point(37, 136);
             this.chkMensajeRealizarInventario.Name = "chkMensajeRealizarInventario";
             this.chkMensajeRealizarInventario.Size = new System.Drawing.Size(267, 21);
             this.chkMensajeRealizarInventario.TabIndex = 131;
@@ -106,7 +108,7 @@
             // 
             this.chkMensajeVenderProducto.AutoSize = true;
             this.chkMensajeVenderProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMensajeVenderProducto.Location = new System.Drawing.Point(325, 109);
+            this.chkMensajeVenderProducto.Location = new System.Drawing.Point(37, 163);
             this.chkMensajeVenderProducto.Name = "chkMensajeVenderProducto";
             this.chkMensajeVenderProducto.Size = new System.Drawing.Size(262, 21);
             this.chkMensajeVenderProducto.TabIndex = 130;
@@ -299,6 +301,17 @@
             this.txtMinimoMayoreo.Visible = false;
             this.txtMinimoMayoreo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtMinimoMayoreo_KeyUp);
             // 
+            // checkRentas
+            // 
+            this.checkRentas.AutoSize = true;
+            this.checkRentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRentas.Location = new System.Drawing.Point(325, 109);
+            this.checkRentas.Name = "checkRentas";
+            this.checkRentas.Size = new System.Drawing.Size(199, 21);
+            this.checkRentas.TabIndex = 133;
+            this.checkRentas.Text = "Este negocio realiza rentas";
+            this.checkRentas.UseVisualStyleBackColor = true;
+            // 
             // ConfiguracionGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -351,5 +364,6 @@
         private System.Windows.Forms.CheckBox chkMensajeRealizarInventario;
         private System.Windows.Forms.CheckBox chkMensajeVenderProducto;
         private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.CheckBox checkRentas;
     }
 }
