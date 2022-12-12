@@ -3189,26 +3189,24 @@ namespace PuntoDeVentaV2
 
             var opcion = cbTipoVentas.SelectedValue.ToString();
 
-            if (opcion == "VP") //Ventas pagadas
+            if (cbTipoRentas.Visible)
             {
-                preguntaDesdeDonde = "¿Estás seguro de cancelar la venta?";
+                opcion = cbTipoRentas.SelectedValue.ToString();
             }
-            else if (opcion == "VG") //Ventas guardadas
-            {
-                preguntaDesdeDonde = "¿Estás seguro de cancelar el presupuesto?";
-            }
-            else if (opcion == "VC") //Ventas canceladas
-            {
-                preguntaDesdeDonde = "¿Estás seguro de cancelar la venta cancelada?";
-            }
-            else if (opcion == "VCC") //Ventas a credito
-            {
-                preguntaDesdeDonde = "¿Estás seguro de cancelar el crédito?";
-            }
-            else if (opcion == "RNT") // Rentas
-            {
-                preguntaDesdeDonde = "¿Estás seguro de cancelar la renta?";
-            }
+
+            //Ventas pagadas
+            if (opcion == "VP") { preguntaDesdeDonde = "¿Estás seguro de cancelar la venta?"; }
+            //Ventas guardadas
+            if (opcion == "VG") { preguntaDesdeDonde = "¿Estás seguro de cancelar el presupuesto?"; }
+            //Ventas canceladas
+            if (opcion == "VC") { preguntaDesdeDonde = "¿Estás seguro de cancelar la venta cancelada?"; }
+            //Ventas a credito
+            if (opcion == "VCC") { preguntaDesdeDonde = "¿Estás seguro de cancelar el crédito?"; }
+
+            if (opcion == "RP") { preguntaDesdeDonde = "¿Estás seguro de cancelar la renta?"; }
+            if (opcion == "RG") { preguntaDesdeDonde = "¿Estás seguro de cancelar el presupuesto?"; }
+            if (opcion == "RC") { preguntaDesdeDonde = "¿Estás seguro de cancelar la renta cancelada?"; }
+            if (opcion == "RCC") { preguntaDesdeDonde = "¿Estás seguro de cancelar el crédito?"; }
 
             return preguntaDesdeDonde;
         }
