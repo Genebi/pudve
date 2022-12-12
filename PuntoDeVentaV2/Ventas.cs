@@ -7378,6 +7378,11 @@ namespace PuntoDeVentaV2
                     txtDescuentoGeneral.Select(0, 0);
                 }
             }
+            else
+            {
+                txtDescuentoGeneral.Text = "";
+                txtDescuentoGeneral.Select(0, 0);
+            }
             
             
         }
