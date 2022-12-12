@@ -23,7 +23,7 @@ namespace PuntoDeVentaV2
         private DataGridViewCellStyle HighlightStyle;
 
         public static bool noMostrarClave { get; set; }
-       
+        static public bool SeAbrioCopia = false;
 
         string strTag = string.Empty,
                 path = string.Empty,
@@ -1397,6 +1397,7 @@ namespace PuntoDeVentaV2
                     // Copiar el Producto
                     if (seleccionadoDato == 0)
                     {
+                        SeAbrioCopia = true;
                         copiarMensajesProd = 1;
                         seleccionadoDato = 1;
                         numerofila = e.RowIndex;

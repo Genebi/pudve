@@ -93,12 +93,15 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            var copiadoMayoreo = AgregarEditarProducto.SearchDesMayoreo.Rows.Count;
-            if (copiadoMayoreo > 0 && AgregarEditarProducto.DatosSourceFinal == 4)
+            if (Productos.SeAbrioCopia.Equals(true))
             {
-                rbMayoreo.Checked = true;
-                tipoDescuento = 2;
-                AgregarEditarProducto.descuentosSinGuardar = 1;
+                var copiadoMayoreo = AgregarEditarProducto.SearchDesMayoreo.Rows.Count;
+                if (copiadoMayoreo > 0 && AgregarEditarProducto.DatosSourceFinal == 4)
+                {
+                    rbMayoreo.Checked = true;
+                    tipoDescuento = 2;
+                    AgregarEditarProducto.descuentosSinGuardar = 1;
+                }
             }
             CargarFormularios(tipoDescuento);
             
