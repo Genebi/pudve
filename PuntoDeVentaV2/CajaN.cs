@@ -5515,6 +5515,10 @@ namespace PuntoDeVentaV2
                 {
                     CargarSaldoInicial();
                     recargarDatosConCantidades(sender, e);
+
+
+                    var cantidadAgregadaSaldoInicial = cn.CargarDatos(cs.dineroAgregadoSaldoInicial(FormPrincipal.userID, FormPrincipal.id_empleado, ultimoCorteDeCaja));
+                    lblTotalAgregado.Text = cantidadAgregadaSaldoInicial.Rows[0]["Total agregado"].ToString();
                     //filtradoInicial(sender, e);
                     //CargarSaldo();
                 };
@@ -5558,9 +5562,6 @@ namespace PuntoDeVentaV2
 
                     var cantidadRetiradaSaldoInicial = cn.CargarDatos(cs.dineroRetiradoSaldoInicial(FormPrincipal.userID, FormPrincipal.id_empleado, ultimoCorteDeCaja));
                     lblCantidadRetirada.Text = cantidadRetiradaSaldoInicial.Rows[0]["Total retirado"].ToString();
-
-                    var cantidadAgregadaSaldoInicial = cn.CargarDatos(cs.dineroAgregadoSaldoInicial(FormPrincipal.userID, FormPrincipal.id_empleado, ultimoCorteDeCaja));
-                    lblTotalAgregado.Text = cantidadAgregadaSaldoInicial.Rows[0]["Total agregado"].ToString();
                     //CargarSaldo();
                 };
 

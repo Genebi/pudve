@@ -198,6 +198,15 @@ namespace PuntoDeVentaV2
             ////totalCredito = CajaN.cred;
 
             CargarConceptos();
+
+            if (totalSaldoInicial > 0)
+            {
+                chkBoxDepositoSaldoInicial.Visible = false;
+            }
+            else
+            {
+                chkBoxDepositoSaldoInicial.Visible = true;
+            }
         }
 
 
@@ -351,7 +360,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     var totalInicial = Convert.ToDecimal(cantidadesIniciales[0]) + Convert.ToDecimal(cantidadesIniciales[1]) + Convert.ToDecimal(cantidadesIniciales[2]) + Convert.ToDecimal(cantidadesIniciales[3]) + Convert.ToDecimal(cantidadesIniciales[4]);
-                    cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado) VALUES ('deposito', '{totalInicial}', '0', 'agregado a saldo inicial', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{cantidadesIniciales[0]}', '{cantidadesIniciales[1]}', '{cantidadesIniciales[2]}', '{cantidadesIniciales[3]}', '{cantidadesIniciales[4]}', '0', '0', '{FormPrincipal.id_empleado}')");
+                    cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado) VALUES ('deposito', '{totalInicial}', '0', 'Agregado a saldo inicial', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{cantidadesIniciales[0]}', '{cantidadesIniciales[1]}', '{cantidadesIniciales[2]}', '{cantidadesIniciales[3]}', '{cantidadesIniciales[4]}', '0', '0', '{FormPrincipal.id_empleado}')");
                     //cn.EjecutarConsulta(cs.agregarSaldosIniciales(idHistorialCorteDeCaja, cantidadesIniciales));
                 }
 
@@ -727,14 +736,13 @@ namespace PuntoDeVentaV2
                 {
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
-                        if (cantidadTotalEfectivoEnCaja >= Convert.ToDecimal(efectivo) && cantidadTotalTarjetaEnCaja >= Convert.ToDecimal(tarjeta) && cantidadTotalValesEnCaja >= Convert.ToDecimal(vales) && cantidadTotalCehqueEnCaja >= Convert.ToDecimal(cheque) && cantidadTotalTransferenciaEnCaja >= Convert.ToDecimal(trans))
+                        if (cantidadTotalEfectivoEnCaja >= Convert.ToDecimal(efectivo) && cantidadTotalTarjetaEnCaja >= Convert.ToDecimal(tarjeta) && cantidadTotalValesEnCaja >= Convert.ToDecimal(vales) && cantidadTotalCehqueEnCaja >= Convert.ToDecimal(cheque) && cantidadTotalTransferenciaEnCaja >= Convert.ToDecimal(trans) || datos[0].ToString().Equals("deposito"))
                         {
                             resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
                         }
                         else
                         {
                             decimal restanteEfectivo = 0, restanteTarjeta = 0, restanteVales = 0, restanteCheque = 0, restanteTransferencia = 0;
-                            decimal retiradoSaldoInicial = 0, agregadoSaldoInicial = 0;
                             int desdeSaldoInicial = 0;
 
                             if (efectivo > 0)
@@ -865,44 +873,42 @@ namespace PuntoDeVentaV2
                                 datos[10] = "0";
                             }
 
-                            if (desdeSaldoInicial == 1 && operacion == 2)
-                            {
-                                datos[3] = "Retiro desde saldo inicial";
-                            }
-                            else if(operacion == 2)
+                            if(operacion == 1)
                             {
                                 datos[3] = "Complemento de retiro desde saldo inicial";
                             }
+
                             if (operacion == 1)
                             {
-                                datos[3] = "Retiro desde saldo inicial";
+                                //datos[3] = "Retiro desde saldo inicial";
                                 resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
                             }
                             else
                             {
                                 resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));//Registro complementario del retiro de saldo inicial
                             }
-                           
-
                         }
-                       
                     }
                     else
                     {
                         //    tipoCorte = true;
                         //    resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
 
-                        if (cantidadTotalEfectivoEnCaja > Convert.ToDecimal(efectivo) && cantidadTotalTarjetaEnCaja > Convert.ToDecimal(tarjeta) && cantidadTotalValesEnCaja > Convert.ToDecimal(vales) && cantidadTotalCehqueEnCaja > Convert.ToDecimal(cheque) && cantidadTotalTransferenciaEnCaja > Convert.ToDecimal(trans))
+                        if (cantidadTotalEfectivoEnCaja > Convert.ToDecimal(efectivo) && cantidadTotalTarjetaEnCaja > Convert.ToDecimal(tarjeta) && cantidadTotalValesEnCaja > Convert.ToDecimal(vales) && cantidadTotalCehqueEnCaja > Convert.ToDecimal(cheque) && cantidadTotalTransferenciaEnCaja > Convert.ToDecimal(trans) || datos[0].ToString().Equals("deposito"))
                         {
                             resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
                         }
                         else
                         {
                             decimal restanteEfectivo = 0, restanteTarjeta = 0, restanteVales = 0, restanteCheque = 0, restanteTransferencia = 0;
-                            int desdeSaldoInicial = 0;
+                            int parcialSaldoInicial = 0;
 
                             if (efectivo > 0)
                             {
+                                if (cantidadTotalEfectivoEnCaja < 0)
+                                {
+                                    cantidadTotalEfectivoEnCaja = 0;
+                                }
                                 restanteEfectivo = Convert.ToDecimal(efectivo) - cantidadTotalEfectivoEnCaja;
 
                                 if (Convert.ToDecimal(efectivo) > cantidadTotalEfectivoEnCaja)
@@ -964,8 +970,21 @@ namespace PuntoDeVentaV2
                                 }
                             }
 
+                            if (Convert.ToDecimal(datos[6]) >= 0 && Convert.ToDecimal(datos[7]) >= 0 && Convert.ToDecimal(datos[8]) >= 0 && Convert.ToDecimal(datos[9]) >= 0 && Convert.ToDecimal(datos[10]) >= 0)
+                            {
+                                resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));//Registro parcial del retiro saldo de caja
+                                parcialSaldoInicial = 1;
+                            }
+                            else if (operacion == 2)
+                            {
+                                datos[6] = "0";
+                                datos[7] = "0";
+                                datos[8] = "0";
+                                datos[9] = "0";
+                                datos[10] = "0";
+                                parcialSaldoInicial = 1;
+                            }
 
-                            resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));//Registro parcial del retiro saldo de caja
 
                             if (restanteEfectivo > 0)
                             {
@@ -1012,16 +1031,24 @@ namespace PuntoDeVentaV2
                                 datos[10] = "0";
                             }
 
-                            if (desdeSaldoInicial == 1)
+                            if (parcialSaldoInicial == 1 && operacion == 2)
                             {
                                 datos[3] = "Retiro desde saldo inicial";
                             }
-                            else
+                            else if (operacion == 1)
                             {
                                 datos[3] = "Complemento de retiro desde saldo inicial";
                             }
 
-                            resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));//Registro complementario del retiro de saldo inicial
+                            if (operacion == 1)
+                            {
+                                //datos[3] = "Retiro desde saldo inicial";
+                                resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
+                            }
+                            else
+                            {
+                                resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));//Registro complementario del retiro de saldo inicial
+                            }
                         }
                     }
                 }
