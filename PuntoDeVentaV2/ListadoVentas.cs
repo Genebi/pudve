@@ -2068,7 +2068,10 @@ namespace PuntoDeVentaV2
                                 }
                                 else if (obtenerValorSiSeAbono.Rows.Count.Equals(0))
                                 {
-                                    if (cbTipoVentas.SelectedIndex == 0)
+                                    /*Se valida que el combobox de ventas este visible porque cuando es el de renta el que esta seleccionado
+                                    y se cancela una renta, el producto si se regresa al stock pero el dinero de caja no se regresa, esto es
+                                    solo para las rentas */
+                                    if (cbTipoVentas.SelectedIndex == 0 && cbTipoVentas.Visible)
                                     {
                                         saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
                                         var sEfectivo = (MetodosBusquedas.efectivoInicial + float.Parse(cantidadesAbono[1]));
