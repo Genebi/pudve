@@ -7123,7 +7123,7 @@ namespace PuntoDeVentaV2
 
         private void btnAplicarDescuento_Click(object sender, EventArgs e)
         {
-            if (txtDescuentoGeneral.Text.Equals("% descuento") && string.IsNullOrWhiteSpace(txtDescuentoGeneral.Text))
+            if (txtDescuentoGeneral.Text.Equals("% descuento") || string.IsNullOrWhiteSpace(txtDescuentoGeneral.Text))
             {
                 return;
             }
