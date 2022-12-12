@@ -3219,26 +3219,20 @@ namespace PuntoDeVentaV2
 
             var opcion = cbTipoVentas.SelectedValue.ToString();
 
-            if (opcion == "VP") //Ventas pagadas
+            if (cbTipoRentas.Visible)
             {
-                cancelarDesdeDonde = "Venta (Pagada) cancelada exitosamente";
+                opcion = cbTipoRentas.SelectedValue.ToString();
             }
-            else if (opcion == "VG") //Ventas guardadas
-            {
-                cancelarDesdeDonde = "Presupuesto (Venta Guardada) cancelado exitosamente";
-            }
-            else if (opcion == "VC") //Ventas canceladas
-            {
-                cancelarDesdeDonde = "Venta (Cancelada) cancelada exitosamente";
-            }
-            else if (opcion == "VCC") //Ventas a credito
-            {
-                cancelarDesdeDonde = "Venta a credito cancelada exitosamente";
-            }
-            else if (opcion == "RNT") //Rentas
-            {
-                cancelarDesdeDonde = "Renta cancelada exitosamente";
-            }
+
+            if (opcion == "VP") { cancelarDesdeDonde = "Venta (Pagada) cancelada exitosamente"; }
+            if (opcion == "VG") { cancelarDesdeDonde = "Presupuesto (Venta Guardada) cancelado exitosamente"; }
+            if (opcion == "VC") { cancelarDesdeDonde = "Venta (Cancelada) cancelada exitosamente"; }
+            if (opcion == "VCC") { cancelarDesdeDonde = "Venta a credito cancelada exitosamente"; }
+
+            if (opcion == "RP") { cancelarDesdeDonde = "Renta (Pagada) cancelada exitosamente"; }
+            if (opcion == "RG") { cancelarDesdeDonde = "Presupuesto (Renta Guardada) cancelado exitosamente"; }
+            if (opcion == "RC") { cancelarDesdeDonde = "Renta (Cancelada) cancelada exitosamente"; }
+            if (opcion == "RCC") { cancelarDesdeDonde = "Renta a crédito cancelada exitosamente"; }
 
             return cancelarDesdeDonde;
         }
