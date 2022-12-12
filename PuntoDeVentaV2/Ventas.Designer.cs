@@ -630,6 +630,7 @@
             this.CBTipo.Name = "CBTipo";
             this.CBTipo.Size = new System.Drawing.Size(121, 21);
             this.CBTipo.TabIndex = 65;
+            this.CBTipo.SelectedIndexChanged += new System.EventHandler(this.CBTipo_SelectedIndexChanged);
             this.CBTipo.TextChanged += new System.EventHandler(this.CBTipo_TextChanged);
             // 
             // panel4

@@ -784,7 +784,7 @@ namespace PuntoDeVentaV2
                     string codigo = txtBuscadorProducto.Text.Trim();
 
                     // Verificamos si existe en la tabla de codigos de barra extra
-                    var datosTmp = mb.BuscarCodigoBarrasExtra(codigo);
+                    var datosTmp = mb.BuscarCodigoBarrasExtra2(codigo, filtro);
 
                     if (datosTmp.Length > 0)
                     {
@@ -803,7 +803,16 @@ namespace PuntoDeVentaV2
 
                     if (!string.IsNullOrWhiteSpace(txtBuscadorProducto.Text))
                     {
-                        string querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{codigo}' OR CodigoBarras = '{codigo}') AND Status = 1 AND Tipo = '{filtro}'";
+                        string querySearchProd;
+                        if (CBTipo.SelectedItem.Equals(0))
+                        {
+                             querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{codigo}' OR CodigoBarras = '{codigo}') AND Status = 1";
+                        }
+                        else
+                        {
+                             querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{codigo}' OR CodigoBarras = '{codigo}') AND Status = 1 AND Tipo = '{filtro}'";
+                        }
+                       
 
                         DataTable searchProd = cn.CargarDatos(querySearchProd);
 
@@ -7123,7 +7132,7 @@ namespace PuntoDeVentaV2
 
         private void btnAplicarDescuento_Click(object sender, EventArgs e)
         {
-            if (txtDescuentoGeneral.Text.Equals("% descuento") || string.IsNullOrWhiteSpace(txtDescuentoGeneral.Text))
+            if (txtDescuentoGeneral.Text.Equals("% descuento")|| string.IsNullOrWhiteSpace(txtDescuentoGeneral.Text))
             {
                 return;
             }
@@ -8450,6 +8459,11 @@ namespace PuntoDeVentaV2
         }
 
         private void nudCantidadPS_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CBTipo_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
