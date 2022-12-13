@@ -61,6 +61,7 @@ namespace PuntoDeVentaV2
         public static string totalRetiradoCorte { get; set; }
         public static string obtenerRutaPDF { get; set; }
 
+        public static string Comentario = "";
         string idParaComboBox = string.Empty;
 
         public AgregarRetirarDinero(int operacion = 0)
@@ -302,6 +303,14 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            if (!string.IsNullOrWhiteSpace(txtComentario.Text))
+            {
+                Comentario = txtComentario.Text;
+            }
+            else
+            {
+                Comentario = "---";
+            }
             var tipoOperacion = string.Empty;
             bool tipoCorte = true;
 
@@ -368,6 +377,7 @@ namespace PuntoDeVentaV2
 
                 if (resultadoAgregarDinero.Equals(DialogResult.Yes))
                 {
+                   
                     var idDeposito = 0;
                     var usuarioActivo = FormPrincipal.userNickName;
 
