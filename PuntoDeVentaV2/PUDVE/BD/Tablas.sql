@@ -1936,3 +1936,17 @@ IF
 	-- Agregar Columna de MostraMensaje a Editarticket
 ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS mostrarMensaje INT DEFAULT 0 ;
 
+--Se crea la tabla de permisos Conceptos
+CREATE TABLE
+IF
+	NOT EXISTS PermisosConceptosAgregarRetirarDinero (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		Nombre VARCHAR(100) DEFAULT NULL ,
+		IDUsuario INTEGER NOT NULL DEFAULT 0,
+		IDEmpleado INTEGER NOT NULL DEFAULT 0,
+		AgregarConcepto INTEGER DEFAULT 1,
+		HabilitarConcepto INTEGER DEFAULT 1,
+		DeshabilitarConcepto INTEGER DEFAULT 1,
+		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE ,
+		FOREIGN KEY ( IDEmpleado ) REFERENCES empleados ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
+	);

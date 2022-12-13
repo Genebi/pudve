@@ -167,7 +167,12 @@ namespace PuntoDeVentaV2
 
                 GenerarCheckbox(10, 10, 200, "Respaldar Informacion", permisos[0]);
             }
+            if (tipoPermisos == "permisoConcepto")
+            {
+                Text = "PUDVE - Permisos Conceptos";
+                seccion = "Agregar o Retirar Dinero";
 
+            }
             secciones = new string[] 
             {
                 "Editar Tickt", "Envio de Correo", "Configuracion General", "Porcentaje de Ganancia",
