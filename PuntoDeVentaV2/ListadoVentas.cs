@@ -1429,28 +1429,23 @@ namespace PuntoDeVentaV2
         private void restaurarBusqueda()
         {
             var opcion = cbTipoVentas.SelectedValue.ToString();
+
+            if (cbTipoRentas.Visible)
+            {
+                opcion = cbTipoRentas.SelectedValue.ToString();
+            }
+
             clickBoton = 0;
 
-            if (opcion == "VP") //Ventas pagadas
-            {
-                CargarDatos(1);
-            }
-            else if (opcion == "VG") //Ventas guardadas
-            {
-                CargarDatos(2);
-            }
-            else if (opcion == "VC") //Ventas canceladas
-            {
-                CargarDatos(3);
-            }
-            else if (opcion == "VCC") //Ventas a credito
-            {
-                CargarDatos(4);
-            }
-            else if (opcion == "RNT") //Rentas
-            {
-                CargarDatos(6);
-            }
+            if (opcion == "VP") { CargarDatos(1); } // Ventas pagadas
+            if (opcion == "VG") { CargarDatos(2); } // Ventas guardadas
+            if (opcion == "VC") { CargarDatos(3); } // Ventas canceladas
+            if (opcion == "VCC") { CargarDatos(4); } // Ventas a credito
+
+            if (opcion == "RP") { CargarDatos(6); } // Rentas pagadas
+            if (opcion == "RG") { CargarDatos(7); } // Rentas guardadas
+            if (opcion == "RC") { CargarDatos(8); } // Rentas canceladas
+            if (opcion == "RCC") { CargarDatos(9); } // Rentas a credito
         }
 
         private void AgregarTotalesGenerales(float ivaGral, float subtotalGral, float totalGral)
