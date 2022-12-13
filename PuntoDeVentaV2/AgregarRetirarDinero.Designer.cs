@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.gbContenedor = new System.Windows.Forms.GroupBox();
+            this.txtComentario = new System.Windows.Forms.TextBox();
             this.chkBoxDepositoSaldoInicial = new System.Windows.Forms.CheckBox();
             this.btnRetirarTodoElDinero = new System.Windows.Forms.Button();
             this.cbConceptoConBusqueda = new CustomControlPUDVE.ComboBoxPUDVE();
@@ -50,7 +51,6 @@
             this.txtCheque = new System.Windows.Forms.TextBox();
             this.lbTitulo = new System.Windows.Forms.Label();
             this.cbConceptos = new System.Windows.Forms.ComboBox();
-            this.txtComentario = new System.Windows.Forms.TextBox();
             this.gbContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,6 +82,18 @@
             this.gbContenedor.Size = new System.Drawing.Size(410, 321);
             this.gbContenedor.TabIndex = 0;
             this.gbContenedor.TabStop = false;
+            // 
+            // txtComentario
+            // 
+            this.txtComentario.Location = new System.Drawing.Point(56, 255);
+            this.txtComentario.Name = "txtComentario";
+            this.txtComentario.Size = new System.Drawing.Size(326, 20);
+            this.txtComentario.TabIndex = 222;
+            this.txtComentario.Text = "COMENTARIOS";
+            this.txtComentario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtComentario.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtComentario_MouseClick);
+            this.txtComentario.TextChanged += new System.EventHandler(this.txtComentario_TextChanged);
+            this.txtComentario.Enter += new System.EventHandler(this.txtComentario_Enter);
             // 
             // chkBoxDepositoSaldoInicial
             // 
@@ -346,13 +358,6 @@
             this.cbConceptos.Size = new System.Drawing.Size(293, 25);
             this.cbConceptos.TabIndex = 217;
             this.cbConceptos.Visible = false;
-            // 
-            // txtComentario
-            // 
-            this.txtComentario.Location = new System.Drawing.Point(56, 255);
-            this.txtComentario.Name = "txtComentario";
-            this.txtComentario.Size = new System.Drawing.Size(326, 20);
-            this.txtComentario.TabIndex = 222;
             // 
             // AgregarRetirarDinero
             // 

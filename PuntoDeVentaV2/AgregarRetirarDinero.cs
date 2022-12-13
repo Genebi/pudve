@@ -307,7 +307,7 @@ namespace PuntoDeVentaV2
             {
                 Comentario = txtComentario.Text;
             }
-            else
+            else if(txtComentario.Text.Equals("COMENTARIOS") || string.IsNullOrWhiteSpace(txtComentario.Text))
             {
                 Comentario = "---";
             }
@@ -2169,6 +2169,31 @@ namespace PuntoDeVentaV2
         private void txtCredito_TextChanged(object sender, EventArgs e)
         {
             validarSoloNumeros(sender, e);
+        }
+
+        private void txtComentario_Enter(object sender, EventArgs e)
+        {
+            if (txtComentario.Text.Equals("COMENTARIOS"))
+            {
+                txtComentario.Focus();
+                txtComentario.SelectAll();
+            }
+        }
+
+        private void txtComentario_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtComentario.Text))
+            {
+                txtComentario.Text = "COMENTARIOS";
+                txtComentario.Focus();
+                txtComentario.SelectAll();
+            }
+        }
+
+        private void txtComentario_MouseClick(object sender, MouseEventArgs e)
+        {
+            txtComentario.Focus();
+            txtComentario.SelectAll();
         }
     }
 }
