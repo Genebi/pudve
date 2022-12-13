@@ -1260,6 +1260,12 @@ namespace PuntoDeVentaV2
                     row.Cells["cInformacion"].Value = informacion;
                     row.Cells["retomarVenta"].Value = reusarVentas;
 
+                    // Para rentas
+                    if (status > 5)
+                    {
+                        row.Cells["Cancelar"].Value = reusarVentas;
+                    }
+
                     // Ventas canceladas
                     if (status == 3 || estado == 8)
                     {
@@ -1680,6 +1686,14 @@ namespace PuntoDeVentaV2
             if (e.RowIndex >= 0 && e.RowIndex != ultimaFila)
             {
                 var opcion = cbTipoVentas.SelectedValue.ToString();
+
+                if (cbTipoRentas.Visible)
+                {
+                    opcion = cbTipoRentas.SelectedValue.ToString();
+                }
+
+                var valoresRenta = new string[] { "RP", "RG", "RC", "RCC", "RGG" };
+
                 var permitir = true;
 
                 Rectangle cellRect = DGVListadoVentas.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
@@ -1694,6 +1708,12 @@ namespace PuntoDeVentaV2
                     if (e.ColumnIndex == 11)
                     {
                         textoTT = "Cancelar";
+
+                        if (valoresRenta.Contains(opcion))
+                        {
+                            textoTT = "Regresar";
+                        }
+
                         coordenadaX = 60;
 
                         if (opcion == "VC") { permitir = false; }
