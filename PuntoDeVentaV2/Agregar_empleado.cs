@@ -42,6 +42,7 @@ namespace PuntoDeVentaV2
 
         private void Agregar_empleado_Load(object sender, EventArgs e)
         {
+
             if (tipo == 1)
             {
                 Text = "Agregar empleado";
@@ -58,7 +59,6 @@ namespace PuntoDeVentaV2
             {
                 Text = "Editar empleado";
                 ///lbTitulo.Text = "EDITAR EMPLEADO";
-
                 lbContraseñaParaConfirmar.Visible = false;
                 cmb_bx_permisos.Visible = false;
                 picturebx_editar.Visible = true;

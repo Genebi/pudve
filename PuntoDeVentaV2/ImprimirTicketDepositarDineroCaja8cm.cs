@@ -79,6 +79,9 @@ namespace PuntoDeVentaV2
 
             dineroAgregadoDA.Fill(dineroAgregadoDT);
 
+            ReportParameterCollection reportParameters = new ReportParameterCollection();
+            reportParameters.Add(new ReportParameter("Comentario", AgregarRetirarDinero.Comentario.ToString()));
+
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             this.reportViewer1.LocalReport.DataSources.Clear();
@@ -89,10 +92,12 @@ namespace PuntoDeVentaV2
             this.reportViewer1.LocalReport.DataSources.Add(rp);
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
             this.reportViewer1.RefreshReport();
-
+            this.reportViewer1.LocalReport.SetParameters(reportParameters);
             LocalReport rdlc = new LocalReport();
             rdlc.ReportPath = FullReportPath;
             rdlc.DataSources.Add(rp);
+            rdlc.SetParameters(reportParameters);
+
             #endregion
 
             EnviarImprimir imp = new EnviarImprimir();
