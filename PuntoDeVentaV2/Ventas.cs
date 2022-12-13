@@ -4403,7 +4403,7 @@ namespace PuntoDeVentaV2
                             }
 
                             // Imprimir Ticket Venta Terminada
-                            if (tipoDeVentaRealizada.Equals(1))
+                            if (tipoDeVentaRealizada.Equals(1) || tipoDeVentaRealizada.Equals(6))
                             {
                                 int Permiso = 0;
                                 using (var DTpermiso = cn.CargarDatos($"SELECT HabilitarTicketVentas FROM `configuracion` WHERE IDUsuario = {FormPrincipal.userID}"))
@@ -4435,6 +4435,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                             imprimirTicketVenta.Referencia = referencia;
+                                            imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
                                             imprimirTicketVenta.ShowDialog();
                                         }
                                     }
@@ -4461,13 +4462,14 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                             imprimirTicketVenta.Referencia = referencia;
+                                            imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
                                             imprimirTicketVenta.ShowDialog();
                                         }
                                     }
                                 }
                             }
                             // Imprimir Ticket Venta Guardada
-                            if (tipoDeVentaRealizada.Equals(2))
+                            if (tipoDeVentaRealizada.Equals(2) || tipoDeVentaRealizada.Equals(7))
                             {
                                 DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket Del Presupuesto", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
 
@@ -4496,6 +4498,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                             imprimirTicketVenta.Referencia = referencia;
+                                            imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
 
                                             imprimirTicketVenta.ShowDialog();
                                         }
@@ -4523,6 +4526,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                             imprimirTicketVenta.Referencia = referencia;
+                                            imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
 
                                             imprimirTicketVenta.ShowDialog();
                                         }
@@ -4535,7 +4539,7 @@ namespace PuntoDeVentaV2
 
                             }
                             // Imprimir Ticket Venta a Credito
-                            if (tipoDeVentaRealizada.Equals(4))
+                            if (tipoDeVentaRealizada.Equals(4) || tipoDeVentaRealizada.Equals(9))
                             {
                                 if (ticket6cm.Equals(1))
                                 {
@@ -4560,6 +4564,7 @@ namespace PuntoDeVentaV2
                                         imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                         imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                         imprimirTicketVenta.Referencia = referencia;
+                                        imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
 
                                         imprimirTicketVenta.ShowDialog();
                                     }
@@ -4587,6 +4592,7 @@ namespace PuntoDeVentaV2
                                         imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                         imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                         imprimirTicketVenta.Referencia = referencia;
+                                        imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
 
                                         imprimirTicketVenta.ShowDialog();
                                     }

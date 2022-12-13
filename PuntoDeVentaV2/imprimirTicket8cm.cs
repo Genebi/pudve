@@ -40,6 +40,7 @@ namespace PuntoDeVentaV2
         #endregion
 
         public int idVentaRealizada { get; set; }
+        public int tipoVenta { get; set; }
 
         public imprimirTicket8cm()
         {
@@ -64,7 +65,7 @@ namespace PuntoDeVentaV2
                 cadenaConn = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
             }
 
-            string queryVenta = cs.imprimirTicketRealizada(idVentaRealizada);
+            string queryVenta = cs.imprimirTicketRealizada(idVentaRealizada, tipoVenta);
 
             MySqlConnection conn = new MySqlConnection();
 
