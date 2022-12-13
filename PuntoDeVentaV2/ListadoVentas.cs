@@ -181,7 +181,7 @@ namespace PuntoDeVentaV2
             Dictionary<string, string> rentas = new Dictionary<string, string>();
             rentas.Add("RP", "RENTAS PAGADAS");
             rentas.Add("RG", "RENTAS GUARDADAS (PRESUPUESTOS)");
-            rentas.Add("RC", "RENTAS CANCELADAS");
+            rentas.Add("RC", "RENTAS DEVUELTAS");
             rentas.Add("RCC", "RENTAS A CRÉDITO");
             rentas.Add("RGG", "RENTAS GLOBALES");
 
