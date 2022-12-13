@@ -81,6 +81,7 @@ namespace PuntoDeVentaV2
             this.id.HeaderText = "ID";
             this.id.Name = "id";
             this.id.ReadOnly = true;
+            this.id.Visible = false;
             // 
             // tipodemovimiento
             // 

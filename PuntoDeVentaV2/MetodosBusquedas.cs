@@ -1099,6 +1099,47 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public string[] BuscarCodigoBarrasExtra2(string codigo,string tipo)
+        {
+            List<string> lista = new List<string>();
+            string[] codigosABuscar;
+
+            if (!string.IsNullOrWhiteSpace(codigo))
+            {
+                codigosABuscar = codigo.Split(' ');
+
+                foreach (var searchCodBar in codigosABuscar)
+                {
+                    if (tipo.Equals("Todos"))
+                    {
+                        DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{searchCodBar}'");
+                    }
+                    else
+                    {
+                        DatosConexion($"SELECT CodigoBarraExtra, IDProducto FROM codigobarrasextras AS CBE INNER JOIN productos AS P ON (P.ID = CBE.IDProducto) WHERE CodigoBarraExtra = '{searchCodBar}' AND P.IDUsuario = {FormPrincipal.userID} AND P.Tipo = '{tipo}'");
+                    }
+
+                    MySqlDataReader dr = sql_cmd.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            if (!string.IsNullOrWhiteSpace(dr["IDProducto"].ToString()))
+                            {
+                                lista.Add(dr["IDProducto"].ToString());
+                            }
+                        }
+                    }
+
+                    dr.Close();
+                    CerrarConexion();
+                }
+            }
+
+            return lista.ToArray();
+        }
+
         public string[] BuscarCodigoBarrasExtraFormProductos(string codigo, bool especial = false)
         {
             List<string> lista = new List<string>();

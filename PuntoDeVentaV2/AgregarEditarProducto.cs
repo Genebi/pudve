@@ -60,7 +60,7 @@ namespace PuntoDeVentaV2
         public string titulo;
         public string texto;
         public string SeleccionaImagen;
-
+        
 
         List<string> prodServPaq = new List<string>();
 
@@ -4601,6 +4601,7 @@ namespace PuntoDeVentaV2
                     return;
                 }
             }
+            Productos.SeAbrioCopia = false;
         }
 
         public void cargarCodBarExt()

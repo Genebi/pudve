@@ -39,6 +39,8 @@
             this.btnCorteCaja = new System.Windows.Forms.Button();
             this.tablaContenedor = new System.Windows.Forms.TableLayoutPanel();
             this.panelDineroAgregado = new System.Windows.Forms.Panel();
+            this.lblTotalAgregado = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.tlpTotalDineroAgregado = new System.Windows.Forms.TableLayoutPanel();
             this.lbTotalAgregado = new System.Windows.Forms.Label();
             this.lbTAgregado = new System.Windows.Forms.Label();
@@ -55,6 +57,8 @@
             this.lbTTransD = new System.Windows.Forms.Label();
             this.tituloDinero = new System.Windows.Forms.Label();
             this.panelDineroRetirado = new System.Windows.Forms.Panel();
+            this.lblCantidadRetirada = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.tlpTotalDineroRetirado = new System.Windows.Forms.TableLayoutPanel();
             this.label3 = new System.Windows.Forms.Label();
             this.lbTRetirado = new System.Windows.Forms.Label();
@@ -144,6 +148,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.cbFiltroAdminEmpleado = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lblCantidadSaldoActual = new System.Windows.Forms.Label();
+            this.btnRedondoReporteCaja = new PuntoDeVentaV2.BotonRedondo();
             this.btnRedondoTabuladorDeDinero = new PuntoDeVentaV2.BotonRedondo();
             this.btnRedondoAbrirCaja = new PuntoDeVentaV2.BotonRedondo();
             this.btnRedondoCorteCaja = new PuntoDeVentaV2.BotonRedondo();
@@ -152,7 +159,6 @@
             this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo2 = new PuntoDeVentaV2.BotonRedondo();
             this.btnRedondoSaldoInicial = new PuntoDeVentaV2.BotonRedondo();
-            this.btnRedondoReporteCaja = new PuntoDeVentaV2.BotonRedondo();
             this.tablaContenedor.SuspendLayout();
             this.panelDineroAgregado.SuspendLayout();
             this.tlpTotalDineroAgregado.SuspendLayout();
@@ -319,6 +325,8 @@
             // 
             this.panelDineroAgregado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelDineroAgregado.Controls.Add(this.lblTotalAgregado);
+            this.panelDineroAgregado.Controls.Add(this.label5);
             this.panelDineroAgregado.Controls.Add(this.botonRedondo1);
             this.panelDineroAgregado.Controls.Add(this.tlpTotalDineroAgregado);
             this.panelDineroAgregado.Controls.Add(this.tlpDineroAgregado);
@@ -327,6 +335,24 @@
             this.panelDineroAgregado.Name = "panelDineroAgregado";
             this.panelDineroAgregado.Size = new System.Drawing.Size(131, 368);
             this.panelDineroAgregado.TabIndex = 108;
+            // 
+            // lblTotalAgregado
+            // 
+            this.lblTotalAgregado.AutoSize = true;
+            this.lblTotalAgregado.Location = new System.Drawing.Point(146, 284);
+            this.lblTotalAgregado.Name = "lblTotalAgregado";
+            this.lblTotalAgregado.Size = new System.Drawing.Size(48, 13);
+            this.lblTotalAgregado.TabIndex = 126;
+            this.lblTotalAgregado.Text = "cantidad";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(1, 284);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(148, 13);
+            this.label5.TabIndex = 125;
+            this.label5.Text = "Total agregado a saldo inicial:";
             // 
             // tlpTotalDineroAgregado
             // 
@@ -557,7 +583,9 @@
             // 
             this.panelDineroRetirado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelDineroRetirado.Controls.Add(this.lblCantidadRetirada);
             this.panelDineroRetirado.Controls.Add(this.botonRedondo2);
+            this.panelDineroRetirado.Controls.Add(this.label7);
             this.panelDineroRetirado.Controls.Add(this.tlpTotalDineroRetirado);
             this.panelDineroRetirado.Controls.Add(this.tlpDineroRetirado);
             this.panelDineroRetirado.Controls.Add(this.label1);
@@ -567,6 +595,24 @@
             this.panelDineroRetirado.Name = "panelDineroRetirado";
             this.panelDineroRetirado.Size = new System.Drawing.Size(138, 368);
             this.panelDineroRetirado.TabIndex = 109;
+            // 
+            // lblCantidadRetirada
+            // 
+            this.lblCantidadRetirada.AutoSize = true;
+            this.lblCantidadRetirada.Location = new System.Drawing.Point(140, 285);
+            this.lblCantidadRetirada.Name = "lblCantidadRetirada";
+            this.lblCantidadRetirada.Size = new System.Drawing.Size(48, 13);
+            this.lblCantidadRetirada.TabIndex = 128;
+            this.lblCantidadRetirada.Text = "cantidad";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(0, 285);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(144, 13);
+            this.label7.TabIndex = 127;
+            this.label7.Text = "Total retirado de saldo inicial:";
             // 
             // tlpTotalDineroRetirado
             // 
@@ -1867,6 +1913,50 @@
             this.cbFiltroAdminEmpleado.TabIndex = 121;
             this.cbFiltroAdminEmpleado.SelectedIndexChanged += new System.EventHandler(this.cbFiltroAdminEmpleado_SelectedIndexChanged);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label6.Location = new System.Drawing.Point(915, 85);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(98, 13);
+            this.label6.TabIndex = 126;
+            this.label6.Text = "Saldo inicial actual:";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // lblCantidadSaldoActual
+            // 
+            this.lblCantidadSaldoActual.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblCantidadSaldoActual.Location = new System.Drawing.Point(1013, 85);
+            this.lblCantidadSaldoActual.Name = "lblCantidadSaldoActual";
+            this.lblCantidadSaldoActual.Size = new System.Drawing.Size(127, 13);
+            this.lblCantidadSaldoActual.TabIndex = 127;
+            this.lblCantidadSaldoActual.Text = "cantidad";
+            this.lblCantidadSaldoActual.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // btnRedondoReporteCaja
+            // 
+            this.btnRedondoReporteCaja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnRedondoReporteCaja.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnRedondoReporteCaja.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnRedondoReporteCaja.BorderRadius = 20;
+            this.btnRedondoReporteCaja.BorderSize = 0;
+            this.btnRedondoReporteCaja.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRedondoReporteCaja.FlatAppearance.BorderSize = 0;
+            this.btnRedondoReporteCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRedondoReporteCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.btnRedondoReporteCaja.ForeColor = System.Drawing.Color.White;
+            this.btnRedondoReporteCaja.Image = global::PuntoDeVentaV2.Properties.Resources.report;
+            this.btnRedondoReporteCaja.Location = new System.Drawing.Point(372, 514);
+            this.btnRedondoReporteCaja.Name = "btnRedondoReporteCaja";
+            this.btnRedondoReporteCaja.Size = new System.Drawing.Size(111, 76);
+            this.btnRedondoReporteCaja.TabIndex = 124;
+            this.btnRedondoReporteCaja.Text = "Reporte de Caja";
+            this.btnRedondoReporteCaja.TextColor = System.Drawing.Color.White;
+            this.btnRedondoReporteCaja.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnRedondoReporteCaja.UseVisualStyleBackColor = false;
+            this.btnRedondoReporteCaja.Click += new System.EventHandler(this.btnRedondoReporteCaja_Click);
+            // 
             // btnRedondoTabuladorDeDinero
             // 
             this.btnRedondoTabuladorDeDinero.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
@@ -2037,7 +2127,7 @@
             this.btnRedondoSaldoInicial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRedondoSaldoInicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold);
             this.btnRedondoSaldoInicial.ForeColor = System.Drawing.Color.White;
-            this.btnRedondoSaldoInicial.Location = new System.Drawing.Point(534, 18);
+            this.btnRedondoSaldoInicial.Location = new System.Drawing.Point(534, 12);
             this.btnRedondoSaldoInicial.Name = "btnRedondoSaldoInicial";
             this.btnRedondoSaldoInicial.Size = new System.Drawing.Size(200, 70);
             this.btnRedondoSaldoInicial.TabIndex = 119;
@@ -2045,34 +2135,13 @@
             this.btnRedondoSaldoInicial.UseVisualStyleBackColor = false;
             this.btnRedondoSaldoInicial.Click += new System.EventHandler(this.btnRedondoSaldoInicial_Click);
             // 
-            // btnRedondoReporteCaja
-            // 
-            this.btnRedondoReporteCaja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btnRedondoReporteCaja.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btnRedondoReporteCaja.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnRedondoReporteCaja.BorderRadius = 20;
-            this.btnRedondoReporteCaja.BorderSize = 0;
-            this.btnRedondoReporteCaja.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRedondoReporteCaja.FlatAppearance.BorderSize = 0;
-            this.btnRedondoReporteCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRedondoReporteCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.btnRedondoReporteCaja.ForeColor = System.Drawing.Color.White;
-            this.btnRedondoReporteCaja.Image = global::PuntoDeVentaV2.Properties.Resources.report;
-            this.btnRedondoReporteCaja.Location = new System.Drawing.Point(372, 514);
-            this.btnRedondoReporteCaja.Name = "btnRedondoReporteCaja";
-            this.btnRedondoReporteCaja.Size = new System.Drawing.Size(111, 76);
-            this.btnRedondoReporteCaja.TabIndex = 124;
-            this.btnRedondoReporteCaja.Text = "Reporte de Caja";
-            this.btnRedondoReporteCaja.TextColor = System.Drawing.Color.White;
-            this.btnRedondoReporteCaja.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnRedondoReporteCaja.UseVisualStyleBackColor = false;
-            this.btnRedondoReporteCaja.Click += new System.EventHandler(this.btnRedondoReporteCaja_Click);
-            // 
             // CajaN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(753, 611);
+            this.Controls.Add(this.lblCantidadSaldoActual);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.btnRedondoReporteCaja);
             this.Controls.Add(this.btnRedondoTabuladorDeDinero);
             this.Controls.Add(this.cbFiltroAdminEmpleado);
@@ -2261,5 +2330,11 @@
         private BotonRedondo botonRedondo1;
         private BotonRedondo botonRedondo2;
         private BotonRedondo btnRedondoReporteCaja;
+        private System.Windows.Forms.Label lblTotalAgregado;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblCantidadRetirada;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lblCantidadSaldoActual;
     }
 }

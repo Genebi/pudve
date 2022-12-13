@@ -30,6 +30,9 @@ namespace PuntoDeVentaV2
         decimal op3, op4;
         private bool refrescarForm = true;
         private bool eliminarDescuento = false;
+        private bool calculadoraisOut=false;
+
+        int calcu = 0;
 
         private const Keys CopyKeys = Keys.Control | Keys.C;
         private const Keys PasteKeys = Keys.Control | Keys.V;
@@ -51,6 +54,10 @@ namespace PuntoDeVentaV2
 
         private void AgregarDescuentoProducto_Load(object sender, EventArgs e)
         {
+
+
+
+
 
             //if (Productos.copiarDatos.Equals(1) && AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
             //{
@@ -93,15 +100,18 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            var copiadoMayoreo = AgregarEditarProducto.SearchDesMayoreo.Rows.Count;
-            if (copiadoMayoreo > 0 && AgregarEditarProducto.DatosSourceFinal == 4)
+            if (Productos.SeAbrioCopia.Equals(true))
             {
-                rbMayoreo.Checked = true;
-                tipoDescuento = 2;
-                AgregarEditarProducto.descuentosSinGuardar = 1;
+                var copiadoMayoreo = AgregarEditarProducto.SearchDesMayoreo.Rows.Count;
+                if (copiadoMayoreo > 0 && AgregarEditarProducto.DatosSourceFinal == 4)
+                {
+                    rbMayoreo.Checked = true;
+                    tipoDescuento = 2;
+                    AgregarEditarProducto.descuentosSinGuardar = 1;
+                }
             }
             CargarFormularios(tipoDescuento);
-            
+
 
             //if (FormPrincipal.userNickName.Equals("HOUSEDEPOTAUTLAN") || FormPrincipal.userNickName.Equals("HOUSEDEPOTREPARTO") || FormPrincipal.userNickName.Equals("OXXITO") || FormPrincipal.userNickName.Equals("CLARAZV1"))
             //{
@@ -259,6 +269,13 @@ namespace PuntoDeVentaV2
                                         MessageBox.Show("Es necesario agregar todos los precios.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                         return;
                                     }
+                                    if (tb.Any(ch => !char.IsLetterOrDigit(ch)))
+                                    {
+                                        refrescarForm = false;
+                                        item.Focus();
+                                        MessageBox.Show("No se permiten los caracteres especiales", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        return;
+                                    }
                                 }
 
 
@@ -315,6 +332,7 @@ namespace PuntoDeVentaV2
                         MessageBox.Show("El precio nuevo no puede ser mayor o igual al anterior.");
                         return;
                     }
+
                 }
                 else
                 {
@@ -565,6 +583,7 @@ namespace PuntoDeVentaV2
                         lb1.Width = 220;
                         lb1.Height = 20;
                         lb1.TextAlign = ContentAlignment.MiddleCenter;
+
 
                         TextBox tb1 = new TextBox();
                         tb1.Name = "txtPrecio";
@@ -1716,19 +1735,23 @@ namespace PuntoDeVentaV2
         private void rangoProductosTB(object sender, KeyEventArgs e)
         {
             //Se hace para obtener el numero de linea al que pertenece el TextBox
+            calculadoraisOut = false;
             TextBox tb = sender as TextBox;
             string nombre = tb.Name.Replace("tbMayoreo", "");
             string[] tmp = nombre.Split('_');
             //Hace referencia al segundo TextBox
             TextBox tb1 = (TextBox)this.Controls.Find("tbMayoreo" + tmp[0] + "_2", true).FirstOrDefault();
-            tb1.TextChanged += new EventHandler(ValidarEntradaDeTexto);
             tb1.KeyPress += new KeyPressEventHandler(soloDecimales);
+            tb1.TextChanged += new EventHandler(ValidarEntradaDeTexto);
+            tb1.KeyPress += new KeyPressEventHandler(calculadora);
             //Hace referencia al tercer TextBox
             TextBox tb2 = (TextBox)this.Controls.Find("tbMayoreo" + tmp[0] + "_3", true).FirstOrDefault();
-            tb2.TextChanged += new EventHandler(ValidarEntradaDeTexto);
             tb2.KeyPress += new KeyPressEventHandler(soloDecimales);
+            tb2.TextChanged += new EventHandler(ValidarEntradaDeTexto);
+            tb2.KeyPress += new KeyPressEventHandler(calculadora);
             //Se cambia el mensaje del CheckBox
             CheckBox cb = (CheckBox)this.Controls.Find("checkMayoreo" + tmp[0], true).FirstOrDefault();
+
 
             if (tmp[0] == "1")
             {
@@ -1805,7 +1828,49 @@ namespace PuntoDeVentaV2
 
                 generarLineaMayoreo();
             }
+                
         }
+
+        private void calculadora(object sender, KeyPressEventArgs e)
+        {   if (!calculadoraisOut)
+            {
+                calculadoraisOut = true;
+                TextBox tb = (TextBox)sender;
+                if (e.KeyChar == Convert.ToChar(Keys.Space))
+                {
+                    calcu++;
+
+                    if (calcu == 1)
+                    {
+                        calculadora calculadora = new calculadora();
+
+                        calculadora.FormClosed += delegate
+                        {
+                            if (calculadora.seEnvia.Equals(true))
+                            {
+
+                                tb.Text = calculadora.lCalculadora.Text;
+                                calculadoraisOut = false;
+
+                            }
+
+                        };
+
+                        calcu = 0;
+                        if (!calculadora.Visible)
+                        {
+                            calculadora.Show();
+                        }
+                        else
+                        {
+                            calculadora.Show();
+                        }
+                    }
+                }
+            }
+        }
+
+
         private void generarLineaMayoreo()
         {
             FlowLayoutPanel panelHijo = new FlowLayoutPanel();
@@ -1914,6 +1979,8 @@ namespace PuntoDeVentaV2
                 if ((sender as TextBox).Text.IndexOf(e.KeyChar) != -1)
                     e.Handled = true;
             }
+            
+
         }
 
         //Este evento es principalmente para los descuentos por Cliente
@@ -1975,6 +2042,8 @@ namespace PuntoDeVentaV2
             }
         }
 
+
+
         private void AgregarLineaDescuento(object sender, EventArgs e)
         {
             Button btn = sender as Button;
@@ -2008,13 +2077,22 @@ namespace PuntoDeVentaV2
                 TextBox tbPrecioAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_3", true).FirstOrDefault();
 
                 // Comparando cantidad final nueva con la linea anterior
-                if (Convert.ToDecimal(tbCantidadFinalAnterior.Text.Trim()) >= Convert.ToDecimal(tb1.Text.Trim()))
+                try
                 {
-                    refrescarForm = false;
-                    MessageBox.Show("La cantidad limite nueva no puede ser menor o igual a la cantidad limite anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    tb1.Focus();
+                    if (Convert.ToDecimal(tbCantidadFinalAnterior.Text.Trim()) >= Convert.ToDecimal(tb1.Text.Trim()))
+                    {
+                        refrescarForm = false;
+                        MessageBox.Show("La cantidad limite nueva no puede ser menor o igual a la cantidad limite anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        tb1.Focus();
+                        return;
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("No se permiten los caracteres especiales", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+                
 
                 // Comparando precio nuevo con la linea anterior
                 if (string.IsNullOrWhiteSpace(tb2.Text))
@@ -2051,8 +2129,16 @@ namespace PuntoDeVentaV2
                 Button bt = (Button)this.Controls.Find("btnAgregarD" + id, true).FirstOrDefault();
                 bt.Enabled = false;
             }
-
-            rangoInicial =float.Parse(tb1.Text);
+            try
+            {
+                rangoInicial = float.Parse(tb1.Text);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No se permiten los caracteres especiales", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
 
 
             generarLineaMayoreo();

@@ -84,7 +84,7 @@
             // chkBoxDepositoSaldoInicial
             // 
             this.chkBoxDepositoSaldoInicial.AutoSize = true;
-            this.chkBoxDepositoSaldoInicial.Location = new System.Drawing.Point(126, 166);
+            this.chkBoxDepositoSaldoInicial.Location = new System.Drawing.Point(125, 166);
             this.chkBoxDepositoSaldoInicial.Margin = new System.Windows.Forms.Padding(2);
             this.chkBoxDepositoSaldoInicial.Name = "chkBoxDepositoSaldoInicial";
             this.chkBoxDepositoSaldoInicial.Size = new System.Drawing.Size(167, 17);
@@ -271,7 +271,7 @@
             // 
             this.lbSubtitulo.AutoSize = true;
             this.lbSubtitulo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSubtitulo.Location = new System.Drawing.Point(135, 198);
+            this.lbSubtitulo.Location = new System.Drawing.Point(127, 198);
             this.lbSubtitulo.Name = "lbSubtitulo";
             this.lbSubtitulo.Size = new System.Drawing.Size(160, 17);
             this.lbSubtitulo.TabIndex = 210;

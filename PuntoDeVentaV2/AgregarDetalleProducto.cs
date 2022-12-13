@@ -2645,25 +2645,25 @@ namespace PuntoDeVentaV2
                     loadFromConfigDB();
                     BuscarTextoListView(settingDatabases);
                 }
-                using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
-                {
-                    if (!dtPermisosDinamicos.Rows.Count.Equals(0))
-                    {
-                        foreach (DataRow drConcepto in dtPermisosDinamicos.Rows)
-                        {
-                            try
-                            {
-                                var concepto = drConcepto["concepto"].ToString();
-                                cn.EjecutarConsulta(cs.agregarDetalleProductoPermisosDinamicos(concepto));
-                            }
-                            catch (Exception ex)
-                            {
+                //using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
+                //{
+                //    if (!dtPermisosDinamicos.Rows.Count.Equals(0))
+                //    {
+                //        foreach (DataRow drConcepto in dtPermisosDinamicos.Rows)
+                //        {
+                //            try
+                //            {
+                //                var concepto = drConcepto["concepto"].ToString();
+                //                cn.EjecutarConsulta(cs.agregarDetalleProductoPermisosDinamicos(concepto));
+                //            }
+                //            catch (Exception ex)
+                //            {
 
-                                MessageBox.Show(ex.Message);
-                            }
-                        }
-                    }
-                }
+                //                MessageBox.Show(ex.Message);
+                //            }
+                //        }
+                //    }
+                //}
             };
 
             inputMessageBox.ShowDialog();
