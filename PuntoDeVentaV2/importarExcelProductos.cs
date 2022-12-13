@@ -42,7 +42,7 @@ namespace PuntoDeVentaV2
             bs5.DataSource = valores;
 
             BindingSource bs6 = new BindingSource();
-            bs6.DataSource = valores;
+            bs6.DataSource = valores; 
 
             BindingSource bs7 = new BindingSource();
             bs7.DataSource = valores;
