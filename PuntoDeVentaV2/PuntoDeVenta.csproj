@@ -139,6 +139,10 @@
       <HintPath>..\packages\K4os.Hash.xxHash.1.0.6\lib\net45\K4os.Hash.xxHash.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
     </Reference>
@@ -781,6 +785,12 @@
     </Compile>
     <Compile Include="FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="importarExcelProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="importarExcelProductos.Designer.cs">
+      <DependentUpon>importarExcelProductos.cs</DependentUpon>
     </Compile>
     <Compile Include="ImportarExportarCSV.cs">
       <SubType>Form</SubType>
@@ -1894,6 +1904,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="HistorialAnticipos.resx">
       <DependentUpon>HistorialAnticipos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="importarExcelProductos.resx">
+      <DependentUpon>importarExcelProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportarExportarCSV.resx">
       <DependentUpon>ImportarExportarCSV.cs</DependentUpon>
