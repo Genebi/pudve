@@ -66,7 +66,7 @@ namespace PuntoDeVentaV2
             {
                 DataTable ventas = new DataTable();
                 string IDsVentasporFechaYEmpleado = "";
-                using (var DTIDSVentaPorEmpleadoYFecha = cn.CargarDatos($"SELECT ID,Folio,IDEmpleado,FechaOperacion FROM ventas WHERE ID IN ({IDsVentas}) AND DATE(FechaOperacion) BETWEEN '{FechaI}' AND '{FechaF}' AND IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({IDSEmple})"))
+                using (var DTIDSVentaPorEmpleadoYFecha = cn.CargarDatos($"SELECT ID,Folio,IDEmpleado,FechaOperacion FROM ventas WHERE ID IN ({IDsVentas}) AND DATE(FechaOperacion) BETWEEN '{FechaI}' AND '{FechaF}' AND IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({IDSEmple}) AND `Status` = 1"))
                 {
                     if (!DTIDSVentaPorEmpleadoYFecha.Rows.Count.Equals(0))
                     {
@@ -153,7 +153,7 @@ namespace PuntoDeVentaV2
             {
                 DataTable ventas = new DataTable();
                 string IDsVentasporFechaYEmpleado = "";
-                using (var DTIDSVentaPorEmpleadoYFecha = cn.CargarDatos($"SELECT ID,Folio,IDEmpleado,FechaOperacion FROM ventas WHERE ID IN ({IDsVentas}) AND DATE(FechaOperacion) BETWEEN '{FechaI}' AND '{FechaF}' AND IDUsuario = {FormPrincipal.userID}"))
+                using (var DTIDSVentaPorEmpleadoYFecha = cn.CargarDatos($"SELECT ID,Folio,IDEmpleado,FechaOperacion FROM ventas WHERE ID IN ({IDsVentas}) AND DATE(FechaOperacion) BETWEEN '{FechaI}' AND '{FechaF}' AND IDUsuario = {FormPrincipal.userID} AND `Status` = 1"))
                 {
                     if (!DTIDSVentaPorEmpleadoYFecha.Rows.Count.Equals(0))
                     {
