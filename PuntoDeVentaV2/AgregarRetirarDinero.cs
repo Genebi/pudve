@@ -199,7 +199,7 @@ namespace PuntoDeVentaV2
 
             CargarConceptos();
 
-            if (totalSaldoInicial > 0)
+            if (totalSaldoInicial > 0 || operacion.Equals(2) || operacion.Equals(1))
             {
                 chkBoxDepositoSaldoInicial.Visible = false;
             }
