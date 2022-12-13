@@ -50,11 +50,13 @@
             this.txtCheque = new System.Windows.Forms.TextBox();
             this.lbTitulo = new System.Windows.Forms.Label();
             this.cbConceptos = new System.Windows.Forms.ComboBox();
+            this.txtComentario = new System.Windows.Forms.TextBox();
             this.gbContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbContenedor
             // 
+            this.gbContenedor.Controls.Add(this.txtComentario);
             this.gbContenedor.Controls.Add(this.chkBoxDepositoSaldoInicial);
             this.gbContenedor.Controls.Add(this.btnRetirarTodoElDinero);
             this.gbContenedor.Controls.Add(this.cbConceptoConBusqueda);
@@ -77,7 +79,7 @@
             this.gbContenedor.Controls.Add(this.lbTitulo);
             this.gbContenedor.Location = new System.Drawing.Point(12, 4);
             this.gbContenedor.Name = "gbContenedor";
-            this.gbContenedor.Size = new System.Drawing.Size(410, 315);
+            this.gbContenedor.Size = new System.Drawing.Size(410, 321);
             this.gbContenedor.TabIndex = 0;
             this.gbContenedor.TabStop = false;
             // 
@@ -285,7 +287,7 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnCancelar.Location = new System.Drawing.Point(56, 273);
+            this.btnCancelar.Location = new System.Drawing.Point(56, 287);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(160, 24);
             this.btnCancelar.TabIndex = 9;
@@ -301,7 +303,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(222, 273);
+            this.btnAceptar.Location = new System.Drawing.Point(222, 287);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(160, 24);
             this.btnAceptar.TabIndex = 8;
@@ -345,11 +347,18 @@
             this.cbConceptos.TabIndex = 217;
             this.cbConceptos.Visible = false;
             // 
+            // txtComentario
+            // 
+            this.txtComentario.Location = new System.Drawing.Point(56, 255);
+            this.txtComentario.Name = "txtComentario";
+            this.txtComentario.Size = new System.Drawing.Size(326, 20);
+            this.txtComentario.TabIndex = 222;
+            // 
             // AgregarRetirarDinero
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(434, 331);
+            this.ClientSize = new System.Drawing.Size(434, 337);
             this.Controls.Add(this.gbContenedor);
             this.Controls.Add(this.cbConceptos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -391,5 +400,6 @@
         private CustomControlPUDVE.ComboBoxPUDVE cbConceptoConBusqueda;
         private System.Windows.Forms.Button btnRetirarTodoElDinero;
         private System.Windows.Forms.CheckBox chkBoxDepositoSaldoInicial;
+        private System.Windows.Forms.TextBox txtComentario;
     }
 }
