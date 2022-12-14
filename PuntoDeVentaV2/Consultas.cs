@@ -4979,10 +4979,10 @@ namespace PuntoDeVentaV2
         }
 
 
-        public string GuardarProductoDesdeUnExcel(string Nombre, string Stock, string Precio, string CodigoBarras, string UnidadMedida, string StockNecesario, string StockMinimo, string precioCompra)
+        public string GuardarProductoDesdeUnExcel(string Nombre, string Stock, string Precio, string CodigoBarras, string ClaveSat, string UnidadMedida, string StockNecesario, string StockMinimo, string precioCompra)
         {
-            string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, CodigoBarras, UnidadMedida, StockNecesario, StockMinimo, PrecioCompra)";
-            consulta += $"VALUES('{Nombre}', '{Stock}', '{Precio}', '{CodigoBarras}', '{UnidadMedida}', '{StockNecesario}', '{StockMinimo}', '{precioCompra}')";
+            string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, CodigoBarras, ClaveProducto, UnidadMedida, IDUSuario, StockNecesario, StockMinimo, PrecioCompra)";
+            consulta += $"VALUES('{Nombre}', '{Stock}', '{Precio}', '{CodigoBarras}', '{ClaveSat}', '{UnidadMedida}','{FormPrincipal.userID}', '{StockNecesario}', '{StockMinimo}', '{precioCompra}')";
 
             return consulta;
         }
@@ -4990,6 +4990,18 @@ namespace PuntoDeVentaV2
         public string validarUniqueCodigoBarras(string codigo)
         {
             var consulta = $"SELECT * FROM productos WHERE CodigoBarras = '{codigo}'";
+
+            return consulta;
+        }
+        public string validarExisteClaveUnidad(string codigo)
+        {
+            var consulta = $"SELECT * FROM catalogounidadesmedida  WHERE ClaveUnidad = '{codigo}'";
+
+            return consulta;
+        }
+        public string validarExisteClaveSat(string codigo)
+        {
+            var consulta = $"SELECT * FROM catalogo_claves_producto WHERE clave = '{codigo}'";
 
             return consulta;
         }

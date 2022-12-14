@@ -93,6 +93,7 @@ namespace PuntoDeVentaV2
 
                 int rowCount = xlRange.Rows.Count;
                 int colCount = xlRange.Columns.Count;
+                int inserts = 0;
                 avisoFinal = $"Se ha finalizado la operación sin errores, se insertaron {rowCount-1} articulos";
                 MessageBoxTemporal.Show($"Se han detectado {rowCount-1} Articulos.\nTus articulos se estan importando...", "Aviso del Sistema", 5, true);
 
@@ -102,7 +103,7 @@ namespace PuntoDeVentaV2
                 List<string> errores = new List<string>();
 
                 //indices
-                string clavesat = "", codigo, nombre, stockmax = "0", stockmin = "0", stock = "0", preciocompra = "0", precioventa = "", unidadmedida = "";
+                string clavesat = "", codigo, nombre="", stockmax = "0", stockmin = "0", stock = "0", preciocompra = "0", precioventa = "", unidadmedida = "";
                 for (int i = 2; i <= rowCount; i++)
                 {
                     for (int j = 1; j <= colCount; j++)
@@ -121,14 +122,21 @@ namespace PuntoDeVentaV2
 
                     if (!Decimal.TryParse(precioventa, out number))
                     {
-                        errores.Add($"Fila n{i}: Solo se pueden agregar datos decimales al precio de venta ({precioventa})");
+                        errores.Add($"Fila n{i}: Solo se pueden agregar datos decimales al precio de venta ({precioventa}), se salto la linea");
+                        filas.Clear();
+                        continue;
+                    }
+
+                    if (nombre=="")
+                    {
+                        errores.Add($"Fila n{i}: El nombre es obligatorio ({nombre}), se salto la linea");
                         filas.Clear();
                         continue;
                     }
 
                     if (!cn.CargarDatos(cs.validarUniqueCodigoBarras(codigo)).Rows.Count.Equals(0))
                     {
-                        errores.Add($"Fila n{i}: Este código ya esta registrado y debe ser único ({codigo})");
+                        errores.Add($"Fila n{i}: Este código ya esta registrado y debe ser único ({codigo}), se salto la linea");
                         filas.Clear();
                         continue;
                     }
@@ -139,9 +147,8 @@ namespace PuntoDeVentaV2
                         stockmin = filas[valores.IndexOf(CBStockMin.Text)];
                         if (!Int32.TryParse(stockmin, out numberInt))
                         {
-                            errores.Add($"Fila n{i}: Solo se pueden agregar datos enteros al stock mínimo ({stockmin})");
-                            filas.Clear();
-                            continue;
+                            errores.Add($"Fila n{i}: Solo se pueden agregar datos enteros al stock mínimo ({stockmin}), default automático a 0");
+                            stockmin = "0";
                         }
                     }
 
@@ -150,9 +157,8 @@ namespace PuntoDeVentaV2
                         stockmax = filas[valores.IndexOf(CBStockMax.Text)];
                         if (!Int32.TryParse(stockmax, out numberInt))
                         {
-                           errores.Add($"Fila n{i}: Solo se pueden agregar datos enteros al stock máximo ({stockmax})");
-                            filas.Clear();
-                            continue;
+                           errores.Add($"Fila n{i}: Solo se pueden agregar datos enteros al stock máximo ({stockmax}), default automático a 0");
+                            stockmax = "0";
                         }
                     }
 
@@ -161,9 +167,8 @@ namespace PuntoDeVentaV2
                         stock = filas[valores.IndexOf(CBStock.Text)];
                         if (!Int32.TryParse(stock, out numberInt))
                         {
-                            errores.Add($"Fila n{i}: Solo se pueden agregar datos enteros al stock ({stock})");
-                            filas.Clear();
-                            continue;
+                            errores.Add($"Fila n{i}: Solo se pueden agregar datos enteros al stock ({stock}), default automático a 0");
+                            stock = "0";
                         }
                     }
 
@@ -172,35 +177,40 @@ namespace PuntoDeVentaV2
                         preciocompra = filas[valores.IndexOf(CBPrecioCompra.Text)];
                         if (!Decimal.TryParse(preciocompra, out number))
                         {
-                            errores.Add($"Fila n{i}: Solo se pueden agregar datos decimales al precio de compra ({preciocompra})");
-                            filas.Clear();
-                            continue;
+                            errores.Add($"Fila n{i}: Solo se pueden agregar datos decimales al precio de compra ({preciocompra}), default automático a 0");
+                            preciocompra = "0"; 
                         }
                     }
 
                     if (CBClaveSat.Text != "Omitir")
                     {
+
                         clavesat = filas[valores.IndexOf(CBClaveSat.Text)];
-                        if (!Int32.TryParse(clavesat, out numberInt) || !clavesat.Length.Equals(8))
+                        if (cn.CargarDatos(cs.validarExisteClaveSat(clavesat)).Rows.Count.Equals(0))
                         {
-                            errores.Add($"Fila n{i}: Solo se pueden agregar 8 datos enteros a clave SAT ({clavesat})");
-                            filas.Clear();
-                            continue;
+                            errores.Add($"Fila n{i}: La clave no se reconocio ({clavesat}), se ignorá la celda");
+                            clavesat = "";
                         }
                     }
 
                     if (CBUnidadM.Text != "Omitir")
                     {
                         unidadmedida = filas[valores.IndexOf(CBUnidadM.Text)];
+                        if (cn.CargarDatos(cs.validarExisteClaveUnidad(unidadmedida)).Rows.Count.Equals(0))
+                        {
+                            errores.Add($"Fila n{i}: La unidad de medida no se reconocio ({unidadmedida}), se ignorá la celda");
+                            unidadmedida = "";
+                        }
                     }
 
-                    cn.EjecutarConsulta(cs.GuardarProductoDesdeUnExcel(nombre, stock, precioventa, codigo, unidadmedida, stockmax, stockmin, preciocompra));
+                    cn.EjecutarConsulta(cs.GuardarProductoDesdeUnExcel(nombre, stock, precioventa, codigo,clavesat, unidadmedida, stockmax, stockmin, preciocompra));
+                    inserts++;
                     filas.Clear();
                 }
 
                 if (errores.Count>0)
                 {
-                    avisoFinal = $"La operación finalizo y se han insertado {(rowCount-1)-errores.Count} articulos.\nSe han saltado las siguientes lineas:";
+                    avisoFinal = $"La operación finalizo y se han insertado {inserts} articulos.\nOcurrieron los siguientes errores:";
                     foreach (var error in errores)
                     {
                         avisoFinal = $"{avisoFinal}\n{error}";
