@@ -38,12 +38,14 @@ namespace PuntoDeVentaV2
         private int id_empleado = 0;
 
         public string[] datos;
+        static public int MiIDEmpleado;
 
         public Agregar_empleado_permisos(int id_emp)
         {
             InitializeComponent();
 
             id_empleado = id_emp;
+            MiIDEmpleado = id_empleado;
         }
 
         private void cargar_datos(object sender, EventArgs e)

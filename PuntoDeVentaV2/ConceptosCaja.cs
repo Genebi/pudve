@@ -137,6 +137,28 @@ namespace PuntoDeVentaV2
             //            CargarDatos();
             //        }
             //}
+
+            if (FormPrincipal.userNickName.Contains('@'))
+            {
+                using (var DTPermisos = cn.CargarDatos($"SELECT AgregarConcepto FROM permisosconceptosagregarretirardinero WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado = {FormPrincipal.id_empleado}"))
+                {
+                    if (DTPermisos.Rows.Count.Equals(0))
+                    {
+                        cn.EjecutarConsulta($"INSERT INTO permisosconceptosagregarretirardinero(IDUsuario,IDEmpleado,AgregarConcepto,HabilitarConcepto,DeshabilitarConcepto) VALUES ('{FormPrincipal.userID}','{FormPrincipal.id_empleado}','1','1','1')");
+                    }
+                    else
+                    {
+                        if (Convert.ToInt32(DTPermisos.Rows[0]["AgregarConcepto"]).Equals(0))
+                        {
+                            MessageBox.Show("No tienes permiso para esta opcion","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                            return;
+                        }
+                    }
+                }
+            }
+
+
+
             AgregarConcepto addConcepto = new AgregarConcepto(origen);
 
             addConcepto.FormClosed += delegate
@@ -192,6 +214,24 @@ namespace PuntoDeVentaV2
                 // Habilitar
                 if (e.ColumnIndex == 3)
                 {
+                    if (FormPrincipal.userNickName.Contains('@'))
+                    {
+                        using (var DTPermisos = cn.CargarDatos($"SELECT HabilitarConcepto FROM permisosconceptosagregarretirardinero WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado = {FormPrincipal.id_empleado}"))
+                        {
+                            if (DTPermisos.Rows.Count.Equals(0))
+                            {
+                                cn.EjecutarConsulta($"INSERT INTO permisosconceptosagregarretirardinero(IDUsuario,IDEmpleado,AgregarConcepto,HabilitarConcepto,DeshabilitarConcepto) VALUES ('{FormPrincipal.userID}','{FormPrincipal.id_empleado}','1','1','1')");
+                            }
+                            else
+                            {
+                                if (Convert.ToInt32(DTPermisos.Rows[0]["HabilitarConcepto"]).Equals(0))
+                                {
+                                    MessageBox.Show("No tienes permiso para esta opcion", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    return;
+                                }
+                            }
+                        }
+                    }
                     var respuesta = MessageBox.Show("¿Estás seguro de habilitar este concepto?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (respuesta == DialogResult.Yes)
@@ -204,6 +244,24 @@ namespace PuntoDeVentaV2
                 // Deshabilitar
                 if (e.ColumnIndex == 4)
                 {
+                    if (FormPrincipal.userNickName.Contains('@'))
+                    {
+                        using (var DTPermisos = cn.CargarDatos($"SELECT DeshabilitarConcepto FROM permisosconceptosagregarretirardinero WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado = {FormPrincipal.id_empleado}"))
+                        {
+                            if (DTPermisos.Rows.Count.Equals(0))
+                            {
+                                cn.EjecutarConsulta($"INSERT INTO permisosconceptosagregarretirardinero(IDUsuario,IDEmpleado,AgregarConcepto,HabilitarConcepto,DeshabilitarConcepto) VALUES ('{FormPrincipal.userID}','{FormPrincipal.id_empleado}','1','1','1')");
+                            }
+                            else
+                            {
+                                if (Convert.ToInt32(DTPermisos.Rows[0]["DeshabilitarConcepto"]).Equals(0))
+                                {
+                                    MessageBox.Show("No tienes permiso para esta opcion", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    return;
+                                }
+                            }
+                        }
+                    }
                     var respuesta = MessageBox.Show("¿Estás seguro de deshabilitar este concepto?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (respuesta == DialogResult.Yes)
