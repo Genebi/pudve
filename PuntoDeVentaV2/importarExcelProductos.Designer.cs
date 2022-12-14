@@ -44,7 +44,7 @@ namespace PuntoDeVentaV2
             this.CBNombre = new System.Windows.Forms.ComboBox();
             this.CBStockMin = new System.Windows.Forms.ComboBox();
             this.CBStockMax = new System.Windows.Forms.ComboBox();
-            this.CBProveedor = new System.Windows.Forms.ComboBox();
+            this.CBStock = new System.Windows.Forms.ComboBox();
             this.CBCodigo = new System.Windows.Forms.ComboBox();
             this.CBPrecioCompra = new System.Windows.Forms.ComboBox();
             this.CBPrecioVenta = new System.Windows.Forms.ComboBox();
@@ -52,6 +52,9 @@ namespace PuntoDeVentaV2
             this.CBUnidadM = new System.Windows.Forms.ComboBox();
             this.btn_aceptar = new System.Windows.Forms.Button();
             this.btn_cancelar = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -90,7 +93,7 @@ namespace PuntoDeVentaV2
             // textBox2
             // 
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(482, 185);
+            this.textBox2.Location = new System.Drawing.Point(482, 314);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(215, 26);
@@ -101,7 +104,7 @@ namespace PuntoDeVentaV2
             // textBox3
             // 
             this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(482, 228);
+            this.textBox3.Location = new System.Drawing.Point(482, 357);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(215, 26);
@@ -112,18 +115,18 @@ namespace PuntoDeVentaV2
             // textBox4
             // 
             this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(482, 272);
+            this.textBox4.Location = new System.Drawing.Point(482, 401);
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(215, 26);
             this.textBox4.TabIndex = 9;
-            this.textBox4.Text = "Proveedor";
+            this.textBox4.Text = "Stock";
             this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox5
             // 
             this.textBox5.Enabled = false;
-            this.textBox5.Location = new System.Drawing.Point(482, 316);
+            this.textBox5.Location = new System.Drawing.Point(482, 185);
             this.textBox5.Name = "textBox5";
             this.textBox5.ReadOnly = true;
             this.textBox5.Size = new System.Drawing.Size(215, 26);
@@ -134,7 +137,7 @@ namespace PuntoDeVentaV2
             // textBox6
             // 
             this.textBox6.Enabled = false;
-            this.textBox6.Location = new System.Drawing.Point(482, 360);
+            this.textBox6.Location = new System.Drawing.Point(482, 270);
             this.textBox6.Name = "textBox6";
             this.textBox6.ReadOnly = true;
             this.textBox6.Size = new System.Drawing.Size(215, 26);
@@ -145,7 +148,7 @@ namespace PuntoDeVentaV2
             // textBox7
             // 
             this.textBox7.Enabled = false;
-            this.textBox7.Location = new System.Drawing.Point(482, 403);
+            this.textBox7.Location = new System.Drawing.Point(482, 228);
             this.textBox7.Name = "textBox7";
             this.textBox7.ReadOnly = true;
             this.textBox7.Size = new System.Drawing.Size(215, 26);
@@ -172,7 +175,7 @@ namespace PuntoDeVentaV2
             this.textBox9.ReadOnly = true;
             this.textBox9.Size = new System.Drawing.Size(215, 26);
             this.textBox9.TabIndex = 9;
-            this.textBox9.Text = "Unidad de medida";
+            this.textBox9.Text = "Unidad de medida SAT";
             this.textBox9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label3
@@ -189,7 +192,7 @@ namespace PuntoDeVentaV2
             // 
             this.CBNombre.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBNombre.FormattingEnabled = true;
-            this.CBNombre.Location = new System.Drawing.Point(93, 143);
+            this.CBNombre.Location = new System.Drawing.Point(93, 141);
             this.CBNombre.MaxDropDownItems = 99;
             this.CBNombre.Name = "CBNombre";
             this.CBNombre.Size = new System.Drawing.Size(215, 28);
@@ -199,55 +202,55 @@ namespace PuntoDeVentaV2
             // 
             this.CBStockMin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBStockMin.FormattingEnabled = true;
-            this.CBStockMin.Location = new System.Drawing.Point(93, 183);
+            this.CBStockMin.Location = new System.Drawing.Point(93, 312);
             this.CBStockMin.Name = "CBStockMin";
             this.CBStockMin.Size = new System.Drawing.Size(215, 28);
-            this.CBStockMin.TabIndex = 2;
+            this.CBStockMin.TabIndex = 5;
             // 
             // CBStockMax
             // 
             this.CBStockMax.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBStockMax.FormattingEnabled = true;
-            this.CBStockMax.Location = new System.Drawing.Point(93, 226);
+            this.CBStockMax.Location = new System.Drawing.Point(93, 355);
             this.CBStockMax.Name = "CBStockMax";
             this.CBStockMax.Size = new System.Drawing.Size(215, 28);
-            this.CBStockMax.TabIndex = 3;
+            this.CBStockMax.TabIndex = 6;
             // 
-            // CBProveedor
+            // CBStock
             // 
-            this.CBProveedor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.CBProveedor.FormattingEnabled = true;
-            this.CBProveedor.Location = new System.Drawing.Point(93, 270);
-            this.CBProveedor.Name = "CBProveedor";
-            this.CBProveedor.Size = new System.Drawing.Size(215, 28);
-            this.CBProveedor.TabIndex = 4;
+            this.CBStock.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.CBStock.FormattingEnabled = true;
+            this.CBStock.Location = new System.Drawing.Point(93, 399);
+            this.CBStock.Name = "CBStock";
+            this.CBStock.Size = new System.Drawing.Size(215, 28);
+            this.CBStock.TabIndex = 7;
             // 
             // CBCodigo
             // 
             this.CBCodigo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBCodigo.FormattingEnabled = true;
-            this.CBCodigo.Location = new System.Drawing.Point(93, 314);
+            this.CBCodigo.Location = new System.Drawing.Point(93, 183);
             this.CBCodigo.Name = "CBCodigo";
             this.CBCodigo.Size = new System.Drawing.Size(215, 28);
-            this.CBCodigo.TabIndex = 5;
+            this.CBCodigo.TabIndex = 2;
             // 
             // CBPrecioCompra
             // 
             this.CBPrecioCompra.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBPrecioCompra.FormattingEnabled = true;
-            this.CBPrecioCompra.Location = new System.Drawing.Point(93, 358);
+            this.CBPrecioCompra.Location = new System.Drawing.Point(93, 268);
             this.CBPrecioCompra.Name = "CBPrecioCompra";
             this.CBPrecioCompra.Size = new System.Drawing.Size(215, 28);
-            this.CBPrecioCompra.TabIndex = 6;
+            this.CBPrecioCompra.TabIndex = 4;
             // 
             // CBPrecioVenta
             // 
             this.CBPrecioVenta.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.CBPrecioVenta.FormattingEnabled = true;
-            this.CBPrecioVenta.Location = new System.Drawing.Point(93, 401);
+            this.CBPrecioVenta.Location = new System.Drawing.Point(93, 226);
             this.CBPrecioVenta.Name = "CBPrecioVenta";
             this.CBPrecioVenta.Size = new System.Drawing.Size(215, 28);
-            this.CBPrecioVenta.TabIndex = 7;
+            this.CBPrecioVenta.TabIndex = 3;
             // 
             // CBClaveSat
             // 
@@ -299,11 +302,44 @@ namespace PuntoDeVentaV2
             this.btn_cancelar.UseVisualStyleBackColor = false;
             this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.Color.Red;
+            this.label4.Location = new System.Drawing.Point(670, 144);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(15, 20);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "*";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.Color.Red;
+            this.label5.Location = new System.Drawing.Point(670, 186);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(15, 20);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "*";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.Red;
+            this.label6.Location = new System.Drawing.Point(670, 231);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(15, 20);
+            this.label6.TabIndex = 12;
+            this.label6.Text = "*";
+            // 
             // importarExcelProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 660);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.btn_cancelar);
             this.Controls.Add(this.btn_aceptar);
             this.Controls.Add(this.CBUnidadM);
@@ -311,7 +347,7 @@ namespace PuntoDeVentaV2
             this.Controls.Add(this.CBPrecioVenta);
             this.Controls.Add(this.CBPrecioCompra);
             this.Controls.Add(this.CBCodigo);
-            this.Controls.Add(this.CBProveedor);
+            this.Controls.Add(this.CBStock);
             this.Controls.Add(this.CBStockMax);
             this.Controls.Add(this.CBStockMin);
             this.Controls.Add(this.CBNombre);
@@ -357,7 +393,7 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.ComboBox CBNombre;
         private System.Windows.Forms.ComboBox CBStockMin;
         private System.Windows.Forms.ComboBox CBStockMax;
-        private System.Windows.Forms.ComboBox CBProveedor;
+        private System.Windows.Forms.ComboBox CBStock;
         private System.Windows.Forms.ComboBox CBCodigo;
         private System.Windows.Forms.ComboBox CBPrecioCompra;
         private System.Windows.Forms.ComboBox CBPrecioVenta;
@@ -365,5 +401,8 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.ComboBox CBUnidadM;
         private System.Windows.Forms.Button btn_aceptar;
         private System.Windows.Forms.Button btn_cancelar;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }
