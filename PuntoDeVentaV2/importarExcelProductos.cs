@@ -68,6 +68,16 @@ namespace PuntoDeVentaV2
             CBStockMin.DataSource = bs8;
             CBUnidadM.DataSource = bs9;
 
+
+            CBNombre.SelectedIndex=valores.Count-1;
+            CBCodigo.SelectedIndex = valores.Count - 1;
+            CBClaveSat.SelectedIndex = valores.Count - 1;
+            CBPrecioCompra.SelectedIndex = valores.Count - 1;
+            CBPrecioVenta.SelectedIndex = valores.Count - 1;
+            CBStock.SelectedIndex = valores.Count - 1;
+            CBStockMax.SelectedIndex = valores.Count - 1;
+            CBStockMin.SelectedIndex = valores.Count - 1;
+            CBUnidadM.SelectedIndex = valores.Count - 1;
         }
 
         private void btn_cancelar_Click(object sender, EventArgs e)
@@ -86,10 +96,6 @@ namespace PuntoDeVentaV2
             Excel.Range xlRange = xlWorksheet.UsedRange;
             if (checarDatosObligatorios())
             {
-
-                
-
-                
 
                 int rowCount = xlRange.Rows.Count;
                 int colCount = xlRange.Columns.Count;
