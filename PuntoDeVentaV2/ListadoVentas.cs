@@ -122,6 +122,11 @@ namespace PuntoDeVentaV2
 
         private void ListadoVentas_Load(object sender, EventArgs e)
         {
+            if (FormPrincipal.id_empleado != 0)
+            {
+                DGVListadoVentas.Columns["Ganancia"].Visible = false;
+            }
+
             if (FormPrincipal.userNickName.Contains("HOUSEDEPOTAUTLAN"))
             {
                 chkHDAutlan.Visible = true;
@@ -1260,7 +1265,7 @@ namespace PuntoDeVentaV2
 
                 DGVListadoVentas.FirstDisplayedScrollingRowIndex = DGVListadoVentas.RowCount - 1;
 
-                DGVListadoVentas.FirstDisplayedScrollingColumnIndex = DGVListadoVentas.ColumnCount - 1;
+                //DGVListadoVentas.FirstDisplayedScrollingColumnIndex = DGVListadoVentas.ColumnCount - 1;
             }
             else if (busqueda.Equals(true))
             {
@@ -2507,11 +2512,13 @@ namespace PuntoDeVentaV2
 
                 }
 
-                //
+                //GANANCIA POR VENTA
                 if (e.ColumnIndex == 18)
                 {
                     Ganancia gananciaPorVenta = new Ganancia();
+                    gananciaPorVenta.lugarGanancia = 1;
                     gananciaPorVenta.ShowDialog();
+
                 }
 
                     //Ver ticket

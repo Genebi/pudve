@@ -109,6 +109,7 @@
             this.lblPesoRecibido = new System.Windows.Forms.Label();
             this.btnCSV = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btnGanancia = new PuntoDeVentaV2.BotonRedondo();
             this.btnAbrirCaja = new PuntoDeVentaV2.BotonRedondo();
             this.btnAnticipos = new PuntoDeVentaV2.BotonRedondo();
             this.btnUltimoTicket = new PuntoDeVentaV2.BotonRedondo();
@@ -116,7 +117,6 @@
             this.btnGuardarVenta = new PuntoDeVentaV2.BotonRedondo();
             this.btnVentasGuardadas = new PuntoDeVentaV2.BotonRedondo();
             this.btn_cancelar_venta = new PuntoDeVentaV2.BotonRedondo();
-            this.btnGanancia = new PuntoDeVentaV2.BotonRedondo();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -1078,6 +1078,25 @@
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
+            // btnGanancia
+            // 
+            this.btnGanancia.BackColor = System.Drawing.Color.Orange;
+            this.btnGanancia.BackGroundColor = System.Drawing.Color.Orange;
+            this.btnGanancia.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnGanancia.BorderRadius = 10;
+            this.btnGanancia.BorderSize = 0;
+            this.btnGanancia.FlatAppearance.BorderSize = 0;
+            this.btnGanancia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGanancia.ForeColor = System.Drawing.Color.White;
+            this.btnGanancia.Image = global::PuntoDeVentaV2.Properties.Resources.line_chart1;
+            this.btnGanancia.Location = new System.Drawing.Point(825, 61);
+            this.btnGanancia.Name = "btnGanancia";
+            this.btnGanancia.Size = new System.Drawing.Size(32, 25);
+            this.btnGanancia.TabIndex = 72;
+            this.btnGanancia.TextColor = System.Drawing.Color.White;
+            this.btnGanancia.UseVisualStyleBackColor = false;
+            this.btnGanancia.Click += new System.EventHandler(this.btnGanancia_Click);
+            // 
             // btnAbrirCaja
             // 
             this.btnAbrirCaja.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(68)))), ((int)(((byte)(53)))));
@@ -1227,24 +1246,6 @@
             this.btn_cancelar_venta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btn_cancelar_venta.UseVisualStyleBackColor = false;
             this.btn_cancelar_venta.Click += new System.EventHandler(this.botonRedondo6_Click);
-            // 
-            // btnGanancia
-            // 
-            this.btnGanancia.BackColor = System.Drawing.Color.Orange;
-            this.btnGanancia.BackGroundColor = System.Drawing.Color.Orange;
-            this.btnGanancia.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnGanancia.BorderRadius = 10;
-            this.btnGanancia.BorderSize = 0;
-            this.btnGanancia.FlatAppearance.BorderSize = 0;
-            this.btnGanancia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGanancia.ForeColor = System.Drawing.Color.White;
-            this.btnGanancia.Image = global::PuntoDeVentaV2.Properties.Resources.line_chart1;
-            this.btnGanancia.Location = new System.Drawing.Point(825, 61);
-            this.btnGanancia.Name = "btnGanancia";
-            this.btnGanancia.Size = new System.Drawing.Size(32, 25);
-            this.btnGanancia.TabIndex = 72;
-            this.btnGanancia.TextColor = System.Drawing.Color.White;
-            this.btnGanancia.UseVisualStyleBackColor = false;
             // 
             // Ventas
             // 

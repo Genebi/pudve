@@ -32,6 +32,7 @@ namespace PuntoDeVentaV2
             this.btnAceptar = new System.Windows.Forms.Button();
             this.lblGanancia = new System.Windows.Forms.Label();
             this.lblTextoGanancia = new System.Windows.Forms.Label();
+            this.lblMensaje = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnAceptar
@@ -64,11 +65,22 @@ namespace PuntoDeVentaV2
             this.lblTextoGanancia.Text = "Ganancia total por venta:";
             this.lblTextoGanancia.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblMensaje
+            // 
+            this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblMensaje.Location = new System.Drawing.Point(27, 75);
+            this.lblMensaje.Name = "lblMensaje";
+            this.lblMensaje.Size = new System.Drawing.Size(237, 14);
+            this.lblMensaje.TabIndex = 3;
+            this.lblMensaje.Text = "(Algun producto no cuenta con precio de compra)";
+            this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Ganancia
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(294, 139);
+            this.Controls.Add(this.lblMensaje);
             this.Controls.Add(this.lblTextoGanancia);
             this.Controls.Add(this.lblGanancia);
             this.Controls.Add(this.btnAceptar);
@@ -86,5 +98,6 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Label lblGanancia;
         private System.Windows.Forms.Label lblTextoGanancia;
+        private System.Windows.Forms.Label lblMensaje;
     }
 }
