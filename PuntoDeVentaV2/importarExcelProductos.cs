@@ -114,7 +114,6 @@ namespace PuntoDeVentaV2
 
 
                     decimal number;
-                    int numberInt;
 
                     nombre = filas[valores.IndexOf(CBNombre.Text)];
                     codigo = filas[valores.IndexOf(CBCodigo.Text)];
@@ -145,9 +144,9 @@ namespace PuntoDeVentaV2
                     if (CBStockMin.Text != "Omitir")
                     {
                         stockmin = filas[valores.IndexOf(CBStockMin.Text)];
-                        if (!Int32.TryParse(stockmin, out numberInt))
+                        if (!Decimal.TryParse(stockmin, out number))
                         {
-                            errores.Add($"Fila n{i}: Solo se pueden agregar datos enteros al stock mínimo ({stockmin}), default automático a 0");
+                            errores.Add($"Fila n{i}: Solo se pueden agregar datos decimales al stock mínimo ({stockmin}), default automático a 0");
                             stockmin = "0";
                         }
                     }
@@ -155,9 +154,9 @@ namespace PuntoDeVentaV2
                     if (CBStockMax.Text != "Omitir")
                     {
                         stockmax = filas[valores.IndexOf(CBStockMax.Text)];
-                        if (!Int32.TryParse(stockmax, out numberInt))
+                        if (!Decimal.TryParse(stockmax, out number))
                         {
-                           errores.Add($"Fila n{i}: Solo se pueden agregar datos enteros al stock máximo ({stockmax}), default automático a 0");
+                           errores.Add($"Fila n{i}: Solo se pueden agregar datos decimales al stock máximo ({stockmax}), default automático a 0");
                             stockmax = "0";
                         }
                     }
@@ -165,9 +164,9 @@ namespace PuntoDeVentaV2
                     if (CBStock.Text != "Omitir")
                     {
                         stock = filas[valores.IndexOf(CBStock.Text)];
-                        if (!Int32.TryParse(stock, out numberInt))
+                        if (!Decimal.TryParse(stock.TrimStart('.'), out number))
                         {
-                            errores.Add($"Fila n{i}: Solo se pueden agregar datos enteros al stock ({stock}), default automático a 0");
+                            errores.Add($"Fila n{i}: Solo se pueden agregar datos decimales al stock ({stock}), default automático a 0");
                             stock = "0";
                         }
                     }
@@ -210,7 +209,7 @@ namespace PuntoDeVentaV2
 
                 if (errores.Count>0)
                 {
-                    avisoFinal = $"La operación finalizo y se han insertado {inserts} articulos.\nOcurrieron los siguientes errores:";
+                    avisoFinal = $"La operación finalizo y se han insertado {inserts} articulos.\nSe registraron las siguientes advertencias:";
                     foreach (var error in errores)
                     {
                         avisoFinal = $"{avisoFinal}\n{error}";
