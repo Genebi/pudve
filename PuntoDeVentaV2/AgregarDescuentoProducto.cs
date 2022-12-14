@@ -1775,8 +1775,6 @@ namespace PuntoDeVentaV2
 
                     TextBox tbCantidadFinalAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_2", true).FirstOrDefault();
                     tbCantidadFinalAnterior.KeyPress += (soloDecimales);                    TextBox tbPrecioAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_3", true).FirstOrDefault();
-
-
                     
                     // Comparando cantidad final nueva con la linea anterior
                     if (float.Parse(tbCantidadFinalAnterior.Text.Trim()) >= float.Parse(tb1.Text.Trim()))

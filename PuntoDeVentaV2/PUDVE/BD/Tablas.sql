@@ -1949,3 +1949,23 @@ IF
 		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE ,
 		FOREIGN KEY ( IDEmpleado ) REFERENCES empleados ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
 	);
+
+--Se crea la tabla para los detalles de los horarios de empleado y sistema checador
+CREATE TABLE
+IF
+	NOT EXISTS detallesChecadorEmpleados (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDUsuario INTEGER NOT NULL DEFAULT 0,
+		IDEmpleado INTEGER NOT NULL DEFAULT 0,
+		Huella LONGBLOB DEFAULT NULL,
+		HorasSemanales INTEGER DEFAULT 0,
+		HorasDiarias INTEGER DEFAULT 0,
+		MaximoHorasDiarias INTEGER DEFAULT 0,
+		HorasObligatorias INTEGER DEFAULT 0,
+		Salario DECIMAL ( 16, 2 ) NOT NULL DEFAULT 0,
+		TiempoDeSalario INTEGER DEFAULT 0,
+		Estatus INTEGER NOT NULL DEFAULT 1,
+		DiasLaborales VARCHAR ( 20 ) DEFAULT NULL,
+		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY ( IDEmpleado ) REFERENCES empleados ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
+	);
