@@ -269,7 +269,10 @@ namespace PuntoDeVentaV2
                                         MessageBox.Show("Es necesario agregar todos los precios.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                         return;
                                     }
-                                    if (tb.Any(ch => !char.IsLetterOrDigit(ch)))
+
+                                    //if (tb.Any(ch => !char.IsLetterOrDigit(ch)))
+                                    decimal num;
+                                    if (!Decimal.TryParse(tb,out num))
                                     {
                                         refrescarForm = false;
                                         item.Focus();
