@@ -87,6 +87,7 @@ namespace PuntoDeVentaV2
 
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
+            
             string avisoFinal = ""; 
             Excel.Application xlApp = new Excel.Application();
             Excel.Workbooks xlWorkbookS = xlApp.Workbooks;
@@ -94,7 +95,10 @@ namespace PuntoDeVentaV2
             Excel.Workbook xlWorkbook = xlWorkbookS.Open(excelPathfile);
             Excel._Worksheet xlWorksheet = xlWorkbook.Sheets[1];
             Excel.Range xlRange = xlWorksheet.UsedRange;
-            if (checarDatosObligatorios())
+
+            if (verificarRepetidos())
+            {
+                if (checarDatosObligatorios())
             {
 
                 int rowCount = xlRange.Rows.Count;
@@ -114,8 +118,15 @@ namespace PuntoDeVentaV2
                 {
                     for (int j = 1; j <= colCount; j++)
                     {
-                        if (xlRange.Cells[i, j] != null && xlRange.Cells[i, j].Value2 != null)
+                        if (xlRange.Cells[i, j] == null || xlRange.Cells[i, j].Value2 == null)
+                        {
+                            filas.Add("Celda en blanco");
+                        }
+                        else
+                        {
                             filas.Add(xlRange.Cells[i, j].Value2.ToString());
+                        }
+                        
                     }
 
 
@@ -127,6 +138,7 @@ namespace PuntoDeVentaV2
 
                     if (!Decimal.TryParse(precioventa, out number))
                     {
+
                         errores.Add($"Fila n{i}: Solo se pueden agregar datos decimales al precio de venta ({precioventa}), se salto la linea");
                         filas.Clear();
                         continue;
@@ -189,7 +201,6 @@ namespace PuntoDeVentaV2
 
                     if (CBClaveSat.Text != "Omitir")
                     {
-
                         clavesat = filas[valores.IndexOf(CBClaveSat.Text)];
                         if (cn.CargarDatos(cs.validarExisteClaveSat(clavesat)).Rows.Count.Equals(0))
                         {
@@ -221,9 +232,13 @@ namespace PuntoDeVentaV2
                         avisoFinal = $"{avisoFinal}\n{error}";
                     }
                 }
-                
 
+                MessageBox.Show(avisoFinal, "Aviso del sistema");
+                this.Close();
             }
+            }
+            
+            
             
 
             //Extra cleanup
@@ -240,8 +255,37 @@ namespace PuntoDeVentaV2
             //quit and release
             xlApp.Quit();
             Marshal.ReleaseComObject(xlApp);
-            MessageBox.Show(avisoFinal,"Aviso del sistema");
-            this.Close();
+            
+        }
+
+        private bool verificarRepetidos()
+        {
+            List<ComboBox> selects = new List<ComboBox>();
+            selects.Add(CBNombre);
+            selects.Add(CBCodigo);
+            selects.Add(CBClaveSat);
+            selects.Add(CBPrecioCompra);
+            selects.Add(CBPrecioVenta);
+            selects.Add(CBStock);
+            selects.Add(CBStockMax);
+            selects.Add(CBStockMin);
+            selects.Add(CBUnidadM);
+
+            foreach (var combobox in selects)
+            {
+                foreach (var select in selects)
+                {
+                    if (combobox!=select)
+                    {
+                        if (combobox.Text.Equals(select.Text) && !combobox.Text.Equals("Omitir"))
+                        {
+                            MessageBox.Show($"No se pueden repetir columnas para importar ({combobox.Text})");
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         private bool checarDatosObligatorios()
@@ -250,7 +294,7 @@ namespace PuntoDeVentaV2
             bool datosCorrectos = false;
             if (CBNombre.Text == "Omitir")
             {
-                MessageBox.Show("El nombre del producto es obligatorio!");
+                MessageBox.Show("El nombre del producto es obligatorio");
                 CBNombre.Focus();
                 return datosCorrectos = false;
             }
@@ -259,14 +303,14 @@ namespace PuntoDeVentaV2
 
             if (CBCodigo.Text == "Omitir")
             {
-                MessageBox.Show("El código del producto es obligatorio!");
+                MessageBox.Show("El código del producto es obligatorio");
                 CBCodigo.Focus();
 
                 return datosCorrectos = false;
             }
             if (CBPrecioVenta.Text == "Omitir")
             {
-                MessageBox.Show("El precio de venta del producto es obligatorio!");
+                MessageBox.Show("El precio de venta del producto es obligatorio");
                 CBPrecioVenta.Focus();
                 return datosCorrectos = false;
             }
