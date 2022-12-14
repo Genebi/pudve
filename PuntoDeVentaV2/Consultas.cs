@@ -4977,5 +4977,22 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+
+        public string GuardarProductoDesdeUnExcel(string Nombre, string Stock, string Precio, string CodigoBarras, string UnidadMedida, string StockNecesario, string StockMinimo, string precioCompra)
+        {
+            string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, CodigoBarras, UnidadMedida, StockNecesario, StockMinimo, PrecioCompra)";
+            consulta += $"VALUES('{Nombre}', '{Stock}', '{Precio}', '{CodigoBarras}', '{UnidadMedida}', '{StockNecesario}', '{StockMinimo}', '{precioCompra}')";
+
+            return consulta;
+        }
+
+        public string validarUniqueCodigoBarras(string codigo)
+        {
+            var consulta = $"SELECT * FROM productos WHERE CodigoBarras = '{codigo}'";
+
+            return consulta;
+        }
+
     }
 }   
