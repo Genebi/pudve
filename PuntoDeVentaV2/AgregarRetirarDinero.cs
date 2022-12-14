@@ -450,7 +450,7 @@ namespace PuntoDeVentaV2
                 }
 
                 // Deposito o retiro
-                if (operacion == 0 || operacion == 1)
+                if (operacion == 0 || operacion == 1 || operacion == 2)
                 {
                     if (string.IsNullOrWhiteSpace(concepto))
                     {
