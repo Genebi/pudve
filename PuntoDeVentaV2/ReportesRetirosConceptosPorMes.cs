@@ -16,6 +16,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         string mes = "";
+        string mesLetras;
         decimal total = 0;
         DataTable DTDatos = new DataTable();
         int posicion;
@@ -37,6 +38,7 @@ namespace PuntoDeVentaV2
         private void btn_aceptar_Click(object sender, EventArgs e)
         {
             mes = "1";
+            mesLetras = "ENERO";
             posicion = cbannio.SelectedIndex;
             annio = cbannio.Text;
             DeshabilitarBotones();
@@ -89,7 +91,7 @@ namespace PuntoDeVentaV2
                             {
                                 DTDatos.Rows.Add();
                                 DTDatos.Rows[contador2]["Concepto"] = DTFinal.Rows[contador3]["Concepto"].ToString();
-                                DTDatos.Rows[contador2]["Fecha"] = DTFinal.Rows[contador3]["Fecha"].ToString();
+                                DTDatos.Rows[contador2]["Fecha"] = mesLetras;
                                 DTDatos.Rows[contador2]["Cantidad"] = DTFinal.Rows[contador3]["Cantidad"].ToString();
                                 string Status;
                                 if (DTFinal.Rows[contador3]["Status"].ToString().Equals("1"))
@@ -148,6 +150,7 @@ namespace PuntoDeVentaV2
         private void button1_Click(object sender, EventArgs e)
         {
             mes = "2";
+            mesLetras = "FEBRERO";
             posicion = cbannio.SelectedIndex;
             annio = cbannio.Text;
             DeshabilitarBotones();
@@ -162,6 +165,7 @@ namespace PuntoDeVentaV2
         private void button2_Click(object sender, EventArgs e)
         {
             mes = "3";
+            mesLetras = "MARZO";
             posicion = cbannio.SelectedIndex;
             annio = cbannio.Text;
             DeshabilitarBotones();
@@ -176,6 +180,7 @@ namespace PuntoDeVentaV2
         private void button3_Click(object sender, EventArgs e)
         {
             mes = "4";
+            mesLetras = "ABRIL";
             posicion = cbannio.SelectedIndex;
             annio = cbannio.Text;
             DeshabilitarBotones();
@@ -190,6 +195,7 @@ namespace PuntoDeVentaV2
         private void button4_Click(object sender, EventArgs e)
         {
             mes = "5";
+            mesLetras = "MAYO";
             posicion = cbannio.SelectedIndex;
             annio = cbannio.Text;
             DeshabilitarBotones();
@@ -204,6 +210,7 @@ namespace PuntoDeVentaV2
         private void button5_Click(object sender, EventArgs e)
         {
             mes = "6";
+            mesLetras = "JUNIO";
             posicion = cbannio.SelectedIndex;
             annio = cbannio.Text;
             DeshabilitarBotones();
@@ -218,6 +225,7 @@ namespace PuntoDeVentaV2
         private void button6_Click(object sender, EventArgs e)
         {
             mes = "7";
+            mesLetras = "JULIO";
             posicion = cbannio.SelectedIndex;
             annio = cbannio.Text;
             DeshabilitarBotones();
@@ -232,6 +240,7 @@ namespace PuntoDeVentaV2
         private void button7_Click(object sender, EventArgs e)
         {
             mes = "8";
+            mesLetras = "AGOSTO";
             posicion = cbannio.SelectedIndex;
             annio = cbannio.Text;
             DeshabilitarBotones();
@@ -246,6 +255,7 @@ namespace PuntoDeVentaV2
         private void button8_Click(object sender, EventArgs e)
         {
             mes = "9";
+            mesLetras = "SEPTIEMBRE";
             posicion = cbannio.SelectedIndex;
             annio = cbannio.Text;
             DeshabilitarBotones();
@@ -260,6 +270,7 @@ namespace PuntoDeVentaV2
         private void button9_Click(object sender, EventArgs e)
         {
             mes = "10";
+            mesLetras = "OCTUBRE";
             posicion = cbannio.SelectedIndex;
             annio = cbannio.Text;
             DeshabilitarBotones();
@@ -274,6 +285,7 @@ namespace PuntoDeVentaV2
         private void button10_Click(object sender, EventArgs e)
         {
             mes = "11";
+            mesLetras = "NOVIEMBRE";
             posicion = cbannio.SelectedIndex;
             annio = cbannio.Text;
             DeshabilitarBotones();
@@ -288,6 +300,7 @@ namespace PuntoDeVentaV2
         private void button11_Click(object sender, EventArgs e)
         {
             mes = "12";
+            mesLetras = "DICIEMBRE";
             posicion = cbannio.SelectedIndex;
             annio = cbannio.Text;
             DeshabilitarBotones();

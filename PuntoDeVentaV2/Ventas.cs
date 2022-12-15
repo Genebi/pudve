@@ -8217,7 +8217,6 @@ namespace PuntoDeVentaV2
 
         private void txtDescuentoGeneral_KeyDown(object sender, KeyEventArgs e)
         {
-
             var cantidadDescuento = txtDescuentoGeneral.Text;
             if (e.KeyCode == Keys.Enter)
             {
@@ -8225,9 +8224,8 @@ namespace PuntoDeVentaV2
                 txtBuscadorProducto.Text = string.Empty;
                 txtBuscadorProducto.Focus();
                 txtDescuentoGeneral.Text = "% descuento";
+                btnAplicarDescuento.Enabled = false;
             }
-
-
         }
 
         private void DGVentas_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -8453,7 +8451,7 @@ namespace PuntoDeVentaV2
 
         private void txtDescuentoGeneral_TextChanged(object sender, EventArgs e)
         {
-            if (txtDescuentoGeneral.Text.Equals("% descuento"))
+            if (txtDescuentoGeneral.Text.Equals("% descuento")|| txtDescuentoGeneral.Text.Contains("%"))
             {
                 btnAplicarDescuento.Enabled = false;
             }

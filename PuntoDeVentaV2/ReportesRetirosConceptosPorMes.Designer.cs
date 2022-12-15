@@ -376,10 +376,6 @@ namespace PuntoDeVentaV2
             this.cbannio.FormattingEnabled = true;
             this.cbannio.Items.AddRange(new object[] {
             "Selecciona un Año",
-            "2018",
-            "2019",
-            "2020",
-            "2021",
             "2022",
             "2023",
             "2024",
