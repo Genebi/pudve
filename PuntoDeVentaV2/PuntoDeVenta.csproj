@@ -753,6 +753,12 @@
     <Compile Include="FormNotaVentaHDA.Designer.cs">
       <DependentUpon>FormNotaVentaHDA.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReporteConceptosRetiro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReporteConceptosRetiro.Designer.cs">
+      <DependentUpon>FormReporteConceptosRetiro.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormReporteHistorialVentasProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1321,6 +1327,15 @@
       <DependentUpon>DatosReporteVentas.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\DatosConceptos.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatosConceptos.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\DatosConceptos.cs">
+      <DependentUpon>DatosConceptos.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\ReporteVentas\DatosReporteVentas.cs">
       <DependentUpon>DatosReporteVentas.xsd</DependentUpon>
     </Compile>
@@ -1353,6 +1368,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TicketVenta.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="ReportesRetirosConceptosPorMes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportesRetirosConceptosPorMes.Designer.cs">
+      <DependentUpon>ReportesRetirosConceptosPorMes.cs</DependentUpon>
     </Compile>
     <Compile Include="RespadoBaseDatos.cs" />
     <Compile Include="RevisarInventario.cs">
@@ -1884,6 +1905,9 @@
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormReporteConceptosRetiro.resx">
+      <DependentUpon>FormReporteConceptosRetiro.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormReporteHistorialVentasProducto.resx">
       <DependentUpon>FormReporteHistorialVentasProducto.cs</DependentUpon>
     </EmbeddedResource>
@@ -2178,6 +2202,12 @@
     <Content Include="ReportesImpresion\Ticket\VentaGlobal\VentaGlobal.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\ReporteConceptosRetiro.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="ReportesRetirosConceptosPorMes.resx">
+      <DependentUpon>ReportesRetirosConceptosPorMes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -2553,6 +2583,20 @@
     </Content>
     <Content Include="ReportesImpresion\Ticket\ReporteVentas\DatosReporteVentas.xss">
       <DependentUpon>DatosReporteVentas.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\DatosConceptos.xsc">
+      <DependentUpon>DatosConceptos.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\DatosConceptos.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatosConceptos.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\DatosConceptos.xss">
+      <DependentUpon>DatosConceptos.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="ReportesImpresion\Ticket\TicketAnticipo\TicketAnticipo.xsc">

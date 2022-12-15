@@ -1,6 +1,6 @@
 ﻿namespace PuntoDeVentaV2
 {
-    partial class Reportes
+    partial class s
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reportes));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(s));
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.primerSeparador = new System.Windows.Forms.Label();
             this.btnHistorialDineroAgregado = new System.Windows.Forms.Button();
@@ -44,6 +44,7 @@
             this.btnReporteInventario = new PuntoDeVentaV2.BotonRedondo();
             this.btnCaja = new PuntoDeVentaV2.BotonRedondo();
             this.btnHistorialPrecios = new PuntoDeVentaV2.BotonRedondo();
+            this.btnRetiroConcepto = new PuntoDeVentaV2.BotonRedondo();
             this.Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).BeginInit();
             this.SuspendLayout();
@@ -161,7 +162,7 @@
             this.btnMenosVendidos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMenosVendidos.ForeColor = System.Drawing.Color.White;
             this.btnMenosVendidos.Image = global::PuntoDeVentaV2.Properties.Resources.decrease;
-            this.btnMenosVendidos.Location = new System.Drawing.Point(935, 74);
+            this.btnMenosVendidos.Location = new System.Drawing.Point(796, 66);
             this.btnMenosVendidos.Name = "btnMenosVendidos";
             this.btnMenosVendidos.Size = new System.Drawing.Size(134, 87);
             this.btnMenosVendidos.TabIndex = 115;
@@ -182,7 +183,7 @@
             this.btnClientes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClientes.ForeColor = System.Drawing.Color.White;
             this.btnClientes.Image = global::PuntoDeVentaV2.Properties.Resources.report_user;
-            this.btnClientes.Location = new System.Drawing.Point(759, 74);
+            this.btnClientes.Location = new System.Drawing.Point(647, 66);
             this.btnClientes.Name = "btnClientes";
             this.btnClientes.Size = new System.Drawing.Size(134, 87);
             this.btnClientes.TabIndex = 114;
@@ -203,7 +204,7 @@
             this.btnReporteVentas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReporteVentas.ForeColor = System.Drawing.Color.White;
             this.btnReporteVentas.Image = global::PuntoDeVentaV2.Properties.Resources.report;
-            this.btnReporteVentas.Location = new System.Drawing.Point(579, 74);
+            this.btnReporteVentas.Location = new System.Drawing.Point(497, 66);
             this.btnReporteVentas.Name = "btnReporteVentas";
             this.btnReporteVentas.Size = new System.Drawing.Size(134, 87);
             this.btnReporteVentas.TabIndex = 113;
@@ -224,7 +225,7 @@
             this.btnReporteInventario.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReporteInventario.ForeColor = System.Drawing.Color.White;
             this.btnReporteInventario.Image = global::PuntoDeVentaV2.Properties.Resources.report_2_;
-            this.btnReporteInventario.Location = new System.Drawing.Point(405, 74);
+            this.btnReporteInventario.Location = new System.Drawing.Point(347, 66);
             this.btnReporteInventario.Name = "btnReporteInventario";
             this.btnReporteInventario.Size = new System.Drawing.Size(134, 87);
             this.btnReporteInventario.TabIndex = 112;
@@ -245,7 +246,7 @@
             this.btnCaja.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCaja.ForeColor = System.Drawing.Color.White;
             this.btnCaja.Image = global::PuntoDeVentaV2.Properties.Resources.cash_register;
-            this.btnCaja.Location = new System.Drawing.Point(229, 74);
+            this.btnCaja.Location = new System.Drawing.Point(195, 66);
             this.btnCaja.Name = "btnCaja";
             this.btnCaja.Size = new System.Drawing.Size(134, 87);
             this.btnCaja.TabIndex = 111;
@@ -266,7 +267,7 @@
             this.btnHistorialPrecios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHistorialPrecios.ForeColor = System.Drawing.Color.White;
             this.btnHistorialPrecios.Image = global::PuntoDeVentaV2.Properties.Resources.research;
-            this.btnHistorialPrecios.Location = new System.Drawing.Point(62, 74);
+            this.btnHistorialPrecios.Location = new System.Drawing.Point(42, 66);
             this.btnHistorialPrecios.Name = "btnHistorialPrecios";
             this.btnHistorialPrecios.Size = new System.Drawing.Size(134, 87);
             this.btnHistorialPrecios.TabIndex = 110;
@@ -276,11 +277,33 @@
             this.btnHistorialPrecios.UseVisualStyleBackColor = false;
             this.btnHistorialPrecios.Click += new System.EventHandler(this.botonRedondo1_Click);
             // 
-            // Reportes
+            // btnRetiroConcepto
+            // 
+            this.btnRetiroConcepto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnRetiroConcepto.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnRetiroConcepto.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnRetiroConcepto.BorderRadius = 20;
+            this.btnRetiroConcepto.BorderSize = 0;
+            this.btnRetiroConcepto.FlatAppearance.BorderSize = 0;
+            this.btnRetiroConcepto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRetiroConcepto.ForeColor = System.Drawing.Color.White;
+            this.btnRetiroConcepto.Image = ((System.Drawing.Image)(resources.GetObject("btnRetiroConcepto.Image")));
+            this.btnRetiroConcepto.Location = new System.Drawing.Point(945, 66);
+            this.btnRetiroConcepto.Name = "btnRetiroConcepto";
+            this.btnRetiroConcepto.Size = new System.Drawing.Size(134, 87);
+            this.btnRetiroConcepto.TabIndex = 116;
+            this.btnRetiroConcepto.Text = "Retiro por Conceptos";
+            this.btnRetiroConcepto.TextColor = System.Drawing.Color.White;
+            this.btnRetiroConcepto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnRetiroConcepto.UseVisualStyleBackColor = false;
+            this.btnRetiroConcepto.Click += new System.EventHandler(this.btnRetiroConcepto_Click);
+            // 
+            // s
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1107, 661);
+            this.Controls.Add(this.btnRetiroConcepto);
             this.Controls.Add(this.btnMenosVendidos);
             this.Controls.Add(this.btnClientes);
             this.Controls.Add(this.btnReporteVentas);
@@ -292,7 +315,7 @@
             this.Controls.Add(this.tituloSeccion);
             this.Controls.Add(this.primerSeparador);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "Reportes";
+            this.Name = "s";
             this.Text = "Reportes";
             this.Load += new System.EventHandler(this.Reportes_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Reportes_KeyDown);
@@ -319,5 +342,6 @@
         private BotonRedondo btnReporteVentas;
         private BotonRedondo btnClientes;
         private BotonRedondo btnMenosVendidos;
+        private BotonRedondo btnRetiroConcepto;
     }
 }
