@@ -1089,7 +1089,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1250, 672);
-            this.ClientSize = new System.Drawing.Size(1250, 680);
+            this.ClientSize = new System.Drawing.Size(1250, 680); 
             this.Controls.Add(this.fLPContenidoProducto);
             this.Controls.Add(this.fLPDetallesProducto);
             this.Controls.Add(this.fLPAccion);
