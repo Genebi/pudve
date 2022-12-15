@@ -1098,8 +1098,7 @@ namespace PuntoDeVentaV2
 
         public string VerificarDatoDinamico(string claveAgregar, int idUsuario)
         {
-            var consulta = $"SELECT * FROM appSettings WHERE concepto = '{claveAgregar}' AND IDUsuario = '{idUsuario}' AND Mostrar = 1";
-
+            var consulta = $"SELECT * FROM appSettings WHERE concepto = '{claveAgregar}' AND IDUsuario = '{idUsuario}'";
             return consulta;
         }
 
