@@ -371,6 +371,11 @@ namespace PuntoDeVentaV2
                 opcion18 = permisos[17];
                 opcion19 = permisos[18];
                 opcion20 = permisos[19];
+                btnGanancia.Visible = false;
+            }
+            else
+            {
+                btnGanancia.Visible = true;
             }
 
           
@@ -8463,13 +8468,30 @@ namespace PuntoDeVentaV2
             listaProductos.Visible = false;
         }
 
+
         private void nudCantidadPS_ValueChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void CBTipo_SelectedIndexChanged(object sender, EventArgs e)
+
+
+        private void btnGanancia_Click(object sender, EventArgs e)
         {
+            if (!DGVentas.Rows.Count.Equals(0))
+            {
+                Ganancia cantidadGanancia = new Ganancia();
+                cantidadGanancia.totalVenta = Convert.ToDecimal(cTotal.Text);
+                cantidadGanancia.lugarGanancia = 2;
+
+                foreach (DataGridViewRow item in DGVentas.Rows)
+                {
+                    var id = item.Cells["IDProducto"].Value.ToString() + "|" + item.Cells["Cantidad"].Value.ToString();
+                    cantidadGanancia.idsprods.Add(id);
+                }
+
+                cantidadGanancia.ShowDialog();
+            }
 
         }
 
