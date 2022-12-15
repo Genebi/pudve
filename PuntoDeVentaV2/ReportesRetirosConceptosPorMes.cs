@@ -93,10 +93,12 @@ namespace PuntoDeVentaV2
             {
                 decimal cantidades = Convert.ToDecimal(DTDatos.Rows[contadorCantidad]["Cantidad"]);
                 total += cantidades;
+                contadorCantidad++;
             }
 
             FormReporteConceptosRetiro form = new FormReporteConceptosRetiro(DTDatos,total.ToString()); ;
             form.ShowDialog();
+            total = 0;
             DTDatos.Clear();
         }
 
