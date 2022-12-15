@@ -4979,6 +4979,7 @@ namespace PuntoDeVentaV2
         }
 
 
+
         public string GuardarProductoDesdeUnExcel(string Nombre, string Stock, string Precio, string CodigoBarras, string ClaveSat, string UnidadMedida, string StockNecesario, string StockMinimo, string precioCompra)
         {
             string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, CodigoBarras, ClaveProducto, UnidadMedida, IDUSuario, StockNecesario, StockMinimo, PrecioCompra)";
@@ -5002,6 +5003,14 @@ namespace PuntoDeVentaV2
         public string validarExisteClaveSat(string codigo)
         {
             var consulta = $"SELECT * FROM catalogo_claves_producto WHERE clave = '{codigo}'";
+
+            return consulta;
+        }
+
+
+        public string RetiroPorConcepto(string Conceptos, string mes, string anno)
+        {
+            var consulta = $"SELECT SUM( CA.Cantidad ) AS Cantidad, CA.Operacion AS Operacion, CA.Concepto AS Concepto,CA.FechaOperacion AS Fecha,CD.`Status` FROM Caja CA INNER JOIN ConceptosDinamicos CD ON ( CA.IDUsuario = CD.IDUsuario AND CA.Concepto = CD.Concepto ) WHERE CA.IDUsuario = {FormPrincipal.userID} AND CA.Operacion = 'retiro' AND CA.Concepto IN ('{Conceptos}') AND CA.FechaOperacion BETWEEN '{anno}-{mes}-01 00:00:00' AND '{anno}-{mes}-31 23:59:59' GROUP BY CA.ID";
 
             return consulta;
         }

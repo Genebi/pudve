@@ -393,7 +393,7 @@ namespace PuntoDeVentaV2
             lugarProcedencia = HistorialPrecioBuscador.procedencia;
 
             DialogResult = DialogResult.OK;
-            Reportes.botonAceptar = true;
+            s.botonAceptar = true;
             Close();
         }
 

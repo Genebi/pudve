@@ -1354,7 +1354,7 @@ namespace PuntoDeVentaV2
             // Solo descomentar lo de abajo cuando sea necesario
             if (reportes == 1)
             {
-                AbrirFormulario<Reportes>();
+                AbrirFormulario<s>();
             }
             else
             {
