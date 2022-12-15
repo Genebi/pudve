@@ -4403,7 +4403,7 @@ namespace PuntoDeVentaV2
 
         public string obtenerIdUltimoDepositoDeDineroComoAdministrador()
         {
-            var consulta = $"SELECT ID FROM caja WHERE Operacion = 'deposito' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0' ORDER BY ID DESC LIMIT 1";
+            var consulta = $"SELECT ID FROM caja WHERE Operacion = 'PrimerSaldo' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0' ORDER BY ID DESC LIMIT 1";
 
             return consulta;
         }
