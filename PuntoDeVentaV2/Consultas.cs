@@ -4989,7 +4989,7 @@ namespace PuntoDeVentaV2
 
         public string validarUniqueCodigoBarras(string codigo)
         {
-            var consulta = $"SELECT * FROM productos WHERE CodigoBarras = '{codigo}' AND IDUsuario = '{FormPrincipal.userID}'";
+            var consulta = $"SELECT * FROM productos WHERE CodigoBarras = '{codigo}' AND IDUsuario = '{FormPrincipal.userID}' AND Status = 1";
 
             return consulta;
         }
