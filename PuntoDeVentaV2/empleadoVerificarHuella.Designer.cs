@@ -29,6 +29,7 @@ namespace PuntoDeVentaV2
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(empleadoVerificarHuella));
             this.label1 = new System.Windows.Forms.Label();
             this.Picture = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.Picture)).BeginInit();
@@ -65,11 +66,13 @@ namespace PuntoDeVentaV2
             this.ClientSize = new System.Drawing.Size(409, 477);
             this.Controls.Add(this.Picture);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "empleadoVerificarHuella";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "empleadoVerificarHuella";
+            this.Text = "Identificador";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.empleadoVerificarHuella_FormClosed);
             this.Load += new System.EventHandler(this.empleadoVerificarHuella_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Picture)).EndInit();

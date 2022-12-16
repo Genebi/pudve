@@ -5063,5 +5063,25 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string insertarEntrada(string idEmpleado)
+        {
+            string consulta = "INSERT INTO checador(idUsuario, idEmpleado, Dia, HoraLlegada)";
+            consulta += $"VALUES('{FormPrincipal.userID}', '{idEmpleado}','{DateTime.Now.ToString("yyyy-MM-dd")}','{DateTime.Now.ToString("HH:mm:ss")}')";
+
+            return consulta;
+        }
+
+        public string buscarUltimoChecador(string empleadoID)
+        {
+            var consulta = $"SELECT * FROM checador WHERE idEmpleado = '{empleadoID}' AND Dia = '{DateTime.Now.ToString("yyyy-MM-dd")}' AND HoraSalida IS NULL";
+
+            return consulta;
+        }
+        public string insertarSalida(string empleadoID)
+        {
+            var consulta = $"UPDATE checador SET HoraSalida = '{DateTime.Now.ToString("HH:mm:ss")}' WHERE IDEmpleado = '{empleadoID}' AND Dia = '{DateTime.Now.ToString("yyyy-MM-dd")}' AND HoraSalida IS NULL";
+
+            return consulta;
+        }
     }
 }   

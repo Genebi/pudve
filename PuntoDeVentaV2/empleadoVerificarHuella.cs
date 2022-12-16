@@ -131,8 +131,18 @@ namespace PuntoDeVentaV2
 
                         List<string> usuarios = new List<string>();
                         usuarios = cn.sacarUsuariosgoella();
+                        string mensaje = $"Se verifico la huella como: {cs.BuscarEmpleadoHuella(usuarios[byteArray.IndexOf(huella)])}";
 
-                        MessageBox.Show($"Se verifico la huella como: {cs.BuscarEmpleadoHuella(usuarios[byteArray.IndexOf(huella)])}") ;
+                        if (!cn.CargarDatos(cs.buscarUltimoChecador(usuarios[byteArray.IndexOf(huella)])).Rows.Count.Equals(0))
+                        {
+                            mensaje += $"\nRegistrada salida a las {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}";
+                            MessageBox.Show(mensaje);
+                            cn.EjecutarConsulta(cs.insertarSalida(usuarios[byteArray.IndexOf(huella)]));
+                            break;
+                        }
+                        mensaje += $"\nRegistrada entrada a las {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}";
+                        MessageBox.Show(mensaje);
+                        cn.EjecutarConsulta(cs.insertarEntrada(usuarios[byteArray.IndexOf(huella)]));
                         break;
                     }
                 }

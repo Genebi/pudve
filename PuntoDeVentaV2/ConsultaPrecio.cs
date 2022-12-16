@@ -109,6 +109,11 @@ namespace PuntoDeVentaV2
             }
             txtBusqueda.SelectAll();
         }
-        
+
+        private void btnEnvioCorreo_Click(object sender, EventArgs e)
+        {
+            empleadoVerificarHuella comparar = new empleadoVerificarHuella();
+            comparar.ShowDialog();
+        }
     }
 }

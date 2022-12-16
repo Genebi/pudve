@@ -16,6 +16,8 @@ namespace PuntoDeVentaV2
     {
         private DPFP.Template Template;
 
+        private DPFP.Verification.Verification Verificator;
+
         public delegate void OnTemplateEventHandler(DPFP.Template template);
 
         public event OnTemplateEventHandler OnTemplate;
