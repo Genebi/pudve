@@ -15,8 +15,10 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         public int lugarGanancia { get; set; } // 1 = Desde Listado / 2 = Desde Carrito Ventas
+        int cerrar = 0;
         public List<string> idsprods = new List<string>();
         public decimal totalVenta { get; set; }
+        public static int gananciaGrafica; // para mandar la ganancia a graficar
 
         public Ganancia()
         {
@@ -30,6 +32,7 @@ namespace PuntoDeVentaV2
 
         private void Ganancia_Load(object sender, EventArgs e)
         {
+            Ventas vent = new Ventas();
             lblMensaje.Visible = false;
             if (lugarGanancia == 1)
             {
@@ -219,7 +222,15 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+                
+                if (gananciaGrafica == 3)
+                {
+                    Ventas.gananciaTotalPorVenta = lblGanancia.Text;
+                    gananciaGrafica = 0;
+                    this.Close();
+                }
             }
+           
         }
     }
 }

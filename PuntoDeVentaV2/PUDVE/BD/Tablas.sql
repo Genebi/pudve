@@ -1969,3 +1969,6 @@ IF
 		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
 	FOREIGN KEY ( IDEmpleado ) REFERENCES empleados ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
 	);
+
+	-- Agregar Columna de la ganancia por venta para graficarlo 
+	ALTER TABLE ventas ADD COLUMN IF NOT EXISTS Ganancia   VARCHAR ( 2000 ) DEFAULT NULL ;
