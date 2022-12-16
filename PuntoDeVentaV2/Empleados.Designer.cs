@@ -57,7 +57,6 @@
             this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.editar = new System.Windows.Forms.DataGridViewImageColumn();
             this.permisos = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Checador = new System.Windows.Forms.DataGridViewImageColumn();
             this.deshabilitar = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_empleados)).BeginInit();
             this.panel5.SuspendLayout();
@@ -109,7 +108,6 @@
             this.usuario,
             this.editar,
             this.permisos,
-            this.Checador,
             this.deshabilitar});
             this.dgv_empleados.Location = new System.Drawing.Point(14, 118);
             this.dgv_empleados.Name = "dgv_empleados";
@@ -432,15 +430,6 @@
             this.permisos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.permisos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
-            // Checador
-            // 
-            this.Checador.FillWeight = 31.81818F;
-            this.Checador.HeaderText = "Checador";
-            this.Checador.MinimumWidth = 8;
-            this.Checador.Name = "Checador";
-            this.Checador.ReadOnly = true;
-            this.Checador.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
             // deshabilitar
             // 
             this.deshabilitar.FillWeight = 31.81818F;
@@ -510,7 +499,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewImageColumn editar;
         private System.Windows.Forms.DataGridViewImageColumn permisos;
-        private System.Windows.Forms.DataGridViewImageColumn Checador;
         private System.Windows.Forms.DataGridViewImageColumn deshabilitar;
     }
 }
