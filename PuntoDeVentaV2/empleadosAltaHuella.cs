@@ -56,6 +56,7 @@ namespace PuntoDeVentaV2
             catch
             {
                 MessageBox.Show("No se pudo iniciar la operación de captura", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
             }
 
             Enroller = new DPFP.Processing.Enrollment();            // Create an enrollment.
@@ -161,6 +162,7 @@ namespace PuntoDeVentaV2
                 catch
                 {
                     SetPrompt("No se puede iniciar la captura");
+                    return;
                 }
             }
         }
@@ -250,26 +252,25 @@ namespace PuntoDeVentaV2
             Stop();
         }
 
-        private void btn_cancelar_Click(object sender, EventArgs e)
+
+        
+
+        private void btn_cancelar_Click_1(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void btn_aceptar_Click(object sender, EventArgs e)
+        private void btn_aceptar_Click_1(object sender, EventArgs e)
         {
             Conexion cn = new Conexion();
             Consultas cs = new Consultas();
             byte[] steamFP = Template.Bytes;
 
-            
+
             //Insert
-            cn.metergoella(cs.insertarHuella(),id_empleado.ToString(),steamFP);
+            cn.metergoella(cs.insertarHuella(), id_empleado.ToString(), steamFP);
             Template = null;
             this.Close();
-        
         }
-
-
-
     }
 }

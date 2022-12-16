@@ -60,10 +60,11 @@ namespace PuntoDeVentaV2
             this.ComboHabilittados.Location = new System.Drawing.Point(3, 3);
             this.ComboHabilittados.Name = "ComboHabilittados";
             this.ComboHabilittados.Size = new System.Drawing.Size(318, 30);
-            this.ComboHabilittados.TabIndex = 124;
+            this.ComboHabilittados.TabIndex = 7;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.dDGVDeshabilitados);
             this.panel1.Controls.Add(this.ComboHabilittados);
             this.panel1.Location = new System.Drawing.Point(12, 12);
@@ -120,7 +121,6 @@ namespace PuntoDeVentaV2
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.button3);
             this.panel2.Controls.Add(this.btnHuella);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.btn_agregar_empleado);
@@ -140,7 +140,7 @@ namespace PuntoDeVentaV2
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(10, 168);
+            this.button3.Location = new System.Drawing.Point(46, 436);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(220, 45);
             this.button3.TabIndex = 130;
@@ -156,10 +156,10 @@ namespace PuntoDeVentaV2
             this.btnHuella.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHuella.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHuella.ForeColor = System.Drawing.Color.White;
-            this.btnHuella.Location = new System.Drawing.Point(10, 239);
+            this.btnHuella.Location = new System.Drawing.Point(10, 216);
             this.btnHuella.Name = "btnHuella";
-            this.btnHuella.Size = new System.Drawing.Size(220, 45);
-            this.btnHuella.TabIndex = 130;
+            this.btnHuella.Size = new System.Drawing.Size(220, 80);
+            this.btnHuella.TabIndex = 3;
             this.btnHuella.Text = "Registrar huella";
             this.btnHuella.UseVisualStyleBackColor = false;
             this.btnHuella.Click += new System.EventHandler(this.btnHuella_Click);
@@ -172,10 +172,10 @@ namespace PuntoDeVentaV2
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(10, 92);
+            this.button1.Location = new System.Drawing.Point(10, 18);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(220, 45);
-            this.button1.TabIndex = 130;
+            this.button1.Size = new System.Drawing.Size(220, 80);
+            this.button1.TabIndex = 1;
             this.button1.Text = "Reglas de salario";
             this.button1.UseVisualStyleBackColor = false;
             // 
@@ -187,10 +187,10 @@ namespace PuntoDeVentaV2
             this.btn_agregar_empleado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_agregar_empleado.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_agregar_empleado.ForeColor = System.Drawing.Color.White;
-            this.btn_agregar_empleado.Location = new System.Drawing.Point(10, 18);
+            this.btn_agregar_empleado.Location = new System.Drawing.Point(10, 116);
             this.btn_agregar_empleado.Name = "btn_agregar_empleado";
-            this.btn_agregar_empleado.Size = new System.Drawing.Size(220, 45);
-            this.btn_agregar_empleado.TabIndex = 130;
+            this.btn_agregar_empleado.Size = new System.Drawing.Size(220, 80);
+            this.btn_agregar_empleado.TabIndex = 2;
             this.btn_agregar_empleado.Text = "Reglas de horario";
             this.btn_agregar_empleado.UseVisualStyleBackColor = false;
             // 
@@ -202,10 +202,10 @@ namespace PuntoDeVentaV2
             this.btnPlantilla.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPlantilla.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPlantilla.ForeColor = System.Drawing.Color.White;
-            this.btnPlantilla.Location = new System.Drawing.Point(10, 377);
+            this.btnPlantilla.Location = new System.Drawing.Point(10, 376);
             this.btnPlantilla.Name = "btnPlantilla";
             this.btnPlantilla.Size = new System.Drawing.Size(220, 39);
-            this.btnPlantilla.TabIndex = 129;
+            this.btnPlantilla.TabIndex = 5;
             this.btnPlantilla.Text = "Guardar Plantilla";
             this.btnPlantilla.UseVisualStyleBackColor = false;
             // 
@@ -220,9 +220,10 @@ namespace PuntoDeVentaV2
             this.btn_cancelar.Location = new System.Drawing.Point(10, 439);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(220, 39);
-            this.btn_cancelar.TabIndex = 128;
+            this.btn_cancelar.TabIndex = 6;
             this.btn_cancelar.Text = "Cancelar";
             this.btn_cancelar.UseVisualStyleBackColor = false;
+            this.btn_cancelar.Click += new System.EventHandler(this.btn_cancelar_Click);
             // 
             // btn_aceptar
             // 
@@ -232,12 +233,13 @@ namespace PuntoDeVentaV2
             this.btn_aceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_aceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_aceptar.ForeColor = System.Drawing.Color.White;
-            this.btn_aceptar.Location = new System.Drawing.Point(10, 313);
+            this.btn_aceptar.Location = new System.Drawing.Point(10, 318);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(220, 39);
-            this.btn_aceptar.TabIndex = 127;
+            this.btn_aceptar.TabIndex = 4;
             this.btn_aceptar.Text = "Aceptar";
             this.btn_aceptar.UseVisualStyleBackColor = false;
+            this.btn_aceptar.Click += new System.EventHandler(this.btn_aceptar_Click);
             // 
             // empleadosDatosChecador
             // 

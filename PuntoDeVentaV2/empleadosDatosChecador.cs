@@ -40,5 +40,15 @@ namespace PuntoDeVentaV2
             empleadoVerificarHuella comparar = new empleadoVerificarHuella();
             comparar.ShowDialog();
         }
+
+        private void btn_aceptar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btn_cancelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

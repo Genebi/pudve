@@ -57,6 +57,7 @@
             this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.editar = new System.Windows.Forms.DataGridViewImageColumn();
             this.permisos = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Checador = new System.Windows.Forms.DataGridViewImageColumn();
             this.deshabilitar = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_empleados)).BeginInit();
             this.panel5.SuspendLayout();
@@ -108,6 +109,7 @@
             this.usuario,
             this.editar,
             this.permisos,
+            this.Checador,
             this.deshabilitar});
             this.dgv_empleados.Location = new System.Drawing.Point(14, 118);
             this.dgv_empleados.Name = "dgv_empleados";
@@ -388,55 +390,86 @@
             // 
             // id
             // 
+            this.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.id.FillWeight = 31.81818F;
+            this.id.Frozen = true;
             this.id.HeaderText = "ID";
             this.id.MinimumWidth = 8;
             this.id.Name = "id";
             this.id.ReadOnly = true;
+            this.id.Width = 158;
             // 
             // nombre
             // 
+            this.nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.nombre.FillWeight = 31.81818F;
+            this.nombre.Frozen = true;
             this.nombre.HeaderText = "Nombre";
             this.nombre.MinimumWidth = 8;
             this.nombre.Name = "nombre";
             this.nombre.ReadOnly = true;
+            this.nombre.Width = 159;
             // 
             // usuario
             // 
+            this.usuario.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.usuario.FillWeight = 31.81818F;
+            this.usuario.Frozen = true;
             this.usuario.HeaderText = "Usuario";
             this.usuario.MinimumWidth = 8;
             this.usuario.Name = "usuario";
             this.usuario.ReadOnly = true;
+            this.usuario.Width = 158;
             // 
             // editar
             // 
+            this.editar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.editar.FillWeight = 31.81818F;
+            this.editar.Frozen = true;
             this.editar.HeaderText = "Editar";
             this.editar.MinimumWidth = 8;
             this.editar.Name = "editar";
             this.editar.ReadOnly = true;
             this.editar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.editar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.editar.Width = 158;
             // 
             // permisos
             // 
+            this.permisos.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.permisos.FillWeight = 31.81818F;
+            this.permisos.Frozen = true;
             this.permisos.HeaderText = "Permisos";
             this.permisos.MinimumWidth = 8;
             this.permisos.Name = "permisos";
             this.permisos.ReadOnly = true;
             this.permisos.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.permisos.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.permisos.Width = 120;
+            // 
+            // Checador
+            // 
+            this.Checador.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.Checador.FillWeight = 31.81818F;
+            this.Checador.Frozen = true;
+            this.Checador.HeaderText = "Checador";
+            this.Checador.MinimumWidth = 8;
+            this.Checador.Name = "Checador";
+            this.Checador.ReadOnly = true;
+            this.Checador.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Checador.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Checador.Width = 120;
             // 
             // deshabilitar
             // 
+            this.deshabilitar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.deshabilitar.FillWeight = 31.81818F;
+            this.deshabilitar.Frozen = true;
             this.deshabilitar.HeaderText = "Deshabilitar";
             this.deshabilitar.MinimumWidth = 8;
             this.deshabilitar.Name = "deshabilitar";
             this.deshabilitar.ReadOnly = true;
+            this.deshabilitar.Width = 158;
             // 
             // Empleados
             // 
@@ -499,6 +532,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewImageColumn editar;
         private System.Windows.Forms.DataGridViewImageColumn permisos;
+        private System.Windows.Forms.DataGridViewImageColumn Checador;
         private System.Windows.Forms.DataGridViewImageColumn deshabilitar;
     }
 }
