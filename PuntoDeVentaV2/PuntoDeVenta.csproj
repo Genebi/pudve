@@ -100,6 +100,22 @@
     <Reference Include="DocumentFormat.OpenXml, Version=2.16.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
       <HintPath>..\packages\DocumentFormat.OpenXml.2.16.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
+    <Reference Include="DPFPDevNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=696774c42ee28c57, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\DigitalPersona\One Touch SDK\.NET\Bin\DPFPDevNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPEngNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=7fe76e7adf19964b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\DigitalPersona\One Touch SDK\.NET\Bin\DPFPEngNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPShrNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=d902fe275a8d6cf2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\DigitalPersona\One Touch SDK\.NET\Bin\DPFPShrNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPVerNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=4de0a9c4dcc83984, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files\DigitalPersona\One Touch SDK\.NET\Bin\DPFPVerNET.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -690,6 +706,24 @@
     </Compile>
     <Compile Include="Empleados.Designer.cs">
       <DependentUpon>Empleados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="empleadosAltaHuella.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="empleadosAltaHuella.Designer.cs">
+      <DependentUpon>empleadosAltaHuella.cs</DependentUpon>
+    </Compile>
+    <Compile Include="empleadosDatosChecador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="empleadosDatosChecador.Designer.cs">
+      <DependentUpon>empleadosDatosChecador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="empleadoVerificarHuella.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="empleadoVerificarHuella.Designer.cs">
+      <DependentUpon>empleadoVerificarHuella.cs</DependentUpon>
     </Compile>
     <Compile Include="Empleado_muestra_acciones_factura.cs">
       <SubType>Form</SubType>
@@ -1878,6 +1912,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Empleados.resx">
       <DependentUpon>Empleados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="empleadosAltaHuella.resx">
+      <DependentUpon>empleadosAltaHuella.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="empleadosDatosChecador.resx">
+      <DependentUpon>empleadosDatosChecador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="empleadoVerificarHuella.resx">
+      <DependentUpon>empleadoVerificarHuella.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Empleado_muestra_acciones_factura.resx">
       <DependentUpon>Empleado_muestra_acciones_factura.cs</DependentUpon>

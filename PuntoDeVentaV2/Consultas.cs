@@ -5007,9 +5007,58 @@ namespace PuntoDeVentaV2
         }
 
 
+
         public string RetiroPorConcepto(string Conceptos, string mes, string anno)
         {
             var consulta = $"SELECT SUM( CA.Cantidad ) AS Cantidad, CA.Operacion AS Operacion, CA.Concepto AS Concepto,CA.FechaOperacion AS Fecha,CD.`Status` FROM Caja CA INNER JOIN ConceptosDinamicos CD ON ( CA.IDUsuario = CD.IDUsuario AND CA.Concepto = CD.Concepto ) WHERE CA.IDUsuario = {FormPrincipal.userID} AND CA.Operacion = 'retiro' AND CA.Concepto IN ('{Conceptos}') AND CA.FechaOperacion BETWEEN '{anno}-{mes}-01 00:00:00' AND '{anno}-{mes}-31 23:59:59'";
+            return consulta;
+        }
+        public string insertarHuella()
+        {
+            //string consulta = "INSERT INTO detalleschecadorempleados(IDUsuario, IDEmpleado, Huella)";
+            //consulta += $"VALUES('{FormPrincipal.userID}', '{idEmpleado}', '{huella}')";
+            string consulta = "INSERT INTO detalleschecadorempleados(IDUsuario, IDEmpleado, Huella)";
+            consulta += $"VALUES(@IDUsuario,@IDEmpleado,@Huella)";
+            return consulta;
+        }
+
+        public string buscarHuellas()
+        {
+            var consulta = $"SELECT * FROM detalleschecadorempleados WHERE idUsuario = '{FormPrincipal.userID}'";
+
+
+            return consulta;
+        }
+
+
+        public string encontrarUsuarioHuella (string codigo)
+        {
+            var consulta = $"SELECT * FROM detalleschecadorempleados WHERE clave = '{codigo}'";
+
+            return consulta;
+        }
+
+        public string BuscarEmpleadoHuella(string idEmpleado)
+        {
+            string nameEmpleado = string.Empty;
+
+            var query = cn.CargarDatos($"SELECT Nombre FROM Empleados WHERE ID = '{idEmpleado}'");
+
+            if (!query.Rows.Count.Equals(0)) { nameEmpleado = query.Rows[0]["Nombre"].ToString(); }
+
+            return nameEmpleado;
+        }
+
+        public string buscarExistenciaHuellas(string empleadoID)
+        {
+            var consulta = $"SELECT * FROM detalleschecadorempleados WHERE idEmpleado = '{empleadoID}'";
+
+            return consulta;
+        }
+
+        public string borrarHuella(string empleadoID)
+        {
+            var consulta = $"DELETE FROM detalleschecadorempleados WHERE idEmpleado = {empleadoID}";
 
             return consulta;
         }
