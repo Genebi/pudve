@@ -163,8 +163,8 @@ namespace PuntoDeVentaV2
 
                     GenerarReporte(opcionesFinales);
                 }
-                Productos.productosSeleccionados.Clear();
-                Productos.checkboxMarcados.Clear();
+                //Productos.productosSeleccionados.Clear();
+                //Productos.checkboxMarcados.Clear();
             }
             else if (opcionPregunta.Equals("opcion2"))
             {

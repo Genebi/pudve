@@ -5167,6 +5167,24 @@ namespace PuntoDeVentaV2
                     if (status.Equals("3"))
                     {
                         MessageBox.Show("No se puede modificar una Venta Cancelada", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        int incremento = -1;
+                        var penultimaFila = DGVListadoVentas.Rows.Count - 2;
+                        var ultimaFila = DGVListadoVentas.Rows.Count - 1;
+                        foreach (DataGridViewRow desmarcarDGV in DGVListadoVentas.Rows)
+                        {
+                            try
+                            {
+                                incremento += 1;
+                                if (DGVListadoVentas.Rows[incremento].Index != penultimaFila && DGVListadoVentas.Rows[incremento].Index != ultimaFila)
+                                {
+                                    DGVListadoVentas.Rows[incremento].Cells["col_checkbox"].Value = false;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+
+                            }
+                        }
                         return;
                     }
                     IDsVenta.Add(ID);

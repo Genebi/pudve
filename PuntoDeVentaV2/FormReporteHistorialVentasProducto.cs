@@ -153,7 +153,7 @@ namespace PuntoDeVentaV2
             {
                 DataTable ventas = new DataTable();
                 string IDsVentasporFechaYEmpleado = "";
-                using (var DTIDSVentaPorEmpleadoYFecha = cn.CargarDatos($"SELECT ID,Folio,IDEmpleado,FechaOperacion FROM ventas WHERE ID IN ({IDsVentas}) AND DATE(FechaOperacion) BETWEEN '{FechaI}' AND '{FechaF}' AND IDUsuario = {FormPrincipal.userID} AND `Status` = 1"))
+                using (var DTIDSVentaPorEmpleadoYFecha = cn.CargarDatos($"SELECT ID,Folio,IDEmpleado,FechaOperacion,IDCliente FROM ventas WHERE ID IN ({IDsVentas}) AND DATE(FechaOperacion) BETWEEN '{FechaI}' AND '{FechaF}' AND IDUsuario = {FormPrincipal.userID} AND `Status` = 1"))
                 {
                     if (!DTIDSVentaPorEmpleadoYFecha.Rows.Count.Equals(0))
                     {
@@ -174,7 +174,7 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                var IDSVentasCorrectas = cn.CargarDatos($"SELECT * FROM productosventa WHERE IDVenta IN ({IDsVentasporFechaYEmpleado}) AND IDProducto = {IDProd}");
+                var IDSVentasCorrectas = cn.CargarDatos($"SELECT PV.*, VEN.IDEmpleado, VEN.IDCliente FROM productosventa AS PV INNER JOIN ventas AS VEN ON(PV.IDVenta = VEN.ID) WHERE PV.IDVenta IN ({IDsVentasporFechaYEmpleado}) AND IDProducto = {IDProd}");
 
                 DTDatos.Columns.Add("Folio", typeof(String));
                 DTDatos.Columns.Add("Usuario", typeof(String));
@@ -182,6 +182,9 @@ namespace PuntoDeVentaV2
                 DTDatos.Columns.Add("Cantidad", typeof(String));
                 DTDatos.Columns.Add("PrecioUnidad", typeof(String));
                 DTDatos.Columns.Add("Total", typeof(String));
+                DTDatos.Columns.Add("Empleado", typeof(String));
+                DTDatos.Columns.Add("Cliente", typeof(String));
+
                 int rows = 0;
                 foreach (var item in IDSVentasCorrectas.Rows)
                 {
@@ -227,6 +230,30 @@ namespace PuntoDeVentaV2
                         {
                             decimal total = Convert.ToDecimal(IDSVentasCorrectas.Rows[rows]["Cantidad"].ToString()) * Convert.ToDecimal(IDSVentasCorrectas.Rows[rows]["Precio"].ToString());
                             DTDatos.Rows[rows]["Total"] = total.ToString("0.00");
+                        }
+                        else if (Columna.Equals("Empleado"))
+                        {
+                            if (IDSVentasCorrectas.Rows[rows]["IDEmpleado"].ToString().Equals("0"))
+                            {
+                                using (var Nombre = cn.CargarDatos($"SELECT Usuario FROM usuarios WHERE ID = {FormPrincipal.userID}"))
+                                {
+                                    DTDatos.Rows[rows]["Empleado"] = Nombre.Rows[0][0].ToString();
+                                }
+                            }
+                            else
+                            {
+                                using (var DTUsuario = cn.CargarDatos($"SELECT usuario FROM empleados WHERE ID = {Convert.ToInt32(IDSVentasCorrectas.Rows[rows]["IDEmpleado"])}"))
+                                {
+                                    DTDatos.Rows[rows]["Empleado"] = DTUsuario.Rows[0][0].ToString();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            using (var DTCliente = cn.CargarDatos($"SELECT RazonSocial FROM clientes WHERE ID = {Convert.ToInt32(IDSVentasCorrectas.Rows[rows]["IDCliente"])}"))
+                            {
+                                DTDatos.Rows[rows]["Cliente"] = DTCliente.Rows[0][0].ToString();
+                            }
                         }
                     }
                     rows++;

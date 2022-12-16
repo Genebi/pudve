@@ -2211,14 +2211,14 @@ namespace PuntoDeVentaV2
         }
         public string agregarDetalleProductoPermisosDinamicos(string detalle)
         {
-            var consulta = $"ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS {detalle.ToString()}" +
+            var consulta = $"ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS `{detalle.ToString()}`" +
                 $" int DEFAULT 1";
             return consulta;
         }
 
         public string permisisAsignarDinamicos(string concepto, int value, string idEmpleado)
         {
-            var consulta = $"UPDATE empleadospermisos SET {concepto} = '{value}' WHERE IDEmpleado = '{idEmpleado}' AND IDUsuario = '{FormPrincipal.userID}'";
+            var consulta = $"UPDATE empleadospermisos SET `{concepto}` = '{value}' WHERE IDEmpleado = '{idEmpleado}' AND IDUsuario = '{FormPrincipal.userID}'";
             return consulta;
         }
 
@@ -4204,7 +4204,7 @@ namespace PuntoDeVentaV2
 
         public string BuscarAnticiposPorTexto(string Filtro)
         {
-            var consulta = $"SELECT * FROM anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Cliente LIKE '%{Filtro}%'";
+            var consulta = $"SELECT * FROM anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Cliente LIKE '%{Filtro}%' OR IDUsuario = {FormPrincipal.userID} AND Concepto LIKE '%{Filtro}%'";
 
             return consulta;
         }
@@ -4989,7 +4989,7 @@ namespace PuntoDeVentaV2
 
         public string validarUniqueCodigoBarras(string codigo)
         {
-            var consulta = $"SELECT * FROM productos WHERE CodigoBarras = '{codigo}' AND IDUsuario = '{FormPrincipal.userID}'";
+            var consulta = $"SELECT * FROM productos WHERE CodigoBarras = '{codigo}' AND IDUsuario = '{FormPrincipal.userID}' AND Status = 1";
 
             return consulta;
         }
