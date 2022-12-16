@@ -675,7 +675,7 @@
             // 
             // col_checkbox
             // 
-            this.col_checkbox.HeaderText = "Ganancia";
+            this.col_checkbox.HeaderText = "";
             this.col_checkbox.Name = "col_checkbox";
             this.col_checkbox.ReadOnly = true;
             this.col_checkbox.Width = 35;
