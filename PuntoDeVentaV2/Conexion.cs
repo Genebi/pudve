@@ -807,5 +807,63 @@ namespace PuntoDeVentaV2
             sql_cmd.ExecuteNonQuery();
             sql_con.Close();
         }
+
+        public void metergoella(string consulta, string idEmpleado, byte[] huella)
+        {
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.Parameters.Add("IDUsuario", MySqlDbType.Int32).Value = FormPrincipal.userID;
+            sql_cmd.Parameters.Add("IDEmpleado", MySqlDbType.Int32).Value = idEmpleado;
+            sql_cmd.Parameters.Add("Huella", MySqlDbType.VarBinary, 65000).Value = huella;
+            sql_cmd.ExecuteNonQuery();
+            sql_con.Close();
+
+            
+        }
+
+        public List<byte[]> sacargoella()
+        {
+            string consulta = $"SELECT * FROM detalleschecadorempleados WHERE idUsuario = '{FormPrincipal.userID}'";
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.ExecuteNonQuery();
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+            List<byte[]> lista = new List<byte[]>();
+
+            while (dr.Read())
+            {
+                byte[] huella = (byte[])dr["Huella"];
+                lista.Add(huella);
+            }
+
+            dr.Close();
+            return lista;
+        }
+        public List<string> sacarUsuariosgoella()
+        {
+            string consulta = $"SELECT * FROM detalleschecadorempleados WHERE idUsuario = '{FormPrincipal.userID}'";
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.ExecuteNonQuery();
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+            List<string> nombres = new List<string>();
+
+            while (dr.Read())
+            {
+                nombres.Add(dr["IDEmpleado"].ToString());
+            }
+
+            dr.Close();
+            return nombres;
+        }
+
     }
 }
