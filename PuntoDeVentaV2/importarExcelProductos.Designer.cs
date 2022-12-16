@@ -40,7 +40,6 @@ namespace PuntoDeVentaV2
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.textBox8 = new System.Windows.Forms.TextBox();
             this.textBox9 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.CBNombre = new System.Windows.Forms.ComboBox();
             this.CBStockMin = new System.Windows.Forms.ComboBox();
             this.CBStockMax = new System.Windows.Forms.ComboBox();
@@ -55,6 +54,7 @@ namespace PuntoDeVentaV2
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -70,13 +70,12 @@ namespace PuntoDeVentaV2
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(513, 86);
+            this.label2.Location = new System.Drawing.Point(465, 83);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(153, 25);
+            this.label2.Size = new System.Drawing.Size(247, 28);
             this.label2.TabIndex = 8;
-            this.label2.Text = "Columnas SIFO";
+            this.label2.Text = "CONCEPTOS EN SIFO";
             // 
             // textBox1
             // 
@@ -177,16 +176,6 @@ namespace PuntoDeVentaV2
             this.textBox9.TabIndex = 9;
             this.textBox9.Text = "Unidad de medida SAT";
             this.textBox9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(99, 86);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(203, 25);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Columnas Importadas";
             // 
             // CBNombre
             // 
@@ -332,6 +321,15 @@ namespace PuntoDeVentaV2
             this.label6.TabIndex = 12;
             this.label6.Text = "*";
             // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(76, 83);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(247, 28);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "CONCEPTOS IMPORTADOS";
+            // 
             // importarExcelProductos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -389,7 +387,6 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox CBNombre;
         private System.Windows.Forms.ComboBox CBStockMin;
         private System.Windows.Forms.ComboBox CBStockMax;
@@ -404,5 +401,6 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label3;
     }
 }
