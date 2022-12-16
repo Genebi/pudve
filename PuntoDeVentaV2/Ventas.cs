@@ -32,6 +32,7 @@ namespace PuntoDeVentaV2
         public static double pasarTotalAnticipos { get; set; }
         private bool aplicarDescuentoG { get; set; }
 
+        public static bool sepresiono = false;
         public static string etiqeutaCliente { get; set; }
         public static bool EsGuardarVenta;
         decimal primeraCantidad;
@@ -214,6 +215,8 @@ namespace PuntoDeVentaV2
         string descuentoDirectoPorAplicar = string.Empty;
 
         int cambioCantidadProd = 0;
+
+        public static string gananciaTotalPorVenta;
 
         #region Proceso de Bascula
         // Constructores
@@ -3145,7 +3148,10 @@ namespace PuntoDeVentaV2
             this.Dispose();
         }
         private void btnTerminarVenta_Click(object sender, EventArgs e)
-        {
+        { 
+            Ganancia.gananciaGrafica = 3;
+            //sepresiono = true;
+            btnGanancia.PerformClick();
             EsGuardarVenta = true;
             if (FormPrincipal.userNickName.Contains("@"))
             {
@@ -3160,7 +3166,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            
+
             //if (ClienteConDescuento.Equals(true))
             //{
             //    if (!FormPrincipal.id_empleado.Equals(0))
@@ -3820,7 +3826,8 @@ namespace PuntoDeVentaV2
                     else
                     {
                         mostrarVenta = 0;
-                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas));
+                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas, gananciaTotalPorVenta));
+                        //Venta normal
                     }
                 }
 
@@ -9358,5 +9365,6 @@ namespace PuntoDeVentaV2
             graphics.DrawString("Display Drawings", new System.Drawing.Font("Verdana", 11), textBrush, 10, 10);
             myPen.Dispose();
         }*/
+
     }
 }
