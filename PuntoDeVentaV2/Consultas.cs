@@ -4204,7 +4204,7 @@ namespace PuntoDeVentaV2
 
         public string BuscarAnticiposPorTexto(string Filtro)
         {
-            var consulta = $"SELECT * FROM anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Cliente LIKE '%{Filtro}%'";
+            var consulta = $"SELECT * FROM anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Cliente LIKE '%{Filtro}%' OR IDUsuario = {FormPrincipal.userID} AND Concepto LIKE '%{Filtro}%'";
 
             return consulta;
         }
