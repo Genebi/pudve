@@ -1971,4 +1971,10 @@ IF
 	);
 
 	-- Agregar Columna de la ganancia por venta para graficarlo 
-	ALTER TABLE ventas ADD COLUMN IF NOT EXISTS Ganancia   VARCHAR ( 2000 ) DEFAULT NULL ;
+
+	-- Agregar Columna de Agregar Descuento a empleadosPermisos
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS Agregar_Descuento INT DEFAULT 1 ;
+
+	-- Agregar Columna de Eliminar Descuento a empleadosPermisos
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS Eliminar_Descuento INT DEFAULT 1 ;
+
