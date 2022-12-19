@@ -1970,8 +1970,6 @@ IF
 	FOREIGN KEY ( IDEmpleado ) REFERENCES empleados ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
 	);
 
-	-- Agregar Columna de la ganancia por venta para graficarlo 
-
 	-- Agregar Columna de Agregar Descuento a empleadosPermisos
 ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS Agregar_Descuento INT DEFAULT 1 ;
 
