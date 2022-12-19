@@ -3347,6 +3347,23 @@ namespace PuntoDeVentaV2
 
                 hay_productos_habilitados = mb.tiene_productos_habilitados();
                 cbTipoVentas.SelectedIndex = 0;
+
+
+                var configuracion = mb.ComprobarConfiguracion();
+
+                if (configuracion.Count > 0)
+                {
+                    // Realiza rentas
+                    if (configuracion[29].Equals(1))
+                    {
+                        rbRentas.Enabled = true;
+                    }
+
+                    if (configuracion[29].Equals(0))
+                    {
+                        rbRentas.Enabled = false;
+                    }
+                }
             }
 
             if (abrirNuevaVenta)
