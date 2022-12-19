@@ -338,15 +338,15 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string GuardarVenta(string[] datos, int operacion = 0, int idAnticipo = 0)
+        public string GuardarVenta(string[] datos, int operacion = 0, int idAnticipo = 0, string ganancia = "0")
         {
             string consulta = null;
 
             if (operacion.Equals(0))
             {
                 //Insertar nueva venta
-                consulta = "INSERT INTO Ventas (IDUsuario, IDCliente, IDSucursal, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, Status, FechaOperacion, IDClienteDescuento, IDEmpleado, FormaPago,IDAnticipo)";
-                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}','{idAnticipo}')";
+                consulta = "INSERT INTO Ventas (IDUsuario, IDCliente, IDSucursal, Subtotal, IVA16, Total, Descuento, DescuentoGeneral, Anticipo, Folio, Serie, Status, FechaOperacion, IDClienteDescuento, IDEmpleado, FormaPago,IDAnticipo, Ganancia)";
+                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}','{idAnticipo}', '{ganancia}')";
             }
             else
             {
@@ -1098,8 +1098,7 @@ namespace PuntoDeVentaV2
 
         public string VerificarDatoDinamico(string claveAgregar, int idUsuario)
         {
-            var consulta = $"SELECT * FROM appSettings WHERE concepto = '{claveAgregar}' AND IDUsuario = '{idUsuario}' AND Mostrar = 1";
-
+            var consulta = $"SELECT * FROM appSettings WHERE concepto = '{claveAgregar}' AND IDUsuario = '{idUsuario}'";
             return consulta;
         }
 
@@ -2212,14 +2211,14 @@ namespace PuntoDeVentaV2
         }
         public string agregarDetalleProductoPermisosDinamicos(string detalle)
         {
-            var consulta = $"ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS {detalle.ToString()}" +
+            var consulta = $"ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS `{detalle.ToString()}`" +
                 $" int DEFAULT 1";
             return consulta;
         }
 
         public string permisisAsignarDinamicos(string concepto, int value, string idEmpleado)
         {
-            var consulta = $"UPDATE empleadospermisos SET {concepto} = '{value}' WHERE IDEmpleado = '{idEmpleado}' AND IDUsuario = '{FormPrincipal.userID}'";
+            var consulta = $"UPDATE empleadospermisos SET `{concepto}` = '{value}' WHERE IDEmpleado = '{idEmpleado}' AND IDUsuario = '{FormPrincipal.userID}'";
             return consulta;
         }
 
@@ -4205,7 +4204,7 @@ namespace PuntoDeVentaV2
 
         public string BuscarAnticiposPorTexto(string Filtro)
         {
-            var consulta = $"SELECT * FROM anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Cliente LIKE '%{Filtro}%'";
+            var consulta = $"SELECT * FROM anticipos WHERE IDUsuario = {FormPrincipal.userID} AND Cliente LIKE '%{Filtro}%' OR IDUsuario = {FormPrincipal.userID} AND Concepto LIKE '%{Filtro}%'";
 
             return consulta;
         }
@@ -4403,7 +4402,7 @@ namespace PuntoDeVentaV2
 
         public string obtenerIdUltimoDepositoDeDineroComoAdministrador()
         {
-            var consulta = $"SELECT ID FROM caja WHERE Operacion = 'deposito' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0' ORDER BY ID DESC LIMIT 1";
+            var consulta = $"SELECT ID FROM caja WHERE Operacion = 'PrimerSaldo' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0' ORDER BY ID DESC LIMIT 1";
 
             return consulta;
         }
@@ -4977,5 +4976,92 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+
+
+        public string GuardarProductoDesdeUnExcel(string Nombre, string Stock, string Precio, string CodigoBarras, string ClaveSat, string UnidadMedida, string StockNecesario, string StockMinimo, string precioCompra)
+        {
+            string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, CodigoBarras, ClaveProducto, UnidadMedida, IDUSuario, StockNecesario, StockMinimo, PrecioCompra)";
+            consulta += $"VALUES('{Nombre}', '{Stock}', '{Precio}', '{CodigoBarras}', '{ClaveSat}', '{UnidadMedida}','{FormPrincipal.userID}', '{StockNecesario}', '{StockMinimo}', '{precioCompra}')";
+
+            return consulta;
+        }
+
+        public string validarUniqueCodigoBarras(string codigo)
+        {
+            var consulta = $"SELECT * FROM productos WHERE CodigoBarras = '{codigo}' AND IDUsuario = '{FormPrincipal.userID}' AND Status = 1";
+
+            return consulta;
+        }
+        public string validarExisteClaveUnidad(string codigo)
+        {
+            var consulta = $"SELECT * FROM catalogounidadesmedida  WHERE ClaveUnidad = '{codigo}'";
+
+            return consulta;
+        }
+        public string validarExisteClaveSat(string codigo)
+        {
+            var consulta = $"SELECT * FROM catalogo_claves_producto WHERE clave = '{codigo}'";
+
+            return consulta;
+        }
+
+
+
+        public string RetiroPorConcepto(string Conceptos, string mes, string anno)
+        {
+            var consulta = $"SELECT SUM( CA.Cantidad ) AS Cantidad, CA.Operacion AS Operacion, CA.Concepto AS Concepto,CA.FechaOperacion AS Fecha,CD.`Status` FROM Caja CA INNER JOIN ConceptosDinamicos CD ON ( CA.IDUsuario = CD.IDUsuario AND CA.Concepto = CD.Concepto ) WHERE CA.IDUsuario = {FormPrincipal.userID} AND CA.Operacion = 'retiro' AND CA.Concepto IN ('{Conceptos}') AND CA.FechaOperacion BETWEEN '{anno}-{mes}-01 00:00:00' AND '{anno}-{mes}-31 23:59:59'";
+            return consulta;
+        }
+        public string insertarHuella()
+        {
+            //string consulta = "INSERT INTO detalleschecadorempleados(IDUsuario, IDEmpleado, Huella)";
+            //consulta += $"VALUES('{FormPrincipal.userID}', '{idEmpleado}', '{huella}')";
+            string consulta = "INSERT INTO detalleschecadorempleados(IDUsuario, IDEmpleado, Huella)";
+            consulta += $"VALUES(@IDUsuario,@IDEmpleado,@Huella)";
+            return consulta;
+        }
+
+        public string buscarHuellas()
+        {
+            var consulta = $"SELECT * FROM detalleschecadorempleados WHERE idUsuario = '{FormPrincipal.userID}'";
+
+
+            return consulta;
+        }
+
+
+        public string encontrarUsuarioHuella (string codigo)
+        {
+            var consulta = $"SELECT * FROM detalleschecadorempleados WHERE clave = '{codigo}'";
+
+            return consulta;
+        }
+
+        public string BuscarEmpleadoHuella(string idEmpleado)
+        {
+            string nameEmpleado = string.Empty;
+
+            var query = cn.CargarDatos($"SELECT Nombre FROM Empleados WHERE ID = '{idEmpleado}'");
+
+            if (!query.Rows.Count.Equals(0)) { nameEmpleado = query.Rows[0]["Nombre"].ToString(); }
+
+            return nameEmpleado;
+        }
+
+        public string buscarExistenciaHuellas(string empleadoID)
+        {
+            var consulta = $"SELECT * FROM detalleschecadorempleados WHERE idEmpleado = '{empleadoID}'";
+
+            return consulta;
+        }
+
+        public string borrarHuella(string empleadoID)
+        {
+            var consulta = $"DELETE FROM detalleschecadorempleados WHERE idEmpleado = {empleadoID}";
+
+            return consulta;
+        }
+
     }
 }   

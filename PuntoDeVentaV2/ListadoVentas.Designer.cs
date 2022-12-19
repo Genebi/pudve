@@ -845,6 +845,11 @@
             this.rbRentas.Text = "RENTAS";
             this.rbRentas.UseVisualStyleBackColor = true;
             this.rbRentas.CheckedChanged += new System.EventHandler(this.rbRentas_CheckedChanged);
+
+            this.ganancia.HeaderText = "Ganancia";
+            this.ganancia.Name = "ganancia";
+            this.ganancia.ReadOnly = true;
+            this.ganancia.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // ListadoVentas
             // 

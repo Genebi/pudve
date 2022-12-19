@@ -650,6 +650,10 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
+                    <Value>Comentarios: </Value>
+                    <Style />
+                  </TextRun>
+                  <TextRun>
                     <Value>=Parameters!Comentario.Value</Value>
                     <Style />
                   </TextRun>
@@ -662,7 +666,7 @@
             <rd:DefaultName>Concepto</rd:DefaultName>
             <Top>9.17787cm</Top>
             <Left>0.1cm</Left>
-            <Height>0.6cm</Height>
+            <Height>1.26146cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>19</ZIndex>
             <Style>
@@ -676,7 +680,7 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>10.5cm</Height>
+        <Height>10.71167cm</Height>
         <Style />
       </Body>
       <Width>8cm</Width>

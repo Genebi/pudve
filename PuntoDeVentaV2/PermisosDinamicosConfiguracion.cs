@@ -167,7 +167,32 @@ namespace PuntoDeVentaV2
 
                 GenerarCheckbox(10, 10, 200, "Respaldar Informacion", permisos[0]);
             }
+            if (tipoPermisos == "permisoConcepto")
+            {
+                Text = "PUDVE - Permisos Conceptos";
+                seccion = "Agregar o Retirar Dinero";
+                using (var DTPermisoConcepto = cn.CargarDatos($"SELECT AgregarConcepto,HabilitarConcepto,DeshabilitarConcepto FROM permisosconceptosagregarretirardinero WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado = {Agregar_empleado_permisos.MiIDEmpleado}"))
+                {
+                    if (!DTPermisoConcepto.Rows.Count.Equals(0))
+                    {
+                        GenerarCheckbox(10, 20, 200, "Agregar Concepto", Convert.ToInt32(DTPermisoConcepto.Rows[0]["AgregarConcepto"]));
+                        GenerarCheckbox(60, 20, 200, "Habilitar Concepto", Convert.ToInt32(DTPermisoConcepto.Rows[0]["HabilitarConcepto"]));
+                        GenerarCheckbox(110, 20, 200, "Deshabilitar Concepto", Convert.ToInt32(DTPermisoConcepto.Rows[0]["DeshabilitarConcepto"]));
+                    }
+                    else
+                    {
+                        cn.EjecutarConsulta($"INSERT INTO permisosconceptosagregarretirardinero(IDUsuario,IDEmpleado,AgregarConcepto,HabilitarConcepto,DeshabilitarConcepto) VALUES ('{FormPrincipal.userID}','{Agregar_empleado_permisos.MiIDEmpleado}','1','1','1')");
+                        using (var DTPermisoConcepto2 = cn.CargarDatos($"SELECT AgregarConcepto,HabilitarConcepto,DeshabilitarConcepto FROM permisosconceptosagregarretirardinero WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado = {Agregar_empleado_permisos.MiIDEmpleado}"))
+                        {
+                            GenerarCheckbox(10, 20, 200, "Agregar Concepto", Convert.ToInt32(DTPermisoConcepto2.Rows[0]["AgregarConcepto"]));
+                            GenerarCheckbox(60, 20, 200, "Habilitar Concepto", Convert.ToInt32(DTPermisoConcepto2.Rows[0]["HabilitarConcepto"]));
+                            GenerarCheckbox(110, 20, 200, "Deshabilitar Concepto", Convert.ToInt32(DTPermisoConcepto2.Rows[0]["DeshabilitarConcepto"]));
+                        }
+                    }
+                    
+                }
 
+            }
             secciones = new string[] 
             {
                 "Editar Tickt", "Envio de Correo", "Configuracion General", "Porcentaje de Ganancia",
@@ -225,18 +250,26 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            foreach (var apartado in secciones)
+            if (tipoPermisos == "permisoConcepto")
             {
-                if (seccion.Equals(apartado))
+                var Permisos = PermisosElegidos();
+                cn.EjecutarConsulta($"UPDATE  permisosconceptosagregarretirardinero SET AgregarConcepto = {Permisos[0]}, HabilitarConcepto = {Permisos[1]},DeshabilitarConcepto = {Permisos[2]} WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado = {Agregar_empleado_permisos.MiIDEmpleado}");
+            }
+            else
+            {
+                foreach (var apartado in secciones)
                 {
-                    var Permisos = PermisosElegidos();
-
-                    foreach (var opcion in Permisos)
+                    if (seccion.Equals(apartado))
                     {
-                        string nombre = datos[contador].ToString();
-                        cn.EjecutarConsulta($"UPDATE permisosconfiguracion SET {datos[contador]} = {opcion} WHERE IDEmpleado = {FormPrincipal.id_empleado} AND IDUsuario = {FormPrincipal.userID}");
+                        var Permisos = PermisosElegidos();
 
-                        contador++;
+                        foreach (var opcion in Permisos)
+                        {
+                            string nombre = datos[contador].ToString();
+                            cn.EjecutarConsulta($"UPDATE permisosconfiguracion SET {datos[contador]} = {opcion} WHERE IDEmpleado = {FormPrincipal.id_empleado} AND IDUsuario = {FormPrincipal.userID}");
+
+                            contador++;
+                        }
                     }
                 }
             }

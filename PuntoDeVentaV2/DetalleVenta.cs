@@ -24,6 +24,8 @@ namespace PuntoDeVentaV2
         public static float restante = 0f;
         private float total = 0;
         private float totalMetodos = 0;
+        int calcu = 0;
+        private bool calculadoraisOut = false;
 
         public static int validarNoDuplicarVentas = 0;
 
@@ -41,6 +43,7 @@ namespace PuntoDeVentaV2
         int primer = 0;
         bool dioClickEnCredito = false;
 
+        
 
         public DetalleVenta(float total, string idCliente = "")
         {
@@ -69,6 +72,13 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
+            txtCheque.KeyPress += new KeyPressEventHandler(calculadora);
+            txtCredito.KeyPress += new KeyPressEventHandler(calculadora);
+            txtEfectivo.KeyPress += new KeyPressEventHandler(calculadora);
+            txtTarjeta.KeyPress += new KeyPressEventHandler(calculadora);
+            txtVales.KeyPress += new KeyPressEventHandler(calculadora);
+            txtTransferencia.KeyPress += new KeyPressEventHandler(calculadora);
         }
 
         private void DetalleVenta_Load(object sender, EventArgs e)
@@ -1276,6 +1286,8 @@ namespace PuntoDeVentaV2
             {
                 SendKeys.Send("{TAB}");
             }
+
+
         }
 
         private void txtTarjeta_KeyDown(object sender, KeyEventArgs e)
@@ -1484,5 +1496,46 @@ namespace PuntoDeVentaV2
                 txtCredito.Text = Convert.ToDecimal(cantidad).ToString("N2");
             }
         }
+
+        private void calculadora(object sender, KeyPressEventArgs e)
+        {
+            if (!calculadoraisOut)
+            {
+                TextBox tb = (TextBox)sender;
+                if (e.KeyChar == Convert.ToChar(Keys.Space))
+                {
+                    calcu++;
+
+                    if (calcu == 1)
+                    {
+                        calculadora calculadora = new calculadora();
+
+                        calculadora.FormClosed += delegate
+                        {
+                            if (calculadora.seEnvia.Equals(true))
+                            {
+
+                                tb.Text = calculadora.lCalculadora.Text;
+                                calculadoraisOut = false;
+
+                            }
+
+                        };
+
+                        calculadoraisOut = false;
+                        calcu = 0;
+                        if (!calculadora.Visible)
+                        {
+                            calculadora.Show();
+                        }
+                        else
+                        {
+                            calculadora.Show();
+                        }
+                    }
+                }
+            }
+        }
+        
     }
 }

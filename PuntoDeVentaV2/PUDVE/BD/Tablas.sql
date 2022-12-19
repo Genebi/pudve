@@ -1938,3 +1938,43 @@ ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS mostrarMensaje INT DEFAULT 0 ;
 
 -- Agregar columna para guardar el si el negocio acepta rentas en configuracion general
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS RealizaRentas tinyint(1) DEFAULT 0;
+
+--Se crea la tabla de permisos Conceptos
+CREATE TABLE
+IF
+	NOT EXISTS PermisosConceptosAgregarRetirarDinero (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDUsuario INTEGER NOT NULL DEFAULT 0,
+		IDEmpleado INTEGER NOT NULL DEFAULT 0,
+		AgregarConcepto INTEGER DEFAULT 1,
+		HabilitarConcepto INTEGER DEFAULT 1,
+		DeshabilitarConcepto INTEGER DEFAULT 1,
+		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE ,
+		FOREIGN KEY ( IDEmpleado ) REFERENCES empleados ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
+	);
+
+--Se crea la tabla para los detalles de los horarios de empleado y sistema checador
+CREATE TABLE
+IF
+	NOT EXISTS detallesChecadorEmpleados (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDUsuario INTEGER NOT NULL DEFAULT 0,
+		IDEmpleado INTEGER NOT NULL DEFAULT 0,
+		Huella LONGBLOB DEFAULT NULL,
+		HorasSemanales INTEGER DEFAULT 0,
+		HorasDiarias INTEGER DEFAULT 0,
+		MaximoHorasDiarias INTEGER DEFAULT 0,
+		HorasObligatorias INTEGER DEFAULT 0,
+		Salario DECIMAL ( 16, 2 ) NOT NULL DEFAULT 0,
+		TiempoDeSalario INTEGER DEFAULT 0,
+		Estatus INTEGER NOT NULL DEFAULT 1,
+		DiasLaborales VARCHAR ( 20 ) DEFAULT NULL,
+		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY ( IDEmpleado ) REFERENCES empleados ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
+	);
+
+	-- Agregar Columna de Agregar Descuento a empleadosPermisos
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS Agregar_Descuento INT DEFAULT 1 ;
+
+	-- Agregar Columna de Eliminar Descuento a empleadosPermisos
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS Eliminar_Descuento INT DEFAULT 1 ;

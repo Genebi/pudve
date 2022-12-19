@@ -106,6 +106,7 @@
             this.lblCIVA0Exento = new System.Windows.Forms.Label();
             this.lblIVA0Exento = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.btnGanancia = new PuntoDeVentaV2.BotonRedondo();
             this.btnAbrirCaja = new PuntoDeVentaV2.BotonRedondo();
             this.btnAnticipos = new PuntoDeVentaV2.BotonRedondo();
             this.btnUltimoTicket = new PuntoDeVentaV2.BotonRedondo();
@@ -642,7 +643,6 @@
             this.CBTipo.Name = "CBTipo";
             this.CBTipo.Size = new System.Drawing.Size(121, 21);
             this.CBTipo.TabIndex = 65;
-            this.CBTipo.SelectedIndexChanged += new System.EventHandler(this.CBTipo_SelectedIndexChanged);
             this.CBTipo.TextChanged += new System.EventHandler(this.CBTipo_TextChanged);
             // 
             // panel4
@@ -1036,6 +1036,7 @@
             this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
+            this.panel5.Controls.Add(this.btnGanancia);
             this.panel5.Controls.Add(this.btnAbrirCaja);
             this.panel5.Controls.Add(this.btnAnticipos);
             this.panel5.Controls.Add(this.btnUltimoTicket);
@@ -1048,6 +1049,25 @@
             this.panel5.Size = new System.Drawing.Size(881, 95);
             this.panel5.TabIndex = 63;
             this.panel5.Click += new System.EventHandler(this.panel5_Click);
+            // 
+            // btnGanancia
+            // 
+            this.btnGanancia.BackColor = System.Drawing.Color.Orange;
+            this.btnGanancia.BackGroundColor = System.Drawing.Color.Orange;
+            this.btnGanancia.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnGanancia.BorderRadius = 10;
+            this.btnGanancia.BorderSize = 0;
+            this.btnGanancia.FlatAppearance.BorderSize = 0;
+            this.btnGanancia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGanancia.ForeColor = System.Drawing.Color.White;
+            this.btnGanancia.Image = global::PuntoDeVentaV2.Properties.Resources.line_chart1;
+            this.btnGanancia.Location = new System.Drawing.Point(825, 61);
+            this.btnGanancia.Name = "btnGanancia";
+            this.btnGanancia.Size = new System.Drawing.Size(32, 25);
+            this.btnGanancia.TabIndex = 72;
+            this.btnGanancia.TextColor = System.Drawing.Color.White;
+            this.btnGanancia.UseVisualStyleBackColor = false;
+            this.btnGanancia.Click += new System.EventHandler(this.btnGanancia_Click);
             // 
             // btnAbrirCaja
             // 
@@ -1103,9 +1123,9 @@
             this.btnUltimoTicket.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUltimoTicket.ForeColor = System.Drawing.Color.White;
             this.btnUltimoTicket.Image = global::PuntoDeVentaV2.Properties.Resources.ticket1;
-            this.btnUltimoTicket.Location = new System.Drawing.Point(814, 26);
+            this.btnUltimoTicket.Location = new System.Drawing.Point(811, 13);
             this.btnUltimoTicket.Name = "btnUltimoTicket";
-            this.btnUltimoTicket.Size = new System.Drawing.Size(49, 41);
+            this.btnUltimoTicket.Size = new System.Drawing.Size(60, 41);
             this.btnUltimoTicket.TabIndex = 71;
             this.btnUltimoTicket.TextColor = System.Drawing.Color.White;
             this.btnUltimoTicket.UseVisualStyleBackColor = false;
@@ -1381,5 +1401,6 @@
         private System.Windows.Forms.ComboBox CBTipo;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.CheckBox checkRenta;
+        public BotonRedondo btnGanancia;
     }
 }

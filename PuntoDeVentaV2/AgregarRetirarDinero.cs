@@ -303,11 +303,16 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            if (cbConceptoConBusqueda.SelectedIndex.Equals(0))
+            {
+                MessageBox.Show("Favor de seleccionar un concepto");
+                return;
+            }
             if (!string.IsNullOrWhiteSpace(txtComentario.Text))
             {
                 Comentario = txtComentario.Text;
             }
-            else
+            else if(txtComentario.Text.Equals("COMENTARIOS") || string.IsNullOrWhiteSpace(txtComentario.Text))
             {
                 Comentario = "---";
             }
@@ -450,7 +455,7 @@ namespace PuntoDeVentaV2
                 }
 
                 // Deposito o retiro
-                if (operacion == 0 || operacion == 1)
+                if (operacion == 0 || operacion == 1 || operacion == 2)
                 {
                     if (string.IsNullOrWhiteSpace(concepto))
                     {
@@ -1263,7 +1268,7 @@ namespace PuntoDeVentaV2
                         {
                             var cantidadTotal = Convert.ToDecimal(datosCorteCaja.Rows[0]["SaldoInicialEfectivo"]) + Convert.ToDecimal(datosCorteCaja.Rows[0]["SaldoInicialTarjeta"]) + Convert.ToDecimal(datosCorteCaja.Rows[0]["SaldoInicialVales"]) + Convert.ToDecimal(datosCorteCaja.Rows[0]["SaldoInicialCheque"]) + Convert.ToDecimal(datosCorteCaja.Rows[0]["SaldoInicialTransferencia"]);
 
-                            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado) VALUES ('PrimerSaldo', '{cantidadTotal}', '0', 'Insert primer saldo inicial', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{datosCorteCaja.Rows[0]["SaldoInicialEfectivo"].ToString()}', '{datosCorteCaja.Rows[0]["SaldoInicialTarjeta"].ToString()}', '{datosCorteCaja.Rows[0]["SaldoInicialVales"].ToString()}', '{datosCorteCaja.Rows[0]["SaldoInicialCheque"].ToString()}', '{datosCorteCaja.Rows[0]["SaldoInicialTransferencia"].ToString()}', '0', '0', '{FormPrincipal.id_empleado}')");
+                            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado) VALUES ('PrimerSaldo', '{cantidadTotal}', '0', 'Insert primer saldo inicial con corte', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{datosCorteCaja.Rows[0]["SaldoInicialEfectivo"].ToString()}', '{datosCorteCaja.Rows[0]["SaldoInicialTarjeta"].ToString()}', '{datosCorteCaja.Rows[0]["SaldoInicialVales"].ToString()}', '{datosCorteCaja.Rows[0]["SaldoInicialCheque"].ToString()}', '{datosCorteCaja.Rows[0]["SaldoInicialTransferencia"].ToString()}', '0', '0', '{FormPrincipal.id_empleado}')");
                         }
 
                         CajaN.botones = true;
@@ -2169,6 +2174,31 @@ namespace PuntoDeVentaV2
         private void txtCredito_TextChanged(object sender, EventArgs e)
         {
             validarSoloNumeros(sender, e);
+        }
+
+        private void txtComentario_Enter(object sender, EventArgs e)
+        {
+            if (txtComentario.Text.Equals("COMENTARIOS"))
+            {
+                txtComentario.Focus();
+                txtComentario.SelectAll();
+            }
+        }
+
+        private void txtComentario_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtComentario.Text))
+            {
+                txtComentario.Text = "COMENTARIOS";
+                txtComentario.Focus();
+                txtComentario.SelectAll();
+            }
+        }
+
+        private void txtComentario_MouseClick(object sender, MouseEventArgs e)
+        {
+            txtComentario.Focus();
+            txtComentario.SelectAll();
         }
     }
 }

@@ -492,8 +492,10 @@ namespace PuntoDeVentaV2
 
                 GenerarCheckbox(10, 20, 150, "Marcar todos", 0);
                 GenerarCheckbox(40, 20, 150, "Botón Agregar Dinero", datos[0]);
+                Generarbutton(40, 0, 20, 20, "permisoConcepto");
                 GenerarCheckbox(40, 180, 200, "Botón Historial Dinero Agregado", datos[1]);
                 GenerarCheckbox(80, 20, 150, "Botón Retirar Dinero", datos[2]);
+                Generarbutton(80, 0, 20, 20, "permisoConcepto");
                 GenerarCheckbox(80, 180, 200, "Botón Historial Dinero Retirado", datos[3]);
                 GenerarCheckbox(120, 20, 150, "Botón Abrir Caja", datos[4]);
                 GenerarCheckbox(120, 180, 200, "Botón Corte Caja", datos[5]);
@@ -1101,6 +1103,11 @@ namespace PuntoDeVentaV2
             {
                 Permisos_Asignar asig = new Permisos_Asignar("Permisos", id_empleado);
                 asig.Show();
+            }
+            if (nombreBoton == "permisoConcepto")
+            {
+                permisos.tipoPermisos = nombreBoton;
+                permisos.ShowDialog();
             }
             //if (nombreBoton == "porcentageGanancia")
             //{

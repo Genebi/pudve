@@ -269,7 +269,10 @@ namespace PuntoDeVentaV2
                                         MessageBox.Show("Es necesario agregar todos los precios.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                         return;
                                     }
-                                    if (tb.Any(ch => !char.IsLetterOrDigit(ch)))
+
+                                    //if (tb.Any(ch => !char.IsLetterOrDigit(ch)))
+                                    decimal num;
+                                    if (!Decimal.TryParse(tb,out num))
                                     {
                                         refrescarForm = false;
                                         item.Focus();
@@ -1772,8 +1775,6 @@ namespace PuntoDeVentaV2
 
                     TextBox tbCantidadFinalAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_2", true).FirstOrDefault();
                     tbCantidadFinalAnterior.KeyPress += (soloDecimales);                    TextBox tbPrecioAnterior = (TextBox)this.Controls.Find("tbMayoreo" + (idTemp - 1) + "_3", true).FirstOrDefault();
-
-
                     
                     // Comparando cantidad final nueva con la linea anterior
                     if (float.Parse(tbCantidadFinalAnterior.Text.Trim()) >= float.Parse(tb1.Text.Trim()))

@@ -154,10 +154,13 @@ namespace PuntoDeVentaV2
             GenerarCheckbox(110, 200, 150, "Clave de Unidad", datos2[33]);
             //=============================================================
             GenerarCheckbox(130, 45, 150, "Correos", datos2[34]);
+            GenerarCheckbox(130, 200, 150, "Agregar Descuento", datos2[45]);
+            //=============================================================
+            GenerarCheckbox(150, 45, 150, "Eliminar Descuento", datos2[46]);
 
             int contador = 0;
             int dato2 = 41;
-            int top = 130, left = 200, ancho = 150;
+            int top = 150, left = 200, ancho = 150;
             using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.verificarPermisosDinamicos(FormPrincipal.userID)))
             {
                 if (!dtPermisosDinamicos.Rows.Count.Equals(0))

@@ -16,7 +16,7 @@ using System.Windows.Forms;
 
 namespace PuntoDeVentaV2
 {
-    public partial class Reportes : Form
+    public partial class s : Form
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -39,7 +39,7 @@ namespace PuntoDeVentaV2
         int opcion5 = 1;
         int opcion6 = 1;
 
-        public Reportes()
+        public s()
         {
             InitializeComponent();
         }
@@ -2308,6 +2308,13 @@ namespace PuntoDeVentaV2
             RangosReporteProductosMenosVendidos rangoReporte = new RangosReporteProductosMenosVendidos();
 
             rangoReporte.ShowDialog();
+        }
+
+        private void btnRetiroConcepto_Click(object sender, EventArgs e)
+        {
+            ReportesRetirosConceptosPorMes porMes = new ReportesRetirosConceptosPorMes();
+            porMes.ShowDialog();
+
         }
     }
 }

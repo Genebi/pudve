@@ -3748,9 +3748,6 @@ namespace PuntoDeVentaV2
             reporte.AddAuthor("PUDVE");
             reporte.Close();
             writer.Close();
-
-            VisualizadorReportes vr = new VisualizadorReportes(rutaArchivo);
-            vr.ShowDialog();
         }
 
         private int obtenerIdCajaUltimoCorteDeCaja(DataTable dtSaldoInicial)
@@ -5642,7 +5639,7 @@ namespace PuntoDeVentaV2
 
                         var correo = mb.correoUsuario();
                         var correoCantidades = cargarDatosCorteCaja();
-
+                        generarNuevoReporte();
                         // Ejecutar hilo para enviar notificación
                         var datosConfig = mb.ComprobarConfiguracion();
 

@@ -37,6 +37,7 @@ namespace PuntoDeVentaV2
         public static double pasarTotalAnticipos { get; set; }
         private bool aplicarDescuentoG { get; set; }
 
+        public static bool sepresiono = false;
         public static string etiqeutaCliente { get; set; }
         public static bool EsGuardarVenta;
         decimal primeraCantidad;
@@ -220,6 +221,8 @@ namespace PuntoDeVentaV2
 
         int cambioCantidadProd = 0;
 
+        public static string gananciaTotalPorVenta;
+
         #region Proceso de Bascula
         // Constructores
         private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
@@ -382,6 +385,11 @@ namespace PuntoDeVentaV2
                 opcion18 = permisos[17];
                 opcion19 = permisos[18];
                 opcion20 = permisos[19];
+                btnGanancia.Visible = false;
+            }
+            else
+            {
+                btnGanancia.Visible = true;
             }
 
           
@@ -3151,7 +3159,10 @@ namespace PuntoDeVentaV2
             this.Dispose();
         }
         private void btnTerminarVenta_Click(object sender, EventArgs e)
-        {
+        { 
+            Ganancia.gananciaGrafica = 3;
+            //sepresiono = true;
+            btnGanancia.PerformClick();
             EsGuardarVenta = true;
             if (FormPrincipal.userNickName.Contains("@"))
             {
@@ -3166,7 +3177,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            
+
             //if (ClienteConDescuento.Equals(true))
             //{
             //    if (!FormPrincipal.id_empleado.Equals(0))
@@ -3848,7 +3859,8 @@ namespace PuntoDeVentaV2
                     else
                     {
                         mostrarVenta = 0;
-                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas));
+                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas, gananciaTotalPorVenta));
+                        //Venta normal
                     }
                 }
 
@@ -8251,7 +8263,6 @@ namespace PuntoDeVentaV2
 
         private void txtDescuentoGeneral_KeyDown(object sender, KeyEventArgs e)
         {
-
             var cantidadDescuento = txtDescuentoGeneral.Text;
             if (e.KeyCode == Keys.Enter)
             {
@@ -8259,9 +8270,8 @@ namespace PuntoDeVentaV2
                 txtBuscadorProducto.Text = string.Empty;
                 txtBuscadorProducto.Focus();
                 txtDescuentoGeneral.Text = "% descuento";
+                btnAplicarDescuento.Enabled = false;
             }
-
-
         }
 
         private void DGVentas_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -8487,7 +8497,7 @@ namespace PuntoDeVentaV2
 
         private void txtDescuentoGeneral_TextChanged(object sender, EventArgs e)
         {
-            if (txtDescuentoGeneral.Text.Equals("% descuento"))
+            if (txtDescuentoGeneral.Text.Equals("% descuento")|| txtDescuentoGeneral.Text.Contains("%"))
             {
                 btnAplicarDescuento.Enabled = false;
             }
@@ -8502,13 +8512,30 @@ namespace PuntoDeVentaV2
             listaProductos.Visible = false;
         }
 
+
         private void nudCantidadPS_ValueChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void CBTipo_SelectedIndexChanged(object sender, EventArgs e)
+
+
+        private void btnGanancia_Click(object sender, EventArgs e)
         {
+            if (!DGVentas.Rows.Count.Equals(0))
+            {
+                Ganancia cantidadGanancia = new Ganancia();
+                cantidadGanancia.totalVenta = Convert.ToDecimal(cTotal.Text);
+                cantidadGanancia.lugarGanancia = 2;
+
+                foreach (DataGridViewRow item in DGVentas.Rows)
+                {
+                    var id = item.Cells["IDProducto"].Value.ToString() + "|" + item.Cells["Cantidad"].Value.ToString();
+                    cantidadGanancia.idsprods.Add(id);
+                }
+
+                cantidadGanancia.ShowDialog();
+            }
 
         }
 
@@ -9375,5 +9402,6 @@ namespace PuntoDeVentaV2
             graphics.DrawString("Display Drawings", new System.Drawing.Font("Verdana", 11), textBrush, 10, 10);
             myPen.Dispose();
         }*/
+
     }
 }

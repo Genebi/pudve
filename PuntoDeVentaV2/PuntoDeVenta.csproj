@@ -100,6 +100,32 @@
     <Reference Include="DocumentFormat.OpenXml, Version=2.16.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
       <HintPath>..\packages\DocumentFormat.OpenXml.2.16.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
     </Reference>
+    <Reference Include="DPFPCtlXTypeLibNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=c0c98f712d5392a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPCtlXTypeLibNET.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DPFPCtlXWrapperNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=c0c98f712d5392a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPCtlXWrapperNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPDevNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=696774c42ee28c57, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPDevNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPEngNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=7fe76e7adf19964b, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPEngNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPGuiNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=d4f4a0bd9c559145, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPGuiNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPShrNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=d902fe275a8d6cf2, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPShrNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPShrXTypeLibNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=c0c98f712d5392a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPShrXTypeLibNET.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DPFPVerNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=4de0a9c4dcc83984, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPVerNET.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -138,6 +164,10 @@
     <Reference Include="K4os.Hash.xxHash, Version=1.0.6.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
       <HintPath>..\packages\K4os.Hash.xxHash.1.0.6\lib\net45\K4os.Hash.xxHash.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
@@ -185,11 +215,8 @@
       <HintPath>..\packages\SpreadsheetLight.Fork.3.5.0\lib\netstandard2.0\SpreadsheetLight.dll</HintPath>
     </Reference>
     <Reference Include="System">
-
       <HintPath>..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
-
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
-
     </Reference>
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
@@ -690,6 +717,24 @@
     <Compile Include="Empleados.Designer.cs">
       <DependentUpon>Empleados.cs</DependentUpon>
     </Compile>
+    <Compile Include="empleadosAltaHuella.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="empleadosAltaHuella.Designer.cs">
+      <DependentUpon>empleadosAltaHuella.cs</DependentUpon>
+    </Compile>
+    <Compile Include="empleadosDatosChecador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="empleadosDatosChecador.Designer.cs">
+      <DependentUpon>empleadosDatosChecador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="empleadoVerificarHuella.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="empleadoVerificarHuella.Designer.cs">
+      <DependentUpon>empleadoVerificarHuella.cs</DependentUpon>
+    </Compile>
     <Compile Include="Empleado_muestra_acciones_factura.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -756,6 +801,12 @@
     <Compile Include="FormNotaVentaHDA.Designer.cs">
       <DependentUpon>FormNotaVentaHDA.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReporteConceptosRetiro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReporteConceptosRetiro.Designer.cs">
+      <DependentUpon>FormReporteConceptosRetiro.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormReporteHistorialVentasProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -785,6 +836,12 @@
     </Compile>
     <Compile Include="FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="importarExcelProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="importarExcelProductos.Designer.cs">
+      <DependentUpon>importarExcelProductos.cs</DependentUpon>
     </Compile>
     <Compile Include="ImportarExportarCSV.cs">
       <SubType>Form</SubType>
@@ -1324,6 +1381,15 @@
       <DependentUpon>DatosReporteVentas.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\DatosConceptos.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatosConceptos.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\DatosConceptos.cs">
+      <DependentUpon>DatosConceptos.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\ReporteVentas\DatosReporteVentas.cs">
       <DependentUpon>DatosReporteVentas.xsd</DependentUpon>
     </Compile>
@@ -1356,6 +1422,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TicketVenta.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="ReportesRetirosConceptosPorMes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportesRetirosConceptosPorMes.Designer.cs">
+      <DependentUpon>ReportesRetirosConceptosPorMes.cs</DependentUpon>
     </Compile>
     <Compile Include="RespadoBaseDatos.cs" />
     <Compile Include="RevisarInventario.cs">
@@ -1851,6 +1923,15 @@
     <EmbeddedResource Include="Empleados.resx">
       <DependentUpon>Empleados.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="empleadosAltaHuella.resx">
+      <DependentUpon>empleadosAltaHuella.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="empleadosDatosChecador.resx">
+      <DependentUpon>empleadosDatosChecador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="empleadoVerificarHuella.resx">
+      <DependentUpon>empleadoVerificarHuella.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Empleado_muestra_acciones_factura.resx">
       <DependentUpon>Empleado_muestra_acciones_factura.cs</DependentUpon>
     </EmbeddedResource>
@@ -1887,6 +1968,9 @@
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormReporteConceptosRetiro.resx">
+      <DependentUpon>FormReporteConceptosRetiro.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormReporteHistorialVentasProducto.resx">
       <DependentUpon>FormReporteHistorialVentasProducto.cs</DependentUpon>
     </EmbeddedResource>
@@ -1898,6 +1982,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="HistorialAnticipos.resx">
       <DependentUpon>HistorialAnticipos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="importarExcelProductos.resx">
+      <DependentUpon>importarExcelProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportarExportarCSV.resx">
       <DependentUpon>ImportarExportarCSV.cs</DependentUpon>
@@ -2181,6 +2268,12 @@
     <Content Include="ReportesImpresion\Ticket\VentaGlobal\VentaGlobal.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\ReporteConceptosRetiro.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="ReportesRetirosConceptosPorMes.resx">
+      <DependentUpon>ReportesRetirosConceptosPorMes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -2556,6 +2649,20 @@
     </Content>
     <Content Include="ReportesImpresion\Ticket\ReporteVentas\DatosReporteVentas.xss">
       <DependentUpon>DatosReporteVentas.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\DatosConceptos.xsc">
+      <DependentUpon>DatosConceptos.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\DatosConceptos.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatosConceptos.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\DatosConceptos.xss">
+      <DependentUpon>DatosConceptos.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="ReportesImpresion\Ticket\TicketAnticipo\TicketAnticipo.xsc">

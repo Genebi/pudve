@@ -356,6 +356,7 @@
             this.btnBuscarSugerencias.Image = global::PuntoDeVentaV2.Properties.Resources.search;
             this.btnBuscarSugerencias.Location = new System.Drawing.Point(2, 2);
             this.btnBuscarSugerencias.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnBuscarSugerencias.Margin = new System.Windows.Forms.Padding(2);
             this.btnBuscarSugerencias.Name = "btnBuscarSugerencias";
             this.btnBuscarSugerencias.Size = new System.Drawing.Size(40, 29);
             this.btnBuscarSugerencias.TabIndex = 31;
@@ -1088,6 +1089,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1250, 672);
+            this.ClientSize = new System.Drawing.Size(1250, 680); 
             this.Controls.Add(this.fLPContenidoProducto);
             this.Controls.Add(this.fLPDetallesProducto);
             this.Controls.Add(this.fLPAccion);

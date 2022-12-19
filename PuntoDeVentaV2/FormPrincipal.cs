@@ -904,25 +904,25 @@ namespace PuntoDeVentaV2
 
         public void agregarCamposDinamicosPermisos()
         {
-            //using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(userID)))
-            //{
-            //    if (!dtPermisosDinamicos.Rows.Count.Equals(0))
-            //    {
-            //        foreach (DataRow drConcepto in dtPermisosDinamicos.Rows)
-            //        {
-            //            try
-            //            {
-            //                var concepto = drConcepto["concepto"].ToString();
-            //                cn.EjecutarConsulta(cs.agregarDetalleProductoPermisosDinamicos(concepto));
-            //            }
-            //            catch (Exception ex)
-            //            {
+            using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(userID)))
+            {
+                if (!dtPermisosDinamicos.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drConcepto in dtPermisosDinamicos.Rows)
+                    {
+                        try
+                        {
+                            var concepto = drConcepto["concepto"].ToString();
+                            cn.EjecutarConsulta(cs.agregarDetalleProductoPermisosDinamicos(concepto));
+                        }
+                        catch (Exception ex)
+                        {
 
-            //                MessageBox.Show(ex.Message);
-            //            }
-            //        }
-            //    }
-            //}
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
+                }
+            }
         }
 
         private void actualizarNameReportesEmpleados()
@@ -1354,7 +1354,7 @@ namespace PuntoDeVentaV2
             // Solo descomentar lo de abajo cuando sea necesario
             if (reportes == 1)
             {
-                AbrirFormulario<Reportes>();
+                AbrirFormulario<s>();
             }
             else
             {

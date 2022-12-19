@@ -291,6 +291,10 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.HistorialVenta {
             
             private global::System.Data.DataColumn columnTotal;
             
+            private global::System.Data.DataColumn columnEmpleado;
+            
+            private global::System.Data.DataColumn columnCliente;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DTHistorialVentaDataTable() {
@@ -374,6 +378,22 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.HistorialVenta {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn EmpleadoColumn {
+                get {
+                    return this.columnEmpleado;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ClienteColumn {
+                get {
+                    return this.columnCliente;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -409,7 +429,7 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.HistorialVenta {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DTHistorialVentaRow AddDTHistorialVentaRow(string Folio, string Usuario, string Fecha, string Cantidad, string PrecioUnidad, string Total) {
+            public DTHistorialVentaRow AddDTHistorialVentaRow(string Folio, string Usuario, string Fecha, string Cantidad, string PrecioUnidad, string Total, string Empleado, string Cliente) {
                 DTHistorialVentaRow rowDTHistorialVentaRow = ((DTHistorialVentaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Folio,
@@ -417,7 +437,9 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.HistorialVenta {
                         Fecha,
                         Cantidad,
                         PrecioUnidad,
-                        Total};
+                        Total,
+                        Empleado,
+                        Cliente};
                 rowDTHistorialVentaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDTHistorialVentaRow);
                 return rowDTHistorialVentaRow;
@@ -446,6 +468,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.HistorialVenta {
                 this.columnCantidad = base.Columns["Cantidad"];
                 this.columnPrecioUnidad = base.Columns["PrecioUnidad"];
                 this.columnTotal = base.Columns["Total"];
+                this.columnEmpleado = base.Columns["Empleado"];
+                this.columnCliente = base.Columns["Cliente"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -463,6 +487,10 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.HistorialVenta {
                 base.Columns.Add(this.columnPrecioUnidad);
                 this.columnTotal = new global::System.Data.DataColumn("Total", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTotal);
+                this.columnEmpleado = new global::System.Data.DataColumn("Empleado", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEmpleado);
+                this.columnCliente = new global::System.Data.DataColumn("Cliente", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCliente);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -701,6 +729,38 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.HistorialVenta {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Empleado {
+                get {
+                    try {
+                        return ((string)(this[this.tableDTHistorialVenta.EmpleadoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Empleado\' in table \'DTHistorialVenta\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDTHistorialVenta.EmpleadoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Cliente {
+                get {
+                    try {
+                        return ((string)(this[this.tableDTHistorialVenta.ClienteColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Cliente\' in table \'DTHistorialVenta\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDTHistorialVenta.ClienteColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsFolioNull() {
                 return this.IsNull(this.tableDTHistorialVenta.FolioColumn);
             }
@@ -769,6 +829,30 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.HistorialVenta {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetTotalNull() {
                 this[this.tableDTHistorialVenta.TotalColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsEmpleadoNull() {
+                return this.IsNull(this.tableDTHistorialVenta.EmpleadoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetEmpleadoNull() {
+                this[this.tableDTHistorialVenta.EmpleadoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsClienteNull() {
+                return this.IsNull(this.tableDTHistorialVenta.ClienteColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetClienteNull() {
+                this[this.tableDTHistorialVenta.ClienteColumn] = global::System.Convert.DBNull;
             }
         }
         

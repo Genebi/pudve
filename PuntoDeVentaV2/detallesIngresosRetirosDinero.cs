@@ -46,7 +46,8 @@ namespace PuntoDeVentaV2
                 var formatoFecha = fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss");
 
 
-                DatosDeposito = cn.CargarDatos($"SELECT * FROM caja WHERE IDUsuario = {FormPrincipal.userID} AND idEmpleado = '{FormPrincipal.id_empleado}' AND FechaOperacion >= '{formatoFecha}' AND Operacion = 'deposito'");
+                DatosDeposito = cn.CargarDatos($"SELECT * FROM caja WHERE IDUsuario = {FormPrincipal.userID} AND idEmpleado = '{FormPrincipal.id_empleado}' AND FechaOperacion >= '{formatoFecha}' AND Operacion = 'deposito' OR Operacion = 'PrimerSaldo' AND FechaOperacion >= '{formatoFecha}' AND Concepto = 'Insert primer saldo inicial'");
+
                 if (!FormPrincipal.userNickName.Contains("@"))
                 {
                     DatosRetiro = cn.CargarDatos($"SELECT * FROM caja WHERE IDUsuario = {FormPrincipal.userID} AND idEmpleado = '{CajaN.opcionComboBoxFiltroAdminEmp}' AND FechaOperacion >= '{formatoFecha}' AND Operacion = 'retiro'");
@@ -56,8 +57,6 @@ namespace PuntoDeVentaV2
                     DatosRetiro = cn.CargarDatos($"SELECT * FROM caja WHERE IDUsuario = {FormPrincipal.userID} AND idEmpleado = '{FormPrincipal.id_empleado}' AND FechaOperacion >= '{formatoFecha}' AND Operacion = 'retiro'");
                 }
               
-
-
                 if (!DatosDeposito.Rows.Count.Equals(0) && CajaN.detalleAbonoRetiro.Equals("abono"))
                 {
                     cargarDatos(DatosDeposito);
