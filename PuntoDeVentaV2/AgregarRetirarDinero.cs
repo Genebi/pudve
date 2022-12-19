@@ -303,6 +303,11 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            if (cbConceptoConBusqueda.SelectedIndex.Equals(0))
+            {
+                MessageBox.Show("Favor de seleccionar un concepto");
+                return;
+            }
             if (!string.IsNullOrWhiteSpace(txtComentario.Text))
             {
                 Comentario = txtComentario.Text;
