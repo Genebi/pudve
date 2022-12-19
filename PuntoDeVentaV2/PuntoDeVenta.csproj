@@ -711,6 +711,12 @@
     <Compile Include="EditarTicket.Designer.cs">
       <DependentUpon>EditarTicket.cs</DependentUpon>
     </Compile>
+    <Compile Include="empleadoReglasHorario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="empleadoReglasHorario.Designer.cs">
+      <DependentUpon>empleadoReglasHorario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Empleados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1919,6 +1925,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EditarTicket.resx">
       <DependentUpon>EditarTicket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="empleadoReglasHorario.resx">
+      <DependentUpon>empleadoReglasHorario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Empleados.resx">
       <DependentUpon>Empleados.cs</DependentUpon>

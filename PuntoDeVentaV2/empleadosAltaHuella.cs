@@ -129,6 +129,7 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("Las huellas son buenas, precione aceptar para actualizar los datos", "Toma de muestras biométricas");
                     btn_aceptar.Enabled = true;
+                    btn_aceptar.Focus();
                 }
                 else
                 {

@@ -151,7 +151,6 @@ namespace PuntoDeVentaV2
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.Enabled = false;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.Color.White;
@@ -167,7 +166,6 @@ namespace PuntoDeVentaV2
             this.btn_agregar_empleado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_agregar_empleado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btn_agregar_empleado.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btn_agregar_empleado.Enabled = false;
             this.btn_agregar_empleado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_agregar_empleado.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_agregar_empleado.ForeColor = System.Drawing.Color.White;
@@ -177,6 +175,7 @@ namespace PuntoDeVentaV2
             this.btn_agregar_empleado.TabIndex = 2;
             this.btn_agregar_empleado.Text = "Reglas de horario";
             this.btn_agregar_empleado.UseVisualStyleBackColor = false;
+            this.btn_agregar_empleado.Click += new System.EventHandler(this.btn_agregar_empleado_Click);
             // 
             // btnPlantilla
             // 

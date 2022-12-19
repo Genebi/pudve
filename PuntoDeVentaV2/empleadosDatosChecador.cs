@@ -50,5 +50,11 @@ namespace PuntoDeVentaV2
         {
             this.Close();
         }
+
+        private void btn_agregar_empleado_Click(object sender, EventArgs e)
+        {
+            empleadoReglasHorario relgasHorario = new empleadoReglasHorario(id_empleado);
+            relgasHorario.ShowDialog();
+        }
     }
 }
