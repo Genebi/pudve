@@ -211,7 +211,7 @@ namespace PuntoDeVentaV2
                             lblMensaje.Visible = true;
                             lblGanancia.Text = "SIN PODER CALCULAR";
                             precioTotalDeCompra = 0;
-                            return;
+                            //return;
                         }
                         else
                         {
@@ -220,12 +220,12 @@ namespace PuntoDeVentaV2
                             lblGanancia.Text = (VentaTotal.ToString("C"));
                             iterador++;
                         }
-                    }
+                    } 
                 }
                 
                 if (gananciaGrafica == 3)
                 {
-                    Ventas.gananciaTotalPorVenta = lblGanancia.Text;
+                    Ventas.gananciaTotalPorVenta = lblGanancia.Text; 
                     gananciaGrafica = 0;
                     this.Close();
                 }
