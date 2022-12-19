@@ -41,7 +41,7 @@ namespace PuntoDeVentaV2
             Button btn = sender as Button;
             var propiedad = btn.Tag;
             int comprobar = 0;
-            string idempleado = cs.buscarIDEmpleado(FormPrincipal.userNickName);
+            string idempleado = FormPrincipal.id_empleado.ToString();
             DataTable dtUsuarios;
 
             dtUsuarios = cn.CargarDatos(cs.validarUsuario(FormPrincipal.userNickName));
@@ -215,9 +215,9 @@ namespace PuntoDeVentaV2
             // PANEL CORREOS PRODUCTO
             AgregarOpcion("Correos", "Correos", 360);
             //PANEL ASIGNAR DESCUENTO POR PORCENTAJE
-            AgregarOpcion("AgregarDescuento", "Agregar Descuento", 395);
+            AgregarOpcion("Agregar_Descuento", "Agregar Descuento", 395);
             //PANEL ELIMINAR DESCUENTO POR PORCENTAJE
-            AgregarOpcion("EliminarDescuento", "Elimnar Descuento", 430);
+            AgregarOpcion("Eliminar_Descuento", "Elimnar Descuento", 430);
             if (FormPrincipal.userNickName.Contains("HOUSEDEPOTAUTLAN"))
             {
                 AgregarOpcion("CantidadMayoreo", "Cantidad Mayoreo", 465);

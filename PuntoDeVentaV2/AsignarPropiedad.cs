@@ -723,7 +723,7 @@ namespace PuntoDeVentaV2
                     Dispose();
                 }
             }
-            else if (propiedad == "AgregarDescuento")
+            else if (propiedad == "Agregar_Descuento")
             {
                 TextBox tbAgregarDescuento = new TextBox();
                 tbAgregarDescuento.Name = "tb" + propiedad;
@@ -737,17 +737,17 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarMensaje"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarMensaje"));
             }
-            else if (propiedad == "EliminarDescuento")
+            else if (propiedad == "Eliminar_Descuento")
             {
-                //TextBox tbEliminarDescuento = new TextBox();
-                //tbEliminarDescuento.Name = "tb" + propiedad;
-                //tbEliminarDescuento.Width = 200;
-                //tbEliminarDescuento.Height = 40;
-                //tbEliminarDescuento.CharacterCasing = CharacterCasing.Upper;
-                //tbEliminarDescuento.Font = fuente;
-                //tbEliminarDescuento.Location = new Point(65, 50);
+                TextBox tbEliminarDescuento = new TextBox();
+                tbEliminarDescuento.Name = "tb" + propiedad;
+                tbEliminarDescuento.Width = 200;
+                tbEliminarDescuento.Height = 40;
+                tbEliminarDescuento.CharacterCasing = CharacterCasing.Upper;
+                tbEliminarDescuento.Font = fuente;
+                tbEliminarDescuento.Location = new Point(65, 50);
 
-                //panelContenedor.Controls.Add(tbEliminarDescuento);
+                panelContenedor.Controls.Add(tbEliminarDescuento);
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarMensaje"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarMensaje"));
             }

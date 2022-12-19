@@ -1568,7 +1568,7 @@ namespace PuntoDeVentaV2
 
             if (habilitadosOno.Equals(DialogResult.Yes))
             {
-                checkboxMarcados.Clear();
+                
                 if (contador >= 50)
                 {
                     cargando.Start();
@@ -1769,7 +1769,7 @@ namespace PuntoDeVentaV2
                     actualizar();
                     txtBusqueda.Focus();
                 }
-
+                checkboxMarcados.Clear();
                 //CheckBox master = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
                 //master.Checked = false;
                 //linkLblPaginaActual_Click_1(sender, e);
