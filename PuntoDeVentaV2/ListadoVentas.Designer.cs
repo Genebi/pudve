@@ -69,8 +69,8 @@
             this.btnNuevaVenta = new System.Windows.Forms.Button();
             this.btnBuscarVentas = new System.Windows.Forms.Button();
             this.cbVentas = new System.Windows.Forms.ComboBox();
-            this.cbTipoVentas = new System.Windows.Forms.ComboBox();
             this.cbTipoRentas = new System.Windows.Forms.ComboBox();
+            this.cbTipoVentas = new System.Windows.Forms.ComboBox();
             this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnActualizarMaximoProductos = new System.Windows.Forms.Button();
@@ -280,7 +280,7 @@
             // 
             // ganancia
             // 
-            this.ganancia.HeaderText = "";
+            this.ganancia.HeaderText = "Ganancia";
             this.ganancia.Name = "ganancia";
             this.ganancia.ReadOnly = true;
             this.ganancia.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -541,18 +541,6 @@
             this.cbVentas.TabIndex = 0;
             this.cbVentas.Visible = false;
             // 
-            // cbTipoVentas
-            // 
-            this.cbTipoVentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTipoVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbTipoVentas.FormattingEnabled = true;
-            this.cbTipoVentas.Location = new System.Drawing.Point(3, 30);
-            this.cbTipoVentas.Name = "cbTipoVentas";
-            this.cbTipoVentas.Size = new System.Drawing.Size(240, 21);
-            this.cbTipoVentas.TabIndex = 1;
-            this.cbTipoVentas.SelectedIndexChanged += new System.EventHandler(this.cbTipoVentas_SelectedIndexChanged);
-            this.cbTipoVentas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbTipoVentas_KeyDown);
-            // 
             // cbTipoRentas
             // 
             this.cbTipoRentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -565,6 +553,18 @@
             this.cbTipoRentas.Visible = false;
             this.cbTipoRentas.SelectedIndexChanged += new System.EventHandler(this.cbTipoRentas_SelectedIndexChanged);
             this.cbTipoRentas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbTipoRentas_KeyDown);
+            // 
+            // cbTipoVentas
+            // 
+            this.cbTipoVentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipoVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTipoVentas.FormattingEnabled = true;
+            this.cbTipoVentas.Location = new System.Drawing.Point(3, 30);
+            this.cbTipoVentas.Name = "cbTipoVentas";
+            this.cbTipoVentas.Size = new System.Drawing.Size(240, 21);
+            this.cbTipoVentas.TabIndex = 1;
+            this.cbTipoVentas.SelectedIndexChanged += new System.EventHandler(this.cbTipoVentas_SelectedIndexChanged);
+            this.cbTipoVentas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbTipoVentas_KeyDown);
             // 
             // TTMensaje
             // 
@@ -840,16 +840,11 @@
             this.rbRentas.AutoSize = true;
             this.rbRentas.Location = new System.Drawing.Point(91, 34);
             this.rbRentas.Name = "rbRentas";
-            this.rbRentas.Size = new System.Drawing.Size(69, 17);
+            this.rbRentas.Size = new System.Drawing.Size(173, 17);
             this.rbRentas.TabIndex = 70;
-            this.rbRentas.Text = "RENTAS";
+            this.rbRentas.Text = "RENTAS (ARRENDAMIENTO)";
             this.rbRentas.UseVisualStyleBackColor = true;
             this.rbRentas.CheckedChanged += new System.EventHandler(this.rbRentas_CheckedChanged);
-
-            this.ganancia.HeaderText = "Ganancia";
-            this.ganancia.Name = "ganancia";
-            this.ganancia.ReadOnly = true;
-            this.ganancia.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // ListadoVentas
             // 
