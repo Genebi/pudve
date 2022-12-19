@@ -3228,7 +3228,7 @@ namespace PuntoDeVentaV2
             //Ventas a credito
             if (opcion == "VCC") { preguntaDesdeDonde = "¿Estás seguro de cancelar el crédito?"; }
 
-            if (opcion == "RP") { preguntaDesdeDonde = "¿Estás seguro de cancelar la renta?"; }
+            if (opcion == "RP") { preguntaDesdeDonde = "¿Estás seguro de regresar la renta?"; }
             if (opcion == "RG") { preguntaDesdeDonde = "¿Estás seguro de cancelar el presupuesto?"; }
             if (opcion == "RC") { preguntaDesdeDonde = "¿Estás seguro de cancelar la renta cancelada?"; }
             if (opcion == "RCC") { preguntaDesdeDonde = "¿Estás seguro de cancelar el crédito?"; }
