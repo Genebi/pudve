@@ -1799,6 +1799,11 @@ namespace PuntoDeVentaV2
             {
                 var opcion = cbTipoVentas.SelectedValue.ToString();
 
+                if (cbTipoRentas.Visible)
+                {
+                    opcion = cbTipoRentas.SelectedValue.ToString();
+                }
+
                 var fila = DGVListadoVentas.CurrentCell.RowIndex;
 
                 int idVenta = Convert.ToInt32(DGVListadoVentas.Rows[fila].Cells["ID"].Value);
@@ -3086,7 +3091,7 @@ namespace PuntoDeVentaV2
                     }
 
                     //Verificamos si tiene seleccionada la opcion de ventas a credito
-                    if (opcion == "VCC" || opcion == "RNT")
+                    if (opcion == "VCC" || opcion == "RCC")
                     {
                         var total = float.Parse(DGVListadoVentas.Rows[fila].Cells["Total"].Value.ToString());
 
@@ -3094,7 +3099,14 @@ namespace PuntoDeVentaV2
 
                         abono.FormClosed += delegate
                         {
-                            CargarDatos(4);
+                            if (opcion.Equals("VCC"))
+                            {
+                                CargarDatos(4);
+                            }
+                            else
+                            {
+                                CargarDatos(9);
+                            }
                         };
 
                         abono.ShowDialog();

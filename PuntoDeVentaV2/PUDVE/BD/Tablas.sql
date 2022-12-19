@@ -1978,3 +1978,6 @@ ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS Agregar_Descuento INT DEF
 
 	-- Agregar Columna de Eliminar Descuento a empleadosPermisos
 ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS Eliminar_Descuento INT DEFAULT 1 ;
+
+-- Agregar Columna de la ganancia por venta para graficarlo 
+ALTER TABLE ventas ADD COLUMN IF NOT EXISTS Ganancia   VARCHAR (255) DEFAULT NULL ;
