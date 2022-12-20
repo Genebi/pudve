@@ -2976,6 +2976,7 @@ namespace PuntoDeVentaV2
                 //CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
                 //headerBox.Checked = false;
                 ponerTrue = false;
+                contador = 0;
             }
             //checkPaginasCompletas.Clear();
             contarProductosSeleccionados.Clear();
@@ -4945,8 +4946,6 @@ namespace PuntoDeVentaV2
                         {
                             MessageBox.Show("Código proporcionado:\n" + codigo + "No esta registrado ó no es valido su formato.", "Código no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-
-                        
                     }
                 }
             }
@@ -5010,6 +5009,10 @@ namespace PuntoDeVentaV2
 
                     consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extraQuery}";
                 }
+                if (status == 2 && !consultaFiltro.Equals(""))
+                {
+                    consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{busquedaEnProductos}%' OR CodigoBarras LIKE '%{busquedaEnProductos}')";
+                }
             }
             else
             {
@@ -5027,7 +5030,10 @@ namespace PuntoDeVentaV2
                 {
                     consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID}";
                 }
-               
+                else if (status == 2 && !consultaFiltro.Equals(""))
+                {
+                    consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{busquedaEnProductos}%' OR CodigoBarras LIKE '%{busquedaEnProductos}')";
+                }
             }
 
             Console.WriteLine(consultaFiltro);

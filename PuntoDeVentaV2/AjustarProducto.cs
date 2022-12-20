@@ -23,10 +23,10 @@ namespace PuntoDeVentaV2
 
         private int IDProducto = 0;
         private string producto = string.Empty;
-        private float precioProducto = 0;
-        private float precioProductoAux = 0;
-        private float stockProducto = 0f;
-        private float stockExistencia = 0f;
+        private decimal precioProducto = 0;
+        private decimal precioProductoAux = 0;
+        private decimal stockProducto = 0;
+        private decimal stockExistencia = 0;
         private int apartado = 0;
         private float precioAdquision = 0f; // Precio de compra
 
@@ -129,8 +129,8 @@ namespace PuntoDeVentaV2
             //lbPrecio.Text = "$" + float.Parse(datos[2]).ToString("N2");
             txtPrecio.Text = "$" + float.Parse(datos[2]).ToString("N2");
             producto = datos[1];
-            precioProducto = float.Parse(datos[2]);
-            stockProducto = float.Parse(datos[4]);
+            precioProducto = decimal.Parse(datos[2]);
+            stockProducto = decimal.Parse(datos[4]);
             stockExistencia = stockProducto;
             precioAdquision = float.Parse(datos[11]);
             ActiveControl = txtCantidadCompra;
@@ -283,7 +283,7 @@ namespace PuntoDeVentaV2
             // Se toma el precio que aparece visualmente al cargar el producto y se elimina el signo de $
             // en caso de que el usuario haya editado el precio del producto y se actualiza en la tabla Productos
             var precioTmp = txtPrecio.Text.Replace("$", "");
-            var precioAux = float.Parse(precioTmp);
+            var precioAux = decimal.Parse(precioTmp);
 
             if (precioAux != precioProducto)
             {
@@ -397,14 +397,14 @@ namespace PuntoDeVentaV2
                     Invent.getSuma = 0;
                     Invent.getResta = 0;
 
-                    Invent.getSuma = float.Parse(cantidadCompra);
-                    Invent.getStockAnterior = stockProducto;
+                    Invent.getSuma = Convert.ToDecimal(cantidadCompra);
+                    Invent.getStockAnterior = (float)stockProducto;
                 }
 
                 var stockOriginal = stockProducto; //Stoack Anterior
                 var stockAgregado = cantidadCompra; //Cantidad
 
-                stockProducto += float.Parse(cantidadCompra); //Nuevo Stock
+                stockProducto += decimal.Parse(cantidadCompra); //Nuevo Stock
 
                 var stockActual = stockProducto;
 
@@ -488,7 +488,7 @@ namespace PuntoDeVentaV2
                     {
                         var numeroRevision = numRevision.Rows[0]["NoRevisionAumentarInventario"].ToString();
 
-                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Aumentar): N° Revision: {numeroRevision}','{stockAnterior}','{stockNuevo}','{fechaOperacion}','{FormPrincipal.userNickName}','+{cantidadCompra}')");
+                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Aumentar): N° Revision: {numeroRevision}','{stockAnterior}','{stockNuevo.ToString()}','{fechaOperacion}','{FormPrincipal.userNickName}','+{cantidadCompra}')");
                     }
                     
                     this.Close();
@@ -526,7 +526,7 @@ namespace PuntoDeVentaV2
                                 {
                                     auxiliar = float.Parse(aumentar);
                                     stockAgregado = auxiliar;
-                                    stockProducto += auxiliar;
+                                    stockProducto +=Convert.ToDecimal(auxiliar);
                                     operacion = "agregó";
                                 }
 
@@ -534,7 +534,7 @@ namespace PuntoDeVentaV2
                                 {
                                     auxiliar = float.Parse(disminuir);
                                     stockAgregado = auxiliar;
-                                    stockProducto -= auxiliar;
+                                    stockProducto -= Convert.ToDecimal(auxiliar);
                                     operacion = "restó";
 
                                     if (stockProducto < 0)
@@ -545,7 +545,7 @@ namespace PuntoDeVentaV2
                                     auxiliar *= -1;
                                 }
 
-                                stockActual = stockProducto;
+                                stockActual = (float)stockProducto;
 
                                 if (string.IsNullOrWhiteSpace(aumentar) && string.IsNullOrWhiteSpace(disminuir))
                                 {
@@ -710,7 +710,7 @@ namespace PuntoDeVentaV2
                                     {
                                         auxiliar = float.Parse(aumentar);
                                         stockAgregado = auxiliar;
-                                        stockProducto += auxiliar;
+                                        stockProducto += Convert.ToDecimal(auxiliar);
                                         operacion = "agregó";
                                     }
 
@@ -718,7 +718,7 @@ namespace PuntoDeVentaV2
                                     {
                                         auxiliar = float.Parse(disminuir);
                                         stockAgregado = auxiliar;
-                                        stockProducto -= auxiliar;
+                                        stockProducto -= Convert.ToDecimal(auxiliar);
                                         operacion = "restó";
 
                                         if (stockProducto < 0)
@@ -729,7 +729,7 @@ namespace PuntoDeVentaV2
                                         auxiliar *= -1;
                                     }
 
-                                    stockActual = stockProducto;
+                                    stockActual = (float)stockProducto;
 
                                     if (string.IsNullOrWhiteSpace(aumentar) && string.IsNullOrWhiteSpace(disminuir))
                                     {
@@ -1071,7 +1071,7 @@ namespace PuntoDeVentaV2
                     aumentar = float.Parse(txtAumentar.Text);
                     if (Invent != null)
                     {
-                        Invent.getSuma = aumentar;
+                        Invent.getSuma = Convert.ToDecimal(aumentar);
                         Invent.getStockAnterior = float.Parse(txt_en_stock.Text);
                     }
                 }
@@ -1398,7 +1398,7 @@ namespace PuntoDeVentaV2
             {
                 //contenidoTxtPrecio.Remove(0, 1);
                 contenidoTxtPrecio = contenidoTxtPrecio.Substring(1);
-                precioProductoAux = float.Parse(contenidoTxtPrecio);
+                precioProductoAux = decimal.Parse(contenidoTxtPrecio);
 
             }
             else
@@ -1409,7 +1409,7 @@ namespace PuntoDeVentaV2
                 esNumero = Double.TryParse(txtPrecio.Text, out precio);
                 if (esNumero)
                 {
-                    precioProductoAux = float.Parse(precio.ToString());
+                    precioProductoAux = decimal.Parse(precio.ToString());
                 }
                 else
                 {
