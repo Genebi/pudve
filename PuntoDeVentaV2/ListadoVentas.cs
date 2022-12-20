@@ -3209,7 +3209,7 @@ namespace PuntoDeVentaV2
                 {
                     retomarVentasCanceladas = 1;
 
-                    if (retomarVentasCanceladas == 1 && opcion == "VC")
+                    if (retomarVentasCanceladas == 1 && (opcion == "VC" || opcion == "RC"))
                     {
                         if (Application.OpenForms.OfType<Ventas>().Count() == 1)
                         {
@@ -3219,7 +3219,7 @@ namespace PuntoDeVentaV2
                         obtenerIdVenta = idVenta; // numeroDeFolio
                         btnNuevaVenta.PerformClick();
                     }
-                    else if (retomarVentasCanceladas == 1 && opcion == "VG")
+                    else if (retomarVentasCanceladas == 1 && (opcion == "VG" || opcion == "RG"))
                     {
                         MessageBox.Show("Para retomar la venta debe ir a la ventana \"Nueva Venta (F5)\" \nen el botón \"Ventas Guardadas (ctrol + M)\"", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
