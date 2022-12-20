@@ -5281,6 +5281,7 @@ namespace PuntoDeVentaV2
                         int incremento = -1;
                         var penultimaFila = DGVListadoVentas.Rows.Count - 2;
                         var ultimaFila = DGVListadoVentas.Rows.Count - 1;
+                        idVentas.Clear();
                         foreach (DataGridViewRow desmarcarDGV in DGVListadoVentas.Rows)
                         {
                             try

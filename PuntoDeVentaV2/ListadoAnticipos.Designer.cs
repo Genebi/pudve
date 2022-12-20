@@ -45,9 +45,10 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(134, 24);
+            this.tituloSeccion.Location = new System.Drawing.Point(201, 37);
+            this.tituloSeccion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(263, 25);
+            this.tituloSeccion.Size = new System.Drawing.Size(398, 38);
             this.tituloSeccion.TabIndex = 6;
             this.tituloSeccion.Text = "ANTICIPOS POR APLICAR";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -64,11 +65,13 @@
             this.Cliente,
             this.Fecha,
             this.Aplicar});
-            this.DGVListaAnticipos.Location = new System.Drawing.Point(12, 82);
+            this.DGVListaAnticipos.Location = new System.Drawing.Point(18, 126);
+            this.DGVListaAnticipos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.DGVListaAnticipos.Name = "DGVListaAnticipos";
             this.DGVListaAnticipos.ReadOnly = true;
             this.DGVListaAnticipos.RowHeadersVisible = false;
-            this.DGVListaAnticipos.Size = new System.Drawing.Size(510, 220);
+            this.DGVListaAnticipos.RowHeadersWidth = 62;
+            this.DGVListaAnticipos.Size = new System.Drawing.Size(765, 338);
             this.DGVListaAnticipos.TabIndex = 7;
             this.DGVListaAnticipos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListaAnticipos_CellClick);
             this.DGVListaAnticipos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVListaAnticipos_CellMouseEnter);
@@ -77,6 +80,7 @@
             // ID
             // 
             this.ID.HeaderText = "ID";
+            this.ID.MinimumWidth = 8;
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
             this.ID.Visible = false;
@@ -86,12 +90,14 @@
             // 
             this.Concepto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Concepto.HeaderText = "Concepto";
+            this.Concepto.MinimumWidth = 8;
             this.Concepto.Name = "Concepto";
             this.Concepto.ReadOnly = true;
             // 
             // Importe
             // 
             this.Importe.HeaderText = "Importe";
+            this.Importe.MinimumWidth = 8;
             this.Importe.Name = "Importe";
             this.Importe.ReadOnly = true;
             this.Importe.Width = 50;
@@ -99,6 +105,7 @@
             // Cliente
             // 
             this.Cliente.HeaderText = "Cliente";
+            this.Cliente.MinimumWidth = 8;
             this.Cliente.Name = "Cliente";
             this.Cliente.ReadOnly = true;
             this.Cliente.Width = 105;
@@ -106,6 +113,7 @@
             // Fecha
             // 
             this.Fecha.HeaderText = "Fecha";
+            this.Fecha.MinimumWidth = 8;
             this.Fecha.Name = "Fecha";
             this.Fecha.ReadOnly = true;
             this.Fecha.Width = 110;
@@ -113,6 +121,7 @@
             // Aplicar
             // 
             this.Aplicar.HeaderText = "";
+            this.Aplicar.MinimumWidth = 8;
             this.Aplicar.Name = "Aplicar";
             this.Aplicar.ReadOnly = true;
             this.Aplicar.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -120,21 +129,24 @@
             // 
             // txtbusqueda
             // 
-            this.txtbusqueda.Location = new System.Drawing.Point(136, 56);
+            this.txtbusqueda.Location = new System.Drawing.Point(204, 86);
+            this.txtbusqueda.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtbusqueda.Name = "txtbusqueda";
-            this.txtbusqueda.Size = new System.Drawing.Size(258, 20);
+            this.txtbusqueda.Size = new System.Drawing.Size(385, 26);
             this.txtbusqueda.TabIndex = 8;
             this.txtbusqueda.TextChanged += new System.EventHandler(this.txtbusqueda_TextChanged);
+            this.txtbusqueda.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtbusqueda_KeyDown);
             // 
             // ListadoAnticipos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 314);
+            this.ClientSize = new System.Drawing.Size(801, 483);
             this.Controls.Add(this.txtbusqueda);
             this.Controls.Add(this.DGVListaAnticipos);
             this.Controls.Add(this.tituloSeccion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.Name = "ListadoAnticipos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

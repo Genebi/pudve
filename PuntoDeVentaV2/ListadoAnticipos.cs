@@ -222,5 +222,13 @@ namespace PuntoDeVentaV2
             txtbusqueda.Focus();
             
         }
+
+        private void txtbusqueda_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

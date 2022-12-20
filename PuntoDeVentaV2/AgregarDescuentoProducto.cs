@@ -243,7 +243,16 @@ namespace PuntoDeVentaV2
                                     }
                                     else
                                     {
-                                        op2 = Convert.ToDecimal(tb);
+                                        try
+                                        {
+                                            op2 = Convert.ToDecimal(tb);
+                                        }
+                                        catch (Exception)
+                                        {
+                                            MessageBox.Show("Solamente se pueden tomar entradas decimales.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                            return;
+                                        }
+                                        
                                     }
                                 }
                                 if (!op2.Equals(0))

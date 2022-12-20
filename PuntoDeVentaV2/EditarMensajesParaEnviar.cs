@@ -86,26 +86,28 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-
-                if (Productos.copiarMensajesProd.Equals(1))
+                if (Productos.SeAbrioCopia.Equals(true))
                 {
-                    mensaje = Productos.copMensajeVent[0];
-                    cantidadDeCompra = Productos.copMensajeVent[2];
-                    if (Productos.copMensajeVent[1].ToString().Equals("True"))
+                    if (Productos.copiarMensajesProd.Equals(1))
                     {
-                        activoInactivo = true;
+                        mensaje = Productos.copMensajeVent[0];
+                        cantidadDeCompra = Productos.copMensajeVent[2];
+                        if (Productos.copMensajeVent[1].ToString().Equals("True"))
+                        {
+                            activoInactivo = true;
+                        }
+                        else
+                        {
+                            activoInactivo = false;
+                        }
+
                     }
                     else
                     {
-                        activoInactivo = false;
+                        mensaje = "";
                     }
+                }
 
-                }
-                else
-                {
-                    mensaje = "";
-                }
-               
 
                 this.Height = 281;
 
@@ -247,24 +249,26 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-                
-                if (Productos.copiarMensajesProd.Equals(1))
+                if (Productos.SeAbrioCopia.Equals(true))
                 {
-                    mensaje = Productos.copMensajeInv[0];
-                    if (Productos.copMensajeInv[1].ToString().Equals("1"))
+                    if (Productos.copiarMensajesProd.Equals(1))
                     {
-                        activoInactivo = true;
+                        mensaje = Productos.copMensajeInv[0];
+                        if (Productos.copMensajeInv[1].ToString().Equals("1"))
+                        {
+                            activoInactivo = true;
+                        }
+                        else
+                        {
+                            activoInactivo = false;
+                        }
                     }
                     else
                     {
-                        activoInactivo = false;
+                        mensaje = "";
                     }
-
                 }
-                else
-                {
-                    mensaje = "";
-                }
+                   
 
 
                 this.Height = 251;

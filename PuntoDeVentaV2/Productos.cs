@@ -2976,6 +2976,7 @@ namespace PuntoDeVentaV2
                 //CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
                 //headerBox.Checked = false;
                 ponerTrue = false;
+                contador = 0;
             }
             //checkPaginasCompletas.Clear();
             contarProductosSeleccionados.Clear();
