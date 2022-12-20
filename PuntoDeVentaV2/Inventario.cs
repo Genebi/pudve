@@ -13,12 +13,15 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Http;
+using System.Net;
 
 namespace PuntoDeVentaV2
 {
     public partial class Inventario : Form
     {
         Conexion cn = new Conexion();
+        ConexionAPPWEB cn2 = new ConexionAPPWEB();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
 
@@ -46,6 +49,8 @@ namespace PuntoDeVentaV2
         static public List<string> productosAumentoDecremento = new List<string>();
 
         public int GetNumRevActive { get; set; }
+
+        private static readonly HttpClient client = new HttpClient();
 
         // Permisos de los botones
         int opcion1 = 1; // Boton revisar inventario
@@ -1284,52 +1289,6 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
-                //if (Utilidades.AdobeReaderInstalado())
-                //{
-                //    var servidor = Properties.Settings.Default.Hosting;
-                //    var rutaArchivo = string.Empty;
-
-                //    if (!string.IsNullOrWhiteSpace(servidor))
-                //    {
-                //        rutaArchivo = $@"\\{servidor}\Archivos PUDVE\Reportes\Historial\";
-                //        if (Directory.Exists(rutaArchivo))
-                //        {
-                //            //GenerarReporte(idReporte);
-                //            if (rbAumentarProducto.Checked)
-                //            {
-                //                var NewNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
-                //                cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev + 1));
-                //                cn.EjecutarConsulta(cs.UpdateStatusActualizacionAumentarInventario());
-                //            }
-                //            else if (rbDisminuirProducto.Checked)
-                //            {
-                //                var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
-                //                cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
-                //                cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
-                //            }
-
-                //            if (productosAumentoDecremento.Count > 0)
-                //            {
-                //                var titulo = rbAumentarProducto.Checked == true ? "AUMENTADO" : "DISMINUIDO";
-
-                //                Thread notificacion = new Thread(
-                //                    () => Utilidades.CambioStockAumentoDecremento(productosAumentoDecremento, titulo)
-                //                );
-
-                //                notificacion.Start();
-                //            }
-
-                //        }
-                //        else if (!Directory.Exists(rutaArchivo))
-                //        {
-                //            MessageBox.Show("Verificar si las carpetas en la MAQUINA SERVIDOR\nestan compartidas para almacenar los archivos", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //            return;
-                //        }
-                //    }
-
-                //    if (string.IsNullOrWhiteSpace(servidor))
-                //    {
-                //GenerarReporte(idReporte);
                 if (rbAumentarProducto.Checked)
                 {
                     var NewNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
@@ -1338,6 +1297,27 @@ namespace PuntoDeVentaV2
                 }
                 else if (rbDisminuirProducto.Checked)
                 {
+                    //Lista con las ids
+                    
+
+                    if (validarsiClave())
+                    {
+                        DataTable dt = new DataTable();
+                        var clave = generadorClaves();
+                        string momentoMoment = DateTime.Now.ToString("yyyy-MM-dd");
+
+
+                        cn2.EjecutarConsulta(cs.insertarRegistroTraspaso(clave,cn.CargarDatos(cs.BuscarUsuario(FormPrincipal.userID)).Rows[0]["usuario"].ToString(), momentoMoment));
+                        foreach (DataGridViewRow item in DGVInventario.Rows)
+                        {
+                                dt = cn.CargarDatos(cs.BuscarProductoPorCodigoDeBarrasFull(item.Cells[7].Value.ToString()));
+                            
+                                cn2.EjecutarConsulta(cs.insertarDatosTraspaso(clave, dt.Rows[0]["Nombre"].ToString(), item.Cells[7].Value.ToString(), item.Cells[3].Value.ToString()));
+
+                            
+                        }
+                        MessageBox.Show($"Tu clave de traspaso es: {clave}");
+                    }
                     var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
                     cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
                     cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
@@ -1371,6 +1351,62 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("No existen ajustes realizados.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private string generadorClaves()
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var stringChars = new char[8];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalString = new String(stringChars);
+            return finalString;
+        }
+
+        //private void llamarServicioWeb(DataTable dt)
+        //{
+        //    string URL = "http://www.sifo.com.mx/webapppudve/srvcTraspaso.php";
+        //    WebClient webClient = new WebClient();
+
+        //    NameValueCollection formData = new NameValueCollection();
+        //    formData["Clave"] = "testuser";
+        //    formData["IDUsuario"] = FormPrincipal.userID.ToString();
+        //    formData["IDEmpleado"] = FormPrincipal.id_empleado.ToString();
+        //    formData["Fecha"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        //    ;
+
+        //    byte[] responseBytes = webClient.UploadValues(URL, "POST", formData);
+        //    webClient.Dispose();
+        //}
+
+        //private void llamarServicioWeb(string clave)
+        //{
+        //    //string URL = "https://sifo.com.mx/WebAppPudve/php/srvcTraspaso.php";
+        //    //WebClient webClient = new WebClient();
+
+        //    ////NameValueCollection formData = new NameValueCollection();
+        //    ////formData["Clave"] = clave;
+        //    ////formData["IDUsuario"] = FormPrincipal.userID.ToString();
+        //    ////formData["IDEmpleado"] = FormPrincipal.id_empleado.ToString();
+        //    ////formData["Fecha"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+        //    //NameValueCollection formData = new NameValueCollection();
+        //    //formData["Clave"] = "12345678";
+        //    //formData["IDUsuario"] = "10";
+        //    //formData["IDEmpleado"] = "11";
+        //    //formData["Fecha"] = "2022-12-19 02:11:00";
+
+        //    //byte[] responseBytes = webClient.UploadValues(URL, "POST", formData);
+
+        //    //webClient.Dispose();
+
+        //    string data = Web.GetPost(""):
+
+        //}
 
         private void DatosSeleccionadoos()
         {
@@ -3869,6 +3905,7 @@ namespace PuntoDeVentaV2
 
         private void rbAumentarProducto_CheckedChanged(object sender, EventArgs e)
         {
+            validarsiClave();
             var num = NoRevAumentarInventario();
             DGVInventario.Rows.Clear();
             populateAumentarDGVInventario();
@@ -3877,6 +3914,7 @@ namespace PuntoDeVentaV2
 
         private void rbDisminuirProducto_CheckedChanged(object sender, EventArgs e)
         {
+            validarsiClave();
             var num = NoRevDisminuirInventario();
             DGVInventario.Rows.Clear();
             populateDisminuirDGVInventario();
@@ -3995,6 +4033,33 @@ namespace PuntoDeVentaV2
         private void DGVInventario_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void Traspaso_CheckedChanged(object sender, EventArgs e)
+        {
+            validarsiClave();
+        }
+
+        private bool validarsiClave()
+        {
+            if (Traspaso.Checked)
+            {
+                if (rbAumentarProducto.Checked)
+                {
+                    txtClaveTraspaso.Enabled = true;
+                }
+                else
+                {
+                    txtClaveTraspaso.Enabled = false;
+                }
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
     }
 }

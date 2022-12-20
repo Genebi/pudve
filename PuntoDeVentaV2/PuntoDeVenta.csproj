@@ -614,6 +614,7 @@
       <DependentUpon>ConceptosInhabilitados.cs</DependentUpon>
     </Compile>
     <Compile Include="Conexion.cs" />
+    <Compile Include="ConexionAPPWEB.cs" />
     <Compile Include="ConexionDataDictionary.cs" />
     <Compile Include="ConexionNet.cs" />
     <Compile Include="ConfiguracionGeneral.cs">

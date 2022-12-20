@@ -55,6 +55,9 @@
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comentarios = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IDTabla = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtClaveTraspaso = new System.Windows.Forms.TextBox();
+            this.Traspaso = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelBotones.SuspendLayout();
             this.gBSeleccionActualizarInventario.SuspendLayout();
             this.panelContenedor.SuspendLayout();
@@ -66,9 +69,10 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(388, 18);
+            this.tituloSeccion.Location = new System.Drawing.Point(573, 28);
+            this.tituloSeccion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(148, 25);
+            this.tituloSeccion.Size = new System.Drawing.Size(223, 37);
             this.tituloSeccion.TabIndex = 6;
             this.tituloSeccion.Text = "INVENTARIO";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -84,9 +88,10 @@
             this.btnRevisar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRevisar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRevisar.ForeColor = System.Drawing.Color.White;
-            this.btnRevisar.Location = new System.Drawing.Point(3, 7);
+            this.btnRevisar.Location = new System.Drawing.Point(-5, 11);
+            this.btnRevisar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnRevisar.Name = "btnRevisar";
-            this.btnRevisar.Size = new System.Drawing.Size(230, 30);
+            this.btnRevisar.Size = new System.Drawing.Size(345, 46);
             this.btnRevisar.TabIndex = 101;
             this.btnRevisar.Text = "Revisar Inventario";
             this.btnRevisar.UseVisualStyleBackColor = false;
@@ -104,9 +109,10 @@
             this.btnActualizarXML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizarXML.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizarXML.ForeColor = System.Drawing.Color.White;
-            this.btnActualizarXML.Location = new System.Drawing.Point(612, 7);
+            this.btnActualizarXML.Location = new System.Drawing.Point(909, 11);
+            this.btnActualizarXML.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnActualizarXML.Name = "btnActualizarXML";
-            this.btnActualizarXML.Size = new System.Drawing.Size(230, 30);
+            this.btnActualizarXML.Size = new System.Drawing.Size(345, 46);
             this.btnActualizarXML.TabIndex = 102;
             this.btnActualizarXML.Text = "Actualizar Inventario XML";
             this.btnActualizarXML.UseVisualStyleBackColor = false;
@@ -124,9 +130,10 @@
             this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizar.ForeColor = System.Drawing.Color.White;
-            this.btnActualizar.Location = new System.Drawing.Point(314, 7);
+            this.btnActualizar.Location = new System.Drawing.Point(462, 11);
+            this.btnActualizar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(230, 30);
+            this.btnActualizar.Size = new System.Drawing.Size(345, 46);
             this.btnActualizar.TabIndex = 103;
             this.btnActualizar.Text = "Actualizar Inventario";
             this.btnActualizar.UseVisualStyleBackColor = false;
@@ -142,9 +149,10 @@
             this.panelBotones.Controls.Add(this.btnRevisar);
             this.panelBotones.Controls.Add(this.btnActualizarXML);
             this.panelBotones.Controls.Add(this.btnActualizar);
-            this.panelBotones.Location = new System.Drawing.Point(12, 67);
+            this.panelBotones.Location = new System.Drawing.Point(18, 103);
+            this.panelBotones.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(845, 83);
+            this.panelBotones.Size = new System.Drawing.Size(1251, 150);
             this.panelBotones.TabIndex = 104;
             // 
             // btnConceptosReporte
@@ -156,9 +164,10 @@
             this.btnConceptosReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConceptosReporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConceptosReporte.ForeColor = System.Drawing.Color.White;
-            this.btnConceptosReporte.Location = new System.Drawing.Point(83, 43);
+            this.btnConceptosReporte.Location = new System.Drawing.Point(115, 66);
+            this.btnConceptosReporte.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnConceptosReporte.Name = "btnConceptosReporte";
-            this.btnConceptosReporte.Size = new System.Drawing.Size(227, 31);
+            this.btnConceptosReporte.Size = new System.Drawing.Size(340, 48);
             this.btnConceptosReporte.TabIndex = 105;
             this.btnConceptosReporte.Text = "Conceptos del Reporte";
             this.btnConceptosReporte.UseVisualStyleBackColor = false;
@@ -168,11 +177,16 @@
             // gBSeleccionActualizarInventario
             // 
             this.gBSeleccionActualizarInventario.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.gBSeleccionActualizarInventario.Controls.Add(this.label1);
+            this.gBSeleccionActualizarInventario.Controls.Add(this.Traspaso);
+            this.gBSeleccionActualizarInventario.Controls.Add(this.txtClaveTraspaso);
             this.gBSeleccionActualizarInventario.Controls.Add(this.rbDisminuirProducto);
             this.gBSeleccionActualizarInventario.Controls.Add(this.rbAumentarProducto);
-            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(316, 38);
+            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(465, 58);
+            this.gBSeleccionActualizarInventario.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gBSeleccionActualizarInventario.Name = "gBSeleccionActualizarInventario";
-            this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(227, 36);
+            this.gBSeleccionActualizarInventario.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(340, 82);
             this.gBSeleccionActualizarInventario.TabIndex = 104;
             this.gBSeleccionActualizarInventario.TabStop = false;
             this.gBSeleccionActualizarInventario.Visible = false;
@@ -180,9 +194,10 @@
             // rbDisminuirProducto
             // 
             this.rbDisminuirProducto.AutoSize = true;
-            this.rbDisminuirProducto.Location = new System.Drawing.Point(135, 12);
+            this.rbDisminuirProducto.Location = new System.Drawing.Point(202, 14);
+            this.rbDisminuirProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbDisminuirProducto.Name = "rbDisminuirProducto";
-            this.rbDisminuirProducto.Size = new System.Drawing.Size(67, 17);
+            this.rbDisminuirProducto.Size = new System.Drawing.Size(99, 24);
             this.rbDisminuirProducto.TabIndex = 1;
             this.rbDisminuirProducto.TabStop = true;
             this.rbDisminuirProducto.Text = "Disminuir";
@@ -193,9 +208,10 @@
             // 
             this.rbAumentarProducto.AutoSize = true;
             this.rbAumentarProducto.Checked = true;
-            this.rbAumentarProducto.Location = new System.Drawing.Point(27, 12);
+            this.rbAumentarProducto.Location = new System.Drawing.Point(38, 18);
+            this.rbAumentarProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbAumentarProducto.Name = "rbAumentarProducto";
-            this.rbAumentarProducto.Size = new System.Drawing.Size(70, 17);
+            this.rbAumentarProducto.Size = new System.Drawing.Size(104, 24);
             this.rbAumentarProducto.TabIndex = 0;
             this.rbAumentarProducto.TabStop = true;
             this.rbAumentarProducto.Text = "Aumentar";
@@ -214,9 +230,10 @@
             this.panelContenedor.Controls.Add(this.txtBusqueda);
             this.panelContenedor.Controls.Add(this.DGVInventario);
             this.panelContenedor.Cursor = System.Windows.Forms.Cursors.Default;
-            this.panelContenedor.Location = new System.Drawing.Point(12, 154);
+            this.panelContenedor.Location = new System.Drawing.Point(18, 253);
+            this.panelContenedor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(845, 395);
+            this.panelContenedor.Size = new System.Drawing.Size(1251, 434);
             this.panelContenedor.TabIndex = 105;
             this.panelContenedor.Visible = false;
             // 
@@ -229,9 +246,10 @@
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
-            this.btnBuscar.Location = new System.Drawing.Point(612, 26);
+            this.btnBuscar.Location = new System.Drawing.Point(901, 40);
+            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(105, 23);
+            this.btnBuscar.Size = new System.Drawing.Size(158, 35);
             this.btnBuscar.TabIndex = 105;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
@@ -249,9 +267,10 @@
             this.bntTerminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntTerminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bntTerminar.ForeColor = System.Drawing.Color.White;
-            this.bntTerminar.Location = new System.Drawing.Point(695, 360);
+            this.bntTerminar.Location = new System.Drawing.Point(1025, 380);
+            this.bntTerminar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.bntTerminar.Name = "bntTerminar";
-            this.bntTerminar.Size = new System.Drawing.Size(150, 30);
+            this.bntTerminar.Size = new System.Drawing.Size(225, 46);
             this.bntTerminar.TabIndex = 104;
             this.bntTerminar.Text = "Terminar";
             this.bntTerminar.UseVisualStyleBackColor = false;
@@ -264,10 +283,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listaProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listaProductos.FormattingEnabled = true;
-            this.listaProductos.ItemHeight = 16;
-            this.listaProductos.Location = new System.Drawing.Point(3, 49);
+            this.listaProductos.ItemHeight = 25;
+            this.listaProductos.Location = new System.Drawing.Point(4, 75);
+            this.listaProductos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.listaProductos.Name = "listaProductos";
-            this.listaProductos.Size = new System.Drawing.Size(595, 132);
+            this.listaProductos.Size = new System.Drawing.Size(873, 179);
             this.listaProductos.TabIndex = 12;
             this.listaProductos.Visible = false;
             this.listaProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listaProductos_KeyDown);
@@ -277,9 +297,10 @@
             // 
             this.tituloBusqueda.AutoSize = true;
             this.tituloBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloBusqueda.Location = new System.Drawing.Point(-4, 3);
+            this.tituloBusqueda.Location = new System.Drawing.Point(-6, 5);
+            this.tituloBusqueda.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.tituloBusqueda.Name = "tituloBusqueda";
-            this.tituloBusqueda.Size = new System.Drawing.Size(232, 18);
+            this.tituloBusqueda.Size = new System.Drawing.Size(376, 29);
             this.tituloBusqueda.TabIndex = 10;
             this.tituloBusqueda.Text = "Búsqueda avanzada de productos";
             this.tituloBusqueda.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -290,9 +311,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBusqueda.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBusqueda.Location = new System.Drawing.Point(0, 26);
+            this.txtBusqueda.Location = new System.Drawing.Point(0, 40);
+            this.txtBusqueda.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtBusqueda.Name = "txtBusqueda";
-            this.txtBusqueda.Size = new System.Drawing.Size(595, 22);
+            this.txtBusqueda.Size = new System.Drawing.Size(873, 30);
             this.txtBusqueda.TabIndex = 11;
             this.txtBusqueda.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBusqueda.TextChanged += new System.EventHandler(this.txtBusqueda_TextChanged);
@@ -319,31 +341,37 @@
             this.Fecha,
             this.Comentarios,
             this.IDTabla});
-            this.DGVInventario.Location = new System.Drawing.Point(0, 65);
+            this.DGVInventario.Location = new System.Drawing.Point(0, 100);
+            this.DGVInventario.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.DGVInventario.Name = "DGVInventario";
             this.DGVInventario.ReadOnly = true;
             this.DGVInventario.RowHeadersVisible = false;
-            this.DGVInventario.Size = new System.Drawing.Size(845, 289);
+            this.DGVInventario.RowHeadersWidth = 62;
+            this.DGVInventario.Size = new System.Drawing.Size(1251, 271);
             this.DGVInventario.TabIndex = 9;
             this.DGVInventario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVInventario_CellContentClick);
             // 
             // ID
             // 
             this.ID.HeaderText = "ID";
+            this.ID.MinimumWidth = 8;
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
             this.ID.Visible = false;
+            this.ID.Width = 150;
             // 
             // Nombre
             // 
             this.Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Nombre.HeaderText = "Nombre";
+            this.Nombre.MinimumWidth = 8;
             this.Nombre.Name = "Nombre";
             this.Nombre.ReadOnly = true;
             // 
             // Stock
             // 
             this.Stock.HeaderText = "Stock Anterior";
+            this.Stock.MinimumWidth = 8;
             this.Stock.Name = "Stock";
             this.Stock.ReadOnly = true;
             this.Stock.Width = 70;
@@ -351,6 +379,7 @@
             // DiferenciaUnidades
             // 
             this.DiferenciaUnidades.HeaderText = "Diferencia de Unidades";
+            this.DiferenciaUnidades.MinimumWidth = 8;
             this.DiferenciaUnidades.Name = "DiferenciaUnidades";
             this.DiferenciaUnidades.ReadOnly = true;
             this.DiferenciaUnidades.Width = 90;
@@ -358,6 +387,7 @@
             // NuevoStock
             // 
             this.NuevoStock.HeaderText = "Stock Actual";
+            this.NuevoStock.MinimumWidth = 8;
             this.NuevoStock.Name = "NuevoStock";
             this.NuevoStock.ReadOnly = true;
             this.NuevoStock.Width = 70;
@@ -365,6 +395,7 @@
             // Precio
             // 
             this.Precio.HeaderText = "Precio";
+            this.Precio.MinimumWidth = 8;
             this.Precio.Name = "Precio";
             this.Precio.ReadOnly = true;
             this.Precio.Width = 70;
@@ -372,12 +403,15 @@
             // Clave
             // 
             this.Clave.HeaderText = "Clave";
+            this.Clave.MinimumWidth = 8;
             this.Clave.Name = "Clave";
             this.Clave.ReadOnly = true;
+            this.Clave.Width = 150;
             // 
             // Codigo
             // 
             this.Codigo.HeaderText = "Código";
+            this.Codigo.MinimumWidth = 8;
             this.Codigo.Name = "Codigo";
             this.Codigo.ReadOnly = true;
             this.Codigo.Width = 95;
@@ -385,6 +419,7 @@
             // Fecha
             // 
             this.Fecha.HeaderText = "Fecha";
+            this.Fecha.MinimumWidth = 8;
             this.Fecha.Name = "Fecha";
             this.Fecha.ReadOnly = true;
             this.Fecha.Width = 95;
@@ -392,26 +427,59 @@
             // Comentarios
             // 
             this.Comentarios.HeaderText = "Comentarios";
+            this.Comentarios.MinimumWidth = 8;
             this.Comentarios.Name = "Comentarios";
             this.Comentarios.ReadOnly = true;
             this.Comentarios.Visible = false;
+            this.Comentarios.Width = 150;
             // 
             // IDTabla
             // 
             this.IDTabla.HeaderText = "IDTabla";
+            this.IDTabla.MinimumWidth = 8;
             this.IDTabla.Name = "IDTabla";
             this.IDTabla.ReadOnly = true;
             this.IDTabla.Visible = false;
+            this.IDTabla.Width = 150;
+            // 
+            // txtClaveTraspaso
+            // 
+            this.txtClaveTraspaso.Enabled = false;
+            this.txtClaveTraspaso.Location = new System.Drawing.Point(202, 48);
+            this.txtClaveTraspaso.Name = "txtClaveTraspaso";
+            this.txtClaveTraspaso.Size = new System.Drawing.Size(115, 26);
+            this.txtClaveTraspaso.TabIndex = 2;
+            // 
+            // Traspaso
+            // 
+            this.Traspaso.AutoSize = true;
+            this.Traspaso.Location = new System.Drawing.Point(22, 50);
+            this.Traspaso.Name = "Traspaso";
+            this.Traspaso.Size = new System.Drawing.Size(101, 24);
+            this.Traspaso.TabIndex = 3;
+            this.Traspaso.Text = "Traspaso";
+            this.Traspaso.UseVisualStyleBackColor = true;
+            this.Traspaso.CheckedChanged += new System.EventHandler(this.Traspaso_CheckedChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(144, 52);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 20);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Clave:";
             // 
             // Inventario
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(869, 561);
+            this.ClientSize = new System.Drawing.Size(1287, 705);
             this.Controls.Add(this.panelContenedor);
             this.Controls.Add(this.panelBotones);
             this.Controls.Add(this.tituloSeccion);
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Inventario";
@@ -458,5 +526,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn Comentarios;
         private System.Windows.Forms.DataGridViewTextBoxColumn IDTabla;
+        private System.Windows.Forms.TextBox txtClaveTraspaso;
+        private System.Windows.Forms.CheckBox Traspaso;
+        private System.Windows.Forms.Label label1;
     }
 }

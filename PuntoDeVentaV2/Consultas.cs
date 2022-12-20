@@ -5063,5 +5063,32 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string insertarRegistroTraspaso(string clave, string usuario, string fecha)
+        {
+            string consulta = "INSERT INTO traspasosmovimiento(Clave,IDUsuario,Fecha)";
+            consulta += $"VALUES('{clave}','{usuario}','{fecha}')";
+            return consulta;
+        }
+
+        public string insertarDatosTraspaso(string clave, string nombre, string codigoBarras, string Cantidad)
+        {
+            string consulta = "INSERT INTO traspasosdatos(ClaveMovimiento,Nombre,CodigoBarras,Cantidad)";
+            consulta += $"VALUES('{clave}','{nombre}','{codigoBarras}',{Cantidad})";
+            return consulta;
+        }
+
+        public string BuscarProductoPorCodigoDeBarrasFull(string codigo)
+        {
+            var consulta = $"SELECT Nombre FROM productos WHERE `Status` = 1 AND CodigoBarras = '{codigo}'";
+
+            return consulta;
+        }
+
+        public string BuscarUsuario(int idusuario)
+        {
+            var consulta = $"SELECT usuario FROM usuarios WHERE ID = {idusuario}";
+            return consulta;
+        }
+
     }
 }   
