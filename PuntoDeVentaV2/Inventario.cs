@@ -30,8 +30,8 @@ namespace PuntoDeVentaV2
         public static bool botonAceptar = false;
         public static bool aceptarFiltro = false;
 
-        public float getSuma { get; set; }
-        public static float suma = 0;
+        public decimal getSuma { get; set; }
+        public static decimal suma = 0;
 
         public float getResta { get; set; }
         public static float resta = 0;

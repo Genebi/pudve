@@ -367,6 +367,7 @@ namespace PuntoDeVentaV2
                             {
                                 PrecioCompra = "0";
                             }
+
                             var operacion = Convert.ToDecimal(unidadesCompradas) * Convert.ToDecimal(PrecioCompra);
                             TotalComprado = operacion.ToString();
                             datoscompletos += TotalComprado + ",";
