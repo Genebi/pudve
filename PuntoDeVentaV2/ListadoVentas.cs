@@ -263,6 +263,17 @@ namespace PuntoDeVentaV2
             //cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo ) VALUES('retiro', '0.00', '0.00', '', '{fechaCreacion}', '{FormPrincipal.userID}', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00' )");
 
             txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+
+            var configuracion = mb.ComprobarConfiguracion();
+
+            if (configuracion.Count > 0)
+            {
+                // Realiza rentas
+                if (configuracion[29].Equals(1))
+                {
+                    rbRentas.Checked = true;
+                }
+            }
         }
 
         private void verificarSiExisteCorteDeCaja()
@@ -3356,12 +3367,16 @@ namespace PuntoDeVentaV2
                     // Realiza rentas
                     if (configuracion[29].Equals(1))
                     {
+                        rbVentas.Checked = false;
                         rbRentas.Enabled = true;
+                        rbRentas.Checked = true;
                     }
 
                     if (configuracion[29].Equals(0))
                     {
                         rbRentas.Enabled = false;
+                        rbRentas.Checked = false;
+                        rbVentas.Checked = true;
                     }
                 }
             }
@@ -5337,8 +5352,10 @@ namespace PuntoDeVentaV2
                 tituloSeccion.Text = "VENTAS";
                 cbTipoRentas.Visible = false;
                 cbTipoVentas.Visible = true;
+                cbTipoVentas.SelectedIndex = 0;
+
+                CargarDatos();
             }
-            
         }
 
         private void rbRentas_CheckedChanged(object sender, EventArgs e)
