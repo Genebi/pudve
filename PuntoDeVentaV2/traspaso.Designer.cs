@@ -32,8 +32,6 @@ namespace PuntoDeVentaV2
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(traspaso));
             this.label1 = new System.Windows.Forms.Label();
             this.DGVTraspaso = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.NombreT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CodigoT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CantidadT = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,7 +39,9 @@ namespace PuntoDeVentaV2
             this.CodigoL = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ajuste = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ajuste = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVTraspaso)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,6 +59,8 @@ namespace PuntoDeVentaV2
             // 
             this.DGVTraspaso.AllowUserToAddRows = false;
             this.DGVTraspaso.AllowUserToDeleteRows = false;
+            this.DGVTraspaso.AllowUserToResizeColumns = false;
+            this.DGVTraspaso.AllowUserToResizeRows = false;
             this.DGVTraspaso.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.DGVTraspaso.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVTraspaso.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -73,35 +75,11 @@ namespace PuntoDeVentaV2
             this.DGVTraspaso.Location = new System.Drawing.Point(12, 128);
             this.DGVTraspaso.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.DGVTraspaso.Name = "DGVTraspaso";
-            this.DGVTraspaso.ReadOnly = true;
             this.DGVTraspaso.RowHeadersVisible = false;
             this.DGVTraspaso.RowHeadersWidth = 62;
             this.DGVTraspaso.Size = new System.Drawing.Size(1105, 399);
             this.DGVTraspaso.TabIndex = 10;
-            // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 91);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(414, 42);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Datos a importar";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            this.label3.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(423, 91);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(694, 42);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Datos locales";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.DGVTraspaso.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVTraspaso_CellValueChanged);
             // 
             // NombreT
             // 
@@ -165,10 +143,39 @@ namespace PuntoDeVentaV2
             // Ajuste
             // 
             this.Ajuste.HeaderText = "Ajuste";
+            this.Ajuste.Items.AddRange(new object[] {
+            "Auto",
+            "Manual",
+            "Omitir"});
+            this.Ajuste.MaxDropDownItems = 3;
             this.Ajuste.MinimumWidth = 8;
             this.Ajuste.Name = "Ajuste";
-            this.Ajuste.ReadOnly = true;
+            this.Ajuste.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Ajuste.Width = 120;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(12, 91);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(414, 42);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Datos de traspaso";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(423, 91);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(694, 42);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Datos locales";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // traspaso
             // 
@@ -185,6 +192,7 @@ namespace PuntoDeVentaV2
             this.Name = "traspaso";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Traspaso";
+            this.Load += new System.EventHandler(this.traspaso_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVTraspaso)).EndInit();
             this.ResumeLayout(false);
 
@@ -203,6 +211,6 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.DataGridViewTextBoxColumn CodigoL;
         private System.Windows.Forms.DataGridViewTextBoxColumn PCompra;
         private System.Windows.Forms.DataGridViewTextBoxColumn PVenta;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Ajuste;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Ajuste;
     }
 }
