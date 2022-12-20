@@ -5090,5 +5090,19 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string buscarSiHayCodigoTraspaso(string usuario, string clave)
+        {
+            var consulta = $"SELECT * FROM traspasosmovimiento WHERE `Usado` = 0 AND IDUsuario = '{usuario}' AND Clave = '{clave}'";
+
+            return consulta;
+        }
+
+        public string obtenerDatosTraspaso(string clave)
+        {
+            var consulta = $"SELECT Nombre, CodigoBarras AS 'Codigo', Cantidad FROM traspasosdatos WHERE ClaveMovimiento = '{clave}'";
+
+            return consulta;
+        }
+
     }
 }   

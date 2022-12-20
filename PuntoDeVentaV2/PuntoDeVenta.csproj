@@ -1551,6 +1551,12 @@
     <Compile Include="TipoReportesInventario.Designer.cs">
       <DependentUpon>TipoReportesInventario.cs</DependentUpon>
     </Compile>
+    <Compile Include="traspaso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="traspaso.Designer.cs">
+      <DependentUpon>traspaso.cs</DependentUpon>
+    </Compile>
     <Compile Include="UsuariosGuardados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2322,6 +2328,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TipoReportesInventario.resx">
       <DependentUpon>TipoReportesInventario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="traspaso.resx">
+      <DependentUpon>traspaso.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UsuariosGuardados.resx">
       <DependentUpon>UsuariosGuardados.cs</DependentUpon>

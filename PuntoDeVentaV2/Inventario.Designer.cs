@@ -35,6 +35,9 @@
             this.panelBotones = new System.Windows.Forms.Panel();
             this.btnConceptosReporte = new System.Windows.Forms.Button();
             this.gBSeleccionActualizarInventario = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.Traspaso = new System.Windows.Forms.CheckBox();
+            this.txtClaveTraspaso = new System.Windows.Forms.TextBox();
             this.rbDisminuirProducto = new System.Windows.Forms.RadioButton();
             this.rbAumentarProducto = new System.Windows.Forms.RadioButton();
             this.panelContenedor = new System.Windows.Forms.Panel();
@@ -55,9 +58,6 @@
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comentarios = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IDTabla = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtClaveTraspaso = new System.Windows.Forms.TextBox();
-            this.Traspaso = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.panelBotones.SuspendLayout();
             this.gBSeleccionActualizarInventario.SuspendLayout();
             this.panelContenedor.SuspendLayout();
@@ -190,6 +190,35 @@
             this.gBSeleccionActualizarInventario.TabIndex = 104;
             this.gBSeleccionActualizarInventario.TabStop = false;
             this.gBSeleccionActualizarInventario.Visible = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(144, 52);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 20);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Clave:";
+            // 
+            // Traspaso
+            // 
+            this.Traspaso.AutoSize = true;
+            this.Traspaso.Location = new System.Drawing.Point(22, 50);
+            this.Traspaso.Name = "Traspaso";
+            this.Traspaso.Size = new System.Drawing.Size(101, 24);
+            this.Traspaso.TabIndex = 3;
+            this.Traspaso.Text = "Traspaso";
+            this.Traspaso.UseVisualStyleBackColor = true;
+            this.Traspaso.CheckedChanged += new System.EventHandler(this.Traspaso_CheckedChanged);
+            // 
+            // txtClaveTraspaso
+            // 
+            this.txtClaveTraspaso.Enabled = false;
+            this.txtClaveTraspaso.Location = new System.Drawing.Point(202, 48);
+            this.txtClaveTraspaso.Name = "txtClaveTraspaso";
+            this.txtClaveTraspaso.Size = new System.Drawing.Size(115, 26);
+            this.txtClaveTraspaso.TabIndex = 2;
+            this.txtClaveTraspaso.TextChanged += new System.EventHandler(this.txtClaveTraspaso_TextChanged);
             // 
             // rbDisminuirProducto
             // 
@@ -441,34 +470,6 @@
             this.IDTabla.ReadOnly = true;
             this.IDTabla.Visible = false;
             this.IDTabla.Width = 150;
-            // 
-            // txtClaveTraspaso
-            // 
-            this.txtClaveTraspaso.Enabled = false;
-            this.txtClaveTraspaso.Location = new System.Drawing.Point(202, 48);
-            this.txtClaveTraspaso.Name = "txtClaveTraspaso";
-            this.txtClaveTraspaso.Size = new System.Drawing.Size(115, 26);
-            this.txtClaveTraspaso.TabIndex = 2;
-            // 
-            // Traspaso
-            // 
-            this.Traspaso.AutoSize = true;
-            this.Traspaso.Location = new System.Drawing.Point(22, 50);
-            this.Traspaso.Name = "Traspaso";
-            this.Traspaso.Size = new System.Drawing.Size(101, 24);
-            this.Traspaso.TabIndex = 3;
-            this.Traspaso.Text = "Traspaso";
-            this.Traspaso.UseVisualStyleBackColor = true;
-            this.Traspaso.CheckedChanged += new System.EventHandler(this.Traspaso_CheckedChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(144, 52);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 20);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Clave:";
             // 
             // Inventario
             // 

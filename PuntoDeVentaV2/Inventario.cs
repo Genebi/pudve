@@ -4061,5 +4061,29 @@ namespace PuntoDeVentaV2
             }
             
         }
+
+        private void txtClaveTraspaso_TextChanged(object sender, EventArgs e)
+        {
+            if (txtClaveTraspaso.Text.Length > 7)
+            {
+                if (cn2.CargarDatos(cs.buscarSiHayCodigoTraspaso(cn.CargarDatos(cs.BuscarUsuario(FormPrincipal.userID)).Rows[0]["usuario"].ToString(),txtClaveTraspaso.Text.ToString())).Rows.Count.Equals(0))
+                {
+                    MessageBox.Show("La clave no existe o ya fue utilizada");
+                    txtClaveTraspaso.Clear();
+                    return;
+                }
+                MessageBox.Show("La clave es valida, iniciando traspaso");
+                traspaso traspaso = new traspaso(cn2.CargarDatos(cs.obtenerDatosTraspaso(txtClaveTraspaso.Text)));
+
+                traspaso.FormClosed += delegate
+                {
+                    
+                };
+
+                traspaso.ShowDialog();
+
+                txtClaveTraspaso.Clear();
+            }
+        }
     }
 }
