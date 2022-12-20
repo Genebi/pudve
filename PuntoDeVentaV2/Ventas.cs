@@ -362,6 +362,11 @@ namespace PuntoDeVentaV2
                 {
                     checkRenta.Checked = Convert.ToBoolean(configCorreos[29]);
                 }
+
+                if (configCorreos[29].Equals(0))
+                {
+                    checkRenta.Enabled = false;
+                }
             }
 
             enviarStockMinimo = new Dictionary<int, string>();
