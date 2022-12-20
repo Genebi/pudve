@@ -5345,7 +5345,7 @@ namespace PuntoDeVentaV2
         {
             if (rbRentas.Checked)
             {
-                tituloSeccion.Text = "RENTAS";
+                tituloSeccion.Text = "RENTAS (ARRENDAMIENTO)";
                 cbTipoVentas.Visible = false;
                 cbTipoRentas.Visible = true;
                 cbTipoRentas.SelectedIndex = 0;

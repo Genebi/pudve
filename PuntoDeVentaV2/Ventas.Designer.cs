@@ -624,9 +624,9 @@
             this.checkRenta.AutoSize = true;
             this.checkRenta.Location = new System.Drawing.Point(10, 311);
             this.checkRenta.Name = "checkRenta";
-            this.checkRenta.Size = new System.Drawing.Size(80, 17);
+            this.checkRenta.Size = new System.Drawing.Size(184, 17);
             this.checkRenta.TabIndex = 66;
-            this.checkRenta.Text = "ES RENTA";
+            this.checkRenta.Text = "ES RENTA (ARRENDAMIENTO)";
             this.checkRenta.UseVisualStyleBackColor = true;
             // 
             // CBTipo

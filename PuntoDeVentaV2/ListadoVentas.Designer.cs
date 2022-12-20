@@ -103,11 +103,10 @@
             // tituloSeccion
             // 
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(446, 27);
+            this.tituloSeccion.Location = new System.Drawing.Point(260, 27);
             this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(102, 25);
+            this.tituloSeccion.Size = new System.Drawing.Size(478, 25);
             this.tituloSeccion.TabIndex = 4;
             this.tituloSeccion.Text = "VENTAS";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
