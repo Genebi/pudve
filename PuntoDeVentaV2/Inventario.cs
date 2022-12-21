@@ -146,6 +146,12 @@ namespace PuntoDeVentaV2
             //{
             //    btnActualizarXML.Visible = true;
             //}
+            if (cn.CargarDatos($"SELECT Traspasos FROM Configuracion WHERE IDUsuario= {FormPrincipal.userID}").Rows[0]["traspasos"].ToString()=="1")
+            {
+                Traspaso.Checked = true;
+            }
+            
+
         }
 
         private void populateDisminuirDGVInventario()
@@ -4093,13 +4099,14 @@ namespace PuntoDeVentaV2
                         string[] datosSeparados= producto.ToString().Split('%');
                         meterProducto(datosSeparados);
 
+                        
                     }
                     productosTraspaso.Clear();
+                    txtClaveTraspaso.Clear();
                 };
 
                 traspaso.ShowDialog();
 
-                txtClaveTraspaso.Clear();
             }
         }
 
@@ -4229,8 +4236,7 @@ namespace PuntoDeVentaV2
             stockAnterior = getStockAnterior;
             AgregarProductoDGV(producto);
             botonAceptar = false;
-
-
+            cn2.EjecutarConsulta($"UPDATE traspasosmovimiento SET Usado= 1 WHERE Clave = '{txtClaveTraspaso.Text}'");
         }
 
     }

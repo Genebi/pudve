@@ -1976,3 +1976,5 @@ ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS Agregar_Descuento INT DEF
 	-- Agregar Columna de Eliminar Descuento a empleadosPermisos
 ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS Eliminar_Descuento INT DEFAULT 1 ;
 
+ -- Oa
+  ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS Traspaso INTEGER(11) DEFAULT (0);

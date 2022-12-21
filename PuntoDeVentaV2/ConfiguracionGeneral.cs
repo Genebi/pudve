@@ -86,6 +86,7 @@ namespace PuntoDeVentaV2
                 checkCBVenta.Checked = Convert.ToBoolean(datosConfig[4]);
                 check10 = checkCBVenta.Checked;
 
+                chTraspasos.Checked = Convert.ToBoolean(datosConfig[29]);
 
                 pagWeb.Checked = Convert.ToBoolean(datosConfig[5]);
                 check11 = pagWeb.Checked;
@@ -602,6 +603,16 @@ namespace PuntoDeVentaV2
                             txtNoVendidos.Text = string.Empty;
                         }
                         checkNoVendidos.Checked = valorBooleanoDelCheckBox;
+                        #endregion
+                        #region Traspasos constantes
+                        if (item["traspasos"].Equals(1))
+                        {
+                            chTraspasos.Checked = true;
+                        }
+                        else if (item["checkNoVendidos"].Equals(0))
+                        {
+                            chTraspasos.Checked = false;
+                        }
                         #endregion
                     }
                 }
@@ -1587,6 +1598,21 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private void chTraspasos_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (chTraspasos.Checked)
+            {
+                var consulta = $"UPDATE Configuracion SET Traspasos = {1} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
+            else
+            {
+                var consulta = $"UPDATE Configuracion SET Traspasos = {0} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
+            
         }
     }
 }
