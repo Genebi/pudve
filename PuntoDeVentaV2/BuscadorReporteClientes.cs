@@ -1337,5 +1337,13 @@ namespace PuntoDeVentaV2
         {
 
         }
+
+        private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnActualizarMaximoProductos.PerformClick();
+            }
+        }
     }
 }
