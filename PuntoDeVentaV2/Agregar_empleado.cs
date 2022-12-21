@@ -16,7 +16,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
-
+        public static bool SeCancelor = false;
         private int tipo = 0;
         private int empleado = 0;
 
@@ -487,6 +487,12 @@ namespace PuntoDeVentaV2
             {
                 Agregar_empleado_permisos AEP = new Agregar_empleado_permisos(0);
                 AEP.ShowDialog();
+                if (SeCancelor.Equals(true))
+                {
+                    SeCancelor = false;
+                    cmb_bx_permisos.SelectedIndex = 0;
+                    return;
+                }
                 if (IDPlantilla.Equals(0) && !tipo.Equals(1))
                 {
                     cmb_bx_permisos.SelectedIndex = 0;

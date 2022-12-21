@@ -181,7 +181,8 @@ namespace PuntoDeVentaV2
 
         private void btn_cancelar_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            Agregar_empleado.SeCancelor = true;
+            this.Close();
         }
 
         private void btn_aceptar_Click(object sender, EventArgs e)
