@@ -42,6 +42,8 @@ namespace PuntoDeVentaV2
             this.Ajuste = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnAceptar = new System.Windows.Forms.Button();
+            this.bntTerminar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVTraspaso)).BeginInit();
             this.SuspendLayout();
             // 
@@ -50,7 +52,7 @@ namespace PuntoDeVentaV2
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(12, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1123, 41);
+            this.label1.Size = new System.Drawing.Size(1105, 41);
             this.label1.TabIndex = 0;
             this.label1.Text = "Ajuste de productos a base local";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -155,7 +157,7 @@ namespace PuntoDeVentaV2
             // 
             // label2
             // 
-            this.label2.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.label2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(12, 91);
@@ -167,7 +169,7 @@ namespace PuntoDeVentaV2
             // 
             // label3
             // 
-            this.label3.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.label3.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(423, 91);
@@ -177,10 +179,50 @@ namespace PuntoDeVentaV2
             this.label3.Text = "Datos locales";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnAceptar
+            // 
+            this.btnAceptar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAceptar.BackColor = System.Drawing.Color.Green;
+            this.btnAceptar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAceptar.FlatAppearance.BorderSize = 0;
+            this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAceptar.ForeColor = System.Drawing.Color.White;
+            this.btnAceptar.Location = new System.Drawing.Point(892, 545);
+            this.btnAceptar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(225, 46);
+            this.btnAceptar.TabIndex = 107;
+            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.UseVisualStyleBackColor = false;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            // 
+            // bntTerminar
+            // 
+            this.bntTerminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bntTerminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.bntTerminar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bntTerminar.FlatAppearance.BorderSize = 0;
+            this.bntTerminar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.bntTerminar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.bntTerminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bntTerminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bntTerminar.ForeColor = System.Drawing.Color.White;
+            this.bntTerminar.Location = new System.Drawing.Point(13, 545);
+            this.bntTerminar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.bntTerminar.Name = "bntTerminar";
+            this.bntTerminar.Size = new System.Drawing.Size(225, 46);
+            this.bntTerminar.TabIndex = 106;
+            this.bntTerminar.Text = "Cancelar";
+            this.bntTerminar.UseVisualStyleBackColor = false;
+            this.bntTerminar.Click += new System.EventHandler(this.bntTerminar_Click);
+            // 
             // traspaso
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1135, 566);
+            this.ClientSize = new System.Drawing.Size(1135, 605);
+            this.Controls.Add(this.btnAceptar);
+            this.Controls.Add(this.bntTerminar);
             this.Controls.Add(this.DGVTraspaso);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
@@ -212,5 +254,7 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.DataGridViewTextBoxColumn PCompra;
         private System.Windows.Forms.DataGridViewTextBoxColumn PVenta;
         private System.Windows.Forms.DataGridViewComboBoxColumn Ajuste;
+        private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Button bntTerminar;
     }
 }

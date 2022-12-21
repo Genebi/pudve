@@ -24,6 +24,8 @@ namespace PuntoDeVentaV2
         ConexionAPPWEB cn2 = new ConexionAPPWEB();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
+        public static List<string> productosTraspaso = new List<string>();
+
 
         public static int NumRevActivo = 0;
         public static bool limpiarTabla = false;
@@ -110,6 +112,7 @@ namespace PuntoDeVentaV2
                 opcion5 = permisos[4];
             }
             this.Focus();
+            
 
             if (rbAumentarProducto.Checked)
             {
@@ -4077,7 +4080,11 @@ namespace PuntoDeVentaV2
 
                 traspaso.FormClosed += delegate
                 {
-                    
+                    foreach (var producto in productosTraspaso)
+                    {
+                        string[] datosSeparados= producto.ToString().Split('%');
+
+                    }
                 };
 
                 traspaso.ShowDialog();

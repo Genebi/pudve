@@ -16,7 +16,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         bool init = false;
-
+        public static string ID="";
         public traspaso(DataTable datosTraspaso)
         {
             InitializeComponent();
@@ -72,6 +72,21 @@ namespace PuntoDeVentaV2
                         if (seleccion == "Manual")
                         {
                             ConsultarProductoTraspaso consultarProducto = new ConsultarProductoTraspaso();
+                            
+                            consultarProducto.FormClosed += delegate
+                            {
+                                if (!ID.Equals(""))
+                                {
+                                    DataTable dt = new DataTable();
+                                    dt = cn.CargarDatos($"SELECT * FROM Productos WHERE ID = {ID}");
+                                    DGVTraspaso["NombreL", e.RowIndex].Value=dt.Rows[0]["Nombre"].ToString();
+                                    DGVTraspaso["CodigoL", e.RowIndex].Value = dt.Rows[0]["CodigoBarras"].ToString();
+                                    DGVTraspaso["PCompra", e.RowIndex].Value = dt.Rows[0]["PrecioCompra"].ToString();
+                                    DGVTraspaso["PVenta", e.RowIndex].Value = dt.Rows[0]["Precio"].ToString();
+                                }
+                                
+                                ID = "";
+                            };
                             consultarProducto.ShowDialog();
                         }
 
@@ -84,6 +99,21 @@ namespace PuntoDeVentaV2
         private void DGVTraspaso_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void bntTerminar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in DGVTraspaso.Rows)
+            {
+                
+                Inventario.productosTraspaso.Add($"{row.Cells["NombreL"].Value.ToString()}%{row.Cells["CodigoL"].Value.ToString()}%{row.Cells["PCompra"].Value.ToString()}%{row.Cells["CantidadT"].Value.ToString()}");
+            }
+            this.Close();
         }
     }
 }

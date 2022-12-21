@@ -34,6 +34,7 @@ namespace PuntoDeVentaV2
 
         public static List<string> datosDeProducto = new List<string>();
         public static int idABuscar { get; set; }
+        string nuevaID;
 
         public static bool AcepOCanc = false;
 
@@ -837,7 +838,8 @@ namespace PuntoDeVentaV2
                     datosProducto.Clear();
 
                     datosDeProducto.Add(id + "|" + nombre + "|" + precio + "|" + tipoDescuento + "|" + stock + "|" + tipo + "|" + claveInterna + "|" + codigoBarras + "|" + stockNecesario + "|" + prodImage + "|" + stockMinimo + "|" + precioCompra + "|" + precioMayoreo + "|" + impuesto + "|" + categoria + "|" + prodimage + "|" + claveProducto + "|" + unidadMedida);
-
+                    nuevaID = id;
+                    traspaso.ID = nuevaID;
                 }
 
                 cantidadPedida = inputMessageBoxVentas.cantidad;
@@ -939,16 +941,16 @@ namespace PuntoDeVentaV2
 
         private void DGVProductos_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            mensajeMostrar = "Ingrese la cantidad de productos que necesita";
-            tituloVentana = "Cantidad a pedir";
-            mensajeDefault = Ventas.cantidadAPedir;
+            //mensajeMostrar = "Ingrese la cantidad de productos que necesita";
+            //tituloVentana = "Cantidad a pedir";
+            //mensajeDefault = Ventas.cantidadAPedir;
 
-            inputMessageBoxVentas inputMessageBox = new inputMessageBoxVentas(mensajeMostrar, tituloVentana, mensajeDefault);
-            inputMessageBox.ShowDialog();
-            if (AcepOCanc.Equals(true))
-            {
+            //inputMessageBoxVentas inputMessageBox = new inputMessageBoxVentas(mensajeMostrar, tituloVentana, mensajeDefault);
+            //inputMessageBox.ShowDialog();
+            //if (AcepOCanc.Equals(true))
+            //{
                 newObtenerDatoProductoSeleccionado();
-            }
+            //}
 
         }
     }

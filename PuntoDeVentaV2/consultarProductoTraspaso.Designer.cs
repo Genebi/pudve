@@ -80,14 +80,12 @@
             this.Tipo,
             this.Proveedor,
             this._id});
-            this.DGVProductos.Location = new System.Drawing.Point(18, 126);
-            this.DGVProductos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.DGVProductos.Location = new System.Drawing.Point(12, 82);
             this.DGVProductos.Name = "DGVProductos";
             this.DGVProductos.ReadOnly = true;
             this.DGVProductos.RowHeadersVisible = false;
-            this.DGVProductos.RowHeadersWidth = 62;
             this.DGVProductos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.DGVProductos.Size = new System.Drawing.Size(1812, 580);
+            this.DGVProductos.Size = new System.Drawing.Size(1208, 377);
             this.DGVProductos.TabIndex = 1;
             this.DGVProductos.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DGVProductos_CellMouseDoubleClick);
             this.DGVProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVProductos_KeyDown);
@@ -96,74 +94,65 @@
             // 
             this.Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Nombre.HeaderText = "Nombre";
-            this.Nombre.MinimumWidth = 8;
             this.Nombre.Name = "Nombre";
             this.Nombre.ReadOnly = true;
             // 
             // Stock
             // 
             this.Stock.HeaderText = "Stock";
-            this.Stock.MinimumWidth = 8;
             this.Stock.Name = "Stock";
             this.Stock.ReadOnly = true;
-            this.Stock.Width = 86;
+            this.Stock.Width = 60;
             // 
             // Precio
             // 
             this.Precio.HeaderText = "Precio";
-            this.Precio.MinimumWidth = 8;
             this.Precio.Name = "Precio";
             this.Precio.ReadOnly = true;
-            this.Precio.Width = 89;
+            this.Precio.Width = 62;
             // 
             // Clave
             // 
             this.Clave.HeaderText = "Clave";
-            this.Clave.MinimumWidth = 8;
             this.Clave.Name = "Clave";
             this.Clave.ReadOnly = true;
-            this.Clave.Width = 84;
+            this.Clave.Width = 59;
             // 
             // Codigo
             // 
             this.Codigo.HeaderText = "Código";
-            this.Codigo.MinimumWidth = 8;
             this.Codigo.Name = "Codigo";
             this.Codigo.ReadOnly = true;
-            this.Codigo.Width = 95;
+            this.Codigo.Width = 65;
             // 
             // Tipo
             // 
             this.Tipo.HeaderText = "Tipo";
-            this.Tipo.MinimumWidth = 8;
             this.Tipo.Name = "Tipo";
             this.Tipo.ReadOnly = true;
-            this.Tipo.Width = 75;
+            this.Tipo.Width = 53;
             // 
             // Proveedor
             // 
             this.Proveedor.HeaderText = "Proveedor";
-            this.Proveedor.MinimumWidth = 8;
             this.Proveedor.Name = "Proveedor";
             this.Proveedor.ReadOnly = true;
-            this.Proveedor.Width = 117;
+            this.Proveedor.Width = 81;
             // 
             // _id
             // 
             this._id.HeaderText = "ID";
-            this._id.MinimumWidth = 8;
             this._id.Name = "_id";
             this._id.ReadOnly = true;
-            this._id.Width = 62;
+            this._id.Width = 43;
             // 
             // txtBuscar
             // 
             this.txtBuscar.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBuscar.Location = new System.Drawing.Point(434, 85);
-            this.txtBuscar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtBuscar.Location = new System.Drawing.Point(289, 55);
             this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(912, 28);
+            this.txtBuscar.Size = new System.Drawing.Size(609, 21);
             this.txtBuscar.TabIndex = 0;
             this.txtBuscar.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
@@ -174,10 +163,9 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(694, 26);
-            this.tituloSeccion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.tituloSeccion.Location = new System.Drawing.Point(463, 17);
             this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(446, 37);
+            this.tituloSeccion.Size = new System.Drawing.Size(299, 25);
             this.tituloSeccion.TabIndex = 7;
             this.tituloSeccion.Text = "CONSULTAR PRODUCTOS";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -194,10 +182,9 @@
             this.panel5.Controls.Add(this.label7);
             this.panel5.Controls.Add(this.lblCantidadRegistros);
             this.panel5.Controls.Add(this.label4);
-            this.panel5.Location = new System.Drawing.Point(18, 745);
-            this.panel5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel5.Location = new System.Drawing.Point(12, 484);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1812, 66);
+            this.panel5.Size = new System.Drawing.Size(1208, 43);
             this.panel5.TabIndex = 38;
             // 
             // panel4
@@ -206,19 +193,17 @@
             this.panel4.Controls.Add(this.linkLblUltimaPagina);
             this.panel4.Controls.Add(this.btnSiguiente);
             this.panel4.Controls.Add(this.btnUltimaPagina);
-            this.panel4.Location = new System.Drawing.Point(885, 9);
-            this.panel4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel4.Location = new System.Drawing.Point(590, 6);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(88, 49);
+            this.panel4.Size = new System.Drawing.Size(59, 32);
             this.panel4.TabIndex = 46;
             // 
             // linkLblUltimaPagina
             // 
             this.linkLblUltimaPagina.AutoSize = true;
-            this.linkLblUltimaPagina.Location = new System.Drawing.Point(90, 15);
-            this.linkLblUltimaPagina.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkLblUltimaPagina.Location = new System.Drawing.Point(60, 10);
             this.linkLblUltimaPagina.Name = "linkLblUltimaPagina";
-            this.linkLblUltimaPagina.Size = new System.Drawing.Size(36, 20);
+            this.linkLblUltimaPagina.Size = new System.Drawing.Size(25, 13);
             this.linkLblUltimaPagina.TabIndex = 17;
             this.linkLblUltimaPagina.TabStop = true;
             this.linkLblUltimaPagina.Text = "100";
@@ -232,10 +217,9 @@
             this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnSiguiente.Image = global::PuntoDeVentaV2.Properties.Resources.angle_right;
-            this.btnSiguiente.Location = new System.Drawing.Point(9, 9);
-            this.btnSiguiente.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnSiguiente.Location = new System.Drawing.Point(6, 6);
             this.btnSiguiente.Name = "btnSiguiente";
-            this.btnSiguiente.Size = new System.Drawing.Size(30, 31);
+            this.btnSiguiente.Size = new System.Drawing.Size(20, 20);
             this.btnSiguiente.TabIndex = 11;
             this.btnSiguiente.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnSiguiente.UseVisualStyleBackColor = false;
@@ -249,10 +233,9 @@
             this.btnUltimaPagina.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUltimaPagina.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnUltimaPagina.Image = global::PuntoDeVentaV2.Properties.Resources.angle_double_right;
-            this.btnUltimaPagina.Location = new System.Drawing.Point(46, 9);
-            this.btnUltimaPagina.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnUltimaPagina.Location = new System.Drawing.Point(31, 6);
             this.btnUltimaPagina.Name = "btnUltimaPagina";
-            this.btnUltimaPagina.Size = new System.Drawing.Size(30, 31);
+            this.btnUltimaPagina.Size = new System.Drawing.Size(20, 20);
             this.btnUltimaPagina.TabIndex = 12;
             this.btnUltimaPagina.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.btnUltimaPagina.UseVisualStyleBackColor = false;
@@ -264,10 +247,9 @@
             this.panel3.Controls.Add(this.btnPrimeraPagina);
             this.panel3.Controls.Add(this.btnAnterior);
             this.panel3.Controls.Add(this.linkLblPrimeraPagina);
-            this.panel3.Location = new System.Drawing.Point(684, 9);
-            this.panel3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panel3.Location = new System.Drawing.Point(456, 6);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(84, 49);
+            this.panel3.Size = new System.Drawing.Size(56, 32);
             this.panel3.TabIndex = 45;
             // 
             // btnPrimeraPagina
@@ -278,10 +260,9 @@
             this.btnPrimeraPagina.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPrimeraPagina.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnPrimeraPagina.Image = global::PuntoDeVentaV2.Properties.Resources.angle_double_left;
-            this.btnPrimeraPagina.Location = new System.Drawing.Point(9, 9);
-            this.btnPrimeraPagina.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnPrimeraPagina.Location = new System.Drawing.Point(6, 6);
             this.btnPrimeraPagina.Name = "btnPrimeraPagina";
-            this.btnPrimeraPagina.Size = new System.Drawing.Size(30, 31);
+            this.btnPrimeraPagina.Size = new System.Drawing.Size(20, 20);
             this.btnPrimeraPagina.TabIndex = 9;
             this.btnPrimeraPagina.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnPrimeraPagina.UseVisualStyleBackColor = false;
@@ -295,10 +276,9 @@
             this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnAnterior.Image = global::PuntoDeVentaV2.Properties.Resources.angle_left;
-            this.btnAnterior.Location = new System.Drawing.Point(46, 9);
-            this.btnAnterior.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAnterior.Location = new System.Drawing.Point(31, 6);
             this.btnAnterior.Name = "btnAnterior";
-            this.btnAnterior.Size = new System.Drawing.Size(30, 31);
+            this.btnAnterior.Size = new System.Drawing.Size(20, 20);
             this.btnAnterior.TabIndex = 10;
             this.btnAnterior.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAnterior.UseVisualStyleBackColor = false;
@@ -307,10 +287,9 @@
             // linkLblPrimeraPagina
             // 
             this.linkLblPrimeraPagina.AutoSize = true;
-            this.linkLblPrimeraPagina.Location = new System.Drawing.Point(57, 15);
-            this.linkLblPrimeraPagina.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkLblPrimeraPagina.Location = new System.Drawing.Point(38, 10);
             this.linkLblPrimeraPagina.Name = "linkLblPrimeraPagina";
-            this.linkLblPrimeraPagina.Size = new System.Drawing.Size(18, 20);
+            this.linkLblPrimeraPagina.Size = new System.Drawing.Size(13, 13);
             this.linkLblPrimeraPagina.TabIndex = 13;
             this.linkLblPrimeraPagina.TabStop = true;
             this.linkLblPrimeraPagina.Text = "1";
@@ -322,10 +301,9 @@
             this.linkLblPaginaSiguiente.AutoSize = true;
             this.linkLblPaginaSiguiente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(850, 25);
-            this.linkLblPaginaSiguiente.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(567, 16);
             this.linkLblPaginaSiguiente.Name = "linkLblPaginaSiguiente";
-            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(23, 25);
+            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaSiguiente.TabIndex = 44;
             this.linkLblPaginaSiguiente.TabStop = true;
             this.linkLblPaginaSiguiente.Text = "4";
@@ -337,10 +315,9 @@
             this.linkLblPaginaActual.AutoSize = true;
             this.linkLblPaginaActual.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaActual.Location = new System.Drawing.Point(816, 25);
-            this.linkLblPaginaActual.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkLblPaginaActual.Location = new System.Drawing.Point(544, 16);
             this.linkLblPaginaActual.Name = "linkLblPaginaActual";
-            this.linkLblPaginaActual.Size = new System.Drawing.Size(23, 25);
+            this.linkLblPaginaActual.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaActual.TabIndex = 43;
             this.linkLblPaginaActual.TabStop = true;
             this.linkLblPaginaActual.Text = "3";
@@ -352,10 +329,9 @@
             this.linkLblPaginaAnterior.AutoSize = true;
             this.linkLblPaginaAnterior.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaAnterior.Location = new System.Drawing.Point(780, 25);
-            this.linkLblPaginaAnterior.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.linkLblPaginaAnterior.Location = new System.Drawing.Point(520, 16);
             this.linkLblPaginaAnterior.Name = "linkLblPaginaAnterior";
-            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(23, 25);
+            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(15, 16);
             this.linkLblPaginaAnterior.TabIndex = 42;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "2";
@@ -370,10 +346,9 @@
             this.btnActualizarMaximoProductos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizarMaximoProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnActualizarMaximoProductos.ForeColor = System.Drawing.Color.Black;
-            this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(1284, 17);
-            this.btnActualizarMaximoProductos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnActualizarMaximoProductos.Location = new System.Drawing.Point(856, 11);
             this.btnActualizarMaximoProductos.Name = "btnActualizarMaximoProductos";
-            this.btnActualizarMaximoProductos.Size = new System.Drawing.Size(120, 35);
+            this.btnActualizarMaximoProductos.Size = new System.Drawing.Size(80, 23);
             this.btnActualizarMaximoProductos.TabIndex = 41;
             this.btnActualizarMaximoProductos.Text = "Actualizar";
             this.btnActualizarMaximoProductos.UseVisualStyleBackColor = false;
@@ -382,10 +357,9 @@
             // txtMaximoPorPagina
             // 
             this.txtMaximoPorPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtMaximoPorPagina.Location = new System.Drawing.Point(1185, 18);
-            this.txtMaximoPorPagina.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtMaximoPorPagina.Location = new System.Drawing.Point(790, 12);
             this.txtMaximoPorPagina.Name = "txtMaximoPorPagina";
-            this.txtMaximoPorPagina.Size = new System.Drawing.Size(82, 26);
+            this.txtMaximoPorPagina.Size = new System.Drawing.Size(56, 20);
             this.txtMaximoPorPagina.TabIndex = 40;
             this.txtMaximoPorPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMaximoPorPagina.Click += new System.EventHandler(this.txtMaximoPorPagina_Click);
@@ -395,10 +369,9 @@
             // label7
             // 
             this.label7.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label7.Location = new System.Drawing.Point(994, 9);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label7.Location = new System.Drawing.Point(663, 6);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(174, 49);
+            this.label7.Size = new System.Drawing.Size(116, 32);
             this.label7.TabIndex = 39;
             this.label7.Text = "Cantidad de productos para mostrar: ";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -408,10 +381,9 @@
             this.lblCantidadRegistros.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lblCantidadRegistros.BackColor = System.Drawing.SystemColors.Control;
             this.lblCantidadRegistros.ForeColor = System.Drawing.Color.Blue;
-            this.lblCantidadRegistros.Location = new System.Drawing.Point(580, 17);
-            this.lblCantidadRegistros.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCantidadRegistros.Location = new System.Drawing.Point(387, 11);
             this.lblCantidadRegistros.Name = "lblCantidadRegistros";
-            this.lblCantidadRegistros.Size = new System.Drawing.Size(93, 35);
+            this.lblCantidadRegistros.Size = new System.Drawing.Size(62, 23);
             this.lblCantidadRegistros.TabIndex = 38;
             this.lblCantidadRegistros.Text = "0";
             this.lblCantidadRegistros.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -421,10 +393,9 @@
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(424, 14);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(283, 9);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(145, 40);
+            this.label4.Size = new System.Drawing.Size(99, 26);
             this.label4.TabIndex = 37;
             this.label4.Text = "Total de productos \r\nencontrados:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -440,18 +411,17 @@
             "Productos",
             "Servicios",
             "Combos"});
-            this.CBTipo.Location = new System.Drawing.Point(68, 85);
-            this.CBTipo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.CBTipo.Location = new System.Drawing.Point(45, 55);
             this.CBTipo.Name = "CBTipo";
-            this.CBTipo.Size = new System.Drawing.Size(180, 28);
+            this.CBTipo.Size = new System.Drawing.Size(121, 21);
             this.CBTipo.TabIndex = 39;
             this.CBTipo.TextChanged += new System.EventHandler(this.CBTipo_TextChanged);
             // 
-            // ConsultarProductoTraspaso
+            // ConsultarProductoVentas
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1848, 831);
+            this.ClientSize = new System.Drawing.Size(1232, 540);
             this.Controls.Add(this.CBTipo);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.tituloSeccion);
@@ -459,10 +429,9 @@
             this.Controls.Add(this.DGVProductos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "ConsultarProductoTraspaso";
+            this.Name = "ConsultarProductoVentas";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.ConsultarProductoVentas_Load);
             this.Shown += new System.EventHandler(this.ConsultarProductoVentas_Shown);
