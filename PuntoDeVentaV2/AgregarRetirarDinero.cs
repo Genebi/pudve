@@ -181,11 +181,11 @@ namespace PuntoDeVentaV2
             cantidadTotalTransferenciaEnCaja = CajaN.cantidadTotalTransferenciaEnCaja;
             cantidadTransferenciaSaldoInicialEnCaja = CajaN.cantidadTransferenciaSaldoInicialEnCaja;
 
-            totalEfectivo = cantidadTotalEfectivoEnCaja + cantidadEfectivoSaldoInicialEnCaja;
-            totalTarjeta = cantidadTotalTarjetaEnCaja + cantidadTarjetaSaldoInicialEnCaja;
-            totalVales = cantidadTotalValesEnCaja + cantidadValesSaldoInicialEnCaja;
-            totalCheque = cantidadTotalCehqueEnCaja + cantidadChequeSaldoInicialEnCaja;
-            totalTransferencia = cantidadTotalTransferenciaEnCaja + cantidadTransferenciaSaldoInicialEnCaja;
+            totalEfectivo = cantidadTotalEfectivoEnCaja /*+ cantidadEfectivoSaldoInicialEnCaja*/;
+            totalTarjeta = cantidadTotalTarjetaEnCaja /*+ cantidadTarjetaSaldoInicialEnCaja*/;
+            totalVales = cantidadTotalValesEnCaja/* + cantidadValesSaldoInicialEnCaja*/;
+            totalCheque = cantidadTotalCehqueEnCaja /*+ cantidadChequeSaldoInicialEnCaja*/;
+            totalTransferencia = cantidadTotalTransferenciaEnCaja /*+ cantidadTransferenciaSaldoInicialEnCaja*/;
 
             totalSaldoInicial = CajaN.totalSaldoInicial;
             totalEnCaja = CajaN.sumaDeTotalesEnCaja;
@@ -365,18 +365,28 @@ namespace PuntoDeVentaV2
 
                 var saldoinicialActual = cn.CargarDatos($"SELECT SaldoInicialEfectivo, SaldoInicialTarjeta, SaldoInicialVales, SaldoInicialCheque, SaldoInicialTransferencia FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} and IDEmpleado = {FormPrincipal.id_empleado} ORDER BY ID DESC LIMIT 1");
 
-                if (saldoinicialActual.Rows[0]["SaldoInicialEfectivo"].ToString().Equals("0.00") && saldoinicialActual.Rows[0]["SaldoInicialTarjeta"].ToString().Equals("0.00") && saldoinicialActual.Rows[0]["SaldoInicialVales"].ToString().Equals("0.00") && saldoinicialActual.Rows[0]["SaldoInicialCheque"].ToString().Equals("0.00") && saldoinicialActual.Rows[0]["SaldoInicialTransferencia"].ToString().Equals("0.00"))
+                if (!saldoinicialActual.Rows.Count.Equals(0))
                 {
-                    cn.EjecutarConsulta(cs.agregarSaldosIniciales(idHistorialCorteDeCaja, cantidadesIniciales));
-                    var totalInicial = Convert.ToDecimal(cantidadesIniciales[0]) + Convert.ToDecimal(cantidadesIniciales[1]) + Convert.ToDecimal(cantidadesIniciales[2]) + Convert.ToDecimal(cantidadesIniciales[3]) + Convert.ToDecimal(cantidadesIniciales[4]);
-                    cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado) VALUES ('PrimerSaldo', '{totalInicial}', '0', 'Insert primer saldo inicial', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{cantidadesIniciales[0]}', '{cantidadesIniciales[1]}', '{cantidadesIniciales[2]}', '{cantidadesIniciales[3]}', '{cantidadesIniciales[4]}', '0', '0', '{FormPrincipal.id_empleado}')");
+                    if (saldoinicialActual.Rows[0]["SaldoInicialEfectivo"].ToString().Equals("0.00") && saldoinicialActual.Rows[0]["SaldoInicialTarjeta"].ToString().Equals("0.00") && saldoinicialActual.Rows[0]["SaldoInicialVales"].ToString().Equals("0.00") && saldoinicialActual.Rows[0]["SaldoInicialCheque"].ToString().Equals("0.00") && saldoinicialActual.Rows[0]["SaldoInicialTransferencia"].ToString().Equals("0.00"))
+                    {
+                        cn.EjecutarConsulta(cs.agregarSaldosIniciales(idHistorialCorteDeCaja, cantidadesIniciales));
+                        var totalInicial = Convert.ToDecimal(cantidadesIniciales[0]) + Convert.ToDecimal(cantidadesIniciales[1]) + Convert.ToDecimal(cantidadesIniciales[2]) + Convert.ToDecimal(cantidadesIniciales[3]) + Convert.ToDecimal(cantidadesIniciales[4]);
+                        cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado) VALUES ('PrimerSaldo', '{totalInicial}', '0', 'Insert primer saldo inicial', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{cantidadesIniciales[0]}', '{cantidadesIniciales[1]}', '{cantidadesIniciales[2]}', '{cantidadesIniciales[3]}', '{cantidadesIniciales[4]}', '0', '0', '{FormPrincipal.id_empleado}')");
+                    }
+                    else
+                    {
+                        var totalInicial = Convert.ToDecimal(cantidadesIniciales[0]) + Convert.ToDecimal(cantidadesIniciales[1]) + Convert.ToDecimal(cantidadesIniciales[2]) + Convert.ToDecimal(cantidadesIniciales[3]) + Convert.ToDecimal(cantidadesIniciales[4]);
+                        cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado) VALUES ('deposito', '{totalInicial}', '0', 'Agregado a saldo inicial', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{cantidadesIniciales[0]}', '{cantidadesIniciales[1]}', '{cantidadesIniciales[2]}', '{cantidadesIniciales[3]}', '{cantidadesIniciales[4]}', '0', '0', '{FormPrincipal.id_empleado}')");
+                        //cn.EjecutarConsulta(cs.agregarSaldosIniciales(idHistorialCorteDeCaja, cantidadesIniciales));
+                    }
                 }
                 else
                 {
                     var totalInicial = Convert.ToDecimal(cantidadesIniciales[0]) + Convert.ToDecimal(cantidadesIniciales[1]) + Convert.ToDecimal(cantidadesIniciales[2]) + Convert.ToDecimal(cantidadesIniciales[3]) + Convert.ToDecimal(cantidadesIniciales[4]);
                     cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado) VALUES ('deposito', '{totalInicial}', '0', 'Agregado a saldo inicial', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{cantidadesIniciales[0]}', '{cantidadesIniciales[1]}', '{cantidadesIniciales[2]}', '{cantidadesIniciales[3]}', '{cantidadesIniciales[4]}', '0', '0', '{FormPrincipal.id_empleado}')");
-                    //cn.EjecutarConsulta(cs.agregarSaldosIniciales(idHistorialCorteDeCaja, cantidadesIniciales));
+
                 }
+                
 
                 DialogResult resultadoAgregarDinero = MessageBox.Show("Desea imprimir ticket de la operación Agregar Dinero", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -751,7 +761,7 @@ namespace PuntoDeVentaV2
                 {
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
-                        if (cantidadTotalEfectivoEnCaja >= Convert.ToDecimal(efectivo) && cantidadTotalTarjetaEnCaja >= Convert.ToDecimal(tarjeta) && cantidadTotalValesEnCaja >= Convert.ToDecimal(vales) && cantidadTotalCehqueEnCaja >= Convert.ToDecimal(cheque) && cantidadTotalTransferenciaEnCaja >= Convert.ToDecimal(trans) || datos[0].ToString().Equals("deposito"))
+                        if ((cantidadTotalEfectivoEnCaja - CajaN.cantidadEfectivoSaldoInicialEnCaja) > Convert.ToDecimal(efectivo) && (cantidadTotalTarjetaEnCaja - CajaN.cantidadTarjetaSaldoInicialEnCaja) > Convert.ToDecimal(tarjeta) && (cantidadTotalValesEnCaja - CajaN.cantidadValesSaldoInicialEnCaja) > Convert.ToDecimal(vales) && (cantidadTotalCehqueEnCaja - CajaN.cantidadChequeSaldoInicialEnCaja) > Convert.ToDecimal(cheque) && (cantidadTotalTransferenciaEnCaja - CajaN.cantidadTransferenciaSaldoInicialEnCaja) > Convert.ToDecimal(trans) || datos[0].ToString().Equals("deposito"))
                         {
                             resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
                         }
@@ -762,15 +772,11 @@ namespace PuntoDeVentaV2
 
                             if (efectivo > 0)
                             {
-                                if (cantidadTotalEfectivoEnCaja < 0)
-                                {
-                                    cantidadTotalEfectivoEnCaja = 0;
-                                }
-                                restanteEfectivo = Convert.ToDecimal(efectivo) - cantidadTotalEfectivoEnCaja;
+                                restanteEfectivo = Convert.ToDecimal(efectivo) - (cantidadTotalEfectivoEnCaja);
 
-                                if (Convert.ToDecimal(efectivo) > cantidadTotalEfectivoEnCaja)
+                                if (Convert.ToDecimal(efectivo) >= CajaN.cantidadTotalEfectivoEnCaja)
                                 {
-                                    datos[6] = cantidadTotalEfectivoEnCaja.ToString();
+                                    datos[6] =  cantidadTotalEfectivoEnCaja.ToString();
                                 }
                                 else
                                 {
@@ -779,9 +785,9 @@ namespace PuntoDeVentaV2
                             }
                             if (tarjeta > 0)
                             {
-                                restanteTarjeta = Convert.ToDecimal(tarjeta) - cantidadTotalTarjetaEnCaja;
+                                restanteTarjeta = Convert.ToDecimal(tarjeta) - (cantidadTotalTarjetaEnCaja);
 
-                                if (Convert.ToDecimal(tarjeta) > cantidadTotalTarjetaEnCaja)
+                                if (Convert.ToDecimal(tarjeta) >= CajaN.cantidadTotalTarjetaEnCaja)
                                 {
                                     datos[7] = cantidadTotalTarjetaEnCaja.ToString();
                                 }
@@ -792,8 +798,9 @@ namespace PuntoDeVentaV2
                             }
                             if (vales > 0)
                             {
-                                restanteVales = Convert.ToDecimal(vales) - cantidadTotalValesEnCaja;
-                                if (Convert.ToDecimal(vales) > cantidadTotalValesEnCaja)
+                                restanteVales = Convert.ToDecimal(vales) -  (cantidadTotalValesEnCaja);
+
+                                if (Convert.ToDecimal(vales) >= CajaN.cantidadTotalValesEnCaja)
                                 {
                                     datos[8] = cantidadTotalValesEnCaja.ToString();
                                 }
@@ -804,8 +811,9 @@ namespace PuntoDeVentaV2
                             }
                             if (cheque > 0)
                             {
-                                restanteCheque = Convert.ToDecimal(cheque) - cantidadTotalCehqueEnCaja;
-                                if (Convert.ToDecimal(cheque) > cantidadTotalCehqueEnCaja)
+                                restanteCheque = Convert.ToDecimal(cheque) - (cantidadTotalCehqueEnCaja);
+
+                                if (Convert.ToDecimal(cheque) >= CajaN.cantidadTotalCehqueEnCaja)
                                 {
                                     datos[9] = cantidadTotalCehqueEnCaja.ToString();
                                 }
@@ -816,8 +824,9 @@ namespace PuntoDeVentaV2
                             }
                             if (trans > 0)
                             {
-                                restanteTransferencia = Convert.ToDecimal(trans) - cantidadTotalTransferenciaEnCaja;
-                                if (Convert.ToDecimal(trans) > cantidadTotalTransferenciaEnCaja)
+                                restanteTransferencia = Convert.ToDecimal(trans) - (cantidadTotalTransferenciaEnCaja);
+
+                                if (Convert.ToDecimal(trans) >= CajaN.cantidadTotalTransferenciaEnCaja)
                                 {
                                     datos[10] = cantidadTotalTransferenciaEnCaja.ToString();
                                 }
@@ -906,27 +915,20 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        //    tipoCorte = true;
-                        //    resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
-
-                        if (cantidadTotalEfectivoEnCaja > Convert.ToDecimal(efectivo) && cantidadTotalTarjetaEnCaja > Convert.ToDecimal(tarjeta) && cantidadTotalValesEnCaja > Convert.ToDecimal(vales) && cantidadTotalCehqueEnCaja > Convert.ToDecimal(cheque) && cantidadTotalTransferenciaEnCaja > Convert.ToDecimal(trans) || datos[0].ToString().Equals("deposito"))
+                        if ((cantidadTotalEfectivoEnCaja - CajaN.cantidadEfectivoSaldoInicialEnCaja) > Convert.ToDecimal(efectivo) && (cantidadTotalTarjetaEnCaja - CajaN.cantidadTarjetaSaldoInicialEnCaja) > Convert.ToDecimal(tarjeta) && (cantidadTotalValesEnCaja - CajaN.cantidadValesSaldoInicialEnCaja) > Convert.ToDecimal(vales) && (cantidadTotalCehqueEnCaja - CajaN.cantidadChequeSaldoInicialEnCaja) > Convert.ToDecimal(cheque) && (cantidadTotalTransferenciaEnCaja - CajaN.cantidadTransferenciaSaldoInicialEnCaja) > Convert.ToDecimal(trans) || datos[0].ToString().Equals("deposito"))
                         {
                             resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
                         }
                         else
                         {
                             decimal restanteEfectivo = 0, restanteTarjeta = 0, restanteVales = 0, restanteCheque = 0, restanteTransferencia = 0;
-                            int parcialSaldoInicial = 0;
+                            int desdeSaldoInicial = 0;
 
                             if (efectivo > 0)
                             {
-                                if (cantidadTotalEfectivoEnCaja < 0)
-                                {
-                                    cantidadTotalEfectivoEnCaja = 0;
-                                }
-                                restanteEfectivo = Convert.ToDecimal(efectivo) - cantidadTotalEfectivoEnCaja;
+                                restanteEfectivo = Convert.ToDecimal(efectivo) - (cantidadTotalEfectivoEnCaja);
 
-                                if (Convert.ToDecimal(efectivo) > cantidadTotalEfectivoEnCaja)
+                                if (Convert.ToDecimal(efectivo) >= CajaN.cantidadTotalEfectivoEnCaja)
                                 {
                                     datos[6] = cantidadTotalEfectivoEnCaja.ToString();
                                 }
@@ -937,9 +939,9 @@ namespace PuntoDeVentaV2
                             }
                             if (tarjeta > 0)
                             {
-                                restanteTarjeta = Convert.ToDecimal(tarjeta) - cantidadTotalTarjetaEnCaja;
+                                restanteTarjeta = Convert.ToDecimal(tarjeta) - (cantidadTotalTarjetaEnCaja);
 
-                                if (Convert.ToDecimal(tarjeta) > cantidadTotalTarjetaEnCaja)
+                                if (Convert.ToDecimal(tarjeta) >= CajaN.cantidadTotalTarjetaEnCaja)
                                 {
                                     datos[7] = cantidadTotalTarjetaEnCaja.ToString();
                                 }
@@ -950,8 +952,9 @@ namespace PuntoDeVentaV2
                             }
                             if (vales > 0)
                             {
-                                restanteVales = Convert.ToDecimal(vales) - cantidadTotalValesEnCaja;
-                                if (Convert.ToDecimal(vales) > cantidadTotalValesEnCaja)
+                                restanteVales = Convert.ToDecimal(vales) - (cantidadTotalValesEnCaja);
+
+                                if (Convert.ToDecimal(vales) >= CajaN.cantidadTotalValesEnCaja)
                                 {
                                     datos[8] = cantidadTotalValesEnCaja.ToString();
                                 }
@@ -962,8 +965,9 @@ namespace PuntoDeVentaV2
                             }
                             if (cheque > 0)
                             {
-                                restanteCheque = Convert.ToDecimal(cheque) - cantidadTotalCehqueEnCaja;
-                                if (Convert.ToDecimal(cheque) > cantidadTotalCehqueEnCaja)
+                                restanteCheque = Convert.ToDecimal(cheque) - (cantidadTotalCehqueEnCaja);
+
+                                if (Convert.ToDecimal(cheque) >= CajaN.cantidadTotalCehqueEnCaja)
                                 {
                                     datos[9] = cantidadTotalCehqueEnCaja.ToString();
                                 }
@@ -974,8 +978,9 @@ namespace PuntoDeVentaV2
                             }
                             if (trans > 0)
                             {
-                                restanteTransferencia = Convert.ToDecimal(trans) - cantidadTotalTransferenciaEnCaja;
-                                if (Convert.ToDecimal(trans) > cantidadTotalTransferenciaEnCaja)
+                                restanteTransferencia = Convert.ToDecimal(trans) - (cantidadTotalTransferenciaEnCaja);
+
+                                if (Convert.ToDecimal(trans) >= CajaN.cantidadTotalTransferenciaEnCaja)
                                 {
                                     datos[10] = cantidadTotalTransferenciaEnCaja.ToString();
                                 }
@@ -988,7 +993,7 @@ namespace PuntoDeVentaV2
                             if (Convert.ToDecimal(datos[6]) >= 0 && Convert.ToDecimal(datos[7]) >= 0 && Convert.ToDecimal(datos[8]) >= 0 && Convert.ToDecimal(datos[9]) >= 0 && Convert.ToDecimal(datos[10]) >= 0)
                             {
                                 resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));//Registro parcial del retiro saldo de caja
-                                parcialSaldoInicial = 1;
+                                desdeSaldoInicial = 0;
                             }
                             else if (operacion == 2)
                             {
@@ -997,7 +1002,7 @@ namespace PuntoDeVentaV2
                                 datos[8] = "0";
                                 datos[9] = "0";
                                 datos[10] = "0";
-                                parcialSaldoInicial = 1;
+                                desdeSaldoInicial = 1;
                             }
 
 
@@ -1046,11 +1051,7 @@ namespace PuntoDeVentaV2
                                 datos[10] = "0";
                             }
 
-                            if (parcialSaldoInicial == 1 && operacion == 2)
-                            {
-                                datos[3] = "Retiro desde saldo inicial";
-                            }
-                            else if (operacion == 1)
+                            if (operacion == 1)
                             {
                                 datos[3] = "Complemento de retiro desde saldo inicial";
                             }
@@ -1653,15 +1654,11 @@ namespace PuntoDeVentaV2
 
                     if (!operacion.Equals(0))
                     {
-                        if ((decimal)efectivo > totalEfectivo)
+                        if ((decimal)efectivo > CajaN.cantidadTotalEfectivoSaldoInicial)
                         {
-                            MensajeCantidad(totalEfectivo, cantidadTotalEfectivoEnCaja, cantidadEfectivoSaldoInicialEnCaja, "Efectivo", sender);
+                            MensajeCantidad(CajaN.cantidadTotalEfectivoSaldoInicial, cantidadTotalEfectivoEnCaja, cantidadEfectivoSaldoInicialEnCaja, "Efectivo", sender);
                         }
 
-                        //if (efectivo > (totalEfectivo/* - convertEfectivo*/) && operacion > 0)
-                        //{
-                        //    MensajeCantidad((totalEfectivo/* - convertEfectivo*/), sender);
-                        //}
                     }
                 }
             }
@@ -1685,9 +1682,9 @@ namespace PuntoDeVentaV2
 
                     if (!operacion.Equals(0))
                     {
-                        if ((decimal)tarjeta > totalTarjeta)
+                        if ((decimal)tarjeta > CajaN.cantidadTotalTarjetaSaldoInicial)
                         {
-                            MensajeCantidad(totalTarjeta, cantidadTotalTarjetaEnCaja, cantidadTarjetaSaldoInicialEnCaja, "Tarjeta", sender);
+                            MensajeCantidad(CajaN.cantidadTotalTarjetaSaldoInicial, cantidadTotalTarjetaEnCaja, cantidadTarjetaSaldoInicialEnCaja, "Tarjeta", sender);
                         }
                         //if (tarjeta > (totalTarjeta /*- convertTarjeta*/) && operacion > 0)
                         //{
@@ -1716,9 +1713,9 @@ namespace PuntoDeVentaV2
 
                     if (!operacion.Equals(0))
                     {
-                        if ((decimal)vales > totalVales)
+                        if ((decimal)vales > CajaN.cantidadTotalValesSaldoInicial)
                         {
-                            MensajeCantidad(totalVales, cantidadTotalValesEnCaja, cantidadValesSaldoInicialEnCaja, "Vales", sender);
+                            MensajeCantidad(CajaN.cantidadTotalValesSaldoInicial, cantidadTotalValesEnCaja, cantidadValesSaldoInicialEnCaja, "Vales", sender);
                         }
                         //if (vales > (totalVales /*- convertVales*/) && operacion > 0)
                         //{
@@ -1747,9 +1744,9 @@ namespace PuntoDeVentaV2
 
                     if (!operacion.Equals(0))
                     {
-                        if ((decimal)cheque > totalCheque)
+                        if ((decimal)cheque > CajaN.cantidadTotalChequeSaldoInicial)
                         {
-                            MensajeCantidad(totalCheque, cantidadTotalCehqueEnCaja, cantidadChequeSaldoInicialEnCaja, "Cheque", sender);
+                            MensajeCantidad(CajaN.cantidadTotalChequeSaldoInicial, cantidadTotalCehqueEnCaja, cantidadChequeSaldoInicialEnCaja, "Cheque", sender);
                         }
                         //if (cheque > (totalCheque /*- convertCheque*/) && operacion > 0)
                         //{
@@ -1778,9 +1775,9 @@ namespace PuntoDeVentaV2
 
                     if (!operacion.Equals(0))
                     {
-                        if ((decimal)trans > totalTransferencia)
+                        if ((decimal)trans > CajaN.cantidadTotalTransferenciaSaldoInicial)
                         {
-                            MensajeCantidad(totalTransferencia, cantidadTotalTransferenciaEnCaja, cantidadTransferenciaSaldoInicialEnCaja, "Transferencia", sender);
+                            MensajeCantidad(CajaN.cantidadTotalTransferenciaSaldoInicial, cantidadTotalTransferenciaEnCaja, cantidadTransferenciaSaldoInicialEnCaja, "Transferencia", sender);
                         }
                         //if (trans > (totalTransferencia /*- convertTrans*/) && operacion > 0)
                         //{
@@ -2127,11 +2124,11 @@ namespace PuntoDeVentaV2
 
         private void ritirarTodoElDineroDisponible()
         {
-            txtEfectivo.Text = totalEfectivo.ToString();
-            txtTarjeta.Text = totalTarjeta.ToString();
-            txtVales.Text = totalVales.ToString();
-            txtCheque.Text = totalCheque.ToString();
-            txtTrans.Text = totalTransferencia.ToString();
+            txtEfectivo.Text = CajaN.cantidadTotalEfectivoSaldoInicial.ToString();
+            txtTarjeta.Text = CajaN.cantidadTotalTarjetaSaldoInicial.ToString();
+            txtVales.Text = CajaN.cantidadTotalValesSaldoInicial.ToString();
+            txtCheque.Text = CajaN.cantidadTotalChequeSaldoInicial.ToString();
+            txtTrans.Text = CajaN.cantidadTotalTransferenciaSaldoInicial.ToString();
             btnAceptar.Focus();
         }
 
