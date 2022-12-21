@@ -1811,12 +1811,12 @@ namespace PuntoDeVentaV2
                     return;
                 }
             }
-            else if (propiedad == "AgregarDescuento")/////////////////////////////////////////////////////////////////AGREGAR DESCUENTO
+            else if (propiedad == "Agregar_Descuento")/////////////////////////////////////////////////////////////////AGREGAR DESCUENTO
             {
                 DialogResult dialogResult = MessageBox.Show("El descuento se aplicara a todo los productos seleccionados\n si uno de estos productos ya contaba con un descuento se remplazara por este nuevo descuento.", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    TextBox txtDescuento = (TextBox)this.Controls.Find("tbAgregarDescuento", true)[0];
+                    TextBox txtDescuento = (TextBox)this.Controls.Find("tbAgregar_Descuento", true)[0];
                     var descuento = txtDescuento.Text;
 
                     foreach (var item in productos)
@@ -1825,7 +1825,7 @@ namespace PuntoDeVentaV2
 
                         var datosProd = cn.CargarDatos($"SELECT * FROM productos WHERE ID = {idprod}");
                         string precioproducto = datosProd.Rows[0]["Precio"].ToString();
-                        TextBox porcentaje = (TextBox)this.Controls.Find("tbAgregarDescuento", true)[0];
+                        TextBox porcentaje = (TextBox)this.Controls.Find("tbAgregar_Descuento", true)[0];
                         var porcentajedescuento = porcentaje.Text;
                         decimal preciodescuento = ((Convert.ToDecimal(precioproducto) * Convert.ToDecimal(porcentajedescuento)) / 100);
                         decimal preciodescuentofinal = Convert.ToDecimal(precioproducto) - preciodescuento;
@@ -1842,6 +1842,7 @@ namespace PuntoDeVentaV2
                             cn.EjecutarConsulta($"INSERT INTO descuentocliente (PrecioProducto,PorcentajeDescuento,PrecioDescuento,Descuento,IDProducto) VALUES ({precioproducto},{porcentajedescuento},{preciodescuentofinal},{descuentoaplicado},{idprod})");
                         }
                     }
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
                 }
                 else if (dialogResult == DialogResult.No)
                 {
