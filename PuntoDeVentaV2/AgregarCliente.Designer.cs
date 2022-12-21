@@ -232,6 +232,7 @@
             this.txtTelefono.TabIndex = 15;
             this.txtTelefono.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtTelefono.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTelefono_KeyDown);
+            this.txtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefono_KeyPress);
             // 
             // label1
             // 
