@@ -1253,6 +1253,13 @@ namespace PuntoDeVentaV2
 
         private void bntTerminar_Click(object sender, EventArgs e)
         {
+            var clave = "";
+            if (validarsiClave())
+            {
+               clave = generadorClaves();
+            }
+             
+
             if (!DGVInventario.Rows.Count.Equals(0))
             {
                 if (opcion5 == 0)
@@ -1283,7 +1290,7 @@ namespace PuntoDeVentaV2
 
                 if (Aceptar.Equals(true))
                 {
-                    FormReporteInventario xd = new FormReporteInventario();
+                    FormReporteInventario xd = new FormReporteInventario(clave);
                     xd.ShowDialog();
                     Aceptar = false;
                 }
@@ -1306,7 +1313,7 @@ namespace PuntoDeVentaV2
                     if (validarsiClave())
                     {
                         DataTable dt = new DataTable();
-                        var clave = generadorClaves();
+                        
                         string momentoMoment = DateTime.Now.ToString("yyyy-MM-dd");
 
 
@@ -1320,6 +1327,7 @@ namespace PuntoDeVentaV2
                             
                         }
                         MessageBox.Show($"Tu clave de traspaso es: {clave}");
+                        clave = "";
                     }
                     var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
                     cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
@@ -4083,8 +4091,10 @@ namespace PuntoDeVentaV2
                     foreach (var producto in productosTraspaso)
                     {
                         string[] datosSeparados= producto.ToString().Split('%');
+                        meterProducto(datosSeparados);
 
                     }
+                    productosTraspaso.Clear();
                 };
 
                 traspaso.ShowDialog();
@@ -4092,5 +4102,136 @@ namespace PuntoDeVentaV2
                 txtClaveTraspaso.Clear();
             }
         }
+
+        private void meterProducto(string[] datosProducto)
+        {
+            var datoUsuario = FormPrincipal.userNickName;
+            var empleado = "0";
+            //Tipo de ajuste es cuando se hace desde una de estas dos opciones
+            //Cuando se carga desde un XML o registro normal el tipo de ajuste es 0
+            //Cuando se hace la moficiacion desde la opcion producto comprado es 1
+            //Cuando se hace desde la opcion ajustar es 2
+            var reporte = 0;
+
+            reporte = Inventario.idReporte;
+
+            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+            var precioTmp = datosProducto[2];
+            var precioAux = float.Parse(precioTmp);
+
+            var rfc = string.Empty;
+
+            var fechaCompra =  DateTime.Now.ToString("yyyy-MM-dd");
+            var precioCompra = datosProducto[2];
+            var cantidadCompra = datosProducto[4];
+            int IDProducto = Int32.Parse(cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(datosProducto[1])).Rows[0]["ID"].ToString());
+
+            string[] datos = new string[] { datosProducto[0], cantidadCompra, precioCompra, datosProducto[3], fechaCompra, rfc, "", "", "1", fechaOperacion, reporte.ToString(), IDProducto.ToString(), FormPrincipal.userID.ToString() };
+
+            Inventario Invent = Application.OpenForms.OfType<Inventario>().FirstOrDefault();
+            float stockProducto= float.Parse(cn.CargarDatos($"SELECT Stock FROM PRODUCTOS WHERE ID = {IDProducto}").Rows[0]["Stock"].ToString());
+
+            if (Invent != null)
+            {
+                Invent.getSuma = 0;
+                Invent.getResta = 0;
+
+                Invent.getSuma = float.Parse(cantidadCompra);
+                Invent.getStockAnterior = stockProducto;
+            }
+
+            var stockOriginal = stockProducto; //Stoack Anterior
+            var stockAgregado = cantidadCompra; //Cantidad
+
+            stockProducto += float.Parse(cantidadCompra); //Nuevo Stock
+
+            var stockActual = stockProducto;
+
+            int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 1));
+
+            if (resultado > 0)
+            {
+                // Envio de correo al agregar cantidad de producto
+                var datosConfig = mb.ComprobarConfiguracion();
+
+                if (datosConfig.Count > 0)
+                {
+                    if (Convert.ToInt16(datosConfig[1]) == 1)
+                    {
+                        var configProducto = mb.ComprobarCorreoProducto(IDProducto);
+
+                        if (configProducto.Count > 0)
+                        {
+                            if (configProducto[1] == 1)
+                            {
+                                string cadenaProducto = $"{datos[0]}|{stockOriginal}|{stockAgregado}|{stockActual}|ajustar producto|agregó";
+
+                                Inventario.productosAumentoDecremento.Add(cadenaProducto);
+                            }
+                        }
+                    }
+                }
+
+                //Datos del producto que se actualizará
+                datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
+
+                cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+
+                //Productos
+                //if (apartado == 1)
+                //{
+                //    Productos.botonAceptar = true;
+                //}
+
+                ////Inventario
+                //if (apartado == 2)
+                //{
+                //    Inventario.botonAceptar = true;
+                //}
+
+                int resul = cn.EjecutarConsulta(cs.SetUpPrecioProductos(IDProducto, (float)Convert.ToDouble(precioCompra), FormPrincipal.userID, 1));
+
+                if (resul > 0)
+                {
+                    var mensaje = cn.CargarDatos(cs.mostrarMensajeInventario(IDProducto));
+                    if (mensaje.Rows.Count > 0)
+                    {
+                        string mensajeInventario = mensaje.Rows[0]["Mensaje"].ToString();
+                        //MessageBox.Show(mensajeInventario);
+                    }
+
+
+                    //MessageBox.Show("Precio de producto Actualizado del producto: " + IDProducto + " por el precio: " + precioCompra, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    //MessageBox.Show("Precio de producto No se Actualizo del producto: " + IDProducto, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+                var stockNuevo = stockActual;
+                var stockAnterior = stockOriginal;
+                var numRevision = cn.CargarDatos($"SELECT * FROM NoRevisionAumentarInventario WHERE IdUsuario = {FormPrincipal.userID}");
+
+                if (numRevision.Rows.Count > 0)
+                {
+                    var numeroRevision = numRevision.Rows[0]["NoRevisionAumentarInventario"].ToString();
+
+                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Aumentar): N° Revision: {numeroRevision}','{stockAnterior}','{stockNuevo}','{fechaOperacion}','{FormPrincipal.userNickName}','+{cantidadCompra}')");
+                }
+
+            }
+
+            var producto = cn.BuscarProducto(IDProducto, FormPrincipal.userID);
+
+            suma = getSuma;
+            resta = getResta;
+            stockAnterior = getStockAnterior;
+            AgregarProductoDGV(producto);
+            botonAceptar = false;
+
+
+        }
+
     }
 }

@@ -111,7 +111,7 @@ namespace PuntoDeVentaV2
             foreach (DataGridViewRow row in DGVTraspaso.Rows)
             {
                 
-                Inventario.productosTraspaso.Add($"{row.Cells["NombreL"].Value.ToString()}%{row.Cells["CodigoL"].Value.ToString()}%{row.Cells["PCompra"].Value.ToString()}%{row.Cells["CantidadT"].Value.ToString()}");
+                Inventario.productosTraspaso.Add($"{row.Cells["NombreL"].Value.ToString()}%{row.Cells["CodigoL"].Value.ToString()}%{row.Cells["PCompra"].Value.ToString()}%{row.Cells["PVenta"].Value.ToString()}%{row.Cells["CantidadT"].Value.ToString()}");
             }
             this.Close();
         }

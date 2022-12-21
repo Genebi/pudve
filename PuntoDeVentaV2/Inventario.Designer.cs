@@ -69,7 +69,7 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(573, 28);
+            this.tituloSeccion.Location = new System.Drawing.Point(527, 9);
             this.tituloSeccion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.tituloSeccion.Name = "tituloSeccion";
             this.tituloSeccion.Size = new System.Drawing.Size(223, 37);
@@ -149,10 +149,10 @@
             this.panelBotones.Controls.Add(this.btnRevisar);
             this.panelBotones.Controls.Add(this.btnActualizarXML);
             this.panelBotones.Controls.Add(this.btnActualizar);
-            this.panelBotones.Location = new System.Drawing.Point(18, 103);
+            this.panelBotones.Location = new System.Drawing.Point(13, 61);
             this.panelBotones.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(1251, 150);
+            this.panelBotones.Size = new System.Drawing.Size(1251, 203);
             this.panelBotones.TabIndex = 104;
             // 
             // btnConceptosReporte
@@ -164,7 +164,7 @@
             this.btnConceptosReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConceptosReporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConceptosReporte.ForeColor = System.Drawing.Color.White;
-            this.btnConceptosReporte.Location = new System.Drawing.Point(115, 66);
+            this.btnConceptosReporte.Location = new System.Drawing.Point(0, 72);
             this.btnConceptosReporte.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnConceptosReporte.Name = "btnConceptosReporte";
             this.btnConceptosReporte.Size = new System.Drawing.Size(340, 48);
@@ -182,11 +182,11 @@
             this.gBSeleccionActualizarInventario.Controls.Add(this.txtClaveTraspaso);
             this.gBSeleccionActualizarInventario.Controls.Add(this.rbDisminuirProducto);
             this.gBSeleccionActualizarInventario.Controls.Add(this.rbAumentarProducto);
-            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(465, 58);
+            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(443, 67);
             this.gBSeleccionActualizarInventario.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.gBSeleccionActualizarInventario.Name = "gBSeleccionActualizarInventario";
             this.gBSeleccionActualizarInventario.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(340, 82);
+            this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(391, 127);
             this.gBSeleccionActualizarInventario.TabIndex = 104;
             this.gBSeleccionActualizarInventario.TabStop = false;
             this.gBSeleccionActualizarInventario.Visible = false;
@@ -194,18 +194,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(144, 52);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(174, 76);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 20);
+            this.label1.Size = new System.Drawing.Size(69, 25);
             this.label1.TabIndex = 4;
             this.label1.Text = "Clave:";
             // 
             // Traspaso
             // 
             this.Traspaso.AutoSize = true;
-            this.Traspaso.Location = new System.Drawing.Point(22, 50);
+            this.Traspaso.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Traspaso.Location = new System.Drawing.Point(19, 75);
             this.Traspaso.Name = "Traspaso";
-            this.Traspaso.Size = new System.Drawing.Size(101, 24);
+            this.Traspaso.Size = new System.Drawing.Size(121, 29);
             this.Traspaso.TabIndex = 3;
             this.Traspaso.Text = "Traspaso";
             this.Traspaso.UseVisualStyleBackColor = true;
@@ -214,7 +216,7 @@
             // txtClaveTraspaso
             // 
             this.txtClaveTraspaso.Enabled = false;
-            this.txtClaveTraspaso.Location = new System.Drawing.Point(202, 48);
+            this.txtClaveTraspaso.Location = new System.Drawing.Point(249, 77);
             this.txtClaveTraspaso.Name = "txtClaveTraspaso";
             this.txtClaveTraspaso.Size = new System.Drawing.Size(115, 26);
             this.txtClaveTraspaso.TabIndex = 2;
@@ -223,10 +225,11 @@
             // rbDisminuirProducto
             // 
             this.rbDisminuirProducto.AutoSize = true;
-            this.rbDisminuirProducto.Location = new System.Drawing.Point(202, 14);
+            this.rbDisminuirProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbDisminuirProducto.Location = new System.Drawing.Point(225, 22);
             this.rbDisminuirProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbDisminuirProducto.Name = "rbDisminuirProducto";
-            this.rbDisminuirProducto.Size = new System.Drawing.Size(99, 24);
+            this.rbDisminuirProducto.Size = new System.Drawing.Size(139, 33);
             this.rbDisminuirProducto.TabIndex = 1;
             this.rbDisminuirProducto.TabStop = true;
             this.rbDisminuirProducto.Text = "Disminuir";
@@ -237,10 +240,11 @@
             // 
             this.rbAumentarProducto.AutoSize = true;
             this.rbAumentarProducto.Checked = true;
-            this.rbAumentarProducto.Location = new System.Drawing.Point(38, 18);
+            this.rbAumentarProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbAumentarProducto.Location = new System.Drawing.Point(19, 22);
             this.rbAumentarProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.rbAumentarProducto.Name = "rbAumentarProducto";
-            this.rbAumentarProducto.Size = new System.Drawing.Size(104, 24);
+            this.rbAumentarProducto.Size = new System.Drawing.Size(140, 33);
             this.rbAumentarProducto.TabIndex = 0;
             this.rbAumentarProducto.TabStop = true;
             this.rbAumentarProducto.Text = "Aumentar";
@@ -259,10 +263,10 @@
             this.panelContenedor.Controls.Add(this.txtBusqueda);
             this.panelContenedor.Controls.Add(this.DGVInventario);
             this.panelContenedor.Cursor = System.Windows.Forms.Cursors.Default;
-            this.panelContenedor.Location = new System.Drawing.Point(18, 253);
+            this.panelContenedor.Location = new System.Drawing.Point(13, 274);
             this.panelContenedor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(1251, 434);
+            this.panelContenedor.Size = new System.Drawing.Size(1251, 436);
             this.panelContenedor.TabIndex = 105;
             this.panelContenedor.Visible = false;
             // 
@@ -296,7 +300,7 @@
             this.bntTerminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntTerminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bntTerminar.ForeColor = System.Drawing.Color.White;
-            this.bntTerminar.Location = new System.Drawing.Point(1025, 380);
+            this.bntTerminar.Location = new System.Drawing.Point(1025, 382);
             this.bntTerminar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.bntTerminar.Name = "bntTerminar";
             this.bntTerminar.Size = new System.Drawing.Size(225, 46);
@@ -376,7 +380,7 @@
             this.DGVInventario.ReadOnly = true;
             this.DGVInventario.RowHeadersVisible = false;
             this.DGVInventario.RowHeadersWidth = 62;
-            this.DGVInventario.Size = new System.Drawing.Size(1251, 271);
+            this.DGVInventario.Size = new System.Drawing.Size(1251, 273);
             this.DGVInventario.TabIndex = 9;
             this.DGVInventario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVInventario_CellContentClick);
             // 
@@ -475,7 +479,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1287, 705);
+            this.ClientSize = new System.Drawing.Size(1287, 746);
             this.Controls.Add(this.panelContenedor);
             this.Controls.Add(this.panelBotones);
             this.Controls.Add(this.tituloSeccion);
