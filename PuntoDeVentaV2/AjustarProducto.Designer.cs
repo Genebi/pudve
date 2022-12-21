@@ -243,6 +243,7 @@
             this.txtCantidadCompra.TabIndex = 3;
             this.txtCantidadCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCantidadCompra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidadCompra_KeyDown);
+            this.txtCantidadCompra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidadCompra_KeyPress);
             // 
             // txtPrecioCompra
             // 
@@ -255,6 +256,7 @@
             this.txtPrecioCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPrecioCompra.Enter += new System.EventHandler(this.txtPrecioCompra_Enter);
             this.txtPrecioCompra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrecioCompra_KeyDown);
+            this.txtPrecioCompra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioCompra_KeyPress);
             // 
             // panelAjustar
             // 
@@ -271,7 +273,7 @@
             this.panelAjustar.Controls.Add(this.lbAumentar);
             this.panelAjustar.Controls.Add(this.txtDisminuir);
             this.panelAjustar.Controls.Add(this.txtAumentar);
-            this.panelAjustar.Location = new System.Drawing.Point(14, 138);
+            this.panelAjustar.Location = new System.Drawing.Point(13, 139);
             this.panelAjustar.Name = "panelAjustar";
             this.panelAjustar.Size = new System.Drawing.Size(610, 162);
             this.panelAjustar.TabIndex = 4;

@@ -1261,7 +1261,10 @@ namespace PuntoDeVentaV2
 
                     calculadora.FormClosed += delegate
                     {
-                        txtDisminuir.Text = calculadora.lCalculadora.Text;
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtDisminuir.Text = calculadora.lCalculadora.Text;
+                        }
                         calcu = 0;
                     };
                     if (!calculadora.Visible)
@@ -1288,7 +1291,10 @@ namespace PuntoDeVentaV2
 
                     calculadora.FormClosed += delegate
                     {
-                        txtAumentar.Text = calculadora.lCalculadora.Text;
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtAumentar.Text = calculadora.lCalculadora.Text;
+                        }
                         calcu = 0;
                     };
                     if (!calculadora.Visible)
@@ -1545,6 +1551,66 @@ namespace PuntoDeVentaV2
                     txtPrecioCompra.Enabled = false;
                     Utilidades.MensajePermiso();
                     return;
+                }
+            }
+        }
+
+        private void txtCantidadCompra_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtCantidadCompra.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
+        }
+
+        private void txtPrecioCompra_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtPrecioCompra.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
                 }
             }
         }
