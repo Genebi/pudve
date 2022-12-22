@@ -12,7 +12,6 @@ namespace PuntoDeVentaV2
 {
     public partial class Agregar_empleado : Form
     {
-
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
@@ -25,8 +24,9 @@ namespace PuntoDeVentaV2
         private string password;
         int actualizar_contraseña = 0;
         public static int IDPlantilla = 0;
-
         public static string[] datosPermisosSeleccionados;
+
+        public static string PermisoPrecio = "";
 
         public Agregar_empleado(int tipo = 1, int empleado = 0)
         {
@@ -416,6 +416,7 @@ namespace PuntoDeVentaV2
             foreach (var seccion in secciones)
             {
                 cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{id_e}', '{FormPrincipal.userID}', '{seccion}')");
+                cn.EjecutarConsulta($"UPDATE empleadospermisos SET Precio = '{PermisoPrecio}' WHERE IDEmpleado = '{id_e}' AND IDUsuario = '{FormPrincipal.userID}'");
             }
         }
 
