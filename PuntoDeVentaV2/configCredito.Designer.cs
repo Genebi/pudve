@@ -93,7 +93,6 @@
             this.groupBox1.TabIndex = 130;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Configuración de crédito e interés:";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter_1);
             // 
             // numericUpDown1
             // 

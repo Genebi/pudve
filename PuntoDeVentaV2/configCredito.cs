@@ -1427,10 +1427,5 @@ namespace PuntoDeVentaV2
         {
 
         }
-
-        private void groupBox1_Enter_1(object sender, EventArgs e)
-        {
-
-        }
     }
 }
