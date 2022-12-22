@@ -416,7 +416,15 @@ namespace PuntoDeVentaV2
             foreach (var seccion in secciones)
             {
                 cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{id_e}', '{FormPrincipal.userID}', '{seccion}')");
-                cn.EjecutarConsulta($"UPDATE empleadospermisos SET Precio = '{PermisoPrecio}' WHERE IDEmpleado = '{id_e}' AND IDUsuario = '{FormPrincipal.userID}'");
+                if (string.IsNullOrWhiteSpace(PermisoPrecio))
+                {
+                    cn.EjecutarConsulta($"UPDATE empleadospermisos SET Precio = '1' WHERE IDEmpleado = '{id_e}' AND IDUsuario = '{FormPrincipal.userID}'");
+                }
+                else
+                {
+                    cn.EjecutarConsulta($"UPDATE empleadospermisos SET Precio = '{PermisoPrecio}' WHERE IDEmpleado = '{id_e}' AND IDUsuario = '{FormPrincipal.userID}'");
+                }
+                
             }
         }
 
