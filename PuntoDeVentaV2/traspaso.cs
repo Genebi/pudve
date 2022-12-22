@@ -49,58 +49,6 @@ namespace PuntoDeVentaV2
             init = true;
         }
 
-        private void DGVTraspaso_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //if (e.RowIndex>=0)
-            //{
-            //    if (e.ColumnIndex==4)
-            //    {
-            //    string seleccion =(DGVTraspaso[e.ColumnIndex, e.RowIndex+1].Value.ToString());
-            //        if (seleccion=="Manual")
-            //        {
-            //            consultarProductoTraspaso consultaProducto = new consultarProductoTraspaso();
-            //            consultaProducto.ShowDialog();
-            //        }
-                     
-            //    }
-            //}
-        }
-
-        private void DGVTraspaso_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            //if (init)
-            //{
-            //    if (e.RowIndex >= 0)
-            //    {
-            //        if (e.ColumnIndex == 5)
-            //        {
-            //            string seleccion = (DGVTraspaso[e.ColumnIndex, e.RowIndex].Value.ToString());
-            //            if (seleccion == "Manual")
-            //            {
-            //                ConsultarProductoTraspaso consultarProducto = new ConsultarProductoTraspaso();
-
-            //                consultarProducto.FormClosed += delegate
-            //                {
-            //                    if (!ID.Equals(""))
-            //                    {
-            //                        DataTable dt = new DataTable();
-            //                        dt = cn.CargarDatos($"SELECT * FROM Productos WHERE ID = {ID}");
-            //                        DGVTraspaso["NombreL", e.RowIndex].Value = dt.Rows[0]["Nombre"].ToString();
-            //                        DGVTraspaso["CodigoL", e.RowIndex].Value = dt.Rows[0]["CodigoBarras"].ToString();
-            //                        DGVTraspaso["PCompra", e.RowIndex].Value = dt.Rows[0]["PrecioCompra"].ToString();
-            //                        DGVTraspaso["PVenta", e.RowIndex].Value = dt.Rows[0]["Precio"].ToString();
-            //                    }
-
-            //                    ID = "";
-            //                };
-            //                consultarProducto.ShowDialog();
-            //            }
-
-            //        }
-            //    }
-            //}
-
-        }
 
 
         private void bntTerminar_Click(object sender, EventArgs e)
@@ -121,7 +69,24 @@ namespace PuntoDeVentaV2
                 }
                 if (!Convert.ToBoolean(row.Cells["Omitir"].Value))
                 {
-                    Inventario.productosTraspaso.Add($"{row.Cells["NombreL"].Value.ToString()}%{row.Cells["CodigoL"].Value.ToString()}%{row.Cells["PCompra"].Value.ToString()}%{row.Cells["PVenta"].Value.ToString()}%{row.Cells["CantidadT"].Value.ToString()}");
+                    DataTable buscarCombo = new DataTable();
+                    int IDProducto = Int32.Parse(cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(row.Cells["CodigoL"].Value.ToString())).Rows[0]["ID"].ToString());
+                    buscarCombo = cn.CargarDatos($"SELECT * FROM productosdeservicios WHERE IDServicio = {IDProducto}");
+                    if (buscarCombo.Rows.Equals(0))
+                    {
+                        Inventario.productosTraspaso.Add($"{row.Cells["NombreL"].Value.ToString()}%{row.Cells["CodigoL"].Value.ToString()}%{row.Cells["PCompra"].Value.ToString()}%{row.Cells["PVenta"].Value.ToString()}%{row.Cells["CantidadT"].Value.ToString()}");
+                    }
+                    else
+                    {
+                        //Es un combo
+                        foreach (DataRow relacionCombo in buscarCombo.Rows)
+                        {
+                            DataTable productoRelacioando = new DataTable();
+productoRelacioando=                            cn.CargarDatos($"SELECT * FROM Productos WHERE ID = {relacionCombo["IDProducto"].ToString()}");
+                            decimal cantidad = Decimal.Parse(relacionCombo["Cantidad"].ToString()) * Decimal.Parse(row.Cells["CantidadT"].Value.ToString());
+                            Inventario.productosTraspaso.Add($"{productoRelacioando.Rows[0]["Nombre"].ToString()}%{productoRelacioando.Rows[0]["CodigoBarras"].ToString()}%{productoRelacioando.Rows[0]["PrecioCompra"].ToString()}%{productoRelacioando.Rows[0]["Precio"].ToString()}%{cantidad.ToString()}");
+                        }
+                    }
                 }
             }
             this.Close();

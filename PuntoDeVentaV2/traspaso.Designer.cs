@@ -32,11 +32,6 @@ namespace PuntoDeVentaV2
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(traspaso));
             this.label1 = new System.Windows.Forms.Label();
             this.DGVTraspaso = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnAceptar = new System.Windows.Forms.Button();
-            this.bntTerminar = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
             this.NombreT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CodigoT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CantidadT = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,6 +42,11 @@ namespace PuntoDeVentaV2
             this.PVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ajuste = new System.Windows.Forms.DataGridViewImageColumn();
             this.Omitir = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btnAceptar = new System.Windows.Forms.Button();
+            this.bntTerminar = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVTraspaso)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,78 +90,6 @@ namespace PuntoDeVentaV2
             this.DGVTraspaso.Size = new System.Drawing.Size(1131, 399);
             this.DGVTraspaso.TabIndex = 10;
             this.DGVTraspaso.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVTraspaso_CellClick_1);
-            this.DGVTraspaso.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVTraspaso_CellValueChanged);
-            // 
-            // label2
-            // 
-            this.label2.BackColor = System.Drawing.Color.Yellow;
-            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(28, 91);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(413, 49);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Sucursal Origen";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            this.label3.BackColor = System.Drawing.Color.Gold;
-            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(456, 91);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(703, 49);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Sucursal Destino";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // btnAceptar
-            // 
-            this.btnAceptar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAceptar.BackColor = System.Drawing.Color.Green;
-            this.btnAceptar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAceptar.FlatAppearance.BorderSize = 0;
-            this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(934, 545);
-            this.btnAceptar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(225, 46);
-            this.btnAceptar.TabIndex = 107;
-            this.btnAceptar.Text = "Aceptar";
-            this.btnAceptar.UseVisualStyleBackColor = false;
-            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
-            // 
-            // bntTerminar
-            // 
-            this.bntTerminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.bntTerminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.bntTerminar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bntTerminar.FlatAppearance.BorderSize = 0;
-            this.bntTerminar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.bntTerminar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.bntTerminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bntTerminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bntTerminar.ForeColor = System.Drawing.Color.White;
-            this.bntTerminar.Location = new System.Drawing.Point(28, 545);
-            this.bntTerminar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.bntTerminar.Name = "bntTerminar";
-            this.bntTerminar.Size = new System.Drawing.Size(225, 46);
-            this.bntTerminar.TabIndex = 106;
-            this.bntTerminar.Text = "Cancelar";
-            this.bntTerminar.UseVisualStyleBackColor = false;
-            this.bntTerminar.Click += new System.EventHandler(this.bntTerminar_Click);
-            // 
-            // label5
-            // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label5.Location = new System.Drawing.Point(435, 91);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(25, 49);
-            this.label5.TabIndex = 109;
             // 
             // NombreT
             // 
@@ -251,6 +179,77 @@ namespace PuntoDeVentaV2
             this.Omitir.MinimumWidth = 8;
             this.Omitir.Name = "Omitir";
             this.Omitir.Width = 65;
+            // 
+            // label2
+            // 
+            this.label2.BackColor = System.Drawing.Color.Yellow;
+            this.label2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(28, 91);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(413, 49);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Sucursal Origen";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            this.label3.BackColor = System.Drawing.Color.Gold;
+            this.label3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(456, 91);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(703, 49);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Sucursal Destino";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnAceptar
+            // 
+            this.btnAceptar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAceptar.BackColor = System.Drawing.Color.Green;
+            this.btnAceptar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAceptar.FlatAppearance.BorderSize = 0;
+            this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAceptar.ForeColor = System.Drawing.Color.White;
+            this.btnAceptar.Location = new System.Drawing.Point(934, 545);
+            this.btnAceptar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAceptar.Name = "btnAceptar";
+            this.btnAceptar.Size = new System.Drawing.Size(225, 46);
+            this.btnAceptar.TabIndex = 107;
+            this.btnAceptar.Text = "Aceptar";
+            this.btnAceptar.UseVisualStyleBackColor = false;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
+            // 
+            // bntTerminar
+            // 
+            this.bntTerminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.bntTerminar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.bntTerminar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bntTerminar.FlatAppearance.BorderSize = 0;
+            this.bntTerminar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.bntTerminar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.bntTerminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bntTerminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bntTerminar.ForeColor = System.Drawing.Color.White;
+            this.bntTerminar.Location = new System.Drawing.Point(28, 545);
+            this.bntTerminar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.bntTerminar.Name = "bntTerminar";
+            this.bntTerminar.Size = new System.Drawing.Size(225, 46);
+            this.bntTerminar.TabIndex = 106;
+            this.bntTerminar.Text = "Cancelar";
+            this.bntTerminar.UseVisualStyleBackColor = false;
+            this.bntTerminar.Click += new System.EventHandler(this.bntTerminar_Click);
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label5.Location = new System.Drawing.Point(435, 91);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(25, 49);
+            this.label5.TabIndex = 109;
             // 
             // traspaso
             // 

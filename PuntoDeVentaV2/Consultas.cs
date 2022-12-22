@@ -5079,7 +5079,7 @@ namespace PuntoDeVentaV2
 
         public string BuscarProductoPorCodigoDeBarrasFull(string codigo)
         {
-            var consulta = $"SELECT Nombre FROM productos WHERE `Status` = 1 AND CodigoBarras = '{codigo}'";
+            var consulta = $"SELECT Nombre FROM productos WHERE `Status` = 1 AND CodigoBarras = '{codigo}' ";
 
             return consulta;
         }

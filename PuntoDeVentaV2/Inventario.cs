@@ -1262,7 +1262,10 @@ namespace PuntoDeVentaV2
             var clave = "";
             if (validarsiClave())
             {
-               clave = generadorClaves();
+                if (rbDisminuirProducto.Checked)
+                {
+                    clave = generadorClaves();
+                }
             }
              
 
@@ -1326,8 +1329,10 @@ namespace PuntoDeVentaV2
                         cn2.EjecutarConsulta(cs.insertarRegistroTraspaso(clave,cn.CargarDatos(cs.BuscarUsuario(FormPrincipal.userID)).Rows[0]["usuario"].ToString(), momentoMoment));
                         foreach (DataGridViewRow item in DGVInventario.Rows)
                         {
-                                dt = cn.CargarDatos(cs.BuscarProductoPorCodigoDeBarrasFull(item.Cells[7].Value.ToString()));
                             
+                                dt = cn.CargarDatos($"SELECT Nombre FROM productos WHERE `Status` = 1 AND CodigoBarras = '{item.Cells[7].Value.ToString()}' AND IDUsuario = '{FormPrincipal.userID}'");
+
+
                                 cn2.EjecutarConsulta(cs.insertarDatosTraspaso(clave, dt.Rows[0]["Nombre"].ToString(), item.Cells[7].Value.ToString(), item.Cells[3].Value.ToString()));
 
                             
