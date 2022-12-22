@@ -75,6 +75,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnConfiguracionGeneral = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo4 = new PuntoDeVentaV2.BotonRedondo();
+            this.btnCredito = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             this.btnRespaldarInformacion = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo5 = new PuntoDeVentaV2.BotonRedondo();
@@ -95,9 +96,10 @@
             this.btnRespaldo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRespaldo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRespaldo.ForeColor = System.Drawing.Color.White;
-            this.btnRespaldo.Location = new System.Drawing.Point(94, 172);
+            this.btnRespaldo.Location = new System.Drawing.Point(141, 265);
+            this.btnRespaldo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnRespaldo.Name = "btnRespaldo";
-            this.btnRespaldo.Size = new System.Drawing.Size(190, 25);
+            this.btnRespaldo.Size = new System.Drawing.Size(285, 38);
             this.btnRespaldo.TabIndex = 101;
             this.btnRespaldo.Text = "Respaldar información";
             this.btnRespaldo.UseVisualStyleBackColor = false;
@@ -111,9 +113,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(421, 27);
+            this.tituloSeccion.Location = new System.Drawing.Point(632, 42);
+            this.tituloSeccion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(194, 25);
+            this.tituloSeccion.Size = new System.Drawing.Size(292, 38);
             this.tituloSeccion.TabIndex = 102;
             this.tituloSeccion.Text = "CONFIGURACIÓN";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -127,9 +130,10 @@
             // 
             this.txtNombreServidor.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtNombreServidor.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNombreServidor.Location = new System.Drawing.Point(765, 669);
+            this.txtNombreServidor.Location = new System.Drawing.Point(1148, 1029);
+            this.txtNombreServidor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtNombreServidor.Name = "txtNombreServidor";
-            this.txtNombreServidor.Size = new System.Drawing.Size(60, 23);
+            this.txtNombreServidor.Size = new System.Drawing.Size(88, 31);
             this.txtNombreServidor.TabIndex = 104;
             this.txtNombreServidor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtNombreServidor.Visible = false;
@@ -145,9 +149,10 @@
             this.btnGuardarServidor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarServidor.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarServidor.ForeColor = System.Drawing.Color.White;
-            this.btnGuardarServidor.Location = new System.Drawing.Point(829, 667);
+            this.btnGuardarServidor.Location = new System.Drawing.Point(1244, 1026);
+            this.btnGuardarServidor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnGuardarServidor.Name = "btnGuardarServidor";
-            this.btnGuardarServidor.Size = new System.Drawing.Size(73, 25);
+            this.btnGuardarServidor.Size = new System.Drawing.Size(110, 38);
             this.btnGuardarServidor.TabIndex = 105;
             this.btnGuardarServidor.Text = "Guardar";
             this.btnGuardarServidor.UseVisualStyleBackColor = false;
@@ -160,9 +165,10 @@
             this.lbNombreServidor.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbNombreServidor.AutoSize = true;
             this.lbNombreServidor.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbNombreServidor.Location = new System.Drawing.Point(780, 638);
+            this.lbNombreServidor.Location = new System.Drawing.Point(1170, 982);
+            this.lbNombreServidor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbNombreServidor.Name = "lbNombreServidor";
-            this.lbNombreServidor.Size = new System.Drawing.Size(158, 17);
+            this.lbNombreServidor.Size = new System.Drawing.Size(236, 23);
             this.lbNombreServidor.TabIndex = 103;
             this.lbNombreServidor.Text = "Computadora Servidor";
             this.lbNombreServidor.Visible = false;
@@ -178,9 +184,10 @@
             this.btnGuardarRevision.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarRevision.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarRevision.ForeColor = System.Drawing.Color.White;
-            this.btnGuardarRevision.Location = new System.Drawing.Point(648, 669);
+            this.btnGuardarRevision.Location = new System.Drawing.Point(972, 1029);
+            this.btnGuardarRevision.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnGuardarRevision.Name = "btnGuardarRevision";
-            this.btnGuardarRevision.Size = new System.Drawing.Size(91, 25);
+            this.btnGuardarRevision.Size = new System.Drawing.Size(136, 38);
             this.btnGuardarRevision.TabIndex = 108;
             this.btnGuardarRevision.Text = "Guardar";
             this.btnGuardarRevision.UseVisualStyleBackColor = false;
@@ -192,9 +199,10 @@
             // 
             this.txtNumeroRevision.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtNumeroRevision.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNumeroRevision.Location = new System.Drawing.Point(569, 667);
+            this.txtNumeroRevision.Location = new System.Drawing.Point(854, 1026);
+            this.txtNumeroRevision.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtNumeroRevision.Name = "txtNumeroRevision";
-            this.txtNumeroRevision.Size = new System.Drawing.Size(73, 23);
+            this.txtNumeroRevision.Size = new System.Drawing.Size(108, 31);
             this.txtNumeroRevision.TabIndex = 107;
             this.txtNumeroRevision.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtNumeroRevision.Visible = false;
@@ -204,9 +212,10 @@
             this.lbNumeroRevision.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbNumeroRevision.AutoSize = true;
             this.lbNumeroRevision.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbNumeroRevision.Location = new System.Drawing.Point(382, 667);
+            this.lbNumeroRevision.Location = new System.Drawing.Point(573, 1026);
+            this.lbNumeroRevision.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbNumeroRevision.Name = "lbNumeroRevision";
-            this.lbNumeroRevision.Size = new System.Drawing.Size(181, 17);
+            this.lbNumeroRevision.Size = new System.Drawing.Size(267, 23);
             this.lbNumeroRevision.TabIndex = 106;
             this.lbNumeroRevision.Text = "Número revisión inventario";
             this.lbNumeroRevision.Visible = false;
@@ -216,9 +225,10 @@
             this.cbCorreoPrecioProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbCorreoPrecioProducto.AutoSize = true;
             this.cbCorreoPrecioProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoPrecioProducto.Location = new System.Drawing.Point(270, 61);
+            this.cbCorreoPrecioProducto.Location = new System.Drawing.Point(405, 94);
+            this.cbCorreoPrecioProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbCorreoPrecioProducto.Name = "cbCorreoPrecioProducto";
-            this.cbCorreoPrecioProducto.Size = new System.Drawing.Size(150, 21);
+            this.cbCorreoPrecioProducto.Size = new System.Drawing.Size(221, 27);
             this.cbCorreoPrecioProducto.TabIndex = 111;
             this.cbCorreoPrecioProducto.Text = "Al modificar precio";
             this.cbCorreoPrecioProducto.UseVisualStyleBackColor = true;
@@ -229,9 +239,10 @@
             this.cbCorreoStockProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbCorreoStockProducto.AutoSize = true;
             this.cbCorreoStockProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoStockProducto.Location = new System.Drawing.Point(270, 88);
+            this.cbCorreoStockProducto.Location = new System.Drawing.Point(405, 135);
+            this.cbCorreoStockProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbCorreoStockProducto.Name = "cbCorreoStockProducto";
-            this.cbCorreoStockProducto.Size = new System.Drawing.Size(143, 21);
+            this.cbCorreoStockProducto.Size = new System.Drawing.Size(210, 27);
             this.cbCorreoStockProducto.TabIndex = 112;
             this.cbCorreoStockProducto.Text = "Al modificar stock";
             this.cbCorreoStockProducto.UseVisualStyleBackColor = true;
@@ -242,9 +253,10 @@
             this.cbCorreoStockMinimo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbCorreoStockMinimo.AutoSize = true;
             this.cbCorreoStockMinimo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoStockMinimo.Location = new System.Drawing.Point(270, 34);
+            this.cbCorreoStockMinimo.Location = new System.Drawing.Point(405, 52);
+            this.cbCorreoStockMinimo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbCorreoStockMinimo.Name = "cbCorreoStockMinimo";
-            this.cbCorreoStockMinimo.Size = new System.Drawing.Size(170, 21);
+            this.cbCorreoStockMinimo.Size = new System.Drawing.Size(252, 27);
             this.cbCorreoStockMinimo.TabIndex = 113;
             this.cbCorreoStockMinimo.Text = "Al llegar stock mínimo";
             this.cbCorreoStockMinimo.UseVisualStyleBackColor = true;
@@ -255,9 +267,10 @@
             this.cbCorreoVenderProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbCorreoVenderProducto.AutoSize = true;
             this.cbCorreoVenderProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoVenderProducto.Location = new System.Drawing.Point(270, 113);
+            this.cbCorreoVenderProducto.Location = new System.Drawing.Point(405, 174);
+            this.cbCorreoVenderProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbCorreoVenderProducto.Name = "cbCorreoVenderProducto";
-            this.cbCorreoVenderProducto.Size = new System.Drawing.Size(166, 21);
+            this.cbCorreoVenderProducto.Size = new System.Drawing.Size(252, 27);
             this.cbCorreoVenderProducto.TabIndex = 114;
             this.cbCorreoVenderProducto.Text = "Al venderse producto";
             this.cbCorreoVenderProducto.UseVisualStyleBackColor = true;
@@ -273,9 +286,10 @@
             this.btnGuardarPorcentaje.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnGuardarPorcentaje.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGuardarPorcentaje.ForeColor = System.Drawing.Color.Black;
-            this.btnGuardarPorcentaje.Location = new System.Drawing.Point(870, 545);
+            this.btnGuardarPorcentaje.Location = new System.Drawing.Point(1305, 838);
+            this.btnGuardarPorcentaje.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnGuardarPorcentaje.Name = "btnGuardarPorcentaje";
-            this.btnGuardarPorcentaje.Size = new System.Drawing.Size(90, 25);
+            this.btnGuardarPorcentaje.Size = new System.Drawing.Size(135, 38);
             this.btnGuardarPorcentaje.TabIndex = 120;
             this.btnGuardarPorcentaje.Text = "Guardar";
             this.btnGuardarPorcentaje.UseVisualStyleBackColor = false;
@@ -286,9 +300,10 @@
             // txtPorcentajeProducto
             // 
             this.txtPorcentajeProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPorcentajeProducto.Location = new System.Drawing.Point(674, 545);
+            this.txtPorcentajeProducto.Location = new System.Drawing.Point(1011, 838);
+            this.txtPorcentajeProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtPorcentajeProducto.Name = "txtPorcentajeProducto";
-            this.txtPorcentajeProducto.Size = new System.Drawing.Size(190, 23);
+            this.txtPorcentajeProducto.Size = new System.Drawing.Size(283, 31);
             this.txtPorcentajeProducto.TabIndex = 119;
             this.txtPorcentajeProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPorcentajeProducto.Visible = false;
@@ -297,9 +312,10 @@
             // 
             this.lbPorcentajeProducto.AutoSize = true;
             this.lbPorcentajeProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbPorcentajeProducto.Location = new System.Drawing.Point(474, 549);
+            this.lbPorcentajeProducto.Location = new System.Drawing.Point(711, 845);
+            this.lbPorcentajeProducto.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbPorcentajeProducto.Name = "lbPorcentajeProducto";
-            this.lbPorcentajeProducto.Size = new System.Drawing.Size(180, 17);
+            this.lbPorcentajeProducto.Size = new System.Drawing.Size(272, 23);
             this.lbPorcentajeProducto.TabIndex = 118;
             this.lbPorcentajeProducto.Text = "Porcentaje % de ganancia";
             this.lbPorcentajeProducto.Visible = false;
@@ -324,9 +340,11 @@
             this.groupBox1.Controls.Add(this.cbCorreoStockMinimo);
             this.groupBox1.Controls.Add(this.cbCorreoVenderProducto);
             this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(44, 339);
+            this.groupBox1.Location = new System.Drawing.Point(66, 522);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(930, 200);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Size = new System.Drawing.Size(1395, 308);
             this.groupBox1.TabIndex = 128;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Envío de Correo:";
@@ -336,9 +354,10 @@
             // 
             this.chRespaldo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chRespaldo.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.chRespaldo.Location = new System.Drawing.Point(529, 159);
+            this.chRespaldo.Location = new System.Drawing.Point(794, 245);
+            this.chRespaldo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chRespaldo.Name = "chRespaldo";
-            this.chRespaldo.Size = new System.Drawing.Size(381, 21);
+            this.chRespaldo.Size = new System.Drawing.Size(572, 32);
             this.chRespaldo.TabIndex = 126;
             this.chRespaldo.Text = "Enviar respaldo al cerrar sesion";
             this.chRespaldo.UseVisualStyleBackColor = true;
@@ -348,9 +367,10 @@
             // 
             this.cbCorreoDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCorreoDescuento.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoDescuento.Location = new System.Drawing.Point(529, 136);
+            this.cbCorreoDescuento.Location = new System.Drawing.Point(794, 209);
+            this.cbCorreoDescuento.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbCorreoDescuento.Name = "cbCorreoDescuento";
-            this.cbCorreoDescuento.Size = new System.Drawing.Size(381, 21);
+            this.cbCorreoDescuento.Size = new System.Drawing.Size(572, 32);
             this.cbCorreoDescuento.TabIndex = 125;
             this.cbCorreoDescuento.Text = "Al hacer venta con descuento";
             this.cbCorreoDescuento.UseVisualStyleBackColor = true;
@@ -360,9 +380,10 @@
             // 
             this.cbCorreoIniciar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCorreoIniciar.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoIniciar.Location = new System.Drawing.Point(529, 113);
+            this.cbCorreoIniciar.Location = new System.Drawing.Point(794, 174);
+            this.cbCorreoIniciar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbCorreoIniciar.Name = "cbCorreoIniciar";
-            this.cbCorreoIniciar.Size = new System.Drawing.Size(381, 21);
+            this.cbCorreoIniciar.Size = new System.Drawing.Size(572, 32);
             this.cbCorreoIniciar.TabIndex = 124;
             this.cbCorreoIniciar.Text = "Al iniciar sesión";
             this.cbCorreoIniciar.UseVisualStyleBackColor = true;
@@ -372,9 +393,10 @@
             // 
             this.cbCorreoVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCorreoVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoVenta.Location = new System.Drawing.Point(529, 88);
+            this.cbCorreoVenta.Location = new System.Drawing.Point(794, 135);
+            this.cbCorreoVenta.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbCorreoVenta.Name = "cbCorreoVenta";
-            this.cbCorreoVenta.Size = new System.Drawing.Size(381, 21);
+            this.cbCorreoVenta.Size = new System.Drawing.Size(572, 32);
             this.cbCorreoVenta.TabIndex = 123;
             this.cbCorreoVenta.Text = "Al hacer una venta";
             this.cbCorreoVenta.UseVisualStyleBackColor = true;
@@ -386,9 +408,10 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label4.Location = new System.Drawing.Point(262, 136);
+            this.label4.Location = new System.Drawing.Point(393, 209);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(220, 16);
+            this.label4.Size = new System.Drawing.Size(337, 21);
             this.label4.TabIndex = 122;
             this.label4.Text = " (producto previamente seleccionado)";
             // 
@@ -397,9 +420,10 @@
             this.cbCorreoCorteCaja.AutoSize = true;
             this.cbCorreoCorteCaja.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.cbCorreoCorteCaja.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.cbCorreoCorteCaja.Location = new System.Drawing.Point(11, 88);
+            this.cbCorreoCorteCaja.Location = new System.Drawing.Point(16, 135);
+            this.cbCorreoCorteCaja.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbCorreoCorteCaja.Name = "cbCorreoCorteCaja";
-            this.cbCorreoCorteCaja.Size = new System.Drawing.Size(172, 21);
+            this.cbCorreoCorteCaja.Size = new System.Drawing.Size(261, 27);
             this.cbCorreoCorteCaja.TabIndex = 121;
             this.cbCorreoCorteCaja.Text = "Al hacer corte de caja";
             this.cbCorreoCorteCaja.UseVisualStyleBackColor = true;
@@ -410,9 +434,10 @@
             // 
             this.cbCorreoEliminarListaProductosVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCorreoEliminarListaProductosVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoEliminarListaProductosVentas.Location = new System.Drawing.Point(529, 61);
+            this.cbCorreoEliminarListaProductosVentas.Location = new System.Drawing.Point(794, 94);
+            this.cbCorreoEliminarListaProductosVentas.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbCorreoEliminarListaProductosVentas.Name = "cbCorreoEliminarListaProductosVentas";
-            this.cbCorreoEliminarListaProductosVentas.Size = new System.Drawing.Size(381, 21);
+            this.cbCorreoEliminarListaProductosVentas.Size = new System.Drawing.Size(572, 32);
             this.cbCorreoEliminarListaProductosVentas.TabIndex = 120;
             this.cbCorreoEliminarListaProductosVentas.Text = "Al eliminar producto de ventas";
             this.cbCorreoEliminarListaProductosVentas.UseVisualStyleBackColor = true;
@@ -422,9 +447,10 @@
             // 
             this.cbCorreoCerrarVentanaVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCorreoCerrarVentanaVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoCerrarVentanaVentas.Location = new System.Drawing.Point(529, 34);
+            this.cbCorreoCerrarVentanaVentas.Location = new System.Drawing.Point(794, 52);
+            this.cbCorreoCerrarVentanaVentas.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbCorreoCerrarVentanaVentas.Name = "cbCorreoCerrarVentanaVentas";
-            this.cbCorreoCerrarVentanaVentas.Size = new System.Drawing.Size(395, 21);
+            this.cbCorreoCerrarVentanaVentas.Size = new System.Drawing.Size(592, 32);
             this.cbCorreoCerrarVentanaVentas.TabIndex = 116;
             this.cbCorreoCerrarVentanaVentas.Text = "Al cerrar la ventana de ventas cuando tiene productos";
             this.cbCorreoCerrarVentanaVentas.UseVisualStyleBackColor = true;
@@ -434,9 +460,10 @@
             // 
             this.cbCorreoRetirarDineroCaja.AutoSize = true;
             this.cbCorreoRetirarDineroCaja.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoRetirarDineroCaja.Location = new System.Drawing.Point(11, 61);
+            this.cbCorreoRetirarDineroCaja.Location = new System.Drawing.Point(16, 94);
+            this.cbCorreoRetirarDineroCaja.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbCorreoRetirarDineroCaja.Name = "cbCorreoRetirarDineroCaja";
-            this.cbCorreoRetirarDineroCaja.Size = new System.Drawing.Size(178, 21);
+            this.cbCorreoRetirarDineroCaja.Size = new System.Drawing.Size(265, 27);
             this.cbCorreoRetirarDineroCaja.TabIndex = 115;
             this.cbCorreoRetirarDineroCaja.Text = "Al retirar dinero en caja";
             this.cbCorreoRetirarDineroCaja.UseVisualStyleBackColor = true;
@@ -446,9 +473,10 @@
             // 
             this.cbCorreoAgregarDineroCaja.AutoSize = true;
             this.cbCorreoAgregarDineroCaja.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.cbCorreoAgregarDineroCaja.Location = new System.Drawing.Point(11, 34);
+            this.cbCorreoAgregarDineroCaja.Location = new System.Drawing.Point(16, 52);
+            this.cbCorreoAgregarDineroCaja.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbCorreoAgregarDineroCaja.Name = "cbCorreoAgregarDineroCaja";
-            this.cbCorreoAgregarDineroCaja.Size = new System.Drawing.Size(193, 21);
+            this.cbCorreoAgregarDineroCaja.Size = new System.Drawing.Size(289, 27);
             this.cbCorreoAgregarDineroCaja.TabIndex = 0;
             this.cbCorreoAgregarDineroCaja.Text = "Al agregar dinero en caja";
             this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
@@ -647,9 +675,10 @@
             "Yibuti, Djibouti/ DJF - (Fr)",
             "Zambia/ ZMK - (ZK)",
             "Zimbabue, Zimbabwe/ ZWL - ($)"});
-            this.cboTipoMoneda.Location = new System.Drawing.Point(184, 593);
+            this.cboTipoMoneda.Location = new System.Drawing.Point(276, 912);
+            this.cboTipoMoneda.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cboTipoMoneda.Name = "cboTipoMoneda";
-            this.cboTipoMoneda.Size = new System.Drawing.Size(172, 21);
+            this.cboTipoMoneda.Size = new System.Drawing.Size(256, 28);
             this.cboTipoMoneda.TabIndex = 130;
             this.cboTipoMoneda.Visible = false;
             this.cboTipoMoneda.SelectedIndexChanged += new System.EventHandler(this.cboTipoMoneda_SelectedIndexChanged);
@@ -658,9 +687,10 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Century", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(73, 593);
+            this.label6.Location = new System.Drawing.Point(110, 912);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(105, 16);
+            this.label6.Size = new System.Drawing.Size(162, 23);
             this.label6.TabIndex = 132;
             this.label6.Text = "Tipo de Moneda:";
             this.label6.Visible = false;
@@ -670,9 +700,10 @@
             this.txtMinimoMayoreo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtMinimoMayoreo.Enabled = false;
             this.txtMinimoMayoreo.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMinimoMayoreo.Location = new System.Drawing.Point(806, 52);
+            this.txtMinimoMayoreo.Location = new System.Drawing.Point(1209, 80);
+            this.txtMinimoMayoreo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtMinimoMayoreo.Name = "txtMinimoMayoreo";
-            this.txtMinimoMayoreo.Size = new System.Drawing.Size(69, 21);
+            this.txtMinimoMayoreo.Size = new System.Drawing.Size(102, 28);
             this.txtMinimoMayoreo.TabIndex = 122;
             this.txtMinimoMayoreo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMinimoMayoreo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtMinimoMayoreo_KeyUp);
@@ -683,9 +714,10 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label1.Location = new System.Drawing.Point(668, 47);
+            this.label1.Location = new System.Drawing.Point(1002, 72);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(132, 17);
+            this.label1.Size = new System.Drawing.Size(195, 23);
             this.label1.TabIndex = 123;
             this.label1.Text = "- Cantidad mínima";
             // 
@@ -695,9 +727,10 @@
             this.checkMayoreo.AutoSize = true;
             this.checkMayoreo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkMayoreo.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.checkMayoreo.Location = new System.Drawing.Point(654, 24);
+            this.checkMayoreo.Location = new System.Drawing.Point(978, 37);
+            this.checkMayoreo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkMayoreo.Name = "checkMayoreo";
-            this.checkMayoreo.Size = new System.Drawing.Size(273, 21);
+            this.checkMayoreo.Size = new System.Drawing.Size(413, 27);
             this.checkMayoreo.TabIndex = 121;
             this.checkMayoreo.Text = "Activar precio por mayoreo en ventas";
             this.checkMayoreo.UseVisualStyleBackColor = true;
@@ -710,9 +743,10 @@
             this.checkNoVendidos.AutoSize = true;
             this.checkNoVendidos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkNoVendidos.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.checkNoVendidos.Location = new System.Drawing.Point(654, 78);
+            this.checkNoVendidos.Location = new System.Drawing.Point(981, 120);
+            this.checkNoVendidos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkNoVendidos.Name = "checkNoVendidos";
-            this.checkNoVendidos.Size = new System.Drawing.Size(240, 21);
+            this.checkNoVendidos.Size = new System.Drawing.Size(361, 27);
             this.checkNoVendidos.TabIndex = 124;
             this.checkNoVendidos.Text = "Avisar de productos no vendidos";
             this.checkNoVendidos.UseVisualStyleBackColor = true;
@@ -724,9 +758,10 @@
             this.cbStockNegativo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbStockNegativo.AutoSize = true;
             this.cbStockNegativo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbStockNegativo.Location = new System.Drawing.Point(333, 53);
+            this.cbStockNegativo.Location = new System.Drawing.Point(500, 82);
+            this.cbStockNegativo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbStockNegativo.Name = "cbStockNegativo";
-            this.cbStockNegativo.Size = new System.Drawing.Size(177, 21);
+            this.cbStockNegativo.Size = new System.Drawing.Size(258, 27);
             this.cbStockNegativo.TabIndex = 1;
             this.cbStockNegativo.Text = "Permitir Stock negativo";
             this.cbStockNegativo.UseVisualStyleBackColor = true;
@@ -737,9 +772,10 @@
             this.txtNoVendidos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNoVendidos.Enabled = false;
             this.txtNoVendidos.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNoVendidos.Location = new System.Drawing.Point(728, 98);
+            this.txtNoVendidos.Location = new System.Drawing.Point(1092, 151);
+            this.txtNoVendidos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txtNoVendidos.Name = "txtNoVendidos";
-            this.txtNoVendidos.Size = new System.Drawing.Size(69, 21);
+            this.txtNoVendidos.Size = new System.Drawing.Size(102, 28);
             this.txtNoVendidos.TabIndex = 125;
             this.txtNoVendidos.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtNoVendidos.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtNoVendidos_KeyUp);
@@ -749,9 +785,10 @@
             this.cbMostrarPrecio.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbMostrarPrecio.AutoSize = true;
             this.cbMostrarPrecio.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbMostrarPrecio.Location = new System.Drawing.Point(333, 24);
+            this.cbMostrarPrecio.Location = new System.Drawing.Point(500, 37);
+            this.cbMostrarPrecio.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbMostrarPrecio.Name = "cbMostrarPrecio";
-            this.cbMostrarPrecio.Size = new System.Drawing.Size(277, 21);
+            this.cbMostrarPrecio.Size = new System.Drawing.Size(418, 27);
             this.cbMostrarPrecio.TabIndex = 116;
             this.cbMostrarPrecio.Text = "Mostrar precio de productos en ventas";
             this.cbMostrarPrecio.UseVisualStyleBackColor = true;
@@ -763,9 +800,10 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label2.Location = new System.Drawing.Point(668, 100);
+            this.label2.Location = new System.Drawing.Point(1002, 154);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 17);
+            this.label2.Size = new System.Drawing.Size(81, 23);
             this.label2.TabIndex = 126;
             this.label2.Text = "- Cada";
             // 
@@ -773,9 +811,10 @@
             // 
             this.cbMostrarCB.AutoSize = true;
             this.cbMostrarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbMostrarCB.Location = new System.Drawing.Point(11, 78);
+            this.cbMostrarCB.Location = new System.Drawing.Point(16, 120);
+            this.cbMostrarCB.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cbMostrarCB.Name = "cbMostrarCB";
-            this.cbMostrarCB.Size = new System.Drawing.Size(283, 21);
+            this.cbMostrarCB.Size = new System.Drawing.Size(425, 27);
             this.cbMostrarCB.TabIndex = 117;
             this.cbMostrarCB.Text = "Mostrar código de productos en ventas";
             this.cbMostrarCB.UseVisualStyleBackColor = true;
@@ -787,9 +826,10 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label3.Location = new System.Drawing.Point(803, 100);
+            this.label3.Location = new System.Drawing.Point(1204, 154);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 17);
+            this.label3.Size = new System.Drawing.Size(51, 23);
             this.label3.TabIndex = 127;
             this.label3.Text = "días";
             // 
@@ -797,9 +837,10 @@
             // 
             this.pagWeb.AutoSize = true;
             this.pagWeb.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pagWeb.Location = new System.Drawing.Point(11, 51);
+            this.pagWeb.Location = new System.Drawing.Point(16, 78);
+            this.pagWeb.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pagWeb.Name = "pagWeb";
-            this.pagWeb.Size = new System.Drawing.Size(267, 21);
+            this.pagWeb.Size = new System.Drawing.Size(394, 27);
             this.pagWeb.TabIndex = 115;
             this.pagWeb.Text = "Habilitar información en página web";
             this.pagWeb.UseVisualStyleBackColor = true;
@@ -809,9 +850,10 @@
             // 
             this.checkCBVenta.AutoSize = true;
             this.checkCBVenta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkCBVenta.Location = new System.Drawing.Point(11, 24);
+            this.checkCBVenta.Location = new System.Drawing.Point(16, 37);
+            this.checkCBVenta.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkCBVenta.Name = "checkCBVenta";
-            this.checkCBVenta.Size = new System.Drawing.Size(245, 21);
+            this.checkCBVenta.Size = new System.Drawing.Size(366, 27);
             this.checkCBVenta.TabIndex = 110;
             this.checkCBVenta.Text = "Código de barras ticket de venta";
             this.checkCBVenta.UseVisualStyleBackColor = true;
@@ -822,9 +864,10 @@
             this.chTicketVentas.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.chTicketVentas.AutoSize = true;
             this.chTicketVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chTicketVentas.Location = new System.Drawing.Point(333, 80);
+            this.chTicketVentas.Location = new System.Drawing.Point(500, 123);
+            this.chTicketVentas.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.chTicketVentas.Name = "chTicketVentas";
-            this.chTicketVentas.Size = new System.Drawing.Size(232, 21);
+            this.chTicketVentas.Size = new System.Drawing.Size(350, 27);
             this.chTicketVentas.TabIndex = 128;
             this.chTicketVentas.Text = "Generar ticket al realizar ventas";
             this.chTicketVentas.UseVisualStyleBackColor = true;
@@ -849,9 +892,11 @@
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.txtMinimoMayoreo);
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(44, 203);
+            this.groupBox2.Location = new System.Drawing.Point(66, 312);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(933, 130);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox2.Size = new System.Drawing.Size(1400, 200);
             this.groupBox2.TabIndex = 129;
             this.groupBox2.TabStop = false;
             this.groupBox2.Visible = false;
@@ -862,13 +907,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.btnConfiguracionGeneral);
             this.panel1.Controls.Add(this.botonRedondo4);
+            this.panel1.Controls.Add(this.btnCredito);
             this.panel1.Controls.Add(this.botonRedondo1);
             this.panel1.Controls.Add(this.btnRespaldarInformacion);
             this.panel1.Controls.Add(this.botonRedondo5);
             this.panel1.Controls.Add(this.btnEnvioCorreo);
-            this.panel1.Location = new System.Drawing.Point(133, 83);
+            this.panel1.Location = new System.Drawing.Point(200, 128);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(977, 114);
+            this.panel1.Size = new System.Drawing.Size(1466, 384);
             this.panel1.TabIndex = 137;
             // 
             // btnConfiguracionGeneral
@@ -883,9 +930,10 @@
             this.btnConfiguracionGeneral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfiguracionGeneral.ForeColor = System.Drawing.Color.White;
             this.btnConfiguracionGeneral.Image = global::PuntoDeVentaV2.Properties.Resources.gear_in;
-            this.btnConfiguracionGeneral.Location = new System.Drawing.Point(315, 6);
+            this.btnConfiguracionGeneral.Location = new System.Drawing.Point(472, 9);
+            this.btnConfiguracionGeneral.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnConfiguracionGeneral.Name = "btnConfiguracionGeneral";
-            this.btnConfiguracionGeneral.Size = new System.Drawing.Size(132, 87);
+            this.btnConfiguracionGeneral.Size = new System.Drawing.Size(198, 134);
             this.btnConfiguracionGeneral.TabIndex = 135;
             this.btnConfiguracionGeneral.Text = "Configuracion general";
             this.btnConfiguracionGeneral.TextColor = System.Drawing.Color.White;
@@ -905,15 +953,42 @@
             this.botonRedondo4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.botonRedondo4.ForeColor = System.Drawing.Color.White;
             this.botonRedondo4.Image = global::PuntoDeVentaV2.Properties.Resources.finance;
-            this.botonRedondo4.Location = new System.Drawing.Point(462, 6);
+            this.botonRedondo4.Location = new System.Drawing.Point(693, 9);
+            this.botonRedondo4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.botonRedondo4.Name = "botonRedondo4";
-            this.botonRedondo4.Size = new System.Drawing.Size(132, 87);
+            this.botonRedondo4.Size = new System.Drawing.Size(198, 134);
             this.botonRedondo4.TabIndex = 136;
             this.botonRedondo4.Text = "Porcentaje % de ganancia";
             this.botonRedondo4.TextColor = System.Drawing.Color.White;
             this.botonRedondo4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.botonRedondo4.UseVisualStyleBackColor = false;
             this.botonRedondo4.Click += new System.EventHandler(this.botonRedondo4_Click);
+            // 
+            // btnCredito
+            // 
+            this.btnCredito.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnCredito.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnCredito.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnCredito.BorderRadius = 40;
+            this.btnCredito.BorderSize = 0;
+            this.btnCredito.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCredito.FlatAppearance.BorderSize = 0;
+            this.btnCredito.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.btnCredito.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.btnCredito.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCredito.ForeColor = System.Drawing.Color.White;
+            this.btnCredito.Image = global::PuntoDeVentaV2.Properties.Resources.cash_register;
+            this.btnCredito.Location = new System.Drawing.Point(4, 218);
+            this.btnCredito.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnCredito.Name = "btnCredito";
+            this.btnCredito.Size = new System.Drawing.Size(201, 134);
+            this.btnCredito.TabIndex = 133;
+            this.btnCredito.Text = "Crédito";
+            this.btnCredito.TextColor = System.Drawing.Color.White;
+            this.btnCredito.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnCredito.UseMnemonic = false;
+            this.btnCredito.UseVisualStyleBackColor = false;
+            this.btnCredito.Click += new System.EventHandler(this.btnCredito_Click);
             // 
             // botonRedondo1
             // 
@@ -929,9 +1004,10 @@
             this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.botonRedondo1.ForeColor = System.Drawing.Color.White;
             this.botonRedondo1.Image = global::PuntoDeVentaV2.Properties.Resources.cinema_ticket;
-            this.botonRedondo1.Location = new System.Drawing.Point(3, 7);
+            this.botonRedondo1.Location = new System.Drawing.Point(4, 11);
+            this.botonRedondo1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.botonRedondo1.Name = "botonRedondo1";
-            this.botonRedondo1.Size = new System.Drawing.Size(134, 87);
+            this.botonRedondo1.Size = new System.Drawing.Size(201, 134);
             this.botonRedondo1.TabIndex = 133;
             this.botonRedondo1.Text = "Editar \r\nTicket";
             this.botonRedondo1.TextColor = System.Drawing.Color.White;
@@ -952,9 +1028,10 @@
             this.btnRespaldarInformacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRespaldarInformacion.ForeColor = System.Drawing.Color.White;
             this.btnRespaldarInformacion.Image = global::PuntoDeVentaV2.Properties.Resources.saved_imports;
-            this.btnRespaldarInformacion.Location = new System.Drawing.Point(765, 6);
+            this.btnRespaldarInformacion.Location = new System.Drawing.Point(1148, 9);
+            this.btnRespaldarInformacion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnRespaldarInformacion.Name = "btnRespaldarInformacion";
-            this.btnRespaldarInformacion.Size = new System.Drawing.Size(134, 87);
+            this.btnRespaldarInformacion.Size = new System.Drawing.Size(201, 134);
             this.btnRespaldarInformacion.TabIndex = 128;
             this.btnRespaldarInformacion.Text = "Respaldar información";
             this.btnRespaldarInformacion.TextColor = System.Drawing.Color.White;
@@ -974,9 +1051,10 @@
             this.botonRedondo5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.botonRedondo5.ForeColor = System.Drawing.Color.White;
             this.botonRedondo5.Image = global::PuntoDeVentaV2.Properties.Resources.money_dollar;
-            this.botonRedondo5.Location = new System.Drawing.Point(613, 7);
+            this.botonRedondo5.Location = new System.Drawing.Point(920, 11);
+            this.botonRedondo5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.botonRedondo5.Name = "botonRedondo5";
-            this.botonRedondo5.Size = new System.Drawing.Size(134, 89);
+            this.botonRedondo5.Size = new System.Drawing.Size(201, 137);
             this.botonRedondo5.TabIndex = 127;
             this.botonRedondo5.Text = "Tipo de moneda ($)";
             this.botonRedondo5.TextColor = System.Drawing.Color.White;
@@ -996,9 +1074,10 @@
             this.btnEnvioCorreo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEnvioCorreo.ForeColor = System.Drawing.Color.White;
             this.btnEnvioCorreo.Image = global::PuntoDeVentaV2.Properties.Resources.email_send_receive;
-            this.btnEnvioCorreo.Location = new System.Drawing.Point(159, 7);
+            this.btnEnvioCorreo.Location = new System.Drawing.Point(238, 11);
+            this.btnEnvioCorreo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnEnvioCorreo.Name = "btnEnvioCorreo";
-            this.btnEnvioCorreo.Size = new System.Drawing.Size(132, 87);
+            this.btnEnvioCorreo.Size = new System.Drawing.Size(198, 134);
             this.btnEnvioCorreo.TabIndex = 134;
             this.btnEnvioCorreo.Text = "Envio de Correo";
             this.btnEnvioCorreo.TextColor = System.Drawing.Color.White;
@@ -1008,9 +1087,9 @@
             // 
             // SetUpPUDVE
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(998, 716);
+            this.ClientSize = new System.Drawing.Size(1497, 1050);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cboTipoMoneda);
@@ -1030,6 +1109,7 @@
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "SetUpPUDVE";
             this.Text = "PUDVE - Configuración";
             this.Load += new System.EventHandler(this.SetUpPUDVE_Load);
@@ -1097,5 +1177,6 @@
         private BotonRedondo btnConfiguracionGeneral;
         private BotonRedondo botonRedondo4;
         private System.Windows.Forms.Panel panel1;
+        private BotonRedondo btnCredito;
     }
 }
