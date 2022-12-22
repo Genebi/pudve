@@ -225,6 +225,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                Agregar_empleado.PermisoPrecio = chkPermisoPrecio;
                 IDPlantilla = 0;
                 this.Close();
             }
@@ -845,11 +846,6 @@ namespace PuntoDeVentaV2
             {
                 this.Close();
             }
-        }
-
-        private void chkPrecio_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void button1_Click(object sender, EventArgs e)

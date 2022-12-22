@@ -437,7 +437,6 @@
             this.chkPrecio.TabIndex = 119;
             this.chkPrecio.Text = "Precio Producto";
             this.chkPrecio.UseVisualStyleBackColor = true;
-            this.chkPrecio.CheckedChanged += new System.EventHandler(this.chkPrecio_CheckedChanged);
             // 
             // cboxConsultaP
             // 
