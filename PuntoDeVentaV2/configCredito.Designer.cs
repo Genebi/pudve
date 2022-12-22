@@ -30,37 +30,36 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(configCredito));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.CBXClienteDescuento = new System.Windows.Forms.CheckBox();
-            this.cbRecibirAnricipo = new System.Windows.Forms.CheckBox();
-            this.chRespaldo = new System.Windows.Forms.CheckBox();
-            this.cbCorreoDescuento = new System.Windows.Forms.CheckBox();
-            this.cbCorreoIniciar = new System.Windows.Forms.CheckBox();
-            this.cbCorreoVenta = new System.Windows.Forms.CheckBox();
-            this.cbCorreoCorteCaja = new System.Windows.Forms.CheckBox();
-            this.cbCorreoEliminarListaProductosVentas = new System.Windows.Forms.CheckBox();
-            this.cbCorreoCerrarVentanaVentas = new System.Windows.Forms.CheckBox();
-            this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
-            this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
-            this.cbCorreoPrecioProducto = new System.Windows.Forms.CheckBox();
-            this.cbCorreoStockProducto = new System.Windows.Forms.CheckBox();
-            this.cbCorreoStockMinimo = new System.Windows.Forms.CheckBox();
-            this.cbCorreoVenderProducto = new System.Windows.Forms.CheckBox();
-            this.btnAceptar = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.btnAceptar = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -68,39 +67,45 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox1.Controls.Add(this.numericUpDown3);
+            this.groupBox1.Controls.Add(this.numericUpDown2);
+            this.groupBox1.Controls.Add(this.numericUpDown1);
+            this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Controls.Add(this.CBXClienteDescuento);
-            this.groupBox1.Controls.Add(this.cbRecibirAnricipo);
-            this.groupBox1.Controls.Add(this.chRespaldo);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.label10);
             this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.comboBox4);
             this.groupBox1.Controls.Add(this.comboBox3);
-            this.groupBox1.Controls.Add(this.cbCorreoDescuento);
-            this.groupBox1.Controls.Add(this.cbCorreoIniciar);
-            this.groupBox1.Controls.Add(this.cbCorreoVenta);
-            this.groupBox1.Controls.Add(this.cbCorreoCorteCaja);
-            this.groupBox1.Controls.Add(this.cbCorreoEliminarListaProductosVentas);
-            this.groupBox1.Controls.Add(this.cbCorreoCerrarVentanaVentas);
-            this.groupBox1.Controls.Add(this.cbCorreoRetirarDineroCaja);
-            this.groupBox1.Controls.Add(this.checkBox1);
-            this.groupBox1.Controls.Add(this.cbCorreoAgregarDineroCaja);
-            this.groupBox1.Controls.Add(this.cbCorreoPrecioProducto);
-            this.groupBox1.Controls.Add(this.cbCorreoStockProducto);
-            this.groupBox1.Controls.Add(this.cbCorreoStockMinimo);
+            this.groupBox1.Controls.Add(this.checkBox4);
             this.groupBox1.Controls.Add(this.checkBox2);
+            this.groupBox1.Controls.Add(this.checkBox1);
             this.groupBox1.Controls.Add(this.checkBox3);
-            this.groupBox1.Controls.Add(this.cbCorreoVenderProducto);
             this.groupBox1.Controls.Add(this.btnAceptar);
+            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(60, 57);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Location = new System.Drawing.Point(24, 19);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox1.Size = new System.Drawing.Size(1045, 643);
-            this.groupBox1.TabIndex = 129;
+            this.groupBox1.Size = new System.Drawing.Size(697, 420);
+            this.groupBox1.TabIndex = 130;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Configuración de crédito e interés:";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter_1);
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(252, 266);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(44, 22);
+            this.numericUpDown1.TabIndex = 155;
             // 
             // groupBox2
             // 
@@ -114,22 +119,38 @@
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.comboBox1);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(633, 36);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox2.Location = new System.Drawing.Point(357, 21);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBox2.Size = new System.Drawing.Size(393, 142);
+            this.groupBox2.Size = new System.Drawing.Size(314, 136);
             this.groupBox2.TabIndex = 153;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Límites de crédito";
+            this.groupBox2.Text = "Límites de crédito por cliente";
+            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(231, 87);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(68, 22);
+            this.textBox2.TabIndex = 2;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(231, 29);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(68, 22);
+            this.textBox1.TabIndex = 2;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(7, 92);
+            this.label2.Location = new System.Drawing.Point(5, 89);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(152, 25);
+            this.label2.Size = new System.Drawing.Size(111, 17);
             this.label2.TabIndex = 1;
             this.label2.Text = "Total de crédito:";
             // 
@@ -140,18 +161,20 @@
             "Ningúno",
             "General",
             "Por Cliente"});
-            this.comboBox2.Location = new System.Drawing.Point(161, 89);
+            this.comboBox2.Location = new System.Drawing.Point(120, 87);
+            this.comboBox2.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 33);
+            this.comboBox2.Size = new System.Drawing.Size(82, 24);
             this.comboBox2.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(7, 47);
+            this.label1.Location = new System.Drawing.Point(5, 31);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(154, 25);
+            this.label1.Size = new System.Drawing.Size(111, 17);
             this.label1.TabIndex = 1;
             this.label1.Text = "Ventas abiertas:";
             // 
@@ -162,197 +185,70 @@
             "Ningúno",
             "General",
             "Por Cliente"});
-            this.comboBox1.Location = new System.Drawing.Point(161, 44);
+            this.comboBox1.Location = new System.Drawing.Point(120, 27);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(2);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 33);
+            this.comboBox1.Size = new System.Drawing.Size(82, 24);
             this.comboBox1.TabIndex = 0;
             // 
-            // CBXClienteDescuento
+            // label6
             // 
-            this.CBXClienteDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CBXClienteDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.CBXClienteDescuento.Location = new System.Drawing.Point(10, 450);
-            this.CBXClienteDescuento.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.CBXClienteDescuento.Name = "CBXClienteDescuento";
-            this.CBXClienteDescuento.Size = new System.Drawing.Size(392, 32);
-            this.CBXClienteDescuento.TabIndex = 152;
-            this.CBXClienteDescuento.Text = "Al hacer venta a cliente con descuento";
-            this.CBXClienteDescuento.UseVisualStyleBackColor = true;
-            this.CBXClienteDescuento.Visible = false;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(294, 266);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(20, 22);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "%";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // cbRecibirAnricipo
+            // label3
             // 
-            this.cbRecibirAnricipo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbRecibirAnricipo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.cbRecibirAnricipo.Location = new System.Drawing.Point(18, 179);
-            this.cbRecibirAnricipo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbRecibirAnricipo.Name = "cbRecibirAnricipo";
-            this.cbRecibirAnricipo.Size = new System.Drawing.Size(333, 32);
-            this.cbRecibirAnricipo.TabIndex = 151;
-            this.cbRecibirAnricipo.Text = "Al recibir un anticipo";
-            this.cbRecibirAnricipo.UseVisualStyleBackColor = true;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(354, 198);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(188, 17);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Periodo de cobro de interés:";
             // 
-            // chRespaldo
+            // comboBox3
             // 
-            this.chRespaldo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.chRespaldo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.chRespaldo.Location = new System.Drawing.Point(10, 486);
-            this.chRespaldo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.chRespaldo.Name = "chRespaldo";
-            this.chRespaldo.Size = new System.Drawing.Size(572, 32);
-            this.chRespaldo.TabIndex = 150;
-            this.chRespaldo.Text = "Enviar respaldo al cerrar sesion";
-            this.chRespaldo.UseVisualStyleBackColor = true;
-            this.chRespaldo.Visible = false;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "Mensual",
+            "Quincenal",
+            "Semanal"});
+            this.comboBox3.Location = new System.Drawing.Point(564, 195);
+            this.comboBox3.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(107, 24);
+            this.comboBox3.TabIndex = 0;
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
-            // cbCorreoDescuento
+            // checkBox2
             // 
-            this.cbCorreoDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCorreoDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.cbCorreoDescuento.Location = new System.Drawing.Point(10, 418);
-            this.cbCorreoDescuento.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbCorreoDescuento.Name = "cbCorreoDescuento";
-            this.cbCorreoDescuento.Size = new System.Drawing.Size(572, 32);
-            this.cbCorreoDescuento.TabIndex = 149;
-            this.cbCorreoDescuento.Text = "Al hacer venta con descuento";
-            this.cbCorreoDescuento.UseVisualStyleBackColor = true;
+            this.checkBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox2.Location = new System.Drawing.Point(30, 42);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(292, 36);
+            this.checkBox2.TabIndex = 141;
+            this.checkBox2.Text = "Solicitar huella digital para consolidar venta a crédito";
+            this.checkBox2.UseVisualStyleBackColor = true;
             // 
-            // cbCorreoIniciar
+            // checkBox3
             // 
-            this.cbCorreoIniciar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCorreoIniciar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.cbCorreoIniciar.Location = new System.Drawing.Point(18, 213);
-            this.cbCorreoIniciar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbCorreoIniciar.Name = "cbCorreoIniciar";
-            this.cbCorreoIniciar.Size = new System.Drawing.Size(303, 32);
-            this.cbCorreoIniciar.TabIndex = 148;
-            this.cbCorreoIniciar.Text = "Al iniciar sesión";
-            this.cbCorreoIniciar.UseVisualStyleBackColor = true;
-            // 
-            // cbCorreoVenta
-            // 
-            this.cbCorreoVenta.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCorreoVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.cbCorreoVenta.Location = new System.Drawing.Point(10, 376);
-            this.cbCorreoVenta.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbCorreoVenta.Name = "cbCorreoVenta";
-            this.cbCorreoVenta.Size = new System.Drawing.Size(572, 32);
-            this.cbCorreoVenta.TabIndex = 147;
-            this.cbCorreoVenta.Text = "Al hacer una venta";
-            this.cbCorreoVenta.UseVisualStyleBackColor = true;
-            // 
-            // cbCorreoCorteCaja
-            // 
-            this.cbCorreoCorteCaja.AutoSize = true;
-            this.cbCorreoCorteCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.cbCorreoCorteCaja.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.cbCorreoCorteCaja.Location = new System.Drawing.Point(18, 254);
-            this.cbCorreoCorteCaja.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbCorreoCorteCaja.Name = "cbCorreoCorteCaja";
-            this.cbCorreoCorteCaja.Size = new System.Drawing.Size(226, 29);
-            this.cbCorreoCorteCaja.TabIndex = 145;
-            this.cbCorreoCorteCaja.Text = "Al hacer corte de caja";
-            this.cbCorreoCorteCaja.UseVisualStyleBackColor = true;
-            // 
-            // cbCorreoEliminarListaProductosVentas
-            // 
-            this.cbCorreoEliminarListaProductosVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCorreoEliminarListaProductosVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.cbCorreoEliminarListaProductosVentas.Location = new System.Drawing.Point(10, 335);
-            this.cbCorreoEliminarListaProductosVentas.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbCorreoEliminarListaProductosVentas.Name = "cbCorreoEliminarListaProductosVentas";
-            this.cbCorreoEliminarListaProductosVentas.Size = new System.Drawing.Size(572, 32);
-            this.cbCorreoEliminarListaProductosVentas.TabIndex = 144;
-            this.cbCorreoEliminarListaProductosVentas.Text = "Al eliminar producto de ventas";
-            this.cbCorreoEliminarListaProductosVentas.UseVisualStyleBackColor = true;
-            // 
-            // cbCorreoCerrarVentanaVentas
-            // 
-            this.cbCorreoCerrarVentanaVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbCorreoCerrarVentanaVentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.cbCorreoCerrarVentanaVentas.Location = new System.Drawing.Point(10, 293);
-            this.cbCorreoCerrarVentanaVentas.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbCorreoCerrarVentanaVentas.Name = "cbCorreoCerrarVentanaVentas";
-            this.cbCorreoCerrarVentanaVentas.Size = new System.Drawing.Size(592, 32);
-            this.cbCorreoCerrarVentanaVentas.TabIndex = 143;
-            this.cbCorreoCerrarVentanaVentas.Text = "Al cerrar la ventana de ventas cuando tiene productos";
-            this.cbCorreoCerrarVentanaVentas.UseVisualStyleBackColor = true;
-            // 
-            // cbCorreoRetirarDineroCaja
-            // 
-            this.cbCorreoRetirarDineroCaja.AutoSize = true;
-            this.cbCorreoRetirarDineroCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.cbCorreoRetirarDineroCaja.Location = new System.Drawing.Point(18, 139);
-            this.cbCorreoRetirarDineroCaja.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbCorreoRetirarDineroCaja.Name = "cbCorreoRetirarDineroCaja";
-            this.cbCorreoRetirarDineroCaja.Size = new System.Drawing.Size(237, 29);
-            this.cbCorreoRetirarDineroCaja.TabIndex = 142;
-            this.cbCorreoRetirarDineroCaja.Text = "Al retirar dinero en caja";
-            this.cbCorreoRetirarDineroCaja.UseVisualStyleBackColor = true;
-            // 
-            // cbCorreoAgregarDineroCaja
-            // 
-            this.cbCorreoAgregarDineroCaja.AutoSize = true;
-            this.cbCorreoAgregarDineroCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.cbCorreoAgregarDineroCaja.Location = new System.Drawing.Point(18, 97);
-            this.cbCorreoAgregarDineroCaja.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbCorreoAgregarDineroCaja.Name = "cbCorreoAgregarDineroCaja";
-            this.cbCorreoAgregarDineroCaja.Size = new System.Drawing.Size(255, 29);
-            this.cbCorreoAgregarDineroCaja.TabIndex = 137;
-            this.cbCorreoAgregarDineroCaja.Text = "Al agregar dinero en caja";
-            this.cbCorreoAgregarDineroCaja.UseVisualStyleBackColor = true;
-            // 
-            // cbCorreoPrecioProducto
-            // 
-            this.cbCorreoPrecioProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.cbCorreoPrecioProducto.AutoSize = true;
-            this.cbCorreoPrecioProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoPrecioProducto.Location = new System.Drawing.Point(360, 139);
-            this.cbCorreoPrecioProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbCorreoPrecioProducto.Name = "cbCorreoPrecioProducto";
-            this.cbCorreoPrecioProducto.Size = new System.Drawing.Size(197, 29);
-            this.cbCorreoPrecioProducto.TabIndex = 138;
-            this.cbCorreoPrecioProducto.Text = "Al modificar precio";
-            this.cbCorreoPrecioProducto.UseVisualStyleBackColor = true;
-            // 
-            // cbCorreoStockProducto
-            // 
-            this.cbCorreoStockProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.cbCorreoStockProducto.AutoSize = true;
-            this.cbCorreoStockProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoStockProducto.Location = new System.Drawing.Point(360, 180);
-            this.cbCorreoStockProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbCorreoStockProducto.Name = "cbCorreoStockProducto";
-            this.cbCorreoStockProducto.Size = new System.Drawing.Size(190, 29);
-            this.cbCorreoStockProducto.TabIndex = 139;
-            this.cbCorreoStockProducto.Text = "Al modificar stock";
-            this.cbCorreoStockProducto.UseVisualStyleBackColor = true;
-            // 
-            // cbCorreoStockMinimo
-            // 
-            this.cbCorreoStockMinimo.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.cbCorreoStockMinimo.AutoSize = true;
-            this.cbCorreoStockMinimo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoStockMinimo.Location = new System.Drawing.Point(360, 97);
-            this.cbCorreoStockMinimo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbCorreoStockMinimo.Name = "cbCorreoStockMinimo";
-            this.cbCorreoStockMinimo.Size = new System.Drawing.Size(226, 29);
-            this.cbCorreoStockMinimo.TabIndex = 140;
-            this.cbCorreoStockMinimo.Text = "Al llegar stock mínimo";
-            this.cbCorreoStockMinimo.UseVisualStyleBackColor = true;
-            // 
-            // cbCorreoVenderProducto
-            // 
-            this.cbCorreoVenderProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.cbCorreoVenderProducto.AutoSize = true;
-            this.cbCorreoVenderProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbCorreoVenderProducto.Location = new System.Drawing.Point(360, 219);
-            this.cbCorreoVenderProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.cbCorreoVenderProducto.Name = "cbCorreoVenderProducto";
-            this.cbCorreoVenderProducto.Size = new System.Drawing.Size(223, 29);
-            this.cbCorreoVenderProducto.TabIndex = 141;
-            this.cbCorreoVenderProducto.Text = "Al venderse producto";
-            this.cbCorreoVenderProducto.UseVisualStyleBackColor = true;
+            this.checkBox3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox3.Location = new System.Drawing.Point(27, 108);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(236, 20);
+            this.checkBox3.TabIndex = 141;
+            this.checkBox3.Text = "Calcular cobro de interés moratorio";
+            this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // btnAceptar
             // 
@@ -363,112 +259,148 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(762, 590);
-            this.btnAceptar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAceptar.Location = new System.Drawing.Point(495, 371);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(264, 43);
+            this.btnAceptar.Size = new System.Drawing.Size(176, 28);
             this.btnAceptar.TabIndex = 133;
             this.btnAceptar.Text = "Guardar";
             this.btnAceptar.UseVisualStyleBackColor = false;
-            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(286, 44);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 30);
-            this.textBox1.TabIndex = 2;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(286, 89);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 30);
-            this.textBox2.TabIndex = 2;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.checkBox1.Location = new System.Drawing.Point(633, 213);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(250, 29);
-            this.checkBox1.TabIndex = 137;
-            this.checkBox1.Text = "Permite perdonar crédito";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox2.Location = new System.Drawing.Point(633, 254);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(268, 54);
-            this.checkBox2.TabIndex = 141;
-            this.checkBox2.Text = "Solicitar huella digital para \r\nconsolidar venta a crédito\r\n";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox3.Location = new System.Drawing.Point(633, 318);
-            this.checkBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(268, 29);
-            this.checkBox3.TabIndex = 141;
-            this.checkBox3.Text = "Cobro de interés moratorio";
-            this.checkBox3.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label4.Location = new System.Drawing.Point(629, 342);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(27, 131);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(272, 25);
+            this.label4.Size = new System.Drawing.Size(274, 16);
             this.label4.TabIndex = 154;
             this.label4.Text = " (tras un mes de retraso)";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // comboBox3
+            // label5
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "Inicio de mes",
-            "Por dias trascurridos"});
-            this.comboBox3.Location = new System.Drawing.Point(796, 380);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 33);
-            this.comboBox3.TabIndex = 0;
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label5.Location = new System.Drawing.Point(22, 212);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(274, 21);
+            this.label5.TabIndex = 154;
+            this.label5.Text = "(Si esta desactivado se puede asignar uno por cliente)";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // label3
+            // checkBox4
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(628, 383);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(162, 25);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Cobro de interés:";
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.checkBox4.Location = new System.Drawing.Point(22, 173);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(297, 36);
+            this.checkBox4.TabIndex = 137;
+            this.checkBox4.Text = "Utilizar el % por defecto siempre en el calculo\r\nde interés para todos los client" +
+    "es";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.label7.Location = new System.Drawing.Point(22, 256);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(198, 32);
+            this.label7.TabIndex = 1;
+            this.label7.Text = "Porcentaje de interés asignado \r\npor defecto a todos los clientes:";
+            // 
+            // label9
+            // 
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(294, 319);
+            this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(20, 22);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "%";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(252, 319);
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(44, 22);
+            this.numericUpDown2.TabIndex = 155;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.Location = new System.Drawing.Point(22, 317);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(167, 20);
+            this.checkBox1.TabIndex = 141;
+            this.checkBox1.Text = "Pago inicial obligatorio:";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "Inicio de periodo",
+            "Por días trascurridos"});
+            this.comboBox4.Location = new System.Drawing.Point(564, 256);
+            this.comboBox4.Margin = new System.Windows.Forms.Padding(2);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(107, 24);
+            this.comboBox4.TabIndex = 0;
+            this.comboBox4.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(354, 259);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(174, 17);
+            this.label8.TabIndex = 1;
+            this.label8.Text = "Modo de cobro de interés:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(354, 320);
+            this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(246, 17);
+            this.label10.TabIndex = 1;
+            this.label10.Text = "Días sin cobro de interés por periodo:";
+            // 
+            // numericUpDown3
+            // 
+            this.numericUpDown3.Location = new System.Drawing.Point(605, 320);
+            this.numericUpDown3.Maximum = new decimal(new int[] {
+            31,
+            0,
+            0,
+            0});
+            this.numericUpDown3.Name = "numericUpDown3";
+            this.numericUpDown3.Size = new System.Drawing.Size(66, 22);
+            this.numericUpDown3.TabIndex = 155;
+            this.numericUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // configCredito
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.ClientSize = new System.Drawing.Size(1424, 714);
+            this.ClientSize = new System.Drawing.Size(744, 451);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "configCredito";
@@ -480,8 +412,11 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EnvioDeCorreo_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -489,34 +424,30 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.CheckBox CBXClienteDescuento;
-        private System.Windows.Forms.CheckBox cbRecibirAnricipo;
-        private System.Windows.Forms.CheckBox chRespaldo;
-        private System.Windows.Forms.CheckBox cbCorreoDescuento;
-        private System.Windows.Forms.CheckBox cbCorreoIniciar;
-        private System.Windows.Forms.CheckBox cbCorreoVenta;
-        private System.Windows.Forms.CheckBox cbCorreoCorteCaja;
-        private System.Windows.Forms.CheckBox cbCorreoEliminarListaProductosVentas;
-        private System.Windows.Forms.CheckBox cbCorreoCerrarVentanaVentas;
-        private System.Windows.Forms.CheckBox cbCorreoRetirarDineroCaja;
-        private System.Windows.Forms.CheckBox cbCorreoAgregarDineroCaja;
-        private System.Windows.Forms.CheckBox cbCorreoPrecioProducto;
-        private System.Windows.Forms.CheckBox cbCorreoStockProducto;
-        private System.Windows.Forms.CheckBox cbCorreoStockMinimo;
-        private System.Windows.Forms.CheckBox cbCorreoVenderProducto;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox comboBox4;
     }
 }
