@@ -739,15 +739,15 @@ namespace PuntoDeVentaV2
             }
             else if (propiedad == "Eliminar_Descuento")
             {
-                TextBox tbEliminarDescuento = new TextBox();
-                tbEliminarDescuento.Name = "tb" + propiedad;
-                tbEliminarDescuento.Width = 200;
-                tbEliminarDescuento.Height = 40;
-                tbEliminarDescuento.CharacterCasing = CharacterCasing.Upper;
-                tbEliminarDescuento.Font = fuente;
-                tbEliminarDescuento.Location = new Point(65, 50);
+                //TextBox tbEliminarDescuento = new TextBox();
+                //tbEliminarDescuento.Name = "tb" + propiedad;
+                //tbEliminarDescuento.Width = 200;
+                //tbEliminarDescuento.Height = 40;
+                //tbEliminarDescuento.CharacterCasing = CharacterCasing.Upper;
+                //tbEliminarDescuento.Font = fuente;
+                //tbEliminarDescuento.Location = new Point(65, 50);
 
-                panelContenedor.Controls.Add(tbEliminarDescuento);
+                //panelContenedor.Controls.Add(tbEliminarDescuento);
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarMensaje"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarMensaje"));
             }
@@ -1850,7 +1850,7 @@ namespace PuntoDeVentaV2
                 }
                
             }
-            else if (propiedad == "EliminarDescuento")/////////////////////////////////////////////////////////////////ELIMINAR DESCUENTO
+            else if (propiedad == "Eliminar_Descuento")/////////////////////////////////////////////////////////////////ELIMINAR DESCUENTO
             {
                 DialogResult dialogResult = MessageBox.Show("Se eliminaran los descuentos de todos\n los productos seleccionados.", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (dialogResult == DialogResult.Yes)
