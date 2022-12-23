@@ -61,10 +61,14 @@
           <DataField>Concepto</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="Comentarios">
+          <DataField>Comentarios</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>TicketDineroAgregado</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\Dell\source\repos\pudve\PuntoDeVentaV2\ReportesImpresion\Ticket\DineroAgregado\TicketDineroAgregado.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Andoni Sánchez\source\repos\pudve\PuntoDeVentaV2\ReportesImpresion\Ticket\DineroAgregado\TicketDineroAgregado.xsd</rd:SchemaPath>
         <rd:TableName>DTDineroAgregado</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />

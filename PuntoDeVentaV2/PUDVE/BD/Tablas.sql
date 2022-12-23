@@ -1983,6 +1983,7 @@ ALTER TABLE dgvdisminuirinventario MODIFY COLUMN DiferenciaUnidades VARCHAR(100)
 ALTER TABLE dgvdisminuirinventario MODIFY COLUMN StockActual VARCHAR(100);
 ALTER TABLE dgvdisminuirinventario MODIFY COLUMN NuevoStock VARCHAR(100);
 
+
 -- Columnas para configuracion de creditos
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoHuella INT DEFAULT 0 ;
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoMoratorio INT DEFAULT 0 ;
@@ -2001,3 +2002,7 @@ ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditodiassincobro INT DEFAU
 
 -- Agregar Columna de la ganancia por venta para graficarlo 
 	ALTER TABLE ventas ADD COLUMN IF NOT EXISTS Ganancia   VARCHAR ( 2000 ) DEFAULT NULL ;
+
+--Columna de Comenatrios para caja los tickets agregar retirar dinero y de caja
+ALTER TABLE caja ADD COLUMN IF NOT EXISTS Comentarios MEDIUMTEXT;
+

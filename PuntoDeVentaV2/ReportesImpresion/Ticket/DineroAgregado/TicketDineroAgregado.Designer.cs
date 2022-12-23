@@ -301,6 +301,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.DineroAgregado {
             
             private global::System.Data.DataColumn columnConcepto;
             
+            private global::System.Data.DataColumn columnComentarios;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DTDineroAgregadoDataTable() {
@@ -424,6 +426,14 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.DineroAgregado {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ComentariosColumn {
+                get {
+                    return this.columnComentarios;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -459,7 +469,7 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.DineroAgregado {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DTDineroAgregadoRow AddDTDineroAgregadoRow(string RazonSocial, string TipoTicket, string FechaDeposito, string Empleado, string Efectivo, string Tarjeta, string Vales, string Cheque, string Transferencia, string Total, string Concepto) {
+            public DTDineroAgregadoRow AddDTDineroAgregadoRow(string RazonSocial, string TipoTicket, string FechaDeposito, string Empleado, string Efectivo, string Tarjeta, string Vales, string Cheque, string Transferencia, string Total, string Concepto, string Comentarios) {
                 DTDineroAgregadoRow rowDTDineroAgregadoRow = ((DTDineroAgregadoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         RazonSocial,
@@ -472,7 +482,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.DineroAgregado {
                         Cheque,
                         Transferencia,
                         Total,
-                        Concepto};
+                        Concepto,
+                        Comentarios};
                 rowDTDineroAgregadoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDTDineroAgregadoRow);
                 return rowDTDineroAgregadoRow;
@@ -506,6 +517,7 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.DineroAgregado {
                 this.columnTransferencia = base.Columns["Transferencia"];
                 this.columnTotal = base.Columns["Total"];
                 this.columnConcepto = base.Columns["Concepto"];
+                this.columnComentarios = base.Columns["Comentarios"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -533,6 +545,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.DineroAgregado {
                 base.Columns.Add(this.columnTotal);
                 this.columnConcepto = new global::System.Data.DataColumn("Concepto", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnConcepto);
+                this.columnComentarios = new global::System.Data.DataColumn("Comentarios", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnComentarios);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -851,6 +865,22 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.DineroAgregado {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Comentarios {
+                get {
+                    try {
+                        return ((string)(this[this.tableDTDineroAgregado.ComentariosColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Comentarios\' in table \'DTDineroAgregado\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDTDineroAgregado.ComentariosColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsRazonSocialNull() {
                 return this.IsNull(this.tableDTDineroAgregado.RazonSocialColumn);
             }
@@ -979,6 +1009,18 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.DineroAgregado {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetConceptoNull() {
                 this[this.tableDTDineroAgregado.ConceptoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsComentariosNull() {
+                return this.IsNull(this.tableDTDineroAgregado.ComentariosColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetComentariosNull() {
+                this[this.tableDTDineroAgregado.ComentariosColumn] = global::System.Convert.DBNull;
             }
         }
         

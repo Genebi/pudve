@@ -751,18 +751,18 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string OperacionCaja(string[] datos, bool corte = false)
+        public string OperacionCaja(string[] datos, bool corte = false, string comentario = "")
         {
             var consulta = string.Empty;
             if (corte.Equals(true))
             {
-                consulta = "INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado, NumFolio, CantidadRetiradaCorte)";
-                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}')";
+                consulta = "INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado, NumFolio, CantidadRetiradaCorte,Comentarios)";
+                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}','{comentario}')";
             }
             else
             {
-                consulta = "INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado)";
-                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}')";
+                consulta = "INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado,Comentarios)";
+                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}','{comentario}')";
             }
 
 
@@ -4417,7 +4417,7 @@ namespace PuntoDeVentaV2
 
         public string obtenerDatosTicketAgregarDinero(int IdAgregarDinero)
         {
-            var consulta = $"SET lc_time_names = 'es_MX'; SELECT IF ( Usr.RazonSocial = '' OR Usr.RazonSocial IS NULL, '', Usr.RazonSocial ) AS 'RazonSocial', IF ( Box.Operacion = '' OR Box.Operacion IS NULL, '', 'Ticket DEPOSITO' ) AS 'TipoTicket', IF ( Box.FechaOperacion = '' OR Box.FechaOperacion IS NULL, '', CONCAT( 'Fecha: ', ( CONCAT( DATE_FORMAT( Box.FechaOperacion, '%W - %e/%M/%Y' ), '', TIME_FORMAT( Box.FechaOperacion, '%h:%i:%s %p' ) ) ) ) ) AS 'FechaDeposito', IF ( Usr.Usuario = '' OR Usr.Usuario IS NULL, '', CONCAT( 'Empleado: ', Usr.Usuario ) ) AS 'Empleado', IF ( Box.Efectivo = '' OR Box.Efectivo IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( Box.Efectivo, 2 ) ) ) AS 'Efectivo', IF ( Box.Tarjeta = '' OR Box.Tarjeta IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( Box.Tarjeta, 2 ) ) ) AS 'Tarjeta', IF ( Box.Vales = '' OR Box.Vales IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( Box.Vales, 2 ) ) ) AS 'Vales', IF ( Box.Cheque = '' OR Box.Cheque IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( Box.Cheque, 2 ) ) ) AS 'Cheque', IF ( Box.Transferencia = '' OR Box.Transferencia IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( Box.Transferencia, 2 ) ) ) AS 'Transferencia', IF ( Box.Cantidad = '' OR Box.Cantidad IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( Box.Cantidad, 2 ) ) ) AS 'Total', IF ( Box.Concepto = '' OR Box.Concepto IS NULL, '', Box.Concepto ) AS 'Concepto' FROM caja AS Box INNER JOIN usuarios AS Usr ON ( Usr.ID = Box.IDUsuario ) WHERE Box.ID = '{IdAgregarDinero}'";
+            var consulta = $"SET lc_time_names = 'es_MX'; SELECT IF ( Usr.RazonSocial = '' OR Usr.RazonSocial IS NULL, '', Usr.RazonSocial ) AS 'RazonSocial', IF ( Box.Operacion = '' OR Box.Operacion IS NULL, '', 'Ticket DEPOSITO' ) AS 'TipoTicket', IF ( Box.FechaOperacion = '' OR Box.FechaOperacion IS NULL, '', CONCAT( 'Fecha: ', ( CONCAT( DATE_FORMAT( Box.FechaOperacion, '%W - %e/%M/%Y' ), '', TIME_FORMAT( Box.FechaOperacion, '%h:%i:%s %p' ) ) ) ) ) AS 'FechaDeposito', IF ( Usr.Usuario = '' OR Usr.Usuario IS NULL, '', CONCAT( 'Empleado: ', Usr.Usuario ) ) AS 'Empleado', IF ( Box.Efectivo = '' OR Box.Efectivo IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( Box.Efectivo, 2 ) ) ) AS 'Efectivo', IF ( Box.Tarjeta = '' OR Box.Tarjeta IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( Box.Tarjeta, 2 ) ) ) AS 'Tarjeta', IF ( Box.Vales = '' OR Box.Vales IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( Box.Vales, 2 ) ) ) AS 'Vales', IF ( Box.Cheque = '' OR Box.Cheque IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( Box.Cheque, 2 ) ) ) AS 'Cheque', IF ( Box.Transferencia = '' OR Box.Transferencia IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( Box.Transferencia, 2 ) ) ) AS 'Transferencia', IF ( Box.Cantidad = '' OR Box.Cantidad IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( Box.Cantidad, 2 ) ) ) AS 'Total', IF ( Box.Concepto = '' OR Box.Concepto IS NULL, '', Box.Concepto ) AS 'Concepto',Box.Comentarios FROM caja AS Box INNER JOIN usuarios AS Usr ON ( Usr.ID = Box.IDUsuario ) WHERE Box.ID = '{IdAgregarDinero}'";
 
             return consulta;
         }
