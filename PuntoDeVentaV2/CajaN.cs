@@ -123,6 +123,13 @@ namespace PuntoDeVentaV2
             cantidadChequeSaldoInicialEnCaja = 0,
             cantidadTransferenciaSaldoInicialEnCaja = 0;
 
+        public static decimal
+            cantidadTotalEfectivoSaldoInicial = 0,
+            cantidadTotalTarjetaSaldoInicial = 0,
+            cantidadTotalValesSaldoInicial = 0,
+            cantidadTotalChequeSaldoInicial = 0,
+            cantidadTotalTransferenciaSaldoInicial = 0;
+
         decimal totalEfectivoVentaEnCaja = 0,
                 totalTarjetaVentaEnCaja = 0,
                 totalValesEnVentaCaja = 0,
@@ -771,6 +778,22 @@ namespace PuntoDeVentaV2
             var tipodeMoneda = FormPrincipal.Moneda.Split('-');
             var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
 
+            if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0))
+            {
+                var datosCB = cbFiltroAdminEmpleado.SelectedItem.ToString();
+                var nombreID = datosCB.Split(',');
+                var idEmpleado = nombreID[0].ToString().Replace("[", "");
+
+                if (!idEmpleado.Equals("All"))
+                {
+                    FormPrincipal.id_empleado = Convert.ToInt32(idEmpleado);
+                }
+            }
+            else
+            {
+                FormPrincipal.id_empleado = 0;
+            }
+
             //saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
             //saldoInicial = cdc.CargarSaldoInicial();
 
@@ -987,13 +1010,28 @@ namespace PuntoDeVentaV2
                 btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + "0.00";
             }
 
+            if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0))
+            {
+                var datosCB = cbFiltroAdminEmpleado.SelectedItem.ToString();
+                var nombreID = datosCB.Split(',');
+                var idEmpleado = nombreID[0].ToString().Replace("[","");
+
+                if (!idEmpleado.Equals("All"))
+                {
+                    FormPrincipal.id_empleado = Convert.ToInt32(idEmpleado);
+                }
+                        
+            }
+
+
             var datos = cn.CargarDatos($"SELECT FORMAT(IF(SUM(Efectivo)= '' OR SUM(Efectivo) IS NULL,'0',SUM(Efectivo)),2) AS 'Efectivo', FORMAT(IF(SUM(Tarjeta)= '' OR SUM(Tarjeta) IS NULL,'0',SUM(Tarjeta)),2) AS 'Tarjeta', FORMAT(IF(SUM(Vales)= '' OR SUM(Vales) IS NULL,'0',SUM(Vales)),2) AS 'Vales', FORMAT(IF(SUM(Cheque)= '' OR SUM(Cheque) IS NULL,'0',SUM(Cheque)),2) AS 'Cheque', FORMAT(IF(SUM(Transferencia)= '' OR SUM(Transferencia) IS NULL,'0',SUM(Transferencia)),2) AS 'Transferencia', FORMAT(IF(SUM(Efectivo)= '' OR SUM(Efectivo) IS NULL,'0',SUM(Efectivo)) + IF(SUM(Tarjeta)= '' OR SUM(Tarjeta) IS NULL,'0',SUM(Tarjeta)) + IF(SUM(Vales)= '' OR SUM(Vales) IS NULL,'0',SUM(Vales)) + IF(SUM(Cheque)= '' OR SUM(Cheque) IS NULL,'0',SUM(Cheque)) + IF(SUM(Transferencia)= '' OR SUM(Transferencia) IS NULL,'0',SUM(Transferencia)),2) AS 'Total' FROM `caja` WHERE FechaOperacion >= '{ultimoCorteDeCaja}' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' AND Concepto = 'Complemento de retiro desde saldo inicial' AND Operacion = 'retiro'");
 
-            var datos2 = cn.CargarDatos($"SELECT FORMAT( IF ( SUM( Efectivo ) = '' OR SUM( Efectivo ) IS NULL, '0', SUM( Efectivo ) ), 2 ) AS 'Efectivo', FORMAT( IF ( SUM( Tarjeta ) = '' OR SUM( Tarjeta ) IS NULL, '0', SUM( Tarjeta ) ), 2 ) AS 'Tarjeta', FORMAT( IF ( SUM( Vales ) = '' OR SUM( Vales ) IS NULL, '0', SUM( Vales ) ), 2 ) AS 'Vales', FORMAT( IF ( SUM( Cheque ) = '' OR SUM( Cheque ) IS NULL, '0', SUM( Cheque ) ), 2 ) AS 'Cheque', FORMAT( IF ( SUM( Transferencia ) = '' OR SUM( Transferencia ) IS NULL, '0', SUM( Transferencia ) ), 2 ) AS 'Transferencia', FORMAT( IF ( SUM( Efectivo ) = '' OR SUM( Efectivo ) IS NULL, '0', SUM( Efectivo ) ) + IF ( SUM( Tarjeta ) = '' OR SUM( Tarjeta ) IS NULL, '0', SUM( Tarjeta ) ) + IF ( SUM( Vales ) = '' OR SUM( Vales ) IS NULL, '0', SUM( Vales ) ) + IF ( SUM( Cheque ) = '' OR SUM( Cheque ) IS NULL, '0', SUM( Cheque ) ) + IF ( SUM( Transferencia ) = '' OR SUM( Transferencia ) IS NULL, '0', SUM( Transferencia ) ), 2 ) AS 'Total' FROM `caja` WHERE FechaOperacion >= '{ultimoCorteDeCaja}' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' AND Concepto = 'agregado a saldo inicial' AND Operacion = 'deposito'");
+            //var datos2 = cn.CargarDatos($"SELECT FORMAT( IF ( SUM( Efectivo ) = '' OR SUM( Efectivo ) IS NULL, '0', SUM( Efectivo ) ), 2 ) AS 'Efectivo', FORMAT( IF ( SUM( Tarjeta ) = '' OR SUM( Tarjeta ) IS NULL, '0', SUM( Tarjeta ) ), 2 ) AS 'Tarjeta', FORMAT( IF ( SUM( Vales ) = '' OR SUM( Vales ) IS NULL, '0', SUM( Vales ) ), 2 ) AS 'Vales', FORMAT( IF ( SUM( Cheque ) = '' OR SUM( Cheque ) IS NULL, '0', SUM( Cheque ) ), 2 ) AS 'Cheque', FORMAT( IF ( SUM( Transferencia ) = '' OR SUM( Transferencia ) IS NULL, '0', SUM( Transferencia ) ), 2 ) AS 'Transferencia', FORMAT( IF ( SUM( Efectivo ) = '' OR SUM( Efectivo ) IS NULL, '0', SUM( Efectivo ) ) + IF ( SUM( Tarjeta ) = '' OR SUM( Tarjeta ) IS NULL, '0', SUM( Tarjeta ) ) + IF ( SUM( Vales ) = '' OR SUM( Vales ) IS NULL, '0', SUM( Vales ) ) + IF ( SUM( Cheque ) = '' OR SUM( Cheque ) IS NULL, '0', SUM( Cheque ) ) + IF ( SUM( Transferencia ) = '' OR SUM( Transferencia ) IS NULL, '0', SUM( Transferencia ) ), 2 ) AS 'Total' FROM `caja` WHERE FechaOperacion >= '{ultimoCorteDeCaja}' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' AND Concepto = 'agregado a saldo inicial' AND Operacion = 'deposito'");
 
-            var agregadoSaldoInicial = Convert.ToDecimal(datos2.Rows[0]["Total"].ToString());
+            //var agregadoSaldoInicial = Convert.ToDecimal(datos2.Rows[0]["Total"].ToString());
             var retiradoSaldoInicial = Convert.ToDecimal(datos.Rows[0]["Total"].ToString());
-            lblCantidadSaldoActual.Text =  $"{moneda} {(totalSaldoInicial - retiradoSaldoInicial) + (agregadoSaldoInicial)}";
+
+            lblCantidadSaldoActual.Text =  $"{moneda} {(totalSaldoInicial - retiradoSaldoInicial) /*+ (agregadoSaldoInicial)*/}";
 
 
         }
@@ -6482,23 +6520,56 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                cantidadTotalEfectivoEnCaja = ((totalEfectivoVentaEnCaja + totalEfectivoAnticiposEnCaja + totalEfectivoDepsitosEnCaja + totalAbonoEfectivo) - totalEfectivoRetiroEnCaja);
+                ///////////////////////////////////////////////////////////TOTALES EN CAJA DE VENTAS, ABONOS, DINERO AGREGADO Y ANTICIPOS/////////////////////////////////////////////////
+                
+                cantidadTotalEfectivoEnCaja = ((totalEfectivoVentaEnCaja + totalEfectivoAnticiposEnCaja + totalEfectivoDepsitosEnCaja + totalAbonoEfectivo ) - totalEfectivoRetiroEnCaja);
+                if (cantidadTotalEfectivoEnCaja <= 0)
+                {
+                    cantidadTotalEfectivoEnCaja = 0;
+                }
 
-                cantidadTotalTarjetaEnCaja = ((totalTarjetaVentaEnCaja + totalTarjetaAnticiposEnCaja + totalTarjetaDepositosEnCaja + totalAbonoTarjeta) - totalTarjetaRetiroEnCaja);
-
+                cantidadTotalTarjetaEnCaja = ((totalTarjetaVentaEnCaja + totalTarjetaAnticiposEnCaja + totalTarjetaDepositosEnCaja + totalAbonoTarjeta ) - totalTarjetaRetiroEnCaja);
+                if (cantidadTotalTarjetaEnCaja <= 0)
+                {
+                    cantidadTotalTarjetaEnCaja = 0;
+                }
                 cantidadTotalValesEnCaja = ((totalValesEnVentaCaja + totalValesAnticiposEnCaja + totalValesDepositosEnCaja + totalAbonoVales) - totalValesRetiroEnCaja);
-
+                if (cantidadTotalValesEnCaja <= 0)
+                {
+                    cantidadTotalValesEnCaja = 0;
+                }
                 cantidadTotalCehqueEnCaja = ((totalChequesVentaEnCaja + totalChequesAnticipoEnCaja + totalChequesDepsoitosEnCaja + totalAbonoCheque) - totalChequesRetiroEnCaja);
-
+                if (cantidadTotalCehqueEnCaja <= 0)
+                {
+                    cantidadTotalCehqueEnCaja = 0;
+                }
                 cantidadTotalTransferenciaEnCaja = ((totalTransferenciaVentaEnCaja + totalTransferenciaAnticiposEnCaja + totalTransferenciasDepositosEnCaja + totalAbonoTransferencia) - totalTransferenciaRetiroEnCaja);
+                if (cantidadTotalTransferenciaEnCaja <= 0)
+                {
+                    cantidadTotalTransferenciaEnCaja = 0;
+                }
 
-                sumaDeTotalesEnCaja = cantidadTotalEfectivoEnCaja + cantidadTotalTarjetaEnCaja + cantidadTotalValesEnCaja + cantidadTotalCehqueEnCaja + cantidadTotalTransferenciaEnCaja + cantidadEfectivoSaldoInicialEnCaja + cantidadTarjetaSaldoInicialEnCaja + cantidadValesSaldoInicialEnCaja + cantidadChequeSaldoInicialEnCaja + cantidadTransferenciaSaldoInicialEnCaja;
+                ///////////////////////////////////////////////////////////TOTALES DE CAJA CON SALDO INICIAL//////////////////////////////////////////////////////////////////////////////
 
-                lbTEfectivoC.Text = (cantidadTotalEfectivoEnCaja + cantidadEfectivoSaldoInicialEnCaja).ToString("C2");
-                lbTTarjetaC.Text = (cantidadTotalTarjetaEnCaja + cantidadTarjetaSaldoInicialEnCaja).ToString("C2");
-                lbTValesC.Text = (cantidadTotalValesEnCaja + cantidadValesSaldoInicialEnCaja).ToString("C2");
-                lbTChequeC.Text = (cantidadTotalCehqueEnCaja + cantidadChequeSaldoInicialEnCaja).ToString("C2");
-                lbTTransC.Text = (cantidadTotalTransferenciaEnCaja + cantidadTransferenciaSaldoInicialEnCaja).ToString("C2");
+                cantidadTotalEfectivoSaldoInicial = ((totalEfectivoVentaEnCaja + totalEfectivoAnticiposEnCaja + totalEfectivoDepsitosEnCaja + totalAbonoEfectivo + cantidadEfectivoSaldoInicialEnCaja) - totalEfectivoRetiroEnCaja);
+
+                cantidadTotalTarjetaSaldoInicial = ((totalTarjetaVentaEnCaja + totalTarjetaAnticiposEnCaja + totalTarjetaDepositosEnCaja + totalAbonoTarjeta + cantidadTarjetaSaldoInicialEnCaja) - totalTarjetaRetiroEnCaja);
+
+                cantidadTotalValesSaldoInicial = ((totalValesEnVentaCaja + totalValesAnticiposEnCaja + totalValesDepositosEnCaja + totalAbonoVales + cantidadValesSaldoInicialEnCaja) - totalValesRetiroEnCaja);
+
+                cantidadTotalChequeSaldoInicial = ((totalChequesVentaEnCaja + totalChequesAnticipoEnCaja + totalChequesDepsoitosEnCaja + totalAbonoCheque + cantidadChequeSaldoInicialEnCaja) - totalChequesRetiroEnCaja);
+
+                cantidadTotalTransferenciaSaldoInicial = ((totalTransferenciaVentaEnCaja + totalTransferenciaAnticiposEnCaja + totalTransferenciasDepositosEnCaja + totalAbonoTransferencia + cantidadTransferenciaSaldoInicialEnCaja) - totalTransferenciaRetiroEnCaja);
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                sumaDeTotalesEnCaja = cantidadTotalEfectivoSaldoInicial + cantidadTotalTarjetaSaldoInicial + cantidadTotalValesSaldoInicial + cantidadTotalChequeSaldoInicial + cantidadTotalTransferenciaSaldoInicial;
+
+                lbTEfectivoC.Text = (cantidadTotalEfectivoSaldoInicial).ToString("C2");
+                lbTTarjetaC.Text = (cantidadTotalTarjetaSaldoInicial).ToString("C2");
+                lbTValesC.Text = (cantidadTotalValesSaldoInicial).ToString("C2");
+                lbTChequeC.Text = (cantidadTotalChequeSaldoInicial).ToString("C2");
+                lbTTransC.Text = (cantidadTotalTransferenciaSaldoInicial).ToString("C2");
 
                 lbTSaldoInicial.Text = totalSaldoInicial.ToString("C2");
 

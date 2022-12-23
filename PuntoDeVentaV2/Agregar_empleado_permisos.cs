@@ -181,7 +181,8 @@ namespace PuntoDeVentaV2
 
         private void btn_cancelar_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            Agregar_empleado.SeCancelor = true;
+            this.Close();
         }
 
         private void btn_aceptar_Click(object sender, EventArgs e)
@@ -224,6 +225,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                Agregar_empleado.PermisoPrecio = chkPermisoPrecio;
                 IDPlantilla = 0;
                 this.Close();
             }
@@ -844,11 +846,6 @@ namespace PuntoDeVentaV2
             {
                 this.Close();
             }
-        }
-
-        private void chkPrecio_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void button1_Click(object sender, EventArgs e)

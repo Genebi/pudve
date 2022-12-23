@@ -2063,7 +2063,8 @@ namespace PuntoDeVentaV2
 
         public string busquedaEmpleado(string busqueda, int status)
         {
-            var consulta = $"SELECT ID, nombre, usuario FROM `empleados` WHERE usuario LIKE '%{busqueda}%' AND estatus = '{status}' AND IDUsuario = '{FormPrincipal.userID}'";
+            var consulta = $"SELECT ID, nombre, usuario FROM `empleados` WHERE (usuario LIKE '%{busqueda}%' OR nombre LIKE '%{busqueda}%') AND estatus = '{status}' AND IDUsuario = '{FormPrincipal.userID}'";
+
             return consulta;
         }
 

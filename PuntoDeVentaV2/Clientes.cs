@@ -76,7 +76,7 @@ namespace PuntoDeVentaV2
         private void CargarDatos(string busqueda = "", int status = 1)
         {
             string consulta = string.Empty;
-
+            status = cbStatus.SelectedIndex + 1;
             if (string.IsNullOrWhiteSpace(busqueda))
             {
                 consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = {status}";

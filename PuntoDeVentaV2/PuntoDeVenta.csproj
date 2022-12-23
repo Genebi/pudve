@@ -95,7 +95,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="CustomControlPUDVE">
-      <HintPath>..\..\CustomControlPUDVE.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\CustomControlPUDVE.dll</HintPath>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.16.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
       <HintPath>..\packages\DocumentFormat.OpenXml.2.16.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
@@ -616,6 +616,12 @@
     <Compile Include="Conexion.cs" />
     <Compile Include="ConexionDataDictionary.cs" />
     <Compile Include="ConexionNet.cs" />
+    <Compile Include="configCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="configCredito.Designer.cs">
+      <DependentUpon>configCredito.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfiguracionGeneral.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1874,6 +1880,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConceptosInhabilitados.resx">
       <DependentUpon>ConceptosInhabilitados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="configCredito.resx">
+      <DependentUpon>configCredito.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConfiguracionGeneral.resx">
       <DependentUpon>ConfiguracionGeneral.cs</DependentUpon>

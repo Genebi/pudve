@@ -307,7 +307,7 @@ namespace PuntoDeVentaV2
                     decimal ventas = cantidadEfectivo;
                     decimal anticipos = Convert.ToDecimal(datos[14]);
                     decimal dineroAgregado = Convert.ToDecimal(datos[20]);
-                    decimal dineroRtirado = Convert.ToDecimal(datos[26]);
+                    decimal dineroRtirado = (decimal)Convert.ToDouble(datos[26]);
                     decimal EfectivoCaja = ventas + anticipos + dineroAgregado - dineroRtirado;
                     if (Convert.ToDecimal(EfectivoCaja) < Convert.ToDecimal(total))
                     {

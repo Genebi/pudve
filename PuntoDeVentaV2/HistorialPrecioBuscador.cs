@@ -226,8 +226,7 @@ namespace PuntoDeVentaV2
 
             var porBusqueda = true;
 
-            if (!string.IsNullOrEmpty(nombreBuscar))
-            {
+        
                 //if (tipoBuscador.Equals("Empleados"))
                 //{
                 //    cargarEmpleados(porBusqueda);
@@ -237,11 +236,7 @@ namespace PuntoDeVentaV2
                 //    cargarProductos(porBusqueda);
                 //}
                 condicionesLlenadoDGV(porBusqueda);
-            }
-            else
-            {
-                MessageBox.Show("Campo de texto vacío.\nIngrese algun dato a buscar.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+         
         }
 
         private void btnBuscar_KeyDown(object sender, KeyEventArgs e)

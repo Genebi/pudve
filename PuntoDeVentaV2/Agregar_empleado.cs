@@ -12,11 +12,10 @@ namespace PuntoDeVentaV2
 {
     public partial class Agregar_empleado : Form
     {
-
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
-
+        public static bool SeCancelor = false;
         private int tipo = 0;
         private int empleado = 0;
 
@@ -25,8 +24,9 @@ namespace PuntoDeVentaV2
         private string password;
         int actualizar_contraseña = 0;
         public static int IDPlantilla = 0;
-
         public static string[] datosPermisosSeleccionados;
+
+        public static string PermisoPrecio = "";
 
         public Agregar_empleado(int tipo = 1, int empleado = 0)
         {
@@ -416,6 +416,15 @@ namespace PuntoDeVentaV2
             foreach (var seccion in secciones)
             {
                 cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{id_e}', '{FormPrincipal.userID}', '{seccion}')");
+                if (string.IsNullOrWhiteSpace(PermisoPrecio))
+                {
+                    cn.EjecutarConsulta($"UPDATE empleadospermisos SET Precio = '1' WHERE IDEmpleado = '{id_e}' AND IDUsuario = '{FormPrincipal.userID}'");
+                }
+                else
+                {
+                    cn.EjecutarConsulta($"UPDATE empleadospermisos SET Precio = '{PermisoPrecio}' WHERE IDEmpleado = '{id_e}' AND IDUsuario = '{FormPrincipal.userID}'");
+                }
+                
             }
         }
 
@@ -487,6 +496,12 @@ namespace PuntoDeVentaV2
             {
                 Agregar_empleado_permisos AEP = new Agregar_empleado_permisos(0);
                 AEP.ShowDialog();
+                if (SeCancelor.Equals(true))
+                {
+                    SeCancelor = false;
+                    cmb_bx_permisos.SelectedIndex = 0;
+                    return;
+                }
                 if (IDPlantilla.Equals(0) && !tipo.Equals(1))
                 {
                     cmb_bx_permisos.SelectedIndex = 0;

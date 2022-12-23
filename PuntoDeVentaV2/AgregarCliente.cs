@@ -650,5 +650,13 @@ namespace PuntoDeVentaV2
             txtRazonSocial.Text = "PUBLICO GENERAL";
             txtRFC.Text = "XAXX010101000";
         }
+
+        private void txtTelefono_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

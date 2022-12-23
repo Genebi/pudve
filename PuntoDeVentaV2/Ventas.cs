@@ -6276,7 +6276,7 @@ namespace PuntoDeVentaV2
                             {
                                 if (!DGVentas.Rows.Count.Equals(0))
                                 {
-                                    cantidadExtra = Convert.ToInt32(infoTmp[1]);
+                                    cantidadExtra = (int)Convert.ToDouble(infoTmp[1]);
                                 }
                             }
                         }
