@@ -2224,7 +2224,7 @@ namespace PuntoDeVentaV2
                 var cerrarSesion = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CerrarSesionAuto")));
                 var PermisoCorreoAnticipo = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoAnticipo")));
                 var PermisoCorreoVentaClienteDescuento= Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoVentaClienteDescuento")));
-                var Traspasos = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("Traspasos")));
+                var Traspasos = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("traspasos")));
                 config.Add(correoPrecio);                   // 0
                 config.Add(correoStock);                    // 1
                 config.Add(correoStockMinimo);              // 2
