@@ -80,7 +80,7 @@ namespace PuntoDeVentaV2
             dineroAgregadoDA.Fill(dineroAgregadoDT);
 
             ReportParameterCollection reportParameters = new ReportParameterCollection();
-            reportParameters.Add(new ReportParameter("Comentario", AgregarRetirarDinero.Comentario.ToString()));
+            reportParameters.Add(new ReportParameter("Comentario", dineroAgregadoDT.Rows[0]["Comentarios"].ToString()));
 
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
