@@ -25,7 +25,7 @@ namespace PuntoDeVentaV2
         {
             DataTable dt = new DataTable();
             numTotaldecredito.Controls[0].Visible = false;
-            dt = cn.CargarDatos($"SELECT creditoHuella, creditoMoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}");
+            dt = cn.CargarDatos($"SELECT creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}");
             //A checar datos
             if (!dt.Rows[0]["creditoHuella"].ToString().Equals("0"))
             {
@@ -39,6 +39,7 @@ namespace PuntoDeVentaV2
             {
                 cbAplicarPorcentajePorDefecto.Checked = true;
             }
+            numMoratorio.Value = Decimal.Parse(dt.Rows[0]["creditoPorcentajemoratorio"].ToString());
 
             numInteresDefecto.Value = Decimal.Parse(dt.Rows[0]["creditoPorcentajeinteres"].ToString());
 
@@ -67,14 +68,6 @@ namespace PuntoDeVentaV2
 
         private void combTotalCredito_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (combTotalCredito.SelectedIndex == 1)
-            {
-                numTotaldecredito.Enabled = true;
-            }
-            else
-            {
-                numTotaldecredito.Enabled = false;
-            }
         }
 
         private void cbPagoInicial_CheckedChanged(object sender, EventArgs e)
@@ -112,6 +105,8 @@ namespace PuntoDeVentaV2
             {
                 consulta = consulta += $"creditoMoratorio = 0, ";
             }
+
+            consulta = consulta += $"creditoPorcentajemoratorio = {numMoratorio.Value.ToString()}, ";
 
             if (cbAplicarPorcentajePorDefecto.Checked)
             {
@@ -156,7 +151,7 @@ namespace PuntoDeVentaV2
 
         private void combVentasAbiertas_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (combVentasAbiertas.SelectedIndex == 0)
+            if (combVentasAbiertas.SelectedIndex != 0)
             {
                 numVentasAbiertas.Enabled = true;
             }
@@ -170,13 +165,13 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                lblDef1.Visible = true;
+                lblDef1.Visible = false;
             }
         }
 
         private void combTotalCredito_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (combTotalCredito.SelectedIndex == 0)
+            if (combTotalCredito.SelectedIndex != 0)
             {
                 numTotaldecredito.Enabled = true;
             }
@@ -191,6 +186,18 @@ namespace PuntoDeVentaV2
             else
             {
                 lbdef2.Visible = false;
+            }
+        }
+
+        private void cbMoratorio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbMoratorio.Checked)
+            {
+                numMoratorio.Enabled = true;
+            }
+            else
+            {
+                numMoratorio.Enabled = false;
             }
         }
     }
