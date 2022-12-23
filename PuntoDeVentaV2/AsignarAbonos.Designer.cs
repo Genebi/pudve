@@ -50,6 +50,8 @@
             this.tituloTotal = new System.Windows.Forms.Label();
             this.lbTotalCambio = new System.Windows.Forms.Label();
             this.lbCambio = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtIntereses = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnAceptar
@@ -224,9 +226,9 @@
             // 
             this.txtPendiente.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.txtPendiente.Font = new System.Drawing.Font("Century Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPendiente.Location = new System.Drawing.Point(191, 45);
+            this.txtPendiente.Location = new System.Drawing.Point(255, 51);
             this.txtPendiente.Name = "txtPendiente";
-            this.txtPendiente.Size = new System.Drawing.Size(131, 23);
+            this.txtPendiente.Size = new System.Drawing.Size(92, 23);
             this.txtPendiente.TabIndex = 131;
             this.txtPendiente.Text = "$0.00";
             this.txtPendiente.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -235,7 +237,7 @@
             // 
             this.tituloAbono.AutoSize = true;
             this.tituloAbono.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloAbono.Location = new System.Drawing.Point(188, 19);
+            this.tituloAbono.Location = new System.Drawing.Point(234, 19);
             this.tituloAbono.Name = "tituloAbono";
             this.tituloAbono.Size = new System.Drawing.Size(134, 17);
             this.tituloAbono.TabIndex = 130;
@@ -257,9 +259,9 @@
             // 
             this.txtTotalOriginal.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.txtTotalOriginal.Font = new System.Drawing.Font("Century Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTotalOriginal.Location = new System.Drawing.Point(13, 45);
+            this.txtTotalOriginal.Location = new System.Drawing.Point(21, 51);
             this.txtTotalOriginal.Name = "txtTotalOriginal";
-            this.txtTotalOriginal.Size = new System.Drawing.Size(123, 23);
+            this.txtTotalOriginal.Size = new System.Drawing.Size(92, 23);
             this.txtTotalOriginal.TabIndex = 142;
             this.txtTotalOriginal.Text = "$0.00";
             this.txtTotalOriginal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -268,7 +270,7 @@
             // 
             this.tituloTotal.AutoSize = true;
             this.tituloTotal.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloTotal.Location = new System.Drawing.Point(35, 19);
+            this.tituloTotal.Location = new System.Drawing.Point(22, 19);
             this.tituloTotal.Name = "tituloTotal";
             this.tituloTotal.Size = new System.Drawing.Size(91, 17);
             this.tituloTotal.TabIndex = 141;
@@ -278,22 +280,43 @@
             // 
             this.lbTotalCambio.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.lbTotalCambio.Font = new System.Drawing.Font("Century Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTotalCambio.Location = new System.Drawing.Point(328, 45);
+            this.lbTotalCambio.Location = new System.Drawing.Point(372, 51);
             this.lbTotalCambio.Name = "lbTotalCambio";
-            this.lbTotalCambio.Size = new System.Drawing.Size(123, 23);
+            this.lbTotalCambio.Size = new System.Drawing.Size(92, 23);
             this.lbTotalCambio.TabIndex = 144;
             this.lbTotalCambio.Text = "$0.00";
-            this.lbTotalCambio.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lbTotalCambio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lbCambio
             // 
             this.lbCambio.AutoSize = true;
             this.lbCambio.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbCambio.Location = new System.Drawing.Point(389, 19);
+            this.lbCambio.Location = new System.Drawing.Point(387, 19);
             this.lbCambio.Name = "lbCambio";
             this.lbCambio.Size = new System.Drawing.Size(62, 17);
             this.lbCambio.TabIndex = 143;
             this.lbCambio.Text = "Cambio";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(153, 19);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(62, 17);
+            this.label1.TabIndex = 141;
+            this.label1.Text = "Intereses";
+            // 
+            // txtIntereses
+            // 
+            this.txtIntereses.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.txtIntereses.Font = new System.Drawing.Font("Century Gothic", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIntereses.Location = new System.Drawing.Point(138, 51);
+            this.txtIntereses.Name = "txtIntereses";
+            this.txtIntereses.Size = new System.Drawing.Size(92, 23);
+            this.txtIntereses.TabIndex = 142;
+            this.txtIntereses.Text = "$0.00";
+            this.txtIntereses.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AsignarAbonos
             // 
@@ -302,7 +325,9 @@
             this.ClientSize = new System.Drawing.Size(484, 321);
             this.Controls.Add(this.lbTotalCambio);
             this.Controls.Add(this.lbCambio);
+            this.Controls.Add(this.txtIntereses);
             this.Controls.Add(this.txtTotalOriginal);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.tituloTotal);
             this.Controls.Add(this.lbVerAbonos);
             this.Controls.Add(this.btnAceptar);
@@ -358,5 +383,7 @@
         private System.Windows.Forms.Label tituloTotal;
         private System.Windows.Forms.Label lbTotalCambio;
         private System.Windows.Forms.Label lbCambio;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label txtIntereses;
     }
 }

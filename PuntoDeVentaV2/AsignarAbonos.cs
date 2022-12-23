@@ -30,7 +30,7 @@ namespace PuntoDeVentaV2
         private string rutaTicketGenerado = string.Empty;
 
 
-        //MIOOOOOOOOOOOOO
+        //MIOOOOOOOOOOOOO                   -------------------------------------- 
         float efectivo;
         float tarjeta;
         float vales;
@@ -38,6 +38,7 @@ namespace PuntoDeVentaV2
         float transferencia;
         float restante;
         float cambio;
+        decimal intereses;
         string nameOfControl = string.Empty;
 
         float restanteDePago= 0;
@@ -76,6 +77,8 @@ namespace PuntoDeVentaV2
             totalPendiente = float.Parse(detalles[2]);
             txtTotalOriginal.Text = totalOriginal.ToString("C2");
 
+            intereses = calcularIntereses();
+
             //Comprobamos que no existan abonos
             existenAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
 
@@ -87,10 +90,17 @@ namespace PuntoDeVentaV2
             else
             {
                 var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
-                restanteDePago = totalPendiente - abonado;
+                restanteDePago = totalPendiente - abonado ;
                 txtPendiente.Text = restanteDePago.ToString("C2");
                 totalPendiente = restanteDePago;
             }
+        }
+
+        private decimal calcularIntereses()
+        {
+            decimal calculoIntereses;
+
+            return calculoIntereses;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
