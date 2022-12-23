@@ -245,6 +245,7 @@
             this.txt_usuario.Size = new System.Drawing.Size(190, 22);
             this.txt_usuario.TabIndex = 5;
             this.txt_usuario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txt_usuario.TextChanged += new System.EventHandler(this.txt_usuario_TextChanged);
             this.txt_usuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.solo_letras_digitos);
             this.txt_usuario.KeyUp += new System.Windows.Forms.KeyEventHandler(this.muestra_usuarioc);
             this.txt_usuario.Leave += new System.EventHandler(this.verifica_usuario_empleado);
