@@ -84,18 +84,22 @@ namespace PuntoDeVentaV2
 
             if (!existenAbonos)
             {
-                txtPendiente.Text = totalPendiente.ToString("C2");
                 restanteDePago = totalPendiente;
                 intereses = calcularIntereses(restanteDePago);
+                restanteDePago += (float)intereses;
+                txtPendiente.Text = totalPendiente.ToString("C2");
             }
             else
             {
                 var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
                 restanteDePago = totalPendiente - abonado ;
                 intereses = calcularIntereses(restanteDePago);
+                restanteDePago += (float)intereses;
                 txtPendiente.Text = restanteDePago.ToString("C2");
                 totalPendiente = restanteDePago;
             }
+
+            txtIntereses.Text = intereses.ToString("C2");
         }
 
         private decimal calcularIntereses(float restante)
@@ -103,8 +107,7 @@ namespace PuntoDeVentaV2
             decimal saldo=(decimal)restante;
             decimal porcentajeDeInteres;
             decimal dias=0;
-            decimal formato;
-            decimal diasTrascurridos;
+            decimal diasTrascurridos=0;
             decimal interesPorDia;
             decimal interesesCobrados;
             decimal calculoIntereses = 0;
@@ -133,10 +136,23 @@ namespace PuntoDeVentaV2
                             //Literalmente deberia ser imposible llegar aqui
                             break;
                     }
-                    
-                    diasTrascurridos = Decimal.Parse((DateTime.Now.Date - DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString()).Date).ToString().Split(':')[0]);
-                    interesPorDia = porcentajeDeInteres/dias;
 
+                    if (dtReglasCreditoVenta.Rows[0]["creditomodocobro"].ToString()=="Dias trascurridos")
+                    {
+                    diasTrascurridos = Decimal.Parse((DateTime.Now.Date - DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString()).Date).ToString().Split(':')[0]);
+                    }
+                    else
+                    {
+                        //if (DateTime.Now)
+                        //{
+
+                        //}
+                        MessageBox.Show("no se me ocurre como chingados manejar esto");
+                        
+                        //TODO
+                    }
+                            interesPorDia = porcentajeDeInteres/100/dias;
+                    calculoIntereses = interesPorDia * saldo * diasTrascurridos;
                 }
             }
 
