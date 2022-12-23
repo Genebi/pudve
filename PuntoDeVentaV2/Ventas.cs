@@ -3827,7 +3827,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         mostrarVenta = 0;
-                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas, gananciaTotalPorVenta));
+                                respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas, gananciaTotalPorVenta));
                         if (!consutlaCredito.Equals(string.Empty))
                         {
                             cn.EjecutarConsulta(consutlaCredito);
