@@ -130,6 +130,8 @@ namespace PuntoDeVentaV2
 
             consulta = consulta += $"creditomodolimiteventas = '{combVentasAbiertas.Text}', ";
 
+            consulta = consulta += $"creditoPagoinicial = '{numPagoInicial.Value.ToString()}', ";
+
             consulta = consulta += $"creditolimiteventas = {numVentasAbiertas.Value.ToString()}, ";
 
             consulta = consulta += $"creditomodototalcredito = '{combTotalCredito.Text}', ";

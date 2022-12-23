@@ -940,7 +940,6 @@
             this.btnCredito.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnCredito.UseMnemonic = false;
             this.btnCredito.UseVisualStyleBackColor = false;
-            this.btnCredito.Visible = false;
             this.btnCredito.Click += new System.EventHandler(this.btnCredito_Click);
             // 
             // botonRedondo1

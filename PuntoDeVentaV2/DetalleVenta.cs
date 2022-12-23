@@ -38,7 +38,7 @@ namespace PuntoDeVentaV2
 
         bool dioClickEnTextBox = false;
 
-        //mio pruebas a ver si jala xd
+        //mio pruebas a ver si jala xd ----------------------- Mas seriedad con los comentarios por favor Alexis 8).
         int escredito = 0;
         int primer = 0;
         bool dioClickEnCredito = false;
@@ -166,6 +166,8 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            
+            
             decimal credito2 = 0;
             if (!string.IsNullOrWhiteSpace(txtCredito.Text))
             {
@@ -175,6 +177,40 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("Asigné un Cliente para hacer una venta a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
+                }
+
+                using (DataTable dtBuscarConfiguracion = cn.CargarDatos($"SELECT * FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                {
+                    if (dtBuscarConfiguracion.Rows[0]["creditoAplicarpagoinicial"].ToString().Equals("1"))
+                    {
+                        decimal maximoCredito = Decimal.Parse(total.ToString()) - (Decimal.Parse(total.ToString()) / 100 * Decimal.Parse((dtBuscarConfiguracion.Rows[0]["creditoPagoinicial"]).ToString()));
+                        if (Decimal.Parse(txtCredito.Text) > maximoCredito)
+                        {
+                            MessageBox.Show($"De acuerdo a la configuración del sistema, es necesario realizar un pago inicial mínimo del {dtBuscarConfiguracion.Rows[0]["creditoPagoinicial"].ToString()}% en ventas a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                        Decimal.Parse(dtBuscarConfiguracion.Rows[0]["creditoPagoinicial"].ToString());
+                    }
+                    if (dtBuscarConfiguracion.Rows[0]["creditomodocobro"].ToString().Equals("Dias trascurridos"))
+                    {
+                        int diasPeriodo=0;
+
+                        switch (dtBuscarConfiguracion.Rows[0]["creditoperiodocobro"].ToString())
+                        {
+                            case "Mensual":
+                                diasPeriodo = 30;
+                                break;
+                            case "Quincenal":
+                                diasPeriodo = 15;
+                                break;
+                            case "Semanal":
+                                diasPeriodo = 7;
+                                break;
+                            default:
+                                break;
+                        }
+                        DateTime proximoPago = DateTime.Now.AddDays(Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditodiassincobro"].ToString())).Date;
+                    }
                 }
             }
 
