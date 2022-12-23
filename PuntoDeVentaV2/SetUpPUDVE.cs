@@ -1306,5 +1306,10 @@ namespace PuntoDeVentaV2
             
         }
 
+        private void btnCredito_Click(object sender, EventArgs e)
+        {
+            configCredito creditoConfig = new configCredito();
+            creditoConfig.ShowDialog();
+        }
     }
 }
