@@ -1982,3 +1982,6 @@ ALTER TABLE dgvaumentarinventario MODIFY COLUMN NuevoStock VARCHAR(100);
 ALTER TABLE dgvdisminuirinventario MODIFY COLUMN DiferenciaUnidades VARCHAR(100);
 ALTER TABLE dgvdisminuirinventario MODIFY COLUMN StockActual VARCHAR(100);
 ALTER TABLE dgvdisminuirinventario MODIFY COLUMN NuevoStock VARCHAR(100);
+
+--Columna de Comenatrios para caja los tickets agregar retirar dinero y de caja
+ALTER TABLE caja ADD COLUMN IF NOT EXISTS Comentarios MEDIUMTEXT;

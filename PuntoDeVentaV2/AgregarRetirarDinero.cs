@@ -371,19 +371,19 @@ namespace PuntoDeVentaV2
                     {
                         cn.EjecutarConsulta(cs.agregarSaldosIniciales(idHistorialCorteDeCaja, cantidadesIniciales));
                         var totalInicial = Convert.ToDecimal(cantidadesIniciales[0]) + Convert.ToDecimal(cantidadesIniciales[1]) + Convert.ToDecimal(cantidadesIniciales[2]) + Convert.ToDecimal(cantidadesIniciales[3]) + Convert.ToDecimal(cantidadesIniciales[4]);
-                        cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado) VALUES ('PrimerSaldo', '{totalInicial}', '0', 'Insert primer saldo inicial', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{cantidadesIniciales[0]}', '{cantidadesIniciales[1]}', '{cantidadesIniciales[2]}', '{cantidadesIniciales[3]}', '{cantidadesIniciales[4]}', '0', '0', '{FormPrincipal.id_empleado}')");
+                        cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado,Comentarios) VALUES ('PrimerSaldo', '{totalInicial}', '0', 'Insert primer saldo inicial', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{cantidadesIniciales[0]}', '{cantidadesIniciales[1]}', '{cantidadesIniciales[2]}', '{cantidadesIniciales[3]}', '{cantidadesIniciales[4]}', '0', '0', '{FormPrincipal.id_empleado}','{Comentario}')");
                     }
                     else
                     {
                         var totalInicial = Convert.ToDecimal(cantidadesIniciales[0]) + Convert.ToDecimal(cantidadesIniciales[1]) + Convert.ToDecimal(cantidadesIniciales[2]) + Convert.ToDecimal(cantidadesIniciales[3]) + Convert.ToDecimal(cantidadesIniciales[4]);
-                        cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado) VALUES ('deposito', '{totalInicial}', '0', 'Agregado a saldo inicial', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{cantidadesIniciales[0]}', '{cantidadesIniciales[1]}', '{cantidadesIniciales[2]}', '{cantidadesIniciales[3]}', '{cantidadesIniciales[4]}', '0', '0', '{FormPrincipal.id_empleado}')");
+                        cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado,Comentarios) VALUES ('deposito', '{totalInicial}', '0', 'Agregado a saldo inicial', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{cantidadesIniciales[0]}', '{cantidadesIniciales[1]}', '{cantidadesIniciales[2]}', '{cantidadesIniciales[3]}', '{cantidadesIniciales[4]}', '0', '0', '{FormPrincipal.id_empleado}','{Comentario}')");
                         //cn.EjecutarConsulta(cs.agregarSaldosIniciales(idHistorialCorteDeCaja, cantidadesIniciales));
                     }
                 }
                 else
                 {
                     var totalInicial = Convert.ToDecimal(cantidadesIniciales[0]) + Convert.ToDecimal(cantidadesIniciales[1]) + Convert.ToDecimal(cantidadesIniciales[2]) + Convert.ToDecimal(cantidadesIniciales[3]) + Convert.ToDecimal(cantidadesIniciales[4]);
-                    cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado) VALUES ('deposito', '{totalInicial}', '0', 'Agregado a saldo inicial', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{cantidadesIniciales[0]}', '{cantidadesIniciales[1]}', '{cantidadesIniciales[2]}', '{cantidadesIniciales[3]}', '{cantidadesIniciales[4]}', '0', '0', '{FormPrincipal.id_empleado}')");
+                    cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado,Comentarios) VALUES ('deposito', '{totalInicial}', '0', 'Agregado a saldo inicial', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{cantidadesIniciales[0]}', '{cantidadesIniciales[1]}', '{cantidadesIniciales[2]}', '{cantidadesIniciales[3]}', '{cantidadesIniciales[4]}', '0', '0', '{FormPrincipal.id_empleado}','{txtComentario.Text}')");
 
                 }
                 
@@ -763,7 +763,7 @@ namespace PuntoDeVentaV2
                     {
                         if ((cantidadTotalEfectivoEnCaja - CajaN.cantidadEfectivoSaldoInicialEnCaja) >= Convert.ToDecimal(efectivo) && (cantidadTotalTarjetaEnCaja - CajaN.cantidadTarjetaSaldoInicialEnCaja) >= Convert.ToDecimal(tarjeta) && (cantidadTotalValesEnCaja - CajaN.cantidadValesSaldoInicialEnCaja) >= Convert.ToDecimal(vales) && (cantidadTotalCehqueEnCaja - CajaN.cantidadChequeSaldoInicialEnCaja) >= Convert.ToDecimal(cheque) && (cantidadTotalTransferenciaEnCaja - CajaN.cantidadTransferenciaSaldoInicialEnCaja) >= Convert.ToDecimal(trans) || datos[0].ToString().Equals("deposito"))
                         {
-                            resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
+                            resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte, txtComentario.Text));
                         }
                         else
                         {
@@ -838,7 +838,7 @@ namespace PuntoDeVentaV2
 
                             if (Convert.ToDecimal(datos[6]) >= 0 && Convert.ToDecimal(datos[7]) >= 0 && Convert.ToDecimal(datos[8]) >= 0 && Convert.ToDecimal(datos[9]) >= 0 && Convert.ToDecimal(datos[10]) >= 0)
                             {
-                                resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));//Registro parcial del retiro saldo de caja
+                                resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte, txtComentario.Text));//Registro parcial del retiro saldo de caja
                                 desdeSaldoInicial = 0;
                             }
                             else if (operacion == 2)
@@ -909,7 +909,7 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));//Registro complementario del retiro de saldo inicial
+                                resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte, txtComentario.Text));//Registro complementario del retiro de saldo inicial
                             }
                         }
                     }
@@ -917,7 +917,7 @@ namespace PuntoDeVentaV2
                     {
                         if ((cantidadTotalEfectivoEnCaja - CajaN.cantidadEfectivoSaldoInicialEnCaja) > Convert.ToDecimal(efectivo) && (cantidadTotalTarjetaEnCaja - CajaN.cantidadTarjetaSaldoInicialEnCaja) > Convert.ToDecimal(tarjeta) && (cantidadTotalValesEnCaja - CajaN.cantidadValesSaldoInicialEnCaja) > Convert.ToDecimal(vales) && (cantidadTotalCehqueEnCaja - CajaN.cantidadChequeSaldoInicialEnCaja) > Convert.ToDecimal(cheque) && (cantidadTotalTransferenciaEnCaja - CajaN.cantidadTransferenciaSaldoInicialEnCaja) > Convert.ToDecimal(trans) || datos[0].ToString().Equals("deposito"))
                         {
-                            resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
+                            resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte, txtComentario.Text));
                         }
                         else
                         {
@@ -992,7 +992,7 @@ namespace PuntoDeVentaV2
 
                             if (Convert.ToDecimal(datos[6]) >= 0 && Convert.ToDecimal(datos[7]) >= 0 && Convert.ToDecimal(datos[8]) >= 0 && Convert.ToDecimal(datos[9]) >= 0 && Convert.ToDecimal(datos[10]) >= 0)
                             {
-                                resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));//Registro parcial del retiro saldo de caja
+                                resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte, txtComentario.Text));//Registro parcial del retiro saldo de caja
                                 desdeSaldoInicial = 0;
                             }
                             else if (operacion == 2)
@@ -1059,11 +1059,11 @@ namespace PuntoDeVentaV2
                             if (operacion == 1)
                             {
                                 //datos[3] = "Retiro desde saldo inicial";
-                                resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));
+                                resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte,txtComentario.Text));
                             }
                             else
                             {
-                                resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte));//Registro complementario del retiro de saldo inicial
+                                resultado = cn.EjecutarConsulta(cs.OperacionCaja(datos, tipoCorte,txtComentario.Text));//Registro complementario del retiro de saldo inicial
                             }
                         }
                     }
@@ -1271,7 +1271,7 @@ namespace PuntoDeVentaV2
                         {
                             var cantidadTotal = Convert.ToDecimal(datosCorteCaja.Rows[0]["SaldoInicialEfectivo"]) + Convert.ToDecimal(datosCorteCaja.Rows[0]["SaldoInicialTarjeta"]) + Convert.ToDecimal(datosCorteCaja.Rows[0]["SaldoInicialVales"]) + Convert.ToDecimal(datosCorteCaja.Rows[0]["SaldoInicialCheque"]) + Convert.ToDecimal(datosCorteCaja.Rows[0]["SaldoInicialTransferencia"]);
 
-                            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado) VALUES ('PrimerSaldo', '{cantidadTotal}', '0', 'Insert primer saldo inicial con corte', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{datosCorteCaja.Rows[0]["SaldoInicialEfectivo"].ToString()}', '{datosCorteCaja.Rows[0]["SaldoInicialTarjeta"].ToString()}', '{datosCorteCaja.Rows[0]["SaldoInicialVales"].ToString()}', '{datosCorteCaja.Rows[0]["SaldoInicialCheque"].ToString()}', '{datosCorteCaja.Rows[0]["SaldoInicialTransferencia"].ToString()}', '0', '0', '{FormPrincipal.id_empleado}')");
+                            cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado,Comentarios) VALUES ('PrimerSaldo', '{cantidadTotal}', '0', 'Insert primer saldo inicial con corte', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{datosCorteCaja.Rows[0]["SaldoInicialEfectivo"].ToString()}', '{datosCorteCaja.Rows[0]["SaldoInicialTarjeta"].ToString()}', '{datosCorteCaja.Rows[0]["SaldoInicialVales"].ToString()}', '{datosCorteCaja.Rows[0]["SaldoInicialCheque"].ToString()}', '{datosCorteCaja.Rows[0]["SaldoInicialTransferencia"].ToString()}', '0', '0', '{FormPrincipal.id_empleado}','{txtComentario.Text}')");
                         }
 
                         CajaN.botones = true;
