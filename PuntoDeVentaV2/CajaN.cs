@@ -778,7 +778,7 @@ namespace PuntoDeVentaV2
             var tipodeMoneda = FormPrincipal.Moneda.Split('-');
             var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
 
-            if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0))
+            if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) && !FormPrincipal.userNickName.Contains('@'))
             {
                 var datosCB = cbFiltroAdminEmpleado.SelectedItem.ToString();
                 var nombreID = datosCB.Split(',');
@@ -1010,7 +1010,7 @@ namespace PuntoDeVentaV2
                 btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + "0.00";
             }
 
-            if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0))
+            if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) &&!FormPrincipal.userNickName.Contains('@'))
             {
                 var datosCB = cbFiltroAdminEmpleado.SelectedItem.ToString();
                 var nombreID = datosCB.Split(',');
