@@ -1998,3 +1998,6 @@ ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditototalcredito DECIMAl (
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoperiodocobro VARCHAR(100) DEFAULT 'Mensual';
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodocobro VARCHAR(100) DEFAULT 'Dias trascurridos';
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditodiassincobro INT DEFAULT 0 ;
+
+-- Agregar Columna de la ganancia por venta para graficarlo 
+	ALTER TABLE ventas ADD COLUMN IF NOT EXISTS Ganancia   VARCHAR ( 2000 ) DEFAULT NULL ;
