@@ -26,6 +26,7 @@ namespace PuntoDeVentaV2
         private float totalMetodos = 0;
         int calcu = 0;
         private bool calculadoraisOut = false;
+        DateTime proximoPago;
 
         public static int validarNoDuplicarVentas = 0;
 
@@ -191,22 +192,7 @@ namespace PuntoDeVentaV2
                         }
                         Decimal.Parse(dtBuscarConfiguracion.Rows[0]["creditoPagoinicial"].ToString());
                     }
-                    int diasPeriodo = 0;
-
-                    switch (dtBuscarConfiguracion.Rows[0]["creditoperiodocobro"].ToString())
-                    {
-                        case "Mensual":
-                            diasPeriodo = 30;
-                            break;
-                        case "Quincenal":
-                            diasPeriodo = 15;
-                            break;
-                        case "Semanal":
-                            diasPeriodo = 7;
-                            break;
-                        default:
-                            break;
-                    }
+                    
                 }
             }
 
@@ -451,8 +437,9 @@ namespace PuntoDeVentaV2
                     {
                         using (DataTable dtIdVenta = cn.CargarDatos($"SELECT MAX(ID) FROM Ventas"))
                         {
-                            string consulta = "INSERT INTO reglasCreditoVenta(IDVenta, creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro)";
+                            string consulta = "INSERT INTO reglasCreditoVenta(IDVenta, FechaInteres, creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro)";
                             consulta += $"VALUES('{Int32.Parse(dtIdVenta.Rows[0]["MAX(ID)"].ToString())+1}', ";
+                            consulta += $"'{proximoPago.ToString("yyyy-MM-dd")}', ";
                             consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoHuella"].ToString()}', ";
                             consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoMoratorio"].ToString()}', ";
                             consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoPorcentajemoratorio"].ToString()}', ";
@@ -1462,7 +1449,7 @@ namespace PuntoDeVentaV2
                     credito = Convert.ToDecimal(txtCredito.Text);
                     using (DataTable dtBuscarConfiguracion = cn.CargarDatos($"SELECT * FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
                     {
-                        DateTime proximoPago = DateTime.Now.AddDays(Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditodiassincobro"].ToString())).Date;
+                        proximoPago = DateTime.Now.AddDays(Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditodiassincobro"].ToString())).Date;
                         lblfechacredito.Visible = true;
                         lblfechacredito.Text = $"Inicia el cobro de intereses \na partir del dia: {proximoPago.ToString("dd/MM/yyyy")}";
                     }

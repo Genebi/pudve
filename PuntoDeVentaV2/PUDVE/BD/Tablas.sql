@@ -2005,6 +2005,7 @@ IF
 	NOT EXISTS reglasCreditoVenta(
 		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
 		IDVenta INTEGER NOT NULL,
+		FechaInteres DATE NOT NULL,
 		creditoHuella INTEGER DEFAULT 0,
 		creditoMoratorio INTEGER DEFAULT 0,
 		creditoPorcentajemoratorio DECIMAl ( 16, 4 ),

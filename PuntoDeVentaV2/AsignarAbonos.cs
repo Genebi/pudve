@@ -30,7 +30,7 @@ namespace PuntoDeVentaV2
         private string rutaTicketGenerado = string.Empty;
 
 
-        //MIOOOOOOOOOOOOO                   -------------------------------------- 
+        //MIOOOOOOOOOOOOO                   -------------------------------------- https://i.imgur.com/8tnzFN2.png
         float efectivo;
         float tarjeta;
         float vales;
@@ -77,7 +77,7 @@ namespace PuntoDeVentaV2
             totalPendiente = float.Parse(detalles[2]);
             txtTotalOriginal.Text = totalOriginal.ToString("C2");
 
-            intereses = calcularIntereses();
+           
 
             //Comprobamos que no existan abonos
             existenAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
@@ -86,19 +86,60 @@ namespace PuntoDeVentaV2
             {
                 txtPendiente.Text = totalPendiente.ToString("C2");
                 restanteDePago = totalPendiente;
+                intereses = calcularIntereses(restanteDePago);
             }
             else
             {
                 var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
                 restanteDePago = totalPendiente - abonado ;
+                intereses = calcularIntereses(restanteDePago);
                 txtPendiente.Text = restanteDePago.ToString("C2");
                 totalPendiente = restanteDePago;
             }
         }
 
-        private decimal calcularIntereses()
+        private decimal calcularIntereses(float restante)
         {
-            decimal calculoIntereses;
+            decimal saldo=(decimal)restante;
+            decimal porcentajeDeInteres;
+            decimal dias=0;
+            decimal formato;
+            decimal diasTrascurridos;
+            decimal interesPorDia;
+            decimal interesesCobrados;
+            decimal calculoIntereses = 0;
+            Conexion cn = new Conexion();
+
+            using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
+            {
+                if (DateTime.Now.Date>= DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString()))
+                    
+                {
+                    porcentajeDeInteres = Decimal.Parse(dtReglasCreditoVenta.Rows[0]["creditoPorcentajeinteres"].ToString());
+                    
+                    switch (dtReglasCreditoVenta.Rows[0]["creditoperiodocobro"].ToString())
+                    {
+                        case "Mensual":
+                            dias = 30;
+                            break;
+                        case "Quincenal":
+                            dias = 15;
+                            break;
+                        case "Semanal":
+                            dias = 7;
+                            break;
+                        default:
+                            dias = 0;
+                            //Literalmente deberia ser imposible llegar aqui
+                            break;
+                    }
+                    
+                    diasTrascurridos = Decimal.Parse((DateTime.Now.Date - DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString()).Date).ToString().Split(':')[0]);
+                    interesPorDia = porcentajeDeInteres/dias;
+
+                }
+            }
+
 
             return calculoIntereses;
         }
