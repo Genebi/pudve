@@ -191,25 +191,21 @@ namespace PuntoDeVentaV2
                         }
                         Decimal.Parse(dtBuscarConfiguracion.Rows[0]["creditoPagoinicial"].ToString());
                     }
-                    if (dtBuscarConfiguracion.Rows[0]["creditomodocobro"].ToString().Equals("Dias trascurridos"))
-                    {
-                        int diasPeriodo=0;
+                    int diasPeriodo = 0;
 
-                        switch (dtBuscarConfiguracion.Rows[0]["creditoperiodocobro"].ToString())
-                        {
-                            case "Mensual":
-                                diasPeriodo = 30;
-                                break;
-                            case "Quincenal":
-                                diasPeriodo = 15;
-                                break;
-                            case "Semanal":
-                                diasPeriodo = 7;
-                                break;
-                            default:
-                                break;
-                        }
-                        DateTime proximoPago = DateTime.Now.AddDays(Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditodiassincobro"].ToString())).Date;
+                    switch (dtBuscarConfiguracion.Rows[0]["creditoperiodocobro"].ToString())
+                    {
+                        case "Mensual":
+                            diasPeriodo = 30;
+                            break;
+                        case "Quincenal":
+                            diasPeriodo = 15;
+                            break;
+                        case "Semanal":
+                            diasPeriodo = 7;
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
@@ -449,6 +445,34 @@ namespace PuntoDeVentaV2
                 //idCliente = 0 ;
                 //nameClienteNameVenta = string.Empty;
                 Ventas.VentaRealizada = true;
+                if (credito>0)
+                {
+                    using (DataTable dtBuscarConfiguracion = cn.CargarDatos($"SELECT * FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                    {
+                        using (DataTable dtIdVenta = cn.CargarDatos($"SELECT MAX(ID) FROM Ventas"))
+                        {
+                            string consulta = "INSERT INTO reglasCreditoVenta(IDVenta, creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro)";
+                            consulta += $"VALUES('{Int32.Parse(dtIdVenta.Rows[0]["MAX(ID)"].ToString())+1}', ";
+                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoHuella"].ToString()}', ";
+                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoMoratorio"].ToString()}', ";
+                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoPorcentajemoratorio"].ToString()}', ";
+                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoAplicarpordefecto"].ToString()}', ";
+                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoPorcentajeinteres"].ToString()}', ";
+                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoAplicarpagoinicial"].ToString()}', ";
+                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoPagoinicial"].ToString()}', ";
+                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditomodolimiteventas"].ToString()}', ";
+                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditolimiteventas"].ToString()}', ";
+                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditomodototalcredito"].ToString()}', ";
+                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditototalcredito"].ToString()}', ";
+                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoperiodocobro"].ToString()}', ";
+                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditomodocobro"].ToString()}', ";
+                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditodiassincobro"].ToString()}')";
+                            Ventas.consutlaCredito = consulta;
+                            consulta = string.Empty;
+                        }
+                    }
+                }
+                
                 this.Hide();
                 this.Close();
             }
@@ -1431,10 +1455,17 @@ namespace PuntoDeVentaV2
                 if (txtCredito.Text == "")
                 {
                     credito = 0;
+                    lblfechacredito.Visible = false;
                 }
                 else
                 {
                     credito = Convert.ToDecimal(txtCredito.Text);
+                    using (DataTable dtBuscarConfiguracion = cn.CargarDatos($"SELECT * FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                    {
+                        DateTime proximoPago = DateTime.Now.AddDays(Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditodiassincobro"].ToString())).Date;
+                        lblfechacredito.Visible = true;
+                        lblfechacredito.Text = $"Inicia el cobro de intereses \na partir del dia: {proximoPago.ToString("dd/MM/yyyy")}";
+                    }
                 }
                 if (Convert.ToDecimal(total) < credito)
                 {

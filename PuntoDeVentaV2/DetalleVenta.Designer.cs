@@ -56,6 +56,7 @@
             this.tituloDetalle = new System.Windows.Forms.Label();
             this.txtCredito = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.lblfechacredito = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbEliminarCliente
@@ -396,11 +397,25 @@
             this.label2.TabIndex = 123;
             this.label2.Text = "Crédito";
             // 
+            // lblfechacredito
+            // 
+            this.lblfechacredito.AutoSize = true;
+            this.lblfechacredito.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblfechacredito.ForeColor = System.Drawing.Color.Red;
+            this.lblfechacredito.Location = new System.Drawing.Point(413, 269);
+            this.lblfechacredito.Name = "lblfechacredito";
+            this.lblfechacredito.Size = new System.Drawing.Size(150, 32);
+            this.lblfechacredito.TabIndex = 116;
+            this.lblfechacredito.Text = "Inicia el cobro de intereses\r\na partir del dia: xx/xx/xx";
+            this.lblfechacredito.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblfechacredito.Visible = false;
+            // 
             // DetalleVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(575, 361);
+            this.Controls.Add(this.lblfechacredito);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtCredito);
             this.Controls.Add(this.lbEliminarCliente);
@@ -473,5 +488,6 @@
         private System.Windows.Forms.Label tituloDetalle;
         private System.Windows.Forms.TextBox txtCredito;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblfechacredito;
     }
 }

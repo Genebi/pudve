@@ -95,6 +95,7 @@ namespace PuntoDeVentaV2
         public static string cliente = string.Empty;
         public static string idCliente = string.Empty;
         public static string credito = string.Empty;
+        public static string consutlaCredito = string.Empty;
         // Para saber con que boton se cerro el form DetalleVenta.cs, en este caso saber si se cerro con el boton aceptar (terminar)
         public static bool botonAceptar = false;
 
@@ -3827,6 +3828,11 @@ namespace PuntoDeVentaV2
                     {
                         mostrarVenta = 0;
                         respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas, gananciaTotalPorVenta));
+                        if (!consutlaCredito.Equals(string.Empty))
+                        {
+                            cn.EjecutarConsulta(consutlaCredito);
+                            consutlaCredito = string.Empty;
+                        }
                         //Venta normal
                     }
                 }
