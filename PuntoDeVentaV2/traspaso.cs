@@ -72,7 +72,7 @@ namespace PuntoDeVentaV2
                     DataTable buscarCombo = new DataTable();
                     int IDProducto = Int32.Parse(cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(row.Cells["CodigoL"].Value.ToString())).Rows[0]["ID"].ToString());
                     buscarCombo = cn.CargarDatos($"SELECT * FROM productosdeservicios WHERE IDServicio = {IDProducto}");
-                    if (buscarCombo.Rows.Equals(0))
+                    if (buscarCombo.Rows.Count.Equals(0))
                     {
                         Inventario.productosTraspaso.Add($"{row.Cells["NombreL"].Value.ToString()}%{row.Cells["CodigoL"].Value.ToString()}%{row.Cells["PCompra"].Value.ToString()}%{row.Cells["PVenta"].Value.ToString()}%{row.Cells["CantidadT"].Value.ToString()}");
                     }
