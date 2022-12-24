@@ -41,6 +41,13 @@ namespace PuntoDeVentaV2
         decimal intereses;
         string nameOfControl = string.Empty;
 
+        decimal saldo =0;
+        decimal porcentajeDeInteres;
+        decimal dias = 0;
+        decimal diasTrascurridos = 0;
+        decimal interesPorDia;
+        decimal calculoIntereses = 0;
+
         float restanteDePago= 0;
 
         public AsignarAbonos(int idVenta, float totalOriginal)
@@ -87,7 +94,7 @@ namespace PuntoDeVentaV2
                 restanteDePago = totalPendiente;
                 intereses = calcularIntereses(restanteDePago);
                 restanteDePago += (float)intereses;
-                txtPendiente.Text = totalPendiente.ToString("C2");
+                txtPendiente.Text = restanteDePago.ToString("C2");
             }
             else
             {
@@ -104,13 +111,7 @@ namespace PuntoDeVentaV2
 
         private decimal calcularIntereses(float restante)
         {
-            decimal saldo=(decimal)restante;
-            decimal porcentajeDeInteres;
-            decimal dias=0;
-            decimal diasTrascurridos=0;
-            decimal interesPorDia;
-            decimal interesesCobrados;
-            decimal calculoIntereses = 0;
+            saldo = (decimal)restante;
             Conexion cn = new Conexion();
 
             using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
@@ -139,19 +140,15 @@ namespace PuntoDeVentaV2
 
                     if (dtReglasCreditoVenta.Rows[0]["creditomodocobro"].ToString()=="Dias trascurridos")
                     {
-                    diasTrascurridos = Decimal.Parse((DateTime.Now.Date - DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString()).Date).ToString().Split(':')[0]);
+                        diasTrascurridos = Decimal.Parse((DateTime.Now.Date - DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString()).Date).ToString().Split(':')[0]);
                     }
                     else
                     {
-                        //if (DateTime.Now)
-                        //{
-
-                        //}
-                        MessageBox.Show("no se me ocurre como chingados manejar esto");
-                        
-                        //TODO
+                        diasTrascurridos = Decimal.Parse((DateTime.Now.Date - DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString()).Date).ToString().Split(':')[0]);
+                        diasTrascurridos = (diasTrascurridos / dias);
+                        diasTrascurridos = Math.Ceiling(diasTrascurridos)*dias;
                     }
-                            interesPorDia = porcentajeDeInteres/100/dias;
+                    interesPorDia = porcentajeDeInteres/100/dias;
                     calculoIntereses = interesPorDia * saldo * diasTrascurridos;
                 }
             }
@@ -221,6 +218,15 @@ namespace PuntoDeVentaV2
 
                 string[] datos;
                 int resultado = 0;
+                string fechaNueva;
+                using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
+                {
+                    //En caso de que se tome en cuenta la ultima fecha establecida
+                    //fechaNueva=DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString()).AddDays((double)dias).ToString("yyyy/MM/dd");
+
+                    //Si se toma en cuenta la fecha del dia de hoy
+                    fechaNueva = DateTime.Now.AddDays((double)dias).ToString("yyyy/MM/dd");
+                }
 
                 //Validar que se se guarde una cantidad mayor que el total pendiente
                 if (totalPendiente > total)
@@ -232,6 +238,8 @@ namespace PuntoDeVentaV2
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
+                        
+                        //cn.EjecutarConsulta($"UPDATE reglascreditoventa SET FechaInteres = '{fechaNueva}' WHERE IDVenta = {idVenta.ToString()}");
                     }
                     else
                     {
@@ -240,6 +248,7 @@ namespace PuntoDeVentaV2
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));
+                        //cn.EjecutarConsulta($"UPDATE reglascreditoventa SET FechaInteres = '{fechaNueva}' WHERE IDVenta = {idVenta.ToString()}");
                     }
 
                     if (resultado > 0)
@@ -268,6 +277,7 @@ namespace PuntoDeVentaV2
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
+                        //cn.EjecutarConsulta($"UPDATE reglascreditoventa SET FechaInteres = '{fechaNueva}' WHERE IDVenta = {idVenta.ToString()}");
                     }
                     else
                     {
@@ -276,6 +286,7 @@ namespace PuntoDeVentaV2
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));
+                        //cn.EjecutarConsulta($"UPDATE reglascreditoventa SET FechaInteres = '{fechaNueva}' WHERE IDVenta = {idVenta.ToString()}");
                     }
 
                     if (resultado > 0)
@@ -751,8 +762,10 @@ namespace PuntoDeVentaV2
                     }
 
                     var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
-                    restante = totalPendiente - nuevoabono;
+                    restante += (float)intereses;
+
                     txtPendiente.Text = restante.ToString("C2");
+
                     if (restante < 1)
                     {
                         txtPendiente.Text = "$0.00";
@@ -792,6 +805,7 @@ namespace PuntoDeVentaV2
 
                     var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
                     restante = totalPendiente - nuevoabono;
+                    restante += (float)intereses;
                     txtPendiente.Text = restante.ToString("C2");
                     if (restante < 1)
                     {

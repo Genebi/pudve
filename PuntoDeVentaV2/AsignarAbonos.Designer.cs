@@ -52,6 +52,7 @@
             this.lbCambio = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.txtIntereses = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnAceptar
@@ -63,7 +64,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(342, 269);
+            this.btnAceptar.Location = new System.Drawing.Point(343, 269);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(130, 28);
             this.btnAceptar.TabIndex = 129;
@@ -318,6 +319,19 @@
             this.txtIntereses.Text = "$0.00";
             this.txtIntereses.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(131, 265);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(167, 32);
+            this.label2.TabIndex = 132;
+            this.label2.Text = "Se empiezan a cobrar \r\nintereses a partir del: xx/xx/xx";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.Visible = false;
+            // 
             // AsignarAbonos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -339,6 +353,7 @@
             this.Controls.Add(this.lbCheque);
             this.Controls.Add(this.lbVales);
             this.Controls.Add(this.lbTarjeta);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.lbEfectivo);
             this.Controls.Add(this.txtTransferencia);
             this.Controls.Add(this.txtCheque);
@@ -385,5 +400,6 @@
         private System.Windows.Forms.Label lbCambio;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label txtIntereses;
+        private System.Windows.Forms.Label label2;
     }
 }
