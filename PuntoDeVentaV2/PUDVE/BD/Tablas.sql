@@ -1984,24 +1984,24 @@ ALTER TABLE dgvdisminuirinventario MODIFY COLUMN StockActual VARCHAR(100);
 ALTER TABLE dgvdisminuirinventario MODIFY COLUMN NuevoStock VARCHAR(100);
 
 
--- Columnas para configuracion de creditos
-ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoHuella INT DEFAULT 0 ;
-ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoMoratorio INT DEFAULT 0 ;
-ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPorcentajemoratorio DECIMAl ( 16, 4 ) DEFAULT 10.00;
-ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoAplicarpordefecto INT DEFAULT 1 ;
-ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPorcentajeinteres DECIMAl ( 16, 4 ) DEFAULT 10.00;
-ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoAplicarpagoinicial INT DEFAULT 0 ;
-ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPagoinicial DECIMAl ( 16, 2 ) DEFAULT 1;
-ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodolimiteventas VARCHAR(100) DEFAULT 'Ninguno';
-ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditolimiteventas INT DEFAULT 0 ;
-ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodototalcredito VARCHAR(100) DEFAULT 'Ninguno';
-ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditototalcredito DECIMAl ( 16, 2 ) DEFAULT 0;
-ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoperiodocobro VARCHAR(100) DEFAULT 'Mensual';
-ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodocobro VARCHAR(100) DEFAULT 'Dias trascurridos';
-ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditodiassincobro INT DEFAULT 0 ;
+---- Columnas para configuracion de creditos
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoHuella INT DEFAULT 0 ;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoMoratorio INT DEFAULT 0 ;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPorcentajemoratorio DECIMAl ( 16, 4 ) DEFAULT 10.00;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoAplicarpordefecto INT DEFAULT 1 ;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPorcentajeinteres DECIMAl ( 16, 4 ) DEFAULT 10.00;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoAplicarpagoinicial INT DEFAULT 0 ;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPagoinicial DECIMAl ( 16, 2 ) DEFAULT 1;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodolimiteventas VARCHAR(100) DEFAULT 'Ninguno';
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditolimiteventas INT DEFAULT 0 ;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodototalcredito VARCHAR(100) DEFAULT 'Ninguno';
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditototalcredito DECIMAl ( 16, 2 ) DEFAULT 0;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoperiodocobro VARCHAR(100) DEFAULT 'Mensual';
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodocobro VARCHAR(100) DEFAULT 'Dias trascurridos';
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditodiassincobro INT DEFAULT 0 ;
 
 -- Agregar Columna de la ganancia por venta para graficarlo 
-	ALTER TABLE ventas ADD COLUMN IF NOT EXISTS Ganancia   VARCHAR ( 2000 ) DEFAULT NULL ;
+	ALTER TABLE ventas ADD COLUMN IF NOT EXISTS Ganancia VARCHAR ( 255 ) DEFAULT NULL ;
 
 --Columna de Comenatrios para caja los tickets agregar retirar dinero y de caja
 ALTER TABLE caja ADD COLUMN IF NOT EXISTS Comentarios MEDIUMTEXT;
