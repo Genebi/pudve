@@ -2004,5 +2004,5 @@ ALTER TABLE dgvdisminuirinventario MODIFY COLUMN NuevoStock VARCHAR(100);
 	ALTER TABLE ventas ADD COLUMN IF NOT EXISTS Ganancia VARCHAR ( 255 ) DEFAULT NULL ;
 
 --Columna de Comenatrios para caja los tickets agregar retirar dinero y de caja
-ALTER TABLE caja ADD COLUMN IF NOT EXISTS Comentarios MEDIUMTEXT;
+ALTER TABLE caja ADD COLUMN IF NOT EXISTS Comentarios TEXT DEFAULT NULL;
 
