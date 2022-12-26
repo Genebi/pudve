@@ -435,6 +435,12 @@
     <Compile Include="Anticipos.Designer.cs">
       <DependentUpon>Anticipos.cs</DependentUpon>
     </Compile>
+    <Compile Include="AplicarDecuentoGeneral.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AplicarDecuentoGeneral.Designer.cs">
+      <DependentUpon>AplicarDecuentoGeneral.cs</DependentUpon>
+    </Compile>
     <Compile Include="AsignarAbonos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1802,6 +1808,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Anticipos.resx">
       <DependentUpon>Anticipos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AplicarDecuentoGeneral.resx">
+      <DependentUpon>AplicarDecuentoGeneral.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AsignarAbonos.resx">
       <DependentUpon>AsignarAbonos.cs</DependentUpon>

@@ -663,19 +663,20 @@
             this.btnAplicarDescuento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAplicarDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicarDescuento.ForeColor = System.Drawing.Color.White;
-            this.btnAplicarDescuento.Location = new System.Drawing.Point(113, 7);
+            this.btnAplicarDescuento.Location = new System.Drawing.Point(8, 7);
             this.btnAplicarDescuento.Name = "btnAplicarDescuento";
             this.btnAplicarDescuento.Size = new System.Drawing.Size(114, 25);
             this.btnAplicarDescuento.TabIndex = 43;
             this.btnAplicarDescuento.Text = "Aplicar (Alt + 3)";
             this.btnAplicarDescuento.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnAplicarDescuento.UseVisualStyleBackColor = false;
+            this.btnAplicarDescuento.Visible = false;
             this.btnAplicarDescuento.Click += new System.EventHandler(this.btnAplicarDescuento_Click);
             // 
             // txtDescuentoGeneral
             // 
             this.txtDescuentoGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescuentoGeneral.Location = new System.Drawing.Point(8, 8);
+            this.txtDescuentoGeneral.Location = new System.Drawing.Point(127, 8);
             this.txtDescuentoGeneral.Multiline = true;
             this.txtDescuentoGeneral.Name = "txtDescuentoGeneral";
             this.txtDescuentoGeneral.ShortcutsEnabled = false;
