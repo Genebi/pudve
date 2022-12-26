@@ -42,8 +42,8 @@ namespace PuntoDeVentaV2
         float porcentajeGeneral = 0;
         float descuentoCliente = 0;
         bool yasemando = false;
-        
 
+        public static string porcentaje;
         List<string> productoEliminadoCorreo;
         string PrecioDelProducto;
         bool ClienteConDescuento = false;
@@ -218,9 +218,12 @@ namespace PuntoDeVentaV2
 
         public static string gananciaTotalPorVenta;
 
+        public static string PorcentajeDescuento;
+
+
         #region Proceso de Bascula
-        // Constructores
-        private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
+       // Constructores
+       private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
         public delegate void MostrarRecepcion(string Texto);    // Delegado para asignar el valor recibido
 
         int nombreus, nombComercial, direccionus, colycpus, rfcus, correous, telefonous, nombrec, domicilioc, rfcc, correoc, telefonoc, colycpc, formapagoc;
@@ -7375,26 +7378,71 @@ namespace PuntoDeVentaV2
 
         private void txtDescuentoGeneral_Enter(object sender, EventArgs e)
         {
-            if (FormPrincipal.userNickName.Contains('@'))
+            if (!DGVentas.Rows.Count.Equals(0))
             {
-                var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
-                if (datos[18].Equals(0))
+                decimal Descuento = Convert.ToDecimal(cTotal.Text) + Convert.ToDecimal(cDescuento.Text);
+                AplicarDecuentoGeneral aplicar = new AplicarDecuentoGeneral(Descuento.ToString());
+                aplicar.ShowDialog();
+                if (string.IsNullOrWhiteSpace(PorcentajeDescuento))
                 {
-                    Utilidades.MensajePermiso();
-                    txtDescuentoGeneral.Enabled = false;
-                    return;
+                    txtDescuentoGeneral.Clear();
+                    txtBuscadorProducto.Focus();
                 }
                 else
                 {
-                    txtDescuentoGeneral.Text = "";
-                    txtDescuentoGeneral.Select(0, 0);
+                    txtDescuentoGeneral.Text = PorcentajeDescuento;
+                    if (txtDescuentoGeneral.Text.Equals("% descuento") || string.IsNullOrWhiteSpace(txtDescuentoGeneral.Text))
+                    {
+                        return;
+                    }
+                    descuentoDirectoPorAplicar = txtDescuentoGeneral.Text.Trim();
+                    btnEliminarDescuentos.PerformClick();
+                    txtDescuentoGeneral.Text = descuentoDirectoPorAplicar;
+                    productosDescuentoG.Clear();
+                    descuentosDirectos.Clear();
+                    if (!txtDescuentoGeneral.Text.Equals("."))
+                    {
+                        if (opcion19 == 0)
+                        {
+                            Utilidades.MensajePermiso();
+                            return;
+                        }
+
+                        DescuentoGeneral();
+                    }
+                    txtBuscadorProducto.Focus();
+                    txtDescuentoGeneral.Text = "% descuento";
+                    txtBuscadorProducto.Focus();
                 }
             }
             else
             {
-                txtDescuentoGeneral.Text = "";
-                txtDescuentoGeneral.Select(0, 0);
+                MessageBox.Show("Agrega un Producto a la venta","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                txtDescuentoGeneral.Clear();
+                txtBuscadorProducto.Focus();
             }
+            
+
+            //if (FormPrincipal.userNickName.Contains('@'))
+            //{
+            //    var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+            //    if (datos[18].Equals(0))
+            //    {
+            //        Utilidades.MensajePermiso();
+            //        txtDescuentoGeneral.Enabled = false;
+            //        return;
+            //    }
+            //    else
+            //    {
+            //        txtDescuentoGeneral.Text = "";
+            //        txtDescuentoGeneral.Select(0, 0);
+            //    }
+            //}
+            //else
+            //{
+            //    txtDescuentoGeneral.Text = "";
+            //    txtDescuentoGeneral.Select(0, 0);
+            //}
             
             
         }
