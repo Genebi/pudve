@@ -791,7 +791,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                FormPrincipal.id_empleado = 0;
+                //FormPrincipal.id_empleado = 0;
             }
 
             //saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
