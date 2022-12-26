@@ -46,7 +46,7 @@ namespace PuntoDeVentaV2
         static public List<string> productosAumentoDecremento = new List<string>();
 
         public int GetNumRevActive { get; set; }
-
+        bool Aumentar = true;
         // Permisos de los botones
         int opcion1 = 1; // Boton revisar inventario
         int opcion2 = 1; // Boton actualizar inventario
@@ -1275,7 +1275,7 @@ namespace PuntoDeVentaV2
 
                 if (Aceptar.Equals(true))
                 {
-                    FormReporteInventario xd = new FormReporteInventario();
+                    FormReporteInventario xd = new FormReporteInventario(Aumentar);
                     xd.ShowDialog();
                     Aceptar = false;
                 }
@@ -3869,14 +3869,17 @@ namespace PuntoDeVentaV2
 
         private void rbAumentarProducto_CheckedChanged(object sender, EventArgs e)
         {
-            var num = NoRevAumentarInventario();
+            Aumentar = true;
+           var num = NoRevAumentarInventario();
             DGVInventario.Rows.Clear();
             populateAumentarDGVInventario();
             txtBusqueda.Focus();
+           
         }
 
         private void rbDisminuirProducto_CheckedChanged(object sender, EventArgs e)
         {
+            Aumentar = false;
             var num = NoRevDisminuirInventario();
             DGVInventario.Rows.Clear();
             populateDisminuirDGVInventario();
