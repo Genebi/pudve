@@ -273,7 +273,7 @@ namespace PuntoDeVentaV2
             foreach (var dato in Inventario.DTDatos.Rows)
             {
                 int ID = Convert.ToInt32(Inventario.DTDatos.Rows[RowsDatosInventario]["No"]);
-                DataTable DTConssulta = cn.CargarDatos($"SELECT P.Nombre AS 'Producto', p.PrecioCompra AS 'Precio Compra', p.Precio AS 'Precio Venta', p.Stock AS 'Stock Anterior' FROM productos AS P WHERE P.ID = {ID}");
+                DataTable DTConssulta = cn.CargarDatos($"SELECT P.Nombre AS 'Producto', p.PrecioCompra AS 'Precio Compra', p.Precio AS 'Precio Venta', DAI.StockActual AS 'Stock Anterior'FROM productos AS P INNER JOIN dgvaumentarinventario AS DAI ON(DAI.IdProducto = P.ID) WHERE P.ID = {ID} ORDER BY DAI.ID DESC LIMIT 1");
 
                 DataTable DTProveedor = cn.CargarDatos($"SELECT Proveedor FROM detallesproducto WHERE IDProducto ={ID}");
 
