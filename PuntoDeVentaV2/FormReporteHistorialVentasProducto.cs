@@ -24,7 +24,7 @@ namespace PuntoDeVentaV2
         string pathLogoImage;
         public static string ruta_archivos_guadados = @"C:\Archivos PUDVE\MisDatos\CSD\";
         DataTable DTDatos2 = new DataTable();
-        public FormReporteHistorialVentasProducto(int IDProducto,string IDEmpleado, string FechaIncio, string FechaFinal)
+        public FormReporteHistorialVentasProducto(int IDProducto, string IDEmpleado, string FechaIncio, string FechaFinal)
         {
             InitializeComponent();
             this.IDProd = IDProducto;
@@ -54,11 +54,11 @@ namespace PuntoDeVentaV2
                         IDsVentas += DTIDVenta1.Rows[row]["IDVenta"].ToString() + ",";
                         row++;
                     }
-                    IDsVentas=IDsVentas.TrimEnd(',');
+                    IDsVentas = IDsVentas.TrimEnd(',');
                 }
                 else
                 {
-                    MessageBox.Show("Este producto no a sido vendido","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    MessageBox.Show("Este producto no a sido vendido", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
             }
@@ -205,7 +205,7 @@ namespace PuntoDeVentaV2
                                 if (DTUsuario.Rows.Count.Equals(0))
                                 {
                                     var nombre = FormPrincipal.userNickName.Split('@');
-                                     Usuario = nombre[0];
+                                    Usuario = nombre[0];
                                 }
                                 else
                                 {
@@ -252,8 +252,17 @@ namespace PuntoDeVentaV2
                         {
                             using (var DTCliente = cn.CargarDatos($"SELECT RazonSocial FROM clientes WHERE ID = {Convert.ToInt32(IDSVentasCorrectas.Rows[rows]["IDCliente"])}"))
                             {
-                                DTDatos.Rows[rows]["Cliente"] = DTCliente.Rows[0][0].ToString();
+                                if (DTCliente.Rows.Count.Equals(0))
+                                {
+                                    DTDatos.Rows[rows]["Cliente"] = "PUBLICO GENERAL";
+                                }
+                                else
+                                {
+                                    DTDatos.Rows[rows]["Cliente"] = DTCliente.Rows[0][0].ToString();
+                                }
                             }
+
+
                         }
                     }
                     rows++;
@@ -335,8 +344,8 @@ namespace PuntoDeVentaV2
                 DireccionLogo = "";
                 reportParameters.Add(new ReportParameter("Logo", DireccionLogo));
             }
-            string Nombre,Email,Telefono;
-            using (var DTusuario = cn.CargarDatos($"SELECT NombreCompleto,Email,Telefono FROM `usuarios` WHERE ID = {FormPrincipal.userID}") )
+            string Nombre, Email, Telefono;
+            using (var DTusuario = cn.CargarDatos($"SELECT NombreCompleto,Email,Telefono FROM `usuarios` WHERE ID = {FormPrincipal.userID}"))
             {
                 Nombre = DTusuario.Rows[0]["NombreCompleto"].ToString();
                 Email = DTusuario.Rows[0]["Email"].ToString();
@@ -345,7 +354,7 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("Nombre", Nombre));
             reportParameters.Add(new ReportParameter("Email", Email));
             reportParameters.Add(new ReportParameter("Telefono", Telefono));
-            string NombreProducto,CodigoBarras;
+            string NombreProducto, CodigoBarras;
             using (var DTProducto = cn.CargarDatos($"SELECT Nombre,CodigoBarras FROM `productos` WHERE ID = {IDProd}"))
             {
                 NombreProducto = DTProducto.Rows[0]["Nombre"].ToString();
@@ -357,7 +366,7 @@ namespace PuntoDeVentaV2
             LocalReport rdlc = new LocalReport();
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;
-           rdlc.SetParameters(reportParameters);
+            rdlc.SetParameters(reportParameters);
 
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
