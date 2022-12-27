@@ -6517,6 +6517,7 @@ namespace PuntoDeVentaV2
                 lbTSaldoInicial.Text = totalSaldoInicial.ToString("C2");
 
                 lbTTotalCaja.Text = sumaDeTotalesEnCaja.ToString("C2");
+                btnRedondoSaldoInicial.Text = 0.ToString("C2");
             }
             else
             {
