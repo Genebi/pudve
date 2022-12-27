@@ -778,7 +778,6 @@
             0,
             0,
             0});
-            this.nudCantidadPS.ValueChanged += new System.EventHandler(this.nudCantidadPS_ValueChanged);
             this.nudCantidadPS.Click += new System.EventHandler(this.nudCantidadPS_Click);
             // 
             // lbCantidad

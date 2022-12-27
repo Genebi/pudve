@@ -8505,14 +8505,6 @@ namespace PuntoDeVentaV2
             listaProductos.Visible = false;
         }
 
-
-        private void nudCantidadPS_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-
-
         private void btnGanancia_Click(object sender, EventArgs e)
         {
             if (!DGVentas.Rows.Count.Equals(0))
