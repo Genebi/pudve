@@ -220,10 +220,11 @@ namespace PuntoDeVentaV2
 
         public static string PorcentajeDescuento;
 
+        int calcu = 0;
 
         #region Proceso de Bascula
-       // Constructores
-       private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
+        // Constructores
+        private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
         public delegate void MostrarRecepcion(string Texto);    // Delegado para asignar el valor recibido
 
         int nombreus, nombComercial, direccionus, colycpus, rfcus, correous, telefonous, nombrec, domicilioc, rfcc, correoc, telefonoc, colycpc, formapagoc;
@@ -8522,6 +8523,41 @@ namespace PuntoDeVentaV2
                 cantidadGanancia.ShowDialog();
             }
 
+        }
+
+        private void nudCantidadPS_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            nudCantidadPS.Value = Convert.ToDecimal(calculadora.lCalculadora.Text);
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+
+                    //if ()
+                    //{
+                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
+                    //}
+                }
+            }
         }
 
         private void txtBuscadorProducto_Enter(object sender, EventArgs e)
