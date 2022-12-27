@@ -4137,7 +4137,7 @@ namespace PuntoDeVentaV2
             var fechaCompra =  DateTime.Now.ToString("yyyy-MM-dd");
             var precioCompra = datosProducto[2];
             var cantidadCompra = datosProducto[4];
-            int IDProducto = Int32.Parse(cn.CargarDatos(cs.BuscarIDPreductoPorCodigoDeBarras(datosProducto[1])).Rows[0]["ID"].ToString());
+            int IDProducto = Int32.Parse(cn.CargarDatos($"SELECT ID FROM productos WHERE CodigoBarras = '{datosProducto[1]}' AND `Status` = 1 AND IDUsuario = '{FormPrincipal.userID}'").Rows[0]["ID"].ToString());
 
             string[] datos = new string[] { datosProducto[0], cantidadCompra, precioCompra, datosProducto[3], fechaCompra, rfc, "", "", "1", fechaOperacion, reporte.ToString(), IDProducto.ToString(), FormPrincipal.userID.ToString() };
 
