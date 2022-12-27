@@ -1174,6 +1174,18 @@ namespace PuntoDeVentaV2
                                             imprimirTicketDineroRetirado.idDineroRetirado = idRetiro;
                                             imprimirTicketDineroRetirado.ShowDialog();
                                         }
+
+
+                                        var conceptoAnterior = cn.CargarDatos($"SELECT Concepto FROM caja WHERE ID = {Convert.ToInt32(idRetiro)}");
+
+                                        if (conceptoAnterior.Rows[0]["Concepto"].ToString().Equals("Complemento de retiro desde saldo inicial"))
+                                        {
+                                            using (ImprimirTicketRetirarDineroCaja8cm imprimirTicketDineroRetirado = new ImprimirTicketRetirarDineroCaja8cm())
+                                            {
+                                                imprimirTicketDineroRetirado.idDineroRetirado = Convert.ToInt32(idRetiro) - 1;
+                                                imprimirTicketDineroRetirado.ShowDialog();
+                                            }
+                                        }
                                     }
                                 }
                             }
