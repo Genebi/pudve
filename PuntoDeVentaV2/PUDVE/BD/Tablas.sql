@@ -1976,7 +1976,6 @@ ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS Agregar_Descuento INT DEF
 	-- Agregar Columna de Eliminar Descuento a empleadosPermisos
 ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS Eliminar_Descuento INT DEFAULT 1 ;
 
-<<<<<<< HEAD
 ALTER TABLE dgvaumentarinventario MODIFY COLUMN DiferenciaUnidades VARCHAR(100);
 ALTER TABLE dgvaumentarinventario MODIFY COLUMN StockActual VARCHAR(100);
 ALTER TABLE dgvaumentarinventario MODIFY COLUMN NuevoStock VARCHAR(100);
@@ -2007,7 +2006,6 @@ ALTER TABLE dgvdisminuirinventario MODIFY COLUMN NuevoStock VARCHAR(100);
 --Columna de Comenatrios para caja los tickets agregar retirar dinero y de caja
 ALTER TABLE caja ADD COLUMN IF NOT EXISTS Comentarios TEXT DEFAULT NULL;
 
-=======
  -- Oa
   ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS traspasos INTEGER(11) DEFAULT (0);
->>>>>>> traspasos
+
