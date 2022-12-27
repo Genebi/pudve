@@ -26,7 +26,7 @@ namespace PuntoDeVentaV2
         private float totalMetodos = 0f;
         private bool existenAbonos = false;
         private string siguienteFechaAbono=string.Empty;
-
+        private int mocho = 0;
         private string ticketGenerado = string.Empty;
         private string rutaTicketGenerado = string.Empty;
 
@@ -150,26 +150,27 @@ namespace PuntoDeVentaV2
             saldo = (decimal)restante;
             Conexion cn = new Conexion();
             DateTime lameraFecha;
+            
             using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
             {
 
-                using (DataTable dtAbonos = cn.CargarDatos($"SELECT MAX(FechaOperacion) AS FECHA FROM abonos WHERE IDVenta = {idVenta} AND estado = 1"))
+                using (DataTable dtAbonos = cn.CargarDatos($"SELECT FechaOperacion FROM abonos WHERE IDVenta = {idVenta} AND estado = 1 ORDER BY FechaOperacion DESC LIMIT 1 "))
                 {
                     if (dtAbonos.Rows.Count>0)
                     {
-                        lameraFecha= DateTime.Parse(dtAbonos.Rows[0]["FECHA"].ToString())
+                        lameraFecha = DateTime.Parse(dtAbonos.Rows[0]["FechaOperacion"].ToString());
                     }
                     else
                     {
-                        using (DataTable dtVentaOG = cn.CargarDatos($"SELECT FechaOperacion FROM abonos WHERE IDVenta = {idVenta}"))
+                        using (DataTable dtVentaOG = cn.CargarDatos($"SELECT FechaOperacion FROM ventas WHERE ID = {idVenta}"))
                         {
-                            lameraFecha = 
+                            lameraFecha = DateTime.Parse(dtVentaOG.Rows[0]["FechaOperacion"].ToString());
                         }
                     }
                 }
 
-                //Paso la fecha de perdon de creditos
-                if (DateTime.Now.Date> DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString().Split('%')[0]))
+                //Ya se cobra
+                if (DateTime.Now.Date> lameraFecha)
                     
                 {
                     porcentajeDeInteres = Decimal.Parse(dtReglasCreditoVenta.Rows[0]["creditoPorcentajeinteres"].ToString());
@@ -261,10 +262,10 @@ namespace PuntoDeVentaV2
                     cn.EjecutarConsulta(cs.estatusFinalizacionPagoCredito(idVenta));        
                 }
 
-                //if (lblPendiente.Text.Equals("$0.00"))
-                //{
-                //    cn.EjecutarConsulta($"UPDATE reglascreditoventa SET FechaInteres = '{siguienteFechaAbono}' WHERE IDVenta = '{idVenta}'");
-                //}
+                if (lblPendiente.Text.Equals("$0.00"))
+                {
+                    mocho = 1;
+                }
 
 
                 if (efectiv > totalPendiente) { efectiv = totalPendiente; }
@@ -292,7 +293,7 @@ namespace PuntoDeVentaV2
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion,intereses.ToString(), vuelto.ToString()
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion,intereses.ToString(), vuelto.ToString(), mocho.ToString()
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
@@ -303,7 +304,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),intereses.ToString(),vuelto.ToString()
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),intereses.ToString(),vuelto.ToString(), mocho.ToString()
                 };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));
@@ -332,7 +333,7 @@ namespace PuntoDeVentaV2
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, intereses.ToString(),vuelto.ToString()
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, intereses.ToString(),vuelto.ToString(), mocho.ToString()
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
@@ -341,7 +342,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),intereses.ToString(),vuelto.ToString()
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),intereses.ToString(),vuelto.ToString(), mocho.ToString()
 };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));
@@ -486,22 +487,22 @@ namespace PuntoDeVentaV2
             return valor;
         }
 
-        private bool ValidarCantidades()
-        {
-            var efectivo = CantidadDecimal(txtEfectivo.Text);
-            var tarjeta = CantidadDecimal(txtTarjeta.Text);
-            var vales = CantidadDecimal(txtVales.Text);
-            var cheque = CantidadDecimal(txtCheque.Text);
-            var transferencia = CantidadDecimal(txtTransferencia.Text);
-            var total = efectivo + tarjeta + vales + cheque + transferencia;
+        //private bool ValidarCantidades()
+        //{
+        //    var efectivo = CantidadDecimal(txtEfectivo.Text);
+        //    var tarjeta = CantidadDecimal(txtTarjeta.Text);
+        //    var vales = CantidadDecimal(txtVales.Text);
+        //    var cheque = CantidadDecimal(txtCheque.Text);
+        //    var transferencia = CantidadDecimal(txtTransferencia.Text);
+        //    var total = efectivo + tarjeta + vales + cheque + transferencia;
 
-            if (total <= totalPendiente)
-            {
-                return true;
-            }
+        //    if (total <= totalPendiente)
+        //    {
+        //        return true;
+        //    }
 
-            return false;
-        }
+        //    return false;
+        //}
 
         private void lbVerAbonos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -544,8 +545,8 @@ namespace PuntoDeVentaV2
             return suma;
         }
 
-        private void CalcularCambio()
-        {
+        //private void CalcularCambio()
+        //{
             ////El total del campo efectivo + la suma de los otros metodos de pago - total de venta
             //double cambio = Convert.ToDouble((CantidadDecimal(txtEfectivo.Text) + totalMetodos) - totalPendiente);
 
@@ -558,7 +559,7 @@ namespace PuntoDeVentaV2
             //{
             //    lbTotalCambio.Text = "$0.00";
             //}
-        }
+        //}
 
 
         private void SumaMetodosPago(object sender, KeyEventArgs e)

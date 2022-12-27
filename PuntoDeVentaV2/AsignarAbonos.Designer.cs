@@ -61,6 +61,8 @@
             this.cbAdelanto = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblmirror = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnAceptar
@@ -363,7 +365,7 @@
             // label5
             // 
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label5.Location = new System.Drawing.Point(13, 179);
+            this.label5.Location = new System.Drawing.Point(11, 173);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(460, 2);
             this.label5.TabIndex = 138;
@@ -404,7 +406,7 @@
             // 
             this.cbAdelanto.AutoSize = true;
             this.cbAdelanto.Location = new System.Drawing.Point(409, 130);
-            this.cbAdelanto.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cbAdelanto.Margin = new System.Windows.Forms.Padding(2);
             this.cbAdelanto.Name = "cbAdelanto";
             this.cbAdelanto.Size = new System.Drawing.Size(68, 17);
             this.cbAdelanto.TabIndex = 145;
@@ -433,6 +435,32 @@
             this.lblmirror.Text = "$0.00";
             this.lblmirror.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(149, 115);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(99, 16);
+            this.label2.TabIndex = 132;
+            this.label2.Text = "(desde xx/xx/xx)";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.Visible = false;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Red;
+            this.label4.Location = new System.Drawing.Point(149, 30);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(99, 16);
+            this.label4.TabIndex = 132;
+            this.label4.Text = "(desde xx/xx/xx)";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label4.Visible = false;
+            // 
             // AsignarAbonos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -460,6 +488,8 @@
             this.Controls.Add(this.lbCheque);
             this.Controls.Add(this.lbVales);
             this.Controls.Add(this.lbTarjeta);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.lblfechainteres);
             this.Controls.Add(this.lbEfectivo);
             this.Controls.Add(this.txtTransferencia);
@@ -518,5 +548,7 @@
         private System.Windows.Forms.CheckBox cbAdelanto;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblmirror;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label4;
     }
 }
