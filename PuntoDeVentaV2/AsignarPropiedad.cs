@@ -1842,6 +1842,8 @@ namespace PuntoDeVentaV2
                             cn.EjecutarConsulta($"INSERT INTO descuentocliente (PrecioProducto,PorcentajeDescuento,PrecioDescuento,Descuento,IDProducto) VALUES ({precioproducto},{porcentajedescuento},{preciodescuentofinal},{descuentoaplicado},{idprod})");
                         }
                         cn.EjecutarConsulta($"DELETE FROM DescuentoMayoreo WHERE IDProducto = {idprod}");
+                        cn.EjecutarConsulta($"UPDATE productos SET TieneDescuentoCliente = 1 , TieneDescuentoMayoreo = 0 WHERE ID = {idprod}");
+                        cn.EjecutarConsulta($"UPDATE productos SET TipoDescuento = 1 WHERE ID = {idprod}");
                     }
                     
                     MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
