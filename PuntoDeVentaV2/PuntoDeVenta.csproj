@@ -620,6 +620,7 @@
       <DependentUpon>ConceptosInhabilitados.cs</DependentUpon>
     </Compile>
     <Compile Include="Conexion.cs" />
+    <Compile Include="ConexionAPPWEB.cs" />
     <Compile Include="ConexionDataDictionary.cs" />
     <Compile Include="ConexionNet.cs" />
     <Compile Include="configCredito.cs">
@@ -652,6 +653,12 @@
     </Compile>
     <Compile Include="ConsultarListaRelacionados.Designer.cs">
       <DependentUpon>ConsultarListaRelacionados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="consultarProductoTraspaso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="consultarProductoTraspaso.Designer.cs">
+      <DependentUpon>consultarProductoTraspaso.cs</DependentUpon>
     </Compile>
     <Compile Include="ConsultarProductoVentas.cs">
       <SubType>Form</SubType>
@@ -1562,6 +1569,12 @@
     <Compile Include="TipoReportesInventario.Designer.cs">
       <DependentUpon>TipoReportesInventario.cs</DependentUpon>
     </Compile>
+    <Compile Include="traspaso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="traspaso.Designer.cs">
+      <DependentUpon>traspaso.cs</DependentUpon>
+    </Compile>
     <Compile Include="UsuariosGuardados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1904,6 +1917,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConsultarListaRelacionados.resx">
       <DependentUpon>ConsultarListaRelacionados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="consultarProductoTraspaso.resx">
+      <DependentUpon>consultarProductoTraspaso.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConsultarProductoVentas.resx">
       <DependentUpon>ConsultarProductoVentas.cs</DependentUpon>
@@ -2339,6 +2355,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TipoReportesInventario.resx">
       <DependentUpon>TipoReportesInventario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="traspaso.resx">
+      <DependentUpon>traspaso.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UsuariosGuardados.resx">
       <DependentUpon>UsuariosGuardados.cs</DependentUpon>

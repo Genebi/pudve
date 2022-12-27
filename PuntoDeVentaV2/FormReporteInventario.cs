@@ -27,10 +27,18 @@ namespace PuntoDeVentaV2
         string NombreUsuario, Usuario, Texto;
         decimal UnidadesCompras = 0, PCompra = 0,PTotal = 0, PVenta = 0, SAnterior = 0, SActual= 0;
         bool aumentar;
-        public FormReporteInventario(bool Tipo)
+        string claveP;
+        public FormReporteInventario(bool Tipo,string clave)
         {
             InitializeComponent();
-            this.aumentar = Tipo;
+            if (!clave.Equals(""))
+            {
+                claveP = $"Clave de traspaso = {clave}";
+            }
+            else
+            {
+                claveP = "";
+            }
         }
 
         private void FormReporteInventario_Load(object sender, EventArgs e)
@@ -229,6 +237,7 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("PVenta", PVenta.ToString()));
             reportParameters.Add(new ReportParameter("SAnterior", SAnterior.ToString()));
             reportParameters.Add(new ReportParameter("SActual", SActual.ToString()));
+            reportParameters.Add(new ReportParameter("Clave", claveP));
 
             UnidadesCompras = 0;
             PCompra = 0;

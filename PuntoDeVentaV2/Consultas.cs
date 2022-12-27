@@ -2751,7 +2751,7 @@ namespace PuntoDeVentaV2
 
         public string cargarDatosDeConfiguracion()
         {
-            var consulta = $"SELECT IDUsuario, TicketVenta, IniciarProceso, MostrarCodigoProducto, CerrarSesionAuto, MostrarPrecioProducto, StockNegativo, HabilitarTicketVentas, PrecioMayoreo, checkNoVendidos FROM Configuracion WHERE IDUsuario = '{FormPrincipal.userID}'";
+            var consulta = $"SELECT IDUsuario, TicketVenta, IniciarProceso, MostrarCodigoProducto, CerrarSesionAuto, MostrarPrecioProducto, StockNegativo, HabilitarTicketVentas, PrecioMayoreo, checkNoVendidos, traspasos FROM Configuracion WHERE IDUsuario = '{FormPrincipal.userID}'";
 
             return consulta;
         }
@@ -5060,6 +5060,47 @@ namespace PuntoDeVentaV2
         public string borrarHuella(string empleadoID)
         {
             var consulta = $"DELETE FROM detalleschecadorempleados WHERE idEmpleado = {empleadoID}";
+
+            return consulta;
+        }
+
+        public string insertarRegistroTraspaso(string clave, string usuario, string fecha)
+        {
+            string consulta = "INSERT INTO traspasosmovimiento(Clave,IDUsuario,Fecha)";
+            consulta += $"VALUES('{clave}','{usuario}','{fecha}')";
+            return consulta;
+        }
+
+        public string insertarDatosTraspaso(string clave, string nombre, string codigoBarras, string Cantidad)
+        {
+            string consulta = "INSERT INTO traspasosdatos(ClaveMovimiento,Nombre,CodigoBarras,Cantidad)";
+            consulta += $"VALUES('{clave}','{nombre}','{codigoBarras}',{Cantidad})";
+            return consulta;
+        }
+
+        public string BuscarProductoPorCodigoDeBarrasFull(string codigo)
+        {
+            var consulta = $"SELECT Nombre FROM productos WHERE `Status` = 1 AND CodigoBarras = '{codigo}' ";
+
+            return consulta;
+        }
+
+        public string BuscarUsuario(int idusuario)
+        {
+            var consulta = $"SELECT usuario FROM usuarios WHERE ID = {idusuario}";
+            return consulta;
+        }
+
+        public string buscarSiHayCodigoTraspaso(string usuario, string clave)
+        {
+            var consulta = $"SELECT * FROM traspasosmovimiento WHERE `Usado` = 0 AND Clave = '{clave}'";
+
+            return consulta;
+        }
+
+        public string obtenerDatosTraspaso(string clave)
+        {
+            var consulta = $"SELECT Nombre, CodigoBarras AS 'Codigo', Cantidad FROM traspasosdatos WHERE ClaveMovimiento = '{clave}'";
 
             return consulta;
         }
