@@ -40,6 +40,7 @@ namespace PuntoDeVentaV2
             this.reportViewer1.RefreshReport();
         }
 
+
         private void CargarRDLC()
         {
             string cadenaConn = string.Empty;
