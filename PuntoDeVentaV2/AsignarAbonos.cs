@@ -25,6 +25,7 @@ namespace PuntoDeVentaV2
         private float totalPendiente = 0f;
         private float totalMetodos = 0f;
         private bool existenAbonos = false;
+        private string siguienteFechaAbono=string.Empty;
 
         private string ticketGenerado = string.Empty;
         private string rutaTicketGenerado = string.Empty;
@@ -40,6 +41,7 @@ namespace PuntoDeVentaV2
         float cambio;
         decimal intereses;
         string nameOfControl = string.Empty;
+        decimal abonoTotal;
 
         decimal saldo =0;
         decimal porcentajeDeInteres;
@@ -83,9 +85,9 @@ namespace PuntoDeVentaV2
             var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
             totalPendiente = float.Parse(detalles[2]);
             txtTotalOriginal.Text = totalOriginal.ToString("C2");
+            
 
-           
-
+            
             //Comprobamos que no existan abonos
             existenAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
 
@@ -106,17 +108,68 @@ namespace PuntoDeVentaV2
                 totalPendiente = restanteDePago;
             }
 
+           
+
+            using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
+            {
+                if (Decimal.Parse(dtReglasCreditoVenta.Rows[0]["creditoMinimoAbono"].ToString()) <= (decimal)restanteDePago)
+                {
+                    abonoTotal = decimal.Parse(dtReglasCreditoVenta.Rows[0]["creditoMinimoAbono"].ToString());
+                    lblTotalAbono.Text = abonoTotal.ToString("C2");
+                }
+                else
+                {
+                    abonoTotal = (decimal)totalPendiente;
+                    lblTotalAbono.Text = totalPendiente.ToString("C2");
+                    cbAdelanto.Enabled = false;
+                }
+                int dias = 0;
+                switch (dtReglasCreditoVenta.Rows[0]["creditoperiodocobro"].ToString())
+                {
+                    case "Mensual":
+                        dias = 30;
+                        break;
+                    case "Quincenal":
+                        dias = 15;
+                        break;
+                    case "Semanal":
+                        dias = 7;
+                        break;
+                    default:
+                        break;
+                }
+                siguienteFechaAbono = DateTime.Today.AddDays(dias + 1).ToString("yyyy-MM-dd");
+            }
+
             txtIntereses.Text = intereses.ToString("C2");
+            lblPendiente.Text = (abonoTotal + intereses).ToString("C2");
         }
 
         private decimal calcularIntereses(float restante)
         {
             saldo = (decimal)restante;
             Conexion cn = new Conexion();
-
+            DateTime lameraFecha;
             using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
             {
-                if (DateTime.Now.Date>= DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString()))
+
+                using (DataTable dtAbonos = cn.CargarDatos($"SELECT MAX(FechaOperacion) AS FECHA FROM abonos WHERE IDVenta = {idVenta} AND estado = 1"))
+                {
+                    if (dtAbonos.Rows.Count>0)
+                    {
+                        lameraFecha= DateTime.Parse(dtAbonos.Rows[0]["FECHA"].ToString())
+                    }
+                    else
+                    {
+                        using (DataTable dtVentaOG = cn.CargarDatos($"SELECT FechaOperacion FROM abonos WHERE IDVenta = {idVenta}"))
+                        {
+                            lameraFecha = 
+                        }
+                    }
+                }
+
+                //Paso la fecha de perdon de creditos
+                if (DateTime.Now.Date> DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString().Split('%')[0]))
                     
                 {
                     porcentajeDeInteres = Decimal.Parse(dtReglasCreditoVenta.Rows[0]["creditoPorcentajeinteres"].ToString());
@@ -159,6 +212,8 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+
+            float vuelto = float.Parse(lbTotalCambio.Text.Split('$')[1]);
             if (sumarMetodosTemporal() > 0)
             {
                 float total = 0f;
@@ -203,12 +258,14 @@ namespace PuntoDeVentaV2
 
                 if (restante <= 0)
                 {
-                    cn.EjecutarConsulta(cs.estatusFinalizacionPagoCredito(idVenta));
+                    cn.EjecutarConsulta(cs.estatusFinalizacionPagoCredito(idVenta));        
                 }
 
-                //var pagoPendiente = txtPendiente.Text;
-                //var cantidadPendiente = float.Parse(pagoPendiente);
-                //var operacionTotal = (total - totalPendiente);
+                //if (lblPendiente.Text.Equals("$0.00"))
+                //{
+                //    cn.EjecutarConsulta($"UPDATE reglascreditoventa SET FechaInteres = '{siguienteFechaAbono}' WHERE IDVenta = '{idVenta}'");
+                //}
+
 
                 if (efectiv > totalPendiente) { efectiv = totalPendiente; }
                 if (tarjeta > totalPendiente) { tarjeta = totalPendiente; }
@@ -219,13 +276,14 @@ namespace PuntoDeVentaV2
                 string[] datos;
                 int resultado = 0;
                 string fechaNueva;
+                total -= vuelto;
                 using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
                 {
                     //En caso de que se tome en cuenta la ultima fecha establecida
-                    //fechaNueva=DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString()).AddDays((double)dias).ToString("yyyy/MM/dd");
+                    fechaNueva = DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString()).AddDays((double)dias).ToString("yyyy/MM/dd");
 
                     //Si se toma en cuenta la fecha del dia de hoy
-                    fechaNueva = DateTime.Now.AddDays((double)dias).ToString("yyyy/MM/dd");
+                    //fechaNueva = DateTime.Now.AddDays((double)dias).ToString("yyyy/MM/dd");
                 }
 
                 //Validar que se se guarde una cantidad mayor que el total pendiente
@@ -234,18 +292,19 @@ namespace PuntoDeVentaV2
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion,intereses.ToString(), vuelto.ToString()
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
+
                         
                         //cn.EjecutarConsulta($"UPDATE reglascreditoventa SET FechaInteres = '{fechaNueva}' WHERE IDVenta = {idVenta.ToString()}");
                     }
                     else
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString()
-                        };
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),intereses.ToString(),vuelto.ToString()
+                };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));
                         //cn.EjecutarConsulta($"UPDATE reglascreditoventa SET FechaInteres = '{fechaNueva}' WHERE IDVenta = {idVenta.ToString()}");
@@ -273,7 +332,7 @@ namespace PuntoDeVentaV2
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, intereses.ToString(),vuelto.ToString()
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
@@ -282,8 +341,8 @@ namespace PuntoDeVentaV2
                     else
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString()
-                        };
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),intereses.ToString(),vuelto.ToString()
+};
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));
                         //cn.EjecutarConsulta($"UPDATE reglascreditoventa SET FechaInteres = '{fechaNueva}' WHERE IDVenta = {idVenta.ToString()}");
@@ -291,6 +350,7 @@ namespace PuntoDeVentaV2
 
                     if (resultado > 0)
                     {
+                        cn.EjecutarConsulta($"UPDATE reglascreditoventa SET FechaInteres = '{siguienteFechaAbono}' WHERE IDVenta = '{idVenta}'");
                         var idAbono = cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID} ORDER BY FechaOperacion DESC LIMIT 1", 1).ToString();
                         var restante = totalPendiente - totalAbonado;
 
@@ -715,7 +775,15 @@ namespace PuntoDeVentaV2
 
         private void validacionRestanteDeAbonos(object sender, EventArgs e)
         {
-            TextBox txtCajaDeTexto = (TextBox)sender;
+            TextBox txtCajaDeTexto;
+            if (sender.GetType().Name.Equals("CheckBox"))
+            {
+                txtCajaDeTexto = txtEfectivo;
+            }
+            else
+            {
+               txtCajaDeTexto = (TextBox)sender;
+            }
 
             var detalles = mb.ObtenerDetallesVenta(idVenta, FormPrincipal.userID);
             totalPendiente = float.Parse(detalles[2]);
@@ -762,19 +830,49 @@ namespace PuntoDeVentaV2
                     }
 
                     var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
+                    restante = totalPendiente - nuevoabono;
                     restante += (float)intereses;
+                    var restanteAbono =((intereses+abonoTotal) - (decimal)nuevoabono)+ (decimal)abonado;
+                    
 
-                    txtPendiente.Text = restante.ToString("C2");
-
-                    if (restante < 1)
+                    if (restanteAbono <= 0)
                     {
-                        txtPendiente.Text = "$0.00";
-                        cambio = restante * (-1);
+                        lblPendiente.Text = "$0.00";
+                        cambio = (float)restanteAbono * (-1);
                         lbTotalCambio.Text = cambio.ToString("C2");
+                        if (cbAdelanto.Enabled == true)
+                        {
+                            lblfechainteres.Visible = true;
+                            lblfechainteres.Text = $"Siguiente fecha de pago\nEl día {siguienteFechaAbono}";
+                        }
                     }
                     else
                     {
+                        lblPendiente.Text = restanteAbono.ToString("C2");
                         lbTotalCambio.Text = "$0.00";
+                        lblfechainteres.Visible = false;
+                    }
+
+                    //adelantos
+                    if (!cbAdelanto.Checked && lblPendiente.Text=="$0.00")
+                    {
+                        txtPendiente.Text = ((decimal)totalPendiente - (decimal)(abonado) - (decimal)(abonoTotal) ).ToString("C2");
+                    }
+                    else
+                    {
+                        txtPendiente.Text = restante.ToString("C2");
+                        //cambio = restante * (-1);
+                        //lbTotalCambio.Text = cambio.ToString("C2");
+                        if (restante <= 0)
+                        {
+                            txtPendiente.Text = "$0.00";
+                            cambio = restante * (-1);
+                            lbTotalCambio.Text = cambio.ToString("C2");
+                        }
+                        else
+                        {
+                            lbTotalCambio.Text = "$0.00";
+                        }
                     }
 
                 }
@@ -806,17 +904,46 @@ namespace PuntoDeVentaV2
                     var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
                     restante = totalPendiente - nuevoabono;
                     restante += (float)intereses;
-                    txtPendiente.Text = restante.ToString("C2");
-                    if (restante < 1)
+                    var restanteAbono = abonoTotal - (decimal)nuevoabono-(decimal)abonado+intereses;
+                    
+
+                    if (restanteAbono <= 0)
                     {
-                        txtPendiente.Text = "$0.00";
-                        cambio = restante * (-1);
+                        lblPendiente.Text = "$0.00";
+                        cambio = (float)restanteAbono * (-1);
                         lbTotalCambio.Text = cambio.ToString("C2");
+                        lblfechainteres.Visible = true;
+                        lblfechainteres.Text = $"Siguiente fecha de pago\nEl día {siguienteFechaAbono}";
                     }
                     else
                     {
+                        lblPendiente.Text = restanteAbono.ToString("C2");
                         lbTotalCambio.Text = "$0.00";
+                        lblfechainteres.Visible = false;
                     }
+
+                    //adelantos
+                    if (!cbAdelanto.Checked && lblPendiente.Text=="$0.00")
+                    {
+                        txtPendiente.Text = (totalPendiente - (float)(abonoTotal)).ToString("C2");
+                    }
+                    else
+                    {
+                        txtPendiente.Text = restante.ToString("C2");
+                        //cambio = restante * (-1);
+                        //lbTotalCambio.Text = cambio.ToString("C2");
+                        if (restante <= 0)
+                        {
+                            txtPendiente.Text = "$0.00";
+                            cambio = restante * (-1);
+                            lbTotalCambio.Text = cambio.ToString("C2");
+                        }
+                        else
+                        {
+                            lbTotalCambio.Text = "$0.00";
+                        }
+                    }
+                    
                 }
 
             }
@@ -1151,6 +1278,16 @@ namespace PuntoDeVentaV2
 
             if (e.KeyCode.Equals(Keys.Left))
                 SendKeys.Send("+{TAB}");
+        }
+
+        private void cbAdelanto_CheckedChanged(object sender, EventArgs e)
+        {
+            validacionRestanteDeAbonos(sender, e);
+        }
+
+        private void txtIntereses_TextChanged(object sender, EventArgs e)
+        {
+            lblmirror.Text = txtIntereses.Text;
         }
     }
 }

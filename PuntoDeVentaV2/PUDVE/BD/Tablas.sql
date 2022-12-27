@@ -1998,6 +1998,7 @@ ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditototalcredito DECIMAl (
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoperiodocobro VARCHAR(100) DEFAULT 'Mensual';
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodocobro VARCHAR(100) DEFAULT 'Dias trascurridos';
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditodiassincobro INT DEFAULT 0 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoCantidadAbonos INT DEFAULT 1 ;
 
 --Crear tabla para guardar las reglas de credito activas cuando se hace una venta.
 CREATE TABLE
@@ -2005,7 +2006,7 @@ IF
 	NOT EXISTS reglasCreditoVenta(
 		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
 		IDVenta INTEGER NOT NULL,
-		FechaInteres DATE NOT NULL,
+		FechaInteres TEXT NOT NULL,
 		creditoHuella INTEGER DEFAULT 0,
 		creditoMoratorio INTEGER DEFAULT 0,
 		creditoPorcentajemoratorio DECIMAl ( 16, 4 ),
@@ -2019,6 +2020,13 @@ IF
 		creditototalcredito DECIMAl ( 16, 2 ),
 		creditoperiodocobro VARCHAR(100),
 		creditomodocobro VARCHAR(100),
-		creditodiassincobro INTEGER DEFAULT 0,
+		creditodiassincobro INTEGER DEFAULT 5,
+		creditoCantidadAbonos INTEGER DEFAULT 1,
+		creditoMinimoAbono  DECIMAl ( 16, 2 ),
 		FOREIGN KEY ( IDVenta ) REFERENCES ventas ( ID ) ON UPDATE CASCADE ON DELETE CASCADE
 	);
+
+-- Columnas para manejar bien chidin los creditos asi bien coppel
+	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS intereses DECIMAl ( 16, 2 ) DEFAULT 0;
+	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS cambio DECIMAl ( 16, 2 ) DEFAULT 0;
+	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS estado INTEGER DEFAULT 0;

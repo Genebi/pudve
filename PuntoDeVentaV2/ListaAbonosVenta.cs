@@ -67,6 +67,8 @@ namespace PuntoDeVentaV2
                 row.Cells["Cheque"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Cheque")).ToString());
                 row.Cells["Trans"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Transferencia")).ToString());
                 row.Cells["Total"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Total")).ToString());
+                row.Cells["Interes"].Value = Modificar(dr.GetValue(dr.GetOrdinal("intereses")).ToString());
+                row.Cells["Cambio"].Value = Modificar(dr.GetValue(dr.GetOrdinal("cambio")).ToString());
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
                 row.Cells["Ticket"].Value = ticket;
             }
@@ -110,7 +112,7 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
-                if (e.ColumnIndex == 8)
+                if (e.ColumnIndex == 10)
                 {
                     var idAbono = DGVAbonos.Rows[DGVAbonos.CurrentCell.RowIndex].Cells["ID"].Value.ToString();
                     var consulta = cn.CargarDatos($"SELECT IDVenta FROM abonos WHERE ID = '{idAbono}'");

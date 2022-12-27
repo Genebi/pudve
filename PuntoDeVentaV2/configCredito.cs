@@ -25,7 +25,7 @@ namespace PuntoDeVentaV2
         {
             DataTable dt = new DataTable();
             numTotaldecredito.Controls[0].Visible = false;
-            dt = cn.CargarDatos($"SELECT creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}");
+            dt = cn.CargarDatos($"SELECT creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro, creditoCantidadAbonos FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}");
             //A checar datos
             if (!dt.Rows[0]["creditoHuella"].ToString().Equals("0"))
             {
@@ -58,6 +58,7 @@ namespace PuntoDeVentaV2
 
             numVentasAbiertas.Value = Decimal.Parse(dt.Rows[0]["creditolimiteventas"].ToString());
             numTotaldecredito.Value = Decimal.Parse(dt.Rows[0]["creditototalcredito"].ToString());
+            numCantidadAbonos.Value = Decimal.Parse(dt.Rows[0]["creditoCantidadAbonos"].ToString());
 
         }
 
@@ -142,7 +143,9 @@ namespace PuntoDeVentaV2
 
             consulta = consulta += $"creditomodocobro = '{combMododecobro.Text}', ";
 
-            consulta = consulta += $"creditodiassincobro = {numDiasdecobrosininteres.Value.ToString()} ";
+            consulta = consulta += $"creditodiassincobro = '{numDiasdecobrosininteres.Value.ToString()}', ";
+
+            consulta = consulta += $"creditoCantidadAbonos = '{numCantidadAbonos.Value.ToString()}' ";
 
             consulta = consulta += $"WHERE IDUsuario = {FormPrincipal.userID}";
             cn.EjecutarConsulta(consulta);

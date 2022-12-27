@@ -1428,7 +1428,7 @@ namespace PuntoDeVentaV2
         #endregion
 
         #region Generar Reporte de actualizar Inventario. 
-        private void GenerarReporteActualizarInventario(int num, int numRev, string rutaArchivo)
+        private void GenerarReporteActualizarInventario     (int num, int numRev, string rutaArchivo)
         {
             // Datos del usuario
             var datos = FormPrincipal.datosUsuario;
