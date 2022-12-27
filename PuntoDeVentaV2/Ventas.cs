@@ -695,7 +695,7 @@ namespace PuntoDeVentaV2
                         listaProductosVenta();
                         listaProductos.Focus(); 
                     }
-                }
+                }                                                    
                 listaProductos.Focus();
             }
         }
@@ -2982,6 +2982,7 @@ namespace PuntoDeVentaV2
             cNumeroArticulos.Text = totalArticulos.ToString("N");
 
             ComprobarProductos();
+            txtBuscadorProducto.Clear();
         }
 
         private void ComprobarProductos()
@@ -8419,23 +8420,6 @@ namespace PuntoDeVentaV2
             };
             frmCsv.ShowDialog();
         }
-
-        private void lbDatosCliente_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-
-        }
-
-        private void Ventas_Layout(object sender, LayoutEventArgs e)
-        {
-
-        }
-
         private void CBTipo_TextChanged(object sender, EventArgs e)
         {
             if (CBTipo.SelectedItem.Equals("Todos"))
@@ -8620,6 +8604,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            txtBuscadorProducto.Clear();
         }
 
         private void btnCancelarVenta_Enter(object sender, EventArgs e)

@@ -615,7 +615,6 @@
             this.panel1.Size = new System.Drawing.Size(890, 389);
             this.panel1.TabIndex = 34;
             this.panel1.Click += new System.EventHandler(this.panel1_Click);
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // CBTipo
             // 
@@ -731,7 +730,6 @@
             this.lbDatosCliente.TabIndex = 45;
             this.lbDatosCliente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lbDatosCliente.Visible = false;
-            this.lbDatosCliente.Click += new System.EventHandler(this.lbDatosCliente_Click);
             // 
             // lbMayoreo
             // 
@@ -1283,7 +1281,6 @@
             this.Click += new System.EventHandler(this.Ventas_Click);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Ventas_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Ventas_KeyPress_1);
-            this.Layout += new System.Windows.Forms.LayoutEventHandler(this.Ventas_Layout);
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
