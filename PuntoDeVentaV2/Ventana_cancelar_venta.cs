@@ -127,6 +127,8 @@ namespace PuntoDeVentaV2
                                                 var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                                                 var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
 
+                                                if (CajaN.cantidadTotalEfectivoSaldoInicial >= Convert.ToDecimal(total))
+                                                {
                                                 //    string[] datos = new string[] {
                                                 //    "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
                                                 //    efectivo, tarjeta, vales, cheque, transferencia, credito, anticipo
@@ -141,7 +143,15 @@ namespace PuntoDeVentaV2
                                                 //Yo le movi aqui ATTE: El destroyer xD
                                                 cn.EjecutarConsulta($"INSERT INTO caja ( Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IDEmpleado, NumFolio, CantidadRetiradaCorte )VALUES( 'retiro', '{total}', '0.00', '{concepto}', '{fechaOperacion}', '{FormPrincipal.userID}', '{efectivo}', '{tarjeta}', '{vales}', '{cheque}', '{transferencia}', '{credito}', '{anticipo}', '{FormPrincipal.id_empleado}', '{folio}', '0.00' )");
                                                 //cn.EjecutarConsulta(cs.OperacionCaja(datos));
-                                            }
+                                                }
+                                                else
+                                                {
+                                                    MessageBox.Show("No se cuenta con el suficiente saldo para cancelar la venta.");
+                                                    return;
+                                                }
+
+
+                                        }
 
                                             //seCancelaLaVenta = true;
                                         }
