@@ -1622,7 +1622,7 @@ namespace PuntoDeVentaV2
                 CheckBox headerBox = (CheckBox)DGVListadoVentas.Controls.Find("checkBoxMaster", true)[0];
                 headerBox.Checked = false;
             }
-            
+
 
             //Ventas pagadas
             if (opcion == "VP") { CargarDatos(1); }
@@ -1634,8 +1634,29 @@ namespace PuntoDeVentaV2
             if (opcion == "VCC") { CargarDatos(4); }
             //Ventas globales
             if (opcion == "VGG") { CargarDatos(5); }
-        }
 
+            var incremento = -1;
+            var penultimaFila = DGVListadoVentas.Rows.Count - 2;
+            var ultimaFila = DGVListadoVentas.Rows.Count - 1;
+
+            idVentas.Clear();
+            foreach (DataGridViewRow desmarcarDGV in DGVListadoVentas.Rows)
+            {
+                try
+                {
+                    incremento += 1;
+                    if (DGVListadoVentas.Rows[incremento].Index != penultimaFila && DGVListadoVentas.Rows[incremento].Index != ultimaFila)
+                    {
+                        DGVListadoVentas.Rows[incremento].Cells["col_checkbox"].Value = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
+        }
         #region Manejo del evento MouseEnter para el DataGridView
         private void DGVListadoVentas_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
