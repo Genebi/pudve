@@ -1,7 +1,7 @@
 ﻿
 namespace PuntoDeVentaV2
 {
-    partial class clientesVerificarHuella
+    partial class clientesBuscarPorHuella
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@ namespace PuntoDeVentaV2
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(clientesVerificarHuella));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(clientesBuscarPorHuella));
             this.label1 = new System.Windows.Forms.Label();
             this.Picture = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.Picture)).BeginInit();
@@ -57,7 +57,7 @@ namespace PuntoDeVentaV2
             this.Picture.TabIndex = 9;
             this.Picture.TabStop = false;
             // 
-            // clientesVerificarHuella
+            // clientesBuscarPorHuella
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -69,7 +69,7 @@ namespace PuntoDeVentaV2
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "clientesVerificarHuella";
+            this.Name = "clientesBuscarPorHuella";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Identificador";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.clientesVerificarHuella_FormClosed);

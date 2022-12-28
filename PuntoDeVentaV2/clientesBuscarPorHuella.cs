@@ -11,23 +11,22 @@ using System.Windows.Forms;
 
 namespace PuntoDeVentaV2
 {
-    public partial class clientesVerificarHuella : Form, DPFP.Capture.EventHandler
+    public partial class clientesBuscarPorHuella : Form, DPFP.Capture.EventHandler
     {
 
         private DPFP.Template Template;
         private DPFP.Verification.Verification Verificator;
         private DPFP.Capture.Capture Capturer;
-        private string IDCliente;
-        public string idCliente = string.Empty;
-        public string nombre = string.Empty;
-        public string idregistro = string.Empty;
+        //private string IDCliente;
+        //public string idCliente = string.Empty;
+        public string cliente = string.Empty;
+        //public string idregistro = string.Empty;
         delegate void Function();
-        
-        //public void Verify(DPFP.Template template)
-        //{
-        //    Template = template;
-        //    ShowDialog();
-        //}
+        public void Verify(DPFP.Template template)
+        {
+            Template = template;
+            ShowDialog();
+        }
 
         protected virtual void Init()
         {
@@ -69,7 +68,6 @@ namespace PuntoDeVentaV2
             //MakeReport("La muestra ha sido capturada");
             //SetPrompt("Escanea tu misma huella otra vez");
             Process(Sample);
-            
         }
 
         public void OnFingerGone(object Capture, string ReaderSerialNumber)
@@ -120,7 +118,7 @@ namespace PuntoDeVentaV2
                 Consultas cs = new Consultas();
 
                 List<byte[]> byteArray = new List<byte[]>();
-                byteArray = cn.buscarMuestrasClientesHuella(IDCliente);
+                byteArray = cn.buscarMuestrasClientesHuella();
                 int count = 0;
                 foreach (var huella in byteArray)
                 {
@@ -137,45 +135,29 @@ namespace PuntoDeVentaV2
 
                         List<string> usuarios = new List<string>();
                         List<string> nombres = new List<string>();
-                        List<string> idregistros = new List<string>();
 
-                        usuarios = cn.buscarClientesHuella(IDCliente);
-                        nombres = cn.buscarNombresHuella(IDCliente);
-                        idregistros = cn.buscarIdsHuellaClientes(IDCliente);
+                        usuarios = cn.buscarClientesHuella();       
+                        nombres = cn.buscarNombresHuella();
 
-                        idCliente = usuarios[byteArray.IndexOf(huella)];
-                        nombre = nombres[byteArray.IndexOf(huella)];
-                        idregistro = idregistros[byteArray.IndexOf(huella)];        
+                        string  nombre= nombres[byteArray.IndexOf(huella)];
+                        cliente = cs.BuscarClienteHuella(usuarios[byteArray.IndexOf(huella)]);
 
-                        string mensaje = $"Se verifico la huella registrada al cliente: {cs.BuscarClienteHuella(usuarios[byteArray.IndexOf(huella)])}";
-                        mensaje += $"\nGuardada con el nombre:{nombre}";
-                        //mensaje += $"\nSí es correcto puede cerrar la ventana, en otro caso vuelva a intentar";
-                        //using (DataTable dtBuscarNombreHuella = cn.CargarDatos($"SELECT Nombre FROM huellasClientes WHERE Huella = {huella} AND IDUsuario = {FormPrincipal.userID}"))
-                        //{
-                        //    mensaje += $"\nCon el nombre {dtBuscarNombreHuella.Rows[0]["Nombre"].ToString()}";
-                        //}
 
-                        ////if (!cn.CargarDatos(cs.buscarUltimoChecador(usuarios[byteArray.IndexOf(huella)])).Rows.Count.Equals(0))
-                        //{
-                        //    mensaje += $"\nRegistrada salida a las {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}";
-                        //    MessageBox.Show(mensaje);
-                        //    //cn.EjecutarConsulta(cs.insertarSalida(usuarios[byteArray.IndexOf(huella)]));
-                        //    break;
-                        //}
-                        //mensaje += $"\nRegistrada entrada a las {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}";
-                        MessageBox.Show(mensaje, "Huella verificada", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DialogResult dialogResult = MessageBox.Show($"Se detectó la muestra del cliente: {cliente}, con el nombre: {nombre}\nContinuar con dicho resultado?", "Coincidencia biométrica ", MessageBoxButtons.YesNo);
+                        if (dialogResult == DialogResult.Yes)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            cliente = string.Empty;
+                        }
 
-                        //cn.EjecutarConsulta(cs.insertarEntrada(usuarios[byteArray.IndexOf(huella)]));
-                        //Stop();
-                        //this.Dispose();
-
-                        //break;
                     }
                 }
-                //MessageBox.Show("No se encontraron coincidencias");
-                //Stop();
                 this.Invoke((MethodInvoker)delegate
-                {       
+                {
+                    // close the form on the forms thread
                     this.Close();
                 });
             }
@@ -208,11 +190,10 @@ namespace PuntoDeVentaV2
         }
 
 
-        public clientesVerificarHuella(string id_cliente)
+        public clientesBuscarPorHuella()
         {
-
             InitializeComponent();
-            IDCliente = id_cliente;
+            //IDCliente = id_cliente;
         }
 
         private void clientesVerificarHuella_FormClosed(object sender, FormClosedEventArgs e)
@@ -239,7 +220,7 @@ namespace PuntoDeVentaV2
                     //SetPrompt("No se puede terminar la captura");
                 }
             }
-            
+
             //this.Close();
         }
 
@@ -258,6 +239,5 @@ namespace PuntoDeVentaV2
                 }
             }
         }
-
     }
 }

@@ -587,6 +587,12 @@
     <Compile Include="clientesAltaHuella.Designer.cs">
       <DependentUpon>clientesAltaHuella.cs</DependentUpon>
     </Compile>
+    <Compile Include="clientesBuscarPorHuella.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clientesBuscarPorHuella.Designer.cs">
+      <DependentUpon>clientesBuscarPorHuella.cs</DependentUpon>
+    </Compile>
     <Compile Include="clientesVerificarHuella.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1880,6 +1886,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="clientesAltaHuella.resx">
       <DependentUpon>clientesAltaHuella.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clientesBuscarPorHuella.resx">
+      <DependentUpon>clientesBuscarPorHuella.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="clientesVerificarHuella.resx">
       <DependentUpon>clientesVerificarHuella.cs</DependentUpon>

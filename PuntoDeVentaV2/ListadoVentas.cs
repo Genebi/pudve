@@ -442,6 +442,7 @@ namespace PuntoDeVentaV2
         #region Método para cargar los datos en el DataGridView
         public void CargarDatos(int estado = 1, bool busqueda = false, string clienteFolio = "")
         {
+            
             var consulta = string.Empty;
             bool esNumero = false;
 
@@ -489,6 +490,7 @@ namespace PuntoDeVentaV2
                     if (opcion == "VCC") { estado = 4; }
                     // Ventas globales
                     if (opcion == "VGG") { estado = 5; }
+
 
 
                     if (buscador.Equals("BUSCAR POR RFC, CLIENTE, EMPLEADO O FOLIO..."))
@@ -742,6 +744,7 @@ namespace PuntoDeVentaV2
                                 else if (opcionFiltrado == "VCC") //Ventas a credito
                                 {
                                     buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
+
                                 }
                             }
 
@@ -1612,6 +1615,15 @@ namespace PuntoDeVentaV2
             tipoVenta = cbTipoVentas.SelectedIndex;
             var opcion = cbTipoVentas.SelectedValue.ToString();
             clickBoton = 0;
+
+            if (cbTipoVentas.SelectedIndex==3)
+            {
+                btnBuscarPorHuella.Visible = true;
+            }
+            else
+            {
+                btnBuscarPorHuella.Visible = false;
+            }
 
             // Desactivar checkbox al cambios tipos de ventas
             chTodos.Checked = false;
@@ -5217,6 +5229,25 @@ namespace PuntoDeVentaV2
                 txtBuscador.Text = producto;
                 txtBuscador.Select(txtBuscador.Text.Length, 0);
             }
+        }
+
+        private void btnBuscarPorHuella_Click(object sender, EventArgs e)
+        {
+            clientesBuscarPorHuella checador = new clientesBuscarPorHuella();
+            checador.FormClosed += delegate
+            {
+                if (!string.IsNullOrEmpty(checador.cliente))
+                {
+                    txtBuscador.Text = checador.cliente;
+                    btnBuscarVentas.PerformClick();
+                }
+                else
+                {
+                    MessageBox.Show("Sin coincidencias");
+                }
+                
+            };
+            checador.ShowDialog();
         }
     }
 }
