@@ -51,7 +51,7 @@ namespace PuntoDeVentaV2
             DTGrafica.Columns.Add("Ganancia", typeof(String));
             if (incio[0].Equals(final[0]) && incio[1].Equals(final[1]) && incio[2].Equals(final[2]))
             {
-                var DTPorHora = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
+                var DTPorHora = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia,Cliente FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
                 int horas = 1;
                 int rows = 0;
                 int agregarRows = 0;
@@ -66,17 +66,19 @@ namespace PuntoDeVentaV2
                         if (Convert.ToInt32(hora).Equals(horas))
                         {
                             TotalHora += Convert.ToDecimal(DTPorHora.Rows[rows]["Total"]);
-                            if (string.IsNullOrWhiteSpace(DTPorHora.Rows[rows]["Ganancia"].ToString())|| DTPorHora.Rows[rows]["Ganancia"].ToString().Equals("SIN PODER CALCULAR"))
+                            if (!DTPorHora.Rows[rows]["Cliente"].ToString().Equals("Apertura de Caja"))
                             {
-                                ganancia += 0;
-                                ValorNull = true;
+                                if (string.IsNullOrWhiteSpace(DTPorHora.Rows[rows]["Ganancia"].ToString()) || DTPorHora.Rows[rows]["Ganancia"].ToString().Equals("SIN PODER CALCULAR"))
+                                {
+                                    ganancia += 0;
+                                    ValorNull = true;
+                                }
+                                else
+                                {
+                                    var sinsigno = DTPorHora.Rows[rows]["Ganancia"].ToString().Split('$');
+                                    ganancia += Convert.ToDecimal(sinsigno[1]);
+                                }
                             }
-                            else
-                            {
-                                var sinsigno = DTPorHora.Rows[rows]["Ganancia"].ToString().Split('$');
-                                ganancia += Convert.ToDecimal(sinsigno[1]);
-                            }
-                           
                             rows++;
                         }
                         else
@@ -111,7 +113,7 @@ namespace PuntoDeVentaV2
             }
             else if (!incio[0].Equals(final[0]) && incio[1].Equals(final[1]) && incio[2].Equals(final[2]))
             {
-                var DTPorDia = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
+                var DTPorDia = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia,Cliente FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
                 var PrimerDia = FechaInicial.ToString("dd");
                 int rows = 0;
                 int dias = 1;
@@ -127,17 +129,21 @@ namespace PuntoDeVentaV2
                         if (Convert.ToInt32(dia).Equals(dias))
                         {
                             TotalDia += Convert.ToDecimal(DTPorDia.Rows[rows]["Total"]);
+                            if (!DTPorDia.Rows[rows]["Cliente"].ToString().Equals("Apertura de Caja"))
+                            {
+                                if (string.IsNullOrWhiteSpace((DTPorDia.Rows[rows]["Ganancia"].ToString())) || DTPorDia.Rows[rows]["Ganancia"].ToString().Equals("SIN PODER CALCULAR"))
+                                {
+                                    gananciaDia += 0;
+                                    ValorNull = true;
+                                }
+                                else
+                                {
+                                    var sinsigno = DTPorDia.Rows[rows]["Ganancia"].ToString().Split('$');
+                                    gananciaDia += Convert.ToDecimal(sinsigno[1]);
+                                }
+                            }
 
-                            if (string.IsNullOrWhiteSpace((DTPorDia.Rows[rows]["Ganancia"].ToString()))||DTPorDia.Rows[rows]["Ganancia"].ToString().Equals("SIN PODER CALCULAR"))
-                            {
-                                gananciaDia += 0;
-                                ValorNull = true;
-                            }
-                            else
-                            {
-                                var sinsigno = DTPorDia.Rows[rows]["Ganancia"].ToString().Split('$');
-                                gananciaDia += Convert.ToDecimal(sinsigno[1]);
-                            }
+                          
                             rows++;
                         }
                         else
@@ -163,7 +169,7 @@ namespace PuntoDeVentaV2
             }
             else if (!incio[1].Equals(final[1]) && incio[2].Equals(final[2]))
             {
-                var DTPorMes = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
+                var DTPorMes = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia,Cliente FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
                 int rows = 0;
                 int meses = 1;
                 decimal TotalMes = 0;
@@ -180,16 +186,21 @@ namespace PuntoDeVentaV2
                         {
                             TotalMes += Convert.ToDecimal(DTPorMes.Rows[rows]["Total"]);
 
-                            if (string.IsNullOrWhiteSpace((DTPorMes.Rows[rows]["Ganancia"].ToString())) || DTPorMes.Rows[rows]["Ganancia"].ToString().Equals("SIN PODER CALCULAR"))
+                            if (!DTPorMes.Rows[rows]["Cliente"].ToString().Equals("Apertura de Caja"))
                             {
-                                GananciaMes += 0;
-                                ValorNull = true;
+                                if (string.IsNullOrWhiteSpace((DTPorMes.Rows[rows]["Ganancia"].ToString())) || DTPorMes.Rows[rows]["Ganancia"].ToString().Equals("SIN PODER CALCULAR"))
+                                {
+                                    GananciaMes += 0;
+                                    ValorNull = true;
+                                }
+                                else
+                                {
+                                    var sinsigno = DTPorMes.Rows[rows]["Ganancia"].ToString().Split('$');
+                                    GananciaMes += Convert.ToDecimal(sinsigno[1]);
+                                }
                             }
-                            else
-                            {
-                                var sinsigno = DTPorMes.Rows[rows]["Ganancia"].ToString().Split('$');
-                                GananciaMes += Convert.ToDecimal(sinsigno[1]);
-                            }
+
+                          
                             rows++;
                         }
                         else
@@ -283,17 +294,18 @@ namespace PuntoDeVentaV2
                         if (Convert.ToInt32(anno).Equals(annos))
                         {
                             TotalAnno += Convert.ToDecimal(DTPorAnno.Rows[rows]["Total"]);
-
-
-                            if (string.IsNullOrWhiteSpace((DTPorAnno.Rows[rows]["Ganancia"].ToString())) || DTPorAnno.Rows[rows]["Ganancia"].ToString().Equals("SIN PODER CALCULAR"))
+                            if (!DTPorAnno.Rows[rows]["Cliente"].ToString().Equals("Apertura de Caja"))
                             {
-                                gananciaAnno += 0;
-                                ValorNull = true;
-                            }
-                            else
-                            {
-                                var sinsigno = DTPorAnno.Rows[rows]["Ganancia"].ToString().Split('$');
-                                gananciaAnno += Convert.ToDecimal(sinsigno[1]);
+                                if (string.IsNullOrWhiteSpace((DTPorAnno.Rows[rows]["Ganancia"].ToString())) || DTPorAnno.Rows[rows]["Ganancia"].ToString().Equals("SIN PODER CALCULAR"))
+                                {
+                                    gananciaAnno += 0;
+                                    ValorNull = true;
+                                }
+                                else
+                                {
+                                    var sinsigno = DTPorAnno.Rows[rows]["Ganancia"].ToString().Split('$');
+                                    gananciaAnno += Convert.ToDecimal(sinsigno[1]);
+                                }
                             }
                             rows++;
                         }

@@ -4519,15 +4519,18 @@ namespace PuntoDeVentaV2
             {
                 //Se quita el * de la consulta para obtener solo los campos que me interesan y se guarda en una nueva variable
                 //var ajustarQuery = FiltroAvanzado.Replace("*", "Cliente, RFC, IDEmpleado, Total, Folio, Serie, FechaOperacion");
-                using (var dt = cn.CargarDatos($"SELECT Ganancia FROM ventas WHERE ID IN ({codigosBuscar})"))
+                using (var dt = cn.CargarDatos($"SELECT Ganancia,Cliente FROM ventas WHERE ID IN ({codigosBuscar})"))
                 {
                     int contador = 0;
                     foreach (var item in dt.Rows)
                     {
-                        if (dt.Rows[0]["Ganancia"].ToString().Equals("SIN PODER CALCULAR")||string.IsNullOrWhiteSpace(dt.Rows[0]["Ganancia"].ToString()))
+                        if (!dt.Rows[contador]["Cliente"].ToString().Equals("Apertura de Caja"))
                         {
-                            MessageBox.Show("No se podra calcular la Ganancia","Aviso de Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
-                            break;
+                            if (dt.Rows[contador]["Ganancia"].ToString().Equals("SIN PODER CALCULAR") || string.IsNullOrWhiteSpace(dt.Rows[contador]["Ganancia"].ToString()))
+                            {
+                                MessageBox.Show("No se podra calcular la Ganancia", "Aviso de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                break;
+                            }
                         }
                         contador++;
                     }
