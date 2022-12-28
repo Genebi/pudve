@@ -677,6 +677,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.ReporteVentas {
             
             private global::System.Data.DataColumn columnTotalVendido;
             
+            private global::System.Data.DataColumn columnGanancia;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DTGraficaDataTable() {
@@ -728,6 +730,14 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.ReporteVentas {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn GananciaColumn {
+                get {
+                    return this.columnGanancia;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -763,11 +773,12 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.ReporteVentas {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DTGraficaRow AddDTGraficaRow(string Tiempo, string TotalVendido) {
+            public DTGraficaRow AddDTGraficaRow(string Tiempo, string TotalVendido, string Ganancia) {
                 DTGraficaRow rowDTGraficaRow = ((DTGraficaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Tiempo,
-                        TotalVendido};
+                        TotalVendido,
+                        Ganancia};
                 rowDTGraficaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDTGraficaRow);
                 return rowDTGraficaRow;
@@ -792,6 +803,7 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.ReporteVentas {
             internal void InitVars() {
                 this.columnTiempo = base.Columns["Tiempo"];
                 this.columnTotalVendido = base.Columns["TotalVendido"];
+                this.columnGanancia = base.Columns["Ganancia"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -801,6 +813,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.ReporteVentas {
                 base.Columns.Add(this.columnTiempo);
                 this.columnTotalVendido = new global::System.Data.DataColumn("TotalVendido", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTotalVendido);
+                this.columnGanancia = new global::System.Data.DataColumn("Ganancia", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnGanancia);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1242,6 +1256,22 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.ReporteVentas {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Ganancia {
+                get {
+                    try {
+                        return ((string)(this[this.tableDTGrafica.GananciaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Ganancia\' in table \'DTGrafica\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDTGrafica.GananciaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsTiempoNull() {
                 return this.IsNull(this.tableDTGrafica.TiempoColumn);
             }
@@ -1262,6 +1292,18 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.ReporteVentas {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetTotalVendidoNull() {
                 this[this.tableDTGrafica.TotalVendidoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsGananciaNull() {
+                return this.IsNull(this.tableDTGrafica.GananciaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetGananciaNull() {
+                this[this.tableDTGrafica.GananciaColumn] = global::System.Convert.DBNull;
             }
         }
         

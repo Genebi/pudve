@@ -21,6 +21,7 @@ namespace PuntoDeVentaV2
         DataTable DTGrafica = new DataTable();
         string codigosBuscar = "";
         int TipoDeVenta;
+        bool ValorNull = false;
 
         public VisualizadorReporteVentas(string IDVentas,int TipoVenta)
         {
@@ -39,23 +40,25 @@ namespace PuntoDeVentaV2
 
         private void CargarGrafica()
         {
-            var ajustarQuery = cn.CargarDatos( $"SELECT FechaOperacion FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
-            var ajustarQuery2 = cn.CargarDatos($"SELECT FechaOperacion FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion DESC");
+            var ajustarQuery = cn.CargarDatos( $"SELECT FechaOperacion,Ganancia FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
+            var ajustarQuery2 = cn.CargarDatos($"SELECT FechaOperacion,Ganancia FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion DESC");
             DateTime FechaInicial = Convert.ToDateTime(ajustarQuery.Rows[0]["FechaOperacion"]);
             DateTime FechaFinal = Convert.ToDateTime(ajustarQuery2.Rows[0]["FechaOperacion"]);
             var incio = FechaInicial.ToString("dd-MM-yyyy").Split('-');
             var final = FechaFinal.ToString("dd-MM-yyyy").Split('-');
             DTGrafica.Columns.Add("Tiempo", typeof(String));
             DTGrafica.Columns.Add("TotalVendido", typeof(String));
+            DTGrafica.Columns.Add("Ganancia", typeof(String));
             if (incio[0].Equals(final[0]) && incio[1].Equals(final[1]) && incio[2].Equals(final[2]))
             {
-                var DTPorHora = cn.CargarDatos($"SELECT Total,FechaOperacion FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
+                var DTPorHora = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
                 int horas = 1;
                 int rows = 0;
                 int agregarRows = 0;
                 for (int i = 0; i < 24; i++)
                 {
                     decimal TotalHora = 0;
+                    decimal ganancia = 0;
                     foreach (var item in DTPorHora.Rows)
                     {
                         DateTime Fecha = Convert.ToDateTime(DTPorHora.Rows[rows]["FechaOperacion"]);
@@ -63,6 +66,17 @@ namespace PuntoDeVentaV2
                         if (Convert.ToInt32(hora).Equals(horas))
                         {
                             TotalHora += Convert.ToDecimal(DTPorHora.Rows[rows]["Total"]);
+                            if (string.IsNullOrWhiteSpace(DTPorHora.Rows[rows]["Ganancia"].ToString())|| DTPorHora.Rows[rows]["Ganancia"].ToString().Equals("SIN PODER CALCULAR"))
+                            {
+                                ganancia += 0;
+                                ValorNull = true;
+                            }
+                            else
+                            {
+                                var sinsigno = DTPorHora.Rows[rows]["Ganancia"].ToString().Split('$');
+                                ganancia += Convert.ToDecimal(sinsigno[1]);
+                            }
+                           
                             rows++;
                         }
                         else
@@ -85,6 +99,7 @@ namespace PuntoDeVentaV2
                         DTGrafica.Rows.Add();
                         DTGrafica.Rows[agregarRows]["Tiempo"] = Columna;
                         DTGrafica.Rows[agregarRows]["TotalVendido"] = TotalHora.ToString();
+                        DTGrafica.Rows[agregarRows]["Ganancia"] = ganancia.ToString();
                         agregarRows++;
                     }
                     horas++;
@@ -96,11 +111,12 @@ namespace PuntoDeVentaV2
             }
             else if (!incio[0].Equals(final[0]) && incio[1].Equals(final[1]) && incio[2].Equals(final[2]))
             {
-                var DTPorDia = cn.CargarDatos($"SELECT Total,FechaOperacion FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
+                var DTPorDia = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
                 var PrimerDia = FechaInicial.ToString("dd");
                 int rows = 0;
                 int dias = 1;
                 decimal TotalDia = 0;
+                decimal gananciaDia = 0;
                 int agregarRows = 0;
                 for (int i = 0; i < 31; i++)
                 {
@@ -111,6 +127,17 @@ namespace PuntoDeVentaV2
                         if (Convert.ToInt32(dia).Equals(dias))
                         {
                             TotalDia += Convert.ToDecimal(DTPorDia.Rows[rows]["Total"]);
+
+                            if (string.IsNullOrWhiteSpace((DTPorDia.Rows[rows]["Ganancia"].ToString()))||DTPorDia.Rows[rows]["Ganancia"].ToString().Equals("SIN PODER CALCULAR"))
+                            {
+                                gananciaDia += 0;
+                                ValorNull = true;
+                            }
+                            else
+                            {
+                                var sinsigno = DTPorDia.Rows[rows]["Ganancia"].ToString().Split('$');
+                                gananciaDia += Convert.ToDecimal(sinsigno[1]);
+                            }
                             rows++;
                         }
                         else
@@ -127,6 +154,7 @@ namespace PuntoDeVentaV2
                         DTGrafica.Rows.Add();
                         DTGrafica.Rows[agregarRows]["Tiempo"] = Columna;
                         DTGrafica.Rows[agregarRows]["TotalVendido"] = TotalDia.ToString();
+                        DTGrafica.Rows[agregarRows]["Ganancia"] = gananciaDia.ToString();
                         agregarRows++;
                     }
                     dias++;
@@ -135,10 +163,11 @@ namespace PuntoDeVentaV2
             }
             else if (!incio[1].Equals(final[1]) && incio[2].Equals(final[2]))
             {
-                var DTPorMes = cn.CargarDatos($"SELECT Total,FechaOperacion FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
+                var DTPorMes = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
                 int rows = 0;
                 int meses = 1;
                 decimal TotalMes = 0;
+                decimal GananciaMes = 0;
                 int agregarRows = 0;
                 
                 for (int i = 0; i < 12; i++)
@@ -150,6 +179,17 @@ namespace PuntoDeVentaV2
                         if (Convert.ToInt32(mes).Equals(meses))
                         {
                             TotalMes += Convert.ToDecimal(DTPorMes.Rows[rows]["Total"]);
+
+                            if (string.IsNullOrWhiteSpace((DTPorMes.Rows[rows]["Ganancia"].ToString())) || DTPorMes.Rows[rows]["Ganancia"].ToString().Equals("SIN PODER CALCULAR"))
+                            {
+                                GananciaMes += 0;
+                                ValorNull = true;
+                            }
+                            else
+                            {
+                                var sinsigno = DTPorMes.Rows[rows]["Ganancia"].ToString().Split('$');
+                                GananciaMes += Convert.ToDecimal(sinsigno[1]);
+                            }
                             rows++;
                         }
                         else
@@ -212,6 +252,7 @@ namespace PuntoDeVentaV2
                         DTGrafica.Rows.Add();
                         DTGrafica.Rows[agregarRows]["Tiempo"] = columna;
                         DTGrafica.Rows[agregarRows]["TotalVendido"] = TotalMes.ToString();
+                        DTGrafica.Rows[agregarRows]["Ganancia"] = GananciaMes.ToString();
                         agregarRows++;
                     }
                     TotalMes = 0;
@@ -220,8 +261,8 @@ namespace PuntoDeVentaV2
             }
             else if (!incio[2].Equals(final[2]))
             {
-                var DTPorAnno = cn.CargarDatos($"SELECT Total,FechaOperacion FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
-                var DTPorAnno2 = cn.CargarDatos($"SELECT Total,FechaOperacion FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion DESC");
+                var DTPorAnno = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
+                var DTPorAnno2 = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion DESC");
                 DateTime PrimerAnno = Convert.ToDateTime(DTPorAnno.Rows[0]["FechaOperacion"]);
                 DateTime UltimoAnno = Convert.ToDateTime(DTPorAnno2.Rows[0]["FechaOperacion"]);
 
@@ -231,6 +272,7 @@ namespace PuntoDeVentaV2
                 int annos = Convert.ToInt32(primero);
                 int rows = 0;
                 decimal TotalAnno = 0;
+                decimal gananciaAnno = 0; ;
                 int agregarRows = 0;
                 for (int i = 0; i < Diferiencia; i++)
                 {
@@ -241,6 +283,18 @@ namespace PuntoDeVentaV2
                         if (Convert.ToInt32(anno).Equals(annos))
                         {
                             TotalAnno += Convert.ToDecimal(DTPorAnno.Rows[rows]["Total"]);
+
+
+                            if (string.IsNullOrWhiteSpace((DTPorAnno.Rows[rows]["Ganancia"].ToString())) || DTPorAnno.Rows[rows]["Ganancia"].ToString().Equals("SIN PODER CALCULAR"))
+                            {
+                                gananciaAnno += 0;
+                                ValorNull = true;
+                            }
+                            else
+                            {
+                                var sinsigno = DTPorAnno.Rows[rows]["Ganancia"].ToString().Split('$');
+                                gananciaAnno += Convert.ToDecimal(sinsigno[1]);
+                            }
                             rows++;
                         }
                         else
@@ -255,10 +309,20 @@ namespace PuntoDeVentaV2
                         DTGrafica.Rows.Add();
                         DTGrafica.Rows[agregarRows]["Tiempo"] = Columna;
                         DTGrafica.Rows[agregarRows]["TotalVendido"] = TotalAnno.ToString();
+                        DTGrafica.Rows[agregarRows]["Ganancia"] = gananciaAnno.ToString();
                         agregarRows++;
                     }
                     TotalAnno = 0;
                     annos++;
+                }
+            }
+            if (ValorNull == true)
+            {
+                int contador = 0;
+                foreach (var item in DTGrafica.Rows)
+                {
+                    DTGrafica.Rows[contador]["Ganancia"] = "";
+                    contador++;
                 }
             }
         }
@@ -356,7 +420,7 @@ namespace PuntoDeVentaV2
 
         private void CargarDatos()
         {
-            var ajustarQuery = $"SELECT Cliente, RFC, IDEmpleado, Total, Folio, Serie, FechaOperacion FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar})";
+            var ajustarQuery = $"SELECT Cliente, RFC, IDEmpleado, Total, Folio, Serie,Ganancia FechaOperacion FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar})";
             var query = cn.CargarDatos(ajustarQuery);
             DTFinal = query;
             DTFinal.Columns.Add("No", typeof(String));
