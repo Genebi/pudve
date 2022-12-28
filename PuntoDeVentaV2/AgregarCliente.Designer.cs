@@ -70,6 +70,7 @@
             this.lAgregarClienteNuevo = new System.Windows.Forms.Label();
             this.gbContenedor = new System.Windows.Forms.GroupBox();
             this.btnPublicoGeneral = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
             this.gbContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -531,6 +532,7 @@
             // gbContenedor
             // 
             this.gbContenedor.Controls.Add(this.btnPublicoGeneral);
+            this.gbContenedor.Controls.Add(this.label19);
             this.gbContenedor.Controls.Add(this.lAgregarClienteNuevo);
             this.gbContenedor.Controls.Add(this.cbTipoCliente);
             this.gbContenedor.Controls.Add(this.label17);
@@ -594,6 +596,20 @@
             this.btnPublicoGeneral.Text = "Publico General";
             this.btnPublicoGeneral.UseVisualStyleBackColor = false;
             this.btnPublicoGeneral.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.label19.Location = new System.Drawing.Point(30, 534);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(97, 13);
+            this.label19.TabIndex = 85;
+            this.label19.Text = "Registro biométrico";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label19.Visible = false;
+            this.label19.Click += new System.EventHandler(this.label19_Click);
             // 
             // AgregarCliente
             // 
@@ -660,5 +676,6 @@
         private System.Windows.Forms.Label lAgregarClienteNuevo;
         private System.Windows.Forms.GroupBox gbContenedor;
         private System.Windows.Forms.Button btnPublicoGeneral;
+        private System.Windows.Forms.Label label19;
     }
 }

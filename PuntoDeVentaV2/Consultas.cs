@@ -5050,6 +5050,17 @@ namespace PuntoDeVentaV2
             return nameEmpleado;
         }
 
+        public string BuscarClienteHuella(string idCliente)
+        {
+            string nameEmpleado = string.Empty;
+
+            var query = cn.CargarDatos($"SELECT RazonSocial FROM clientes WHERE ID = '{idCliente}'");
+
+            if (!query.Rows.Count.Equals(0)) { nameEmpleado = query.Rows[0]["RazonSocial"].ToString(); }
+
+            return nameEmpleado;
+        }
+
         public string buscarExistenciaHuellas(string empleadoID)
         {
             var consulta = $"SELECT * FROM detalleschecadorempleados WHERE idEmpleado = '{empleadoID}'";
@@ -5061,6 +5072,15 @@ namespace PuntoDeVentaV2
         {
             var consulta = $"DELETE FROM detalleschecadorempleados WHERE idEmpleado = {empleadoID}";
 
+            return consulta;
+        }
+
+        public string insertarHuellaCliente()
+        {
+            //string consulta = "INSERT INTO detalleschecadorempleados(IDUsuario, IDEmpleado, Huella)";
+            //consulta += $"VALUES('{FormPrincipal.userID}', '{idEmpleado}', '{huella}')";
+            string consulta = "INSERT INTO huellasClientes(IDUsuario, IDCliente, Huella, Nombre)";
+            consulta += $"VALUES(@IDUsuario,@IDEmpleado,@Huella,@Nombre)";
             return consulta;
         }
 

@@ -42,6 +42,10 @@ namespace PuntoDeVentaV2
 
         private void AgregarCliente_Load(object sender, EventArgs e)
         {
+            if (tipo==2)
+            {
+                label19.Visible = true;
+            }
             AgregarCliente form = this;
             Utilidades.EjecutarAtajoKeyPreviewDown(gbContenedor_PreviewKeyDown, form);
 
@@ -657,6 +661,12 @@ namespace PuntoDeVentaV2
             {
                 e.Handled = true;
             }
+        }
+
+        private void label19_Click(object sender, EventArgs e)
+        {
+            clientesAltaHuella capturar = new clientesAltaHuella(idCliente);
+            capturar.ShowDialog();
         }
     }
 }

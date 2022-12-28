@@ -581,6 +581,18 @@
     <Compile Include="Clientes.Designer.cs">
       <DependentUpon>Clientes.cs</DependentUpon>
     </Compile>
+    <Compile Include="clientesAltaHuella.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clientesAltaHuella.Designer.cs">
+      <DependentUpon>clientesAltaHuella.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clientesVerificarHuella.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clientesVerificarHuella.Designer.cs">
+      <DependentUpon>clientesVerificarHuella.cs</DependentUpon>
+    </Compile>
     <Compile Include="ClosedXML\Excel\Application.cs" />
     <Compile Include="CodeBarMake.cs">
       <SubType>Form</SubType>
@@ -1865,6 +1877,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clientesAltaHuella.resx">
+      <DependentUpon>clientesAltaHuella.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clientesVerificarHuella.resx">
+      <DependentUpon>clientesVerificarHuella.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CodeBarMake.resx">
       <DependentUpon>CodeBarMake.cs</DependentUpon>

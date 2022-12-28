@@ -22,6 +22,7 @@ namespace PuntoDeVentaV2
         public static float credito = 0f;
         public static float cambio = 0f;
         public static float restante = 0f;
+        string idHuella = "";
         private float total = 0;
         private float totalMetodos = 0;
         int calcu = 0;
@@ -167,21 +168,57 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            
-            
-            decimal credito2 = 0;
-            if (!string.IsNullOrWhiteSpace(txtCredito.Text))
-            {
-                credito2 = Convert.ToDecimal(txtCredito.Text);
 
-                if (idCliente.Equals(0) && credito2 > 0)
+            
+                decimal credito2 = 0;
+                if (!string.IsNullOrWhiteSpace(txtCredito.Text))
                 {
-                    MessageBox.Show("Asigné un Cliente para hacer una venta a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                    credito2 = Convert.ToDecimal(txtCredito.Text);
 
+                    if (idCliente.Equals(0) && credito2 > 0)
+                    {
+                        MessageBox.Show("Asigné un Cliente para hacer una venta a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
                 using (DataTable dtBuscarConfiguracion = cn.CargarDatos($"SELECT * FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
                 {
+                    if (dtBuscarConfiguracion.Rows[0]["creditoHuella"].ToString().Equals("1"))
+                    {
+                        if (!idCliente.Equals(0) && credito2 > 0)
+                    {
+                        using (DataTable dtHuellas = cn.CargarDatos($"SELECT * FROM huellasClientes WHERE IDUsuario = {FormPrincipal.userID} AND IDCliente = {idCliente}"))
+                        {
+                            if (dtHuellas.Rows.Count.Equals(0))
+                            {
+                                //No tiene huella, vamos a ver si la quiere registrar
+                                DialogResult dialogResult = MessageBox.Show("El cliente seleccionado no cuenta con un registro de datos biométricos, quieres registrarlos ahora?", "Error de registro biométrico", MessageBoxButtons.YesNo);
+                                if (dialogResult == DialogResult.Yes)
+                                {
+                                    clientesAltaHuella capturar = new clientesAltaHuella(idCliente);
+                                    capturar.ShowDialog();
+                                    return;
+                                }
+                                else if (dialogResult == DialogResult.No)
+                                {
+                                    MessageBox.Show("Esta venta no se puede consolidar sin revisión biométrica de acuerdo a la configuración actual", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                //Si tiene huella
+                                if (!revisarHuella())
+                                {
+                                    MessageBox.Show($"No coincidio la muestra", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
+                                }
+                            }
+                        }
+
+
+                    }
+                }
+                
                     if (dtBuscarConfiguracion.Rows[0]["creditoAplicarpagoinicial"].ToString().Equals("1"))
                     {
                         decimal maximoCredito = Decimal.Parse(total.ToString()) - (Decimal.Parse(total.ToString()) / 100 * Decimal.Parse((dtBuscarConfiguracion.Rows[0]["creditoPagoinicial"]).ToString()));
@@ -437,8 +474,18 @@ namespace PuntoDeVentaV2
                     {
                         using (DataTable dtIdVenta = cn.CargarDatos($"SELECT MAX(ID) FROM Ventas"))
                         {
-                            string consulta = "INSERT INTO reglasCreditoVenta(IDVenta, FechaInteres, creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro, creditoCantidadAbonos, creditoMinimoAbono)";
+                            
+                            string consulta = "INSERT INTO reglasCreditoVenta(IDVenta,IDHuella, FechaInteres, creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro, creditoCantidadAbonos, creditoMinimoAbono)";
                             consulta += $"VALUES('{Int32.Parse(dtIdVenta.Rows[0]["MAX(ID)"].ToString())+1}', ";
+                            if (!string.IsNullOrEmpty(idHuella))
+                            {
+                                consulta += $"'{idHuella}', ";
+                            }
+                            else
+                            {
+                                        consulta += $"null, ";
+                            }
+                            
                             //consulta += $"'{proximoPago.ToString("yyyy-MM-dd")}', ";
 
                             proximoPago = DateTime.Now;
@@ -631,6 +678,27 @@ namespace PuntoDeVentaV2
             {
                 restante = total;
             }
+        }
+
+        private bool revisarHuella()
+        {
+            bool coincidencia = false;
+
+            clientesVerificarHuella checador = new clientesVerificarHuella(idCliente.ToString());
+            checador.FormClosed += delegate
+            {
+                if (!string.IsNullOrEmpty(checador.idCliente))
+                {
+                    if (checador.idCliente==idCliente.ToString())
+                    {
+                        idHuella = checador.idregistro;
+                        coincidencia = true;
+                    }
+                    
+                }
+            };
+            checador.ShowDialog();
+            return coincidencia;
         }
 
         private void lbCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -1540,7 +1608,7 @@ namespace PuntoDeVentaV2
                 if (txtCredito.Text == "")
                 {
                     credito = 0;
-                    lblfechacredito.Visible = false;
+                    //lblfechacredito.Visible = false;
                 }
                 else
                 {
@@ -1548,8 +1616,8 @@ namespace PuntoDeVentaV2
                     using (DataTable dtBuscarConfiguracion = cn.CargarDatos($"SELECT * FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
                     {
                         proximoPago = DateTime.Now.AddDays(Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditodiassincobro"].ToString())).Date;
-                        lblfechacredito.Visible = true;
-                        lblfechacredito.Text = $"Fecha próxima para realizar\nabono el día: {proximoPago.ToString("dd/MM/yyyy")}\nA {dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()} pagos de {(credito/ Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString())).ToString("C2")}";
+                        //lblfechacredito.Visible = true;
+                        //lblfechacredito.Text = $"Fecha próxima para realizar\nabono el día: {proximoPago.ToString("dd/MM/yyyy")}\nA {dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()} pagos de {(credito/ Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString())).ToString("C2")}";
                     }
                 }
                 if (Convert.ToDecimal(total) < credito)
