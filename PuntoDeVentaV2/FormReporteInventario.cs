@@ -31,6 +31,7 @@ namespace PuntoDeVentaV2
         public FormReporteInventario(bool Tipo,string clave)
         {
             InitializeComponent();
+            this.aumentar = Tipo;
             if (!clave.Equals(""))
             {
                 claveP = $"Clave de traspaso = {clave}";
