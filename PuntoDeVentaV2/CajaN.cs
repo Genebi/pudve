@@ -5677,7 +5677,7 @@ namespace PuntoDeVentaV2
 
                         var correo = mb.correoUsuario();
                         var correoCantidades = cargarDatosCorteCaja();
-                        generarNuevoReporte();
+                        //generarNuevoReporte();
                         // Ejecutar hilo para enviar notificación
                         var datosConfig = mb.ComprobarConfiguracion();
 

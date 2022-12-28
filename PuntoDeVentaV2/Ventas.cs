@@ -1437,6 +1437,8 @@ namespace PuntoDeVentaV2
                         //if (cantidadComprada.nuevaCantidad > cantidadAnterior)
                         //{
                         
+                       
+                       
                        txtBuscadorProducto.Text = "+" + (cantidadComprada.nuevaCantidad - 1);
                         txtBuscadorProducto.Focus();
                         SendKeys.Send("{ENTER}");
@@ -2983,7 +2985,7 @@ namespace PuntoDeVentaV2
             cNumeroArticulos.Text = totalArticulos.ToString("N");
 
             ComprobarProductos();
-            txtBuscadorProducto.Clear();
+            //txtBuscadorProducto.Clear();
         }
 
         private void ComprobarProductos()
