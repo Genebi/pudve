@@ -315,6 +315,7 @@ namespace PuntoDeVentaV2
                 lista.Add(dr["ProdImage"].ToString());          // Imagen de Producto   15
                 lista.Add(dr["ClaveProducto"].ToString());      // Clave de Producto    16
                 lista.Add(dr["UnidadMedida"].ToString());       // Unidad de Medida 17
+                lista.Add(dr["SoloRenta"].ToString());          // Solo Renta 18
             }
 
             dr.Close();

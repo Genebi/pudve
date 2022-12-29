@@ -9962,7 +9962,6 @@ namespace PuntoDeVentaV2
             if (DatosSourceFinal.Equals(2))
             {
                 btnAgregarDescuento.Enabled = true;
-                //MessageBox.Show("Test");
             }
             if (DatosSourceFinal.Equals(1) ||
                 DatosSourceFinal.Equals(3) ||
@@ -10014,6 +10013,11 @@ namespace PuntoDeVentaV2
                     txtStockMaximo.Text = detallesProductoTmp[8];
                     txtStockMinimo.Text = detallesProductoTmp[10];
                     txtPrecioMayoreo.Text = detallesProductoTmp[12];
+                    
+                    if (checkRenta.Visible)
+                    {
+                        checkRenta.Checked = Convert.ToBoolean(detallesProductoTmp[18]);
+                    }
 
                     if (pictureBoxProducto.Image != null)
                     {
@@ -10243,7 +10247,9 @@ namespace PuntoDeVentaV2
             {
                 porcentajeGanancia = float.Parse(config[8].ToString());
                 //panelMayoreo.Visible = Convert.ToBoolean(config[9]);
+                checkRenta.Visible = Convert.ToBoolean(config[29]);
             }
+
             tituloSeccion.Text = tituloSeccion.Text.ToUpper();
 
             if (!txtPrecioProducto.Text.Equals(""))
