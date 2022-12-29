@@ -71,6 +71,7 @@
             this.gbContenedor = new System.Windows.Forms.GroupBox();
             this.btnPublicoGeneral = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
+            this.btnReglasdecredito = new System.Windows.Forms.Button();
             this.gbContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -409,7 +410,7 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(306, 526);
+            this.btnCancelar.Location = new System.Drawing.Point(303, 526);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(144, 28);
             this.btnCancelar.TabIndex = 19;
@@ -542,6 +543,7 @@
             this.gbContenedor.Controls.Add(this.label4);
             this.gbContenedor.Controls.Add(this.cbUsoCFDI);
             this.gbContenedor.Controls.Add(this.label18);
+            this.gbContenedor.Controls.Add(this.btnReglasdecredito);
             this.gbContenedor.Controls.Add(this.btnAceptar);
             this.gbContenedor.Controls.Add(this.btnCancelar);
             this.gbContenedor.Controls.Add(this.cbCliente);
@@ -611,6 +613,23 @@
             this.label19.Visible = false;
             this.label19.Click += new System.EventHandler(this.label19_Click);
             // 
+            // btnReglasdecredito
+            // 
+            this.btnReglasdecredito.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnReglasdecredito.BackColor = System.Drawing.Color.DarkOrange;
+            this.btnReglasdecredito.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnReglasdecredito.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen;
+            this.btnReglasdecredito.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnReglasdecredito.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReglasdecredito.ForeColor = System.Drawing.Color.White;
+            this.btnReglasdecredito.Location = new System.Drawing.Point(152, 526);
+            this.btnReglasdecredito.Name = "btnReglasdecredito";
+            this.btnReglasdecredito.Size = new System.Drawing.Size(144, 28);
+            this.btnReglasdecredito.TabIndex = 18;
+            this.btnReglasdecredito.Text = "Reglas de crédito";
+            this.btnReglasdecredito.UseVisualStyleBackColor = false;
+            this.btnReglasdecredito.Click += new System.EventHandler(this.btnReglasdecredito_Click);
+            // 
             // AgregarCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -677,5 +696,6 @@
         private System.Windows.Forms.GroupBox gbContenedor;
         private System.Windows.Forms.Button btnPublicoGeneral;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Button btnReglasdecredito;
     }
 }

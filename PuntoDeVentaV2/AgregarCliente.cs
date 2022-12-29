@@ -668,5 +668,10 @@ namespace PuntoDeVentaV2
             clientesAltaHuella capturar = new clientesAltaHuella(idCliente);
             capturar.ShowDialog();
         }
+
+        private void btnReglasdecredito_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
