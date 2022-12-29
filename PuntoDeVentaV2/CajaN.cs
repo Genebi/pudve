@@ -215,6 +215,13 @@ namespace PuntoDeVentaV2
                 cantidadTransferenciaRetirado = 0,
                 cantidadTotalDineroRetirado = 0;
 
+        private void botonRedondo3_Click(object sender, EventArgs e)
+        {
+            VentasPorProveddores proveddores = new VentasPorProveddores();
+            proveddores.ShowDialog();
+
+        }
+
         private void botonRedondo1_Click(object sender, EventArgs e)
         {
             string todos = string.Empty;
