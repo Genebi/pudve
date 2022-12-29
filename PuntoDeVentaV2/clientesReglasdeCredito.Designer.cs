@@ -182,6 +182,7 @@ namespace PuntoDeVentaV2
             this.btnAceptar.TabIndex = 15;
             this.btnAceptar.Text = "Guardar";
             this.btnAceptar.UseVisualStyleBackColor = false;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // clientesReglasdeCredito
             // 

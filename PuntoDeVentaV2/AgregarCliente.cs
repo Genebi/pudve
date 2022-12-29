@@ -19,6 +19,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
+        string consultaReglas = string.Empty;
 
         //tipo 1 = agregar
         //tipo 2 = editar
@@ -316,6 +317,29 @@ namespace PuntoDeVentaV2
 
                             this.Close();
                         }
+                    if (!string.IsNullOrEmpty(consultaReglas))
+                    {
+
+                        using (DataTable dtIDCliente = cn.CargarDatos($"SELECT MAX(ID) FROM Clientes"))
+                        {
+                            consultaReglas += $"{Int32.Parse(dtIDCliente.Rows[0]["MAX(ID)"].ToString())})";
+                        }
+                        cn.EjecutarConsulta(consultaReglas);
+                    }
+                    else
+                    {
+                        clientesReglasdeCredito reglasdeCredito = new clientesReglasdeCredito(1,matar:true);
+                        reglasdeCredito.FormClosed += delegate
+                        {
+                            consultaReglas = reglasdeCredito.consulta;
+                        };
+                        reglasdeCredito.ShowDialog();
+                        using (DataTable dtIDCliente = cn.CargarDatos($"SELECT MAX(ID) FROM Clientes"))
+                        {
+                            consultaReglas += $"{Int32.Parse(dtIDCliente.Rows[0]["MAX(ID)"].ToString())})";
+                        }
+                        cn.EjecutarConsulta(consultaReglas);
+                    }
                     }
                     else
                     {
@@ -671,7 +695,22 @@ namespace PuntoDeVentaV2
 
         private void btnReglasdecredito_Click(object sender, EventArgs e)
         {
+            if (tipo==1)
+            {
+                clientesReglasdeCredito reglasdeCredito = new clientesReglasdeCredito(operacion:1);
 
+                reglasdeCredito.FormClosed += delegate
+                {
+                    consultaReglas = reglasdeCredito.consulta;
+                };
+                reglasdeCredito.ShowDialog();
+            }
+            else
+            {
+                clientesReglasdeCredito reglasdeCredito = new clientesReglasdeCredito(2, idCliente.ToString());
+                reglasdeCredito.ShowDialog();
+            }
+            
         }
     }
 }
