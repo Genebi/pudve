@@ -54,7 +54,7 @@ namespace PuntoDeVentaV2
 
         bool Aumentar = true;
 
-
+        bool estraspaso = false;
         private static readonly HttpClient client = new HttpClient();
 
 
@@ -4105,11 +4105,11 @@ namespace PuntoDeVentaV2
             {
                 if (cn2.CargarDatos(cs.buscarSiHayCodigoTraspaso(cn.CargarDatos(cs.BuscarUsuario(FormPrincipal.userID)).Rows[0]["usuario"].ToString(),txtClaveTraspaso.Text.ToString())).Rows.Count.Equals(0))
                 {
-                    MessageBox.Show("La clave no existe o ya fue utilizada");
+                    MessageBox.Show("La clave no existe o ya fue utilizada","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Warning);
                     txtClaveTraspaso.Clear();
                     return;
                 }
-                MessageBox.Show("La clave es valida, iniciando traspaso");
+                MessageBox.Show("La clave es valida, iniciando traspaso", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 traspaso traspaso = new traspaso(cn2.CargarDatos(cs.obtenerDatosTraspaso(txtClaveTraspaso.Text)));
 
                 traspaso.FormClosed += delegate
@@ -4117,6 +4117,7 @@ namespace PuntoDeVentaV2
                     foreach (var producto in productosTraspaso)
                     {
                         string[] datosSeparados= producto.ToString().Split('%');
+                        estraspaso = true;
                         meterProducto(datosSeparados);
 
                         
@@ -4243,8 +4244,16 @@ namespace PuntoDeVentaV2
                 if (numRevision.Rows.Count > 0)
                 {
                     var numeroRevision = numRevision.Rows[0]["NoRevisionAumentarInventario"].ToString();
+                    if (estraspaso == true)
+                    {
+                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Aumentar) Traspaso: N° Revision: {numeroRevision}','{stockAnterior}','{stockNuevo}','{fechaOperacion}','{FormPrincipal.userNickName}','+{cantidadCompra}')");
+                    }
+                    else
+                    {
+                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Aumentar): N° Revision: {numeroRevision}','{stockAnterior}','{stockNuevo}','{fechaOperacion}','{FormPrincipal.userNickName}','+{cantidadCompra}')");
+                    }
+                    estraspaso = false;
 
-                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Aumentar): N° Revision: {numeroRevision}','{stockAnterior}','{stockNuevo}','{fechaOperacion}','{FormPrincipal.userNickName}','+{cantidadCompra}')");
                 }
 
             }
