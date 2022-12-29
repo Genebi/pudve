@@ -2462,12 +2462,13 @@ namespace PuntoDeVentaV2
                                     tmp_clave_interna = claveIn;
                                     tmp_codigo_barras = codigoB;
 
+                                    var esRenta = checkRenta.Visible ? checkRenta.Checked ? "1" : "0" : "0";
 
                                     guardar = new string[] {
                                     nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,
                                     tipoDescuento, idUsrNvo, logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto,
                                     mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre), stockNecesario, stockMinimo,
-                                    txtPrecioCompra.Text, precioMayoreo };
+                                    txtPrecioCompra.Text, precioMayoreo, esRenta };
 
                                     #region Inicio Se guardan los datos principales del Producto
                                     //Se guardan los datos principales del producto
@@ -2888,13 +2889,14 @@ namespace PuntoDeVentaV2
                                     tmp_clave_interna = claveIn;
                                     tmp_codigo_barras = codigoB;
 
+                                    var esRenta = checkRenta.Visible ? checkRenta.Checked ? "1" : "0" : "0";
 
                                     guardar = new string[] {
-                                    nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,
-                                    tipoDescuento, FormPrincipal.userID.ToString(), logoTipo, ProdServPaq, baseProducto,
-                                    ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre),
-                                    stockNecesario, "0", txtPrecioCompra.Text, precioMayoreo
-                                };
+                                        nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,
+                                        tipoDescuento, FormPrincipal.userID.ToString(), logoTipo, ProdServPaq, baseProducto,
+                                        ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre),
+                                        stockNecesario, "0", txtPrecioCompra.Text, precioMayoreo, esRenta
+                                    };
 
                                     #region Inicio de guardado de los datos principales del Servicios o Combos
                                     //Se guardan los datos principales del producto
@@ -3634,13 +3636,16 @@ namespace PuntoDeVentaV2
                                 {
                                     stock = "0";
                                 }
+
+                                var esRenta = checkRenta.Visible ? checkRenta.Checked ? "1" : "0" : "0";
+
                             if (validacionUpdateDescuentos == 0)
                             {
-                                queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}', PrecioMayoreo = '{precioMayoreo}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
+                                queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}', PrecioMayoreo = '{precioMayoreo}', SoloRenta = '{esRenta}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
                             }
                             else
                             {
-                                queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', TipoDescuento = '{tipoDescuento}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}', PrecioMayoreo = '{precioMayoreo}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
+                                queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', TipoDescuento = '{tipoDescuento}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}', PrecioMayoreo = '{precioMayoreo}', 'SoloRenta' = '{esRenta}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
                             }
 
                                 respuesta = cn.EjecutarConsulta(queryUpdateProd);
@@ -4062,12 +4067,14 @@ namespace PuntoDeVentaV2
                         }
                         #endregion Final Busqueda Codigo de Barras
 
+                        var esRenta = checkRenta.Visible ? checkRenta.Checked ? "1" : "0" : "0";
+
                         guardar = new string[] {
-                        nombreNvoInsert, stockNvoInsert, precioNvoInsert, categoriaNvoInsert, claveInNvoInsert,
-                        codigoBNvoInsert, claveProducto, claveUnidadMedida, tipoDescuentoNvoInsert, idUsrNvoInsert,
-                        logoTipo, tipoProdNvoInsert, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombreNvoInsert),
-                        mg.RemoverPreposiciones(nombreNvoInsert), stockNecesario, stockMinimo, txtPrecioCompra.Text, precioMayoreo
-                    };
+                            nombreNvoInsert, stockNvoInsert, precioNvoInsert, categoriaNvoInsert, claveInNvoInsert,
+                            codigoBNvoInsert, claveProducto, claveUnidadMedida, tipoDescuentoNvoInsert, idUsrNvoInsert,
+                            logoTipo, tipoProdNvoInsert, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombreNvoInsert),
+                            mg.RemoverPreposiciones(nombreNvoInsert), stockNecesario, stockMinimo, txtPrecioCompra.Text, precioMayoreo, esRenta
+                        };
 
                     //if (Productos.copiarDatos.Equals(1) && AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
                     //{
@@ -6191,12 +6198,13 @@ namespace PuntoDeVentaV2
                                 tmp_clave_interna = claveIn;
                                 tmp_codigo_barras = codigoB;
 
+                                var esRenta = checkRenta.Visible ? checkRenta.Checked ? "1" : "0" : "0";
 
                                 guardar = new string[] {
                                     nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,
                                     tipoDescuento, idUsrNvo, logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto,
                                     mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre), stockNecesario, stockMinimo,
-                                    txtPrecioCompra.Text, precioMayoreo };
+                                    txtPrecioCompra.Text, precioMayoreo, esRenta };
 
                                 #region Inicio Se guardan los datos principales del Producto
                                 //Se guardan los datos principales del producto
@@ -6615,8 +6623,9 @@ namespace PuntoDeVentaV2
                                 tmp_clave_interna = claveIn;
                                 tmp_codigo_barras = codigoB;
 
+                                var esRenta = checkRenta.Visible ? checkRenta.Checked ? "1" : "0" : "0";
 
-                                guardar = new string[] {nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,tipoDescuento, FormPrincipal.userID.ToString(), logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre),stockNecesario, "0", txtPrecioCompra.Text, precioMayoreo};
+                                guardar = new string[] {nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,tipoDescuento, FormPrincipal.userID.ToString(), logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre),stockNecesario, "0", txtPrecioCompra.Text, precioMayoreo, esRenta};
 
                                 #region Inicio de guardado de los datos principales del Servicios o Combos
                                 //Se guardan los datos principales del producto
@@ -7321,13 +7330,16 @@ namespace PuntoDeVentaV2
                             {
                                 stock = "0";
                             }
+
+                            var esRenta = checkRenta.Visible ? checkRenta.Checked ? "1" : "0" : "0";
+
                             if (validacionUpdateDescuentos == 0)
                             {
-                                queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}', PrecioMayoreo = '{precioMayoreo}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
+                                queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}', PrecioMayoreo = '{precioMayoreo}', SoloRenta = '{esRenta}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
                             }
                             else
                             {
-                                queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', TipoDescuento = '{tipoDescuento}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}', PrecioMayoreo = '{precioMayoreo}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
+                                queryUpdateProd = $"UPDATE Productos SET Nombre = '{nombre}', Stock = '{stock}', Precio = '{precio}', Categoria = '{categoria}', TipoDescuento = '{tipoDescuento}', ClaveInterna = '{claveIn}', CodigoBarras = '{codigoB}', ClaveProducto = '{claveProducto}', UnidadMedida = '{claveUnidadMedida}', ProdImage = '{logoTipo}', NombreAlterno1 = '{mg.RemoverCaracteres(nombre)}', NombreAlterno2 = '{mg.RemoverPreposiciones(nombre)}', StockNecesario = '{stockNecesario}', StockMinimo = '{stockMinimo}', PrecioMayoreo = '{precioMayoreo}', SoloRenta = '{esRenta}' WHERE ID = '{idProductoBuscado}' AND IDUsuario = {FormPrincipal.userID}";
                             }
                            
 
@@ -7708,11 +7720,13 @@ namespace PuntoDeVentaV2
                     }
                     #endregion Final Busqueda Codigo de Barras
 
+                    var esRenta = checkRenta.Visible ? checkRenta.Checked ? "1" : "0" : "0";
+
                     guardar = new string[] {
                         nombreNvoInsert, stockNvoInsert, precioNvoInsert, categoriaNvoInsert, claveInNvoInsert,
                         codigoBNvoInsert, claveProducto, claveUnidadMedida, tipoDescuentoNvoInsert, idUsrNvoInsert,
                         logoTipo, tipoProdNvoInsert, baseProducto, ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombreNvoInsert),
-                        mg.RemoverPreposiciones(nombreNvoInsert), stockNecesario, stockMinimo, txtPrecioCompra.Text, precioMayoreo
+                        mg.RemoverPreposiciones(nombreNvoInsert), stockNecesario, stockMinimo, txtPrecioCompra.Text, precioMayoreo, esRenta
                     };
 
                     #region Inicio de Guardado de Producto
@@ -9948,6 +9962,7 @@ namespace PuntoDeVentaV2
             if (DatosSourceFinal.Equals(2))
             {
                 btnAgregarDescuento.Enabled = true;
+                //MessageBox.Show("Test");
             }
             if (DatosSourceFinal.Equals(1) ||
                 DatosSourceFinal.Equals(3) ||

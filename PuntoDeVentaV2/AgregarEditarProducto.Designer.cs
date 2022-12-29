@@ -45,6 +45,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.cbTipo = new System.Windows.Forms.ComboBox();
             this.PDetalleProdcuto = new System.Windows.Forms.Panel();
+            this.checkRenta = new System.Windows.Forms.CheckBox();
             this.lblArrow = new System.Windows.Forms.Label();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -104,7 +105,6 @@
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.errorProvAgregarEditarProducto = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.checkRenta = new System.Windows.Forms.CheckBox();
             this.PDetalleProdcuto.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -315,6 +315,17 @@
             this.PDetalleProdcuto.Name = "PDetalleProdcuto";
             this.PDetalleProdcuto.Size = new System.Drawing.Size(885, 62);
             this.PDetalleProdcuto.TabIndex = 0;
+            // 
+            // checkRenta
+            // 
+            this.checkRenta.AutoSize = true;
+            this.checkRenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRenta.Location = new System.Drawing.Point(185, 13);
+            this.checkRenta.Name = "checkRenta";
+            this.checkRenta.Size = new System.Drawing.Size(87, 19);
+            this.checkRenta.TabIndex = 31;
+            this.checkRenta.Text = "Solo Renta";
+            this.checkRenta.UseVisualStyleBackColor = true;
             // 
             // lblArrow
             // 
@@ -1083,17 +1094,6 @@
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
-            // 
-            // checkRenta
-            // 
-            this.checkRenta.AutoSize = true;
-            this.checkRenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkRenta.Location = new System.Drawing.Point(185, 13);
-            this.checkRenta.Name = "checkRenta";
-            this.checkRenta.Size = new System.Drawing.Size(87, 19);
-            this.checkRenta.TabIndex = 31;
-            this.checkRenta.Text = "Solo Renta";
-            this.checkRenta.UseVisualStyleBackColor = true;
             // 
             // AgregarEditarProducto
             // 
