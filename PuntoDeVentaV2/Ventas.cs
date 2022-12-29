@@ -7391,6 +7391,7 @@ namespace PuntoDeVentaV2
                 {
                     txtDescuentoGeneral.Clear();
                     txtBuscadorProducto.Focus();
+                    return;
                 }
                 else
                 {

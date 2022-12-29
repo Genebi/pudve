@@ -146,18 +146,29 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            Ventas.PorcentajeDescuento = Porcentaje.ToString();
+            if (!string.IsNullOrWhiteSpace(txtPorcentaje.Text) && !string.IsNullOrWhiteSpace(txtCantidad.Text))
+            {
+                Ventas.PorcentajeDescuento = Porcentaje.ToString();
+            }
+            else
+            {
+                MessageBox.Show("No se aplicara ningun descuento","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            }
             this.Close();
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            Ventas.PorcentajeDescuento = "";
+            Ventas.PorcentajeDescuento = "0";
             this.Close();
         }
 
         private void txtPorcentaje_TextChanged(object sender, EventArgs e)
         {
+            if (Convert.ToDecimal(txtPorcentaje.Text)>99)
+            {
+                txtPorcentaje.Text = "99";
+            }
             if (string.IsNullOrWhiteSpace(txtPorcentaje.Text))
             {
                 Porcentaje = 0;
