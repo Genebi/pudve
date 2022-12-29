@@ -15,13 +15,14 @@ namespace PuntoDeVentaV2
         decimal Total, Porcentaje,cantidad, Resultado;
         int calcu = 0;
 
-        private void txtPorcentaje_Enter(object sender, EventArgs e)
-        {
-            txtCantidad.Clear();
-        }
+      
 
         private void txtCantidad_TextChanged(object sender, EventArgs e)
         {
+            if (!string.IsNullOrWhiteSpace(txtCantidad.Text))
+            {
+                txtPorcentaje.Clear();
+            }
             if (string.IsNullOrWhiteSpace(txtCantidad.Text))
             {
                 cantidad = 0;
@@ -46,12 +47,6 @@ namespace PuntoDeVentaV2
             lbTotalFinal.Text = (Total - cantidad).ToString();
 
         }
-
-        private void txtCantidad_Enter(object sender, EventArgs e)
-        {
-            txtPorcentaje.Clear();
-        }
-
         private void txtPorcentaje_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -146,13 +141,15 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtPorcentaje.Text) && !string.IsNullOrWhiteSpace(txtCantidad.Text))
+            if (string.IsNullOrWhiteSpace(txtPorcentaje.Text) && string.IsNullOrWhiteSpace(txtCantidad.Text))
             {
-                Ventas.PorcentajeDescuento = Porcentaje.ToString();
+                MessageBox.Show("No se aplicara ningun descuento", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("No se aplicara ningun descuento","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                Ventas.PorcentajeDescuento = Porcentaje.ToString();
+                Ventas.AplicarCantidad = txtCantidad.Text;
+                Ventas.AplicarPorcentaje = txtPorcentaje.Text;
             }
             this.Close();
         }
@@ -165,9 +162,9 @@ namespace PuntoDeVentaV2
 
         private void txtPorcentaje_TextChanged(object sender, EventArgs e)
         {
-            if (Convert.ToDecimal(txtPorcentaje.Text)>99)
+            if (!string.IsNullOrWhiteSpace(txtPorcentaje.Text))
             {
-                txtPorcentaje.Text = "99";
+                txtCantidad.Clear();
             }
             if (string.IsNullOrWhiteSpace(txtPorcentaje.Text))
             {
@@ -186,9 +183,14 @@ namespace PuntoDeVentaV2
                     Porcentaje = Convert.ToDecimal(txtPorcentaje.Text);
                 }
             }
+            if (Porcentaje > 99)
+            {
+                txtPorcentaje.Text = "99";
+            }
             decimal resulta = (Porcentaje * Total) / 100;
             lbTotalDescuento.Text = resulta.ToString();
             lbTotalFinal.Text = (Total - resulta).ToString();
+          
         }
 
         public AplicarDecuentoGeneral(string Precio)
@@ -201,6 +203,18 @@ namespace PuntoDeVentaV2
         {
             lbPrecio.Text = "Precio Total: $" + Total.ToString();
             lbTotalFinal.Text = Total.ToString();
+            if (!string.IsNullOrWhiteSpace(Ventas.AplicarPorcentaje))
+            {
+                txtPorcentaje.Text = Ventas.AplicarPorcentaje;
+                txtPorcentaje.SelectAll();
+                txtPorcentaje.Focus();
+            }
+            else if (!string.IsNullOrWhiteSpace(Ventas.AplicarCantidad))
+            {
+                txtCantidad.Text = Ventas.AplicarCantidad;
+                txtCantidad.SelectAll();
+                txtCantidad.Focus();
+            }
         }
     }
 }

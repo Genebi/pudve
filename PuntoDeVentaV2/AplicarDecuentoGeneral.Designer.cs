@@ -55,7 +55,6 @@ namespace PuntoDeVentaV2
             this.txtCantidad.TabIndex = 52;
             this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCantidad.TextChanged += new System.EventHandler(this.txtCantidad_TextChanged);
-            this.txtCantidad.Enter += new System.EventHandler(this.txtCantidad_Enter);
             this.txtCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidad_KeyPress);
             // 
             // btnEliminar
@@ -176,7 +175,6 @@ namespace PuntoDeVentaV2
             this.txtPorcentaje.TabIndex = 41;
             this.txtPorcentaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPorcentaje.TextChanged += new System.EventHandler(this.txtPorcentaje_TextChanged);
-            this.txtPorcentaje.Enter += new System.EventHandler(this.txtPorcentaje_Enter);
             this.txtPorcentaje.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPorcentaje_KeyPress);
             // 
             // lbDescuento

@@ -219,6 +219,8 @@ namespace PuntoDeVentaV2
         public static string gananciaTotalPorVenta;
 
         public static string PorcentajeDescuento;
+        public static string AplicarPorcentaje;
+        public static string AplicarCantidad;
 
         int calcu = 0;
 
@@ -3545,6 +3547,9 @@ namespace PuntoDeVentaV2
             }
             txtBuscadorProducto.Focus();
             yasemando = false;
+            PorcentajeDescuento = "";
+            AplicarCantidad = "";
+            AplicarPorcentaje = "";
         }
 
         private void ultimaVentaInformacion()
@@ -7212,6 +7217,9 @@ namespace PuntoDeVentaV2
 
             CantidadesFinalesVenta();
             txtBuscadorProducto.Focus();
+            PorcentajeDescuento = "";
+            AplicarCantidad = "";
+            AplicarPorcentaje = "";
         }
 
         private void ProductoSeleccionado()
@@ -7401,7 +7409,25 @@ namespace PuntoDeVentaV2
                         return;
                     }
                     descuentoDirectoPorAplicar = txtDescuentoGeneral.Text.Trim();
-                    btnEliminarDescuentos.PerformClick();
+                    
+                    porcentajeGeneral = 0;
+                    descuentoCliente = 0;
+                    txtDescuentoGeneral.Text = "% descuento";
+
+                    foreach (DataGridViewRow fila in DGVentas.Rows)
+                    {
+                        //var idProducto = Convert.ToInt32(fila.Cells["IDProducto"].Value);
+
+                        fila.Cells["Descuento"].Value = "0.00";
+                    }
+
+                    // Almacena los ID de los productos a los que se aplica descuento general
+                    productosDescuentoG.Clear();
+                    // Guarda los datos de los descuentos directos que se han aplicado
+                    descuentosDirectos.Clear();
+
+                    CantidadesFinalesVenta();
+                    txtBuscadorProducto.Focus();
                     txtDescuentoGeneral.Text = descuentoDirectoPorAplicar;
                     productosDescuentoG.Clear();
                     descuentosDirectos.Clear();
