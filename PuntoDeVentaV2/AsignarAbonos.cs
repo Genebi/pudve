@@ -23,6 +23,7 @@ namespace PuntoDeVentaV2
         private int mocho = 0;
         private string ticketGenerado = string.Empty;
         private string rutaTicketGenerado = string.Empty;
+        private string IDCliente=string.Empty;
 
 
         //MIOOOOOOOOOOOOO                   -------------------------------------- https://i.imgur.com/8tnzFN2.png
@@ -83,11 +84,14 @@ namespace PuntoDeVentaV2
             totalPendiente = float.Parse(detalles[2]);
             txtTotalOriginal.Text = totalOriginal.ToString("C2");
 
-
+            using (DataTable dtBuscarCliente = cn.CargarDatos($"SELECT IDCliente FROM ventas WHERE ID = {idVenta}"))
+            {
+                IDCliente = dtBuscarCliente.Rows[0]["IDCliente"].ToString();
+            }
 
             //Comprobamos que no existan abonos
             existenAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
-            
+
             //Restamos los abonos mochos con interes
             using (DataTable dtSumadelosabonitosmochoshehe = cn.CargarDatos($"SELECT SUM(Total) AS abonitos FROM Abonos WHERE IDventa ={idVenta} AND intereses > 0"))
             {
@@ -112,7 +116,7 @@ namespace PuntoDeVentaV2
                 intereses = calcularIntereses(restanteDePago);
                 if ((intereses - restadodeinteres) < 0)
                 {
-                    
+
                     abonoTotal = (abonoTotal + intereses) - restadodeinteres;
                     intereses = 0;
                 }
@@ -247,7 +251,7 @@ namespace PuntoDeVentaV2
                 int test = Int32.Parse(dtReglasCreditoVenta.Rows[0]["creditodiassincobro"].ToString());
                 if (DateTime.Now.Date > DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString().Split('%')[0]).AddDays(test))
                 {
-                    
+
 
                     {
                         porcentajeDeInteres = Decimal.Parse(dtReglasCreditoVenta.Rows[0]["creditoPorcentajeinteres"].ToString());
@@ -293,6 +297,42 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            //Validar huella digital si es necesario
+            using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
+            {
+                if (dtReglasCreditoVenta.Rows[0]["creditoHuella"].ToString().Equals("1"))
+                {
+                    //Si se pide huella
+                    using (DataTable dtHuellas = cn.CargarDatos($"SELECT * FROM huellasClientes WHERE IDUsuario = {FormPrincipal.userID} AND IDCliente = {IDCliente}"))
+                    {
+                        if (dtHuellas.Rows.Count.Equals(0))
+                        {
+                            //No tiene huella, vamos a ver si la quiere registrar
+                            DialogResult dialogResult = MessageBox.Show("El cliente seleccionado no cuenta con un registro de datos biométricos, quieres registrarlos ahora?", "Error de registro biométrico", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                clientesAltaHuella capturar = new clientesAltaHuella(Int32.Parse(IDCliente));
+                                capturar.ShowDialog();
+                                return;
+                            }
+                            else if (dialogResult == DialogResult.No)
+                            {
+                                MessageBox.Show("Esta venta no se puede consolidar sin revisión biométrica de acuerdo a la configuración actual", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                        else
+                        {
+                            //Si tiene huella
+                            if (!revisarHuella())
+                            {
+                                MessageBox.Show($"No coincidio la muestra", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                    }
+                }
+            }
 
             float vuelto = float.Parse(lbTotalCambio.Text.Split('$')[1]);
             if (sumarMetodosTemporal() > 0)
@@ -358,14 +398,7 @@ namespace PuntoDeVentaV2
                 int resultado = 0;
                 string fechaNueva;
                 total -= vuelto;
-                using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
-                {
-                    //En caso de que se tome en cuenta la ultima fecha establecida
-                    //fechaNueva = DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString()).AddDays((double)dias).ToString("yyyy/MM/dd");
 
-                    //Si se toma en cuenta la fecha del dia de hoy
-                    //fechaNueva = DateTime.Now.AddDays((double)dias).ToString("yyyy/MM/dd");
-                }
 
                 //Validar que se se guarde una cantidad mayor que el total pendiente
                 if (totalPendiente > total)
@@ -1399,6 +1432,26 @@ namespace PuntoDeVentaV2
         private void lblmirror_TextChanged(object sender, EventArgs e)
         {
             lblMirror3.Text = (Decimal.Parse(txtPendiente.Text.Split('$')[1]) - Decimal.Parse(lblmirror.Text.Split('$')[1])).ToString();
+        }
+
+        private bool revisarHuella()
+        {
+            bool coincidencia = false;
+
+            clientesVerificarHuella checador = new clientesVerificarHuella(IDCliente);
+            checador.FormClosed += delegate
+            {
+                if (!string.IsNullOrEmpty(checador.idCliente))
+                {
+                    if (checador.idCliente == IDCliente)
+                    {
+                        coincidencia = true;
+                    }
+
+                }
+            };
+            checador.ShowDialog();
+            return coincidencia;
         }
     }
 }
