@@ -47,7 +47,7 @@ namespace PuntoDeVentaV2
                 {
                     using (DataTable dtReglas = cn.CargarDatos($"SELECT * FROM clienteReglasCredito WHERE IDCliente = {IDCliente} AND IDUsuario = {FormPrincipal.userID}"))
                     {
-                        numInteresDefecto.Value = Decimal.Parse(dtReglas.Rows[0]["interes"].ToString());
+                    numInteresDefecto.Value = Decimal.Parse(dtReglas.Rows[0]["interes"].ToString());
                     numVentasAbiertas.Value = Decimal.Parse(dtReglas.Rows[0]["VentasAbiertas"].ToString());
                     numTotaldecredito.Value = Decimal.Parse(dtReglas.Rows[0]["Credito"].ToString());
                 } }

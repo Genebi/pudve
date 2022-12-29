@@ -229,7 +229,67 @@ namespace PuntoDeVentaV2
                         }
                         Decimal.Parse(dtBuscarConfiguracion.Rows[0]["creditoPagoinicial"].ToString());
                     }
-                    
+
+                    using (DataTable dtReglasCliente = cn.CargarDatos($"SELECT * FROM clienteReglasCredito WHERE IDCliente={idCliente}"))
+                    {
+                        int ventasMaximas = 0;
+                        decimal creditoMaximo=0;
+                        if (!dtBuscarConfiguracion.Rows[0]["creditomodolimiteventas"].ToString().Equals("Ninguno"))
+                        {
+                            if (dtBuscarConfiguracion.Rows[0]["creditomodolimiteventas"].ToString().Equals("Por cliente") && !dtReglasCliente.Rows.Count.Equals(0))
+                            {
+                                ventasMaximas = Int32.Parse(dtReglasCliente.Rows[0]["VentasAbiertas"].ToString());
+                            }
+                            else
+                            {
+                                ventasMaximas = Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditolimiteventas"].ToString());
+                            }
+                            using (DataTable dtVentasDeudas = cn.CargarDatos($"SELECT * FROM Ventas WHERE IDUsuario ={FormPrincipal.userID} AND IDCliente={idCliente} AND Status = 4"))
+                            {
+                                if (dtVentasDeudas.Rows.Count >= ventasMaximas)
+                                {
+                                    DialogResult dialogResult = MessageBox.Show("Este cliente ha alcanzado su límite máximo de ventas activas a crédito, actualice las configuraciones o liquide las deudas para continuar.", "Límite de ventas a crédito alcanzado", MessageBoxButtons.OK);
+                                    return;
+                                }
+                            }
+                        }
+
+                                if (!dtBuscarConfiguracion.Rows[0]["creditomodototalcredito"].ToString().Equals("Ninguno"))
+                        {
+                            if (dtBuscarConfiguracion.Rows[0]["creditomodototalcredito"].ToString().Equals("Por cliente") && !dtReglasCliente.Rows.Count.Equals(0))
+                            {
+                                creditoMaximo = Decimal.Parse(dtReglasCliente.Rows[0]["Credito"].ToString());
+                            }
+                            else
+                            {
+                                creditoMaximo = Decimal.Parse(dtBuscarConfiguracion.Rows[0]["creditototalcredito"].ToString());
+                            }
+
+                            using (DataTable dtVentasDeudas = cn.CargarDatos($"SELECT ID, Total FROM ventas WHERE IDUsuario ={FormPrincipal.userID} AND IDCliente={idCliente} AND Status = 4"))
+                            {
+                                decimal creditoDeudo = 0;
+                                foreach (DataRow ventaDeuda in dtVentasDeudas.Rows)
+                                {
+                                            creditoDeudo += Decimal.Parse(ventaDeuda["total"].ToString());
+                                    using (DataTable total = cn.CargarDatos($"SELECT SUM(Total-Cambio) AS Total FROM abonos WHERE IDVenta ={ventaDeuda["ID"].ToString()}"))
+                                    {
+                                        if (!string.IsNullOrEmpty(total.Rows[0]["Total"].ToString()))
+                                        {
+                                             creditoDeudo -= Decimal.Parse(total.Rows[0]["Total"].ToString());
+                                        }
+                                    }
+                                        
+                                }
+                                if ((creditoDeudo+Decimal.Parse(txtCredito.Text) > creditoMaximo))
+                                {
+                                    DialogResult dialogResult = MessageBox.Show("Este cliente ha alcanzado su límite máximo de crédito, actualice las configuraciones o liquide las deudas para continuar.", "Límite de crédito alcanzado", MessageBoxButtons.OK                        );
+                                    return;
+                                }
+
+                            }
+                        }
+                    }
+
                 }
             }
 
@@ -578,29 +638,51 @@ namespace PuntoDeVentaV2
                                 default:
                                     break;
                             }
+                            using (DataTable dtReglasCliente = cn.CargarDatos($"SELECT * FROM clienteReglasCredito WHERE IDCliente={idCliente}"))
+                            {
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoHuella"].ToString()}', ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoMoratorio"].ToString()}', ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoPorcentajemoratorio"].ToString()}', ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoAplicarpordefecto"].ToString()}', ";
+                                if (dtBuscarConfiguracion.Rows[0]["creditoAplicarpordefecto"].ToString().Equals("0") && dtReglasCliente.Rows.Count>0)
+                                {
+                                    consulta += $"'{dtReglasCliente.Rows[0]["interes"].ToString()}', ";
+                                }
+                                else
+                                {
+                                    consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoPorcentajeinteres"].ToString()}', ";
+                                }
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoAplicarpagoinicial"].ToString()}', ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoPagoinicial"].ToString()}', ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditomodolimiteventas"].ToString()}', ";
+                                if (dtBuscarConfiguracion.Rows[0]["creditomodolimiteventas"].ToString().Equals("Por cliente") && dtReglasCliente.Rows.Count > 0)
+                                {
+                                    consulta += $"'{dtReglasCliente.Rows[0]["VentasAbiertas"].ToString()}', ";
+                                }
+                                else
+                                {
+                                    consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditolimiteventas"].ToString()}', ";
+                                }
 
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditomodototalcredito"].ToString()}', ";
 
+                                if (dtBuscarConfiguracion.Rows[0]["creditomodototalcredito"].ToString().Equals("Por cliente") && dtReglasCliente.Rows.Count > 0)
+                                {
+                                    consulta += $"'{dtReglasCliente.Rows[0]["Credito"].ToString()}', ";
+                                }
+                                else
+                                {
+                                    consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditototalcredito"].ToString()}', ";
+                                }
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoperiodocobro"].ToString()}', ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditomodocobro"].ToString()}', ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditodiassincobro"].ToString()}', ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()}', ";
 
-
-
-                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoHuella"].ToString()}', ";
-                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoMoratorio"].ToString()}', ";
-                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoPorcentajemoratorio"].ToString()}', ";
-                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoAplicarpordefecto"].ToString()}', ";
-                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoPorcentajeinteres"].ToString()}', ";
-                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoAplicarpagoinicial"].ToString()}', ";
-                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoPagoinicial"].ToString()}', ";
-                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditomodolimiteventas"].ToString()}', ";
-                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditolimiteventas"].ToString()}', ";
-                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditomodototalcredito"].ToString()}', ";
-                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditototalcredito"].ToString()}', ";
-                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoperiodocobro"].ToString()}', ";
-                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditomodocobro"].ToString()}', ";
-                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditodiassincobro"].ToString()}', ";
-                            consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()}', ";
-                            consulta += $"'{Convert.ToDecimal(txtCredito.Text) / Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString())}')";
-                            Ventas.consutlaCredito = consulta;
-                            consulta = string.Empty;
+                                consulta += $"'{Convert.ToDecimal(txtCredito.Text) / Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString())}')";
+                                Ventas.consutlaCredito = consulta;
+                                consulta = string.Empty;
+                            }
                         }
                     }
                 }
