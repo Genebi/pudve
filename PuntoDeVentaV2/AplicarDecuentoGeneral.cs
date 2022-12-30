@@ -157,6 +157,8 @@ namespace PuntoDeVentaV2
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             Ventas.PorcentajeDescuento = "0";
+            Ventas.AplicarCantidad = "";
+            Ventas.AplicarPorcentaje = "";
             this.Close();
         }
 
