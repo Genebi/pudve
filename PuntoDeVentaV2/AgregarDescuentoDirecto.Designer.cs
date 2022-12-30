@@ -82,7 +82,7 @@
             // 
             this.txtPorcentaje.Location = new System.Drawing.Point(236, 128);
             this.txtPorcentaje.Margin = new System.Windows.Forms.Padding(4);
-            this.txtPorcentaje.MaxLength = 3;
+            this.txtPorcentaje.MaxLength = 5;
             this.txtPorcentaje.Name = "txtPorcentaje";
             this.txtPorcentaje.Size = new System.Drawing.Size(132, 23);
             this.txtPorcentaje.TabIndex = 4;

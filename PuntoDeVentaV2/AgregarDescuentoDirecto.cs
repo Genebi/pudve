@@ -84,6 +84,8 @@ namespace PuntoDeVentaV2
             {
                 tipo = 2;
                 cantidadElegida = float.Parse(porcentaje);
+                
+                
                 porcentaje = $" - {porcentaje}%";
             }
 
