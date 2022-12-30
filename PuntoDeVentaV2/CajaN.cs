@@ -217,9 +217,8 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo3_Click(object sender, EventArgs e)
         {
-            VentasPorProveddores proveddores = new VentasPorProveddores();
+            VentasPorProveedores proveddores = new VentasPorProveedores();
             proveddores.ShowDialog();
-
         }
 
         private void botonRedondo1_Click(object sender, EventArgs e)
