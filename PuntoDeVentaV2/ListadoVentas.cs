@@ -175,6 +175,7 @@ namespace PuntoDeVentaV2
             ventas.Add("VG", "VENTAS GUARDADAS (PRESUPUESTOS)");
             ventas.Add("VC", "VENTAS CANCELADAS");
             ventas.Add("VCC", "VENTAS A CRÉDITO");
+            ventas.Add("VCA", "VENTAS ATRASADAS");
             ventas.Add("VGG", "VENTAS GLOBALES");
 
             cbTipoVentas.DataSource = ventas.ToArray();
@@ -490,8 +491,8 @@ namespace PuntoDeVentaV2
                     if (opcion == "VCC") { estado = 4; }
                     // Ventas globales
                     if (opcion == "VGG") { estado = 5; }
-
-
+                    // Ventas a credito atrasadas
+                    if (opcion == "VCA") { estado = 6; }
 
                     if (buscador.Equals("BUSCAR POR RFC, CLIENTE, EMPLEADO O FOLIO..."))
                     {
@@ -531,6 +532,10 @@ namespace PuntoDeVentaV2
                                 consulta = cs.VerComoEpleadoTodasMisVentasCanceladasPorFechas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, formaPagoFiltro);
                             }
                             else if (estado.Equals(4)) // Ventas a credito
+                            {
+                                consulta = cs.VerComoEpleadoTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
+                            }
+                            else if (estado.Equals(6)) // Ventas a credito expiradas
                             {
                                 consulta = cs.VerComoEpleadoTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
                             }
@@ -1093,6 +1098,22 @@ namespace PuntoDeVentaV2
                                 consulta = cs.verVentasCreditoPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
                             }
                         }
+                        else if (estado.Equals(6)) // Ventas a credito atrasadas
+                        {
+                            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                            {
+                                //consulta = cs.verVentasCreditoDelAdministrador(estado, fechaInicial, fechaFinal);
+                                consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
+                            }
+                            else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                            {
+                                consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
+                            }
+                            else
+                            {
+                                consulta = cs.verVentasCreditoPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
+                            }
+                        }
                     }
 
                 }
@@ -1504,6 +1525,10 @@ namespace PuntoDeVentaV2
             {
                 estado = 5;
             }
+            else if (opcion == "VCA") // Ventas a credito atrasadas (un periodo de retraso)
+            {
+                estado = 6;
+            }
 
             return estado;
         }
@@ -1646,6 +1671,8 @@ namespace PuntoDeVentaV2
             if (opcion == "VCC") { CargarDatos(4); }
             //Ventas globales
             if (opcion == "VGG") { CargarDatos(5); }
+            //Ventas a credito atrasadas
+            if (opcion == "VCA") { CargarDatos(6); }
         }
 
         #region Manejo del evento MouseEnter para el DataGridView

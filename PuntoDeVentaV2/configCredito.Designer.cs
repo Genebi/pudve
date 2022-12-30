@@ -48,7 +48,6 @@
             this.combVentasAbiertas = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -56,11 +55,12 @@
             this.combPeriododecobro = new System.Windows.Forms.ComboBox();
             this.cbAplicarPorcentajePorDefecto = new System.Windows.Forms.CheckBox();
             this.cbHuella = new System.Windows.Forms.CheckBox();
+            this.chbPerdonarInteres = new System.Windows.Forms.CheckBox();
             this.cbPagoInicial = new System.Windows.Forms.CheckBox();
             this.cbMoratorio = new System.Windows.Forms.CheckBox();
-            this.btnAceptar = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.btnAceptar = new System.Windows.Forms.Button();
             this.cbMaster = new System.Windows.Forms.CheckBox();
             this.GBControles.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDiasdecobrosininteres)).BeginInit();
@@ -95,7 +95,6 @@
             this.GBControles.Controls.Add(this.combVentasAbiertas);
             this.GBControles.Controls.Add(this.label9);
             this.GBControles.Controls.Add(this.label6);
-            this.GBControles.Controls.Add(this.label7);
             this.GBControles.Controls.Add(this.label8);
             this.GBControles.Controls.Add(this.label10);
             this.GBControles.Controls.Add(this.label3);
@@ -103,6 +102,7 @@
             this.GBControles.Controls.Add(this.combPeriododecobro);
             this.GBControles.Controls.Add(this.cbAplicarPorcentajePorDefecto);
             this.GBControles.Controls.Add(this.cbHuella);
+            this.GBControles.Controls.Add(this.chbPerdonarInteres);
             this.GBControles.Controls.Add(this.cbPagoInicial);
             this.GBControles.Controls.Add(this.cbMoratorio);
             this.GBControles.Controls.Add(this.label5);
@@ -217,6 +217,7 @@
             this.numMoratorio.Name = "numMoratorio";
             this.numMoratorio.Size = new System.Drawing.Size(85, 22);
             this.numMoratorio.TabIndex = 3;
+            this.numMoratorio.Visible = false;
             // 
             // lblDef1
             // 
@@ -248,7 +249,7 @@
             // 
             this.numPagoInicial.DecimalPlaces = 2;
             this.numPagoInicial.Enabled = false;
-            this.numPagoInicial.Location = new System.Drawing.Point(225, 319);
+            this.numPagoInicial.Location = new System.Drawing.Point(225, 263);
             this.numPagoInicial.Name = "numPagoInicial";
             this.numPagoInicial.Size = new System.Drawing.Size(71, 22);
             this.numPagoInicial.TabIndex = 7;
@@ -263,6 +264,7 @@
             this.label12.TabIndex = 1;
             this.label12.Text = "%";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label12.Visible = false;
             // 
             // label13
             // 
@@ -289,7 +291,7 @@
             // numInteresDefecto
             // 
             this.numInteresDefecto.DecimalPlaces = 4;
-            this.numInteresDefecto.Location = new System.Drawing.Point(225, 266);
+            this.numInteresDefecto.Location = new System.Drawing.Point(225, 186);
             this.numInteresDefecto.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -319,7 +321,7 @@
             // label9
             // 
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(294, 319);
+            this.label9.Location = new System.Drawing.Point(294, 263);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(20, 22);
@@ -330,24 +332,13 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(294, 266);
+            this.label6.Location = new System.Drawing.Point(294, 186);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(20, 22);
             this.label6.TabIndex = 1;
             this.label6.Text = "%";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.label7.Location = new System.Drawing.Point(22, 256);
-            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(198, 32);
-            this.label7.TabIndex = 1;
-            this.label7.Text = "Porcentaje de interés asignado \r\npor defecto a todos los clientes:";
             // 
             // label8
             // 
@@ -414,12 +405,11 @@
             // 
             this.cbAplicarPorcentajePorDefecto.AutoSize = true;
             this.cbAplicarPorcentajePorDefecto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.cbAplicarPorcentajePorDefecto.Location = new System.Drawing.Point(22, 173);
+            this.cbAplicarPorcentajePorDefecto.Location = new System.Drawing.Point(22, 179);
             this.cbAplicarPorcentajePorDefecto.Name = "cbAplicarPorcentajePorDefecto";
-            this.cbAplicarPorcentajePorDefecto.Size = new System.Drawing.Size(297, 36);
+            this.cbAplicarPorcentajePorDefecto.Size = new System.Drawing.Size(206, 36);
             this.cbAplicarPorcentajePorDefecto.TabIndex = 4;
-            this.cbAplicarPorcentajePorDefecto.Text = "Utilizar el % por defecto siempre en el calculo\r\nde interés para todos los client" +
-    "es";
+            this.cbAplicarPorcentajePorDefecto.Text = "Aplicar el mismo % de interés \r\na todos los clientes:";
             this.cbAplicarPorcentajePorDefecto.UseVisualStyleBackColor = true;
             // 
             // cbHuella
@@ -433,12 +423,25 @@
             this.cbHuella.Text = "Solicitar huella digital para consolidar venta a crédito";
             this.cbHuella.UseVisualStyleBackColor = true;
             // 
+            // chbPerdonarInteres
+            // 
+            this.chbPerdonarInteres.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.chbPerdonarInteres.AutoSize = true;
+            this.chbPerdonarInteres.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chbPerdonarInteres.Location = new System.Drawing.Point(22, 318);
+            this.chbPerdonarInteres.Name = "chbPerdonarInteres";
+            this.chbPerdonarInteres.Size = new System.Drawing.Size(274, 20);
+            this.chbPerdonarInteres.TabIndex = 6;
+            this.chbPerdonarInteres.Text = "Habilitar el perdón de intereses al abonar";
+            this.chbPerdonarInteres.UseVisualStyleBackColor = true;
+            this.chbPerdonarInteres.CheckedChanged += new System.EventHandler(this.cbPagoInicial_CheckedChanged);
+            // 
             // cbPagoInicial
             // 
             this.cbPagoInicial.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbPagoInicial.AutoSize = true;
             this.cbPagoInicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbPagoInicial.Location = new System.Drawing.Point(22, 317);
+            this.cbPagoInicial.Location = new System.Drawing.Point(22, 261);
             this.cbPagoInicial.Name = "cbPagoInicial";
             this.cbPagoInicial.Size = new System.Drawing.Size(167, 20);
             this.cbPagoInicial.TabIndex = 6;
@@ -457,7 +460,33 @@
             this.cbMoratorio.TabIndex = 2;
             this.cbMoratorio.Text = "Calcular el interés moratorio:";
             this.cbMoratorio.UseVisualStyleBackColor = true;
+            this.cbMoratorio.Visible = false;
             this.cbMoratorio.CheckedChanged += new System.EventHandler(this.cbMoratorio_CheckedChanged);
+            // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label5.Location = new System.Drawing.Point(22, 218);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(274, 26);
+            this.label5.TabIndex = 154;
+            this.label5.Text = "(Si está desactivado, este valor se toma como por defecto en nuevos clientes)";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label4.Location = new System.Drawing.Point(22, 131);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(297, 26);
+            this.label4.TabIndex = 154;
+            this.label4.Text = " (tras un periodo de retraso)";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label4.Visible = false;
             // 
             // btnAceptar
             // 
@@ -475,30 +504,6 @@
             this.btnAceptar.Text = "Guardar";
             this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
-            // 
-            // label5
-            // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label5.Location = new System.Drawing.Point(22, 212);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(274, 21);
-            this.label5.TabIndex = 154;
-            this.label5.Text = "(Si esta desactivado se puede asignar uno por cliente)";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label4
-            // 
-            this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label4.Location = new System.Drawing.Point(22, 131);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(297, 26);
-            this.label4.TabIndex = 154;
-            this.label4.Text = " (tras un periodo de retraso)";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // cbMaster
             // 
@@ -556,7 +561,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox combVentasAbiertas;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox combPeriododecobro;
         private System.Windows.Forms.CheckBox cbAplicarPorcentajePorDefecto;
@@ -564,7 +568,6 @@
         private System.Windows.Forms.CheckBox cbPagoInicial;
         private System.Windows.Forms.CheckBox cbMoratorio;
         private System.Windows.Forms.Button btnAceptar;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown numDiasdecobrosininteres;
         private System.Windows.Forms.Label label8;
@@ -580,5 +583,7 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label lblDef1;
         private System.Windows.Forms.CheckBox cbMaster;
+        private System.Windows.Forms.CheckBox chbPerdonarInteres;
+        private System.Windows.Forms.Label label5;
     }
 }

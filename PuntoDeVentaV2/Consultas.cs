@@ -826,14 +826,14 @@ namespace PuntoDeVentaV2
 
         public string GuardarAbonos(string[] datos)
         {
-            string consulta = "INSERT INTO Abonos (IDVenta, IDUsuario, Total, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Referencia, FechaOperacion,intereses, cambio,estado)";
-            consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}','{datos[10]}','{datos[11]}','{datos[12]}')";
+            string consulta = "INSERT INTO Abonos (IDVenta, IDUsuario, Total, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Referencia, FechaOperacion,intereses, cambio,estado,perdonado)";
+            consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}','{datos[10]}','{datos[11]}','{datos[12]}','{datos[13]}')";
             return consulta;
         }
 
         public string GuardarAbonosEmpleados(string[] datos)
         {
-            string consulta = $"INSERT INTO Abonos (IDVenta, IDUsuario, Total, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Referencia, FechaOperacion, IDEmpleado,intereses, cambio,estado) VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}','{datos[11]}','{datos[12]}','{datos[13]}')";
+            string consulta = $"INSERT INTO Abonos (IDVenta, IDUsuario, Total, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Referencia, FechaOperacion, IDEmpleado,intereses, cambio,estado,perdonado) VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}','{datos[11]}','{datos[12]}','{datos[13]}','{datos[14]}')";
 
             return consulta;
         }

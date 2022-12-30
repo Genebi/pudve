@@ -67,6 +67,8 @@
             this.lblMirror3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.lblabonominimo = new System.Windows.Forms.Label();
+            this.llPerdonarInteres = new System.Windows.Forms.LinkLabel();
+            this.txtPerdonado = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnAceptar
@@ -509,6 +511,32 @@
             this.lblabonominimo.Text = "$0.00";
             this.lblabonominimo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // llPerdonarInteres
+            // 
+            this.llPerdonarInteres.AutoSize = true;
+            this.llPerdonarInteres.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.llPerdonarInteres.Location = new System.Drawing.Point(399, 209);
+            this.llPerdonarInteres.Name = "llPerdonarInteres";
+            this.llPerdonarInteres.Size = new System.Drawing.Size(62, 34);
+            this.llPerdonarInteres.TabIndex = 140;
+            this.llPerdonarInteres.TabStop = true;
+            this.llPerdonarInteres.Text = "Perdonar\r\nintereses";
+            this.llPerdonarInteres.Visible = false;
+            this.llPerdonarInteres.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llPerdonarInteres_LinkClicked);
+            // 
+            // txtPerdonado
+            // 
+            this.txtPerdonado.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPerdonado.Location = new System.Drawing.Point(208, 505);
+            this.txtPerdonado.MaxLength = 10;
+            this.txtPerdonado.Name = "txtPerdonado";
+            this.txtPerdonado.Size = new System.Drawing.Size(80, 22);
+            this.txtPerdonado.TabIndex = 124;
+            this.txtPerdonado.Text = "0";
+            this.txtPerdonado.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPerdonado.Visible = false;
+            this.txtPerdonado.TextChanged += new System.EventHandler(this.txtPerdonado_TextChanged);
+            // 
             // AsignarAbonos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -530,6 +558,7 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.tituloTotal);
             this.Controls.Add(this.lblpagos);
+            this.Controls.Add(this.llPerdonarInteres);
             this.Controls.Add(this.lbVerAbonos);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.label5);
@@ -546,6 +575,7 @@
             this.Controls.Add(this.lblFechaAnterior);
             this.Controls.Add(this.lbEfectivo);
             this.Controls.Add(this.txtTransferencia);
+            this.Controls.Add(this.txtPerdonado);
             this.Controls.Add(this.txtCheque);
             this.Controls.Add(this.txtVales);
             this.Controls.Add(this.txtTarjeta);
@@ -606,5 +636,7 @@
         private System.Windows.Forms.Label lblMirror3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblabonominimo;
+        private System.Windows.Forms.LinkLabel llPerdonarInteres;
+        private System.Windows.Forms.TextBox txtPerdonado;
     }
 }

@@ -25,12 +25,18 @@ namespace PuntoDeVentaV2
         {
             DataTable dt = new DataTable();
             numTotaldecredito.Controls[0].Visible = false;
-            dt = cn.CargarDatos($"SELECT creditoMaster, creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro, creditoCantidadAbonos FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}");
+            dt = cn.CargarDatos($"SELECT creditoMaster, creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro, creditoCantidadAbonos, creditoPerdon FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}");
             //A checar datos
 
             if (!dt.Rows[0]["creditoMaster"].ToString().Equals("0"))
             {
                 cbMaster.Checked = true;
+            }
+
+
+            if (!dt.Rows[0]["creditoPerdon"].ToString().Equals("0"))
+            {
+                chbPerdonarInteres.Checked = true;
             }
 
             if (!dt.Rows[0]["creditoHuella"].ToString().Equals("0"))
@@ -104,6 +110,15 @@ namespace PuntoDeVentaV2
                 consulta = consulta += $"creditoMaster = 0, ";
             }
 
+            if (chbPerdonarInteres.Checked)
+            {
+                consulta = consulta += $"creditoPerdon = 1, ";
+            }
+            else
+            {
+                consulta = consulta += $"creditoPerdon = 0, ";
+            }
+
             if (cbHuella.Checked)
             {
                 consulta = consulta += $"creditoHuella = 1, ";
@@ -161,6 +176,8 @@ namespace PuntoDeVentaV2
             consulta = consulta += $"creditodiassincobro = '{numDiasdecobrosininteres.Value.ToString()}', ";
 
             consulta = consulta += $"creditoCantidadAbonos = '{numCantidadAbonos.Value.ToString()}' ";
+
+
 
             consulta = consulta += $"WHERE IDUsuario = {FormPrincipal.userID}";
             cn.EjecutarConsulta(consulta);

@@ -32,6 +32,7 @@ namespace PuntoDeVentaV2
         float vales;
         float cheque;
         float transferencia;
+        float perdonado;
         float restante;
         float cambio;
         decimal intereses;
@@ -152,6 +153,11 @@ namespace PuntoDeVentaV2
             bool ultimopago = false;
             using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
             {
+
+                if (dtReglasCreditoVenta.Rows[0]["creditoPerdon"].ToString().Equals("1"))
+                {
+                    llPerdonarInteres.Visible = true;
+                }
                 
                 if (Decimal.Parse(dtReglasCreditoVenta.Rows[0]["creditoMinimoAbono"].ToString()) <= (decimal)restanteDePago)
                 {
@@ -362,6 +368,7 @@ namespace PuntoDeVentaV2
                 var vales = CantidadDecimal(txtVales.Text);
                 var cheque = CantidadDecimal(txtCheque.Text);
                 var transferencia = CantidadDecimal(txtTransferencia.Text);
+                var perdonado = CantidadDecimal(txtPerdonado.Text);
                 var referencia = txtReferencia.Text;
                 var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -424,7 +431,7 @@ namespace PuntoDeVentaV2
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion,intereses.ToString(), vuelto.ToString(), mocho.ToString()
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion,intereses.ToString(), vuelto.ToString(), mocho.ToString(),perdonado.ToString()
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
@@ -435,7 +442,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),intereses.ToString(),vuelto.ToString(), mocho.ToString()
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),intereses.ToString(),vuelto.ToString(), mocho.ToString(),perdonado.ToString()
                 };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));
@@ -464,7 +471,7 @@ namespace PuntoDeVentaV2
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, intereses.ToString(),vuelto.ToString(), mocho.ToString()
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, intereses.ToString(),vuelto.ToString(), mocho.ToString(),perdonado.ToString()
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
@@ -473,7 +480,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),intereses.ToString(),vuelto.ToString(), mocho.ToString()
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),intereses.ToString(),vuelto.ToString(), mocho.ToString(),perdonado.ToString()
 };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));
@@ -511,8 +518,9 @@ namespace PuntoDeVentaV2
             float vales = CantidadDecimal(txtVales.Text);
             float cheque = CantidadDecimal(txtCheque.Text);
             float transferencia = CantidadDecimal(txtTransferencia.Text);
+            float perdonado = CantidadDecimal(txtPerdonado.Text);
 
-            float suma = efectivo + tarjeta + vales + cheque + transferencia;
+            float suma = efectivo + tarjeta + vales + cheque + transferencia + perdonado;
 
             return suma;
         }
@@ -670,8 +678,8 @@ namespace PuntoDeVentaV2
             float vales = CantidadDecimal(txtVales.Text);
             float cheque = CantidadDecimal(txtCheque.Text);
             float transferencia = CantidadDecimal(txtTransferencia.Text);
-
-            float suma = tarjeta + vales + cheque + transferencia;
+            float perdonado = CantidadDecimal(txtPerdonado.Text);
+            float suma = tarjeta + vales + cheque + transferencia + perdonado;
 
             return suma;
         }
@@ -960,8 +968,12 @@ namespace PuntoDeVentaV2
                     {
                         transferencia = (float)Convert.ToDecimal(txtCajaDeTexto.Text);
                     }
+                    else if (txtCajaDeTexto.Name.Equals("txtPerdonado"))
+                    {
+                        perdonado = (float)Convert.ToDecimal(txtCajaDeTexto.Text);
+                    }
 
-                    var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
+                    var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia +perdonado;
                     restante = totalPendiente - nuevoabono;
                     restante += (float)intereses;
                     var restanteAbono = ((intereses + abonoTotal) - (decimal)nuevoabono) + (decimal)abonado;
@@ -1032,8 +1044,12 @@ namespace PuntoDeVentaV2
                     {
                         transferencia = (float)Convert.ToDecimal(txtCajaDeTexto.Text);
                     }
+                    else if (txtCajaDeTexto.Name.Equals("txtPerdonado"))
+                    {
+                        perdonado = (float)Convert.ToDecimal(txtCajaDeTexto.Text);
+                    }
 
-                    var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
+                    var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia+perdonado;
                     restante = totalPendiente - nuevoabono;
                     restante += (float)intereses;
                     var restanteAbono = abonoTotal - (decimal)nuevoabono - (decimal)abonado + intereses;
@@ -1480,6 +1496,24 @@ namespace PuntoDeVentaV2
             };
             checador.ShowDialog();
             return coincidencia;
+        }
+
+        private void llPerdonarInteres_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            AbonosPerdonarIntereses perdonar = new AbonosPerdonarIntereses(intereses);
+            perdonar.FormClosed += delegate
+            {
+                string valor =perdonar.interesPerdonado.ToString("C2");
+                txtPerdonado.Text = valor.Split('$')[1];
+                txtIntereses.Text = (intereses - perdonar.interesPerdonado).ToString("C2") ;
+                lblabonominimo.Text= (Decimal.Parse(lblabonominimo.Text.Split('$')[1])-perdonar.interesPerdonado).ToString("C2" );
+            };
+            perdonar.ShowDialog();
+        }
+
+        private void txtPerdonado_TextChanged(object sender, EventArgs e)
+        {
+            validacionRestanteDeAbonos(sender, e);
         }
     }
 }

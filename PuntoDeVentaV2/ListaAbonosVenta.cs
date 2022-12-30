@@ -66,11 +66,12 @@ namespace PuntoDeVentaV2
                 row.Cells["Vales"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Vales")).ToString());
                 row.Cells["Cheque"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Cheque")).ToString());
                 row.Cells["Trans"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Transferencia")).ToString());
-                row.Cells["Total"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Total")).ToString());
+                
 
                 decimal interesesAlMomento = Decimal.Parse(Modificar(dr.GetValue(dr.GetOrdinal("intereses")).ToString()));
-                decimal total = Decimal.Parse(Modificar(dr.GetValue(dr.GetOrdinal("Total")).ToString()));
+                decimal total = Decimal.Parse(Modificar(dr.GetValue(dr.GetOrdinal("Total")).ToString())) - Decimal.Parse(Modificar(dr.GetValue(dr.GetOrdinal("perdonado")).ToString()));
 
+                row.Cells["Total"].Value = total.ToString();
                 if (interesesAlMomento-total > 0)
                 {
                     row.Cells["Interes"].Value = (interesesAlMomento - total).ToString();
@@ -79,7 +80,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     row.Cells["Interes"].Value ="0.00";
-                    row.Cells["abono"].Value = (total-interesesAlMomento).ToString();
+                    row.Cells["abono"].Value = (total-interesesAlMomento+ Decimal.Parse(Modificar(dr.GetValue(dr.GetOrdinal("perdonado")).ToString())));
                 }
                 //row.Cells["Interes"].Value = Modificar(dr.GetValue(dr.GetOrdinal("intereses")).ToString());
 

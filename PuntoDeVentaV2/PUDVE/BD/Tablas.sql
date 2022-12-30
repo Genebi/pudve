@@ -2000,6 +2000,7 @@ ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoperiodocobro VARCHAR(1
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodocobro VARCHAR(100) DEFAULT 'Dias trascurridos';
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditodiassincobro INT DEFAULT 0 ;
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoCantidadAbonos INT DEFAULT 1 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPerdon INT DEFAULT 0 ;
 
 --Crear tabla para guardar las reglas de credito activas cuando se hace una venta.
 CREATE TABLE
@@ -2025,6 +2026,7 @@ IF
 		creditodiassincobro INTEGER DEFAULT 5,
 		creditoCantidadAbonos INTEGER DEFAULT 1,
 		creditoMinimoAbono  DECIMAl ( 16, 2 ),
+		creditoPerdon INTEGER DEFAULT 0,
 		FOREIGN KEY ( IDVenta ) REFERENCES ventas ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
 		FOREIGN KEY ( IDHuella ) REFERENCES huellasclientes ( ID ) ON UPDATE CASCADE ON DELETE CASCADE
 	);
@@ -2033,7 +2035,7 @@ IF
 	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS intereses DECIMAl ( 16, 2 ) DEFAULT 0;
 	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS cambio DECIMAl ( 16, 2 ) DEFAULT 0;
 	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS estado INTEGER DEFAULT 0;
-
+	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS perdonado DECIMAl ( 16, 2 ) DEFAULT 0;
 
 --Tabla para guardar las goellas de los clientesillos
 CREATE TABLE

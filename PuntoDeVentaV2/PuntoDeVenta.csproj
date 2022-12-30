@@ -291,6 +291,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbonosPerdonarIntereses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbonosPerdonarIntereses.Designer.cs">
+      <DependentUpon>AbonosPerdonarIntereses.cs</DependentUpon>
+    </Compile>
     <Compile Include="AgregarAnticipo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1761,6 +1767,9 @@
     <Compile Include="WinQueryString.Designer.cs">
       <DependentUpon>WinQueryString.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AbonosPerdonarIntereses.resx">
+      <DependentUpon>AbonosPerdonarIntereses.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AgregarAnticipo.resx">
       <DependentUpon>AgregarAnticipo.cs</DependentUpon>
     </EmbeddedResource>
