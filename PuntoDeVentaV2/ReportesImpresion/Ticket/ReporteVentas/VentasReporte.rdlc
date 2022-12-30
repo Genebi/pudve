@@ -1493,7 +1493,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>DTReporteVenta</DataSetName>
-            <Top>14.93673cm</Top>
+            <Top>15.07785cm</Top>
             <Height>1.8cm</Height>
             <Width>20.57979cm</Width>
             <ZIndex>4</ZIndex>
@@ -1504,7 +1504,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>17.01014cm</Height>
+        <Height>17.19535cm</Height>
         <Style />
       </Body>
       <Width>21cm</Width>

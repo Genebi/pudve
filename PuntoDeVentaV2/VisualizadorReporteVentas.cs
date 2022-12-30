@@ -432,7 +432,7 @@ namespace PuntoDeVentaV2
 
         private void CargarDatos()
         {
-            var ajustarQuery = $"SELECT Cliente, RFC, IDEmpleado, Total, Folio, Serie,Ganancia FechaOperacion FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar})";
+            var ajustarQuery = $"SELECT Cliente, RFC, IDEmpleado, Total, Folio, Serie,FechaOperacion,Ganancia FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar})";
             var query = cn.CargarDatos(ajustarQuery);
             DTFinal = query;
             DTFinal.Columns.Add("No", typeof(String));
