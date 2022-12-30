@@ -26,6 +26,7 @@ namespace PuntoDeVentaV2
         private float total = 0;
         private float totalMetodos = 0;
         int calcu = 0;
+        private bool creditoMaster = false;
         private bool calculadoraisOut = false;
         DateTime proximoPago;
 
@@ -85,6 +86,14 @@ namespace PuntoDeVentaV2
 
         private void DetalleVenta_Load(object sender, EventArgs e)
         {
+            using (DataTable dtBuscarConfiguracion = cn.CargarDatos($"SELECT * FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (dtBuscarConfiguracion.Rows[0]["creditoMaster"].ToString().Equals("1"))
+                {
+                    creditoMaster = true;
+                }
+            }
+
 
             txtTotalVenta.Text = "$" + total.ToString("0.00");
 
@@ -180,6 +189,11 @@ namespace PuntoDeVentaV2
                         MessageBox.Show("Asigné un Cliente para hacer una venta a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
+
+                if (creditoMaster)
+                {
+
+                
                 using (DataTable dtBuscarConfiguracion = cn.CargarDatos($"SELECT * FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
                 {
                     if (dtBuscarConfiguracion.Rows[0]["creditoHuella"].ToString().Equals("1"))
@@ -290,6 +304,7 @@ namespace PuntoDeVentaV2
                         }
                     }
 
+                }
                 }
             }
 
@@ -528,7 +543,7 @@ namespace PuntoDeVentaV2
                 //idCliente = 0 ;
                 //nameClienteNameVenta = string.Empty;
                 Ventas.VentaRealizada = true;
-                if (credito>0)
+                if (credito>0 && creditoMaster)
                 {
                     using (DataTable dtBuscarConfiguracion = cn.CargarDatos($"SELECT * FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
                     {
