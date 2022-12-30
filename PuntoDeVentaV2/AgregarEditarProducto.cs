@@ -2007,7 +2007,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    var datos = cn.CargarDatos($"SELECT * FROM productos WHERE CodigoBarras = {txtCodigoBarras.Text}");
+                    var datos = cn.CargarDatos($"SELECT * FROM productos WHERE CodigoBarras = '{txtCodigoBarras.Text}'");
                     var tieneDescuento = 0;
                     if (Productos.tieneDescMay.Equals(1) || Productos.tieneDescIndiv.Equals(1))
                     {
