@@ -1984,6 +1984,7 @@ ALTER TABLE dgvdisminuirinventario MODIFY COLUMN StockActual VARCHAR(100);
 ALTER TABLE dgvdisminuirinventario MODIFY COLUMN NuevoStock VARCHAR(100);
 
 -- Columnas para configuracion de creditos
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoMaster INT DEFAULT 0 ;
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoHuella INT DEFAULT 0 ;
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoMoratorio INT DEFAULT 0 ;
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPorcentajemoratorio DECIMAl ( 16, 4 ) DEFAULT 10.00;

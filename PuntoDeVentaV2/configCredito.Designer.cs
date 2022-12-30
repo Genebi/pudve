@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(configCredito));
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.GBControles = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
             this.numDiasdecobrosininteres = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
@@ -61,7 +61,8 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.groupBox1.SuspendLayout();
+            this.cbMaster = new System.Windows.Forms.CheckBox();
+            this.GBControles.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDiasdecobrosininteres)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCantidadAbonos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numVentasAbiertas)).BeginInit();
@@ -71,49 +72,48 @@
             ((System.ComponentModel.ISupportInitialize)(this.numInteresDefecto)).BeginInit();
             this.SuspendLayout();
             // 
-            // groupBox1
+            // GBControles
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.GBControles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.numDiasdecobrosininteres);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.numCantidadAbonos);
-            this.groupBox1.Controls.Add(this.numVentasAbiertas);
-            this.groupBox1.Controls.Add(this.numTotaldecredito);
-            this.groupBox1.Controls.Add(this.combTotalCredito);
-            this.groupBox1.Controls.Add(this.numMoratorio);
-            this.groupBox1.Controls.Add(this.lblDef1);
-            this.groupBox1.Controls.Add(this.lbdef2);
-            this.groupBox1.Controls.Add(this.numPagoInicial);
-            this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.numInteresDefecto);
-            this.groupBox1.Controls.Add(this.combVentasAbiertas);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.combMododecobro);
-            this.groupBox1.Controls.Add(this.combPeriododecobro);
-            this.groupBox1.Controls.Add(this.cbAplicarPorcentajePorDefecto);
-            this.groupBox1.Controls.Add(this.cbHuella);
-            this.groupBox1.Controls.Add(this.cbPagoInicial);
-            this.groupBox1.Controls.Add(this.cbMoratorio);
-            this.groupBox1.Controls.Add(this.btnAceptar);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(24, 19);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(697, 420);
-            this.groupBox1.TabIndex = 130;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Configuración de crédito e interés:";
+            this.GBControles.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.GBControles.Controls.Add(this.label11);
+            this.GBControles.Controls.Add(this.numDiasdecobrosininteres);
+            this.GBControles.Controls.Add(this.label2);
+            this.GBControles.Controls.Add(this.numCantidadAbonos);
+            this.GBControles.Controls.Add(this.numVentasAbiertas);
+            this.GBControles.Controls.Add(this.numTotaldecredito);
+            this.GBControles.Controls.Add(this.combTotalCredito);
+            this.GBControles.Controls.Add(this.numMoratorio);
+            this.GBControles.Controls.Add(this.lblDef1);
+            this.GBControles.Controls.Add(this.lbdef2);
+            this.GBControles.Controls.Add(this.numPagoInicial);
+            this.GBControles.Controls.Add(this.label12);
+            this.GBControles.Controls.Add(this.label13);
+            this.GBControles.Controls.Add(this.label1);
+            this.GBControles.Controls.Add(this.numInteresDefecto);
+            this.GBControles.Controls.Add(this.combVentasAbiertas);
+            this.GBControles.Controls.Add(this.label9);
+            this.GBControles.Controls.Add(this.label6);
+            this.GBControles.Controls.Add(this.label7);
+            this.GBControles.Controls.Add(this.label8);
+            this.GBControles.Controls.Add(this.label10);
+            this.GBControles.Controls.Add(this.label3);
+            this.GBControles.Controls.Add(this.combMododecobro);
+            this.GBControles.Controls.Add(this.combPeriododecobro);
+            this.GBControles.Controls.Add(this.cbAplicarPorcentajePorDefecto);
+            this.GBControles.Controls.Add(this.cbHuella);
+            this.GBControles.Controls.Add(this.cbPagoInicial);
+            this.GBControles.Controls.Add(this.cbMoratorio);
+            this.GBControles.Controls.Add(this.label5);
+            this.GBControles.Controls.Add(this.label4);
+            this.GBControles.Enabled = false;
+            this.GBControles.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GBControles.Location = new System.Drawing.Point(24, 19);
+            this.GBControles.Name = "GBControles";
+            this.GBControles.Size = new System.Drawing.Size(697, 373);
+            this.GBControles.TabIndex = 130;
+            this.GBControles.TabStop = false;
             // 
             // label11
             // 
@@ -468,7 +468,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(495, 372);
+            this.btnAceptar.Location = new System.Drawing.Point(545, 411);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(176, 28);
             this.btnAceptar.TabIndex = 15;
@@ -500,13 +500,28 @@
             this.label4.Text = " (tras un periodo de retraso)";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // cbMaster
+            // 
+            this.cbMaster.AutoSize = true;
+            this.cbMaster.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.cbMaster.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbMaster.Location = new System.Drawing.Point(46, 12);
+            this.cbMaster.Name = "cbMaster";
+            this.cbMaster.Size = new System.Drawing.Size(395, 29);
+            this.cbMaster.TabIndex = 155;
+            this.cbMaster.Text = "Configuración de crédito e interés:";
+            this.cbMaster.UseVisualStyleBackColor = false;
+            this.cbMaster.CheckedChanged += new System.EventHandler(this.cbMaster_CheckedChanged);
+            // 
             // configCredito
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.ClientSize = new System.Drawing.Size(744, 451);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.cbMaster);
+            this.Controls.Add(this.GBControles);
+            this.Controls.Add(this.btnAceptar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -516,8 +531,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Reglas de crédito";
             this.Load += new System.EventHandler(this.configCredito_Load);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.GBControles.ResumeLayout(false);
+            this.GBControles.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDiasdecobrosininteres)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCantidadAbonos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numVentasAbiertas)).EndInit();
@@ -526,12 +541,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.numPagoInicial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numInteresDefecto)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox GBControles;
         private System.Windows.Forms.NumericUpDown numPagoInicial;
         private System.Windows.Forms.NumericUpDown numInteresDefecto;
         private System.Windows.Forms.Label label9;
@@ -563,5 +579,6 @@
         private System.Windows.Forms.NumericUpDown numCantidadAbonos;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label lblDef1;
+        private System.Windows.Forms.CheckBox cbMaster;
     }
 }
