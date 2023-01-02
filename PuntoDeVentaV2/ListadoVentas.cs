@@ -1853,13 +1853,16 @@ namespace PuntoDeVentaV2
 
                         if (mensaje == DialogResult.Yes)
                         {
-                            using (var DtTotal = cn.CargarDatos($"SELECT Total FROM Ventas WHERE IDusuario = '{FormPrincipal.userID}' AND ID = '{idVenta}'"))
+                            if (!cbTipoVentas.SelectedIndex.Equals(3))
                             {
-                                decimal Dinero = Convert.ToDecimal(DtTotal.Rows[0]["Total"]);
-                                if (Dinero > CajaN.cantidadTotalEfectivoSaldoInicial)
+                                using (var DtTotal = cn.CargarDatos($"SELECT Total FROM Ventas WHERE IDusuario = '{FormPrincipal.userID}' AND ID = '{idVenta}'"))
                                 {
-                                    MessageBox.Show("No se cuenta con suficiente Efectivo en caja","Avido del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Warning);
-                                    return;
+                                    decimal Dinero = Convert.ToDecimal(DtTotal.Rows[0]["Total"]);
+                                    if (Dinero > CajaN.cantidadTotalEfectivoSaldoInicial)
+                                    {
+                                        MessageBox.Show("No se cuenta con suficiente Efectivo en caja", "Avido del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return;
+                                    }
                                 }
                             }
                             var statusVentaParaCancelar = 0;
