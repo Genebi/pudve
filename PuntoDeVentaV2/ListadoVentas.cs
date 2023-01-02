@@ -3357,7 +3357,13 @@ namespace PuntoDeVentaV2
                 btnPrimeraPagina.PerformClick();
 
                 hay_productos_habilitados = mb.tiene_productos_habilitados();
+
                 cbTipoVentas.SelectedIndex = 0;
+
+                if (cbTipoRentas.Visible)
+                {
+                    cbTipoRentas.SelectedIndex = 0;
+                }
 
 
                 var configuracion = mb.ComprobarConfiguracion();
