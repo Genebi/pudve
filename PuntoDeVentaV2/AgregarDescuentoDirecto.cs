@@ -61,6 +61,10 @@ namespace PuntoDeVentaV2
                     txtPorcentaje_KeyUp(sender, new KeyEventArgs(Keys.Up));
                 }
             }
+            if (Ventas.SeCambioCantidad == true)
+            {
+                btnAceptar.PerformClick();
+            }
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

@@ -43,6 +43,7 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Favor de ingresar un valor");
                 return;
             }
+            Ventas.SeCambioCantidad = true;
             nuevaCantidad = Convert.ToDecimal(txtCantidad.Text);
             nuevaCantidadCambio = 1;
             this.Close();

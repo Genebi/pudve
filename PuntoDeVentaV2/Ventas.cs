@@ -221,7 +221,8 @@ namespace PuntoDeVentaV2
         public static string PorcentajeDescuento;
         public static string AplicarPorcentaje;
         public static string AplicarCantidad;
-        public static bool HizoUnaAccion = false; 
+        public static bool HizoUnaAccion = false;
+        public static bool SeCambioCantidad = false;
 
         int calcu = 0;
 
@@ -388,7 +389,7 @@ namespace PuntoDeVentaV2
                 btnGanancia.Visible = true;
             }
 
-          
+
 
             iniciarBasculaPredeterminada();
             txtBuscadorProducto.Focus();
@@ -664,7 +665,7 @@ namespace PuntoDeVentaV2
                                 listaProductos.Focus();
                                 listaProductos_KeyDown(sender, e);
                             }
-                            
+
                         }
                         else
                         {
@@ -694,12 +695,12 @@ namespace PuntoDeVentaV2
                             sumarProducto = false;
                             restarProducto = false;
                             buscarVG = false;
-                             
+
                         }
                         listaProductosVenta();
-                        listaProductos.Focus(); 
+                        listaProductos.Focus();
                     }
-                }                                                    
+                }
                 listaProductos.Focus();
             }
         }
@@ -747,31 +748,31 @@ namespace PuntoDeVentaV2
                             // Agregamos marca de agua al PDF del ticket de la venta cancelada
                             Utilidades.CrearMarcaDeAgua(idVenta, "CANCELADA");
 
-                                var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+                            var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
-                                // Operacion para que la devolucion del dinero afecte al apartado Caja
-                                if (formasPago.Length > 0)
-                                {
-                                    var total = formasPago.Sum().ToString();
-                                    var efectivo = formasPago[0].ToString();
-                                    var tarjeta = formasPago[1].ToString();
-                                    var vales = formasPago[2].ToString();
-                                    var cheque = formasPago[3].ToString();
-                                    var transferencia = formasPago[4].ToString();
-                                    var credito = formasPago[5].ToString();
-                                    var anticipo = "0";
+                            // Operacion para que la devolucion del dinero afecte al apartado Caja
+                            if (formasPago.Length > 0)
+                            {
+                                var total = formasPago.Sum().ToString();
+                                var efectivo = formasPago[0].ToString();
+                                var tarjeta = formasPago[1].ToString();
+                                var vales = formasPago[2].ToString();
+                                var cheque = formasPago[3].ToString();
+                                var transferencia = formasPago[4].ToString();
+                                var credito = formasPago[5].ToString();
+                                var anticipo = "0";
 
-                                    var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                    var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
+                                var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
 
-                                    string[] datos = new string[] {
+                                string[] datos = new string[] {
                                             "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
                                             efectivo, tarjeta, vales, cheque, transferencia, credito, anticipo,FormPrincipal.id_empleado.ToString()
                                         };
 
-                                    cn.EjecutarConsulta(cs.OperacionCaja(datos));
-                                }
-                            
+                                cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                            }
+
                         }
                         //Cargar la venta cancelada 
                         CargarVentaGuardada();
@@ -821,13 +822,13 @@ namespace PuntoDeVentaV2
                         string querySearchProd;
                         if (CBTipo.SelectedItem.Equals(0))
                         {
-                             querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{codigo}' OR CodigoBarras = '{codigo}') AND Status = 1";
+                            querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{codigo}' OR CodigoBarras = '{codigo}') AND Status = 1";
                         }
                         else
                         {
-                             querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{codigo}' OR CodigoBarras = '{codigo}') AND Status = 1 AND Tipo = '{filtro}'";
+                            querySearchProd = $"SELECT prod.ID FROM Productos AS prod WHERE IDUsuario = '{FormPrincipal.userID}' AND (ClaveInterna = '{codigo}' OR CodigoBarras = '{codigo}') AND Status = 1 AND Tipo = '{filtro}'";
                         }
-                       
+
 
                         DataTable searchProd = cn.CargarDatos(querySearchProd);
 
@@ -926,7 +927,7 @@ namespace PuntoDeVentaV2
             {
                 if (cnt >= 1)
                 {
-                    AgregarProductoLista(datosProducto,1,false);
+                    AgregarProductoLista(datosProducto, 1, false);
                     validarStockDGV();
                 }
                 else if (cnt < 1)
@@ -1075,7 +1076,7 @@ namespace PuntoDeVentaV2
 
         }
 
-        private void AgregarProductoLista(string[] datosProducto, decimal cantidad , bool ignorar = false)
+        private void AgregarProductoLista(string[] datosProducto, decimal cantidad, bool ignorar = false)
         {
             decimal cantidadTmp = cantidad;
 
@@ -1439,10 +1440,10 @@ namespace PuntoDeVentaV2
                         cantidad.ShowDialog();
                         //if (cantidadComprada.nuevaCantidad > cantidadAnterior)
                         //{
-                        
-                       
-                       
-                       txtBuscadorProducto.Text = "+" + (cantidadComprada.nuevaCantidad - 1);
+
+
+
+                        txtBuscadorProducto.Text = "+" + (cantidadComprada.nuevaCantidad - 1);
                         txtBuscadorProducto.Focus();
                         SendKeys.Send("{ENTER}");
                         listaProductos.Visible = false;
@@ -1455,8 +1456,12 @@ namespace PuntoDeVentaV2
                         //    listaProductos.Visible = false;
                         //}
                     }
-                   SendKeys.Send("{BACKSPACE}");
+                    SendKeys.Send("{BACKSPACE}");
                     cambioCantidadProd = 0;
+                    if (SeCambioCantidad == true)
+                    {
+                        CargarDescuento(cantidadComprada.nuevaCantidad);
+                    }
                 }
 
                 // Descuento
@@ -1534,7 +1539,7 @@ namespace PuntoDeVentaV2
                             }
                             yasemando = true;
                         }
-                        
+
                         SendKeys.Send("{ENTER}");
                         SendKeys.Send("{ENTER}");
                     }
@@ -1824,7 +1829,7 @@ namespace PuntoDeVentaV2
                                     EliminarProducto.Start();
                                 }
                             }
-                            
+
                             //string precio = DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString();
                             //string productoEliminadoCorreo = DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Importe"].Value.ToString();
                             //Thread EliminarProducto = new Thread(
@@ -2219,7 +2224,60 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void CargarDescuento(decimal cantidad)
+        {
+            celdaCellClick = DGVentas.CurrentCell.RowIndex;
+            if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
+            {
+                if (opcion19 == 0)
+                {
+                    Utilidades.MensajePermiso();
+                    return;
+                }
+                var idProducto = DGVentas.Rows[celdaCellClick].Cells["IDProducto"].Value.ToString();
+                var nombreProducto = DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString();
+                var precioProducto = DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString();
+                var cantidadProducto = DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString();
 
+                var datos = new string[] { idProducto, nombreProducto, precioProducto, cantidad.ToString() };
+
+                using (var formDescuento = new AgregarDescuentoDirecto(datos))
+                {
+                    // Aqui comprueba si el producto tiene un descuento directo
+                    var quitarDescuento = false;
+
+                    if (descuentosDirectos.ContainsKey(Convert.ToInt32(idProducto)))
+                    {
+                        quitarDescuento = true;
+                        //txtBuscadorProducto.Text = string.Empty;
+                        txtBuscadorProducto.Focus();
+                    }
+                    var resultado = formDescuento.ShowDialog();
+
+                    if (resultado == DialogResult.OK)
+                    {
+                        enviarVenta.Clear();
+                        DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value = formDescuento.TotalDescuento;
+                        DGVentas.Rows[celdaCellClick].Cells["TipoDescuento"].Value = formDescuento.TipoDescuento;
+                    }
+                    else
+                    {
+                        // Si el producto tenia un descuento directo previamente y detecta al cerrar el form
+                        // que el descuento fue eliminado pone por defecto cero en la columna correspondiente
+                        if (quitarDescuento)
+                        {
+                            if (!descuentosDirectos.ContainsKey(Convert.ToInt32(idProducto)))
+                            {
+                                DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value = "0.00";
+                            }
+                        }
+                    }
+                }
+                SendKeys.Send("{ENTER}");
+                SendKeys.Send("{ENTER}");
+                Ventas.SeCambioCantidad = false;
+            }
+        }
 
         private void AgregarMultiplesProductos()
         {
@@ -2714,7 +2772,7 @@ namespace PuntoDeVentaV2
                     {
                         importeProducto = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
                     }
-                   
+
 
                     fila.Cells["Importe"].Value = importeProducto.ToString("0.00");
 
@@ -3158,7 +3216,7 @@ namespace PuntoDeVentaV2
             this.Dispose();
         }
         private void btnTerminarVenta_Click(object sender, EventArgs e)
-        { 
+        {
             Ganancia.gananciaGrafica = 3;
             //sepresiono = true;
             btnGanancia.PerformClick();
@@ -3166,7 +3224,7 @@ namespace PuntoDeVentaV2
             if (FormPrincipal.userNickName.Contains("@"))
             {
                 decimal tieneDescuento = Convert.ToDecimal(cDescuento.Text);
-                if (tieneDescuento>0)
+                if (tieneDescuento > 0)
                 {
                     var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
                     if (datos[43].Equals(0))
@@ -3206,7 +3264,7 @@ namespace PuntoDeVentaV2
             //        }
             //    } 
             //}
-            
+
             foreach (DataGridViewRow fila in DGVentas.Rows)
             {
                 var idProdutoInactivo = fila.Cells["IDProducto"].Value.ToString();
@@ -3472,7 +3530,7 @@ namespace PuntoDeVentaV2
                             {
                                 idCliente = string.Empty;
                                 DetalleVenta.idCliente = 0;
-                                        DetalleVenta.cliente = string.Empty;
+                                DetalleVenta.cliente = string.Empty;
                                 AsignarCreditoVenta.idCliente = 0;
                                 AsignarCreditoVenta.cliente = string.Empty;
                             }
@@ -3480,67 +3538,67 @@ namespace PuntoDeVentaV2
                             panel1.Focus();
                         };
                         detalle.ShowDialog();
-                       
-                            if (VentaRealizada.Equals(true))
+
+                        if (VentaRealizada.Equals(true))
+                        {
+                            if (ClienteConDescuento.Equals(true))
                             {
-                                if (ClienteConDescuento.Equals(true))
+                                var datosConfig = mb.ComprobarConfiguracion();
+                                if (datosConfig.Count > 0)
                                 {
-                                    var datosConfig = mb.ComprobarConfiguracion();
-                                    if (datosConfig.Count > 0)
+                                    if (datosConfig[23].Equals(1))
+                                    {
+                                        string UsuOEmp = "usuario";
+                                        string nombre = FormPrincipal.userNickName;
+                                        if (FormPrincipal.userNickName.Contains('@'))
                                         {
-                                        if (datosConfig[23].Equals(1))
-                                        {
-                                            string UsuOEmp = "usuario";
-                                            string nombre = FormPrincipal.userNickName;
-                                            if (FormPrincipal.userNickName.Contains('@'))
-                                            {
-                                                var split = FormPrincipal.userNickName.Split('@');
-                                                nombre = split[1].ToString();
-                                                UsuOEmp = "empleado";
-                                            }
-                                            string asunto = "Venta a un Cliente con Descento";
-                                            string correo;
-                                            int TipoCliente;
-                                            string[] TipoClienteDatos;
-                                            string idUltimaVenta;
-                                            string[] Precios;
-                                            using (DataTable dtTipoCliente = cn.CargarDatos($"SELECT TipoCliente FROM clientes WHERE ID ={IDClienteConDescuento}"))
-                                            {
-                                                TipoCliente = Convert.ToInt32(dtTipoCliente.Rows[0]["TipoCliente"]);
-                                            }
-                                            using (DataTable DTDatos = cn.CargarDatos($"SELECT CONCAT(Nombre,'|',DescuentoPorcentaje) AS Datos FROM `tipoclientes` WHERE ID = {TipoCliente}"))
-                                            {
-                                                string abc = DTDatos.Rows[0]["Datos"].ToString();
-                                                TipoClienteDatos = abc.Split('|');
-                                            }
-                                            using (DataTable ConsultaCorreo = cn.CargarDatos(cs.BuscarCorreoDelUsuario(Convert.ToInt32(FormPrincipal.userID))))
-                                            {
-                                                correo = ConsultaCorreo.Rows[0]["Email"].ToString();
-                                            }
-                                            using (DataTable DTIdventa = cn.CargarDatos($"SELECT ID FROM ventas ORDER BY ID DESC LIMIT 1"))
-                                            {
-                                                idUltimaVenta = DTIdventa.Rows[0]["ID"].ToString();
-                                            }
-                                            using (DataTable DTDatosPrecios = cn.CargarDatos($"SELECT CONCAT(Total + Descuento,'|',Descuento,'|',Total) 'DatosPrecio' FROM ventas WHERE ID = {idUltimaVenta}"))
-                                            {
-                                                string PreciosPegados = DTDatosPrecios.Rows[0]["DatosPrecio"].ToString();
-                                                Precios = PreciosPegados.Split('|');
-                                            }
-                                            DateTime fecha = DateTime.Now;
-                                            string html = $@"<!DOCTYPE html> <html> <head> </head> <body> <H1 style='text-align: center;'>Venta a Cliente con descuento</H1> <hr> <p style='text-align: center;'> Se realizo una venta al Cliente <b>{ClienteConDescuentoNombre}</b><br><br>El dia <b>{fecha.ToString("dd-MM-yyyy hh:mm:ss")}</b><br><br> Por el {UsuOEmp} <b>{nombre}</b><br>";
-                                            html += $@"<br>Por el concepto de <b>{TipoClienteDatos[0]}</b><br><br> Con un descuento del <b>{TipoClienteDatos[1].ToString()}% <br><br>SubTotal: <b>{Precios[0]}</b>----Descuento:{Precios[1]}----Total:{Precios[2]}</p> </body> </html>";
-
-
-                                            Thread btnClearAllItemSale = new Thread(
-                                             () => Utilidades.EnviarEmail(html, asunto, correo)
-                                            );
-
-                                            btnClearAllItemSale.Start();
-
+                                            var split = FormPrincipal.userNickName.Split('@');
+                                            nombre = split[1].ToString();
+                                            UsuOEmp = "empleado";
                                         }
+                                        string asunto = "Venta a un Cliente con Descento";
+                                        string correo;
+                                        int TipoCliente;
+                                        string[] TipoClienteDatos;
+                                        string idUltimaVenta;
+                                        string[] Precios;
+                                        using (DataTable dtTipoCliente = cn.CargarDatos($"SELECT TipoCliente FROM clientes WHERE ID ={IDClienteConDescuento}"))
+                                        {
+                                            TipoCliente = Convert.ToInt32(dtTipoCliente.Rows[0]["TipoCliente"]);
+                                        }
+                                        using (DataTable DTDatos = cn.CargarDatos($"SELECT CONCAT(Nombre,'|',DescuentoPorcentaje) AS Datos FROM `tipoclientes` WHERE ID = {TipoCliente}"))
+                                        {
+                                            string abc = DTDatos.Rows[0]["Datos"].ToString();
+                                            TipoClienteDatos = abc.Split('|');
+                                        }
+                                        using (DataTable ConsultaCorreo = cn.CargarDatos(cs.BuscarCorreoDelUsuario(Convert.ToInt32(FormPrincipal.userID))))
+                                        {
+                                            correo = ConsultaCorreo.Rows[0]["Email"].ToString();
+                                        }
+                                        using (DataTable DTIdventa = cn.CargarDatos($"SELECT ID FROM ventas ORDER BY ID DESC LIMIT 1"))
+                                        {
+                                            idUltimaVenta = DTIdventa.Rows[0]["ID"].ToString();
+                                        }
+                                        using (DataTable DTDatosPrecios = cn.CargarDatos($"SELECT CONCAT(Total + Descuento,'|',Descuento,'|',Total) 'DatosPrecio' FROM ventas WHERE ID = {idUltimaVenta}"))
+                                        {
+                                            string PreciosPegados = DTDatosPrecios.Rows[0]["DatosPrecio"].ToString();
+                                            Precios = PreciosPegados.Split('|');
+                                        }
+                                        DateTime fecha = DateTime.Now;
+                                        string html = $@"<!DOCTYPE html> <html> <head> </head> <body> <H1 style='text-align: center;'>Venta a Cliente con descuento</H1> <hr> <p style='text-align: center;'> Se realizo una venta al Cliente <b>{ClienteConDescuentoNombre}</b><br><br>El dia <b>{fecha.ToString("dd-MM-yyyy hh:mm:ss")}</b><br><br> Por el {UsuOEmp} <b>{nombre}</b><br>";
+                                        html += $@"<br>Por el concepto de <b>{TipoClienteDatos[0]}</b><br><br> Con un descuento del <b>{TipoClienteDatos[1].ToString()}% <br><br>SubTotal: <b>{Precios[0]}</b>----Descuento:{Precios[1]}----Total:{Precios[2]}</p> </body> </html>";
+
+
+                                        Thread btnClearAllItemSale = new Thread(
+                                         () => Utilidades.EnviarEmail(html, asunto, correo)
+                                        );
+
+                                        btnClearAllItemSale.Start();
+
                                     }
                                 }
                             }
+                        }
                         VentaRealizada = false;
                         noDuplicadoVentas = 1;
                     }
@@ -3654,7 +3712,7 @@ namespace PuntoDeVentaV2
         private void DatosVenta()
         {
             // Datos generales de la venta
-            var IdEmpresa = FormPrincipal.userID.ToString(); 
+            var IdEmpresa = FormPrincipal.userID.ToString();
             var Subtotal = formatoNumericoEstandar(cSubtotal.Text);
             var IVA16 = formatoNumericoEstandar(cIVA.Text);
             var Descuento = formatoNumericoEstandar(cDescuento.Text);
@@ -5088,7 +5146,7 @@ namespace PuntoDeVentaV2
                             {
                                 // Descuento directo
                                 if (info[3].Contains("-"))
-                                { 
+                                {
                                     var cantidadTmp = info[3].Split('-');
                                     cantidadTmp[1] = cantidadTmp[1].Replace('%', ' ');
                                     cantidadDescuento = float.Parse(cantidadTmp[1].Trim());
@@ -5104,7 +5162,7 @@ namespace PuntoDeVentaV2
                                 // Descuento directo
                                 cantidadDescuento = float.Parse(info[3].ToString().Trim());
                             }
-                            
+
                             descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipoDescuento, cantidadDescuento));
 
                             datosProducto = new List<string>(datosProducto) { info[3] }.ToArray();
@@ -5935,9 +5993,9 @@ namespace PuntoDeVentaV2
             ticket.Close();
             writer.Close();
 
-                ImprimirTicket(folioTicket.ToString(), 1);
-            
-           
+            ImprimirTicket(folioTicket.ToString(), 1);
+
+
         }
 
         private void ImprimirTicket(string idVenta, int tipo = 0)
@@ -6400,7 +6458,7 @@ namespace PuntoDeVentaV2
                                 cantidadExtra = Convert.ToInt32(infoTmp[1]) * -1;
                             }
                         }
-                         
+
                         cadena = Regex.Replace(cadena, tercerPatron, string.Empty);
 
                         //Verifica que exista algun producto o servicio en el datagridview
@@ -6681,7 +6739,7 @@ namespace PuntoDeVentaV2
         }
 
         private void OperacionBusqueda(int tipo = 0)
-        
+
         {
             listaProductos.Items.Clear();
 
@@ -6719,7 +6777,7 @@ namespace PuntoDeVentaV2
                 // Regresa un diccionario
                 //var resultados = mb.BuscarProducto(txtBuscadorProducto.Text);
                 var resultados = new Dictionary<int, string>();
-                
+
                 var coincidenciaExacta = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND STATUS = 1 AND CodigoBarras = '{txtBuscadorProducto.Text.Trim()}'");
                 if (coincidenciaExacta.Rows.Count.Equals(0))
                 {
@@ -6729,7 +6787,7 @@ namespace PuntoDeVentaV2
                 {
                     resultados = mb.BusquedaCoincidenciaExacta(txtBuscadorProducto.Text.Trim(), filtro, mostrarPrecioProducto, mostrarCBProducto);
                 }
-                 
+
                 int coincidencias = resultados.Count;
 
                 if (coincidencias > 0)
@@ -7157,7 +7215,7 @@ namespace PuntoDeVentaV2
 
         private void btnAplicarDescuento_Click(object sender, EventArgs e)
         {
-            if (txtDescuentoGeneral.Text.Equals("% descuento")|| string.IsNullOrWhiteSpace(txtDescuentoGeneral.Text))
+            if (txtDescuentoGeneral.Text.Equals("% descuento") || string.IsNullOrWhiteSpace(txtDescuentoGeneral.Text))
             {
                 return;
             }
@@ -7456,15 +7514,15 @@ namespace PuntoDeVentaV2
                 txtBuscadorProducto.Focus();
                 txtDescuentoGeneral.Text = "% descuento";
                 txtBuscadorProducto.Focus();
-                
+
             }
             else
             {
-                MessageBox.Show("Agrega un Producto a la venta","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                MessageBox.Show("Agrega un Producto a la venta", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 txtDescuentoGeneral.Clear();
                 txtBuscadorProducto.Focus();
             }
-            
+
 
             //if (FormPrincipal.userNickName.Contains('@'))
             //{
@@ -7486,11 +7544,11 @@ namespace PuntoDeVentaV2
             //    txtDescuentoGeneral.Text = "";
             //    txtDescuentoGeneral.Select(0, 0);
             //}
-            
-            
+
+
         }
 
-        private void checkCancelar_MouseClick(object sender, MouseEventArgs e)  
+        private void checkCancelar_MouseClick(object sender, MouseEventArgs e)
         {
             if (checkCancelar.Checked)
             {
@@ -8532,7 +8590,7 @@ namespace PuntoDeVentaV2
 
         private void txtDescuentoGeneral_TextChanged(object sender, EventArgs e)
         {
-            if (txtDescuentoGeneral.Text.Equals("% descuento")|| txtDescuentoGeneral.Text.Contains("%"))
+            if (txtDescuentoGeneral.Text.Equals("% descuento") || txtDescuentoGeneral.Text.Contains("%"))
             {
                 btnAplicarDescuento.Enabled = false;
             }
@@ -8603,7 +8661,7 @@ namespace PuntoDeVentaV2
 
         private void txtBuscadorProducto_Enter(object sender, EventArgs e)
         {
-             tieneElCursorElTxtBuscadorProducto = true;
+            tieneElCursorElTxtBuscadorProducto = true;
         }
 
         private void txtBuscadorProducto_TextChanged(object sender, EventArgs e)
@@ -8614,7 +8672,7 @@ namespace PuntoDeVentaV2
                 txtBuscadorProducto.Text = producto;
                 txtBuscadorProducto.Select(txtBuscadorProducto.Text.Length, 0);
             }
-          
+
 
             if (string.IsNullOrWhiteSpace(txtBuscadorProducto.Text.Trim()))
             {
