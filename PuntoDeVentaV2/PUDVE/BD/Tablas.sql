@@ -2009,3 +2009,19 @@ ALTER TABLE caja ADD COLUMN IF NOT EXISTS Comentarios TEXT DEFAULT NULL;
  -- Oa
   ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS traspasos INTEGER(11) DEFAULT (0);
 
+--Creacion de la tana de subdetalles para los detalles que se agreguen a un producto
+ CREATE TABLE
+IF
+	NOT EXISTS SubDetallesDeProducto (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDProducto INTEGER DEFAULT 0,
+		IDUsuario INTEGER DEFAULT 0,
+		Categoria VARCHAR ( 100 ) DEFAULT NULL,
+		subDetalle VARCHAR ( 100 ) DEFAULT NULL,
+		Stock DECIMAL DEFAULT 0,
+		Caducidad DATE,
+		FechaOpcional DATETIME);
+
+
+--Se agrego una columna a productos para saber si el producto cuenta con subdetalles agregados.
+ALTER TABLE productos ADD COLUMN IF NOT EXISTS SubDetalles INTEGER(5) DEFAULT (0);

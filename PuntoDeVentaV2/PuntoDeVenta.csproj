@@ -570,6 +570,12 @@
     <Compile Include="CargarDatosCaja.cs" />
     <Compile Include="Carga_logo.cs" />
     <Compile Include="catCFDI_tdCFDI_catPagos_Pagos10.cs" />
+    <Compile Include="categoriaSubdetalle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="categoriaSubdetalle.Designer.cs">
+      <DependentUpon>categoriaSubdetalle.cs</DependentUpon>
+    </Compile>
     <Compile Include="CFDI\OpenSSLKey.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -1518,6 +1524,12 @@
       <DependentUpon>SetUpPUDVE.cs</DependentUpon>
     </Compile>
     <Compile Include="SQLiteSchema.cs" />
+    <Compile Include="subDetallesDeProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="subDetallesDeProducto.Designer.cs">
+      <DependentUpon>subDetallesDeProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Subir_archivos_digitales.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1884,6 +1896,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Cargando.resx">
       <DependentUpon>Cargando.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="categoriaSubdetalle.resx">
+      <DependentUpon>categoriaSubdetalle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
@@ -2331,6 +2346,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SetUpPUDVE.resx">
       <DependentUpon>SetUpPUDVE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="subDetallesDeProducto.resx">
+      <DependentUpon>subDetallesDeProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Subir_archivos_digitales.resx">
       <DependentUpon>Subir_archivos_digitales.cs</DependentUpon>

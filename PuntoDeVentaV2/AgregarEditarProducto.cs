@@ -291,6 +291,8 @@ namespace PuntoDeVentaV2
         static public string CBIdProd = string.Empty;
         static public int seleccionListaStock;
 
+        static public string nombreProdSubDetalles = string.Empty;
+
         public static bool ejecutarMetodos = false;
         private object cbProveedor_SelectValueChanged;
 
@@ -4935,6 +4937,14 @@ namespace PuntoDeVentaV2
                 DescuentoNvoProd = DescuentoProdNvo;
                 CantidadNvoProd = CantidadProdNvo;
             }
+        }
+
+        private void botonRedondo1_Click_1(object sender, EventArgs e)
+        {
+            nombreProdSubDetalles = txtNombreProducto.Text;
+            subDetallesDeProducto detalles = new subDetallesDeProducto();
+            detalles.ShowDialog();
+           
         }
 
         public void cargarDatos()

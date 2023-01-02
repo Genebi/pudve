@@ -85,6 +85,7 @@
             this.tLPCombo = new System.Windows.Forms.TableLayoutPanel();
             this.tLPProducto = new System.Windows.Forms.TableLayoutPanel();
             this.PAccion = new System.Windows.Forms.Panel();
+            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             this.btnMensajeVenta = new PuntoDeVentaV2.BotonRedondo();
             this.button1 = new PuntoDeVentaV2.BotonRedondo();
             this.btnAgregarDescuento = new PuntoDeVentaV2.BotonRedondo();
@@ -809,6 +810,7 @@
             // PAccion
             // 
             this.PAccion.BackColor = System.Drawing.SystemColors.Control;
+            this.PAccion.Controls.Add(this.botonRedondo1);
             this.PAccion.Controls.Add(this.btnMensajeVenta);
             this.PAccion.Controls.Add(this.button1);
             this.PAccion.Controls.Add(this.btnAgregarDescuento);
@@ -821,8 +823,30 @@
             this.PAccion.Location = new System.Drawing.Point(2, 2);
             this.PAccion.Margin = new System.Windows.Forms.Padding(2);
             this.PAccion.Name = "PAccion";
-            this.PAccion.Size = new System.Drawing.Size(999, 82);
+            this.PAccion.Size = new System.Drawing.Size(1169, 82);
             this.PAccion.TabIndex = 32;
+            // 
+            // botonRedondo1
+            // 
+            this.botonRedondo1.BackColor = System.Drawing.Color.MediumVioletRed;
+            this.botonRedondo1.BackGroundColor = System.Drawing.Color.MediumVioletRed;
+            this.botonRedondo1.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo1.BorderRadius = 20;
+            this.botonRedondo1.BorderSize = 0;
+            this.botonRedondo1.FlatAppearance.BorderSize = 0;
+            this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo1.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo1.Image = ((System.Drawing.Image)(resources.GetObject("botonRedondo1.Image")));
+            this.botonRedondo1.Location = new System.Drawing.Point(528, 3);
+            this.botonRedondo1.Name = "botonRedondo1";
+            this.botonRedondo1.Size = new System.Drawing.Size(165, 75);
+            this.botonRedondo1.TabIndex = 22;
+            this.botonRedondo1.Text = "Sub Detalle de producto";
+            this.botonRedondo1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.botonRedondo1.TextColor = System.Drawing.Color.White;
+            this.botonRedondo1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo1.UseVisualStyleBackColor = false;
+            this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click_1);
             // 
             // btnMensajeVenta
             // 
@@ -835,7 +859,7 @@
             this.btnMensajeVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMensajeVenta.ForeColor = System.Drawing.Color.White;
             this.btnMensajeVenta.Image = global::PuntoDeVentaV2.Properties.Resources.commenting_o1;
-            this.btnMensajeVenta.Location = new System.Drawing.Point(685, 5);
+            this.btnMensajeVenta.Location = new System.Drawing.Point(855, 5);
             this.btnMensajeVenta.Name = "btnMensajeVenta";
             this.btnMensajeVenta.Size = new System.Drawing.Size(150, 75);
             this.btnMensajeVenta.TabIndex = 21;
@@ -935,7 +959,7 @@
             this.btnDetalleFacturacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDetalleFacturacion.ForeColor = System.Drawing.Color.White;
             this.btnDetalleFacturacion.Image = global::PuntoDeVentaV2.Properties.Resources.bellColor;
-            this.btnDetalleFacturacion.Location = new System.Drawing.Point(528, 3);
+            this.btnDetalleFacturacion.Location = new System.Drawing.Point(698, 3);
             this.btnDetalleFacturacion.Name = "btnDetalleFacturacion";
             this.btnDetalleFacturacion.Size = new System.Drawing.Size(150, 75);
             this.btnDetalleFacturacion.TabIndex = 2;
@@ -957,7 +981,7 @@
             this.btnGuardarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarProducto.ForeColor = System.Drawing.Color.White;
             this.btnGuardarProducto.Image = global::PuntoDeVentaV2.Properties.Resources.disk;
-            this.btnGuardarProducto.Location = new System.Drawing.Point(841, 3);
+            this.btnGuardarProducto.Location = new System.Drawing.Point(1011, 3);
             this.btnGuardarProducto.Name = "btnGuardarProducto";
             this.btnGuardarProducto.Size = new System.Drawing.Size(150, 75);
             this.btnGuardarProducto.TabIndex = 4;
@@ -986,7 +1010,7 @@
             this.fLPType.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPType.Location = new System.Drawing.Point(0, 0);
             this.fLPType.Name = "fLPType";
-            this.fLPType.Size = new System.Drawing.Size(1233, 29);
+            this.fLPType.Size = new System.Drawing.Size(1267, 29);
             this.fLPType.TabIndex = 35;
             // 
             // fLPDetalleProducto
@@ -996,7 +1020,7 @@
             this.fLPDetalleProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetalleProducto.Location = new System.Drawing.Point(0, 29);
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
-            this.fLPDetalleProducto.Size = new System.Drawing.Size(1233, 66);
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(1267, 66);
             this.fLPDetalleProducto.TabIndex = 36;
             this.fLPDetalleProducto.Paint += new System.Windows.Forms.PaintEventHandler(this.fLPDetalleProducto_Paint);
             // 
@@ -1018,7 +1042,7 @@
             this.fLPDetalle.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPDetalle.Location = new System.Drawing.Point(0, 95);
             this.fLPDetalle.Name = "fLPDetalle";
-            this.fLPDetalle.Size = new System.Drawing.Size(1233, 210);
+            this.fLPDetalle.Size = new System.Drawing.Size(1267, 210);
             this.fLPDetalle.TabIndex = 38;
             // 
             // fLPAccion
@@ -1028,7 +1052,7 @@
             this.fLPAccion.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPAccion.Location = new System.Drawing.Point(0, 581);
             this.fLPAccion.Name = "fLPAccion";
-            this.fLPAccion.Size = new System.Drawing.Size(993, 87);
+            this.fLPAccion.Size = new System.Drawing.Size(1174, 87);
             this.fLPAccion.TabIndex = 40;
             // 
             // fLPDetallesProducto
@@ -1038,7 +1062,7 @@
             this.fLPDetallesProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 305);
             this.fLPDetallesProducto.Name = "fLPDetallesProducto";
-            this.fLPDetallesProducto.Size = new System.Drawing.Size(1233, 270);
+            this.fLPDetallesProducto.Size = new System.Drawing.Size(1267, 270);
             this.fLPDetallesProducto.TabIndex = 39;
             // 
             // groupBox2
@@ -1087,7 +1111,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1250, 680);
+            this.ClientSize = new System.Drawing.Size(1284, 672);
             this.Controls.Add(this.fLPContenidoProducto);
             this.Controls.Add(this.fLPDetallesProducto);
             this.Controls.Add(this.fLPAccion);
@@ -1209,5 +1233,6 @@
         private BotonRedondo btnGuardarProducto;
         private BotonRedondo btnMensajeVenta;
         private System.Windows.Forms.Button btnBuscarSugerencias;
+        private BotonRedondo botonRedondo1;
     }
 }
