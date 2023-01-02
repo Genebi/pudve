@@ -221,6 +221,7 @@ namespace PuntoDeVentaV2
         public static string PorcentajeDescuento;
         public static string AplicarPorcentaje;
         public static string AplicarCantidad;
+        public static bool HizoUnaAccion = false; 
 
         int calcu = 0;
 
@@ -7395,56 +7396,67 @@ namespace PuntoDeVentaV2
                 decimal Descuento = Convert.ToDecimal(cTotal.Text) + Convert.ToDecimal(cDescuento.Text);
                 AplicarDecuentoGeneral aplicar = new AplicarDecuentoGeneral(Descuento.ToString());
                 aplicar.ShowDialog();
-                if (string.IsNullOrWhiteSpace(PorcentajeDescuento))
+                if (HizoUnaAccion.Equals(true))
                 {
-                    txtDescuentoGeneral.Clear();
-                    txtBuscadorProducto.Focus();
-                    return;
-                }
-                else
-                {
-                    txtDescuentoGeneral.Text = PorcentajeDescuento;
-                    if (txtDescuentoGeneral.Text.Equals("% descuento") || string.IsNullOrWhiteSpace(txtDescuentoGeneral.Text))
+                    if (string.IsNullOrWhiteSpace(PorcentajeDescuento))
                     {
+                        txtDescuentoGeneral.Clear();
+                        txtBuscadorProducto.Focus();
                         return;
                     }
-                    descuentoDirectoPorAplicar = txtDescuentoGeneral.Text.Trim();
-                    
-                    porcentajeGeneral = 0;
-                    descuentoCliente = 0;
-                    txtDescuentoGeneral.Text = "% descuento";
-
-                    foreach (DataGridViewRow fila in DGVentas.Rows)
+                    else
                     {
-                        //var idProducto = Convert.ToInt32(fila.Cells["IDProducto"].Value);
-
-                        fila.Cells["Descuento"].Value = "0.00";
-                    }
-
-                    // Almacena los ID de los productos a los que se aplica descuento general
-                    productosDescuentoG.Clear();
-                    // Guarda los datos de los descuentos directos que se han aplicado
-                    descuentosDirectos.Clear();
-
-                    CantidadesFinalesVenta();
-                    txtBuscadorProducto.Focus();
-                    txtDescuentoGeneral.Text = descuentoDirectoPorAplicar;
-                    productosDescuentoG.Clear();
-                    descuentosDirectos.Clear();
-                    if (!txtDescuentoGeneral.Text.Equals("."))
-                    {
-                        if (opcion19 == 0)
+                        txtDescuentoGeneral.Text = PorcentajeDescuento;
+                        if (txtDescuentoGeneral.Text.Equals("% descuento") || string.IsNullOrWhiteSpace(txtDescuentoGeneral.Text))
                         {
-                            Utilidades.MensajePermiso();
                             return;
                         }
+                        descuentoDirectoPorAplicar = txtDescuentoGeneral.Text.Trim();
 
-                        DescuentoGeneral();
+
+                        porcentajeGeneral = 0;
+                        descuentoCliente = 0;
+                        txtDescuentoGeneral.Text = "% descuento";
+
+                        foreach (DataGridViewRow fila in DGVentas.Rows)
+                        {
+                            //var idProducto = Convert.ToInt32(fila.Cells["IDProducto"].Value);
+
+                            fila.Cells["Descuento"].Value = "0.00";
+                        }
+
+                        // Almacena los ID de los productos a los que se aplica descuento general
+                        productosDescuentoG.Clear();
+                        // Guarda los datos de los descuentos directos que se han aplicado
+                        descuentosDirectos.Clear();
+
+                        CantidadesFinalesVenta();
+                        txtBuscadorProducto.Focus();
+
+
+
+
+
+                        txtDescuentoGeneral.Text = descuentoDirectoPorAplicar;
+                        productosDescuentoG.Clear();
+                        descuentosDirectos.Clear();
+                        if (!txtDescuentoGeneral.Text.Equals("."))
+                        {
+                            if (opcion19 == 0)
+                            {
+                                Utilidades.MensajePermiso();
+                                return;
+                            }
+
+                            DescuentoGeneral();
+                        }
                     }
-                    txtBuscadorProducto.Focus();
-                    txtDescuentoGeneral.Text = "% descuento";
-                    txtBuscadorProducto.Focus();
+                    HizoUnaAccion = false;
                 }
+                txtBuscadorProducto.Focus();
+                txtDescuentoGeneral.Text = "% descuento";
+                txtBuscadorProducto.Focus();
+                
             }
             else
             {

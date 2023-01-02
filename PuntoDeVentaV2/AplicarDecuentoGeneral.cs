@@ -150,6 +150,7 @@ namespace PuntoDeVentaV2
                 Ventas.PorcentajeDescuento = Porcentaje.ToString();
                 Ventas.AplicarCantidad = txtCantidad.Text;
                 Ventas.AplicarPorcentaje = txtPorcentaje.Text;
+                Ventas.HizoUnaAccion = true;
             }
             this.Close();
         }
@@ -158,7 +159,8 @@ namespace PuntoDeVentaV2
         {
             Ventas.PorcentajeDescuento = "0";
             Ventas.AplicarCantidad = "";
-            Ventas.AplicarPorcentaje = "";
+            Ventas.AplicarPorcentaje = ""; 
+            Ventas.HizoUnaAccion = true;
             this.Close();
         }
 
