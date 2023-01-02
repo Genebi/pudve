@@ -473,7 +473,7 @@ namespace PuntoDeVentaV2
             var idUltimoCorteDeCaja = ultimoCorteDeCaja;
             var idUsuarioEmpleado = string.Empty;
 
-            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                    if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
             {
                 idUsuarioEmpleado = FormPrincipal.userID.ToString();
 
