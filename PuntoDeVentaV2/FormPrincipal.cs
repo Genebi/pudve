@@ -649,7 +649,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                cn.EjecutarConsulta($"INSERT INTO editarticket (IDUsuario,MensajeTicket,Usuario,Direccion,ColyCP,RFC,Correo,Telefono,NombreC,DomicilioC,RFCC,CorreoC,TelefonoC,ColyCPC,FormaPagoC,logo) VALUES ('{FormPrincipal.userID}','Hola Mundo','1','1','1','1','1','1','1','1','1','1','1','1','1','1')");
+                cn.EjecutarConsulta($"INSERT INTO editarticket (IDUsuario,MensajeTicket,Usuario,Direccion,ColyCP,RFC,Correo,Telefono,NombreC,DomicilioC,RFCC,CorreoC,TelefonoC,ColyCPC,FormaPagoC,logo) VALUES ('{FormPrincipal.userID}','','1','1','1','1','1','1','1','1','1','1','1','1','1','1')");
             }
 
             Utilidades.registrarNuevoEmpleadoPermisosConfiguracion(id_empleado);
