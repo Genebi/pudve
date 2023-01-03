@@ -465,9 +465,9 @@ namespace PuntoDeVentaV2
                         datos = new string[] { idVenta.ToString(), idAbono, totalOriginal.ToString("0.00"), totalPendiente.ToString("0.00"), totalAbonado.ToString("0.00"), restante.ToString("0.00"), fechaOperacion };
 
                         GenerarTicket(datos);
-                        ImprimirTicketAbono impresionTicketAbono = new ImprimirTicketAbono();
-                        impresionTicketAbono.idAbono = idVenta;
-                        impresionTicketAbono.ShowDialog();
+                        //ImprimirTicketAbono impresionTicketAbono = new ImprimirTicketAbono();
+                        //impresionTicketAbono.idAbono = idVenta;
+                        //impresionTicketAbono.ShowDialog();
                         //ImprimirTicket(idVenta.ToString(), idAbono);
                         //MostrarTicketAbonos(idVenta.ToString(), idAbono);
 
