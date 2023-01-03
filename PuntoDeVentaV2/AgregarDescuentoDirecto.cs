@@ -32,6 +32,7 @@ namespace PuntoDeVentaV2
 
         private void AgregarDescuentoDirecto_Load(object sender, EventArgs e)
         {
+            lbTotalFinal.Text = precioProducto.ToString("0.00");
             lbProducto.Text = nombreProducto;
             lbPrecio.Text = "Precio: $" + precioProducto.ToString("0.00");
             lbCantidadProducto.Text = "Cantidad: " + cantidadProducto;
@@ -154,14 +155,13 @@ namespace PuntoDeVentaV2
             {
                 txtPorcentaje.Enabled = true;
                 lbTotalDescuento.Text = "0.00";
-                lbTotalFinal.Text = "0.00";
+                lbTotalFinal.Text = precioProducto.ToString("0.00");
                 lbCantidadProducto.Visible = false;
             }
         }
 
         private void txtPorcentaje_KeyUp(object sender, KeyEventArgs e)
         {
-
             if (txtPorcentaje.Text.Equals("."))
             {
                 txtPorcentaje.Text = "0.";
@@ -205,7 +205,7 @@ namespace PuntoDeVentaV2
                 {
                     txtCantidad.Enabled = true;
                     lbTotalDescuento.Text = "0.00";
-                    lbTotalFinal.Text = "0.00";
+                    lbTotalFinal.Text = precioProducto.ToString("0.00");
                     lbCantidadProducto.Visible = false;
                 }
             }
