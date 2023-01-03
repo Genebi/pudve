@@ -615,7 +615,7 @@ namespace PuntoDeVentaV2
             {
                 btn9.PerformClick();
             }
-            else if (e.KeyChar == 99)//C
+            else if (e.KeyChar == 99 || e.KeyChar==67)//C
             {
                 btnC.PerformClick();
             }
