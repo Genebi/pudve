@@ -2254,8 +2254,8 @@ namespace PuntoDeVentaV2
                     if (resultado == DialogResult.OK)
                     {
                         enviarVenta.Clear();
-                        DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value = formDescuento.TotalDescuento;
-                        DGVentas.Rows[celdaCellClick].Cells["TipoDescuento"].Value = formDescuento.TipoDescuento;
+                        DGVentas.Rows[0].Cells["Descuento"].Value = formDescuento.TotalDescuento;
+                        DGVentas.Rows[0].Cells["TipoDescuento"].Value = formDescuento.TipoDescuento;
                     }
                     else
                     {
