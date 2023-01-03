@@ -1744,6 +1744,12 @@
     <Compile Include="Visualizar_notaventa.Designer.cs">
       <DependentUpon>Visualizar_notaventa.cs</DependentUpon>
     </Compile>
+    <Compile Include="WEBCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WEBCaja.Designer.cs">
+      <DependentUpon>WEBCaja.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinQueryString.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2442,6 +2448,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Visualizar_notaventa.resx">
       <DependentUpon>Visualizar_notaventa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WEBCaja.resx">
+      <DependentUpon>WEBCaja.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WinQueryString.resx">
       <DependentUpon>WinQueryString.cs</DependentUpon>

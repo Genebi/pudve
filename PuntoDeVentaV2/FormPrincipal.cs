@@ -346,7 +346,16 @@ namespace PuntoDeVentaV2
 
         private void actualizarCaja_Tick_1(object sender, EventArgs e)
         {
-
+            if (!FormPrincipal.userNickName.Contains("@"))
+            {
+                if (pasar==1)
+                {
+                    if (!webListener.IsBusy)
+                    {
+                        webListener.RunWorkerAsync();
+                    }
+                }
+            }
         }
 
         private void panelContenedor_Paint(object sender, PaintEventArgs e)
@@ -1071,6 +1080,18 @@ namespace PuntoDeVentaV2
             mg.EliminarFiltros();
         }
 
+        private void webListener_DoWork(object sender, DoWorkEventArgs e)
+        {
+            enviarCajaAWeb();
+        }
+
+        private void enviarCajaAWeb()
+        {
+            WEBCaja test = new WEBCaja();
+            test.Hide();
+            test.ShowDialog();
+        }
+
         private void BtnConsulta_Click(object sender, EventArgs e)
         {
             if (consulta == 1)
@@ -1436,27 +1457,27 @@ namespace PuntoDeVentaV2
         ****** CODIGO KEVIN *********
         /****************************/
 
-        public void InitializarTimerAndroid()
-        {
+        //public void InitializarTimerAndroid()
+        //{
 
-            actualizarCaja.Interval = 60000;
-            actualizarCaja.Tick += new EventHandler(actualizarCaja_Tick);
-            actualizarCaja.Enabled = true;
-        }
+        //    actualizarCaja.Interval = 60000;
+        //    actualizarCaja.Tick += new EventHandler(actualizarCaja_Tick);
+        //    actualizarCaja.Enabled = true;
+        //}
 
-        private void actualizarCaja_Tick(object sender, EventArgs e)
-        {
+        //private void actualizarCaja_Tick(object sender, EventArgs e)
+        //{
 
-            //var datoMEtodoMAfufo = verificarInternet();
+        //    //var datoMEtodoMAfufo = verificarInternet();
 
-            //if (datoMEtodoMAfufo)
-            //{
-            if (pasar == 1)
-            {
-                _conHandler.StartCheckConnectionState();
-                //}
-            }
-        }
+        //    //if (datoMEtodoMAfufo)
+        //    //{
+        //    if (pasar == 1)
+        //    {
+        //        _conHandler.StartCheckConnectionState();
+        //        //}
+        //    }
+        //}
 
         public void desdeDondeCerrarSesion()
         {
