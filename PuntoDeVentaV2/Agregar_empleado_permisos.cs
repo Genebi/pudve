@@ -182,6 +182,7 @@ namespace PuntoDeVentaV2
         private void btn_cancelar_Click(object sender, EventArgs e)
         {
             Agregar_empleado.SeCancelor = true;
+            Agregar_empleado.HizoUnaccion = true;
             this.Close();
         }
 
@@ -210,7 +211,7 @@ namespace PuntoDeVentaV2
             };
 
             Agregar_empleado.datosPermisosSeleccionados = datos;
-
+            Agregar_empleado.HizoUnaccion = true;
             if (id_empleado > 0)
             {
                 cn.EjecutarConsulta($"UPDATE empleadospermisos SET Precio = '{chkPermisoPrecio}' WHERE IDEmpleado = '{datos[1]}' AND IDUsuario = '{datos[0]}'");

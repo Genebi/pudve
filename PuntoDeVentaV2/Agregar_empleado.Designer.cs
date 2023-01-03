@@ -223,6 +223,7 @@
             this.lbConfrimarContraseña.Text = "Confimela Su Nueva Contraseña";
             this.lbConfrimarContraseña.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbConfrimarContraseña.Visible = false;
+            this.lbConfrimarContraseña.Click += new System.EventHandler(this.lbConfrimarContraseña_Click);
             // 
             // label3
             // 
