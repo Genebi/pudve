@@ -627,6 +627,7 @@ namespace PuntoDeVentaV2
                         }
 
                         // Combinación para abrir caja
+                        
                         if (busqueda.Equals(".4."))
                         {
                             timerBusqueda.Interval = 1;
@@ -699,6 +700,7 @@ namespace PuntoDeVentaV2
                         }
                         listaProductosVenta();
                         listaProductos.Focus();
+                        txtBuscadorProducto.Focus();
                     }
                 }
                 listaProductos.Focus();
