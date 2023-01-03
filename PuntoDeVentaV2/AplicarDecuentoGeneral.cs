@@ -41,7 +41,12 @@ namespace PuntoDeVentaV2
                 }
                 
             }
-
+            if (cantidad > Total)
+            {
+                txtCantidad.Text = (Total - 1).ToString();
+                txtCantidad.SelectAll();
+                txtCantidad.Focus();
+            }
             Porcentaje = (cantidad * 100) / Total;
             lbTotalDescuento.Text = cantidad.ToString();
             lbTotalFinal.Text = (Total - cantidad).ToString();
@@ -190,6 +195,8 @@ namespace PuntoDeVentaV2
             if (Porcentaje > 99)
             {
                 txtPorcentaje.Text = "99";
+                txtPorcentaje.Select();
+                txtPorcentaje.Focus();
             }
             decimal resulta = (Porcentaje * Total) / 100;
             lbTotalDescuento.Text = resulta.ToString();
