@@ -1411,13 +1411,20 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-        public Dictionary<int, string> BusquedaCoincidenciasVentas(string frase, string filtro, int mPrecio = 0, int mCB = 0)
+        public Dictionary<int, string> BusquedaCoincidenciasVentas(string frase, string filtro, int mPrecio = 0, int mCB = 0, int soloRenta = 0)
         {
             var lista = new Dictionary<int, string>();
 
-             var coincidencias = new Dictionary<int, Tuple<int, string>>();
+            var coincidencias = new Dictionary<int, Tuple<int, string>>();
 
             string[] palabras = frase.Split(' ');
+
+            var extraRenta = "AND SoloRenta = 0";
+
+            if (soloRenta == 1)
+            {
+                extraRenta = "AND (SoloRenta = 0 OR SoloRenta = 1)";
+            }
 
             if (palabras.Length > 0)
             {
@@ -1425,11 +1432,11 @@ namespace PuntoDeVentaV2
                 {
                     if (filtro.Equals("Todos"))
                     {
-                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna = '{palabra}' OR CodigoBarras = '{palabra}')");
+                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 {extraRenta} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna = '{palabra}' OR CodigoBarras = '{palabra}')");
                     }
                     else
                     {
-                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Tipo = '{filtro}' AND Status = 1 AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna = '{palabra}' OR CodigoBarras = '{palabra}')");
+                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Tipo = '{filtro}' AND Status = 1 {extraRenta} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna = '{palabra}' OR CodigoBarras = '{palabra}')");
                     }
                    
 
@@ -1483,7 +1490,7 @@ namespace PuntoDeVentaV2
             return lista;
         }
 
-        public Dictionary<int, string> BusquedaCoincidenciaExacta(string frase, string filtro, int mPrecio = 0, int mCB = 0)
+        public Dictionary<int, string> BusquedaCoincidenciaExacta(string frase, string filtro, int mPrecio = 0, int mCB = 0, int soloRenta = 0)
         {
             var lista = new Dictionary<int, string>();
 
@@ -1491,17 +1498,24 @@ namespace PuntoDeVentaV2
 
             string[] palabras = frase.Split(' ');
 
+            var extraRenta = "AND SoloRenta = 0";
+
+            if (soloRenta == 1)
+            {
+                extraRenta = "AND (SoloRenta = 0 OR SoloRenta = 1)";
+            }
+
             if (palabras.Length > 0)
             {
                 foreach (var palabra in palabras)
                 {
                     if (filtro.Equals("Todos"))
                     {
-                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND CodigoBarras = '{palabra}'");
+                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 {extraRenta} AND CodigoBarras = '{palabra}'");
                     }
                     else
                     {
-                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Tipo = '{filtro}' AND Status = 1 AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna = '{palabra}' OR CodigoBarras = '{palabra}')");
+                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Tipo = '{filtro}' AND Status = 1 {extraRenta} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna = '{palabra}' OR CodigoBarras = '{palabra}')");
                     }
 
 
