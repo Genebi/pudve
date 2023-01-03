@@ -28,6 +28,7 @@ namespace PuntoDeVentaV2
 
         private string ticketGenerado = string.Empty;
         private string rutaTicketGenerado = string.Empty;
+        private string tipoCredito = string.Empty;
 
 
         //MIOOOOOOOOOOOOO
@@ -42,12 +43,13 @@ namespace PuntoDeVentaV2
 
         float restanteDePago= 0;
 
-        public AsignarAbonos(int idVenta, float totalOriginal)
+        public AsignarAbonos(int idVenta, float totalOriginal, string tipoCredito)
         {
             InitializeComponent();
 
             this.idVenta = idVenta;
             this.totalOriginal = totalOriginal;
+            this.tipoCredito = tipoCredito;
         }
 
         private void AsignarAbonos_Load(object sender, EventArgs e)
@@ -134,12 +136,16 @@ namespace PuntoDeVentaV2
                 //Condicion para saber si se termino de pagar y cambiar el status de la venta
                 if (totalAbonado >= totalPendiente)
                 {
-                    cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 1, FormPrincipal.userID));
+                    int status = tipoCredito.Equals("RCC") ? 6 : 1;
+
+                    cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, status, FormPrincipal.userID));
                 }
 
                 if (restante <= 0)
                 {
-                    cn.EjecutarConsulta(cs.estatusFinalizacionPagoCredito(idVenta));
+                    int status = tipoCredito.Equals("RCC") ? 6 : 1;
+
+                    cn.EjecutarConsulta(cs.estatusFinalizacionPagoCredito(idVenta, status));
                 }
 
                 //var pagoPendiente = txtPendiente.Text;

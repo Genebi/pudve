@@ -3106,7 +3106,7 @@ namespace PuntoDeVentaV2
                     {
                         var total = float.Parse(DGVListadoVentas.Rows[fila].Cells["Total"].Value.ToString());
 
-                        AsignarAbonos abono = new AsignarAbonos(idVenta, total);
+                        AsignarAbonos abono = new AsignarAbonos(idVenta, total, opcion);
 
                         abono.FormClosed += delegate
                         {

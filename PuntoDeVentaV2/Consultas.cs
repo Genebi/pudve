@@ -3965,9 +3965,9 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string estatusFinalizacionPagoCredito(int idVenta)
+        public string estatusFinalizacionPagoCredito(int idVenta, int status)
         {
-            var consulta = $"UPDATE Ventas SET Status = 1 WHERE ID = '{idVenta}' AND IDUsuario = {FormPrincipal.userID} ";
+            var consulta = $"UPDATE Ventas SET Status = {status} WHERE ID = '{idVenta}' AND IDUsuario = {FormPrincipal.userID} ";
 
             return consulta;
         }
