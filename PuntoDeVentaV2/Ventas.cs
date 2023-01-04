@@ -1459,8 +1459,25 @@ namespace PuntoDeVentaV2
                     cambioCantidadProd = 0;
                     if (SeCambioCantidad == true)
                     {
-                        CargarDescuento(cantidadComprada.nuevaCantidad);
+                        float cantidad = 0;
+
+                        if (!descuentosDirectos.Count.Equals(0))
+                        {
+                            cantidad = descuentosDirectos[idProducto].Item2;
+                        }
+                        else
+                        {
+                            cantidad = 0;
+                        }
+
+                        if (string.IsNullOrWhiteSpace(AplicarPorcentaje) && string.IsNullOrWhiteSpace(AplicarCantidad) && cantidad > 0 || !string.IsNullOrWhiteSpace(AplicarPorcentaje) && cantidad > 0 || !string.IsNullOrWhiteSpace(AplicarCantidad) && cantidad > 0)
+                        {
+                            CargarDescuento(cantidadComprada.nuevaCantidad);
+                        }
+                             
                     }
+                        
+                    SeCambioCantidad = false;
                 }
 
                 // Descuento
@@ -2225,7 +2242,6 @@ namespace PuntoDeVentaV2
 
         private void CargarDescuento(decimal cantidad)
         {
-            celdaCellClick = DGVentas.CurrentCell.RowIndex;
             if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
             {
                 if (opcion19 == 0)
@@ -2233,10 +2249,10 @@ namespace PuntoDeVentaV2
                     Utilidades.MensajePermiso();
                     return;
                 }
-                var idProducto = DGVentas.Rows[celdaCellClick].Cells["IDProducto"].Value.ToString();
-                var nombreProducto = DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString();
-                var precioProducto = DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString();
-                var cantidadProducto = DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString();
+                var idProducto = DGVentas.Rows[0].Cells["IDProducto"].Value.ToString();
+                var nombreProducto = DGVentas.Rows[0].Cells["Descripcion"].Value.ToString();
+                var precioProducto = DGVentas.Rows[0].Cells["Precio"].Value.ToString();
+                var cantidadProducto = DGVentas.Rows[0].Cells["Cantidad"].Value.ToString();
 
                 var datos = new string[] { idProducto, nombreProducto, precioProducto, cantidad.ToString() };
 
@@ -2267,13 +2283,15 @@ namespace PuntoDeVentaV2
                         {
                             if (!descuentosDirectos.ContainsKey(Convert.ToInt32(idProducto)))
                             {
-                                DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value = "0.00";
+                                DGVentas.Rows[0].Cells["Descuento"].Value = "0.00";
                             }
                         }
                     }
                 }
+                
                 SendKeys.Send("{ENTER}");
                 SendKeys.Send("{ENTER}");
+                
                 Ventas.SeCambioCantidad = false;
             }
         }
@@ -3186,6 +3204,9 @@ namespace PuntoDeVentaV2
                     CalculoMayoreo();
                     CantidadesFinalesVenta();
                     limpiarImagenDelProducto();
+                    PorcentajeDescuento = "";
+                    AplicarCantidad = "";
+                    AplicarPorcentaje = "";
                 }
                 else if (dialogoResult == DialogResult.No)
                 {
@@ -3597,6 +3618,9 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                             }
+                            PorcentajeDescuento = "";
+                            AplicarCantidad = "";
+                            AplicarPorcentaje = "";
                         }
                         VentaRealizada = false;
                         noDuplicadoVentas = 1;
@@ -3605,9 +3629,6 @@ namespace PuntoDeVentaV2
             }
             txtBuscadorProducto.Focus();
             yasemando = false;
-            PorcentajeDescuento = "";
-            AplicarCantidad = "";
-            AplicarPorcentaje = "";
         }
 
         private void ultimaVentaInformacion()

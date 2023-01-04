@@ -30,7 +30,7 @@ namespace PuntoDeVentaV2
             this.cantidadProducto = Convert.ToDouble(datos[3]);
         }
 
-        private void AgregarDescuentoDirecto_Load(object sender, EventArgs e)
+        private void AgregarDescuentoDirecto_Load(object sender, EventArgs e) 
         {
             lbTotalFinal.Text = precioProducto.ToString("0.00");
             lbProducto.Text = nombreProducto;
@@ -62,9 +62,12 @@ namespace PuntoDeVentaV2
                     txtPorcentaje_KeyUp(sender, new KeyEventArgs(Keys.Up));
                 }
             }
+            
+            
             if (Ventas.SeCambioCantidad == true)
             {
                 btnAceptar.PerformClick();
+                Ventas.SeCambioCantidad = false; 
             }
         }
 
