@@ -1614,5 +1614,75 @@ namespace PuntoDeVentaV2
             }
             
         }
+
+        private void CHKMostrarStock_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("CerrarSesionCorteCaja", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    var habilitado = 0;
+
+                    valorCambioCheckBox = CHKMostrarStock.Checked;
+
+                    if (valorCambioCheckBox.Equals(true))
+                    {
+                        habilitado = 1;
+                    }
+                    else
+                    {
+                        habilitado = 0;
+                    }
+
+                    var consulta = $"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiGeneral.Add(consulta);
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            var habilitado = 0;
+
+                            valorCambioCheckBox = CHKMostrarStock.Checked;
+
+                            if (valorCambioCheckBox.Equals(true))
+                            {
+                                habilitado = 1;
+                            }
+                            else
+                            {
+                                habilitado = 0;
+                            }
+
+                            var consulta = $"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiGeneral.Add(consulta);
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (CHKMostrarStock.Checked == true)
+                            {
+                                CHKMostrarStock.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                CHKMostrarStock.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
     }
 }

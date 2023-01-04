@@ -63,7 +63,12 @@ namespace PuntoDeVentaV2
             this.timerProductos7 = new System.Windows.Forms.Timer(this.components);
             this.lblFlechas = new System.Windows.Forms.Label();
             this.ImagenPalpita = new System.Windows.Forms.Timer(this.components);
+            this.label6 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.lblStock = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -146,10 +151,10 @@ namespace PuntoDeVentaV2
             // 
             // label9
             // 
-            this.label9.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(462, 661);
+            this.label9.Location = new System.Drawing.Point(463, 186);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(106, 20);
             this.label9.TabIndex = 11;
@@ -157,9 +162,9 @@ namespace PuntoDeVentaV2
             // 
             // lblTiempo
             // 
-            this.lblTiempo.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblTiempo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblTiempo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTiempo.Location = new System.Drawing.Point(574, 661);
+            this.lblTiempo.Location = new System.Drawing.Point(570, 185);
             this.lblTiempo.Name = "lblTiempo";
             this.lblTiempo.Size = new System.Drawing.Size(37, 20);
             this.lblTiempo.TabIndex = 12;
@@ -171,9 +176,9 @@ namespace PuntoDeVentaV2
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(141, 449);
+            this.pictureBox1.Location = new System.Drawing.Point(166, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(315, 232);
+            this.pictureBox1.Size = new System.Drawing.Size(270, 198);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 13;
             this.pictureBox1.TabStop = false;
@@ -203,11 +208,12 @@ namespace PuntoDeVentaV2
             // lblImagen
             // 
             this.lblImagen.Image = ((System.Drawing.Image)(resources.GetObject("lblImagen.Image")));
-            this.lblImagen.Location = new System.Drawing.Point(141, 449);
+            this.lblImagen.Location = new System.Drawing.Point(165, 7);
             this.lblImagen.Name = "lblImagen";
-            this.lblImagen.Size = new System.Drawing.Size(315, 232);
+            this.lblImagen.Size = new System.Drawing.Size(273, 198);
             this.lblImagen.TabIndex = 18;
             this.lblImagen.Visible = false;
+            this.lblImagen.Click += new System.EventHandler(this.lblImagen_Click);
             // 
             // TimerProductos
             // 
@@ -224,7 +230,7 @@ namespace PuntoDeVentaV2
             this.flowLayoutPanel1.Location = new System.Drawing.Point(103, 151);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(609, 150);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(609, 195);
             this.flowLayoutPanel1.TabIndex = 15;
             this.flowLayoutPanel1.Visible = false;
             // 
@@ -238,7 +244,7 @@ namespace PuntoDeVentaV2
             this.flowLayoutPanel2.Location = new System.Drawing.Point(101, 152);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(609, 150);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(609, 195);
             this.flowLayoutPanel2.TabIndex = 19;
             this.flowLayoutPanel2.Visible = false;
             // 
@@ -262,7 +268,7 @@ namespace PuntoDeVentaV2
             this.flowLayoutPanel3.Location = new System.Drawing.Point(102, 153);
             this.flowLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(609, 150);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(609, 195);
             this.flowLayoutPanel3.TabIndex = 20;
             this.flowLayoutPanel3.Visible = false;
             // 
@@ -276,7 +282,7 @@ namespace PuntoDeVentaV2
             this.flowLayoutPanel5.Location = new System.Drawing.Point(102, 153);
             this.flowLayoutPanel5.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel5.Name = "flowLayoutPanel5";
-            this.flowLayoutPanel5.Size = new System.Drawing.Size(609, 150);
+            this.flowLayoutPanel5.Size = new System.Drawing.Size(609, 195);
             this.flowLayoutPanel5.TabIndex = 21;
             this.flowLayoutPanel5.Visible = false;
             // 
@@ -294,7 +300,7 @@ namespace PuntoDeVentaV2
             this.flowLayoutPanel4.Location = new System.Drawing.Point(102, 153);
             this.flowLayoutPanel4.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(609, 150);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(609, 195);
             this.flowLayoutPanel4.TabIndex = 22;
             this.flowLayoutPanel4.Visible = false;
             // 
@@ -308,7 +314,7 @@ namespace PuntoDeVentaV2
             this.flowLayoutPanel6.Location = new System.Drawing.Point(102, 153);
             this.flowLayoutPanel6.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel6.Name = "flowLayoutPanel6";
-            this.flowLayoutPanel6.Size = new System.Drawing.Size(609, 150);
+            this.flowLayoutPanel6.Size = new System.Drawing.Size(609, 195);
             this.flowLayoutPanel6.TabIndex = 23;
             this.flowLayoutPanel6.Visible = false;
             // 
@@ -326,7 +332,7 @@ namespace PuntoDeVentaV2
             this.flowLayoutPanel7.Location = new System.Drawing.Point(102, 152);
             this.flowLayoutPanel7.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel7.Name = "flowLayoutPanel7";
-            this.flowLayoutPanel7.Size = new System.Drawing.Size(609, 150);
+            this.flowLayoutPanel7.Size = new System.Drawing.Size(609, 195);
             this.flowLayoutPanel7.TabIndex = 24;
             this.flowLayoutPanel7.Visible = false;
             // 
@@ -344,7 +350,7 @@ namespace PuntoDeVentaV2
             this.flowLayoutPanel8.Location = new System.Drawing.Point(102, 153);
             this.flowLayoutPanel8.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel8.Name = "flowLayoutPanel8";
-            this.flowLayoutPanel8.Size = new System.Drawing.Size(609, 150);
+            this.flowLayoutPanel8.Size = new System.Drawing.Size(609, 195);
             this.flowLayoutPanel8.TabIndex = 25;
             this.flowLayoutPanel8.Visible = false;
             // 
@@ -362,17 +368,59 @@ namespace PuntoDeVentaV2
             this.lblFlechas.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblFlechas.Visible = false;
             // 
+            // label6
+            // 
+            this.label6.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label6.Location = new System.Drawing.Point(-2, 514);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(613, 10);
+            this.label6.TabIndex = 27;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(263, 438);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(88, 31);
+            this.label10.TabIndex = 28;
+            this.label10.Text = "Stock";
+            // 
+            // lblStock
+            // 
+            this.lblStock.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblStock.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStock.Location = new System.Drawing.Point(0, 467);
+            this.lblStock.Name = "lblStock";
+            this.lblStock.Size = new System.Drawing.Size(608, 44);
+            this.lblStock.TabIndex = 29;
+            this.lblStock.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.lblImagen);
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.lblTiempo);
+            this.panel1.Location = new System.Drawing.Point(-2, 525);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(611, 207);
+            this.panel1.TabIndex = 30;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
             // PreciosProducto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(609, 690);
+            this.ClientSize = new System.Drawing.Size(609, 735);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.lblStock);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.lblFlechas);
-            this.Controls.Add(this.lblImagen);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.lblTiempo);
-            this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label3);
@@ -396,6 +444,8 @@ namespace PuntoDeVentaV2
             this.Text = "PreciosProducto";
             this.Load += new System.EventHandler(this.PreciosProducto_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -435,5 +485,9 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.Timer timerProductos7;
         private System.Windows.Forms.Label lblFlechas;
         private System.Windows.Forms.Timer ImagenPalpita;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label lblStock;
+        private System.Windows.Forms.Panel panel1;
     }
 }
