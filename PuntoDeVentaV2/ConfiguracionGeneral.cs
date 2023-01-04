@@ -188,69 +188,17 @@ namespace PuntoDeVentaV2
 
         private void pagWeb_CheckedChanged(object sender, EventArgs e)
         {
-            //if (opcion11 == 0)
-            //{
-            //    pagWeb.CheckedChanged -= pagWeb_CheckedChanged;
-            //    pagWeb.Checked = check11;
-            //    Utilidades.MensajePermiso();
-            //    pagWeb.CheckedChanged += pagWeb_CheckedChanged;
-            //    return;
-            //}
-
-            //var habilitado = 0;
-
-            //if (pagWeb.Checked)
-            //{
-            //    habilitado = 1;
-            //}
-
-            //cn.EjecutarConsulta($"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-            //FormPrincipal.pasar = habilitado;
+            MessageBox.Show("Cambios a esta configuración solo se aplicarán tras el reinicio del sistema.");
         }
 
         private void cbMostrarCB_CheckedChanged(object sender, EventArgs e)
         {
-            //if (opcion13 == 0)
-            //{
-            //    cbMostrarCB.CheckedChanged -= cbMostrarCB_CheckedChanged;
-            //    cbMostrarCB.Checked = check13;
-            //    Utilidades.MensajePermiso();
-            //    cbMostrarCB.CheckedChanged += cbMostrarCB_CheckedChanged;
-            //    return;
-            //}
+            MessageBox.Show("Cambios a esta configuracion solo su");
 
-            //var habilitado = 0;
-
-            //if (cbMostrarCB.Checked)
-            //{
-            //    habilitado = 1;
-            //}
-
-            //cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-              
         }
 
         private void cbMostrarPrecio_CheckedChanged(object sender, EventArgs e)
         {
-            //if (opcion12 == 0)
-            //{
-            //    cbMostrarPrecio.CheckedChanged -= cbMostrarPrecio_CheckedChanged;
-            //    cbMostrarPrecio.Checked = check12;
-            //    Utilidades.MensajePermiso();
-            //    cbMostrarPrecio.CheckedChanged += cbMostrarPrecio_CheckedChanged;
-            //    return;
-            //}
-
-            //var habilitado = 0;
-
-            //if (cbMostrarPrecio.Checked)
-            //{
-            //    habilitado = 1;
-            //}
-
-            //cn.EjecutarConsulta($"UPDATE Configuracion SET MostrarPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
-
-           
             
         }
 

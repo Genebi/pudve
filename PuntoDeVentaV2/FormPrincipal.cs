@@ -672,7 +672,10 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta($"UPDATE correosproducto SET CorreoPrecioProducto = 1 ,CorreoStockProducto = 1,CorreoStockMinimo = 1 ,CorreoVentaProducto = 1 WHERE IDUsuario ={userID}");
 
             EnvioCorreoLicenciaActiva();
-
+            if (pasar.Equals(1))
+            {
+                actualizarCaja.Enabled = true;
+            }
         }
 
         private void EnvioCorreoLicenciaActiva()
@@ -1087,9 +1090,32 @@ namespace PuntoDeVentaV2
 
         private void enviarCajaAWeb()
         {
+            ConexionAPPWEB con = new ConexionAPPWEB();
+            DataTable valoresCaja = new DataTable();
             WEBCaja test = new WEBCaja();
-            test.Hide();
+            int slot=1;
+
+            test.FormClosed += delegate
+            {
+                valoresCaja = test.datosWeb;
+            };
             test.ShowDialog();
+
+            using (DataTable dt = con.CargarDatos($"SELECT DISTINCT(Fecha) FROM cajamirror WHERE cliente = '{FormPrincipal.userNickName}' ORDER BY Fecha ASC"))
+            {
+                if (dt.Rows.Count>3)
+                {
+                    string consulta = $"DELETE FROM cajamirror WHERE cliente = '{FormPrincipal.userNickName}' AND Fecha = '{DateTime.Parse(dt.Rows[0]["Fecha"].ToString()).ToString("yyyy-MM-dd HH:mm:ss")}'";
+                    con.EjecutarConsulta(consulta);
+                }
+                    string fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    foreach (DataRow registroCaja in valoresCaja.Rows)
+                    {
+                        string consulta = "INSERT INTO cajamirror (Cliente, Empleado, Fecha, ventasEfectivo, ventasTarjeta, ventasVales, ventasCheque, ventasTransferencia, ventasCredito, ventasAbonos, ventasAnticipos, ventasTotal, anticiposEfectivo, anticiposTarjeta, anticiposVales, anticiposCheque, anticiposTransferencia, anticiposTotal, agregadoEfectivo, agregadoTarjeta, agregadoVales, agregadoCheque, agregadoTransferencia, agregadoTotal, retiradoEfectivo, retiradoTarjeta, retiradoVales, retiradoCheque, retiradoTransferencia, retiradoDevolucones, totalRetirado, cajaEfectivo, cajaTarjeta, cajaVales, cajaCheque, cajaTransferencia, cajaTotal, saldoInicial, saldoInicialActual)";
+                        consulta += $"VALUES ('{FormPrincipal.userNickName}','{registroCaja[0]}','{fecha}', '{registroCaja[1]}','{registroCaja[2]}','{registroCaja[3]}','{registroCaja[4]}','{registroCaja[5]}','{registroCaja[6]}','{registroCaja[7]}','{registroCaja[8]}','{registroCaja[9]}','{registroCaja[10]}','{registroCaja[11]}','{registroCaja[12]}','{registroCaja[13]}','{registroCaja[14]}','{registroCaja[15]}','{registroCaja[16]}','{registroCaja[17]}','{registroCaja[18]}','{registroCaja[19]}','{registroCaja[20]}','{registroCaja[21]}','{registroCaja[22]}','{registroCaja[23]}','{registroCaja[24]}','{registroCaja[25]}','{registroCaja[26]}','{registroCaja[27]}','{registroCaja[28]}','{registroCaja[29]}','{registroCaja[30]}','{registroCaja[31]}','{registroCaja[32]}','{registroCaja[33]}','{registroCaja[34]}','{registroCaja[35]}','{registroCaja[36]}')";
+                        con.EjecutarConsulta(consulta);                    
+                    }
+            }
         }
 
         private void BtnConsulta_Click(object sender, EventArgs e)

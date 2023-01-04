@@ -425,8 +425,7 @@
             // 
             // actualizarCaja
             // 
-            this.actualizarCaja.Enabled = true;
-            this.actualizarCaja.Interval = 3000;
+            this.actualizarCaja.Interval = 10000;
             this.actualizarCaja.Tick += new System.EventHandler(this.actualizarCaja_Tick_1);
             // 
             // timerProductos
@@ -478,13 +477,13 @@
         private System.Windows.Forms.Button btnReportes;
         private System.Windows.Forms.Button btnEmpresas;
         private System.Windows.Forms.Timer temporizador_respaldo;
-        private System.Windows.Forms.Timer actualizarCaja;
         private System.Windows.Forms.Timer timerProductos;
         private System.Windows.Forms.Button btnImpresoras;
         public System.Windows.Forms.Panel panelContenedor;
         private System.Windows.Forms.Button btnSesion;
         private System.Windows.Forms.Button BtnConsulta;
         private System.ComponentModel.BackgroundWorker webListener;
+        public System.Windows.Forms.Timer actualizarCaja;
     }
 }
 
