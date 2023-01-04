@@ -1853,7 +1853,7 @@ namespace PuntoDeVentaV2
 
                         if (mensaje == DialogResult.Yes)
                         {
-                            using (var DtTotal = cn.CargarDatos($"SELECT Total FROM Ventas WHERE IDusuario = '{FormPrincipal.userID}' AND ID = '{idVenta}'"))
+                            using (var DtTotal = cn.CargarDatos($"SELECT Total, Status FROM Ventas WHERE IDusuario = '{FormPrincipal.userID}' AND ID = '{idVenta}'"))
                             {
                                 var fecha = cn.CargarDatos(cs.ultimaFechaDeCorte());
                                 var fechaDelCorte = Convert.ToDateTime(fecha.Rows[0]["FechaOperacion"]).ToString("yyyy/MM/dd HH:mm:ss");
@@ -1862,17 +1862,31 @@ namespace PuntoDeVentaV2
                                 var totalAbonosEnCaja = cn.CargarDatos(cs.AbonosDespuesDelCorte(fechaDelCorte, idVenta));
 
                                 decimal abonosEnCaja = Convert.ToDecimal(totalAbonosEnCaja.Rows[0]["AbonosDespuesDelCorte"].ToString());
+                                decimal abonosEfectivoEnCaja = Convert.ToDecimal(totalAbonosEnCaja.Rows[0]["Efectivo"].ToString());
                                 decimal totalEfectivonCaja = Convert.ToDecimal(TotalEfectivoEnCaja.Rows[0]["Efectivo"].ToString());
                                 decimal RetiradoEfectivoCaja = Convert.ToDecimal(TotalEfectivoRetirado.Rows[0]["Efectivo"].ToString());
                                 decimal totalActualEfectivoEnCaja = (totalEfectivonCaja + abonosEnCaja) - RetiradoEfectivoCaja;
+                                decimal Dinero = Convert.ToDecimal(DtTotal.Rows[0]["Total"]);
+                                var tipoDeVenta = DtTotal.Rows[0]["Status"].ToString();
 
-                                    decimal Dinero = Convert.ToDecimal(DtTotal.Rows[0]["Total"]);
+                                if (tipoDeVenta == "4")
+                                {
+                                    if (abonosEnCaja > totalEfectivonCaja + abonosEfectivoEnCaja)
+                                    {
+                                        MessageBox.Show("No se cuenta con suficiente Efectivo en caja", "Avido del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return;
+                                    }
+                                }
+                                else
+                                {
                                     if (Dinero > totalActualEfectivoEnCaja)
                                     {
                                         MessageBox.Show("No se cuenta con suficiente Efectivo en caja", "Avido del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                         return;
                                     }
                                 }
+                               
+                            }
 
                             var statusVentaParaCancelar = 0;
 

@@ -5120,7 +5120,7 @@ namespace PuntoDeVentaV2
 
         public string AbonosDespuesDelCorte(string ultimaFechaDeCorte, int idVenta)
         {
-            var consulta = $"SELECT IF ( ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) IS NULL, 0, ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) ) AS 'AbonosDespuesDelCorte' FROM abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' AND IDVenta = '{idVenta}' AND FechaOperacion >= '{ultimaFechaDeCorte}'";
+            var consulta = $"SELECT Efectivo, IF ( ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) IS NULL, 0, ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) ) AS 'AbonosDespuesDelCorte' FROM abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' AND IDVenta = '{idVenta}' AND FechaOperacion >= '{ultimaFechaDeCorte}'";
 
             return consulta;
         }
