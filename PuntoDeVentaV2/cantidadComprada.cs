@@ -33,7 +33,10 @@ namespace PuntoDeVentaV2
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             txtCantidad.Text = cantidadAnterior.ToString();
-            btnAceptar.PerformClick();
+            Ventas.SeCambioCantidad = true;
+            nuevaCantidad = Convert.ToDecimal(txtCantidad.Text);
+            nuevaCantidadCambio = 1;
+            this.Close();
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

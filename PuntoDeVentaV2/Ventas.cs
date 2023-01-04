@@ -1463,13 +1463,21 @@ namespace PuntoDeVentaV2
 
                         if (!descuentosDirectos.Count.Equals(0))
                         {
-                            cantidad = descuentosDirectos[idProducto].Item2;
+                            try
+                            {
+                                cantidad = descuentosDirectos[idProducto].Item2;
+                            }
+                            catch (Exception)
+                            {
+
+                                cantidad = 0;
+                            }
+                            
                         }
                         else
                         {
                             cantidad = 0;
                         }
-
                         if (string.IsNullOrWhiteSpace(AplicarPorcentaje) && string.IsNullOrWhiteSpace(AplicarCantidad) && cantidad > 0 || !string.IsNullOrWhiteSpace(AplicarPorcentaje) && cantidad > 0 || !string.IsNullOrWhiteSpace(AplicarCantidad) && cantidad > 0)
                         {
                             CargarDescuento(cantidadComprada.nuevaCantidad);
@@ -1640,6 +1648,12 @@ namespace PuntoDeVentaV2
                 // Restar individual
                 if (columnaCellClick.Equals(12))
                 {
+                    if (DGVentas.Rows.Count.Equals(1))
+                    {
+                        PorcentajeDescuento = "";
+                        AplicarCantidad = "";
+                        AplicarPorcentaje = "";
+                    }
                     contadorChangeValue = 0;
                     if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                     {
@@ -1818,6 +1832,12 @@ namespace PuntoDeVentaV2
                 // Eliminar individual
                 if (columnaCellClick.Equals(13))
                 {
+                    if (DGVentas.Rows.Count.Equals(1))
+                    {
+                        PorcentajeDescuento = "";
+                        AplicarCantidad = "";
+                        AplicarPorcentaje = "";
+                    }
 
                     if (!DGVentas.CurrentCell.Equals(null) && !DGVentas.CurrentCell.Value.Equals(null))
                     {
@@ -2268,7 +2288,6 @@ namespace PuntoDeVentaV2
                         txtBuscadorProducto.Focus();
                     }
                     var resultado = formDescuento.ShowDialog();
-
                     if (resultado == DialogResult.OK)
                     {
                         enviarVenta.Clear();
@@ -2288,7 +2307,6 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-                
                 SendKeys.Send("{ENTER}");
                 SendKeys.Send("{ENTER}");
                 
