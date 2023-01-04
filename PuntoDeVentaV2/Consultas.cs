@@ -5105,5 +5105,38 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string TotalAgregadoEfectivoACaja(string ultimaFechaDeCorte)
+        {
+            var consulta = $"SELECT IF ( SUM( Efectivo ) IS NULL, 0, SUM( Efectivo ) ) AS 'Efectivo' FROM caja WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' AND FechaOperacion >= '{ultimaFechaDeCorte}' AND Operacion != 'retiro' AND Operacion != 'corte'";
+
+            return consulta;
+        }
+        public string TotalRetiradoEfectivoDeCaja(string ultimaFechaDeCorte)
+        {
+            var consulta = $"SELECT IF ( SUM( Efectivo ) IS NULL, 0, SUM( Efectivo ) ) AS 'Efectivo' FROM caja WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' AND FechaOperacion >= '{ultimaFechaDeCorte}' AND Operacion = 'retiro'";
+
+            return consulta;
+        }
+
+        public string AbonosDespuesDelCorte(string ultimaFechaDeCorte, int idVenta)
+        {
+            var consulta = $"SELECT IF ( ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) IS NULL, 0, ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) ) AS 'AbonosDespuesDelCorte' FROM abonos WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' AND IDVenta = '{idVenta}' AND FechaOperacion >= '{ultimaFechaDeCorte}'";
+
+            return consulta;
+        }
+        public string TotalAbonosDeLaVenta(string idVenta)
+        {
+            var consulta = $"SELECT IF ( ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) IS NULL, 0, ( SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) ) ) AS 'totalDeAbonos' FROM abonos WHERE IDUsuario = '10' AND IdEmpleado = '0' AND IDVenta = '{idVenta}'";
+
+            return consulta;
+        }
+
+        public string ultimaFechaDeCorte()
+        {
+            var consulta = $"SELECT FechaOperacion FROM historialcortesdecaja WHERE  IDUsuario = {FormPrincipal.userID} AND idEmpleado = {FormPrincipal.id_empleado} ORDER BY ID DESC LIMIT 1";
+
+            return consulta;
+        }
+
     }
 }   

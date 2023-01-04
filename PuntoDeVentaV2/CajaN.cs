@@ -7435,7 +7435,7 @@ namespace PuntoDeVentaV2
                             lbTCheque.Text = cantidadCheque.ToString("C2");
                             lbTTrans.Text = cantidadTransferencia.ToString("C2");
                             lbTCredito.Text = cantidadCredito.ToString("C2");
-                            lbTCreditoC.Text = (totalAbonoRealizado /*+ totalAbonoRealizadoDeOtrosUsuarios*/ + totalAbonoRealizadoOtrasVentas).ToString("C2");
+                            lbTCreditoC.Text = (totalAbonoRealizado /*+ totalAbonoRealizadoDeOtrosUsuarios*/ + totalAbonoRealizadoOtrasVentas)/*-()*/.ToString("C2");
                             lbTAnticipos.Text = cantidadAnticipos.ToString("C2");
                             lbTVentas.Text = (cantidadEfectivo + cantidadTarjeta + cantidadVales + cantidadCheque + cantidadTransferencia + cantidadCredito /*+ totalAbonoRealizado + totalAbonoRealizadoDeOtrosUsuarios + totalAbonoRealizadoOtrasVentas*/).ToString("C2");
                         }
