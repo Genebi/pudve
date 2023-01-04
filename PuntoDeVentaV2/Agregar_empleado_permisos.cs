@@ -901,7 +901,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                MessageBox.Show("Seleecione almenos un permiso", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Selecione almenos un permiso", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             IDPlantilla = 0;
