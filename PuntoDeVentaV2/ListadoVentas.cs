@@ -150,7 +150,7 @@ namespace PuntoDeVentaV2
             fechaUltimoCorte = Convert.ToDateTime(mb.UltimaFechaCorte());
             //dpFechaInicial.Value = DateTime.Today.AddDays(-7);
             var ultimoCorte = string.Empty;
-            var fechasUltimoCorte = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' ORDER BY FechaOperacion DESC LIMIT 1");
+            var fechasUltimoCorte = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1");
             if (!fechasUltimoCorte.Rows.Count.Equals(0))
             {
                 ultimoCorte = fechasUltimoCorte.Rows[0]["FechaOperacion"].ToString();
@@ -468,7 +468,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}'");
+                        var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC LIMIT 1");
                         fechaInicial = fechaInicial2.Rows[0]["FechaOperacion"].ToString();
                     }
 
@@ -512,7 +512,7 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}'");
+                                var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC LIMIT 1");
                                 fechaInicial = fechaInicial2.Rows[0]["FechaOperacion"].ToString();
                             }
 
@@ -873,15 +873,15 @@ namespace PuntoDeVentaV2
 
                         if (clasificacionUsuario.Equals("Admin"))
                         {
-                            queryClasificacionUsuario = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0' ORDER BY FechaOperacion DESC";
+                            queryClasificacionUsuario = $"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0' ORDER BY FechaOperacion DESC LIMIT 1";
                         }
                         else if (clasificacionUsuario.Equals("All"))
                         {
-                            queryClasificacionUsuario = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC";
+                            queryClasificacionUsuario = $"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC LIMIT 1";
                         }
                         else
                         {
-                            queryClasificacionUsuario = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{clasificacionUsuario}' ORDER BY FechaOperacion DESC";
+                            queryClasificacionUsuario = $"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{clasificacionUsuario}' ORDER BY FechaOperacion DESC LIMIT 1";
                         }
 
                         var fechaInicial2 = cn.CargarDatos(queryClasificacionUsuario);
@@ -911,7 +911,7 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' ORDER BY FechaOperacion DESC");
+                            var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' ORDER BY FechaOperacion DESC LIMIT 1");
                             //if (!fechaInicial2.Rows.Count.Equals(0))
                             //{
 
@@ -956,7 +956,7 @@ namespace PuntoDeVentaV2
                                 }
                                 else
                                 {
-                                    var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' ORDER BY FechaOperacion DESC");
+                                    var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' ORDER BY FechaOperacion DESC LIMIT 1");
                                     var fechaInicialDP = Convert.ToDateTime(fechaInicial2.Rows[0]["FechaOperacion"].ToString());
                                     fechaInicial = fechaInicialDP.ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -4906,15 +4906,15 @@ namespace PuntoDeVentaV2
 
             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
             {
-                queryFechaInicial2 = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0' ORDER BY FechaOperacion DESC LIMIT 1";
+                queryFechaInicial2 = $"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0' ORDER BY FechaOperacion DESC LIMIT 1";
             }
             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
             {
-                queryFechaInicial2 = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC LIMIT 1";
+                queryFechaInicial2 = $"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC LIMIT 1";
             }
             else
             {
-                queryFechaInicial2 = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{opcionComboBoxFiltroAdminEmp.ToString()}' ORDER BY FechaOperacion DESC LIMIT 1";
+                queryFechaInicial2 = $"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{opcionComboBoxFiltroAdminEmp.ToString()}' ORDER BY FechaOperacion DESC LIMIT 1";
             }
 
             var fechaInicial2 = cn.CargarDatos(queryFechaInicial2);
