@@ -164,9 +164,9 @@ namespace PuntoDeVentaV2
             }
 
             dpFechaFinal.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
+            DateTime Hora = Convert.ToDateTime(ultimoCorte);
             // Hora inicial y final
-            dpHoraInicial.Text = "00:00";
+            dpHoraInicial.Text = Hora.ToString("HH:mm");
             dpHoraFinal.Text = "23:59";
 
             // Opciones para el combobox
