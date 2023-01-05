@@ -427,6 +427,9 @@
             <Height>1.12917cm</Height>
             <Width>7.7cm</Width>
             <ZIndex>10</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Parameters!Comentario.Value, "TicketDineroAgregado").ToString = "", True, False)</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -703,6 +706,7 @@
   <ReportParameters>
     <ReportParameter Name="Comentario">
       <DataType>String</DataType>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>

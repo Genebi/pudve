@@ -312,9 +312,10 @@ namespace PuntoDeVentaV2
             {
                 Comentario = txtComentario.Text;
             }
-            else if(txtComentario.Text.Equals("COMENTARIOS") || string.IsNullOrWhiteSpace(txtComentario.Text))
+            
+            if(txtComentario.Text.Equals("COMENTARIOS") || string.IsNullOrWhiteSpace(txtComentario.Text))
             {
-                Comentario = "---";
+                Comentario = "";
             }
             var tipoOperacion = string.Empty;
             bool tipoCorte = true;

@@ -1862,7 +1862,15 @@ namespace PuntoDeVentaV2
                                 var totalAbonosEnCaja = cn.CargarDatos(cs.AbonosDespuesDelCorte(fechaDelCorte, idVenta));
 
                                 decimal abonosEnCaja = Convert.ToDecimal(totalAbonosEnCaja.Rows[0]["AbonosDespuesDelCorte"].ToString());
-                                decimal abonosEfectivoEnCaja = Convert.ToDecimal(totalAbonosEnCaja.Rows[0]["Efectivo"].ToString());
+                                decimal abonosEfectivoEnCaja = 0;
+                                if (string.IsNullOrWhiteSpace(totalAbonosEnCaja.Rows[0]["Efectivo"].ToString()))
+                                {
+                                    abonosEfectivoEnCaja = 0;
+                                }
+                                else
+                                {
+                                    abonosEfectivoEnCaja = Convert.ToDecimal(totalAbonosEnCaja.Rows[0]["Efectivo"]);
+                                }
                                 decimal totalEfectivonCaja = Convert.ToDecimal(TotalEfectivoEnCaja.Rows[0]["Efectivo"].ToString());
                                 decimal RetiradoEfectivoCaja = Convert.ToDecimal(TotalEfectivoRetirado.Rows[0]["Efectivo"].ToString());
                                 decimal totalActualEfectivoEnCaja = (totalEfectivonCaja + abonosEnCaja) - RetiradoEfectivoCaja;
@@ -2352,7 +2360,7 @@ namespace PuntoDeVentaV2
                                         {
                                             var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
                                             var abonosAVenta = cn.CargarDatos(cs.ConsultarAbonosVentaACredito(idVenta));
-                                            var conceptoCreditoC = $"DELOLUVION CREDITO VENTA CANCELADA ID {idVenta}";
+                                            var conceptoCreditoC = $"DEVOLUCION CREDITO VENTA CANCELADA ID {idVenta}";
                                             if (formasPago2.Length > 0)
                                             {
                                                 var total1 = "0";
