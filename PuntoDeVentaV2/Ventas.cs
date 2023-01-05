@@ -8696,6 +8696,14 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void nudCantidadPS_ValueChanged(object sender, EventArgs e)
+        {
+            if (nudCantidadPS.Value <= 0)
+            {
+                nudCantidadPS.Value = 1;
+            }
+        }
+
         private void txtBuscadorProducto_Enter(object sender, EventArgs e)
         {
             tieneElCursorElTxtBuscadorProducto = true;
