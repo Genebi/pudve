@@ -8770,6 +8770,7 @@ namespace PuntoDeVentaV2
                 }
             }
             txtBuscadorProducto.Clear();
+            txtBuscadorProducto.Focus();
         }
 
         private void btnCancelarVenta_Enter(object sender, EventArgs e)
