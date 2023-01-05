@@ -614,6 +614,16 @@ namespace PuntoDeVentaV2
                             chTraspasos.Checked = false;
                         }
                         #endregion
+                        #region Mostrar Stock Consulta Precio
+                        if (item["MostrarStockConsultaPrecio"].Equals(1))
+                        {
+                            CHKMostrarStock.Checked = true;
+                        }
+                        else if (item["checkNoVendidos"].Equals(0))
+                        {
+                            CHKMostrarStock.Checked = false;
+                        }
+                        #endregion
                     }
                 }
             }
@@ -1617,7 +1627,7 @@ namespace PuntoDeVentaV2
 
         private void CHKMostrarStock_MouseClick(object sender, MouseEventArgs e)
         {
-            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("CerrarSesionCorteCaja", FormPrincipal.id_empleado)))
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("PermisoStockConsultarPrecio", FormPrincipal.id_empleado)))
             {
                 if (FormPrincipal.id_empleado.Equals(0))
                 {
@@ -1634,7 +1644,7 @@ namespace PuntoDeVentaV2
                         habilitado = 0;
                     }
 
-                    var consulta = $"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    var consulta = $"UPDATE Configuracion SET MostrarStockConsultaPrecio = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                     confiGeneral.Add(consulta);
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
@@ -1657,7 +1667,7 @@ namespace PuntoDeVentaV2
                                 habilitado = 0;
                             }
 
-                            var consulta = $"UPDATE Configuracion SET CerrarSesionAuto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            var consulta = $"UPDATE Configuracion SET MostrarStockConsultaPrecio = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                             confiGeneral.Add(consulta);
 
                         }

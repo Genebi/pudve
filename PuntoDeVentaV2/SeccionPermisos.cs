@@ -419,6 +419,8 @@ namespace PuntoDeVentaV2
                 GenerarCheckbox(100, 35, 150, "Tipo de Moneda", datos[39]);
                 //=============================================================
                 GenerarCheckbox(100, 210, 150, "Respaldar Informacion", datos[40]);
+
+
             }
             else
             {
