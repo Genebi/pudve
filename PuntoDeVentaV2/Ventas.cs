@@ -1887,9 +1887,8 @@ namespace PuntoDeVentaV2
                                 {
                                     var count = Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString());
                                     count++;
-                                    productoEliminado[i] = count + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString())) - Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString()));
+                                    productoEliminado[i] = count + "|" + DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descripcion"].Value.ToString() + "|" + DGVentas.Rows[celdaCellClick].Cells["Descuento"].Value.ToString() + "|" + ((count * Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Precio"].Value.ToString())) - Convert.ToDecimal("0.00"));
                                     break;
-
                                 }
                             }
 
