@@ -5323,7 +5323,9 @@ namespace PuntoDeVentaV2
                         ventasGuardadas.Clear();
                         descuentosDirectos.Clear();
                     }
-
+                    PorcentajeDescuento = "";
+                    AplicarCantidad = "";
+                    AplicarPorcentaje = "";
                     BasculaCom.Close();
                 }
             }
@@ -5333,6 +5335,9 @@ namespace PuntoDeVentaV2
                 listaAnticipos = string.Empty;
                 ventasGuardadas.Clear();
                 descuentosDirectos.Clear();
+                PorcentajeDescuento = "";
+                AplicarCantidad = "";
+                AplicarPorcentaje = "";
                 BasculaCom.Close();
             }
             //PuertoSerieBascula.Close();
