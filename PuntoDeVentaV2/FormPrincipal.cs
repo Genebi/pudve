@@ -1090,6 +1090,9 @@ namespace PuntoDeVentaV2
 
         private void enviarCajaAWeb()
         {
+            try
+            {
+
             ConexionAPPWEB con = new ConexionAPPWEB();
             DataTable valoresCaja = new DataTable();
             WEBCaja test = new WEBCaja();
@@ -1116,9 +1119,16 @@ namespace PuntoDeVentaV2
                         con.EjecutarConsulta(consulta);                    
                     }
             }
+
+            }
+            catch (Exception)
+            {
+                //No se logro la conexion a internet.
+                throw;
+            }
         }
 
-        private void BtnConsulta_Click(object sender, EventArgs e)
+        private void BtnConsulta_Click(object sender, EventArgs e)      
         {
             if (consulta == 1)
             {
