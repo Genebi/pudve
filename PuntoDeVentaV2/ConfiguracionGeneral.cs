@@ -1226,6 +1226,8 @@ namespace PuntoDeVentaV2
 
         private void pagWeb_MouseClick(object sender, MouseEventArgs e)
         {
+            MessageBox.Show("Cambios a esta configuración solo se aplicarán tras el reinicio del sistema.");
+
             using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("HabilitarInfoPaginaWeb", FormPrincipal.id_empleado)))
             {
                 if (FormPrincipal.id_empleado.Equals(0))
