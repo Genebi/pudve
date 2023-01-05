@@ -1099,7 +1099,6 @@ namespace PuntoDeVentaV2
             //Form exist = Application.OpenForms.OfType<Form>().Where(pre => pre.Name == "ListadoVentas").SingleOrDefault<Form>();
 
             //vs.printProductVersion();
-
             if (veces == 1)
             {
                 if (ventas == 1)
