@@ -2001,6 +2001,7 @@ ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodocobro VARCHAR(100)
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditodiassincobro INT DEFAULT 0 ;
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoCantidadAbonos INT DEFAULT 1 ;
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPerdon INT DEFAULT 0 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoMovil INT DEFAULT 0 ;
 
 --Crear tabla para guardar las reglas de credito activas cuando se hace una venta.
 CREATE TABLE
@@ -2027,6 +2028,7 @@ IF
 		creditoCantidadAbonos INTEGER DEFAULT 1,
 		creditoMinimoAbono  DECIMAl ( 16, 2 ),
 		creditoPerdon INTEGER DEFAULT 0,
+		creditoMovil INTEGER DEFAULT 0,
 		FOREIGN KEY ( IDVenta ) REFERENCES ventas ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
 		FOREIGN KEY ( IDHuella ) REFERENCES huellasclientes ( ID ) ON UPDATE CASCADE ON DELETE CASCADE
 	);

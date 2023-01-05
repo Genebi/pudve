@@ -25,14 +25,17 @@ namespace PuntoDeVentaV2
         {
             DataTable dt = new DataTable();
             numTotaldecredito.Controls[0].Visible = false;
-            dt = cn.CargarDatos($"SELECT creditoMaster, creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro, creditoCantidadAbonos, creditoPerdon FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}");
+            dt = cn.CargarDatos($"SELECT creditoMaster, creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro, creditoCantidadAbonos, creditoPerdon, creditoMovil FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}");
             //A checar datos
 
             if (!dt.Rows[0]["creditoMaster"].ToString().Equals("0"))
             {
                 cbMaster.Checked = true;
             }
-
+            if (!dt.Rows[0]["creditoMovil"].ToString().Equals("0"))
+            {
+                cbVerificar.Checked = true;
+            }
 
             if (!dt.Rows[0]["creditoPerdon"].ToString().Equals("0"))
             {
@@ -117,6 +120,15 @@ namespace PuntoDeVentaV2
             else
             {
                 consulta = consulta += $"creditoPerdon = 0, ";
+            }
+
+            if (cbVerificar.Checked)
+            {
+                consulta = consulta += $"creditoMovil = 1, ";
+            }
+            else
+            {
+                consulta = consulta += $"creditoMovil = 0, ";
             }
 
             if (cbHuella.Checked)

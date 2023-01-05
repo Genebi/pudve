@@ -62,6 +62,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.cbMaster = new System.Windows.Forms.CheckBox();
+            this.cbVerificar = new System.Windows.Forms.CheckBox();
             this.GBControles.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDiasdecobrosininteres)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCantidadAbonos)).BeginInit();
@@ -84,11 +85,9 @@
             this.GBControles.Controls.Add(this.numVentasAbiertas);
             this.GBControles.Controls.Add(this.numTotaldecredito);
             this.GBControles.Controls.Add(this.combTotalCredito);
-            this.GBControles.Controls.Add(this.numMoratorio);
             this.GBControles.Controls.Add(this.lblDef1);
             this.GBControles.Controls.Add(this.lbdef2);
             this.GBControles.Controls.Add(this.numPagoInicial);
-            this.GBControles.Controls.Add(this.label12);
             this.GBControles.Controls.Add(this.label13);
             this.GBControles.Controls.Add(this.label1);
             this.GBControles.Controls.Add(this.numInteresDefecto);
@@ -101,12 +100,11 @@
             this.GBControles.Controls.Add(this.combMododecobro);
             this.GBControles.Controls.Add(this.combPeriododecobro);
             this.GBControles.Controls.Add(this.cbAplicarPorcentajePorDefecto);
+            this.GBControles.Controls.Add(this.cbVerificar);
             this.GBControles.Controls.Add(this.cbHuella);
             this.GBControles.Controls.Add(this.chbPerdonarInteres);
             this.GBControles.Controls.Add(this.cbPagoInicial);
-            this.GBControles.Controls.Add(this.cbMoratorio);
             this.GBControles.Controls.Add(this.label5);
-            this.GBControles.Controls.Add(this.label4);
             this.GBControles.Enabled = false;
             this.GBControles.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GBControles.Location = new System.Drawing.Point(24, 19);
@@ -213,9 +211,9 @@
             // 
             this.numMoratorio.DecimalPlaces = 2;
             this.numMoratorio.Enabled = false;
-            this.numMoratorio.Location = new System.Drawing.Point(211, 108);
+            this.numMoratorio.Location = new System.Drawing.Point(213, 398);
             this.numMoratorio.Name = "numMoratorio";
-            this.numMoratorio.Size = new System.Drawing.Size(85, 22);
+            this.numMoratorio.Size = new System.Drawing.Size(85, 20);
             this.numMoratorio.TabIndex = 3;
             this.numMoratorio.Visible = false;
             // 
@@ -257,7 +255,7 @@
             // label12
             // 
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(294, 108);
+            this.label12.Location = new System.Drawing.Point(296, 398);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(20, 22);
@@ -291,7 +289,7 @@
             // numInteresDefecto
             // 
             this.numInteresDefecto.DecimalPlaces = 4;
-            this.numInteresDefecto.Location = new System.Drawing.Point(225, 186);
+            this.numInteresDefecto.Location = new System.Drawing.Point(225, 175);
             this.numInteresDefecto.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -332,7 +330,7 @@
             // label6
             // 
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(294, 186);
+            this.label6.Location = new System.Drawing.Point(294, 175);
             this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(20, 22);
@@ -405,7 +403,7 @@
             // 
             this.cbAplicarPorcentajePorDefecto.AutoSize = true;
             this.cbAplicarPorcentajePorDefecto.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.cbAplicarPorcentajePorDefecto.Location = new System.Drawing.Point(22, 179);
+            this.cbAplicarPorcentajePorDefecto.Location = new System.Drawing.Point(22, 168);
             this.cbAplicarPorcentajePorDefecto.Name = "cbAplicarPorcentajePorDefecto";
             this.cbAplicarPorcentajePorDefecto.Size = new System.Drawing.Size(206, 36);
             this.cbAplicarPorcentajePorDefecto.TabIndex = 4;
@@ -454,7 +452,7 @@
             this.cbMoratorio.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbMoratorio.AutoSize = true;
             this.cbMoratorio.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbMoratorio.Location = new System.Drawing.Point(22, 108);
+            this.cbMoratorio.Location = new System.Drawing.Point(24, 398);
             this.cbMoratorio.Name = "cbMoratorio";
             this.cbMoratorio.Size = new System.Drawing.Size(196, 20);
             this.cbMoratorio.TabIndex = 2;
@@ -468,7 +466,7 @@
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label5.Location = new System.Drawing.Point(22, 218);
+            this.label5.Location = new System.Drawing.Point(22, 207);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(274, 26);
             this.label5.TabIndex = 154;
@@ -480,7 +478,7 @@
             this.label4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label4.Location = new System.Drawing.Point(22, 131);
+            this.label4.Location = new System.Drawing.Point(24, 421);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(297, 26);
             this.label4.TabIndex = 154;
@@ -518,6 +516,18 @@
             this.cbMaster.UseVisualStyleBackColor = false;
             this.cbMaster.CheckedChanged += new System.EventHandler(this.cbMaster_CheckedChanged);
             // 
+            // cbVerificar
+            // 
+            this.cbVerificar.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbVerificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbVerificar.Location = new System.Drawing.Point(22, 97);
+            this.cbVerificar.Name = "cbVerificar";
+            this.cbVerificar.Size = new System.Drawing.Size(297, 59);
+            this.cbVerificar.TabIndex = 1;
+            this.cbVerificar.Text = "Solicitar teléfono móvil para consolidar venta a crédito mediante clave de verifi" +
+    "cación";
+            this.cbVerificar.UseVisualStyleBackColor = true;
+            // 
             // configCredito
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -527,6 +537,10 @@
             this.Controls.Add(this.cbMaster);
             this.Controls.Add(this.GBControles);
             this.Controls.Add(this.btnAceptar);
+            this.Controls.Add(this.cbMoratorio);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.numMoratorio);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -585,5 +599,6 @@
         private System.Windows.Forms.CheckBox cbMaster;
         private System.Windows.Forms.CheckBox chbPerdonarInteres;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.CheckBox cbVerificar;
     }
 }
