@@ -1703,10 +1703,14 @@ namespace PuntoDeVentaV2
             if (cbTipoVentas.SelectedIndex==3)
             {
                 btnBuscarPorHuella.Visible = true;
+                btnVencidas.Visible = false;
+                btnPorVencer.Visible = false;
             }
             else
             {
                 btnBuscarPorHuella.Visible = false;
+                btnVencidas.Visible = true;
+                btnPorVencer.Visible = true;
             }
 
             // Desactivar checkbox al cambios tipos de ventas

@@ -693,7 +693,7 @@ namespace PuntoDeVentaV2
             {
                 e.Handled = true;
             }
-            if (txtTelefono.Text.Length>10)
+            if (txtTelefono.Text.Length>11)
             {
                 e.Handled = false;
             }
