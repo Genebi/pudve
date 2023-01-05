@@ -547,7 +547,7 @@ namespace PuntoDeVentaV2
 
                     var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
 
-                    var conceptoCreditoC = $"DELOLUVION CREDITO VENTA CANCELADA ID {idVenta}";
+                    var conceptoCreditoC = $"DEVOLUCION CREDITO VENTA CANCELADA ID {idVenta}";
                     if (formasPago2.Length > 0)
                     {
                         var total1 = "0";
