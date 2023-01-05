@@ -3354,6 +3354,26 @@ namespace PuntoDeVentaV2
                 cbFiltroAdminEmpleado.SelectedIndex = 0;
             }
 
+            var ultimoCorte = string.Empty;
+            var fechasUltimoCorte = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1");
+            if (!fechasUltimoCorte.Rows.Count.Equals(0))
+            {
+                ultimoCorte = fechasUltimoCorte.Rows[0]["FechaOperacion"].ToString();
+                var ultimoCorteEmpleado2 = Convert.ToDateTime(ultimoCorte.ToString());
+                ultimoCorte = ultimoCorteEmpleado2.ToString("yyyy-MM-dd HH:mm:ss");
+                dpFechaInicial.Value = ultimoCorteEmpleado2;
+            }
+            else
+            {
+                dpFechaInicial.Value = fechaUltimoCorte;
+            }
+
+            dpFechaFinal.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            DateTime Hora = Convert.ToDateTime(ultimoCorte);
+            // Hora inicial y final
+            dpHoraInicial.Text = Hora.ToString("HH:mm");
+            dpHoraFinal.Text = "23:59";
+
         }
 
         //Se agrego para que no se abra la ventana nueva venta al cambiar el tamaño del form
