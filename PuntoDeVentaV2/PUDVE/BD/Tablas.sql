@@ -2009,3 +2009,8 @@ ALTER TABLE caja ADD COLUMN IF NOT EXISTS Comentarios TEXT DEFAULT NULL;
  -- Oa
   ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS traspasos INTEGER(11) DEFAULT (0);
 
+   -- Se agrego la columna MostrarStockConsultaPrecio a la tabla de Configuracion
+  ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS MostrarStockConsultaPrecio INT DEFAULT 1;
+
+   -- Se agrego la columna MostrarStockConsultaPrecio a la tabla de Configuracion
+  ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoStockConsultarPrecio INT DEFAULT 1;

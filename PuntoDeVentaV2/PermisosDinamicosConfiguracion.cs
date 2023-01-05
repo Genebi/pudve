@@ -105,7 +105,8 @@ namespace PuntoDeVentaV2
                     "AvisarProductosNoVendidos",
                     "ActivarPrecioMayoreoVentas",
                     "MensajeVentas",
-                    "MensajeInventario"
+                    "MensajeInventario",
+                    "PermisoStockConsultarPrecio"
 
                 };
 
@@ -130,6 +131,7 @@ namespace PuntoDeVentaV2
                 GenerarCheckbox(160, 220, 200, "Mensaje Ventas", permisos[9]);
 
                 GenerarCheckbox(190, 10, 200, "Mensaje Inventario", permisos[10]);
+                GenerarCheckbox(190, 220, 200, "Mostrar Stock Consultar Precio", permisos[11]);
             }
             if (tipoPermisos == "porcentageGanancia")
             {
