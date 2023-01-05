@@ -234,14 +234,14 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                        if (dtBuscarConfiguracion.Rows[0]["creditoMovil"].ToString().Equals("1"))
-                        {
-                            if (!verificarFono())
-                            {
-                                MessageBox.Show($"Bajo las configuraciones actuales, es necesario confirmar mediante un dispositivo móvil para consolidar la venta. Termine el proceso de verificación o actualicé su configuración.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                return;
-                            }
-                        }
+                        //if (dtBuscarConfiguracion.Rows[0]["creditoMovil"].ToString().Equals("1"))
+                        //{
+                        //    if (!verificarFono())
+                        //    {
+                        //        MessageBox.Show($"Bajo las configuraciones actuales, es necesario confirmar mediante un dispositivo móvil para consolidar la venta. Termine el proceso de verificación o actualicé su configuración.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //        return;
+                        //    }
+                        //}
                 
                     if (dtBuscarConfiguracion.Rows[0]["creditoAplicarpagoinicial"].ToString().Equals("1"))
                     {
@@ -821,18 +821,18 @@ namespace PuntoDeVentaV2
             return coincidencia;
         }
 
-        private bool verificarFono()
-        {
-            bool coincidencia = false;
+        //private bool verificarFono()
+        //{
+        //    bool coincidencia = false;
 
-            creditoVerificacion verificadorNum = new creditoVerificacion();
-            verificadorNum.FormClosed += delegate
-            {
-                coincidencia = verificadorNum.validado;
-            };
-            verificadorNum.ShowDialog();
-            return coincidencia;
-        }
+        //    creditoVerificacion verificadorNum = new creditoVerificacion();
+        //    verificadorNum.FormClosed += delegate
+        //    {
+        //        coincidencia = verificadorNum.validado;
+        //    };
+        //    verificadorNum.ShowDialog();
+        //    return coincidencia;
+        //}
 
         private void lbCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

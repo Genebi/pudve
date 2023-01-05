@@ -28,6 +28,7 @@ namespace PuntoDeVentaV2
         private int idCliente = 0;
         private int idVenta = 0;
         bool validarRFC = false;
+        string verificado="0";
 
         //idVenta como parametro es para cuando se agrega un cliente al momento de querer timbrar
         //una venta, de esta manera se asigna el ID del cliente al terminar el registro de esta manera
@@ -46,6 +47,7 @@ namespace PuntoDeVentaV2
             if (tipo==2)
             {
                 label19.Visible = true;
+                
             }
             AgregarCliente form = this;
             Utilidades.EjecutarAtajoKeyPreviewDown(gbContenedor_PreviewKeyDown, form);
@@ -241,7 +243,7 @@ namespace PuntoDeVentaV2
                 {
                     FormPrincipal.userID.ToString(), razon, comercial, rfc, usoCFDI.ToString(), pais, estado, municipio, localidad,
                     cp, colonia, calle, noExt, noInt, regimen.ToString(), email, telefono, formaPago, fechaOperacion, idCliente.ToString(),
-                    tipoCliente, numeroCliente
+                    tipoCliente, numeroCliente, verificado
                 };
 
                 //Si el checkbox de agregar cliente repetido esta marcado
@@ -406,6 +408,12 @@ namespace PuntoDeVentaV2
             txtTelefono.Text = datos[14];
             cbUsoCFDI.SelectedValue = datos[3];
             cbTipoCliente.SelectedValue = Convert.ToInt32(datos[16]);
+            if (datos[18].Equals("1"))
+            {
+                lblVerificar.Text = "Verificado ✓";
+                lblVerificar.ForeColor = Color.Green;
+                verificado = "1";
+            }
             //cbFormaPago.SelectedValue = datos[15];
         }
 
@@ -685,6 +693,10 @@ namespace PuntoDeVentaV2
             {
                 e.Handled = true;
             }
+            if (txtTelefono.Text.Length>10)
+            {
+                e.Handled = false;
+            }
         }
 
         private void label19_Click(object sender, EventArgs e)
@@ -711,6 +723,43 @@ namespace PuntoDeVentaV2
                 reglasdeCredito.ShowDialog();
             }
             
+        }
+
+        private void txtTelefono_TextChanged(object sender, EventArgs e)
+        {
+            if (txtTelefono.Text.Length.Equals(10))
+            {
+                lblVerificar.Enabled = true;
+                lblVerificar.ForeColor = Color.FromArgb(0, 0, 192);
+            }
+            else
+            {
+                lblVerificar.Enabled = false;
+                lblVerificar.ForeColor = Color.Black;
+            }
+        }
+
+        private void lblVerificar_Click(object sender, EventArgs e)
+        {
+            if (verificarFono())
+            {
+                lblVerificar.Text = "Verificado ✓";
+                lblVerificar.ForeColor = Color.Green;
+                verificado = "1";
+            }
+        }
+
+        private bool verificarFono()
+        {
+            bool coincidencia = false;
+
+            creditoVerificacion verificadorNum = new creditoVerificacion($"+{numRegion.Text}{txtTelefono.Text}");
+            verificadorNum.FormClosed += delegate
+            {
+                coincidencia = verificadorNum.validado;
+            };
+            verificadorNum.ShowDialog();
+            return coincidencia;
         }
     }
 }

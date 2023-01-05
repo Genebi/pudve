@@ -236,6 +236,7 @@ namespace PuntoDeVentaV2
                 lista.Add(dr[18].ToString()); //Forma de pago       15
                 lista.Add(dr[21].ToString()); //TipoCliente         16
                 lista.Add(dr[22].ToString()); //NumeroCliente       17
+                lista.Add(dr[23].ToString()); //Verificado          18
             }
 
             dr.Close();

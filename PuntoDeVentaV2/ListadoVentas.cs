@@ -179,7 +179,6 @@ namespace PuntoDeVentaV2
             ventas.Add("VG", "VENTAS GUARDADAS (PRESUPUESTOS)");
             ventas.Add("VC", "VENTAS CANCELADAS");
             ventas.Add("VCC", "VENTAS A CRÉDITO");
-            ventas.Add("VCA", "VENTAS ATRASADAS");
             ventas.Add("VGG", "VENTAS GLOBALES");
 
             cbTipoVentas.DataSource = ventas.ToArray();

@@ -72,7 +72,13 @@
             this.btnPublicoGeneral = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.btnReglasdecredito = new System.Windows.Forms.Button();
+            this.lblVerificar = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.numRegion = new System.Windows.Forms.NumericUpDown();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.gbContenedor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numRegion)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtRazonSocial
@@ -227,12 +233,13 @@
             // 
             this.txtTelefono.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtTelefono.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTelefono.Location = new System.Drawing.Point(418, 335);
+            this.txtTelefono.Location = new System.Drawing.Point(467, 337);
             this.txtTelefono.MaxLength = 10;
             this.txtTelefono.Name = "txtTelefono";
-            this.txtTelefono.Size = new System.Drawing.Size(180, 21);
+            this.txtTelefono.Size = new System.Drawing.Size(131, 21);
             this.txtTelefono.TabIndex = 15;
             this.txtTelefono.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTelefono.TextChanged += new System.EventHandler(this.txtTelefono_TextChanged);
             this.txtTelefono.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTelefono_KeyDown);
             this.txtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefono_KeyPress);
             // 
@@ -385,9 +392,9 @@
             this.label16.Location = new System.Drawing.Point(353, 337);
             this.label16.Name = "label16";
             this.label16.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label16.Size = new System.Drawing.Size(59, 17);
+            this.label16.Size = new System.Drawing.Size(50, 17);
             this.label16.TabIndex = 69;
-            this.label16.Text = "Teléfono";
+            this.label16.Text = "Tel. Cel";
             // 
             // cbCliente
             // 
@@ -532,6 +539,9 @@
             // 
             // gbContenedor
             // 
+            this.gbContenedor.Controls.Add(this.pictureBox1);
+            this.gbContenedor.Controls.Add(this.label20);
+            this.gbContenedor.Controls.Add(this.numRegion);
             this.gbContenedor.Controls.Add(this.btnPublicoGeneral);
             this.gbContenedor.Controls.Add(this.label19);
             this.gbContenedor.Controls.Add(this.lAgregarClienteNuevo);
@@ -547,6 +557,7 @@
             this.gbContenedor.Controls.Add(this.btnAceptar);
             this.gbContenedor.Controls.Add(this.btnCancelar);
             this.gbContenedor.Controls.Add(this.cbCliente);
+            this.gbContenedor.Controls.Add(this.lblVerificar);
             this.gbContenedor.Controls.Add(this.label16);
             this.gbContenedor.Controls.Add(this.label15);
             this.gbContenedor.Controls.Add(this.label13);
@@ -630,6 +641,53 @@
             this.btnReglasdecredito.UseVisualStyleBackColor = false;
             this.btnReglasdecredito.Click += new System.EventHandler(this.btnReglasdecredito_Click);
             // 
+            // lblVerificar
+            // 
+            this.lblVerificar.AutoSize = true;
+            this.lblVerificar.Enabled = false;
+            this.lblVerificar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVerificar.Location = new System.Drawing.Point(515, 358);
+            this.lblVerificar.Name = "lblVerificar";
+            this.lblVerificar.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblVerificar.Size = new System.Drawing.Size(59, 17);
+            this.lblVerificar.TabIndex = 69;
+            this.lblVerificar.Text = "Verificar";
+            this.lblVerificar.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblVerificar.Click += new System.EventHandler(this.lblVerificar_Click);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(419, 341);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(13, 13);
+            this.label20.TabIndex = 88;
+            this.label20.Text = "+";
+            this.label20.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // numRegion
+            // 
+            this.numRegion.Location = new System.Drawing.Point(418, 337);
+            this.numRegion.Name = "numRegion";
+            this.numRegion.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.numRegion.Size = new System.Drawing.Size(41, 20);
+            this.numRegion.TabIndex = 87;
+            this.numRegion.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
+            this.numRegion.Value = new decimal(new int[] {
+            52,
+            0,
+            0,
+            0});
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::PuntoDeVentaV2.Properties.Resources.whatsapp;
+            this.pictureBox1.Location = new System.Drawing.Point(580, 358);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(18, 19);
+            this.pictureBox1.TabIndex = 89;
+            this.pictureBox1.TabStop = false;
+            // 
             // AgregarCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -647,6 +705,8 @@
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.AgregarCliente_PreviewKeyDown);
             this.gbContenedor.ResumeLayout(false);
             this.gbContenedor.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numRegion)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -697,5 +757,9 @@
         private System.Windows.Forms.Button btnPublicoGeneral;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button btnReglasdecredito;
+        private System.Windows.Forms.Label lblVerificar;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.NumericUpDown numRegion;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

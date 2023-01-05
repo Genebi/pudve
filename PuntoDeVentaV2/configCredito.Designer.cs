@@ -37,11 +37,9 @@
             this.numVentasAbiertas = new System.Windows.Forms.NumericUpDown();
             this.numTotaldecredito = new System.Windows.Forms.NumericUpDown();
             this.combTotalCredito = new System.Windows.Forms.ComboBox();
-            this.numMoratorio = new System.Windows.Forms.NumericUpDown();
             this.lblDef1 = new System.Windows.Forms.Label();
             this.lbdef2 = new System.Windows.Forms.Label();
             this.numPagoInicial = new System.Windows.Forms.NumericUpDown();
-            this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.numInteresDefecto = new System.Windows.Forms.NumericUpDown();
@@ -54,23 +52,25 @@
             this.combMododecobro = new System.Windows.Forms.ComboBox();
             this.combPeriododecobro = new System.Windows.Forms.ComboBox();
             this.cbAplicarPorcentajePorDefecto = new System.Windows.Forms.CheckBox();
+            this.cbVerificar = new System.Windows.Forms.CheckBox();
             this.cbHuella = new System.Windows.Forms.CheckBox();
             this.chbPerdonarInteres = new System.Windows.Forms.CheckBox();
             this.cbPagoInicial = new System.Windows.Forms.CheckBox();
-            this.cbMoratorio = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.numMoratorio = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cbMoratorio = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.cbMaster = new System.Windows.Forms.CheckBox();
-            this.cbVerificar = new System.Windows.Forms.CheckBox();
             this.GBControles.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDiasdecobrosininteres)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCantidadAbonos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numVentasAbiertas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTotaldecredito)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMoratorio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPagoInicial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numInteresDefecto)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMoratorio)).BeginInit();
             this.SuspendLayout();
             // 
             // GBControles
@@ -207,16 +207,6 @@
             this.combTotalCredito.SelectedIndexChanged += new System.EventHandler(this.combTotalCredito_SelectedIndexChanged);
             this.combTotalCredito.SelectedValueChanged += new System.EventHandler(this.combTotalCredito_SelectedValueChanged);
             // 
-            // numMoratorio
-            // 
-            this.numMoratorio.DecimalPlaces = 2;
-            this.numMoratorio.Enabled = false;
-            this.numMoratorio.Location = new System.Drawing.Point(213, 398);
-            this.numMoratorio.Name = "numMoratorio";
-            this.numMoratorio.Size = new System.Drawing.Size(85, 20);
-            this.numMoratorio.TabIndex = 3;
-            this.numMoratorio.Visible = false;
-            // 
             // lblDef1
             // 
             this.lblDef1.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -251,18 +241,6 @@
             this.numPagoInicial.Name = "numPagoInicial";
             this.numPagoInicial.Size = new System.Drawing.Size(71, 22);
             this.numPagoInicial.TabIndex = 7;
-            // 
-            // label12
-            // 
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(296, 398);
-            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(20, 22);
-            this.label12.TabIndex = 1;
-            this.label12.Text = "%";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.label12.Visible = false;
             // 
             // label13
             // 
@@ -410,6 +388,19 @@
             this.cbAplicarPorcentajePorDefecto.Text = "Aplicar el mismo % de interés \r\na todos los clientes:";
             this.cbAplicarPorcentajePorDefecto.UseVisualStyleBackColor = true;
             // 
+            // cbVerificar
+            // 
+            this.cbVerificar.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbVerificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbVerificar.Location = new System.Drawing.Point(22, 97);
+            this.cbVerificar.Name = "cbVerificar";
+            this.cbVerificar.Size = new System.Drawing.Size(297, 59);
+            this.cbVerificar.TabIndex = 1;
+            this.cbVerificar.Text = "Solicitar teléfono móvil para consolidar venta a crédito mediante clave de verifi" +
+    "cación";
+            this.cbVerificar.UseVisualStyleBackColor = true;
+            this.cbVerificar.Visible = false;
+            // 
             // cbHuella
             // 
             this.cbHuella.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -447,6 +438,40 @@
             this.cbPagoInicial.UseVisualStyleBackColor = true;
             this.cbPagoInicial.CheckedChanged += new System.EventHandler(this.cbPagoInicial_CheckedChanged);
             // 
+            // label5
+            // 
+            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.label5.Location = new System.Drawing.Point(22, 207);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(274, 26);
+            this.label5.TabIndex = 154;
+            this.label5.Text = "(Si está desactivado, este valor se toma como por defecto en nuevos clientes)";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // numMoratorio
+            // 
+            this.numMoratorio.DecimalPlaces = 2;
+            this.numMoratorio.Enabled = false;
+            this.numMoratorio.Location = new System.Drawing.Point(213, 398);
+            this.numMoratorio.Name = "numMoratorio";
+            this.numMoratorio.Size = new System.Drawing.Size(85, 20);
+            this.numMoratorio.TabIndex = 3;
+            this.numMoratorio.Visible = false;
+            // 
+            // label12
+            // 
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(296, 398);
+            this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(20, 22);
+            this.label12.TabIndex = 1;
+            this.label12.Text = "%";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.label12.Visible = false;
+            // 
             // cbMoratorio
             // 
             this.cbMoratorio.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -460,18 +485,6 @@
             this.cbMoratorio.UseVisualStyleBackColor = true;
             this.cbMoratorio.Visible = false;
             this.cbMoratorio.CheckedChanged += new System.EventHandler(this.cbMoratorio_CheckedChanged);
-            // 
-            // label5
-            // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.label5.Location = new System.Drawing.Point(22, 207);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(274, 26);
-            this.label5.TabIndex = 154;
-            this.label5.Text = "(Si está desactivado, este valor se toma como por defecto en nuevos clientes)";
-            this.label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label4
             // 
@@ -516,18 +529,6 @@
             this.cbMaster.UseVisualStyleBackColor = false;
             this.cbMaster.CheckedChanged += new System.EventHandler(this.cbMaster_CheckedChanged);
             // 
-            // cbVerificar
-            // 
-            this.cbVerificar.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.cbVerificar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbVerificar.Location = new System.Drawing.Point(22, 97);
-            this.cbVerificar.Name = "cbVerificar";
-            this.cbVerificar.Size = new System.Drawing.Size(297, 59);
-            this.cbVerificar.TabIndex = 1;
-            this.cbVerificar.Text = "Solicitar teléfono móvil para consolidar venta a crédito mediante clave de verifi" +
-    "cación";
-            this.cbVerificar.UseVisualStyleBackColor = true;
-            // 
             // configCredito
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -556,9 +557,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.numCantidadAbonos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numVentasAbiertas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numTotaldecredito)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numMoratorio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numPagoInicial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numInteresDefecto)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numMoratorio)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
