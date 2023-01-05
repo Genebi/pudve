@@ -71,7 +71,16 @@ namespace PuntoDeVentaV2
             dineroRetiradoDA.Fill(dineroRetiradoDT);
 
             ReportParameterCollection reportParameters = new ReportParameterCollection();
-            reportParameters.Add(new ReportParameter("Comentario", AgregarRetirarDinero.Comentario.ToString()));
+            string comentario;
+            if (AgregarRetirarDinero.Comentario.Equals("COMENTARIOS"))
+            {
+                comentario = "";
+            }
+            else
+            {
+                comentario = AgregarRetirarDinero.Comentario;
+            }
+            reportParameters.Add(new ReportParameter("Comentario", comentario));
 
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
