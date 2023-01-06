@@ -696,6 +696,12 @@
     <Compile Include="Crear_factura.Designer.cs">
       <DependentUpon>Crear_factura.cs</DependentUpon>
     </Compile>
+    <Compile Include="creditoFiltradorPorVencer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="creditoFiltradorPorVencer.Designer.cs">
+      <DependentUpon>creditoFiltradorPorVencer.cs</DependentUpon>
+    </Compile>
     <Compile Include="creditoVerificacion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1958,6 +1964,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Crear_factura.resx">
       <DependentUpon>Crear_factura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="creditoFiltradorPorVencer.resx">
+      <DependentUpon>creditoFiltradorPorVencer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="creditoVerificacion.resx">
       <DependentUpon>creditoVerificacion.cs</DependentUpon>

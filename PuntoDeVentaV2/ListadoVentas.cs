@@ -55,6 +55,8 @@ namespace PuntoDeVentaV2
         public static int folioVenta { get; set; }
         public static int obtenerIDVentaTimbrado { get; set; }
 
+        DateTime fechonon;
+
         public static int tipo_venta = 0;
         public static string[][] faltantes_productos;
         private static WebSettings _webSettings;
@@ -496,6 +498,8 @@ namespace PuntoDeVentaV2
                     if (opcion == "VGG") { estado = 5; }
                     // Ventas a credito atrasadas
                     if (opcion == "VCA") { estado = 6; }
+                    // Ventas a credito por vencer
+                    if (opcion == "VPV") { estado = 7; }
 
                     if (buscador.Equals("BUSCAR POR RFC, CLIENTE, EMPLEADO O FOLIO..."))
                     {
@@ -538,10 +542,16 @@ namespace PuntoDeVentaV2
                             {
                                 consulta = cs.VerComoEpleadoTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
                             }
-                            else if (estado.Equals(6)) // Ventas a credito expiradas
-                            {
-                                consulta = cs.VerComoEpleadoTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
-                            }
+                            //En algun momento de echo se entra aqui?
+
+                            //else if (estado.Equals(6)) // Ventas a credito expiradas
+                            //{
+                            //    consulta = cs.VerComoEpleadoTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
+                            //}
+                            //else if (estado.Equals(7)) // Ventas a credito por vencer
+                            //{
+                            //    consulta = cs.VerComoEpleadoTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
+                            //}
                         }
                         else
                         {
@@ -621,6 +631,22 @@ namespace PuntoDeVentaV2
                                 else
                                 {
                                     consulta = cs.verVentasCreditoAtrasadasPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, formaPagoFiltro);
+                                }
+                            }
+                            else if (estado.Equals(7)) // Ventas a credito por expirar
+                            {
+                                //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal);
+                                if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLasVentasACreditoPorAtrasar(fechonon.ToString("yyyy-MM-dd"));
+                                }
+                                else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLasVentasACreditoPorAtrasar(fechonon.ToString("yyyy-MM-dd"));
+                                }
+                                else
+                                {
+                                    consulta = cs.verVentasCreditoVencerPorEmpleadoDesdeAdministrador(idAdministradorOrUsuario, fechonon.ToString("yyyy-MM-dd"));
                                 }
                             }
                         }
@@ -993,9 +1019,13 @@ namespace PuntoDeVentaV2
                         {
                             consulta = cs.VerComoEmpleadoTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
                         }
-                        else if (estado.Equals(6)) // Ventas a credito atrasada
+                        else if (estado.Equals(6)) // Ventas a credito atrasada 
                         {
                             consulta = cs.VerComoEmpleadoTodasLasVentasACreditoAtrasadas(estado, fechaInicial, fechaFinal);
+                        }
+                        else if (estado.Equals(7)) // Ventas a credito por atrasar
+                        {
+                            consulta = cs.VerComoEmpleadoTodasLasVentasACreditoPorVencer(fechonon.ToString("yyyy-MM-dd"));
                         }
                     }
                     else
@@ -1164,6 +1194,23 @@ namespace PuntoDeVentaV2
                             else
                             {
                                 consulta = cs.verVentasCreditoAtrasadasPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
+                            }
+                        }
+
+                        else if (estado.Equals(7)) // Ventas a credito por vencer
+                        {
+                            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                            {
+                                //consulta = cs.verVentasCreditoDelAdministrador(estado, fechaInicial, fechaFinal);
+                                consulta = cs.VerComoAdministradorTodasLasVentasACreditoPorAtrasar(fechonon.ToString("yyyy-MM-dd"));
+                            }
+                            else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                            {
+                                consulta = cs.VerComoAdministradorTodasLasVentasACreditoPorAtrasar(fechonon.ToString("yyyy-MM-dd"));
+                            }
+                            else
+                            {
+                                consulta = cs.verVentasCreditoVencerPorEmpleadoDesdeAdministrador(idAdministradorOrUsuario, fechonon.ToString("yyyy-MM-dd"));
                             }
                         }
                     }
@@ -1703,14 +1750,14 @@ namespace PuntoDeVentaV2
             if (cbTipoVentas.SelectedIndex==3)
             {
                 btnBuscarPorHuella.Visible = true;
-                btnVencidas.Visible = false;
-                btnPorVencer.Visible = false;
+                btnVencidas.Visible = true;
+                btnPorVencer.Visible = true;
             }
             else
             {
                 btnBuscarPorHuella.Visible = false;
-                btnVencidas.Visible = true;
-                btnPorVencer.Visible = true;
+                btnVencidas.Visible = false;
+                btnPorVencer.Visible = false;
             }
 
             // Desactivar checkbox al cambios tipos de ventas
@@ -5359,6 +5406,53 @@ namespace PuntoDeVentaV2
                 
             };
             checador.ShowDialog();
+        }
+
+        private void btnVencidas_Click(object sender, EventArgs e)
+        {
+            tipoVenta = cbTipoVentas.SelectedIndex;
+            var opcion = "VCA";
+            clickBoton = 0;
+
+            // Desactivar checkbox al cambios tipos de ventas
+            chTodos.Checked = false;
+            chkHDAutlan.Checked = false;
+
+            if (DGVListadoVentas.Controls.Find("checkBoxMaster", true).Length > 0)
+            {
+                CheckBox headerBox = (CheckBox)DGVListadoVentas.Controls.Find("checkBoxMaster", true)[0];
+                headerBox.Checked = false;
+            }
+
+            //Ventas a credito atrasadas
+            if (opcion == "VCA") { CargarDatos(6); }
+        }
+
+        private void btnPorVencer_Click(object sender, EventArgs e)
+        {
+            creditoFiltradorPorVencer filtrador = new creditoFiltradorPorVencer();
+            filtrador.FormClosed += delegate
+            {
+                fechonon = filtrador.lamerafecha;
+            };
+            filtrador.ShowDialog();
+
+            tipoVenta = cbTipoVentas.SelectedIndex;
+            var opcion = "VCA";
+            clickBoton = 0;
+
+            // Desactivar checkbox al cambios tipos de ventas
+            chTodos.Checked = false;
+            chkHDAutlan.Checked = false;
+
+            if (DGVListadoVentas.Controls.Find("checkBoxMaster", true).Length > 0)
+            {
+                CheckBox headerBox = (CheckBox)DGVListadoVentas.Controls.Find("checkBoxMaster", true)[0];
+                headerBox.Checked = false;
+            }
+
+            //Ventas a credito por vencer
+            if (opcion == "VPV") { CargarDatos(7); }
         }
     }
 }
