@@ -169,7 +169,7 @@ namespace PuntoDeVentaV2
                     //    {
                     foreach (var fecha in dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString().Split('%'))
                     {
-                        if (DateTime.Parse(fecha) > lameraFecha && DateTime.Parse(fecha) < DateTime.Now)
+                        if (DateTime.Parse(fecha) >= lameraFecha && DateTime.Parse(fecha) < DateTime.Now)
                         {
                             abonoTotal = abonoTotal + decimal.Parse(dtReglasCreditoVenta.Rows[0]["creditoMinimoAbono"].ToString());
                         }

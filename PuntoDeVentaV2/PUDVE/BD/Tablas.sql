@@ -2066,3 +2066,4 @@ IF
 
 -- Columnas para manejar bien chidin los creditos asi bien coppel
 	ALTER TABLE reglasCreditoVenta ADD COLUMN IF NOT EXISTS FechaApertura DATE;
+	ALTER TABLE reglasCreditoVenta ADD COLUMN IF NOT EXISTS FechaCierre DATE;

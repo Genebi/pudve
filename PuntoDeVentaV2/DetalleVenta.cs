@@ -551,7 +551,7 @@ namespace PuntoDeVentaV2
                         using (DataTable dtIdVenta = cn.CargarDatos($"SELECT MAX(ID) FROM Ventas"))
                         {
                             
-                            string consulta = "INSERT INTO reglasCreditoVenta(IDVenta,IDHuella, FechaInteres, creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro, creditoCantidadAbonos, creditoMinimoAbono, creditoPerdon, FechaApertura)";
+                            string consulta = "INSERT INTO reglasCreditoVenta(IDVenta,IDHuella, FechaInteres, creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro, creditoCantidadAbonos, creditoMinimoAbono, creditoPerdon, FechaApertura, FechaCierre)";
                             consulta += $"VALUES('{Int32.Parse(dtIdVenta.Rows[0]["MAX(ID)"].ToString())+1}', ";
                             if (!string.IsNullOrEmpty(idHuella))
                             {
@@ -589,9 +589,9 @@ namespace PuntoDeVentaV2
                                     }
                                     proximoPago = proximoPago.AddDays(15);
                                     consulta += $"%{proximoPago.ToString("yyyy-MM-dd")}',";
-                                    break;
+                                            break;
                                 case "Mensual":
-                                        switch (proximoPago.Day)
+                                                                switch (proximoPago.Day)
                                         {
                                             case 31:
                                                 for (int i = 1; i < Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()); i++)
@@ -648,10 +648,10 @@ namespace PuntoDeVentaV2
                                             {
                                                 proximoPago = proximoPago.AddMonths(1);
                                                 consulta += $"%{proximoPago.ToString("yyyy-MM-dd")}";
-                                            }
+                                                    }
                                             break;
                                     }
-                                    proximoPago = proximoPago.AddMonths(1);
+                                    //proximoPago = proximoPago.AddMonths(1);
                                     consulta += "', ";
                                     break;
                                 default:
@@ -700,7 +700,8 @@ namespace PuntoDeVentaV2
 
                                 consulta += $"'{Convert.ToDecimal(txtCredito.Text) / Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString())}', ";
                                 consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoPerdon"].ToString()}', ";
-                                consulta += $"'{dtpLaMeraFecha.Value.ToString("yyyy-MM-dd")}')";
+                                consulta += $"'{dtpLaMeraFecha.Value.ToString("yyyy-MM-dd")}', ";
+                                consulta += $"'{proximoPago.AddDays(1).ToString("yyyy-MM-dd")}')";
                                 Ventas.consutlaCredito = consulta;
                                 consulta = string.Empty;
                             }

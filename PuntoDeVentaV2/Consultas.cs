@@ -3166,6 +3166,23 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string VerComoAdministradorTodasLasVentasACreditoAtrasadas(int estado, string ultimaFechaDeCorte, string rangoFechaLimite, string formaPago = "NA")
+        {
+            if (formaPago.Equals("NA"))
+            {
+                formaPago = string.Empty;
+            }
+            else
+            {
+                formaPago = $"AND Vent.`FormaPago` = '{formaPago}'";
+            }
+
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '4' AND Vent.IDUsuario = '{FormPrincipal.userID}' {formaPago} AND Vent.FechaOperacion BETWEEN '{ultimaFechaDeCorte}.999999' AND '{rangoFechaLimite}.999999' AND Reg.FechaCierre <= '{DateTime.Now.ToString("yyyy-MM-dd")}' ORDER BY ID DESC ";
+
+            return consulta;
+        }
+
         #endregion
 
         #region Listado Ventas desde Empleado sin busqueda
@@ -3202,6 +3219,13 @@ namespace PuntoDeVentaV2
         public string VerComoEmpleadoTodasLasVentasACredito(int estado, string ultimaFechaDeCorte, string rangoFechaLimite)
         {
             var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{estado}' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.FechaOperacion BETWEEN '{ultimaFechaDeCorte}.999999' AND '{rangoFechaLimite}.999999' ORDER BY ID DESC ";
+
+            return consulta;
+        }
+
+        public string VerComoEmpleadoTodasLasVentasACreditoAtrasadas(int estado, string ultimaFechaDeCorte, string rangoFechaLimite)
+        {
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '4' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.FechaOperacion BETWEEN '{ultimaFechaDeCorte}.999999' AND '{rangoFechaLimite}.999999' AND Reg.FechaCierre <= '{DateTime.Now.ToString("yyyy-MM-dd")}' ORDER BY ID DESC ";
 
             return consulta;
         }
@@ -3442,6 +3466,21 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+        public string VerComoAdministradorTodasLaVentasGuardadasPorFechasYBusquedaAtrasadas(int status, string FechaInicial, string FechaFinal, string busqueda, string formaPago = "NA")
+        {
+            if (formaPago.Equals("NA"))
+            {
+                formaPago = string.Empty;
+            }
+            else
+            {
+                formaPago = $"AND Vent.`FormaPago` = '{formaPago}'";
+            }
+
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT ( Usr.Usuario, ' (ADMIN)' ), CONCAT ( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM Ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '{status}' AND Vent.IDUsuario = '{FormPrincipal.userID}' {formaPago} AND Vent.FechaOperacion BETWEEN '{FechaInicial}.999999' AND '{FechaFinal}.999999' AND Reg.FechaCierre <= '{DateTime.Now.ToString("yyyy-MM-dd")}' {busqueda} ORDER BY Vent.ID DESC";
+
+            return consulta;
+        }
 
         public string VerComoAdministradorTodasLaVentasCanceladasPorFechasYBusqueda(int status, string FechaInicial, string FechaFinal, string busqueda, string formaPago = "NA")
         {
@@ -3480,6 +3519,22 @@ namespace PuntoDeVentaV2
             }
 
             var consulta = $"SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT ( Usr.Usuario, ' (ADMIN)' ), CONCAT ( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM Ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{status}' AND Vent.IDEmpleado = '{idEmpleado}' {formaPago} AND Vent.FechaOperacion BETWEEN '{FechaInicial}.999999' AND '{FechaFinal}.999999' { busqueda } ORDER BY Vent.ID DESC";
+
+            return consulta;
+        }
+
+        public string VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusquedaAtrasadas(int status, int idEmpleado, string FechaInicial, string FechaFinal, string busqueda, string formaPago = "NA")
+        {
+            if (formaPago.Equals("NA"))
+            {
+                formaPago = string.Empty;
+            }
+            else
+            {
+                formaPago = $"AND Vent.`FormaPago` = '{formaPago}'";
+            }
+
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT ( Usr.Usuario, ' (ADMIN)' ), CONCAT ( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM Ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '{status}' AND Vent.IDEmpleado = '{idEmpleado}' {formaPago} AND Vent.FechaOperacion BETWEEN '{FechaInicial}.999999' AND '{FechaFinal}.999999' AND Reg.FechaCierre <= '{DateTime.Now.ToString("yyyy-MM-dd")}' { busqueda } ORDER BY Vent.ID DESC";
 
             return consulta;
         }
@@ -3544,6 +3599,21 @@ namespace PuntoDeVentaV2
             }
 
             var consulta = $"SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT ( Usr.Usuario, ' (ADMIN)' ), CONCAT ( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM Ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{status}'  AND Vent.IDUsuario = '{FormPrincipal.userID}' {formaPago} AND Vent.FechaOperacion BETWEEN '{FechaInicial}.999999' AND '{FechaFinal}.999999' { busqueda } ORDER BY Vent.ID DESC";
+
+            return consulta;
+        }
+        public string VerComoEmpleadoTodasLasVentasACreditoAtrasadasPorFechasYBusqueda(int status, string FechaInicial, string FechaFinal, string busqueda, string formaPago = "NA")
+        {
+            if (formaPago.Equals("NA"))
+            {
+                formaPago = string.Empty;
+            }
+            else
+            {
+                formaPago = $"AND Vent.`FormaPago` = '{formaPago}'";
+            }
+
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT ( Usr.Usuario, ' (ADMIN)' ), CONCAT ( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM Ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '{status}'  AND Vent.IDUsuario = '{FormPrincipal.userID}' {formaPago} AND Vent.FechaOperacion BETWEEN '{FechaInicial}.999999' AND '{FechaFinal}.999999' AND Reg.FechaCierre <= '{DateTime.Now.ToString("yyyy-MM-dd")}' { busqueda } ORDER BY Vent.ID DESC";
 
             return consulta;
         }
@@ -3667,6 +3737,22 @@ namespace PuntoDeVentaV2
             }
 
             var consulta = $"SELECT Vent.*, Usr.Usuario, IF( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF( Emp.nombre IS NULL, CONCAT( Usr.Usuario, ' (ADMIN)' ), CONCAT( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{estado}' AND Vent.IDEmpleado = '{idEmpleado}' {formaPago} AND Vent.FechaOperacion BETWEEN '{ultimaFechaDeCorte}.999999' AND '{rangoFechaLimite}.999999' ORDER BY ID DESC";
+
+            return consulta;
+        }
+
+        public string verVentasCreditoAtrasadasPorEmpleadoDesdeAdministrador(int estado, int idEmpleado, string ultimaFechaDeCorte, string rangoFechaLimite, string formaPago = "NA")
+        {
+            if (formaPago.Equals("NA"))
+            {
+                formaPago = string.Empty;
+            }
+            else
+            {
+                formaPago = $"AND Vent.`FormaPago` = '{formaPago}'";
+            }
+
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF( Emp.nombre IS NULL, CONCAT( Usr.Usuario, ' (ADMIN)' ), CONCAT( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa AS Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '4' AND Vent.IDEmpleado = '{idEmpleado}' {formaPago} AND Vent.FechaOperacion BETWEEN '{ultimaFechaDeCorte}.999999' AND '{rangoFechaLimite}.999999' AND Reg.FechaCierre <= '{DateTime.Now.ToString("yyyy-MM-dd")}' ORDER BY ID DESC";
 
             return consulta;
         }

@@ -45,6 +45,7 @@ namespace PuntoDeVentaV2
         private DateTime fechaUltimoCorte;
         private bool existenProductos;
         private bool hay_productos_habilitados;
+        private bool creditoMaster = false;
 
         public static bool recargarDatos = false;
         public static bool abrirNuevaVenta = false;
@@ -122,6 +123,9 @@ namespace PuntoDeVentaV2
 
         private void ListadoVentas_Load(object sender, EventArgs e)
         {
+
+
+
             if (FormPrincipal.id_empleado != 0)
             {
                 DGVListadoVentas.Columns["Ganancia"].Visible = false;
@@ -604,6 +608,22 @@ namespace PuntoDeVentaV2
                                     consulta = cs.verVentasCreditoPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                             }
+                            else if (estado.Equals(6)) // Ventas a credito atrasadas
+                            {
+                                //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal);
+                                if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLasVentasACreditoAtrasadas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
+                                }
+                                else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLasVentasACreditoAtrasadas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
+                                }
+                                else
+                                {
+                                    consulta = cs.verVentasCreditoAtrasadasPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, formaPagoFiltro);
+                                }
+                            }
                         }
                     }
                     else
@@ -706,6 +726,10 @@ namespace PuntoDeVentaV2
                                 {
                                     buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
                                 }
+                                else if (opcionFiltrado == "VCA") //Ventas a credito atrasadas
+                                {
+                                    buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
+                                }
                             }
                             else
                             {
@@ -751,6 +775,11 @@ namespace PuntoDeVentaV2
                                     buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
 
                                 }
+                                else if (opcionFiltrado == "VCA") //Ventas a credito atrasadas
+                                {
+                                    buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
+
+                                }
                             }
 
                             if (extra.Equals("AND ( "))
@@ -788,6 +817,10 @@ namespace PuntoDeVentaV2
                             else if (estado.Equals(4)) // Ventas a credito
                             {
                                 consulta = cs.VerComoEmpleadoTodasLasVentasACreditoPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
+                            }
+                            else if (estado.Equals(6)) // Ventas a credito atrasadas
+                            {
+                                consulta = cs.VerComoEmpleadoTodasLasVentasACreditoAtrasadasPorFechasYBusqueda(4, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                             }
                         }
                         else
@@ -853,6 +886,22 @@ namespace PuntoDeVentaV2
                                 else
                                 {
                                     consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra, formaPagoFiltro);
+                                }
+                            }
+                            else if (estado.Equals(6)) // Ventas a credito atrasadas
+                            {
+                                //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechasYBusquedaAtrasadas(4, fechaInicial, fechaFinal, extra, formaPagoFiltro);
+                                }
+                                else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechasYBusquedaAtrasadas(4, fechaInicial, fechaFinal, extra, formaPagoFiltro);
+                                }
+                                else
+                                {
+                                    consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(4, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                             }
                         }
@@ -944,6 +993,10 @@ namespace PuntoDeVentaV2
                         else if (estado.Equals(4)) // Ventas a credito
                         {
                             consulta = cs.VerComoEmpleadoTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
+                        }
+                        else if (estado.Equals(6)) // Ventas a credito atrasada
+                        {
+                            consulta = cs.VerComoEmpleadoTodasLasVentasACreditoAtrasadas(estado, fechaInicial, fechaFinal);
                         }
                     }
                     else
@@ -1103,15 +1156,15 @@ namespace PuntoDeVentaV2
                             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                             {
                                 //consulta = cs.verVentasCreditoDelAdministrador(estado, fechaInicial, fechaFinal);
-                                consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
+                                consulta = cs.VerComoAdministradorTodasLasVentasACreditoAtrasadas(estado, fechaInicial, fechaFinal);
                             }
                             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
                             {
-                                consulta = cs.VerComoAdministradorTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
+                                consulta = cs.VerComoAdministradorTodasLasVentasACreditoAtrasadas(estado, fechaInicial, fechaFinal);
                             }
                             else
                             {
-                                consulta = cs.verVentasCreditoPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
+                                consulta = cs.verVentasCreditoAtrasadasPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
                             }
                         }
                     }
@@ -1254,7 +1307,10 @@ namespace PuntoDeVentaV2
                     // Ventas a credito
                     if (status != 4)
                     {
-                        row.Cells["Abono"].Value = info;
+                        if (status != 6)
+                        {
+                            row.Cells["Abono"].Value = info;
+                        }
                     }
 
                     //Retomar Ventas Canceladas
@@ -1431,6 +1487,10 @@ namespace PuntoDeVentaV2
             else if (opcion == "VCC") //Ventas a credito
             {
                 CargarDatos(4);
+            }
+            else if (opcion == "VCA") //Ventas a credito
+            {
+                CargarDatos(6);
             }
         }
 
@@ -1719,7 +1779,12 @@ namespace PuntoDeVentaV2
                         textoTT = "Abonos";
                         coordenadaX = 54;
 
-                        if (opcion != "VCC") { permitir = false; }
+                        if (opcion != "VCC") {
+                            if (opcion != "VCA")
+                            {
+                                permitir = false;
+                            }
+                        }
                     }
 
                     if (e.ColumnIndex == 15)
@@ -3048,7 +3113,7 @@ namespace PuntoDeVentaV2
                     }
 
                     //Verificamos si tiene seleccionada la opcion de ventas a credito
-                    if (opcion == "VCC")
+                    if (opcion == "VCC" || opcion == "VCA")
                     {
                         var total = float.Parse(DGVListadoVentas.Rows[fila].Cells["Total"].Value.ToString());
 
@@ -3204,7 +3269,7 @@ namespace PuntoDeVentaV2
             {
                 preguntaDesdeDonde = "¿Estás seguro de cancelar la venta cancelada?";
             }
-            else if (opcion == "VCC") //Ventas a credito
+            else if (opcion == "VCC" || opcion == "VCA") //Ventas a credito
             {
                 preguntaDesdeDonde = "¿Estás seguro de cancelar el crédito?";
             }
@@ -3230,7 +3295,7 @@ namespace PuntoDeVentaV2
             {
                 cancelarDesdeDonde = "Venta (Cancelada) cancelada exitosamente";
             }
-            else if (opcion == "VCC") //Ventas a credito
+            else if (opcion == "VCC" || opcion== "VCA") //Ventas a credito
             {
                 cancelarDesdeDonde = "Venta a credito cancelada exitosamente";
             }
