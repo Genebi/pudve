@@ -94,9 +94,11 @@ namespace PuntoDeVentaV2
                         if (!string.IsNullOrWhiteSpace(servidor))
                         {
                             // direccion de la carpeta donde se va poner las imagenes
-                            pathLogoImage = new Uri($"C:/Archivos PUDVE/MisDatos/Usuarios/").AbsoluteUri;
+                            pathLogoImage = new Uri($@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\").AbsoluteUri;
                             // ruta donde estan guardados los archivos digitales
                             ruta_archivos_guadados = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_{Logo}\";
+
+                            DireccionLogo = pathLogoImage + Logo;
                         }
                         else
                         {
@@ -232,9 +234,11 @@ namespace PuntoDeVentaV2
                         if (!string.IsNullOrWhiteSpace(servidor))
                         {
                             // direccion de la carpeta donde se va poner las imagenes
-                            pathLogoImage = new Uri($"C:/Archivos PUDVE/MisDatos/Usuarios/").AbsoluteUri;
+                            pathLogoImage = new Uri($@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\").AbsoluteUri;
                             // ruta donde estan guardados los archivos digitales
                             ruta_archivos_guadados = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_{Logo}\";
+
+                            DireccionLogo = pathLogoImage + Logo;
                         }
                         else
                         {
