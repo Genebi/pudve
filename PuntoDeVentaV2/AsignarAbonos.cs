@@ -48,6 +48,7 @@ namespace PuntoDeVentaV2
         decimal interesPorDia;
         DateTime lameraFecha;
         decimal calculoIntereses = 0;
+        string saldoAnterior = string.Empty;
 
         float restanteDePago = 0;
 
@@ -224,7 +225,7 @@ namespace PuntoDeVentaV2
                         break;
                 }
                 //siguienteFechaAbono = DateTime.Today.AddDays(dias + 1).ToString("yyyy-MM-dd");
-
+                saldoAnterior = txtPendiente.Text;
             }
 
             txtIntereses.Text = intereses.ToString("C2");
@@ -461,10 +462,11 @@ namespace PuntoDeVentaV2
                     {
                         var idAbono = cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID} ORDER BY FechaOperacion DESC LIMIT 1", 1).ToString();
                         var restante = totalPendiente - totalAbonado;
-                        visualizadorAbonoPrimero primerAbono = new visualizadorAbonoPrimero(datos);
+                        visualizadorAbonoPrimero primerAbono = new visualizadorAbonoPrimero(existenAbonos,IDCliente);
                         primerAbono.idAbono = idAbono;
                         primerAbono.idVenta = idVenta.ToString();
-                        primerAbono.SaldoRestante = resultado;
+                        primerAbono.SaldoRestante = txtPendiente.Text;
+                        primerAbono.saldoAnterior = saldoAnterior;
                         //datos = new string[] { idVenta.ToString(), idAbono, totalOriginal.ToString("0.00"), totalPendiente.ToString("0.00"), totalAbonado.ToString("0.00"), restante.ToString("0.00"), fechaOperacion };
 
                         //GenerarTicket(datos);
@@ -509,12 +511,24 @@ namespace PuntoDeVentaV2
                         //GenerarTicket(datos);
                         //ImprimirTicketAbono impresionTicketAbono = new ImprimirTicketAbono();
                         //impresionTicketAbono.idAbono = idVenta;
+                        //impresionTicketAbono.ShowDialog();        
+                        //ImprimirTicket(idVenta.ToString(), idAbono);
+                        //MostrarTicketAbonos(idVenta.ToString(), idAbono);
+                        visualizadorAbonoPrimero primerAbono = new visualizadorAbonoPrimero(existenAbonos, IDCliente);
+                        primerAbono.idAbono = idAbono;
+                        primerAbono.idVenta = idVenta.ToString();
+                        primerAbono.SaldoRestante = txtPendiente.Text;
+                        primerAbono.saldoAnterior = saldoAnterior;
+                        //datos = new string[] { idVenta.ToString(), idAbono, totalOriginal.ToString("0.00"), totalPendiente.ToString("0.00"), totalAbonado.ToString("0.00"), restante.ToString("0.00"), fechaOperacion };
+
+                        //GenerarTicket(datos);
+                        //ImprimirTicketAbono impresionTicketAbono = new ImprimirTicketAbono();
+                        //impresionTicketAbono.idAbono = idVenta;
                         //impresionTicketAbono.ShowDialog();
                         //ImprimirTicket(idVenta.ToString(), idAbono);
                         //MostrarTicketAbonos(idVenta.ToString(), idAbono);
+                        primerAbono.ShowDialog();
                         this.Dispose();
-
-
                     }
                 }
             }
