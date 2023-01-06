@@ -45,5 +45,10 @@ namespace PuntoDeVentaV2
                 this.Close();
             }
         }
+
+        private void AbonosPerdonarIntereses_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

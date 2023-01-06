@@ -461,8 +461,11 @@ namespace PuntoDeVentaV2
                     {
                         var idAbono = cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID} ORDER BY FechaOperacion DESC LIMIT 1", 1).ToString();
                         var restante = totalPendiente - totalAbonado;
-
-                        datos = new string[] { idVenta.ToString(), idAbono, totalOriginal.ToString("0.00"), totalPendiente.ToString("0.00"), totalAbonado.ToString("0.00"), restante.ToString("0.00"), fechaOperacion };
+                        visualizadorAbonoPrimero primerAbono = new visualizadorAbonoPrimero(datos);
+                        primerAbono.idAbono = idAbono;
+                        primerAbono.idVenta = idVenta.ToString();
+                        primerAbono.SaldoRestante = resultado;
+                        //datos = new string[] { idVenta.ToString(), idAbono, totalOriginal.ToString("0.00"), totalPendiente.ToString("0.00"), totalAbonado.ToString("0.00"), restante.ToString("0.00"), fechaOperacion };
 
                         //GenerarTicket(datos);
                         //ImprimirTicketAbono impresionTicketAbono = new ImprimirTicketAbono();
@@ -470,7 +473,7 @@ namespace PuntoDeVentaV2
                         //impresionTicketAbono.ShowDialog();
                         //ImprimirTicket(idVenta.ToString(), idAbono);
                         //MostrarTicketAbonos(idVenta.ToString(), idAbono);
-
+                        primerAbono.ShowDialog();
                         this.Dispose();
                     }
                 }
@@ -495,21 +498,23 @@ namespace PuntoDeVentaV2
                         //cn.EjecutarConsulta($"UPDATE reglascreditoventa SET FechaInteres = '{fechaNueva}' WHERE IDVenta = {idVenta.ToString()}");
                     }
 
+
                     if (resultado > 0)
                     {
                         //cn.EjecutarConsulta($"UPDATE reglascreditoventa SET FechaInteres = '{siguienteFechaAbono}' WHERE IDVenta = '{idVenta}'");
                         var idAbono = cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID} ORDER BY FechaOperacion DESC LIMIT 1", 1).ToString();
                         var restante = totalPendiente - totalAbonado;
 
-                        datos = new string[] { idVenta.ToString(), idAbono, totalOriginal.ToString("0.00"), totalPendiente.ToString("0.00"), totalAbonado.ToString("0.00"), restante.ToString("0.00"), fechaOperacion };
-
+                        //datos = new string[] { idVenta.ToString(), idAbono, totalOriginal.ToString("0.00"), totalPendiente.ToString("0.00"), totalAbonado.ToString("0.00"), restante.ToString("0.00"), fechaOperacion };
                         //GenerarTicket(datos);
-                        ImprimirTicketAbono impresionTicketAbono = new ImprimirTicketAbono();
-                        impresionTicketAbono.idAbono = idVenta;
-                        impresionTicketAbono.ShowDialog();
+                        //ImprimirTicketAbono impresionTicketAbono = new ImprimirTicketAbono();
+                        //impresionTicketAbono.idAbono = idVenta;
+                        //impresionTicketAbono.ShowDialog();
                         //ImprimirTicket(idVenta.ToString(), idAbono);
                         //MostrarTicketAbonos(idVenta.ToString(), idAbono);
                         this.Dispose();
+
+
                     }
                 }
             }

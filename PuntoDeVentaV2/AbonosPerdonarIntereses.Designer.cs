@@ -108,6 +108,7 @@ namespace PuntoDeVentaV2
             this.Name = "AbonosPerdonarIntereses";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Perdonar interes";
+            this.Load += new System.EventHandler(this.AbonosPerdonarIntereses_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AbonosPerdonarIntereses_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.numCantidad)).EndInit();
             this.ResumeLayout(false);
