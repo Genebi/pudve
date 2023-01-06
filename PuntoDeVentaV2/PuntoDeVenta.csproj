@@ -1320,6 +1320,11 @@
       <DependentUpon>TicketAbono.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatosPrimerAbono.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\AbrirCaja\TicketAbrirCaja.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1700,6 +1705,12 @@
     </Compile>
     <Compile Include="VincularPC.Designer.cs">
       <DependentUpon>VincularPC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="visualizadorAbonoPrimero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="visualizadorAbonoPrimero.Designer.cs">
+      <DependentUpon>visualizadorAbonoPrimero.cs</DependentUpon>
     </Compile>
     <Compile Include="visualizadorCorteDeCaja.cs">
       <SubType>Form</SubType>
@@ -2349,6 +2360,7 @@
     <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\ReporteConceptosRetiro.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="ReportesImpresion\Ticket\AbonosNuevo\TickerAbonoPrimero.rdlc" />
     <EmbeddedResource Include="ReportesRetirosConceptosPorMes.resx">
       <DependentUpon>ReportesRetirosConceptosPorMes.cs</DependentUpon>
     </EmbeddedResource>
@@ -2448,6 +2460,9 @@
     <EmbeddedResource Include="VincularPC.resx">
       <DependentUpon>VincularPC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="visualizadorAbonoPrimero.resx">
+      <DependentUpon>visualizadorAbonoPrimero.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="visualizadorCorteDeCaja.resx">
       <DependentUpon>visualizadorCorteDeCaja.cs</DependentUpon>
     </EmbeddedResource>
@@ -2518,6 +2533,17 @@
     <None Include="ReportesImpresion\Ticket\AbonoRealizado\TicketAbono.xss">
       <DependentUpon>TicketAbono.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.xsc">
+      <DependentUpon>DatosPrimerAbono.xsd</DependentUpon>
+    </None>
+    <None Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatosPrimerAbono.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.xss">
+      <DependentUpon>DatosPrimerAbono.xsd</DependentUpon>
     </None>
     <None Include="ReportesImpresion\Ticket\AbrirCaja\TicketAbrirCaja.xsc">
       <DependentUpon>TicketAbrirCaja.xsd</DependentUpon>

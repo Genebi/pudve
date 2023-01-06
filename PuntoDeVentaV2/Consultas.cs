@@ -3178,7 +3178,7 @@ namespace PuntoDeVentaV2
                 formaPago = $"AND Vent.`FormaPago` = '{formaPago}'";
             }
 
-            var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '4' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Reg.FechaCierre <= '{DateTime.Now.ToString("yyyy-MM-dd")}' {formaPago} AND ORDER BY ID DESC ";
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '4' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Reg.FechaCierre <= '{DateTime.Now.ToString("yyyy-MM-dd")}' {formaPago} ORDER BY ID DESC ";
 
             return consulta;
         }
@@ -3194,7 +3194,7 @@ namespace PuntoDeVentaV2
                 formaPago = $"AND Vent.`FormaPago` = '{formaPago}'";
             }
 
-            var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '4' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Reg.FechaCierre >= '{ayylmao}' {formaPago} ORDER BY ID DESC ";
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '4' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Reg.FechaCierre <= '{ayylmao}' {formaPago} ORDER BY ID DESC ";
 
             return consulta;
         }
@@ -3248,7 +3248,7 @@ namespace PuntoDeVentaV2
 
         public string VerComoEmpleadoTodasLasVentasACreditoPorVencer(string fechaProxima)
         {
-            var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '4' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Reg.FechaCierre >= '{fechaProxima}' ORDER BY ID DESC ";
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '4' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Reg.FechaCierre <= '{fechaProxima}' ORDER BY ID DESC ";
 
             return consulta;
         }
@@ -3793,7 +3793,7 @@ namespace PuntoDeVentaV2
                 formaPago = $"AND Vent.`FormaPago` = '{formaPago}'";
             }
 
-            var consulta = $"SELECT Vent.*, Usr.Usuario, IF( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF( Emp.nombre IS NULL, CONCAT( Usr.Usuario, ' (ADMIN)' ), CONCAT( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa AS Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '4' AND Vent.IDEmpleado = '{idEmpleado}' {formaPago} AND Reg.FechaCierre >= '{fechini}' ORDER BY ID DESC";
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF( Emp.nombre IS NULL, CONCAT( Usr.Usuario, ' (ADMIN)' ), CONCAT( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa AS Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '4' AND Vent.IDEmpleado = '{idEmpleado}' {formaPago} AND Reg.FechaCierre <= '{fechini}' ORDER BY ID DESC";
 
             return consulta;
         }

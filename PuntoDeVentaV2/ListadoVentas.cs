@@ -5438,7 +5438,7 @@ namespace PuntoDeVentaV2
             filtrador.ShowDialog();
 
             tipoVenta = cbTipoVentas.SelectedIndex;
-            var opcion = "VCA";
+            var opcion = "VPV";
             clickBoton = 0;
 
             // Desactivar checkbox al cambios tipos de ventas
