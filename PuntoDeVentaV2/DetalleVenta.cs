@@ -441,8 +441,9 @@ namespace PuntoDeVentaV2
                             consulta += $"VALUES('{Int32.Parse(dtIdVenta.Rows[0]["MAX(ID)"].ToString())+1}', ";
                             //consulta += $"'{proximoPago.ToString("yyyy-MM-dd")}', ";
 
-
+                            proximoPago = DateTime.Now;
                             consulta += $"'{proximoPago.ToString("yyyy-MM-dd")}";
+                               
                             switch (dtBuscarConfiguracion.Rows[0]["creditoperiodocobro"].ToString())
                             {
                                 case "Semanal":
