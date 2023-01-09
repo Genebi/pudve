@@ -30,12 +30,12 @@ namespace PuntoDeVentaV2
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
+            this.LbNombreCategoria = new System.Windows.Forms.Label();
             this.fLPCentralDetalle = new System.Windows.Forms.FlowLayoutPanel();
             this.lblNombreProducto = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.fLPLateralConcepto = new System.Windows.Forms.FlowLayoutPanel();
+            this.fLPLateralCategorias = new System.Windows.Forms.FlowLayoutPanel();
             this.btnCerrar = new System.Windows.Forms.Button();
             this.btnGuardarDetalles = new System.Windows.Forms.Button();
             this.btnAddDetalle = new System.Windows.Forms.Button();
@@ -49,22 +49,22 @@ namespace PuntoDeVentaV2
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.LbNombreCategoria);
             this.panel2.Controls.Add(this.fLPCentralDetalle);
             this.panel2.Location = new System.Drawing.Point(253, 35);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(565, 514);
             this.panel2.TabIndex = 30;
             // 
-            // label2
+            // LbNombreCategoria
             // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(184, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(228, 20);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Nombre Sub Detalle";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.LbNombreCategoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbNombreCategoria.Location = new System.Drawing.Point(184, 12);
+            this.LbNombreCategoria.Name = "LbNombreCategoria";
+            this.LbNombreCategoria.Size = new System.Drawing.Size(228, 20);
+            this.LbNombreCategoria.TabIndex = 2;
+            this.LbNombreCategoria.Text = "Nombre Sub Detalle";
+            this.LbNombreCategoria.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // fLPCentralDetalle
             // 
@@ -89,7 +89,7 @@ namespace PuntoDeVentaV2
             // panel1
             // 
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.fLPLateralConcepto);
+            this.panel1.Controls.Add(this.fLPLateralCategorias);
             this.panel1.Location = new System.Drawing.Point(3, 35);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(247, 514);
@@ -105,16 +105,16 @@ namespace PuntoDeVentaV2
             this.label1.TabIndex = 1;
             this.label1.Text = "Sub Detalles";
             // 
-            // fLPLateralConcepto
+            // fLPLateralCategorias
             // 
-            this.fLPLateralConcepto.BackColor = System.Drawing.SystemColors.Control;
-            this.fLPLateralConcepto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.fLPLateralConcepto.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPLateralConcepto.Location = new System.Drawing.Point(6, 44);
-            this.fLPLateralConcepto.Name = "fLPLateralConcepto";
-            this.fLPLateralConcepto.Size = new System.Drawing.Size(233, 459);
-            this.fLPLateralConcepto.TabIndex = 0;
-            this.fLPLateralConcepto.WrapContents = false;
+            this.fLPLateralCategorias.BackColor = System.Drawing.SystemColors.Control;
+            this.fLPLateralCategorias.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.fLPLateralCategorias.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.fLPLateralCategorias.Location = new System.Drawing.Point(6, 39);
+            this.fLPLateralCategorias.Name = "fLPLateralCategorias";
+            this.fLPLateralCategorias.Size = new System.Drawing.Size(233, 471);
+            this.fLPLateralCategorias.TabIndex = 0;
+            this.fLPLateralCategorias.WrapContents = false;
             // 
             // btnCerrar
             // 
@@ -217,13 +217,13 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.Label lblNombreProducto;
         private System.Windows.Forms.FlowLayoutPanel fLPCentralDetalle;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.FlowLayoutPanel fLPLateralConcepto;
+        private System.Windows.Forms.FlowLayoutPanel fLPLateralCategorias;
         private System.Windows.Forms.Button btnCerrar;
         private System.Windows.Forms.Button btnGuardarDetalles;
         private System.Windows.Forms.Button btnAddDetalle;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label LbNombreCategoria;
     }
 }

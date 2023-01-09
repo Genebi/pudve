@@ -38,19 +38,18 @@ namespace PuntoDeVentaV2
             if (!datos.Rows.Count.Equals(0))
             {
                 stockActual = Convert.ToDecimal(datos.Rows[0]["stock"].ToString());
-                var subDetalle = cn.EjecutarSelect($"SELECT subDetalle FROM subdetallesdeproducto WHERE IDProducto = '{Productos.idProductoAgregarSubdetalle}' AND IDUsuario = '{FormPrincipal.userID}' AND subDetalle = '{txtSubDetalle.Text}'");
             }
-           
-
-            if (true)
+            var subDetalle = cn.CargarDatos($"SELECT Categoria FROM subdetallesdeproducto WHERE IDProducto = '{Productos.idProductoAgregarSubdetalle}' AND IDUsuario = '{FormPrincipal.userID}' AND Categoria = '{txtSubDetalle.Text}'");
+            if (!subDetalle.Rows.Count.Equals(0))
             {
-                MessageBox.Show("Ya cuenta con un sub detalle con este concepto");
+                MessageBox.Show("Este producto ya cuenta con esta Categoria");
+                return;
             }
             else
             {
                 cn.EjecutarConsulta($"INSERT INTO subdetallesdeproducto (IDProducto, IDUsuario, Categoria, Subdetalle, Stock, TipoDato) VALUES ('{Productos.idProductoAgregarSubdetalle}', '{FormPrincipal.userID}', '{txtSubDetalle.Text}', '{"NA"}', '{stockActual}', '{cbTipoDeDatos.SelectedIndex}')");
             }
-
+            this.Close();
         }
     }
 }

@@ -2019,8 +2019,10 @@ IF
 		Categoria VARCHAR ( 100 ) DEFAULT NULL,
 		subDetalle VARCHAR ( 100 ) DEFAULT NULL,
 		Stock DECIMAL DEFAULT 0,
+		TipoDato INTEGER DEFAULT NULL,
 		Caducidad DATE,
-		FechaOpcional DATETIME);
+		FechaOpcional DATETIME,
+		Activo INTEGER DEFAULT 1);
 
 
 --Se agrego una columna a productos para saber si el producto cuenta con subdetalles agregados.
