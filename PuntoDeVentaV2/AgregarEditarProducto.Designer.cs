@@ -256,6 +256,7 @@
             this.txtCodigoBarras.TabIndex = 7;
             this.txtCodigoBarras.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCodigoBarras.Visible = false;
+            this.txtCodigoBarras.TextChanged += new System.EventHandler(this.txtCodigoBarras_TextChanged);
             this.txtCodigoBarras.Enter += new System.EventHandler(this.txtCodigoBarras_Enter);
             this.txtCodigoBarras.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCodigoBarras_KeyDown);
             this.txtCodigoBarras.Validating += new System.ComponentModel.CancelEventHandler(this.txtCodigoBarras_Validating);
