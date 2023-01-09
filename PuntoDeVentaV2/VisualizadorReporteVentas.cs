@@ -272,7 +272,7 @@ namespace PuntoDeVentaV2
             }
             else if (!incio[2].Equals(final[2]))
             {
-                var DTPorAnno = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
+                var DTPorAnno = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia,Cliente FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion ASC");
                 var DTPorAnno2 = cn.CargarDatos($"SELECT Total,FechaOperacion,Ganancia FROM Ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND ID IN ({codigosBuscar}) ORDER BY FechaOperacion DESC");
                 DateTime PrimerAnno = Convert.ToDateTime(DTPorAnno.Rows[0]["FechaOperacion"]);
                 DateTime UltimoAnno = Convert.ToDateTime(DTPorAnno2.Rows[0]["FechaOperacion"]);
