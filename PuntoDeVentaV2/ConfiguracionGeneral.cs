@@ -193,7 +193,7 @@ namespace PuntoDeVentaV2
 
         private void cbMostrarCB_CheckedChanged(object sender, EventArgs e)
         {
-            MessageBox.Show("Cambios a esta configuracion solo su");
+            //MessageBox.Show("Cambios a esta configuracion solo su");
 
         }
 
@@ -1646,6 +1646,11 @@ namespace PuntoDeVentaV2
 
         }
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://sifo.com.mx/WebAppPudve/index.php");
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://sifo.com.mx/WebAppPudve/index.php");
         }

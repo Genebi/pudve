@@ -214,10 +214,33 @@ namespace PuntoDeVentaV2
                 cantidadChequeRetirado = 0,
                 cantidadTransferenciaRetirado = 0,
                 cantidadTotalDineroRetirado = 0;
-
-
-
         public DataTable datosWeb = new DataTable();
+
+        private void botonRedondo3_Click(object sender, EventArgs e)
+        {
+            string FechaInicial = string.Empty;
+            using (var DTFecha = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1"))
+            {
+                FechaInicial = DTFecha.Rows[0]["FechaOperacion"].ToString();
+            }
+            DateTime FechaInicialForm = Convert.ToDateTime(FechaInicial);
+            string FechaFinal = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            string IDSVentas = string.Empty;
+
+            using (var DTIdsVenta = cn.CargarDatos($"SELECT ID FROM VENTAS WHERE FechaOperacion BETWEEN '{FechaInicialForm.ToString("yyyy-MM-dd HH:mm:ss")}' AND '{FechaFinal}' AND IDUsuario = {FormPrincipal.userID} AND Cliente != 'Apertura de Caja'"))
+            {
+                if (DTIdsVenta.Rows.Count.Equals(0))
+                {
+                    MessageBox.Show("No ha realizado ninguna venta", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    VentasPorProveedores proveddores = new VentasPorProveedores();
+                    proveddores.ShowDialog();
+                }
+            }
+
+        }
 
         private void botonRedondo1_Click(object sender, EventArgs e)
         {
@@ -260,8 +283,6 @@ namespace PuntoDeVentaV2
                 reporte.ShowDialog();
             }
         }
-
-       
 
         private void label6_Click(object sender, EventArgs e)
         {
@@ -341,6 +362,7 @@ namespace PuntoDeVentaV2
             //{
             //    //cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado) VALUES ('PrimerSaldo', 'Cantidad', 'Saldo', 'Inser primer saldo inicial', 'Fecha de hoy', '{FormPrincipal.userID}', 'Efectivo', 'Tarjeta', 'Vales', 'Cheque', 'Transferencia', '0', '0', '{FormPrincipal.id_empleado}')");
             //}
+
             datosWeb.Columns.Add("empleado");
 
             datosWeb.Columns.Add("ventasEfectivo");
@@ -380,16 +402,19 @@ namespace PuntoDeVentaV2
             datosWeb.Columns.Add("saldoInicial");
             datosWeb.Columns.Add("saldoInicialActual");
 
+            cbFiltroAdminEmpleado.SelectedIndex = 1;
+
             foreach (var item in cbFiltroAdminEmpleado.Items)
             {
-                datosWeb.Rows.Add(cbFiltroAdminEmpleado.Text,lbTEfectivo.Text,lbTTarjeta.Text, lbTVales.Text, lbTCheque.Text, lbTTrans.Text, lbTCredito.Text, lbTCreditoC.Text, lbTAnticipos.Text, lbTVentas.Text, lbTEfectivoA.Text, lbTTarjetaA.Text, lbTValesA.Text, lbTChequeA.Text, lbTTransA.Text, lbTAnticiposA.Text, lbTEfectivoD.Text, lbTTarjetaD.Text, lbTValesD.Text, lbTChequeD.Text, lbTTransD.Text, lbTAgregado.Text, lbEfectivoR.Text, lbTarjetaR.Text, lbValesR.Text, lbChequeR.Text, lbTransferenciaR.Text, lbDevoluciones.Text, lbTRetirado.Text, lbTEfectivoC.Text, lbTTarjetaC.Text, lbTValesC.Text, lbTChequeC.Text, lbTTransC.Text, lbTTotalCaja.Text, btnRedondoSaldoInicial.Text, lblCantidadSaldoActual.Text);
-                if (cbFiltroAdminEmpleado.Items.Count != cbFiltroAdminEmpleado.SelectedIndex+1)
+                datosWeb.Rows.Add(cbFiltroAdminEmpleado.Text, lbTEfectivo.Text, lbTTarjeta.Text, lbTVales.Text, lbTCheque.Text, lbTTrans.Text, lbTCredito.Text, lbTCreditoC.Text, lbTAnticipos.Text, lbTVentas.Text, lbTEfectivoA.Text, lbTTarjetaA.Text, lbTValesA.Text, lbTChequeA.Text, lbTTransA.Text, lbTAnticiposA.Text, lbTEfectivoD.Text, lbTTarjetaD.Text, lbTValesD.Text, lbTChequeD.Text, lbTTransD.Text, lbTAgregado.Text, lbEfectivoR.Text, lbTarjetaR.Text, lbValesR.Text, lbChequeR.Text, lbTransferenciaR.Text, lbDevoluciones.Text, lbTRetirado.Text, lbTEfectivoC.Text, lbTTarjetaC.Text, lbTValesC.Text, lbTChequeC.Text, lbTTransC.Text, lbTTotalCaja.Text, btnRedondoSaldoInicial.Text, lblCantidadSaldoActual.Text);
+                if (cbFiltroAdminEmpleado.Items.Count != cbFiltroAdminEmpleado.SelectedIndex + 1)
                 {
                     cbFiltroAdminEmpleado.SelectedIndex = cbFiltroAdminEmpleado.SelectedIndex + 1;
                 }
             }
 
             this.Close();
+
         }
 
         private void verificarSiExisteCorteDeCaja()
@@ -792,7 +817,8 @@ namespace PuntoDeVentaV2
         {
             if (FormPrincipal.userNickName.Contains("@"))
             {
-                cbFiltroAdminEmpleado.Visible = false;
+                cbFiltroAdminEmpleado.Visible = true;
+                llenarComboBoxTipoDeEmpleado();
             }
             else
             {
@@ -7489,7 +7515,7 @@ namespace PuntoDeVentaV2
                             lbTCheque.Text = cantidadCheque.ToString("C2");
                             lbTTrans.Text = cantidadTransferencia.ToString("C2");
                             lbTCredito.Text = cantidadCredito.ToString("C2");
-                            lbTCreditoC.Text = (totalAbonoRealizado /*+ totalAbonoRealizadoDeOtrosUsuarios*/ + totalAbonoRealizadoOtrasVentas).ToString("C2");
+                            lbTCreditoC.Text = (totalAbonoRealizado /*+ totalAbonoRealizadoDeOtrosUsuarios*/ + totalAbonoRealizadoOtrasVentas)/*-()*/.ToString("C2");
                             lbTAnticipos.Text = cantidadAnticipos.ToString("C2");
                             lbTVentas.Text = (cantidadEfectivo + cantidadTarjeta + cantidadVales + cantidadCheque + cantidadTransferencia + cantidadCredito /*+ totalAbonoRealizado + totalAbonoRealizadoDeOtrosUsuarios + totalAbonoRealizadoOtrasVentas*/).ToString("C2");
                         }
