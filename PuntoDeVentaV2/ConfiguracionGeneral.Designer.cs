@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfiguracionGeneral));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.CHKMostrarStock = new System.Windows.Forms.CheckBox();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.chkMensajeRealizarInventario = new System.Windows.Forms.CheckBox();
             this.chTraspasos = new System.Windows.Forms.CheckBox();
@@ -48,7 +49,6 @@
             this.checkMayoreo = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMinimoMayoreo = new System.Windows.Forms.TextBox();
-            this.CHKMostrarStock = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,10 +63,10 @@
             this.groupBox2.Controls.Add(this.chkCerrarSesionCorte);
             this.groupBox2.Controls.Add(this.chTicketVentas);
             this.groupBox2.Controls.Add(this.checkCBVenta);
-            this.groupBox2.Controls.Add(this.pagWeb);
             this.groupBox2.Controls.Add(this.cbMostrarCB);
             this.groupBox2.Controls.Add(this.cbMostrarPrecio);
             this.groupBox2.Controls.Add(this.cbStockNegativo);
+            this.groupBox2.Controls.Add(this.pagWeb);
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(8, 31);
             this.groupBox2.Name = "groupBox2";
@@ -74,6 +74,18 @@
             this.groupBox2.TabIndex = 130;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CONFIGURACION GENERAL";
+            // 
+            // CHKMostrarStock
+            // 
+            this.CHKMostrarStock.AutoSize = true;
+            this.CHKMostrarStock.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CHKMostrarStock.Location = new System.Drawing.Point(37, 136);
+            this.CHKMostrarStock.Name = "CHKMostrarStock";
+            this.CHKMostrarStock.Size = new System.Drawing.Size(243, 21);
+            this.CHKMostrarStock.TabIndex = 133;
+            this.CHKMostrarStock.Text = "Mostrar Stock en Consultar Precio";
+            this.CHKMostrarStock.UseVisualStyleBackColor = true;
+            this.CHKMostrarStock.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CHKMostrarStock_MouseClick);
             // 
             // btnAceptar
             // 
@@ -181,7 +193,6 @@
             this.pagWeb.TabIndex = 115;
             this.pagWeb.Text = "Habilitar información en página web";
             this.pagWeb.UseVisualStyleBackColor = true;
-            this.pagWeb.CheckedChanged += new System.EventHandler(this.pagWeb_CheckedChanged);
             this.pagWeb.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pagWeb_MouseClick);
             // 
             // cbMostrarCB
@@ -315,18 +326,6 @@
             this.txtMinimoMayoreo.Visible = false;
             this.txtMinimoMayoreo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtMinimoMayoreo_KeyUp);
             // 
-            // CHKMostrarStock
-            // 
-            this.CHKMostrarStock.AutoSize = true;
-            this.CHKMostrarStock.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CHKMostrarStock.Location = new System.Drawing.Point(37, 136);
-            this.CHKMostrarStock.Name = "CHKMostrarStock";
-            this.CHKMostrarStock.Size = new System.Drawing.Size(243, 21);
-            this.CHKMostrarStock.TabIndex = 133;
-            this.CHKMostrarStock.Text = "Mostrar Stock en Consultar Precio";
-            this.CHKMostrarStock.UseVisualStyleBackColor = true;
-            this.CHKMostrarStock.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CHKMostrarStock_MouseClick);
-            // 
             // ConfiguracionGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -381,5 +380,6 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.CheckBox chTraspasos;
         private System.Windows.Forms.CheckBox CHKMostrarStock;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
