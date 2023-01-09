@@ -235,6 +235,7 @@ namespace PuntoDeVentaV2
             this.Name = "AplicarDecuentoGeneral";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.AplicarDecuentoGeneral_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AplicarDecuentoGeneral_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

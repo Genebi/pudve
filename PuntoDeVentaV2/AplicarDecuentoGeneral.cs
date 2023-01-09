@@ -169,6 +169,14 @@ namespace PuntoDeVentaV2
             this.Close();
         }
 
+        private void AplicarDecuentoGeneral_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
+
         private void txtPorcentaje_TextChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(txtPorcentaje.Text))
