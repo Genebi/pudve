@@ -247,7 +247,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox13</rd:DefaultName>
-            <Top>6.22663cm</Top>
+            <Top>7.77941cm</Top>
             <Left>4.95074cm</Left>
             <Height>0.6cm</Height>
             <Width>2.42628cm</Width>
@@ -279,7 +279,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox13</rd:DefaultName>
-            <Top>6.82663cm</Top>
+            <Top>8.37941cm</Top>
             <Left>4.95074cm</Left>
             <Height>0.6cm</Height>
             <Width>2.42628cm</Width>
@@ -311,7 +311,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox13</rd:DefaultName>
-            <Top>7.42663cm</Top>
+            <Top>8.97941cm</Top>
             <Left>4.98602cm</Left>
             <Height>0.6cm</Height>
             <Width>2.42627cm</Width>
@@ -343,7 +343,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox13</rd:DefaultName>
-            <Top>8.02663cm</Top>
+            <Top>9.57941cm</Top>
             <Left>4.95074cm</Left>
             <Height>0.6cm</Height>
             <Width>2.42627cm</Width>
@@ -375,7 +375,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox13</rd:DefaultName>
-            <Top>8.62663cm</Top>
+            <Top>10.17941cm</Top>
             <Left>4.95074cm</Left>
             <Height>0.6cm</Height>
             <Width>2.42628cm</Width>
@@ -407,7 +407,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox13</rd:DefaultName>
-            <Top>9.22663cm</Top>
+            <Top>10.77941cm</Top>
             <Left>4.95074cm</Left>
             <Height>0.6cm</Height>
             <Width>2.42628cm</Width>
@@ -439,7 +439,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox13</rd:DefaultName>
-            <Top>15.3307cm</Top>
+            <Top>16.88348cm</Top>
             <Left>0.06475cm</Left>
             <Height>0.6cm</Height>
             <Width>7.24169cm</Width>
@@ -455,7 +455,7 @@
             </Style>
           </Textbox>
           <Line Name="Line3">
-            <Top>10.02947cm</Top>
+            <Top>11.58225cm</Top>
             <Left>3.46907cm</Left>
             <Height>0cm</Height>
             <Width>0.62711cm</Width>
@@ -467,7 +467,7 @@
             </Style>
           </Line>
           <Line Name="Line4">
-            <Top>10.02947cm</Top>
+            <Top>11.58225cm</Top>
             <Left>4.55386cm</Left>
             <Height>0cm</Height>
             <Width>0.62711cm</Width>
@@ -479,7 +479,7 @@
             </Style>
           </Line>
           <Line Name="Line5">
-            <Top>10.00301cm</Top>
+            <Top>11.55579cm</Top>
             <Left>5.66511cm</Left>
             <Height>0cm</Height>
             <Width>0.62711cm</Width>
@@ -491,7 +491,7 @@
             </Style>
           </Line>
           <Line Name="Line6">
-            <Top>10.00301cm</Top>
+            <Top>11.55579cm</Top>
             <Left>6.7499cm</Left>
             <Height>0cm</Height>
             <Width>0.62711cm</Width>
@@ -503,7 +503,7 @@
             </Style>
           </Line>
           <Line Name="Line10">
-            <Top>10.02947cm</Top>
+            <Top>11.58225cm</Top>
             <Left>2.33137cm</Left>
             <Height>0cm</Height>
             <Width>0.62711cm</Width>
@@ -531,7 +531,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox13</rd:DefaultName>
-            <Top>13.07329cm</Top>
+            <Top>14.62607cm</Top>
             <Left>0.07846cm</Left>
             <Height>0.6cm</Height>
             <Width>7.24169cm</Width>
@@ -547,7 +547,7 @@
             </Style>
           </Textbox>
           <Line Name="Line15">
-            <Top>14.27209cm</Top>
+            <Top>16.07181cm</Top>
             <Left>1.79902cm</Left>
             <Height>0cm</Height>
             <Width>4.09632cm</Width>
@@ -575,7 +575,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox22</rd:DefaultName>
-            <Top>14.55431cm</Top>
+            <Top>16.10709cm</Top>
             <Left>1.79902cm</Left>
             <Height>0.6cm</Height>
             <Width>4.09632cm</Width>
@@ -609,7 +609,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox23</rd:DefaultName>
-            <Top>15.76466cm</Top>
+            <Top>17.31744cm</Top>
             <Left>0.08635cm</Left>
             <Height>0.52062cm</Height>
             <Width>7.24169cm</Width>
@@ -639,7 +639,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox24</rd:DefaultName>
-            <Top>6.22663cm</Top>
+            <Top>7.77941cm</Top>
             <Left>0.13533cm</Left>
             <Height>0.6cm</Height>
             <Width>4.81541cm</Width>
@@ -669,7 +669,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox24</rd:DefaultName>
-            <Top>6.8619cm</Top>
+            <Top>8.41468cm</Top>
             <Left>0.13533cm</Left>
             <Height>0.6cm</Height>
             <Width>4.81541cm</Width>
@@ -699,7 +699,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox24</rd:DefaultName>
-            <Top>7.4619cm</Top>
+            <Top>9.01468cm</Top>
             <Left>0.13533cm</Left>
             <Height>0.6cm</Height>
             <Width>4.81541cm</Width>
@@ -729,7 +729,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox24</rd:DefaultName>
-            <Top>8.09718cm</Top>
+            <Top>9.64996cm</Top>
             <Left>0.13532cm</Left>
             <Height>0.6cm</Height>
             <Width>4.81541cm</Width>
@@ -759,7 +759,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox24</rd:DefaultName>
-            <Top>8.62663cm</Top>
+            <Top>10.17941cm</Top>
             <Left>0.10005cm</Left>
             <Height>0.6cm</Height>
             <Width>4.81541cm</Width>
@@ -789,7 +789,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox24</rd:DefaultName>
-            <Top>9.22663cm</Top>
+            <Top>10.77941cm</Top>
             <Left>0.13533cm</Left>
             <Height>0.6cm</Height>
             <Width>4.81541cm</Width>
@@ -805,7 +805,7 @@
             </Style>
           </Textbox>
           <Line Name="Line11">
-            <Top>10.02947cm</Top>
+            <Top>11.58225cm</Top>
             <Left>1.26816cm</Left>
             <Height>0cm</Height>
             <Width>0.62711cm</Width>
@@ -817,7 +817,7 @@
             </Style>
           </Line>
           <Line Name="Line12">
-            <Top>10.02947cm</Top>
+            <Top>11.58225cm</Top>
             <Left>0.13532cm</Left>
             <Height>0cm</Height>
             <Width>0.62711cm</Width>
@@ -847,7 +847,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox52</rd:DefaultName>
-            <Top>10.20586cm</Top>
+            <Top>11.75864cm</Top>
             <Left>0.07268cm</Left>
             <Height>0.6cm</Height>
             <Width>7.29855cm</Width>
@@ -863,7 +863,7 @@
             </Style>
           </Textbox>
           <Line Name="Line18">
-            <Top>12.95864cm</Top>
+            <Top>14.51142cm</Top>
             <Left>3.40643cm</Left>
             <Height>0cm</Height>
             <Width>0.62711cm</Width>
@@ -875,7 +875,7 @@
             </Style>
           </Line>
           <Line Name="Line19">
-            <Top>12.95864cm</Top>
+            <Top>14.51142cm</Top>
             <Left>4.49122cm</Left>
             <Height>0cm</Height>
             <Width>0.62711cm</Width>
@@ -887,7 +887,7 @@
             </Style>
           </Line>
           <Line Name="Line20">
-            <Top>12.93218cm</Top>
+            <Top>14.48496cm</Top>
             <Left>5.60247cm</Left>
             <Height>0cm</Height>
             <Width>0.62711cm</Width>
@@ -899,7 +899,7 @@
             </Style>
           </Line>
           <Line Name="Line21">
-            <Top>12.93218cm</Top>
+            <Top>14.48496cm</Top>
             <Left>6.68726cm</Left>
             <Height>0cm</Height>
             <Width>0.62711cm</Width>
@@ -911,7 +911,7 @@
             </Style>
           </Line>
           <Line Name="Line22">
-            <Top>12.95864cm</Top>
+            <Top>14.51142cm</Top>
             <Left>2.26873cm</Left>
             <Height>0cm</Height>
             <Width>0.62711cm</Width>
@@ -923,7 +923,7 @@
             </Style>
           </Line>
           <Line Name="Line23">
-            <Top>12.95864cm</Top>
+            <Top>14.51142cm</Top>
             <Left>1.20552cm</Left>
             <Height>0cm</Height>
             <Width>0.62711cm</Width>
@@ -935,7 +935,7 @@
             </Style>
           </Line>
           <Line Name="Line24">
-            <Top>12.95864cm</Top>
+            <Top>14.51142cm</Top>
             <Left>0.07268cm</Left>
             <Height>0cm</Height>
             <Width>0.62711cm</Width>
@@ -961,7 +961,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox24</rd:DefaultName>
-            <Top>10.80586cm</Top>
+            <Top>12.35864cm</Top>
             <Left>0.07268cm</Left>
             <Height>0.6cm</Height>
             <Width>4.81541cm</Width>
@@ -991,7 +991,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox24</rd:DefaultName>
-            <Top>12.14697cm</Top>
+            <Top>13.69975cm</Top>
             <Left>0.08635cm</Left>
             <Height>0.6cm</Height>
             <Width>4.81541cm</Width>
@@ -1023,7 +1023,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox13</rd:DefaultName>
-            <Top>10.80586cm</Top>
+            <Top>12.35864cm</Top>
             <Left>4.94495cm</Left>
             <Height>0.6cm</Height>
             <Width>2.42628cm</Width>
@@ -1053,7 +1053,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox24</rd:DefaultName>
-            <Top>11.47641cm</Top>
+            <Top>13.02919cm</Top>
             <Left>0.05108cm</Left>
             <Height>0.6cm</Height>
             <Width>4.81541cm</Width>
@@ -1085,7 +1085,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox13</rd:DefaultName>
-            <Top>11.51169cm</Top>
+            <Top>13.06447cm</Top>
             <Left>4.90176cm</Left>
             <Height>0.6cm</Height>
             <Width>2.42628cm</Width>
@@ -1117,11 +1117,161 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox13</rd:DefaultName>
-            <Top>12.15579cm</Top>
+            <Top>13.70857cm</Top>
             <Left>4.92336cm</Left>
             <Height>0.6cm</Height>
             <Width>2.42628cm</Width>
             <ZIndex>44</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox2">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!clienteRFC.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox2</rd:DefaultName>
+            <Top>4.4619cm</Top>
+            <Left>0.03238cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.24169cm</Width>
+            <ZIndex>45</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox3">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!clienteDomicilio.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox2</rd:DefaultName>
+            <Top>5.0619cm</Top>
+            <Left>0.06764cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.24169cm</Width>
+            <ZIndex>46</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox4">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!clienteCp.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox2</rd:DefaultName>
+            <Top>5.69718cm</Top>
+            <Left>0.06766cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.24169cm</Width>
+            <ZIndex>47</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox5">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!clienteEmail.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox2</rd:DefaultName>
+            <Top>6.29718cm</Top>
+            <Left>0.06766cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.24169cm</Width>
+            <ZIndex>48</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox6">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!clienteFono.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox2</rd:DefaultName>
+            <Top>6.93909cm</Top>
+            <Left>0.06766cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.24169cm</Width>
+            <ZIndex>49</ZIndex>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -1152,6 +1302,8 @@
   <ReportParameters>
     <ReportParameter Name="RazonSocial">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="Domicilio">
@@ -1190,53 +1342,105 @@
     </ReportParameter>
     <ReportParameter Name="NoVenta">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="TotalOG">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="SaldoAnterior">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="AbonadoCapital">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="AbonadoInteres">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="Restante">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="FechaOperacion">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="SiguienteAbono">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="ECTotalOG">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="ECTotalN">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="ECCreditos">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="clienteRFC">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="clienteDomicilio">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="clienteCp">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="clienteEmail">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="clienteFono">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>5</NumberOfRows>
+      <NumberOfRows>6</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
@@ -1327,6 +1531,31 @@
           <ColumnIndex>2</ColumnIndex>
           <RowIndex>4</RowIndex>
           <ParameterName>ECCreditos</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>4</RowIndex>
+          <ParameterName>clienteRFC</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>5</RowIndex>
+          <ParameterName>clienteDomicilio</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>5</RowIndex>
+          <ParameterName>clienteCp</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>5</RowIndex>
+          <ParameterName>clienteEmail</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>5</RowIndex>
+          <ParameterName>clienteFono</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

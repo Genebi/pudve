@@ -66,7 +66,11 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("AbonadoCapital", $"{dtDatos.Rows[0]["CantidadAbonada"]}"));
             reportParameters.Add(new ReportParameter("AbonadoInteres", $"{dtDatos.Rows[0]["CantidadAbonadaInteres"]}"));
             reportParameters.Add(new ReportParameter("Restante", $"{SaldoRestante.ToString()}"));
-            reportParameters.Add(new ReportParameter("FechaOperacion", $"{dtDatos.Rows[0]["FechaUltimoAbono"]}"));
+            reportParameters.Add(new ReportParameter("clienteRFC", $"{dtDatos.Rows[0]["ClienteRFC"]}"));
+            reportParameters.Add(new ReportParameter("clienteDomicilio", $"{dtDatos.Rows[0]["ClienteDomicilio"]}"));
+            reportParameters.Add(new ReportParameter("clienteCp", $"{dtDatos.Rows[0]["ClienteColoniaCodigoPostal"]}"));
+            reportParameters.Add(new ReportParameter("clienteEmail", $"{dtDatos.Rows[0]["ClienteCorreo"]}"));
+            reportParameters.Add(new ReportParameter("clienteFono", $"{dtDatos.Rows[0]["ClienteTelefono"]}"));
 
             using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
             {
@@ -134,6 +138,11 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("AbonadoInteres", $"{dtDatos.Rows[0]["CantidadAbonadaInteres"]}"));
             reportParameters.Add(new ReportParameter("Restante", $"{SaldoRestante.ToString()}"));
             reportParameters.Add(new ReportParameter("FechaOperacion", $"{dtDatos.Rows[0]["FechaUltimoAbono"]}"));
+            reportParameters.Add(new ReportParameter("clienteRFC", $"{dtDatos.Rows[0]["ClienteRFC"]}"));
+            reportParameters.Add(new ReportParameter("clienteDomicilio", $"{dtDatos.Rows[0]["ClienteDomicilio"]}"));
+            reportParameters.Add(new ReportParameter("clienteCp", $"{dtDatos.Rows[0]["ClienteColoniaCodigoPostal"]}"));
+            reportParameters.Add(new ReportParameter("clienteEmail", $"{dtDatos.Rows[0]["ClienteCorreo"]}"));
+            reportParameters.Add(new ReportParameter("clienteFono", $"{dtDatos.Rows[0]["ClienteTelefono"]}"));
 
             using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
             {
