@@ -159,6 +159,7 @@
             this.btnRedondoRetirarDinero = new PuntoDeVentaV2.BotonRedondo();
             this.btnRedondoAgregarDinero = new PuntoDeVentaV2.BotonRedondo();
             this.btnRedondoSaldoInicial = new PuntoDeVentaV2.BotonRedondo();
+            this.botonRedondo3 = new PuntoDeVentaV2.BotonRedondo();
             this.tablaContenedor.SuspendLayout();
             this.panelDineroAgregado.SuspendLayout();
             this.tlpTotalDineroAgregado.SuspendLayout();
@@ -2143,11 +2144,35 @@
             this.btnRedondoSaldoInicial.UseVisualStyleBackColor = false;
             this.btnRedondoSaldoInicial.Click += new System.EventHandler(this.btnRedondoSaldoInicial_Click);
             // 
+            // botonRedondo3
+            // 
+            this.botonRedondo3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.botonRedondo3.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.botonRedondo3.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo3.BorderRadius = 20;
+            this.botonRedondo3.BorderSize = 0;
+            this.botonRedondo3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.botonRedondo3.FlatAppearance.BorderSize = 0;
+            this.botonRedondo3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.botonRedondo3.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo3.Image = ((System.Drawing.Image)(resources.GetObject("botonRedondo3.Image")));
+            this.botonRedondo3.Location = new System.Drawing.Point(489, 514);
+            this.botonRedondo3.Name = "botonRedondo3";
+            this.botonRedondo3.Size = new System.Drawing.Size(111, 76);
+            this.botonRedondo3.TabIndex = 128;
+            this.botonRedondo3.Text = "Ventas por Proveedor";
+            this.botonRedondo3.TextColor = System.Drawing.Color.White;
+            this.botonRedondo3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo3.UseVisualStyleBackColor = false;
+            this.botonRedondo3.Click += new System.EventHandler(this.botonRedondo3_Click);
+            // 
             // CajaN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(753, 611);
+            this.Controls.Add(this.botonRedondo3);
             this.Controls.Add(this.lblCantidadSaldoActual);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.btnRedondoReporteCaja);
@@ -2344,5 +2369,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblCantidadSaldoActual;
+        private BotonRedondo botonRedondo3;
     }
 }
