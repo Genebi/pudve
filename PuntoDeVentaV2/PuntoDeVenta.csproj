@@ -1335,6 +1335,12 @@
       <DependentUpon>DatosHistorialVenta.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\GraficaVentasProveedor\DatosProveedorGrafica.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatosProveedorGrafica.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="ReportesImpresion\Ticket\HistorialVenta\DatosHistorialVenta.cs">
       <DependentUpon>DatosHistorialVenta.xsd</DependentUpon>
     </Compile>
@@ -2311,6 +2317,9 @@
     <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\ReporteConceptosRetiro.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\GraficaVentasProveedor\ReporteGraficaProveedor.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="ReportesRetirosConceptosPorMes.resx">
       <DependentUpon>ReportesRetirosConceptosPorMes.cs</DependentUpon>
     </EmbeddedResource>
@@ -2583,6 +2592,20 @@
     </Content>
     <Content Include="ReportesImpresion\Ticket\HistorialVenta\DatosHistorialVenta.xss">
       <DependentUpon>DatosHistorialVenta.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\GraficaVentasProveedor\DatosProveedorGrafica.xsc">
+      <DependentUpon>DatosProveedorGrafica.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\GraficaVentasProveedor\DatosProveedorGrafica.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatosProveedorGrafica.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\GraficaVentasProveedor\DatosProveedorGrafica.xss">
+      <DependentUpon>DatosProveedorGrafica.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="ReportesImpresion\Ticket\ImpimirReporteCaja\DSReporteCaja.xsc">

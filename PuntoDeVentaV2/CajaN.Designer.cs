@@ -2161,7 +2161,7 @@
             this.botonRedondo3.Name = "botonRedondo3";
             this.botonRedondo3.Size = new System.Drawing.Size(111, 76);
             this.botonRedondo3.TabIndex = 128;
-            this.botonRedondo3.Text = "No recuerdo el nombre";
+            this.botonRedondo3.Text = "Ventas por Proveedor";
             this.botonRedondo3.TextColor = System.Drawing.Color.White;
             this.botonRedondo3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.botonRedondo3.UseVisualStyleBackColor = false;
