@@ -1124,14 +1124,6 @@ namespace PuntoDeVentaV2
             try
             {
 
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            {
-
             ConexionAPPWEB con = new ConexionAPPWEB();
             DataTable valoresCaja = new DataTable();
             WEBCaja test = new WEBCaja();
@@ -1158,7 +1150,6 @@ namespace PuntoDeVentaV2
                         con.EjecutarConsulta(consulta);                    
                     }
             }
-
             }
             catch (Exception)
             {
