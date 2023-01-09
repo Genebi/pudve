@@ -346,8 +346,8 @@ namespace PuntoDeVentaV2
 
         private void actualizarCaja_Tick_1(object sender, EventArgs e)
         {
-            if (!FormPrincipal.userNickName.Contains("@"))
-            {
+            //if (!FormPrincipal.userNickName.Contains("@"))
+            //{
                 if (pasar==1)
                 {
                     if (!webListener.IsBusy)
@@ -355,7 +355,7 @@ namespace PuntoDeVentaV2
                         webListener.RunWorkerAsync();
                     }
                 }
-            }
+            //}
         }
 
         private void panelContenedor_Paint(object sender, PaintEventArgs e)
@@ -1085,12 +1085,43 @@ namespace PuntoDeVentaV2
 
         private void webListener_DoWork(object sender, DoWorkEventArgs e)
         {
-            enviarCajaAWeb();
+            solicitudWEB();
+        }
+
+        private void solicitudWEB()
+        {
+            ConexionAPPWEB cn2 = new ConexionAPPWEB();
+            using (DataTable dt = cn2.CargarDatos($"SELECT * FROM peticiones WHERE Cliente = '{userNickName}'"))
+            {
+                if (dt.Rows.Count>0)
+                {
+                    foreach (DataRow peticion in dt.Rows)
+                    {
+                        switch (peticion["Solicitud"].ToString())
+                        {
+                            case "Caja":
+                                enviarCajaAWeb();
+                                cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName}' AND Solicitud = 'Caja';");
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
         }
 
         private void enviarCajaAWeb()
         {
             try
+            {
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
             {
 
             ConexionAPPWEB con = new ConexionAPPWEB();
@@ -1124,7 +1155,7 @@ namespace PuntoDeVentaV2
             catch (Exception)
             {
                 //No se logro la conexion a internet.
-                throw;
+                return;
             }
         }
 
