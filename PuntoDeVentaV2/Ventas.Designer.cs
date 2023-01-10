@@ -238,7 +238,6 @@
             this.DGVentas.Size = new System.Drawing.Size(877, 222);
             this.DGVentas.TabIndex = 6;
             this.DGVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellClick);
-            this.DGVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellContentClick_1);
             this.DGVentas.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellEndEdit);
             this.DGVentas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellMouseEnter);
             this.DGVentas.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.DGVentas_CellStateChanged);
