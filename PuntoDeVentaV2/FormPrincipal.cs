@@ -1096,6 +1096,7 @@ namespace PuntoDeVentaV2
                 using (DataTable dt = cn2.CargarDatos($"SELECT * FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}'"))
                 {
                     if (dt.Rows.Count > 0)
+                    //if (true)
                     {
                         foreach (DataRow peticion in dt.Rows)
                         {
@@ -1104,6 +1105,10 @@ namespace PuntoDeVentaV2
                                 case "Caja":
                                     enviarCajaAWeb();
                                     cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Caja';");
+                                    break;
+                                case "Producto":
+                                    enviarProdctosWeb();
+                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Producto';");
                                     break;
                                 default:
                                     break;
@@ -1115,6 +1120,42 @@ namespace PuntoDeVentaV2
             catch (Exception)
             {
                 Console.WriteLine("Error garrafal");
+                return;
+            }
+        }
+
+        private void enviarProdctosWeb()
+        {
+            try
+            {
+
+                ConexionAPPWEB con = new ConexionAPPWEB();
+                DataTable valoresProducto = cn.CargarDatos($"SELECT Nombre,Stock,Precio,CodigoBarras AS Codigo FROM productos WHERE IDUsuario={userID} AND `Status`=1");      
+
+                using (DataTable dt = con.CargarDatos($"SELECT DISTINCT(timestamp) FROM mirrorproductoregistro WHERE cliente = '{userNickName.Split('@')[0]}' ORDER BY timestamp ASC"))
+                {
+                    if (dt.Rows.Count > 2)
+                    {
+                        string consulta = $"DELETE FROM mirrorproductoregistro WHERE cliente = '{userNickName.Split('@')[0]}' AND timestamp = '{DateTime.Parse(dt.Rows[0]["timestamp"].ToString()).ToString("yyyy-MM-dd HH:mm:ss")}'";
+                        con.EjecutarConsulta(consulta);
+                    }
+                    string fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                    string consultaregistro = "INSERT INTO mirrorproductoregistro (Cliente,timestamp)";
+                    consultaregistro += $"VALUES ('{userNickName.Split('@')[0]}','{fecha}')"; 
+                     con.EjecutarConsulta(consultaregistro);
+                    foreach (DataRow registroProducto in valoresProducto.Rows)
+                    {
+                        string consulta = "INSERT INTO mirrorproductosdatos (IDregistro, Nombre, Stock, Precio, Codigo)";
+                        consulta += $"VALUES ((SELECT MAX(ID) FROM mirrorproductoregistro),'{registroProducto[0]}','{registroProducto[1]}','{registroProducto[2]}','{registroProducto[3]}')";
+                        con.EjecutarConsulta(consulta);
+                    }
+                    con.EjecutarConsulta($"UPDATE mirrorproductoregistro SET Completo = 'Completo' WHERE ID = (SELECT MAX(ID) FROM mirrorproductoregistro)");
+                }
+            }
+            catch (Exception)
+            {
+                //No se logro la conexion a internet.
                 return;
             }
         }
