@@ -6445,7 +6445,11 @@ namespace PuntoDeVentaV2
 
                                     float cantResult = cantidad + cantidadExtraDecimal;
 
-
+                                    if (cantResult <= 0)
+                                    {
+                                        MessageBox.Show("La cantidad a vender debe ser mayor a 0","Aviso del sistema",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                                        cantResult = 1;
+                                    }
                                     // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
                                     float importe = cantResult * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
 
@@ -8614,10 +8618,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void DGVentas_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
 
-        }
 
 
         private void txtBuscadorProducto_Leave(object sender, EventArgs e)
@@ -9516,6 +9517,24 @@ namespace PuntoDeVentaV2
 
         private void DGVentas_SelectionChanged(object sender, EventArgs e)
         {
+            DataTable DT = new DataTable();
+            DT.Columns.Add("NombreCol", typeof(System.Double));
+            foreach (DataGridViewRow item in DGVentas.Rows)
+            {
+                DataRow row = DT.NewRow();
+                row["NombreCol"] = Convert.ToDouble(item.Cells["Cantidad"].Value);
+                DT.Rows.Add(row);
+                break;
+            }
+            if (!DT.Rows.Count.Equals(0))
+            {
+                if (Convert.ToDecimal(DT.Rows[0][0]).Equals(0))
+                {
+                    DGVentas.Rows[0].Cells["Cantidad"].Value = "1";
+                }
+            }
+            
+          
             //if (!DGVentas.Rows.Count.Equals(0))
             //{
             //    DGVentas.CurrentCell = DGVentas.CurrentRow.Cells["Cantidad"];
