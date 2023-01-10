@@ -1304,7 +1304,7 @@ namespace PuntoDeVentaV2
                 if (Aceptar.Equals(true))
                 {
 
-                    FormReporteInventario xd = new FormReporteInventario(Aumentar, clave);
+                    FormReporteInventario xd = new FormReporteInventario(Aumentar, clave);  //ese nombre de objeto que, mas seriedad alexis por favor.
 
                     xd.ShowDialog();
                     Aceptar = false;

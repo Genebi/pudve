@@ -1137,7 +1137,7 @@ namespace PuntoDeVentaV2
 
             using (DataTable dt = con.CargarDatos($"SELECT DISTINCT(Fecha) FROM cajamirror WHERE cliente = '{userNickName.Split('@')[0]}' ORDER BY Fecha ASC"))
             {
-                if (dt.Rows.Count>3)
+                if (dt.Rows.Count>2)
                 {
                     string consulta = $"DELETE FROM cajamirror WHERE cliente = '{userNickName.Split('@')[0]}' AND Fecha = '{DateTime.Parse(dt.Rows[0]["Fecha"].ToString()).ToString("yyyy-MM-dd HH:mm:ss")}'";
                     con.EjecutarConsulta(consulta);
