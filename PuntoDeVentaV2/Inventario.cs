@@ -4094,6 +4094,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                txtClaveTraspaso.Enabled = false;
                 return false;
             }
             
