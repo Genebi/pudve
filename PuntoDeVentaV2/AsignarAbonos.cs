@@ -178,10 +178,10 @@ namespace PuntoDeVentaV2
 
                     //    }
                     //}
-                    if (abonoTotal <= 0)
+                    if (abonoTotal < 0)
                     {
                         //Esta adelantando pero aun no es el ultimo pago, le damos el minimo de abono
-                        abonoTotal =  decimal.Parse(dtReglasCreditoVenta.Rows[0]["creditoMinimoAbono"].ToString());
+                        abonoTotal = 0;
                     }
 
 
@@ -269,10 +269,8 @@ namespace PuntoDeVentaV2
 
                 //Ya se cobra interes
                 int test = Int32.Parse(dtReglasCreditoVenta.Rows[0]["creditodiassincobro"].ToString());
-                if (DateTime.Now.Date > DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString().Split('%')[0]).AddDays(test))
+                if (DateTime.Now.Date > DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaApertura"].ToString()).AddDays(test))
                 {
-
-
                     {
                         porcentajeDeInteres = Decimal.Parse(dtReglasCreditoVenta.Rows[0]["creditoPorcentajeinteres"].ToString());
 
@@ -430,7 +428,8 @@ namespace PuntoDeVentaV2
                 var totalAbonado = total;
 
                 //Condicion para saber si se termino de pagar y cambiar el status de la venta
-                if (totalAbonado >= totalPendiente)
+                //if (totalAbonado >= totalPendiente)
+                if (txtPendiente.Text.Equals("$0.00"))
                 {
                     cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 1, FormPrincipal.userID));
                 }
@@ -1480,7 +1479,8 @@ namespace PuntoDeVentaV2
                 {
                     mensaje += $"\n{fecha}";
                 }
-                MessageBox.Show(mensaje);
+                mensaje += $"\nSe cobran intereses desde el día: {DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaApertura"].ToString()).AddDays(double.Parse(dtReglasCreditoVenta.Rows[0]["creditodiassincobro"].ToString())).ToString("yyyy-MM-dd")}";
+                MessageBox.Show(mensaje, "Fechas relevantes", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
         }

@@ -1324,6 +1324,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DatosPrimerAbono.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ReportesImpresion\Ticket\AbrirCaja\TicketAbrirCaja.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -2360,8 +2361,12 @@
     <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\ReporteConceptosRetiro.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="ReportesImpresion\Ticket\AbonosNuevo\AbonoNoPrimero.rdlc" />
-    <EmbeddedResource Include="ReportesImpresion\Ticket\AbonosNuevo\TickerAbonoPrimero.rdlc" />
+    <Content Include="ReportesImpresion\Ticket\AbonosNuevo\AbonoNoPrimero.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\AbonosNuevo\TickerAbonoPrimero.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="ReportesRetirosConceptosPorMes.resx">
       <DependentUpon>ReportesRetirosConceptosPorMes.cs</DependentUpon>
     </EmbeddedResource>
@@ -2535,17 +2540,20 @@
       <DependentUpon>TicketAbono.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.xsc">
+    <Content Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.xsc">
       <DependentUpon>DatosPrimerAbono.xsd</DependentUpon>
-    </None>
-    <None Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.xsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DatosPrimerAbono.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.xss">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.xss">
       <DependentUpon>DatosPrimerAbono.xsd</DependentUpon>
-    </None>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="ReportesImpresion\Ticket\AbrirCaja\TicketAbrirCaja.xsc">
       <DependentUpon>TicketAbrirCaja.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
