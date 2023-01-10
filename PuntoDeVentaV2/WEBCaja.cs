@@ -326,6 +326,12 @@ namespace PuntoDeVentaV2
 
         private void CajaN_Load(object sender, EventArgs e)
         {
+            string user = string.Empty;
+            if (FormPrincipal.userNickName.Contains('@'))
+            {
+                user = FormPrincipal.userNickName;
+                FormPrincipal.userNickName = FormPrincipal.userNickName.Split('@')[0];
+            }
             cbFiltroAdminEmpleado.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             recargarDatos = true;
             verificarSiExisteCorteDeCaja();
@@ -333,6 +339,11 @@ namespace PuntoDeVentaV2
             // Obtener saldo inicial
             CargarSaldoInicial();
             recargarDatosConCantidades(sender, e);
+
+            if (!string.IsNullOrEmpty(user))
+            {
+                FormPrincipal.userNickName = user;
+            }
 
             if (FormPrincipal.id_empleado > 0)
             {
@@ -402,7 +413,7 @@ namespace PuntoDeVentaV2
             datosWeb.Columns.Add("saldoInicial");
             datosWeb.Columns.Add("saldoInicialActual");
 
-            cbFiltroAdminEmpleado.SelectedIndex = 1;
+            cbFiltroAdminEmpleado.SelectedIndex = 0;
 
             foreach (var item in cbFiltroAdminEmpleado.Items)
             {
@@ -818,7 +829,6 @@ namespace PuntoDeVentaV2
             if (FormPrincipal.userNickName.Contains("@"))
             {
                 cbFiltroAdminEmpleado.Visible = true;
-                llenarComboBoxTipoDeEmpleado();
             }
             else
             {
@@ -858,7 +868,7 @@ namespace PuntoDeVentaV2
             var tipodeMoneda = FormPrincipal.Moneda.Split('-');
             var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
 
-            if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) && !FormPrincipal.userNickName.Contains('@'))
+            if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) )
             {
                 var datosCB = cbFiltroAdminEmpleado.SelectedItem.ToString();
                 var nombreID = datosCB.Split(',');
@@ -877,7 +887,7 @@ namespace PuntoDeVentaV2
             //saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
             //saldoInicial = cdc.CargarSaldoInicial();
 
-            if (!FormPrincipal.userNickName.Contains("@"))
+            if (true)
             {
                 clasificarTipoDeUsuario();
 
@@ -6513,7 +6523,7 @@ namespace PuntoDeVentaV2
 
         private void cbFiltroAdminEmpleado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (!FormPrincipal.userNickName.Contains("@"))
+            if (true)
             {
                 limpiarVariablesParaTotales();
                 clasificarTipoDeUsuario();
@@ -7876,7 +7886,20 @@ namespace PuntoDeVentaV2
 
             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
             {
-                using (DataTable dtAdmin = cn.CargarDatos(cs.obtenerDatosDeAdministrador(FormPrincipal.userID)))
+                string temp;
+                if (FormPrincipal.userNickName.Contains('@'))
+                {
+                    temp = FormPrincipal.userNickName.Split('@')[0];
+                    using (DataTable dt = cn.CargarDatos(cs.IDUsuarioSinContraseña(temp)))
+                    {
+                        temp = dt.Rows[0]["id"].ToString();
+                    }
+                }
+                else
+                {
+                    temp = FormPrincipal.userID.ToString() ;
+                }
+                using (DataTable dtAdmin = cn.CargarDatos(cs.obtenerDatosDeAdministrador(Int32.Parse(temp))))
                 {
                     if (!dtAdmin.Rows.Count.Equals(0))
                     {
