@@ -63,16 +63,18 @@
             this.panelMaestro.Controls.Add(this.menuVertical);
             this.panelMaestro.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMaestro.Location = new System.Drawing.Point(0, 0);
+            this.panelMaestro.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelMaestro.Name = "panelMaestro";
-            this.panelMaestro.Size = new System.Drawing.Size(1255, 602);
+            this.panelMaestro.Size = new System.Drawing.Size(1882, 926);
             this.panelMaestro.TabIndex = 0;
             // 
             // panelContenedor
             // 
             this.panelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelContenedor.Location = new System.Drawing.Point(230, 0);
+            this.panelContenedor.Location = new System.Drawing.Point(345, 0);
+            this.panelContenedor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(1025, 602);
+            this.panelContenedor.Size = new System.Drawing.Size(1537, 926);
             this.panelContenedor.TabIndex = 2;
             this.panelContenedor.Paint += new System.Windows.Forms.PaintEventHandler(this.panelContenedor_Paint);
             // 
@@ -97,8 +99,9 @@
             this.menuVertical.Controls.Add(this.btnProductos);
             this.menuVertical.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuVertical.Location = new System.Drawing.Point(0, 0);
+            this.menuVertical.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.menuVertical.Name = "menuVertical";
-            this.menuVertical.Size = new System.Drawing.Size(230, 602);
+            this.menuVertical.Size = new System.Drawing.Size(345, 926);
             this.menuVertical.TabIndex = 0;
             this.menuVertical.Paint += new System.Windows.Forms.PaintEventHandler(this.menuVertical_Paint);
             // 
@@ -113,9 +116,10 @@
             this.BtnConsulta.ForeColor = System.Drawing.Color.Black;
             this.BtnConsulta.Image = ((System.Drawing.Image)(resources.GetObject("BtnConsulta.Image")));
             this.BtnConsulta.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.BtnConsulta.Location = new System.Drawing.Point(115, 461);
+            this.BtnConsulta.Location = new System.Drawing.Point(172, 709);
+            this.BtnConsulta.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.BtnConsulta.Name = "BtnConsulta";
-            this.BtnConsulta.Size = new System.Drawing.Size(115, 71);
+            this.BtnConsulta.Size = new System.Drawing.Size(172, 109);
             this.BtnConsulta.TabIndex = 112;
             this.BtnConsulta.Text = "Consulta Precios";
             this.BtnConsulta.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -133,9 +137,10 @@
             this.btnImpresoras.ForeColor = System.Drawing.Color.Black;
             this.btnImpresoras.Image = global::PuntoDeVentaV2.Properties.Resources.peso;
             this.btnImpresoras.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnImpresoras.Location = new System.Drawing.Point(0, 463);
+            this.btnImpresoras.Location = new System.Drawing.Point(0, 712);
+            this.btnImpresoras.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnImpresoras.Name = "btnImpresoras";
-            this.btnImpresoras.Size = new System.Drawing.Size(115, 71);
+            this.btnImpresoras.Size = new System.Drawing.Size(172, 109);
             this.btnImpresoras.TabIndex = 111;
             this.btnImpresoras.Text = "Basculas";
             this.btnImpresoras.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -153,9 +158,10 @@
             this.btnEmpleados.ForeColor = System.Drawing.Color.Black;
             this.btnEmpleados.Image = ((System.Drawing.Image)(resources.GetObject("btnEmpleados.Image")));
             this.btnEmpleados.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnEmpleados.Location = new System.Drawing.Point(0, 311);
+            this.btnEmpleados.Location = new System.Drawing.Point(0, 478);
+            this.btnEmpleados.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnEmpleados.Name = "btnEmpleados";
-            this.btnEmpleados.Size = new System.Drawing.Size(115, 72);
+            this.btnEmpleados.Size = new System.Drawing.Size(172, 111);
             this.btnEmpleados.TabIndex = 3;
             this.btnEmpleados.Text = "Empleados";
             this.btnEmpleados.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -173,9 +179,10 @@
             this.btnReportes.ForeColor = System.Drawing.Color.Black;
             this.btnReportes.Image = ((System.Drawing.Image)(resources.GetObject("btnReportes.Image")));
             this.btnReportes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnReportes.Location = new System.Drawing.Point(115, 314);
+            this.btnReportes.Location = new System.Drawing.Point(172, 483);
+            this.btnReportes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnReportes.Name = "btnReportes";
-            this.btnReportes.Size = new System.Drawing.Size(115, 69);
+            this.btnReportes.Size = new System.Drawing.Size(172, 106);
             this.btnReportes.TabIndex = 4;
             this.btnReportes.Text = "Reportes";
             this.btnReportes.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -189,9 +196,10 @@
             this.btnSesion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSesion.ForeColor = System.Drawing.Color.White;
-            this.btnSesion.Location = new System.Drawing.Point(25, 544);
+            this.btnSesion.Location = new System.Drawing.Point(38, 837);
+            this.btnSesion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSesion.Name = "btnSesion";
-            this.btnSesion.Size = new System.Drawing.Size(175, 30);
+            this.btnSesion.Size = new System.Drawing.Size(262, 46);
             this.btnSesion.TabIndex = 110;
             this.btnSesion.Text = "Cerrar  Sesión";
             this.btnSesion.UseVisualStyleBackColor = false;
@@ -208,9 +216,10 @@
             this.btnEmpresas.ForeColor = System.Drawing.Color.Black;
             this.btnEmpresas.Image = ((System.Drawing.Image)(resources.GetObject("btnEmpresas.Image")));
             this.btnEmpresas.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnEmpresas.Location = new System.Drawing.Point(109, 463);
+            this.btnEmpresas.Location = new System.Drawing.Point(164, 712);
+            this.btnEmpresas.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnEmpresas.Name = "btnEmpresas";
-            this.btnEmpresas.Size = new System.Drawing.Size(115, 71);
+            this.btnEmpresas.Size = new System.Drawing.Size(172, 109);
             this.btnEmpresas.TabIndex = 13;
             this.btnEmpresas.Text = "Empresas";
             this.btnEmpresas.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -229,9 +238,10 @@
             this.btnMisDatos.ForeColor = System.Drawing.Color.Black;
             this.btnMisDatos.Image = ((System.Drawing.Image)(resources.GetObject("btnMisDatos.Image")));
             this.btnMisDatos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnMisDatos.Location = new System.Drawing.Point(1, 386);
+            this.btnMisDatos.Location = new System.Drawing.Point(2, 594);
+            this.btnMisDatos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMisDatos.Name = "btnMisDatos";
-            this.btnMisDatos.Size = new System.Drawing.Size(115, 71);
+            this.btnMisDatos.Size = new System.Drawing.Size(172, 109);
             this.btnMisDatos.TabIndex = 12;
             this.btnMisDatos.Text = "Mis Datos";
             this.btnMisDatos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -249,9 +259,10 @@
             this.btnInventario.ForeColor = System.Drawing.Color.Black;
             this.btnInventario.Image = ((System.Drawing.Image)(resources.GetObject("btnInventario.Image")));
             this.btnInventario.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnInventario.Location = new System.Drawing.Point(0, 238);
+            this.btnInventario.Location = new System.Drawing.Point(0, 366);
+            this.btnInventario.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnInventario.Name = "btnInventario";
-            this.btnInventario.Size = new System.Drawing.Size(115, 69);
+            this.btnInventario.Size = new System.Drawing.Size(172, 106);
             this.btnInventario.TabIndex = 11;
             this.btnInventario.Text = "Inventario";
             this.btnInventario.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -269,9 +280,10 @@
             this.btnCaja.ForeColor = System.Drawing.Color.Black;
             this.btnCaja.Image = ((System.Drawing.Image)(resources.GetObject("btnCaja.Image")));
             this.btnCaja.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnCaja.Location = new System.Drawing.Point(115, 89);
+            this.btnCaja.Location = new System.Drawing.Point(172, 137);
+            this.btnCaja.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnCaja.Name = "btnCaja";
-            this.btnCaja.Size = new System.Drawing.Size(115, 68);
+            this.btnCaja.Size = new System.Drawing.Size(172, 105);
             this.btnCaja.TabIndex = 10;
             this.btnCaja.Text = "Caja";
             this.btnCaja.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -289,9 +301,10 @@
             this.btnAnticipos.ForeColor = System.Drawing.Color.Black;
             this.btnAnticipos.Image = ((System.Drawing.Image)(resources.GetObject("btnAnticipos.Image")));
             this.btnAnticipos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAnticipos.Location = new System.Drawing.Point(0, 86);
+            this.btnAnticipos.Location = new System.Drawing.Point(0, 132);
+            this.btnAnticipos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAnticipos.Name = "btnAnticipos";
-            this.btnAnticipos.Size = new System.Drawing.Size(115, 71);
+            this.btnAnticipos.Size = new System.Drawing.Size(172, 109);
             this.btnAnticipos.TabIndex = 9;
             this.btnAnticipos.Text = "Anticipos";
             this.btnAnticipos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -309,9 +322,10 @@
             this.btnConfig.ForeColor = System.Drawing.Color.Black;
             this.btnConfig.Image = ((System.Drawing.Image)(resources.GetObject("btnConfig.Image")));
             this.btnConfig.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnConfig.Location = new System.Drawing.Point(112, 386);
+            this.btnConfig.Location = new System.Drawing.Point(168, 594);
+            this.btnConfig.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnConfig.Name = "btnConfig";
-            this.btnConfig.Size = new System.Drawing.Size(115, 69);
+            this.btnConfig.Size = new System.Drawing.Size(172, 106);
             this.btnConfig.TabIndex = 8;
             this.btnConfig.Text = "Configuración";
             this.btnConfig.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -329,9 +343,10 @@
             this.btnFacturas.ForeColor = System.Drawing.Color.Black;
             this.btnFacturas.Image = ((System.Drawing.Image)(resources.GetObject("btnFacturas.Image")));
             this.btnFacturas.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnFacturas.Location = new System.Drawing.Point(115, 238);
+            this.btnFacturas.Location = new System.Drawing.Point(172, 366);
+            this.btnFacturas.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnFacturas.Name = "btnFacturas";
-            this.btnFacturas.Size = new System.Drawing.Size(115, 68);
+            this.btnFacturas.Size = new System.Drawing.Size(172, 105);
             this.btnFacturas.TabIndex = 7;
             this.btnFacturas.Text = "Facturas";
             this.btnFacturas.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -349,9 +364,10 @@
             this.btnProveedores.ForeColor = System.Drawing.Color.Black;
             this.btnProveedores.Image = ((System.Drawing.Image)(resources.GetObject("btnProveedores.Image")));
             this.btnProveedores.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnProveedores.Location = new System.Drawing.Point(112, 163);
+            this.btnProveedores.Location = new System.Drawing.Point(168, 251);
+            this.btnProveedores.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnProveedores.Name = "btnProveedores";
-            this.btnProveedores.Size = new System.Drawing.Size(115, 68);
+            this.btnProveedores.Size = new System.Drawing.Size(172, 105);
             this.btnProveedores.TabIndex = 6;
             this.btnProveedores.Text = "Proveedores";
             this.btnProveedores.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -369,9 +385,10 @@
             this.btnClientes.ForeColor = System.Drawing.Color.Black;
             this.btnClientes.Image = ((System.Drawing.Image)(resources.GetObject("btnClientes.Image")));
             this.btnClientes.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnClientes.Location = new System.Drawing.Point(0, 163);
+            this.btnClientes.Location = new System.Drawing.Point(0, 251);
+            this.btnClientes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnClientes.Name = "btnClientes";
-            this.btnClientes.Size = new System.Drawing.Size(115, 68);
+            this.btnClientes.Size = new System.Drawing.Size(172, 105);
             this.btnClientes.TabIndex = 5;
             this.btnClientes.Text = "Clientes";
             this.btnClientes.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -389,9 +406,10 @@
             this.btnVentas.ForeColor = System.Drawing.Color.Black;
             this.btnVentas.Image = ((System.Drawing.Image)(resources.GetObject("btnVentas.Image")));
             this.btnVentas.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnVentas.Location = new System.Drawing.Point(0, 17);
+            this.btnVentas.Location = new System.Drawing.Point(0, 26);
+            this.btnVentas.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnVentas.Name = "btnVentas";
-            this.btnVentas.Size = new System.Drawing.Size(115, 66);
+            this.btnVentas.Size = new System.Drawing.Size(172, 102);
             this.btnVentas.TabIndex = 1;
             this.btnVentas.Text = "Ventas";
             this.btnVentas.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -409,9 +427,10 @@
             this.btnProductos.ForeColor = System.Drawing.Color.Black;
             this.btnProductos.Image = ((System.Drawing.Image)(resources.GetObject("btnProductos.Image")));
             this.btnProductos.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnProductos.Location = new System.Drawing.Point(115, 17);
+            this.btnProductos.Location = new System.Drawing.Point(172, 26);
+            this.btnProductos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnProductos.Name = "btnProductos";
-            this.btnProductos.Size = new System.Drawing.Size(115, 63);
+            this.btnProductos.Size = new System.Drawing.Size(172, 97);
             this.btnProductos.TabIndex = 0;
             this.btnProductos.Text = "Productos";
             this.btnProductos.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -425,7 +444,7 @@
             // 
             // actualizarCaja
             // 
-            this.actualizarCaja.Interval = 30000;
+            this.actualizarCaja.Interval = 3000;
             this.actualizarCaja.Tick += new System.EventHandler(this.actualizarCaja_Tick_1);
             // 
             // timerProductos
@@ -440,12 +459,13 @@
             // 
             // FormPrincipal
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1255, 602);
+            this.ClientSize = new System.Drawing.Size(1882, 926);
             this.Controls.Add(this.panelMaestro);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(1271, 634);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MinimumSize = new System.Drawing.Size(1896, 945);
             this.Name = "FormPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SIFO - Punto de Venta";
