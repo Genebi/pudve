@@ -1007,7 +1007,7 @@ namespace PuntoDeVentaV2
                             }
 
 
-                            if (restanteEfectivo > 0)
+                            if (restanteEfectivo >= 0)
                             {
                                 datos[6] = restanteEfectivo.ToString();
                             }
@@ -1016,7 +1016,7 @@ namespace PuntoDeVentaV2
                                 datos[6] = "0";
                             }
 
-                            if (restanteTarjeta > 0)
+                            if (restanteTarjeta >= 0)
                             {
                                 datos[7] = restanteTarjeta.ToString();
                             }
@@ -1025,7 +1025,7 @@ namespace PuntoDeVentaV2
                                 datos[7] = "0";
                             }
 
-                            if (restanteVales > 0)
+                            if (restanteVales >= 0)
                             {
                                 datos[8] = restanteVales.ToString();
                             }
@@ -1034,7 +1034,7 @@ namespace PuntoDeVentaV2
                                 datos[8] = "0";
                             }
 
-                            if (restanteCheque > 0)
+                            if (restanteCheque >= 0)
                             {
                                 datos[9] = restanteCheque.ToString();
                             }
@@ -1043,7 +1043,7 @@ namespace PuntoDeVentaV2
                                 datos[9] = "0";
                             }
 
-                            if (restanteTransferencia > 0)
+                            if (restanteTransferencia >= 0)
                             {
                                 datos[10] = restanteTransferencia.ToString();
                             }

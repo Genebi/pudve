@@ -303,8 +303,16 @@ namespace PuntoDeVentaV2
                                 }
                                 else
                                 {
-                                    var sinsigno = DTPorAnno.Rows[rows]["Ganancia"].ToString().Split('$');
-                                    gananciaAnno += Convert.ToDecimal(sinsigno[1]);
+                                    if (DTPorAnno.Rows[rows]["Ganancia"].ToString().Contains('$'))
+                                    {
+                                        var sinsigno = DTPorAnno.Rows[rows]["Ganancia"].ToString().Split('$');
+                                        gananciaAnno += Convert.ToDecimal(sinsigno[1]);
+                                    }
+                                    else
+                                    {
+                                        gananciaAnno += Convert.ToDecimal(DTPorAnno.Rows[rows]["Ganancia"]);
+                                    }
+                                    
                                 }
                             }
                             rows++;

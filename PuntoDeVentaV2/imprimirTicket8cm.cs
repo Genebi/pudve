@@ -212,14 +212,22 @@ namespace PuntoDeVentaV2
 
             using (var DTUsuario = cn.CargarDatos($"SELECT VEN.IDEmpleado, EMP.usuario FROM VENTAS AS VEN INNER JOIN empleados AS EMP ON( EMP.ID = VEN.IDEmpleado) WHERE VEN.ID = {idVentaRealizada} AND VEN.IDUsuario = {FormPrincipal.userID}"))
             {
-                if (string.IsNullOrWhiteSpace(DTUsuario.Rows[0][0].ToString()))
+                if (!DTUsuario.Rows.Count.Equals(0))
                 {
-                    UsuarioRealizoVenta = FormPrincipal.userNickName;
+                    if (string.IsNullOrWhiteSpace(DTUsuario.Rows[0][0].ToString()))
+                    {
+                        UsuarioRealizoVenta = FormPrincipal.userNickName;
+                    }
+                    else
+                    {
+                        UsuarioRealizoVenta = DTUsuario.Rows[0][1].ToString();
+                    }
                 }
                 else
                 {
-                    UsuarioRealizoVenta = DTUsuario.Rows[0][1].ToString();
+                    UsuarioRealizoVenta = FormPrincipal.userNickName;
                 }
+                
             }
             reportParameters.Add(new ReportParameter("Usuario", UsuarioRealizoVenta));
 
