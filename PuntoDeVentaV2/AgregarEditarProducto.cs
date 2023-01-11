@@ -10001,7 +10001,7 @@ namespace PuntoDeVentaV2
                 cadAux = TituloForm.Substring(7);   // extraemos que tipo es (Producto, Paquete, Servicio)
                 //txtPrecioCompra.Enabled = false;
 
-                var detallesProductoTmp = cn.BuscarProducto(Convert.ToInt32(idEditarProducto), FormPrincipal.userID);
+                var detallesProductoTmp = cn.BuscarProducto(Convert.ToInt32(idEditarProducto), FormPrincipal.userID, true);
 
                 if (detallesProductoTmp.Length > 0)
                 {
