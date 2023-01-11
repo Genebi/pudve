@@ -43,6 +43,8 @@ namespace PuntoDeVentaV2
         float descuentoCliente = 0;
         bool yasemando = false;
 
+        System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+
         public static string porcentaje;
         List<string> productoEliminadoCorreo;
         string PrecioDelProducto;
@@ -9403,11 +9405,20 @@ namespace PuntoDeVentaV2
                     elmeropesoxd = pesoVentas.peso;
                     //MessageBox.Show(elmeropesoxd.ToString());
                     DGVentas.Rows[0].Cells[5].Value = elmeropesoxd;
+                    timer.Interval = 2000; // here time in milliseconds
+                    timer.Tick += timer_Tick;
+                    timer.Start();
+                    btnBascula.Enabled = false;
                 };
                 pesoVentas.ShowDialog();
                 //EnviarDatos();
             }
 
+        }
+        void timer_Tick(object sender, System.EventArgs e)
+        {
+            btnBascula.Enabled = true;
+            timer.Stop();
         }
 
         private void iniciarBasculaPredeterminada()

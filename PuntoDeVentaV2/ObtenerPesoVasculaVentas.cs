@@ -124,8 +124,16 @@ namespace PuntoDeVentaV2
 
         private void leerBascula(object sender, SerialDataReceivedEventArgs e)
         {
-            informacionBascula += PuertoSerieBascula.ReadExisting();
-            this.Invoke(new EventHandler(ponteTextoBascula));
+            try
+            {
+                informacionBascula += PuertoSerieBascula.ReadExisting();
+                this.Invoke(new EventHandler(ponteTextoBascula));
+            }
+            catch (Exception)
+            {
+                
+            }
+            
         }
 
         private void ponteTextoBascula(object sender, EventArgs e)
@@ -489,7 +497,15 @@ namespace PuntoDeVentaV2
 
             }
 
-            this.Invoke(new EventHandler(NowClose)); //now close back in the main thread
+            try
+            {
+                this.Invoke(new EventHandler(NowClose)); //now close back in the main thread
+            }
+            catch (Exception)
+            {
+
+            }
+            
 
         }
 
@@ -534,8 +550,16 @@ namespace PuntoDeVentaV2
         {
             if (!string.IsNullOrEmpty(lblPeso.Text))
             {
-                peso = decimal.Parse(lblPeso.Text.Split('k')[0]);
-                this.Close();
+                try
+                {
+                    peso = decimal.Parse(lblPeso.Text.Split('k')[0]);
+                    this.Close();
+                }
+                catch (Exception)
+                {
+
+                }
+                
             }
         }
 
