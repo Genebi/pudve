@@ -248,6 +248,10 @@ namespace PuntoDeVentaV2
             {
                 btnAceptar.PerformClick();
             }
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -328,6 +332,14 @@ namespace PuntoDeVentaV2
                     }
                     txtCantidad.Text = words[0] + "." + words[1];
                 }
+            }
+        }
+
+        private void txtCantidad_KeyDown_1(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
             }
         }
     }
