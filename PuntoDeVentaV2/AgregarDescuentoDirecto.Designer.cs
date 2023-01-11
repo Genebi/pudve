@@ -84,6 +84,7 @@
             this.txtPorcentaje.Margin = new System.Windows.Forms.Padding(4);
             this.txtPorcentaje.MaxLength = 5;
             this.txtPorcentaje.Name = "txtPorcentaje";
+            this.txtPorcentaje.ShortcutsEnabled = false;
             this.txtPorcentaje.Size = new System.Drawing.Size(132, 23);
             this.txtPorcentaje.TabIndex = 4;
             this.txtPorcentaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -214,6 +215,7 @@
             this.txtCantidad.Location = new System.Drawing.Point(21, 128);
             this.txtCantidad.Margin = new System.Windows.Forms.Padding(4);
             this.txtCantidad.Name = "txtCantidad";
+            this.txtCantidad.ShortcutsEnabled = false;
             this.txtCantidad.Size = new System.Drawing.Size(132, 23);
             this.txtCantidad.TabIndex = 37;
             this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
