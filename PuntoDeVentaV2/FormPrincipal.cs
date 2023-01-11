@@ -1116,13 +1116,13 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-            }
+        }
             catch (Exception)
             {
                 Console.WriteLine("Error garrafal");
                 return;
             }
-        }
+}
 
         private void enviarProdctosWeb()
         {
@@ -1143,21 +1143,118 @@ namespace PuntoDeVentaV2
 
                     string consultaregistro = "INSERT INTO mirrorproductoregistro (Cliente,timestamp)";
                     consultaregistro += $"VALUES ('{userNickName.Split('@')[0]}','{fecha}')"; 
-                     con.EjecutarConsulta(consultaregistro);
-                    foreach (DataRow registroProducto in valoresProducto.Rows)
-                    {
-                        string consulta = "INSERT INTO mirrorproductosdatos (IDregistro, Nombre, Stock, Precio, Codigo)";
-                        consulta += $"VALUES ((SELECT MAX(ID) FROM mirrorproductoregistro),'{registroProducto[0]}','{registroProducto[1]}','{registroProducto[2]}','{registroProducto[3]}')";
-                        con.EjecutarConsulta(consulta);
-                    }
-                    con.EjecutarConsulta($"UPDATE mirrorproductoregistro SET Completo = 'Completo' WHERE ID = (SELECT MAX(ID) FROM mirrorproductoregistro)");
+                    con.EjecutarConsulta(consultaregistro);
+                //foreach (DataRow registroProducto in valoresProducto.Rows)
+                //{
+                //    string consulta = "INSERT INTO mirrorproductosdatos (IDregistro, Nombre, Stock, Precio, Codigo)";
+                //    consulta += $"VALUES ((SELECT MAX(ID) FROM mirrorproductoregistro),'{registroProducto[0]}','{registroProducto[1]}','{registroProducto[2]}','{registroProducto[3]}')";
+                //    con.EjecutarConsulta(consulta);
+                //}
+
+                System.Data.DataColumn newColumn = new System.Data.DataColumn("IDregistro", typeof(System.String));
+
+                using (DataTable dtT = con.CargarDatos($"SELECT MAX(ID) as ID FROM mirrorproductoregistro WHERE Cliente = '{userNickName.Split('@')[0]}'"))
+                {
+                    newColumn.DefaultValue = dtT.Rows[0]["ID"];
                 }
-            }
+               
+                valoresProducto.Columns.Add(newColumn);
+                newColumn.SetOrdinal(0);
+                ToCSV(valoresProducto, @"C:\Archivos PUDVE\export.txt");
+                bulkInsertAsync("mirrorproductosdatos");
+                con.EjecutarConsulta($"UPDATE mirrorproductoregistro SET Completo = 'Completo' WHERE ID = (SELECT MAX(ID))");
+                }
+        }
             catch (Exception)
             {
                 //No se logro la conexion a internet.
                 return;
             }
+}
+
+        private void ToCSV(DataTable dtDataTable, string strFilePath)
+        {
+            StreamWriter sw = new StreamWriter(strFilePath, false);
+            //headers    
+            for (int i = 0; i < dtDataTable.Columns.Count; i++)
+            {
+                sw.Write(dtDataTable.Columns[i]);
+                if (i < dtDataTable.Columns.Count - 1)
+                {
+                    sw.Write("|");
+                }
+            }
+            sw.Write(sw.NewLine);
+            foreach (DataRow dr in dtDataTable.Rows)
+            {
+                for (int i = 0; i < dtDataTable.Columns.Count; i++)
+                {
+                    if (!Convert.IsDBNull(dr[i]))
+                    {
+                        string value = dr[i].ToString();
+                        if (value.Contains(','))
+                        {
+                            value = String.Format("\"{0}\"", value);
+                            sw.Write(value);
+                        }
+                        else
+                        {
+                            sw.Write(dr[i].ToString());
+                        }
+                    }
+                    if (i < dtDataTable.Columns.Count - 1)
+                    {
+                        sw.Write("+");
+                    }
+                }
+                sw.Write(sw.NewLine);
+            }
+            sw.Close();
+        }
+
+        public async Task bulkInsertAsync(string tablename)
+        {
+            string connStr = "server=74.208.135.60;user=app;database=pudve;port=3306;password=12Steroids12;AllowLoadLocalInfile=true;";
+            MySqlConnection conn = new MySqlConnection(connStr);
+
+            MySqlBulkLoader bl = new MySqlBulkLoader(conn);
+            bl.Local = true;
+            
+            bl.TableName = tablename;
+            bl.FieldTerminator = "+";
+            bl.LineTerminator = "\n";
+            bl.FileName = @"C:\Archivos PUDVE\export.txt";
+            bl.NumberOfLinesToSkip = 1;
+            bl.Columns.AddRange(new List<string>() { "IDregistro", "Nombre","Stock","Precio","Codigo"});
+            bl.Timeout = 50000;
+            try
+            {
+                //Console.WriteLine("Connecting to MySQL...");
+                conn.Open();
+
+                // Upload data from file
+                int count = bl.Load();
+                //Console.WriteLine(count + " lines uploaded.");
+
+                //string sql = "SELECT IDregistro, Nombre, Stock, Codigo FROM mirrorproductosdatos";
+                //MySqlCommand cmd = new MySqlCommand(sql, conn);
+                //MySqlDataReader rdr = cmd.ExecuteReader();
+
+                //while (rdr.Read())
+                //{
+                //    Console.WriteLine(rdr[0] + " -- " + rdr[1] + " -- " + rdr[2]);
+                //}
+
+                //rdr.Close();
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                return;
+                //Console.WriteLine(ex.ToString());
+            }
+            //Console.WriteLine("Done.");
         }
 
         private void enviarCajaAWeb()
