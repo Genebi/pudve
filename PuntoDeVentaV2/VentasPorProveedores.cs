@@ -245,5 +245,12 @@ namespace PuntoDeVentaV2
             CargarRDCL();
         }
 
+        private void VentasPorProveedores_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }
