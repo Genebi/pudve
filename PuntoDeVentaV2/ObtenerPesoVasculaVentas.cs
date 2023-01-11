@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace PuntoDeVentaV2
 {
-    public partial class AgregarBasculas : Form
+    public partial class ObtenerPesoVasculaVentas : Form
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -29,13 +29,13 @@ namespace PuntoDeVentaV2
 
         public void InicializaPuertoBascula(string puerto, int baud)
         {
-            if(puerto != "" && puerto != string.Empty)
+            if (puerto != "" && puerto != string.Empty)
             {
                 PuertoSerieBascula = new SerialPort(puerto, baud);
 
                 if (!PuertoSerieBascula.IsOpen)
                 {
-                    if(!cbParidad.Text.Equals(string.Empty) || !cbParidad.Equals("Ningun dato de Paridad encontrado"))
+                    if (!cbParidad.Text.Equals(string.Empty) || !cbParidad.Equals("Ningun dato de Paridad encontrado"))
                     {
                         PuertoSerieBascula.Parity = (Parity)Enum.Parse(typeof(Parity), cbParidad.Text.ToString());
                     }
@@ -44,7 +44,7 @@ namespace PuntoDeVentaV2
                         PuertoSerieBascula.Parity = Parity.None;
                     }
 
-                    if(!cbStopBits.Text.Equals(string.Empty) || !cbStopBits.Equals("Ningun StopBits encontrado"))
+                    if (!cbStopBits.Text.Equals(string.Empty) || !cbStopBits.Equals("Ningun StopBits encontrado"))
                     {
                         PuertoSerieBascula.StopBits = (StopBits)Enum.Parse(typeof(StopBits), cbStopBits.Text.ToString());
                     }
@@ -53,7 +53,7 @@ namespace PuntoDeVentaV2
                         PuertoSerieBascula.StopBits = StopBits.One;
                     }
 
-                    if(!cbDatos.Text.Equals("No se encontraron DataBit") || !cbDatos.Text.Equals(string.Empty))
+                    if (!cbDatos.Text.Equals("No se encontraron DataBit") || !cbDatos.Text.Equals(string.Empty))
                     {
                         PuertoSerieBascula.DataBits = (int)Int32.Parse(cbDatos.Text.ToString().Replace(" bit", string.Empty));
                     }
@@ -143,7 +143,7 @@ namespace PuntoDeVentaV2
             {
                 if (!dtBasculas.Rows.Count.Equals(0))
                 {
-                    foreach(DataRow drBascula in dtBasculas.Rows)
+                    foreach (DataRow drBascula in dtBasculas.Rows)
                     {
                         cbBasculaRegistrada.Items.Add(drBascula["nombreBascula"].ToString());
                     }
@@ -154,7 +154,7 @@ namespace PuntoDeVentaV2
             {
                 if (!dtBasculaPredeterminada.Rows.Count.Equals(0))
                 {
-                    foreach(DataRow drBasculaPredeterminada in dtBasculaPredeterminada.Rows)
+                    foreach (DataRow drBasculaPredeterminada in dtBasculaPredeterminada.Rows)
                     {
                         cbBasculaRegistrada.Text = drBasculaPredeterminada["nombreBascula"].ToString();
                     }
@@ -174,7 +174,7 @@ namespace PuntoDeVentaV2
 
             if (!portNames.Count().Equals(0))
             {
-                foreach(var portName in portNames)
+                foreach (var portName in portNames)
                 {
                     cbPuerto.Items.Add(portName);
                 }
@@ -279,7 +279,7 @@ namespace PuntoDeVentaV2
             cbStopBits.Items.Clear();
             if (!rangeStopBits.Count().Equals(0))
             {
-                foreach(var stopBits in rangeStopBits)
+                foreach (var stopBits in rangeStopBits)
                 {
                     cbStopBits.Items.Add(stopBits);
                 }
@@ -329,65 +329,9 @@ namespace PuntoDeVentaV2
         }
         #endregion
 
-        public AgregarBasculas()
+        public ObtenerPesoVasculaVentas()
         {
             InitializeComponent();
-        }
-
-        private void AgregarBasculas_Load(object sender, EventArgs e)
-        {
-            //llenamos los ComboBox
-            PuertoSerieBascula.Close();
-            getBasculasRegistradas();   //Basculas Preconfiguradas
-            getComPortNames();          //Puertos Activos
-            getBaudRate();              //Rango BaudRate
-            getDataBits();              //Rango DataBits
-            getParidadData();           //Rango ParidadData
-            getHandshake();             //Rango Handshake
-            getStopBits();              //Rango StopBits
-            cbBasculaRegistrada_TextChanged(sender, e);
-            cbBasculaRegistrada.Focus();
-
-            cbBasculaRegistrada.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
-            cbBaudRate.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
-            cbDatos.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
-            cbHandshake.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
-            cbParidad.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
-            cbPuerto.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
-            cbStopBits.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
-
-            if (FormPrincipal.id_empleado > 0)
-            {
-                var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Bascula");
-
-                opcion1 = permisos[0];
-            }
-        }
-
-        private void btnTomarPeso_Click(object sender, EventArgs e)
-        {
-            lblPeso.Text = string.Empty;
-
-            if (isOpen.Equals(false))
-            {
-                doConecction();
-            }
-
-            if (isExists.Equals(true))
-            {
-                if (!txtSendData.Text.Equals(string.Empty))
-                {
-                    PuertoSerieBascula.Write(txtSendData.Text);
-                }
-                else
-                {
-                    MessageBox.Show("Favor de ingresar un valor a enviar al puerto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            else
-            {
-                limpiarCampos();
-            }
         }
 
         private void cbBasculaRegistrada_TextChanged(object sender, EventArgs e)
@@ -413,7 +357,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void btnAddEditBascula_Click(object sender, EventArgs e)
+        private void btnAddEditBascula_Click_1(object sender, EventArgs e)
         {
             if (opcion1 == 0)
             {
@@ -448,9 +392,88 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void AgregarBasculas_FormClosing(object sender, FormClosingEventArgs e)
+        private void ObtenerPesoVasculaVentas_Load(object sender, EventArgs e)
+        {
+            //llenamos los ComboBox
+            getBasculasRegistradas();   //Basculas Preconfiguradas
+            getComPortNames();          //Puertos Activos
+            getBaudRate();              //Rango BaudRate
+            getDataBits();              //Rango DataBits
+            getParidadData();           //Rango ParidadData
+            getHandshake();             //Rango Handshake
+            getStopBits();              //Rango StopBits
+            cbBasculaRegistrada_TextChanged(sender, e);
+            cbBasculaRegistrada.Focus();
+
+            cbBasculaRegistrada.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbBaudRate.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbDatos.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbHandshake.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbParidad.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbPuerto.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbStopBits.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+
+            if (FormPrincipal.id_empleado > 0)
+            {
+                var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Bascula");
+
+                opcion1 = permisos[0];
+            }
+        }
+
+        private void btnTomarPeso_Click_1(object sender, EventArgs e)
+        {
+
+            lblPeso.Text = string.Empty;
+
+            if (isOpen.Equals(false))
+            {
+                doConecction();
+            }
+
+            if (isExists.Equals(true))
+            {
+                if (!txtSendData.Text.Equals(string.Empty))
+                {
+                    PuertoSerieBascula.Write(txtSendData.Text);
+                }
+                else
+                {
+                    MessageBox.Show("Favor de ingresar un valor a enviar al puerto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                limpiarCampos();
+            }
+        }
+
+        private void ObtenerPesoVasculaVentas_FormClosing(object sender, FormClosingEventArgs e)
         {
             PuertoSerieBascula.Close();
+        }
+
+        private void cbBasculaRegistrada_TextChanged_1(object sender, EventArgs e)
+        {
+            using (DataTable dtBasculaRegistrada = cn.CargarDatos(cs.getDatosBasculaRegistrada(cbBasculaRegistrada.Text)))
+            {
+                if (!dtBasculaRegistrada.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow drBasculaRegistradaData in dtBasculaRegistrada.Rows)
+                    {
+                        if (!cbPuerto.Text.Equals(firtsItemBasculasRegistradas))
+                        {
+                            cbPuerto.Text = drBasculaRegistradaData["puerto"].ToString();
+                            cbBaudRate.Text = drBasculaRegistradaData["baudRate"].ToString();
+                            cbDatos.Text = drBasculaRegistradaData["dataBits"].ToString();
+                            cbHandshake.Text = drBasculaRegistradaData["handshake"].ToString();
+                            cbParidad.Text = drBasculaRegistradaData["parity"].ToString();
+                            cbStopBits.Text = drBasculaRegistradaData["stopBits"].ToString();
+                            txtSendData.Text = drBasculaRegistradaData["sendData"].ToString();
+                        }
+                    }
+                }
+            }
         }
 
         private void limpiarCampos()
@@ -475,7 +498,7 @@ namespace PuntoDeVentaV2
 
             cbBasculaRegistrada.Text = string.Empty;
             cbBasculaRegistrada.SelectedIndex = 0;
-            
+
             txtSendData.Clear();
         }
     }

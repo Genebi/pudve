@@ -1136,6 +1136,12 @@
     <Compile Include="NvoProduct.Designer.cs">
       <DependentUpon>NvoProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="ObtenerPesoVasculaVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ObtenerPesoVasculaVentas.Designer.cs">
+      <DependentUpon>ObtenerPesoVasculaVentas.cs</DependentUpon>
+    </Compile>
     <Compile Include="OpcionesReporteProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2163,6 +2169,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NvoProduct.resx">
       <DependentUpon>NvoProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObtenerPesoVasculaVentas.resx">
+      <DependentUpon>ObtenerPesoVasculaVentas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OpcionesReporteProducto.resx">
       <DependentUpon>OpcionesReporteProducto.cs</DependentUpon>

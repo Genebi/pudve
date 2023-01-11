@@ -9394,7 +9394,9 @@ namespace PuntoDeVentaV2
 
         private void btnBascula_Click(object sender, EventArgs e)
         {
-            EnviarDatos();
+            AgregarBasculas pesoVentas = new AgregarBasculas();
+            pesoVentas.Show();
+            //EnviarDatos();
         }
 
         private void iniciarBasculaPredeterminada()
@@ -9432,13 +9434,13 @@ namespace PuntoDeVentaV2
                     }
                     catch (Exception error)
                     {
-                        btnBascula.Enabled = false;
+                        //btnBascula.Enabled = false;
                         //MessageBox.Show("Error de conexión con el dispositivo (Bascula)...\n\n" + error.Message.ToString() + "\n\nFavor de revisar los parametros de su bascula para configurarlos correctamente", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else
                 {
-                    btnBascula.Enabled = false;
+                    //btnBascula.Enabled = false;
                 }
             }
         }
