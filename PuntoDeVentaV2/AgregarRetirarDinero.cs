@@ -1085,6 +1085,53 @@ namespace PuntoDeVentaV2
                     }
                     else if (Convert.ToInt32(datosConfig[14]).Equals(1) && datos[0].ToString().Equals("retiro"))
                     {
+                        if (btnRetirarTodoElDinero.Visible == true)
+                        {
+                            if (string.IsNullOrWhiteSpace(txtEfectivo.Text) || Convert.ToDecimal(txtEfectivo.Text) < 0)
+                            {
+                                datos[6] = "0";
+                            }
+                            else
+                            {
+                                datos[6] = txtEfectivo.Text;
+                            }
+
+                            if (string.IsNullOrWhiteSpace(txtTarjeta.Text) || Convert.ToDecimal(txtTarjeta.Text) < 0)
+                            {
+                                datos[7] = "0";
+                            }
+                            else
+                            {
+                                datos[7] = txtTarjeta.Text;
+                            }
+
+                            if (string.IsNullOrWhiteSpace(txtVales.Text) || Convert.ToDecimal(txtVales.Text) < 0)
+                            {
+                                datos[8] = "0";
+                            }
+                            else
+                            {
+                                datos[8] = txtVales.Text;
+                            }
+
+                            if (string.IsNullOrWhiteSpace(txtCheque.Text) || Convert.ToDecimal(txtCheque.Text) < 0)
+                            {
+                                datos[9] = "0";
+                            }
+                            else
+                            {
+                                datos[9] = txtCheque.Text;
+                            }
+
+                            if (string.IsNullOrWhiteSpace(txtTrans.Text) || Convert.ToDecimal(txtTrans.Text) < 0)
+                            {
+                                datos[10] = "0";
+                            }
+                            else
+                            {
+                                datos[10] = txtTrans.Text;
+                            }
+                        }
                         Thread AgregarAgregarDinero = new Thread(
                             () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
                         );
