@@ -3885,7 +3885,7 @@ namespace PuntoDeVentaV2
                     if (string.IsNullOrWhiteSpace(credito)) { credito = "0"; }
                     if (string.IsNullOrWhiteSpace(Anticipo)) { Anticipo = "0"; }
 
-                    if (!statusVenta.Equals("2"))
+                    if (!statusVenta.Equals("2") && !statusVenta.Equals("7"))
                     {
                         if (FormPrincipal.userNickName.Contains("@"))
                         {
@@ -3982,7 +3982,7 @@ namespace PuntoDeVentaV2
                         // Si es un producto, paquete o servicio lo guarda en la tabla de productos de venta
                         if (Tipo == "P" || Tipo == "S" || Tipo == "PQ")
                         {
-                            if (!statusVenta.Equals("2"))
+                            if (!statusVenta.Equals("2") && !statusVenta.Equals("7"))
                             {
                                 using (DataTable dtProductosVenta = cn.CargarDatos(cs.checarProductosVenta(idVenta)))
                                 {

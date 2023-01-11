@@ -2318,7 +2318,7 @@ namespace PuntoDeVentaV2
 
         public string ventaGuardadaEstaTimbrada(int idVenta)
         {
-            var consulta = $"SELECT ID, IDUsuario, IDCliente, IDEmpleado, IDSucursal, Folio, Serie, `Status`, Timbrada, Cancelada, FechaOperacion FROM ventas WHERE ID = '{idVenta}' AND IDUsuario = '{FormPrincipal.userID}' AND `Status` = '2';";
+            var consulta = $"SELECT ID, IDUsuario, IDCliente, IDEmpleado, IDSucursal, Folio, Serie, `Status`, Timbrada, Cancelada, FechaOperacion FROM ventas WHERE ID = '{idVenta}' AND IDUsuario = '{FormPrincipal.userID}' AND (`Status` = '2' OR `Status` = '7');";
 
             return consulta;
         }
