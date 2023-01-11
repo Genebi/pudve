@@ -391,7 +391,7 @@ namespace PuntoDeVentaV2
 
 
 
-            iniciarBasculaPredeterminada();
+            //iniciarBasculaPredeterminada();
             txtBuscadorProducto.Focus();
         }
 
@@ -9394,9 +9394,20 @@ namespace PuntoDeVentaV2
 
         private void btnBascula_Click(object sender, EventArgs e)
         {
-            AgregarBasculas pesoVentas = new AgregarBasculas();
-            pesoVentas.Show();
-            //EnviarDatos();
+            if (DGVentas.Rows.Count>0)
+            {
+                decimal elmeropesoxd = 0;
+                ObtenerPesoVasculaVentas pesoVentas = new ObtenerPesoVasculaVentas();
+                pesoVentas.FormClosed += delegate
+                {
+                    elmeropesoxd = pesoVentas.peso;
+                    //MessageBox.Show(elmeropesoxd.ToString());
+                    DGVentas.Rows[0].Cells[5].Value = elmeropesoxd;
+                };
+                pesoVentas.ShowDialog();
+                //EnviarDatos();
+            }
+
         }
 
         private void iniciarBasculaPredeterminada()

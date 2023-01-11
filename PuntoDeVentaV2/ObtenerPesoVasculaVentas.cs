@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,6 +17,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
+        public decimal peso;
         // Permisos botones
         int opcion1 = 1; // Boton Agregar/Editar Basculas
 
@@ -419,12 +421,14 @@ namespace PuntoDeVentaV2
 
                 opcion1 = permisos[0];
             }
+
+            btnTomarPeso.PerformClick(); 
+
         }
 
         private void btnTomarPeso_Click_1(object sender, EventArgs e)
         {
 
-            lblPeso.Text = string.Empty;
 
             if (isOpen.Equals(false))
             {
@@ -446,11 +450,54 @@ namespace PuntoDeVentaV2
             {
                 limpiarCampos();
             }
+
         }
 
         private void ObtenerPesoVasculaVentas_FormClosing(object sender, FormClosingEventArgs e)
         {
-            PuertoSerieBascula.Close();
+            if (PuertoSerieBascula.IsOpen)
+
+            {
+
+                e.Cancel = true; //cancel the fom closing
+
+                Thread CloseDown = new Thread(new ThreadStart(CloseSerialOnExit)); //close port in new thread to avoid hang
+
+                CloseDown.Start(); //close port in new thread to avoid hang
+
+            }
+
+        }
+
+        private void CloseSerialOnExit()
+
+        {
+
+            try
+
+            {
+
+                PuertoSerieBascula.Close(); //close the serial port
+
+            }
+
+            catch (Exception ex)
+
+            {
+
+                MessageBox.Show(ex.Message); //catch any serial port closing error messages
+
+            }
+
+            this.Invoke(new EventHandler(NowClose)); //now close back in the main thread
+
+        }
+
+        private void NowClose(object sender, EventArgs e)
+
+        {
+
+            this.Close(); //now close the form
         }
 
         private void cbBasculaRegistrada_TextChanged_1(object sender, EventArgs e)
@@ -473,6 +520,22 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //MessageBox.Show(lblPeso.Text);
+            //peso = decimal.Parse(lblPeso.Text);
+            //this.Close();
+        }
+
+        private void lblPeso_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(lblPeso.Text))
+            {
+                peso = decimal.Parse(lblPeso.Text.Split('k')[0]);
+                this.Close();
             }
         }
 

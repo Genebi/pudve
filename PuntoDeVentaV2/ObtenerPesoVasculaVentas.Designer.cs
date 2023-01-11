@@ -31,8 +31,6 @@ namespace PuntoDeVentaV2
         {
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnTomarPeso = new System.Windows.Forms.Button();
-            this.lblPeso = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.txtSendData = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -48,6 +46,8 @@ namespace PuntoDeVentaV2
             this.label4 = new System.Windows.Forms.Label();
             this.cbPuerto = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.btnTomarPeso = new System.Windows.Forms.Button();
+            this.lblPeso = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnAddEditBascula = new System.Windows.Forms.Button();
@@ -66,11 +66,10 @@ namespace PuntoDeVentaV2
             this.label11.TabIndex = 7;
             this.label11.Text = "Datos de Configuración";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label11.Visible = false;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.btnTomarPeso);
-            this.groupBox2.Controls.Add(this.lblPeso);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.txtSendData);
             this.groupBox2.Controls.Add(this.label9);
@@ -92,35 +91,7 @@ namespace PuntoDeVentaV2
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = " Configuración Bascula: ";
-            // 
-            // btnTomarPeso
-            // 
-            this.btnTomarPeso.BackColor = System.Drawing.Color.Green;
-            this.btnTomarPeso.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnTomarPeso.FlatAppearance.BorderSize = 0;
-            this.btnTomarPeso.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTomarPeso.Font = new System.Drawing.Font("Century", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTomarPeso.ForeColor = System.Drawing.Color.White;
-            this.btnTomarPeso.Location = new System.Drawing.Point(247, 192);
-            this.btnTomarPeso.Name = "btnTomarPeso";
-            this.btnTomarPeso.Size = new System.Drawing.Size(172, 29);
-            this.btnTomarPeso.TabIndex = 16;
-            this.btnTomarPeso.Text = "Tomar Peso";
-            this.btnTomarPeso.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnTomarPeso.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnTomarPeso.UseVisualStyleBackColor = false;
-            this.btnTomarPeso.Click += new System.EventHandler(this.btnTomarPeso_Click_1);
-            // 
-            // lblPeso
-            // 
-            this.lblPeso.BackColor = System.Drawing.Color.White;
-            this.lblPeso.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPeso.Location = new System.Drawing.Point(381, 146);
-            this.lblPeso.Name = "lblPeso";
-            this.lblPeso.Size = new System.Drawing.Size(155, 23);
-            this.lblPeso.TabIndex = 15;
-            this.lblPeso.Text = "0";
-            this.lblPeso.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.groupBox2.Visible = false;
             // 
             // label10
             // 
@@ -256,14 +227,43 @@ namespace PuntoDeVentaV2
             this.label3.TabIndex = 0;
             this.label3.Text = "Puerto:";
             // 
+            // btnTomarPeso
+            // 
+            this.btnTomarPeso.BackColor = System.Drawing.Color.Orange;
+            this.btnTomarPeso.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTomarPeso.FlatAppearance.BorderSize = 0;
+            this.btnTomarPeso.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTomarPeso.Font = new System.Drawing.Font("Century", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTomarPeso.ForeColor = System.Drawing.Color.White;
+            this.btnTomarPeso.Location = new System.Drawing.Point(12, 114);
+            this.btnTomarPeso.Name = "btnTomarPeso";
+            this.btnTomarPeso.Size = new System.Drawing.Size(325, 56);
+            this.btnTomarPeso.TabIndex = 16;
+            this.btnTomarPeso.Text = "Volver a tomar peso";
+            this.btnTomarPeso.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTomarPeso.UseVisualStyleBackColor = false;
+            this.btnTomarPeso.Click += new System.EventHandler(this.btnTomarPeso_Click_1);
+            // 
+            // lblPeso
+            // 
+            this.lblPeso.BackColor = System.Drawing.Color.White;
+            this.lblPeso.Font = new System.Drawing.Font("Century", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPeso.Location = new System.Drawing.Point(8, 64);
+            this.lblPeso.Name = "lblPeso";
+            this.lblPeso.Size = new System.Drawing.Size(329, 23);
+            this.lblPeso.TabIndex = 15;
+            this.lblPeso.Text = "0";
+            this.lblPeso.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblPeso.TextChanged += new System.EventHandler(this.lblPeso_TextChanged);
+            // 
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Century Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(13, 18);
+            this.label1.Location = new System.Drawing.Point(7, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(454, 30);
+            this.label1.Size = new System.Drawing.Size(330, 30);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Asignar Bascula";
+            this.label1.Text = "Tomar peso";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox1
@@ -271,12 +271,13 @@ namespace PuntoDeVentaV2
             this.groupBox1.Controls.Add(this.btnAddEditBascula);
             this.groupBox1.Controls.Add(this.cbBasculaRegistrada);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(13, 64);
+            this.groupBox1.Location = new System.Drawing.Point(484, 80);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(454, 115);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = " Basculas Registradas: ";
+            this.groupBox1.Visible = false;
             // 
             // btnAddEditBascula
             // 
@@ -318,12 +319,18 @@ namespace PuntoDeVentaV2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1048, 610);
+            this.ClientSize = new System.Drawing.Size(355, 187);
+            this.Controls.Add(this.lblPeso);
+            this.Controls.Add(this.btnTomarPeso);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "ObtenerPesoVasculaVentas";
+            this.Opacity = 0D;
             this.Text = "ObtenerPesoVasculaVentas";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ObtenerPesoVasculaVentas_FormClosing);
             this.Load += new System.EventHandler(this.ObtenerPesoVasculaVentas_Load);
