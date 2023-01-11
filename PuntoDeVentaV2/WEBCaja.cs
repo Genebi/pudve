@@ -235,8 +235,8 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    VentasPorProveedores proveddores = new VentasPorProveedores();
-                    proveddores.ShowDialog();
+                    //VentasPorProveedores proveddores = new VentasPorProveedores();
+                    //proveddores.ShowDialog();
                 }
             }
 

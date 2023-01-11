@@ -217,6 +217,49 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo3_Click(object sender, EventArgs e)
         {
+            opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
+            if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+            {
+                CargarDatosTodosVentasProveedor();
+            }
+            else
+            {
+                CargarDatosEmpleadoVentasProveedor();
+            }
+            
+        }
+
+        private void CargarDatosEmpleadoVentasProveedor()
+        {
+            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+            {
+                opcionComboBoxFiltroAdminEmp = "0";
+            }
+            string FechaInicial = string.Empty;
+            using (var DTFecha = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1"))
+            {
+                FechaInicial = DTFecha.Rows[0]["FechaOperacion"].ToString();
+            }
+            DateTime FechaInicialForm = Convert.ToDateTime(FechaInicial);
+            string FechaFinal = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            string IDSVentas = string.Empty;
+
+            using (var DTIdsVenta = cn.CargarDatos($"SELECT ID FROM VENTAS WHERE FechaOperacion BETWEEN '{FechaInicialForm.ToString("yyyy-MM-dd HH:mm:ss")}' AND '{FechaFinal}' AND IDUsuario = {FormPrincipal.userID} AND Cliente != 'Apertura de Caja' AND IDEmpleado = {opcionComboBoxFiltroAdminEmp}"))
+            {
+                if (DTIdsVenta.Rows.Count.Equals(0))
+                {
+                    MessageBox.Show("Este empleado no ha realizado ninguna venta", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    VentasPorProveedores proveddores = new VentasPorProveedores(opcionComboBoxFiltroAdminEmp);
+                    proveddores.ShowDialog();
+                }
+            }
+        }
+
+        private void CargarDatosTodosVentasProveedor()
+        {
             string FechaInicial = string.Empty;
             using (var DTFecha = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1"))
             {
@@ -230,15 +273,14 @@ namespace PuntoDeVentaV2
             {
                 if (DTIdsVenta.Rows.Count.Equals(0))
                 {
-                    MessageBox.Show("No ha realizado ninguna venta","Aviso del Sistema", MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    MessageBox.Show("No se ha realizado ninguna venta", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    VentasPorProveedores proveddores = new VentasPorProveedores();
+                    VentasPorProveedores proveddores = new VentasPorProveedores(opcionComboBoxFiltroAdminEmp);
                     proveddores.ShowDialog();
                 }
             }
-            
         }
 
         private void botonRedondo1_Click(object sender, EventArgs e)
