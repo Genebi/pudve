@@ -73,7 +73,18 @@ namespace PuntoDeVentaV2
         {
             Label lbl = (Label)sender;
             LbNombreCategoria.Text = "Categoria: " + lbl.Text;
+            cargarsubCategorias(lbl.Text);
+        }
 
+        private void cargarsubCategorias(string categoria)
+        {
+            using (DataTable dtDetallesSubdetalle = cn.CargarDatos($"SELECT * FROM detallesubdetalle INNER JOIN subdetallesdeproducto ON detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID WHERE subdetallesdeproducto.Categoria = '{categoria}'"))
+            {
+                if (!dtDetallesSubdetalle.Rows.Count.Equals(0))
+                {
+                    dgvDetallesSubdetalle.DataSource = dtDetallesSubdetalle;
+                }
+            }
         }
 
         private void btnAddDetalle_Click(object sender, EventArgs e)
@@ -82,6 +93,11 @@ namespace PuntoDeVentaV2
             subdetalle.ShowDialog();
             fLPLateralCategorias.Controls.Clear();
             cargarCategorias();
+        }
+
+        private void btnGuardarDetalles_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

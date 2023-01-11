@@ -2027,3 +2027,15 @@ IF
 
 --Se agrego una columna a productos para saber si el producto cuenta con subdetalles agregados.
 ALTER TABLE productos ADD COLUMN IF NOT EXISTS SubDetalles INTEGER(5) DEFAULT (0);
+
+--Creacion de la tana de subdetalles para los detalles que se agreguen a un producto
+ CREATE TABLE
+IF
+	NOT EXISTS DetalleSubDetalle (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDSubDetalle INTEGER DEFAULT 0,
+		Nombre TEXT,
+		Stock  DECIMAL ( 16, 2 ) NOT NULL DEFAULT 0,
+		Estado INTEGER DEFAULT 1,
+		FOREIGN KEY ( IDSubDetalle ) REFERENCES SubDetallesDeProducto ( ID ) ON UPDATE CASCADE ON DELETE CASCADE
+	);
