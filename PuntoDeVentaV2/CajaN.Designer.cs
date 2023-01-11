@@ -2165,6 +2165,7 @@
             this.botonRedondo3.TextColor = System.Drawing.Color.White;
             this.botonRedondo3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.botonRedondo3.UseVisualStyleBackColor = false;
+            this.botonRedondo3.Visible = false;
             this.botonRedondo3.Click += new System.EventHandler(this.botonRedondo3_Click);
             // 
             // CajaN

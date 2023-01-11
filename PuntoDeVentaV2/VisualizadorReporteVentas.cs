@@ -18,11 +18,12 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         DataTable DTFinal = new DataTable();
+        DataTable DTProveedores = new DataTable();
         DataTable DTGrafica = new DataTable();
         string codigosBuscar = "";
         int TipoDeVenta;
         bool ValorNull = false;
-
+        List<int> ListaIdsProducto = new List<int>();
         public VisualizadorReporteVentas(string IDVentas,int TipoVenta)
         {
             InitializeComponent();
@@ -33,9 +34,103 @@ namespace PuntoDeVentaV2
         private void VisualizadorReporteVentas_Load(object sender, EventArgs e)
         {
             CargarDatos();
+            CargarDatosVentasProveedor();
             CargarGrafica();
             CargarRDLC();
             this.reportViewer1.RefreshReport();
+        }
+
+        private void CargarDatosVentasProveedor()
+        {
+            DTProveedores.Columns.Add("Proveedor", typeof(String));
+            DTProveedores.Columns.Add("Total", typeof(String));
+            using (var DTDatos = cn.CargarDatos($"SELECT PV.IDProducto, SUM( PV.Cantidad ) * PV.Precio AS 'PrecioTotal' FROM productosventa AS PV INNER JOIN ventas AS VEN ON (PV.IDVenta = VEN.ID) WHERE VEN.IDUsuario = 10 AND IDVenta IN ({codigosBuscar}) GROUP BY IDProducto"))
+            {
+                int contador = 0;
+                foreach (var item in DTDatos.Rows)
+                {
+                    ListaIdsProducto.Add(Convert.ToInt32(DTDatos.Rows[contador]["IDProducto"]));
+                    contador++;
+                }
+            }
+            string IDs = string.Empty;
+            foreach (var item in ListaIdsProducto)
+            {
+                IDs += item + ",";
+            }
+            IDs = IDs.TrimEnd(',');
+            using (var DTIDSproducto = cn.CargarDatos($"SELECT PV.IDProducto, SUM(PV.Cantidad) * PV.Precio AS 'PrecioTotal', DP.Proveedor FROM productosventa AS PV INNER JOIN detallesproducto AS DP ON ( PV.IDProducto = DP.IDProducto ) INNER JOIN ventas AS VEN ON (PV.IDVenta = VEN.ID) WHERE VEN.IDUsuario = 10 AND PV.IDProducto IN ( {IDs}) AND PV.IDVenta IN({codigosBuscar}) GROUP BY IDProducto ORDER BY IDProveedor"))
+            {
+                if (!DTIDSproducto.Rows.Count.Equals(0))
+                {
+                    int contador = 0;
+                    foreach (var item in DTIDSproducto.Rows)
+                    {
+                        ListaIdsProducto.Remove(Convert.ToInt32(DTIDSproducto.Rows[contador]["IDProducto"]));
+                        contador++;
+                    }
+                    contador = 0;
+                    int contador2 = 0; ;
+                    foreach (var item in DTIDSproducto.Rows)
+                    {
+                        if (!DTProveedores.Rows.Count.Equals(0))
+                        {
+                            string nombre1 = DTProveedores.Rows[contador2]["Proveedor"].ToString();
+                            string nombre2 = DTIDSproducto.Rows[contador]["Proveedor"].ToString();
+                            if (nombre1.Trim().Equals(nombre2.Trim()))
+                            {
+                                decimal valorAnterior = Convert.ToDecimal(DTProveedores.Rows[contador2]["Total"]);
+                                decimal ValorNuevo = Convert.ToDecimal(DTIDSproducto.Rows[contador]["PrecioTotal"]);
+                                decimal total = valorAnterior + ValorNuevo;
+                                DTProveedores.Rows[contador2]["Total"] = total.ToString("0.00");
+                            }
+                            else
+                            {
+                                DTProveedores.Rows.Add();
+                                decimal total = Convert.ToDecimal(DTIDSproducto.Rows[contador]["PrecioTotal"]);
+                                DTProveedores.Rows[contador2 + 1]["Proveedor"] = DTIDSproducto.Rows[contador]["Proveedor"].ToString();
+                                DTProveedores.Rows[contador2 + 1]["Total"] = total.ToString("0.00");
+                                contador2++;
+                            }
+                        }
+                        else
+                        {
+                            DTProveedores.Rows.Add();
+                            decimal total = Convert.ToDecimal(DTIDSproducto.Rows[contador]["PrecioTotal"]);
+                            DTProveedores.Rows[contador2]["Proveedor"] = DTIDSproducto.Rows[contador]["Proveedor"].ToString();
+                            DTProveedores.Rows[contador2]["Total"] = total.ToString("0.00");
+                        }
+
+                        contador++;
+                    }
+                }
+
+                if (!ListaIdsProducto.Count.Equals(0))
+                {
+                    string IDSProducSinProveedor = string.Empty;
+                    foreach (var item in ListaIdsProducto)
+                    {
+                        IDSProducSinProveedor += item.ToString() + ",";
+                    }
+                    IDSProducSinProveedor = IDSProducSinProveedor.TrimEnd(',');
+
+                    using (var DTSinProveedor = cn.CargarDatos($"SELECT Cantidad * Precio AS 'Total' FROM productosventa WHERE IDProducto IN ({IDSProducSinProveedor}) AND IDVenta IN ({codigosBuscar})"))
+                    {
+                        int contador = 0;
+                        decimal total = 0;
+                        foreach (var item in DTSinProveedor.Rows)
+                        {
+                            total += Convert.ToDecimal(DTSinProveedor.Rows[contador]["Total"]);
+                            contador++;
+                        }
+
+                        DTProveedores.Rows.Add();
+                        int Rows = DTProveedores.Rows.Count - 1;
+                        DTProveedores.Rows[Rows]["Proveedor"] = "Productos sin Proveedor";
+                        DTProveedores.Rows[Rows]["Total"] = total.ToString("0.00");
+                    }
+                }
+            }
         }
 
         private void CargarGrafica()
@@ -75,8 +170,16 @@ namespace PuntoDeVentaV2
                                 }
                                 else
                                 {
-                                    var sinsigno = DTPorHora.Rows[rows]["Ganancia"].ToString().Split('$');
-                                    ganancia += Convert.ToDecimal(sinsigno[1]);
+                                    if (DTPorHora.Rows[rows]["Ganancia"].ToString().Contains('$'))
+                                    {
+                                        var sinsigno = DTPorHora.Rows[rows]["Ganancia"].ToString().Split('$');
+                                        ganancia += Convert.ToDecimal(sinsigno[1]);
+                                    }
+                                    else
+                                    {
+                                        ganancia += Convert.ToDecimal(DTPorHora.Rows[rows]["Ganancia"]);
+                                    }
+                                    
                                 }
                             }
                             rows++;
@@ -138,8 +241,16 @@ namespace PuntoDeVentaV2
                                 }
                                 else
                                 {
-                                    var sinsigno = DTPorDia.Rows[rows]["Ganancia"].ToString().Split('$');
-                                    gananciaDia += Convert.ToDecimal(sinsigno[1]);
+                                    if (DTPorDia.Rows[rows]["Ganancia"].ToString().Contains('$'))
+                                    {
+                                        var sinsigno = DTPorDia.Rows[rows]["Ganancia"].ToString().Split('$');
+                                        gananciaDia += Convert.ToDecimal(sinsigno[1]);
+                                    }
+                                    else
+                                    {
+                                        gananciaDia += Convert.ToDecimal(DTPorDia.Rows[rows]["Ganancia"]);
+                                    }
+                                    
                                 }
                             }
 
@@ -195,8 +306,16 @@ namespace PuntoDeVentaV2
                                 }
                                 else
                                 {
-                                    var sinsigno = DTPorMes.Rows[rows]["Ganancia"].ToString().Split('$');
-                                    GananciaMes += Convert.ToDecimal(sinsigno[1]);
+                                    if (DTPorMes.Rows[rows]["Ganancia"].ToString().Contains('$'))
+                                    {
+                                        var sinsigno = DTPorMes.Rows[rows]["Ganancia"].ToString().Split('$');
+                                        GananciaMes += Convert.ToDecimal(sinsigno[1]);
+                                    }
+                                    else
+                                    {
+                                        GananciaMes += Convert.ToDecimal(DTPorMes.Rows[rows]["Ganancia"]);
+                                    }
+                                   
                                 }
                             }
 
@@ -429,10 +548,12 @@ namespace PuntoDeVentaV2
 
             ReportDataSource ReporteVentas = new ReportDataSource("DTReporteVenta", DTFinal);
             ReportDataSource ReporteGrafica = new ReportDataSource("DTGrafica", DTGrafica);
+            ReportDataSource ReporteProveedores = new ReportDataSource("DTProveedores", DTProveedores);
 
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
             this.reportViewer1.LocalReport.DataSources.Add(ReporteVentas);
             this.reportViewer1.LocalReport.DataSources.Add(ReporteGrafica);
+            this.reportViewer1.LocalReport.DataSources.Add(ReporteProveedores);
             this.reportViewer1.LocalReport.EnableExternalImages = true;
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.RefreshReport();

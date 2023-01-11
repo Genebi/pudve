@@ -361,7 +361,10 @@ namespace PuntoDeVentaV2
             //{
             //    //cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado) VALUES ('PrimerSaldo', 'Cantidad', 'Saldo', 'Inser primer saldo inicial', 'Fecha de hoy', '{FormPrincipal.userID}', 'Efectivo', 'Tarjeta', 'Vales', 'Cheque', 'Transferencia', '0', '0', '{FormPrincipal.id_empleado}')");
             //}
-
+            if (!FormPrincipal.userNickName.Contains('@'))
+            {
+                botonRedondo3.Visible = true;
+            }
         }
 
         private void verificarSiExisteCorteDeCaja()
