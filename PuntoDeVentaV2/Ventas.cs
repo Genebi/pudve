@@ -367,13 +367,13 @@ namespace PuntoDeVentaV2
                 correoDescuento = Convert.ToInt32(configCorreos[23]);
 
                 // Realiza rentas
-                if (configCorreos[29].Equals(1))
+                if (configCorreos[30].Equals(1))
                 {
-                    checkRenta.Checked = Convert.ToBoolean(configCorreos[29]);
+                    checkRenta.Checked = Convert.ToBoolean(configCorreos[30]);
                     aceptaRenta = 1;
                 }
 
-                if (configCorreos[29].Equals(0))
+                if (configCorreos[30].Equals(0))
                 {
                     checkRenta.Enabled = false;
                 }

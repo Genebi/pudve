@@ -10252,7 +10252,7 @@ namespace PuntoDeVentaV2
             {
                 porcentajeGanancia = float.Parse(config[8].ToString());
                 //panelMayoreo.Visible = Convert.ToBoolean(config[9]);
-                checkRenta.Visible = Convert.ToBoolean(config[29]);
+                checkRenta.Visible = Convert.ToBoolean(config[30]);
             }
 
             tituloSeccion.Text = tituloSeccion.Text.ToUpper();

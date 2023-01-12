@@ -2271,7 +2271,7 @@ namespace PuntoDeVentaV2
                 config.Add(PermisoCorreoAnticipo);//27
                 config.Add(PermisoCorreoVentaClienteDescuento); ;//28
                 config.Add(Traspasos); ;//Hehehe ahi te lo dejo goofy 29
-                config.Add(realizaRentas); //29
+                config.Add(realizaRentas); //30
             }
 
             dr.Close();
