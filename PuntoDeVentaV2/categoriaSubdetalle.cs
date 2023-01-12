@@ -22,7 +22,7 @@ namespace PuntoDeVentaV2
 
         private void categoriaSubdetalle_Load(object sender, EventArgs e)
         {
-
+            cbTipoDeDatos.SelectedIndex = 0;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -51,5 +51,6 @@ namespace PuntoDeVentaV2
             }
             this.Close();
         }
+
     }
 }

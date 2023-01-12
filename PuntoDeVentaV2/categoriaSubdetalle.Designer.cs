@@ -104,6 +104,7 @@ namespace PuntoDeVentaV2
             // 
             // cbTipoDeDatos
             // 
+            this.cbTipoDeDatos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTipoDeDatos.FormattingEnabled = true;
             this.cbTipoDeDatos.Items.AddRange(new object[] {
             "Fecha",
