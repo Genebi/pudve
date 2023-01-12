@@ -440,7 +440,7 @@ namespace PuntoDeVentaV2
                     }
                     if (siEstaHechoCorteEnHistorialCorteDeCaja.Equals(false))
                     {
-                        cn.EjecutarConsulta(cs.guardarHistorialCorteDeCaja(datos.ToArray()));
+                        cn.EjecutarConsulta($"INSERT INTO historialcortesdecaja ( IDCorteDeCaja, IDUsuario, IDEmpleado, FechaOperacion, SaldoInicialEfectivo, SaldoInicialTarjeta, SaldoInicialVales, SaldoInicialCheque, SaldoInicialTransferencia, SaldoInicialCredito, SaldoInicialAnticipo, CantidadRetiradaDelCorte,PrimerCorte ) VALUES ( '{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}',0)");
                     }
                 }
                 else
@@ -495,7 +495,7 @@ namespace PuntoDeVentaV2
                         datos.Add("0");
                         datos.Add("0");
 
-                        cn.EjecutarConsulta(cs.guardarHistorialCorteDeCaja(datos.ToArray()));
+                        cn.EjecutarConsulta($"INSERT INTO historialcortesdecaja ( IDCorteDeCaja, IDUsuario, IDEmpleado, FechaOperacion, SaldoInicialEfectivo, SaldoInicialTarjeta, SaldoInicialVales, SaldoInicialCheque, SaldoInicialTransferencia, SaldoInicialCredito, SaldoInicialAnticipo, CantidadRetiradaDelCorte,PrimerCorte ) VALUES ( '{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}',0)");
                     }
                 }
             }

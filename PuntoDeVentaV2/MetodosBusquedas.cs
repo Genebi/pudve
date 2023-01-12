@@ -2241,6 +2241,7 @@ namespace PuntoDeVentaV2
                 var realizaRentas = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("RealizaRentas")));
 
                 var Traspasos = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("traspasos")));
+                var EnvioSaldoInicial = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("EnvioCorreoSaldoIncial")));
                 config.Add(correoPrecio);                   // 0
                 config.Add(correoStock);                    // 1
                 config.Add(correoStockMinimo);              // 2
@@ -2270,8 +2271,9 @@ namespace PuntoDeVentaV2
                 config.Add(cerrarSesion);//26
                 config.Add(PermisoCorreoAnticipo);//27
                 config.Add(PermisoCorreoVentaClienteDescuento); ;//28
-                config.Add(Traspasos); ;//Hehehe ahi te lo dejo goofy 29
-                config.Add(realizaRentas); //30
+                config.Add(Traspasos); //Hehehe ahi te lo dejo goofy 29
+                config.Add(EnvioSaldoInicial);//30
+                config.Add(realizaRentas); //31
             }
 
             dr.Close();

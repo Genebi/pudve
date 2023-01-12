@@ -2023,5 +2023,15 @@ ALTER TABLE caja ADD COLUMN IF NOT EXISTS Comentarios TEXT DEFAULT NULL;
    -- Se agrego la columna MostrarStockConsultaPrecio a la tabla de Configuracion
   ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoStockConsultarPrecio INT DEFAULT 1;
 
+   -- Se agrego la columna PrimerCorte a la tabla de historialCorteDeCaja
+  ALTER TABLE historialcortesdecaja ADD COLUMN IF NOT EXISTS PrimerCorte INT DEFAULT 1;
+
+   -- Se agrego la columna PermisoCorreoSaldoInicial a la tabla de permisosconfiguracion
+  ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoCorreoSaldoInicial INT DEFAULT 1;
+
+  -- Se agrego la columna EnvioCorreoSaldoIncial a la tabla de permisosconfiguracion
+  ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS EnvioCorreoSaldoIncial INT DEFAULT 1;
+  ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoStockConsultarPrecio INT DEFAULT 1;
+
   -- Agregar columna para saber si el producto solo es para rentas
 ALTER TABLE Productos ADD COLUMN IF NOT EXISTS SoloRenta tinyint(1) DEFAULT 0;
