@@ -17,7 +17,7 @@ namespace PuntoDeVentaV2
 
         private int id = 0;
         private int tipo = 0;
-
+        int calcu = 0;
         // Tipo 1 = Agregar
         // Tipo 2 = Editar
 
@@ -197,6 +197,41 @@ namespace PuntoDeVentaV2
             if (Descuento>99)
             {
                 txtDescuento.Text = "99";
+            }
+        }
+
+        private void txtDescuento_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtDescuento.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+
+                    //if ()
+                    //{
+                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
+                    //}
+                }
             }
         }
     }

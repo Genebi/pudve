@@ -15,7 +15,7 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
-
+        int calcu = 0;
         int opcion3 = 1;
         public PorcentageGanancia() 
         {
@@ -141,6 +141,39 @@ namespace PuntoDeVentaV2
             if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
+            }
+
+
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtPorcentajeProducto.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+
+                    //if ()
+                    //{
+                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
+                    //}
+                }
             }
         }
     }

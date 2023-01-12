@@ -62,7 +62,15 @@ namespace PuntoDeVentaV2
         {
             cmb_bx_tipo_factura.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             DateTime date = DateTime.Now;
-            DateTime PrimerDia = new DateTime(date.Year, date.Month -1, 1);
+            DateTime PrimerDia;
+            if (!date.Month.Equals(1))
+            {
+                PrimerDia = new DateTime(date.Year, date.Month - 1, 1);
+            }
+            else
+            {
+                PrimerDia = new DateTime(date.Year - 1, date.Month + 11, 1);
+            }
             datetp_fecha_inicial.Value = PrimerDia;
             datetp_fecha_final.Value = DateTime.Now;
             /*Dictionary<int, string> t_factura = new Dictionary<int, string>();

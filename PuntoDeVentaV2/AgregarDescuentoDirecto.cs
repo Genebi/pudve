@@ -30,8 +30,9 @@ namespace PuntoDeVentaV2
             this.cantidadProducto = Convert.ToDouble(datos[3]);
         }
 
-        private void AgregarDescuentoDirecto_Load(object sender, EventArgs e)
+        private void AgregarDescuentoDirecto_Load(object sender, EventArgs e) 
         {
+            lbTotalFinal.Text = precioProducto.ToString("0.00");
             lbProducto.Text = nombreProducto;
             lbPrecio.Text = "Precio: $" + precioProducto.ToString("0.00");
             lbCantidadProducto.Text = "Cantidad: " + cantidadProducto;
@@ -61,6 +62,13 @@ namespace PuntoDeVentaV2
                     txtPorcentaje_KeyUp(sender, new KeyEventArgs(Keys.Up));
                 }
             }
+            
+            
+            if (Ventas.SeCambioCantidad == true)
+            {
+                btnAceptar.PerformClick();
+                Ventas.SeCambioCantidad = false; 
+            }
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -84,6 +92,8 @@ namespace PuntoDeVentaV2
             {
                 tipo = 2;
                 cantidadElegida = float.Parse(porcentaje);
+                
+                
                 porcentaje = $" - {porcentaje}%";
             }
 
@@ -148,7 +158,7 @@ namespace PuntoDeVentaV2
             {
                 txtPorcentaje.Enabled = true;
                 lbTotalDescuento.Text = "0.00";
-                lbTotalFinal.Text = "0.00";
+                lbTotalFinal.Text = precioProducto.ToString("0.00");
                 lbCantidadProducto.Visible = false;
             }
         }
@@ -199,7 +209,7 @@ namespace PuntoDeVentaV2
                 {
                     txtCantidad.Enabled = true;
                     lbTotalDescuento.Text = "0.00";
-                    lbTotalFinal.Text = "0.00";
+                    lbTotalFinal.Text = precioProducto.ToString("0.00");
                     lbCantidadProducto.Visible = false;
                 }
             }
@@ -237,6 +247,10 @@ namespace PuntoDeVentaV2
             if (e.KeyData == Keys.Enter)
             {
                 btnAceptar.PerformClick();
+            }
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
             }
         }
 
@@ -318,6 +332,14 @@ namespace PuntoDeVentaV2
                     }
                     txtCantidad.Text = words[0] + "." + words[1];
                 }
+            }
+        }
+
+        private void txtCantidad_KeyDown_1(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
             }
         }
     }

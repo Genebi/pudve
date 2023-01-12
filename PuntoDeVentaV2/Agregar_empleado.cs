@@ -16,6 +16,7 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
         public static bool SeCancelor = false;
+        public static bool HizoUnaccion = false;
         private int tipo = 0;
         private int empleado = 0;
 
@@ -107,8 +108,17 @@ namespace PuntoDeVentaV2
             {
                 lb_usuario.Visible = true;
                 lb_usuario_completo.Visible = true;
-
-                string n_completo = FormPrincipal.userNickName + "@" + txt_usuario.Text;
+                string n_completo =  string.Empty;
+                if (FormPrincipal.userNickName.Contains('@'))
+                {
+                    var usurio = FormPrincipal.userNickName.Split('@');
+                    n_completo = usurio[0] + "@" + txt_usuario.Text;
+                }
+                else
+                {
+                    n_completo = FormPrincipal.userNickName + "@" + txt_usuario.Text;
+                }
+               
                 lb_usuario_completo.Text = n_completo;
             }
             else
@@ -494,19 +504,41 @@ namespace PuntoDeVentaV2
         {
             if (cmb_bx_permisos.SelectedIndex == 1)
             {
+                HizoUnaccion = false;
                 Agregar_empleado_permisos AEP = new Agregar_empleado_permisos(0);
                 AEP.ShowDialog();
-                if (SeCancelor.Equals(true))
+                if (HizoUnaccion.Equals(true))
+                {
+                    if (SeCancelor.Equals(true))
+                    {
+                        SeCancelor = false;
+                        cmb_bx_permisos.SelectedIndex = 0;
+                        return;
+                    }
+                    if (IDPlantilla.Equals(0) && !tipo.Equals(1))
+                    {
+                        cmb_bx_permisos.SelectedIndex = 0;
+                    }
+                    HizoUnaccion = false;
+                }
+                else
                 {
                     SeCancelor = false;
                     cmb_bx_permisos.SelectedIndex = 0;
                     return;
                 }
-                if (IDPlantilla.Equals(0) && !tipo.Equals(1))
-                {
-                    cmb_bx_permisos.SelectedIndex = 0;
-                }
+              
             }
+        }
+
+        private void txt_usuario_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbConfrimarContraseña_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

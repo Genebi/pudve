@@ -114,7 +114,6 @@ namespace PuntoDeVentaV2
                 StockInicialH = stockHistorial.Rows[0]["StockAnterior"].ToString();
                 cn.EjecutarConsulta($"UPDATE historialstock SET StockInicial ='{StockInicialH}' WHERE IdProducto = {idprod}");
             }
-
             var nombreproducto = cn.CargarDatos($"SELECT Nombre FROM PRODUCTOS WHERE ID = '{idprod}'");
             txtNombreProducto.Text = nombreproducto.Rows[0]["Nombre"].ToString();
 

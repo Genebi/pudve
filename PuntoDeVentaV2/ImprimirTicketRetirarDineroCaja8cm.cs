@@ -67,8 +67,20 @@ namespace PuntoDeVentaV2
 
             MySqlDataAdapter dineroRetiradoDA = new MySqlDataAdapter(queryDineroRetirado, conn);
             DataTable dineroRetiradoDT = new DataTable();
+            string Comentario;
+            using (var dt = cn.CargarDatos(queryDineroRetirado))
+            {
+                if (dt.Rows[0]["Comentarios"].ToString().Equals("COMENTARIOS") || dt.Rows[0]["Comentarios"].ToString().Equals(""))
+                {
+                    Comentario = "";
+                }
+                else
+                {
+                    Comentario = dt.Rows[0]["Comentarios"].ToString();
+                }
+            }
             ReportParameterCollection reportParameters = new ReportParameterCollection();
-            reportParameters.Add(new ReportParameter("Comentario", AgregarRetirarDinero.Comentario.ToString()));
+            reportParameters.Add(new ReportParameter("Comentario", Comentario));
             dineroRetiradoDA.Fill(dineroRetiradoDT);
 
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;

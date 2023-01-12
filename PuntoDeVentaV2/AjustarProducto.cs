@@ -257,9 +257,9 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-
             var datoUsuario = FormPrincipal.userNickName;
             var empleado = "0";
+
             //Tipo de ajuste es cuando se hace desde una de estas dos opciones
             //Cuando se carga desde un XML o registro normal el tipo de ajuste es 0
             //Cuando se hace la moficiacion desde la opcion producto comprado es 1
@@ -510,6 +510,7 @@ namespace PuntoDeVentaV2
                                 var aumentar = txtAumentar.Text;
                                 var disminuir = txtDisminuir.Text;
 
+
                                 var concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
 
                                 if (concepto.Equals("Seleccionar concepto..."))
@@ -724,6 +725,11 @@ namespace PuntoDeVentaV2
                                         if (stockProducto < 0)
                                         {
                                             stockProducto = 0;
+                                        }
+                                        if (auxiliar==0)
+                                        {
+                                            MessageBox.Show("Ingrese una cantidad para aumentar y/o disminuir", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            return;
                                         }
 
                                         auxiliar *= -1;

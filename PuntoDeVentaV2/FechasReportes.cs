@@ -39,7 +39,15 @@ namespace PuntoDeVentaV2
 
             primerDatePicker.Value = DateTime.Today.AddDays(-30);
             DateTime date = DateTime.Now;
-            DateTime PrimerDia = new DateTime(date.Year, date.Month - 1, 1);
+            DateTime PrimerDia;
+            if (!date.Month.Equals(1))
+            {
+                PrimerDia = new DateTime(date.Year, date.Month - 1, 1);
+            }
+            else
+            {
+                PrimerDia = new DateTime(date.Year - 1, date.Month + 11, 1);
+            }
             primerDatePicker.Value = PrimerDia;
 
             if (!string.IsNullOrEmpty(origen))

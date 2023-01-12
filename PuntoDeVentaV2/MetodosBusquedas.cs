@@ -2240,6 +2240,7 @@ namespace PuntoDeVentaV2
                 var PermisoCorreoVentaClienteDescuento= Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoVentaClienteDescuento")));
                 var realizaRentas = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("RealizaRentas")));
 
+                var Traspasos = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("traspasos")));
                 config.Add(correoPrecio);                   // 0
                 config.Add(correoStock);                    // 1
                 config.Add(correoStockMinimo);              // 2
@@ -2268,7 +2269,8 @@ namespace PuntoDeVentaV2
                 config.Add(correoTicketVentas); //25
                 config.Add(cerrarSesion);//26
                 config.Add(PermisoCorreoAnticipo);//27
-                config.Add(PermisoCorreoVentaClienteDescuento);//28
+                config.Add(PermisoCorreoVentaClienteDescuento); ;//28
+                config.Add(Traspasos); ;//Hehehe ahi te lo dejo goofy 29
                 config.Add(realizaRentas); //29
             }
 

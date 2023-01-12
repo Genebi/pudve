@@ -196,7 +196,7 @@ namespace PuntoDeVentaV2
 
         public DataSet irAPagina(int num_pagina)
         {
-            if (_datos.Tables[0].Rows.Count > _tope)
+            if (true)
             {
                 if ((num_pagina <= 0) || (num_pagina > this._ultimaPagina))     // Si num_pagina es menor igual que 0 ó num_pagina es mayor que _ultimaPagina
                 {

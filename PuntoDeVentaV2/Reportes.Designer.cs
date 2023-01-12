@@ -296,6 +296,7 @@
             this.btnRetiroConcepto.TextColor = System.Drawing.Color.White;
             this.btnRetiroConcepto.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnRetiroConcepto.UseVisualStyleBackColor = false;
+            this.btnRetiroConcepto.Visible = false;
             this.btnRetiroConcepto.Click += new System.EventHandler(this.btnRetiroConcepto_Click);
             // 
             // s

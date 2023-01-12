@@ -26,9 +26,20 @@ namespace PuntoDeVentaV2
         string DireccionLogo;
         string NombreUsuario, Usuario, Texto;
         decimal UnidadesCompras = 0, PCompra = 0,PTotal = 0, PVenta = 0, SAnterior = 0, SActual= 0;
-        public FormReporteInventario()
+        bool aumentar;
+        string claveP;
+        public FormReporteInventario(bool Tipo,string clave)
         {
             InitializeComponent();
+            this.aumentar = Tipo;
+            if (!clave.Equals(""))
+            {
+                claveP = $"Clave de traspaso = {clave}";
+            }
+            else
+            {
+                claveP = "";
+            }
         }
 
         private void FormReporteInventario_Load(object sender, EventArgs e)
@@ -37,6 +48,7 @@ namespace PuntoDeVentaV2
             CargarRDLC();
             this.reportViewer1.RefreshReport();
         }
+
 
         private void CargarRDLC()
         {
@@ -227,6 +239,7 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("PVenta", PVenta.ToString()));
             reportParameters.Add(new ReportParameter("SAnterior", SAnterior.ToString()));
             reportParameters.Add(new ReportParameter("SActual", SActual.ToString()));
+            reportParameters.Add(new ReportParameter("Clave", claveP));
 
             UnidadesCompras = 0;
             PCompra = 0;
@@ -273,8 +286,16 @@ namespace PuntoDeVentaV2
             foreach (var dato in Inventario.DTDatos.Rows)
             {
                 int ID = Convert.ToInt32(Inventario.DTDatos.Rows[RowsDatosInventario]["No"]);
-                DataTable DTConssulta = cn.CargarDatos($"SELECT P.Nombre AS 'Producto', p.PrecioCompra AS 'Precio Compra', p.Precio AS 'Precio Venta', p.Stock AS 'Stock Anterior' FROM productos AS P WHERE P.ID = {ID}");
 
+                DataTable DTConssulta = new DataTable();
+                if (aumentar == true)
+                {
+                     DTConssulta = cn.CargarDatos($"SELECT P.Nombre AS 'Producto', p.PrecioCompra AS 'Precio Compra', p.Precio AS 'Precio Venta', DAI.StockActual AS 'Stock Anterior'FROM productos AS P INNER JOIN dgvaumentarinventario AS DAI ON(DAI.IdProducto = P.ID) WHERE P.ID = {ID} ORDER BY DAI.ID DESC LIMIT 1");
+                }
+                else
+                {
+                     DTConssulta = cn.CargarDatos($"SELECT P.Nombre AS 'Producto', p.PrecioCompra AS 'Precio Compra', p.Precio AS 'Precio Venta', DAI.StockActual AS 'Stock Anterior'FROM productos AS P INNER JOIN dgvdisminuirinventario AS DAI ON(DAI.IdProducto = P.ID) WHERE P.ID = {ID} ORDER BY DAI.ID DESC LIMIT 1");
+                }
                 DataTable DTProveedor = cn.CargarDatos($"SELECT Proveedor FROM detallesproducto WHERE IDProducto ={ID}");
 
                 int contadorRows = 0;
@@ -419,7 +440,16 @@ namespace PuntoDeVentaV2
                             {
                                 StockAnterior = "0";
                             }
-                            var nuevo = Convert.ToDecimal(unidadesCompradas) + Convert.ToDecimal(StockAnterior);
+                            decimal nuevo = 0;
+                            if (aumentar == true)
+                            {
+                                nuevo = Convert.ToDecimal(unidadesCompradas) + Convert.ToDecimal(StockAnterior);
+                            }
+                            else
+                            {
+                                nuevo = Convert.ToDecimal(StockAnterior) - Convert.ToDecimal(unidadesCompradas);
+                            }
+                            
                             StockNuevo = nuevo.ToString();
                             datoscompletos += StockNuevo + ",";
                         }

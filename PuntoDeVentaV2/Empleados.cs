@@ -254,6 +254,16 @@ namespace PuntoDeVentaV2
                         {
                             string nombre = dgv_empleados.Rows[e.RowIndex].Cells[2].Value.ToString();
                             string idemp = dgv_empleados.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            using (var DTUsuaEmp = cn.CargarDatos($"SELECT usuario FROM empleados WHERE ID = {idemp}"))
+                            {
+                                var Nombres = cn.CargarDatos($"SELECT usuario FROM empleados WHERE usuario = '{DTUsuaEmp.Rows[0]["usuario"]}' AND estatus = 1");
+                                if (!Nombres.Rows.Count.Equals(0))
+                                {
+                                    MessageBox.Show("Ya Existe un Empleado con este Usuario","Aviso del Sistema", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                                    return;
+                                }
+                            }
+
                             cn.EjecutarConsulta(cs.habilitarEmpleado(nombre, idemp));
                             string tipo = string.Empty;
                             if (cboMostrados.Text == "Habilitados")

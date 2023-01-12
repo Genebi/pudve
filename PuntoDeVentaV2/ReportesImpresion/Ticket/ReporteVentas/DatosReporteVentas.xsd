@@ -32,6 +32,15 @@
             <xs:sequence>
               <xs:element name="Tiempo" msprop:Generator_ColumnVarNameInTable="columnTiempo" msprop:Generator_ColumnPropNameInRow="Tiempo" msprop:Generator_ColumnPropNameInTable="TiempoColumn" msprop:Generator_UserColumnName="Tiempo" type="xs:string" minOccurs="0" />
               <xs:element name="TotalVendido" msprop:Generator_ColumnVarNameInTable="columnTotalVendido" msprop:Generator_ColumnPropNameInRow="TotalVendido" msprop:Generator_ColumnPropNameInTable="TotalVendidoColumn" msprop:Generator_UserColumnName="TotalVendido" type="xs:string" minOccurs="0" />
+              <xs:element name="Ganancia" msprop:Generator_ColumnVarNameInTable="columnGanancia" msprop:Generator_ColumnPropNameInRow="Ganancia" msprop:Generator_ColumnPropNameInTable="GananciaColumn" msprop:Generator_UserColumnName="Ganancia" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DTProveedores" msprop:Generator_TableClassName="DTProveedoresDataTable" msprop:Generator_TableVarName="tableDTProveedores" msprop:Generator_TablePropName="DTProveedores" msprop:Generator_RowDeletingName="DTProveedoresRowDeleting" msprop:Generator_RowChangingName="DTProveedoresRowChanging" msprop:Generator_RowEvHandlerName="DTProveedoresRowChangeEventHandler" msprop:Generator_RowDeletedName="DTProveedoresRowDeleted" msprop:Generator_UserTableName="DTProveedores" msprop:Generator_RowChangedName="DTProveedoresRowChanged" msprop:Generator_RowEvArgName="DTProveedoresRowChangeEvent" msprop:Generator_RowClassName="DTProveedoresRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Proveedor" msprop:Generator_ColumnVarNameInTable="columnProveedor" msprop:Generator_ColumnPropNameInRow="Proveedor" msprop:Generator_ColumnPropNameInTable="ProveedorColumn" msprop:Generator_UserColumnName="Proveedor" type="xs:string" minOccurs="0" />
+              <xs:element name="Total" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_UserColumnName="Total" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -24,7 +24,7 @@ namespace PuntoDeVentaV2
         string pathLogoImage;
         public static string ruta_archivos_guadados = @"C:\Archivos PUDVE\MisDatos\CSD\";
         DataTable DTDatos2 = new DataTable();
-        public FormReporteHistorialVentasProducto(int IDProducto,string IDEmpleado, string FechaIncio, string FechaFinal)
+        public FormReporteHistorialVentasProducto(int IDProducto, string IDEmpleado, string FechaIncio, string FechaFinal)
         {
             InitializeComponent();
             this.IDProd = IDProducto;
@@ -54,19 +54,21 @@ namespace PuntoDeVentaV2
                         IDsVentas += DTIDVenta1.Rows[row]["IDVenta"].ToString() + ",";
                         row++;
                     }
-                    IDsVentas=IDsVentas.TrimEnd(',');
+                    IDsVentas = IDsVentas.TrimEnd(',');
                 }
                 else
                 {
-                    MessageBox.Show("Este producto no a sido vendido","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    MessageBox.Show("Este producto no a sido vendido", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
             }
+
+
             if (!IDSEmple.Equals(""))
             {
                 DataTable ventas = new DataTable();
                 string IDsVentasporFechaYEmpleado = "";
-                using (var DTIDSVentaPorEmpleadoYFecha = cn.CargarDatos($"SELECT ID,Folio,IDEmpleado,FechaOperacion FROM ventas WHERE ID IN ({IDsVentas}) AND DATE(FechaOperacion) BETWEEN '{FechaI}' AND '{FechaF}' AND IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({IDSEmple}) AND `Status` = 1"))
+                using (var DTIDSVentaPorEmpleadoYFecha = cn.CargarDatos($"SELECT ID,Folio,IDEmpleado,FechaOperacion,IDCliente FROM ventas WHERE ID IN ({IDsVentas}) AND DATE(FechaOperacion) BETWEEN '{FechaI}' AND '{FechaF}' AND IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({IDSEmple}) AND (`Status` = 1 OR `Status` = 4)"))
                 {
                     if (!DTIDSVentaPorEmpleadoYFecha.Rows.Count.Equals(0))
                     {
@@ -90,7 +92,8 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                var IDSVentasCorrectas = cn.CargarDatos($"SELECT * FROM productosventa WHERE IDVenta IN ({IDsVentasporFechaYEmpleado}) AND IDProducto = {IDProd}");
+
+                var IDSVentasCorrectas = cn.CargarDatos($"SELECT PV.*, VEN.IDEmpleado, VEN.IDCliente FROM productosventa AS PV INNER JOIN ventas AS VEN ON(PV.IDVenta = VEN.ID) WHERE PV.IDVenta IN ({IDsVentasporFechaYEmpleado}) AND IDProducto = {IDProd}");
 
                 DTDatos.Columns.Add("Folio", typeof(String));
                 DTDatos.Columns.Add("Usuario", typeof(String));
@@ -98,6 +101,8 @@ namespace PuntoDeVentaV2
                 DTDatos.Columns.Add("Cantidad", typeof(String));
                 DTDatos.Columns.Add("PrecioUnidad", typeof(String));
                 DTDatos.Columns.Add("Total", typeof(String));
+                DTDatos.Columns.Add("Empleado", typeof(String));
+                DTDatos.Columns.Add("Cliente", typeof(String));
                 int rows = 0;
                 foreach (var item in IDSVentasCorrectas.Rows)
                 {
@@ -144,6 +149,39 @@ namespace PuntoDeVentaV2
                             decimal total = Convert.ToDecimal(IDSVentasCorrectas.Rows[rows]["Cantidad"].ToString()) * Convert.ToDecimal(IDSVentasCorrectas.Rows[rows]["Precio"].ToString());
                             DTDatos.Rows[rows]["Total"] = total.ToString("0.00");
                         }
+                        else if (Columna.Equals("Empleado"))
+                        {
+                            if (IDSVentasCorrectas.Rows[rows]["IDEmpleado"].ToString().Equals("0"))
+                            {
+                                using (var Nombre = cn.CargarDatos($"SELECT Usuario FROM usuarios WHERE ID = {FormPrincipal.userID}"))
+                                {
+                                    DTDatos.Rows[rows]["Empleado"] = Nombre.Rows[0][0].ToString();
+                                }
+                            }
+                            else
+                            {
+                                using (var DTUsuario = cn.CargarDatos($"SELECT usuario FROM empleados WHERE ID = {Convert.ToInt32(IDSVentasCorrectas.Rows[rows]["IDEmpleado"])}"))
+                                {
+                                    DTDatos.Rows[rows]["Empleado"] = DTUsuario.Rows[0][0].ToString();
+                                }
+                            }
+                        }
+                        else
+                        {
+                            using (var DTCliente = cn.CargarDatos($"SELECT RazonSocial FROM clientes WHERE ID = {Convert.ToInt32(IDSVentasCorrectas.Rows[rows]["IDCliente"])}"))
+                            {
+                                if (DTCliente.Rows.Count.Equals(0))
+                                {
+                                    DTDatos.Rows[rows]["Cliente"] = "PUBLICO GENERAL";
+                                }
+                                else
+                                {
+                                    DTDatos.Rows[rows]["Cliente"] = DTCliente.Rows[0][0].ToString();
+                                }
+                            }
+
+
+                        }
                     }
                     rows++;
                 }
@@ -153,7 +191,7 @@ namespace PuntoDeVentaV2
             {
                 DataTable ventas = new DataTable();
                 string IDsVentasporFechaYEmpleado = "";
-                using (var DTIDSVentaPorEmpleadoYFecha = cn.CargarDatos($"SELECT ID,Folio,IDEmpleado,FechaOperacion,IDCliente FROM ventas WHERE ID IN ({IDsVentas}) AND DATE(FechaOperacion) BETWEEN '{FechaI}' AND '{FechaF}' AND IDUsuario = {FormPrincipal.userID} AND `Status` = 1"))
+                using (var DTIDSVentaPorEmpleadoYFecha = cn.CargarDatos($"SELECT ID,Folio,IDEmpleado,FechaOperacion,IDCliente FROM ventas WHERE ID IN ({IDsVentas}) AND DATE(FechaOperacion) BETWEEN '{FechaI}' AND '{FechaF}' AND IDUsuario = {FormPrincipal.userID} AND (`Status` = 1 OR `Status` = 4)"))
                 {
                     if (!DTIDSVentaPorEmpleadoYFecha.Rows.Count.Equals(0))
                     {
@@ -205,7 +243,7 @@ namespace PuntoDeVentaV2
                                 if (DTUsuario.Rows.Count.Equals(0))
                                 {
                                     var nombre = FormPrincipal.userNickName.Split('@');
-                                     Usuario = nombre[0];
+                                    Usuario = nombre[0];
                                 }
                                 else
                                 {
@@ -252,8 +290,17 @@ namespace PuntoDeVentaV2
                         {
                             using (var DTCliente = cn.CargarDatos($"SELECT RazonSocial FROM clientes WHERE ID = {Convert.ToInt32(IDSVentasCorrectas.Rows[rows]["IDCliente"])}"))
                             {
-                                DTDatos.Rows[rows]["Cliente"] = DTCliente.Rows[0][0].ToString();
+                                if (DTCliente.Rows.Count.Equals(0))
+                                {
+                                    DTDatos.Rows[rows]["Cliente"] = "PUBLICO GENERAL";
+                                }
+                                else
+                                {
+                                    DTDatos.Rows[rows]["Cliente"] = DTCliente.Rows[0][0].ToString();
+                                }
                             }
+
+
                         }
                     }
                     rows++;
@@ -335,8 +382,8 @@ namespace PuntoDeVentaV2
                 DireccionLogo = "";
                 reportParameters.Add(new ReportParameter("Logo", DireccionLogo));
             }
-            string Nombre,Email,Telefono;
-            using (var DTusuario = cn.CargarDatos($"SELECT NombreCompleto,Email,Telefono FROM `usuarios` WHERE ID = {FormPrincipal.userID}") )
+            string Nombre, Email, Telefono;
+            using (var DTusuario = cn.CargarDatos($"SELECT NombreCompleto,Email,Telefono FROM `usuarios` WHERE ID = {FormPrincipal.userID}"))
             {
                 Nombre = DTusuario.Rows[0]["NombreCompleto"].ToString();
                 Email = DTusuario.Rows[0]["Email"].ToString();
@@ -345,7 +392,7 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("Nombre", Nombre));
             reportParameters.Add(new ReportParameter("Email", Email));
             reportParameters.Add(new ReportParameter("Telefono", Telefono));
-            string NombreProducto,CodigoBarras;
+            string NombreProducto, CodigoBarras;
             using (var DTProducto = cn.CargarDatos($"SELECT Nombre,CodigoBarras FROM `productos` WHERE ID = {IDProd}"))
             {
                 NombreProducto = DTProducto.Rows[0]["Nombre"].ToString();
@@ -357,7 +404,7 @@ namespace PuntoDeVentaV2
             LocalReport rdlc = new LocalReport();
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;
-           rdlc.SetParameters(reportParameters);
+            rdlc.SetParameters(reportParameters);
 
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;

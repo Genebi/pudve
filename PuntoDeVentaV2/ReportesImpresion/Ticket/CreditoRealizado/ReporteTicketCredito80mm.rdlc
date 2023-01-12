@@ -1392,6 +1392,10 @@
                     <Value>Realizado por: </Value>
                     <Style />
                   </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!Usuario.Value</Value>
+                    <Style />
+                  </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>

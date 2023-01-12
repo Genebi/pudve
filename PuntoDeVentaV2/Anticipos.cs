@@ -62,7 +62,15 @@ namespace PuntoDeVentaV2
             //Se crea el directorio para almacenar los tickets y otros archivos relacionados con ventas
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Anticipos\Tickets");
             DateTime date = DateTime.Now;
-            DateTime PrimerDia = new DateTime(date.Year, date.Month-1, 1);
+            DateTime PrimerDia;
+            if (!date.Month.Equals(1))
+            {
+                PrimerDia = new DateTime(date.Year, date.Month - 1, 1);
+            }
+            else
+            {
+                PrimerDia = new DateTime(date.Year-1, date.Month + 11, 1);
+            }
             dpFechaInicial.Value = PrimerDia;
             dpFechaFinal.Value = DateTime.Now;
             cbAnticipos.DropDownStyle = ComboBoxStyle.DropDownList;

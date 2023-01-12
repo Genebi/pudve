@@ -2007,7 +2007,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    var datos = cn.CargarDatos($"SELECT * FROM productos WHERE CodigoBarras = {txtCodigoBarras.Text}");
+                    var datos = cn.CargarDatos($"SELECT * FROM productos WHERE CodigoBarras = '{txtCodigoBarras.Text}'");
                     var tieneDescuento = 0;
                     if (Productos.tieneDescMay.Equals(1) || Productos.tieneDescIndiv.Equals(1))
                     {
@@ -4427,9 +4427,9 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(resultado))
             {
-                if (resultado.Contains("|") || resultado.Contains("+")||resultado.Contains("-"))
+                if (resultado.Contains("|") || resultado.Contains("+")||resultado.Contains("-")|| resultado.Contains("'")|| resultado.Contains("*")|| resultado.Contains("/"))
                 {
-                    var resultadoAuxialiar = Regex.Replace(resultado, @"[+\|\-]", string.Empty);
+                    var resultadoAuxialiar = Regex.Replace(resultado, @"[+\|\-\'\*\/]", string.Empty);
                     resultado = resultadoAuxialiar;
                     txtValidarTexto.Text = resultado;
                     txtValidarTexto.Focus();
@@ -4942,6 +4942,11 @@ namespace PuntoDeVentaV2
                 DescuentoNvoProd = DescuentoProdNvo;
                 CantidadNvoProd = CantidadProdNvo;
             }
+        }
+
+        private void txtCodigoBarras_TextChanged(object sender, EventArgs e)
+        {
+            ValidarEntradaDeTexto(sender, e);
         }
 
         public void cargarDatos()

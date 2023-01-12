@@ -64,6 +64,7 @@ namespace PuntoDeVentaV2
             this.txtCantidad.Location = new System.Drawing.Point(7, 7);
             this.txtCantidad.MaxLength = 10;
             this.txtCantidad.Name = "txtCantidad";
+            this.txtCantidad.ShortcutsEnabled = false;
             this.txtCantidad.Size = new System.Drawing.Size(395, 26);
             this.txtCantidad.TabIndex = 0;
             this.txtCantidad.TextChanged += new System.EventHandler(this.txtCantidad_TextChanged);

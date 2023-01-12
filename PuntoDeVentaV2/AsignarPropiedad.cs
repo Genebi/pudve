@@ -1385,7 +1385,15 @@ namespace PuntoDeVentaV2
                         if (producto.Value == "P")
                         {
                             valores += $"({producto.Key}, {stock}),";
-
+                            using (var DTStockMaximo =  cn.CargarDatos($"SELECT StockNecesario FROM productos WHERE ID = {producto.Key}"))
+                            {
+                                string StockMaximo = DTStockMaximo.Rows[0]["StockNecesario"].ToString();
+                                if (Convert.ToDecimal(stock)>= Convert.ToDecimal(StockMaximo))
+                                {
+                                    MessageBox.Show("El stock minimo no puede superar el Stock maximo","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                                    return;
+                                }
+                            }
                             //cn.EjecutarConsulta(consulta);
                         }
                     }
@@ -1842,6 +1850,8 @@ namespace PuntoDeVentaV2
                             cn.EjecutarConsulta($"INSERT INTO descuentocliente (PrecioProducto,PorcentajeDescuento,PrecioDescuento,Descuento,IDProducto) VALUES ({precioproducto},{porcentajedescuento},{preciodescuentofinal},{descuentoaplicado},{idprod})");
                         }
                         cn.EjecutarConsulta($"DELETE FROM DescuentoMayoreo WHERE IDProducto = {idprod}");
+                        cn.EjecutarConsulta($"UPDATE productos SET TieneDescuentoCliente = 1 , TieneDescuentoMayoreo = 0 WHERE ID = {idprod}");
+                        cn.EjecutarConsulta($"UPDATE productos SET TipoDescuento = 1 WHERE ID = {idprod}");
                     }
                     
                     MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);

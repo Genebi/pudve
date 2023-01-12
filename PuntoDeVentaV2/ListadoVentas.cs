@@ -156,7 +156,7 @@ namespace PuntoDeVentaV2
             fechaUltimoCorte = Convert.ToDateTime(mb.UltimaFechaCorte());
             //dpFechaInicial.Value = DateTime.Today.AddDays(-7);
             var ultimoCorte = string.Empty;
-            var fechasUltimoCorte = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' ORDER BY FechaOperacion DESC LIMIT 1");
+            var fechasUltimoCorte = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1");
             if (!fechasUltimoCorte.Rows.Count.Equals(0))
             {
                 ultimoCorte = fechasUltimoCorte.Rows[0]["FechaOperacion"].ToString();
@@ -170,9 +170,9 @@ namespace PuntoDeVentaV2
             }
 
             dpFechaFinal.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
+            DateTime Hora = Convert.ToDateTime(ultimoCorte);
             // Hora inicial y final
-            dpHoraInicial.Text = "00:00";
+            dpHoraInicial.Text = Hora.ToString("HH:mm");
             dpHoraFinal.Text = "23:59";
 
             // Opciones para el combobox
@@ -497,7 +497,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}'");
+                        var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC LIMIT 1");
                         fechaInicial = fechaInicial2.Rows[0]["FechaOperacion"].ToString();
                     }
 
@@ -557,7 +557,7 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}'");
+                                var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC LIMIT 1");
                                 fechaInicial = fechaInicial2.Rows[0]["FechaOperacion"].ToString();
                             }
 
@@ -923,15 +923,15 @@ namespace PuntoDeVentaV2
 
                         if (clasificacionUsuario.Equals("Admin"))
                         {
-                            queryClasificacionUsuario = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0' ORDER BY FechaOperacion DESC";
+                            queryClasificacionUsuario = $"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0' ORDER BY FechaOperacion DESC LIMIT 1";
                         }
                         else if (clasificacionUsuario.Equals("All"))
                         {
-                            queryClasificacionUsuario = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC";
+                            queryClasificacionUsuario = $"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC LIMIT 1";
                         }
                         else
                         {
-                            queryClasificacionUsuario = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{clasificacionUsuario}' ORDER BY FechaOperacion DESC";
+                            queryClasificacionUsuario = $"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}'  ORDER BY FechaOperacion DESC LIMIT 1";
                         }
 
                         var fechaInicial2 = cn.CargarDatos(queryClasificacionUsuario);
@@ -961,7 +961,7 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' ORDER BY FechaOperacion DESC");
+                            var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC LIMIT 1");
                             //if (!fechaInicial2.Rows.Count.Equals(0))
                             //{
 
@@ -1006,7 +1006,7 @@ namespace PuntoDeVentaV2
                                 }
                                 else
                                 {
-                                    var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' ORDER BY FechaOperacion DESC");
+                                    var fechaInicial2 = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC LIMIT 1");
                                     var fechaInicialDP = Convert.ToDateTime(fechaInicial2.Rows[0]["FechaOperacion"].ToString());
                                     fechaInicial = fechaInicialDP.ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -1680,7 +1680,7 @@ namespace PuntoDeVentaV2
                 CheckBox headerBox = (CheckBox)DGVListadoVentas.Controls.Find("checkBoxMaster", true)[0];
                 headerBox.Checked = false;
             }
-            
+
 
             //Ventas pagadas
             if (opcion == "VP") { CargarDatos(1); }
@@ -1692,8 +1692,29 @@ namespace PuntoDeVentaV2
             if (opcion == "VCC") { CargarDatos(4); }
             //Ventas globales
             if (opcion == "VGG") { CargarDatos(5); }
-        }
 
+            var incremento = -1;
+            var penultimaFila = DGVListadoVentas.Rows.Count - 2;
+            var ultimaFila = DGVListadoVentas.Rows.Count - 1;
+
+            idVentas.Clear();
+            foreach (DataGridViewRow desmarcarDGV in DGVListadoVentas.Rows)
+            {
+                try
+                {
+                    incremento += 1;
+                    if (DGVListadoVentas.Rows[incremento].Index != penultimaFila && DGVListadoVentas.Rows[incremento].Index != ultimaFila)
+                    {
+                        DGVListadoVentas.Rows[incremento].Cells["col_checkbox"].Value = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
+        }
         #region Manejo del evento MouseEnter para el DataGridView
         private void DGVListadoVentas_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
@@ -1909,6 +1930,49 @@ namespace PuntoDeVentaV2
 
                         if (mensaje == DialogResult.Yes)
                         {
+                            using (var DtTotal = cn.CargarDatos($"SELECT Total, Status FROM Ventas WHERE IDusuario = '{FormPrincipal.userID}' AND ID = '{idVenta}'"))
+                            {
+                                var fecha = cn.CargarDatos(cs.ultimaFechaDeCorte());
+                                var fechaDelCorte = Convert.ToDateTime(fecha.Rows[0]["FechaOperacion"]).ToString("yyyy/MM/dd HH:mm:ss");
+                                var TotalEfectivoEnCaja = cn.CargarDatos(cs.TotalAgregadoEfectivoACaja(fechaDelCorte));
+                                var TotalEfectivoRetirado = cn.CargarDatos(cs.TotalRetiradoEfectivoDeCaja(fechaDelCorte));
+                                var totalAbonosEnCaja = cn.CargarDatos(cs.AbonosDespuesDelCorte(fechaDelCorte, idVenta));
+
+                                decimal abonosEnCaja = Convert.ToDecimal(totalAbonosEnCaja.Rows[0]["AbonosDespuesDelCorte"].ToString());
+                                decimal abonosEfectivoEnCaja = 0;
+                                if (string.IsNullOrWhiteSpace(totalAbonosEnCaja.Rows[0]["Efectivo"].ToString()))
+                                {
+                                    abonosEfectivoEnCaja = 0;
+                                }
+                                else
+                                {
+                                    abonosEfectivoEnCaja = Convert.ToDecimal(totalAbonosEnCaja.Rows[0]["Efectivo"]);
+                                }
+                                decimal totalEfectivonCaja = Convert.ToDecimal(TotalEfectivoEnCaja.Rows[0]["Efectivo"].ToString());
+                                decimal RetiradoEfectivoCaja = Convert.ToDecimal(TotalEfectivoRetirado.Rows[0]["Efectivo"].ToString());
+                                decimal totalActualEfectivoEnCaja = (totalEfectivonCaja + abonosEnCaja) - RetiradoEfectivoCaja;
+                                decimal Dinero = Convert.ToDecimal(DtTotal.Rows[0]["Total"]);
+                                var tipoDeVenta = DtTotal.Rows[0]["Status"].ToString();
+
+                                if (tipoDeVenta == "4")
+                                {
+                                    if (abonosEnCaja > totalEfectivonCaja + abonosEfectivoEnCaja)
+                                    {
+                                        MessageBox.Show("No se cuenta con suficiente Efectivo en caja", "Avido del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                                    if (Dinero > totalActualEfectivoEnCaja)
+                                    {
+                                        MessageBox.Show("No se cuenta con suficiente Efectivo en caja", "Avido del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return;
+                                    }
+                                }
+                               
+                            }
+
                             var statusVentaParaCancelar = 0;
 
                             using (DataTable dtStatusVenta = cn.CargarDatos(cs.StatusVenta(idVenta)))
@@ -2037,7 +2101,7 @@ namespace PuntoDeVentaV2
 
                                         if (!revisarSiTieneAbono.Rows.Count.Equals(0))// valida si la consulta esta vacia 
                                         {
-                                            var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM Caja WHERE IDUsuario = '{FormPrincipal.userID}' AND Operacion = 'corte' ORDER BY FechaOperacion DESC LIMIT 1");
+                                            var fechaCorteUltima = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC LIMIT 1");
                                             if (!fechaCorteUltima.Rows.Count.Equals(0))
                                             {
                                                 var resultadoConsultaAbonos = string.Empty;
@@ -2069,7 +2133,7 @@ namespace PuntoDeVentaV2
 
                                                 string[] datos = new string[]
                                                 {
-                                                idVenta.ToString(), FormPrincipal.userID.ToString(), resultadoConsultaAbonos, efectivoAbonadoADevolver, tarjetaAbonadoADevolver, valesAbonadoADevolver, chequeAbonadoADevolver, transAbonadoADevolver, conceptoCredito, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                                                idVenta.ToString(), FormPrincipal.userID.ToString(), resultadoConsultaAbonos, resultadoConsultaAbonos, "0", "0", "0", "0", conceptoCredito, DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
                                                 };
 
                                                 cn.EjecutarConsulta(cs.OperacionDevoluciones(datos));
@@ -2383,7 +2447,7 @@ namespace PuntoDeVentaV2
                                         {
                                             var formasPago2 = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
                                             var abonosAVenta = cn.CargarDatos(cs.ConsultarAbonosVentaACredito(idVenta));
-                                            var conceptoCreditoC = $"DELOLUVION CREDITO VENTA CANCELADA ID {idVenta}";
+                                            var conceptoCreditoC = $"DEVOLUCION CREDITO VENTA CANCELADA ID {idVenta}";
                                             if (formasPago2.Length > 0)
                                             {
                                                 var total1 = "0";
@@ -2399,8 +2463,9 @@ namespace PuntoDeVentaV2
 
                                                 if (!DevolverAnticipo.ventaCanceladaCredito.Equals(true))
                                                 {
+                                                    decimal totalRegresarEfectivo = Convert.ToDecimal(efectivo1) + Convert.ToDecimal(tarjeta1) + Convert.ToDecimal(vales1) + Convert.ToDecimal(cheque1) + Convert.ToDecimal(transferencia1);
                                                     string[] datos = new string[] {
-                                                    "retiro", total1, "0", conceptoCreditoC, fechaOperacion1, FormPrincipal.userID.ToString(), efectivo1, tarjeta1, vales1, cheque1, transferencia1, credito1 /*"0.00"*/, /*anticipo*/ "0", FormPrincipal.id_empleado.ToString()
+                                                    "retiro", total1, "0", conceptoCreditoC, fechaOperacion1, FormPrincipal.userID.ToString(), totalRegresarEfectivo.ToString(), "0", "0", "0", "0", credito1 /*"0.00"*/, /*anticipo*/ "0", FormPrincipal.id_empleado.ToString()
                                                 };
                                                     cn.EjecutarConsulta(cs.OperacionCaja(datos));
                                                 }
@@ -3423,6 +3488,26 @@ namespace PuntoDeVentaV2
                 cbFiltroAdminEmpleado.SelectedIndex = 1;
                 cbFiltroAdminEmpleado.SelectedIndex = 0;
             }
+
+            var ultimoCorte = string.Empty;
+            var fechasUltimoCorte = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1");
+            if (!fechasUltimoCorte.Rows.Count.Equals(0))
+            {
+                ultimoCorte = fechasUltimoCorte.Rows[0]["FechaOperacion"].ToString();
+                var ultimoCorteEmpleado2 = Convert.ToDateTime(ultimoCorte.ToString());
+                ultimoCorte = ultimoCorteEmpleado2.ToString("yyyy-MM-dd HH:mm:ss");
+                dpFechaInicial.Value = ultimoCorteEmpleado2;
+            }
+            else
+            {
+                dpFechaInicial.Value = fechaUltimoCorte;
+            }
+
+            dpFechaFinal.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            DateTime Hora = Convert.ToDateTime(ultimoCorte);
+            // Hora inicial y final
+            dpHoraInicial.Text = Hora.ToString("HH:mm");
+            dpHoraFinal.Text = "23:59";
 
         }
 
@@ -4625,6 +4710,22 @@ namespace PuntoDeVentaV2
             {
                 //Se quita el * de la consulta para obtener solo los campos que me interesan y se guarda en una nueva variable
                 //var ajustarQuery = FiltroAvanzado.Replace("*", "Cliente, RFC, IDEmpleado, Total, Folio, Serie, FechaOperacion");
+                using (var dt = cn.CargarDatos($"SELECT Ganancia,Cliente FROM ventas WHERE ID IN ({codigosBuscar})"))
+                {
+                    int contador = 0;
+                    foreach (var item in dt.Rows)
+                    {
+                        if (!dt.Rows[contador]["Cliente"].ToString().Equals("Apertura de Caja"))
+                        {
+                            if (dt.Rows[contador]["Ganancia"].ToString().Equals("SIN PODER CALCULAR") || string.IsNullOrWhiteSpace(dt.Rows[contador]["Ganancia"].ToString()))
+                            {
+                                MessageBox.Show("No se podra calcular la Ganancia", "Aviso de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                break;
+                            }
+                        }
+                        contador++;
+                    }
+                }
                 VisualizadorReporteVentas VRV = new VisualizadorReporteVentas(codigosBuscar,cbTipoVentas.SelectedIndex);
                 VRV.ShowDialog();
 
@@ -4984,15 +5085,15 @@ namespace PuntoDeVentaV2
 
             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
             {
-                queryFechaInicial2 = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0' ORDER BY FechaOperacion DESC LIMIT 1";
+                queryFechaInicial2 = $"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '0' ORDER BY FechaOperacion DESC LIMIT 1";
             }
             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
             {
-                queryFechaInicial2 = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC LIMIT 1";
+                queryFechaInicial2 = $"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC LIMIT 1";
             }
             else
             {
-                queryFechaInicial2 = $"SELECT FechaOperacion FROM caja WHERE Operacion = 'corte' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{opcionComboBoxFiltroAdminEmp.ToString()}' ORDER BY FechaOperacion DESC LIMIT 1";
+                queryFechaInicial2 = $"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = '{FormPrincipal.userID}' ORDER BY FechaOperacion DESC LIMIT 1";
             }
 
             var fechaInicial2 = cn.CargarDatos(queryFechaInicial2);

@@ -239,7 +239,6 @@
             this.DGVentas.Size = new System.Drawing.Size(877, 222);
             this.DGVentas.TabIndex = 6;
             this.DGVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellClick);
-            this.DGVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellContentClick_1);
             this.DGVentas.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellEndEdit);
             this.DGVentas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellMouseEnter);
             this.DGVentas.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.DGVentas_CellStateChanged);
@@ -617,7 +616,6 @@
             this.panel1.Size = new System.Drawing.Size(890, 389);
             this.panel1.TabIndex = 34;
             this.panel1.Click += new System.EventHandler(this.panel1_Click);
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // checkRenta
             // 
@@ -675,19 +673,20 @@
             this.btnAplicarDescuento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAplicarDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicarDescuento.ForeColor = System.Drawing.Color.White;
-            this.btnAplicarDescuento.Location = new System.Drawing.Point(113, 7);
+            this.btnAplicarDescuento.Location = new System.Drawing.Point(8, 7);
             this.btnAplicarDescuento.Name = "btnAplicarDescuento";
             this.btnAplicarDescuento.Size = new System.Drawing.Size(114, 25);
             this.btnAplicarDescuento.TabIndex = 43;
             this.btnAplicarDescuento.Text = "Aplicar (Alt + 3)";
             this.btnAplicarDescuento.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnAplicarDescuento.UseVisualStyleBackColor = false;
+            this.btnAplicarDescuento.Visible = false;
             this.btnAplicarDescuento.Click += new System.EventHandler(this.btnAplicarDescuento_Click);
             // 
             // txtDescuentoGeneral
             // 
             this.txtDescuentoGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescuentoGeneral.Location = new System.Drawing.Point(8, 8);
+            this.txtDescuentoGeneral.Location = new System.Drawing.Point(127, 8);
             this.txtDescuentoGeneral.Multiline = true;
             this.txtDescuentoGeneral.Name = "txtDescuentoGeneral";
             this.txtDescuentoGeneral.ShortcutsEnabled = false;
@@ -742,7 +741,6 @@
             this.lbDatosCliente.TabIndex = 45;
             this.lbDatosCliente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lbDatosCliente.Visible = false;
-            this.lbDatosCliente.Click += new System.EventHandler(this.lbDatosCliente_Click);
             // 
             // lbMayoreo
             // 
@@ -793,6 +791,7 @@
             0});
             this.nudCantidadPS.ValueChanged += new System.EventHandler(this.nudCantidadPS_ValueChanged);
             this.nudCantidadPS.Click += new System.EventHandler(this.nudCantidadPS_Click);
+            this.nudCantidadPS.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nudCantidadPS_KeyPress);
             // 
             // lbCantidad
             // 
@@ -1294,7 +1293,6 @@
             this.Click += new System.EventHandler(this.Ventas_Click);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Ventas_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Ventas_KeyPress_1);
-            this.Layout += new System.Windows.Forms.LayoutEventHandler(this.Ventas_Layout);
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -44,10 +44,9 @@
             // 
             this.rbRespaldarCerrarSesion.AutoSize = true;
             this.rbRespaldarCerrarSesion.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rbRespaldarCerrarSesion.Location = new System.Drawing.Point(4, 49);
-            this.rbRespaldarCerrarSesion.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rbRespaldarCerrarSesion.Location = new System.Drawing.Point(3, 32);
             this.rbRespaldarCerrarSesion.Name = "rbRespaldarCerrarSesion";
-            this.rbRespaldarCerrarSesion.Size = new System.Drawing.Size(218, 24);
+            this.rbRespaldarCerrarSesion.Size = new System.Drawing.Size(147, 17);
             this.rbRespaldarCerrarSesion.TabIndex = 3;
             this.rbRespaldarCerrarSesion.TabStop = true;
             this.rbRespaldarCerrarSesion.Text = "Respaldar al cerrar sesion";
@@ -58,10 +57,9 @@
             // 
             this.rbNoRespaldar.AutoSize = true;
             this.rbNoRespaldar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.rbNoRespaldar.Location = new System.Drawing.Point(4, 85);
-            this.rbNoRespaldar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rbNoRespaldar.Location = new System.Drawing.Point(3, 55);
             this.rbNoRespaldar.Name = "rbNoRespaldar";
-            this.rbNoRespaldar.Size = new System.Drawing.Size(124, 24);
+            this.rbNoRespaldar.Size = new System.Drawing.Size(85, 17);
             this.rbNoRespaldar.TabIndex = 4;
             this.rbNoRespaldar.TabStop = true;
             this.rbNoRespaldar.Text = "No respaldar";
@@ -73,20 +71,18 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(98, 14);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(65, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(272, 29);
+            this.label1.Size = new System.Drawing.Size(183, 20);
             this.label1.TabIndex = 6;
             this.label1.Text = "Opciones de respaldo";
             // 
             // btnRespaldar
             // 
             this.btnRespaldar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRespaldar.Location = new System.Drawing.Point(138, 54);
-            this.btnRespaldar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnRespaldar.Location = new System.Drawing.Point(92, 41);
             this.btnRespaldar.Name = "btnRespaldar";
-            this.btnRespaldar.Size = new System.Drawing.Size(176, 49);
+            this.btnRespaldar.Size = new System.Drawing.Size(117, 34);
             this.btnRespaldar.TabIndex = 7;
             this.btnRespaldar.Text = "Respaldar ahora";
             this.btnRespaldar.UseVisualStyleBackColor = true;
@@ -95,10 +91,9 @@
             // btnCancelar
             // 
             this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancelar.Location = new System.Drawing.Point(291, 320);
-            this.btnCancelar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnCancelar.Location = new System.Drawing.Point(194, 208);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(118, 51);
+            this.btnCancelar.Size = new System.Drawing.Size(79, 33);
             this.btnCancelar.TabIndex = 8;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -107,10 +102,9 @@
             // btnAceptar
             // 
             this.btnAceptar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAceptar.Location = new System.Drawing.Point(30, 320);
-            this.btnAceptar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAceptar.Location = new System.Drawing.Point(20, 208);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(128, 51);
+            this.btnAceptar.Size = new System.Drawing.Size(85, 33);
             this.btnAceptar.TabIndex = 9;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -119,10 +113,9 @@
             // btnImportar
             // 
             this.btnImportar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnImportar.Location = new System.Drawing.Point(137, 172);
-            this.btnImportar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnImportar.Location = new System.Drawing.Point(91, 118);
             this.btnImportar.Name = "btnImportar";
-            this.btnImportar.Size = new System.Drawing.Size(177, 49);
+            this.btnImportar.Size = new System.Drawing.Size(118, 34);
             this.btnImportar.TabIndex = 10;
             this.btnImportar.Text = "Importar ahora";
             this.btnImportar.UseVisualStyleBackColor = true;
@@ -132,10 +125,9 @@
             // 
             this.btnRespaldarSU.AutoSize = true;
             this.btnRespaldarSU.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRespaldarSU.Location = new System.Drawing.Point(137, 113);
-            this.btnRespaldarSU.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnRespaldarSU.Location = new System.Drawing.Point(91, 79);
             this.btnRespaldarSU.Name = "btnRespaldarSU";
-            this.btnRespaldarSU.Size = new System.Drawing.Size(177, 49);
+            this.btnRespaldarSU.Size = new System.Drawing.Size(118, 34);
             this.btnRespaldarSU.TabIndex = 11;
             this.btnRespaldarSU.Text = "Respaldar sin usuario";
             this.btnRespaldarSU.UseVisualStyleBackColor = true;
@@ -144,10 +136,9 @@
             // btnImportarExcel
             // 
             this.btnImportarExcel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnImportarExcel.Location = new System.Drawing.Point(138, 231);
-            this.btnImportarExcel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnImportarExcel.Location = new System.Drawing.Point(92, 156);
             this.btnImportarExcel.Name = "btnImportarExcel";
-            this.btnImportarExcel.Size = new System.Drawing.Size(177, 49);
+            this.btnImportarExcel.Size = new System.Drawing.Size(118, 34);
             this.btnImportarExcel.TabIndex = 10;
             this.btnImportarExcel.Text = "Importar productos desde Excel";
             this.btnImportarExcel.UseVisualStyleBackColor = true;
@@ -155,9 +146,9 @@
             // 
             // EscogerTipoRespaldo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(448, 396);
+            this.ClientSize = new System.Drawing.Size(299, 257);
             this.Controls.Add(this.btnRespaldarSU);
             this.Controls.Add(this.btnImportarExcel);
             this.Controls.Add(this.btnImportar);
@@ -170,7 +161,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "EscogerTipoRespaldo";

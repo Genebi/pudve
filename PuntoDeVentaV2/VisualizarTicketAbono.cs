@@ -43,7 +43,7 @@ namespace PuntoDeVentaV2
                 cadenaConn = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
             }
 
-            string queryVenta = cs.visualizadorTicketAbono(idVenta,idAbono);
+            string queryVenta = cs.visualizadorTicketAbono(idVenta, idAbono);
 
             MySqlConnection conn = new MySqlConnection();
 
@@ -67,10 +67,14 @@ namespace PuntoDeVentaV2
 
             ventaDA.Fill(ventaDT);
 
-            ventaDT.Rows[0]["CantidadRestante"] = ventaDT.Rows[0]["CantidadRestante"].ToString().Replace("$", "");
+            /*ventaDT.Rows[0]["CantidadRestante"] = ventaDT.Rows[0]["CantidadRestante"].ToString().Replace("$", "");
 
             decimal cantidad = Convert.ToDecimal(ventaDT.Rows[0]["CantidadRestante"]);
-            if (cantidad > 0)
+            if (cantidad > 0)*/
+
+            var sinSigno = ventaDT.Rows[0]["CantidadRestante"].ToString().Split('$');
+            decimal cantidad = Convert.ToDecimal(sinSigno[1]);
+            if (cantidad < 0)
             {
                 cantidad = 0;
             }
@@ -87,15 +91,16 @@ namespace PuntoDeVentaV2
             string DirectoryImage = string.Empty;
 
             this.reportViewer1.LocalReport.EnableExternalImages = true;
-
+            this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Add(rp);
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
             this.reportViewer1.RefreshReport();
 
-            //LocalReport rdlc = new LocalReport();
-            //rdlc.EnableExternalImages = true;
-            //rdlc.ReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc";
-            //rdlc.DataSources.Add(rp);
+            LocalReport rdlc = new LocalReport();
+            rdlc.EnableExternalImages = true;
+            rdlc.ReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc";
+            rdlc.DataSources.Add(rp);
+            rdlc.SetParameters(reportParameters);
             #endregion
 
             //EnviarImprimir imp = new EnviarImprimir();
@@ -138,9 +143,9 @@ namespace PuntoDeVentaV2
             DataTable ventaDT = new DataTable();
 
             ventaDA.Fill(ventaDT);
-
-            decimal cantidad = Convert.ToDecimal(ventaDT.Rows[0]["CantidadRestante"]);
-            if (cantidad > 0)
+            var sinSigno = ventaDT.Rows[0]["CantidadRestante"].ToString().Split('$');
+            decimal cantidad = Convert.ToDecimal(sinSigno[1]);
+            if (cantidad < 0)
             {
                 cantidad = 0;
             }

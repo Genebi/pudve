@@ -116,6 +116,7 @@
             this.txtDescuento.TabIndex = 1;
             this.txtDescuento.TextChanged += new System.EventHandler(this.txtDescuento_TextChanged);
             this.txtDescuento.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDescuento_KeyDown);
+            this.txtDescuento.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDescuento_KeyPress);
             // 
             // txtNombre
             // 
