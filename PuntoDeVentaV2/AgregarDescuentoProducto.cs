@@ -31,7 +31,7 @@ namespace PuntoDeVentaV2
         private bool refrescarForm = true;
         private bool eliminarDescuento = false;
         private bool calculadoraisOut=false;
-
+        bool SeCierra = false;
         int calcu = 0;
 
         private const Keys CopyKeys = Keys.Control | Keys.C;
@@ -54,11 +54,6 @@ namespace PuntoDeVentaV2
 
         private void AgregarDescuentoProducto_Load(object sender, EventArgs e)
         {
-
-
-
-
-
             //if (Productos.copiarDatos.Equals(1) && AgregarEditarProducto.SearchDesMayoreo.Rows.Count > 0)
             //{
             //    var detallesDescMay = cn.CargarDatos(cs.obtenerDescuentosMayoreoParaCopiar(Convert.ToInt32(AgregarEditarProducto.idProductoFinal)));
@@ -172,7 +167,12 @@ namespace PuntoDeVentaV2
 
         private void btnCancelarDesc_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            if (SeCierra == true)
+            {
+                SeCierra = false; 
+                this.Hide();
+            }
+            SeCierra = true;
         }
 
         private void btnAceptarDesc_Click(object sender, EventArgs e)
@@ -342,7 +342,12 @@ namespace PuntoDeVentaV2
                     if (op4 > op3)
                     {
                         MessageBox.Show("El precio nuevo no puede ser mayor o igual al anterior.");
+                        SeCierra = false;
                         return;
+                    }
+                    else
+                    {
+                        SeCierra = true;
                     }
 
                 }
@@ -356,7 +361,12 @@ namespace PuntoDeVentaV2
             }
             AgregarEditarProducto.validacionUpdateDescuentos = 1;
             refrescarForm = false;
-            this.Hide();
+            if (SeCierra == true)
+            {
+                SeCierra = false;
+                this.Hide();
+            }
+            SeCierra = true;
         }
 
         public void cargarNvoDescuentos()
@@ -2277,20 +2287,20 @@ namespace PuntoDeVentaV2
             //}
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            if (vecesMostradas < 5)
-            {
-                Random randomValue = new Random();
-                int A = randomValue.Next(0, 255);
-                int B = randomValue.Next(0, 255);
-                int C = randomValue.Next(0, 255);
+        //private void timer1_Tick(object sender, EventArgs e)
+        //{
+        //    if (vecesMostradas < 5)
+        //    {
+        //        Random randomValue = new Random();
+        //        int A = randomValue.Next(0, 255);
+        //        int B = randomValue.Next(0, 255);
+        //        int C = randomValue.Next(0, 255);
 
-                lblMensaje.ForeColor = System.Drawing.Color.FromArgb(A, B, C);
+        //        lblMensaje.ForeColor = System.Drawing.Color.FromArgb(A, B, C);
 
-                vecesMostradas++;
-            }
-        }
+        //        vecesMostradas++;
+        //    }
+        //}
 
         private void rbMayoreo_Click(object sender, EventArgs e)
         {
@@ -2330,7 +2340,7 @@ namespace PuntoDeVentaV2
 
                         btnEliminarDescuentos.PerformClick();
                         this.Close();
-                        }
+                    }
                 }
             }
         }
