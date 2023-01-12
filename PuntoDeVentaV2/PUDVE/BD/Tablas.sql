@@ -2017,3 +2017,9 @@ ALTER TABLE caja ADD COLUMN IF NOT EXISTS Comentarios TEXT DEFAULT NULL;
 
    -- Se agrego la columna PrimerCorte a la tabla de historialCorteDeCaja
   ALTER TABLE historialcortesdecaja ADD COLUMN IF NOT EXISTS PrimerCorte INT DEFAULT 1;
+
+   -- Se agrego la columna PermisoCorreoSaldoInicial a la tabla de permisosconfiguracion
+  ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoCorreoSaldoInicial INT DEFAULT 1;
+
+  -- Se agrego la columna EnvioCorreoSaldoIncial a la tabla de permisosconfiguracion
+  ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS EnvioCorreoSaldoIncial INT DEFAULT 1;
