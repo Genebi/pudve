@@ -3582,7 +3582,7 @@ namespace PuntoDeVentaV2
                             else
                             {
                                 ListaSubDetallesProdutos.AddRange(detalles.subdetallesVenta);
-                                ListaUpdatesSubDetallesProdutos.AddRange(detalles.updatesVenta);
+                                ListaUpdatesSubDetallesProdutos.AddRange(detalles.updates);
                             }
                         };
                         detalles.ShowDialog();

@@ -26,7 +26,7 @@ namespace PuntoDeVentaV2
 
 
         public List<string> subdetallesVenta = new List<string>();
-        public List<string> updatesVenta = new List<string>();
+        public List<string> updates = new List<string>();
 
         string accion;
 
@@ -35,12 +35,12 @@ namespace PuntoDeVentaV2
         DateTimePicker dateTimePicker1;
 
         DataTable dtDetallesSubdetalle = new DataTable();
-        public subDetallesDeProducto(string producto, string operacion = "Nuevo",decimal cantidadVenta=0)
+        public subDetallesDeProducto(string producto, string operacion = "Nuevo",decimal cantidad=0)
         {
             InitializeComponent();
             idProducto = producto;
             accion = operacion;
-            stockTot = cantidadVenta;
+            stockTot = cantidad;
             //TIPOS DE DATO PARA LA DB
             //--0 DATE
             //--1 Decimal
@@ -95,6 +95,23 @@ namespace PuntoDeVentaV2
                         }
                     }
                     datosCategoria = cn.CargarDatos($"SELECT Categoria FROM subdetallesdeproducto INNER JOIN detallesubdetalle ON subdetallesdeproducto.ID = detallesubdetalle.IDSubDetalle WHERE IDProducto = '{idProducto}' AND IDUsuario = '{FormPrincipal.userID}' AND Activo = 1 {ignores} GROUP BY Categoria");
+                    if (datosCategoria.Rows.Count.Equals(0))
+                    {
+                        finalizado = true;
+                        this.Close();
+                    }
+                    btnGuardarDetalles.Enabled = false;
+                    break;
+                case "Inventario":
+                    string ignoresIn = string.Empty;
+                    if (idsADesHabilitar.Count > 0)
+                    {
+                        foreach (string ID in idsADesHabilitar)
+                        {
+                            ignoresIn += $"AND (NOT subdetallesdeproducto.ID={ID}) ";
+                        }
+                    }
+                    datosCategoria = cn.CargarDatos($"SELECT Categoria FROM subdetallesdeproducto INNER JOIN detallesubdetalle ON subdetallesdeproducto.ID = detallesubdetalle.IDSubDetalle WHERE IDProducto = '{idProducto}' AND IDUsuario = '{FormPrincipal.userID}' AND Activo = 1 {ignoresIn} GROUP BY Categoria");
                     if (datosCategoria.Rows.Count.Equals(0))
                     {
                         finalizado = true;
@@ -179,6 +196,16 @@ namespace PuntoDeVentaV2
                         cargarsubCategorias(categoria);
                     }
                     break;
+                case "Inventario":
+                    dtDetallesSubdetalle = cn.CargarDatos($"SELECT detallesubdetalle.ID, IF(subdetallesdeproducto.TipoDato = 0, detallesubdetalle.Fecha, IF( subdetallesdeproducto.TipoDato = 1, detallesubdetalle.Valor, detallesubdetalle.Nombre)) AS Valor, detallesubdetalle.Stock, productos.Stock AS TotalStock,subdetallesdeproducto.TipoDato,subdetallesdeproducto.ID AS SubID FROM subdetallesdeproducto LEFT JOIN detallesubdetalle ON (detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado=1) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE subdetallesdeproducto.Categoria = '{categoria}' AND productos.id = {idProducto} AND subdetallesdeproducto.Activo = 1");
+
+                    dgvDetallesSubdetalle.DataSource = dtDetallesSubdetalle;
+
+                    dgvDetallesSubdetalle.Columns[1].Visible = false;
+                    groupBox3.Visible = false;
+                    dgvDetallesSubdetalle.Columns[3].ReadOnly = true;
+
+                    break;
                 default:
 
                     break;
@@ -218,6 +245,7 @@ namespace PuntoDeVentaV2
             switch (accion)
             {
                 case "Nuevo":
+                case "Inventario":
                         total = dgvDetallesSubdetalle.Rows.Cast<DataGridViewRow>()
                             .Sum(t => Convert.ToDecimal(t.Cells[4].Value));
                     break;
@@ -307,7 +335,7 @@ namespace PuntoDeVentaV2
                             subdetallesVenta.Add(consultaGuardada);
 
                             string updateGuardado = $"UPDATE detallesubdetalle SET Stock = Stock -{registroDetalle["0"].ToString()} WHERE ID = {registroDetalle["ID"].ToString()}";
-                            updatesVenta.Add(updateGuardado);
+                            updates.Add(updateGuardado);
                         }
                     }
                     idsADesHabilitar.Add(dtDetallesSubdetalle.Rows[0]["SubID"].ToString());
@@ -315,6 +343,20 @@ namespace PuntoDeVentaV2
                     dgvDetallesSubdetalle.Visible = false;
                     cargarCategorias();
                     
+                    break;
+                case "Inventario":
+                    foreach (DataRow registroDetalle in dtDetallesSubdetalle.Rows)
+                    {
+                        if (Convert.ToDecimal(registroDetalle["0"].ToString()) > 0)
+                        {
+                            string updateGuardado = $"UPDATE detallesubdetalle SET Stock = {registroDetalle["Stock"].ToString()} WHERE ID = {registroDetalle["ID"].ToString()}";
+                            updates.Add(updateGuardado);
+                        }
+                    }
+                    idsADesHabilitar.Add(dtDetallesSubdetalle.Rows[0]["SubID"].ToString());
+                    fLPLateralCategorias.Controls.Clear();
+                    dgvDetallesSubdetalle.Visible = false;
+                    cargarCategorias();
                     break;
                 default:
                     break;
@@ -397,6 +439,7 @@ namespace PuntoDeVentaV2
             string col = string.Empty;
             switch (accion)
             {
+                case "Inventario":
                 case "Nuevo":
                     col = "Stock";
                     break;

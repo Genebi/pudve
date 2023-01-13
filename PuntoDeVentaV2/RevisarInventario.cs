@@ -71,6 +71,8 @@ namespace PuntoDeVentaV2
         List<string> id = new List<string>();
         int contador = 1;
 
+        List<string> updatesSubdetalles = new List<string>();
+
         bool validarSiguienteTerminar = false;
         string mensajeNoHay = string.Empty;
         int terminarRev = 0;
@@ -1260,6 +1262,9 @@ namespace PuntoDeVentaV2
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
+
+
+
             verificarCodigoFiltroProveedor();
 
             codBarras = txtBoxBuscarCodigoBarras.Text;
@@ -1279,6 +1284,8 @@ namespace PuntoDeVentaV2
                     if (botonOmitir == false)
                     {
                         var cantidadStock = double.Parse(txtCantidadStock.Text);
+
+
 
                         if (cantidadStock >= 1000)
                         {
@@ -1313,6 +1320,11 @@ namespace PuntoDeVentaV2
                             var stockFisico = txtCantidadStock.Text;
                             var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                             var diferencia = double.Parse(datosProducto[1]) - double.Parse(stockFisico);
+                            if (!verificarSubDetalles(Convert.ToDecimal(stockFisico)))
+                            {
+                                MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
 
 
                             // Actualizar datos en RevisarInventario
@@ -1362,6 +1374,10 @@ namespace PuntoDeVentaV2
                             }
                            
                             cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                            foreach (string subdetalleUpdate in updatesSubdetalles)
+                            {
+                                cn.EjecutarConsulta(subdetalleUpdate);
+                            }
                             //Actualizar Proveedor del Producto 
                             using (var ConsultaIDProveedor = cn.CargarDatos(cs.ConsultaIDProveedor(cbProveedores.Text, FormPrincipal.userID)))
                             {
@@ -1404,6 +1420,12 @@ namespace PuntoDeVentaV2
                                 if (info.Length > 0)
                                 {
                                     var diferencia = double.Parse(info[4]) - double.Parse(stockFisico);
+
+                                    if (!verificarSubDetalles(Convert.ToDecimal(stockFisico)))
+                                    {
+                                        MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        return;
+                                    }
 
                                     var datos = new string[]
                                     {
@@ -1475,6 +1497,10 @@ namespace PuntoDeVentaV2
 
                                     // Actualizar stock del producto
                                     cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                                    foreach (string subdetalleUpdate in updatesSubdetalles)
+                                    {
+                                        cn.EjecutarConsulta(subdetalleUpdate);
+                                    }
                                     //Actualizar Proveedor del Producto 
                                     using (var ConsultaIDProveedor = cn.CargarDatos(cs.ConsultaIDProveedor(cbProveedores.Text, FormPrincipal.userID)))
                                     {
@@ -1528,6 +1554,26 @@ namespace PuntoDeVentaV2
                 cbProveedores.Enabled = false;
                 cbProveedores.Text = "";
             }
+        }
+
+        private bool verificarSubDetalles(decimal stock)
+        {
+            bool registroCorrectoDeSubdetalles = true;
+
+                        subDetallesDeProducto detalles = new subDetallesDeProducto(idProducto.ToString(),"Inventario",cantidad:stock);
+                        detalles.FormClosed += delegate
+                        {
+                            if (!detalles.finalizado)
+                            {
+                                registroCorrectoDeSubdetalles = detalles.finalizado;
+                            }
+                            else
+                            {
+                                updatesSubdetalles.AddRange(detalles.updates);
+                            }
+                        };
+                        detalles.ShowDialog();
+            return registroCorrectoDeSubdetalles;
         }
 
         private void verificarCodigoFiltroProveedor()
