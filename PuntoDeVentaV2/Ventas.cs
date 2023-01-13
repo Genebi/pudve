@@ -9419,7 +9419,7 @@ namespace PuntoDeVentaV2
                     btnBascula.Enabled = false;
                 };
                 pesoVentas.ShowDialog();
-                //EnviarDatos();
+                //EnviarDatos(); 
             }
 
         }
