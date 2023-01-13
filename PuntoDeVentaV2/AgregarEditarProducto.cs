@@ -4942,7 +4942,7 @@ namespace PuntoDeVentaV2
         private void botonRedondo1_Click_1(object sender, EventArgs e)
         {
             nombreProdSubDetalles = txtNombreProducto.Text;
-            subDetallesDeProducto detalles = new subDetallesDeProducto();
+            subDetallesDeProducto detalles = new subDetallesDeProducto(idEditarProducto);
             detalles.ShowDialog();
            
         }

@@ -15,20 +15,27 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         decimal stockTot = 0;
+        string idProducto;
         int celdaCellClick;
         string tipoDato;
         string colDato="Nombre";
         string colID;
         string cat;
 
+
+        string accion;
+
         List<string> idsADesHabilitar = new List<string>();
 
         DateTimePicker dateTimePicker1;
 
         DataTable dtDetallesSubdetalle = new DataTable();
-        public subDetallesDeProducto()
+        public subDetallesDeProducto(string producto, string operacion = "Nuevo",decimal cantidadVenta=0)
         {
             InitializeComponent();
+            idProducto = producto;
+            accion = operacion;
+            stockTot = cantidadVenta;
             //TIPOS DE DATO PARA LA DB
             //--0 DATE
             //--1 Decimal
@@ -44,21 +51,38 @@ namespace PuntoDeVentaV2
             fLPLateralCategorias.VerticalScroll.Visible = true;
 
             cargarCategorias();
+            lblNombreProducto.Text = idProducto;
 
-            if (AgregarEditarProducto.DatosSourceFinal == 1)
+            //if (AgregarEditarProducto.DatosSourceFinal == 1)
+            //{
+            //    //MessageBox.Show("Agregar");
+            //}
+            //else if (AgregarEditarProducto.DatosSourceFinal == 2)
+            //{
+
+            //    //MessageBox.Show("Editar");
+            //}
+            if (accion=="Venta")
             {
-                //MessageBox.Show("Agregar");
-            }
-            else if (AgregarEditarProducto.DatosSourceFinal == 2)
-            {
-                lblNombreProducto.Text = AgregarEditarProducto.nombreProdSubDetalles;
-                //MessageBox.Show("Editar");
+                groupBox1.Visible = false;
             }
         }
 
         private void cargarCategorias()
         {
-            var datosCategoria = cn.CargarDatos($"SELECT Categoria FROM subdetallesdeproducto WHERE IDProducto = '{Productos.idProductoAgregarSubdetalle}' AND IDUsuario = '{FormPrincipal.userID}' AND Activo = 1");
+            DataTable datosCategoria = new DataTable();
+            switch (accion)
+            {
+                case "Nuevo":
+                    datosCategoria = cn.CargarDatos($"SELECT Categoria FROM subdetallesdeproducto WHERE IDProducto = '{idProducto}' AND IDUsuario = '{FormPrincipal.userID}' AND Activo = 1");
+                    break;
+                case "Venta":
+                    datosCategoria = cn.CargarDatos($"SELECT Categoria FROM subdetallesdeproducto INNER JOIN detallesubdetalle ON subdetallesdeproducto.ID = detallesubdetalle.IDSubDetalle WHERE IDProducto = '{idProducto}' AND IDUsuario = '{FormPrincipal.userID}' AND Activo = 1 GROUP BY Categoria");
+                    break;
+                default:
+                    break;
+            }
+            
 
             foreach (DataRow item in datosCategoria.Rows)
             {
@@ -92,22 +116,48 @@ namespace PuntoDeVentaV2
             cat = categoria;
             idsADesHabilitar.Clear();
             dtDetallesSubdetalle.Clear();
+            dgvDetallesSubdetalle.Visible = true;
 
-            groupBox3.Visible = true;
             groupBox4.Visible = true;
             btnGuardar.Enabled = false;
-            dtDetallesSubdetalle = cn.CargarDatos($"SELECT detallesubdetalle.ID, IF(subdetallesdeproducto.TipoDato = 0, detallesubdetalle.Fecha, IF( subdetallesdeproducto.TipoDato = 1, detallesubdetalle.Valor, detallesubdetalle.Nombre)) AS Valor, detallesubdetalle.Stock, productos.Stock AS TotalStock,subdetallesdeproducto.TipoDato,subdetallesdeproducto.ID AS SubID FROM subdetallesdeproducto LEFT JOIN detallesubdetalle ON (detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado=1) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE subdetallesdeproducto.Categoria = '{categoria}'");
-            
-            dgvDetallesSubdetalle.DataSource = dtDetallesSubdetalle;
-            stockTot = Convert.ToDecimal(dtDetallesSubdetalle.Rows[0]["TotalStock"]);
-            decimal total = 0;
-            if (Decimal.TryParse(dtDetallesSubdetalle.Rows[0]["Stock"].ToString(), out total))
+
+            switch (accion)
             {
-                total = dgvDetallesSubdetalle.Rows.Cast<DataGridViewRow>()
-                    .Sum(t => Convert.ToDecimal(t.Cells[3].Value));
+                case "Nuevo":
+                    dtDetallesSubdetalle = cn.CargarDatos($"SELECT detallesubdetalle.ID, IF(subdetallesdeproducto.TipoDato = 0, detallesubdetalle.Fecha, IF( subdetallesdeproducto.TipoDato = 1, detallesubdetalle.Valor, detallesubdetalle.Nombre)) AS Valor, detallesubdetalle.Stock, productos.Stock AS TotalStock,subdetallesdeproducto.TipoDato,subdetallesdeproducto.ID AS SubID FROM subdetallesdeproducto LEFT JOIN detallesubdetalle ON (detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado=1) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE subdetallesdeproducto.Categoria = '{categoria}'");
+
+                    dgvDetallesSubdetalle.DataSource = dtDetallesSubdetalle;
+
+                    groupBox3.Visible = true;
+                    stockTot = Convert.ToDecimal(dtDetallesSubdetalle.Rows[0]["TotalStock"]);
+
+                    break;
+                case "Venta":
+                    dtDetallesSubdetalle = cn.CargarDatos($"SELECT detallesubdetalle.ID, IF(subdetallesdeproducto.TipoDato = 0, detallesubdetalle.Fecha, IF( subdetallesdeproducto.TipoDato = 1, detallesubdetalle.Valor, detallesubdetalle.Nombre)) AS Valor, detallesubdetalle.Stock, subdetallesdeproducto.TipoDato,subdetallesdeproducto.ID AS SubID, 0 FROM subdetallesdeproducto LEFT JOIN detallesubdetalle ON (detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado=1) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE subdetallesdeproducto.Categoria = '{categoria}'");
+
+                    dgvDetallesSubdetalle.Columns[3].Visible = true;
+                    dgvDetallesSubdetalle.Columns[1].Visible = false;
+                    groupBox3.Visible = false;
+                    dgvDetallesSubdetalle.DataSource = dtDetallesSubdetalle;
+                    btnGuardar.Enabled = false;
+
+                    dgvDetallesSubdetalle.Columns[4].ReadOnly = true;
+                    dgvDetallesSubdetalle.Columns[3].ReadOnly = true;
+                    if (!dgvDetallesSubdetalle.Columns[3].Visible)
+                    {
+                        cargarsubCategorias(categoria);
+                    }
+                    break;
+                default:
+
+                    break;
             }
+
+
+            calcularRestante();
             
-            lblStockRestanteNum.Text = (stockTot - total).ToString();
+            
+
             tipoDato = dtDetallesSubdetalle.Rows[0]["TipoDato"].ToString();
             colID = dtDetallesSubdetalle.Rows[0]["SubID"].ToString();
             switch (tipoDato)
@@ -124,6 +174,42 @@ namespace PuntoDeVentaV2
                     dgvDetallesSubdetalle.Columns[2].DefaultCellStyle.Format = "";
                     colDato = "Nombre";
                     break;
+            }
+        }
+
+        private void calcularRestante()
+        {
+            decimal total = 0;
+
+            switch (accion)
+            {
+                case "Nuevo":
+                    if (Decimal.TryParse(dtDetallesSubdetalle.Rows[0]["Stock"].ToString(), out total))
+                    {
+                        total = dgvDetallesSubdetalle.Rows.Cast<DataGridViewRow>()
+                            .Sum(t => Convert.ToDecimal(t.Cells[4].Value));
+                    }
+                    break;
+                case "Venta":
+                    if (Decimal.TryParse(dtDetallesSubdetalle.Rows[0]["0"].ToString(), out total))
+                    {
+                        total = dgvDetallesSubdetalle.Rows.Cast<DataGridViewRow>()
+                            .Sum(t => Convert.ToDecimal(t.Cells[7].Value));
+                    }
+                    break;
+                default:
+                    break;
+            }
+            
+            lblStockRestanteNum.Text = (stockTot - total).ToString();
+
+            if (total == stockTot)
+            {
+                btnGuardar.Enabled = true;
+            }
+            else
+            {
+                btnGuardar.Enabled = false;
             }
         }
 
@@ -209,39 +295,29 @@ namespace PuntoDeVentaV2
 
         private void dgvDetallesSubdetalle_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            //if (e.ColumnIndex == 3)
-            //{
-            //    decimal test;
-            //    celdaCellClick = dgvDetallesSubdetalle.CurrentCell.RowIndex;
+            //////if (e.ColumnIndex == 3)
+            //////{
+            decimal test;
+            celdaCellClick = dgvDetallesSubdetalle.CurrentCell.RowIndex;
 
-            //    if (decimal.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[3].Value.ToString(), out test))
-            //    {
-                    decimal total = dgvDetallesSubdetalle.Rows.Cast<DataGridViewRow>()
-                    .Sum(t => Convert.ToDecimal(t.Cells[3].Value));
-                    lblStockRestanteNum.Text = (stockTot - total).ToString();
-                    if (total == stockTot)
-                    {
-                        btnGuardar.Enabled = true;
-                    }
-                    else
-                    {
-                        btnGuardar.Enabled = false;
-                    }
-            //    }
+            if (decimal.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[4].Value.ToString(), out test))
+            {
+                calcularRestante();
+            }
             //    else
             //    {
             //        dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[3].Value = "0";
-            //    }
+        //}
             //}
 
-            if (e.ColumnIndex == 2)
+            if (e.ColumnIndex == 3)
             {
                 switch (tipoDato)
                 {
                     case "0":
                         DateTime DTparser;
                         celdaCellClick = dgvDetallesSubdetalle.CurrentCell.RowIndex;
-                        if (!DateTime.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[2].Value.ToString(), out DTparser))
+                        if (!DateTime.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[3].Value.ToString(), out DTparser))
                         {
                             MessageBox.Show($"El formato introducido no es valido  no podras terminar el proceso sin corregir (solamente se aceptan fechas)", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
@@ -249,7 +325,7 @@ namespace PuntoDeVentaV2
                     case "1":
                         decimal DCparser;
                         celdaCellClick = dgvDetallesSubdetalle.CurrentCell.RowIndex;
-                        if (!Decimal.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[2].Value.ToString(), out DCparser))
+                        if (!Decimal.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[3].Value.ToString(), out DCparser))
                         {
                             MessageBox.Show($"El formato introducido no es valido, no podras terminar el proceso sin corregir (solamente se aceptan valores numericos)", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
@@ -274,7 +350,7 @@ namespace PuntoDeVentaV2
 
         private void dgvDetallesSubdetalle_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 2 && tipoDato=="0")
+            if (e.ColumnIndex == 3 && tipoDato=="0")
             {
                 //Creamos el control por código
                 dateTimePicker1 = new DateTimePicker();
@@ -306,17 +382,14 @@ namespace PuntoDeVentaV2
                 // Generamos el evento de cierre del control fecha
                 dateTimePicker1.CloseUp += new EventHandler(dateTimePicker1_CloseUp);
             }
-            if (e.ColumnIndex == 0)
+            if (e.ColumnIndex == 1)
             {
                 if (!string.IsNullOrEmpty(dtDetallesSubdetalle.Rows[e.RowIndex]["ID"].ToString()))
                 {
                     idsADesHabilitar.Add(dtDetallesSubdetalle.Rows[e.RowIndex]["ID"].ToString());
                 }
                 dtDetallesSubdetalle.Rows.RemoveAt(e.RowIndex);
-
-                decimal total = dgvDetallesSubdetalle.Rows.Cast<DataGridViewRow>()
-                    .Sum(t => Convert.ToDecimal(t.Cells[3].Value));
-                lblStockRestanteNum.Text = (stockTot - total).ToString();
+                calcularRestante();
             }
         }
 

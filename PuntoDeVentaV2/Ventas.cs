@@ -3155,7 +3155,10 @@ namespace PuntoDeVentaV2
             this.Dispose();
         }
         private void btnTerminarVenta_Click(object sender, EventArgs e)
-        { 
+        {
+
+            verificarSubDetalles();
+
             Ganancia.gananciaGrafica = 3;
             //sepresiono = true;
             btnGanancia.PerformClick();
@@ -3545,6 +3548,26 @@ namespace PuntoDeVentaV2
             }
             txtBuscadorProducto.Focus();
             yasemando = false;
+        }
+
+        private void verificarSubDetalles()
+        {
+            foreach (DataGridViewRow producto in DGVentas.Rows)
+            {
+                //0 es id, 5 es stock?
+                using (DataTable dtBuscarSubdetalles = cn.CargarDatos($"SELECT detallesubdetalle.ID FROM detallesubdetalle LEFT JOIN subdetallesdeproducto ON ( detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado = 1 ) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE productos.id = {producto.Cells[0].Value.ToString()}"))
+                {
+                    if (!dtBuscarSubdetalles.Rows.Count.Equals(0))
+                    {
+                        subDetallesDeProducto detalles = new subDetallesDeProducto(producto.Cells[0].Value.ToString(),"Venta", Convert.ToDecimal(producto.Cells[5].Value.ToString()));
+                        detalles.FormClosed += delegate
+                        {
+
+                        };
+                        detalles.ShowDialog();
+                    }
+                }
+            }
         }
 
         private void ultimaVentaInformacion()
