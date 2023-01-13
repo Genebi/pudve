@@ -134,30 +134,40 @@ namespace PuntoDeVentaV2
                 DireccionLogo = "";
                 reportParameters.Add(new ReportParameter("Logo", DireccionLogo));
             }
-            string StatusVenta;
-            using (DataTable ConsultaEstatus = cn.CargarDatos($"SELECT `Status` FROM ventas WHERE ID = {IDVenta}"))
+            string StatusVenta = string.Empty;
+            using (DataTable ConsultaEstatus = cn.CargarDatos($"SELECT Efectivo,Tarjeta,Vales,Cheque,Transferencia,Credito FROM detallesventa where IDVenta = {IDVenta}"))
             {
-                string Status = ConsultaEstatus.Rows[0]["Status"].ToString();
-                if (Status.Equals("1"))
+                foreach (var item in ConsultaEstatus.Columns)
                 {
-                    StatusVenta = "Venta Pagada";
+                    string TipoVenta = item.ToString();
+
+                    if (Convert.ToDecimal(ConsultaEstatus.Rows[0][TipoVenta])>0)
+                    {
+                        StatusVenta += TipoVenta + ",";
+                    }
                 }
-                else if (Status.Equals("2"))
-                {
-                    StatusVenta = "Presupuesto";
-                }
-                else if (Status.Equals("3"))
-                {
-                    StatusVenta = "Venta Cancelada";
-                }
-                else if (Status.Equals("5"))
-                {
-                    StatusVenta = "Venta Global";
-                }
-                else
-                {
-                    StatusVenta = "Venta a Crédito";
-                }
+                StatusVenta = StatusVenta.TrimEnd(',');
+                //string Status = ConsultaEstatus.Rows[0]["Status"].ToString();
+                //if (Status.Equals("1"))
+                //{
+                //    StatusVenta = "Venta Pagada";
+                //}
+                //else if (Status.Equals("2"))
+                //{
+                //    StatusVenta = "Presupuesto";
+                //}
+                //else if (Status.Equals("3"))
+                //{
+                //    StatusVenta = "Venta Cancelada";
+                //}
+                //else if (Status.Equals("5"))
+                //{
+                //    StatusVenta = "Venta Global";
+                //}
+                //else
+                //{
+                //    StatusVenta = "Venta a Crédito";
+                //}
             }
             reportParameters.Add(new ReportParameter("StatusVenta", StatusVenta));
 
