@@ -43,6 +43,8 @@ namespace PuntoDeVentaV2
         float descuentoCliente = 0;
         bool yasemando = false;
 
+        System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+
         public static string porcentaje;
         List<string> productoEliminadoCorreo;
         string PrecioDelProducto;
@@ -50,7 +52,6 @@ namespace PuntoDeVentaV2
         string ClienteConDescuentoNombre, IDClienteConDescuento;
         public static bool AutorizacionConfirmada = false;
         public static bool VentaRealizada = false;
-
 
         public static string cantidadAPedir = string.Empty;
         public static List<string> listProductos = new List<string>();
@@ -391,7 +392,7 @@ namespace PuntoDeVentaV2
 
 
 
-            iniciarBasculaPredeterminada();
+            //iniciarBasculaPredeterminada();
             txtBuscadorProducto.Focus();
         }
 
@@ -1298,7 +1299,13 @@ namespace PuntoDeVentaV2
             DGVentas.ClearSelection();
             indiceColumna++;
 
-
+            var datos = cn.CargarDatos($"SELECT FormatoDeVenta FROM productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{datosProducto[7]}' AND Status = '1'");
+            var pesoAutomatico = datos.Rows[0]["FormatoDeVenta"].ToString();
+            if (pesoAutomatico == "2")
+            {
+                btnBascula.PerformClick();
+            }
+           
         }
 
         private void validarStockDGV()
@@ -9395,7 +9402,31 @@ namespace PuntoDeVentaV2
 
         private void btnBascula_Click(object sender, EventArgs e)
         {
-            EnviarDatos();
+            if (DGVentas.Rows.Count>0)
+            {
+                decimal elmeropesoxd = 0;
+                ObtenerPesoVasculaVentas pesoVentas = new ObtenerPesoVasculaVentas();
+                pesoVentas.FormClosed += delegate
+                {
+                    elmeropesoxd = pesoVentas.peso;
+                    //MessageBox.Show(elmeropesoxd.ToString());
+                    DGVentas.Rows[0].Cells[5].Value = elmeropesoxd;
+                    var id = DGVentas.Rows[0].Cells[0].Value.ToString();
+                    cn.EjecutarConsulta($"UPDATE productos SET FormatoDeVenta = '2' WHERE ID = '{id}' AND `Status` = '1' and IDUsuario = {FormPrincipal.userID}");
+                    timer.Interval = 2000; // here time in milliseconds
+                    timer.Tick += timer_Tick;
+                    timer.Start();
+                    btnBascula.Enabled = false;
+                };
+                pesoVentas.ShowDialog();
+                //EnviarDatos();
+            }
+
+        }
+        void timer_Tick(object sender, System.EventArgs e)
+        {
+            btnBascula.Enabled = true;
+            timer.Stop();
         }
 
         private void iniciarBasculaPredeterminada()
@@ -9433,13 +9464,13 @@ namespace PuntoDeVentaV2
                     }
                     catch (Exception error)
                     {
-                        btnBascula.Enabled = false;
+                        //btnBascula.Enabled = false;
                         //MessageBox.Show("Error de conexión con el dispositivo (Bascula)...\n\n" + error.Message.ToString() + "\n\nFavor de revisar los parametros de su bascula para configurarlos correctamente", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else
                 {
-                    btnBascula.Enabled = false;
+                    //btnBascula.Enabled = false;
                 }
             }
         }

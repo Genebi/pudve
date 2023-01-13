@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace PuntoDeVentaV2
 {
-    public partial class AgregarBasculas : Form
+    public partial class ObtenerPesoBasculaVentas : Form
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -29,13 +29,13 @@ namespace PuntoDeVentaV2
 
         public void InicializaPuertoBascula(string puerto, int baud)
         {
-            if(puerto != "" && puerto != string.Empty)
+            if (puerto != "" && puerto != string.Empty)
             {
                 PuertoSerieBascula = new SerialPort(puerto, baud);
 
                 if (!PuertoSerieBascula.IsOpen)
                 {
-                    if(!cbParidad.Text.Equals(string.Empty) || !cbParidad.Equals("Ningun dato de Paridad encontrado"))
+                    if (!cbParidad.Text.Equals(string.Empty) || !cbParidad.Equals("Ningun dato de Paridad encontrado"))
                     {
                         PuertoSerieBascula.Parity = (Parity)Enum.Parse(typeof(Parity), cbParidad.Text.ToString());
                     }
@@ -44,7 +44,7 @@ namespace PuntoDeVentaV2
                         PuertoSerieBascula.Parity = Parity.None;
                     }
 
-                    if(!cbStopBits.Text.Equals(string.Empty) || !cbStopBits.Equals("Ningun StopBits encontrado"))
+                    if (!cbStopBits.Text.Equals(string.Empty) || !cbStopBits.Equals("Ningun StopBits encontrado"))
                     {
                         PuertoSerieBascula.StopBits = (StopBits)Enum.Parse(typeof(StopBits), cbStopBits.Text.ToString());
                     }
@@ -53,7 +53,7 @@ namespace PuntoDeVentaV2
                         PuertoSerieBascula.StopBits = StopBits.One;
                     }
 
-                    if(!cbDatos.Text.Equals("No se encontraron DataBit") || !cbDatos.Text.Equals(string.Empty))
+                    if (!cbDatos.Text.Equals("No se encontraron DataBit") || !cbDatos.Text.Equals(string.Empty))
                     {
                         PuertoSerieBascula.DataBits = (int)Int32.Parse(cbDatos.Text.ToString().Replace(" bit", string.Empty));
                     }
@@ -143,7 +143,7 @@ namespace PuntoDeVentaV2
             {
                 if (!dtBasculas.Rows.Count.Equals(0))
                 {
-                    foreach(DataRow drBascula in dtBasculas.Rows)
+                    foreach (DataRow drBascula in dtBasculas.Rows)
                     {
                         cbBasculaRegistrada.Items.Add(drBascula["nombreBascula"].ToString());
                     }
@@ -154,7 +154,7 @@ namespace PuntoDeVentaV2
             {
                 if (!dtBasculaPredeterminada.Rows.Count.Equals(0))
                 {
-                    foreach(DataRow drBasculaPredeterminada in dtBasculaPredeterminada.Rows)
+                    foreach (DataRow drBasculaPredeterminada in dtBasculaPredeterminada.Rows)
                     {
                         cbBasculaRegistrada.Text = drBasculaPredeterminada["nombreBascula"].ToString();
                     }
@@ -174,7 +174,7 @@ namespace PuntoDeVentaV2
 
             if (!portNames.Count().Equals(0))
             {
-                foreach(var portName in portNames)
+                foreach (var portName in portNames)
                 {
                     cbPuerto.Items.Add(portName);
                 }
@@ -279,7 +279,7 @@ namespace PuntoDeVentaV2
             cbStopBits.Items.Clear();
             if (!rangeStopBits.Count().Equals(0))
             {
-                foreach(var stopBits in rangeStopBits)
+                foreach (var stopBits in rangeStopBits)
                 {
                     cbStopBits.Items.Add(stopBits);
                 }
@@ -329,7 +329,7 @@ namespace PuntoDeVentaV2
         }
         #endregion
 
-        public AgregarBasculas()
+        public ObtenerPesoBasculaVentas()
         {
             InitializeComponent();
         }
@@ -337,7 +337,6 @@ namespace PuntoDeVentaV2
         private void AgregarBasculas_Load(object sender, EventArgs e)
         {
             //llenamos los ComboBox
-            PuertoSerieBascula.Close();
             getBasculasRegistradas();   //Basculas Preconfiguradas
             getComPortNames();          //Puertos Activos
             getBaudRate();              //Rango BaudRate
@@ -448,7 +447,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void AgregarBasculas_FormClosing(object sender, FormClosingEventArgs e)
+        private void ObtenerPesoBasculaVentas_FormClosing(object sender, FormClosingEventArgs e)
         {
             PuertoSerieBascula.Close();
         }
@@ -475,7 +474,7 @@ namespace PuntoDeVentaV2
 
             cbBasculaRegistrada.Text = string.Empty;
             cbBasculaRegistrada.SelectedIndex = 0;
-            
+
             txtSendData.Clear();
         }
     }
