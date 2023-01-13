@@ -53,7 +53,6 @@ namespace PuntoDeVentaV2
         public static bool AutorizacionConfirmada = false;
         public static bool VentaRealizada = false;
 
-
         public static string cantidadAPedir = string.Empty;
         public static List<string> listProductos = new List<string>();
         public static List<string> liststock = new List<string>();
@@ -1300,7 +1299,13 @@ namespace PuntoDeVentaV2
             DGVentas.ClearSelection();
             indiceColumna++;
 
-
+            var datos = cn.CargarDatos($"SELECT FormatoDeVenta FROM productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{datosProducto[7]}' AND Status = '1'");
+            var pesoAutomatico = datos.Rows[0]["FormatoDeVenta"].ToString();
+            if (pesoAutomatico == "2")
+            {
+                btnBascula.PerformClick();
+            }
+           
         }
 
         private void validarStockDGV()
@@ -9405,6 +9410,8 @@ namespace PuntoDeVentaV2
                     elmeropesoxd = pesoVentas.peso;
                     //MessageBox.Show(elmeropesoxd.ToString());
                     DGVentas.Rows[0].Cells[5].Value = elmeropesoxd;
+                    var id = DGVentas.Rows[0].Cells[0].Value.ToString();
+                    cn.EjecutarConsulta($"UPDATE productos SET FormatoDeVenta = '2' WHERE ID = '{id}' AND `Status` = '1' and IDUsuario = {FormPrincipal.userID}");
                     timer.Interval = 2000; // here time in milliseconds
                     timer.Tick += timer_Tick;
                     timer.Start();

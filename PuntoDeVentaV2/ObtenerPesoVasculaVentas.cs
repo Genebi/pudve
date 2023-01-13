@@ -25,6 +25,8 @@ namespace PuntoDeVentaV2
 
         bool isOpen = false, isExists = false;
 
+        System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+
         #region DISPOSITIVO-LECTOR BASCULA
         public SerialPort PuertoSerieBascula = new SerialPort();
         public static string informacionBascula;
@@ -88,6 +90,7 @@ namespace PuntoDeVentaV2
                     {
                         isExists = false;
                         MessageBox.Show("Error de conexión con el dispositivo (Bascula)...\n\n" + error.Message.ToString() + "\n\nFavor de revisar los parametros de su bascula para configurarlos correctamente", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Close();
                     }
                 }
                 else
@@ -430,14 +433,20 @@ namespace PuntoDeVentaV2
                 opcion1 = permisos[0];
             }
 
-            btnTomarPeso.PerformClick(); 
+            btnTomarPeso.PerformClick();
 
+            timer.Interval = 2500; // here time in milliseconds
+            timer.Tick += timer_Tick;
+            timer.Start();
         }
 
+        void timer_Tick(object sender, System.EventArgs e)
+        {
+            this.Close();
+            timer.Stop();
+        }
         private void btnTomarPeso_Click_1(object sender, EventArgs e)
         {
-
-
             if (isOpen.Equals(false))
             {
                 doConecction();
@@ -458,7 +467,6 @@ namespace PuntoDeVentaV2
             {
                 limpiarCampos();
             }
-
         }
 
         private void ObtenerPesoVasculaVentas_FormClosing(object sender, FormClosingEventArgs e)
@@ -548,7 +556,7 @@ namespace PuntoDeVentaV2
 
         private void lblPeso_TextChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(lblPeso.Text))
+            if (!string.IsNullOrEmpty(lblPeso.Text) && !lblPeso.Text.Equals("0.000 kg"))
             {
                 try
                 {
@@ -557,9 +565,25 @@ namespace PuntoDeVentaV2
                 }
                 catch (Exception)
                 {
-
+                    MessageBox.Show("Verificar Peso en Bascula", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    peso = decimal.Parse("1");
+                    this.Close();
                 }
-                
+
+            }
+            else
+            {
+                MessageBox.Show("Verificar Peso en Bascula", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    peso = decimal.Parse("1");
+                    this.Close();
+                }
+                catch (Exception)
+                {
+                    this.Close();
+                }
+                this.Close();
             }
         }
 

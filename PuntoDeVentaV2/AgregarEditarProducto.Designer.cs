@@ -85,6 +85,7 @@
             this.tLPCombo = new System.Windows.Forms.TableLayoutPanel();
             this.tLPProducto = new System.Windows.Forms.TableLayoutPanel();
             this.PAccion = new System.Windows.Forms.Panel();
+            this.btnConfiguracionPeso = new PuntoDeVentaV2.BotonRedondo();
             this.btnMensajeVenta = new PuntoDeVentaV2.BotonRedondo();
             this.button1 = new PuntoDeVentaV2.BotonRedondo();
             this.btnAgregarDescuento = new PuntoDeVentaV2.BotonRedondo();
@@ -809,6 +810,7 @@
             // PAccion
             // 
             this.PAccion.BackColor = System.Drawing.SystemColors.Control;
+            this.PAccion.Controls.Add(this.btnConfiguracionPeso);
             this.PAccion.Controls.Add(this.btnMensajeVenta);
             this.PAccion.Controls.Add(this.button1);
             this.PAccion.Controls.Add(this.btnAgregarDescuento);
@@ -824,6 +826,28 @@
             this.PAccion.Size = new System.Drawing.Size(999, 82);
             this.PAccion.TabIndex = 32;
             // 
+            // btnConfiguracionPeso
+            // 
+            this.btnConfiguracionPeso.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnConfiguracionPeso.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.btnConfiguracionPeso.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnConfiguracionPeso.BorderRadius = 20;
+            this.btnConfiguracionPeso.BorderSize = 0;
+            this.btnConfiguracionPeso.FlatAppearance.BorderSize = 0;
+            this.btnConfiguracionPeso.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConfiguracionPeso.ForeColor = System.Drawing.Color.White;
+            this.btnConfiguracionPeso.Image = global::PuntoDeVentaV2.Properties.Resources.cog1;
+            this.btnConfiguracionPeso.Location = new System.Drawing.Point(723, 5);
+            this.btnConfiguracionPeso.Name = "btnConfiguracionPeso";
+            this.btnConfiguracionPeso.Size = new System.Drawing.Size(109, 71);
+            this.btnConfiguracionPeso.TabIndex = 22;
+            this.btnConfiguracionPeso.Text = "Peso Automatico";
+            this.btnConfiguracionPeso.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnConfiguracionPeso.TextColor = System.Drawing.Color.White;
+            this.btnConfiguracionPeso.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnConfiguracionPeso.UseVisualStyleBackColor = false;
+            this.btnConfiguracionPeso.Click += new System.EventHandler(this.btnConfiguracionPeso_Click);
+            // 
             // btnMensajeVenta
             // 
             this.btnMensajeVenta.BackColor = System.Drawing.Color.Crimson;
@@ -835,9 +859,9 @@
             this.btnMensajeVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMensajeVenta.ForeColor = System.Drawing.Color.White;
             this.btnMensajeVenta.Image = global::PuntoDeVentaV2.Properties.Resources.commenting_o1;
-            this.btnMensajeVenta.Location = new System.Drawing.Point(685, 5);
+            this.btnMensajeVenta.Location = new System.Drawing.Point(487, 4);
             this.btnMensajeVenta.Name = "btnMensajeVenta";
-            this.btnMensajeVenta.Size = new System.Drawing.Size(150, 75);
+            this.btnMensajeVenta.Size = new System.Drawing.Size(109, 73);
             this.btnMensajeVenta.TabIndex = 21;
             this.btnMensajeVenta.Text = "Mensaje Venta Y Mensaje Inventario";
             this.btnMensajeVenta.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -857,9 +881,9 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Image = global::PuntoDeVentaV2.Properties.Resources.inbox_empty;
-            this.button1.Location = new System.Drawing.Point(29, 3);
+            this.button1.Location = new System.Drawing.Point(10, 3);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 75);
+            this.button1.Size = new System.Drawing.Size(109, 75);
             this.button1.TabIndex = 0;
             this.button1.TextColor = System.Drawing.Color.White;
             this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -877,9 +901,9 @@
             this.btnAgregarDescuento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarDescuento.ForeColor = System.Drawing.Color.White;
             this.btnAgregarDescuento.Image = global::PuntoDeVentaV2.Properties.Resources.tag_yellow;
-            this.btnAgregarDescuento.Location = new System.Drawing.Point(185, 3);
+            this.btnAgregarDescuento.Location = new System.Drawing.Point(128, 4);
             this.btnAgregarDescuento.Name = "btnAgregarDescuento";
-            this.btnAgregarDescuento.Size = new System.Drawing.Size(166, 75);
+            this.btnAgregarDescuento.Size = new System.Drawing.Size(114, 73);
             this.btnAgregarDescuento.TabIndex = 3;
             this.btnAgregarDescuento.Text = "Agregar descuento";
             this.btnAgregarDescuento.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -899,9 +923,9 @@
             this.btnDetalleProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDetalleProducto.ForeColor = System.Drawing.Color.White;
             this.btnDetalleProducto.Image = global::PuntoDeVentaV2.Properties.Resources.product_hunt1;
-            this.btnDetalleProducto.Location = new System.Drawing.Point(357, 3);
+            this.btnDetalleProducto.Location = new System.Drawing.Point(251, 4);
             this.btnDetalleProducto.Name = "btnDetalleProducto";
-            this.btnDetalleProducto.Size = new System.Drawing.Size(165, 75);
+            this.btnDetalleProducto.Size = new System.Drawing.Size(109, 73);
             this.btnDetalleProducto.TabIndex = 1;
             this.btnDetalleProducto.Text = "Detalle de producto";
             this.btnDetalleProducto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -935,9 +959,9 @@
             this.btnDetalleFacturacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDetalleFacturacion.ForeColor = System.Drawing.Color.White;
             this.btnDetalleFacturacion.Image = global::PuntoDeVentaV2.Properties.Resources.bellColor;
-            this.btnDetalleFacturacion.Location = new System.Drawing.Point(528, 3);
+            this.btnDetalleFacturacion.Location = new System.Drawing.Point(369, 5);
             this.btnDetalleFacturacion.Name = "btnDetalleFacturacion";
-            this.btnDetalleFacturacion.Size = new System.Drawing.Size(150, 75);
+            this.btnDetalleFacturacion.Size = new System.Drawing.Size(109, 71);
             this.btnDetalleFacturacion.TabIndex = 2;
             this.btnDetalleFacturacion.Text = "Detalle facturación";
             this.btnDetalleFacturacion.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -957,9 +981,9 @@
             this.btnGuardarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarProducto.ForeColor = System.Drawing.Color.White;
             this.btnGuardarProducto.Image = global::PuntoDeVentaV2.Properties.Resources.disk;
-            this.btnGuardarProducto.Location = new System.Drawing.Point(841, 3);
+            this.btnGuardarProducto.Location = new System.Drawing.Point(605, 5);
             this.btnGuardarProducto.Name = "btnGuardarProducto";
-            this.btnGuardarProducto.Size = new System.Drawing.Size(150, 75);
+            this.btnGuardarProducto.Size = new System.Drawing.Size(109, 71);
             this.btnGuardarProducto.TabIndex = 4;
             this.btnGuardarProducto.Text = "Guardar producto";
             this.btnGuardarProducto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -1209,5 +1233,6 @@
         private BotonRedondo btnGuardarProducto;
         private BotonRedondo btnMensajeVenta;
         private System.Windows.Forms.Button btnBuscarSugerencias;
+        private BotonRedondo btnConfiguracionPeso;
     }
 }

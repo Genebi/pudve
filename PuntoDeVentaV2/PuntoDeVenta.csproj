@@ -629,6 +629,12 @@
     <Compile Include="configCredito.Designer.cs">
       <DependentUpon>configCredito.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfiguracionEditarProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfiguracionEditarProducto.Designer.cs">
+      <DependentUpon>ConfiguracionEditarProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfiguracionGeneral.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1923,6 +1929,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="configCredito.resx">
       <DependentUpon>configCredito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfiguracionEditarProducto.resx">
+      <DependentUpon>ConfiguracionEditarProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConfiguracionGeneral.resx">
       <DependentUpon>ConfiguracionGeneral.cs</DependentUpon>
