@@ -2041,3 +2041,16 @@ IF
 		Estado INTEGER DEFAULT 1,
 		FOREIGN KEY ( IDSubDetalle ) REFERENCES SubDetallesDeProducto ( ID ) ON UPDATE CASCADE ON DELETE CASCADE
 	);
+
+--Tabla para guardar movimientos de stock para subdetalles en especifico en una venta, guardamos estos datos para manejar la cancelacion de ventas.
+ CREATE TABLE
+IF
+	NOT EXISTS DetalleSubDetalleVenta (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDVenta INTEGER,
+		IDDetalleSubDetalle INTEGER,
+		Cantidad  DECIMAL ( 16, 2 ) NOT NULL DEFAULT 0,
+		Estado INTEGER DEFAULT 1,
+		FOREIGN KEY ( IDDetalleSubDetalle ) REFERENCES DetalleSubDetalle ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
+		FOREIGN KEY ( IDVenta ) REFERENCES Ventas ( ID ) ON UPDATE CASCADE ON DELETE CASCADE
+	);

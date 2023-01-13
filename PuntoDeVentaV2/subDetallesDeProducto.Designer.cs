@@ -29,10 +29,18 @@ namespace PuntoDeVentaV2
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(subDetallesDeProducto));
             this.panel2 = new System.Windows.Forms.Panel();
             this.dgvDetallesSubdetalle = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TotalStok = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TD = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Deshabilitar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.SubID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lblStockRestanteText = new System.Windows.Forms.Label();
             this.lblStockRestanteNum = new System.Windows.Forms.Label();
@@ -48,14 +56,6 @@ namespace PuntoDeVentaV2
             this.fLPLateralCategorias = new System.Windows.Forms.FlowLayoutPanel();
             this.btnGuardarDetalles = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalStok = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TD = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Deshabilitar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.SubID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetallesSubdetalle)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -99,6 +99,63 @@ namespace PuntoDeVentaV2
             this.dgvDetallesSubdetalle.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetallesSubdetalle_CellClick);
             this.dgvDetallesSubdetalle.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetallesSubdetalle_CellEndEdit);
             this.dgvDetallesSubdetalle.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvDetallesSubdetalle_DataError);
+            // 
+            // ID
+            // 
+            this.ID.DataPropertyName = "ID";
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.Visible = false;
+            // 
+            // Valor
+            // 
+            this.Valor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Valor.DataPropertyName = "Valor";
+            this.Valor.HeaderText = "Valor";
+            this.Valor.Name = "Valor";
+            // 
+            // Stock
+            // 
+            this.Stock.DataPropertyName = "Stock";
+            dataGridViewCellStyle1.Format = "N2";
+            dataGridViewCellStyle1.NullValue = null;
+            this.Stock.DefaultCellStyle = dataGridViewCellStyle1;
+            this.Stock.HeaderText = "Stock";
+            this.Stock.Name = "Stock";
+            // 
+            // Cantidad
+            // 
+            this.Cantidad.DataPropertyName = "0";
+            this.Cantidad.HeaderText = "Cantidad";
+            this.Cantidad.Name = "Cantidad";
+            this.Cantidad.Visible = false;
+            // 
+            // TotalStok
+            // 
+            this.TotalStok.DataPropertyName = "TotalStock";
+            this.TotalStok.HeaderText = "TotalStok";
+            this.TotalStok.Name = "TotalStok";
+            this.TotalStok.Visible = false;
+            // 
+            // TD
+            // 
+            this.TD.DataPropertyName = "TipoDato";
+            this.TD.HeaderText = "TD";
+            this.TD.Name = "TD";
+            this.TD.Visible = false;
+            // 
+            // Deshabilitar
+            // 
+            this.Deshabilitar.HeaderText = "Deshabilitar";
+            this.Deshabilitar.Image = ((System.Drawing.Image)(resources.GetObject("Deshabilitar.Image")));
+            this.Deshabilitar.Name = "Deshabilitar";
+            // 
+            // SubID
+            // 
+            this.SubID.DataPropertyName = "SubID";
+            this.SubID.HeaderText = "SubID";
+            this.SubID.Name = "SubID";
+            this.SubID.Visible = false;
             // 
             // groupBox4
             // 
@@ -288,63 +345,6 @@ namespace PuntoDeVentaV2
             this.groupBox2.Size = new System.Drawing.Size(233, 61);
             this.groupBox2.TabIndex = 36;
             this.groupBox2.TabStop = false;
-            // 
-            // ID
-            // 
-            this.ID.DataPropertyName = "ID";
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.Visible = false;
-            // 
-            // Valor
-            // 
-            this.Valor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Valor.DataPropertyName = "Valor";
-            this.Valor.HeaderText = "Valor";
-            this.Valor.Name = "Valor";
-            // 
-            // Stock
-            // 
-            this.Stock.DataPropertyName = "Stock";
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.Stock.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Stock.HeaderText = "Stock";
-            this.Stock.Name = "Stock";
-            // 
-            // Cantidad
-            // 
-            this.Cantidad.DataPropertyName = "0";
-            this.Cantidad.HeaderText = "Cantidad";
-            this.Cantidad.Name = "Cantidad";
-            this.Cantidad.Visible = false;
-            // 
-            // TotalStok
-            // 
-            this.TotalStok.DataPropertyName = "TotalStock";
-            this.TotalStok.HeaderText = "TotalStok";
-            this.TotalStok.Name = "TotalStok";
-            this.TotalStok.Visible = false;
-            // 
-            // TD
-            // 
-            this.TD.DataPropertyName = "TipoDato";
-            this.TD.HeaderText = "TD";
-            this.TD.Name = "TD";
-            this.TD.Visible = false;
-            // 
-            // Deshabilitar
-            // 
-            this.Deshabilitar.HeaderText = "Deshabilitar";
-            this.Deshabilitar.Image = ((System.Drawing.Image)(resources.GetObject("Deshabilitar.Image")));
-            this.Deshabilitar.Name = "Deshabilitar";
-            // 
-            // SubID
-            // 
-            this.SubID.DataPropertyName = "SubID";
-            this.SubID.HeaderText = "SubID";
-            this.SubID.Name = "SubID";
-            this.SubID.Visible = false;
             // 
             // subDetallesDeProducto
             // 

@@ -32,6 +32,12 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txtSubDetalle.Text))
+            {
+                MessageBox.Show($"Es necesario nombrar el Sub Detallle", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             var datos = cn.CargarDatos($"SELECT stock FROM productos WHERE ID = '{Productos.idProductoAgregarSubdetalle}' AND IDUsuario = '{FormPrincipal.userID}' AND `Status` = 1");
             decimal stockActual = 0;
 

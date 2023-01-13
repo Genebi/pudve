@@ -29,6 +29,7 @@ namespace PuntoDeVentaV2
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(categoriaSubdetalle));
             this.panel3 = new System.Windows.Forms.Panel();
             this.txtSubDetalle = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -134,9 +135,12 @@ namespace PuntoDeVentaV2
             this.Controls.Add(this.cbTipoDeDatos);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "categoriaSubdetalle";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "categoriaSubdetalle";
+            this.Text = "Nueva categoria";
             this.Load += new System.EventHandler(this.categoriaSubdetalle_Load);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();

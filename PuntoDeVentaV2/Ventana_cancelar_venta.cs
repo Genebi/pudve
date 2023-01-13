@@ -194,6 +194,19 @@ namespace PuntoDeVentaV2
                                         {
                                             if (!dtProdVenta.Rows.Count.Equals(0))
                                             {
+
+                                                using (DataTable dtSubdetalles = cn.CargarDatos($"SELECT * FROM detallesubdetalleventa WHERE IDVenta = {idVenta}"))
+                                                {
+                                                    if (!dtSubdetalles.Rows.Equals(0))
+                                                    {
+                                                        foreach (DataRow subdetalleEncontrado in dtSubdetalles.Rows)
+                                                        {
+                                                            cn.EjecutarConsulta($"UPDATE detallesubdetalle SET Stock = Stock + {subdetalleEncontrado["Cantidad"]} WHERE ID = {subdetalleEncontrado["IDDetalleSubDetalle"]}");
+                                                        }
+
+                                                    }
+                                                }
+
                                                 foreach (DataRow drProdVenta in dtProdVenta.Rows)
                                                 {
 
@@ -246,6 +259,8 @@ namespace PuntoDeVentaV2
                                                                 cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{item[3]}','Venta Cancelada de servicio Folio: {folio}','{StockProdActual}','{stockProdNuevo.ToString("N")}','{FechaOperacion}','{FormPrincipal.userNickName}','+{nuevoStock.ToString("N")}','{"P"}',{"0"})");
 
                                                                 cn.EjecutarConsulta($"UPDATE Productos SET Stock = Stock + {nuevoStock} WHERE ID = {item[3]} AND IDUsuario = {FormPrincipal.userID}");//Aqui se hace la devolucion del Servicio
+
+
                                                             }
 
                                                         }

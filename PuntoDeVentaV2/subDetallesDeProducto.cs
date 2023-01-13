@@ -22,6 +22,11 @@ namespace PuntoDeVentaV2
         string colID;
         string cat;
 
+        public bool finalizado = false;
+
+
+        public List<string> subdetallesVenta = new List<string>();
+        public List<string> updatesVenta = new List<string>();
 
         string accion;
 
@@ -51,7 +56,11 @@ namespace PuntoDeVentaV2
             fLPLateralCategorias.VerticalScroll.Visible = true;
 
             cargarCategorias();
-            lblNombreProducto.Text = idProducto;
+            using (DataTable dtNombreProducto = cn.CargarDatos($"SELECT Nombre FROM Productos WHERE ID = {idProducto} AND Status = 1 AND IDUsuario = {FormPrincipal.userID}"))
+            {
+                lblNombreProducto.Text = dtNombreProducto.Rows[0]["Nombre"].ToString();
+            }
+            
 
             //if (AgregarEditarProducto.DatosSourceFinal == 1)
             //{
@@ -77,7 +86,21 @@ namespace PuntoDeVentaV2
                     datosCategoria = cn.CargarDatos($"SELECT Categoria FROM subdetallesdeproducto WHERE IDProducto = '{idProducto}' AND IDUsuario = '{FormPrincipal.userID}' AND Activo = 1");
                     break;
                 case "Venta":
-                    datosCategoria = cn.CargarDatos($"SELECT Categoria FROM subdetallesdeproducto INNER JOIN detallesubdetalle ON subdetallesdeproducto.ID = detallesubdetalle.IDSubDetalle WHERE IDProducto = '{idProducto}' AND IDUsuario = '{FormPrincipal.userID}' AND Activo = 1 GROUP BY Categoria");
+                    string ignores=string.Empty;
+                    if (idsADesHabilitar.Count>0)
+                    {
+                        foreach (string ID in idsADesHabilitar)
+                        {
+                            ignores += $"AND (NOT subdetallesdeproducto.ID={ID}) ";
+                        }
+                    }
+                    datosCategoria = cn.CargarDatos($"SELECT Categoria FROM subdetallesdeproducto INNER JOIN detallesubdetalle ON subdetallesdeproducto.ID = detallesubdetalle.IDSubDetalle WHERE IDProducto = '{idProducto}' AND IDUsuario = '{FormPrincipal.userID}' AND Activo = 1 {ignores} GROUP BY Categoria");
+                    if (datosCategoria.Rows.Count.Equals(0))
+                    {
+                        finalizado = true;
+                        this.Close();
+                    }
+                    btnGuardarDetalles.Enabled = false;
                     break;
                 default:
                     break;
@@ -114,7 +137,7 @@ namespace PuntoDeVentaV2
         private void cargarsubCategorias(string categoria)
         {
             cat = categoria;
-            idsADesHabilitar.Clear();
+            
             dtDetallesSubdetalle.Clear();
             dgvDetallesSubdetalle.Visible = true;
 
@@ -124,22 +147,30 @@ namespace PuntoDeVentaV2
             switch (accion)
             {
                 case "Nuevo":
-                    dtDetallesSubdetalle = cn.CargarDatos($"SELECT detallesubdetalle.ID, IF(subdetallesdeproducto.TipoDato = 0, detallesubdetalle.Fecha, IF( subdetallesdeproducto.TipoDato = 1, detallesubdetalle.Valor, detallesubdetalle.Nombre)) AS Valor, detallesubdetalle.Stock, productos.Stock AS TotalStock,subdetallesdeproducto.TipoDato,subdetallesdeproducto.ID AS SubID FROM subdetallesdeproducto LEFT JOIN detallesubdetalle ON (detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado=1) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE subdetallesdeproducto.Categoria = '{categoria}'");
+                    idsADesHabilitar.Clear();
+                    dtDetallesSubdetalle = cn.CargarDatos($"SELECT detallesubdetalle.ID, IF(subdetallesdeproducto.TipoDato = 0, detallesubdetalle.Fecha, IF( subdetallesdeproducto.TipoDato = 1, detallesubdetalle.Valor, detallesubdetalle.Nombre)) AS Valor, detallesubdetalle.Stock, productos.Stock AS TotalStock,subdetallesdeproducto.TipoDato,subdetallesdeproducto.ID AS SubID FROM subdetallesdeproducto LEFT JOIN detallesubdetalle ON (detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado=1) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE subdetallesdeproducto.Categoria = '{categoria}' AND productos.id = {idProducto} AND subdetallesdeproducto.Activo = 1");
 
                     dgvDetallesSubdetalle.DataSource = dtDetallesSubdetalle;
+
+                    if (string.IsNullOrEmpty(dtDetallesSubdetalle.Rows[0]["Stock"].ToString()))
+                    {
+                        dtDetallesSubdetalle.Rows[0]["Stock"] = "0";
+                    }
+
 
                     groupBox3.Visible = true;
                     stockTot = Convert.ToDecimal(dtDetallesSubdetalle.Rows[0]["TotalStock"]);
 
                     break;
                 case "Venta":
-                    dtDetallesSubdetalle = cn.CargarDatos($"SELECT detallesubdetalle.ID, IF(subdetallesdeproducto.TipoDato = 0, detallesubdetalle.Fecha, IF( subdetallesdeproducto.TipoDato = 1, detallesubdetalle.Valor, detallesubdetalle.Nombre)) AS Valor, detallesubdetalle.Stock, subdetallesdeproducto.TipoDato,subdetallesdeproducto.ID AS SubID, 0 FROM subdetallesdeproducto LEFT JOIN detallesubdetalle ON (detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado=1) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE subdetallesdeproducto.Categoria = '{categoria}'");
+                    dtDetallesSubdetalle = cn.CargarDatos($"SELECT detallesubdetalle.ID, IF(subdetallesdeproducto.TipoDato = 0, detallesubdetalle.Fecha, IF( subdetallesdeproducto.TipoDato = 1, detallesubdetalle.Valor, detallesubdetalle.Nombre)) AS Valor, detallesubdetalle.Stock, subdetallesdeproducto.TipoDato,subdetallesdeproducto.ID AS SubID, 0 FROM subdetallesdeproducto LEFT JOIN detallesubdetalle ON (detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado=1) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE subdetallesdeproducto.Categoria = '{categoria}' AND subdetallesdeproducto.Activo = 1 AND productos.id = {idProducto}");
 
                     dgvDetallesSubdetalle.Columns[3].Visible = true;
                     dgvDetallesSubdetalle.Columns[1].Visible = false;
                     groupBox3.Visible = false;
                     dgvDetallesSubdetalle.DataSource = dtDetallesSubdetalle;
                     btnGuardar.Enabled = false;
+
 
                     dgvDetallesSubdetalle.Columns[4].ReadOnly = true;
                     dgvDetallesSubdetalle.Columns[3].ReadOnly = true;
@@ -179,23 +210,20 @@ namespace PuntoDeVentaV2
 
         private void calcularRestante()
         {
-            decimal total = 0;
-
+            decimal total=0;
+            if (dtDetallesSubdetalle.Rows.Count<1)
+            {
+                return;
+            }
             switch (accion)
             {
                 case "Nuevo":
-                    if (Decimal.TryParse(dtDetallesSubdetalle.Rows[0]["Stock"].ToString(), out total))
-                    {
                         total = dgvDetallesSubdetalle.Rows.Cast<DataGridViewRow>()
                             .Sum(t => Convert.ToDecimal(t.Cells[4].Value));
-                    }
                     break;
                 case "Venta":
-                    if (Decimal.TryParse(dtDetallesSubdetalle.Rows[0]["0"].ToString(), out total))
-                    {
                         total = dgvDetallesSubdetalle.Rows.Cast<DataGridViewRow>()
                             .Sum(t => Convert.ToDecimal(t.Cells[7].Value));
-                    }
                     break;
                 default:
                     break;
@@ -229,42 +257,69 @@ namespace PuntoDeVentaV2
 
         private void btnGuardar_Click_1(object sender, EventArgs e)
         {
-            foreach (DataRow registroDetalle in dtDetallesSubdetalle.Rows)
+
+            switch (accion)
             {
-                if (!string.IsNullOrEmpty(registroDetalle["Valor"].ToString()) && !string.IsNullOrEmpty(registroDetalle["Stock"].ToString()))
-                {
-
-
-                    if (string.IsNullOrEmpty(registroDetalle["ID"].ToString()))
+                case "Nuevo":
+                    foreach (DataRow registroDetalle in dtDetallesSubdetalle.Rows)
                     {
-                        string consulta = $"INSERT INTO detallesubdetalle (IDsubdetalle, {colDato}, Stock)";
-                        consulta += $"VALUES ('{colID}', '{registroDetalle["Valor"].ToString()}', '{registroDetalle["Stock"].ToString()}')";
+                        if (!string.IsNullOrEmpty(registroDetalle["Valor"].ToString()) && !string.IsNullOrEmpty(registroDetalle["Stock"].ToString()))
+                        {
 
-                        cn.EjecutarConsulta(consulta);
+
+                            if (string.IsNullOrEmpty(registroDetalle["ID"].ToString()))
+                            {
+                                string consulta = $"INSERT INTO detallesubdetalle (IDsubdetalle, {colDato}, Stock)";
+                                consulta += $"VALUES ('{colID}', '{registroDetalle["Valor"].ToString()}', '{registroDetalle["Stock"].ToString()}')";
+
+                                cn.EjecutarConsulta(consulta);
+                            }
+                            else
+                            {
+                                string consulta = $"UPDATE detallesubdetalle SET {colDato}='{registroDetalle["Valor"].ToString()}', Stock={registroDetalle["Stock"].ToString()} WHERE ID = {registroDetalle["ID"].ToString()}";
+
+                                cn.EjecutarConsulta(consulta);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show($"No puedes dejar espacios en blanco", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-                    else
+
+                    if (!idsADesHabilitar.Count.Equals(0))
                     {
-                        string consulta = $"UPDATE detallesubdetalle SET {colDato}='{registroDetalle["Valor"].ToString()}', Stock={registroDetalle["Stock"].ToString()} WHERE ID = {registroDetalle["ID"].ToString()}";
-
-                        cn.EjecutarConsulta(consulta);
+                        foreach (string id in idsADesHabilitar)
+                        {
+                            string consulta = $"UPDATE detallesubdetalle SET Estado = 0 WHERE ID = {id}";
+                            cn.EjecutarConsulta(consulta);
+                        }
                     }
-                }
-                else
-                {
-                    MessageBox.Show($"No puedes dejar espacios en blanco", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
+                    cargarsubCategorias(cat);
+                    break;
+                case "Venta":
+                    foreach (DataRow registroDetalle in dtDetallesSubdetalle.Rows)
+                    {
+                        if (Convert.ToDecimal(registroDetalle["0"].ToString())>0)
+                        {
+                            string consultaGuardada = $"INSERT INTO DetalleSubDetalleVenta (IDDetalleSubDetalle, Cantidad,IDVenta)";
+                            consultaGuardada += $"VALUES ('{registroDetalle["ID"].ToString()}', '{registroDetalle["0"].ToString()}',";
+                            subdetallesVenta.Add(consultaGuardada);
 
-            if (!idsADesHabilitar.Count.Equals(0))
-            {
-                foreach (string id in idsADesHabilitar)
-                {
-                    string consulta = $"UPDATE detallesubdetalle SET Estado = 0 WHERE ID = {id}";
-                    cn.EjecutarConsulta(consulta);
-                }
+                            string updateGuardado = $"UPDATE detallesubdetalle SET Stock = Stock -{registroDetalle["0"].ToString()} WHERE ID = {registroDetalle["ID"].ToString()}";
+                            updatesVenta.Add(updateGuardado);
+                        }
+                    }
+                    idsADesHabilitar.Add(dtDetallesSubdetalle.Rows[0]["SubID"].ToString());
+                    fLPLateralCategorias.Controls.Clear();
+                    dgvDetallesSubdetalle.Visible = false;
+                    cargarCategorias();
+                    
+                    break;
+                default:
+                    break;
             }
-
-            cargarsubCategorias(cat);
+            
         }
 
         private void btnAgregarSubDetalle_Click(object sender, EventArgs e)
@@ -295,20 +350,21 @@ namespace PuntoDeVentaV2
 
         private void dgvDetallesSubdetalle_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            //////if (e.ColumnIndex == 3)
-            //////{
-            decimal test;
-            celdaCellClick = dgvDetallesSubdetalle.CurrentCell.RowIndex;
 
-            if (decimal.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[4].Value.ToString(), out test))
+            decimal test; celdaCellClick = dgvDetallesSubdetalle.CurrentCell.RowIndex;
+
+            if (decimal.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[7].Value?.ToString(), out test))
             {
-                calcularRestante();
+                if (dgvDetallesSubdetalle.CurrentCell.ColumnIndex == 7 && accion == "Venta")
+                {
+                    if (Convert.ToDecimal(dtDetallesSubdetalle.Rows[e.RowIndex]["0"].ToString()) > Convert.ToDecimal(dtDetallesSubdetalle.Rows[e.RowIndex]["Stock"].ToString()))
+                    {
+                        MessageBox.Show($"No existe suficientes stock", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        dtDetallesSubdetalle.Rows[e.RowIndex]["0"] = dtDetallesSubdetalle.Rows[e.RowIndex]["Stock"];
+                        return;
+                    }
+                }
             }
-            //    else
-            //    {
-            //        dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[3].Value = "0";
-        //}
-            //}
 
             if (e.ColumnIndex == 3)
             {
@@ -320,6 +376,8 @@ namespace PuntoDeVentaV2
                         if (!DateTime.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[3].Value.ToString(), out DTparser))
                         {
                             MessageBox.Show($"El formato introducido no es valido  no podras terminar el proceso sin corregir (solamente se aceptan fechas)", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            dtDetallesSubdetalle.Rows[e.RowIndex]["Valor"] = DateTime.Now.ToString("yyyy-MM-dd");
+                            return;
                         }
                         break;
                     case "1":
@@ -328,11 +386,33 @@ namespace PuntoDeVentaV2
                         if (!Decimal.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[3].Value.ToString(), out DCparser))
                         {
                             MessageBox.Show($"El formato introducido no es valido, no podras terminar el proceso sin corregir (solamente se aceptan valores numericos)", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            dtDetallesSubdetalle.Rows[e.RowIndex]["Valor"] = "0.00";
+                            return;
                         }
                         break;
                     default:
                         break;
                 }
+            }
+            string col = string.Empty;
+            switch (accion)
+            {
+                case "Nuevo":
+                    col = "Stock";
+                    break;
+                case "Venta":
+                    col = "0";
+                    break;
+                default:
+                    break;
+            }
+            if (Decimal.TryParse(dtDetallesSubdetalle.Rows[e.RowIndex][col].ToString(), out test))
+            {
+                calcularRestante();
+            }
+            else
+            {
+                return;
             }
         }
 
@@ -384,12 +464,15 @@ namespace PuntoDeVentaV2
             }
             if (e.ColumnIndex == 1)
             {
-                if (!string.IsNullOrEmpty(dtDetallesSubdetalle.Rows[e.RowIndex]["ID"].ToString()))
+                if (dtDetallesSubdetalle.Rows.Count>1)
                 {
-                    idsADesHabilitar.Add(dtDetallesSubdetalle.Rows[e.RowIndex]["ID"].ToString());
+                    if (!string.IsNullOrEmpty(dtDetallesSubdetalle.Rows[e.RowIndex]["ID"].ToString()))
+                    {
+                        idsADesHabilitar.Add(dtDetallesSubdetalle.Rows[e.RowIndex]["ID"].ToString());
+                    }
+                    dtDetallesSubdetalle.Rows.RemoveAt(e.RowIndex);
+                    calcularRestante();
                 }
-                dtDetallesSubdetalle.Rows.RemoveAt(e.RowIndex);
-                calcularRestante();
             }
         }
 

@@ -1806,6 +1806,7 @@ namespace PuntoDeVentaV2
 
                                     return;
                                 }
+
                             }
                         }
                     }
@@ -2220,8 +2221,22 @@ namespace PuntoDeVentaV2
                                     // Cancelar la venta
                                     int resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
 
+
                                     if (resultado > 0)
                                     {
+                                        //Restore stock subtedalles si existe
+                                        using (DataTable dtSubdetalles= cn.CargarDatos($"SELECT * FROM detallesubdetalleventa WHERE IDVenta = {idVenta}"))
+                                        {
+                                            if (!dtSubdetalles.Rows.Equals(0))
+                                            {
+                                                foreach (DataRow subdetalleEncontrado in dtSubdetalles.Rows)
+                                                {
+                                                    cn.EjecutarConsulta($"UPDATE detallesubdetalle SET Stock = Stock + {subdetalleEncontrado["Cantidad"]} WHERE ID = {subdetalleEncontrado["IDDetalleSubDetalle"]}");
+                                                }
+                                                
+                                            }
+                                        }
+
                                         // Miri. Modificado.
                                         // Obtiene el id del combo cancelado
                                         DataTable d_prod_venta = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM ProductosVenta WHERE IDVenta='{idVenta}'");

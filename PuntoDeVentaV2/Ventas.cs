@@ -37,6 +37,8 @@ namespace PuntoDeVentaV2
         public static bool EsGuardarVenta;
         decimal primeraCantidad;
         List<string> ListaProdutos;
+        List<string> ListaSubDetallesProdutos = new List<string>();
+        List<string> ListaUpdatesSubDetallesProdutos = new List<string>();
         // Almacena los ID de los productos a los que se aplica descuento general
         private Dictionary<int, bool> productosDescuentoG = new Dictionary<int, bool>();
         float porcentajeGeneral = 0;
@@ -3157,7 +3159,8 @@ namespace PuntoDeVentaV2
         private void btnTerminarVenta_Click(object sender, EventArgs e)
         {
 
-            verificarSubDetalles();
+            
+            
 
             Ganancia.gananciaGrafica = 3;
             //sepresiono = true;
@@ -3176,7 +3179,12 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
+            if (!verificarSubDetalles())
+            {
+                MessageBox.Show("Todos los productos con subdetalles deben tener especificada su categoría y la cantidad vendida.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                ListaSubDetallesProdutos.Clear();
+                return;
+            }
             //if (ClienteConDescuento.Equals(true))
             //{
             //    if (!FormPrincipal.id_empleado.Equals(0))
@@ -3206,7 +3214,7 @@ namespace PuntoDeVentaV2
             //        }
             //    } 
             //}
-            
+
             foreach (DataGridViewRow fila in DGVentas.Rows)
             {
                 var idProdutoInactivo = fila.Cells["IDProducto"].Value.ToString();
@@ -3550,24 +3558,38 @@ namespace PuntoDeVentaV2
             yasemando = false;
         }
 
-        private void verificarSubDetalles()
+        private bool verificarSubDetalles()
         {
+            bool registroCorrectoDeSubdetalles = true ;
             foreach (DataGridViewRow producto in DGVentas.Rows)
             {
+                if (!registroCorrectoDeSubdetalles)
+                {
+                    return registroCorrectoDeSubdetalles;
+                }
                 //0 es id, 5 es stock?
                 using (DataTable dtBuscarSubdetalles = cn.CargarDatos($"SELECT detallesubdetalle.ID FROM detallesubdetalle LEFT JOIN subdetallesdeproducto ON ( detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado = 1 ) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE productos.id = {producto.Cells[0].Value.ToString()}"))
                 {
                     if (!dtBuscarSubdetalles.Rows.Count.Equals(0))
                     {
-                        subDetallesDeProducto detalles = new subDetallesDeProducto(producto.Cells[0].Value.ToString(),"Venta", Convert.ToDecimal(producto.Cells[5].Value.ToString()));
+                        subDetallesDeProducto detalles = new subDetallesDeProducto(producto.Cells[0].Value.ToString(), "Venta", Convert.ToDecimal(producto.Cells[5].Value.ToString()));
                         detalles.FormClosed += delegate
                         {
-
+                            if (!detalles.finalizado)
+                            {
+                                registroCorrectoDeSubdetalles = detalles.finalizado;
+                            }
+                            else
+                            {
+                                ListaSubDetallesProdutos.AddRange(detalles.subdetallesVenta);
+                                ListaUpdatesSubDetallesProdutos.AddRange(detalles.updatesVenta);
+                            }
                         };
                         detalles.ShowDialog();
                     }
                 }
             }
+            return registroCorrectoDeSubdetalles;
         }
 
         private void ultimaVentaInformacion()
@@ -4408,6 +4430,7 @@ namespace PuntoDeVentaV2
                                 {
                                     DataRow drTipoVentaRealizada = dtTipoDeVentaRealizada.Rows[0];
                                     tipoDeVentaRealizada = Convert.ToInt32(drTipoVentaRealizada["Status"].ToString());
+
                                 }
                             }
 
@@ -4602,6 +4625,16 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
+
+                        foreach (string subdetalle in ListaSubDetallesProdutos)
+                        {
+                            cn.EjecutarConsulta($"{subdetalle}{idVenta})");
+                        }
+                                foreach (string updateStockSubdetalle in ListaUpdatesSubDetallesProdutos)
+                        {
+                            cn.EjecutarConsulta(updateStockSubdetalle);
+                        }
+
                     }
 
                     //if (ventaGuardada)
@@ -4636,8 +4669,9 @@ namespace PuntoDeVentaV2
                     //    {
                     //        Utilidades.MensajeAdobeReader();
                     //    }
-                    //}
+                    //}                
                 }
+                
 
                 LimpiarVariables();
 
@@ -4685,6 +4719,7 @@ namespace PuntoDeVentaV2
 
             idCliente = string.Empty;
             cliente = string.Empty;
+            ListaSubDetallesProdutos.Clear();
         }
 
         private void aumentoFolio()
