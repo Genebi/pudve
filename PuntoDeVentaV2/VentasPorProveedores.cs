@@ -349,7 +349,14 @@ namespace PuntoDeVentaV2
             flowLayoutPanel1.Controls.Clear();
             panel1.Visible = true;
             panel2.Visible = false;
-            CargarDatosProveedores();
+            if (IDEmpleado.Equals("All"))
+            {
+                CargarDatosProveedores();
+            }
+            else
+            {
+                CargarDatosProveedoresPorEmpleado();
+            }
             Cargarlbls();
         }
 
@@ -358,7 +365,14 @@ namespace PuntoDeVentaV2
             DTFinal.Clear();
             panel2.Visible = true;
             panel1.Visible = false;
-            CargarDatosProveedores();
+            if (IDEmpleado.Equals("All"))
+            {
+                CargarDatosProveedores();
+            }
+            else
+            {
+                CargarDatosProveedoresPorEmpleado();
+            }
             CargarRDCL();
         }
 
