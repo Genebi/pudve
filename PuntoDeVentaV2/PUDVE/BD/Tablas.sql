@@ -2061,3 +2061,6 @@ IF
 		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
 		FOREIGN KEY ( IDCliente ) REFERENCES clientes ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
 	);
+
+-- Columnas para manejar bien chidin los creditos asi bien coppel
+	ALTER TABLE reglasCreditoVenta ADD COLUMN IF NOT EXISTS FechaApertura DATE;

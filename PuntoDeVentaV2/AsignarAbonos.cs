@@ -149,11 +149,13 @@ namespace PuntoDeVentaV2
             }
 
 
-
+            bool ultimopago = false;
             using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
             {
+                
                 if (Decimal.Parse(dtReglasCreditoVenta.Rows[0]["creditoMinimoAbono"].ToString()) <= (decimal)restanteDePago)
                 {
+                    
                     //using (DataTable dtAbonos = cn.CargarDatos($"SELECT FechaOperacion FROM abonos WHERE IDVenta = {idVenta} AND estado = 1 ORDER BY FechaOperacion DESC LIMIT 1 "))
                     //{
                     //    int fechasAtrasadas = 0;
@@ -196,6 +198,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
+                    ultimopago = true;
                     abonoTotal = (decimal)totalPendiente;
                     lblTotalAbono.Text = totalPendiente.ToString("C2");
                     cbAdelanto.Enabled = false;
@@ -220,8 +223,22 @@ namespace PuntoDeVentaV2
             }
 
             txtIntereses.Text = intereses.ToString("C2");
-            lblPendiente.Text = (abonoTotal + intereses).ToString("C2");
-            lblabonominimo.Text = (abonoTotal + intereses).ToString("C2");
+            if (intereses>0)
+            {
+                lblFechaAnterior.Text = $"({(Int32)diasTrascurridos} días\n";
+                lblFechaAnterior.Text += $"desde: {lameraFecha.ToString("yyyy-MM-dd")}";
+                lblFechaAnterior.Visible = true;
+            }
+            if (ultimopago)
+            {
+                lblPendiente.Text = (abonoTotal).ToString("C2");
+                lblabonominimo.Text = (abonoTotal).ToString("C2");
+            }
+            else
+            {
+                lblPendiente.Text = (abonoTotal + intereses).ToString("C2");
+                lblabonominimo.Text = (abonoTotal + intereses).ToString("C2");
+            }
         }
 
         private decimal calcularIntereses(float restante)
@@ -240,10 +257,7 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        using (DataTable dtVentaOG = cn.CargarDatos($"SELECT FechaOperacion FROM ventas WHERE ID = {idVenta}"))
-                        {
-                            lameraFecha = DateTime.Parse(dtVentaOG.Rows[0]["FechaOperacion"].ToString());
-                        }
+                            lameraFecha = DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaApertura"].ToString());
                     }
                 }
 
@@ -285,9 +299,13 @@ namespace PuntoDeVentaV2
                         }
                         interesPorDia = porcentajeDeInteres / 100 / dias;
                         calculoIntereses = interesPorDia * saldo * diasTrascurridos;
-                        lblFechaAnterior.Text = $"({(Int32)diasTrascurridos} días\n";
-                        lblFechaAnterior.Text += $"desde: {lameraFecha.ToString("yyyy-MM-dd")}";
-                        lblFechaAnterior.Visible = true;
+                        //if (!calculoIntereses.Equals(0))
+                        //{
+                        //    lblFechaAnterior.Text = $"({(Int32)diasTrascurridos} días\n";
+                        //    lblFechaAnterior.Text += $"desde: {lameraFecha.ToString("yyyy-MM-dd")}";
+                        //    lblFechaAnterior.Visible = true;
+                        //}
+                        
                     }
                 }
 
@@ -1426,12 +1444,22 @@ namespace PuntoDeVentaV2
 
         private void txtPendiente_TextChanged(object sender, EventArgs e)
         {
-            lblMirror3.Text = (Decimal.Parse(txtPendiente.Text.Split('$')[1]) - Decimal.Parse(lblmirror.Text.Split('$')[1])).ToString();
+            decimal m3= Decimal.Parse(txtPendiente.Text.Split('$')[1]) - Decimal.Parse(lblmirror.Text.Split('$')[1]);
+            if (m3<0)
+            {
+                m3 = 0;
+            }
+            lblMirror3.Text = m3.ToString("");
         }
 
         private void lblmirror_TextChanged(object sender, EventArgs e)
         {
-            lblMirror3.Text = (Decimal.Parse(txtPendiente.Text.Split('$')[1]) - Decimal.Parse(lblmirror.Text.Split('$')[1])).ToString();
+            decimal m3 = Decimal.Parse(txtPendiente.Text.Split('$')[1]) - Decimal.Parse(lblmirror.Text.Split('$')[1]);
+            if (m3 < 0)
+            {
+                m3 = 0;
+            }
+            lblMirror3.Text = m3.ToString("");
         }
 
         private bool revisarHuella()

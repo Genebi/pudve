@@ -3025,14 +3025,30 @@ namespace PuntoDeVentaV2
                     {
                         var total = float.Parse(DGVListadoVentas.Rows[fila].Cells["Total"].Value.ToString());
 
-                        AsignarAbonos abono = new AsignarAbonos(idVenta, total);
-
-                        abono.FormClosed += delegate
+                        using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
                         {
-                            CargarDatos(4);
-                        };
+                            if (dtReglasCreditoVenta.Rows.Count.Equals(0))      
+                            {
+                                asignarAbonosSinCredito abono = new asignarAbonosSinCredito(idVenta, total);
+                                abono.FormClosed += delegate
+                                {
+                                    CargarDatos(4);
+                                };
 
-                        abono.ShowDialog();
+                                abono.ShowDialog();
+                            }
+                            else
+                            {
+                                 AsignarAbonos abono = new AsignarAbonos(idVenta, total);
+                                 abono.FormClosed += delegate
+                            {
+                                  CargarDatos(4);
+                                   };
+
+                                 abono.ShowDialog();
+                            }
+                            
+                        }
                     }
                     else
                     {

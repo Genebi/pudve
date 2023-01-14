@@ -94,6 +94,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            dtpLaMeraFecha.Value = DateTime.Today;
 
             txtTotalVenta.Text = "$" + total.ToString("0.00");
 
@@ -543,14 +544,14 @@ namespace PuntoDeVentaV2
                 //idCliente = 0 ;
                 //nameClienteNameVenta = string.Empty;
                 Ventas.VentaRealizada = true;
-                if (credito>0 && creditoMaster)
+                        if (credito>0 && creditoMaster)
                 {
                     using (DataTable dtBuscarConfiguracion = cn.CargarDatos($"SELECT * FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
                     {
                         using (DataTable dtIdVenta = cn.CargarDatos($"SELECT MAX(ID) FROM Ventas"))
                         {
                             
-                            string consulta = "INSERT INTO reglasCreditoVenta(IDVenta,IDHuella, FechaInteres, creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro, creditoCantidadAbonos, creditoMinimoAbono)";
+                            string consulta = "INSERT INTO reglasCreditoVenta(IDVenta,IDHuella, FechaInteres, creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro, creditoCantidadAbonos, creditoMinimoAbono, FechaApertura)";
                             consulta += $"VALUES('{Int32.Parse(dtIdVenta.Rows[0]["MAX(ID)"].ToString())+1}', ";
                             if (!string.IsNullOrEmpty(idHuella))
                             {
@@ -560,10 +561,13 @@ namespace PuntoDeVentaV2
                             {
                                         consulta += $"null, ";
                             }
-                            
+
                             //consulta += $"'{proximoPago.ToString("yyyy-MM-dd")}', ";
 
-                            proximoPago = DateTime.Now;
+                            //proximoPago = DateTime.Now;
+
+
+                            proximoPago = dtpLaMeraFecha.Value;
                             consulta += $"'{proximoPago.ToString("yyyy-MM-dd")}";
                                
                             switch (dtBuscarConfiguracion.Rows[0]["creditoperiodocobro"].ToString())
@@ -694,7 +698,8 @@ namespace PuntoDeVentaV2
                                 consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditodiassincobro"].ToString()}', ";
                                 consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()}', ";
 
-                                consulta += $"'{Convert.ToDecimal(txtCredito.Text) / Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString())}')";
+                                consulta += $"'{Convert.ToDecimal(txtCredito.Text) / Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString())}', ";
+                                consulta += $"'{dtpLaMeraFecha.Value.ToString("yyyy-MM-dd")}')      ";
                                 Ventas.consutlaCredito = consulta;
                                 consulta = string.Empty;
                             }
@@ -1706,15 +1711,25 @@ namespace PuntoDeVentaV2
                 {
                     credito = 0;
                     //lblfechacredito.Visible = false;
+                    if (creditoMaster)
+                    {
+                        lblFechaApertura.Visible = false;
+                        dtpLaMeraFecha.Visible = false;
+                    }
                 }
                 else
                 {
                     credito = Convert.ToDecimal(txtCredito.Text);
-                    using (DataTable dtBuscarConfiguracion = cn.CargarDatos($"SELECT * FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                    //using (DataTable dtBuscarConfiguracion = cn.CargarDatos($"SELECT * FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                    //{
+                    //    proximoPago = DateTime.Now.AddDays(Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditodiassincobro"].ToString())).Date;
+                    //    //lblfechacredito.Visible = true;
+                    //    //lblfechacredito.Text = $"Fecha próxima para realizar\nabono el día: {proximoPago.ToString("dd/MM/yyyy")}\nA {dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()} pagos de {(credito/ Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString())).ToString("C2")}";
+                    //}
+                    if (creditoMaster)
                     {
-                        proximoPago = DateTime.Now.AddDays(Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditodiassincobro"].ToString())).Date;
-                        //lblfechacredito.Visible = true;
-                        //lblfechacredito.Text = $"Fecha próxima para realizar\nabono el día: {proximoPago.ToString("dd/MM/yyyy")}\nA {dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()} pagos de {(credito/ Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString())).ToString("C2")}";
+                        lblFechaApertura.Visible = true;
+                        dtpLaMeraFecha.Visible = true;
                     }
                 }
                 if (Convert.ToDecimal(total) < credito)
