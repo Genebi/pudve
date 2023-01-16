@@ -71,7 +71,7 @@ namespace PuntoDeVentaV2
 
             //    //MessageBox.Show("Editar");
             //}
-            if (accion=="Venta")
+            if (accion=="Venta" || accion == "Inventario")
             {
                 groupBox1.Visible = false;
             }
@@ -86,6 +86,7 @@ namespace PuntoDeVentaV2
                     datosCategoria = cn.CargarDatos($"SELECT Categoria FROM subdetallesdeproducto WHERE IDProducto = '{idProducto}' AND IDUsuario = '{FormPrincipal.userID}' AND Activo = 1");
                     break;
                 case "Venta":
+                    btnGuardar.Enabled = false;
                     string ignores=string.Empty;
                     if (idsADesHabilitar.Count>0)
                     {
@@ -103,6 +104,7 @@ namespace PuntoDeVentaV2
                     btnGuardarDetalles.Enabled = false;
                     break;
                 case "Inventario":
+                    btnGuardar.Enabled = false;
                     string ignoresIn = string.Empty;
                     if (idsADesHabilitar.Count > 0)
                     {
@@ -184,6 +186,7 @@ namespace PuntoDeVentaV2
 
                     dgvDetallesSubdetalle.Columns[3].Visible = true;
                     dgvDetallesSubdetalle.Columns[1].Visible = false;
+                    groupBox1.Visible = false;
                     groupBox3.Visible = false;
                     dgvDetallesSubdetalle.DataSource = dtDetallesSubdetalle;
                     btnGuardar.Enabled = false;
@@ -202,6 +205,7 @@ namespace PuntoDeVentaV2
                     dgvDetallesSubdetalle.DataSource = dtDetallesSubdetalle;
 
                     dgvDetallesSubdetalle.Columns[1].Visible = false;
+                    groupBox1.Visible = false;
                     groupBox3.Visible = false;
                     dgvDetallesSubdetalle.Columns[3].ReadOnly = true;
 
