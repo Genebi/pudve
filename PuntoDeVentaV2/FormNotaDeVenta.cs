@@ -146,7 +146,15 @@ namespace PuntoDeVentaV2
                         StatusVenta += TipoVenta + ",";
                     }
                 }
-                StatusVenta = StatusVenta.TrimEnd(',');
+                if (StatusVenta.Equals(""))
+                {
+                    StatusVenta = "Anticipo";
+                }
+                else
+                {
+                    StatusVenta = StatusVenta.TrimEnd(',');
+                }
+               
                 //string Status = ConsultaEstatus.Rows[0]["Status"].ToString();
                 //if (Status.Equals("1"))
                 //{
