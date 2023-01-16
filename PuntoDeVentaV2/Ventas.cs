@@ -96,6 +96,8 @@ namespace PuntoDeVentaV2
         public static string cliente = string.Empty;
         public static string idCliente = string.Empty;
         public static string credito = string.Empty;
+
+        public static string codBarras;
         // Para saber con que boton se cerro el form DetalleVenta.cs, en este caso saber si se cerro con el boton aceptar (terminar)
         public static bool botonAceptar = false;
 
@@ -1434,7 +1436,7 @@ namespace PuntoDeVentaV2
                         cantidadAnterior = Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString());
                         var idProductoModificado = DGVentas.Rows[celdaCellClick].Cells["IDProducto"].Value.ToString();
                         var datos = cn.CargarDatos($"SELECT CodigoBarras FROM productos WHERE ID = {idProductoModificado}");
-                        var codBarras = datos.Rows[0]["CodigoBarras"].ToString();
+                        codBarras = datos.Rows[0]["CodigoBarras"].ToString();
 
 
                         DGVentas.Rows.Remove(DGVentas.CurrentRow);
@@ -7388,6 +7390,18 @@ namespace PuntoDeVentaV2
             //    }
             //}
 
+            var dato = cn.CargarDatos($"SELECT FormatoDeVenta FROM productos WHERE ID = '{idProducto}' AND IDUSuario = '{FormPrincipal.userID}' AND Status = '1'");
+            var estado = dato.Rows[0]["FormatoDeVenta"].ToString();
+
+            if (estado == "1")
+            {
+                decimal result = Convert.ToDecimal(nudCantidadPS.Value);
+                if (result.ToString().Contains('.'))
+                {
+                    MessageBox.Show("Este producto se vende solo por unidades enteras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
             AgregarProducto(datosProducto, Convert.ToDecimal(nudCantidadPS.Value));
 
         }
