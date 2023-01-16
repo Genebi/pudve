@@ -1421,6 +1421,7 @@ namespace PuntoDeVentaV2
                                 {
                                     var diferencia = double.Parse(info[4]) - double.Parse(stockFisico);
 
+                                   
                                     if (!verificarSubDetalles(Convert.ToDecimal(stockFisico)))
                                     {
                                         MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1559,6 +1560,7 @@ namespace PuntoDeVentaV2
         private bool verificarSubDetalles(decimal stock)
         {
             bool registroCorrectoDeSubdetalles = true;
+            updatesSubdetalles.Clear();
 
                         subDetallesDeProducto detalles = new subDetallesDeProducto(idProducto.ToString(),"Inventario",cantidad:stock);
                         detalles.FormClosed += delegate
@@ -1566,6 +1568,7 @@ namespace PuntoDeVentaV2
                             if (!detalles.finalizado)
                             {
                                 registroCorrectoDeSubdetalles = detalles.finalizado;
+                                updatesSubdetalles.Clear();
                             }
                             else
                             {

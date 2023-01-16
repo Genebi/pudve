@@ -347,7 +347,7 @@ namespace PuntoDeVentaV2
                 case "Inventario":
                     foreach (DataRow registroDetalle in dtDetallesSubdetalle.Rows)
                     {
-                        if (Convert.ToDecimal(registroDetalle["0"].ToString()) > 0)
+                        if (Convert.ToDecimal(registroDetalle["Stock"].ToString()) > 0)
                         {
                             string updateGuardado = $"UPDATE detallesubdetalle SET Stock = {registroDetalle["Stock"].ToString()} WHERE ID = {registroDetalle["ID"].ToString()}";
                             updates.Add(updateGuardado);
