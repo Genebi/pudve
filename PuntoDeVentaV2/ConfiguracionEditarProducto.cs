@@ -27,38 +27,51 @@ namespace PuntoDeVentaV2
 
         private void ConfiguracionEditarProducto_Load(object sender, EventArgs e)
         {
-            var dato = cn.CargarDatos($"SELECT FormatoDeVenta FROM productos WHERE CodigoBarras = '{AgregarEditarProducto.idProductoFinal}' AND IDUSuario = '{FormPrincipal.userID}' AND Status = '1'");
+            var dato = cn.CargarDatos($"SELECT FormatoDeVenta FROM productos WHERE CodigoBarras = '{AgregarEditarProducto.ProdCodBarrasFinal}' AND IDUSuario = '{FormPrincipal.userID}' AND Status = '1'");
             var estado = dato.Rows[0]["FormatoDeVenta"].ToString();
 
             if (estado.Equals("2"))
             {
-                chkPesoAutomatico.Checked = true;
+                rbPeroAutomatico.Checked = true;
             }
             else
             {
-                chkPesoAutomatico.Checked = false;
+                rbPeroAutomatico.Checked = false;
+            }
+
+            if (estado.Equals("1"))
+            {
+                rbSoloPorEnteros.Checked = true;
+            }
+            else
+            {
+                rbSoloPorEnteros.Checked = false;
+            }
+
+            if (estado.Equals("0"))
+            {
+                rbVenderNormalmente.Checked = true;
+            }
+            else
+            {
+                rbVenderNormalmente.Checked = false;
             }
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (chkPesoAutomatico.Checked == true)
+            if (rbPeroAutomatico.Checked == true)
             {
                 cn.EjecutarConsulta($"UPDATE productos SET FormatoDeVenta = '2' WHERE CodigoBarras = '{AgregarEditarProducto.ProdCodBarrasFinal}' AND IDUsuario = {FormPrincipal.userID} AND Status = '1'");
+            }
+            else if (rbSoloPorEnteros.Checked == true)
+            {
+                cn.EjecutarConsulta($"UPDATE productos SET FormatoDeVenta = '1' WHERE CodigoBarras = '{AgregarEditarProducto.ProdCodBarrasFinal}' AND IDUsuario = {FormPrincipal.userID} AND Status = '1'");
             }
             else
             {
                 cn.EjecutarConsulta($"UPDATE productos SET FormatoDeVenta = '0' WHERE CodigoBarras = '{AgregarEditarProducto.ProdCodBarrasFinal}' AND IDUsuario = {FormPrincipal.userID} AND Status = '1'");
             }
-
-            //if (chkSoloEnteros.Checked == true)
-            //{
-            //    cn.EjecutarConsulta($"UPDATE productos SET FormatoDeVenta = '1' WHERE CodigoBarras = '{AgregarEditarProducto.ProdCodBarrasFinal}' AND IDUsuario = {FormPrincipal.userID} AND Status = '1'");
-            //}
-            //else
-            //{
-            //    cn.EjecutarConsulta($"UPDATE productos SET FormatoDeVenta = '0' WHERE CodigoBarras = '{AgregarEditarProducto.ProdCodBarrasFinal}' AND IDUsuario = {FormPrincipal.userID} AND Status = '1'");
-            //}
 
             MessageBox.Show("Guardado con Extito", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             this.Close();
