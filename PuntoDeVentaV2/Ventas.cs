@@ -4458,7 +4458,7 @@ namespace PuntoDeVentaV2
 
                                     if (idOperacionCaja > 0)
                                     {
-                                        cn.EjecutarConsulta($"UPDATE Caja SET Anticipo = {diferencia} WHERE ID = {idOperacionCaja} AND IDUsuario = {FormPrincipal.userID}");
+                                        cn.EjecutarConsulta($"UPDATE Caja SET Anticipo = {float.Parse(cAnticipoUtilizado.Text)} WHERE ID = {idOperacionCaja} AND IDUsuario = {FormPrincipal.userID}");
                                     }
                                 }
                                     }
