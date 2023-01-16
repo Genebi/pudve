@@ -227,6 +227,10 @@ namespace PuntoDeVentaV2
 
         int calcu = 0;
 
+        public static bool EsEnVentas = false;
+
+
+        public static int IDAnticipo = 0;
         #region Proceso de Bascula
         // Constructores
         private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
@@ -3568,6 +3572,7 @@ namespace PuntoDeVentaV2
                                 AsignarCreditoVenta.idCliente = 0;
                                 AsignarCreditoVenta.cliente = string.Empty;
                                 ultimaVentaInformacion();
+                                cargarTicketAnticipo();
                                 panel1.Focus();
                             }
                             else
@@ -3653,6 +3658,25 @@ namespace PuntoDeVentaV2
             }
             txtBuscadorProducto.Focus();
             yasemando = false;
+        }
+
+        private void cargarTicketAnticipo()
+        {
+            if (!IDAnticipo.Equals(0))
+            {
+                int idVenta = 0;
+                using (var DTidventa = cn.CargarDatos($"SELECT ID FROM ventas WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1"))
+                {
+                    idVenta = Convert.ToInt32(DTidventa.Rows[0][0]);
+                }
+                EsEnVentas = true;
+                VisualizadorTicketAnticipo ticketAnt = new VisualizadorTicketAnticipo();
+                ticketAnt.idAnticipoViz = IDAnticipo;
+                ticketAnt.idVentaViz = idVenta;
+                ticketAnt.ShowDialog();
+            }
+            IDAnticipo = 0;
+            EsEnVentas = false;
         }
 
         private void ultimaVentaInformacion()
