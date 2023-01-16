@@ -201,7 +201,7 @@ namespace PuntoDeVentaV2
         public DataTable CargarDatos(string consulta)
         {
             DataTable db = new DataTable();
-           Conectarse();
+            Conectarse();
             sql_con.Open();
             MySqlCommand com = new MySqlCommand(consulta, sql_con);
             MySqlDataAdapter adap = new MySqlDataAdapter(com);

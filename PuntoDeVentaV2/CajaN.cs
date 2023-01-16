@@ -5689,6 +5689,10 @@ namespace PuntoDeVentaV2
 
         private void btnRedondoCorteCaja_Click(object sender, EventArgs e)
         {
+            if (!FormPrincipal.userNickName.Contains('@'))
+            {
+                FormPrincipal.id_empleado = 0;
+            }
             corteCaja = 1;
 
             var f = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
