@@ -3960,23 +3960,27 @@ namespace PuntoDeVentaV2
                     if (string.IsNullOrWhiteSpace(credito)) { credito = "0"; }
                     if (string.IsNullOrWhiteSpace(Anticipo)) { Anticipo = "0"; }
 
+                    int idOperacionCaja = 0;
+
                     if (!statusVenta.Equals("2"))
                     {
                         if (FormPrincipal.userNickName.Contains("@"))
                         {
                             string[] datos = new string[] {
-                            "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
-                             efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo, FormPrincipal.id_empleado.ToString()
-                        };
-                            cn.EjecutarConsulta(cs.OperacionCajaEmpleado(datos));
+                                "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
+                                 efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo, FormPrincipal.id_empleado.ToString()
+                            };
+
+                            idOperacionCaja = cn.EjecutarConsulta(cs.OperacionCajaEmpleado(datos), regresarID: true);
                         }
                         else
                         {
                             string[] datos = new string[] {
-                            "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
-                            efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo, FormPrincipal.id_empleado.ToString()
-                        };
-                            cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
+                                efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo, FormPrincipal.id_empleado.ToString()
+                            };
+
+                            idOperacionCaja = cn.EjecutarConsulta(cs.OperacionCaja(datos), regresarID: true);
                         }
                     }
 
@@ -4427,8 +4431,13 @@ namespace PuntoDeVentaV2
                                 if (diferencia > 0)
                                 {
                                     cn.EjecutarConsulta($"UPDATE Anticipos SET Importe = {diferencia}, Status = 5 WHERE ID = {idAnticipo} AND IDUsuario = {FormPrincipal.userID}");
+
+                                    if (idOperacionCaja > 0)
+                                    {
+                                        cn.EjecutarConsulta($"UPDATE Caja SET Anticipo = {diferencia} WHERE ID = {idOperacionCaja} AND IDUsuario = {FormPrincipal.userID}");
+                                    }
                                 }
-                            }
+                                    }
 
                             contadorAux++;
                         }
