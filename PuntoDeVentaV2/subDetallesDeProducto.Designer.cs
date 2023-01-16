@@ -29,9 +29,12 @@ namespace PuntoDeVentaV2
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(subDetallesDeProducto));
             this.panel2 = new System.Windows.Forms.Panel();
+            this.flpMonosas = new System.Windows.Forms.FlowLayoutPanel();
+            this.LbNombreCategoria = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dgvDetallesSubdetalle = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,7 +50,6 @@ namespace PuntoDeVentaV2
             this.btnGuardar = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnAgregarSubDetalle = new System.Windows.Forms.Button();
-            this.LbNombreCategoria = new System.Windows.Forms.Label();
             this.lblNombreProducto = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -57,6 +59,8 @@ namespace PuntoDeVentaV2
             this.btnGuardarDetalles = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panel2.SuspendLayout();
+            this.flpMonosas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetallesSubdetalle)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -67,14 +71,48 @@ namespace PuntoDeVentaV2
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.flpMonosas);
             this.panel2.Controls.Add(this.dgvDetallesSubdetalle);
             this.panel2.Controls.Add(this.groupBox4);
             this.panel2.Controls.Add(this.groupBox3);
-            this.panel2.Controls.Add(this.LbNombreCategoria);
             this.panel2.Location = new System.Drawing.Point(253, 35);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(565, 514);
             this.panel2.TabIndex = 30;
+            // 
+            // flpMonosas
+            // 
+            this.flpMonosas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.flpMonosas.Controls.Add(this.LbNombreCategoria);
+            this.flpMonosas.Controls.Add(this.pictureBox1);
+            this.flpMonosas.Location = new System.Drawing.Point(9, 3);
+            this.flpMonosas.Name = "flpMonosas";
+            this.flpMonosas.Size = new System.Drawing.Size(544, 30);
+            this.flpMonosas.TabIndex = 36;
+            this.flpMonosas.Visible = false;
+            this.flpMonosas.WrapContents = false;
+            // 
+            // LbNombreCategoria
+            // 
+            this.LbNombreCategoria.AutoSize = true;
+            this.LbNombreCategoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LbNombreCategoria.Location = new System.Drawing.Point(3, 0);
+            this.LbNombreCategoria.Name = "LbNombreCategoria";
+            this.LbNombreCategoria.Size = new System.Drawing.Size(170, 20);
+            this.LbNombreCategoria.TabIndex = 2;
+            this.LbNombreCategoria.Text = "Nombre Sub Detalle";
+            this.LbNombreCategoria.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::PuntoDeVentaV2.Properties.Resources.pencil;
+            this.pictureBox1.Location = new System.Drawing.Point(179, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(18, 17);
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // dgvDetallesSubdetalle
             // 
@@ -117,9 +155,9 @@ namespace PuntoDeVentaV2
             // Stock
             // 
             this.Stock.DataPropertyName = "Stock";
-            dataGridViewCellStyle1.Format = "N2";
-            dataGridViewCellStyle1.NullValue = null;
-            this.Stock.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.Stock.DefaultCellStyle = dataGridViewCellStyle3;
             this.Stock.HeaderText = "Stock";
             this.Stock.Name = "Stock";
             // 
@@ -238,16 +276,6 @@ namespace PuntoDeVentaV2
             this.btnAgregarSubDetalle.UseVisualStyleBackColor = false;
             this.btnAgregarSubDetalle.Click += new System.EventHandler(this.btnAgregarSubDetalle_Click);
             // 
-            // LbNombreCategoria
-            // 
-            this.LbNombreCategoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbNombreCategoria.Location = new System.Drawing.Point(184, 12);
-            this.LbNombreCategoria.Name = "LbNombreCategoria";
-            this.LbNombreCategoria.Size = new System.Drawing.Size(228, 20);
-            this.LbNombreCategoria.TabIndex = 2;
-            this.LbNombreCategoria.Text = "Nombre Sub Detalle";
-            this.LbNombreCategoria.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // lblNombreProducto
             // 
             this.lblNombreProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -364,6 +392,9 @@ namespace PuntoDeVentaV2
             this.Text = "Detalles de producto";
             this.Load += new System.EventHandler(this.subDetallesDeProducto_Load);
             this.panel2.ResumeLayout(false);
+            this.flpMonosas.ResumeLayout(false);
+            this.flpMonosas.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetallesSubdetalle)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -402,5 +433,7 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.DataGridViewTextBoxColumn TD;
         private System.Windows.Forms.DataGridViewImageColumn Deshabilitar;
         private System.Windows.Forms.DataGridViewTextBoxColumn SubID;
+        private System.Windows.Forms.FlowLayoutPanel flpMonosas;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

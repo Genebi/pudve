@@ -1474,10 +1474,10 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INSERT IGNORE INTO basculas ( idBascula, nombreBascula, puerto, baudRate, dataBits, handshake, parity, stopBits, sendData, idUsuario, predeterminada )
+        ///   Looks up a localized string similar to INSERT IGNORE INTO basculas ( nombreBascula, puerto, baudRate, dataBits, handshake, parity, stopBits, sendData, idUsuario, predeterminada )
         ///VALUES
-        ///	( 1, &apos;TORREY L-PCR-20 KG&apos;, &apos;COM3&apos;, &apos;115200&apos;, &apos;8 bit&apos;, &apos;None&apos;, &apos;None&apos;, &apos;One&apos;, &apos;P&apos;, 10, 0 ),
-        ///	( 2, &apos;TORREY L-PCR-40 KG&apos;, &apos;COM3&apos;, &apos;115200&apos;, &apos;8 bit&apos;, &apos;None&apos;, &apos;None&apos;, &apos;One&apos;, &apos;P&apos;, 10, 1 );.
+        ///	( &apos;TORREY L-PCR-20 KG&apos;, &apos;COM3&apos;, &apos;115200&apos;, &apos;8 bit&apos;, &apos;None&apos;, &apos;None&apos;, &apos;One&apos;, &apos;P&apos;, &apos;10&apos;, &apos;0&apos; ),
+        ///	( &apos;TORREY L-PCR-40 KG&apos;, &apos;COM3&apos;, &apos;115200&apos;, &apos;8 bit&apos;, &apos;None&apos;, &apos;None&apos;, &apos;One&apos;, &apos;P&apos;, &apos;10&apos;, &apos;0&apos; );.
         /// </summary>
         internal static string Basculas {
             get {
@@ -1486,10 +1486,10 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INSERT IGNORE INTO basculas ( idBascula, nombreBascula, puerto, baudRate, dataBits, handshake, parity, stopBits, sendData, idUsuario, predeterminada )
+        ///   Looks up a localized string similar to INSERT IGNORE INTO basculas ( nombreBascula, puerto, baudRate, dataBits, handshake, parity, stopBits, sendData, idUsuario, predeterminada )
         ///VALUES
-        ///	( 1, &apos;TORREY L-PCR-20 KG&apos;, &apos;COM3&apos;, &apos;115200&apos;, &apos;8 bit&apos;, &apos;None&apos;, &apos;None&apos;, &apos;One&apos;, &apos;P&apos;, 10, 0 ),
-        ///	( 2, &apos;TORREY L-PCR-40 KG&apos;, &apos;COM3&apos;, &apos;115200&apos;, &apos;8 bit&apos;, &apos;None&apos;, &apos;None&apos;, &apos;One&apos;, &apos;P&apos;, 10, 1 );.
+        ///	( &apos;TORREY L-PCR-20 KG&apos;, &apos;COM3&apos;, &apos;115200&apos;, &apos;8 bit&apos;, &apos;None&apos;, &apos;None&apos;, &apos;One&apos;, &apos;P&apos;, &apos;10&apos;, &apos;0&apos; ),
+        ///	( &apos;TORREY L-PCR-40 KG&apos;, &apos;COM3&apos;, &apos;115200&apos;, &apos;8 bit&apos;, &apos;None&apos;, &apos;None&apos;, &apos;One&apos;, &apos;P&apos;, &apos;10&apos;, &apos;0&apos; );.
         /// </summary>
         internal static string Basculas1 {
             get {
@@ -3384,8 +3384,7 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 2019-12-11
-        ///.
+        ///   Looks up a localized string similar to .
         /// </summary>
         internal static string checkDateStock {
             get {
@@ -3394,8 +3393,7 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 45
-        ///.
+        ///   Looks up a localized string similar to .
         /// </summary>
         internal static string checkStock {
             get {
@@ -11167,12 +11165,12 @@ namespace PuntoDeVentaV2.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Icon pencil {
+        internal static System.Drawing.Bitmap pencil {
             get {
                 object obj = ResourceManager.GetObject("pencil", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

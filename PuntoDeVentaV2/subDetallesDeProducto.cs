@@ -84,6 +84,7 @@ namespace PuntoDeVentaV2
             {
                 case "Nuevo":
                     datosCategoria = cn.CargarDatos($"SELECT Categoria FROM subdetallesdeproducto WHERE IDProducto = '{idProducto}' AND IDUsuario = '{FormPrincipal.userID}' AND Activo = 1");
+                    
                     break;
                 case "Venta":
                     btnGuardar.Enabled = false;
@@ -163,6 +164,8 @@ namespace PuntoDeVentaV2
             groupBox4.Visible = true;
             btnGuardar.Enabled = false;
 
+            flpMonosas.Visible = true;
+
             switch (accion)
             {
                 case "Nuevo":
@@ -176,7 +179,7 @@ namespace PuntoDeVentaV2
                         dtDetallesSubdetalle.Rows[0]["Stock"] = "0";
                     }
 
-
+                    pictureBox1.Visible = true;
                     groupBox3.Visible = true;
                     stockTot = Convert.ToDecimal(dtDetallesSubdetalle.Rows[0]["TotalStock"]);
 
@@ -533,6 +536,27 @@ namespace PuntoDeVentaV2
         {
             //Volvemos a colocar en invisible el control
             dateTimePicker1.Visible = false;
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            using (DataTable dtID = cn.CargarDatos($"SELECT ID FROM subdetallesdeproducto WHERE IDProducto = {idProducto} AND IDUsuario = {FormPrincipal.userID} AND Activo = 1 AND Categoria ='{cat}'"))
+            {
+                categoriaSubdetalle subdetalle = new categoriaSubdetalle("Editar",dtID.Rows[0]["ID"].ToString());
+                subdetalle.FormClosed += delegate
+                {
+                    if (subdetalle.cambio)
+                    {
+                        LbNombreCategoria.Text = subdetalle.subdetalle;
+                        cat = subdetalle.subdetalle;
+                    }
+                };
+                subdetalle.ShowDialog();
+                fLPLateralCategorias.Controls.Clear();
+                cargarCategorias();
+
+            }
+            
         }
     }
 }

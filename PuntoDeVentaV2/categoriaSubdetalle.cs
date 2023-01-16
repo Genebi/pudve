@@ -14,15 +14,28 @@ namespace PuntoDeVentaV2
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
-        public categoriaSubdetalle()
+        string operacion = string.Empty;
+        public string subdetalle = string.Empty;
+        public bool cambio = false;
+        public categoriaSubdetalle(string accion = "Nuevo",string detalle = "")
         {
             InitializeComponent();
-           
+            operacion = accion;
+            subdetalle = detalle;
         }
 
         private void categoriaSubdetalle_Load(object sender, EventArgs e)
         {
             cbTipoDeDatos.SelectedIndex = 0;
+            if (operacion=="Editar")
+            {
+                using (DataTable datosEditar = cn.CargarDatos($"SELECT * FROM subdetallesdeproducto WHERE ID = {subdetalle}"))
+                {
+                    txtSubDetalle.Text = datosEditar.Rows[0]["Categoria"].ToString();
+                    cbTipoDeDatos.SelectedIndex = Int32.Parse(datosEditar.Rows[0]["TipoDato"].ToString());
+                    cbTipoDeDatos.Enabled = false;
+                }
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -53,7 +66,17 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                cn.EjecutarConsulta($"INSERT INTO subdetallesdeproducto (IDProducto, IDUsuario, Categoria, Subdetalle, Stock, TipoDato) VALUES ('{Productos.idProductoAgregarSubdetalle}', '{FormPrincipal.userID}', '{txtSubDetalle.Text}', '{"NA"}', '{stockActual}', '{cbTipoDeDatos.SelectedIndex}')");
+                if (operacion == "Nuevo")
+                {
+                    cn.EjecutarConsulta($"INSERT INTO subdetallesdeproducto (IDProducto, IDUsuario, Categoria, Subdetalle, Stock, TipoDato) VALUES ('{Productos.idProductoAgregarSubdetalle}', '{FormPrincipal.userID}', '{txtSubDetalle.Text}', '{"NA"}', '{stockActual}', '{cbTipoDeDatos.SelectedIndex}')");
+                }
+                else
+                {
+                    cn.EjecutarConsulta($"UPDATE subdetallesdeproducto SET Categoria = '{txtSubDetalle.Text}' WHERE ID = {subdetalle}");
+                    subdetalle = txtSubDetalle.Text;
+                    cambio = true;
+                }
+                
             }
             this.Close();
         }

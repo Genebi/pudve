@@ -7996,6 +7996,7 @@
     <Content Include="PUDVE\Sounds\sonido_alarma.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\pencil.ico" />
     <Content Include="wande.ico" />
     <None Include="Service References\ServiceReference_produccion\configuration91.svcinfo" />
     <None Include="Service References\ServiceReference_produccion\configuration.svcinfo" />
