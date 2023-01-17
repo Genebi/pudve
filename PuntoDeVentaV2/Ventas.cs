@@ -418,7 +418,7 @@ namespace PuntoDeVentaV2
         {
             if (txtBuscadorProducto.Text == "BUSCAR PRODUCTO O SERVICIO...")
             {
-                txtBuscadorProducto.Text = "";
+                txtBuscadorProducto.Text = ""; 
             }
         }
 
