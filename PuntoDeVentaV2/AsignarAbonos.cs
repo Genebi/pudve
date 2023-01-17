@@ -41,7 +41,7 @@ namespace PuntoDeVentaV2
         float cambio;
         string nameOfControl = string.Empty;
 
-        float restanteDePago= 0;
+        float restanteDePago = 0;
 
         public AsignarAbonos(int idVenta, float totalOriginal, string tipoCredito)
         {
@@ -460,6 +460,7 @@ namespace PuntoDeVentaV2
                 txtEfectivo.Select(txtEfectivo.Text.Length, 0);
             }
         }
+
 
         private void GenerarTicket(string[] info)
         {
@@ -1076,6 +1077,63 @@ namespace PuntoDeVentaV2
 
             if (e.KeyCode.Equals(Keys.Left))
                 SendKeys.Send("+{TAB}");
+        }
+
+        private void txtEfectivo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            calculadora(sender, e);
+        }
+
+        private void calculadora(object sender, KeyPressEventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            int calcu = 0;
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txt.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
+        }
+
+        private void txtTarjeta_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            calculadora(sender, e);
+        }
+
+        private void txtVales_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            calculadora(sender, e);
+        }
+
+        private void txtCheque_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            calculadora(sender, e);
+        }
+
+        private void txtTransferencia_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            calculadora(sender, e);
         }
     }
 }

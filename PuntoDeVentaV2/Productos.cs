@@ -2254,7 +2254,13 @@ namespace PuntoDeVentaV2
                     lista.Add(idProducto, tipoProducto);
                 }
             }
-            
+
+            if (lista.Count.Equals(0))
+            {
+                MessageBox.Show("No tiene ningun producto seleccionado","Aviso del Ssitema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                return;
+            }
+
             if (cbTodos.Checked)
             {
                 productosSeleccionados = checkboxMarcados;

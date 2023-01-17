@@ -4949,6 +4949,12 @@ namespace PuntoDeVentaV2
             ValidarEntradaDeTexto(sender, e);
         }
 
+        private void btnConfiguracionPeso_Click(object sender, EventArgs e)
+        {
+            ConfiguracionEditarProducto config = new ConfiguracionEditarProducto();
+            config.ShowDialog();
+        }
+
         public void cargarDatos()
         {
             DataTable dtHistorialCompras;

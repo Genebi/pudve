@@ -141,6 +141,7 @@ namespace PuntoDeVentaV2
         {
             SeleccionaOpcion SO = new SeleccionaOpcion("Generar en PDF", "Generar en EXCEL", "¿Como desea generar el Reporte?");
             SO.ShowDialog();
+
             if (opcionPregunta.Equals("opcion1"))
             {
                 if (seleccionados.Count > 0)

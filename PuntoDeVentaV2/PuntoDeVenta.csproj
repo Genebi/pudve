@@ -629,6 +629,12 @@
     <Compile Include="configCredito.Designer.cs">
       <DependentUpon>configCredito.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfiguracionEditarProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfiguracionEditarProducto.Designer.cs">
+      <DependentUpon>ConfiguracionEditarProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfiguracionGeneral.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1135,6 +1141,12 @@
     </Compile>
     <Compile Include="NvoProduct.Designer.cs">
       <DependentUpon>NvoProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ObtenerPesoVasculaVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ObtenerPesoVasculaVentas.Designer.cs">
+      <DependentUpon>ObtenerPesoVasculaVentas.cs</DependentUpon>
     </Compile>
     <Compile Include="OpcionesReporteProducto.cs">
       <SubType>Form</SubType>
@@ -1924,6 +1936,9 @@
     <EmbeddedResource Include="configCredito.resx">
       <DependentUpon>configCredito.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConfiguracionEditarProducto.resx">
+      <DependentUpon>ConfiguracionEditarProducto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConfiguracionGeneral.resx">
       <DependentUpon>ConfiguracionGeneral.cs</DependentUpon>
     </EmbeddedResource>
@@ -2169,6 +2184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="NvoProduct.resx">
       <DependentUpon>NvoProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObtenerPesoVasculaVentas.resx">
+      <DependentUpon>ObtenerPesoVasculaVentas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OpcionesReporteProducto.resx">
       <DependentUpon>OpcionesReporteProducto.cs</DependentUpon>

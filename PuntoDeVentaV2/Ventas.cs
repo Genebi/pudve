@@ -48,6 +48,8 @@ namespace PuntoDeVentaV2
         float descuentoCliente = 0;
         bool yasemando = false;
 
+        System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+
         public static string porcentaje;
         List<string> productoEliminadoCorreo;
         string PrecioDelProducto;
@@ -55,7 +57,6 @@ namespace PuntoDeVentaV2
         string ClienteConDescuentoNombre, IDClienteConDescuento;
         public static bool AutorizacionConfirmada = false;
         public static bool VentaRealizada = false;
-
 
         public static string cantidadAPedir = string.Empty;
         public static List<string> listProductos = new List<string>();
@@ -100,6 +101,8 @@ namespace PuntoDeVentaV2
         public static string cliente = string.Empty;
         public static string idCliente = string.Empty;
         public static string credito = string.Empty;
+
+        public static string codBarras;
         // Para saber con que boton se cerro el form DetalleVenta.cs, en este caso saber si se cerro con el boton aceptar (terminar)
         public static bool botonAceptar = false;
 
@@ -232,6 +235,10 @@ namespace PuntoDeVentaV2
 
         int calcu = 0;
 
+        public static bool EsEnVentas = false;
+
+
+        public static int IDAnticipo = 0;
         #region Proceso de Bascula
         // Constructores
         private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
@@ -409,7 +416,7 @@ namespace PuntoDeVentaV2
 
 
 
-            iniciarBasculaPredeterminada();
+            //iniciarBasculaPredeterminada();
             txtBuscadorProducto.Focus();
         }
 
@@ -1316,7 +1323,13 @@ namespace PuntoDeVentaV2
             DGVentas.ClearSelection();
             indiceColumna++;
 
-
+            var datos = cn.CargarDatos($"SELECT FormatoDeVenta FROM productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{datosProducto[7]}' AND Status = '1'");
+            var pesoAutomatico = datos.Rows[0]["FormatoDeVenta"].ToString();
+            if (pesoAutomatico == "2")
+            {
+                btnBascula.PerformClick();
+            }
+           
         }
 
         private void validarStockDGV()
@@ -1445,7 +1458,7 @@ namespace PuntoDeVentaV2
                         cantidadAnterior = Convert.ToDecimal(DGVentas.Rows[celdaCellClick].Cells["Cantidad"].Value.ToString());
                         var idProductoModificado = DGVentas.Rows[celdaCellClick].Cells["IDProducto"].Value.ToString();
                         var datos = cn.CargarDatos($"SELECT CodigoBarras FROM productos WHERE ID = {idProductoModificado}");
-                        var codBarras = datos.Rows[0]["CodigoBarras"].ToString();
+                        codBarras = datos.Rows[0]["CodigoBarras"].ToString();
 
 
                         DGVentas.Rows.Remove(DGVentas.CurrentRow);
@@ -3579,6 +3592,7 @@ namespace PuntoDeVentaV2
                                 AsignarCreditoVenta.idCliente = 0;
                                 AsignarCreditoVenta.cliente = string.Empty;
                                 ultimaVentaInformacion();
+                                cargarTicketAnticipo();
                                 panel1.Focus();
                             }
                             else
@@ -3664,6 +3678,25 @@ namespace PuntoDeVentaV2
             }
             txtBuscadorProducto.Focus();
             yasemando = false;
+        }
+
+        private void cargarTicketAnticipo()
+        {
+            if (!IDAnticipo.Equals(0))
+            {
+                int idVenta = 0;
+                using (var DTidventa = cn.CargarDatos($"SELECT ID FROM ventas WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1"))
+                {
+                    idVenta = Convert.ToInt32(DTidventa.Rows[0][0]);
+                }
+                EsEnVentas = true;
+                VisualizadorTicketAnticipo ticketAnt = new VisualizadorTicketAnticipo();
+                ticketAnt.idAnticipoViz = IDAnticipo;
+                ticketAnt.idVentaViz = idVenta;
+                ticketAnt.ShowDialog();
+            }
+            IDAnticipo = 0;
+            EsEnVentas = false;
         }
 
         private void ultimaVentaInformacion()
@@ -3993,23 +4026,27 @@ namespace PuntoDeVentaV2
                     if (string.IsNullOrWhiteSpace(credito)) { credito = "0"; }
                     if (string.IsNullOrWhiteSpace(Anticipo)) { Anticipo = "0"; }
 
+                    int idOperacionCaja = 0;
+
                     if (!statusVenta.Equals("2") && !statusVenta.Equals("7"))
                     {
                         if (FormPrincipal.userNickName.Contains("@"))
                         {
                             string[] datos = new string[] {
-                            "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
-                             efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo, FormPrincipal.id_empleado.ToString()
-                        };
-                            cn.EjecutarConsulta(cs.OperacionCajaEmpleado(datos));
+                                "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
+                                 efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo, FormPrincipal.id_empleado.ToString()
+                            };
+
+                            idOperacionCaja = cn.EjecutarConsulta(cs.OperacionCajaEmpleado(datos), regresarID: true);
                         }
                         else
                         {
                             string[] datos = new string[] {
-                            "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
-                            efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo, FormPrincipal.id_empleado.ToString()
-                        };
-                            cn.EjecutarConsulta(cs.OperacionCaja(datos));
+                                "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
+                                efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo, FormPrincipal.id_empleado.ToString()
+                            };
+
+                            idOperacionCaja = cn.EjecutarConsulta(cs.OperacionCaja(datos), regresarID: true);
                         }
                     }
 
@@ -4460,8 +4497,13 @@ namespace PuntoDeVentaV2
                                 if (diferencia > 0)
                                 {
                                     cn.EjecutarConsulta($"UPDATE Anticipos SET Importe = {diferencia}, Status = 5 WHERE ID = {idAnticipo} AND IDUsuario = {FormPrincipal.userID}");
+
+                                    if (idOperacionCaja > 0)
+                                    {
+                                        cn.EjecutarConsulta($"UPDATE Caja SET Anticipo = {float.Parse(cAnticipoUtilizado.Text)} WHERE ID = {idOperacionCaja} AND IDUsuario = {FormPrincipal.userID}");
+                                    }
                                 }
-                            }
+                                    }
 
                             contadorAux++;
                         }
@@ -7428,6 +7470,18 @@ namespace PuntoDeVentaV2
             //    }
             //}
 
+            var dato = cn.CargarDatos($"SELECT FormatoDeVenta FROM productos WHERE ID = '{idProducto}' AND IDUSuario = '{FormPrincipal.userID}' AND Status = '1'");
+            var estado = dato.Rows[0]["FormatoDeVenta"].ToString();
+
+            if (estado == "1")
+            {
+                decimal result = Convert.ToDecimal(nudCantidadPS.Value);
+                if (result.ToString().Contains('.'))
+                {
+                    MessageBox.Show("Este producto se vende solo por unidades enteras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+            }
             AgregarProducto(datosProducto, Convert.ToDecimal(nudCantidadPS.Value));
 
         }
@@ -9442,7 +9496,31 @@ namespace PuntoDeVentaV2
 
         private void btnBascula_Click(object sender, EventArgs e)
         {
-            EnviarDatos();
+            if (DGVentas.Rows.Count>0)
+            {
+                decimal elmeropesoxd = 0;
+                ObtenerPesoVasculaVentas pesoVentas = new ObtenerPesoVasculaVentas();
+                pesoVentas.FormClosed += delegate
+                {
+                    elmeropesoxd = pesoVentas.peso;
+                    //MessageBox.Show(elmeropesoxd.ToString());
+                    DGVentas.Rows[0].Cells[5].Value = elmeropesoxd;
+                    var id = DGVentas.Rows[0].Cells[0].Value.ToString();
+                    cn.EjecutarConsulta($"UPDATE productos SET FormatoDeVenta = '2' WHERE ID = '{id}' AND `Status` = '1' and IDUsuario = {FormPrincipal.userID}");
+                    timer.Interval = 2000; // here time in milliseconds
+                    timer.Tick += timer_Tick;
+                    timer.Start();
+                    btnBascula.Enabled = false;
+                };
+                pesoVentas.ShowDialog();
+                //EnviarDatos(); 
+            }
+
+        }
+        void timer_Tick(object sender, System.EventArgs e)
+        {
+            btnBascula.Enabled = true;
+            timer.Stop();
         }
 
         private void iniciarBasculaPredeterminada()
@@ -9480,13 +9558,13 @@ namespace PuntoDeVentaV2
                     }
                     catch (Exception error)
                     {
-                        btnBascula.Enabled = false;
+                        //btnBascula.Enabled = false;
                         //MessageBox.Show("Error de conexión con el dispositivo (Bascula)...\n\n" + error.Message.ToString() + "\n\nFavor de revisar los parametros de su bascula para configurarlos correctamente", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
                 else
                 {
-                    btnBascula.Enabled = false;
+                    //btnBascula.Enabled = false;
                 }
             }
         }

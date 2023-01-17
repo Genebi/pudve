@@ -135,12 +135,49 @@ namespace PuntoDeVentaV2
                 DireccionLogo = "";
                 reportParameters.Add(new ReportParameter("Logo", DireccionLogo));
             }
-
-            string StatusVenta = "Venta";
-
-            using (DataTable ConsultaEstatus = cn.CargarDatos($"SELECT `Status` FROM ventas WHERE ID = {IDVenta}"))
+            string StatusVenta = string.Empty;
+            using (DataTable ConsultaEstatus = cn.CargarDatos($"SELECT Efectivo,Tarjeta,Vales,Cheque,Transferencia,Credito FROM detallesventa where IDVenta = {IDVenta}"))
             {
-                string Status = ConsultaEstatus.Rows[0]["Status"].ToString();
+                foreach (var item in ConsultaEstatus.Columns)
+                {
+                    string TipoVenta = item.ToString();
+
+                    if (Convert.ToDecimal(ConsultaEstatus.Rows[0][TipoVenta])>0)
+                    {
+                        StatusVenta += TipoVenta + ",";
+                    }
+                }
+                if (StatusVenta.Equals(""))
+                {
+                    StatusVenta = "Anticipo";
+                }
+                else
+                {
+                    StatusVenta = StatusVenta.TrimEnd(',');
+                }
+               
+                //string Status = ConsultaEstatus.Rows[0]["Status"].ToString();
+                //if (Status.Equals("1"))
+                //{
+                //    StatusVenta = "Venta Pagada";
+                //}
+                //else if (Status.Equals("2"))
+                //{
+                //    StatusVenta = "Presupuesto";
+                //}
+                //else if (Status.Equals("3"))
+                //{
+                //    StatusVenta = "Venta Cancelada";
+                //}
+                //else if (Status.Equals("5"))
+                //{
+                //    StatusVenta = "Venta Global";
+                //}
+                //else
+                //{
+                //    StatusVenta = "Venta a Crédito";
+                //}
+                /*string Status = ConsultaEstatus.Rows[0]["Status"].ToString();
 
                 if (Status.Equals("1")) { StatusVenta = "Venta Pagada"; }
                 if (Status.Equals("2")) { StatusVenta = "Presupuesto"; }
@@ -152,7 +189,7 @@ namespace PuntoDeVentaV2
                 if (Status.Equals("7")) { StatusVenta = "Presupuesto"; }
                 if (Status.Equals("8")) { StatusVenta = "Renta Cancelada"; }
                 if (Status.Equals("9")) { StatusVenta = "Renta a Crédito"; }
-                if (Status.Equals("10")) { StatusVenta = "Renta Global"; }
+                if (Status.Equals("10")) { StatusVenta = "Renta Global"; }*/
             }
 
             reportParameters.Add(new ReportParameter("StatusVenta", StatusVenta));
