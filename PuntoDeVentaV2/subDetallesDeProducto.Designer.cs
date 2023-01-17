@@ -29,7 +29,7 @@ namespace PuntoDeVentaV2
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(subDetallesDeProducto));
             this.panel2 = new System.Windows.Forms.Panel();
             this.dgvDetallesSubdetalle = new System.Windows.Forms.DataGridView();
@@ -56,6 +56,8 @@ namespace PuntoDeVentaV2
             this.fLPLateralCategorias = new System.Windows.Forms.FlowLayoutPanel();
             this.btnGuardarDetalles = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.pboxEditar = new System.Windows.Forms.PictureBox();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetallesSubdetalle)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -63,17 +65,20 @@ namespace PuntoDeVentaV2
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pboxEditar)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.flowLayoutPanel1);
             this.panel2.Controls.Add(this.dgvDetallesSubdetalle);
             this.panel2.Controls.Add(this.groupBox4);
             this.panel2.Controls.Add(this.groupBox3);
-            this.panel2.Controls.Add(this.LbNombreCategoria);
-            this.panel2.Location = new System.Drawing.Point(253, 35);
+            this.panel2.Location = new System.Drawing.Point(380, 54);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(565, 514);
+            this.panel2.Size = new System.Drawing.Size(848, 791);
             this.panel2.TabIndex = 30;
             // 
             // dgvDetallesSubdetalle
@@ -90,10 +95,12 @@ namespace PuntoDeVentaV2
             this.TD,
             this.Deshabilitar,
             this.SubID});
-            this.dgvDetallesSubdetalle.Location = new System.Drawing.Point(3, 39);
+            this.dgvDetallesSubdetalle.Location = new System.Drawing.Point(4, 60);
+            this.dgvDetallesSubdetalle.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dgvDetallesSubdetalle.Name = "dgvDetallesSubdetalle";
             this.dgvDetallesSubdetalle.RowHeadersVisible = false;
-            this.dgvDetallesSubdetalle.Size = new System.Drawing.Size(556, 408);
+            this.dgvDetallesSubdetalle.RowHeadersWidth = 62;
+            this.dgvDetallesSubdetalle.Size = new System.Drawing.Size(834, 628);
             this.dgvDetallesSubdetalle.TabIndex = 0;
             this.dgvDetallesSubdetalle.Visible = false;
             this.dgvDetallesSubdetalle.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetallesSubdetalle_CellClick);
@@ -104,76 +111,94 @@ namespace PuntoDeVentaV2
             // 
             this.ID.DataPropertyName = "ID";
             this.ID.HeaderText = "ID";
+            this.ID.MinimumWidth = 8;
             this.ID.Name = "ID";
             this.ID.Visible = false;
+            this.ID.Width = 150;
             // 
             // Valor
             // 
             this.Valor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Valor.DataPropertyName = "Valor";
             this.Valor.HeaderText = "Valor";
+            this.Valor.MinimumWidth = 8;
             this.Valor.Name = "Valor";
             // 
             // Stock
             // 
             this.Stock.DataPropertyName = "Stock";
-            dataGridViewCellStyle1.Format = "N2";
-            dataGridViewCellStyle1.NullValue = null;
-            this.Stock.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.Stock.DefaultCellStyle = dataGridViewCellStyle2;
             this.Stock.HeaderText = "Stock";
+            this.Stock.MinimumWidth = 8;
             this.Stock.Name = "Stock";
+            this.Stock.Width = 150;
             // 
             // Cantidad
             // 
             this.Cantidad.DataPropertyName = "0";
             this.Cantidad.HeaderText = "Cantidad";
+            this.Cantidad.MinimumWidth = 8;
             this.Cantidad.Name = "Cantidad";
             this.Cantidad.Visible = false;
+            this.Cantidad.Width = 150;
             // 
             // TotalStok
             // 
             this.TotalStok.DataPropertyName = "TotalStock";
             this.TotalStok.HeaderText = "TotalStok";
+            this.TotalStok.MinimumWidth = 8;
             this.TotalStok.Name = "TotalStok";
             this.TotalStok.Visible = false;
+            this.TotalStok.Width = 150;
             // 
             // TD
             // 
             this.TD.DataPropertyName = "TipoDato";
             this.TD.HeaderText = "TD";
+            this.TD.MinimumWidth = 8;
             this.TD.Name = "TD";
             this.TD.Visible = false;
+            this.TD.Width = 150;
             // 
             // Deshabilitar
             // 
             this.Deshabilitar.HeaderText = "Deshabilitar";
             this.Deshabilitar.Image = ((System.Drawing.Image)(resources.GetObject("Deshabilitar.Image")));
+            this.Deshabilitar.MinimumWidth = 8;
             this.Deshabilitar.Name = "Deshabilitar";
+            this.Deshabilitar.Width = 150;
             // 
             // SubID
             // 
             this.SubID.DataPropertyName = "SubID";
             this.SubID.HeaderText = "SubID";
+            this.SubID.MinimumWidth = 8;
             this.SubID.Name = "SubID";
             this.SubID.Visible = false;
+            this.SubID.Width = 150;
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.lblStockRestanteText);
             this.groupBox4.Controls.Add(this.lblStockRestanteNum);
             this.groupBox4.Controls.Add(this.btnGuardar);
-            this.groupBox4.Location = new System.Drawing.Point(242, 453);
+            this.groupBox4.Location = new System.Drawing.Point(363, 697);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(317, 57);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox4.Size = new System.Drawing.Size(476, 88);
             this.groupBox4.TabIndex = 35;
             this.groupBox4.TabStop = false;
             this.groupBox4.Visible = false;
             // 
             // lblStockRestanteText
             // 
-            this.lblStockRestanteText.Location = new System.Drawing.Point(232, 36);
+            this.lblStockRestanteText.Location = new System.Drawing.Point(348, 55);
+            this.lblStockRestanteText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStockRestanteText.Name = "lblStockRestanteText";
-            this.lblStockRestanteText.Size = new System.Drawing.Size(81, 18);
+            this.lblStockRestanteText.Size = new System.Drawing.Size(122, 28);
             this.lblStockRestanteText.TabIndex = 39;
             this.lblStockRestanteText.Text = "Por asignar";
             this.lblStockRestanteText.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -181,9 +206,10 @@ namespace PuntoDeVentaV2
             // lblStockRestanteNum
             // 
             this.lblStockRestanteNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStockRestanteNum.Location = new System.Drawing.Point(233, 10);
+            this.lblStockRestanteNum.Location = new System.Drawing.Point(350, 15);
+            this.lblStockRestanteNum.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblStockRestanteNum.Name = "lblStockRestanteNum";
-            this.lblStockRestanteNum.Size = new System.Drawing.Size(78, 17);
+            this.lblStockRestanteNum.Size = new System.Drawing.Size(117, 26);
             this.lblStockRestanteNum.TabIndex = 38;
             this.lblStockRestanteNum.Text = "500";
             this.lblStockRestanteNum.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -200,9 +226,10 @@ namespace PuntoDeVentaV2
             this.btnGuardar.ForeColor = System.Drawing.Color.White;
             this.btnGuardar.Image = global::PuntoDeVentaV2.Properties.Resources.save1;
             this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnGuardar.Location = new System.Drawing.Point(6, 10);
+            this.btnGuardar.Location = new System.Drawing.Point(9, 15);
+            this.btnGuardar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(221, 41);
+            this.btnGuardar.Size = new System.Drawing.Size(332, 63);
             this.btnGuardar.TabIndex = 33;
             this.btnGuardar.Text = "Guardar";
             this.btnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -212,9 +239,11 @@ namespace PuntoDeVentaV2
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btnAgregarSubDetalle);
-            this.groupBox3.Location = new System.Drawing.Point(3, 453);
+            this.groupBox3.Location = new System.Drawing.Point(4, 697);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(233, 57);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox3.Size = new System.Drawing.Size(350, 88);
             this.groupBox3.TabIndex = 35;
             this.groupBox3.TabStop = false;
             this.groupBox3.Visible = false;
@@ -229,9 +258,10 @@ namespace PuntoDeVentaV2
             this.btnAgregarSubDetalle.ForeColor = System.Drawing.Color.White;
             this.btnAgregarSubDetalle.Image = global::PuntoDeVentaV2.Properties.Resources.list_ul1;
             this.btnAgregarSubDetalle.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAgregarSubDetalle.Location = new System.Drawing.Point(6, 10);
+            this.btnAgregarSubDetalle.Location = new System.Drawing.Point(9, 15);
+            this.btnAgregarSubDetalle.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAgregarSubDetalle.Name = "btnAgregarSubDetalle";
-            this.btnAgregarSubDetalle.Size = new System.Drawing.Size(221, 41);
+            this.btnAgregarSubDetalle.Size = new System.Drawing.Size(332, 63);
             this.btnAgregarSubDetalle.TabIndex = 33;
             this.btnAgregarSubDetalle.Text = "Agregar";
             this.btnAgregarSubDetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -240,10 +270,12 @@ namespace PuntoDeVentaV2
             // 
             // LbNombreCategoria
             // 
+            this.LbNombreCategoria.AutoSize = true;
             this.LbNombreCategoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LbNombreCategoria.Location = new System.Drawing.Point(184, 12);
+            this.LbNombreCategoria.Location = new System.Drawing.Point(4, 0);
+            this.LbNombreCategoria.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LbNombreCategoria.Name = "LbNombreCategoria";
-            this.LbNombreCategoria.Size = new System.Drawing.Size(228, 20);
+            this.LbNombreCategoria.Size = new System.Drawing.Size(250, 29);
             this.LbNombreCategoria.TabIndex = 2;
             this.LbNombreCategoria.Text = "Nombre Sub Detalle";
             this.LbNombreCategoria.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -251,9 +283,10 @@ namespace PuntoDeVentaV2
             // lblNombreProducto
             // 
             this.lblNombreProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNombreProducto.Location = new System.Drawing.Point(135, 9);
+            this.lblNombreProducto.Location = new System.Drawing.Point(202, 14);
+            this.lblNombreProducto.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNombreProducto.Name = "lblNombreProducto";
-            this.lblNombreProducto.Size = new System.Drawing.Size(559, 23);
+            this.lblNombreProducto.Size = new System.Drawing.Size(838, 35);
             this.lblNombreProducto.TabIndex = 1;
             this.lblNombreProducto.Text = "Detalles Seleccionados";
             this.lblNombreProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -263,27 +296,31 @@ namespace PuntoDeVentaV2
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.fLPLateralCategorias);
-            this.panel1.Location = new System.Drawing.Point(3, 35);
+            this.panel1.Location = new System.Drawing.Point(4, 54);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(247, 514);
+            this.panel1.Size = new System.Drawing.Size(370, 791);
             this.panel1.TabIndex = 29;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(71, 12);
+            this.label1.Location = new System.Drawing.Point(106, 18);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(112, 20);
+            this.label1.Size = new System.Drawing.Size(162, 29);
             this.label1.TabIndex = 1;
             this.label1.Text = "Sub Detalles";
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btnAddDetalle);
-            this.groupBox1.Location = new System.Drawing.Point(6, 453);
+            this.groupBox1.Location = new System.Drawing.Point(9, 697);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(233, 57);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox1.Size = new System.Drawing.Size(350, 88);
             this.groupBox1.TabIndex = 35;
             this.groupBox1.TabStop = false;
             // 
@@ -297,9 +334,10 @@ namespace PuntoDeVentaV2
             this.btnAddDetalle.ForeColor = System.Drawing.Color.White;
             this.btnAddDetalle.Image = global::PuntoDeVentaV2.Properties.Resources.list_ul1;
             this.btnAddDetalle.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnAddDetalle.Location = new System.Drawing.Point(6, 10);
+            this.btnAddDetalle.Location = new System.Drawing.Point(9, 15);
+            this.btnAddDetalle.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAddDetalle.Name = "btnAddDetalle";
-            this.btnAddDetalle.Size = new System.Drawing.Size(221, 41);
+            this.btnAddDetalle.Size = new System.Drawing.Size(332, 63);
             this.btnAddDetalle.TabIndex = 33;
             this.btnAddDetalle.Text = "Agregar";
             this.btnAddDetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -311,9 +349,10 @@ namespace PuntoDeVentaV2
             this.fLPLateralCategorias.BackColor = System.Drawing.SystemColors.Control;
             this.fLPLateralCategorias.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.fLPLateralCategorias.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.fLPLateralCategorias.Location = new System.Drawing.Point(6, 39);
+            this.fLPLateralCategorias.Location = new System.Drawing.Point(9, 60);
+            this.fLPLateralCategorias.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.fLPLateralCategorias.Name = "fLPLateralCategorias";
-            this.fLPLateralCategorias.Size = new System.Drawing.Size(233, 408);
+            this.fLPLateralCategorias.Size = new System.Drawing.Size(348, 627);
             this.fLPLateralCategorias.TabIndex = 0;
             this.fLPLateralCategorias.WrapContents = false;
             // 
@@ -327,9 +366,10 @@ namespace PuntoDeVentaV2
             this.btnGuardarDetalles.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold);
             this.btnGuardarDetalles.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.btnGuardarDetalles.Image = global::PuntoDeVentaV2.Properties.Resources.check_circle_o1;
-            this.btnGuardarDetalles.Location = new System.Drawing.Point(6, 14);
+            this.btnGuardarDetalles.Location = new System.Drawing.Point(9, 22);
+            this.btnGuardarDetalles.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnGuardarDetalles.Name = "btnGuardarDetalles";
-            this.btnGuardarDetalles.Size = new System.Drawing.Size(221, 41);
+            this.btnGuardarDetalles.Size = new System.Drawing.Size(332, 63);
             this.btnGuardarDetalles.TabIndex = 31;
             this.btnGuardarDetalles.Text = "Aceptar";
             this.btnGuardarDetalles.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -340,23 +380,46 @@ namespace PuntoDeVentaV2
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnGuardarDetalles);
-            this.groupBox2.Location = new System.Drawing.Point(579, 555);
+            this.groupBox2.Location = new System.Drawing.Point(868, 854);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(233, 61);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.groupBox2.Size = new System.Drawing.Size(350, 94);
             this.groupBox2.TabIndex = 36;
             this.groupBox2.TabStop = false;
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.LbNombreCategoria);
+            this.flowLayoutPanel1.Controls.Add(this.pboxEditar);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(4, 3);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(835, 49);
+            this.flowLayoutPanel1.TabIndex = 36;
+            // 
+            // pboxEditar
+            // 
+            this.pboxEditar.Image = global::PuntoDeVentaV2.Properties.Resources.pencil2;
+            this.pboxEditar.Location = new System.Drawing.Point(261, 3);
+            this.pboxEditar.Name = "pboxEditar";
+            this.pboxEditar.Size = new System.Drawing.Size(32, 41);
+            this.pboxEditar.TabIndex = 3;
+            this.pboxEditar.TabStop = false;
+            this.pboxEditar.Visible = false;
+            this.pboxEditar.Click += new System.EventHandler(this.pboxEditar_Click);
+            // 
             // subDetallesDeProducto
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(824, 618);
+            this.ClientSize = new System.Drawing.Size(1236, 951);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.lblNombreProducto);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "subDetallesDeProducto";
@@ -371,6 +434,9 @@ namespace PuntoDeVentaV2
             this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pboxEditar)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -402,5 +468,7 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.DataGridViewTextBoxColumn TD;
         private System.Windows.Forms.DataGridViewImageColumn Deshabilitar;
         private System.Windows.Forms.DataGridViewTextBoxColumn SubID;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.PictureBox pboxEditar;
     }
 }

@@ -534,6 +534,20 @@ namespace PuntoDeVentaV2
             //Volvemos a colocar en invisible el control
             dateTimePicker1.Visible = false;
         }
+
+        private void pboxEditar_Click(object sender, EventArgs e)
+        {
+            categoriaSubdetalle editarCategoria = new categoriaSubdetalle("Editar",cat);
+            editarCategoria.FormClosed += delegate
+              {
+                  if (editarCategoria.cambio)
+                  {
+                      dgvDetallesSubdetalle.Visible = false;
+                      cargarCategorias();
+                  }
+              };
+            editarCategoria.ShowDialog();
+        }
     }
 }
 
