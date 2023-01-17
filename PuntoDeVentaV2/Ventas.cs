@@ -420,7 +420,7 @@ namespace PuntoDeVentaV2
             {
                 txtBuscadorProducto.Text = "";
             }
-        }
+        } 
 
         private void BuscarPierdeFoco(object sender, EventArgs e)
         {
