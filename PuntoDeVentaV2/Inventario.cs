@@ -4118,8 +4118,10 @@ namespace PuntoDeVentaV2
                     {
                         string[] datosSeparados= producto.ToString().Split('%');
                         meterProducto(datosSeparados);
-
-                        
+                    }
+                    foreach (string consulta in traspaso.updatesSubdetalles)
+                    {
+                        cn.EjecutarConsulta(consulta);
                     }
                     productosTraspaso.Clear();
                     txtClaveTraspaso.Clear();

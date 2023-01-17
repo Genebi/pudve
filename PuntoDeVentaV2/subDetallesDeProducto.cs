@@ -550,6 +550,8 @@ namespace PuntoDeVentaV2
                         dgvDetallesSubdetalle.Visible = false;
                         fLPLateralCategorias.Controls.Clear();
                         flowLayoutPanel1.Visible = false;
+                        groupBox3.Visible = false;
+                        groupBox4.Visible = false;
                         cargarCategorias();
                     }
                 };

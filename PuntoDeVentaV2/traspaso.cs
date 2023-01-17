@@ -17,7 +17,7 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         bool init = false;
         public static string ID="";
-        List<string> updatesSubdetalles = new List<string>();
+        public List<string> updatesSubdetalles = new List<string>();
 
         public traspaso(DataTable datosTraspaso)
         {
