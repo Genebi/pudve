@@ -578,7 +578,7 @@ namespace PuntoDeVentaV2
                 GenerarCheckbox(230, 250, 200, "Venta con descuento", datos[43]);
                 //=============================================================
 
-                GenerarCheckbox(260, 10, 220, "Hacer venta con descuento", datos[47]);
+                GenerarCheckbox(260, 10, 220, "Hacer venta a crédito", datos[47]);
                 //GenerarCheckbox(260, 10, 250, "Venta a Cliente con descuento sin autorizacion", datos[44]);
             }
             else
