@@ -156,6 +156,8 @@ namespace PuntoDeVentaV2
         private void cargarsubCategorias(string categoria)
         {
             cat = categoria;
+
+            flowLayoutPanel1.Visible = true;
             
             dtDetallesSubdetalle.Clear();
             dgvDetallesSubdetalle.Visible = true;
@@ -169,6 +171,7 @@ namespace PuntoDeVentaV2
                     idsADesHabilitar.Clear();
                     dtDetallesSubdetalle = cn.CargarDatos($"SELECT detallesubdetalle.ID, IF(subdetallesdeproducto.TipoDato = 0, detallesubdetalle.Fecha, IF( subdetallesdeproducto.TipoDato = 1, detallesubdetalle.Valor, detallesubdetalle.Nombre)) AS Valor, detallesubdetalle.Stock, productos.Stock AS TotalStock,subdetallesdeproducto.TipoDato,subdetallesdeproducto.ID AS SubID FROM subdetallesdeproducto LEFT JOIN detallesubdetalle ON (detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado=1) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE subdetallesdeproducto.Categoria = '{categoria}' AND productos.id = {idProducto} AND subdetallesdeproducto.Activo = 1");
 
+                    pboxEditar.Visible = true;
                     dgvDetallesSubdetalle.DataSource = dtDetallesSubdetalle;
 
                     if (string.IsNullOrEmpty(dtDetallesSubdetalle.Rows[0]["Stock"].ToString()))
@@ -477,7 +480,7 @@ namespace PuntoDeVentaV2
 
         private void dgvDetallesSubdetalle_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 3 && tipoDato=="0")
+            if (e.ColumnIndex == 3 && tipoDato=="0" && accion== "Nuevo")
             {
                 //Creamos el control por código
                 dateTimePicker1 = new DateTimePicker();
@@ -537,16 +540,21 @@ namespace PuntoDeVentaV2
 
         private void pboxEditar_Click(object sender, EventArgs e)
         {
-            categoriaSubdetalle editarCategoria = new categoriaSubdetalle("Editar",cat);
-            editarCategoria.FormClosed += delegate
-              {
-                  if (editarCategoria.cambio)
-                  {
-                      dgvDetallesSubdetalle.Visible = false;
-                      cargarCategorias();
-                  }
-              };
-            editarCategoria.ShowDialog();
+            using (DataTable dtBuscarIDSubdetalle = cn.CargarDatos($"SELECT ID FROM subdetallesdeproducto WHERE IDUsuario = {FormPrincipal.userID} AND Activo = 1 AND IDProducto = {idProducto} AND Categoria = '{cat}'"))
+            {
+                categoriaSubdetalle editarCategoria = new categoriaSubdetalle("Editar", dtBuscarIDSubdetalle.Rows[0]["ID"].ToString());
+                editarCategoria.FormClosed += delegate
+                {
+                    if (editarCategoria.cambio)
+                    {
+                        dgvDetallesSubdetalle.Visible = false;
+                        fLPLateralCategorias.Controls.Clear();
+                        flowLayoutPanel1.Visible = false;
+                        cargarCategorias();
+                    }
+                };
+                editarCategoria.ShowDialog();
+            }
         }
     }
 }

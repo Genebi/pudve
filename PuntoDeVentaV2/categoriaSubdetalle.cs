@@ -58,7 +58,7 @@ namespace PuntoDeVentaV2
             {
                 stockActual = Convert.ToDecimal(datos.Rows[0]["stock"].ToString());
             }
-            var subDetalle = cn.CargarDatos($"SELECT Categoria FROM subdetallesdeproducto WHERE IDProducto = '{Productos.idProductoAgregarSubdetalle}' AND IDUsuario = '{FormPrincipal.userID}' AND Categoria = '{txtSubDetalle.Text}'");
+            var subDetalle = cn.CargarDatos($"SELECT Categoria FROM subdetallesdeproducto WHERE IDProducto = '{Productos.idProductoAgregarSubdetalle}' AND IDUsuario = '{FormPrincipal.userID}' AND Categoria = '{txtSubDetalle.Text}' AND Activo = 1");
             if (!subDetalle.Rows.Count.Equals(0))
             {
                 MessageBox.Show("Este producto ya cuenta con esta Categoria");
