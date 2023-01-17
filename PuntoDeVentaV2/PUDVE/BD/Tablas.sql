@@ -2026,3 +2026,5 @@ ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoStockConsultar
 
    -- Se agrego la columna PesoAutomatico en Productos para recibir el peso automaticamente. // 0 = Acepta todo tipo de forma venta //1 = Solo se puede vender por Enteros //2 = Toma el peso en automatico de la bascula
 ALTER TABLE productos ADD COLUMN IF NOT EXISTS FormatoDeVenta INT DEFAULT 0;
+
+ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS VentasACredito INT DEFAULT 1;

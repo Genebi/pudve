@@ -1291,6 +1291,9 @@
     <Compile Include="ReportesImpresion\ImprimirEtiqueta.cs" />
     <Compile Include="ReportesImpresion\FormatoCarta.cs" />
     <Compile Include="ReportesImpresion\EnviarImprimir.cs" />
+    <Compile Include="ReportesImpresion\Ticket\AbonoRealizado\TicketAbono.cs">
+      <DependentUpon>TicketAbono.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\AbonoRealizado\TicketAbono.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

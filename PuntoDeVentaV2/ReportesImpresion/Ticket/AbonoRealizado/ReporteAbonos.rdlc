@@ -65,8 +65,8 @@
           <DataField>ClienteTelefono</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="IDVenta">
-          <DataField>IDVenta</DataField>
+        <Field Name="Folio">
+          <DataField>Folio</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="TotalOriginal">
@@ -96,7 +96,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>TicketAbono</rd:DataSetName>
-        <rd:SchemaPath>C:\pudve\PuntoDeVentaV2\ReportesImpresion\Ticket\AbonoRealizado\TicketAbono.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Andoni Sánchez\source\repos\pudve\PuntoDeVentaV2\ReportesImpresion\Ticket\AbonoRealizado\TicketAbono.xsd</rd:SchemaPath>
         <rd:TableName>DataTable1</rd:TableName>
         <rd:TableAdapterFillMethod />
         <rd:TableAdapterGetDataMethod />
@@ -325,7 +325,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>No. Venta:</Value>
+                    <Value>Folio. Venta:</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                     </Style>
@@ -357,7 +357,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!IDVenta.Value, "TicketAbono")</Value>
+                    <Value>=First(Fields!Folio.Value, "TicketAbono")</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
