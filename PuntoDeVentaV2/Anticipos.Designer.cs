@@ -41,18 +41,6 @@
             this.btnBuscarAnticipos = new System.Windows.Forms.Button();
             this.cbAnticipos = new System.Windows.Forms.ComboBox();
             this.DGVAnticipos = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Empleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Status = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Devolver = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Info = new System.Windows.Forms.DataGridViewImageColumn();
-            this.IDVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FormaPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.btnActualizarMaximoProductos = new System.Windows.Forms.Button();
             this.txtMaximoPorPagina = new System.Windows.Forms.TextBox();
@@ -69,6 +57,18 @@
             this.linkLblPaginaActual = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaAnterior = new System.Windows.Forms.LinkLabel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Concepto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Empleado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Status = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Devolver = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Info = new System.Windows.Forms.DataGridViewImageColumn();
+            this.IDVenta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FormaPago = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelBotones.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAnticipos)).BeginInit();
             this.panel4.SuspendLayout();
@@ -241,90 +241,6 @@
             this.DGVAnticipos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAnticipos_CellClick);
             this.DGVAnticipos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAnticipos_CellMouseEnter);
             this.DGVAnticipos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVAnticipos_KeyDown);
-            // 
-            // ID
-            // 
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Visible = false;
-            // 
-            // Concepto
-            // 
-            this.Concepto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Concepto.HeaderText = "Concepto";
-            this.Concepto.Name = "Concepto";
-            this.Concepto.ReadOnly = true;
-            // 
-            // Importe
-            // 
-            this.Importe.HeaderText = "Importe";
-            this.Importe.Name = "Importe";
-            this.Importe.ReadOnly = true;
-            this.Importe.Width = 135;
-            // 
-            // Cliente
-            // 
-            this.Cliente.HeaderText = "Cliente";
-            this.Cliente.Name = "Cliente";
-            this.Cliente.ReadOnly = true;
-            this.Cliente.Width = 135;
-            // 
-            // Empleado
-            // 
-            this.Empleado.HeaderText = "Empleado";
-            this.Empleado.Name = "Empleado";
-            this.Empleado.ReadOnly = true;
-            this.Empleado.Width = 135;
-            // 
-            // Fecha
-            // 
-            this.Fecha.HeaderText = "Fecha";
-            this.Fecha.Name = "Fecha";
-            this.Fecha.ReadOnly = true;
-            this.Fecha.Width = 135;
-            // 
-            // Ticket
-            // 
-            this.Ticket.HeaderText = "";
-            this.Ticket.Name = "Ticket";
-            this.Ticket.ReadOnly = true;
-            this.Ticket.Width = 35;
-            // 
-            // Status
-            // 
-            this.Status.HeaderText = "";
-            this.Status.Name = "Status";
-            this.Status.ReadOnly = true;
-            this.Status.Width = 35;
-            // 
-            // Devolver
-            // 
-            this.Devolver.HeaderText = "";
-            this.Devolver.Name = "Devolver";
-            this.Devolver.ReadOnly = true;
-            this.Devolver.Width = 35;
-            // 
-            // Info
-            // 
-            this.Info.HeaderText = "";
-            this.Info.Name = "Info";
-            this.Info.ReadOnly = true;
-            this.Info.Width = 35;
-            // 
-            // IDVenta
-            // 
-            this.IDVenta.HeaderText = "IDVenta";
-            this.IDVenta.Name = "IDVenta";
-            this.IDVenta.ReadOnly = true;
-            this.IDVenta.Visible = false;
-            // 
-            // FormaPago
-            // 
-            this.FormaPago.HeaderText = "FormaPago";
-            this.FormaPago.Name = "FormaPago";
-            this.FormaPago.ReadOnly = true;
-            this.FormaPago.Visible = false;
             // 
             // TTMensaje
             // 
@@ -538,6 +454,90 @@
             this.panel1.Size = new System.Drawing.Size(845, 100);
             this.panel1.TabIndex = 53;
             // 
+            // ID
+            // 
+            this.ID.HeaderText = "Folio";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Width = 50;
+            // 
+            // Concepto
+            // 
+            this.Concepto.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Concepto.HeaderText = "Concepto";
+            this.Concepto.Name = "Concepto";
+            this.Concepto.ReadOnly = true;
+            // 
+            // Importe
+            // 
+            this.Importe.HeaderText = "Importe";
+            this.Importe.Name = "Importe";
+            this.Importe.ReadOnly = true;
+            this.Importe.Width = 135;
+            // 
+            // Cliente
+            // 
+            this.Cliente.HeaderText = "Cliente";
+            this.Cliente.Name = "Cliente";
+            this.Cliente.ReadOnly = true;
+            this.Cliente.Width = 135;
+            // 
+            // Empleado
+            // 
+            this.Empleado.HeaderText = "Empleado";
+            this.Empleado.Name = "Empleado";
+            this.Empleado.ReadOnly = true;
+            this.Empleado.Width = 135;
+            // 
+            // Fecha
+            // 
+            this.Fecha.HeaderText = "Fecha";
+            this.Fecha.Name = "Fecha";
+            this.Fecha.ReadOnly = true;
+            this.Fecha.Width = 135;
+            // 
+            // Ticket
+            // 
+            this.Ticket.HeaderText = "";
+            this.Ticket.Name = "Ticket";
+            this.Ticket.ReadOnly = true;
+            this.Ticket.Width = 35;
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "";
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
+            this.Status.Width = 35;
+            // 
+            // Devolver
+            // 
+            this.Devolver.HeaderText = "";
+            this.Devolver.Name = "Devolver";
+            this.Devolver.ReadOnly = true;
+            this.Devolver.Width = 35;
+            // 
+            // Info
+            // 
+            this.Info.HeaderText = "";
+            this.Info.Name = "Info";
+            this.Info.ReadOnly = true;
+            this.Info.Width = 35;
+            // 
+            // IDVenta
+            // 
+            this.IDVenta.HeaderText = "IDVenta";
+            this.IDVenta.Name = "IDVenta";
+            this.IDVenta.ReadOnly = true;
+            this.IDVenta.Visible = false;
+            // 
+            // FormaPago
+            // 
+            this.FormaPago.HeaderText = "FormaPago";
+            this.FormaPago.Name = "FormaPago";
+            this.FormaPago.ReadOnly = true;
+            this.FormaPago.Visible = false;
+            // 
             // Anticipos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -578,18 +578,6 @@
         private System.Windows.Forms.ComboBox cbAnticipos;
         private System.Windows.Forms.DataGridView DGVAnticipos;
         private System.Windows.Forms.ToolTip TTMensaje;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Concepto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Importe;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Empleado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
-        private System.Windows.Forms.DataGridViewImageColumn Ticket;
-        private System.Windows.Forms.DataGridViewImageColumn Status;
-        private System.Windows.Forms.DataGridViewImageColumn Devolver;
-        private System.Windows.Forms.DataGridViewImageColumn Info;
-        private System.Windows.Forms.DataGridViewTextBoxColumn IDVenta;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FormaPago;
         private System.Windows.Forms.TextBox txtBuscarAnticipo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -608,5 +596,17 @@
         private System.Windows.Forms.LinkLabel linkLblPaginaActual;
         private System.Windows.Forms.LinkLabel linkLblPaginaAnterior;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Concepto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Importe;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Empleado;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
+        private System.Windows.Forms.DataGridViewImageColumn Ticket;
+        private System.Windows.Forms.DataGridViewImageColumn Status;
+        private System.Windows.Forms.DataGridViewImageColumn Devolver;
+        private System.Windows.Forms.DataGridViewImageColumn Info;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDVenta;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FormaPago;
     }
 }
