@@ -21,6 +21,9 @@ namespace PuntoDeVentaV2
         MetodosBusquedas mb = new MetodosBusquedas();
         CargarDatosCaja cdc = new CargarDatosCaja();
         public DataTable datosWeb = new DataTable();
+        public DataTable detallesDepositoWeb = new DataTable();
+        public DataTable detallesRetiroWeb = new DataTable();
+
 
         int clickBotonCorteDeCaja = 0;
 
@@ -455,17 +458,84 @@ namespace PuntoDeVentaV2
 
             cbFiltroAdminEmpleado.SelectedIndex = 0;
 
+
+            detallesDepositoWeb.Columns.Add("Empleado");
+            detallesDepositoWeb.Columns.Add("Tipo de movimiento");
+            detallesDepositoWeb.Columns.Add("Concepto");
+            detallesDepositoWeb.Columns.Add("Cantidad");
+            detallesDepositoWeb.Columns.Add("Efectivo");
+            detallesDepositoWeb.Columns.Add("Tarjeta");
+            detallesDepositoWeb.Columns.Add("Vales");
+            detallesDepositoWeb.Columns.Add("Cheque");
+            detallesDepositoWeb.Columns.Add("Transferencia");
+            detallesDepositoWeb.Columns.Add("FechaOperacion");
+            detallesDepositoWeb.Columns.Add("Fecha de Operacion");
+
+
+            detallesRetiroWeb.Columns.Add("Empleado");
+            detallesRetiroWeb.Columns.Add("Tipo de movimiento");
+            detallesRetiroWeb.Columns.Add("Concepto");
+            detallesRetiroWeb.Columns.Add("Cantidad");
+            detallesRetiroWeb.Columns.Add("Efectivo");
+            detallesRetiroWeb.Columns.Add("Tarjeta");
+            detallesRetiroWeb.Columns.Add("Vales");
+            detallesRetiroWeb.Columns.Add("Cheque");
+            detallesRetiroWeb.Columns.Add("Transferencia");
+            detallesRetiroWeb.Columns.Add("FechaOperacion");
+            detallesRetiroWeb.Columns.Add("Fecha de Operacion");
+
             foreach (var item in cbFiltroAdminEmpleado.Items)
             {
                 datosWeb.Rows.Add(cbFiltroAdminEmpleado.Text, lbTEfectivo.Text, lbTTarjeta.Text, lbTVales.Text, lbTCheque.Text, lbTTrans.Text, lbTCredito.Text, lbTCreditoC.Text, lbTAnticipos.Text, lbTVentas.Text, lbTEfectivoA.Text, lbTTarjetaA.Text, lbTValesA.Text, lbTChequeA.Text, lbTTransA.Text, lbTAnticiposA.Text, lbTEfectivoD.Text, lbTTarjetaD.Text, lbTValesD.Text, lbTChequeD.Text, lbTTransD.Text, lbTAgregado.Text, lbEfectivoR.Text, lbTarjetaR.Text, lbValesR.Text, lbChequeR.Text, lbTransferenciaR.Text, lbDevoluciones.Text, lbTRetirado.Text, lbTEfectivoC.Text, lbTTarjetaC.Text, lbTValesC.Text, lbTChequeC.Text, lbTTransC.Text, lbTTotalCaja.Text, btnRedondoSaldoInicial.Text, lblCantidadSaldoActual.Text);
+
+                if (cbFiltroAdminEmpleado.SelectedIndex != cbFiltroAdminEmpleado.Items.Count-1)
+                {
+                    detallesDepositoRetiro();
+                }
+
                 if (cbFiltroAdminEmpleado.Items.Count != cbFiltroAdminEmpleado.SelectedIndex + 1)
                 {
                     cbFiltroAdminEmpleado.SelectedIndex = cbFiltroAdminEmpleado.SelectedIndex + 1;
                 }
+
+                
             }
 
             FormPrincipal.id_empleado = auxiliarIDEmpleado;
             this.Close();
+        }
+
+        private void detallesDepositoRetiro()
+        {
+            DataTable ultimoCorteCaja = new DataTable();
+            if (true && CajaN.usuarioEmpleado.Equals("usuario"))
+            {
+                ultimoCorteCaja = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE  IDUsuario = {FormPrincipal.userID} AND idEmpleado = {FormPrincipal.id_empleado} ORDER BY ID DESC LIMIT 1");
+            }
+            else
+            {
+                ultimoCorteCaja = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE  IDUsuario = {FormPrincipal.userID} AND idEmpleado = {FormPrincipal.id_empleado} ORDER BY ID DESC LIMIT 1");
+            }
+
+
+            if (!ultimoCorteCaja.Rows.Count.Equals(0))
+            {
+                DataTable DatosDeposito, DatosRetiro = new DataTable();
+                DateTime fechaUltimoCorte = Convert.ToDateTime(ultimoCorteCaja.Rows[0]["FechaOperacion"].ToString());
+                var formatoFecha = fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss");
+
+                DatosDeposito = cn.CargarDatos($"SELECT Operacion AS 'Tipo de movimiento', Concepto, Cantidad, Efectivo, Tarjeta, Vales, Cheque, Transferencia, FechaOperacion AS 'Fecha de Operacion' FROM caja WHERE IDUsuario = {FormPrincipal.userID} AND idEmpleado = '{FormPrincipal.id_empleado}' AND FechaOperacion >= '{formatoFecha}' AND Operacion = 'deposito' OR Operacion = 'deposito' AND FechaOperacion >= '{formatoFecha}' AND Concepto = 'Insert primer saldo inicial'");
+
+                foreach (DataRow dr in DatosDeposito.Rows)
+                {
+                    detallesDepositoWeb.Rows.Add(DatosDeposito.Rows);
+                }
+
+                DatosRetiro = cn.CargarDatos($"SELECT Operacion AS 'Tipo de movimiento', Concepto, Cantidad, Efectivo, Tarjeta, Vales, Cheque, Transferencia, FechaOperacion AS 'Fecha de Operacion' FROM caja WHERE IDUsuario = {FormPrincipal.userID} AND idEmpleado = '{FormPrincipal.id_empleado}' AND FechaOperacion >= '{formatoFecha}' AND Operacion = 'retiro'");
+                
+                detallesRetiroWeb.Rows.Add(DatosRetiro.Rows);
+            }
+
         }
 
         private void verificarSiExisteCorteDeCaja()

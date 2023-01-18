@@ -1270,6 +1270,7 @@ namespace PuntoDeVentaV2
             test.FormClosed += delegate
             {
                 valoresCaja = test.datosWeb;
+
             };
             test.ShowDialog();
 
