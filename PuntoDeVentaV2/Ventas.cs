@@ -8769,6 +8769,12 @@ namespace PuntoDeVentaV2
             tieneElCursorElTxtBuscadorProducto = true;
         }
 
+        private void botonRedondo1_Click_1(object sender, EventArgs e)
+        {
+            VentaRapida venta = new VentaRapida();
+            venta.ShowDialog();
+        }
+
         private void txtBuscadorProducto_TextChanged(object sender, EventArgs e)
         {
             if (txtBuscadorProducto.Text.Contains("\'"))
