@@ -132,7 +132,8 @@ namespace PuntoDeVentaV2
                 Label espacio = new Label();
 
                 Categoria.Click += new EventHandler(LB_Click);
-                Categoria.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+                Categoria.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+                Categoria.BackColor = Color.LightGray;
                 Categoria.TextAlign = ContentAlignment.MiddleCenter;
                 Categoria.Font = new Font("Arial", 11);
                 Categoria.Size = new Size(224, 20);
@@ -209,8 +210,7 @@ namespace PuntoDeVentaV2
 
                     dgvDetallesSubdetalle.Columns[1].Visible = false;
                     groupBox1.Visible = false;
-                    groupBox3.Visible = false;
-                    dgvDetallesSubdetalle.Columns[3].ReadOnly = true;
+                    groupBox3.Visible = true;
 
                     break;
                 default:
@@ -352,14 +352,33 @@ namespace PuntoDeVentaV2
                     
                     break;
                 case "Inventario":
+
                     foreach (DataRow registroDetalle in dtDetallesSubdetalle.Rows)
                     {
-                        if (Convert.ToDecimal(registroDetalle["Stock"].ToString()) > 0)
+                        if (!string.IsNullOrEmpty(registroDetalle["Valor"].ToString()) && !string.IsNullOrEmpty(registroDetalle["Stock"].ToString()))
                         {
-                            string updateGuardado = $"UPDATE detallesubdetalle SET Stock = {registroDetalle["Stock"].ToString()} WHERE ID = {registroDetalle["ID"].ToString()}";
-                            updates.Add(updateGuardado);
+
+
+                            if (string.IsNullOrEmpty(registroDetalle["ID"].ToString()))
+                            {
+                                string consulta = $"INSERT INTO detallesubdetalle (IDsubdetalle, {colDato}, Stock)";
+                                consulta += $"VALUES ('{colID}', '{registroDetalle["Valor"].ToString()}', '{registroDetalle["Stock"].ToString()}')";
+
+                                updates.Add(consulta);
+                            }
+                            else
+                            {
+                                string updateGuardado = $"UPDATE detallesubdetalle SET {colDato}='{registroDetalle["Valor"].ToString()}',Stock = {registroDetalle["Stock"].ToString()} WHERE ID = {registroDetalle["ID"].ToString()}";
+                                updates.Add(updateGuardado);
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show($"No puedes dejar espacios en blanco", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
                         }
                     }
+                    
                     idsADesHabilitar.Add(dtDetallesSubdetalle.Rows[0]["SubID"].ToString());
                     fLPLateralCategorias.Controls.Clear();
                     dgvDetallesSubdetalle.Visible = false;
@@ -378,6 +397,42 @@ namespace PuntoDeVentaV2
                 if (!string.IsNullOrEmpty(dtDetallesSubdetalle.Rows[(dtDetallesSubdetalle.Rows.Count) - 1]["Valor"].ToString()) && !string.IsNullOrEmpty(dtDetallesSubdetalle.Rows[(dtDetallesSubdetalle.Rows.Count) - 1]["Stock"].ToString()))
                 {
                     dtDetallesSubdetalle.Rows.Add();
+                    dgvDetallesSubdetalle.CurrentCell = dgvDetallesSubdetalle.Rows[dgvDetallesSubdetalle.RowCount-1].Cells[3];
+
+                    if (tipoDato == "0" && accion == "Nuevo")
+                    {
+                        //Creamos el control por código
+                        dateTimePicker1 = new DateTimePicker();
+
+                        //Agregamos el control de fecha dentro del DataGridView 
+                        dgvDetallesSubdetalle.Controls.Add(dateTimePicker1);
+
+                        // Hacemos que el control sea invisible (para que no moleste visualmente)
+                        dateTimePicker1.Visible = false;
+
+                        // Establecemos el formato (depende de tu localización en tu PC)
+                        dateTimePicker1.Format = DateTimePickerFormat.Short;
+
+                        // Agregamos el evento para cuando seleccionemos una fecha
+                        dateTimePicker1.TextChanged += new EventHandler(dateTimePicker1_OnTextChange);
+
+                        // Lo hacemos visible
+                        dateTimePicker1.Visible = true;
+
+                        // Creamos un rectángulo que representa el área visible de la celda
+                        Rectangle rectangle1 = dgvDetallesSubdetalle.GetCellDisplayRectangle(dgvDetallesSubdetalle.CurrentCell.ColumnIndex, dgvDetallesSubdetalle.CurrentCell.RowIndex, true);
+
+                        //Establecemos el tamaño del control DateTimePicker (que sería el tamaño total de la celda)
+                        dateTimePicker1.Size = new Size(rectangle1.Width, rectangle1.Height);
+
+                        // Establecemos la ubicación del control
+                        dateTimePicker1.Location = new Point(rectangle1.X, rectangle1.Y);
+
+                        // Generamos el evento de cierre del control fecha
+                        dateTimePicker1.CloseUp += new EventHandler(dateTimePicker1_CloseUp);
+                    
+                    }
+
                 }
                 else
                 {

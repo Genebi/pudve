@@ -3179,10 +3179,13 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            ListaSubDetallesProdutos.Clear();
+            ListaUpdatesSubDetallesProdutos.Clear();
             if (!verificarSubDetalles())
             {
                 MessageBox.Show("Todos los productos con subdetalles deben tener especificada su categoría y la cantidad vendida.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 ListaSubDetallesProdutos.Clear();
+                ListaUpdatesSubDetallesProdutos.Clear();
                 return;
             }
             //if (ClienteConDescuento.Equals(true))
