@@ -80,11 +80,26 @@ namespace PuntoDeVentaV2
             }
 
             string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm.rdlc";
 
-           
-            
+            string FullReportPath = string.Empty;
+            int tamanno = 0;
+            using (var DTTammanoTicket = cn.CargarDatos($"SELECT tamannoTicket from editarticket WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                tamanno = Convert.ToInt32(DTTammanoTicket.Rows[0][0]);
+            }
+            if (tamanno == 1)
+            {
+                FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm.rdlc";
+            }
+            else if (tamanno == 2)
+            {
+                FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm2.rdlc";
+            }
+            else
+            {
+                FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm3.rdlc";
 
+            }
             MySqlDataAdapter ventaDA = new MySqlDataAdapter(queryVenta, conn);
             DataTable ventaDT = new DataTable();
 

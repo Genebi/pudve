@@ -2028,3 +2028,6 @@ ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoStockConsultar
 ALTER TABLE productos ADD COLUMN IF NOT EXISTS FormatoDeVenta INT DEFAULT 0;
 
 ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS VentasACredito INT DEFAULT 1;
+
+--Se agrego la columna de tamannoTicket a la tabla editarticket
+ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS tamannoTicket INT DEFAULT 2;

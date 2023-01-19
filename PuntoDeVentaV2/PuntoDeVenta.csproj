@@ -2344,6 +2344,12 @@
     <Content Include="ReportesImpresion\Ticket\GraficaVentasProveedor\ReporteGraficaProveedor.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm2.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm3.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="ReportesRetirosConceptosPorMes.resx">
       <DependentUpon>ReportesRetirosConceptosPorMes.cs</DependentUpon>
     </EmbeddedResource>
