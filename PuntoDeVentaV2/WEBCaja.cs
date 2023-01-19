@@ -528,12 +528,15 @@ namespace PuntoDeVentaV2
 
                 foreach (DataRow dr in DatosDeposito.Rows)
                 {
-                    detallesDepositoWeb.Rows.Add(DatosDeposito.Rows);
+                    detallesDepositoWeb.Rows.Add(cbFiltroAdminEmpleado.Text,dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString(), dr[6].ToString(), dr[7].ToString(), dr[8].ToString());
                 }
 
                 DatosRetiro = cn.CargarDatos($"SELECT Operacion AS 'Tipo de movimiento', Concepto, Cantidad, Efectivo, Tarjeta, Vales, Cheque, Transferencia, FechaOperacion AS 'Fecha de Operacion' FROM caja WHERE IDUsuario = {FormPrincipal.userID} AND idEmpleado = '{FormPrincipal.id_empleado}' AND FechaOperacion >= '{formatoFecha}' AND Operacion = 'retiro'");
                 
-                detallesRetiroWeb.Rows.Add(DatosRetiro.Rows);
+                foreach (DataRow dr in DatosRetiro.Rows)
+                {
+                    detallesRetiroWeb.Rows.Add(cbFiltroAdminEmpleado.Text, dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString(), dr[6].ToString(), dr[7].ToString(), dr[8].ToString());
+                }
             }
 
         }
