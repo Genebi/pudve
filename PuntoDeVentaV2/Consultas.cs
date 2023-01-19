@@ -53,8 +53,8 @@ namespace PuntoDeVentaV2
 
         public string GuardarProducto(string[] datos, int id)
         {
-            string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, Categoria, ClaveInterna, CodigoBarras, ClaveProducto, UnidadMedida, TipoDescuento, IDUsuario, ProdImage, Tipo, Base, IVA, Impuesto, NombreAlterno1, NombreAlterno2, StockNecesario, StockMinimo, PrecioCompra, PrecioMayoreo)";
-            consulta += $"VALUES('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}')";
+            string consulta = "INSERT INTO Productos(Nombre, Stock, Precio, Categoria, ClaveInterna, CodigoBarras, ClaveProducto, UnidadMedida, TipoDescuento, IDUsuario, ProdImage, Tipo, Base, IVA, Impuesto, NombreAlterno1, NombreAlterno2, StockNecesario, StockMinimo, PrecioCompra, PrecioMayoreo, incluye_impuestos, nombre_ctercero, rfc_ctercero, cp_ctercero, regimen_ctercero)";
+            consulta += $"VALUES('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}')";
 
             return consulta;
         }
@@ -985,7 +985,7 @@ namespace PuntoDeVentaV2
                 cons = $"SELECT * FROM Clientes WHERE IDUsuario='{id_usuario}'";
             }
             // Consulta impuestos de la venta en tabla DetallesFacturacionProductos
-            if (opc == 8)
+            if (opc == 8)       
             {
                 cons = $"SELECT * FROM DetallesFacturacionProductos WHERE IDProducto='{id}'";
             }
@@ -1047,21 +1047,21 @@ namespace PuntoDeVentaV2
             {
                 modif = "INSERT INTO Facturas (id_usuario, id_venta, id_empleado, metodo_pago, forma_pago, num_cuenta, moneda, tipo_cambio, uso_cfdi,";
                 modif += "e_rfc, e_razon_social, e_regimen,  e_correo, e_telefono, e_cp, e_estado, e_municipio, e_colonia, e_calle, e_num_ext, e_num_int, e_nombre_comercial,";
-                modif += "r_rfc, r_razon_social, r_nombre_comercial, r_correo, r_telefono, r_pais, r_estado, r_municipio, r_localidad, r_cp, r_colonia, r_calle, r_num_ext, r_num_int,";
-                modif += "folio, serie, tipo_comprobante)";
-                modif += $" VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}', '{datos[37]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}', '{datos[26]}', '{datos[27]}', '{datos[28]}', '{datos[29]}', '{datos[30]}', '{datos[31]}', '{datos[32]}', '{datos[33]}', '{datos[34]}', '{datos[35]}', '{datos[36]}', 'I')";
+                modif += "r_rfc, r_razon_social, r_nombre_comercial, r_correo, r_telefono, r_pais, r_estado, r_municipio, r_localidad, r_cp, r_colonia, r_calle, r_num_ext, r_num_int, r_regimen,";
+                modif += "folio, serie, tipo_comprobante, exportacion, r_periodicidad_infog, r_meses_infog, r_anio_infog)";
+                modif += $" VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}', '{datos[37]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}', '{datos[26]}', '{datos[27]}', '{datos[28]}', '{datos[29]}', '{datos[30]}', '{datos[31]}', '{datos[32]}', '{datos[33]}', '{datos[34]}', '{datos[42]}', '{datos[35]}', '{datos[36]}', 'I', '{datos[38]}', '{datos[39]}', '{datos[40]}', '{datos[41]}')";
             }
 
             // Guarda los productos 
             if (opc == 6)
             {
-                modif = $"INSERT INTO Facturas_productos (id_factura, clave_unidad, clave_producto, descripcion, cantidad, precio_u, base, tasa_cuota, importe_iva, descuento) VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}')";
+                modif = $"INSERT INTO Facturas_productos (id_factura, clave_unidad, clave_producto, descripcion, cantidad, precio_u, base, tasa_cuota, importe_iva, descuento, incluye_impuestos, nombre_ctercero, rfc_ctercero, cp_ctercero, regimen_ctercero) VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}')";
             }
 
             // Guarda los impuestos diferentes de IVA 16, 0, 8 y exento
             if (opc == 7)
             {
-                modif = $"INSERT INTO Facturas_impuestos (id_factura_producto, tipo, impuesto, tipo_factor, tasa_cuota, definir, importe) VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}')";
+                modif = $"INSERT INTO Facturas_impuestos (id_factura_producto, tipo, impuesto, tipo_factor, tasa_cuota, definir, importe) VALUES ('{Convert.ToInt32(datos[0])}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}')";
             }
 
             // Cambia a timbrada la factura
@@ -1491,7 +1491,7 @@ namespace PuntoDeVentaV2
 
         public string cargar_impuestos_en_editar_producto(int id)
         {
-            string cons = $"SELECT * FROM detallesfacturacionproductos WHERE IDProducto = {id}";
+            string cons = $"SELECT * FROM detallesfacturacionproductos WHERE IDProducto = {id}"; Console.WriteLine(cons);
 
             return cons;
         }
@@ -4932,6 +4932,23 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT * FROM abonos AS Abono WHERE Abono.IDVenta IN ( SELECT ID FROM ventas WHERE IDUsuario = '{FormPrincipal.userID}' AND IDEmpleado = '0' AND `Status` = '4' AND FechaOperacion > '{fechaOperacion}' ) AND Abono.IDUsuario = '{FormPrincipal.userID}' AND Abono.IDEmpleado != '0'";
 
             return consulta;
+        }
+
+
+        public string obtener_regimen_fiscal(string tipo)
+        {
+            var cons = "";
+
+            if(tipo == "F")
+            {
+                cons = $"SELECT * FROM RegimenFiscal WHERE AplicaFisica='Sí'";
+            }
+            if (tipo == "M")
+            {
+                cons = $"SELECT * FROM RegimenFiscal WHERE AplicaMoral='Sí'";
+            }
+                
+            return cons;
         }
     }
 }   

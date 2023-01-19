@@ -3357,6 +3357,7 @@ namespace PuntoDeVentaV2
             // Declara arreglo y tamaño
             int n_filas = d_id_productos.Rows.Count + 1;
             faltantes_productos = new string[n_filas][];
+            int actualizar_prod_a_cfdi40 = 0;
 
 
             if (d_id_productos.Rows.Count > 0)
@@ -3378,7 +3379,7 @@ namespace PuntoDeVentaV2
                             string clave_u = r_claves["UnidadMedida"].ToString();
                             string clave_p = r_claves["ClaveProducto"].ToString();
 
-                            faltantes_productos[i] = new string[11];
+                            faltantes_productos[i] = new string[12];
 
                             if (clave_p == "" | clave_u == "")
                             {
@@ -3399,6 +3400,12 @@ namespace PuntoDeVentaV2
                             faltantes_productos[i][8] = r_id_productos["TipoDescuento"].ToString();
                             faltantes_productos[i][9] = r_claves["Base"].ToString();
                             faltantes_productos[i][10] = r_claves["Impuesto"].ToString();
+                            faltantes_productos[i][11] = r_claves["incluye_impuestos"].ToString();
+
+                            if (r_claves["incluye_impuestos"].ToString() == "" | r_claves["incluye_impuestos"].ToString() == null)
+                            {
+                                actualizar_prod_a_cfdi40++;
+                            }                            
                         }
 
                         i++;
@@ -3414,7 +3421,7 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            // Abrir ventana para agregar los datos faltantes para la factura
+            
 
             // Antes de abrir ventana se verificará que tenga los archivos digitales agregados.
 
@@ -3438,6 +3445,16 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            // Valida que los productos a facturar ya esten actualizados a la versión 4.0
+
+            if(actualizar_prod_a_cfdi40 > 0)
+            {
+                MessageBox.Show("Hay productos que no han sido actualizados a la versión de CFDI 4.0. \n Ir al apartado de productos y en editar producto hacer la actualización.", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Abrir ventana para agregar los datos faltantes para la factura
+            
             if (arch_cer != "" & arch_key != "")
             {
                 // Consulta que se halla guardado el número de certificado

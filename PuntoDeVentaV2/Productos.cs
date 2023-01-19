@@ -225,6 +225,14 @@ namespace PuntoDeVentaV2
         static public int tieneDescMay = 0;
         static public int tieneDescIndiv = 0;
 
+        // Miri.
+        // Variables para nuevos datos de CFDI 4.0
+        static public string incluye_impuestos = "";
+        static public string nombre_cnt_3ro = "";
+        static public string rfc_cnt_3ro = "";
+        static public string cp_cnt_3ro = "";
+        static public string regimen_cnt_3ro = "";
+
         List<string> usuarios = new List<string>()
         {
             "HOUSEDEPOTAUTLAN",
@@ -1798,6 +1806,14 @@ namespace PuntoDeVentaV2
                 UnidadMedida = datosProducto[17];// DGVProductos.Rows[fila].Cells["_ClavUnidMedXML"].Value.ToString();
                 id = FormPrincipal.userID.ToString();
                 impuestoProducto = datosProducto[13];// DGVProductos.Rows[fila].Cells["Impuesto"].Value.ToString();
+
+                // Miri. CFDI 4.0
+
+                incluye_impuestos = datosProducto[18];
+                nombre_cnt_3ro = datosProducto[19];
+                rfc_cnt_3ro = datosProducto[20];
+                cp_cnt_3ro = datosProducto[21];
+                regimen_cnt_3ro = datosProducto[22];
             }
         }
 

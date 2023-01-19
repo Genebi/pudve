@@ -227,13 +227,13 @@ namespace PuntoDeVentaV2
                 lista.Add(dr[11].ToString()); //Colonia             9
                 lista.Add(dr[12].ToString()); //Calle               10
                 lista.Add(dr[13].ToString()); //No. exterior        11
-                lista.Add(dr[14].ToString()); //No. interior        12
-                //lista.Add(dr[15].ToString()); //Regimen fiscal    
+                lista.Add(dr[14].ToString()); //No. interior        12                    
                 lista.Add(dr[16].ToString()); //Email               13
                 lista.Add(dr[17].ToString()); //Telefono            14
                 lista.Add(dr[18].ToString()); //Forma de pago       15
                 lista.Add(dr[21].ToString()); //TipoCliente         16
                 lista.Add(dr[22].ToString()); //NumeroCliente       17
+                lista.Add(dr[15].ToString()); //Regimen fiscal
             }
 
             dr.Close();

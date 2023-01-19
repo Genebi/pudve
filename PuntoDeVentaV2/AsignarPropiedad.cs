@@ -527,6 +527,30 @@ namespace PuntoDeVentaV2
             }
             else if (propiedad == "TipoIVA")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
+                // Miri.
+                // Se agrega select donde se especifica si los productos incluye o no impuestos. CFDI 4.0
+                
+                Dictionary<string, string> inc_impuestos = new Dictionary<string, string>();
+                inc_impuestos.Add("01", "No objeto de impuesto.");
+                inc_impuestos.Add("02", "Sí objeto de impuesto.");
+                inc_impuestos.Add("03", "Sí objeto del impuesto y no obligado al desglose.");
+                inc_impuestos.Add("04", "Sí objeto del impuesto y no causa impuesto.");
+
+                ComboBox cmb_bx_incluye_impuestos = new ComboBox();
+                cmb_bx_incluye_impuestos.Name = "cmb_bx_inc_impuestos";
+                cmb_bx_incluye_impuestos.Width = 317;
+                cmb_bx_incluye_impuestos.Height = 20;
+                cmb_bx_incluye_impuestos.Font = fuente;
+                cmb_bx_incluye_impuestos.DropDownStyle = ComboBoxStyle.DropDownList;
+                cmb_bx_incluye_impuestos.DataSource = inc_impuestos.ToArray();
+                cmb_bx_incluye_impuestos.DisplayMember = "Value";
+                cmb_bx_incluye_impuestos.ValueMember = "Key";
+                cmb_bx_incluye_impuestos.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
+                cmb_bx_incluye_impuestos.Location = new Point(6, 60);
+                cmb_bx_incluye_impuestos.SelectedValueChanged += new EventHandler(sel_incluye_impuestos);
+
+
+
                 Dictionary<string, string> listaIVA = new Dictionary<string, string>();
                 listaIVA.Add("0%", "IVA AL 0%");
                 listaIVA.Add("8%", "IVA AL 8%");
@@ -535,7 +559,7 @@ namespace PuntoDeVentaV2
 
                 ComboBox cbIVA = new ComboBox();
                 cbIVA.Name = "cb" + propiedad;
-                cbIVA.Width = 300;
+                cbIVA.Width = 317;
                 cbIVA.Height = 20;
                 cbIVA.Font = fuente;
                 cbIVA.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -543,8 +567,10 @@ namespace PuntoDeVentaV2
                 cbIVA.DisplayMember = "Value";
                 cbIVA.ValueMember = "Key";
                 cbIVA.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
-                cbIVA.Location = new Point(15, 70);
+                cbIVA.Location = new Point(6, 100);
+                cbIVA.Enabled = false;
 
+                panelContenedor.Controls.Add(cmb_bx_incluye_impuestos);
                 panelContenedor.Controls.Add(cbIVA);
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarIVA"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarIVA"));
@@ -1627,15 +1653,27 @@ namespace PuntoDeVentaV2
             }
             else if (propiedad == "TipoIVA")/////////////////////////////////////////////////////////////////
             {
-                ComboBox combo = (ComboBox)this.Controls.Find("cbTipoIVA", true)[0];
+                // Miri. 
+                // CFDI 4.0. Se agrega el valor del select donde se especifica si se incluye o no impuestos
 
+                ComboBox combo = (ComboBox)this.Controls.Find("cbTipoIVA", true)[0];                
+                ComboBox cbx_inc_impuest = (ComboBox)this.Controls.Find("cmb_bx_inc_impuestos", true)[0];
+
+                var incluye_impuestos = cbx_inc_impuest.SelectedValue.ToString();
                 var iva = combo.SelectedValue.ToString();
-                var consulta = "INSERT IGNORE INTO Productos (ID, Impuesto) VALUES";
+                var consulta = "INSERT IGNORE INTO Productos (ID, Impuesto, incluye_impuestos) VALUES";
                 var valores = string.Empty;
+
+                // Miri.
+                // Si no se incluyen impuestos se limpia la variable para que elimine el impuesto que tenga agregado
+                if(incluye_impuestos != "02")
+                {
+                    iva = "";
+                }
 
                 foreach (var producto in productos)
                 {
-                    valores += $"({producto.Key}, '{iva}'),";
+                    valores += $"({producto.Key}, '{iva}', '{incluye_impuestos}'),";
 
                     //cn.EjecutarConsulta($"UPDATE Productos SET Impuesto = '{iva}' WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
                 }
@@ -1644,7 +1682,7 @@ namespace PuntoDeVentaV2
                 {
                     valores = valores.TrimEnd(',');
 
-                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), Impuesto = VALUES(Impuesto);";
+                    consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), Impuesto = VALUES(Impuesto), incluye_impuestos = VALUES(incluye_impuestos);";
 
                     cn.EjecutarConsulta(consulta);
                     MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
@@ -1949,7 +1987,7 @@ namespace PuntoDeVentaV2
             {
                 var txtClave = (TextBox)this.Controls.Find("tbClaveUnidad", true).FirstOrDefault();
 
-                txtClave.Text = clave;
+                txtClave.Text = clave; 
             }
         }
 
@@ -2180,5 +2218,27 @@ namespace PuntoDeVentaV2
                 this.Close();
             }
         }
+
+        private void sel_incluye_impuestos(object sender, EventArgs e)
+        {
+            var cmb_bx_impuesto = sender as ComboBox;
+            var valor = cmb_bx_impuesto.SelectedValue.ToString();
+            ComboBox cbx_IVA = (ComboBox)Controls.Find("cbTipoIVA", true)[0];
+
+            // No incluye impuestos, o no esta obligado a desglosarlos
+
+            if (valor == "01" | valor == "03" | valor == "04")
+            {
+               cbx_IVA.Enabled = false;
+            }
+
+            // Incluye impuestos
+
+            if (valor == "02" )
+            {
+                cbx_IVA.Enabled = true;
+            }            
+        }
+
     }
 }

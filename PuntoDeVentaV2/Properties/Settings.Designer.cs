@@ -12,7 +12,7 @@ namespace PuntoDeVentaV2.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.2.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -514,8 +514,7 @@ namespace PuntoDeVentaV2.Properties {
                 this["valesRecibido"] = value;
             }
         }
-       
-
+        
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
@@ -537,6 +536,16 @@ namespace PuntoDeVentaV2.Properties {
             }
             set {
                 this["cambioTotal"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://pruebasclientes.facturehoy.com:8080/CFDI40/WsEmisionTimbrado40")]
+        public string PuntoDeVentaV2_FH_CFDI40_test_WsEmisionTimbrado40 {
+            get {
+                return ((string)(this["PuntoDeVentaV2_FH_CFDI40_test_WsEmisionTimbrado40"]));
             }
         }
     }

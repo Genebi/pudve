@@ -154,7 +154,7 @@
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.1016.290\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="MySql.Data, Version=8.0.21.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
@@ -206,6 +206,7 @@
       <HintPath>..\packages\System.Drawing.Common.5.0.0\lib\net461\System.Drawing.Common.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Management" />
     <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -536,7 +537,7 @@
     <Compile Include="CFDI\StringWriterConEncoding.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="cfdv33_tdCFDI_catCFDI.cs" />
+    <Compile Include="cfdv40_tdCFDI_catCFDI.cs" />
     <Compile Include="checarVersion.cs" />
     <Compile Include="Clientes.cs">
       <SubType>Form</SubType>
@@ -1207,6 +1208,7 @@
       <DependentUpon>TicketDineroRetirado.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Content Include="PUDVE\xslt\cadenaoriginal_4_0.xslt" />
     <Content Include="ReportesImpresion\Ticket\Inventario\DTInventario.cs">
       <DependentUpon>DTInventario.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1556,6 +1558,11 @@
     </Compile>
     <Compile Include="Visualizar_notaventa.Designer.cs">
       <DependentUpon>Visualizar_notaventa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\FH_CFDI40_test\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
     </Compile>
     <Compile Include="WinQueryString.cs">
       <SubType>Form</SubType>
@@ -2533,6 +2540,17 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ServiceReference_produccion\timbrado_cfdi33.wsdl" />
+    <None Include="Web References\FH_CFDI40_test\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\FH_CFDI40_test\WsEmisionTimbrado40.wsdl" />
+    <None Include="Web References\FH_CFDI40_test\WsEmisionTimbrado40.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\FH_CFDI40_test\wsResponseBO.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -7820,6 +7838,22 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PUDVE\Plantillas\Tmp\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://pruebasclientes.facturehoy.com:8080/CFDI40/WsEmisionTimbrado40%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\FH_CFDI40_test\</RelPath>
+      <UpdateFromURL>http://pruebasclientes.facturehoy.com:8080/CFDI40/WsEmisionTimbrado40%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>PuntoDeVentaV2_FH_CFDI40_test_WsEmisionTimbrado40</CachedSettingsPropName>
+    </WebReferenceUrl>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets')" />

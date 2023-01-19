@@ -315,6 +315,11 @@ namespace PuntoDeVentaV2
                 lista.Add(dr["ProdImage"].ToString());          // Imagen de Producto   15
                 lista.Add(dr["ClaveProducto"].ToString());      // Clave de Producto    16
                 lista.Add(dr["UnidadMedida"].ToString());       // Unidad de Medida 17
+                lista.Add(dr["incluye_impuestos"].ToString());  // 18
+                lista.Add(dr["nombre_ctercero"].ToString());    // 19
+                lista.Add(dr["rfc_ctercero"].ToString());       // 20
+                lista.Add(dr["cp_ctercero"].ToString());        // 21
+                lista.Add(dr["regimen_ctercero"].ToString());   // 22
             }
 
             dr.Close();
