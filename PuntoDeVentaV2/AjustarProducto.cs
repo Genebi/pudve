@@ -409,7 +409,7 @@ namespace PuntoDeVentaV2
 
                 var stockActual = stockProducto;
 
-                if (!verificarSubDetalles(Convert.ToDecimal(stockActual)))
+                if (!verificarSubDetalles(Convert.ToDecimal(cantidadCompra)))
                 {
                     MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     stockProducto -= decimal.Parse(cantidadCompra);
@@ -560,7 +560,7 @@ namespace PuntoDeVentaV2
 
                                 stockActual = (float)stockProducto;
 
-                                if (!verificarSubDetalles(Convert.ToDecimal(stockActual)))
+                                if (!verificarSubDetalles(Convert.ToDecimal(stockAgregado)))
                                 {
                                     MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                     
@@ -762,7 +762,7 @@ namespace PuntoDeVentaV2
                                         return;
                                     }
 
-                                    if (!verificarSubDetalles(Convert.ToDecimal(stockActual)))
+                                    if (!verificarSubDetalles(Convert.ToDecimal(auxiliar)))
                                     {
                                         MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                         stockProducto -= Convert.ToDecimal(auxiliar);

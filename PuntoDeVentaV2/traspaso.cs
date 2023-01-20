@@ -146,7 +146,7 @@ productoRelacioando=                            cn.CargarDatos($"SELECT * FROM P
                     using (DataTable ids = cn.CargarDatos($"SELECT ID,Stock FROM Productos WHERE CodigoBarras = {ProductoDGV.Cells["CodigoL"].Value.ToString()} AND Status = 1 AND IDUsuario = {FormPrincipal.userID}"))
                     {
 
-                        subDetallesDeProducto detalles = new subDetallesDeProducto(ids.Rows[0]["ID"].ToString(), "Inventario", cantidad: (decimal.Parse(ids.Rows[0]["Stock"].ToString()) + decimal.Parse(ProductoDGV.Cells["CantidadT"].Value.ToString())));
+                        subDetallesDeProducto detalles = new subDetallesDeProducto(ids.Rows[0]["ID"].ToString(), "Inventario", cantidad: decimal.Parse(ProductoDGV.Cells["CantidadT"].Value.ToString()));
                         detalles.FormClosed += delegate
                         {
                             if (!detalles.finalizado)

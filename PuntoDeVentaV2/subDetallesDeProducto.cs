@@ -23,7 +23,7 @@ namespace PuntoDeVentaV2
         string cat;
 
         public bool finalizado = false;
-
+        bool restando = false;
 
         public List<string> subdetallesVenta = new List<string>();
         public List<string> updates = new List<string>();
@@ -61,19 +61,14 @@ namespace PuntoDeVentaV2
                 lblNombreProducto.Text = dtNombreProducto.Rows[0]["Nombre"].ToString();
             }
             
-
-            //if (AgregarEditarProducto.DatosSourceFinal == 1)
-            //{
-            //    //MessageBox.Show("Agregar");
-            //}
-            //else if (AgregarEditarProducto.DatosSourceFinal == 2)
-            //{
-
-            //    //MessageBox.Show("Editar");
-            //}
             if (accion=="Venta" || accion == "Inventario")
             {
                 groupBox1.Visible = false;
+                if (stockTot < 0)
+                {
+                    restando = true;
+                    stockTot *= -1;
+                }
             }
         }
 
@@ -101,7 +96,6 @@ namespace PuntoDeVentaV2
                         finalizado = true;
                         this.Close();
                     }
-                    btnGuardarDetalles.Enabled = false;
                     break;
                 case "Inventario":
                     btnGuardar.Enabled = false;
@@ -119,7 +113,6 @@ namespace PuntoDeVentaV2
                         finalizado = true;
                         this.Close();
                     }
-                    btnGuardarDetalles.Enabled = false;
                     break;
                 default:
                     break;
@@ -151,6 +144,13 @@ namespace PuntoDeVentaV2
         {
             Label lbl = (Label)sender;
             LbNombreCategoria.Text = "Categoria: " + lbl.Text;
+            if (dgvDetallesSubdetalle.Visible)
+            {
+                if (btnGuardar.Enabled)
+                {
+                    guardarDatos(false);
+                }
+            }
             cargarsubCategorias(lbl.Text);
         }
 
@@ -164,7 +164,6 @@ namespace PuntoDeVentaV2
             dgvDetallesSubdetalle.Visible = true;
 
             groupBox4.Visible = true;
-            btnGuardar.Enabled = false;
 
             switch (accion)
             {
@@ -186,7 +185,7 @@ namespace PuntoDeVentaV2
 
                     break;
                 case "Venta":
-                    dtDetallesSubdetalle = cn.CargarDatos($"SELECT detallesubdetalle.ID, IF(subdetallesdeproducto.TipoDato = 0, detallesubdetalle.Fecha, IF( subdetallesdeproducto.TipoDato = 1, detallesubdetalle.Valor, detallesubdetalle.Nombre)) AS Valor, detallesubdetalle.Stock, subdetallesdeproducto.TipoDato,subdetallesdeproducto.ID AS SubID, 0 FROM subdetallesdeproducto LEFT JOIN detallesubdetalle ON (detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado=1) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE subdetallesdeproducto.Categoria = '{categoria}' AND subdetallesdeproducto.Activo = 1 AND productos.id = {idProducto}");
+                    dtDetallesSubdetalle = cn.CargarDatos($"SELECT detallesubdetalle.ID, IF(subdetallesdeproducto.TipoDato = 0, detallesubdetalle.Fecha, IF( subdetallesdeproducto.TipoDato = 1, detallesubdetalle.Valor, detallesubdetalle.Nombre)) AS Valor, detallesubdetalle.Stock, subdetallesdeproducto.TipoDato,subdetallesdeproducto.ID AS SubID, 0 FROM subdetallesdeproducto LEFT JOIN detallesubdetalle ON (detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado=1) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE subdetallesdeproducto.Categoria = '{categoria}' AND subdetallesdeproducto.Activo = 1 AND productos.id = {idProducto} AND detallesubdetalle.Stock > 0 ");
 
                     dgvDetallesSubdetalle.Columns[3].Visible = true;
                     dgvDetallesSubdetalle.Columns[1].Visible = false;
@@ -204,11 +203,28 @@ namespace PuntoDeVentaV2
                     }
                     break;
                 case "Inventario":
-                    dtDetallesSubdetalle = cn.CargarDatos($"SELECT detallesubdetalle.ID, IF(subdetallesdeproducto.TipoDato = 0, detallesubdetalle.Fecha, IF( subdetallesdeproducto.TipoDato = 1, detallesubdetalle.Valor, detallesubdetalle.Nombre)) AS Valor, detallesubdetalle.Stock, productos.Stock AS TotalStock,subdetallesdeproducto.TipoDato,subdetallesdeproducto.ID AS SubID FROM subdetallesdeproducto LEFT JOIN detallesubdetalle ON (detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado=1) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE subdetallesdeproducto.Categoria = '{categoria}' AND productos.id = {idProducto} AND subdetallesdeproducto.Activo = 1");
+                    dtDetallesSubdetalle = cn.CargarDatos($"SELECT detallesubdetalle.ID, IF(subdetallesdeproducto.TipoDato = 0, detallesubdetalle.Fecha, IF( subdetallesdeproducto.TipoDato = 1, detallesubdetalle.Valor, detallesubdetalle.Nombre)) AS Valor, detallesubdetalle.Stock, productos.Stock AS TotalStock,subdetallesdeproducto.TipoDato,subdetallesdeproducto.ID AS SubID,0 FROM subdetallesdeproducto LEFT JOIN detallesubdetalle ON (detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado=1) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE subdetallesdeproducto.Categoria = '{categoria}' AND productos.id = {idProducto} AND subdetallesdeproducto.Activo = 1");
 
                     dgvDetallesSubdetalle.DataSource = dtDetallesSubdetalle;
 
-                    dgvDetallesSubdetalle.Columns[1].Visible = false;
+                    dgvDetallesSubdetalle.Columns[0].Visible = false;
+                    dgvDetallesSubdetalle.Columns[7].Visible = true;
+                    
+
+                    if (restando)
+                    {
+                        dgvDetallesSubdetalle.Columns[7].HeaderText = "Cantidad a disminuir";
+                        
+                        lblStockRestanteText.Text = "Por disminuir";
+                    }
+                    else
+                    {
+                        dgvDetallesSubdetalle.Columns[7].HeaderText = "Cantidad a aumentar";
+                        lblStockRestanteText.Text = "Por aumentar";
+                    }
+
+                    dgvDetallesSubdetalle.Columns[3].ReadOnly = true;
+
                     groupBox1.Visible = false;
                     groupBox3.Visible = true;
 
@@ -252,28 +268,52 @@ namespace PuntoDeVentaV2
             switch (accion)
             {
                 case "Nuevo":
-                case "Inventario":
-                        total = dgvDetallesSubdetalle.Rows.Cast<DataGridViewRow>()
-                            .Sum(t => Convert.ToDecimal(t.Cells[4].Value));
+                    total =suma("stock");
                     break;
+
+                case "Inventario":
                 case "Venta":
-                        total = dgvDetallesSubdetalle.Rows.Cast<DataGridViewRow>()
-                            .Sum(t => Convert.ToDecimal(t.Cells[7].Value));
+                    total =suma("0");
                     break;
                 default:
                     break;
             }
+            if ((stockTot - total)<0)
+            {
+                lblStockRestanteNum.Text =$"{(stockTot - total)}";
+                lblStockRestanteNum.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblStockRestanteNum.Text = (stockTot - total).ToString();
+                lblStockRestanteNum.ForeColor = Color.Black;
+            }
             
-            lblStockRestanteNum.Text = (stockTot - total).ToString();
-
             if (total == stockTot)
             {
                 btnGuardar.Enabled = true;
+                if (accion != "Nuevo")
+                {
+                    guardarDatos(false);
+                }
             }
             else
             {
                 btnGuardar.Enabled = false;
             }
+        }
+
+        private decimal suma(string col)
+        {
+            decimal total = 0;
+            foreach (DataRow dataRow in dtDetallesSubdetalle.Rows)
+            {
+                if (!string.IsNullOrEmpty(dataRow[col].ToString()))
+                {
+                    total += decimal.Parse(dataRow[col].ToString());
+                }
+            }
+            return total;
         }
 
         private void btnAddDetalle_Click(object sender, EventArgs e)
@@ -292,12 +332,24 @@ namespace PuntoDeVentaV2
 
         private void btnGuardar_Click_1(object sender, EventArgs e)
         {
+            guardarDatos();
+            this.Close();
+        }
 
+        private void guardarDatos(bool boton = true)
+        {
             switch (accion)
             {
                 case "Nuevo":
+
+                    
+
                     foreach (DataRow registroDetalle in dtDetallesSubdetalle.Rows)
                     {
+                        if (tipoDato=="0")
+                        {
+                            
+                        }
                         if (!string.IsNullOrEmpty(registroDetalle["Valor"].ToString()) && !string.IsNullOrEmpty(registroDetalle["Stock"].ToString()))
                         {
 
@@ -318,7 +370,11 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            MessageBox.Show($"No puedes dejar espacios en blanco", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            if (boton)
+                            {
+                                MessageBox.Show($"No puedes dejar espacios en blanco", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
                         }
                     }
 
@@ -335,7 +391,7 @@ namespace PuntoDeVentaV2
                 case "Venta":
                     foreach (DataRow registroDetalle in dtDetallesSubdetalle.Rows)
                     {
-                        if (Convert.ToDecimal(registroDetalle["0"].ToString())>0)
+                        if (Convert.ToDecimal(registroDetalle["0"].ToString()) > 0)
                         {
                             string consultaGuardada = $"INSERT INTO DetalleSubDetalleVenta (IDDetalleSubDetalle, Cantidad,IDVenta)";
                             consultaGuardada += $"VALUES ('{registroDetalle["ID"].ToString()}', '{registroDetalle["0"].ToString()}',";
@@ -345,11 +401,12 @@ namespace PuntoDeVentaV2
                             updates.Add(updateGuardado);
                         }
                     }
+                    updates.Add("UPDATE detallesubdetalle SET Estado = 0 WHERE Stock = 0 ");
                     idsADesHabilitar.Add(dtDetallesSubdetalle.Rows[0]["SubID"].ToString());
                     fLPLateralCategorias.Controls.Clear();
                     dgvDetallesSubdetalle.Visible = false;
                     cargarCategorias();
-                    
+
                     break;
                 case "Inventario":
 
@@ -362,23 +419,33 @@ namespace PuntoDeVentaV2
                             if (string.IsNullOrEmpty(registroDetalle["ID"].ToString()))
                             {
                                 string consulta = $"INSERT INTO detallesubdetalle (IDsubdetalle, {colDato}, Stock)";
-                                consulta += $"VALUES ('{colID}', '{registroDetalle["Valor"].ToString()}', '{registroDetalle["Stock"].ToString()}')";
+                                consulta += $"VALUES ('{colID}', '{registroDetalle["Valor"].ToString()}', '{registroDetalle["Cantidad"].ToString()}')";
 
                                 updates.Add(consulta);
                             }
                             else
                             {
-                                string updateGuardado = $"UPDATE detallesubdetalle SET {colDato}='{registroDetalle["Valor"].ToString()}',Stock = {registroDetalle["Stock"].ToString()} WHERE ID = {registroDetalle["ID"].ToString()}";
+                                string symbol="+";
+                                if (restando)
+                                {
+                                    symbol = "-";
+                                }
+                                string updateGuardado = $"UPDATE detallesubdetalle SET {colDato}='{registroDetalle["Valor"].ToString()}',Stock = Stock {symbol}{registroDetalle["0"].ToString()} WHERE ID = {registroDetalle["ID"].ToString()}";
                                 updates.Add(updateGuardado);
                             }
                         }
                         else
                         {
-                            MessageBox.Show($"No puedes dejar espacios en blanco", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
+                            if (boton)
+                            {
+                                MessageBox.Show($"No puedes dejar espacios en blanco", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            
                         }
                     }
-                    
+
+                    updates.Add("UPDATE detallesubdetalle SET Estado = 0 WHERE Stock = 0 ");
                     idsADesHabilitar.Add(dtDetallesSubdetalle.Rows[0]["SubID"].ToString());
                     fLPLateralCategorias.Controls.Clear();
                     dgvDetallesSubdetalle.Visible = false;
@@ -387,17 +454,45 @@ namespace PuntoDeVentaV2
                 default:
                     break;
             }
-            
+        }
+
+        private bool validarunique()
+        {
+            bool buleanomachin = true;
+            foreach (DataRow dataRow in dtDetallesSubdetalle.Rows)
+            {
+                foreach (DataRow dataRow1 in dtDetallesSubdetalle.Rows)
+                {
+                    if (dataRow["Valor"].ToString()==dataRow1["Valor"].ToString())
+                    {
+                        buleanomachin = false;
+                    }
+                }
+            }
+            return buleanomachin;
         }
 
         private void btnAgregarSubDetalle_Click(object sender, EventArgs e)
         {
+            btnGuardar.Enabled = false;
             if (!dtDetallesSubdetalle.Rows.Count.Equals(0))
             {
-                if (!string.IsNullOrEmpty(dtDetallesSubdetalle.Rows[(dtDetallesSubdetalle.Rows.Count) - 1]["Valor"].ToString()) && !string.IsNullOrEmpty(dtDetallesSubdetalle.Rows[(dtDetallesSubdetalle.Rows.Count) - 1]["Stock"].ToString()))
+                if (!string.IsNullOrEmpty(dtDetallesSubdetalle.Rows[(dtDetallesSubdetalle.Rows.Count) - 1]["Valor"].ToString()))
                 {
                     dtDetallesSubdetalle.Rows.Add();
-                    dgvDetallesSubdetalle.CurrentCell = dgvDetallesSubdetalle.Rows[dgvDetallesSubdetalle.RowCount-1].Cells[3];
+                    dtDetallesSubdetalle.Rows[dtDetallesSubdetalle.Rows.Count-1]["Stock"] = "0.00";
+                    
+
+                    if (accion == "Inventario")
+                    {
+                        dtDetallesSubdetalle.Rows[dtDetallesSubdetalle.Rows.Count - 1]["0"] = "0.00";
+                        dgvDetallesSubdetalle.CurrentCell = dgvDetallesSubdetalle.Rows[dgvDetallesSubdetalle.RowCount - 1].Cells[7];
+                        dgvDetallesSubdetalle.Rows[dgvDetallesSubdetalle.CurrentRow.Index].Cells["Stock"].ReadOnly = true;
+                    }
+                    else
+                    {
+                        dgvDetallesSubdetalle.CurrentCell = dgvDetallesSubdetalle.Rows[dgvDetallesSubdetalle.RowCount - 1].Cells[3];
+                    }
 
                     if (tipoDato == "0" && accion == "Nuevo")
                     {
@@ -430,7 +525,7 @@ namespace PuntoDeVentaV2
 
                         // Generamos el evento de cierre del control fecha
                         dateTimePicker1.CloseUp += new EventHandler(dateTimePicker1_CloseUp);
-                    
+
                     }
 
                 }
@@ -438,10 +533,6 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show($"Termina de llenar el registro anterior antes de crear uno nuevo.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
-            else
-            {
-                dtDetallesSubdetalle.Rows.Add();
             }
         }
 
@@ -457,20 +548,28 @@ namespace PuntoDeVentaV2
 
             decimal test; celdaCellClick = dgvDetallesSubdetalle.CurrentCell.RowIndex;
 
-            if (decimal.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[7].Value?.ToString(), out test))
+            if (accion!= "Nuevo")
             {
-                if (dgvDetallesSubdetalle.CurrentCell.ColumnIndex == 7 && accion == "Venta")
+                if (decimal.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[7].Value?.ToString(), out test))
                 {
-                    if (Convert.ToDecimal(dtDetallesSubdetalle.Rows[e.RowIndex]["0"].ToString()) > Convert.ToDecimal(dtDetallesSubdetalle.Rows[e.RowIndex]["Stock"].ToString()))
+                    if (dgvDetallesSubdetalle.CurrentCell.ColumnIndex == 7)
                     {
-                        MessageBox.Show($"No existe suficientes stock", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        dtDetallesSubdetalle.Rows[e.RowIndex]["0"] = dtDetallesSubdetalle.Rows[e.RowIndex]["Stock"];
-                        return;
+                        if (accion == "Venta" || restando)
+                        {
+                            if (Convert.ToDecimal(dtDetallesSubdetalle.Rows[e.RowIndex]["0"].ToString()) > Convert.ToDecimal(dtDetallesSubdetalle.Rows[e.RowIndex]["Stock"].ToString()))
+                            {
+                                MessageBox.Show($"No existe suficiente stock", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                dtDetallesSubdetalle.Rows[e.RowIndex]["0"] = dtDetallesSubdetalle.Rows[e.RowIndex]["Stock"];
+                                calcularRestante();
+                                return;
+                            }
+                        }
                     }
                 }
             }
 
-            if (e.ColumnIndex == 3)
+
+            if (e.ColumnIndex == 3 && accion == "Nuevo")
             {
                 switch (tipoDato)
                 {
@@ -480,7 +579,14 @@ namespace PuntoDeVentaV2
                         if (!DateTime.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[3].Value.ToString(), out DTparser))
                         {
                             MessageBox.Show($"El formato introducido no es valido  no podras terminar el proceso sin corregir (solamente se aceptan fechas)", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            dtDetallesSubdetalle.Rows[e.RowIndex]["Valor"] = DateTime.Now.ToString("yyyy-MM-dd");
+                            dtDetallesSubdetalle.Rows[e.RowIndex]["Valor"] = "";
+                            return;
+                        }
+
+                        if (!validarunique())
+                        {
+                            MessageBox.Show($"No puedes utilizar el mismo valor para fechas en subdetalles", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            dtDetallesSubdetalle.Rows[e.RowIndex]["Valor"] = "";
                             return;
                         }
                         break;
@@ -498,18 +604,51 @@ namespace PuntoDeVentaV2
                         break;
                 }
             }
+
+            if (e.ColumnIndex == 2 && accion == "Inventario")
+            {
+                switch (tipoDato)
+                {
+                    case "0":
+                        DateTime DTparser;
+                        celdaCellClick = dgvDetallesSubdetalle.CurrentCell.RowIndex;
+                        if (!DateTime.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[2].Value.ToString(), out DTparser))
+                        {
+                            MessageBox.Show($"El formato introducido no es valido  no podras terminar el proceso sin corregir (solamente se aceptan fechas)", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            dtDetallesSubdetalle.Rows[e.RowIndex]["Valor"] = DateTime.Now.ToString("yyyy-MM-dd");
+                            return;
+                        }
+                        break;
+                    case "1":
+                        decimal DCparser;
+                        celdaCellClick = dgvDetallesSubdetalle.CurrentCell.RowIndex;
+                        if (!Decimal.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[2].Value.ToString(), out DCparser))
+                        {
+                            MessageBox.Show($"El formato introducido no es valido, no podras terminar el proceso sin corregir (solamente se aceptan valores numericos)", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            dtDetallesSubdetalle.Rows[e.RowIndex]["Valor"] = "0.00";
+                            return;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
             string col = string.Empty;
             switch (accion)
             {
-                case "Inventario":
                 case "Nuevo":
                     col = "Stock";
                     break;
+                case "Inventario":
                 case "Venta":
                     col = "0";
                     break;
                 default:
                     break;
+            }
+            if (dtDetallesSubdetalle.Rows[e.RowIndex][col].ToString().Contains('-'))
+            {
+                dtDetallesSubdetalle.Rows[e.RowIndex][col] = (decimal.Parse(dtDetallesSubdetalle.Rows[e.RowIndex][col].ToString()) * -1).ToString();
             }
             if (Decimal.TryParse(dtDetallesSubdetalle.Rows[e.RowIndex][col].ToString(), out test))
             {
@@ -567,9 +706,9 @@ namespace PuntoDeVentaV2
                 // Generamos el evento de cierre del control fecha
                 dateTimePicker1.CloseUp += new EventHandler(dateTimePicker1_CloseUp);
             }
-            if (e.ColumnIndex == 1)
+            if (e.ColumnIndex == 1 && accion=="Nuevo")
             {
-                if (dtDetallesSubdetalle.Rows.Count>1)
+                if (dtDetallesSubdetalle.Rows.Count>0)
                 {
                     if (!string.IsNullOrEmpty(dtDetallesSubdetalle.Rows[e.RowIndex]["ID"].ToString()))
                     {
@@ -578,6 +717,42 @@ namespace PuntoDeVentaV2
                     dtDetallesSubdetalle.Rows.RemoveAt(e.RowIndex);
                     calcularRestante();
                 }
+            }
+
+            if (e.ColumnIndex == 2 && tipoDato == "0" && accion == "Inventario")
+            {
+                //Creamos el control por código
+                dateTimePicker1 = new DateTimePicker();
+
+                //Agregamos el control de fecha dentro del DataGridView 
+                dgvDetallesSubdetalle.Controls.Add(dateTimePicker1);
+
+                // Hacemos que el control sea invisible (para que no moleste visualmente)
+                dateTimePicker1.Visible = false;
+
+                // Establecemos el formato (depende de tu localización en tu PC)
+                dateTimePicker1.Format = DateTimePickerFormat.Short;
+
+                // Agregamos el evento para cuando seleccionemos una fecha
+                dateTimePicker1.TextChanged += new EventHandler(dateTimePicker1_OnTextChange);
+
+                // Lo hacemos visible
+                dateTimePicker1.Visible = true;
+
+                // Creamos un rectángulo que representa el área visible de la celda
+                Rectangle rectangle1 = dgvDetallesSubdetalle.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, true);
+
+                //Establecemos el tamaño del control DateTimePicker (que sería el tamaño total de la celda)
+                dateTimePicker1.Size = new Size(rectangle1.Width, rectangle1.Height);
+
+                // Establecemos la ubicación del control
+                dateTimePicker1.Location = new Point(rectangle1.X, rectangle1.Y);
+
+                // Generamos el evento de cierre del control fecha
+                dateTimePicker1.CloseUp += new EventHandler(dateTimePicker1_CloseUp);
+
+                // Generamos el evento de cierre del control fecha
+                dateTimePicker1.LostFocus += new EventHandler(dateTimePicker1_loseFocus);
             }
         }
 
@@ -590,6 +765,16 @@ namespace PuntoDeVentaV2
         void dateTimePicker1_CloseUp(object sender, EventArgs e)
         {
             //Volvemos a colocar en invisible el control
+            dateTimePicker1.Visible = false;
+        }
+
+        void dateTimePicker1_loseFocus(object sender, EventArgs e)
+        {
+            //Volvemos a colocar en invisible el control
+            if (string.IsNullOrEmpty(dgvDetallesSubdetalle.CurrentCell.Value.ToString()))
+            {
+                dgvDetallesSubdetalle.CurrentCell.Value = DateTime.Today.ToString("yyyy-MM-dd");
+            }
             dateTimePicker1.Visible = false;
         }
 

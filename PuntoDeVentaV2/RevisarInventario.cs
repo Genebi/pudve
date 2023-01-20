@@ -1320,13 +1320,23 @@ namespace PuntoDeVentaV2
                             var stockFisico = txtCantidadStock.Text;
                             var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                             var diferencia = double.Parse(datosProducto[1]) - double.Parse(stockFisico);
-                            if (!verificarSubDetalles(Convert.ToDecimal(stockFisico)))
+
+                            if (double.Parse(datosProducto[0]) > double.Parse(stockFisico))
                             {
-                                MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                return;
+                                if (!verificarSubDetalles(Convert.ToDecimal(-diferencia)))
+                                {
+                                    MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
                             }
-
-
+                            else
+                            {
+                                if (!verificarSubDetalles(Convert.ToDecimal(double.Parse(stockFisico) - double.Parse(datosProducto[0]))))
+                                {
+                                    MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+                            }
                             // Actualizar datos en RevisarInventario
                             cn.EjecutarConsulta($"UPDATE RevisarInventario SET StockAlmacen = '{info[4]}', StockFisico = '{stockFisico}', Fecha = '{fecha}', Diferencia = '{diferencia}' WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
 
@@ -1421,11 +1431,22 @@ namespace PuntoDeVentaV2
                                 {
                                     var diferencia = double.Parse(info[4]) - double.Parse(stockFisico);
 
-                                   
-                                    if (!verificarSubDetalles(Convert.ToDecimal(stockFisico)))
+
+                                    if (double.Parse(info[4]) > double.Parse(stockFisico))
                                     {
-                                        MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                        return;
+                                        if (!verificarSubDetalles(Convert.ToDecimal(-diferencia)))
+                                        {
+                                            MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            return;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (!verificarSubDetalles(Convert.ToDecimal(double.Parse(stockFisico) - double.Parse(info[4]))))
+                                        {
+                                            MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            return;
+                                        }
                                     }
 
                                     var datos = new string[]
