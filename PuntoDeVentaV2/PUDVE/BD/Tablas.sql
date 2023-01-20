@@ -991,6 +991,16 @@ IF
 	CONSTRAINT Basculas_IdUsuario FOREIGN KEY ( idUsuario ) REFERENCES usuarios ( ID ) ON DELETE CASCADE ON UPDATE CASCADE 
 	);
 
+-- 54 Tabla de configuracion para Ordenes
+CREATE TABLE 
+IF 
+	NOT EXISTS ConfiguracionOrdenes (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+		IDUsuario INTEGER NOT NULL,
+		TiempoEntrega TIME,
+		FechaOperacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+	);
+
 
 -- ------------------------------------------
 -- -- Final sección de Tablas del sistema --
@@ -2016,17 +2026,17 @@ ALTER TABLE caja ADD COLUMN IF NOT EXISTS Comentarios TEXT DEFAULT NULL;
 
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS traspasos INTEGER(11) DEFAULT (0);
 
-   -- Se agrego la columna MostrarStockConsultaPrecio a la tabla de Configuracion
+-- Se agrego la columna MostrarStockConsultaPrecio a la tabla de Configuracion
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS MostrarStockConsultaPrecio INT DEFAULT 1;
 
-   -- Se agrego la columna MostrarStockConsultaPrecio a la tabla de Configuracion
-  ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoStockConsultarPrecio INT DEFAULT 1;
+-- Se agrego la columna MostrarStockConsultaPrecio a la tabla de Configuracion
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoStockConsultarPrecio INT DEFAULT 1;
 
-   -- Se agrego la columna PrimerCorte a la tabla de historialCorteDeCaja
-  ALTER TABLE historialcortesdecaja ADD COLUMN IF NOT EXISTS PrimerCorte INT DEFAULT 1;
+-- Se agrego la columna PrimerCorte a la tabla de historialCorteDeCaja
+ALTER TABLE historialcortesdecaja ADD COLUMN IF NOT EXISTS PrimerCorte INT DEFAULT 1;
 
-   -- Se agrego la columna PermisoCorreoSaldoInicial a la tabla de permisosconfiguracion
-  ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoCorreoSaldoInicial INT DEFAULT 1;
+-- Se agrego la columna PermisoCorreoSaldoInicial a la tabla de permisosconfiguracion
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoCorreoSaldoInicial INT DEFAULT 1;
 
   
 
@@ -2036,12 +2046,12 @@ ALTER TABLE productos ADD COLUMN IF NOT EXISTS FormatoDeVenta INT DEFAULT 0;
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS EnvioCorreoSaldoIncial INT DEFAULT 1;
 ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoStockConsultarPrecio INT DEFAULT 1;
 
-   -- Se agrego la columna PesoAutomatico en Productos para recibir el peso automaticamente. // 0 = Acepta todo tipo de forma venta //1 = Solo se puede vender por Enteros //2 = Toma el peso en automatico de la bascula
+-- Se agrego la columna PesoAutomatico en Productos para recibir el peso automaticamente. // 0 = Acepta todo tipo de forma venta //1 = Solo se puede vender por Enteros //2 = Toma el peso en automatico de la bascula
 ALTER TABLE productos ADD COLUMN IF NOT EXISTS FormatoDeVenta INT DEFAULT 0;
 
 ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS VentasACredito INT DEFAULT 1;
 
-   -- Columna para guardar la clave de traspaso de un movimiento si existe, de manera en que se pueda volver a ver cuando se haga un reporte.
-  ALTER TABLE dgvdisminuirinventario ADD COLUMN IF NOT EXISTS claveTraspaso VARCHAR ( 15 ) DEFAULT NULL ;
+-- Columna para guardar la clave de traspaso de un movimiento si existe, de manera en que se pueda volver a ver cuando se haga un reporte.
+ALTER TABLE dgvdisminuirinventario ADD COLUMN IF NOT EXISTS claveTraspaso VARCHAR ( 15 ) DEFAULT NULL ;
 -- Agregar columna para saber si el producto solo es para rentas
 ALTER TABLE Productos ADD COLUMN IF NOT EXISTS SoloRenta tinyint(1) DEFAULT 0;

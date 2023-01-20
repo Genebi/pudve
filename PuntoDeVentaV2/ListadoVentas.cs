@@ -178,7 +178,7 @@ namespace PuntoDeVentaV2
             // Opciones para el combobox
             Dictionary<string, string> ventas = new Dictionary<string, string>();
             ventas.Add("VP", "VENTAS PAGADAS");
-            ventas.Add("VG", "VENTAS GUARDADAS (PRESUPUESTOS)");
+            ventas.Add("VG", "PRESUPUESTOS (ORDENES)");
             ventas.Add("VC", "VENTAS CANCELADAS");
             ventas.Add("VCC", "VENTAS A CRÉDITO");
             ventas.Add("VGG", "VENTAS GLOBALES");
