@@ -562,7 +562,13 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            var dineroAntesDevolver = EfectivoEnCaja + TarjetaEnCaja + ValesEnCaja + ChequeEnCaja + TransferenciaEnCaja;
+            decimal dineroAntesDevolver = 0;
+
+            if (formaPago == "01") { dineroAntesDevolver = EfectivoEnCaja; }
+            if (formaPago == "02") { dineroAntesDevolver = ChequeEnCaja; }
+            if (formaPago == "03") { dineroAntesDevolver = TransferenciaEnCaja; }
+            if (formaPago == "04") { dineroAntesDevolver = TarjetaEnCaja; }
+            if (formaPago == "08") { dineroAntesDevolver = ValesEnCaja; }
 
             if (tipo == 1 && Convert.ToDecimal(importe) > dineroAntesDevolver)
             {
