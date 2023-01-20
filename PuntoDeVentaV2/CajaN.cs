@@ -6543,6 +6543,10 @@ namespace PuntoDeVentaV2
                     botonRedondo2.Visible = true;
                 }
             }
+            if (!FormPrincipal.userNickName.Contains('@'))
+            {
+                FormPrincipal.id_empleado = 0;
+            }
         }
 
         private void filtrarInformacionSeleccionada()

@@ -436,7 +436,7 @@ namespace PuntoDeVentaV2
         {
             if (txtBuscadorProducto.Text == "BUSCAR PRODUCTO O SERVICIO...")
             {
-                txtBuscadorProducto.Text = "";
+                txtBuscadorProducto.Text = ""; 
             }
         }
 
@@ -8814,6 +8814,12 @@ namespace PuntoDeVentaV2
         private void txtBuscadorProducto_Enter(object sender, EventArgs e)
         {
             tieneElCursorElTxtBuscadorProducto = true;
+        }
+
+        private void botonRedondo1_Click_1(object sender, EventArgs e)
+        {
+            VentaRapida venta = new VentaRapida();
+            venta.ShowDialog();
         }
 
         private void txtBuscadorProducto_TextChanged(object sender, EventArgs e)

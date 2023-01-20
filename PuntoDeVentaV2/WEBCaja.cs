@@ -20,6 +20,10 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
         CargarDatosCaja cdc = new CargarDatosCaja();
+        public DataTable datosWeb = new DataTable();
+        public DataTable detallesDepositoWeb = new DataTable();
+        public DataTable detallesRetiroWeb = new DataTable();
+
 
         int clickBotonCorteDeCaja = 0;
 
@@ -214,9 +218,51 @@ namespace PuntoDeVentaV2
                 cantidadChequeRetirado = 0,
                 cantidadTransferenciaRetirado = 0,
                 cantidadTotalDineroRetirado = 0;
-        public DataTable datosWeb = new DataTable();
 
         private void botonRedondo3_Click(object sender, EventArgs e)
+        {
+            opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
+            if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+            {
+                CargarDatosTodosVentasProveedor();
+            }
+            else
+            {
+                CargarDatosEmpleadoVentasProveedor();
+            }
+
+        }
+
+        private void CargarDatosEmpleadoVentasProveedor()
+        {
+            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+            {
+                opcionComboBoxFiltroAdminEmp = "0";
+            }
+            string FechaInicial = string.Empty;
+            using (var DTFecha = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1"))
+            {
+                FechaInicial = DTFecha.Rows[0]["FechaOperacion"].ToString();
+            }
+            DateTime FechaInicialForm = Convert.ToDateTime(FechaInicial);
+            string FechaFinal = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            string IDSVentas = string.Empty;
+
+            using (var DTIdsVenta = cn.CargarDatos($"SELECT ID FROM VENTAS WHERE FechaOperacion BETWEEN '{FechaInicialForm.ToString("yyyy-MM-dd HH:mm:ss")}' AND '{FechaFinal}' AND IDUsuario = {FormPrincipal.userID} AND Cliente != 'Apertura de Caja' AND IDEmpleado = {opcionComboBoxFiltroAdminEmp}"))
+            {
+                if (DTIdsVenta.Rows.Count.Equals(0))
+                {
+                    MessageBox.Show("Este empleado no ha realizado ninguna venta", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    VentasPorProveedores proveddores = new VentasPorProveedores(opcionComboBoxFiltroAdminEmp);
+                    proveddores.ShowDialog();
+                }
+            }
+        }
+
+        private void CargarDatosTodosVentasProveedor()
         {
             string FechaInicial = string.Empty;
             using (var DTFecha = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} ORDER BY ID DESC LIMIT 1"))
@@ -231,15 +277,14 @@ namespace PuntoDeVentaV2
             {
                 if (DTIdsVenta.Rows.Count.Equals(0))
                 {
-                    MessageBox.Show("No ha realizado ninguna venta", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("No se ha realizado ninguna venta", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    //VentasPorProveedores proveddores = new VentasPorProveedores();
-                    //proveddores.ShowDialog();
+                    VentasPorProveedores proveddores = new VentasPorProveedores(opcionComboBoxFiltroAdminEmp);
+                    proveddores.ShowDialog();
                 }
             }
-
         }
 
         private void botonRedondo1_Click(object sender, EventArgs e)
@@ -326,12 +371,15 @@ namespace PuntoDeVentaV2
 
         private void CajaN_Load(object sender, EventArgs e)
         {
+            int auxiliarIDEmpleado = FormPrincipal.id_empleado;
+
             string user = string.Empty;
             if (FormPrincipal.userNickName.Contains('@'))
             {
                 user = FormPrincipal.userNickName;
                 FormPrincipal.userNickName = FormPrincipal.userNickName.Split('@')[0];
             }
+
             cbFiltroAdminEmpleado.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             recargarDatos = true;
             verificarSiExisteCorteDeCaja();
@@ -344,6 +392,7 @@ namespace PuntoDeVentaV2
             {
                 FormPrincipal.userNickName = user;
             }
+
 
             if (FormPrincipal.id_empleado > 0)
             {
@@ -366,16 +415,10 @@ namespace PuntoDeVentaV2
             panelAnticipos.Visible = Convert.ToBoolean(opcion9);
             panelDineroAgregado.Visible = Convert.ToBoolean(opcion10);
             panelTotales.Visible = Convert.ToBoolean(opcion11);
-            // verificarCantidadAbonos();
 
-            //var acomodado = btnRedondoSaldoInicial.Text.Replace("\r", string.Empty).Replace("\n", string.Empty);
-            //if (acomodado.Equals("SALDO INICIAL: $ 0"))
-            //{
-            //    //cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado) VALUES ('PrimerSaldo', 'Cantidad', 'Saldo', 'Inser primer saldo inicial', 'Fecha de hoy', '{FormPrincipal.userID}', 'Efectivo', 'Tarjeta', 'Vales', 'Cheque', 'Transferencia', '0', '0', '{FormPrincipal.id_empleado}')");
-            //}
+
 
             datosWeb.Columns.Add("empleado");
-
             datosWeb.Columns.Add("ventasEfectivo");
             datosWeb.Columns.Add("ventasTarjeta");
             datosWeb.Columns.Add("ventasVale");
@@ -415,16 +458,86 @@ namespace PuntoDeVentaV2
 
             cbFiltroAdminEmpleado.SelectedIndex = 0;
 
+
+            detallesDepositoWeb.Columns.Add("Empleado");
+            detallesDepositoWeb.Columns.Add("Tipo de movimiento");
+            detallesDepositoWeb.Columns.Add("Concepto");
+            detallesDepositoWeb.Columns.Add("Cantidad");
+            detallesDepositoWeb.Columns.Add("Efectivo");
+            detallesDepositoWeb.Columns.Add("Tarjeta");
+            detallesDepositoWeb.Columns.Add("Vales");
+            detallesDepositoWeb.Columns.Add("Cheque");
+            detallesDepositoWeb.Columns.Add("Transferencia");
+            detallesDepositoWeb.Columns.Add("FechaOperacion");
+            detallesDepositoWeb.Columns.Add("Fecha de Operacion");
+
+
+            detallesRetiroWeb.Columns.Add("Empleado");
+            detallesRetiroWeb.Columns.Add("Tipo de movimiento");
+            detallesRetiroWeb.Columns.Add("Concepto");
+            detallesRetiroWeb.Columns.Add("Cantidad");
+            detallesRetiroWeb.Columns.Add("Efectivo");
+            detallesRetiroWeb.Columns.Add("Tarjeta");
+            detallesRetiroWeb.Columns.Add("Vales");
+            detallesRetiroWeb.Columns.Add("Cheque");
+            detallesRetiroWeb.Columns.Add("Transferencia");
+            detallesRetiroWeb.Columns.Add("FechaOperacion");
+            detallesRetiroWeb.Columns.Add("Fecha de Operacion");
+
             foreach (var item in cbFiltroAdminEmpleado.Items)
             {
                 datosWeb.Rows.Add(cbFiltroAdminEmpleado.Text, lbTEfectivo.Text, lbTTarjeta.Text, lbTVales.Text, lbTCheque.Text, lbTTrans.Text, lbTCredito.Text, lbTCreditoC.Text, lbTAnticipos.Text, lbTVentas.Text, lbTEfectivoA.Text, lbTTarjetaA.Text, lbTValesA.Text, lbTChequeA.Text, lbTTransA.Text, lbTAnticiposA.Text, lbTEfectivoD.Text, lbTTarjetaD.Text, lbTValesD.Text, lbTChequeD.Text, lbTTransD.Text, lbTAgregado.Text, lbEfectivoR.Text, lbTarjetaR.Text, lbValesR.Text, lbChequeR.Text, lbTransferenciaR.Text, lbDevoluciones.Text, lbTRetirado.Text, lbTEfectivoC.Text, lbTTarjetaC.Text, lbTValesC.Text, lbTChequeC.Text, lbTTransC.Text, lbTTotalCaja.Text, btnRedondoSaldoInicial.Text, lblCantidadSaldoActual.Text);
+
+                if (cbFiltroAdminEmpleado.SelectedIndex != cbFiltroAdminEmpleado.Items.Count-1)
+                {
+                    detallesDepositoRetiro();
+                }
+
                 if (cbFiltroAdminEmpleado.Items.Count != cbFiltroAdminEmpleado.SelectedIndex + 1)
                 {
                     cbFiltroAdminEmpleado.SelectedIndex = cbFiltroAdminEmpleado.SelectedIndex + 1;
                 }
+
+                
             }
 
+            FormPrincipal.id_empleado = auxiliarIDEmpleado;
             this.Close();
+        }
+
+        private void detallesDepositoRetiro()
+        {
+            DataTable ultimoCorteCaja = new DataTable();
+            if (true && CajaN.usuarioEmpleado.Equals("usuario"))
+            {
+                ultimoCorteCaja = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE  IDUsuario = {FormPrincipal.userID} AND idEmpleado = {FormPrincipal.id_empleado} ORDER BY ID DESC LIMIT 1");
+            }
+            else
+            {
+                ultimoCorteCaja = cn.CargarDatos($"SELECT FechaOperacion FROM historialcortesdecaja WHERE  IDUsuario = {FormPrincipal.userID} AND idEmpleado = {FormPrincipal.id_empleado} ORDER BY ID DESC LIMIT 1");
+            }
+
+
+            if (!ultimoCorteCaja.Rows.Count.Equals(0))
+            {
+                DataTable DatosDeposito, DatosRetiro = new DataTable();
+                DateTime fechaUltimoCorte = Convert.ToDateTime(ultimoCorteCaja.Rows[0]["FechaOperacion"].ToString());
+                var formatoFecha = fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss");
+
+                DatosDeposito = cn.CargarDatos($"SELECT Operacion AS 'Tipo de movimiento', Concepto, Cantidad, Efectivo, Tarjeta, Vales, Cheque, Transferencia, FechaOperacion AS 'Fecha de Operacion' FROM caja WHERE IDUsuario = {FormPrincipal.userID} AND idEmpleado = '{FormPrincipal.id_empleado}' AND FechaOperacion >= '{formatoFecha}' AND Operacion = 'deposito' OR Operacion = 'deposito' AND FechaOperacion >= '{formatoFecha}' AND Concepto = 'Insert primer saldo inicial'");
+
+                foreach (DataRow dr in DatosDeposito.Rows)
+                {
+                    detallesDepositoWeb.Rows.Add(cbFiltroAdminEmpleado.Text,dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString(), dr[6].ToString(), dr[7].ToString(), dr[8].ToString());
+                }
+
+                DatosRetiro = cn.CargarDatos($"SELECT Operacion AS 'Tipo de movimiento', Concepto, Cantidad, Efectivo, Tarjeta, Vales, Cheque, Transferencia, FechaOperacion AS 'Fecha de Operacion' FROM caja WHERE IDUsuario = {FormPrincipal.userID} AND idEmpleado = '{FormPrincipal.id_empleado}' AND FechaOperacion >= '{formatoFecha}' AND Operacion = 'retiro'");
+                
+                foreach (DataRow dr in DatosRetiro.Rows)
+                {
+                    detallesRetiroWeb.Rows.Add(cbFiltroAdminEmpleado.Text, dr[0].ToString(), dr[1].ToString(), dr[2].ToString(), dr[3].ToString(), dr[4].ToString(), dr[5].ToString(), dr[6].ToString(), dr[7].ToString(), dr[8].ToString());
+                }
+            }
 
         }
 
@@ -459,7 +572,7 @@ namespace PuntoDeVentaV2
                     }
                     if (siEstaHechoCorteEnHistorialCorteDeCaja.Equals(false))
                     {
-                        cn.EjecutarConsulta(cs.guardarHistorialCorteDeCaja(datos.ToArray()));
+                        cn.EjecutarConsulta($"INSERT INTO historialcortesdecaja ( IDCorteDeCaja, IDUsuario, IDEmpleado, FechaOperacion, SaldoInicialEfectivo, SaldoInicialTarjeta, SaldoInicialVales, SaldoInicialCheque, SaldoInicialTransferencia, SaldoInicialCredito, SaldoInicialAnticipo, CantidadRetiradaDelCorte,PrimerCorte ) VALUES ( '{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}',0)");
                     }
                 }
                 else
@@ -514,7 +627,7 @@ namespace PuntoDeVentaV2
                         datos.Add("0");
                         datos.Add("0");
 
-                        cn.EjecutarConsulta(cs.guardarHistorialCorteDeCaja(datos.ToArray()));
+                        cn.EjecutarConsulta($"INSERT INTO historialcortesdecaja ( IDCorteDeCaja, IDUsuario, IDEmpleado, FechaOperacion, SaldoInicialEfectivo, SaldoInicialTarjeta, SaldoInicialVales, SaldoInicialCheque, SaldoInicialTransferencia, SaldoInicialCredito, SaldoInicialAnticipo, CantidadRetiradaDelCorte,PrimerCorte ) VALUES ( '{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}',0)");
                     }
                 }
             }
@@ -828,7 +941,7 @@ namespace PuntoDeVentaV2
         {
             if (FormPrincipal.userNickName.Contains("@"))
             {
-                cbFiltroAdminEmpleado.Visible = true;
+                cbFiltroAdminEmpleado.Visible = false;
             }
             else
             {
@@ -868,7 +981,7 @@ namespace PuntoDeVentaV2
             var tipodeMoneda = FormPrincipal.Moneda.Split('-');
             var moneda = tipodeMoneda[1].ToString().Trim().Replace("(", "").Replace(")", " ");
 
-            if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) )
+            if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) && !FormPrincipal.userNickName.Contains('@'))
             {
                 var datosCB = cbFiltroAdminEmpleado.SelectedItem.ToString();
                 var nombreID = datosCB.Split(',');
@@ -887,7 +1000,7 @@ namespace PuntoDeVentaV2
             //saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
             //saldoInicial = cdc.CargarSaldoInicial();
 
-            if (true)
+            if (!FormPrincipal.userNickName.Contains("@"))
             {
                 clasificarTipoDeUsuario();
 
@@ -1090,14 +1203,34 @@ namespace PuntoDeVentaV2
 
             //tituloSeccion.Text = "SALDO INICIAL: \r\n" + moneda + cdc.CargarSaldoInicial().ToString("0.00");
             //btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + totalSaldoInicial /*cdc.CargarSaldoInicial().ToString("0.00")*/;
+            var datos = cn.CargarDatos($"SELECT FORMAT(IF(SUM(Efectivo)= '' OR SUM(Efectivo) IS NULL,'0',SUM(Efectivo)),2) AS 'Efectivo', FORMAT(IF(SUM(Tarjeta)= '' OR SUM(Tarjeta) IS NULL,'0',SUM(Tarjeta)),2) AS 'Tarjeta', FORMAT(IF(SUM(Vales)= '' OR SUM(Vales) IS NULL,'0',SUM(Vales)),2) AS 'Vales', FORMAT(IF(SUM(Cheque)= '' OR SUM(Cheque) IS NULL,'0',SUM(Cheque)),2) AS 'Cheque', FORMAT(IF(SUM(Transferencia)= '' OR SUM(Transferencia) IS NULL,'0',SUM(Transferencia)),2) AS 'Transferencia', FORMAT(IF(SUM(Efectivo)= '' OR SUM(Efectivo) IS NULL,'0',SUM(Efectivo)) + IF(SUM(Tarjeta)= '' OR SUM(Tarjeta) IS NULL,'0',SUM(Tarjeta)) + IF(SUM(Vales)= '' OR SUM(Vales) IS NULL,'0',SUM(Vales)) + IF(SUM(Cheque)= '' OR SUM(Cheque) IS NULL,'0',SUM(Cheque)) + IF(SUM(Transferencia)= '' OR SUM(Transferencia) IS NULL,'0',SUM(Transferencia)),2) AS 'Total' FROM `caja` WHERE FechaOperacion >= '{ultimoCorteDeCaja}' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' AND Concepto = 'Complemento de retiro desde saldo inicial' AND Operacion = 'retiro'");
             var datosSaldo = cn.CargarDatos($"SELECT Cantidad FROM `caja` WHERE IDUsuario = {FormPrincipal.userID} AND IdEmpleado = {FormPrincipal.id_empleado} AND Operacion = 'deposito' AND Concepto = 'Insert primer saldo inicial' AND FechaOperacion >= '{ultimoCorteDeCaja}'");
+
+            var retiradoSaldoInicial = Convert.ToDecimal(datos.Rows[0]["Total"].ToString());
             if (datosSaldo.Rows.Count > 0)
             {
                 btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + datosSaldo.Rows[0]["Cantidad"].ToString();
             }
             else
             {
-                btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + "0.00";
+                if (!lblCantidadSaldoActual.Text.Equals("cantidad"))
+                {
+                    var QuedoSaldoInicial = lblCantidadSaldoActual.Text.Split(' ');
+                    if (Convert.ToDecimal(QuedoSaldoInicial[2]) > 0)
+                    {
+                        btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + (totalSaldoInicial - retiradoSaldoInicial);
+                    }
+                    else
+                    {
+                        btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + "0.00";
+                    }
+                }
+                else
+                {
+                    btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + "0.00";
+                }
+
+
             }
 
             if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) && !FormPrincipal.userNickName.Contains('@'))
@@ -1112,14 +1245,10 @@ namespace PuntoDeVentaV2
                 }
 
             }
-
-
-            var datos = cn.CargarDatos($"SELECT FORMAT(IF(SUM(Efectivo)= '' OR SUM(Efectivo) IS NULL,'0',SUM(Efectivo)),2) AS 'Efectivo', FORMAT(IF(SUM(Tarjeta)= '' OR SUM(Tarjeta) IS NULL,'0',SUM(Tarjeta)),2) AS 'Tarjeta', FORMAT(IF(SUM(Vales)= '' OR SUM(Vales) IS NULL,'0',SUM(Vales)),2) AS 'Vales', FORMAT(IF(SUM(Cheque)= '' OR SUM(Cheque) IS NULL,'0',SUM(Cheque)),2) AS 'Cheque', FORMAT(IF(SUM(Transferencia)= '' OR SUM(Transferencia) IS NULL,'0',SUM(Transferencia)),2) AS 'Transferencia', FORMAT(IF(SUM(Efectivo)= '' OR SUM(Efectivo) IS NULL,'0',SUM(Efectivo)) + IF(SUM(Tarjeta)= '' OR SUM(Tarjeta) IS NULL,'0',SUM(Tarjeta)) + IF(SUM(Vales)= '' OR SUM(Vales) IS NULL,'0',SUM(Vales)) + IF(SUM(Cheque)= '' OR SUM(Cheque) IS NULL,'0',SUM(Cheque)) + IF(SUM(Transferencia)= '' OR SUM(Transferencia) IS NULL,'0',SUM(Transferencia)),2) AS 'Total' FROM `caja` WHERE FechaOperacion >= '{ultimoCorteDeCaja}' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' AND Concepto = 'Complemento de retiro desde saldo inicial' AND Operacion = 'retiro'");
-
             //var datos2 = cn.CargarDatos($"SELECT FORMAT( IF ( SUM( Efectivo ) = '' OR SUM( Efectivo ) IS NULL, '0', SUM( Efectivo ) ), 2 ) AS 'Efectivo', FORMAT( IF ( SUM( Tarjeta ) = '' OR SUM( Tarjeta ) IS NULL, '0', SUM( Tarjeta ) ), 2 ) AS 'Tarjeta', FORMAT( IF ( SUM( Vales ) = '' OR SUM( Vales ) IS NULL, '0', SUM( Vales ) ), 2 ) AS 'Vales', FORMAT( IF ( SUM( Cheque ) = '' OR SUM( Cheque ) IS NULL, '0', SUM( Cheque ) ), 2 ) AS 'Cheque', FORMAT( IF ( SUM( Transferencia ) = '' OR SUM( Transferencia ) IS NULL, '0', SUM( Transferencia ) ), 2 ) AS 'Transferencia', FORMAT( IF ( SUM( Efectivo ) = '' OR SUM( Efectivo ) IS NULL, '0', SUM( Efectivo ) ) + IF ( SUM( Tarjeta ) = '' OR SUM( Tarjeta ) IS NULL, '0', SUM( Tarjeta ) ) + IF ( SUM( Vales ) = '' OR SUM( Vales ) IS NULL, '0', SUM( Vales ) ) + IF ( SUM( Cheque ) = '' OR SUM( Cheque ) IS NULL, '0', SUM( Cheque ) ) + IF ( SUM( Transferencia ) = '' OR SUM( Transferencia ) IS NULL, '0', SUM( Transferencia ) ), 2 ) AS 'Total' FROM `caja` WHERE FechaOperacion >= '{ultimoCorteDeCaja}' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' AND Concepto = 'agregado a saldo inicial' AND Operacion = 'deposito'");
 
             //var agregadoSaldoInicial = Convert.ToDecimal(datos2.Rows[0]["Total"].ToString());
-            var retiradoSaldoInicial = Convert.ToDecimal(datos.Rows[0]["Total"].ToString());
+
 
             lblCantidadSaldoActual.Text = $"{moneda} {(totalSaldoInicial - retiradoSaldoInicial) /*+ (agregadoSaldoInicial)*/}";
 
@@ -5692,6 +5821,10 @@ namespace PuntoDeVentaV2
 
         private void btnRedondoCorteCaja_Click(object sender, EventArgs e)
         {
+            if (!FormPrincipal.userNickName.Contains('@'))
+            {
+                FormPrincipal.id_empleado = 0;
+            }
             corteCaja = 1;
 
             var f = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -6542,6 +6675,10 @@ namespace PuntoDeVentaV2
                     botonRedondo2.Visible = true;
                 }
             }
+            //if (!FormPrincipal.userNickName.Contains('@'))
+            //{
+            //    FormPrincipal.id_empleado = 0;
+            //}
         }
 
         private void filtrarInformacionSeleccionada()
@@ -7886,20 +8023,7 @@ namespace PuntoDeVentaV2
 
             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
             {
-                string temp;
-                if (FormPrincipal.userNickName.Contains('@'))
-                {
-                    temp = FormPrincipal.userNickName.Split('@')[0];
-                    using (DataTable dt = cn.CargarDatos(cs.IDUsuarioSinContraseña(temp)))
-                    {
-                        temp = dt.Rows[0]["id"].ToString();
-                    }
-                }
-                else
-                {
-                    temp = FormPrincipal.userID.ToString() ;
-                }
-                using (DataTable dtAdmin = cn.CargarDatos(cs.obtenerDatosDeAdministrador(Int32.Parse(temp))))
+                using (DataTable dtAdmin = cn.CargarDatos(cs.obtenerDatosDeAdministrador(FormPrincipal.userID)))
                 {
                     if (!dtAdmin.Rows.Count.Equals(0))
                     {

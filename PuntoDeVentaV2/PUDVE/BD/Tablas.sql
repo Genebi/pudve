@@ -2036,5 +2036,12 @@ ALTER TABLE productos ADD COLUMN IF NOT EXISTS FormatoDeVenta INT DEFAULT 0;
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS EnvioCorreoSaldoIncial INT DEFAULT 1;
 ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoStockConsultarPrecio INT DEFAULT 1;
 
+   -- Se agrego la columna PesoAutomatico en Productos para recibir el peso automaticamente. // 0 = Acepta todo tipo de forma venta //1 = Solo se puede vender por Enteros //2 = Toma el peso en automatico de la bascula
+ALTER TABLE productos ADD COLUMN IF NOT EXISTS FormatoDeVenta INT DEFAULT 0;
+
+ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS VentasACredito INT DEFAULT 1;
+
+   -- Columna para guardar la clave de traspaso de un movimiento si existe, de manera en que se pueda volver a ver cuando se haga un reporte.
+  ALTER TABLE dgvdisminuirinventario ADD COLUMN IF NOT EXISTS claveTraspaso VARCHAR ( 15 ) DEFAULT NULL ;
 -- Agregar columna para saber si el producto solo es para rentas
 ALTER TABLE Productos ADD COLUMN IF NOT EXISTS SoloRenta tinyint(1) DEFAULT 0;

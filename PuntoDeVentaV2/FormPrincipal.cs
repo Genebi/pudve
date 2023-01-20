@@ -1103,8 +1103,10 @@ namespace PuntoDeVentaV2
                             switch (peticion["Solicitud"].ToString())
                             {
                                 case "Caja":
-                                    enviarCajaAWeb();
-                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Caja';");
+                                    if (enviarCajaAWeb())
+                                    {
+                                        cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Caja';");
+                                    }
                                     break;
                                 case "Producto":
                                     enviarProdctosWeb();
@@ -1257,19 +1259,23 @@ namespace PuntoDeVentaV2
             //Console.WriteLine("Done.");
         }
 
-        private void enviarCajaAWeb()
+        private bool enviarCajaAWeb()
         {
             try
             {
 
             ConexionAPPWEB con = new ConexionAPPWEB();
             DataTable valoresCaja = new DataTable();
+            DataTable valoresCajaDep = new DataTable();
+            DataTable valoresCajaRet = new DataTable();
             WEBCaja test = new WEBCaja();
             int slot=1;
 
             test.FormClosed += delegate
             {
                 valoresCaja = test.datosWeb;
+                valoresCajaDep = test.detallesDepositoWeb;
+                valoresCajaRet = test.detallesRetiroWeb;
             };
             test.ShowDialog();
 
@@ -1279,7 +1285,9 @@ namespace PuntoDeVentaV2
                 {
                     string consulta = $"DELETE FROM cajamirror WHERE cliente = '{userNickName.Split('@')[0]}' AND Fecha = '{DateTime.Parse(dt.Rows[0]["Fecha"].ToString()).ToString("yyyy-MM-dd HH:mm:ss")}'";
                     con.EjecutarConsulta(consulta);
-                }
+                    consulta = $"DELETE FROM cajamirrorDetalles WHERE cliente = '{userNickName.Split('@')[0]}' AND Fecha = '{DateTime.Parse(dt.Rows[0]["Fecha"].ToString()).ToString("yyyy-MM-dd HH:mm:ss")}'";
+                    con.EjecutarConsulta(consulta);
+                    }
                     string fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     foreach (DataRow registroCaja in valoresCaja.Rows)
                     {
@@ -1287,12 +1295,26 @@ namespace PuntoDeVentaV2
                         consulta += $"VALUES ('{userNickName.Split('@')[0]}','{registroCaja[0]}','{fecha}', '{registroCaja[1]}','{registroCaja[2]}','{registroCaja[3]}','{registroCaja[4]}','{registroCaja[5]}','{registroCaja[6]}','{registroCaja[7]}','{registroCaja[8]}','{registroCaja[9]}','{registroCaja[10]}','{registroCaja[11]}','{registroCaja[12]}','{registroCaja[13]}','{registroCaja[14]}','{registroCaja[15]}','{registroCaja[16]}','{registroCaja[17]}','{registroCaja[18]}','{registroCaja[19]}','{registroCaja[20]}','{registroCaja[21]}','{registroCaja[22]}','{registroCaja[23]}','{registroCaja[24]}','{registroCaja[25]}','{registroCaja[26]}','{registroCaja[27]}','{registroCaja[28]}','{registroCaja[29]}','{registroCaja[30]}','{registroCaja[31]}','{registroCaja[32]}','{registroCaja[33]}','{registroCaja[34]}','{registroCaja[35]}','{registroCaja[36]}')";
                         con.EjecutarConsulta(consulta);                    
                     }
-            }
+
+                    foreach (DataRow dataRow in valoresCajaDep.Rows)
+                    {
+                        string consulta = "INSERT INTO cajamirrorDetalles (IDCliente, IDEmpleado, Fecha, Tipo, Concepto, Cantidad, Efectivo, Tarjeta, Vales, Cheque, Transferencia, FechaOperacion)";
+                        consulta += $"VALUES ('{userNickName.Split('@')[0]}','{dataRow[0]}','{fecha}', '{dataRow[1]}','{dataRow[2]}','{dataRow[3]}','{dataRow[4]}','{dataRow[5]}','{dataRow[6]}','{dataRow[7]}','{dataRow[8]}','{dataRow[9]}')";
+                        con.EjecutarConsulta(consulta);
+                    }
+
+                    foreach (DataRow dataRow in valoresCajaRet.Rows)
+                    {
+                        string consulta = "INSERT INTO cajamirrorDetalles (IDCliente, IDEmpleado, Fecha, Tipo, Concepto, Cantidad, Efectivo, Tarjeta, Vales, Cheque, Transferencia, FechaOperacion)";
+                        consulta += $"VALUES ('{userNickName.Split('@')[0]}','{dataRow[0]}','{fecha}', '{dataRow[1]}','{dataRow[2]}','{dataRow[3]}','{dataRow[4]}','{dataRow[5]}','{dataRow[6]}','{dataRow[7]}','{dataRow[8]}','{dataRow[9]}')";
+                        con.EjecutarConsulta(consulta);
+                    }
+                }
+                return true;
             }
             catch (Exception)
             {
-                //No se logro la conexion a internet.
-                return;
+                return false;
             }
         }
 

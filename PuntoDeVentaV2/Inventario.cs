@@ -1324,31 +1324,31 @@ namespace PuntoDeVentaV2
                 {
                     //Lista con las ids
                     
+                    var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
+                    cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
+                    cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
 
                     if (validarsiClave())
                     {
                         DataTable dt = new DataTable();
-                        
+
                         string momentoMoment = DateTime.Now.ToString("yyyy-MM-dd");
 
 
-                        cn2.EjecutarConsulta(cs.insertarRegistroTraspaso(clave,cn.CargarDatos(cs.BuscarUsuario(FormPrincipal.userID)).Rows[0]["usuario"].ToString(), momentoMoment));
+                        cn2.EjecutarConsulta(cs.insertarRegistroTraspaso(clave, cn.CargarDatos(cs.BuscarUsuario(FormPrincipal.userID)).Rows[0]["usuario"].ToString(), momentoMoment));
                         foreach (DataGridViewRow item in DGVInventario.Rows)
                         {
-                            
-                                dt = cn.CargarDatos($"SELECT Nombre FROM productos WHERE `Status` = 1 AND CodigoBarras = '{item.Cells[7].Value.ToString()}' AND IDUsuario = '{FormPrincipal.userID}'");
+
+                            dt = cn.CargarDatos($"SELECT Nombre FROM productos WHERE `Status` = 1 AND CodigoBarras = '{item.Cells[7].Value.ToString()}' AND IDUsuario = '{FormPrincipal.userID}'");
 
 
-                                cn2.EjecutarConsulta(cs.insertarDatosTraspaso(clave, dt.Rows[0]["Nombre"].ToString(), item.Cells[7].Value.ToString(), item.Cells[3].Value.ToString()));
+                            cn2.EjecutarConsulta(cs.insertarDatosTraspaso(clave, dt.Rows[0]["Nombre"].ToString(), item.Cells[7].Value.ToString(), item.Cells[3].Value.ToString()));
 
-                            
                         }
                         MessageBox.Show($"Tu clave de traspaso es: {clave}");
+                        cn.EjecutarConsulta($"UPDATE DGVDisminuirInventario SET claveTraspaso = '{clave}' WHERE Folio = (SELECT MAX(Folio) FROM dgvdisminuirinventario WHERE IDUsuario = {FormPrincipal.userID}) AND IdUsuario = {FormPrincipal.userID}");
                         clave = "";
                     }
-                    var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
-                    cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
-                    cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
                 }
                 int opcion;
                 using (var Permiso = cn.CargarDatos($"SELECT CorreoStockProducto FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))

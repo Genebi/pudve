@@ -140,7 +140,7 @@ namespace PuntoDeVentaV2
                 //var emp = consultaBuscarEmpledo(txtBuscarAnticipo.Text);
                 //var client = consultaBuscarCliente(); 
 
-                consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND `Status` = {estado} AND (Concepto LIKE '%{txtBuscarAnticipo.Text}%' OR Cliente LIKE '%{txtBuscarAnticipo.Text}%')AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'"; //AND Status != 4
+                consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND `Status` = {estado} AND (Concepto LIKE '%{txtBuscarAnticipo.Text}%' OR Cliente LIKE '%{txtBuscarAnticipo.Text}%'  OR ID LIKE '%{txtBuscarAnticipo.Text}%')AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'"; //AND Status != 4
 
                 conBusqueda = true;
             }

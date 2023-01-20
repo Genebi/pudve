@@ -2174,6 +2174,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "WEBCaja";
+            this.Opacity = 0D;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "WEBCaja";
