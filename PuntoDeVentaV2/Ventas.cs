@@ -147,6 +147,8 @@ namespace PuntoDeVentaV2
         private int correoVenta = 0;
         private int correoDescuento = 0;
         private int aceptaRenta = 0;
+
+        private string folioVentaGuardada = string.Empty;
         // Variables para la configuracion referente a los productos con mayoreo
         private bool mayoreoActivo = false;
         private int cantidadMayoreo = 0;
@@ -374,13 +376,13 @@ namespace PuntoDeVentaV2
                 correoDescuento = Convert.ToInt32(configCorreos[23]);
 
                 // Realiza rentas
-                if (configCorreos[30].Equals(1))
+                if (configCorreos[31].Equals(1))
                 {
-                    checkRenta.Checked = Convert.ToBoolean(configCorreos[30]);
+                    checkRenta.Checked = Convert.ToBoolean(configCorreos[31]);
                     aceptaRenta = 1;
                 }
 
-                if (configCorreos[30].Equals(0))
+                if (configCorreos[31].Equals(0))
                 {
                     checkRenta.Enabled = false;
                 }
@@ -3860,7 +3862,15 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            aumentoFolio();
+            if (!string.IsNullOrWhiteSpace(folioVentaGuardada))
+            {
+                Contenido = folioVentaGuardada;
+            }
+            else
+            {
+                aumentoFolio();
+            }
+            
             Folio = Contenido;
             FolioVentaCorreo = Folio;
 
@@ -5164,6 +5174,7 @@ namespace PuntoDeVentaV2
             cIVA.Text = datos[1];
             cTotal.Text = datos[2];
             cDescuento.Text = datos[3];
+            folioVentaGuardada = datos[5];
 
             string[] datosAnticipo = cn.BuscarAnticipo(mostrarVenta, FormPrincipal.userID);
 

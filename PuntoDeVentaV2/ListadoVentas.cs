@@ -269,7 +269,7 @@ namespace PuntoDeVentaV2
             if (configuracion.Count > 0)
             {
                 // Realiza rentas
-                if (configuracion[30].Equals(1))
+                if (configuracion[31].Equals(1))
                 {
                     rbRentas.Checked = true;
                 }
@@ -3436,14 +3436,14 @@ namespace PuntoDeVentaV2
                 if (configuracion.Count > 0)
                 {
                     // Realiza rentas
-                    if (configuracion[30].Equals(1))
+                    if (configuracion[31].Equals(1))
                     {
                         rbVentas.Checked = false;
                         rbRentas.Enabled = true;
                         rbRentas.Checked = true;
                     }
 
-                    if (configuracion[30].Equals(0))
+                    if (configuracion[31].Equals(0))
                     {
                         rbRentas.Enabled = false;
                         rbRentas.Checked = false;
