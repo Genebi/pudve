@@ -647,6 +647,12 @@
     <Compile Include="ConfiguracionMariaDB.Designer.cs">
       <DependentUpon>ConfiguracionMariaDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfiguracionOrdenes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfiguracionOrdenes.Designer.cs">
+      <DependentUpon>ConfiguracionOrdenes.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConnectionHandler.cs" />
     <Compile Include="ConsultaPrecio.cs">
       <SubType>Form</SubType>
@@ -1950,6 +1956,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConfiguracionMariaDB.resx">
       <DependentUpon>ConfiguracionMariaDB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfiguracionOrdenes.resx">
+      <DependentUpon>ConfiguracionOrdenes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConsultaPrecio.resx">
       <DependentUpon>ConsultaPrecio.cs</DependentUpon>

@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfiguracionGeneral));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkOrdenes = new System.Windows.Forms.CheckBox();
+            this.checkRentas = new System.Windows.Forms.CheckBox();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.CHKMostrarStock = new System.Windows.Forms.CheckBox();
             this.btnAceptar = new System.Windows.Forms.Button();
@@ -50,13 +52,13 @@
             this.checkMayoreo = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMinimoMayoreo = new System.Windows.Forms.TextBox();
-            this.checkRentas = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox2.Controls.Add(this.checkOrdenes);
             this.groupBox2.Controls.Add(this.checkRentas);
             this.groupBox2.Controls.Add(this.linkLabel2);
             this.groupBox2.Controls.Add(this.CHKMostrarStock);
@@ -74,10 +76,34 @@
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(8, 31);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(637, 195);
+            this.groupBox2.Size = new System.Drawing.Size(637, 221);
             this.groupBox2.TabIndex = 130;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CONFIGURACION GENERAL";
+            // 
+            // checkOrdenes
+            // 
+            this.checkOrdenes.AutoSize = true;
+            this.checkOrdenes.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkOrdenes.Location = new System.Drawing.Point(37, 163);
+            this.checkOrdenes.Name = "checkOrdenes";
+            this.checkOrdenes.Size = new System.Drawing.Size(211, 21);
+            this.checkOrdenes.TabIndex = 136;
+            this.checkOrdenes.Text = "Este negocio realiza órdenes";
+            this.checkOrdenes.UseVisualStyleBackColor = true;
+            this.checkOrdenes.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkOrdenes_MouseClick);
+            // 
+            // checkRentas
+            // 
+            this.checkRentas.AutoSize = true;
+            this.checkRentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRentas.Location = new System.Drawing.Point(325, 136);
+            this.checkRentas.Name = "checkRentas";
+            this.checkRentas.Size = new System.Drawing.Size(199, 21);
+            this.checkRentas.TabIndex = 135;
+            this.checkRentas.Text = "Este negocio realiza rentas";
+            this.checkRentas.UseVisualStyleBackColor = true;
+            this.checkRentas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkRentas_MouseClick);
             // 
             // linkLabel2
             // 
@@ -111,7 +137,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(456, 161);
+            this.btnAceptar.Location = new System.Drawing.Point(456, 187);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(176, 28);
             this.btnAceptar.TabIndex = 132;
@@ -123,7 +149,7 @@
             // 
             this.chkMensajeRealizarInventario.AutoSize = true;
             this.chkMensajeRealizarInventario.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMensajeRealizarInventario.Location = new System.Drawing.Point(175, 164);
+            this.chkMensajeRealizarInventario.Location = new System.Drawing.Point(175, 190);
             this.chkMensajeRealizarInventario.Name = "chkMensajeRealizarInventario";
             this.chkMensajeRealizarInventario.Size = new System.Drawing.Size(267, 21);
             this.chkMensajeRealizarInventario.TabIndex = 131;
@@ -149,7 +175,7 @@
             // 
             this.chkMensajeVenderProducto.AutoSize = true;
             this.chkMensajeVenderProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMensajeVenderProducto.Location = new System.Drawing.Point(37, 164);
+            this.chkMensajeVenderProducto.Location = new System.Drawing.Point(37, 190);
             this.chkMensajeVenderProducto.Name = "chkMensajeVenderProducto";
             this.chkMensajeVenderProducto.Size = new System.Drawing.Size(262, 21);
             this.chkMensajeVenderProducto.TabIndex = 130;
@@ -341,24 +367,12 @@
             this.txtMinimoMayoreo.Visible = false;
             this.txtMinimoMayoreo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtMinimoMayoreo_KeyUp);
             // 
-            // checkRentas
-            // 
-            this.checkRentas.AutoSize = true;
-            this.checkRentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkRentas.Location = new System.Drawing.Point(325, 136);
-            this.checkRentas.Name = "checkRentas";
-            this.checkRentas.Size = new System.Drawing.Size(199, 21);
-            this.checkRentas.TabIndex = 135;
-            this.checkRentas.Text = "Este negocio realiza rentas";
-            this.checkRentas.UseVisualStyleBackColor = true;
-            this.checkRentas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkRentas_MouseClick);
-            // 
             // ConfiguracionGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(657, 238);
+            this.ClientSize = new System.Drawing.Size(657, 264);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.checkMayoreo);
             this.Controls.Add(this.label1);
@@ -410,5 +424,6 @@
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.CheckBox checkRentas;
+        private System.Windows.Forms.CheckBox checkOrdenes;
     }
 }

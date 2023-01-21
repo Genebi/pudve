@@ -997,7 +997,7 @@ IF
 	NOT EXISTS ConfiguracionOrdenes (
 		ID INTEGER PRIMARY KEY AUTO_INCREMENT,
 		IDUsuario INTEGER NOT NULL,
-		TiempoEntrega TIME,
+		TiempoEntrega VARCHAR(50),
 		FechaOperacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 	);
 
@@ -2055,3 +2055,5 @@ ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS VentasACredito INT DEFAUL
 ALTER TABLE dgvdisminuirinventario ADD COLUMN IF NOT EXISTS claveTraspaso VARCHAR ( 15 ) DEFAULT NULL ;
 -- Agregar columna para saber si el producto solo es para rentas
 ALTER TABLE Productos ADD COLUMN IF NOT EXISTS SoloRenta tinyint(1) DEFAULT 0;
+-- Agregar columna para guardar el si el negocio acepta ordenes en configuracion general
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS RealizaOrdenes tinyint(1) DEFAULT 0;
