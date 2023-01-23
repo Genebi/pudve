@@ -243,7 +243,7 @@ namespace PuntoDeVentaV2
             colID = dtDetallesSubdetalle.Rows[0]["SubID"].ToString();
             switch (tipoDato)
             {
-                case "0.00":
+                case "0":
                     dgvDetallesSubdetalle.Columns[2].DefaultCellStyle.Format = "yyyy-MM-dd";
                     colDato = "Fecha";
                     break;
@@ -346,7 +346,7 @@ namespace PuntoDeVentaV2
 
                     foreach (DataRow registroDetalle in dtDetallesSubdetalle.Rows)
                     {
-                        if (tipoDato=="0.00")
+                        if (tipoDato=="0")
                         {
                             
                         }
@@ -419,7 +419,7 @@ namespace PuntoDeVentaV2
                             if (string.IsNullOrEmpty(registroDetalle["ID"].ToString()))
                             {
                                 string consulta = $"INSERT INTO detallesubdetalle (IDsubdetalle, {colDato}, Stock)";
-                                consulta += $"VALUES ('{colID}', '{registroDetalle["Valor"].ToString()}', '{registroDetalle["Cantidad"].ToString()}')";
+                                consulta += $"VALUES ('{colID}', '{registroDetalle["Valor"].ToString()}', '{registroDetalle["0.00"].ToString()}')";
 
                                 updates.Add(consulta);
                             }
@@ -503,7 +503,7 @@ namespace PuntoDeVentaV2
                         dgvDetallesSubdetalle.CurrentCell = dgvDetallesSubdetalle.Rows[dgvDetallesSubdetalle.RowCount - 1].Cells[3];
                     }
 
-                    if (tipoDato == "0.00" && accion == "Nuevo")
+                    if (tipoDato == "0" && accion == "Nuevo")
                     {
                         //Creamos el control por código
                         dateTimePicker1 = new DateTimePicker();
@@ -584,7 +584,7 @@ namespace PuntoDeVentaV2
             {
                 switch (tipoDato)
                 {
-                    case "0.00":
+                    case "0":
                         DateTime DTparser;
                         celdaCellClick = dgvDetallesSubdetalle.CurrentCell.RowIndex;
                         if (!DateTime.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[3].Value.ToString(), out DTparser))
@@ -612,7 +612,7 @@ namespace PuntoDeVentaV2
             {
                 switch (tipoDato)
                 {
-                    case "0.00":
+                    case "0":
                         DateTime DTparser;
                         celdaCellClick = dgvDetallesSubdetalle.CurrentCell.RowIndex;
                         if (!DateTime.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[2].Value.ToString(), out DTparser))
@@ -677,8 +677,13 @@ namespace PuntoDeVentaV2
 
         private void dgvDetallesSubdetalle_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == 3 && tipoDato=="0.00" && accion== "Nuevo")
+            if (e.RowIndex.Equals(-1))
             {
+                return;
+            }
+            if (e.ColumnIndex == 3 && tipoDato=="0" && accion== "Nuevo")
+            {
+
                 //Creamos el control por código
                 dateTimePicker1 = new DateTimePicker();
 
@@ -725,7 +730,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            if (e.ColumnIndex == 2 && tipoDato == "0.00" && accion == "Inventario")
+            if (e.ColumnIndex == 2 && tipoDato == "0" && accion == "Inventario")
             {
                 //Creamos el control por código
                 dateTimePicker1 = new DateTimePicker();
