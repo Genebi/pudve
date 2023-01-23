@@ -29,26 +29,14 @@ namespace PuntoDeVentaV2
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(subDetallesDeProducto));
             this.panel2 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.LbNombreCategoria = new System.Windows.Forms.Label();
             this.pboxEditar = new System.Windows.Forms.PictureBox();
             this.dgvDetallesSubdetalle = new System.Windows.Forms.DataGridView();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.lblStockRestanteText = new System.Windows.Forms.Label();
-            this.lblStockRestanteNum = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnAgregarSubDetalle = new System.Windows.Forms.Button();
-            this.btnGuardar = new System.Windows.Forms.Button();
-            this.lblNombreProducto = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnAddDetalle = new System.Windows.Forms.Button();
-            this.fLPLateralCategorias = new System.Windows.Forms.FlowLayoutPanel();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Stock = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,6 +45,18 @@ namespace PuntoDeVentaV2
             this.TD = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Deshabilitar = new System.Windows.Forms.DataGridViewImageColumn();
             this.SubID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnGuardar = new System.Windows.Forms.Button();
+            this.lblStockRestanteText = new System.Windows.Forms.Label();
+            this.lblStockRestanteNum = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnAgregarSubDetalle = new System.Windows.Forms.Button();
+            this.lblNombreProducto = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnAddDetalle = new System.Windows.Forms.Button();
+            this.fLPLateralCategorias = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxEditar)).BeginInit();
@@ -83,7 +83,7 @@ namespace PuntoDeVentaV2
             this.flowLayoutPanel1.Controls.Add(this.LbNombreCategoria);
             this.flowLayoutPanel1.Controls.Add(this.pboxEditar);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 2);
-            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(557, 32);
             this.flowLayoutPanel1.TabIndex = 36;
@@ -104,7 +104,7 @@ namespace PuntoDeVentaV2
             // 
             this.pboxEditar.Image = global::PuntoDeVentaV2.Properties.Resources.pencil1;
             this.pboxEditar.Location = new System.Drawing.Point(178, 2);
-            this.pboxEditar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pboxEditar.Margin = new System.Windows.Forms.Padding(2);
             this.pboxEditar.Name = "pboxEditar";
             this.pboxEditar.Size = new System.Drawing.Size(21, 17);
             this.pboxEditar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -134,9 +134,86 @@ namespace PuntoDeVentaV2
             this.dgvDetallesSubdetalle.Size = new System.Drawing.Size(556, 408);
             this.dgvDetallesSubdetalle.TabIndex = 0;
             this.dgvDetallesSubdetalle.Visible = false;
+            this.dgvDetallesSubdetalle.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.dgvDetallesSubdetalle_CellBeginEdit);
             this.dgvDetallesSubdetalle.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetallesSubdetalle_CellClick);
             this.dgvDetallesSubdetalle.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetallesSubdetalle_CellEndEdit);
+            this.dgvDetallesSubdetalle.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetallesSubdetalle_CellLeave);
             this.dgvDetallesSubdetalle.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgvDetallesSubdetalle_DataError);
+            // 
+            // ID
+            // 
+            this.ID.DataPropertyName = "ID";
+            this.ID.HeaderText = "ID";
+            this.ID.MinimumWidth = 8;
+            this.ID.Name = "ID";
+            this.ID.Visible = false;
+            this.ID.Width = 150;
+            // 
+            // Valor
+            // 
+            this.Valor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Valor.DataPropertyName = "Valor";
+            this.Valor.HeaderText = "Valor";
+            this.Valor.MinimumWidth = 8;
+            this.Valor.Name = "Valor";
+            // 
+            // Stock
+            // 
+            this.Stock.DataPropertyName = "Stock";
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = "0.00";
+            this.Stock.DefaultCellStyle = dataGridViewCellStyle3;
+            this.Stock.HeaderText = "Stock";
+            this.Stock.MinimumWidth = 8;
+            this.Stock.Name = "Stock";
+            this.Stock.Width = 150;
+            // 
+            // Cantidad
+            // 
+            this.Cantidad.DataPropertyName = "0";
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = "0.00";
+            this.Cantidad.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Cantidad.HeaderText = "Cantidad a Vender";
+            this.Cantidad.MinimumWidth = 8;
+            this.Cantidad.Name = "Cantidad";
+            this.Cantidad.Visible = false;
+            this.Cantidad.Width = 150;
+            // 
+            // TotalStok
+            // 
+            this.TotalStok.DataPropertyName = "TotalStock";
+            this.TotalStok.HeaderText = "TotalStok";
+            this.TotalStok.MinimumWidth = 8;
+            this.TotalStok.Name = "TotalStok";
+            this.TotalStok.Visible = false;
+            this.TotalStok.Width = 150;
+            // 
+            // TD
+            // 
+            this.TD.DataPropertyName = "TipoDato";
+            this.TD.HeaderText = "TD";
+            this.TD.MinimumWidth = 8;
+            this.TD.Name = "TD";
+            this.TD.Visible = false;
+            this.TD.Width = 150;
+            // 
+            // Deshabilitar
+            // 
+            this.Deshabilitar.HeaderText = "Deshabilitar";
+            this.Deshabilitar.Image = ((System.Drawing.Image)(resources.GetObject("Deshabilitar.Image")));
+            this.Deshabilitar.MinimumWidth = 8;
+            this.Deshabilitar.Name = "Deshabilitar";
+            this.Deshabilitar.Width = 150;
+            // 
+            // SubID
+            // 
+            this.SubID.DataPropertyName = "SubID";
+            this.SubID.HeaderText = "SubID";
+            this.SubID.MinimumWidth = 8;
+            this.SubID.Name = "SubID";
+            this.SubID.Visible = false;
+            this.SubID.Width = 150;
             // 
             // groupBox4
             // 
@@ -149,6 +226,26 @@ namespace PuntoDeVentaV2
             this.groupBox4.TabIndex = 35;
             this.groupBox4.TabStop = false;
             this.groupBox4.Visible = false;
+            // 
+            // btnGuardar
+            // 
+            this.btnGuardar.BackColor = System.Drawing.Color.Orange;
+            this.btnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGuardar.Enabled = false;
+            this.btnGuardar.FlatAppearance.BorderSize = 0;
+            this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
+            this.btnGuardar.ForeColor = System.Drawing.Color.White;
+            this.btnGuardar.Image = global::PuntoDeVentaV2.Properties.Resources.save1;
+            this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnGuardar.Location = new System.Drawing.Point(90, 10);
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(221, 41);
+            this.btnGuardar.TabIndex = 33;
+            this.btnGuardar.Text = "Guardar";
+            this.btnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnGuardar.UseVisualStyleBackColor = false;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click_1);
             // 
             // lblStockRestanteText
             // 
@@ -198,26 +295,6 @@ namespace PuntoDeVentaV2
             this.btnAgregarSubDetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAgregarSubDetalle.UseVisualStyleBackColor = false;
             this.btnAgregarSubDetalle.Click += new System.EventHandler(this.btnAgregarSubDetalle_Click);
-            // 
-            // btnGuardar
-            // 
-            this.btnGuardar.BackColor = System.Drawing.Color.Orange;
-            this.btnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGuardar.Enabled = false;
-            this.btnGuardar.FlatAppearance.BorderSize = 0;
-            this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnGuardar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold);
-            this.btnGuardar.ForeColor = System.Drawing.Color.White;
-            this.btnGuardar.Image = global::PuntoDeVentaV2.Properties.Resources.save1;
-            this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnGuardar.Location = new System.Drawing.Point(90, 10);
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(221, 41);
-            this.btnGuardar.TabIndex = 33;
-            this.btnGuardar.Text = "Guardar";
-            this.btnGuardar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnGuardar.UseVisualStyleBackColor = false;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click_1);
             // 
             // lblNombreProducto
             // 
@@ -287,81 +364,6 @@ namespace PuntoDeVentaV2
             this.fLPLateralCategorias.Size = new System.Drawing.Size(233, 408);
             this.fLPLateralCategorias.TabIndex = 0;
             this.fLPLateralCategorias.WrapContents = false;
-            // 
-            // ID
-            // 
-            this.ID.DataPropertyName = "ID";
-            this.ID.HeaderText = "ID";
-            this.ID.MinimumWidth = 8;
-            this.ID.Name = "ID";
-            this.ID.Visible = false;
-            this.ID.Width = 150;
-            // 
-            // Valor
-            // 
-            this.Valor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Valor.DataPropertyName = "Valor";
-            this.Valor.HeaderText = "Valor";
-            this.Valor.MinimumWidth = 8;
-            this.Valor.Name = "Valor";
-            // 
-            // Stock
-            // 
-            this.Stock.DataPropertyName = "Stock";
-            dataGridViewCellStyle1.Format = "N2";
-            dataGridViewCellStyle1.NullValue = "0.00";
-            this.Stock.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Stock.HeaderText = "Stock";
-            this.Stock.MinimumWidth = 8;
-            this.Stock.Name = "Stock";
-            this.Stock.Width = 150;
-            // 
-            // Cantidad
-            // 
-            this.Cantidad.DataPropertyName = "0";
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = "0.00";
-            this.Cantidad.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Cantidad.HeaderText = "Cantidad a Vender";
-            this.Cantidad.MinimumWidth = 8;
-            this.Cantidad.Name = "Cantidad";
-            this.Cantidad.Visible = false;
-            this.Cantidad.Width = 150;
-            // 
-            // TotalStok
-            // 
-            this.TotalStok.DataPropertyName = "TotalStock";
-            this.TotalStok.HeaderText = "TotalStok";
-            this.TotalStok.MinimumWidth = 8;
-            this.TotalStok.Name = "TotalStok";
-            this.TotalStok.Visible = false;
-            this.TotalStok.Width = 150;
-            // 
-            // TD
-            // 
-            this.TD.DataPropertyName = "TipoDato";
-            this.TD.HeaderText = "TD";
-            this.TD.MinimumWidth = 8;
-            this.TD.Name = "TD";
-            this.TD.Visible = false;
-            this.TD.Width = 150;
-            // 
-            // Deshabilitar
-            // 
-            this.Deshabilitar.HeaderText = "Deshabilitar";
-            this.Deshabilitar.Image = ((System.Drawing.Image)(resources.GetObject("Deshabilitar.Image")));
-            this.Deshabilitar.MinimumWidth = 8;
-            this.Deshabilitar.Name = "Deshabilitar";
-            this.Deshabilitar.Width = 150;
-            // 
-            // SubID
-            // 
-            this.SubID.DataPropertyName = "SubID";
-            this.SubID.HeaderText = "SubID";
-            this.SubID.MinimumWidth = 8;
-            this.SubID.Name = "SubID";
-            this.SubID.Visible = false;
-            this.SubID.Width = 150;
             // 
             // subDetallesDeProducto
             // 

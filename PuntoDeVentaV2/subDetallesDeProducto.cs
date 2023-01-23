@@ -456,17 +456,26 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private bool validarunique()
+        private bool validarunique(string validate)
         {
             bool buleanomachin = true;
-            foreach (DataRow dataRow in dtDetallesSubdetalle.Rows)
-            {
+            int counter = 0;
+            List<string> fechasuso = new List<string>();
+
                 foreach (DataRow dataRow1 in dtDetallesSubdetalle.Rows)
                 {
-                    if (dataRow["Valor"].ToString()==dataRow1["Valor"].ToString())
-                    {
-                        buleanomachin = false;
-                    }
+                fechasuso.Add(dataRow1["Valor"].ToString());
+                }
+            foreach (string item in fechasuso)
+            {
+                
+                if (validate==item)
+                {
+                    counter++;
+                }
+                if (counter>1)
+                {
+                    buleanomachin = false;
                 }
             }
             return buleanomachin;
@@ -526,6 +535,8 @@ namespace PuntoDeVentaV2
                         // Generamos el evento de cierre del control fecha
                         dateTimePicker1.CloseUp += new EventHandler(dateTimePicker1_CloseUp);
 
+                        // Generamos el evento de cierre del control fecha
+                        dateTimePicker1.LostFocus += new EventHandler(dateTimePicker1_loseFocus);
                     }
 
                 }
@@ -545,7 +556,7 @@ namespace PuntoDeVentaV2
 
         private void dgvDetallesSubdetalle_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-
+            fLPLateralCategorias.Enabled = true;
             decimal test; celdaCellClick = dgvDetallesSubdetalle.CurrentCell.RowIndex;
 
             if (accion!= "Nuevo")
@@ -578,14 +589,6 @@ namespace PuntoDeVentaV2
                         celdaCellClick = dgvDetallesSubdetalle.CurrentCell.RowIndex;
                         if (!DateTime.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[3].Value.ToString(), out DTparser))
                         {
-                            MessageBox.Show($"El formato introducido no es valido  no podras terminar el proceso sin corregir (solamente se aceptan fechas)", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            dtDetallesSubdetalle.Rows[e.RowIndex]["Valor"] = "";
-                            return;
-                        }
-
-                        if (!validarunique())
-                        {
-                            MessageBox.Show($"No puedes utilizar el mismo valor para fechas en subdetalles", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             dtDetallesSubdetalle.Rows[e.RowIndex]["Valor"] = "";
                             return;
                         }
@@ -614,8 +617,8 @@ namespace PuntoDeVentaV2
                         celdaCellClick = dgvDetallesSubdetalle.CurrentCell.RowIndex;
                         if (!DateTime.TryParse(dgvDetallesSubdetalle.Rows[celdaCellClick].Cells[2].Value.ToString(), out DTparser))
                         {
-                            MessageBox.Show($"El formato introducido no es valido  no podras terminar el proceso sin corregir (solamente se aceptan fechas)", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            dtDetallesSubdetalle.Rows[e.RowIndex]["Valor"] = DateTime.Now.ToString("yyyy-MM-dd");
+                            
+                            dtDetallesSubdetalle.Rows[e.RowIndex]["Valor"] = DateTime.Now.ToString("");
                             return;
                         }
                         break;
@@ -705,6 +708,9 @@ namespace PuntoDeVentaV2
 
                 // Generamos el evento de cierre del control fecha
                 dateTimePicker1.CloseUp += new EventHandler(dateTimePicker1_CloseUp);
+
+                // Generamos el evento de cierre del control fecha
+                dateTimePicker1.LostFocus += new EventHandler(dateTimePicker1_loseFocus);
             }
             if (e.ColumnIndex == 1 && accion=="Nuevo")
             {
@@ -796,6 +802,22 @@ namespace PuntoDeVentaV2
                     }
                 };
                 editarCategoria.ShowDialog();
+            }
+        }
+
+        private void dgvDetallesSubdetalle_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            fLPLateralCategorias.Enabled = false;
+        }
+
+        private void dgvDetallesSubdetalle_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (!validarunique(dtDetallesSubdetalle.Rows[e.RowIndex]["Valor"].ToString()))
+            {
+                MessageBox.Show($"No puedes utilizar el mismo valor para dos subdetalles", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dtDetallesSubdetalle.Rows[e.RowIndex]["Valor"] = "";
+                return;
             }
         }
     }
