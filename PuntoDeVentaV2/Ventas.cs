@@ -231,6 +231,7 @@ namespace PuntoDeVentaV2
 
         public static bool EsEnVentas = false;
 
+        public static string codBarProdVentaRapida;
 
         public static int IDAnticipo = 0;
         #region Proceso de Bascula
@@ -4085,7 +4086,7 @@ namespace PuntoDeVentaV2
                         contador++;
 
                         // Si es un producto, paquete o servicio lo guarda en la tabla de productos de venta
-                        if (Tipo == "P" || Tipo == "S" || Tipo == "PQ")
+                        if (Tipo == "P" || Tipo == "S" || Tipo == "PQ" || Tipo == "VR")
                         {
                             if (!statusVenta.Equals("2"))
                             {
@@ -8773,6 +8774,12 @@ namespace PuntoDeVentaV2
         {
             VentaRapida venta = new VentaRapida();
             venta.ShowDialog();
+            if (!string.IsNullOrWhiteSpace(codBarProdVentaRapida))
+            {
+                txtBuscadorProducto.Text = codBarProdVentaRapida;
+                txtBuscadorProducto.Focus();
+                SendKeys.Send("{ENTER}");
+            }
         }
 
         private void txtBuscadorProducto_TextChanged(object sender, EventArgs e)
