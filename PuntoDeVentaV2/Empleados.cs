@@ -106,17 +106,19 @@ namespace PuntoDeVentaV2
 
                 Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\edit.png");
                 Image permisos = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\unlock-alt.png");
+                //Image checador = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\checador.png");
                 Image deshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
-
-
 
                 fila.Cells["editar"].Value = editar;
                 fila.Cells["Permisos"].Value = permisos;
+                //fila.Cells["Checador"].Value = checador;
                 fila.Cells["deshabilitar"].Value = deshabilitar;
             }
 
             dgv_empleados.ClearSelection();
             sql_con.Close();
+
+            btnActualizarMaximoProductos.PerformClick();
         }
 
         private void btn_agregar_empleado_Click(object sender, EventArgs e)
@@ -200,61 +202,88 @@ namespace PuntoDeVentaV2
                     permisos.ShowDialog();
                 }
 
+                //// Asignar reglas de entrada y salida
+                //if (e.ColumnIndex == 5)
+                //{
+                //    //if (opcion3 == 0)
+                //    //{
+                //    //    Utilidades.MensajePermiso();
+                //    //    return;
+                //    //}
+
+                //    FormPrincipal.id_empleado = Convert.ToInt32(dgv_empleados.Rows[e.RowIndex].Cells[0].Value.ToString());
+                //    empleadosDatosChecador datosChecador = new empleadosDatosChecador(id_empleado);
+
+                //    datosChecador.ShowDialog();
+                //}
+
                 dgv_empleados.ClearSelection();
-            }
 
-            //Deshabilitar Empleado
-            if (e.ColumnIndex == 5)
-            {
-                if (cboMostrados.Text == "Habilitados")
+                //Deshabilitar Empleado
+                if (e.ColumnIndex == 5)
                 {
-                    string texto = "¿Esta seguro de Deshabilitar este Empleado?";
-                    MensajeConfirmacionDeHabilitarODeshabilitar mensaje = new MensajeConfirmacionDeHabilitarODeshabilitar(texto);
-                    mensaje.ShowDialog();
-                    if (SIoNO.Equals(true))
+                    if (cboMostrados.Text == "Habilitados")
                     {
-                        string nombre = dgv_empleados.Rows[e.RowIndex].Cells[2].Value.ToString();
-                        string idemp = dgv_empleados.Rows[e.RowIndex].Cells[0].Value.ToString();
-                        cn.EjecutarConsulta(cs.deshabilitarEmpleado(nombre, idemp));
-                        string tipo = string.Empty;
-                        if (cboMostrados.Text == "Habilitados")
+                        string texto = "¿Esta seguro de Deshabilitar este Empleado?";
+                        MensajeConfirmacionDeHabilitarODeshabilitar mensaje = new MensajeConfirmacionDeHabilitarODeshabilitar(texto);
+                        mensaje.ShowDialog();
+                        if (SIoNO.Equals(true))
                         {
-                            tipo = "1";
+                            string nombre = dgv_empleados.Rows[e.RowIndex].Cells[2].Value.ToString();
+                            string idemp = dgv_empleados.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            cn.EjecutarConsulta(cs.deshabilitarEmpleado(nombre, idemp));
+                            string tipo = string.Empty;
+                            if (cboMostrados.Text == "Habilitados")
+                            {
+                                tipo = "1";
+                            }
+                            else if (cboMostrados.Text == "Deshabilitados")
+                            {
+                                tipo = "0";
+                            }
+                            CargarDatos(Convert.ToInt32(tipo));
+
                         }
-                        else if (cboMostrados.Text == "Deshabilitados")
+                    }
+                    else if (cboMostrados.Text == "Deshabilitados")
+                    {
+                        string texto = "¿Esta seguro de Habilitar este Empleado?";
+                        MensajeConfirmacionDeHabilitarODeshabilitar mensaje = new MensajeConfirmacionDeHabilitarODeshabilitar(texto);
+                        mensaje.ShowDialog();
+                        if (SIoNO.Equals(true))
                         {
-                            tipo = "0";
+                            string nombre = dgv_empleados.Rows[e.RowIndex].Cells[2].Value.ToString();
+                            string idemp = dgv_empleados.Rows[e.RowIndex].Cells[0].Value.ToString();
+                            using (var DTUsuaEmp = cn.CargarDatos($"SELECT usuario FROM empleados WHERE ID = {idemp}"))
+                            {
+                                var Nombres = cn.CargarDatos($"SELECT usuario FROM empleados WHERE usuario = '{DTUsuaEmp.Rows[0]["usuario"]}' AND estatus = 1");
+                                if (!Nombres.Rows.Count.Equals(0))
+                                {
+                                    MessageBox.Show("Ya Existe un Empleado con este Usuario","Aviso del Sistema", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                                    return;
+                                }
+                            }
+
+                            cn.EjecutarConsulta(cs.habilitarEmpleado(nombre, idemp));
+                            string tipo = string.Empty;
+                            if (cboMostrados.Text == "Habilitados")
+                            {
+                                tipo = "1";
+                            }
+                            else if (cboMostrados.Text == "Deshabilitados")
+                            {
+                                tipo = "0";
+                            }
+                            CargarDatos(Convert.ToInt32(tipo));
                         }
-                        CargarDatos(Convert.ToInt32(tipo));
 
                     }
-                }
-                else if (cboMostrados.Text == "Deshabilitados")
-                {
-                    string texto = "¿Esta seguro de Habilitar este Empleado?";
-                    MensajeConfirmacionDeHabilitarODeshabilitar mensaje = new MensajeConfirmacionDeHabilitarODeshabilitar(texto);
-                    mensaje.ShowDialog(); 
-                    if (SIoNO.Equals(true))
-                    {
-                        string nombre = dgv_empleados.Rows[e.RowIndex].Cells[2].Value.ToString();
-                        string idemp = dgv_empleados.Rows[e.RowIndex].Cells[0].Value.ToString();
-                        cn.EjecutarConsulta(cs.habilitarEmpleado(nombre, idemp));
-                        string tipo = string.Empty;
-                        if (cboMostrados.Text == "Habilitados")
-                        {
-                            tipo = "1";
-                        }
-                        else if (cboMostrados.Text == "Deshabilitados")
-                        {
-                            tipo = "0";
-                        }
-                        CargarDatos(Convert.ToInt32(tipo));
-                    }
-                    
-                }
-                SIoNO = false;
+                    SIoNO = false;
 
+                }
             }
+
+            
         }
 
         private void Empleados_KeyDown(object sender, KeyEventArgs e)
@@ -373,6 +402,7 @@ namespace PuntoDeVentaV2
             Image editar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\edit.png");
             Image permisos = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\unlock-alt.png");
             Image deshabilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
+            //Image checador = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\checador.png");
             Image habilitar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\arrow-up.png");
 
             foreach (DataRow filaDatos in dtDatos.Rows)
@@ -394,6 +424,7 @@ namespace PuntoDeVentaV2
 
                     row.Cells["editar"].Value = editar;
                     row.Cells["permisos"].Value = permisos;
+                    //row.Cells["checador"].Value = checador;
 
                     if (cboMostrados.Text == "Habilitados")
                     {
@@ -419,6 +450,7 @@ namespace PuntoDeVentaV2
                     row.Cells["usuario"].Value = Usuario;
                     row.Cells["editar"].Value = editar;
                     row.Cells["permisos"].Value = permisos;
+                    //row.Cells["Checador"].Value = checador;
                     if (cboMostrados.Text == "Habilitados")
                     {
                         row.Cells["deshabilitar"].Value = deshabilitar;

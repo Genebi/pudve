@@ -437,7 +437,6 @@
             this.chkPrecio.TabIndex = 119;
             this.chkPrecio.Text = "Precio Producto";
             this.chkPrecio.UseVisualStyleBackColor = true;
-            this.chkPrecio.CheckedChanged += new System.EventHandler(this.chkPrecio_CheckedChanged);
             // 
             // cboxConsultaP
             // 
@@ -551,6 +550,7 @@
             this.dDGVDeshabilitados.TabIndex = 124;
             this.dDGVDeshabilitados.Visible = false;
             this.dDGVDeshabilitados.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dDGVDeshabilitados_CellClick);
+            this.dDGVDeshabilitados.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dDGVDeshabilitados_CellContentClick);
             // 
             // IDDeshabilitado
             // 

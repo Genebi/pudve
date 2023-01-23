@@ -37,6 +37,8 @@ namespace PuntoDeVentaV2
         string fechaInicialF = string.Empty;
         string fechaFinalF = string.Empty;
 
+        public static int IDEmpleadoPublic;
+        
 
         public HistorialPrecioBuscador(string tipoBusqueda, string fechaInicial, string fechaFinal)
         {
@@ -144,7 +146,7 @@ namespace PuntoDeVentaV2
             //DGVDatosProductos.Columns.Add("Tipo", "Tipo");
 
             //DGVDatosProductos.Columns[1].Width = 150;// definimos tamaño a la columna de Nombre
-           
+
             var productoBuscar = txtBuscar.Text;
 
             var status = 0;
@@ -224,8 +226,7 @@ namespace PuntoDeVentaV2
 
             var porBusqueda = true;
 
-            if (!string.IsNullOrEmpty(nombreBuscar))
-            {
+        
                 //if (tipoBuscador.Equals("Empleados"))
                 //{
                 //    cargarEmpleados(porBusqueda);
@@ -235,11 +236,7 @@ namespace PuntoDeVentaV2
                 //    cargarProductos(porBusqueda);
                 //}
                 condicionesLlenadoDGV(porBusqueda);
-            }
-            else
-            {
-                MessageBox.Show("Campo de texto vacío.\nIngrese algun dato a buscar.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+         
         }
 
         private void btnBuscar_KeyDown(object sender, KeyEventArgs e)
@@ -363,40 +360,242 @@ namespace PuntoDeVentaV2
 
         private void btnGenerarReporte_Click(object sender, EventArgs e)
         {
-            var lista1 = listaIdEmpleados.Count();
-            var lista2 = listaIdProductos.Count();
-
-            if ((lista1 + lista2) > 0)
+            if (Productos.HistorialVenta.Equals(false))
             {
-                string datosGet = string.Empty;
-                if (tipoBuscador.Equals("Empleados"))
-                {
-                    datosGet = recorrerDiccionario(listaIdEmpleados);
+                var lista1 = listaIdEmpleados.Count();
+                var lista2 = listaIdProductos.Count();
 
-                }
-                else if (tipoBuscador.Equals("Productos"))
+                if ((lista1 + lista2) > 0)
                 {
-                    datosGet = recorrerDiccionario(listaIdProductos);
-                }
-                //var fechas = new FechasReportes();
-                //var fechas = new FechasReportes();
-                //fechaInicial = fechas.fechaInicial;
-                //fechaFinal = fechas.fechaFinal;
+                    string datosGet = string.Empty;
+                    if (tipoBuscador.Equals("Empleados"))
+                    {
+                        datosGet = recorrerDiccionario(listaIdEmpleados);
+                    }
+                    else if (tipoBuscador.Equals("Productos"))
+                    {
+                        datosGet = recorrerDiccionario(listaIdProductos);
+                    }
+                    //var fechas = new FechasReportes();
+                    //var fechas = new FechasReportes();
+                    //fechaInicial = fechas.fechaInicial;
+                    //fechaFinal = fechas.fechaFinal;
 
-                if (cs.validarInformacion(tipoBuscador, datosGet, fechaInicialF, fechaFinalF))
-                {
-                    ejecutarMovimiento();
+                    if (cs.validarInformacion(tipoBuscador, datosGet, fechaInicialF, fechaFinalF))
+                    {
+                        ejecutarMovimiento();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No existe infomación para generar el reporte.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("No existe infomación para generar el reporte.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("No tiene clientes seleccionados.\nSeleccione un cliente para continuar con esta opcion.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             else
             {
-                MessageBox.Show("No tiene clientes seleccionados.\nSeleccione un cliente para continuar con esta opcion.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                string IDEmpleados = string.Empty;
+                IDEmpleados = recorrerDiccionario(listaIdEmpleados);
+                var algo = Validacion(Productos.idProductoHistorialStock, IDEmpleados, fechaInicialF, fechaFinalF);
+                if (algo.Equals(true))
+                {
+                    FormReporteHistorialVentasProducto formReporte = new FormReporteHistorialVentasProducto(Productos.idProductoHistorialStock, IDEmpleados, fechaInicialF, fechaFinalF);
+                    formReporte.ShowDialog();
+                }
             }
+
         }
+        //Validadcion reporte historial producto vendido
+        #region
+        private bool Validacion(int IDProd, string IDSEmple, string FechaI, string FechaF)
+        {
+            DataTable DTDatos = new DataTable();
+            bool TodoCorrecto = false;
+            string IDsVentas = "";
+            using (var DTIDVenta1 = cn.CargarDatos($"SELECT IDVenta FROM productosventa WHERE IDProducto = {IDProd}"))
+            {
+                if (!DTIDVenta1.Rows.Count.Equals(0))
+                {
+                    int row = 0;
+                    foreach (var item in DTIDVenta1.Rows)
+                    {
+                        IDsVentas += DTIDVenta1.Rows[row]["IDVenta"].ToString() + ",";
+                        row++;
+                    }
+                    IDsVentas = IDsVentas.TrimEnd(',');
+                }
+                else
+                {
+                    MessageBox.Show("Este producto no a sido vendido", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return TodoCorrecto;
+                }
+            }
+            if (!IDSEmple.Equals(""))
+            {
+                DataTable ventas = new DataTable();
+                string IDsVentasporFechaYEmpleado = "";
+                using (var DTIDSVentaPorEmpleadoYFecha = cn.CargarDatos($"SELECT ID,Folio,IDEmpleado,FechaOperacion FROM ventas WHERE ID IN ({IDsVentas}) AND DATE(FechaOperacion) BETWEEN '{FechaI}' AND '{FechaF}' AND IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({IDSEmple})"))
+                {
+                    if (!DTIDSVentaPorEmpleadoYFecha.Rows.Count.Equals(0))
+                    {
+                        ventas = DTIDSVentaPorEmpleadoYFecha;
+                        int row = 0;
+                        foreach (var item in DTIDSVentaPorEmpleadoYFecha.Rows)
+                        {
+                            IDsVentasporFechaYEmpleado += DTIDSVentaPorEmpleadoYFecha.Rows[row]["ID"].ToString() + ",";
+                        }
+                        IDsVentasporFechaYEmpleado = IDsVentasporFechaYEmpleado.TrimEnd(',');
+                    }
+                    else
+                    {
+                        string Usuario;
+                        using (var dtusuario = cn.CargarDatos($"SELECT usuario FROM empleados WHERE ID IN ({IDSEmple})"))
+                        {
+                            Usuario = dtusuario.Rows[0]["usuario"].ToString();
+                        }
+                        MessageBox.Show($"El usuario {Usuario} no a vendido este producto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return TodoCorrecto;
+                    }
+                }
+
+                var IDSVentasCorrectas = cn.CargarDatos($"SELECT * FROM productosventa WHERE IDVenta IN ({IDsVentasporFechaYEmpleado}) AND IDProducto = {IDProd}");
+
+                DTDatos.Columns.Add("Folio", typeof(String));
+                DTDatos.Columns.Add("Usuario", typeof(String));
+                DTDatos.Columns.Add("Fecha", typeof(String));
+                DTDatos.Columns.Add("Cantidad", typeof(String));
+                DTDatos.Columns.Add("PrecioUnidad", typeof(String));
+                DTDatos.Columns.Add("Total", typeof(String));
+                int rows = 0;
+                foreach (var item in IDSVentasCorrectas.Rows)
+                {
+                    DTDatos.Rows.Add();
+                    foreach (var DT in DTDatos.Columns)
+                    {
+                        string Columna = DT.ToString();
+                        if (Columna.Equals("Folio"))
+                        {
+                            DTDatos.Rows[rows]["Folio"] = ventas.Rows[rows]["Folio"].ToString();
+                        }
+                        else if (Columna.Equals("Usuario"))
+                        {
+                            string Usuario;
+                            using (var DTUsuario = cn.CargarDatos($"SELECT Usuario FROM empleados WHERE ID = {ventas.Rows[rows]["IDEmpleado"].ToString()}"))
+                            {
+                                Usuario = DTUsuario.Rows[0]["Usuario"].ToString();
+                            }
+                            DTDatos.Rows[rows]["Usuario"] = Usuario;
+                        }
+                        else if (Columna.Equals("Fecha"))
+                        {
+                            DTDatos.Rows[rows]["Fecha"] = ventas.Rows[rows]["FechaOperacion"].ToString();
+                        }
+                        else if (Columna.Equals("Cantidad"))
+                        {
+                            DTDatos.Rows[rows]["Cantidad"] = IDSVentasCorrectas.Rows[rows]["Cantidad"].ToString();
+                        }
+                        else if (Columna.Equals("PrecioUnidad"))
+                        {
+                            DTDatos.Rows[rows]["PrecioUnidad"] = IDSVentasCorrectas.Rows[rows]["Precio"].ToString();
+                        }
+                        else if (Columna.Equals("Total"))
+                        {
+                            decimal total = Convert.ToDecimal(IDSVentasCorrectas.Rows[rows]["Cantidad"].ToString()) * Convert.ToDecimal(IDSVentasCorrectas.Rows[rows]["Precio"].ToString());
+                            DTDatos.Rows[rows]["Total"] = total.ToString("0.00");
+                        }
+                    }
+                    rows++;
+                }
+                TodoCorrecto = true;
+            }
+            else
+            {
+                DataTable ventas = new DataTable();
+                string IDsVentasporFechaYEmpleado = "";
+                using (var DTIDSVentaPorEmpleadoYFecha = cn.CargarDatos($"SELECT ID,Folio,IDEmpleado,FechaOperacion FROM ventas WHERE ID IN ({IDsVentas}) AND DATE(FechaOperacion) BETWEEN '{FechaI}' AND '{FechaF}' AND IDUsuario = {FormPrincipal.userID}"))
+                {
+                    if (!DTIDSVentaPorEmpleadoYFecha.Rows.Count.Equals(0))
+                    {
+                        ventas = DTIDSVentaPorEmpleadoYFecha;
+                        int row = 0;
+                        foreach (var item in DTIDSVentaPorEmpleadoYFecha.Rows)
+                        {
+                            IDsVentasporFechaYEmpleado += DTIDSVentaPorEmpleadoYFecha.Rows[row]["ID"].ToString() + ",";
+                        }
+                        IDsVentasporFechaYEmpleado = IDsVentasporFechaYEmpleado.TrimEnd(',');
+                    }
+                    else
+                    {
+
+                        MessageBox.Show($"Este producto no se ha vendido", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return TodoCorrecto;
+                    }
+                }
+
+                var IDSVentasCorrectas = cn.CargarDatos($"SELECT * FROM productosventa WHERE IDVenta IN ({IDsVentasporFechaYEmpleado}) AND IDProducto = {IDProd}");
+
+                DTDatos.Columns.Add("Folio", typeof(String));
+                DTDatos.Columns.Add("Usuario", typeof(String));
+                DTDatos.Columns.Add("Fecha", typeof(String));
+                DTDatos.Columns.Add("Cantidad", typeof(String));
+                DTDatos.Columns.Add("PrecioUnidad", typeof(String));
+                DTDatos.Columns.Add("Total", typeof(String));
+                int rows = 0;
+                foreach (var item in IDSVentasCorrectas.Rows)
+                {
+                    DTDatos.Rows.Add();
+                    foreach (var DT in DTDatos.Columns)
+                    {
+                        string Columna = DT.ToString();
+                        if (Columna.Equals("Folio"))
+                        {
+                            DTDatos.Rows[rows]["Folio"] = ventas.Rows[rows]["Folio"].ToString();
+                        }
+                        else if (Columna.Equals("Usuario"))
+                        {
+                            string Usuario;
+                            string ID = ventas.Rows[rows]["IDEmpleado"].ToString();
+                            using (var DTUsuario = cn.CargarDatos($"SELECT Usuario FROM empleados WHERE ID = {ID}"))
+                            {
+                                if (DTUsuario.Rows.Count.Equals(0))
+                                {
+                                    Usuario = FormPrincipal.userNickName;
+                                }
+                                else
+                                {
+                                    Usuario = DTUsuario.Rows[0]["Usuario"].ToString();
+                                }
+                            }
+                            DTDatos.Rows[rows]["Usuario"] = Usuario;
+                        }
+                        else if (Columna.Equals("Fecha"))
+                        {
+                            DTDatos.Rows[rows]["Fecha"] = ventas.Rows[rows]["FechaOperacion"].ToString();
+                        }
+                        else if (Columna.Equals("Cantidad"))
+                        {
+                            DTDatos.Rows[rows]["Cantidad"] = IDSVentasCorrectas.Rows[rows]["Cantidad"].ToString();
+                        }
+                        else if (Columna.Equals("PrecioUnidad"))
+                        {
+                            DTDatos.Rows[rows]["PrecioUnidad"] = IDSVentasCorrectas.Rows[rows]["Precio"].ToString();
+                        }
+                        else if (Columna.Equals("Total"))
+                        {
+                            decimal total = Convert.ToDecimal(IDSVentasCorrectas.Rows[rows]["Cantidad"].ToString()) * Convert.ToDecimal(IDSVentasCorrectas.Rows[rows]["Precio"].ToString());
+                            DTDatos.Rows[rows]["Total"] = total.ToString("0.00");
+                        }
+                    }
+                    rows++;
+                }
+                TodoCorrecto = true;
+            }
+            return TodoCorrecto;
+        }
+        #endregion Validadcion reporte
 
         private void DGVDatosEmpleados_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -584,7 +783,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            
+
 
             DataSet datos = p.cargar();
             DataTable dtDatos = datos.Tables[0];
@@ -612,7 +811,7 @@ namespace PuntoDeVentaV2
                     //MessageBox.Show($"No se encontraron resultados con: {txtBuscar.Text}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            else if(tipoBuscador.Equals("Productos"))
+            else if (tipoBuscador.Equals("Productos"))
             {
                 //if (!dtDatos.Rows.Count.Equals(0))
                 //{
@@ -669,156 +868,156 @@ namespace PuntoDeVentaV2
                 //        DGVInventario.Rows.Add(rev, name, fecha, icono);
                 //    }
                 //}
-                    var tipoProducto = string.Empty;
-                    var estado = string.Empty;
+                var tipoProducto = string.Empty;
+                var estado = string.Empty;
 
-                    foreach (DataRow dgv in dtDatos.Rows)
+                foreach (DataRow dgv in dtDatos.Rows)
+                {
+                    int filaId = DGVDatosProductos.Rows.Add();
+                    DataGridViewRow fila = DGVDatosProductos.Rows[filaId];
+
+                    fila.Cells["checkBoxProd"].Value = false;
+                    fila.Cells["IDProducto"].Value = dgv["ID"].ToString();
+                    fila.Cells["NombreProducto"].Value = dgv["Nombre"].ToString();
+                    fila.Cells["Stock"].Value = dgv["Stock"].ToString();
+                    fila.Cells["CodigoBarras"].Value = dgv["CodigoBarras"].ToString();
+
+                    if (dgv["Tipo"].ToString().Equals("PQ"))
                     {
-                        int filaId = DGVDatosProductos.Rows.Add();
-                        DataGridViewRow fila = DGVDatosProductos.Rows[filaId];
-
-                        fila.Cells["checkBoxProd"].Value = false;
-                        fila.Cells["IDProducto"].Value = dgv["ID"].ToString();
-                        fila.Cells["NombreProducto"].Value = dgv["Nombre"].ToString();
-                        fila.Cells["Stock"].Value = dgv["Stock"].ToString();
-                        fila.Cells["CodigoBarras"].Value = dgv["CodigoBarras"].ToString();
-
-                        if (dgv["Tipo"].ToString().Equals("PQ"))
-                        {
-                            tipoProducto = "Combo";
-                        }
-                        else if (dgv["Tipo"].ToString().Equals("P"))
-                        {
-                            tipoProducto = "Producto";
-                        }
-                        else if (dgv["Tipo"].ToString().Equals("S"))
-                        {
-                            tipoProducto = "Servicio";
-                        }
-
-                        if (dgv["Status"].ToString().Equals("1"))
-                        {
-                            estado = "Habilitado";
-                        }
-                        else if (dgv["Status"].ToString().Equals("0"))
-                        {
-                            estado = "Deshabilitado";
-                        }
-
-                        fila.Cells["Status"].Value = estado;
-                        fila.Cells["tipo"].Value = tipoProducto;
+                        tipoProducto = "Combo";
                     }
+                    else if (dgv["Tipo"].ToString().Equals("P"))
+                    {
+                        tipoProducto = "Producto";
+                    }
+                    else if (dgv["Tipo"].ToString().Equals("S"))
+                    {
+                        tipoProducto = "Servicio";
+                    }
+
+                    if (dgv["Status"].ToString().Equals("1"))
+                    {
+                        estado = "Habilitado";
+                    }
+                    else if (dgv["Status"].ToString().Equals("0"))
+                    {
+                        estado = "Deshabilitado";
+                    }
+
+                    fila.Cells["Status"].Value = estado;
+                    fila.Cells["tipo"].Value = tipoProducto;
                 }
+            }
             else
             {
-                    MessageBox.Show($"No se encontraron resultados con: {txtBuscar.Text}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                MessageBox.Show($"No se encontraron resultados con: {txtBuscar.Text}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
 
 
-                //var numeroFilas = DGVInventario.Rows.Count;
+            //var numeroFilas = DGVInventario.Rows.Count;
 
-                //string Nombre = filaDatos["Nombre"].ToString();
-                //string Stock = filaDatos["Stock"].ToString();
-                //string Precio = filaDatos["Precio"].ToString();
-                //string Clave = filaDatos["ClaveInterna"].ToString();
-                //string Codigo = filaDatos["CodigoBarras"].ToString();
-                //string Tipo = filaDatos["Tipo"].ToString();
-                //string Proveedor = filaDatos["Proveedor"].ToString();
-                //string chckName = filaDatos["ChckName"].ToString();
-                //string Descripcion = filaDatos["Descripcion"].ToString();
+            //string Nombre = filaDatos["Nombre"].ToString();
+            //string Stock = filaDatos["Stock"].ToString();
+            //string Precio = filaDatos["Precio"].ToString();
+            //string Clave = filaDatos["ClaveInterna"].ToString();
+            //string Codigo = filaDatos["CodigoBarras"].ToString();
+            //string Tipo = filaDatos["Tipo"].ToString();
+            //string Proveedor = filaDatos["Proveedor"].ToString();
+            //string chckName = filaDatos["ChckName"].ToString();
+            //string Descripcion = filaDatos["Descripcion"].ToString();
 
-                //if (DGVInventario.Rows.Count.Equals(0))
-                //{
-                //    bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVInventario);
+            //if (DGVInventario.Rows.Count.Equals(0))
+            //{
+            //    bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVInventario);
 
-                //    if (encontrado.Equals(false))
-                //    {
-                //        var number_of_rows = DGVInventario.Rows.Add();
-                //        DataGridViewRow row = DGVInventario.Rows[number_of_rows];
+            //    if (encontrado.Equals(false))
+            //    {
+            //        var number_of_rows = DGVInventario.Rows.Add();
+            //        DataGridViewRow row = DGVInventario.Rows[number_of_rows];
 
-                //        row.Cells["Nombre"].Value = Nombre;     // Columna Nombre
-                //        row.Cells["Stock"].Value = Stock;       // Columna Stock
-                //        row.Cells["Precio"].Value = Precio;     // Columna Precio
-                //        row.Cells["Clave"].Value = Clave;       // Columna Clave
-                //        row.Cells["Codigo"].Value = Codigo;     // Columna Codigo
+            //        row.Cells["Nombre"].Value = Nombre;     // Columna Nombre
+            //        row.Cells["Stock"].Value = Stock;       // Columna Stock
+            //        row.Cells["Precio"].Value = Precio;     // Columna Precio
+            //        row.Cells["Clave"].Value = Clave;       // Columna Clave
+            //        row.Cells["Codigo"].Value = Codigo;     // Columna Codigo
 
-                //        // Columna Tipo
-                //        if (Tipo.Equals("P"))
-                //        {
-                //            row.Cells["Tipo"].Value = "PRODUCTO";
-                //        }
-                //        else if (Tipo.Equals("S"))
-                //        {
-                //            row.Cells["Tipo"].Value = "SERVICIO";
-                //        }
-                //        else if (Tipo.Equals("PQ"))
-                //        {
-                //            row.Cells["Tipo"].Value = "COMBO";
-                //        }
+            //        // Columna Tipo
+            //        if (Tipo.Equals("P"))
+            //        {
+            //            row.Cells["Tipo"].Value = "PRODUCTO";
+            //        }
+            //        else if (Tipo.Equals("S"))
+            //        {
+            //            row.Cells["Tipo"].Value = "SERVICIO";
+            //        }
+            //        else if (Tipo.Equals("PQ"))
+            //        {
+            //            row.Cells["Tipo"].Value = "COMBO";
+            //        }
 
-                //        row.Cells["Proveedor"].Value = Proveedor;   // Columna Proveedor
+            //        row.Cells["Proveedor"].Value = Proveedor;   // Columna Proveedor
 
-                //        if (DGVInventario.Columns.Contains(chckName))
-                //        {
-                //            row.Cells[chckName].Value = Descripcion;
-                //        }
-                //    }
-                //}
-                //else if (!DGVInventario.Rows.Count.Equals(0))
-                //{
-                //    foreach (DataGridViewRow Row in DGVInventario.Rows)
-                //    {
-                //        bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVInventario);
+            //        if (DGVInventario.Columns.Contains(chckName))
+            //        {
+            //            row.Cells[chckName].Value = Descripcion;
+            //        }
+            //    }
+            //}
+            //else if (!DGVInventario.Rows.Count.Equals(0))
+            //{
+            //    foreach (DataGridViewRow Row in DGVInventario.Rows)
+            //    {
+            //        bool encontrado = Utilidades.BuscarDataGridView(Nombre, "Nombre", DGVInventario);
 
-                //        if (encontrado.Equals(true))
-                //        {
-                //            var Fila = Row.Index;
-                //            // Columnas Dinamicos
-                //            if (DGVInventario.Columns.Contains(chckName))
-                //            {
-                //                DGVInventario.Rows[Fila].Cells[chckName].Value = Descripcion;
-                //            }
-                //        }
-                //        else if (encontrado.Equals(false))
-                //        {
-                //            var number_of_rows = DGVInventario.Rows.Add();
-                //            DataGridViewRow row = DGVInventario.Rows[number_of_rows];
+            //        if (encontrado.Equals(true))
+            //        {
+            //            var Fila = Row.Index;
+            //            // Columnas Dinamicos
+            //            if (DGVInventario.Columns.Contains(chckName))
+            //            {
+            //                DGVInventario.Rows[Fila].Cells[chckName].Value = Descripcion;
+            //            }
+            //        }
+            //        else if (encontrado.Equals(false))
+            //        {
+            //            var number_of_rows = DGVInventario.Rows.Add();
+            //            DataGridViewRow row = DGVInventario.Rows[number_of_rows];
 
-                //            row.Cells["Nombre"].Value = Nombre;         // Columna Nombre
-                //            row.Cells["Stock"].Value = Stock;           // Columna Stock
-                //            row.Cells["Precio"].Value = Precio;         // Columna Precio
-                //            row.Cells["Clave"].Value = Clave;           // Columna Clave
-                //            row.Cells["Codigo"].Value = Codigo;         // Columna Codigo
+            //            row.Cells["Nombre"].Value = Nombre;         // Columna Nombre
+            //            row.Cells["Stock"].Value = Stock;           // Columna Stock
+            //            row.Cells["Precio"].Value = Precio;         // Columna Precio
+            //            row.Cells["Clave"].Value = Clave;           // Columna Clave
+            //            row.Cells["Codigo"].Value = Codigo;         // Columna Codigo
 
-                //            // Columna Tipo
-                //            if (Tipo.Equals("P"))
-                //            {
-                //                row.Cells["Tipo"].Value = "PRODUCTO";
-                //            }
-                //            else if (Tipo.Equals("S"))
-                //            {
-                //                row.Cells["Tipo"].Value = "SERVICIO";
-                //            }
-                //            else if (Tipo.Equals("PQ"))
-                //            {
-                //                row.Cells["Tipo"].Value = "COMBO";
-                //            }
+            //            // Columna Tipo
+            //            if (Tipo.Equals("P"))
+            //            {
+            //                row.Cells["Tipo"].Value = "PRODUCTO";
+            //            }
+            //            else if (Tipo.Equals("S"))
+            //            {
+            //                row.Cells["Tipo"].Value = "SERVICIO";
+            //            }
+            //            else if (Tipo.Equals("PQ"))
+            //            {
+            //                row.Cells["Tipo"].Value = "COMBO";
+            //            }
 
-                //            // Columna Proveedor
-                //            row.Cells["Proveedor"].Value = Proveedor;
+            //            // Columna Proveedor
+            //            row.Cells["Proveedor"].Value = Proveedor;
 
-                //            // Columnas Dinamicos
-                //            if (DGVInventario.Columns.Contains(chckName))
-                //            {
-                //                row.Cells[chckName].Value = Descripcion;
-                //            }
-                //        }
-                //    }
-                //}
-                //}
+            //            // Columnas Dinamicos
+            //            if (DGVInventario.Columns.Contains(chckName))
+            //            {
+            //                row.Cells[chckName].Value = Descripcion;
+            //            }
+            //        }
+            //    }
+            //}
+            //}
 
-                actualizar();
+            actualizar();
 
             clickBoton = 0;
         }
@@ -829,6 +1028,11 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+            if (chTodos.Checked.Equals(true))
+            {
+                chTodos.Checked = false;
+                chTodos.Checked = true;
+            }
         }
 
         private void btnAnterior_Click(object sender, EventArgs e)
@@ -837,6 +1041,11 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+            if (chTodos.Checked.Equals(true))
+            {
+                chTodos.Checked = false;
+                chTodos.Checked = true;
+            }
         }
 
         private void linkLblPaginaAnterior_Click(object sender, EventArgs e)
@@ -858,6 +1067,11 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+            if (chTodos.Checked.Equals(true))
+            {
+                chTodos.Checked = false;
+                chTodos.Checked = true;
+            }
         }
 
         private void btnSiguiente_Click(object sender, EventArgs e)
@@ -866,6 +1080,11 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+            if (chTodos.Checked.Equals(true))
+            {
+                chTodos.Checked = false;
+                chTodos.Checked = true;
+            }
         }
 
         private void btnUltimaPagina_Click(object sender, EventArgs e)
@@ -874,6 +1093,11 @@ namespace PuntoDeVentaV2
             clickBoton = 1;
             CargarDatos();
             actualizar();
+            if (chTodos.Checked.Equals(true))
+            {
+                chTodos.Checked = false;
+                chTodos.Checked = true;
+            }
         }
 
         private void btnActualizarMaximoProductos_Click(object sender, EventArgs e)
@@ -1006,6 +1230,11 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private void linkLblPaginaAnterior_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+
         }
     }
 }

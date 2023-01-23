@@ -44,8 +44,29 @@ namespace PuntoDeVentaV2
             lblCodigoDeBarras.Text = ConsultaPrecio.CodigoDeBarras;
             TomarNombreCodigoDeBarrasYImagen();
             PreciosConDescuentoOSinDescuento();
+            TomarStockDelProducto();
         }
-        
+
+        private void TomarStockDelProducto()
+        {
+            string permiso = string.Empty;
+            using (var DTPermiso =cn.CargarDatos($"SELECT MostrarStockConsultaPrecio from configuracion WHERE IDUsuario ={FormPrincipal.userID}"))
+            {
+                permiso = DTPermiso.Rows[0][0].ToString();
+            }
+            if (permiso.Equals("1"))
+            {
+                using (var DTStock = cn.CargarDatos($"SELECT Stock FROM productos WHERE ID = {IDProducto}"))
+                {
+                    lblStock.Text = DTStock.Rows[0][0].ToString();
+                }
+            }
+            else
+            {
+                panel1.Location = new Point(0, 437);
+            }
+           
+        }
 
         private void PreciosConDescuentoOSinDescuento()
         {
@@ -657,10 +678,20 @@ namespace PuntoDeVentaV2
                     if (mas.Equals(22))
                     {
                         flowLayoutPanel8.Location = new Point(207, 149);
+                        panel1.Size = new Size(611, 296);
                     }
-
                 }
             }
+        }
+
+        private void lblImagen_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

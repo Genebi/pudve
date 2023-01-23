@@ -102,8 +102,29 @@ namespace PuntoDeVentaV2
             this.reportViewer1.LocalReport.EnableExternalImages = true;
 
             ReportParameterCollection reportParameters = new ReportParameterCollection();
-            string path = string.Empty;
+            string UsuarioRealizoVenta = string.Empty;
 
+            using (var DTUsuario = cn.CargarDatos($"SELECT VEN.IDEmpleado, EMP.usuario FROM VENTAS AS VEN INNER JOIN empleados AS EMP ON( EMP.ID = VEN.IDEmpleado) WHERE VEN.ID = {idVentaRealizada} AND VEN.IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (!DTUsuario.Rows.Count.Equals(0))
+                {
+                    if (string.IsNullOrWhiteSpace(DTUsuario.Rows[0][0].ToString()))
+                    {
+                        UsuarioRealizoVenta = FormPrincipal.userNickName;
+                    }
+                    else
+                    {
+                        UsuarioRealizoVenta = DTUsuario.Rows[0][1].ToString();
+                    }
+                }
+                else
+                {
+                    UsuarioRealizoVenta = FormPrincipal.userNickName;
+                }
+            }
+            reportParameters.Add(new ReportParameter("Usuario", UsuarioRealizoVenta));
+            string path = string.Empty;
+           
             string pathBarCode = $@"C:\Archivos PUDVE\Ventas\Tickets\BarCode\";
 
             var servidor = Properties.Settings.Default.Hosting;
@@ -378,7 +399,27 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("PathBarCode", pathBarCodeFull));
             //19 parametro integer para mostrar / ocultar Referencia
             reportParameters.Add(new ReportParameter("Referencia", Referencia.ToString()));
+            string UsuarioRealizoVenta = string.Empty;
 
+            using (var DTUsuario = cn.CargarDatos($"SELECT VEN.IDEmpleado, EMP.usuario FROM VENTAS AS VEN INNER JOIN empleados AS EMP ON( EMP.ID = VEN.IDEmpleado) WHERE VEN.ID = {idVentaRealizada} AND VEN.IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (!DTUsuario.Rows.Count.Equals(0))
+                {
+                    if (string.IsNullOrWhiteSpace(DTUsuario.Rows[0][0].ToString()))
+                    {
+                        UsuarioRealizoVenta = FormPrincipal.userNickName;
+                    }
+                    else
+                    {
+                        UsuarioRealizoVenta = DTUsuario.Rows[0][1].ToString();
+                    }
+                }
+                else
+                {
+                    UsuarioRealizoVenta = FormPrincipal.userNickName;
+                }
+            }
+            reportParameters.Add(new ReportParameter("Usuario", UsuarioRealizoVenta));
             LocalReport rdlc = new LocalReport();
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;

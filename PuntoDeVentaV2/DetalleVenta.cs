@@ -24,6 +24,8 @@ namespace PuntoDeVentaV2
         public static float restante = 0f;
         private float total = 0;
         private float totalMetodos = 0;
+        int calcu = 0;
+        private bool calculadoraisOut = false;
 
         public static int validarNoDuplicarVentas = 0;
 
@@ -41,6 +43,7 @@ namespace PuntoDeVentaV2
         int primer = 0;
         bool dioClickEnCredito = false;
 
+        
 
         public DetalleVenta(float total, string idCliente = "")
         {
@@ -69,6 +72,13 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
+            txtCheque.KeyPress += new KeyPressEventHandler(calculadora);
+            txtCredito.KeyPress += new KeyPressEventHandler(calculadora);
+            txtEfectivo.KeyPress += new KeyPressEventHandler(calculadora);
+            txtTarjeta.KeyPress += new KeyPressEventHandler(calculadora);
+            txtVales.KeyPress += new KeyPressEventHandler(calculadora);
+            txtTransferencia.KeyPress += new KeyPressEventHandler(calculadora);
         }
 
         private void DetalleVenta_Load(object sender, EventArgs e)
@@ -159,16 +169,25 @@ namespace PuntoDeVentaV2
             decimal credito2 = 0;
             if (!string.IsNullOrWhiteSpace(txtCredito.Text))
             {
-                 credito2 = Convert.ToDecimal(txtCredito.Text);
+                credito2 = Convert.ToDecimal(txtCredito.Text);
 
-                if (idCliente.Equals(0) && credito2 > 0)
+                if (idCliente.Equals(0))
                 {
                     MessageBox.Show("Asigné un Cliente para hacer una venta a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
+                else if (!FormPrincipal.id_empleado.Equals(0) && credito2 > 0)
+                {
+                    var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+                    if (datos[47].Equals(0))
+                    {
+                        MessageBox.Show("No cuenta con permiso para vender a credito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
             }
-            
-            
+
+
             Ventas venta = new Ventas();
             float pagado = (CantidadDecimal(txtEfectivo.Text) + SumaMetodos()) * 100 / 100;
 
@@ -204,7 +223,7 @@ namespace PuntoDeVentaV2
                 listaCantidades.Add(txtCheque.Text);
                 listaCantidades.Add(txtVales.Text);
 
-                        var mayor = getMayorNumber(listaCantidades);
+                var mayor = getMayorNumber(listaCantidades);
 
                 float checarEfectivo = 0,
                         checarTarjeta = 0,
@@ -248,7 +267,7 @@ namespace PuntoDeVentaV2
                 Properties.Settings.Default.Save();
                 Properties.Settings.Default.Reload();
 
-                if (credito2>0)
+                if (credito2 > 0)
                 {
                     Ventas.statusVenta = "4";
                     Ventas.formaDePagoDeVenta = "Crédito";
@@ -294,7 +313,7 @@ namespace PuntoDeVentaV2
                 //    Ventas.statusVenta = "1";
                 //}
 
-                if (Ventas.etiqeutaCliente == "vacio")
+                if (Ventas.etiqeutaCliente == "vacio" || Ventas.idCliente == "")
                 {
                     if (!cliente.Equals(string.Empty))
                     {
@@ -765,11 +784,11 @@ namespace PuntoDeVentaV2
         private void EventoTab(object sender, PreviewKeyDownEventArgs e)
         {
             var campos = new string[] {
-                "txtEfectivo", 
+                "txtEfectivo",
                 "txtTarjeta",
-                "txtTransferencia", 
+                "txtTransferencia",
                 "txtCheque",
-                "txtVales", 
+                "txtVales",
                 "txtCredito"
             };
 
@@ -1276,6 +1295,8 @@ namespace PuntoDeVentaV2
             {
                 SendKeys.Send("{TAB}");
             }
+
+
         }
 
         private void txtTarjeta_KeyDown(object sender, KeyEventArgs e)
@@ -1484,5 +1505,46 @@ namespace PuntoDeVentaV2
                 txtCredito.Text = Convert.ToDecimal(cantidad).ToString("N2");
             }
         }
+
+        private void calculadora(object sender, KeyPressEventArgs e)
+        {
+            if (!calculadoraisOut)
+            {
+                TextBox tb = (TextBox)sender;
+                if (e.KeyChar == Convert.ToChar(Keys.Space))
+                {
+                    calcu++;
+
+                    if (calcu == 1)
+                    {
+                        calculadora calculadora = new calculadora();
+
+                        calculadora.FormClosed += delegate
+                        {
+                            if (calculadora.seEnvia.Equals(true))
+                            {
+
+                                tb.Text = calculadora.lCalculadora.Text;
+                                calculadoraisOut = false;
+
+                            }
+
+                        };
+
+                        calculadoraisOut = false;
+                        calcu = 0;
+                        if (!calculadora.Visible)
+                        {
+                            calculadora.Show();
+                        }
+                        else
+                        {
+                            calculadora.Show();
+                        }
+                    }
+                }
+            }
+        }
+        
     }
 }

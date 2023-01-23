@@ -12,7 +12,7 @@
   <xs:element name="TicketDineroAgregado" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="TicketDineroAgregado" msprop:Generator_UserDSName="TicketDineroAgregado">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="DTDineroAgregado" msprop:Generator_TableClassName="DTDineroAgregadoDataTable" msprop:Generator_TableVarName="tableDTDineroAgregado" msprop:Generator_TablePropName="DTDineroAgregado" msprop:Generator_RowDeletingName="DTDineroAgregadoRowDeleting" msprop:Generator_RowChangingName="DTDineroAgregadoRowChanging" msprop:Generator_RowEvHandlerName="DTDineroAgregadoRowChangeEventHandler" msprop:Generator_RowDeletedName="DTDineroAgregadoRowDeleted" msprop:Generator_UserTableName="DTDineroAgregado" msprop:Generator_RowChangedName="DTDineroAgregadoRowChanged" msprop:Generator_RowEvArgName="DTDineroAgregadoRowChangeEvent" msprop:Generator_RowClassName="DTDineroAgregadoRow">
+        <xs:element name="DTDineroAgregado" msprop:Generator_TableClassName="DTDineroAgregadoDataTable" msprop:Generator_TableVarName="tableDTDineroAgregado" msprop:Generator_RowChangedName="DTDineroAgregadoRowChanged" msprop:Generator_TablePropName="DTDineroAgregado" msprop:Generator_RowDeletingName="DTDineroAgregadoRowDeleting" msprop:Generator_RowChangingName="DTDineroAgregadoRowChanging" msprop:Generator_RowEvHandlerName="DTDineroAgregadoRowChangeEventHandler" msprop:Generator_RowDeletedName="DTDineroAgregadoRowDeleted" msprop:Generator_RowClassName="DTDineroAgregadoRow" msprop:Generator_UserTableName="DTDineroAgregado" msprop:Generator_RowEvArgName="DTDineroAgregadoRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="RazonSocial" msprop:Generator_ColumnVarNameInTable="columnRazonSocial" msprop:Generator_ColumnPropNameInRow="RazonSocial" msprop:Generator_ColumnPropNameInTable="RazonSocialColumn" msprop:Generator_UserColumnName="RazonSocial" type="xs:string" minOccurs="0" />
@@ -26,6 +26,7 @@
               <xs:element name="Transferencia" msprop:Generator_ColumnVarNameInTable="columnTransferencia" msprop:Generator_ColumnPropNameInRow="Transferencia" msprop:Generator_ColumnPropNameInTable="TransferenciaColumn" msprop:Generator_UserColumnName="Transferencia" type="xs:string" minOccurs="0" />
               <xs:element name="Total" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_UserColumnName="Total" type="xs:string" minOccurs="0" />
               <xs:element name="Concepto" msprop:Generator_ColumnVarNameInTable="columnConcepto" msprop:Generator_ColumnPropNameInRow="Concepto" msprop:Generator_ColumnPropNameInTable="ConceptoColumn" msprop:Generator_UserColumnName="Concepto" type="xs:string" minOccurs="0" />
+              <xs:element name="Comentarios" msprop:Generator_ColumnVarNameInTable="columnComentarios" msprop:Generator_ColumnPropNameInRow="Comentarios" msprop:Generator_ColumnPropNameInTable="ComentariosColumn" msprop:Generator_UserColumnName="Comentarios" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

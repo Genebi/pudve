@@ -47,6 +47,7 @@
             this.cbCorreoStockProducto = new System.Windows.Forms.CheckBox();
             this.cbCorreoStockMinimo = new System.Windows.Forms.CheckBox();
             this.cbCorreoVenderProducto = new System.Windows.Forms.CheckBox();
+            this.chkBoxSaldoInicial = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,6 +56,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox1.Controls.Add(this.chkBoxSaldoInicial);
             this.groupBox1.Controls.Add(this.CBXClienteDescuento);
             this.groupBox1.Controls.Add(this.cbRecibirAnricipo);
             this.groupBox1.Controls.Add(this.btnAceptar);
@@ -159,6 +161,7 @@
             this.cbCorreoIniciar.TabIndex = 124;
             this.cbCorreoIniciar.Text = "Al iniciar sesión";
             this.cbCorreoIniciar.UseVisualStyleBackColor = true;
+            this.cbCorreoIniciar.CheckedChanged += new System.EventHandler(this.cbCorreoIniciar_CheckedChanged_1);
             this.cbCorreoIniciar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoIniciar_MouseClick);
             // 
             // cbCorreoVenta
@@ -190,7 +193,7 @@
             this.cbCorreoCorteCaja.AutoSize = true;
             this.cbCorreoCorteCaja.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.cbCorreoCorteCaja.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.cbCorreoCorteCaja.Location = new System.Drawing.Point(11, 136);
+            this.cbCorreoCorteCaja.Location = new System.Drawing.Point(11, 159);
             this.cbCorreoCorteCaja.Name = "cbCorreoCorteCaja";
             this.cbCorreoCorteCaja.Size = new System.Drawing.Size(157, 20);
             this.cbCorreoCorteCaja.TabIndex = 121;
@@ -302,6 +305,18 @@
             this.cbCorreoVenderProducto.UseVisualStyleBackColor = true;
             this.cbCorreoVenderProducto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoVenderProducto_MouseClick);
             // 
+            // chkBoxSaldoInicial
+            // 
+            this.chkBoxSaldoInicial.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkBoxSaldoInicial.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.chkBoxSaldoInicial.Location = new System.Drawing.Point(11, 133);
+            this.chkBoxSaldoInicial.Name = "chkBoxSaldoInicial";
+            this.chkBoxSaldoInicial.Size = new System.Drawing.Size(202, 21);
+            this.chkBoxSaldoInicial.TabIndex = 136;
+            this.chkBoxSaldoInicial.Text = "Al agregar Saldo Inicial";
+            this.chkBoxSaldoInicial.UseVisualStyleBackColor = true;
+            this.chkBoxSaldoInicial.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkBoxSaldoInicial_MouseClick);
+            // 
             // EnvioDeCorreo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -347,5 +362,6 @@
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.CheckBox cbRecibirAnricipo;
         private System.Windows.Forms.CheckBox CBXClienteDescuento;
+        private System.Windows.Forms.CheckBox chkBoxSaldoInicial;
     }
 }

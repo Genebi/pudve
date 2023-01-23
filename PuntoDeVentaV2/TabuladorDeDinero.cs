@@ -19,26 +19,31 @@ namespace PuntoDeVentaV2
 
         private void txt1peso_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             SumaDeMonedas();
         }
 
         private void txt2pesos_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             SumaDeMonedas();
         }
 
         private void txt5pesos_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             SumaDeMonedas();
         }
 
         private void txt10pesos_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             SumaDeMonedas();
         }
 
         private void txt20pesos_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             SumaDeMonedas();
         }
 
@@ -340,11 +345,18 @@ namespace PuntoDeVentaV2
 
         private void txt50centavos_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             SumaDeMonedas();
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
         private void txt20centavos_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             SumaDeMonedas();
         }
 
@@ -420,6 +432,7 @@ namespace PuntoDeVentaV2
 
         private void txt10centavo_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             SumaDeMonedas();
         }
 
@@ -522,8 +535,10 @@ namespace PuntoDeVentaV2
             lblTotalCAJA.Text = TotalCaja.ToString("C2");
         }
 
+
         private void txtbillete20_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             SumaDeBilletes();
         }
 
@@ -614,27 +629,43 @@ namespace PuntoDeVentaV2
 
         private void txtBillete50_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             SumaDeBilletes();
         }
 
         private void txtBillete100_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             SumaDeBilletes();
         }
 
         private void txtBillete200_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             SumaDeBilletes();
         }
 
         private void txtBillete500_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             SumaDeBilletes();
         }
 
         private void txtBillete1000_TextChanged(object sender, EventArgs e)
         {
+            validarSoloNumeros(sender, e);
             SumaDeBilletes();
+        }
+
+        private void validarSoloNumeros(object sender, EventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            string texto = txt.Text;
+            bool esNum = decimal.TryParse(texto, out decimal algo);
+            if (esNum.Equals(false))
+            {
+                txt.Text = "";
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props" Condition="Exists('..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -94,10 +95,36 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="CustomControlPUDVE">
-      <HintPath>..\..\..\..\Downloads\CustomControlPUDVE.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\CustomControlPUDVE.dll</HintPath>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.16.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
       <HintPath>..\packages\DocumentFormat.OpenXml.2.16.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPCtlXTypeLibNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=c0c98f712d5392a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPCtlXTypeLibNET.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DPFPCtlXWrapperNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=c0c98f712d5392a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPCtlXWrapperNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPDevNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=696774c42ee28c57, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPDevNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPEngNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=7fe76e7adf19964b, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPEngNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPGuiNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=d4f4a0bd9c559145, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPGuiNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPShrNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=d902fe275a8d6cf2, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPShrNET.dll</HintPath>
+    </Reference>
+    <Reference Include="DPFPShrXTypeLibNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=c0c98f712d5392a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPShrXTypeLibNET.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="DPFPVerNET, Version=1.6.1.0, Culture=neutral, PublicKeyToken=4de0a9c4dcc83984, processorArchitecture=MSIL">
+      <HintPath>..\packages\DigitalPersonaSDK.net.1.0.0\lib\DPFPVerNET.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -138,6 +165,10 @@
       <HintPath>..\packages\K4os.Hash.xxHash.1.0.6\lib\net45\K4os.Hash.xxHash.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
     </Reference>
@@ -153,8 +184,8 @@
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1484.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    <Reference Include="Microsoft.SqlServer.Types, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.160.1000.6\lib\net462\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="MySql.Data, Version=8.0.21.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
@@ -169,6 +200,9 @@
       <HintPath>..\packages\NAudio.1.9.0\lib\net35\NAudio.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="RazorEngine, Version=3.10.0.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
       <HintPath>..\packages\RazorEngine.3.10.0\lib\net45\RazorEngine.dll</HintPath>
       <Private>True</Private>
@@ -180,7 +214,10 @@
     <Reference Include="SpreadsheetLight, Version=3.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SpreadsheetLight.Fork.3.5.0\lib\netstandard2.0\SpreadsheetLight.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
       <Private>True</Private>
@@ -399,6 +436,12 @@
     <Compile Include="Anticipos.Designer.cs">
       <DependentUpon>Anticipos.cs</DependentUpon>
     </Compile>
+    <Compile Include="AplicarDecuentoGeneral.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AplicarDecuentoGeneral.Designer.cs">
+      <DependentUpon>AplicarDecuentoGeneral.cs</DependentUpon>
+    </Compile>
     <Compile Include="AsignarAbonos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -578,8 +621,21 @@
       <DependentUpon>ConceptosInhabilitados.cs</DependentUpon>
     </Compile>
     <Compile Include="Conexion.cs" />
+    <Compile Include="ConexionAPPWEB.cs" />
     <Compile Include="ConexionDataDictionary.cs" />
     <Compile Include="ConexionNet.cs" />
+    <Compile Include="configCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="configCredito.Designer.cs">
+      <DependentUpon>configCredito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConfiguracionEditarProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfiguracionEditarProducto.Designer.cs">
+      <DependentUpon>ConfiguracionEditarProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfiguracionGeneral.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -605,6 +661,12 @@
     <Compile Include="ConsultarListaRelacionados.Designer.cs">
       <DependentUpon>ConsultarListaRelacionados.cs</DependentUpon>
     </Compile>
+    <Compile Include="consultarProductoTraspaso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="consultarProductoTraspaso.Designer.cs">
+      <DependentUpon>consultarProductoTraspaso.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConsultarProductoVentas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -618,18 +680,26 @@
     <Compile Include="Crear_factura.Designer.cs">
       <DependentUpon>Crear_factura.cs</DependentUpon>
     </Compile>
+    <Compile Include="DatosEncabezadoReportes.cs" />
     <Compile Include="datosExtraNvoProductos.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="datosExtraNvoProductos.Designer.cs">
       <DependentUpon>datosExtraNvoProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="DatosTotalesReporte.cs" />
     <Compile Include="DBTables.cs" />
     <Compile Include="DetalleDescripcion.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DetalleDescripcion.Designer.cs">
       <DependentUpon>DetalleDescripcion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="detallesIngresosRetirosDinero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="detallesIngresosRetirosDinero.Designer.cs">
+      <DependentUpon>detallesIngresosRetirosDinero.cs</DependentUpon>
     </Compile>
     <Compile Include="DetalleVenta.cs">
       <SubType>Form</SubType>
@@ -672,6 +742,24 @@
     </Compile>
     <Compile Include="Empleados.Designer.cs">
       <DependentUpon>Empleados.cs</DependentUpon>
+    </Compile>
+    <Compile Include="empleadosAltaHuella.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="empleadosAltaHuella.Designer.cs">
+      <DependentUpon>empleadosAltaHuella.cs</DependentUpon>
+    </Compile>
+    <Compile Include="empleadosDatosChecador.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="empleadosDatosChecador.Designer.cs">
+      <DependentUpon>empleadosDatosChecador.cs</DependentUpon>
+    </Compile>
+    <Compile Include="empleadoVerificarHuella.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="empleadoVerificarHuella.Designer.cs">
+      <DependentUpon>empleadoVerificarHuella.cs</DependentUpon>
     </Compile>
     <Compile Include="Empleado_muestra_acciones_factura.cs">
       <SubType>Form</SubType>
@@ -739,11 +827,29 @@
     <Compile Include="FormNotaVentaHDA.Designer.cs">
       <DependentUpon>FormNotaVentaHDA.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReporteConceptosRetiro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReporteConceptosRetiro.Designer.cs">
+      <DependentUpon>FormReporteConceptosRetiro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormReporteHistorialVentasProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReporteHistorialVentasProducto.Designer.cs">
+      <DependentUpon>FormReporteHistorialVentasProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormReporteInventario.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormReporteInventario.Designer.cs">
       <DependentUpon>FormReporteInventario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ganancia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ganancia.Designer.cs">
+      <DependentUpon>Ganancia.cs</DependentUpon>
     </Compile>
     <Compile Include="HistorialAnticipos.cs">
       <SubType>Form</SubType>
@@ -756,6 +862,12 @@
     </Compile>
     <Compile Include="FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="importarExcelProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="importarExcelProductos.Designer.cs">
+      <DependentUpon>importarExcelProductos.cs</DependentUpon>
     </Compile>
     <Compile Include="ImportarExportarCSV.cs">
       <SubType>Form</SubType>
@@ -1031,6 +1143,12 @@
     <Compile Include="NvoProduct.Designer.cs">
       <DependentUpon>NvoProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="ObtenerPesoVasculaVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ObtenerPesoVasculaVentas.Designer.cs">
+      <DependentUpon>ObtenerPesoVasculaVentas.cs</DependentUpon>
+    </Compile>
     <Compile Include="OpcionesReporteProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1141,6 +1259,12 @@
     <Compile Include="RenombrarDetalle.Designer.cs">
       <DependentUpon>RenombrarDetalle.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReporteCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteCaja.Designer.cs">
+      <DependentUpon>ReporteCaja.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReporteDineroAgregado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1219,6 +1343,30 @@
       <DependentUpon>DTInventario.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\HistorialVenta\DatosHistorialVenta.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatosHistorialVenta.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\GraficaVentasProveedor\DatosProveedorGrafica.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatosProveedorGrafica.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="ReportesImpresion\Ticket\HistorialVenta\DatosHistorialVenta.cs">
+      <DependentUpon>DatosHistorialVenta.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReportesImpresion\Ticket\ImpimirReporteCaja\DSReporteCaja.cs">
+      <DependentUpon>DSReporteCaja.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReportesImpresion\Ticket\ImpimirReporteCaja\DSReporteCaja.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DSReporteCaja.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\NotasVentasHDA\DSNotaVentaHDA.cs">
       <DependentUpon>DSNotaVentaHDA.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1266,6 +1414,24 @@
       <DependentUpon>DSReimprimirRetirosRealizados.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Content Include="ReportesImpresion\Ticket\ReporteVentas\DatosReporteVentas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatosReporteVentas.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\DatosConceptos.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatosConceptos.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\DatosConceptos.cs">
+      <DependentUpon>DatosConceptos.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReportesImpresion\Ticket\ReporteVentas\DatosReporteVentas.cs">
+      <DependentUpon>DatosReporteVentas.xsd</DependentUpon>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\TicketAnticipo\TicketAnticipo.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1278,6 +1444,15 @@
       <DependentUpon>TicketCancelado.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="ReportesImpresion\Ticket\VentaGlobal\TicketVentaGlobal.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TicketVentaGlobal.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Content Include="ReportesImpresion\Ticket\VentaGlobal\TicketVentaGlobal1.Designer.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.cs">
       <DependentUpon>TicketVenta.xsd</DependentUpon>
     </Compile>
@@ -1286,6 +1461,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TicketVenta.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="ReportesRetirosConceptosPorMes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportesRetirosConceptosPorMes.Designer.cs">
+      <DependentUpon>ReportesRetirosConceptosPorMes.cs</DependentUpon>
     </Compile>
     <Compile Include="RespadoBaseDatos.cs" />
     <Compile Include="RevisarInventario.cs">
@@ -1357,12 +1538,18 @@
       <DependentUpon>SetUpPUDVE.cs</DependentUpon>
     </Compile>
     <Compile Include="SQLiteSchema.cs" />
-    <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Subir_archivos_digitales.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Subir_archivos_digitales.Designer.cs">
       <DependentUpon>Subir_archivos_digitales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Sugerencia.cs" />
+    <Compile Include="SugerenciasGoogle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SugerenciasGoogle.Designer.cs">
+      <DependentUpon>SugerenciasGoogle.cs</DependentUpon>
     </Compile>
     <Compile Include="TablasMySQL.cs" />
     <Compile Include="TabuladorDeDinero.cs">
@@ -1402,6 +1589,12 @@
     <Compile Include="TipoReportesInventario.Designer.cs">
       <DependentUpon>TipoReportesInventario.cs</DependentUpon>
     </Compile>
+    <Compile Include="traspaso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="traspaso.Designer.cs">
+      <DependentUpon>traspaso.cs</DependentUpon>
+    </Compile>
     <Compile Include="UsuariosGuardados.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1433,11 +1626,23 @@
     <Compile Include="Ventana_motivo_cancelacion.Designer.cs">
       <DependentUpon>Ventana_motivo_cancelacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="VentaRapida.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VentaRapida.Designer.cs">
+      <DependentUpon>VentaRapida.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ventas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Ventas.Designer.cs">
       <DependentUpon>Ventas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VentasPorProveedores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VentasPorProveedores.Designer.cs">
+      <DependentUpon>VentasPorProveedores.cs</DependentUpon>
     </Compile>
     <Compile Include="Ventas_ventana_informacion.cs">
       <SubType>Form</SubType>
@@ -1523,11 +1728,23 @@
     <Compile Include="visualizadorReimprimirRetirosRealizados.Designer.cs">
       <DependentUpon>visualizadorReimprimirRetirosRealizados.cs</DependentUpon>
     </Compile>
+    <Compile Include="VisualizadorReporteCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VisualizadorReporteCaja.Designer.cs">
+      <DependentUpon>VisualizadorReporteCaja.cs</DependentUpon>
+    </Compile>
     <Compile Include="VisualizadorReportes.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="VisualizadorReportes.Designer.cs">
       <DependentUpon>VisualizadorReportes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VisualizadorReporteVentas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VisualizadorReporteVentas.Designer.cs">
+      <DependentUpon>VisualizadorReporteVentas.cs</DependentUpon>
     </Compile>
     <Compile Include="VisualizadorTicketAnticipo.cs">
       <SubType>Form</SubType>
@@ -1558,6 +1775,12 @@
     </Compile>
     <Compile Include="Visualizar_notaventa.Designer.cs">
       <DependentUpon>Visualizar_notaventa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WEBCaja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WEBCaja.Designer.cs">
+      <DependentUpon>WEBCaja.cs</DependentUpon>
     </Compile>
     <Compile Include="Web References\FH_CFDI40_test\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -1642,6 +1865,9 @@
     <EmbeddedResource Include="Anticipos.resx">
       <DependentUpon>Anticipos.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="AplicarDecuentoGeneral.resx">
+      <DependentUpon>AplicarDecuentoGeneral.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AsignarAbonos.resx">
       <DependentUpon>AsignarAbonos.cs</DependentUpon>
     </EmbeddedResource>
@@ -1720,6 +1946,12 @@
     <EmbeddedResource Include="ConceptosInhabilitados.resx">
       <DependentUpon>ConceptosInhabilitados.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="configCredito.resx">
+      <DependentUpon>configCredito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfiguracionEditarProducto.resx">
+      <DependentUpon>ConfiguracionEditarProducto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConfiguracionGeneral.resx">
       <DependentUpon>ConfiguracionGeneral.cs</DependentUpon>
     </EmbeddedResource>
@@ -1732,6 +1964,9 @@
     <EmbeddedResource Include="ConsultarListaRelacionados.resx">
       <DependentUpon>ConsultarListaRelacionados.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="consultarProductoTraspaso.resx">
+      <DependentUpon>consultarProductoTraspaso.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConsultarProductoVentas.resx">
       <DependentUpon>ConsultarProductoVentas.cs</DependentUpon>
     </EmbeddedResource>
@@ -1743,6 +1978,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DetalleDescripcion.resx">
       <DependentUpon>DetalleDescripcion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="detallesIngresosRetirosDinero.resx">
+      <DependentUpon>detallesIngresosRetirosDinero.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DetalleVenta.resx">
       <DependentUpon>DetalleVenta.cs</DependentUpon>
@@ -1764,6 +2002,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Empleados.resx">
       <DependentUpon>Empleados.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="empleadosAltaHuella.resx">
+      <DependentUpon>empleadosAltaHuella.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="empleadosDatosChecador.resx">
+      <DependentUpon>empleadosDatosChecador.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="empleadoVerificarHuella.resx">
+      <DependentUpon>empleadoVerificarHuella.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Empleado_muestra_acciones_factura.resx">
       <DependentUpon>Empleado_muestra_acciones_factura.cs</DependentUpon>
@@ -1801,11 +2048,23 @@
     <EmbeddedResource Include="FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormReporteConceptosRetiro.resx">
+      <DependentUpon>FormReporteConceptosRetiro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReporteHistorialVentasProducto.resx">
+      <DependentUpon>FormReporteHistorialVentasProducto.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormReporteInventario.resx">
       <DependentUpon>FormReporteInventario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Ganancia.resx">
+      <DependentUpon>Ganancia.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HistorialAnticipos.resx">
       <DependentUpon>HistorialAnticipos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="importarExcelProductos.resx">
+      <DependentUpon>importarExcelProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImportarExportarCSV.resx">
       <DependentUpon>ImportarExportarCSV.cs</DependentUpon>
@@ -1939,6 +2198,9 @@
     <EmbeddedResource Include="NvoProduct.resx">
       <DependentUpon>NvoProduct.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ObtenerPesoVasculaVentas.resx">
+      <DependentUpon>ObtenerPesoVasculaVentas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="OpcionesReporteProducto.resx">
       <DependentUpon>OpcionesReporteProducto.cs</DependentUpon>
     </EmbeddedResource>
@@ -1996,6 +2258,9 @@
       <DependentUpon>RenombrarDetalle.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report1.rdlc" />
+    <EmbeddedResource Include="ReporteCaja.resx">
+      <DependentUpon>ReporteCaja.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReporteDineroAgregado.resx">
       <DependentUpon>ReporteDineroAgregado.cs</DependentUpon>
     </EmbeddedResource>
@@ -2074,6 +2339,27 @@
     <Content Include="ReportesImpresion\Ticket\Inventario\ReporteInventario.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteVentas\VentasReporte.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\ImpimirReporteCaja\ReporteCaja.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\HistorialVenta\ReporteHistorialVenta.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\VentaGlobal\VentaGlobal.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\ReporteConceptosRetiro.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\GraficaVentasProveedor\ReporteGraficaProveedor.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="ReportesRetirosConceptosPorMes.resx">
+      <DependentUpon>ReportesRetirosConceptosPorMes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RevisarInventario.resx">
       <DependentUpon>RevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
@@ -2101,6 +2387,9 @@
     <EmbeddedResource Include="Subir_archivos_digitales.resx">
       <DependentUpon>Subir_archivos_digitales.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SugerenciasGoogle.resx">
+      <DependentUpon>SugerenciasGoogle.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TabuladorDeDinero.resx">
       <DependentUpon>TabuladorDeDinero.cs</DependentUpon>
     </EmbeddedResource>
@@ -2119,6 +2408,9 @@
     <EmbeddedResource Include="TipoReportesInventario.resx">
       <DependentUpon>TipoReportesInventario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="traspaso.resx">
+      <DependentUpon>traspaso.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UsuariosGuardados.resx">
       <DependentUpon>UsuariosGuardados.cs</DependentUpon>
     </EmbeddedResource>
@@ -2134,8 +2426,14 @@
     <EmbeddedResource Include="Ventana_motivo_cancelacion.resx">
       <DependentUpon>Ventana_motivo_cancelacion.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="VentaRapida.resx">
+      <DependentUpon>VentaRapida.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Ventas.resx">
       <DependentUpon>Ventas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VentasPorProveedores.resx">
+      <DependentUpon>VentasPorProveedores.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Ventas_ventana_informacion.resx">
       <DependentUpon>Ventas_ventana_informacion.cs</DependentUpon>
@@ -2179,8 +2477,14 @@
     <EmbeddedResource Include="visualizadorReimprimirRetirosRealizados.resx">
       <DependentUpon>visualizadorReimprimirRetirosRealizados.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="VisualizadorReporteCaja.resx">
+      <DependentUpon>VisualizadorReporteCaja.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="VisualizadorReportes.resx">
       <DependentUpon>VisualizadorReportes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VisualizadorReporteVentas.resx">
+      <DependentUpon>VisualizadorReporteVentas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="VisualizadorTicketAnticipo.resx">
       <DependentUpon>VisualizadorTicketAnticipo.cs</DependentUpon>
@@ -2197,6 +2501,9 @@
     <EmbeddedResource Include="Visualizar_notaventa.resx">
       <DependentUpon>Visualizar_notaventa.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WEBCaja.resx">
+      <DependentUpon>WEBCaja.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinQueryString.resx">
       <DependentUpon>WinQueryString.cs</DependentUpon>
     </EmbeddedResource>
@@ -2206,6 +2513,8 @@
     <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
+    <None Include="Properties\DataSources\DatosEncabezadoReportes.datasource" />
+    <None Include="Properties\DataSources\DatosTotalesReporte.datasource" />
     <None Include="Properties\DataSources\PuntoDeVentaV2.ReportesImpresion.Ticket.Inventario.DTIventario+DataTable1DataTable.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -2314,6 +2623,48 @@
       <DependentUpon>DTInventario.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\HistorialVenta\DatosHistorialVenta.xsc">
+      <DependentUpon>DatosHistorialVenta.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\HistorialVenta\DatosHistorialVenta.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatosHistorialVenta.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\HistorialVenta\DatosHistorialVenta.xss">
+      <DependentUpon>DatosHistorialVenta.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\GraficaVentasProveedor\DatosProveedorGrafica.xsc">
+      <DependentUpon>DatosProveedorGrafica.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\GraficaVentasProveedor\DatosProveedorGrafica.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatosProveedorGrafica.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\GraficaVentasProveedor\DatosProveedorGrafica.xss">
+      <DependentUpon>DatosProveedorGrafica.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ReportesImpresion\Ticket\ImpimirReporteCaja\DSReporteCaja.xsc">
+      <DependentUpon>DSReporteCaja.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="ReportesImpresion\Ticket\ImpimirReporteCaja\DSReporteCaja.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DSReporteCaja.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ReportesImpresion\Ticket\ImpimirReporteCaja\DSReporteCaja.xss">
+      <DependentUpon>DSReporteCaja.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="ReportesImpresion\Ticket\NotasVentasHDA\DSNotaVentaHDA.xsc">
       <DependentUpon>DSNotaVentaHDA.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -2398,6 +2749,34 @@
       <DependentUpon>DSReimprimirRetirosRealizados.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="ReportesImpresion\Ticket\ReporteVentas\DatosReporteVentas.xsc">
+      <DependentUpon>DatosReporteVentas.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteVentas\DatosReporteVentas.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatosReporteVentas.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteVentas\DatosReporteVentas.xss">
+      <DependentUpon>DatosReporteVentas.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\DatosConceptos.xsc">
+      <DependentUpon>DatosConceptos.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\DatosConceptos.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatosConceptos.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\ReporteConceptosRetiro\DatosConceptos.xss">
+      <DependentUpon>DatosConceptos.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="ReportesImpresion\Ticket\TicketAnticipo\TicketAnticipo.xsc">
       <DependentUpon>TicketAnticipo.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -2424,6 +2803,20 @@
     </Content>
     <None Include="ReportesImpresion\Ticket\VentaCancelada\TicketCancelado.xss">
       <DependentUpon>TicketCancelado.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\VentaGlobal\TicketVentaGlobal.xsc">
+      <DependentUpon>TicketVentaGlobal.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="ReportesImpresion\Ticket\VentaGlobal\TicketVentaGlobal.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TicketVentaGlobal.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ReportesImpresion\Ticket\VentaGlobal\TicketVentaGlobal.xss">
+      <DependentUpon>TicketVentaGlobal.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportesImpresion\Ticket\VentaRealizada\TicketVenta.xsc">
@@ -7671,19 +8064,6 @@
     <Content Include="PUDVE\Sounds\sonido_alarma.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SqlServerTypes\readme.htm" />
-    <Content Include="SqlServerTypes\x64\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\msvcr120.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="wande.ico" />
     <None Include="Service References\ServiceReference_produccion\configuration91.svcinfo" />
     <None Include="Service References\ServiceReference_produccion\configuration.svcinfo" />
@@ -7862,6 +8242,7 @@
       <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Data.SQLite.Core.1.0.109.2\build\net451\System.Data.SQLite.Core.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.SqlServer.Types.160.1000.6\build\net462\Microsoft.SqlServer.Types.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

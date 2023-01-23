@@ -23,10 +23,10 @@ namespace PuntoDeVentaV2
 
         private int IDProducto = 0;
         private string producto = string.Empty;
-        private float precioProducto = 0;
-        private float precioProductoAux = 0;
-        private float stockProducto = 0f;
-        private float stockExistencia = 0f;
+        private decimal precioProducto = 0;
+        private decimal precioProductoAux = 0;
+        private decimal stockProducto = 0;
+        private decimal stockExistencia = 0;
         private int apartado = 0;
         private float precioAdquision = 0f; // Precio de compra
 
@@ -129,8 +129,8 @@ namespace PuntoDeVentaV2
             //lbPrecio.Text = "$" + float.Parse(datos[2]).ToString("N2");
             txtPrecio.Text = "$" + float.Parse(datos[2]).ToString("N2");
             producto = datos[1];
-            precioProducto = float.Parse(datos[2]);
-            stockProducto = float.Parse(datos[4]);
+            precioProducto = decimal.Parse(datos[2]);
+            stockProducto = decimal.Parse(datos[4]);
             stockExistencia = stockProducto;
             precioAdquision = float.Parse(datos[11]);
             ActiveControl = txtCantidadCompra;
@@ -257,9 +257,9 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-
             var datoUsuario = FormPrincipal.userNickName;
             var empleado = "0";
+
             //Tipo de ajuste es cuando se hace desde una de estas dos opciones
             //Cuando se carga desde un XML o registro normal el tipo de ajuste es 0
             //Cuando se hace la moficiacion desde la opcion producto comprado es 1
@@ -283,7 +283,7 @@ namespace PuntoDeVentaV2
             // Se toma el precio que aparece visualmente al cargar el producto y se elimina el signo de $
             // en caso de que el usuario haya editado el precio del producto y se actualiza en la tabla Productos
             var precioTmp = txtPrecio.Text.Replace("$", "");
-            var precioAux = float.Parse(precioTmp);
+            var precioAux = decimal.Parse(precioTmp);
 
             if (precioAux != precioProducto)
             {
@@ -397,14 +397,14 @@ namespace PuntoDeVentaV2
                     Invent.getSuma = 0;
                     Invent.getResta = 0;
 
-                    Invent.getSuma = float.Parse(cantidadCompra);
-                    Invent.getStockAnterior = stockProducto;
+                    Invent.getSuma = Convert.ToDecimal(cantidadCompra);
+                    Invent.getStockAnterior = (float)stockProducto;
                 }
 
                 var stockOriginal = stockProducto; //Stoack Anterior
                 var stockAgregado = cantidadCompra; //Cantidad
 
-                stockProducto += float.Parse(cantidadCompra); //Nuevo Stock
+                stockProducto += decimal.Parse(cantidadCompra); //Nuevo Stock
 
                 var stockActual = stockProducto;
 
@@ -488,7 +488,7 @@ namespace PuntoDeVentaV2
                     {
                         var numeroRevision = numRevision.Rows[0]["NoRevisionAumentarInventario"].ToString();
 
-                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Aumentar): N° Revision: {numeroRevision}','{stockAnterior}','{stockNuevo}','{fechaOperacion}','{FormPrincipal.userNickName}','+{cantidadCompra}')");
+                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Aumentar): N° Revision: {numeroRevision}','{stockAnterior}','{stockNuevo.ToString()}','{fechaOperacion}','{FormPrincipal.userNickName}','+{cantidadCompra}')");
                     }
                     
                     this.Close();
@@ -510,6 +510,7 @@ namespace PuntoDeVentaV2
                                 var aumentar = txtAumentar.Text;
                                 var disminuir = txtDisminuir.Text;
 
+
                                 var concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
 
                                 if (concepto.Equals("Seleccionar concepto..."))
@@ -526,7 +527,7 @@ namespace PuntoDeVentaV2
                                 {
                                     auxiliar = float.Parse(aumentar);
                                     stockAgregado = auxiliar;
-                                    stockProducto += auxiliar;
+                                    stockProducto +=Convert.ToDecimal(auxiliar);
                                     operacion = "agregó";
                                 }
 
@@ -534,7 +535,7 @@ namespace PuntoDeVentaV2
                                 {
                                     auxiliar = float.Parse(disminuir);
                                     stockAgregado = auxiliar;
-                                    stockProducto -= auxiliar;
+                                    stockProducto -= Convert.ToDecimal(auxiliar);
                                     operacion = "restó";
 
                                     if (stockProducto < 0)
@@ -545,7 +546,7 @@ namespace PuntoDeVentaV2
                                     auxiliar *= -1;
                                 }
 
-                                stockActual = stockProducto;
+                                stockActual = (float)stockProducto;
 
                                 if (string.IsNullOrWhiteSpace(aumentar) && string.IsNullOrWhiteSpace(disminuir))
                                 {
@@ -710,7 +711,7 @@ namespace PuntoDeVentaV2
                                     {
                                         auxiliar = float.Parse(aumentar);
                                         stockAgregado = auxiliar;
-                                        stockProducto += auxiliar;
+                                        stockProducto += Convert.ToDecimal(auxiliar);
                                         operacion = "agregó";
                                     }
 
@@ -718,18 +719,23 @@ namespace PuntoDeVentaV2
                                     {
                                         auxiliar = float.Parse(disminuir);
                                         stockAgregado = auxiliar;
-                                        stockProducto -= auxiliar;
+                                        stockProducto -= Convert.ToDecimal(auxiliar);
                                         operacion = "restó";
 
                                         if (stockProducto < 0)
                                         {
                                             stockProducto = 0;
                                         }
+                                        if (auxiliar==0)
+                                        {
+                                            MessageBox.Show("Ingrese una cantidad para aumentar y/o disminuir", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            return;
+                                        }
 
                                         auxiliar *= -1;
                                     }
 
-                                    stockActual = stockProducto;
+                                    stockActual = (float)stockProducto;
 
                                     if (string.IsNullOrWhiteSpace(aumentar) && string.IsNullOrWhiteSpace(disminuir))
                                     {
@@ -1071,7 +1077,7 @@ namespace PuntoDeVentaV2
                     aumentar = float.Parse(txtAumentar.Text);
                     if (Invent != null)
                     {
-                        Invent.getSuma = aumentar;
+                        Invent.getSuma = Convert.ToDecimal(aumentar);
                         Invent.getStockAnterior = float.Parse(txt_en_stock.Text);
                     }
                 }
@@ -1261,7 +1267,10 @@ namespace PuntoDeVentaV2
 
                     calculadora.FormClosed += delegate
                     {
-                        txtDisminuir.Text = calculadora.lCalculadora.Text;
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtDisminuir.Text = calculadora.lCalculadora.Text;
+                        }
                         calcu = 0;
                     };
                     if (!calculadora.Visible)
@@ -1288,7 +1297,10 @@ namespace PuntoDeVentaV2
 
                     calculadora.FormClosed += delegate
                     {
-                        txtAumentar.Text = calculadora.lCalculadora.Text;
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtAumentar.Text = calculadora.lCalculadora.Text;
+                        }
                         calcu = 0;
                     };
                     if (!calculadora.Visible)
@@ -1398,7 +1410,7 @@ namespace PuntoDeVentaV2
             {
                 //contenidoTxtPrecio.Remove(0, 1);
                 contenidoTxtPrecio = contenidoTxtPrecio.Substring(1);
-                precioProductoAux = float.Parse(contenidoTxtPrecio);
+                precioProductoAux = decimal.Parse(contenidoTxtPrecio);
 
             }
             else
@@ -1409,7 +1421,7 @@ namespace PuntoDeVentaV2
                 esNumero = Double.TryParse(txtPrecio.Text, out precio);
                 if (esNumero)
                 {
-                    precioProductoAux = float.Parse(precio.ToString());
+                    precioProductoAux = decimal.Parse(precio.ToString());
                 }
                 else
                 {
@@ -1545,6 +1557,66 @@ namespace PuntoDeVentaV2
                     txtPrecioCompra.Enabled = false;
                     Utilidades.MensajePermiso();
                     return;
+                }
+            }
+        }
+
+        private void txtCantidadCompra_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtCantidadCompra.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
+        }
+
+        private void txtPrecioCompra_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtPrecioCompra.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
                 }
             }
         }

@@ -1932,3 +1932,102 @@ IF
 		REP_ReporteClientes INTEGER DEFAULT 1,
 		REP_ReporteMMasMenos INTEGER DEFAULT 1
 	);
+
+	-- Agregar Columna de MostraMensaje a Editarticket
+ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS mostrarMensaje INT DEFAULT 0 ;
+
+--Se crea la tabla de permisos Conceptos
+CREATE TABLE
+IF
+	NOT EXISTS PermisosConceptosAgregarRetirarDinero (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDUsuario INTEGER NOT NULL DEFAULT 0,
+		IDEmpleado INTEGER NOT NULL DEFAULT 0,
+		AgregarConcepto INTEGER DEFAULT 1,
+		HabilitarConcepto INTEGER DEFAULT 1,
+		DeshabilitarConcepto INTEGER DEFAULT 1,
+		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE ,
+		FOREIGN KEY ( IDEmpleado ) REFERENCES empleados ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
+	);
+
+--Se crea la tabla para los detalles de los horarios de empleado y sistema checador
+CREATE TABLE
+IF
+	NOT EXISTS detallesChecadorEmpleados (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDUsuario INTEGER NOT NULL DEFAULT 0,
+		IDEmpleado INTEGER NOT NULL DEFAULT 0,
+		Huella LONGBLOB DEFAULT NULL,
+		HorasSemanales INTEGER DEFAULT 0,
+		HorasDiarias INTEGER DEFAULT 0,
+		MaximoHorasDiarias INTEGER DEFAULT 0,
+		HorasObligatorias INTEGER DEFAULT 0,
+		Salario DECIMAL ( 16, 2 ) NOT NULL DEFAULT 0,
+		TiempoDeSalario INTEGER DEFAULT 0,
+		Estatus INTEGER NOT NULL DEFAULT 1,
+		DiasLaborales VARCHAR ( 20 ) DEFAULT NULL,
+		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
+	FOREIGN KEY ( IDEmpleado ) REFERENCES empleados ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
+	);
+
+	-- Agregar Columna de Agregar Descuento a empleadosPermisos
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS Agregar_Descuento INT DEFAULT 1 ;
+
+	-- Agregar Columna de Eliminar Descuento a empleadosPermisos
+ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS Eliminar_Descuento INT DEFAULT 1 ;
+
+ALTER TABLE dgvaumentarinventario MODIFY COLUMN DiferenciaUnidades VARCHAR(100);
+ALTER TABLE dgvaumentarinventario MODIFY COLUMN StockActual VARCHAR(100);
+ALTER TABLE dgvaumentarinventario MODIFY COLUMN NuevoStock VARCHAR(100);
+ALTER TABLE dgvdisminuirinventario MODIFY COLUMN DiferenciaUnidades VARCHAR(100);
+ALTER TABLE dgvdisminuirinventario MODIFY COLUMN StockActual VARCHAR(100);
+ALTER TABLE dgvdisminuirinventario MODIFY COLUMN NuevoStock VARCHAR(100);
+
+
+---- Columnas para configuracion de creditos
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoHuella INT DEFAULT 0 ;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoMoratorio INT DEFAULT 0 ;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPorcentajemoratorio DECIMAl ( 16, 4 ) DEFAULT 10.00;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoAplicarpordefecto INT DEFAULT 1 ;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPorcentajeinteres DECIMAl ( 16, 4 ) DEFAULT 10.00;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoAplicarpagoinicial INT DEFAULT 0 ;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPagoinicial DECIMAl ( 16, 2 ) DEFAULT 1;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodolimiteventas VARCHAR(100) DEFAULT 'Ninguno';
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditolimiteventas INT DEFAULT 0 ;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodototalcredito VARCHAR(100) DEFAULT 'Ninguno';
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditototalcredito DECIMAl ( 16, 2 ) DEFAULT 0;
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoperiodocobro VARCHAR(100) DEFAULT 'Mensual';
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodocobro VARCHAR(100) DEFAULT 'Dias trascurridos';
+--ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditodiassincobro INT DEFAULT 0 ;
+
+-- Agregar Columna de la ganancia por venta para graficarlo 
+ALTER TABLE ventas ADD COLUMN IF NOT EXISTS Ganancia VARCHAR ( 255 ) DEFAULT NULL ;
+
+--Columna de Comenatrios para caja los tickets agregar retirar dinero y de caja
+ALTER TABLE caja ADD COLUMN IF NOT EXISTS Comentarios TEXT DEFAULT NULL;
+
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS traspasos INTEGER(11) DEFAULT (0);
+
+   -- Se agrego la columna MostrarStockConsultaPrecio a la tabla de Configuracion
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS MostrarStockConsultaPrecio INT DEFAULT 1;
+
+   -- Se agrego la columna MostrarStockConsultaPrecio a la tabla de Configuracion
+  ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoStockConsultarPrecio INT DEFAULT 1;
+
+   -- Se agrego la columna PrimerCorte a la tabla de historialCorteDeCaja
+  ALTER TABLE historialcortesdecaja ADD COLUMN IF NOT EXISTS PrimerCorte INT DEFAULT 1;
+
+   -- Se agrego la columna PermisoCorreoSaldoInicial a la tabla de permisosconfiguracion
+  ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoCorreoSaldoInicial INT DEFAULT 1;
+
+  -- Se agrego la columna EnvioCorreoSaldoIncial a la tabla de permisosconfiguracion
+  ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS EnvioCorreoSaldoIncial INT DEFAULT 1;
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoStockConsultarPrecio INT DEFAULT 1;
+
+   -- Se agrego la columna PesoAutomatico en Productos para recibir el peso automaticamente. // 0 = Acepta todo tipo de forma venta //1 = Solo se puede vender por Enteros //2 = Toma el peso en automatico de la bascula
+ALTER TABLE productos ADD COLUMN IF NOT EXISTS FormatoDeVenta INT DEFAULT 0;
+
+ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS VentasACredito INT DEFAULT 1;
+
+   -- Columna para guardar la clave de traspaso de un movimiento si existe, de manera en que se pueda volver a ver cuando se haga un reporte.
+  ALTER TABLE dgvdisminuirinventario ADD COLUMN IF NOT EXISTS claveTraspaso VARCHAR ( 15 ) DEFAULT NULL ;

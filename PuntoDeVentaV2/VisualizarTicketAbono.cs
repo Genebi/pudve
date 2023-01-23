@@ -43,7 +43,7 @@ namespace PuntoDeVentaV2
                 cadenaConn = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
             }
 
-            string queryVenta = cs.visualizadorTicketAbono(idVenta,idAbono);
+            string queryVenta = cs.visualizadorTicketAbono(idVenta, idAbono);
 
             MySqlConnection conn = new MySqlConnection();
 
@@ -61,10 +61,19 @@ namespace PuntoDeVentaV2
             string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc";
 
+
             MySqlDataAdapter ventaDA = new MySqlDataAdapter(queryVenta, conn);
             DataTable ventaDT = new DataTable();
 
             ventaDA.Fill(ventaDT);
+            var sinSigno = ventaDT.Rows[0]["CantidadRestante"].ToString().Split('$');
+            decimal cantidad = Convert.ToDecimal(sinSigno[1]);
+            if (cantidad < 0)
+            {
+                cantidad = 0;
+            }
+            ReportParameterCollection reportParameters = new ReportParameterCollection();
+            reportParameters.Add(new ReportParameter("CantidadRestante", "$" + cantidad.ToString("0.00")));
 
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
@@ -76,15 +85,16 @@ namespace PuntoDeVentaV2
             string DirectoryImage = string.Empty;
 
             this.reportViewer1.LocalReport.EnableExternalImages = true;
-
+            this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Add(rp);
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
             this.reportViewer1.RefreshReport();
 
-            //LocalReport rdlc = new LocalReport();
-            //rdlc.EnableExternalImages = true;
-            //rdlc.ReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc";
-            //rdlc.DataSources.Add(rp);
+            LocalReport rdlc = new LocalReport();
+            rdlc.EnableExternalImages = true;
+            rdlc.ReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos.rdlc";
+            rdlc.DataSources.Add(rp);
+            rdlc.SetParameters(reportParameters);
             #endregion
 
             //EnviarImprimir imp = new EnviarImprimir();
@@ -127,6 +137,14 @@ namespace PuntoDeVentaV2
             DataTable ventaDT = new DataTable();
 
             ventaDA.Fill(ventaDT);
+            var sinSigno = ventaDT.Rows[0]["CantidadRestante"].ToString().Split('$');
+            decimal cantidad = Convert.ToDecimal(sinSigno[1]);
+            if (cantidad < 0)
+            {
+                cantidad = 0;
+            }
+            ReportParameterCollection reportParameters = new ReportParameterCollection();
+            reportParameters.Add(new ReportParameter("CantidadRestante", "$" + cantidad.ToString("0.00")));
 
             #region Impresion Ticket de 80 mm
             ReportDataSource rp = new ReportDataSource("TicketAbono", ventaDT);
@@ -137,6 +155,7 @@ namespace PuntoDeVentaV2
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;
             rdlc.DataSources.Add(rp);
+            rdlc.SetParameters(reportParameters);
             #endregion
 
             EnviarImprimir imp = new EnviarImprimir();

@@ -356,6 +356,7 @@
             this.txtMaximoPorPagina.TabIndex = 40;
             this.txtMaximoPorPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMaximoPorPagina.TextChanged += new System.EventHandler(this.txtMaximoPorPagina_TextChanged);
+            this.txtMaximoPorPagina.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMaximoPorPagina_KeyDown);
             // 
             // label7
             // 

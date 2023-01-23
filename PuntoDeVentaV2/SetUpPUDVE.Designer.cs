@@ -75,6 +75,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnConfiguracionGeneral = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo4 = new PuntoDeVentaV2.BotonRedondo();
+            this.btnCredito = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             this.btnRespaldarInformacion = new PuntoDeVentaV2.BotonRedondo();
             this.botonRedondo5 = new PuntoDeVentaV2.BotonRedondo();
@@ -710,7 +711,7 @@
             this.checkNoVendidos.AutoSize = true;
             this.checkNoVendidos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkNoVendidos.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.checkNoVendidos.Location = new System.Drawing.Point(654, 78);
+            this.checkNoVendidos.Location = new System.Drawing.Point(655, 78);
             this.checkNoVendidos.Name = "checkNoVendidos";
             this.checkNoVendidos.Size = new System.Drawing.Size(240, 21);
             this.checkNoVendidos.TabIndex = 124;
@@ -862,13 +863,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.btnConfiguracionGeneral);
             this.panel1.Controls.Add(this.botonRedondo4);
+            this.panel1.Controls.Add(this.btnCredito);
             this.panel1.Controls.Add(this.botonRedondo1);
             this.panel1.Controls.Add(this.btnRespaldarInformacion);
             this.panel1.Controls.Add(this.botonRedondo5);
             this.panel1.Controls.Add(this.btnEnvioCorreo);
             this.panel1.Location = new System.Drawing.Point(133, 83);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(977, 114);
+            this.panel1.Size = new System.Drawing.Size(977, 250);
             this.panel1.TabIndex = 137;
             // 
             // btnConfiguracionGeneral
@@ -914,6 +916,32 @@
             this.botonRedondo4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.botonRedondo4.UseVisualStyleBackColor = false;
             this.botonRedondo4.Click += new System.EventHandler(this.botonRedondo4_Click);
+            // 
+            // btnCredito
+            // 
+            this.btnCredito.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnCredito.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnCredito.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnCredito.BorderRadius = 40;
+            this.btnCredito.BorderSize = 0;
+            this.btnCredito.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCredito.FlatAppearance.BorderSize = 0;
+            this.btnCredito.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.btnCredito.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.btnCredito.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCredito.ForeColor = System.Drawing.Color.White;
+            this.btnCredito.Image = global::PuntoDeVentaV2.Properties.Resources.cash_register;
+            this.btnCredito.Location = new System.Drawing.Point(3, 142);
+            this.btnCredito.Name = "btnCredito";
+            this.btnCredito.Size = new System.Drawing.Size(134, 87);
+            this.btnCredito.TabIndex = 133;
+            this.btnCredito.Text = "Crédito";
+            this.btnCredito.TextColor = System.Drawing.Color.White;
+            this.btnCredito.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnCredito.UseMnemonic = false;
+            this.btnCredito.UseVisualStyleBackColor = false;
+            this.btnCredito.Visible = false;
+            this.btnCredito.Click += new System.EventHandler(this.btnCredito_Click);
             // 
             // botonRedondo1
             // 
@@ -1010,7 +1038,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(998, 716);
+            this.ClientSize = new System.Drawing.Size(856, 456);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cboTipoMoneda);
@@ -1097,5 +1125,6 @@
         private BotonRedondo btnConfiguracionGeneral;
         private BotonRedondo botonRedondo4;
         private System.Windows.Forms.Panel panel1;
+        private BotonRedondo btnCredito;
     }
 }

@@ -562,8 +562,8 @@ namespace PuntoDeVentaV2
                 }
             }
 
-            if (tipo == 1 && cbFormaPago.SelectedIndex == 0 && efe > (float)EfectivoEnCaja || tipo == 1 && cbFormaPago.SelectedIndex == 1 && che > (float)ChequeEnCaja || tipo == 1 && cbFormaPago.SelectedIndex == 2 && tra > (float)TarjetaEnCaja || tipo == 1 && cbFormaPago.SelectedIndex == 3 && tar > (float)TransferenciaEnCaja || tipo == 1 &&
-            cbFormaPago.SelectedIndex == 4 && val > (float)ValesEnCaja)
+            if (tipo == 1 && cbFormaPago.SelectedIndex == 0 && efe >= (float)EfectivoEnCaja || tipo == 1 && cbFormaPago.SelectedIndex == 1 && che >= (float)ChequeEnCaja || tipo == 1 && cbFormaPago.SelectedIndex == 3 && tra >= (float)TarjetaEnCaja || tipo == 1 && cbFormaPago.SelectedIndex == 2 && tar >= (float)TransferenciaEnCaja || tipo == 1 &&
+            cbFormaPago.SelectedIndex == 4 && val >= (float)ValesEnCaja)
             {
                 MessageBox.Show("Dinero Insuficuente", "Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 cancel = 1;

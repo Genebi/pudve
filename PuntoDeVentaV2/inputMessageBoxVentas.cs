@@ -18,7 +18,7 @@ namespace PuntoDeVentaV2
         string validGuion = string.Empty;
         string validPunto = string.Empty;
         int conteoPunto, conteoGuion;
-
+        int calcu = 0;
         public static string cantidad = string.Empty;
         public static string cantidadMayoraStock = string.Empty;
 
@@ -156,6 +156,38 @@ namespace PuntoDeVentaV2
                     {
                         e.Handled = true;
                     }
+                }
+            }
+
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtCantidad.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+
+                    //if ()
+                    //{
+                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
+                    //}
                 }
             }
 

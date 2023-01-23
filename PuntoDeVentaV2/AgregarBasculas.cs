@@ -336,8 +336,8 @@ namespace PuntoDeVentaV2
 
         private void AgregarBasculas_Load(object sender, EventArgs e)
         {
-
             //llenamos los ComboBox
+            PuertoSerieBascula.Close();
             getBasculasRegistradas();   //Basculas Preconfiguradas
             getComPortNames();          //Puertos Activos
             getBaudRate();              //Rango BaudRate
@@ -355,6 +355,7 @@ namespace PuntoDeVentaV2
             cbParidad.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbPuerto.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbStopBits.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+
             if (FormPrincipal.id_empleado > 0)
             {
                 var permisos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Bascula");
@@ -440,7 +441,7 @@ namespace PuntoDeVentaV2
                     addBascula.FormClosed += delegate
                     {
                         getBasculasRegistradas();   //Basculas Preconfiguradas
-                };
+                    };
 
                     addBascula.Show();
                 }

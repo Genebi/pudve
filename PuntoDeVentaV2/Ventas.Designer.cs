@@ -105,6 +105,11 @@
             this.lblCIVA0Exento = new System.Windows.Forms.Label();
             this.lblIVA0Exento = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.btnBascula = new System.Windows.Forms.Button();
+            this.lblPesoRecibido = new System.Windows.Forms.Label();
+            this.btnCSV = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btnGanancia = new PuntoDeVentaV2.BotonRedondo();
             this.btnAbrirCaja = new PuntoDeVentaV2.BotonRedondo();
             this.btnAnticipos = new PuntoDeVentaV2.BotonRedondo();
             this.btnUltimoTicket = new PuntoDeVentaV2.BotonRedondo();
@@ -112,10 +117,7 @@
             this.btnGuardarVenta = new PuntoDeVentaV2.BotonRedondo();
             this.btnVentasGuardadas = new PuntoDeVentaV2.BotonRedondo();
             this.btn_cancelar_venta = new PuntoDeVentaV2.BotonRedondo();
-            this.btnBascula = new System.Windows.Forms.Button();
-            this.lblPesoRecibido = new System.Windows.Forms.Label();
-            this.btnCSV = new System.Windows.Forms.Button();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -237,7 +239,6 @@
             this.DGVentas.Size = new System.Drawing.Size(877, 222);
             this.DGVentas.TabIndex = 6;
             this.DGVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellClick);
-            this.DGVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellContentClick_1);
             this.DGVentas.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellEndEdit);
             this.DGVentas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellMouseEnter);
             this.DGVentas.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.DGVentas_CellStateChanged);
@@ -614,7 +615,6 @@
             this.panel1.Size = new System.Drawing.Size(890, 389);
             this.panel1.TabIndex = 34;
             this.panel1.Click += new System.EventHandler(this.panel1_Click);
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // CBTipo
             // 
@@ -662,21 +662,23 @@
             this.btnAplicarDescuento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAplicarDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicarDescuento.ForeColor = System.Drawing.Color.White;
-            this.btnAplicarDescuento.Location = new System.Drawing.Point(113, 7);
+            this.btnAplicarDescuento.Location = new System.Drawing.Point(8, 7);
             this.btnAplicarDescuento.Name = "btnAplicarDescuento";
             this.btnAplicarDescuento.Size = new System.Drawing.Size(114, 25);
             this.btnAplicarDescuento.TabIndex = 43;
             this.btnAplicarDescuento.Text = "Aplicar (Alt + 3)";
             this.btnAplicarDescuento.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnAplicarDescuento.UseVisualStyleBackColor = false;
+            this.btnAplicarDescuento.Visible = false;
             this.btnAplicarDescuento.Click += new System.EventHandler(this.btnAplicarDescuento_Click);
             // 
             // txtDescuentoGeneral
             // 
             this.txtDescuentoGeneral.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescuentoGeneral.Location = new System.Drawing.Point(8, 8);
+            this.txtDescuentoGeneral.Location = new System.Drawing.Point(127, 8);
             this.txtDescuentoGeneral.Multiline = true;
             this.txtDescuentoGeneral.Name = "txtDescuentoGeneral";
+            this.txtDescuentoGeneral.ShortcutsEnabled = false;
             this.txtDescuentoGeneral.Size = new System.Drawing.Size(100, 23);
             this.txtDescuentoGeneral.TabIndex = 35;
             this.txtDescuentoGeneral.Text = "% descuento";
@@ -728,7 +730,6 @@
             this.lbDatosCliente.TabIndex = 45;
             this.lbDatosCliente.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lbDatosCliente.Visible = false;
-            this.lbDatosCliente.Click += new System.EventHandler(this.lbDatosCliente_Click);
             // 
             // lbMayoreo
             // 
@@ -777,7 +778,9 @@
             0,
             0,
             0});
+            this.nudCantidadPS.ValueChanged += new System.EventHandler(this.nudCantidadPS_ValueChanged);
             this.nudCantidadPS.Click += new System.EventHandler(this.nudCantidadPS_Click);
+            this.nudCantidadPS.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nudCantidadPS_KeyPress);
             // 
             // lbCantidad
             // 
@@ -962,6 +965,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
+            this.panel2.Controls.Add(this.botonRedondo1);
             this.panel2.Controls.Add(this.lblCIVA0Exento);
             this.panel2.Controls.Add(this.lblIVA0Exento);
             this.panel2.Controls.Add(this.PBImagen);
@@ -1021,6 +1025,7 @@
             this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
+            this.panel5.Controls.Add(this.btnGanancia);
             this.panel5.Controls.Add(this.btnAbrirCaja);
             this.panel5.Controls.Add(this.btnAnticipos);
             this.panel5.Controls.Add(this.btnUltimoTicket);
@@ -1033,6 +1038,67 @@
             this.panel5.Size = new System.Drawing.Size(881, 95);
             this.panel5.TabIndex = 63;
             this.panel5.Click += new System.EventHandler(this.panel5_Click);
+            // 
+            // btnBascula
+            // 
+            this.btnBascula.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBascula.Image = global::PuntoDeVentaV2.Properties.Resources.peso;
+            this.btnBascula.Location = new System.Drawing.Point(253, 20);
+            this.btnBascula.Name = "btnBascula";
+            this.btnBascula.Size = new System.Drawing.Size(105, 40);
+            this.btnBascula.TabIndex = 0;
+            this.btnBascula.Text = "Tomar Peso Ctrl + T";
+            this.btnBascula.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnBascula.UseVisualStyleBackColor = true;
+            this.btnBascula.Click += new System.EventHandler(this.btnBascula_Click);
+            // 
+            // lblPesoRecibido
+            // 
+            this.lblPesoRecibido.AutoSize = true;
+            this.lblPesoRecibido.Location = new System.Drawing.Point(364, 26);
+            this.lblPesoRecibido.Name = "lblPesoRecibido";
+            this.lblPesoRecibido.Size = new System.Drawing.Size(13, 13);
+            this.lblPesoRecibido.TabIndex = 64;
+            this.lblPesoRecibido.Text = "0";
+            this.lblPesoRecibido.Visible = false;
+            // 
+            // btnCSV
+            // 
+            this.btnCSV.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCSV.Image = global::PuntoDeVentaV2.Properties.Resources.file_excel_o1;
+            this.btnCSV.Location = new System.Drawing.Point(383, 20);
+            this.btnCSV.Name = "btnCSV";
+            this.btnCSV.Size = new System.Drawing.Size(105, 40);
+            this.btnCSV.TabIndex = 50;
+            this.btnCSV.Text = "Operación CSV";
+            this.btnCSV.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCSV.UseVisualStyleBackColor = true;
+            this.btnCSV.Click += new System.EventHandler(this.btnCSV_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            // 
+            // btnGanancia
+            // 
+            this.btnGanancia.BackColor = System.Drawing.Color.Orange;
+            this.btnGanancia.BackGroundColor = System.Drawing.Color.Orange;
+            this.btnGanancia.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnGanancia.BorderRadius = 10;
+            this.btnGanancia.BorderSize = 0;
+            this.btnGanancia.FlatAppearance.BorderSize = 0;
+            this.btnGanancia.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGanancia.ForeColor = System.Drawing.Color.White;
+            this.btnGanancia.Image = global::PuntoDeVentaV2.Properties.Resources.line_chart1;
+            this.btnGanancia.Location = new System.Drawing.Point(825, 61);
+            this.btnGanancia.Name = "btnGanancia";
+            this.btnGanancia.Size = new System.Drawing.Size(32, 25);
+            this.btnGanancia.TabIndex = 72;
+            this.btnGanancia.TextColor = System.Drawing.Color.White;
+            this.btnGanancia.UseVisualStyleBackColor = false;
+            this.btnGanancia.Click += new System.EventHandler(this.btnGanancia_Click);
             // 
             // btnAbrirCaja
             // 
@@ -1088,9 +1154,9 @@
             this.btnUltimoTicket.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUltimoTicket.ForeColor = System.Drawing.Color.White;
             this.btnUltimoTicket.Image = global::PuntoDeVentaV2.Properties.Resources.ticket1;
-            this.btnUltimoTicket.Location = new System.Drawing.Point(814, 26);
+            this.btnUltimoTicket.Location = new System.Drawing.Point(811, 13);
             this.btnUltimoTicket.Name = "btnUltimoTicket";
-            this.btnUltimoTicket.Size = new System.Drawing.Size(49, 41);
+            this.btnUltimoTicket.Size = new System.Drawing.Size(60, 41);
             this.btnUltimoTicket.TabIndex = 71;
             this.btnUltimoTicket.TextColor = System.Drawing.Color.White;
             this.btnUltimoTicket.UseVisualStyleBackColor = false;
@@ -1184,47 +1250,25 @@
             this.btn_cancelar_venta.UseVisualStyleBackColor = false;
             this.btn_cancelar_venta.Click += new System.EventHandler(this.botonRedondo6_Click);
             // 
-            // btnBascula
+            // botonRedondo1
             // 
-            this.btnBascula.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBascula.Image = global::PuntoDeVentaV2.Properties.Resources.peso;
-            this.btnBascula.Location = new System.Drawing.Point(253, 20);
-            this.btnBascula.Name = "btnBascula";
-            this.btnBascula.Size = new System.Drawing.Size(105, 40);
-            this.btnBascula.TabIndex = 0;
-            this.btnBascula.Text = "Tomar Peso Ctrl + T";
-            this.btnBascula.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnBascula.UseVisualStyleBackColor = true;
-            this.btnBascula.Click += new System.EventHandler(this.btnBascula_Click);
-            // 
-            // lblPesoRecibido
-            // 
-            this.lblPesoRecibido.AutoSize = true;
-            this.lblPesoRecibido.Location = new System.Drawing.Point(364, 26);
-            this.lblPesoRecibido.Name = "lblPesoRecibido";
-            this.lblPesoRecibido.Size = new System.Drawing.Size(13, 13);
-            this.lblPesoRecibido.TabIndex = 64;
-            this.lblPesoRecibido.Text = "0";
-            this.lblPesoRecibido.Visible = false;
-            // 
-            // btnCSV
-            // 
-            this.btnCSV.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCSV.Image = global::PuntoDeVentaV2.Properties.Resources.file_excel_o1;
-            this.btnCSV.Location = new System.Drawing.Point(383, 20);
-            this.btnCSV.Name = "btnCSV";
-            this.btnCSV.Size = new System.Drawing.Size(105, 40);
-            this.btnCSV.TabIndex = 50;
-            this.btnCSV.Text = "Operación CSV";
-            this.btnCSV.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnCSV.UseVisualStyleBackColor = true;
-            this.btnCSV.Click += new System.EventHandler(this.btnCSV_Click);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            this.botonRedondo1.BackColor = System.Drawing.Color.Red;
+            this.botonRedondo1.BackGroundColor = System.Drawing.Color.Red;
+            this.botonRedondo1.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo1.BorderRadius = 10;
+            this.botonRedondo1.BorderSize = 0;
+            this.botonRedondo1.FlatAppearance.BorderSize = 0;
+            this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo1.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo1.Image = global::PuntoDeVentaV2.Properties.Resources.reply_all;
+            this.botonRedondo1.Location = new System.Drawing.Point(0, 78);
+            this.botonRedondo1.Name = "botonRedondo1";
+            this.botonRedondo1.Size = new System.Drawing.Size(25, 22);
+            this.botonRedondo1.TabIndex = 73;
+            this.botonRedondo1.TextColor = System.Drawing.Color.White;
+            this.botonRedondo1.UseVisualStyleBackColor = false;
+            this.botonRedondo1.Visible = false;
+            this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click_1);
             // 
             // Ventas
             // 
@@ -1259,7 +1303,6 @@
             this.Click += new System.EventHandler(this.Ventas_Click);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Ventas_KeyDown);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Ventas_KeyPress_1);
-            this.Layout += new System.Windows.Forms.LayoutEventHandler(this.Ventas_Layout);
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -1365,5 +1408,7 @@
         private System.Windows.Forms.Label lblIVA0Exento;
         private System.Windows.Forms.ComboBox CBTipo;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        public BotonRedondo btnGanancia;
+        public BotonRedondo botonRedondo1;
     }
 }

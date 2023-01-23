@@ -67,13 +67,26 @@ namespace PuntoDeVentaV2
 
             MySqlDataAdapter dineroRetiradoDA = new MySqlDataAdapter(queryDineroRetirado, conn);
             DataTable dineroRetiradoDT = new DataTable();
-
+            string Comentario;
+            using (var dt = cn.CargarDatos(queryDineroRetirado))
+            {
+                if (dt.Rows[0]["Comentarios"].ToString().Equals("COMENTARIOS") || dt.Rows[0]["Comentarios"].ToString().Equals(""))
+                {
+                    Comentario = "";
+                }
+                else
+                {
+                    Comentario = dt.Rows[0]["Comentarios"].ToString();
+                }
+            }
+            ReportParameterCollection reportParameters = new ReportParameterCollection();
+            reportParameters.Add(new ReportParameter("Comentario", Comentario));
             dineroRetiradoDA.Fill(dineroRetiradoDT);
 
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             this.reportViewer1.LocalReport.DataSources.Clear();
-
+            this.reportViewer1.LocalReport.SetParameters(reportParameters);
             #region Impresion Ticket de 8 cm (80 mm)
             ReportDataSource rp = new ReportDataSource("TicketDineroRetirado", dineroRetiradoDT);
 
@@ -84,6 +97,7 @@ namespace PuntoDeVentaV2
             LocalReport rdlc = new LocalReport();
             rdlc.ReportPath = FullReportPath;
             rdlc.DataSources.Add(rp);
+            rdlc.SetParameters(reportParameters);
             #endregion
 
             EnviarImprimir imp = new EnviarImprimir();

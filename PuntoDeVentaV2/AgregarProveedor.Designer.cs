@@ -297,7 +297,9 @@
             this.txtTelefono.Size = new System.Drawing.Size(181, 22);
             this.txtTelefono.TabIndex = 11;
             this.txtTelefono.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtTelefono.TextChanged += new System.EventHandler(this.txtTelefono_TextChanged);
             this.txtTelefono.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTelefono_KeyDown);
+            this.txtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefono_KeyPress);
             // 
             // label10
             // 

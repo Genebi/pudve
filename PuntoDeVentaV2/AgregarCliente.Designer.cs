@@ -72,6 +72,7 @@
             this.cmb_bx_regimen = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
             this.btnPublicoGeneral = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
             this.gbContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -234,6 +235,7 @@
             this.txtTelefono.TabIndex = 15;
             this.txtTelefono.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtTelefono.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTelefono_KeyDown);
+            this.txtTelefono.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTelefono_KeyPress);
             // 
             // label1
             // 
@@ -535,6 +537,7 @@
             this.gbContenedor.Controls.Add(this.cmb_bx_regimen);
             this.gbContenedor.Controls.Add(this.label19);
             this.gbContenedor.Controls.Add(this.btnPublicoGeneral);
+            this.gbContenedor.Controls.Add(this.label19);
             this.gbContenedor.Controls.Add(this.lAgregarClienteNuevo);
             this.gbContenedor.Controls.Add(this.cbTipoCliente);
             this.gbContenedor.Controls.Add(this.label17);
@@ -619,6 +622,19 @@
             this.btnPublicoGeneral.Text = "Publico General";
             this.btnPublicoGeneral.UseVisualStyleBackColor = false;
             this.btnPublicoGeneral.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.label19.Location = new System.Drawing.Point(30, 534);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(97, 13);
+            this.label19.TabIndex = 85;
+            this.label19.Text = "Registro biométrico";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label19.Visible = false;
             // 
             // AgregarCliente
             // 

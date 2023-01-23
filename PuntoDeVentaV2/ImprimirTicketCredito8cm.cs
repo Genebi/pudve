@@ -101,6 +101,27 @@ namespace PuntoDeVentaV2
 
             ReportParameterCollection reportParameters = new ReportParameterCollection();
 
+            string UsuarioRealizoVenta = string.Empty;
+
+            using (var DTUsuario = cn.CargarDatos($"SELECT VEN.IDEmpleado, EMP.usuario FROM VENTAS AS VEN INNER JOIN empleados AS EMP ON( EMP.ID = VEN.IDEmpleado) WHERE VEN.ID = {idVentaRealizada} AND VEN.IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (!DTUsuario.Rows.Count.Equals(0))
+                {
+                    if (string.IsNullOrWhiteSpace(DTUsuario.Rows[0][0].ToString()))
+                    {
+                        UsuarioRealizoVenta = FormPrincipal.userNickName;
+                    }
+                    else
+                    {
+                        UsuarioRealizoVenta = DTUsuario.Rows[0][1].ToString();
+                    }
+                }
+                else
+                {
+                    UsuarioRealizoVenta = FormPrincipal.userNickName;
+                }
+            }
+            reportParameters.Add(new ReportParameter("Usuario", UsuarioRealizoVenta));
             if (!Directory.Exists(pathBarCode))
             {
                 Directory.CreateDirectory(pathBarCode);

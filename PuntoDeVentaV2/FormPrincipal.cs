@@ -346,7 +346,16 @@ namespace PuntoDeVentaV2
 
         private void actualizarCaja_Tick_1(object sender, EventArgs e)
         {
-
+            //if (!FormPrincipal.userNickName.Contains("@"))
+            //{
+                if (pasar==1)
+                {
+                    if (!webListener.IsBusy)
+                    {
+                        webListener.RunWorkerAsync();
+                    }
+                }
+            //}
         }
 
         private void panelContenedor_Paint(object sender, PaintEventArgs e)
@@ -602,12 +611,12 @@ namespace PuntoDeVentaV2
             {
                 //string script = File.ReadAllText(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\BD\Basculas.sql");
                 var script = cs.registrarBasculas(userID);
-                cn.EjecutarConsulta(script);
+                foreach (var item in script)
+                {
+                    cn.EjecutarConsulta(item);
+                }
             }
-            catch (Exception ex)
-            {
-
-            }
+            catch (Exception ex){}
 
             cn.EjecutarConsulta(cs.quitarSimboloRaroEspacios());
 
@@ -649,7 +658,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                cn.EjecutarConsulta($"INSERT INTO editarticket (IDUsuario,MensajeTicket,Usuario,Direccion,ColyCP,RFC,Correo,Telefono,NombreC,DomicilioC,RFCC,CorreoC,TelefonoC,ColyCPC,FormaPagoC,logo) VALUES ('{FormPrincipal.userID}','Hola Mundo','1','1','1','1','1','1','1','1','1','1','1','1','1','1')");
+                cn.EjecutarConsulta($"INSERT INTO editarticket (IDUsuario,MensajeTicket,Usuario,Direccion,ColyCP,RFC,Correo,Telefono,NombreC,DomicilioC,RFCC,CorreoC,TelefonoC,ColyCPC,FormaPagoC,logo) VALUES ('{FormPrincipal.userID}','','1','1','1','1','1','1','1','1','1','1','1','1','1','1')");
             }
 
             Utilidades.registrarNuevoEmpleadoPermisosConfiguracion(id_empleado);
@@ -663,7 +672,10 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta($"UPDATE correosproducto SET CorreoPrecioProducto = 1 ,CorreoStockProducto = 1,CorreoStockMinimo = 1 ,CorreoVentaProducto = 1 WHERE IDUsuario ={userID}");
 
             EnvioCorreoLicenciaActiva();
-
+            if (pasar.Equals(1))
+            {
+                actualizarCaja.Enabled = true;
+            }
         }
 
         private void EnvioCorreoLicenciaActiva()
@@ -1071,7 +1083,242 @@ namespace PuntoDeVentaV2
             mg.EliminarFiltros();
         }
 
-        private void BtnConsulta_Click(object sender, EventArgs e)
+        private void webListener_DoWork(object sender, DoWorkEventArgs e)
+        {
+            solicitudWEB();
+        }
+
+        private void solicitudWEB()
+        {
+            try
+            {
+                ConexionAPPWEB cn2 = new ConexionAPPWEB();
+                using (DataTable dt = cn2.CargarDatos($"SELECT * FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}'"))
+                {
+                    if (dt.Rows.Count > 0)
+                    //if (true)
+                    {
+                        foreach (DataRow peticion in dt.Rows)
+                        {
+                            switch (peticion["Solicitud"].ToString())
+                            {
+                                case "Caja":
+                                    if (enviarCajaAWeb())
+                                    {
+                                        cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Caja';");
+                                    }
+                                    break;
+                                case "Producto":
+                                    enviarProdctosWeb();
+                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Producto';");
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                }
+        }
+            catch (Exception)
+            {
+                Console.WriteLine("Error garrafal");
+                return;
+            }
+}
+
+        private void enviarProdctosWeb()
+        {
+            try
+            {
+
+                ConexionAPPWEB con = new ConexionAPPWEB();
+                DataTable valoresProducto = cn.CargarDatos($"SELECT Nombre,Stock,Precio,CodigoBarras AS Codigo FROM productos WHERE IDUsuario={userID} AND `Status`=1");      
+
+                using (DataTable dt = con.CargarDatos($"SELECT DISTINCT(timestamp) FROM mirrorproductoregistro WHERE cliente = '{userNickName.Split('@')[0]}' ORDER BY timestamp ASC"))
+                {
+                    if (dt.Rows.Count > 2)
+                    {
+                        string consulta = $"DELETE FROM mirrorproductoregistro WHERE cliente = '{userNickName.Split('@')[0]}' AND timestamp = '{DateTime.Parse(dt.Rows[0]["timestamp"].ToString()).ToString("yyyy-MM-dd HH:mm:ss")}'";
+                        con.EjecutarConsulta(consulta);
+                    }
+                    string fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                    string consultaregistro = "INSERT INTO mirrorproductoregistro (Cliente,timestamp)";
+                    consultaregistro += $"VALUES ('{userNickName.Split('@')[0]}','{fecha}')"; 
+                    con.EjecutarConsulta(consultaregistro);
+                //foreach (DataRow registroProducto in valoresProducto.Rows)
+                //{
+                //    string consulta = "INSERT INTO mirrorproductosdatos (IDregistro, Nombre, Stock, Precio, Codigo)";
+                //    consulta += $"VALUES ((SELECT MAX(ID) FROM mirrorproductoregistro),'{registroProducto[0]}','{registroProducto[1]}','{registroProducto[2]}','{registroProducto[3]}')";
+                //    con.EjecutarConsulta(consulta);
+                //}
+
+                System.Data.DataColumn newColumn = new System.Data.DataColumn("IDregistro", typeof(System.String));
+
+                using (DataTable dtT = con.CargarDatos($"SELECT MAX(ID) as ID FROM mirrorproductoregistro WHERE Cliente = '{userNickName.Split('@')[0]}'"))
+                {
+                    newColumn.DefaultValue = dtT.Rows[0]["ID"];
+                }
+               
+                valoresProducto.Columns.Add(newColumn);
+                newColumn.SetOrdinal(0);
+                ToCSV(valoresProducto, @"C:\Archivos PUDVE\export.txt");
+                bulkInsertAsync("mirrorproductosdatos");
+                con.EjecutarConsulta($"UPDATE mirrorproductoregistro SET Completo = 'Completo' WHERE ID = (SELECT MAX(ID))");
+                }
+        }
+            catch (Exception)
+            {
+                //No se logro la conexion a internet.
+                return;
+            }
+}
+
+        private void ToCSV(DataTable dtDataTable, string strFilePath)
+        {
+            StreamWriter sw = new StreamWriter(strFilePath, false);
+            //headers    
+            for (int i = 0; i < dtDataTable.Columns.Count; i++)
+            {
+                sw.Write(dtDataTable.Columns[i]);
+                if (i < dtDataTable.Columns.Count - 1)
+                {
+                    sw.Write("|");
+                }
+            }
+            sw.Write(sw.NewLine);
+            foreach (DataRow dr in dtDataTable.Rows)
+            {
+                for (int i = 0; i < dtDataTable.Columns.Count; i++)
+                {
+                    if (!Convert.IsDBNull(dr[i]))
+                    {
+                        string value = dr[i].ToString();
+                        if (value.Contains(','))
+                        {
+                            value = String.Format("\"{0}\"", value);
+                            sw.Write(value);
+                        }
+                        else
+                        {
+                            sw.Write(dr[i].ToString());
+                        }
+                    }
+                    if (i < dtDataTable.Columns.Count - 1)
+                    {
+                        sw.Write("+");
+                    }
+                }
+                sw.Write(sw.NewLine);
+            }
+            sw.Close();
+        }
+
+        public async Task bulkInsertAsync(string tablename)
+        {
+            string connStr = "server=74.208.135.60;user=app;database=pudve;port=3306;password=12Steroids12;AllowLoadLocalInfile=true;";
+            MySqlConnection conn = new MySqlConnection(connStr);
+
+            MySqlBulkLoader bl = new MySqlBulkLoader(conn);
+            bl.Local = true;
+            
+            bl.TableName = tablename;
+            bl.FieldTerminator = "+";
+            bl.LineTerminator = "\n";
+            bl.FileName = @"C:\Archivos PUDVE\export.txt";
+            bl.NumberOfLinesToSkip = 1;
+            bl.Columns.AddRange(new List<string>() { "IDregistro", "Nombre","Stock","Precio","Codigo"});
+            bl.Timeout = 50000;
+            try
+            {
+                //Console.WriteLine("Connecting to MySQL...");
+                conn.Open();
+
+                // Upload data from file
+                int count = bl.Load();
+                //Console.WriteLine(count + " lines uploaded.");
+
+                //string sql = "SELECT IDregistro, Nombre, Stock, Codigo FROM mirrorproductosdatos";
+                //MySqlCommand cmd = new MySqlCommand(sql, conn);
+                //MySqlDataReader rdr = cmd.ExecuteReader();
+
+                //while (rdr.Read())
+                //{
+                //    Console.WriteLine(rdr[0] + " -- " + rdr[1] + " -- " + rdr[2]);
+                //}
+
+                //rdr.Close();
+
+                conn.Close();
+            }
+            catch (Exception ex)
+            {
+                return;
+                //Console.WriteLine(ex.ToString());
+            }
+            //Console.WriteLine("Done.");
+        }
+
+        private bool enviarCajaAWeb()
+        {
+            try
+            {
+
+            ConexionAPPWEB con = new ConexionAPPWEB();
+            DataTable valoresCaja = new DataTable();
+            DataTable valoresCajaDep = new DataTable();
+            DataTable valoresCajaRet = new DataTable();
+            WEBCaja test = new WEBCaja();
+            int slot=1;
+
+            test.FormClosed += delegate
+            {
+                valoresCaja = test.datosWeb;
+                valoresCajaDep = test.detallesDepositoWeb;
+                valoresCajaRet = test.detallesRetiroWeb;
+            };
+            test.ShowDialog();
+
+            using (DataTable dt = con.CargarDatos($"SELECT DISTINCT(Fecha) FROM cajamirror WHERE cliente = '{userNickName.Split('@')[0]}' ORDER BY Fecha ASC"))
+            {
+                if (dt.Rows.Count>2)
+                {
+                    string consulta = $"DELETE FROM cajamirror WHERE cliente = '{userNickName.Split('@')[0]}' AND Fecha = '{DateTime.Parse(dt.Rows[0]["Fecha"].ToString()).ToString("yyyy-MM-dd HH:mm:ss")}'";
+                    con.EjecutarConsulta(consulta);
+                    consulta = $"DELETE FROM cajamirrorDetalles WHERE cliente = '{userNickName.Split('@')[0]}' AND Fecha = '{DateTime.Parse(dt.Rows[0]["Fecha"].ToString()).ToString("yyyy-MM-dd HH:mm:ss")}'";
+                    con.EjecutarConsulta(consulta);
+                    }
+                    string fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                    foreach (DataRow registroCaja in valoresCaja.Rows)
+                    {
+                        string consulta = "INSERT INTO cajamirror (Cliente, Empleado, Fecha, ventasEfectivo, ventasTarjeta, ventasVales, ventasCheque, ventasTransferencia, ventasCredito, ventasAbonos, ventasAnticipos, ventasTotal, anticiposEfectivo, anticiposTarjeta, anticiposVales, anticiposCheque, anticiposTransferencia, anticiposTotal, agregadoEfectivo, agregadoTarjeta, agregadoVales, agregadoCheque, agregadoTransferencia, agregadoTotal, retiradoEfectivo, retiradoTarjeta, retiradoVales, retiradoCheque, retiradoTransferencia, retiradoDevolucones, totalRetirado, cajaEfectivo, cajaTarjeta, cajaVales, cajaCheque, cajaTransferencia, cajaTotal, saldoInicial, saldoInicialActual)";
+                        consulta += $"VALUES ('{userNickName.Split('@')[0]}','{registroCaja[0]}','{fecha}', '{registroCaja[1]}','{registroCaja[2]}','{registroCaja[3]}','{registroCaja[4]}','{registroCaja[5]}','{registroCaja[6]}','{registroCaja[7]}','{registroCaja[8]}','{registroCaja[9]}','{registroCaja[10]}','{registroCaja[11]}','{registroCaja[12]}','{registroCaja[13]}','{registroCaja[14]}','{registroCaja[15]}','{registroCaja[16]}','{registroCaja[17]}','{registroCaja[18]}','{registroCaja[19]}','{registroCaja[20]}','{registroCaja[21]}','{registroCaja[22]}','{registroCaja[23]}','{registroCaja[24]}','{registroCaja[25]}','{registroCaja[26]}','{registroCaja[27]}','{registroCaja[28]}','{registroCaja[29]}','{registroCaja[30]}','{registroCaja[31]}','{registroCaja[32]}','{registroCaja[33]}','{registroCaja[34]}','{registroCaja[35]}','{registroCaja[36]}')";
+                        con.EjecutarConsulta(consulta);                    
+                    }
+
+                    foreach (DataRow dataRow in valoresCajaDep.Rows)
+                    {
+                        string consulta = "INSERT INTO cajamirrorDetalles (IDCliente, IDEmpleado, Fecha, Tipo, Concepto, Cantidad, Efectivo, Tarjeta, Vales, Cheque, Transferencia, FechaOperacion)";
+                        consulta += $"VALUES ('{userNickName.Split('@')[0]}','{dataRow[0]}','{fecha}', '{dataRow[1]}','{dataRow[2]}','{dataRow[3]}','{dataRow[4]}','{dataRow[5]}','{dataRow[6]}','{dataRow[7]}','{dataRow[8]}','{dataRow[9]}')";
+                        con.EjecutarConsulta(consulta);
+                    }
+
+                    foreach (DataRow dataRow in valoresCajaRet.Rows)
+                    {
+                        string consulta = "INSERT INTO cajamirrorDetalles (IDCliente, IDEmpleado, Fecha, Tipo, Concepto, Cantidad, Efectivo, Tarjeta, Vales, Cheque, Transferencia, FechaOperacion)";
+                        consulta += $"VALUES ('{userNickName.Split('@')[0]}','{dataRow[0]}','{fecha}', '{dataRow[1]}','{dataRow[2]}','{dataRow[3]}','{dataRow[4]}','{dataRow[5]}','{dataRow[6]}','{dataRow[7]}','{dataRow[8]}','{dataRow[9]}')";
+                        con.EjecutarConsulta(consulta);
+                    }
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        private void BtnConsulta_Click(object sender, EventArgs e)      
         {
             if (consulta == 1)
             {
@@ -1099,7 +1346,6 @@ namespace PuntoDeVentaV2
             //Form exist = Application.OpenForms.OfType<Form>().Where(pre => pre.Name == "ListadoVentas").SingleOrDefault<Form>();
 
             //vs.printProductVersion();
-
             if (veces == 1)
             {
                 if (ventas == 1)
@@ -1354,7 +1600,7 @@ namespace PuntoDeVentaV2
             // Solo descomentar lo de abajo cuando sea necesario
             if (reportes == 1)
             {
-                AbrirFormulario<Reportes>();
+                AbrirFormulario<s>();
             }
             else
             {
@@ -1436,27 +1682,27 @@ namespace PuntoDeVentaV2
         ****** CODIGO KEVIN *********
         /****************************/
 
-        public void InitializarTimerAndroid()
-        {
+        //public void InitializarTimerAndroid()
+        //{
 
-            actualizarCaja.Interval = 60000;
-            actualizarCaja.Tick += new EventHandler(actualizarCaja_Tick);
-            actualizarCaja.Enabled = true;
-        }
+        //    actualizarCaja.Interval = 60000;
+        //    actualizarCaja.Tick += new EventHandler(actualizarCaja_Tick);
+        //    actualizarCaja.Enabled = true;
+        //}
 
-        private void actualizarCaja_Tick(object sender, EventArgs e)
-        {
+        //private void actualizarCaja_Tick(object sender, EventArgs e)
+        //{
 
-            //var datoMEtodoMAfufo = verificarInternet();
+        //    //var datoMEtodoMAfufo = verificarInternet();
 
-            //if (datoMEtodoMAfufo)
-            //{
-            if (pasar == 1)
-            {
-                _conHandler.StartCheckConnectionState();
-                //}
-            }
-        }
+        //    //if (datoMEtodoMAfufo)
+        //    //{
+        //    if (pasar == 1)
+        //    {
+        //        _conHandler.StartCheckConnectionState();
+        //        //}
+        //    }
+        //}
 
         public void desdeDondeCerrarSesion()
         {

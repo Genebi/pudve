@@ -82,14 +82,21 @@ namespace PuntoDeVentaV2
             string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm.rdlc";
 
+           
+            
+
             MySqlDataAdapter ventaDA = new MySqlDataAdapter(queryVenta, conn);
             DataTable ventaDT = new DataTable();
+
+            
 
             ventaDA.Fill(ventaDT);
 
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             this.reportViewer1.LocalReport.DataSources.Clear();
+
+           
 
             #region Impresion Ticket de 80 mm
             ReportDataSource rp = new ReportDataSource("TicketVenta", ventaDT);
@@ -100,7 +107,7 @@ namespace PuntoDeVentaV2
 
             ReportParameterCollection reportParameters = new ReportParameterCollection();
             string path = string.Empty;
-
+            reportParameters.Add(new ReportParameter("Usuario", FormPrincipal.userNickName.ToString()));
             string pathBarCode = $@"C:\Archivos PUDVE\Ventas\Tickets\BarCode\";
 
             var servidor = Properties.Settings.Default.Hosting;
@@ -201,6 +208,28 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("PathBarCode", pathBarCodeFull));
             //18 parametro string para mostrar / ocultar Codigo de Barras
             reportParameters.Add(new ReportParameter("Referencia", Referencia.ToString()));
+            string UsuarioRealizoVenta =  string.Empty;
+
+            using (var DTUsuario = cn.CargarDatos($"SELECT VEN.IDEmpleado, EMP.usuario FROM VENTAS AS VEN INNER JOIN empleados AS EMP ON( EMP.ID = VEN.IDEmpleado) WHERE VEN.ID = {idVentaRealizada} AND VEN.IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (!DTUsuario.Rows.Count.Equals(0))
+                {
+                    if (string.IsNullOrWhiteSpace(DTUsuario.Rows[0][0].ToString()))
+                    {
+                        UsuarioRealizoVenta = FormPrincipal.userNickName;
+                    }
+                    else
+                    {
+                        UsuarioRealizoVenta = DTUsuario.Rows[0][1].ToString();
+                    }
+                }
+                else
+                {
+                    UsuarioRealizoVenta = FormPrincipal.userNickName;
+                }
+                
+            }
+            reportParameters.Add(new ReportParameter("Usuario", UsuarioRealizoVenta));
 
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Add(rp);

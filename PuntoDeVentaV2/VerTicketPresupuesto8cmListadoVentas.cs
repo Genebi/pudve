@@ -121,6 +121,27 @@ namespace PuntoDeVentaV2
 
             ReportParameterCollection reportParameters = new ReportParameterCollection();
 
+            string UsuarioRealizoVenta = string.Empty;
+
+            using (var DTUsuario = cn.CargarDatos($"SELECT VEN.IDEmpleado, EMP.usuario FROM VENTAS AS VEN INNER JOIN empleados AS EMP ON( EMP.ID = VEN.IDEmpleado) WHERE VEN.ID = {idVentaRealizada} AND VEN.IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (!DTUsuario.Rows.Count.Equals(0))
+                {
+                    if (string.IsNullOrWhiteSpace(DTUsuario.Rows[0][0].ToString()))
+                    {
+                        UsuarioRealizoVenta = FormPrincipal.userNickName;
+                    }
+                    else
+                    {
+                        UsuarioRealizoVenta = DTUsuario.Rows[0][1].ToString();
+                    }
+                }
+                else
+                {
+                    UsuarioRealizoVenta = FormPrincipal.userNickName;
+                }
+            }
+            reportParameters.Add(new ReportParameter("Usuario", UsuarioRealizoVenta));
             if (!Directory.Exists(pathBarCode))
             {
                 Directory.CreateDirectory(pathBarCode);
@@ -293,7 +314,6 @@ namespace PuntoDeVentaV2
             DataTable presupuestoDT = new DataTable();
 
             presupuestoDA.Fill(presupuestoDT);
-
             #region Impresion Ticket de 8 cm (80 mm)
             var nombreXSD = "TicketPresupuesto";
 
@@ -400,6 +420,27 @@ namespace PuntoDeVentaV2
             //19 parametro integer para mostrar / ocultar Referencia
             reportParameters.Add(new ReportParameter("Referencia", Referencia.ToString()));
 
+            string UsuarioRealizoVenta = string.Empty;
+
+            using (var DTUsuario = cn.CargarDatos($"SELECT VEN.IDEmpleado, EMP.usuario FROM VENTAS AS VEN INNER JOIN empleados AS EMP ON( EMP.ID = VEN.IDEmpleado) WHERE VEN.ID = {idVentaRealizada} AND VEN.IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (!DTUsuario.Rows.Count.Equals(0))
+                {
+                    if (string.IsNullOrWhiteSpace(DTUsuario.Rows[0][0].ToString()))
+                    {
+                        UsuarioRealizoVenta = FormPrincipal.userNickName;
+                    }
+                    else
+                    {
+                        UsuarioRealizoVenta = DTUsuario.Rows[0][1].ToString();
+                    }
+                }
+                else
+                {
+                    UsuarioRealizoVenta = FormPrincipal.userNickName;
+                }
+            }
+            reportParameters.Add(new ReportParameter("Usuario", UsuarioRealizoVenta));
             LocalReport rdlc = new LocalReport();
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;
@@ -409,6 +450,7 @@ namespace PuntoDeVentaV2
 
             EnviarImprimir imp = new EnviarImprimir();
             imp.Imprime(rdlc);
+
 
             File.Delete($"{pathBarCode}{folioVentaRealizada}.png");
             if (File.Exists(finalLogoTipoPath))

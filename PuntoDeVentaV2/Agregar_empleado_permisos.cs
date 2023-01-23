@@ -38,12 +38,14 @@ namespace PuntoDeVentaV2
         private int id_empleado = 0;
 
         public string[] datos;
+        static public int MiIDEmpleado;
 
         public Agregar_empleado_permisos(int id_emp)
         {
             InitializeComponent();
 
             id_empleado = id_emp;
+            MiIDEmpleado = id_empleado;
         }
 
         private void cargar_datos(object sender, EventArgs e)
@@ -93,7 +95,7 @@ namespace PuntoDeVentaV2
 
         private void CargarPermisosPlantilla()
         {
-            var DTPlantillaPermisos = cn.CargarDatos($"SELECT Anticipo,Caja,clientes,configuracion,empleado,factura,inventario,misdatos,productos,proveedor,reportes,precio,ventas, bascula,configuracion FROM plantillapermisos WHERE IDUsuario = {FormPrincipal.userID} AND ID = {IDPlantilla} AND Estatus = 1");
+            var DTPlantillaPermisos = cn.CargarDatos($"SELECT Anticipo,Caja,clientes,configuracion,empleado,factura,inventario,misdatos,productos,proveedor,reportes,precio,ventas, bascula,ConsultaPrecio FROM plantillapermisos WHERE IDUsuario = {FormPrincipal.userID} AND ID = {IDPlantilla} AND Estatus = 1");
             if (!DTPlantillaPermisos.Rows.Count.Equals(0))
             {
                 string PermisosJusntos = string.Empty;
@@ -179,7 +181,9 @@ namespace PuntoDeVentaV2
 
         private void btn_cancelar_Click(object sender, EventArgs e)
         {
-            this.Dispose();
+            Agregar_empleado.SeCancelor = true;
+            Agregar_empleado.HizoUnaccion = true;
+            this.Close();
         }
 
         private void btn_aceptar_Click(object sender, EventArgs e)
@@ -203,10 +207,11 @@ namespace PuntoDeVentaV2
 
             datos = new string[]
             {
-                FormPrincipal.userID.ToString(), id_empleado.ToString(), anticipo, caja, client, config, empleado,
-                empresa, factura, inventario, mdatos, producto, proveedor, reporte, venta, bascula, ConsultaPrecio
+                FormPrincipal.userID.ToString(), id_empleado.ToString(), anticipo, caja, client, config, empleado, empresa, factura, inventario, mdatos, producto, proveedor, reporte, venta, bascula, ConsultaPrecio
             };
 
+            Agregar_empleado.datosPermisosSeleccionados = datos;
+            Agregar_empleado.HizoUnaccion = true;
             if (id_empleado > 0)
             {
                 cn.EjecutarConsulta($"UPDATE empleadospermisos SET Precio = '{chkPermisoPrecio}' WHERE IDEmpleado = '{datos[1]}' AND IDUsuario = '{datos[0]}'");
@@ -221,6 +226,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                Agregar_empleado.PermisoPrecio = chkPermisoPrecio;
                 IDPlantilla = 0;
                 this.Close();
             }
@@ -242,6 +248,7 @@ namespace PuntoDeVentaV2
                 if (Anticipos.Count.Equals(0))
                 {
                     var DTColumnas = cn.CargarDatos($"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'subpermisos' AND COLUMN_NAME LIKE 'ANT_%'");
+
                     var rows = DTColumnas.AsEnumerable()
                                  .Select(r => string.Format("{0}", string.Join(",", r.ItemArray)));
 
@@ -842,11 +849,6 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void chkPrecio_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             string anticipo = Convert.ToString(Convert.ToInt32(cbox_anticipos.Checked));
@@ -899,7 +901,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                MessageBox.Show("Seleecione almenos un permiso", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Seleccione al menos un permiso", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
             IDPlantilla = 0;
@@ -973,6 +975,11 @@ namespace PuntoDeVentaV2
                 dDGVDeshabilitados.Rows.Clear();
                 CargarPermisosPlantilla();
             }
+        }
+
+        private void dDGVDeshabilitados_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

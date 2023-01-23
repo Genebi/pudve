@@ -196,6 +196,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
+
                     using (DataTable dtAbonosDeOtrosUsuarios = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoDesdeOtrosUsuarios(IDEmpleado.ToString(), ultimaFechaDeCorteDeCaja)))
                     {
                         if (!dtAbonosDeOtrosUsuarios.Rows.Count.Equals(0))
@@ -251,22 +252,22 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    using (DataTable dtAbonosRealizadosRecientementeAdministrador = cn.CargarDatos(cs.AbonosRealizadosRecientementeAdministrador(ultimaFechaDeCorteDeCaja)))
-                    {
-                        if (!dtAbonosRealizadosRecientementeAdministrador.Rows.Count.Equals(0))
-                        {
-                            //limpiarVariablesAbonos();
-                            foreach (DataRow item in dtAbonosRealizadosRecientementeAdministrador.Rows)
-                            {
-                                Efectivo += Convert.ToDecimal(item["Efectivo"].ToString());
-                                Tarjeta += Convert.ToDecimal(item["Tarjeta"].ToString());
-                                Vales += Convert.ToDecimal(item["Vales"].ToString());
-                                Cheque += Convert.ToDecimal(item["Cheque"].ToString());
-                                Transferencia += Convert.ToDecimal(item["Transferencia"].ToString());
-                                Total += Convert.ToDecimal(item["Total"].ToString());
-                            }
-                        }
-                    }
+                    //using (DataTable dtAbonosRealizadosRecientementeAdministrador = cn.CargarDatos(cs.AbonosRealizadosRecientementeAdministrador(ultimaFechaDeCorteDeCaja)))
+                    //{
+                    //    if (!dtAbonosRealizadosRecientementeAdministrador.Rows.Count.Equals(0))
+                    //    {
+                    //        //limpiarVariablesAbonos();
+                    //        foreach (DataRow item in dtAbonosRealizadosRecientementeAdministrador.Rows)
+                    //        {
+                    //            Efectivo += Convert.ToDecimal(item["Efectivo"].ToString());
+                    //            Tarjeta += Convert.ToDecimal(item["Tarjeta"].ToString());
+                    //            Vales += Convert.ToDecimal(item["Vales"].ToString());
+                    //            Cheque += Convert.ToDecimal(item["Cheque"].ToString());
+                    //            Transferencia += Convert.ToDecimal(item["Transferencia"].ToString());
+                    //            Total += Convert.ToDecimal(item["Total"].ToString());
+                    //        }
+                    //    }
+                    //}
 
                     lbEfectivoAbonos.Text = Efectivo.ToString("C2");
                     lbTarjetaAbonos.Text = Tarjeta.ToString("C2");

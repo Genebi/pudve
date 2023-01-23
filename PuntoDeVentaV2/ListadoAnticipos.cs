@@ -56,7 +56,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                sql_cmd = new MySqlCommand($"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND (Status = 1 OR Status = 5)", sql_con);
+                sql_cmd = new MySqlCommand($"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND (Status = 1 OR Status = 5) ORDER BY ID DESC", sql_con);
             }            
             dr = sql_cmd.ExecuteReader();
 
@@ -148,7 +148,7 @@ namespace PuntoDeVentaV2
                         Ventas.listaAnticipos += idAnticipo + "-";
 
                         Ventas.importeAnticipo = float.Parse(DGVListaAnticipos.Rows[fila].Cells["Importe"].Value.ToString());
-
+                        Ventas.IDAnticipo = Convert.ToInt32(DGVListaAnticipos.Rows[fila].Cells["ID"].Value.ToString());
                         this.Close();
                     }
                     else
@@ -221,6 +221,14 @@ namespace PuntoDeVentaV2
             CargarDatos();
             txtbusqueda.Focus();
             
+        }
+
+        private void txtbusqueda_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
         }
     }
 }

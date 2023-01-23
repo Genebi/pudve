@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Drawing;
+using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -7,6 +10,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -61,9 +65,11 @@ namespace PuntoDeVentaV2
         public string titulo;
         public string texto;
         public string SeleccionaImagen;
-
+        
 
         List<string> prodServPaq = new List<string>();
+
+        Dictionary<string, string> paginasRegistradas = new Dictionary<string, string>();
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -533,7 +539,7 @@ namespace PuntoDeVentaV2
                         lblNombreProveedor.Width = 815;
                         lblNombreProveedor.Height = 20;
                         lblNombreProveedor.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
-                        lblNombreProveedor.Location = new Point(3, 32);
+                        lblNombreProveedor.Location = new System.Drawing.Point(3, 32);
                         lblNombreProveedor.TextAlign = ContentAlignment.MiddleCenter;
                         lblNombreProveedor.BackColor = Color.White;
 
@@ -547,7 +553,7 @@ namespace PuntoDeVentaV2
                         cbProveedor.Width = 815;
                         cbProveedor.Height = 30;
                         cbProveedor.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
-                         cbProveedor.Location = new Point(XcbProv - (cbProveedor.Width / 2), 5);
+                         cbProveedor.Location = new System.Drawing.Point(XcbProv - (cbProveedor.Width / 2), 5);
                         cbProveedor.SelectedIndexChanged += new EventHandler(comboBoxProveedor_SelectValueChanged);
                         cbProveedor.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
 
@@ -637,7 +643,7 @@ namespace PuntoDeVentaV2
                         lblNombreDetalleGral.Width = 815;
                         lblNombreDetalleGral.Height = 20;
                         lblNombreDetalleGral.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
-                        lblNombreDetalleGral.Location = new Point(3, 32);
+                        lblNombreDetalleGral.Location = new System.Drawing.Point(3, 32);
                         lblNombreDetalleGral.TextAlign = ContentAlignment.MiddleCenter;
                         lblNombreDetalleGral.BackColor = Color.White;
 
@@ -652,7 +658,7 @@ namespace PuntoDeVentaV2
                         cbDetalleGral.Width = 815;
                         cbDetalleGral.Height = 30;
                         cbDetalleGral.Font = new Font("Microsoft Sans Serif", 10, FontStyle.Regular);
-                        cbDetalleGral.Location = new Point(XcbProv - (cbDetalleGral.Width / 2), 5);
+                        cbDetalleGral.Location = new System.Drawing.Point(XcbProv - (cbDetalleGral.Width / 2), 5);
                         cbDetalleGral.SelectedIndexChanged += new System.EventHandler(ComboBoxDetalleGral_SelectValueChanged);
                         cbDetalleGral.MouseWheel += new MouseEventHandler(ComboBox_Quitar_MouseWheel);
                         cbDetalleGral.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -2006,7 +2012,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    var datos = cn.CargarDatos($"SELECT * FROM productos WHERE CodigoBarras = {txtCodigoBarras.Text}");
+                    var datos = cn.CargarDatos($"SELECT * FROM productos WHERE CodigoBarras = '{txtCodigoBarras.Text}'");
                     var tieneDescuento = 0;
                     if (Productos.tieneDescMay.Equals(1) || Productos.tieneDescIndiv.Equals(1))
                     {
@@ -2179,6 +2185,11 @@ namespace PuntoDeVentaV2
             if (string.IsNullOrWhiteSpace(txtNombreProducto.Text))
             {
                 MessageBox.Show("Por favor poner Datos Validos\npara el campo de NOMBRE DE PRODUCTO", "Alerta del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (Convert.ToDecimal(txtPrecioCompra.Text)>= Convert.ToDecimal(txtPrecioProducto.Text))
+            {
+                MessageBox.Show("El precio del producto debe ser mayor al precio compra", "Alerta del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
                 contador++;
@@ -4453,6 +4464,12 @@ namespace PuntoDeVentaV2
             {
                 this.Close();
             }
+
+            // Realiza busqueda del codigo de barras en Google
+            if (e.KeyCode == Keys.F8)
+            {
+                EjecutarBusquedaGoogle();
+            }
         }
 
         private void btnMensajeVenta_Click(object sender, EventArgs e)
@@ -4472,7 +4489,7 @@ namespace PuntoDeVentaV2
             }
             MensajeVentasYMensajeInventario mensajes = new MensajeVentasYMensajeInventario();
             nombreProductoEditar = txtNombreProducto.Text;
-            mensajes.ShowDialog();
+            mensajes.ShowDialog(); 
         }
 
         private void txtNombreProducto_TextChanged(object sender, EventArgs e)
@@ -4488,9 +4505,9 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(resultado))
             {
-                if (resultado.Contains("|") || resultado.Contains("+")||resultado.Contains("-"))
+                if (resultado.Contains("|") || resultado.Contains("+")||resultado.Contains("-")|| resultado.Contains("'")|| resultado.Contains("*")|| resultado.Contains("/"))
                 {
-                    var resultadoAuxialiar = Regex.Replace(resultado, @"[+\|\-]", string.Empty);
+                    var resultadoAuxialiar = Regex.Replace(resultado, @"[+\|\-\'\*\/]", string.Empty);
                     resultado = resultadoAuxialiar;
                     txtValidarTexto.Text = resultado;
                     txtValidarTexto.Focus();
@@ -4507,6 +4524,7 @@ namespace PuntoDeVentaV2
         {
             ValidarEntradaDeTextoNumeros(sender, e);
         }
+
         private void ValidarEntradaDeTextoNumeros(object sender, EventArgs e)
         {
             var resultado = string.Empty;
@@ -4559,7 +4577,18 @@ namespace PuntoDeVentaV2
 
         private void txtStockProducto_TextChanged(object sender, EventArgs e)
         {
-            ValidarEntradaDeTextoNumeros(sender, e);
+            validarSoloNumeros(sender, e);
+        }
+
+        private void validarSoloNumeros(object sender, EventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            string texto = txt.Text;
+            bool esNum = decimal.TryParse(texto, out decimal algo);
+            if (esNum.Equals(false))
+            {
+                txt.Text = "";
+            }
         }
 
         private void txtStockMaximo_TextChanged(object sender, EventArgs e)
@@ -4659,6 +4688,7 @@ namespace PuntoDeVentaV2
                     return;
                 }
             }
+            Productos.SeAbrioCopia = false;
         }
 
         public void cargarCodBarExt()
@@ -4783,7 +4813,7 @@ namespace PuntoDeVentaV2
             Titulo.Width = 400;
             Titulo.Height = 20;
             Titulo.Text = "Descripción de productos que contiene:";
-            Titulo.Location = new Point(0, 0);
+            Titulo.Location = new System.Drawing.Point(0, 0);
 
             flowLayoutPanel2.Controls.Add(Titulo);
             flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
@@ -4979,6 +5009,11 @@ namespace PuntoDeVentaV2
             _lastEnteredControl = (Control)sender;
         }
 
+        private void btnBuscarSugerencias_Click(object sender, EventArgs e)
+        {
+            EjecutarBusquedaGoogle();
+        }
+
         public void cargarDatosNvoProd()
         {
             if (DatosSourceFinal == 1)
@@ -4987,6 +5022,17 @@ namespace PuntoDeVentaV2
                 DescuentoNvoProd = DescuentoProdNvo;
                 CantidadNvoProd = CantidadProdNvo;
             }
+        }
+
+        private void txtCodigoBarras_TextChanged(object sender, EventArgs e)
+        {
+            ValidarEntradaDeTexto(sender, e);
+        }
+
+        private void btnConfiguracionPeso_Click(object sender, EventArgs e)
+        {
+            ConfiguracionEditarProducto config = new ConfiguracionEditarProducto();
+            config.ShowDialog();
         }
 
         public void cargarDatos()
@@ -5770,7 +5816,7 @@ namespace PuntoDeVentaV2
                             {
                                 pictureBoxProducto.Image = Image.FromStream(File);      // Cargamos la imagen en el PictureBox
                                 info = new FileInfo(f.FileName);                        // Obtenemos toda la Informacion de la Imagen
-                                fileName = Path.GetFileName(f.FileName);                // Obtenemos el nombre de la imagen
+                                fileName = System.IO.Path.GetFileName(f.FileName);                // Obtenemos el nombre de la imagen
                                 oldDirectory = info.DirectoryName;                      // Obtenemos el directorio origen de la Imagen
                                 File.Dispose();                                         // Liberamos el objeto File
                             }
@@ -10351,6 +10397,7 @@ namespace PuntoDeVentaV2
                 btnDetalleFacturacion.PerformClick();
             }
 
+            ConsultarPaginasRegistradas();
         }
 
         private void llenarListaDatosDinamicos()
@@ -10464,7 +10511,7 @@ namespace PuntoDeVentaV2
             clearSetUpTableLayoutPanel("Producto");
 
             // creamos 6 columnas en el TableLayoutPanel
-            for (int i = 0; i <= 7; i++)
+            for (int i = 0; i <= 8; i++)
             {
                 tLPProducto.ColumnCount++;
                 ///if (i.Equals(2) || i.Equals(5) || i.Equals(8))
@@ -10472,11 +10519,11 @@ namespace PuntoDeVentaV2
                 {
                     tLPProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 135F));
                 }
-                if (i.Equals(1) || i.Equals(3) || i.Equals(5) || i.Equals(6))
+                if (i.Equals(1) || i.Equals(3) || i.Equals(5) || i.Equals(6) || i.Equals(7))
                 {
                     tLPProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 40F));
                 }
-                if (i.Equals(7))
+                if (i.Equals(8))
                 {
                     tLPProducto.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 210F));
                 }
@@ -10657,7 +10704,7 @@ namespace PuntoDeVentaV2
                 tLPProducto.Controls.Add(txtCodigoBarras, 4, 3);      // Código de Barras TextBox
                 tLPProducto.Controls.Add(btnGenerarCB, 5, 3);         // Generar Button
                 tLPProducto.Controls.Add(btnAddCodBar, 6, 3);         // Botón de generar códigos de barra extra
-
+                tLPProducto.Controls.Add(btnBuscarSugerencias, 7, 3);
                 #endregion End Row 4
 
                 // Quinta Fila del TableLayoutPanel
@@ -10679,10 +10726,11 @@ namespace PuntoDeVentaV2
                 panelContenedor.TabIndex = 10;
                 panelContenedor.TabStop = true;
                 tLPProducto.Controls.Add(label5, 0, 4);               // Clave Interna Label
+                //tLPProducto.Controls.Add(btnBuscarSugerencias, 5, 4);
                 //tLPProducto.Controls.Add(label2, 2, 4);               // Código de Barras Label
 
                 tLPProducto.Controls.Add(panelContenedor, 4, 4);
-                tLPProducto.SetColumnSpan(panelContenedor, 3);
+                tLPProducto.SetColumnSpan(panelContenedor, 2);
                 tLPProducto.SetRowSpan(panelContenedor, 2);
                 #endregion End Row 5
             }
@@ -10748,7 +10796,7 @@ namespace PuntoDeVentaV2
 
 
             //.SetColumnSpan(btnGenerarCB, 0);           // Columnas hacia derecha
-            tLPProducto.Controls.Add(PImagen, 7, 0);     // Cuadro para agregar Imagen Panel
+            tLPProducto.Controls.Add(PImagen, 8, 0);     // Cuadro para agregar Imagen Panel
             tLPProducto.SetRowSpan(PImagen, 6);          // Filas hacia abajo (Cantidad de filas que abarcará)
                                                          //tLPProducto.SetColumnSpan(PImagen, 2);     // Columnas hacia derecha
 
@@ -11078,6 +11126,7 @@ namespace PuntoDeVentaV2
                     tLPCombo.Controls.Add(btnAddCodBar, 2, 3);         // Botón de generar códigos de barra extra
                     tLPCombo.Controls.Add(txtCantPaqServ, 0, 3);       // Relacionar con Combo/Servicio TextBox
                     tLPCombo.Controls.Add(lblCantCombServ, 1, 3);      // Label signo de ayuda
+                    tLPCombo.Controls.Add(btnBuscarSugerencias, 2, 4);
 
                     #endregion End Row 4
 
@@ -11539,7 +11588,7 @@ namespace PuntoDeVentaV2
             }
 
             // creamos 6 filas en el TableLayoutPanel
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 7; i++)
             {
                 tLPServicio.RowCount++;
                 tLPServicio.RowStyles.Add(new RowStyle(SizeType.Absolute, 35F));
@@ -11698,6 +11747,7 @@ namespace PuntoDeVentaV2
                     tLPServicio.Controls.Add(btnAddCodBar, 2, 3);         // Botón de generar códigos de barra extra
                     tLPServicio.Controls.Add(txtCantPaqServ, 0, 3);       // Clave Interna TextBox
                     tLPServicio.Controls.Add(lblCantCombServ, 1, 3);      // Label signo de ayuda
+                    tLPServicio.Controls.Add(btnBuscarSugerencias, 2, 4);
 
                     #endregion End Row 4
 
@@ -12608,6 +12658,276 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("Error al agregar los impuestos del producto.\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        private List<string> BusquedaGoogle(string codigoBarras)
+        {
+            List<string> sugerencias = new List<string>();
+            
+            // Datos para la API del buscador de Google
+            string cx = "254f9dbb02cbf4354";
+            string apiKey = "AIzaSyBe41nyFg8-EDReFlAZzcGNUUL5zqMueVU";
+            string url = $"https://www.googleapis.com/customsearch/v1?key={apiKey}&cx={cx}&q={codigoBarras}";
+
+            // Inicia la abusqueda del codigo de barras en Google
+            var request = WebRequest.Create(url);
+
+
+            try
+            {
+                Thread cargando = new Thread(AbrirModal);
+                cargando.Start();
+
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream dataStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(dataStream);
+
+                string responseString = reader.ReadToEnd();
+                dynamic jsonData = JsonConvert.DeserializeObject(responseString);
+
+                var results = new List<Sugerencia>();
+
+                if (jsonData.items != null)
+                {
+                    foreach (var item in jsonData.items)
+                    {
+                        results.Add(new Sugerencia
+                        {
+                            Title = item.title,
+                            Link = item.link,
+                            Snippet = item.snippet
+                        });
+                    }
+
+                    List<string> sourceCodeUsado = new List<string>();
+
+                    foreach (var item in results.ToList())
+                    {
+                        foreach (var pagina in paginasRegistradas)
+                        {
+                            if (item.Link.Contains(pagina.Key))
+                            {
+                                if (!sourceCodeUsado.Contains(pagina.Value))
+                                {
+                                    //Console.WriteLine(item.Link);
+                                    var nombreProducto = ObtenerNombreProducto(item.Link, pagina.Value);
+
+                                    sourceCodeUsado.Add(pagina.Value);
+
+                                    if (!string.IsNullOrWhiteSpace(nombreProducto))
+                                    {
+                                        sugerencias.Add(nombreProducto);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (cargando.IsAlive)
+                {
+                    cargando.Abort();
+                }
+            }
+            catch (ThreadAbortException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return sugerencias;
+        }
+
+        private void AbrirModal()
+        {
+            Cargando formCargando = new Cargando(true);
+            formCargando.ShowDialog();
+        }
+
+
+        private string ObtenerNombreProducto(string pagina, string codigo)
+        {
+            HttpWebRequest webRequest = WebRequest.Create(pagina) as HttpWebRequest;
+            webRequest.Accept = "*/*";
+            webRequest.UserAgent = "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.0.6) Gecko/20060728 Firefox/1.5";
+            webRequest.CookieContainer = new CookieContainer();
+
+            var codigoHtml = string.Empty;
+
+            try
+            {
+                using (var response = webRequest.GetResponse())
+                {
+                    Stream dataStream = response.GetResponseStream();
+                    StreamReader reader = new StreamReader(dataStream);
+                    codigoHtml = reader.ReadToEnd();
+                    reader.Close();
+                    dataStream.Close();
+                }
+            }
+            catch (WebException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
+
+            if (!string.IsNullOrWhiteSpace(codigoHtml))
+            {
+                var resultado = codigoHtml.IndexOf(codigo);
+
+                if (resultado > -1)
+                {
+                    var primeraCadena = codigoHtml.Substring((resultado + codigo.Length));
+                    resultado = primeraCadena.IndexOf("</");
+
+                    if (resultado > -1)
+                    {
+                        var segundaCadena = primeraCadena.Substring(0, resultado);
+
+                        return segundaCadena.Trim();
+                    }
+                }
+            }
+
+            // Regresa cadena vacia en caso de no encontrar nada
+            return string.Empty;
+        }
+
+        private void ObtenerPaginasRegistradas()
+        {
+            if (Registro.ConectadoInternet())
+            {
+                MySqlConnection conexion = new MySqlConnection();
+
+                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+                try
+                {
+                    conexion.Open();
+                    MySqlCommand consultar = conexion.CreateCommand();
+
+                    // Verificamos si el usuario que se quiere registrar ya se encuentra registrado en la base de datos online
+                    consultar.CommandText = $"SELECT * FROM paginas";
+                    MySqlDataReader dr = consultar.ExecuteReader();
+
+                    // Los datos del usuario y el numero de serie coincide
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            var pagina = dr["enlace"].ToString();
+                            var codigo = dr["codigo"].ToString();
+
+                            if (!paginasRegistradas.ContainsKey(pagina))
+                            {
+                                paginasRegistradas.Add(pagina, codigo);
+                            }
+                        }
+                    }
+
+                    // Cerrar conexion de MySQL
+                    dr.Close();
+                    conexion.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void RegistrarCodigoNoEncontrados(string codigo)
+        {
+            if (Registro.ConectadoInternet())
+            {
+                MySqlConnection conexion = new MySqlConnection();
+
+                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+                try
+                {
+                    conexion.Open();
+                    MySqlCommand consultar = conexion.CreateCommand();
+                    MySqlCommand registrar = conexion.CreateCommand();
+
+                    consultar.CommandText = $"SELECT * FROM codigos_buscados WHERE codigo = '{codigo}'";
+                    MySqlDataReader dr = consultar.ExecuteReader();
+
+                    if (!dr.HasRows)
+                    {
+                        dr.Close();
+                        //Consulta de MySQL
+                        registrar.CommandText = $"INSERT INTO codigos_buscados (codigo) VALUES ('{codigo}')";
+                        int resultado = registrar.ExecuteNonQuery();
+                    }
+
+                    //Cerramos la conexion de MySQL
+                    dr.Close();
+                    conexion.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void ConsultarPaginasRegistradas()
+        {
+            var startTimeSpan = TimeSpan.Zero;
+            var periodTimeSpan = TimeSpan.FromMinutes(1);
+
+            var timer = new System.Threading.Timer((resp) =>
+            {
+                ObtenerPaginasRegistradas();
+                Console.WriteLine("se ejecuto");
+            }, null, startTimeSpan, periodTimeSpan);
+        }
+
+        private void EjecutarBusquedaGoogle()
+        {
+            if (Registro.ConectadoInternet())
+            {
+                var codigo = txtCodigoBarras.Text.Trim();
+
+                if (!string.IsNullOrWhiteSpace(codigo))
+                {
+                    // Comprobar si el codigo de barras ya se encuentra registrado
+                    var existeCodigo = mb.BusquedaCodigosBarrasClaveInterna(codigo, especial: true);
+                    var existeCodigoExtra = mb.BuscarCodigoBarrasExtra(codigo);
+
+                    if (existeCodigo.Count() == 0 && existeCodigoExtra.Count() == 0)
+                    {
+                        //7501011123588 codigo de prueba
+                        var sugerencias = BusquedaGoogle(codigo);
+
+                        if (sugerencias.Count > 0)
+                        {
+                            using (SugerenciasGoogle formSugerencias = new SugerenciasGoogle(sugerencias))
+                            {
+                                var resultado = formSugerencias.ShowDialog();
+
+                                if (resultado == DialogResult.OK)
+                                {
+                                    txtNombreProducto.Text = formSugerencias.seleccionada;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            RegistrarCodigoNoEncontrados(codigo);
+                            MessageBox.Show("No se ha encontrado ningún resultado.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show($"El código {codigo} ya se encuentra registrado.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Se requiere conexión a internet para el funcionamiento del atajo F8", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

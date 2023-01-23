@@ -23,7 +23,7 @@ namespace PuntoDeVentaV2
         private DataGridViewCellStyle HighlightStyle;
 
         public static bool noMostrarClave { get; set; }
-       
+        static public bool SeAbrioCopia = false;
 
         string strTag = string.Empty,
                 path = string.Empty,
@@ -253,6 +253,8 @@ namespace PuntoDeVentaV2
         private string extraDetallesValores = string.Empty;
 
         string mensajeParaMostrar = string.Empty;
+
+        public static bool HistorialVenta = false;
 
         // Imagenes para el boton habilitar/deshabilitar productos
         System.Drawing.Image deshabilitarIcon = System.Drawing.Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\trash.png");
@@ -1177,7 +1179,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-
+                    HistorialVenta = true;
                     idProductoHistorialStock = idProducto;
                     using (var historial = new TipoHistorial(idProducto))
                     {
@@ -1194,6 +1196,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
+                    HistorialVenta = false;
                 }
                 else if (e.ColumnIndex == 10)
                 {
@@ -1402,6 +1405,7 @@ namespace PuntoDeVentaV2
                     // Copiar el Producto
                     if (seleccionadoDato == 0)
                     {
+                        SeAbrioCopia = true;
                         copiarMensajesProd = 1;
                         seleccionadoDato = 1;
                         numerofila = e.RowIndex;
@@ -1572,7 +1576,7 @@ namespace PuntoDeVentaV2
 
             if (habilitadosOno.Equals(DialogResult.Yes))
             {
-                checkboxMarcados.Clear();
+                
                 if (contador >= 50)
                 {
                     cargando.Start();
@@ -1773,7 +1777,7 @@ namespace PuntoDeVentaV2
                     actualizar();
                     txtBusqueda.Focus();
                 }
-
+                checkboxMarcados.Clear();
                 //CheckBox master = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
                 //master.Checked = false;
                 //linkLblPaginaActual_Click_1(sender, e);
@@ -2018,6 +2022,7 @@ namespace PuntoDeVentaV2
             filtros.Clear();
 
             reiniciarVariablesDeSistemaPrecio();
+            reiniciarVariablesDeSistemaPrecioCompra();
             reiniciarVariablesDeSistemaStock();
             reiniciarVariablesDeSistemaNoRevision();
             reiniciarVariablesDeSistemaTipo();
@@ -2265,7 +2270,13 @@ namespace PuntoDeVentaV2
                     lista.Add(idProducto, tipoProducto);
                 }
             }
-            
+
+            if (lista.Count.Equals(0))
+            {
+                MessageBox.Show("No tiene ningun producto seleccionado","Aviso del Ssitema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                return;
+            }
+
             if (cbTodos.Checked)
             {
                 productosSeleccionados = checkboxMarcados;
@@ -2987,6 +2998,7 @@ namespace PuntoDeVentaV2
                 //CheckBox headerBox = ((CheckBox)DGVProductos.Controls.Find("checkBoxMaster", true)[0]);
                 //headerBox.Checked = false;
                 ponerTrue = false;
+                contador = 0;
             }
             //checkPaginasCompletas.Clear();
             contarProductosSeleccionados.Clear();
@@ -3156,6 +3168,13 @@ namespace PuntoDeVentaV2
                             }
                         }
                         if (drFiltroProducto["concepto"].ToString().Equals("chkBoxPrecio"))
+                        {
+                            if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
+                            {
+                                setUpVariable.Add(drFiltroProducto["textComboBoxConcepto"].ToString() + drFiltroProducto["textCantidad"].ToString());
+                            }
+                        }
+                        if (drFiltroProducto["concepto"].ToString().Equals("chkBoxPrecioCompra"))
                         {
                             if (drFiltroProducto["checkBoxConcepto"].ToString().Equals("1"))
                             {
@@ -4139,6 +4158,10 @@ namespace PuntoDeVentaV2
             {
                 reiniciarVariablesDeSistemaPrecio();
             }
+            else if (name.Equals("PrecioCompra"))
+            {
+                reiniciarVariablesDeSistemaPrecioCompra();
+            }
             else if (name.Equals("Stock") || name.Equals("StockMinimo") || name.Equals("StockNecesario") || name.Equals("CantidadPedir"))
             {
                 reiniciarVariablesDeSistemaStock();
@@ -4204,6 +4227,7 @@ namespace PuntoDeVentaV2
         public void inicializarVariablesFiltro()
         {
             reiniciarVariablesDeSistemaPrecio();
+            reiniciarVariablesDeSistemaPrecioCompra();
             reiniciarVariablesDeSistemaStock();
             reiniciarVariablesDeSistemaNoRevision();
             reiniciarVariablesDeSistemaTipo();
@@ -4279,6 +4303,13 @@ namespace PuntoDeVentaV2
         private void reiniciarVariablesDeSistemaPrecio()
         {
             string FiltroProducto = "chkBoxPrecio";
+
+            reiniciarFiltroDinamicoTresCampos(FiltroProducto);
+        }
+
+        private void reiniciarVariablesDeSistemaPrecioCompra()
+        {
+            string FiltroProducto = "chkBoxPrecioCompra";
 
             reiniciarFiltroDinamicoTresCampos(FiltroProducto);
         }
@@ -4486,7 +4517,7 @@ namespace PuntoDeVentaV2
 
                 string[] columnasComunes = new string[] {
                     "Stock", "StockMinimo", "StockNecesario",
-                    "Precio", "NumeroRevision", "CantidadPedir"
+                    "Precio", "PrecioCompra", "NumeroRevision", "CantidadPedir"
                 };
 
                 foreach (var filtro in filtros)
@@ -4937,8 +4968,6 @@ namespace PuntoDeVentaV2
                         {
                             MessageBox.Show("Código proporcionado:\n" + codigo + "No esta registrado ó no es valido su formato.", "Código no encontrado", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-
-                        
                     }
                 }
             }
@@ -5002,6 +5031,10 @@ namespace PuntoDeVentaV2
 
                     consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extraQuery}";
                 }
+                if (status == 2 && !consultaFiltro.Equals(""))
+                {
+                    consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{busquedaEnProductos}%' OR CodigoBarras LIKE '%{busquedaEnProductos}')";
+                }
             }
             else
             {
@@ -5019,7 +5052,10 @@ namespace PuntoDeVentaV2
                 {
                     consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID}";
                 }
-               
+                else if (status == 2 && !consultaFiltro.Equals(""))
+                {
+                    consultaFiltro = $"SELECT * FROM Productos AS P WHERE P.IDUsuario = {FormPrincipal.userID} AND (Nombre LIKE '%{busquedaEnProductos}%' OR CodigoBarras LIKE '%{busquedaEnProductos}')";
+                }
             }
 
             Console.WriteLine(consultaFiltro);

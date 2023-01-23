@@ -237,22 +237,26 @@
             // 
             this.txtCantidadCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCantidadCompra.Location = new System.Drawing.Point(477, 87);
+            this.txtCantidadCompra.MaxLength = 9;
             this.txtCantidadCompra.Name = "txtCantidadCompra";
             this.txtCantidadCompra.Size = new System.Drawing.Size(110, 21);
             this.txtCantidadCompra.TabIndex = 3;
             this.txtCantidadCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCantidadCompra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidadCompra_KeyDown);
+            this.txtCantidadCompra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidadCompra_KeyPress);
             // 
             // txtPrecioCompra
             // 
             this.txtPrecioCompra.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPrecioCompra.Location = new System.Drawing.Point(324, 87);
+            this.txtPrecioCompra.MaxLength = 9;
             this.txtPrecioCompra.Name = "txtPrecioCompra";
             this.txtPrecioCompra.Size = new System.Drawing.Size(108, 21);
             this.txtPrecioCompra.TabIndex = 2;
             this.txtPrecioCompra.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPrecioCompra.Enter += new System.EventHandler(this.txtPrecioCompra_Enter);
             this.txtPrecioCompra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrecioCompra_KeyDown);
+            this.txtPrecioCompra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioCompra_KeyPress);
             // 
             // panelAjustar
             // 
@@ -406,6 +410,7 @@
             // 
             this.txtDisminuir.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDisminuir.Location = new System.Drawing.Point(400, 58);
+            this.txtDisminuir.MaxLength = 10;
             this.txtDisminuir.Name = "txtDisminuir";
             this.txtDisminuir.Size = new System.Drawing.Size(125, 21);
             this.txtDisminuir.TabIndex = 1;
@@ -418,6 +423,7 @@
             // 
             this.txtAumentar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAumentar.Location = new System.Drawing.Point(184, 58);
+            this.txtAumentar.MaxLength = 10;
             this.txtAumentar.Name = "txtAumentar";
             this.txtAumentar.Size = new System.Drawing.Size(125, 21);
             this.txtAumentar.TabIndex = 0;
@@ -573,8 +579,8 @@
             this.Controls.Add(this.lbComentarios);
             this.Controls.Add(this.txtComentarios);
             this.Controls.Add(this.lbProduct);
-            this.Controls.Add(this.pnlMensajeOperacionInventario);
             this.Controls.Add(this.panelAjustar);
+            this.Controls.Add(this.pnlMensajeOperacionInventario);
             this.Controls.Add(this.panelComprado);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

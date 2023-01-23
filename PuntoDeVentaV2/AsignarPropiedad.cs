@@ -749,7 +749,7 @@ namespace PuntoDeVentaV2
                     Dispose();
                 }
             }
-            else if (propiedad == "AgregarDescuento")
+            else if (propiedad == "Agregar_Descuento")
             {
                 TextBox tbAgregarDescuento = new TextBox();
                 tbAgregarDescuento.Name = "tb" + propiedad;
@@ -763,7 +763,7 @@ namespace PuntoDeVentaV2
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarMensaje"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarMensaje"));
             }
-            else if (propiedad == "EliminarDescuento")
+            else if (propiedad == "Eliminar_Descuento")
             {
                 //TextBox tbEliminarDescuento = new TextBox();
                 //tbEliminarDescuento.Name = "tb" + propiedad;
@@ -1411,7 +1411,15 @@ namespace PuntoDeVentaV2
                         if (producto.Value == "P")
                         {
                             valores += $"({producto.Key}, {stock}),";
-
+                            using (var DTStockMaximo =  cn.CargarDatos($"SELECT StockNecesario FROM productos WHERE ID = {producto.Key}"))
+                            {
+                                string StockMaximo = DTStockMaximo.Rows[0]["StockNecesario"].ToString();
+                                if (Convert.ToDecimal(stock)>= Convert.ToDecimal(StockMaximo))
+                                {
+                                    MessageBox.Show("El stock minimo no puede superar el Stock maximo","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                                    return;
+                                }
+                            }
                             //cn.EjecutarConsulta(consulta);
                         }
                     }
@@ -1849,12 +1857,12 @@ namespace PuntoDeVentaV2
                     return;
                 }
             }
-            else if (propiedad == "AgregarDescuento")/////////////////////////////////////////////////////////////////AGREGAR DESCUENTO
+            else if (propiedad == "Agregar_Descuento")/////////////////////////////////////////////////////////////////AGREGAR DESCUENTO
             {
                 DialogResult dialogResult = MessageBox.Show("El descuento se aplicara a todo los productos seleccionados\n si uno de estos productos ya contaba con un descuento se remplazara por este nuevo descuento.", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (dialogResult == DialogResult.Yes)
                 {
-                    TextBox txtDescuento = (TextBox)this.Controls.Find("tbAgregarDescuento", true)[0];
+                    TextBox txtDescuento = (TextBox)this.Controls.Find("tbAgregar_Descuento", true)[0];
                     var descuento = txtDescuento.Text;
 
                     foreach (var item in productos)
@@ -1863,7 +1871,7 @@ namespace PuntoDeVentaV2
 
                         var datosProd = cn.CargarDatos($"SELECT * FROM productos WHERE ID = {idprod}");
                         string precioproducto = datosProd.Rows[0]["Precio"].ToString();
-                        TextBox porcentaje = (TextBox)this.Controls.Find("tbAgregarDescuento", true)[0];
+                        TextBox porcentaje = (TextBox)this.Controls.Find("tbAgregar_Descuento", true)[0];
                         var porcentajedescuento = porcentaje.Text;
                         decimal preciodescuento = ((Convert.ToDecimal(precioproducto) * Convert.ToDecimal(porcentajedescuento)) / 100);
                         decimal preciodescuentofinal = Convert.ToDecimal(precioproducto) - preciodescuento;
@@ -1879,7 +1887,12 @@ namespace PuntoDeVentaV2
                         {
                             cn.EjecutarConsulta($"INSERT INTO descuentocliente (PrecioProducto,PorcentajeDescuento,PrecioDescuento,Descuento,IDProducto) VALUES ({precioproducto},{porcentajedescuento},{preciodescuentofinal},{descuentoaplicado},{idprod})");
                         }
+                        cn.EjecutarConsulta($"DELETE FROM DescuentoMayoreo WHERE IDProducto = {idprod}");
+                        cn.EjecutarConsulta($"UPDATE productos SET TieneDescuentoCliente = 1 , TieneDescuentoMayoreo = 0 WHERE ID = {idprod}");
+                        cn.EjecutarConsulta($"UPDATE productos SET TipoDescuento = 1 WHERE ID = {idprod}");
                     }
+                    
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
                 }
                 else if (dialogResult == DialogResult.No)
                 {
@@ -1887,7 +1900,7 @@ namespace PuntoDeVentaV2
                 }
                
             }
-            else if (propiedad == "EliminarDescuento")/////////////////////////////////////////////////////////////////ELIMINAR DESCUENTO
+            else if (propiedad == "Eliminar_Descuento")/////////////////////////////////////////////////////////////////ELIMINAR DESCUENTO
             {
                 DialogResult dialogResult = MessageBox.Show("Se eliminaran los descuentos de todos\n los productos seleccionados.", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (dialogResult == DialogResult.Yes)

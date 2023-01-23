@@ -1099,6 +1099,47 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
+        public string[] BuscarCodigoBarrasExtra2(string codigo,string tipo)
+        {
+            List<string> lista = new List<string>();
+            string[] codigosABuscar;
+
+            if (!string.IsNullOrWhiteSpace(codigo))
+            {
+                codigosABuscar = codigo.Split(' ');
+
+                foreach (var searchCodBar in codigosABuscar)
+                {
+                    if (tipo.Equals("Todos"))
+                    {
+                        DatosConexion($"SELECT * FROM CodigoBarrasExtras WHERE CodigoBarraExtra = '{searchCodBar}'");
+                    }
+                    else
+                    {
+                        DatosConexion($"SELECT CodigoBarraExtra, IDProducto FROM codigobarrasextras AS CBE INNER JOIN productos AS P ON (P.ID = CBE.IDProducto) WHERE CodigoBarraExtra = '{searchCodBar}' AND P.IDUsuario = {FormPrincipal.userID} AND P.Tipo = '{tipo}'");
+                    }
+
+                    MySqlDataReader dr = sql_cmd.ExecuteReader();
+
+                    if (dr.HasRows)
+                    {
+                        while (dr.Read())
+                        {
+                            if (!string.IsNullOrWhiteSpace(dr["IDProducto"].ToString()))
+                            {
+                                lista.Add(dr["IDProducto"].ToString());
+                            }
+                        }
+                    }
+
+                    dr.Close();
+                    CerrarConexion();
+                }
+            }
+
+            return lista.ToArray();
+        }
+
         public string[] BuscarCodigoBarrasExtraFormProductos(string codigo, bool especial = false)
         {
             List<string> lista = new List<string>();
@@ -2085,7 +2126,7 @@ namespace PuntoDeVentaV2
             return datos;
         }
 
-        public Dictionary<int, string> ObtenerConceptosDinamicos(int tipo = 1, string origen = "")
+        public Dictionary<int, string> ObtenerConceptosDinamicos(int tipo = 1, string origen = "", bool reporte = false)
         {
             Dictionary<int, string> lista = new Dictionary<int, string>();
 
@@ -2094,7 +2135,7 @@ namespace PuntoDeVentaV2
             MySqlDataReader dr = sql_cmd.ExecuteReader();
 
 
-            if (tipo == 1)
+            if (tipo == 1 && !reporte)
             {
                 lista.Add(0, "Seleccionar concepto...");
             }
@@ -2183,6 +2224,8 @@ namespace PuntoDeVentaV2
                 var cerrarSesion = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CerrarSesionAuto")));
                 var PermisoCorreoAnticipo = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoAnticipo")));
                 var PermisoCorreoVentaClienteDescuento= Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoVentaClienteDescuento")));
+                var Traspasos = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("traspasos")));
+                var EnvioSaldoInicial = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("EnvioCorreoSaldoIncial")));
                 config.Add(correoPrecio);                   // 0
                 config.Add(correoStock);                    // 1
                 config.Add(correoStockMinimo);              // 2
@@ -2212,6 +2255,8 @@ namespace PuntoDeVentaV2
                 config.Add(cerrarSesion);//26
                 config.Add(PermisoCorreoAnticipo);//27
                 config.Add(PermisoCorreoVentaClienteDescuento); ;//28
+                config.Add(Traspasos); //Hehehe ahi te lo dejo goofy 29
+                config.Add(EnvioSaldoInicial);//30
             }
 
             dr.Close();
@@ -2570,6 +2615,10 @@ namespace PuntoDeVentaV2
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("MensajeInventario"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("PermisoVentaClienteDescuento"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("PermisoVentaClienteDescuentoSinAutorizacion"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Agregar_Descuento"))));//45
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Eliminar_Descuento"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("VentasACredito"))));
+
                 using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
                 {
 

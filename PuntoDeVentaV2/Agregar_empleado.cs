@@ -12,11 +12,11 @@ namespace PuntoDeVentaV2
 {
     public partial class Agregar_empleado : Form
     {
-
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
-
+        public static bool SeCancelor = false;
+        public static bool HizoUnaccion = false;
         private int tipo = 0;
         private int empleado = 0;
 
@@ -25,8 +25,9 @@ namespace PuntoDeVentaV2
         private string password;
         int actualizar_contraseña = 0;
         public static int IDPlantilla = 0;
+        public static string[] datosPermisosSeleccionados;
 
-        string[] datosPermisosSeleccionados;
+        public static string PermisoPrecio = "";
 
         public Agregar_empleado(int tipo = 1, int empleado = 0)
         {
@@ -42,6 +43,7 @@ namespace PuntoDeVentaV2
 
         private void Agregar_empleado_Load(object sender, EventArgs e)
         {
+
             if (tipo == 1)
             {
                 Text = "Agregar empleado";
@@ -58,7 +60,6 @@ namespace PuntoDeVentaV2
             {
                 Text = "Editar empleado";
                 ///lbTitulo.Text = "EDITAR EMPLEADO";
-
                 lbContraseñaParaConfirmar.Visible = false;
                 cmb_bx_permisos.Visible = false;
                 picturebx_editar.Visible = true;
@@ -107,8 +108,17 @@ namespace PuntoDeVentaV2
             {
                 lb_usuario.Visible = true;
                 lb_usuario_completo.Visible = true;
-
-                string n_completo = FormPrincipal.userNickName + "@" + txt_usuario.Text;
+                string n_completo =  string.Empty;
+                if (FormPrincipal.userNickName.Contains('@'))
+                {
+                    var usurio = FormPrincipal.userNickName.Split('@');
+                    n_completo = usurio[0] + "@" + txt_usuario.Text;
+                }
+                else
+                {
+                    n_completo = FormPrincipal.userNickName + "@" + txt_usuario.Text;
+                }
+               
                 lb_usuario_completo.Text = n_completo;
             }
             else
@@ -228,19 +238,28 @@ namespace PuntoDeVentaV2
 
                     if (cmb_bx_permisos.SelectedIndex == 1)
                     {
-                        var DTPlantillaPermisos = cn.CargarDatos($"SELECT Anticipo,Caja,clientes,configuracion,empleado,factura,inventario,misdatos,productos,proveedor,reportes,ventas, bascula,configuracion FROM plantillapermisos WHERE IDUsuario = {FormPrincipal.userID} AND ID = {IDPlantilla}");
-                        string PermisosJusntos = string.Empty;
-                        int contador = 0;
-                        foreach (var item in DTPlantillaPermisos.Rows)
+                        if (!IDPlantilla.Equals(0))
                         {
-                            foreach (var itemxd in DTPlantillaPermisos.Columns)
+                            var DTPlantillaPermisos = cn.CargarDatos($"SELECT Anticipo,Caja,clientes,configuracion,empleado,factura,inventario,misdatos,productos,proveedor,reportes,ventas, bascula,configuracion FROM plantillapermisos WHERE IDUsuario = {FormPrincipal.userID} AND ID = {IDPlantilla}");
+                            string PermisosJusntos = string.Empty;
+                            int contador = 0;
+                            foreach (var item in DTPlantillaPermisos.Rows)
                             {
-                                PermisosJusntos += DTPlantillaPermisos.Rows[0][contador].ToString()+",";
-                                contador++;
+                                foreach (var itemxd in DTPlantillaPermisos.Columns)
+                                {
+                                    PermisosJusntos += DTPlantillaPermisos.Rows[0][contador].ToString() + ",";
+                                    contador++;
+                                }
                             }
+                            string[] listapermisos = PermisosJusntos.Split(',');
+                            cn.EjecutarConsulta($"UPDATE empleados SET IDUsuario = {FormPrincipal.userID},p_anticipo ={listapermisos[0]}, p_caja ={listapermisos[1]}, p_cliente = {listapermisos[2]}, p_config ={listapermisos[3]}, p_empleado = {listapermisos[4]}, p_factura = {listapermisos[5]}, p_inventario = {listapermisos[6]}, p_mdatos = {listapermisos[7]}, p_producto = {listapermisos[8]}, p_proveedor ={listapermisos[9]}, p_reporte= {listapermisos[10]}, p_venta = {listapermisos[11]}, Bascula = {listapermisos[12]}, ConsultaPrecio = {listapermisos[13]} WHERE IDUsuario = {FormPrincipal.userID} AND ID = {id_empleado}");
                         }
-                        string[] listapermisos = PermisosJusntos.Split(',');
-                        cn.EjecutarConsulta($"UPDATE empleados SET IDUsuario = {FormPrincipal.userID},p_anticipo ={listapermisos[0]}, p_caja ={listapermisos[1]}, p_cliente = {listapermisos[2]}, p_config ={listapermisos[3]}, p_empleado = {listapermisos[4]}, p_factura = {listapermisos[5]}, p_inventario = {listapermisos[6]}, p_mdatos = {listapermisos[7]}, p_producto = {listapermisos[8]}, p_proveedor ={listapermisos[9]}, p_reporte= {listapermisos[10]}, p_venta = {listapermisos[11]}, Bascula = {listapermisos[12]}, ConsultaPrecio = {listapermisos[13]} WHERE IDUsuario = {FormPrincipal.userID} AND ID = {id_empleado}");
+                        else
+                        {
+                            string[] listapermisos = datosPermisosSeleccionados;
+                            cn.EjecutarConsulta($"UPDATE empleados SET IDUsuario = {FormPrincipal.userID},p_anticipo ={listapermisos[2]}, p_caja ={listapermisos[3]}, p_cliente = {listapermisos[4]}, p_config ={listapermisos[5]}, p_empleado = {listapermisos[6]}, p_factura = {listapermisos[8]}, p_inventario = {listapermisos[9]}, p_mdatos = {listapermisos[10]}, p_producto = {listapermisos[11]}, p_proveedor ={listapermisos[12]}, p_reporte= {listapermisos[13]}, p_venta = {listapermisos[14]}, Bascula = {listapermisos[12]}, ConsultaPrecio = {listapermisos[16]} WHERE IDUsuario = {FormPrincipal.userID} AND ID = {id_empleado}");
+                        }
+                        
                     }
                     
                     btn_aceptar.Enabled = true;
@@ -407,6 +426,15 @@ namespace PuntoDeVentaV2
             foreach (var seccion in secciones)
             {
                 cn.EjecutarConsulta($"INSERT INTO EmpleadosPermisos (IDEmpleado, IDUsuario, Seccion) VALUES ('{id_e}', '{FormPrincipal.userID}', '{seccion}')");
+                if (string.IsNullOrWhiteSpace(PermisoPrecio))
+                {
+                    cn.EjecutarConsulta($"UPDATE empleadospermisos SET Precio = '1' WHERE IDEmpleado = '{id_e}' AND IDUsuario = '{FormPrincipal.userID}'");
+                }
+                else
+                {
+                    cn.EjecutarConsulta($"UPDATE empleadospermisos SET Precio = '{PermisoPrecio}' WHERE IDEmpleado = '{id_e}' AND IDUsuario = '{FormPrincipal.userID}'");
+                }
+                
             }
         }
 
@@ -476,13 +504,41 @@ namespace PuntoDeVentaV2
         {
             if (cmb_bx_permisos.SelectedIndex == 1)
             {
+                HizoUnaccion = false;
                 Agregar_empleado_permisos AEP = new Agregar_empleado_permisos(0);
                 AEP.ShowDialog();
-                if (IDPlantilla.Equals(0))
+                if (HizoUnaccion.Equals(true))
                 {
-                    cmb_bx_permisos.SelectedIndex = 0;
+                    if (SeCancelor.Equals(true))
+                    {
+                        SeCancelor = false;
+                        cmb_bx_permisos.SelectedIndex = 0;
+                        return;
+                    }
+                    if (IDPlantilla.Equals(0) && !tipo.Equals(1))
+                    {
+                        cmb_bx_permisos.SelectedIndex = 0;
+                    }
+                    HizoUnaccion = false;
                 }
+                else
+                {
+                    SeCancelor = false;
+                    cmb_bx_permisos.SelectedIndex = 0;
+                    return;
+                }
+              
             }
+        }
+
+        private void txt_usuario_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lbConfrimarContraseña_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

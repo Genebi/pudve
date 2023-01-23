@@ -62,7 +62,15 @@ namespace PuntoDeVentaV2
             //Se crea el directorio para almacenar los tickets y otros archivos relacionados con ventas
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Anticipos\Tickets");
             DateTime date = DateTime.Now;
-            DateTime PrimerDia = new DateTime(date.Year, date.Month-1, 1);
+            DateTime PrimerDia;
+            if (!date.Month.Equals(1))
+            {
+                PrimerDia = new DateTime(date.Year, date.Month - 1, 1);
+            }
+            else
+            {
+                PrimerDia = new DateTime(date.Year-1, date.Month + 11, 1);
+            }
             dpFechaInicial.Value = PrimerDia;
             dpFechaFinal.Value = DateTime.Now;
             cbAnticipos.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -132,7 +140,7 @@ namespace PuntoDeVentaV2
                 //var emp = consultaBuscarEmpledo(txtBuscarAnticipo.Text);
                 //var client = consultaBuscarCliente(); 
 
-                consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND `Status` = {estado} AND (Concepto LIKE '%{txtBuscarAnticipo.Text}%' OR Cliente LIKE '%{txtBuscarAnticipo.Text}%')AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'"; //AND Status != 4
+                consulta = $"SELECT * FROM Anticipos WHERE IDUsuario = {FormPrincipal.userID} AND `Status` = {estado} AND (Concepto LIKE '%{txtBuscarAnticipo.Text}%' OR Cliente LIKE '%{txtBuscarAnticipo.Text}%'  OR ID LIKE '%{txtBuscarAnticipo.Text}%')AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}'"; //AND Status != 4
 
                 conBusqueda = true;
             }
@@ -592,7 +600,7 @@ namespace PuntoDeVentaV2
                 Utilidades.MensajePermiso();
                 return;
             }
-
+            clickBoton = 0;
             var status = cbAnticipos.SelectedIndex;
 
             CargarDatos(status + 1);

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.gbContenedor = new System.Windows.Forms.GroupBox();
+            this.txtComentario = new System.Windows.Forms.TextBox();
             this.chkBoxDepositoSaldoInicial = new System.Windows.Forms.CheckBox();
             this.btnRetirarTodoElDinero = new System.Windows.Forms.Button();
             this.cbConceptoConBusqueda = new CustomControlPUDVE.ComboBoxPUDVE();
@@ -55,6 +56,7 @@
             // 
             // gbContenedor
             // 
+            this.gbContenedor.Controls.Add(this.txtComentario);
             this.gbContenedor.Controls.Add(this.chkBoxDepositoSaldoInicial);
             this.gbContenedor.Controls.Add(this.btnRetirarTodoElDinero);
             this.gbContenedor.Controls.Add(this.cbConceptoConBusqueda);
@@ -77,15 +79,27 @@
             this.gbContenedor.Controls.Add(this.lbTitulo);
             this.gbContenedor.Location = new System.Drawing.Point(12, 4);
             this.gbContenedor.Name = "gbContenedor";
-            this.gbContenedor.Size = new System.Drawing.Size(410, 315);
+            this.gbContenedor.Size = new System.Drawing.Size(410, 321);
             this.gbContenedor.TabIndex = 0;
             this.gbContenedor.TabStop = false;
+            // 
+            // txtComentario
+            // 
+            this.txtComentario.Location = new System.Drawing.Point(56, 255);
+            this.txtComentario.Name = "txtComentario";
+            this.txtComentario.Size = new System.Drawing.Size(326, 20);
+            this.txtComentario.TabIndex = 222;
+            this.txtComentario.Text = "COMENTARIOS";
+            this.txtComentario.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtComentario.MouseClick += new System.Windows.Forms.MouseEventHandler(this.txtComentario_MouseClick);
+            this.txtComentario.TextChanged += new System.EventHandler(this.txtComentario_TextChanged);
+            this.txtComentario.Enter += new System.EventHandler(this.txtComentario_Enter);
             // 
             // chkBoxDepositoSaldoInicial
             // 
             this.chkBoxDepositoSaldoInicial.AutoSize = true;
-            this.chkBoxDepositoSaldoInicial.Location = new System.Drawing.Point(126, 166);
-            this.chkBoxDepositoSaldoInicial.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkBoxDepositoSaldoInicial.Location = new System.Drawing.Point(125, 166);
+            this.chkBoxDepositoSaldoInicial.Margin = new System.Windows.Forms.Padding(2);
             this.chkBoxDepositoSaldoInicial.Name = "chkBoxDepositoSaldoInicial";
             this.chkBoxDepositoSaldoInicial.Size = new System.Drawing.Size(167, 17);
             this.chkBoxDepositoSaldoInicial.TabIndex = 221;
@@ -126,7 +140,7 @@
             this.btnAgregarConcepto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarConcepto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarConcepto.ForeColor = System.Drawing.Color.White;
-            this.btnAgregarConcepto.Image = global::PuntoDeVentaV2.Properties.Resources.plus_square;
+            this.btnAgregarConcepto.Image = global::PuntoDeVentaV2.Properties.Resources.search;
             this.btnAgregarConcepto.Location = new System.Drawing.Point(355, 225);
             this.btnAgregarConcepto.Name = "btnAgregarConcepto";
             this.btnAgregarConcepto.Size = new System.Drawing.Size(28, 25);
@@ -201,6 +215,7 @@
             this.txtVales.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtVales.Location = new System.Drawing.Point(71, 113);
             this.txtVales.Name = "txtVales";
+            this.txtVales.ShortcutsEnabled = false;
             this.txtVales.Size = new System.Drawing.Size(103, 23);
             this.txtVales.TabIndex = 3;
             this.txtVales.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -214,6 +229,7 @@
             this.txtTarjeta.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTarjeta.Location = new System.Drawing.Point(71, 78);
             this.txtTarjeta.Name = "txtTarjeta";
+            this.txtTarjeta.ShortcutsEnabled = false;
             this.txtTarjeta.Size = new System.Drawing.Size(103, 23);
             this.txtTarjeta.TabIndex = 2;
             this.txtTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -227,6 +243,7 @@
             this.txtEfectivo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEfectivo.Location = new System.Drawing.Point(71, 42);
             this.txtEfectivo.Name = "txtEfectivo";
+            this.txtEfectivo.ShortcutsEnabled = false;
             this.txtEfectivo.Size = new System.Drawing.Size(103, 23);
             this.txtEfectivo.TabIndex = 1;
             this.txtEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -241,6 +258,7 @@
             this.txtCredito.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCredito.Location = new System.Drawing.Point(297, 113);
             this.txtCredito.Name = "txtCredito";
+            this.txtCredito.ShortcutsEnabled = false;
             this.txtCredito.Size = new System.Drawing.Size(103, 23);
             this.txtCredito.TabIndex = 6;
             this.txtCredito.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -254,6 +272,7 @@
             this.txtTrans.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtTrans.Location = new System.Drawing.Point(297, 78);
             this.txtTrans.Name = "txtTrans";
+            this.txtTrans.ShortcutsEnabled = false;
             this.txtTrans.Size = new System.Drawing.Size(103, 23);
             this.txtTrans.TabIndex = 5;
             this.txtTrans.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -266,7 +285,7 @@
             // 
             this.lbSubtitulo.AutoSize = true;
             this.lbSubtitulo.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSubtitulo.Location = new System.Drawing.Point(135, 198);
+            this.lbSubtitulo.Location = new System.Drawing.Point(127, 198);
             this.lbSubtitulo.Name = "lbSubtitulo";
             this.lbSubtitulo.Size = new System.Drawing.Size(160, 17);
             this.lbSubtitulo.TabIndex = 210;
@@ -280,7 +299,7 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.btnCancelar.Location = new System.Drawing.Point(56, 273);
+            this.btnCancelar.Location = new System.Drawing.Point(56, 287);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(160, 24);
             this.btnCancelar.TabIndex = 9;
@@ -296,7 +315,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(222, 273);
+            this.btnAceptar.Location = new System.Drawing.Point(222, 287);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(160, 24);
             this.btnAceptar.TabIndex = 8;
@@ -309,6 +328,7 @@
             this.txtCheque.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCheque.Location = new System.Drawing.Point(297, 41);
             this.txtCheque.Name = "txtCheque";
+            this.txtCheque.ShortcutsEnabled = false;
             this.txtCheque.Size = new System.Drawing.Size(103, 23);
             this.txtCheque.TabIndex = 4;
             this.txtCheque.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -343,7 +363,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(434, 331);
+            this.ClientSize = new System.Drawing.Size(434, 337);
             this.Controls.Add(this.gbContenedor);
             this.Controls.Add(this.cbConceptos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -385,5 +405,6 @@
         private CustomControlPUDVE.ComboBoxPUDVE cbConceptoConBusqueda;
         private System.Windows.Forms.Button btnRetirarTodoElDinero;
         private System.Windows.Forms.CheckBox chkBoxDepositoSaldoInicial;
+        private System.Windows.Forms.TextBox txtComentario;
     }
 }

@@ -16,6 +16,7 @@ namespace PuntoDeVentaV2
         public static decimal nuevaCantidad;
         public static int nuevaCantidadCambio = 0;
         decimal cantidadAnterior = 0;
+        Conexion cn = new Conexion();
         public cantidadComprada()
         {
             InitializeComponent();
@@ -33,7 +34,10 @@ namespace PuntoDeVentaV2
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             txtCantidad.Text = cantidadAnterior.ToString();
-            btnAceptar.PerformClick();
+            Ventas.SeCambioCantidad = true;
+            nuevaCantidad = Convert.ToDecimal(txtCantidad.Text);
+            nuevaCantidadCambio = 1;
+            this.Close();
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -43,6 +47,7 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Favor de ingresar un valor");
                 return;
             }
+            Ventas.SeCambioCantidad = true;
             nuevaCantidad = Convert.ToDecimal(txtCantidad.Text);
             nuevaCantidadCambio = 1;
             this.Close();
@@ -60,37 +65,30 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void txtCantidad_TextChanged(object sender, EventArgs e)
-        {
-            validarSoloNumeros(sender, e);
-        }
-        private void validarSoloNumeros(object sender, EventArgs e)
-        {
-            TextBox txt = (TextBox)sender;
-            string texto = txt.Text;
-            bool esNum = decimal.TryParse(texto, out decimal algo);
-            if (esNum.Equals(false))
-            {
-                txt.Text = "";
-            }
-        }
-
-        private void cantidadComprada_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Alt && e.KeyCode == Keys.F4)
-            {
-                e.Handled = true;
-            }
-        }
-
         private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back))
+            var dato = cn.CargarDatos($"SELECT FormatoDeVenta FROM productos WHERE CodigoBarras = '{Ventas.codBarras}' AND IDUSuario = '{FormPrincipal.userID}' AND Status = '1'");
+            var estado = dato.Rows[0]["FormatoDeVenta"].ToString();
 
+            if (estado == "1")
+            {
+                if (!(char.IsNumber(e.KeyChar)) && (e.KeyChar != (char)Keys.Back) || (e.KeyChar == '.'))
+                {
+                    MessageBox.Show("Este producto se vende solo por unidades enteras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    e.Handled = true;
+                    return;
+                }
+            }
+           
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
             {
                 e.Handled = true;
+            }
 
-                return;
+            // solo 1 punto decimal
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
             }
         }
     }

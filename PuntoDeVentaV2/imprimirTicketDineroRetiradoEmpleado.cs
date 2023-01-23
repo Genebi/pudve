@@ -70,6 +70,18 @@ namespace PuntoDeVentaV2
 
             dineroRetiradoDA.Fill(dineroRetiradoDT);
 
+            ReportParameterCollection reportParameters = new ReportParameterCollection();
+            string comentario;
+            if (AgregarRetirarDinero.Comentario.Equals("COMENTARIOS"))
+            {
+                comentario = "";
+            }
+            else
+            {
+                comentario = AgregarRetirarDinero.Comentario;
+            }
+            reportParameters.Add(new ReportParameter("Comentario", comentario));
+
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             this.reportViewer1.LocalReport.DataSources.Clear();
@@ -80,10 +92,11 @@ namespace PuntoDeVentaV2
             this.reportViewer1.LocalReport.DataSources.Add(rp);
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
             this.reportViewer1.RefreshReport();
-
+            this.reportViewer1.LocalReport.SetParameters(reportParameters);
             LocalReport rdlc = new LocalReport();
             rdlc.ReportPath = FullReportPath;
             rdlc.DataSources.Add(rp);
+            rdlc.SetParameters(reportParameters);
             #endregion
 
             EnviarImprimir imp = new EnviarImprimir();

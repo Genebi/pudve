@@ -94,9 +94,11 @@ namespace PuntoDeVentaV2
                         if (!string.IsNullOrWhiteSpace(servidor))
                         {
                             // direccion de la carpeta donde se va poner las imagenes
-                            pathLogoImage = new Uri($"C:/Archivos PUDVE/MisDatos/Usuarios/").AbsoluteUri;
+                            pathLogoImage = new Uri($@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\").AbsoluteUri;
                             // ruta donde estan guardados los archivos digitales
                             ruta_archivos_guadados = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_{Logo}\";
+
+                            DireccionLogo = pathLogoImage + Logo;
                         }
                         else
                         {
@@ -132,30 +134,48 @@ namespace PuntoDeVentaV2
                 DireccionLogo = "";
                 reportParameters.Add(new ReportParameter("Logo", DireccionLogo));
             }
-            string StatusVenta;
-            using (DataTable ConsultaEstatus = cn.CargarDatos($"SELECT `Status` FROM ventas WHERE ID = {IDVenta}"))
+            string StatusVenta = string.Empty;
+            using (DataTable ConsultaEstatus = cn.CargarDatos($"SELECT Efectivo,Tarjeta,Vales,Cheque,Transferencia,Credito FROM detallesventa where IDVenta = {IDVenta}"))
             {
-                string Status = ConsultaEstatus.Rows[0]["Status"].ToString();
-                if (Status.Equals("1"))
+                foreach (var item in ConsultaEstatus.Columns)
                 {
-                    StatusVenta = "Venta Pagada";
+                    string TipoVenta = item.ToString();
+
+                    if (Convert.ToDecimal(ConsultaEstatus.Rows[0][TipoVenta])>0)
+                    {
+                        StatusVenta += TipoVenta + ",";
+                    }
                 }
-                else if (Status.Equals("2"))
+                if (StatusVenta.Equals(""))
                 {
-                    StatusVenta = "Presupuesto";
-                }
-                else if (Status.Equals("3"))
-                {
-                    StatusVenta = "Venta Cancelada";
-                }
-                else if (Status.Equals("5"))
-                {
-                    StatusVenta = "Venta Global";
+                    StatusVenta = "Anticipo";
                 }
                 else
                 {
-                    StatusVenta = "Venta a Crédito";
+                    StatusVenta = StatusVenta.TrimEnd(',');
                 }
+               
+                //string Status = ConsultaEstatus.Rows[0]["Status"].ToString();
+                //if (Status.Equals("1"))
+                //{
+                //    StatusVenta = "Venta Pagada";
+                //}
+                //else if (Status.Equals("2"))
+                //{
+                //    StatusVenta = "Presupuesto";
+                //}
+                //else if (Status.Equals("3"))
+                //{
+                //    StatusVenta = "Venta Cancelada";
+                //}
+                //else if (Status.Equals("5"))
+                //{
+                //    StatusVenta = "Venta Global";
+                //}
+                //else
+                //{
+                //    StatusVenta = "Venta a Crédito";
+                //}
             }
             reportParameters.Add(new ReportParameter("StatusVenta", StatusVenta));
 
@@ -232,9 +252,11 @@ namespace PuntoDeVentaV2
                         if (!string.IsNullOrWhiteSpace(servidor))
                         {
                             // direccion de la carpeta donde se va poner las imagenes
-                            pathLogoImage = new Uri($"C:/Archivos PUDVE/MisDatos/Usuarios/").AbsoluteUri;
+                            pathLogoImage = new Uri($@"\\{servidor}\Archivos PUDVE\MisDatos\Usuarios\").AbsoluteUri;
                             // ruta donde estan guardados los archivos digitales
                             ruta_archivos_guadados = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_{Logo}\";
+
+                            DireccionLogo = pathLogoImage + Logo;
                         }
                         else
                         {
