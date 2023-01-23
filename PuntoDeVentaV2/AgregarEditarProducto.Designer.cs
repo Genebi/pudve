@@ -839,12 +839,16 @@ namespace PuntoDeVentaV2
             this.btnConfiguracionPeso.FlatAppearance.BorderSize = 0;
             this.btnConfiguracionPeso.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfiguracionPeso.ForeColor = System.Drawing.Color.White;
+
             this.btnConfiguracionPeso.Image = global::PuntoDeVentaV2.Properties.Resources.cogs1;
+
+            this.btnConfiguracionPeso.Image = global::PuntoDeVentaV2.Properties.Resources.cog1;
             this.btnConfiguracionPeso.Location = new System.Drawing.Point(723, 5);
             this.btnConfiguracionPeso.Name = "btnConfiguracionPeso";
             this.btnConfiguracionPeso.Size = new System.Drawing.Size(109, 71);
             this.btnConfiguracionPeso.TabIndex = 22;
             this.btnConfiguracionPeso.Text = "Configuracion";
+            this.btnConfiguracionPeso.Text = "Peso Automatico";
             this.btnConfiguracionPeso.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnConfiguracionPeso.TextColor = System.Drawing.Color.White;
             this.btnConfiguracionPeso.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
@@ -1014,6 +1018,7 @@ namespace PuntoDeVentaV2
             this.fLPType.Location = new System.Drawing.Point(0, 0);
             this.fLPType.Name = "fLPType";
             this.fLPType.Size = new System.Drawing.Size(1284, 29);
+            this.fLPType.Size = new System.Drawing.Size(1267, 29);
             this.fLPType.TabIndex = 35;
             // 
             // fLPDetalleProducto
@@ -1024,6 +1029,7 @@ namespace PuntoDeVentaV2
             this.fLPDetalleProducto.Location = new System.Drawing.Point(0, 29);
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
             this.fLPDetalleProducto.Size = new System.Drawing.Size(1284, 66);
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(1267, 66);
             this.fLPDetalleProducto.TabIndex = 36;
             this.fLPDetalleProducto.Paint += new System.Windows.Forms.PaintEventHandler(this.fLPDetalleProducto_Paint);
             // 
@@ -1046,6 +1052,7 @@ namespace PuntoDeVentaV2
             this.fLPDetalle.Location = new System.Drawing.Point(0, 95);
             this.fLPDetalle.Name = "fLPDetalle";
             this.fLPDetalle.Size = new System.Drawing.Size(1284, 210);
+            this.fLPDetalle.Size = new System.Drawing.Size(1267, 210);
             this.fLPDetalle.TabIndex = 38;
             // 
             // fLPAccion
@@ -1066,6 +1073,7 @@ namespace PuntoDeVentaV2
             this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 305);
             this.fLPDetallesProducto.Name = "fLPDetallesProducto";
             this.fLPDetallesProducto.Size = new System.Drawing.Size(1284, 270);
+            this.fLPDetallesProducto.Size = new System.Drawing.Size(1267, 270);
             this.fLPDetallesProducto.TabIndex = 39;
             // 
             // groupBox2

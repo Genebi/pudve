@@ -971,7 +971,7 @@ namespace PuntoDeVentaV2
                 var minimo = Convert.ToInt32(DGVProductos.Rows[e.RowIndex].Cells[24].Value.ToString());
                 var maximo = Convert.ToInt32(DGVProductos.Rows[e.RowIndex].Cells[25].Value.ToString());
                 
-                if (Tipo.Equals("P"))
+                if (Tipo.Equals("P") || Tipo.Equals("VR"))
                 {
                     var stock = Convert.ToDecimal(DGVProductos.Rows[e.RowIndex].Cells[2].Value.ToString());
 
@@ -5010,7 +5010,7 @@ namespace PuntoDeVentaV2
             else
             {
                 // Consulta final despues de aplicador filtros, condiciones, etc
-                consultaFiltro += extraProveedor + extraDetalles + $"WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extra}" + extraProductos;
+                consultaFiltro += extraProveedor + extraDetalles + $"WHERE Tipo != 'VR' AND P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extra}" + extraProductos;
                 filtroConSinFiltroAvanzado = clickBoton == 1 ? auxiliarConsulta : consultaFiltro;
             }
 
@@ -5205,7 +5205,7 @@ namespace PuntoDeVentaV2
 
                 row.Cells["Column1"].Value = filaDatos["Nombre"].ToString();
 
-                if (TipoProd == "P")
+                if (TipoProd == "P" || TipoProd == "VR")
                 {
                     //var minimoTest = filaDatos["StockMinimo"].ToString();
                     //var stockTest = filaDatos["Stock"].ToString();
@@ -5308,7 +5308,7 @@ namespace PuntoDeVentaV2
 
 
 
-                if (TipoProd == "P")
+                if (TipoProd == "P" || TipoProd == "VR")
                 {
                     row.Cells["Column16"].Value = product;
                     row.Cells["Ajustar"].Value = ajustar;

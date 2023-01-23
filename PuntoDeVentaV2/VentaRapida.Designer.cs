@@ -49,9 +49,10 @@ namespace PuntoDeVentaV2
             this.btnAceptar.Location = new System.Drawing.Point(278, 121);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(156, 31);
-            this.btnAceptar.TabIndex = 63;
+            this.btnAceptar.TabIndex = 64;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = false;
+            this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
             // btnCancelar
             // 
@@ -65,13 +66,14 @@ namespace PuntoDeVentaV2
             this.btnCancelar.Location = new System.Drawing.Point(94, 121);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(156, 31);
-            this.btnCancelar.TabIndex = 64;
+            this.btnCancelar.TabIndex = 65;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // txtNombreProd
             // 
+            this.txtNombreProd.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtNombreProd.Location = new System.Drawing.Point(12, 33);
             this.txtNombreProd.Name = "txtNombreProd";
             this.txtNombreProd.ShortcutsEnabled = false;
@@ -108,7 +110,7 @@ namespace PuntoDeVentaV2
             this.txtPrecioVenta.Name = "txtPrecioVenta";
             this.txtPrecioVenta.ShortcutsEnabled = false;
             this.txtPrecioVenta.Size = new System.Drawing.Size(141, 20);
-            this.txtPrecioVenta.TabIndex = 66;
+            this.txtPrecioVenta.TabIndex = 63;
             this.txtPrecioVenta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPrecioVenta.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrecioVenta_KeyDown);
             this.txtPrecioVenta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioVenta_KeyPress);
@@ -127,6 +129,7 @@ namespace PuntoDeVentaV2
             this.Name = "VentaRapida";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VentaRapida";
+            this.Load += new System.EventHandler(this.VentaRapida_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

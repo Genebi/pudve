@@ -3783,7 +3783,7 @@ namespace PuntoDeVentaV2
                                                     datos = item.Split('|');
                                                     string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                                                     datos[0] = fech.Trim();
-                                                    string[] nuevosDatos = { datos[0], datos[1], datos[3], datos[4], "0" };
+                                                    string[] nuevosDatos = { datos[0], datos[1], datos[3], datos[4], datos[5] };
                                                     cn.EjecutarConsulta(cs.insertarProductosServicios(nuevosDatos)); //Cuando se agrega un servicio al Producto---------------
                                                 }
                                                 using (DataTable dtProductosDeServicios = cn.CargarDatos(cs.ObtenerProductosServPaq(datos[1].ToString())))
@@ -9755,6 +9755,19 @@ namespace PuntoDeVentaV2
                             //prodSerPaq += row["Nombre"].ToString() + "|";
                             prodSerPaq += row["ID"].ToString() + "|";
                             prodSerPaq += row["Nombre"].ToString() + "|";
+                            decimal cantidad = 0;
+                            int secancelo = 0;
+                            AsignarCantidadProdACombo FormCantidad = new AsignarCantidadProdACombo();
+                            FormCantidad.FormClosing += delegate
+                            {
+                                cantidad = FormCantidad.cantidadDeProducto;
+                                secancelo = FormCantidad.cancelar;
+                            };
+                            FormCantidad.ShowDialog();
+                            if (secancelo == 1)
+                            {
+                                return;
+                            }
                             using (DataTable dtIdEditarProducto = cn.CargarDatos(cs.obtenerNombreDelProducto(idEditarProducto)))
                             {
                                 if (!dtIdEditarProducto.Rows.Count.Equals(0))
@@ -9763,6 +9776,8 @@ namespace PuntoDeVentaV2
                                     {
                                         prodSerPaq += item["ID"].ToString() + "|";
                                         prodSerPaq += item["Nombre"].ToString() + "|";
+                                        prodSerPaq += cantidad.ToString("0.00") + "|";
+                                   
                                     }
                                 }
                             }
