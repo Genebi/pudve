@@ -4938,7 +4938,7 @@ namespace PuntoDeVentaV2
         public string obtener_regimen_fiscal(string tipo)
         {
             var cons = "";
-
+             
             if(tipo == "F")
             {
                 cons = $"SELECT * FROM RegimenFiscal WHERE AplicaFisica='Sí'";
