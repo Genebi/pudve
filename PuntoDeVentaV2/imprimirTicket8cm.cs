@@ -110,9 +110,20 @@ namespace PuntoDeVentaV2
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             this.reportViewer1.LocalReport.DataSources.Clear();
-
-           
-
+            decimal cantidadDesceunto = 0;
+            int TieneDescuento = 1;
+            foreach (DataRow dataRow in ventaDT.Rows)
+            {
+                string moneda1 = FormPrincipal.Moneda;
+                var moneda2 = moneda1.Split('(');
+                moneda2[1] = moneda2[1].Replace(")", "");
+                var canditda = dataRow["ProductoDescuento"].ToString().Split(Convert.ToChar(moneda2[1]));
+                cantidadDesceunto += Convert.ToDecimal(canditda[1]);
+            }
+            if (cantidadDesceunto == 0)
+            {
+                TieneDescuento = 0;
+            }
             #region Impresion Ticket de 80 mm
             ReportDataSource rp = new ReportDataSource("TicketVenta", ventaDT);
 
@@ -123,6 +134,7 @@ namespace PuntoDeVentaV2
             ReportParameterCollection reportParameters = new ReportParameterCollection();
             string path = string.Empty;
             reportParameters.Add(new ReportParameter("Usuario", FormPrincipal.userNickName.ToString()));
+            reportParameters.Add(new ReportParameter("TieneDescuento", TieneDescuento.ToString()));
             string pathBarCode = $@"C:\Archivos PUDVE\Ventas\Tickets\BarCode\";
 
             var servidor = Properties.Settings.Default.Hosting;

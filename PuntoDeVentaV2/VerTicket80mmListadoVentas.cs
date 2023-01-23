@@ -108,6 +108,21 @@ namespace PuntoDeVentaV2
 
             ventaDA.Fill(ventaDT);
 
+            decimal cantidadDesceunto = 0;
+            int TieneDescuento = 1;
+            foreach (DataRow dataRow in ventaDT.Rows)
+            {
+                string moneda1 = FormPrincipal.Moneda;
+                var moneda2 = moneda1.Split('(');
+                moneda2[1] = moneda2[1].Replace(")", "");
+                var canditda = dataRow["ProductoDescuento"].ToString().Split(Convert.ToChar(moneda2[1]));
+                cantidadDesceunto += Convert.ToDecimal(canditda[1]);
+            }
+            if (cantidadDesceunto == 0)
+            {
+                TieneDescuento = 0;
+            }
+
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             this.reportViewer1.LocalReport.DataSources.Clear();
@@ -120,6 +135,7 @@ namespace PuntoDeVentaV2
             this.reportViewer1.LocalReport.EnableExternalImages = true;
 
             ReportParameterCollection reportParameters = new ReportParameterCollection();
+            reportParameters.Add(new ReportParameter("TieneDescuento", TieneDescuento.ToString()));
             string UsuarioRealizoVenta = string.Empty;
 
             using (var DTUsuario = cn.CargarDatos($"SELECT VEN.IDEmpleado, EMP.usuario FROM VENTAS AS VEN INNER JOIN empleados AS EMP ON( EMP.ID = VEN.IDEmpleado) WHERE VEN.ID = {idVentaRealizada} AND VEN.IDUsuario = {FormPrincipal.userID}"))
@@ -329,13 +345,27 @@ namespace PuntoDeVentaV2
             DataTable ventaDT = new DataTable();
 
             ventaDA.Fill(ventaDT);
-
+            decimal cantidadDesceunto = 0;
+            int TieneDescuento = 1;
+            foreach (DataRow dataRow in ventaDT.Rows)
+            {
+                string moneda1 = FormPrincipal.Moneda;
+                var moneda2 = moneda1.Split('(');
+                moneda2[1] = moneda2[1].Replace(")", "");
+                var canditda = dataRow["ProductoDescuento"].ToString().Split(Convert.ToChar(moneda2[1]));
+                cantidadDesceunto += Convert.ToDecimal(canditda[1]);
+            }
+            if (cantidadDesceunto == 0)
+            {
+                TieneDescuento = 0;
+            }
             #region Impresion Ticket de 80 mm
             ReportDataSource rp = new ReportDataSource("TicketVenta", ventaDT);
 
             string DirectoryImage = string.Empty;
 
             ReportParameterCollection reportParameters = new ReportParameterCollection();
+            reportParameters.Add(new ReportParameter("TieneDescuento", TieneDescuento.ToString()));
             string path = string.Empty;
 
             string pathBarCode = $@"C:\Archivos PUDVE\Ventas\Tickets\BarCode\";

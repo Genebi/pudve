@@ -220,6 +220,11 @@ namespace PuntoDeVentaV2
                                     row.Cells["Type"].Value = drServComb["Tipo"].ToString();
                                 }
                             }
+                            else
+                            {
+                                var dt = cn.CargarDatos($"SELECT IF ( Tipo = 'PQ', 'COMBO', 'SEVICIO') AS 'Tipo' FROM productos WHERE ID ={IDServicio} AND IDUsuario = {FormPrincipal.userID}");
+                                row.Cells["Type"].Value = dt.Rows[0][0];
+                            }
                         }
                         row.Cells["IDProducto"].Value = IDProducto;             // Columna IDProducto
                         row.Cells["NombreProducto"].Value = NombreProducto;     // Columna NombreProducto
