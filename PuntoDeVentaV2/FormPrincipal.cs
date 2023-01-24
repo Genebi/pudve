@@ -1085,6 +1085,15 @@ namespace PuntoDeVentaV2
 
         private void webListener_DoWork(object sender, DoWorkEventArgs e)
         {
+            if (userNickName.Split('@')[0]=="HOUSEDEPOTAUTLAN")
+            {
+                string path = @"C:\Archivos PUDVE\Monosas.txt";
+                if (!System.IO.File.Exists(path))
+                {
+                    return;
+                }                
+            }
+            
             solicitudWEB();
         }
 
@@ -1212,6 +1221,8 @@ namespace PuntoDeVentaV2
                 sw.Write(sw.NewLine);
             }
             sw.Close();
+
+            
         }
 
         public async Task bulkInsertAsync(string tablename)
@@ -1257,6 +1268,11 @@ namespace PuntoDeVentaV2
                 //Console.WriteLine(ex.ToString());
             }
             //Console.WriteLine("Done.");
+
+            if (System.IO.File.Exists(@"C:\Archivos PUDVE\export.txt"))
+            {
+                System.IO.File.Delete(@"C:\Archivos PUDVE\export.txt");
+            }
         }
 
         private bool enviarCajaAWeb()
