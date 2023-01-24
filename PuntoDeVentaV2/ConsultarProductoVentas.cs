@@ -806,7 +806,20 @@ namespace PuntoDeVentaV2
 
                     var idProducto = DGVProductos.SelectedRows[i].Cells[7].Value.ToString();
 
-                    var datosProducto = cn.CargarDatos($"SELECT ID, Nombre, Precio, TipoDescuento, Stock, Tipo, ClaveInterna, CodigoBarras, StockNecesario, ProdImage, StockMinimo, PrecioCompra, PrecioMayoreo, Impuesto, Categoria, ProdImage, ClaveProducto, UnidadMedida  FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idProducto}' AND Status = '1'");
+                    var datosProducto = cn.CargarDatos($"SELECT ID, Nombre, Precio, TipoDescuento, Stock, Tipo, ClaveInterna, CodigoBarras, StockNecesario, ProdImage, StockMinimo, PrecioCompra, PrecioMayoreo, Impuesto, Categoria, ProdImage, ClaveProducto, UnidadMedida FROM Productos WHERE IDUsuario = '{FormPrincipal.userID}' AND ID = '{idProducto}' AND Status = '1'");
+
+                    var dato = cn.CargarDatos($"SELECT FormatoDeVenta FROM productos WHERE ID = '{idProducto}' AND IDUSuario = '{FormPrincipal.userID}' AND Status = '1'");
+                    var estado = dato.Rows[0]["FormatoDeVenta"].ToString();
+
+                    if (estado == "1")
+                    {
+                        decimal result = Convert.ToDecimal(inputMessageBoxVentas.cantidad);
+                        if (result.ToString().Contains('.'))
+                        {
+                            MessageBox.Show("Este producto se vende solo por unidades enteras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+                    }
 
                     //var datosProducto = cn.CargarDatos(cs.searchSaleProduct(codigoProd));
 

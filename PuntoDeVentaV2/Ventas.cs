@@ -477,6 +477,8 @@ namespace PuntoDeVentaV2
             // Enter
             if (e.KeyData == Keys.Enter)
             {
+
+
                 if (txtBuscadorProducto.Text == "+")
                 {
                     txtBuscadorProducto.Text = "+1";
@@ -659,6 +661,8 @@ namespace PuntoDeVentaV2
                                 return;
                             }
 
+
+
                             if (respuesta)
                             {
                                 reproducirProductoAgregado();
@@ -822,6 +826,17 @@ namespace PuntoDeVentaV2
                             if (verificarUsuario)
                             {
                                 idProducto = Convert.ToInt32(id);
+
+                                var dato = cn.CargarDatos($"SELECT FormatoDeVenta FROM productos WHERE ID = '{id}' AND IDUSuario = '{FormPrincipal.userID}' AND Status = '1'");
+                                var estado = dato.Rows[0]["FormatoDeVenta"].ToString();
+
+                                decimal result = Convert.ToDecimal(nudCantidadPS.Value);
+                                if (result.ToString().Contains('.'))
+                                {
+                                    MessageBox.Show("Este producto se vende solo por unidades enteras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    return existe;                                   
+                                }
+
                             }
                         }
                     }
@@ -3696,6 +3711,7 @@ namespace PuntoDeVentaV2
 
             InfoUltimaVenta ticketUltimaVenta = new InfoUltimaVenta();
             ticketUltimaVenta.ShowDialog();
+            txtBuscadorProducto.Focus();
         }
 
         private string buscarIdCliente(string nameCliente)
@@ -4658,11 +4674,12 @@ namespace PuntoDeVentaV2
                                         }
                                     }
                                 }
+                                txtBuscadorProducto.Focus();
                             }
                             // Imprimir Ticket Venta Cancelada
                             if (tipoDeVentaRealizada.Equals(3))
                             {
-
+                                txtBuscadorProducto.Focus();
                             }
                             // Imprimir Ticket Venta a Credito
                             if (tipoDeVentaRealizada.Equals(4))
@@ -4721,6 +4738,7 @@ namespace PuntoDeVentaV2
                                         imprimirTicketVenta.ShowDialog();
                                     }
                                 }
+                                txtBuscadorProducto.Focus();
                             }
                         }
                     }
@@ -4767,6 +4785,7 @@ namespace PuntoDeVentaV2
                 envio.Start();
 
                 this.Dispose();
+                txtBuscadorProducto.Focus();
             }
         }
 
@@ -6340,6 +6359,20 @@ namespace PuntoDeVentaV2
                                 //Si contiene un valor que este dentro del rango a los definidos del control NumericUpDown
                                 var cantidad = (float)Convert.ToDouble(DGVentas.Rows[0].Cells["Cantidad"].Value);
 
+                                int idprod = Convert.ToInt32(DGVentas.Rows[0].Cells["IDProducto"].Value);
+                                var dato = cn.CargarDatos($"SELECT FormatoDeVenta FROM productos WHERE ID = '{idprod}' AND IDUSuario = '{FormPrincipal.userID}' AND Status = '1'");
+                                var estado = dato.Rows[0]["FormatoDeVenta"].ToString();
+
+                                if (estado == "1")
+                                {
+                                    decimal result = Convert.ToDecimal(cantidadExtraDecimal);
+                                    if (result.ToString().Contains('.'))
+                                    {
+                                        MessageBox.Show("Este producto se vende solo por unidades enteras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        return cadena;
+                                    }
+                                }
+
                                 cantidad += cantidadExtraDecimal;
 
                                 // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
@@ -7831,6 +7864,7 @@ namespace PuntoDeVentaV2
             //{
             //    Utilidades.MensajeAdobeReader();
             //}
+            txtBuscadorProducto.Focus();
         }
 
         private void botonRedondo2_Click(object sender, EventArgs e)
