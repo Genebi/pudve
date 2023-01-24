@@ -2316,5 +2316,10 @@ namespace PuntoDeVentaV2
             porMes.ShowDialog();
 
         }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
