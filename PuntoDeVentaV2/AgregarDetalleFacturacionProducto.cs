@@ -1893,7 +1893,24 @@ namespace PuntoDeVentaV2
                         // Combobox: tasa/cuota
 
                         ComboBox cb4 = (ComboBox)this.Controls.Find(nombre_cb + 4, true).FirstOrDefault();
-                        cb4.SelectedItem = r_impuestos_ext["tasacuota"].ToString();
+
+                        string tasaCuotaAux = "...";
+
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("0.00")) { tasaCuotaAux = "0 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("26.50")) { tasaCuotaAux = "26.5 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("30.00")) { tasaCuotaAux = "30 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("53.00")) { tasaCuotaAux = "53 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("50.00")) { tasaCuotaAux = "50 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("1.60")) { tasaCuotaAux = "1.600000"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("30.40")) { tasaCuotaAux = "30.4 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("25.00")) { tasaCuotaAux = "25 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("9.00")) { tasaCuotaAux = "9 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("8.00")) { tasaCuotaAux = "8 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("7.00")) { tasaCuotaAux = "7 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("6.00")) { tasaCuotaAux = "6 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("3.00")) { tasaCuotaAux = "3 %"; }
+
+                        cb4.SelectedItem = tasaCuotaAux;
                         int index4 = cb4.SelectedIndex;
 
                         AccederComboBox(nombre_cb, 5, index4, r_impuestos_ext["tasacuota"].ToString()+" %");
