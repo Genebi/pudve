@@ -2034,3 +2034,9 @@ ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS VentasACredito INT DEFAUL
 
 --Se agrego la columna de tamannoTicket a la tabla editarticket
 ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS tamannoTicket INT DEFAULT 2;
+
+-- Se eliminan llaves foraneas y referencias
+ALTER TABLE Facturas_impuestos DROP FOREIGN KEY IF EXISTS id_factura_producto;
+ALTER TABLE Facturas_impuestos DROP FOREIGN KEY IF EXISTS facturas_impuestos_ibfk_1;
+ALTER TABLE Facturas_productos DROP FOREIGN KEY IF EXISTS id_factura;
+ALTER TABLE Facturas_productos DROP FOREIGN KEY IF EXISTS facturas_productos_ibfk_1;
