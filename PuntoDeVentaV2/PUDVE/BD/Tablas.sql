@@ -2038,3 +2038,16 @@ ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS tamannoTicket INT DEFAULT 2;
 -- Columnas pa una cosilla de lo de web https://i.imgur.com/kTwlKPo.png
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebCerrar INT DEFAULT 0;
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebTotal INT DEFAULT 0;
+
+--Esta tabla sirve para preparar el envio de respaldos, se usa para almacenar de manera temporal los datos que se enviaran a gran velocidad mediante un bulk insert.
+CREATE TABLE
+IF
+	NOT EXISTS WebRespaldosBuilder (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDCliente VARCHAR (255)  NOT NULL ,
+		Fecha varchar (50) NOT NULL, 
+		DATOS LONGTEXT NOT NULL
+	);
+--La columna de datos almacenara hasta 30mb, modifique el maximo tamanno de paquetes por consulta a un poco mas por si acaso.
+SET GLOBAL max_allowed_packet=60777216;
+

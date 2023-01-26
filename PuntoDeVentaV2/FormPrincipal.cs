@@ -1083,36 +1083,58 @@ namespace PuntoDeVentaV2
 
             mg.EliminarFiltros();
 
-            using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebCerrar FROM Configuracion WHERE IDUsuario = {userID}"))
+            using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebCerrar,WebTotal FROM Configuracion WHERE IDUsuario = {userID}"))
             {
                 if (dtConfiguracionWeb.Rows[0][0].ToString() == "1")
                 {
-                    RespaldarBaseDatos();
-                    cn.EjecutarConsulta($"DELETE FROM monosas WHERE IDUsuario ={FormPrincipal.userID}");
-                    SplitFile(@"C:\Archivos PUDVE\Monosas.sql", 30485760, @"C:\Archivos PUDVE\");
-                    System.IO.File.Delete(@"C:\Archivos PUDVE\Monosas.sql");
-                    string[] files = System.IO.Directory.GetFiles(@"C:\Archivos PUDVE\", "*.sifo");
-                    foreach (string file in files)
+                    //enviarCajaAWeb();
+                    //enviarProdctosWeb();
+                    if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
                     {
-                        StreamReader reader = new StreamReader(file);
-                        cn.insertarUnPincheTextoAcaTremendoAaaaaa(reader.ReadToEnd());
-                        
+                        cn.EjecutarConsulta($"DELETE FROM WebRespaldosBuilder WHERE IDCliente ='{FormPrincipal.userNickName.Split('@')[0]}'");
+                        RespaldarBaseDatos();
+
+                        string[] Oldfiles = System.IO.Directory.GetFiles(@"C:\Archivos PUDVE\", "*.sifo");
+                        foreach (string file in Oldfiles)
+                        {
+                            System.IO.File.Delete(file);
+                        }
+
+                        SplitFile(@"C:\Archivos PUDVE\tempBackup.sql", 30485760, @"C:\Archivos PUDVE\");
+
+                        DateTime monosas = DateTime.Now;
+                        string[] files = System.IO.Directory.GetFiles(@"C:\Archivos PUDVE\", "*.sifo");
+                        foreach (string file in files)
+                        {
+                            StreamReader reader = new StreamReader(file);
+                            cn.insertarUnPincheTextoAcaTremendoAaaaaa(reader.ReadToEnd(), monosas);
+                        }
+                        System.IO.File.Delete(@"C:\Archivos PUDVE\tempBackup.sql");
+                        ConexionAPPWEB con = new ConexionAPPWEB();
+                        sqlTxt(cn.CargarDatos($"SELECT IDCliente,Fecha,Datos FROM WebRespaldosBuilder WHERE IDCliente ='{FormPrincipal.userNickName.Split('@')[0]}'"), @"C:\Archivos PUDVE\export.txt");
+                        bulkInsertAsync("Respaldos");
+
+                        using (DataTable dt = con.CargarDatos($"SELECT DISTINCT(Fecha) FROM Respaldos WHERE IDCliente = '{userNickName.Split('@')[0]}' ORDER BY Fecha ASC"))
+                        {
+                            if (dt.Rows.Count > 4)
+                            {
+                                string consulta = $"DELETE FROM Respaldos WHERE IDCliente = '{userNickName.Split('@')[0]}' AND fecha = '{DateTime.Parse(dt.Rows[0]["fecha"].ToString()).ToString("yyyy-MM-dd HH:mm:ss")}'";
+                                con.EjecutarConsulta(consulta);
+                            }
+                        }
+                        cn.EjecutarConsulta($"DELETE FROM WebRespaldosBuilder WHERE IDCliente ='{FormPrincipal.userNickName.Split('@')[0]}'");
                     }
-                    
-                    ConexionAPPWEB con = new ConexionAPPWEB();
-                    sqlTxt(cn.CargarDatos($"SELECT IDUsuario,Datos FROM monosas WHERE IDUsuario = {IdUsuario}"), @"C:\Archivos PUDVE\export.txt");
-                    bulkInsertAsync("monosas");
                 }
+                    
             }
             
 
         }
 
-        private void RespaldarBaseDatos(bool conUsuario = false)
+        private void RespaldarBaseDatos()
         {
-            DateTime fechaCreacion = DateTime.Now;
 
-                    var archivo = @"C:\Archivos PUDVE\Monosas.sql";
+                    var archivo = @"C:\Archivos PUDVE\tempBackup.sql";
                     var datoConexion = conexionRuta();
 
                     using (MySqlConnection con = new MySqlConnection(datoConexion))
@@ -1123,13 +1145,6 @@ namespace PuntoDeVentaV2
                             {
                                 cmd.Connection = con;
                                 con.Open();
-
-                                if (conUsuario)
-                                {
-                                    backup.ExportInfo.ExcludeTables = new List<string> { "Usuarios", "basculas" };
-                                    backup.ExportInfo.RowsExportMode = RowsDataExportMode.InsertIgnore;
-                                }
-
                                 backup.ExportToFile(archivo);
                                 con.Close();
                             }
@@ -1380,8 +1395,8 @@ namespace PuntoDeVentaV2
             bl.NumberOfLinesToSkip = 1;
             switch (tablename)
             {
-                case "monosas":
-                    bl.Columns.AddRange(new List<string>() { "IDUsuario", "Datos"});
+                case "Respaldos":
+                    bl.Columns.AddRange(new List<string>() { "IDCliente","FECHA", "Datos"});
                     bl.FieldTerminator = "~";
                     bl.LineTerminator = "^";
                     break;
