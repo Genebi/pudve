@@ -2034,3 +2034,7 @@ ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS VentasACredito INT DEFAUL
 
 --Se agrego la columna de tamannoTicket a la tabla editarticket
 ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS tamannoTicket INT DEFAULT 2;
+
+-- Columnas pa una cosilla de lo de web https://i.imgur.com/kTwlKPo.png
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebCerrar INT DEFAULT 0;
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebTotal INT DEFAULT 0;

@@ -557,9 +557,17 @@ namespace PuntoDeVentaV2
                         {
                             chTraspasos.Checked = true;
                         }
-                        else if (item["checkNoVendidos"].Equals(0))
+                        #endregion
+                        #region Reportar a sifo.com cuando se cierre el programa
+                        if (item["WebCerrar"].Equals(1))
                         {
-                            chTraspasos.Checked = false;
+                            chWebCerrar.Checked = true;
+                        }
+                        #endregion
+                        #region Realizar respaldos completoss
+                        if (item["WebTotal"].Equals(1))
+                        {
+                            chWebTotal.Checked = true;
                         }
                         #endregion
                         #region Mostrar Stock Consulta Precio
@@ -1237,22 +1245,9 @@ namespace PuntoDeVentaV2
         private void pagWeb_MouseClick(object sender, MouseEventArgs e)
         {
             MessageBox.Show("Cambios a esta configuración solo se aplicarán tras el reinicio del sistema.");
+            int habilitado;
 
-            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("HabilitarInfoPaginaWeb", FormPrincipal.id_empleado)))
-            {
-                if (FormPrincipal.id_empleado.Equals(0))
-                {
-                    if (opcion11.Equals(0))
-                    {
-                        Utilidades.MensajePermiso();
-                        return;
-                    }
-
-                    var habilitado = 0;
-
-                    valorCambioCheckBox = pagWeb.Checked;
-
-                    if (valorCambioCheckBox.Equals(true))
+                    if (pagWeb.Checked)
                     {
                         habilitado = 1;
                     }
@@ -1264,62 +1259,6 @@ namespace PuntoDeVentaV2
                     string consulta = $"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                     confiGeneral.Add(consulta);
                     FormPrincipal.pasar = habilitado;
-                }
-                else if (!permisoEmpleado.Rows.Count.Equals(0))
-                {
-                    foreach (DataRow item in permisoEmpleado.Rows)
-                    {
-                        if (item[0].ToString().Equals("1"))
-                        {
-
-                            if (opcion11.Equals(0))
-                            {
-                                Utilidades.MensajePermiso();
-                                return;
-                            }
-
-                            var habilitado = 0;
-
-                            valorCambioCheckBox = pagWeb.Checked;
-
-                            if (valorCambioCheckBox.Equals(true))
-                            {
-                                habilitado = 1;
-                            }
-                            else
-                            {
-                                habilitado = 0;
-                            }
-
-                            string consulta = $"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
-                            confiGeneral.Add(consulta);
-
-
-                            FormPrincipal.pasar = habilitado;
-
-                        }
-                        else
-                        {
-                            MessageBox.Show("No tienes permisos para modificar esta opcion");
-                            if (pagWeb.Checked == true)
-                            {
-                                pagWeb.Checked = false;
-                                return;
-                            }
-                            else
-                            {
-                                pagWeb.Checked = true;
-                                return;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("No tienes permisos para modificar esta opcion");
-                    return;
-                }
-            }
         }
 
         private void ConfiguracionGeneral_KeyDown(object sender, KeyEventArgs e)
@@ -1653,6 +1592,48 @@ namespace PuntoDeVentaV2
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://sifo.com.mx/WebAppPudve/index.php");
+        }
+
+        private void pagWeb_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (pagWeb.Checked)
+            {
+                gpSIFOnline.Enabled = true;
+           
+            }
+            else
+            {
+                gpSIFOnline.Enabled = false;
+
+            }
+        }
+
+        private void chWebCerrar_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (chWebCerrar.Checked)
+            {
+                var consulta = $"UPDATE Configuracion SET WebCerrar = {1} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
+            else
+            {
+                var consulta = $"UPDATE Configuracion SET WebCerrar = {0} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
+        }
+
+        private void chWebTotal_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (chWebTotal.Checked)
+            {
+                var consulta = $"UPDATE Configuracion SET WebTotal = {1} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
+            else
+            {
+                var consulta = $"UPDATE Configuracion SET WebTotal = {0} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
         }
     }
 }

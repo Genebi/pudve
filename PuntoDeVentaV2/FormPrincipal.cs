@@ -1080,7 +1080,105 @@ namespace PuntoDeVentaV2
 
         private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
+
             mg.EliminarFiltros();
+
+            using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebCerrar FROM Configuracion WHERE IDUsuario = {userID}"))
+            {
+                if (dtConfiguracionWeb.Rows[0][0].ToString() == "1")
+                {
+                    RespaldarBaseDatos();
+                    cn.EjecutarConsulta($"DELETE FROM monosas WHERE IDUsuario ={FormPrincipal.userID}");
+                    SplitFile(@"C:\Archivos PUDVE\Monosas.sql", 30485760, @"C:\Archivos PUDVE\");
+                    System.IO.File.Delete(@"C:\Archivos PUDVE\Monosas.sql");
+                    string[] files = System.IO.Directory.GetFiles(@"C:\Archivos PUDVE\", "*.sifo");
+                    foreach (string file in files)
+                    {
+                        StreamReader reader = new StreamReader(file);
+                        cn.insertarUnPincheTextoAcaTremendoAaaaaa(reader.ReadToEnd());
+                        
+                    }
+                    
+                    ConexionAPPWEB con = new ConexionAPPWEB();
+                    sqlTxt(cn.CargarDatos($"SELECT IDUsuario,Datos FROM monosas WHERE IDUsuario = {IdUsuario}"), @"C:\Archivos PUDVE\export.txt");
+                    bulkInsertAsync("monosas");
+                }
+            }
+            
+
+        }
+
+        private void RespaldarBaseDatos(bool conUsuario = false)
+        {
+            DateTime fechaCreacion = DateTime.Now;
+
+                    var archivo = @"C:\Archivos PUDVE\Monosas.sql";
+                    var datoConexion = conexionRuta();
+
+                    using (MySqlConnection con = new MySqlConnection(datoConexion))
+                    {
+                        using (MySqlCommand cmd = new MySqlCommand())
+                        {
+                            using (MySqlBackup backup = new MySqlBackup(cmd))
+                            {
+                                cmd.Connection = con;
+                                con.Open();
+
+                                if (conUsuario)
+                                {
+                                    backup.ExportInfo.ExcludeTables = new List<string> { "Usuarios", "basculas" };
+                                    backup.ExportInfo.RowsExportMode = RowsDataExportMode.InsertIgnore;
+                                }
+
+                                backup.ExportToFile(archivo);
+                                con.Close();
+                            }
+                        }
+                    }
+        }
+
+        private string conexionRuta()
+        {
+            string conexion = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                conexion = "datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;";
+            }
+            else
+            {
+                conexion = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
+            }
+
+            // Important Additional Connection Options
+            conexion += "charset=utf8;convertzerodatetime=true;";
+
+            return conexion;
+        }
+        public static void SplitFile(string inputFile, int chunkSize, string path)
+        {
+            const int BUFFER_SIZE = 20 * 1024;
+            byte[] buffer = new byte[BUFFER_SIZE];
+
+            using (Stream input = System.IO.File.OpenRead(inputFile))
+            {
+                int index = 0;
+                while (input.Position < input.Length)
+                {
+                    using (Stream output = System.IO.File.Create(path + "\\" + index+".sifo"))
+                    {
+                        int remaining = chunkSize, bytesRead;
+                        while (remaining > 0 && (bytesRead = input.Read(buffer, 0,
+                                Math.Min(remaining, BUFFER_SIZE))) > 0)
+                        {
+                            output.Write(buffer, 0, bytesRead);
+                            remaining -= bytesRead;
+                        }
+                    }
+                    index++;
+                    Thread.Sleep(500); // experimental; perhaps try it
+                }
+            }
         }
 
         private void webListener_DoWork(object sender, DoWorkEventArgs e)
@@ -1225,6 +1323,48 @@ namespace PuntoDeVentaV2
             
         }
 
+        private void sqlTxt(DataTable dtDataTable, string strFilePath)
+        {
+            StreamWriter sw = new StreamWriter(strFilePath, false);
+            //headers    
+            for (int i = 0; i < dtDataTable.Columns.Count; i++)
+            {
+                sw.Write(dtDataTable.Columns[i]);
+                if (i < dtDataTable.Columns.Count - 1)
+                {
+                    sw.Write("|");
+                }
+            }
+            sw.Write("^");
+            foreach (DataRow dr in dtDataTable.Rows)
+            {
+                for (int i = 0; i < dtDataTable.Columns.Count; i++)
+                {
+                    if (!Convert.IsDBNull(dr[i]))
+                    {
+                        string value = dr[i].ToString();
+                        if (value.Contains(','))
+                        {
+                            value = String.Format("\"{0}\"", value);
+                            sw.Write(value);
+                        }
+                        else
+                        {
+                            sw.Write(dr[i].ToString());
+                        }
+                    }
+                    if (i < dtDataTable.Columns.Count - 1)
+                    {
+                        sw.Write("~");
+                    }
+                }
+                sw.Write("^");
+            }
+            sw.Close();
+
+
+        }
+
         public async Task bulkInsertAsync(string tablename)
         {
             string connStr = "server=74.208.135.60;user=app;database=pudve;port=3306;password=12Steroids12;AllowLoadLocalInfile=true;";
@@ -1234,41 +1374,38 @@ namespace PuntoDeVentaV2
             bl.Local = true;
             
             bl.TableName = tablename;
-            bl.FieldTerminator = "+";
-            bl.LineTerminator = "\n";
+           
+           
             bl.FileName = @"C:\Archivos PUDVE\export.txt";
             bl.NumberOfLinesToSkip = 1;
-            bl.Columns.AddRange(new List<string>() { "IDregistro", "Nombre","Stock","Precio","Codigo"});
+            switch (tablename)
+            {
+                case "monosas":
+                    bl.Columns.AddRange(new List<string>() { "IDUsuario", "Datos"});
+                    bl.FieldTerminator = "~";
+                    bl.LineTerminator = "^";
+                    break;
+                case "mirrorproductosdatos":
+                    bl.Columns.AddRange(new List<string>() { "IDregistro", "Nombre", "Stock", "Precio", "Codigo" });
+                    bl.FieldTerminator = "+";
+                    bl.LineTerminator = "\n";
+                    break;
+                default:
+                    break;
+            }
+            
             bl.Timeout = 50000;
             try
             {
-                //Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
-
-                // Upload data from file
                 int count = bl.Load();
-                //Console.WriteLine(count + " lines uploaded.");
-
-                //string sql = "SELECT IDregistro, Nombre, Stock, Codigo FROM mirrorproductosdatos";
-                //MySqlCommand cmd = new MySqlCommand(sql, conn);
-                //MySqlDataReader rdr = cmd.ExecuteReader();
-
-                //while (rdr.Read())
-                //{
-                //    Console.WriteLine(rdr[0] + " -- " + rdr[1] + " -- " + rdr[2]);
-                //}
-
-                //rdr.Close();
 
                 conn.Close();
             }
             catch (Exception ex)
             {
                 return;
-                //Console.WriteLine(ex.ToString());
             }
-            //Console.WriteLine("Done.");
-
             if (System.IO.File.Exists(@"C:\Archivos PUDVE\export.txt"))
             {
                 System.IO.File.Delete(@"C:\Archivos PUDVE\export.txt");

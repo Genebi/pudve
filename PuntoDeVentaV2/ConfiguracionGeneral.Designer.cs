@@ -30,9 +30,9 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfiguracionGeneral));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.CHKMostrarStock = new System.Windows.Forms.CheckBox();
             this.btnAceptar = new System.Windows.Forms.Button();
-            this.chkMensajeRealizarInventario = new System.Windows.Forms.CheckBox();
             this.chTraspasos = new System.Windows.Forms.CheckBox();
             this.chkMensajeVenderProducto = new System.Windows.Forms.CheckBox();
             this.chkCerrarSesionCorte = new System.Windows.Forms.CheckBox();
@@ -42,6 +42,10 @@
             this.cbMostrarPrecio = new System.Windows.Forms.CheckBox();
             this.cbStockNegativo = new System.Windows.Forms.CheckBox();
             this.pagWeb = new System.Windows.Forms.CheckBox();
+            this.gpSIFOnline = new System.Windows.Forms.GroupBox();
+            this.chWebTotal = new System.Windows.Forms.CheckBox();
+            this.chWebCerrar = new System.Windows.Forms.CheckBox();
+            this.chkMensajeRealizarInventario = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtNoVendidos = new System.Windows.Forms.TextBox();
@@ -49,8 +53,8 @@
             this.checkMayoreo = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMinimoMayoreo = new System.Windows.Forms.TextBox();
-            this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.groupBox2.SuspendLayout();
+            this.gpSIFOnline.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -59,7 +63,6 @@
             this.groupBox2.Controls.Add(this.linkLabel2);
             this.groupBox2.Controls.Add(this.CHKMostrarStock);
             this.groupBox2.Controls.Add(this.btnAceptar);
-            this.groupBox2.Controls.Add(this.chkMensajeRealizarInventario);
             this.groupBox2.Controls.Add(this.chTraspasos);
             this.groupBox2.Controls.Add(this.chkMensajeVenderProducto);
             this.groupBox2.Controls.Add(this.chkCerrarSesionCorte);
@@ -69,13 +72,27 @@
             this.groupBox2.Controls.Add(this.cbMostrarPrecio);
             this.groupBox2.Controls.Add(this.cbStockNegativo);
             this.groupBox2.Controls.Add(this.pagWeb);
+            this.groupBox2.Controls.Add(this.gpSIFOnline);
+            this.groupBox2.Controls.Add(this.chkMensajeRealizarInventario);
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(8, 31);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(637, 195);
+            this.groupBox2.Size = new System.Drawing.Size(609, 220);
             this.groupBox2.TabIndex = 130;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CONFIGURACION GENERAL";
+            // 
+            // linkLabel2
+            // 
+            this.linkLabel2.AutoSize = true;
+            this.linkLabel2.Location = new System.Drawing.Point(500, 104);
+            this.linkLabel2.Name = "linkLabel2";
+            this.linkLabel2.Size = new System.Drawing.Size(87, 16);
+            this.linkLabel2.TabIndex = 134;
+            this.linkLabel2.TabStop = true;
+            this.linkLabel2.Text = "página web";
+            this.linkLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
             // CHKMostrarStock
             // 
@@ -98,7 +115,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(456, 161);
+            this.btnAceptar.Location = new System.Drawing.Point(428, 186);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(176, 28);
             this.btnAceptar.TabIndex = 132;
@@ -106,25 +123,11 @@
             this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
-            // chkMensajeRealizarInventario
-            // 
-            this.chkMensajeRealizarInventario.AutoSize = true;
-            this.chkMensajeRealizarInventario.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMensajeRealizarInventario.Location = new System.Drawing.Point(175, 164);
-            this.chkMensajeRealizarInventario.Name = "chkMensajeRealizarInventario";
-            this.chkMensajeRealizarInventario.Size = new System.Drawing.Size(267, 21);
-            this.chkMensajeRealizarInventario.TabIndex = 131;
-            this.chkMensajeRealizarInventario.Text = "Mostrar mensaje al realizar inventario";
-            this.chkMensajeRealizarInventario.UseVisualStyleBackColor = true;
-            this.chkMensajeRealizarInventario.Visible = false;
-            this.chkMensajeRealizarInventario.CheckedChanged += new System.EventHandler(this.chkMensajeRealizarInventario_CheckedChanged);
-            this.chkMensajeRealizarInventario.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkMensajeRealizarInventario_MouseClick);
-            // 
             // chTraspasos
             // 
             this.chTraspasos.AutoSize = true;
             this.chTraspasos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chTraspasos.Location = new System.Drawing.Point(325, 109);
+            this.chTraspasos.Location = new System.Drawing.Point(37, 53);
             this.chTraspasos.Name = "chTraspasos";
             this.chTraspasos.Size = new System.Drawing.Size(149, 21);
             this.chTraspasos.TabIndex = 130;
@@ -228,13 +231,63 @@
             // 
             this.pagWeb.AutoSize = true;
             this.pagWeb.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pagWeb.Location = new System.Drawing.Point(37, 53);
+            this.pagWeb.Location = new System.Drawing.Point(325, 103);
             this.pagWeb.Name = "pagWeb";
-            this.pagWeb.Size = new System.Drawing.Size(267, 21);
+            this.pagWeb.Size = new System.Drawing.Size(183, 21);
             this.pagWeb.TabIndex = 115;
-            this.pagWeb.Text = "Habilitar información en página web";
+            this.pagWeb.Text = "Habilitar información en";
             this.pagWeb.UseVisualStyleBackColor = true;
+            this.pagWeb.CheckedChanged += new System.EventHandler(this.pagWeb_CheckedChanged_1);
             this.pagWeb.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pagWeb_MouseClick);
+            // 
+            // gpSIFOnline
+            // 
+            this.gpSIFOnline.Controls.Add(this.chWebTotal);
+            this.gpSIFOnline.Controls.Add(this.chWebCerrar);
+            this.gpSIFOnline.Enabled = false;
+            this.gpSIFOnline.Location = new System.Drawing.Point(321, 103);
+            this.gpSIFOnline.Name = "gpSIFOnline";
+            this.gpSIFOnline.Size = new System.Drawing.Size(280, 77);
+            this.gpSIFOnline.TabIndex = 136;
+            this.gpSIFOnline.TabStop = false;
+            // 
+            // chWebTotal
+            // 
+            this.chWebTotal.AutoSize = true;
+            this.chWebTotal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chWebTotal.Location = new System.Drawing.Point(4, 49);
+            this.chWebTotal.Name = "chWebTotal";
+            this.chWebTotal.Size = new System.Drawing.Size(262, 21);
+            this.chWebTotal.TabIndex = 0;
+            this.chWebTotal.Text = "Realizar respaldos totales (base entera)";
+            this.chWebTotal.UseVisualStyleBackColor = true;
+            this.chWebTotal.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chWebTotal_MouseClick);
+            // 
+            // chWebCerrar
+            // 
+            this.chWebCerrar.AutoSize = true;
+            this.chWebCerrar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chWebCerrar.Location = new System.Drawing.Point(4, 22);
+            this.chWebCerrar.Name = "chWebCerrar";
+            this.chWebCerrar.Size = new System.Drawing.Size(258, 21);
+            this.chWebCerrar.TabIndex = 0;
+            this.chWebCerrar.Text = "Reportar al cerrar sesión o el programa";
+            this.chWebCerrar.UseVisualStyleBackColor = true;
+            this.chWebCerrar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chWebCerrar_MouseClick);
+            // 
+            // chkMensajeRealizarInventario
+            // 
+            this.chkMensajeRealizarInventario.AutoSize = true;
+            this.chkMensajeRealizarInventario.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkMensajeRealizarInventario.Location = new System.Drawing.Point(175, 164);
+            this.chkMensajeRealizarInventario.Name = "chkMensajeRealizarInventario";
+            this.chkMensajeRealizarInventario.Size = new System.Drawing.Size(267, 21);
+            this.chkMensajeRealizarInventario.TabIndex = 131;
+            this.chkMensajeRealizarInventario.Text = "Mostrar mensaje al realizar inventario";
+            this.chkMensajeRealizarInventario.UseVisualStyleBackColor = true;
+            this.chkMensajeRealizarInventario.Visible = false;
+            this.chkMensajeRealizarInventario.CheckedChanged += new System.EventHandler(this.chkMensajeRealizarInventario_CheckedChanged);
+            this.chkMensajeRealizarInventario.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkMensajeRealizarInventario_MouseClick);
             // 
             // label3
             // 
@@ -328,23 +381,12 @@
             this.txtMinimoMayoreo.Visible = false;
             this.txtMinimoMayoreo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtMinimoMayoreo_KeyUp);
             // 
-            // linkLabel2
-            // 
-            this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(212, 54);
-            this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(87, 16);
-            this.linkLabel2.TabIndex = 134;
-            this.linkLabel2.TabStop = true;
-            this.linkLabel2.Text = "página web";
-            this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
-            // 
             // ConfiguracionGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(657, 238);
+            this.ClientSize = new System.Drawing.Size(625, 263);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.checkMayoreo);
             this.Controls.Add(this.label1);
@@ -366,6 +408,8 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConfiguracionGeneral_KeyDown);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.gpSIFOnline.ResumeLayout(false);
+            this.gpSIFOnline.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -395,5 +439,8 @@
         private System.Windows.Forms.CheckBox CHKMostrarStock;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.LinkLabel linkLabel2;
+        private System.Windows.Forms.GroupBox gpSIFOnline;
+        private System.Windows.Forms.CheckBox chWebTotal;
+        private System.Windows.Forms.CheckBox chWebCerrar;
     }
 }
