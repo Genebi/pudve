@@ -2034,3 +2034,17 @@ ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS VentasACredito INT DEFAUL
 
 --Se agrego la columna de tamannoTicket a la tabla editarticket
 ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS tamannoTicket INT DEFAULT 2;
+
+--Se agreggo la Columna de preguntar si quiere ticket venta en permisosconfiguracion
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoPreguntarTicketVenta INT DEFAULT 1;
+
+--Se agrego la columna de preguntar si quiere ticket en configuracion
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS PreguntarTicketVenta INT DEFAULT 0;
+
+
+--Se agrego la Columna de PermisoTicketPDF en permisosconfiguracion
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoTicketPDF INT DEFAULT 1;
+
+
+--Se agrego la columna de TicketOPDF si quiere ticket en configuracion
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS TicketOPDF INT DEFAULT 1;
