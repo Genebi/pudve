@@ -564,6 +564,12 @@ namespace PuntoDeVentaV2
                             chWebCerrar.Checked = true;
                         }
                         #endregion
+                        #region Reportar a sifo.com automaticamente
+                        if (item["WebAuto"].Equals(1))
+                        {
+                            cbWebReportesPeriodicos.Checked = true;
+                        }
+                        #endregion
                         #region Realizar respaldos completoss
                         if (item["WebTotal"].Equals(1))
                         {
@@ -1632,6 +1638,20 @@ namespace PuntoDeVentaV2
             else
             {
                 var consulta = $"UPDATE Configuracion SET WebTotal = {0} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
+        }
+
+        private void cbWebReportesPeriodicos_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (cbWebReportesPeriodicos.Checked)
+            {
+                var consulta = $"UPDATE Configuracion SET WebAuto = {1} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
+            else
+            {
+                var consulta = $"UPDATE Configuracion SET WebAuto = {0} WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta);
             }
         }

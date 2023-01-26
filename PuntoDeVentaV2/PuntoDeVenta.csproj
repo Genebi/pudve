@@ -1780,6 +1780,12 @@
     <Compile Include="WEBCaja.Designer.cs">
       <DependentUpon>WEBCaja.cs</DependentUpon>
     </Compile>
+    <Compile Include="WebUploader.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WebUploader.Designer.cs">
+      <DependentUpon>WebUploader.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinQueryString.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2502,6 +2508,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WEBCaja.resx">
       <DependentUpon>WEBCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WebUploader.resx">
+      <DependentUpon>WebUploader.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WinQueryString.resx">
       <DependentUpon>WinQueryString.cs</DependentUpon>

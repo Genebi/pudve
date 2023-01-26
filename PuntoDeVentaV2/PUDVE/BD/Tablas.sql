@@ -2038,6 +2038,7 @@ ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS tamannoTicket INT DEFAULT 2;
 -- Columnas pa una cosilla de lo de web https://i.imgur.com/kTwlKPo.png
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebCerrar INT DEFAULT 0;
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebTotal INT DEFAULT 0;
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebAuto INT DEFAULT 0;
 
 --Esta tabla sirve para preparar el envio de respaldos, se usa para almacenar de manera temporal los datos que se enviaran a gran velocidad mediante un bulk insert.
 CREATE TABLE

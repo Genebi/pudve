@@ -1085,44 +1085,15 @@ namespace PuntoDeVentaV2
 
             using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebCerrar,WebTotal FROM Configuracion WHERE IDUsuario = {userID}"))
             {
-                if (dtConfiguracionWeb.Rows[0][0].ToString() == "1")
+                if (dtConfiguracionWeb.Rows[0][0].ToString() == "1" && pasar==1)
                 {
-                    //enviarCajaAWeb();
-                    //enviarProdctosWeb();
+                    enviarCajaAWeb();
+                    enviarProdctosWeb();
                     if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
                     {
-                        cn.EjecutarConsulta($"DELETE FROM WebRespaldosBuilder WHERE IDCliente ='{FormPrincipal.userNickName.Split('@')[0]}'");
-                        RespaldarBaseDatos();
-
-                        string[] Oldfiles = System.IO.Directory.GetFiles(@"C:\Archivos PUDVE\", "*.sifo");
-                        foreach (string file in Oldfiles)
-                        {
-                            System.IO.File.Delete(file);
-                        }
-
-                        SplitFile(@"C:\Archivos PUDVE\tempBackup.sql", 30485760, @"C:\Archivos PUDVE\");
-
-                        DateTime monosas = DateTime.Now;
-                        string[] files = System.IO.Directory.GetFiles(@"C:\Archivos PUDVE\", "*.sifo");
-                        foreach (string file in files)
-                        {
-                            StreamReader reader = new StreamReader(file);
-                            cn.insertarUnPincheTextoAcaTremendoAaaaaa(reader.ReadToEnd(), monosas);
-                        }
-                        System.IO.File.Delete(@"C:\Archivos PUDVE\tempBackup.sql");
-                        ConexionAPPWEB con = new ConexionAPPWEB();
-                        sqlTxt(cn.CargarDatos($"SELECT IDCliente,Fecha,Datos FROM WebRespaldosBuilder WHERE IDCliente ='{FormPrincipal.userNickName.Split('@')[0]}'"), @"C:\Archivos PUDVE\export.txt");
-                        bulkInsertAsync("Respaldos");
-
-                        using (DataTable dt = con.CargarDatos($"SELECT DISTINCT(Fecha) FROM Respaldos WHERE IDCliente = '{userNickName.Split('@')[0]}' ORDER BY Fecha ASC"))
-                        {
-                            if (dt.Rows.Count > 4)
-                            {
-                                string consulta = $"DELETE FROM Respaldos WHERE IDCliente = '{userNickName.Split('@')[0]}' AND fecha = '{DateTime.Parse(dt.Rows[0]["fecha"].ToString()).ToString("yyyy-MM-dd HH:mm:ss")}'";
-                                con.EjecutarConsulta(consulta);
-                            }
-                        }
-                        cn.EjecutarConsulta($"DELETE FROM WebRespaldosBuilder WHERE IDCliente ='{FormPrincipal.userNickName.Split('@')[0]}'");
+                        WebUploader respaldazo = new WebUploader();
+                        this.Hide();
+                        respaldazo.ShowDialog();
                     }
                 }
                     
@@ -1131,70 +1102,7 @@ namespace PuntoDeVentaV2
 
         }
 
-        private void RespaldarBaseDatos()
-        {
-
-                    var archivo = @"C:\Archivos PUDVE\tempBackup.sql";
-                    var datoConexion = conexionRuta();
-
-                    using (MySqlConnection con = new MySqlConnection(datoConexion))
-                    {
-                        using (MySqlCommand cmd = new MySqlCommand())
-                        {
-                            using (MySqlBackup backup = new MySqlBackup(cmd))
-                            {
-                                cmd.Connection = con;
-                                con.Open();
-                                backup.ExportToFile(archivo);
-                                con.Close();
-                            }
-                        }
-                    }
-        }
-
-        private string conexionRuta()
-        {
-            string conexion = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
-            {
-                conexion = "datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;";
-            }
-            else
-            {
-                conexion = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
-            }
-
-            // Important Additional Connection Options
-            conexion += "charset=utf8;convertzerodatetime=true;";
-
-            return conexion;
-        }
-        public static void SplitFile(string inputFile, int chunkSize, string path)
-        {
-            const int BUFFER_SIZE = 20 * 1024;
-            byte[] buffer = new byte[BUFFER_SIZE];
-
-            using (Stream input = System.IO.File.OpenRead(inputFile))
-            {
-                int index = 0;
-                while (input.Position < input.Length)
-                {
-                    using (Stream output = System.IO.File.Create(path + "\\" + index+".sifo"))
-                    {
-                        int remaining = chunkSize, bytesRead;
-                        while (remaining > 0 && (bytesRead = input.Read(buffer, 0,
-                                Math.Min(remaining, BUFFER_SIZE))) > 0)
-                        {
-                            output.Write(buffer, 0, bytesRead);
-                            remaining -= bytesRead;
-                        }
-                    }
-                    index++;
-                    Thread.Sleep(500); // experimental; perhaps try it
-                }
-            }
-        }
+        
 
         private void webListener_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -1338,46 +1246,38 @@ namespace PuntoDeVentaV2
             
         }
 
-        private void sqlTxt(DataTable dtDataTable, string strFilePath)
+        private void webAuto_Tick(object sender, EventArgs e)
         {
-            StreamWriter sw = new StreamWriter(strFilePath, false);
-            //headers    
-            for (int i = 0; i < dtDataTable.Columns.Count; i++)
+            if (pasar == 1)
             {
-                sw.Write(dtDataTable.Columns[i]);
-                if (i < dtDataTable.Columns.Count - 1)
+                if (!webSender.IsBusy)
                 {
-                    sw.Write("|");
+                    webSender.RunWorkerAsync();
                 }
             }
-            sw.Write("^");
-            foreach (DataRow dr in dtDataTable.Rows)
+        }
+
+        private void webSender_DoWork(object sender, DoWorkEventArgs e)
+        {
+            using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebCerrar,WebTotal FROM Configuracion WHERE IDUsuario = {userID}"))
             {
-                for (int i = 0; i < dtDataTable.Columns.Count; i++)
+                if (dtConfiguracionWeb.Rows[0][0].ToString() == "1" && pasar == 1)
                 {
-                    if (!Convert.IsDBNull(dr[i]))
+                    enviarCajaAWeb();
+                    enviarProdctosWeb();
+                    if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
                     {
-                        string value = dr[i].ToString();
-                        if (value.Contains(','))
-                        {
-                            value = String.Format("\"{0}\"", value);
-                            sw.Write(value);
-                        }
-                        else
-                        {
-                            sw.Write(dr[i].ToString());
-                        }
-                    }
-                    if (i < dtDataTable.Columns.Count - 1)
-                    {
-                        sw.Write("~");
+                        CheckForIllegalCrossThreadCalls = false;
+                        WebUploader respaldazo = new WebUploader(false, this);
+                        respaldazo.ShowDialog();
+                        CheckForIllegalCrossThreadCalls = true;
                     }
                 }
-                sw.Write("^");
+                else
+                {
+                    webAuto.Enabled = false;
+                }
             }
-            sw.Close();
-
-
         }
 
         public async Task bulkInsertAsync(string tablename)
