@@ -1255,7 +1255,7 @@ namespace PuntoDeVentaV2
 
         public string IniciarFiltroConSinFiltroAvanzado(int userID)
         {
-            var consulta = $@"SELECT P.* FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = u.ID WHERE U.ID = '{userID}' AND P.Status = 1";
+            var consulta = $@"SELECT P.* FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = u.ID WHERE U.ID = '{userID}' AND P.Status = 1 AND Tipo != 'VR'";
 
             return consulta;
         }

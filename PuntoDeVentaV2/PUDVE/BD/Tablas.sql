@@ -2051,8 +2051,18 @@ ALTER TABLE productos ADD COLUMN IF NOT EXISTS FormatoDeVenta INT DEFAULT 0;
 
 ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS VentasACredito INT DEFAULT 1;
 
--- Columna para guardar la clave de traspaso de un movimiento si existe, de manera en que se pueda volver a ver cuando se haga un reporte.
-ALTER TABLE dgvdisminuirinventario ADD COLUMN IF NOT EXISTS claveTraspaso VARCHAR ( 15 ) DEFAULT NULL ;
+   -- Columna para guardar la clave de traspaso de un movimiento si existe, de manera en que se pueda volver a ver cuando se haga un reporte.
+  ALTER TABLE dgvdisminuirinventario ADD COLUMN IF NOT EXISTS claveTraspaso VARCHAR ( 15 ) DEFAULT NULL ;
+
+--Se agrego la columna de tamannoTicket a la tabla editarticket
+ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS tamannoTicket INT DEFAULT 2;
+
+-- Se eliminan llaves foraneas y referencias
+ALTER TABLE Facturas_impuestos DROP FOREIGN KEY IF EXISTS id_factura_producto;
+ALTER TABLE Facturas_impuestos DROP FOREIGN KEY IF EXISTS facturas_impuestos_ibfk_1;
+ALTER TABLE Facturas_productos DROP FOREIGN KEY IF EXISTS id_factura;
+ALTER TABLE Facturas_productos DROP FOREIGN KEY IF EXISTS facturas_productos_ibfk_1;
+
 -- Agregar columna para saber si el producto solo es para rentas
 ALTER TABLE Productos ADD COLUMN IF NOT EXISTS SoloRenta tinyint(1) DEFAULT 0;
 -- Agregar columna para guardar el si el negocio acepta ordenes en configuracion general
