@@ -208,6 +208,13 @@ namespace PuntoDeVentaV2
             {
                 chkBoxDepositoSaldoInicial.Visible = true;
             }
+            if(Inventario.desdeRegresarProdcuto == 1)
+            {
+                cbConceptoConBusqueda.SelectedIndex = 1;
+                cbConceptoConBusqueda.Visible = false;
+                lbSubtitulo.Visible = false;
+                btnAgregarConcepto.Visible = false;
+            }
         }
 
 
@@ -325,6 +332,7 @@ namespace PuntoDeVentaV2
             var siRetiroVales = false;
             var siRetiroCheque = false;
             var siRetiroTransferencia = false;
+            var concepto = string.Empty;
 
             FormPrincipal.condicionarMensaje = 1;
 
@@ -483,22 +491,46 @@ namespace PuntoDeVentaV2
                 var numFolio = obtenerNumFolio(tipoOperacion);
 
                 //var concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
-                var concepto = cbConceptoConBusqueda.GetItemText(cbConceptoConBusqueda.SelectedItem);
-
-                if (concepto.Equals("Seleccionar concepto..."))
+                if (Inventario.operacionDevolucionProducto == 1)
                 {
-                    concepto = string.Empty;
-                }
+                    concepto = "Devolucion de Producto";
 
-                // Deposito o retiro
-                if (operacion == 0 || operacion == 1 || operacion == 2)
-                {
-                    if (string.IsNullOrWhiteSpace(concepto))
+                    if (concepto.Equals("Seleccionar concepto..."))
                     {
-                        MessageBox.Show("Para realizar esta operación seleccione un concepto.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
+                        concepto = string.Empty;
+                    }
+
+                    // Deposito o retiro
+                    if (operacion == 0 || operacion == 1 || operacion == 2)
+                    {
+                        if (string.IsNullOrWhiteSpace(concepto))
+                        {
+                            MessageBox.Show("Para realizar esta operación seleccione un concepto.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+                    }
+                    Inventario.desdeRegresarProdcuto = 0;
+                }
+                else
+                {
+                    concepto = cbConceptoConBusqueda.GetItemText(cbConceptoConBusqueda.SelectedItem);
+
+                    if (concepto.Equals("Seleccionar concepto..."))
+                    {
+                        concepto = string.Empty;
+                    }
+
+                    // Deposito o retiro
+                    if (operacion == 0 || operacion == 1 || operacion == 2)
+                    {
+                        if (string.IsNullOrWhiteSpace(concepto))
+                        {
+                            MessageBox.Show("Para realizar esta operación seleccione un concepto.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
                     }
                 }
+                
 
                 var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 CajaN.fechaUltimoCorte = Convert.ToDateTime(fechaOperacion);
@@ -1467,6 +1499,7 @@ namespace PuntoDeVentaV2
                     this.Close();
                 }
             }
+           
         }
 
         private int obtenerIDHistorialCorteDeCaja(string opcionComboBoxFiltroAdminEmp)
