@@ -17,18 +17,23 @@ namespace PuntoDeVentaV2
     {
         private FormPrincipal mainForm = null;
         string title=string.Empty;
+        Conexion cn = new Conexion();
 
         public WebUploader(bool topmost=true, Form callingForm=null)
         {
             InitializeComponent();
             this.TopMost = topmost;
             this.ShowInTaskbar = false;
-            mainForm = callingForm as FormPrincipal;
+            if (callingForm!=null)
+            {
+                mainForm = callingForm as FormPrincipal;
+            }
 
             if (!topmost)
             {
                 this.Opacity = 0;
             }
+
         }
 
         private void RespaldarBaseDatos()
@@ -188,42 +193,115 @@ namespace PuntoDeVentaV2
 
         private void WebUploader_Shown(object sender, EventArgs e)
         {
-            PBProgreso.Value = 10;
-            mainForm.Text = $"{title}| █▁▁▁▁▁▁▁▁▁ Creando respaldo... ";
-            Conexion cn = new Conexion();
+            this.Refresh();
+            try
+            {
+                enviarRespaldo();
+            }
+            catch (Exception)
+            {
+                //Error de conexion
+                this.Close();
+            }
+        }
+
+        private async void enviarRespaldo()
+        {
+            await Task.Run(() => DoThis(PBProgreso, mainForm));
+        }
+
+        private void WebUploader_Load(object sender, EventArgs e)
+        {
+            title = mainForm.Text;
+            mainForm.Text = $"{title}| ▁▁▁▁▁▁▁▁▁▁ Actualizando...";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            cn.EjecutarConsulta($"DELETE FROM WebRespaldosBuilder WHERE IDCliente ='{FormPrincipal.userNickName.Split('@')[0]}'");
+            mainForm.Text = title;
+            this.Close();
+        }
+
+        private void btnCerrar_Click(object sender, EventArgs e)
+        {
+            cn.EjecutarConsulta($"DELETE FROM WebRespaldosBuilder WHERE IDCliente ='{FormPrincipal.userNickName.Split('@')[0]}'");
+            this.Close();
+        }
+
+        private void DoThis(ProgressBar PBProgreso, FormPrincipal mainForm)
+        {
+            Invoke(new Action(() =>
+            {
+                PBProgreso.Value = 10;
+                mainForm.Text = $"{title}| █▁▁▁▁▁▁▁▁▁ Creando respaldo... ";
+            }));
+
+
+            
             cn.EjecutarConsulta($"DELETE FROM WebRespaldosBuilder WHERE IDCliente ='{FormPrincipal.userNickName.Split('@')[0]}'");
             RespaldarBaseDatos();
 
-            PBProgreso.Value = 20;
+            
+            Invoke(new Action(() =>
+            {
+                PBProgreso.Value = 20;
             mainForm.Text = $"{title}| ██▁▁▁▁▁▁▁▁ Preparando respaldo...";
+
+            }));
             string[] Oldfiles = System.IO.Directory.GetFiles(@"C:\Archivos PUDVE\", "*.sifo");
             foreach (string file in Oldfiles)
             {
                 System.IO.File.Delete(file);
             }
-            PBProgreso.Value = 25;
+            Invoke(new Action(() =>
+            {PBProgreso.Value = 25;
+
+            }));
+            
             SplitFile(@"C:\Archivos PUDVE\tempBackup.sql", 30485760, @"C:\Archivos PUDVE\");
 
             DateTime monosas = DateTime.Now;
             string[] files = System.IO.Directory.GetFiles(@"C:\Archivos PUDVE\", "*.sifo");
-            PBProgreso.Value = 30;
+            
+            Invoke(new Action(() =>
+            {PBProgreso.Value = 30;
             mainForm.Text = $"{title}| ███▁▁▁▁▁▁▁ Dando formato a los datos...";
+
+            }));
             foreach (string file in files)
             {
-                PBProgreso.Value++;
+                Invoke(new Action(() =>
+                {
+                    PBProgreso.Value++;
+                }));
+                
                 StreamReader reader = new StreamReader(file);
                 cn.insertarUnPincheTextoAcaTremendoAaaaaa(reader.ReadToEnd(), monosas);
             }
             System.IO.File.Delete(@"C:\Archivos PUDVE\tempBackup.sql");
             ConexionAPPWEB con = new ConexionAPPWEB();
-            PBProgreso.Value = 55;
+            
+            Invoke(new Action(() =>
+            {PBProgreso.Value = 55;
             mainForm.Text = $"{title}| ██████▁▁▁▁ Conectando al servidor de Sifo.com.mx ...";
+
+            }));
             sqlTxt(cn.CargarDatos($"SELECT IDCliente,Fecha,Datos FROM WebRespaldosBuilder WHERE IDCliente ='{FormPrincipal.userNickName.Split('@')[0]}'"), @"C:\Archivos PUDVE\export.txt");
-            PBProgreso.Value = 70;
+            
+            Invoke(new Action(() =>
+            {PBProgreso.Value = 70;
             mainForm.Text = $"{title}| ███████▁▁▁ Enviando datos a la nube...";
+
+            }));
             bulkInsertAsync("Respaldos");
-            PBProgreso.Value = 90;
+            
+
+            Invoke(new Action(() =>
+            {PBProgreso.Value = 90;
             mainForm.Text = $"{title}| █████████▁ Finalizando...";
+
+            }));
             using (DataTable dt = con.CargarDatos($"SELECT DISTINCT(Fecha) FROM Respaldos WHERE IDCliente = '{FormPrincipal.userNickName.Split('@')[0]}' ORDER BY Fecha ASC"))
             {
                 if (dt.Rows.Count > 4)
@@ -233,15 +311,22 @@ namespace PuntoDeVentaV2
                 }
             }
             cn.EjecutarConsulta($"DELETE FROM WebRespaldosBuilder WHERE IDCliente ='{FormPrincipal.userNickName.Split('@')[0]}'");
-            PBProgreso.Value = 100;
+            
+
+            Invoke(new Action(() =>
+            {PBProgreso.Value = 100;
             mainForm.Text = $"{title}";
+
+            }));
             this.Close();
         }
 
-        private void WebUploader_Load(object sender, EventArgs e)
+        private void WebUploader_KeyDown(object sender, KeyEventArgs e)
         {
-            title = mainForm.Text;
-            mainForm.Text = $"{title}| ▁▁▁▁▁▁▁▁▁▁ Actualizando...";
+            if (e.KeyCode==Keys.Escape)
+            {
+                this.Close();
+            }
         }
     }
 }

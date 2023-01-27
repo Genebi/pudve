@@ -443,7 +443,7 @@
             // webAuto
             // 
             this.webAuto.Enabled = true;
-            this.webAuto.Interval = 3000;
+            this.webAuto.Interval = 7200000;
             this.webAuto.Tick += new System.EventHandler(this.webAuto_Tick);
             // 
             // webSender

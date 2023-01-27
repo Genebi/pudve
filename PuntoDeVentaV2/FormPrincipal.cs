@@ -1082,24 +1082,57 @@ namespace PuntoDeVentaV2
         {
 
             mg.EliminarFiltros();
-
+            
+            bool ayylmao = true;
             using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebCerrar,WebTotal FROM Configuracion WHERE IDUsuario = {userID}"))
             {
+                if (dtConfiguracionWeb.Rows[0][1].ToString() == "1" && pasar==1)
+                { 
+                    FormCollection fc = Application.OpenForms;
+                foreach (Form frm in fc)
+                 {
+                if (frm.Name == "WebUploader")
+                {
+                    DialogResult dialogResult = MessageBox.Show("Esperar y cerrar?", "Respaldo en curso", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        e.Cancel = true;
+                        ayylmao = false;
+                        frm.Refresh();
+                        frm.Opacity = 1;
+                        frm.TopMost = true;
+                    }
+                    else
+                    {
+                        Environment.Exit(0);
+                    }
+                      }
+                  }
+                }
+
                 if (dtConfiguracionWeb.Rows[0][0].ToString() == "1" && pasar==1)
                 {
                     enviarCajaAWeb();
                     enviarProdctosWeb();
                     if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
                     {
-                        WebUploader respaldazo = new WebUploader();
-                        this.Hide();
-                        respaldazo.ShowDialog();
+                        if (ayylmao)
+                        {
+                            DialogResult dialogResult = MessageBox.Show("¿Quiere realizar una copia de seguridad antes de cerrar sesión?", "¿Respaldar antes de salir?", MessageBoxButtons.YesNo);
+                            if (dialogResult == DialogResult.Yes)
+                            {
+                                WebUploader respaldazo = new WebUploader(true, this);
+                                respaldazo.ShowDialog();
+                            }
+                            else
+                            {
+                                Environment.Exit(0);
+                            }
+                               
+                        }
                     }
-                }
-                    
+                }            
             }
-            
-
         }
 
         
@@ -1250,7 +1283,7 @@ namespace PuntoDeVentaV2
         {
             if (pasar == 1)
             {
-                if (!webSender.IsBusy)
+                if (!webSender.IsBusy )
                 {
                     webSender.RunWorkerAsync();
                 }
@@ -1259,25 +1292,41 @@ namespace PuntoDeVentaV2
 
         private void webSender_DoWork(object sender, DoWorkEventArgs e)
         {
-            using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebCerrar,WebTotal FROM Configuracion WHERE IDUsuario = {userID}"))
-            {
-                if (dtConfiguracionWeb.Rows[0][0].ToString() == "1" && pasar == 1)
+                using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebAuto,WebTotal FROM Configuracion WHERE IDUsuario = {userID}"))
                 {
-                    enviarCajaAWeb();
-                    enviarProdctosWeb();
-                    if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
+                    if (dtConfiguracionWeb.Rows[0][0].ToString() == "1" && pasar == 1)
                     {
-                        CheckForIllegalCrossThreadCalls = false;
-                        WebUploader respaldazo = new WebUploader(false, this);
-                        respaldazo.ShowDialog();
-                        CheckForIllegalCrossThreadCalls = true;
+                    
+                        enviarCajaAWeb();
+                        enviarProdctosWeb();
+                    bool chambiador = false;
+                        if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
+                        {
+                            FormCollection fc = Application.OpenForms;
+
+                            foreach (Form frm in fc)
+                            {
+                                if (frm.Name == "WebUploader")
+                                {
+                                chambiador = true;
+                                }
+                            }
+
+                        if (!chambiador)
+                        {
+                            CheckForIllegalCrossThreadCalls = false;
+                            WebUploader respaldazo = new WebUploader(false, this);
+                            respaldazo.ShowDialog();
+                            CheckForIllegalCrossThreadCalls = true;
+                        }
+                        }
+                    }
+                    else
+                    {
+                        return;
                     }
                 }
-                else
-                {
-                    webAuto.Enabled = false;
-                }
-            }
+            
         }
 
         public async Task bulkInsertAsync(string tablename)
