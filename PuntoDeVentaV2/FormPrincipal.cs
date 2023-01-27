@@ -1112,25 +1112,33 @@ namespace PuntoDeVentaV2
 
                 if (dtConfiguracionWeb.Rows[0][0].ToString() == "1" && pasar==1)
                 {
-                    enviarCajaAWeb();
-                    enviarProdctosWeb();
-                    if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
+                    if (enviarCajaAWeb())
                     {
-                        if (ayylmao)
+                        enviarProdctosWeb();
+                        if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
                         {
-                            DialogResult dialogResult = MessageBox.Show("¿Quiere realizar una copia de seguridad antes de cerrar sesión?", "¿Respaldar antes de salir?", MessageBoxButtons.YesNo);
-                            if (dialogResult == DialogResult.Yes)
+                            if (ayylmao)
                             {
-                                WebUploader respaldazo = new WebUploader(true, this);
-                                respaldazo.ShowDialog();
+                                DialogResult dialogResult = MessageBox.Show("¿Quiere realizar una copia de seguridad antes de cerrar sesión?", "¿Respaldar antes de salir?", MessageBoxButtons.YesNo);
+                                if (dialogResult == DialogResult.Yes)
+                                {
+                                    WebUploader respaldazo = new WebUploader(true, this);
+                                    respaldazo.ShowDialog();
+                                }
+                                else
+                                {
+                                    Environment.Exit(0);
+                                }
+
                             }
-                            else
-                            {
-                                Environment.Exit(0);
-                            }
-                               
                         }
                     }
+                    else
+                    {
+                        Environment.Exit(0);
+                    }
+                    
+                    
                 }            
             }
         }
@@ -1296,30 +1304,36 @@ namespace PuntoDeVentaV2
                 {
                     if (dtConfiguracionWeb.Rows[0][0].ToString() == "1" && pasar == 1)
                     {
-                    
-                        enviarCajaAWeb();
-                        enviarProdctosWeb();
-                    bool chambiador = false;
-                        if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
+                        if (enviarCajaAWeb())
                         {
-                            FormCollection fc = Application.OpenForms;
-
-                            foreach (Form frm in fc)
+                            enviarProdctosWeb();
+                            bool chambiador = false;
+                            if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
                             {
-                                if (frm.Name == "WebUploader")
+                                FormCollection fc = Application.OpenForms;
+
+                                foreach (Form frm in fc)
                                 {
-                                chambiador = true;
+                                    if (frm.Name == "WebUploader")
+                                    {
+                                        chambiador = true;
+                                    }
+                                }
+
+                                if (!chambiador)
+                                {
+                                    CheckForIllegalCrossThreadCalls = false;
+                                    WebUploader respaldazo = new WebUploader(false, this);
+                                    respaldazo.ShowDialog();
+                                    CheckForIllegalCrossThreadCalls = true;
                                 }
                             }
-
-                        if (!chambiador)
-                        {
-                            CheckForIllegalCrossThreadCalls = false;
-                            WebUploader respaldazo = new WebUploader(false, this);
-                            respaldazo.ShowDialog();
-                            CheckForIllegalCrossThreadCalls = true;
-                        }
-                        }
+                    }
+                    else
+                    {
+                        //Error de red 
+                        return;
+                    }
                     }
                     else
                     {
