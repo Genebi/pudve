@@ -1978,7 +1978,7 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            if (txtPrecioProducto.Text == "" || txtPrecioProducto.Text == "0.0" || txtPrecioProducto.Text == "0")
+            if (txtPrecioProducto.Text == "" || txtPrecioProducto.Text == "0.00" || txtPrecioProducto.Text == "0.0" || txtPrecioProducto.Text == "0." || txtPrecioProducto.Text == ".00" || txtPrecioProducto.Text == ".0" || txtPrecioProducto.Text == "0")
             {
                 MessageBox.Show("Es necesario agregar el precio del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
