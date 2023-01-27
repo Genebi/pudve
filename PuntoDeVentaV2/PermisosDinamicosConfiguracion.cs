@@ -108,8 +108,9 @@ namespace PuntoDeVentaV2
                     "ActivarPrecioMayoreoVentas",
                     "MensajeVentas",
                     "MensajeInventario",
-                    "PermisoStockConsultarPrecio"
-
+                    "PermisoStockConsultarPrecio",
+                    "PermisoPreguntarTicketVenta",
+                    "PermisoTicketPDF"
                 };
 
                 var permisosConfiguracion = String.Join(", ",datos);
@@ -134,6 +135,9 @@ namespace PuntoDeVentaV2
 
                 GenerarCheckbox(190, 10, 200, "Mensaje Inventario", permisos[10]);
                 GenerarCheckbox(190, 220, 200, "Mostrar Stock Consultar Precio", permisos[11]);
+
+                GenerarCheckbox(220, 10, 200, "Pregutar Imprimir Ticket Venta", permisos[12]);
+                GenerarCheckbox(220, 220, 200, "Seleccionar Ticket o PDF", permisos[13]);
             }
             if (tipoPermisos == "porcentageGanancia")
             {

@@ -33,6 +33,7 @@
             this.btnActualizarXML = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.btnMensajeVenta = new PuntoDeVentaV2.BotonRedondo();
             this.btnConceptosReporte = new System.Windows.Forms.Button();
             this.gBSeleccionActualizarInventario = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -58,6 +59,9 @@
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comentarios = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IDTabla = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
+            this.botonRedondo2 = new PuntoDeVentaV2.BotonRedondo();
+            this.botonRedondo3 = new PuntoDeVentaV2.BotonRedondo();
             this.panelBotones.SuspendLayout();
             this.gBSeleccionActualizarInventario.SuspendLayout();
             this.panelContenedor.SuspendLayout();
@@ -69,10 +73,9 @@
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(527, 9);
-            this.tituloSeccion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.tituloSeccion.Location = new System.Drawing.Point(351, 6);
             this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(223, 37);
+            this.tituloSeccion.Size = new System.Drawing.Size(148, 25);
             this.tituloSeccion.TabIndex = 6;
             this.tituloSeccion.Text = "INVENTARIO";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -88,13 +91,13 @@
             this.btnRevisar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRevisar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRevisar.ForeColor = System.Drawing.Color.White;
-            this.btnRevisar.Location = new System.Drawing.Point(-5, 11);
-            this.btnRevisar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnRevisar.Location = new System.Drawing.Point(-3, 7);
             this.btnRevisar.Name = "btnRevisar";
-            this.btnRevisar.Size = new System.Drawing.Size(345, 46);
+            this.btnRevisar.Size = new System.Drawing.Size(230, 30);
             this.btnRevisar.TabIndex = 101;
             this.btnRevisar.Text = "Revisar Inventario";
             this.btnRevisar.UseVisualStyleBackColor = false;
+            this.btnRevisar.Visible = false;
             this.btnRevisar.Click += new System.EventHandler(this.btnRevisar_Click);
             this.btnRevisar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnRevisar_KeyDown);
             // 
@@ -109,13 +112,13 @@
             this.btnActualizarXML.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizarXML.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizarXML.ForeColor = System.Drawing.Color.White;
-            this.btnActualizarXML.Location = new System.Drawing.Point(909, 11);
-            this.btnActualizarXML.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnActualizarXML.Location = new System.Drawing.Point(606, 7);
             this.btnActualizarXML.Name = "btnActualizarXML";
-            this.btnActualizarXML.Size = new System.Drawing.Size(345, 46);
+            this.btnActualizarXML.Size = new System.Drawing.Size(230, 30);
             this.btnActualizarXML.TabIndex = 102;
             this.btnActualizarXML.Text = "Actualizar Inventario XML";
             this.btnActualizarXML.UseVisualStyleBackColor = false;
+            this.btnActualizarXML.Visible = false;
             this.btnActualizarXML.Click += new System.EventHandler(this.btnActualizarXML_Click);
             this.btnActualizarXML.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnActualizarXML_KeyDown);
             // 
@@ -130,13 +133,13 @@
             this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnActualizar.ForeColor = System.Drawing.Color.White;
-            this.btnActualizar.Location = new System.Drawing.Point(462, 11);
-            this.btnActualizar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnActualizar.Location = new System.Drawing.Point(308, 7);
             this.btnActualizar.Name = "btnActualizar";
-            this.btnActualizar.Size = new System.Drawing.Size(345, 46);
+            this.btnActualizar.Size = new System.Drawing.Size(230, 30);
             this.btnActualizar.TabIndex = 103;
             this.btnActualizar.Text = "Actualizar Inventario";
             this.btnActualizar.UseVisualStyleBackColor = false;
+            this.btnActualizar.Visible = false;
             this.btnActualizar.Click += new System.EventHandler(this.btnActualizar_Click);
             this.btnActualizar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnActualizar_KeyDown);
             // 
@@ -144,16 +147,41 @@
             // 
             this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBotones.Controls.Add(this.botonRedondo2);
+            this.panelBotones.Controls.Add(this.botonRedondo3);
+            this.panelBotones.Controls.Add(this.btnMensajeVenta);
+            this.panelBotones.Controls.Add(this.botonRedondo1);
             this.panelBotones.Controls.Add(this.btnConceptosReporte);
             this.panelBotones.Controls.Add(this.gBSeleccionActualizarInventario);
             this.panelBotones.Controls.Add(this.btnRevisar);
             this.panelBotones.Controls.Add(this.btnActualizarXML);
             this.panelBotones.Controls.Add(this.btnActualizar);
-            this.panelBotones.Location = new System.Drawing.Point(13, 61);
-            this.panelBotones.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panelBotones.Location = new System.Drawing.Point(9, 40);
             this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(1251, 203);
+            this.panelBotones.Size = new System.Drawing.Size(834, 132);
             this.panelBotones.TabIndex = 104;
+            // 
+            // btnMensajeVenta
+            // 
+            this.btnMensajeVenta.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnMensajeVenta.BackColor = System.Drawing.Color.Crimson;
+            this.btnMensajeVenta.BackGroundColor = System.Drawing.Color.Crimson;
+            this.btnMensajeVenta.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnMensajeVenta.BorderRadius = 20;
+            this.btnMensajeVenta.BorderSize = 0;
+            this.btnMensajeVenta.FlatAppearance.BorderSize = 0;
+            this.btnMensajeVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMensajeVenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMensajeVenta.ForeColor = System.Drawing.Color.White;
+            this.btnMensajeVenta.Location = new System.Drawing.Point(18, 80);
+            this.btnMensajeVenta.Name = "btnMensajeVenta";
+            this.btnMensajeVenta.Size = new System.Drawing.Size(209, 47);
+            this.btnMensajeVenta.TabIndex = 106;
+            this.btnMensajeVenta.Text = "Regresar Producto";
+            this.btnMensajeVenta.TextColor = System.Drawing.Color.White;
+            this.btnMensajeVenta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnMensajeVenta.UseVisualStyleBackColor = false;
+            this.btnMensajeVenta.Click += new System.EventHandler(this.btnMensajeVenta_Click);
             // 
             // btnConceptosReporte
             // 
@@ -164,10 +192,9 @@
             this.btnConceptosReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConceptosReporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConceptosReporte.ForeColor = System.Drawing.Color.White;
-            this.btnConceptosReporte.Location = new System.Drawing.Point(0, 72);
-            this.btnConceptosReporte.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnConceptosReporte.Location = new System.Drawing.Point(0, 47);
             this.btnConceptosReporte.Name = "btnConceptosReporte";
-            this.btnConceptosReporte.Size = new System.Drawing.Size(340, 48);
+            this.btnConceptosReporte.Size = new System.Drawing.Size(227, 31);
             this.btnConceptosReporte.TabIndex = 105;
             this.btnConceptosReporte.Text = "Conceptos del Reporte";
             this.btnConceptosReporte.UseVisualStyleBackColor = false;
@@ -182,11 +209,9 @@
             this.gBSeleccionActualizarInventario.Controls.Add(this.txtClaveTraspaso);
             this.gBSeleccionActualizarInventario.Controls.Add(this.rbDisminuirProducto);
             this.gBSeleccionActualizarInventario.Controls.Add(this.rbAumentarProducto);
-            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(443, 67);
-            this.gBSeleccionActualizarInventario.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(295, 51);
             this.gBSeleccionActualizarInventario.Name = "gBSeleccionActualizarInventario";
-            this.gBSeleccionActualizarInventario.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(391, 127);
+            this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(261, 83);
             this.gBSeleccionActualizarInventario.TabIndex = 104;
             this.gBSeleccionActualizarInventario.TabStop = false;
             this.gBSeleccionActualizarInventario.Visible = false;
@@ -195,9 +220,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(174, 76);
+            this.label1.Location = new System.Drawing.Point(116, 49);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 25);
+            this.label1.Size = new System.Drawing.Size(47, 17);
             this.label1.TabIndex = 4;
             this.label1.Text = "Clave:";
             // 
@@ -205,9 +231,10 @@
             // 
             this.Traspaso.AutoSize = true;
             this.Traspaso.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Traspaso.Location = new System.Drawing.Point(19, 75);
+            this.Traspaso.Location = new System.Drawing.Point(13, 49);
+            this.Traspaso.Margin = new System.Windows.Forms.Padding(2);
             this.Traspaso.Name = "Traspaso";
-            this.Traspaso.Size = new System.Drawing.Size(121, 29);
+            this.Traspaso.Size = new System.Drawing.Size(87, 21);
             this.Traspaso.TabIndex = 3;
             this.Traspaso.Text = "Traspaso";
             this.Traspaso.UseVisualStyleBackColor = true;
@@ -216,9 +243,10 @@
             // txtClaveTraspaso
             // 
             this.txtClaveTraspaso.Enabled = false;
-            this.txtClaveTraspaso.Location = new System.Drawing.Point(249, 77);
+            this.txtClaveTraspaso.Location = new System.Drawing.Point(166, 50);
+            this.txtClaveTraspaso.Margin = new System.Windows.Forms.Padding(2);
             this.txtClaveTraspaso.Name = "txtClaveTraspaso";
-            this.txtClaveTraspaso.Size = new System.Drawing.Size(115, 26);
+            this.txtClaveTraspaso.Size = new System.Drawing.Size(78, 20);
             this.txtClaveTraspaso.TabIndex = 2;
             this.txtClaveTraspaso.TextChanged += new System.EventHandler(this.txtClaveTraspaso_TextChanged);
             // 
@@ -226,10 +254,9 @@
             // 
             this.rbDisminuirProducto.AutoSize = true;
             this.rbDisminuirProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbDisminuirProducto.Location = new System.Drawing.Point(225, 22);
-            this.rbDisminuirProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rbDisminuirProducto.Location = new System.Drawing.Point(150, 14);
             this.rbDisminuirProducto.Name = "rbDisminuirProducto";
-            this.rbDisminuirProducto.Size = new System.Drawing.Size(139, 33);
+            this.rbDisminuirProducto.Size = new System.Drawing.Size(92, 24);
             this.rbDisminuirProducto.TabIndex = 1;
             this.rbDisminuirProducto.TabStop = true;
             this.rbDisminuirProducto.Text = "Disminuir";
@@ -241,10 +268,9 @@
             this.rbAumentarProducto.AutoSize = true;
             this.rbAumentarProducto.Checked = true;
             this.rbAumentarProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbAumentarProducto.Location = new System.Drawing.Point(19, 22);
-            this.rbAumentarProducto.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.rbAumentarProducto.Location = new System.Drawing.Point(13, 14);
             this.rbAumentarProducto.Name = "rbAumentarProducto";
-            this.rbAumentarProducto.Size = new System.Drawing.Size(140, 33);
+            this.rbAumentarProducto.Size = new System.Drawing.Size(97, 24);
             this.rbAumentarProducto.TabIndex = 0;
             this.rbAumentarProducto.TabStop = true;
             this.rbAumentarProducto.Text = "Aumentar";
@@ -263,10 +289,9 @@
             this.panelContenedor.Controls.Add(this.txtBusqueda);
             this.panelContenedor.Controls.Add(this.DGVInventario);
             this.panelContenedor.Cursor = System.Windows.Forms.Cursors.Default;
-            this.panelContenedor.Location = new System.Drawing.Point(13, 274);
-            this.panelContenedor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.panelContenedor.Location = new System.Drawing.Point(9, 178);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(1251, 436);
+            this.panelContenedor.Size = new System.Drawing.Size(834, 283);
             this.panelContenedor.TabIndex = 105;
             this.panelContenedor.Visible = false;
             // 
@@ -279,10 +304,9 @@
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBuscar.ForeColor = System.Drawing.Color.White;
-            this.btnBuscar.Location = new System.Drawing.Point(901, 40);
-            this.btnBuscar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnBuscar.Location = new System.Drawing.Point(601, 26);
             this.btnBuscar.Name = "btnBuscar";
-            this.btnBuscar.Size = new System.Drawing.Size(158, 35);
+            this.btnBuscar.Size = new System.Drawing.Size(105, 23);
             this.btnBuscar.TabIndex = 105;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = false;
@@ -300,10 +324,9 @@
             this.bntTerminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.bntTerminar.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bntTerminar.ForeColor = System.Drawing.Color.White;
-            this.bntTerminar.Location = new System.Drawing.Point(1025, 382);
-            this.bntTerminar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.bntTerminar.Location = new System.Drawing.Point(683, 248);
             this.bntTerminar.Name = "bntTerminar";
-            this.bntTerminar.Size = new System.Drawing.Size(225, 46);
+            this.bntTerminar.Size = new System.Drawing.Size(150, 30);
             this.bntTerminar.TabIndex = 104;
             this.bntTerminar.Text = "Terminar";
             this.bntTerminar.UseVisualStyleBackColor = false;
@@ -316,11 +339,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listaProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listaProductos.FormattingEnabled = true;
-            this.listaProductos.ItemHeight = 25;
-            this.listaProductos.Location = new System.Drawing.Point(4, 75);
-            this.listaProductos.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listaProductos.ItemHeight = 16;
+            this.listaProductos.Location = new System.Drawing.Point(3, 49);
             this.listaProductos.Name = "listaProductos";
-            this.listaProductos.Size = new System.Drawing.Size(873, 179);
+            this.listaProductos.Size = new System.Drawing.Size(583, 116);
             this.listaProductos.TabIndex = 12;
             this.listaProductos.Visible = false;
             this.listaProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listaProductos_KeyDown);
@@ -330,10 +352,9 @@
             // 
             this.tituloBusqueda.AutoSize = true;
             this.tituloBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloBusqueda.Location = new System.Drawing.Point(-6, 5);
-            this.tituloBusqueda.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.tituloBusqueda.Location = new System.Drawing.Point(-4, 3);
             this.tituloBusqueda.Name = "tituloBusqueda";
-            this.tituloBusqueda.Size = new System.Drawing.Size(376, 29);
+            this.tituloBusqueda.Size = new System.Drawing.Size(232, 18);
             this.tituloBusqueda.TabIndex = 10;
             this.tituloBusqueda.Text = "Búsqueda avanzada de productos";
             this.tituloBusqueda.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -344,10 +365,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBusqueda.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtBusqueda.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBusqueda.Location = new System.Drawing.Point(0, 40);
-            this.txtBusqueda.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.txtBusqueda.Location = new System.Drawing.Point(0, 26);
             this.txtBusqueda.Name = "txtBusqueda";
-            this.txtBusqueda.Size = new System.Drawing.Size(873, 30);
+            this.txtBusqueda.Size = new System.Drawing.Size(583, 22);
             this.txtBusqueda.TabIndex = 11;
             this.txtBusqueda.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBusqueda.TextChanged += new System.EventHandler(this.txtBusqueda_TextChanged);
@@ -374,13 +394,12 @@
             this.Fecha,
             this.Comentarios,
             this.IDTabla});
-            this.DGVInventario.Location = new System.Drawing.Point(0, 100);
-            this.DGVInventario.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.DGVInventario.Location = new System.Drawing.Point(0, 65);
             this.DGVInventario.Name = "DGVInventario";
             this.DGVInventario.ReadOnly = true;
             this.DGVInventario.RowHeadersVisible = false;
             this.DGVInventario.RowHeadersWidth = 62;
-            this.DGVInventario.Size = new System.Drawing.Size(1251, 273);
+            this.DGVInventario.Size = new System.Drawing.Size(834, 177);
             this.DGVInventario.TabIndex = 9;
             this.DGVInventario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVInventario_CellContentClick);
             // 
@@ -475,22 +494,88 @@
             this.IDTabla.Visible = false;
             this.IDTabla.Width = 150;
             // 
+            // botonRedondo1
+            // 
+            this.botonRedondo1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.botonRedondo1.BackColor = System.Drawing.Color.Crimson;
+            this.botonRedondo1.BackGroundColor = System.Drawing.Color.Crimson;
+            this.botonRedondo1.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo1.BorderRadius = 20;
+            this.botonRedondo1.BorderSize = 0;
+            this.botonRedondo1.FlatAppearance.BorderSize = 0;
+            this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.botonRedondo1.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo1.Location = new System.Drawing.Point(19, 3);
+            this.botonRedondo1.Name = "botonRedondo1";
+            this.botonRedondo1.Size = new System.Drawing.Size(209, 47);
+            this.botonRedondo1.TabIndex = 107;
+            this.botonRedondo1.Text = "Revisar Inventario";
+            this.botonRedondo1.TextColor = System.Drawing.Color.White;
+            this.botonRedondo1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo1.UseVisualStyleBackColor = false;
+            this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click);
+            // 
+            // botonRedondo2
+            // 
+            this.botonRedondo2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.botonRedondo2.BackColor = System.Drawing.Color.Crimson;
+            this.botonRedondo2.BackGroundColor = System.Drawing.Color.Crimson;
+            this.botonRedondo2.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo2.BorderRadius = 20;
+            this.botonRedondo2.BorderSize = 0;
+            this.botonRedondo2.FlatAppearance.BorderSize = 0;
+            this.botonRedondo2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.botonRedondo2.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo2.Location = new System.Drawing.Point(301, 7);
+            this.botonRedondo2.Name = "botonRedondo2";
+            this.botonRedondo2.Size = new System.Drawing.Size(209, 47);
+            this.botonRedondo2.TabIndex = 108;
+            this.botonRedondo2.Text = "Actualizar Inventario";
+            this.botonRedondo2.TextColor = System.Drawing.Color.White;
+            this.botonRedondo2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo2.UseVisualStyleBackColor = false;
+            this.botonRedondo2.Click += new System.EventHandler(this.botonRedondo2_Click);
+            // 
+            // botonRedondo3
+            // 
+            this.botonRedondo3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.botonRedondo3.BackColor = System.Drawing.Color.Crimson;
+            this.botonRedondo3.BackGroundColor = System.Drawing.Color.Crimson;
+            this.botonRedondo3.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo3.BorderRadius = 20;
+            this.botonRedondo3.BorderSize = 0;
+            this.botonRedondo3.FlatAppearance.BorderSize = 0;
+            this.botonRedondo3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.botonRedondo3.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo3.Location = new System.Drawing.Point(601, 3);
+            this.botonRedondo3.Name = "botonRedondo3";
+            this.botonRedondo3.Size = new System.Drawing.Size(209, 47);
+            this.botonRedondo3.TabIndex = 109;
+            this.botonRedondo3.Text = "Actualizar Inventario XML";
+            this.botonRedondo3.TextColor = System.Drawing.Color.White;
+            this.botonRedondo3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo3.UseVisualStyleBackColor = false;
+            this.botonRedondo3.Click += new System.EventHandler(this.botonRedondo3_Click);
+            // 
             // Inventario
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1287, 746);
+            this.ClientSize = new System.Drawing.Size(858, 485);
             this.Controls.Add(this.panelContenedor);
             this.Controls.Add(this.panelBotones);
             this.Controls.Add(this.tituloSeccion);
             this.KeyPreview = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Inventario";
             this.ShowIcon = false;
             this.Text = "PUDVE - Inventario";
             this.Load += new System.EventHandler(this.Inventario_Load);
+            this.DragLeave += new System.EventHandler(this.Inventario_DragLeave);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Inventario_KeyDown);
             this.panelBotones.ResumeLayout(false);
             this.gBSeleccionActualizarInventario.ResumeLayout(false);
@@ -534,5 +619,9 @@
         private System.Windows.Forms.TextBox txtClaveTraspaso;
         private System.Windows.Forms.CheckBox Traspaso;
         private System.Windows.Forms.Label label1;
+        private BotonRedondo btnMensajeVenta;
+        private BotonRedondo botonRedondo1;
+        private BotonRedondo botonRedondo3;
+        private BotonRedondo botonRedondo2;
     }
 }

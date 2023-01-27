@@ -561,6 +561,12 @@
     <Compile Include="CantidadProdServicio.Designer.cs">
       <DependentUpon>CantidadProdServicio.cs</DependentUpon>
     </Compile>
+    <Compile Include="CantidadRegresada.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CantidadRegresada.Designer.cs">
+      <DependentUpon>CantidadRegresada.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cargando.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1190,6 +1196,12 @@
     </Compile>
     <Compile Include="PreciosProducto.Designer.cs">
       <DependentUpon>PreciosProducto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PreguntasDevolucionProductos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PreguntasDevolucionProductos.Designer.cs">
+      <DependentUpon>PreguntasDevolucionProductos.cs</DependentUpon>
     </Compile>
     <Compile Include="Productos.cs">
       <SubType>Form</SubType>
@@ -1918,6 +1930,9 @@
     <EmbeddedResource Include="CantidadProdServicio.resx">
       <DependentUpon>CantidadProdServicio.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CantidadRegresada.resx">
+      <DependentUpon>CantidadRegresada.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Cargando.resx">
       <DependentUpon>Cargando.cs</DependentUpon>
     </EmbeddedResource>
@@ -2214,6 +2229,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PreciosProducto.resx">
       <DependentUpon>PreciosProducto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PreguntasDevolucionProductos.resx">
+      <DependentUpon>PreguntasDevolucionProductos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Productos.resx">
       <DependentUpon>Productos.cs</DependentUpon>

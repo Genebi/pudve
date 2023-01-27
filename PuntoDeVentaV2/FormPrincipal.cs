@@ -1557,6 +1557,8 @@ namespace PuntoDeVentaV2
         {
             //vs.printProductVersion();
 
+            Inventario.desdeRegresarProdcuto = 0;
+
             if (caja == 1)
             {
                 AbrirFormulario<CajaN>();
@@ -1573,7 +1575,7 @@ namespace PuntoDeVentaV2
         private void btnInventario_Click(object sender, EventArgs e)
         {
             //vs.printProductVersion();
-
+            
             if (inventarios == 1)
             {
                 AbrirFormulario<Inventario>();
