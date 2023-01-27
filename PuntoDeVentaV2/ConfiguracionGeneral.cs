@@ -1837,20 +1837,6 @@ namespace PuntoDeVentaV2
 
             }
         }
-        private void pagWeb_CheckedChanged_1(object sender, EventArgs e)
-        {
-            if (pagWeb.Checked)
-            {
-                gpSIFOnline.Enabled = true;
-
-            }
-            else
-            {
-                gpSIFOnline.Enabled = false;
-
-            }
-        }
-
         private void chWebCerrar_MouseClick(object sender, MouseEventArgs e)
         {
             if (chWebCerrar.Checked)

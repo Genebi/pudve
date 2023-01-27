@@ -39,17 +39,16 @@
             this.chTicketVentas = new System.Windows.Forms.CheckBox();
             this.CHKMostrarStock = new System.Windows.Forms.CheckBox();
             this.chTraspasos = new System.Windows.Forms.CheckBox();
-            this.chkMensajeVenderProducto = new System.Windows.Forms.CheckBox();
             this.chkCerrarSesionCorte = new System.Windows.Forms.CheckBox();
             this.checkCBVenta = new System.Windows.Forms.CheckBox();
             this.cbMostrarCB = new System.Windows.Forms.CheckBox();
             this.cbMostrarPrecio = new System.Windows.Forms.CheckBox();
             this.cbStockNegativo = new System.Windows.Forms.CheckBox();
-            this.gpSIFOnline = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.chWebTotal = new System.Windows.Forms.CheckBox();
             this.cbWebReportesPeriodicos = new System.Windows.Forms.CheckBox();
             this.chWebCerrar = new System.Windows.Forms.CheckBox();
+            this.chkMensajeVenderProducto = new System.Windows.Forms.CheckBox();
             this.chkMensajeRealizarInventario = new System.Windows.Forms.CheckBox();
             this.btnAceptar = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -61,15 +60,18 @@
             this.txtMinimoMayoreo = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.gpSIFOnline.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox2.Controls.Add(this.cbWebReportesPeriodicos);
+            this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.linkLabel2);
+            this.groupBox2.Controls.Add(this.chWebTotal);
             this.groupBox2.Controls.Add(this.pagWeb);
             this.groupBox2.Controls.Add(this.groupBox1);
+            this.groupBox2.Controls.Add(this.chWebCerrar);
             this.groupBox2.Controls.Add(this.CHKMostrarStock);
             this.groupBox2.Controls.Add(this.chTraspasos);
             this.groupBox2.Controls.Add(this.chkCerrarSesionCorte);
@@ -77,11 +79,10 @@
             this.groupBox2.Controls.Add(this.cbMostrarCB);
             this.groupBox2.Controls.Add(this.cbMostrarPrecio);
             this.groupBox2.Controls.Add(this.cbStockNegativo);
-            this.groupBox2.Controls.Add(this.gpSIFOnline);
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(9, 18);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(895, 216);
+            this.groupBox2.Size = new System.Drawing.Size(895, 272);
             this.groupBox2.TabIndex = 130;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CONFIGURACION GENERAL";
@@ -89,7 +90,7 @@
             // linkLabel2
             // 
             this.linkLabel2.AutoSize = true;
-            this.linkLabel2.Location = new System.Drawing.Point(254, 111);
+            this.linkLabel2.Location = new System.Drawing.Point(540, 138);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(87, 16);
             this.linkLabel2.TabIndex = 134;
@@ -102,13 +103,12 @@
             // 
             this.pagWeb.AutoSize = true;
             this.pagWeb.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pagWeb.Location = new System.Drawing.Point(20, 110);
+            this.pagWeb.Location = new System.Drawing.Point(308, 137);
             this.pagWeb.Name = "pagWeb";
             this.pagWeb.Size = new System.Drawing.Size(237, 21);
             this.pagWeb.TabIndex = 115;
             this.pagWeb.Text = "Habilitar envío de información a";
             this.pagWeb.UseVisualStyleBackColor = true;
-            this.pagWeb.CheckedChanged += new System.EventHandler(this.pagWeb_CheckedChanged_1);
             this.pagWeb.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pagWeb_MouseClick);
             // 
             // groupBox1
@@ -195,27 +195,13 @@
             // 
             this.chTraspasos.AutoSize = true;
             this.chTraspasos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chTraspasos.Location = new System.Drawing.Point(347, 110);
+            this.chTraspasos.Location = new System.Drawing.Point(308, 110);
             this.chTraspasos.Name = "chTraspasos";
             this.chTraspasos.Size = new System.Drawing.Size(149, 21);
             this.chTraspasos.TabIndex = 130;
             this.chTraspasos.Text = "Multiples sucursales";
             this.chTraspasos.UseVisualStyleBackColor = true;
             this.chTraspasos.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chTraspasos_MouseClick);
-            // 
-            // chkMensajeVenderProducto
-            // 
-            this.chkMensajeVenderProducto.AutoSize = true;
-            this.chkMensajeVenderProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkMensajeVenderProducto.Location = new System.Drawing.Point(299, 1);
-            this.chkMensajeVenderProducto.Name = "chkMensajeVenderProducto";
-            this.chkMensajeVenderProducto.Size = new System.Drawing.Size(262, 21);
-            this.chkMensajeVenderProducto.TabIndex = 130;
-            this.chkMensajeVenderProducto.Text = "Mostrar mensaje al vender producto";
-            this.chkMensajeVenderProducto.UseVisualStyleBackColor = true;
-            this.chkMensajeVenderProducto.Visible = false;
-            this.chkMensajeVenderProducto.CheckedChanged += new System.EventHandler(this.chkMensajeVenderProducto_CheckedChanged);
-            this.chkMensajeVenderProducto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkMensajeVenderProducto_MouseClick);
             // 
             // chkCerrarSesionCorte
             // 
@@ -282,27 +268,14 @@
             this.cbStockNegativo.CheckedChanged += new System.EventHandler(this.cbStockNegativo_CheckedChanged);
             this.cbStockNegativo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbStockNegativo_MouseClick);
             // 
-            // gpSIFOnline
-            // 
-            this.gpSIFOnline.Controls.Add(this.label4);
-            this.gpSIFOnline.Controls.Add(this.chWebTotal);
-            this.gpSIFOnline.Controls.Add(this.cbWebReportesPeriodicos);
-            this.gpSIFOnline.Controls.Add(this.chWebCerrar);
-            this.gpSIFOnline.Enabled = false;
-            this.gpSIFOnline.Location = new System.Drawing.Point(18, 125);
-            this.gpSIFOnline.Name = "gpSIFOnline";
-            this.gpSIFOnline.Size = new System.Drawing.Size(589, 83);
-            this.gpSIFOnline.TabIndex = 136;
-            this.gpSIFOnline.TabStop = false;
-            // 
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label4.Location = new System.Drawing.Point(314, 42);
+            this.label4.Location = new System.Drawing.Point(17, 188);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(218, 28);
+            this.label4.Size = new System.Drawing.Size(261, 35);
             this.label4.TabIndex = 1;
             this.label4.Text = "(puede afectar el rendimiento en computadores de gama baja)";
             this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -311,7 +284,7 @@
             // 
             this.chWebTotal.AutoSize = true;
             this.chWebTotal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chWebTotal.Location = new System.Drawing.Point(293, 24);
+            this.chWebTotal.Location = new System.Drawing.Point(20, 164);
             this.chWebTotal.Name = "chWebTotal";
             this.chWebTotal.Size = new System.Drawing.Size(262, 21);
             this.chWebTotal.TabIndex = 0;
@@ -323,7 +296,7 @@
             // 
             this.cbWebReportesPeriodicos.AutoSize = true;
             this.cbWebReportesPeriodicos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbWebReportesPeriodicos.Location = new System.Drawing.Point(5, 53);
+            this.cbWebReportesPeriodicos.Location = new System.Drawing.Point(20, 226);
             this.cbWebReportesPeriodicos.Name = "cbWebReportesPeriodicos";
             this.cbWebReportesPeriodicos.Size = new System.Drawing.Size(242, 21);
             this.cbWebReportesPeriodicos.TabIndex = 0;
@@ -335,13 +308,27 @@
             // 
             this.chWebCerrar.AutoSize = true;
             this.chWebCerrar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chWebCerrar.Location = new System.Drawing.Point(5, 24);
+            this.chWebCerrar.Location = new System.Drawing.Point(20, 137);
             this.chWebCerrar.Name = "chWebCerrar";
             this.chWebCerrar.Size = new System.Drawing.Size(258, 21);
             this.chWebCerrar.TabIndex = 0;
             this.chWebCerrar.Text = "Reportar al cerrar sesión o el programa";
             this.chWebCerrar.UseVisualStyleBackColor = true;
             this.chWebCerrar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chWebCerrar_MouseClick);
+            // 
+            // chkMensajeVenderProducto
+            // 
+            this.chkMensajeVenderProducto.AutoSize = true;
+            this.chkMensajeVenderProducto.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkMensajeVenderProducto.Location = new System.Drawing.Point(299, 1);
+            this.chkMensajeVenderProducto.Name = "chkMensajeVenderProducto";
+            this.chkMensajeVenderProducto.Size = new System.Drawing.Size(262, 21);
+            this.chkMensajeVenderProducto.TabIndex = 130;
+            this.chkMensajeVenderProducto.Text = "Mostrar mensaje al vender producto";
+            this.chkMensajeVenderProducto.UseVisualStyleBackColor = true;
+            this.chkMensajeVenderProducto.Visible = false;
+            this.chkMensajeVenderProducto.CheckedChanged += new System.EventHandler(this.chkMensajeVenderProducto_CheckedChanged);
+            this.chkMensajeVenderProducto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkMensajeVenderProducto_MouseClick);
             // 
             // chkMensajeRealizarInventario
             // 
@@ -366,7 +353,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(388, 238);
+            this.btnAceptar.Location = new System.Drawing.Point(388, 296);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(117, 29);
             this.btnAceptar.TabIndex = 132;
@@ -471,7 +458,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(910, 274);
+            this.ClientSize = new System.Drawing.Size(910, 332);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.checkMayoreo);
             this.Controls.Add(this.label1);
@@ -498,8 +485,6 @@
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.gpSIFOnline.ResumeLayout(false);
-            this.gpSIFOnline.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -533,7 +518,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton RBTicket;
         private System.Windows.Forms.RadioButton RBpdf;
-        private System.Windows.Forms.GroupBox gpSIFOnline;
         private System.Windows.Forms.CheckBox chWebTotal;
         private System.Windows.Forms.CheckBox chWebCerrar;
         private System.Windows.Forms.Label label4;
