@@ -8115,6 +8115,12 @@ namespace PuntoDeVentaV2
                     else
                     {
                         var iva = imp[3].Replace(" %", string.Empty);
+
+                        if (iva.Equals("Definir"))
+                        {
+                            iva = "0";
+                        }
+
                         imp[3] = iva;
                     }
                     if (imp[4] == " - ")
