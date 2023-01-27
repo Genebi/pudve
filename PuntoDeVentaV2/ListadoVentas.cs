@@ -2406,14 +2406,28 @@ namespace PuntoDeVentaV2
                                                                 var multiplicacionComboServicio = Convert.ToDecimal(cantidad) * Convert.ToDecimal(cant);
                                                                 var cantidadNuevoStock = Convert.ToDecimal(stockAnterior2) + multiplicacionComboServicio;
 
-                                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{products[3]}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior2}','{cantidadNuevoStock}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{multiplicacionComboServicio.ToString("N")}')");
+                                                                var tipoMovimiento = "Venta Cancelada";
+
+                                                                if (rbRentas.Checked)
+                                                                {
+                                                                    tipoMovimiento = "Renta Devuelta";
+                                                                }
+
+                                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{products[3]}','{tipoMovimiento} {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior2}','{cantidadNuevoStock}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{multiplicacionComboServicio.ToString("N")}')");
 
                                                                 cn.EjecutarConsulta($"UPDATE Productos SET Stock = {cantidadNuevoStock} WHERE ID = {products[3]} AND IDUsuario = {FormPrincipal.userID}");
                                                             }
                                                         }
                                                         else
                                                         {
-                                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProd}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidadR.ToString("N")}')");
+                                                            var tipoMovimiento = "Venta Cancelada";
+
+                                                            if (rbRentas.Checked)
+                                                            {
+                                                                tipoMovimiento = "Renta Devuelta";
+                                                            }
+
+                                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProd}','{tipoMovimiento} {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidadR.ToString("N")}')");
 
                                                             cn.EjecutarConsulta($"UPDATE Productos SET Stock ={stockNuevo} WHERE ID = {idProd} AND IDUsuario = {FormPrincipal.userID}");
                                                         }
@@ -2435,7 +2449,14 @@ namespace PuntoDeVentaV2
 
                                                     var fechaDeOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idprod}','Venta Cancelada folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidad}')");
+                                                    var tipoMovimiento = "Venta Cancelada";
+
+                                                    if (rbRentas.Checked)
+                                                    {
+                                                        tipoMovimiento = "Renta Devuelta";
+                                                    }
+
+                                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idprod}','{tipoMovimiento} folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidad}')");
 
                                                     cn.EjecutarConsulta($"UPDATE Productos SET Stock ={stockNuevo} WHERE ID = {idprod} AND IDUsuario = {FormPrincipal.userID}");
 
@@ -5457,6 +5478,7 @@ namespace PuntoDeVentaV2
             if (rbVentas.Checked)
             {
                 tituloSeccion.Text = "VENTAS";
+                btnNuevaVenta.Text = "Nueva venta";
                 cbTipoRentas.Visible = false;
                 cbTipoVentas.Visible = true;
                 cbTipoVentas.SelectedIndex = 0;
@@ -5470,6 +5492,7 @@ namespace PuntoDeVentaV2
             if (rbRentas.Checked)
             {
                 tituloSeccion.Text = "RENTAS (ARRENDAMIENTO)";
+                btnNuevaVenta.Text = "Nueva renta";
                 cbTipoVentas.Visible = false;
                 cbTipoRentas.Visible = true;
                 cbTipoRentas.SelectedIndex = 0;

@@ -4203,7 +4203,15 @@ namespace PuntoDeVentaV2
                                                     {
                                                         tipoDeVentaComboServicio = "de servicio";
                                                     }
-                                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
+
+                                                    var tipoMovimiento = "Venta Realizada";
+
+                                                    if (checkRenta.Checked)
+                                                    {
+                                                        tipoMovimiento = "Renta Realizada";
+                                                    }
+
+                                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','{tipoMovimiento} {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
                                                 }
                                             }
                                         }
@@ -4229,7 +4237,14 @@ namespace PuntoDeVentaV2
                                                     tipoDeVentaComboServicio = "de servicio";
                                                 }
 
-                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
+                                                var tipoMovimiento = "Venta Realizada";
+
+                                                if (checkRenta.Checked)
+                                                {
+                                                    tipoMovimiento = "Renta Realizada";
+                                                }
+
+                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','{tipoMovimiento} {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
                                             }
                                         }
                                     }
@@ -4244,7 +4259,14 @@ namespace PuntoDeVentaV2
                                             //decimal stockNuevo = stockActual - Convert.ToDecimal(guardar[3]);
                                             idComboServicio = 0;
 
-                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Decimal.Parse(guardar[3], NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint)}','{tipoDeVenta}','{idComboServicio}')");
+                                            var tipoMovimiento = "Venta Realizada";
+
+                                            if (checkRenta.Checked)
+                                            {
+                                                tipoMovimiento = "Renta Realizada";
+                                            }
+
+                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{guardar[1]}','{tipoMovimiento} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Decimal.Parse(guardar[3], NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint)}','{tipoDeVenta}','{idComboServicio}')");
                                         }
                                     }
                                 }
@@ -4291,7 +4313,14 @@ namespace PuntoDeVentaV2
                                                 tipoDeVentaComboServicio = "de servicio";
                                             }
 
-                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
+                                            var tipoMovimiento = "Venta Realizada";
+
+                                            if (checkRenta.Checked)
+                                            {
+                                                tipoMovimiento = "Renta Realizada";
+                                            }
+
+                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','{tipoMovimiento} {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
                                         }
                                     }
                                 }
@@ -4305,7 +4334,14 @@ namespace PuntoDeVentaV2
                                         decimal stockNuevo = stockActual - Convert.ToDecimal(guardar[3]);
                                         idComboServicio = 0;
 
-                                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}','{tipoDeVenta}','{idComboServicio}')");
+                                        var tipoMovimiento = "Venta Realizada";
+
+                                        if (checkRenta.Checked)
+                                        {
+                                            tipoMovimiento = "Renta Realizada";
+                                        }
+
+                                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{guardar[1]}','{tipoMovimiento} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}','{tipoDeVenta}','{idComboServicio}')");
                                     }
                                 }
                             }

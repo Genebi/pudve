@@ -91,7 +91,8 @@
             this.MinimizeBox = false;
             this.Name = "Ventas_ventana_informacion";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Ventas_ventana_informacion";
+            this.Text = "PUDVE - Información";
+            this.Load += new System.EventHandler(this.Ventas_ventana_informacion_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

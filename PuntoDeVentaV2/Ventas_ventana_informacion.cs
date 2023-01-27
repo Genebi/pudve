@@ -25,6 +25,11 @@ namespace PuntoDeVentaV2
             cargar_datos(id_v);
         }
 
+        private void Ventas_ventana_informacion_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void cargar_datos(int idv)
         {
             string fpago = "";
@@ -122,7 +127,5 @@ namespace PuntoDeVentaV2
         {
             this.Dispose();
         }
-
-        
     }
 }
