@@ -65,7 +65,7 @@ namespace PuntoDeVentaV2
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(190, 87);
+            this.btnAceptar.Location = new System.Drawing.Point(190, 82);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(87, 28);
             this.btnAceptar.TabIndex = 60;
@@ -82,7 +82,7 @@ namespace PuntoDeVentaV2
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(52, 86);
+            this.btnCancelar.Location = new System.Drawing.Point(52, 81);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(87, 29);
             this.btnCancelar.TabIndex = 61;
@@ -103,7 +103,7 @@ namespace PuntoDeVentaV2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(331, 115);
+            this.ClientSize = new System.Drawing.Size(327, 116);
             this.ControlBox = false;
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAceptar);

@@ -1471,10 +1471,11 @@ namespace PuntoDeVentaV2
                         cantidad.ShowDialog();
                         //if (cantidadComprada.nuevaCantidad > cantidadAnterior)
                         //{
+                        
                         txtBuscadorProducto.Text = "+" + (cantidadComprada.nuevaCantidad - 1);
                         txtBuscadorProducto.Focus();
-                        SendKeys.Send("{ENTER}");
-                        listaProductos.Visible = false;
+                       SendKeys.Send("{ENTER}");
+                     listaProductos.Visible = false;
                         //}
                         //else
                         //{
@@ -1484,7 +1485,7 @@ namespace PuntoDeVentaV2
                         //    listaProductos.Visible = false;
                         //}
                     }
-                    SendKeys.Send("{BACKSPACE}");
+                  SendKeys.Send("{BACKSPACE}");
                     cambioCantidadProd = 0;
                     if (SeCambioCantidad == true)
                     {
@@ -6314,7 +6315,7 @@ namespace PuntoDeVentaV2
 
                 cadena = Regex.Replace(cadena, primerPatron, string.Empty);
             }
-            else if (segundaCoincidencia.Success)
+            else if (segundaCoincidencia.Success)// AQUI ENTRA
             {
                 bool checkFoundPlusAndDot = false;
 
@@ -6323,7 +6324,7 @@ namespace PuntoDeVentaV2
                 var estaDentroDelLimite = false;
                 decimal esNumeroLaBusqueda;
                 string vacia = string.Empty;
-                estaDentroDelLimite = decimal.TryParse(cadena, out esNumeroLaBusqueda);//Se cambio el tipo de dato INT por DECIMAL
+                estaDentroDelLimite = decimal.TryParse(cadena, out esNumeroLaBusqueda);//Se cambio el tipo de dato INT por DECIMAL ( CREO QUE ES AQUI )
 
                 if (estaDentroDelLimite.Equals(false))
                 {
@@ -6334,7 +6335,7 @@ namespace PuntoDeVentaV2
 
                 if (sumarProducto)
                 {
-                    if (checkFoundPlusAndDot)
+                    if (checkFoundPlusAndDot)           //AQUI SE BRINCA CUANDO TIENE +9.9
                     {
                         var infoTmp = cadena.Split('+');
                         float cantidadExtraDecimal = 0;
@@ -6736,17 +6737,19 @@ namespace PuntoDeVentaV2
 
         private bool verifiedContainsPlusSymbol(string cadena)
         {
-            Regex regex1 = new Regex(@"^(\+\.\d+)");
-            Regex regex2 = new Regex(@"^(\.\d+\+)");
-            Regex regex3 = new Regex(@"^(\+\d\.\d+)");
-            Regex regex4 = new Regex(@"^(\d\.\d+\+)");
+            Regex regex1 = new Regex(@"^(\+\.\d+)");        
+            Regex regex2 = new Regex(@"^(\.\d+\+)");        
+            Regex regex3 = new Regex(@"^(\+\d+\.\d+)");    
+            Regex regex4 = new Regex(@"^(\d+\.\d+\+)");    
+            Regex regex5 = new Regex(@"^(\d+\.\d+)");     
 
             Match match1 = regex1.Match(cadena);
             Match match2 = regex2.Match(cadena);
             Match match3 = regex3.Match(cadena);
             Match match4 = regex4.Match(cadena);
+            Match match5 = regex5.Match(cadena);
 
-            return match1.Success || match2.Success || match3.Success || match4.Success;
+            return match1.Success || match2.Success || match3.Success || match4.Success || match5.Success;
         }
         #endregion
 
