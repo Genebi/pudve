@@ -55,9 +55,7 @@
             this.webListener = new System.ComponentModel.BackgroundWorker();
             this.webAuto = new System.Windows.Forms.Timer(this.components);
             this.webSender = new System.ComponentModel.BackgroundWorker();
-            this.totitle = new System.Windows.Forms.Label();
             this.panelMaestro.SuspendLayout();
-            this.panelContenedor.SuspendLayout();
             this.menuVertical.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -73,7 +71,6 @@
             // 
             // panelContenedor
             // 
-            this.panelContenedor.Controls.Add(this.totitle);
             this.panelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContenedor.Location = new System.Drawing.Point(230, 0);
             this.panelContenedor.Name = "panelContenedor";
@@ -453,16 +450,6 @@
             // 
             this.webSender.DoWork += new System.ComponentModel.DoWorkEventHandler(this.webSender_DoWork);
             // 
-            // totitle
-            // 
-            this.totitle.AutoSize = true;
-            this.totitle.Location = new System.Drawing.Point(237, 401);
-            this.totitle.Name = "totitle";
-            this.totitle.Size = new System.Drawing.Size(23, 13);
-            this.totitle.TabIndex = 0;
-            this.totitle.Text = "Nai";
-            this.totitle.Visible = false;
-            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -479,8 +466,6 @@
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormPrincipal_Paint);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormPrincipal_KeyDown);
             this.panelMaestro.ResumeLayout(false);
-            this.panelContenedor.ResumeLayout(false);
-            this.panelContenedor.PerformLayout();
             this.menuVertical.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -513,7 +498,6 @@
         public System.Windows.Forms.Timer actualizarCaja;
         private System.Windows.Forms.Timer webAuto;
         private System.ComponentModel.BackgroundWorker webSender;
-        public System.Windows.Forms.Label totitle;
     }
 }
 
