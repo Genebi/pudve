@@ -1086,38 +1086,37 @@ namespace PuntoDeVentaV2
             bool ayylmao = true;
             using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebCerrar,WebTotal FROM Configuracion WHERE IDUsuario = {userID}"))
             {
-                if (dtConfiguracionWeb.Rows[0][1].ToString() == "1" && pasar==1)
-                { 
-                    FormCollection fc = Application.OpenForms;
-                foreach (Form frm in fc)
-                 {
-                if (frm.Name == "WebUploader")
+                if (dtConfiguracionWeb.Rows[0][0].ToString() == "1")
                 {
-                    DialogResult dialogResult = MessageBox.Show("Esperar y cerrar?", "Respaldo en curso", MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.Yes)
+                    if (pasar==1)
                     {
-                        e.Cancel = true;
-                        ayylmao = false;
-                        frm.Refresh();
-                        frm.Opacity = 1;
-                        frm.TopMost = true;
-                    }
-                    else
-                    {
-                        Environment.Exit(0);
-                    }
-                      }
-                  }
-                }
-
-                if (dtConfiguracionWeb.Rows[0][0].ToString() == "1" && pasar==1)
-                {
-                    if (enviarCajaAWeb())
-                    {
+                        enviarCajaAWeb();
                         enviarProdctosWeb();
-                        if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
+                    }
+
+                    if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
+                    {
+                        FormCollection fc = Application.OpenForms;
+                        foreach (Form frm in fc)
                         {
-                            if (ayylmao)
+                            if (frm.Name == "WebUploader")
+                            {
+                                DialogResult dialogResult = MessageBox.Show("Esperar y cerrar?", "Respaldo en curso", MessageBoxButtons.YesNo);
+                                if (dialogResult == DialogResult.Yes)
+                                {
+                                    e.Cancel = true;
+                                    ayylmao = false;
+                                    frm.Refresh();
+                                    frm.Opacity = 1;
+                                    frm.TopMost = true;
+                                }
+                                else
+                                {
+                                    Environment.Exit(0);
+                                }
+                            }
+                        }
+                        if (ayylmao)
                             {
                                 DialogResult dialogResult = MessageBox.Show("¿Quiere realizar una copia de seguridad antes de cerrar sesión?", "¿Respaldar antes de salir?", MessageBoxButtons.YesNo);
                                 if (dialogResult == DialogResult.Yes)
@@ -1131,7 +1130,6 @@ namespace PuntoDeVentaV2
                                 }
 
                             }
-                        }
                     }
                     else
                     {
@@ -1302,14 +1300,11 @@ namespace PuntoDeVentaV2
         {
                 using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebAuto,WebTotal FROM Configuracion WHERE IDUsuario = {userID}"))
                 {
-                    if (dtConfiguracionWeb.Rows[0][0].ToString() == "1" && pasar == 1)
+                    if (dtConfiguracionWeb.Rows[0][0].ToString() == "1")
                     {
-                        if (enviarCajaAWeb())
+                        if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
                         {
-                            enviarProdctosWeb();
                             bool chambiador = false;
-                            if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
-                            {
                                 FormCollection fc = Application.OpenForms;
 
                                 foreach (Form frm in fc)
@@ -1327,12 +1322,12 @@ namespace PuntoDeVentaV2
                                     respaldazo.ShowDialog();
                                     CheckForIllegalCrossThreadCalls = true;
                                 }
-                            }
+
                     }
-                    else
+                    if (pasar==1)
                     {
-                        //Error de red 
-                        return;
+                        enviarProdctosWeb();
+                        enviarCajaAWeb();
                     }
                     }
                     else
