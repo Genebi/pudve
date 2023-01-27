@@ -394,6 +394,7 @@ namespace PuntoDeVentaV2
 
         private void ConfiguracionGeneral_Load(object sender, EventArgs e)
         {
+
             if (Properties.Settings.Default.StockNegativo)
             {
                 cbStockNegativo.Checked = true;
