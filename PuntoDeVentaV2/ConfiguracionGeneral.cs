@@ -70,7 +70,7 @@ namespace PuntoDeVentaV2
 
         int contador = 0;
 
-        public ConfiguracionGeneral() 
+        public ConfiguracionGeneral()
         {
             InitializeComponent();
         }
@@ -164,7 +164,7 @@ namespace PuntoDeVentaV2
                 //    }
                 //}
             }
-           
+
             //if (opcion10 == 0)
             //{
             //    checkCBVenta.CheckedChanged -= checkCBVenta_CheckedChanged;
@@ -183,7 +183,7 @@ namespace PuntoDeVentaV2
 
             //cn.EjecutarConsulta($"UPDATE Configuracion SET TicketVenta = {ticketVenta} WHERE IDUsuario = {FormPrincipal.userID}");
 
-          
+
         }
 
         private void pagWeb_CheckedChanged(object sender, EventArgs e)
@@ -199,7 +199,7 @@ namespace PuntoDeVentaV2
 
         private void cbMostrarPrecio_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void cbStockNegativo_CheckedChanged(object sender, EventArgs e)
@@ -217,8 +217,8 @@ namespace PuntoDeVentaV2
             //Properties.Settings.Default.Save();
             //Properties.Settings.Default.Reload();
 
-            
-           
+
+
         }
 
         private void chTicketVentas_CheckedChanged(object sender, EventArgs e)
@@ -232,8 +232,8 @@ namespace PuntoDeVentaV2
 
             //cn.EjecutarConsulta($"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}");
 
-           
-            
+
+
         }
 
         private void checkMayoreo_CheckedChanged(object sender, EventArgs e)
@@ -265,7 +265,7 @@ namespace PuntoDeVentaV2
                 //    cn.EjecutarConsulta($"UPDATE Configuracion SET PrecioMayoreo = {habilitado}, MinimoMayoreo = 0 WHERE IDUsuario = {FormPrincipal.userID}");
                 //}
 
-                
+
             }
             else
             {
@@ -342,7 +342,7 @@ namespace PuntoDeVentaV2
                 //    FormPrincipal.checkNoVendidos = 0;
                 //}
 
-                
+
             }
             else
             {
@@ -370,7 +370,7 @@ namespace PuntoDeVentaV2
                 //    cn.EjecutarConsulta($"UPDATE Configuracion SET checkNoVendidos = 0, diasNoVendidos = 0 WHERE IDUsuario = {FormPrincipal.userID}");
                 //    FormPrincipal.checkNoVendidos = 0;
                 //}
-            } 
+            }
         }
 
         private void checkNoVendidos_Click(object sender, EventArgs e)
@@ -394,6 +394,7 @@ namespace PuntoDeVentaV2
 
         private void ConfiguracionGeneral_Load(object sender, EventArgs e)
         {
+
             if (Properties.Settings.Default.StockNegativo)
             {
                 cbStockNegativo.Checked = true;
@@ -414,7 +415,7 @@ namespace PuntoDeVentaV2
                         chkMensajeVenderProducto.Checked = false;
                     }
                 }
-                
+
             }
 
             using (var permisosInventario = cn.CargarDatos(cs.permisoRealizarInventario()))
@@ -517,12 +518,16 @@ namespace PuntoDeVentaV2
                         if (item["HabilitarTicketVentas"].Equals(true))
                         {
                             valorBooleanoDelCheckBox = true;
+                            chkPreguntar.Enabled = false;
                         }
                         else if (item["HabilitarTicketVentas"].Equals(false))
                         {
                             valorBooleanoDelCheckBox = false;
+                            chkPreguntar.Enabled = true;
+
                         }
                         chTicketVentas.Checked = valorBooleanoDelCheckBox;
+
                         #endregion
                         #region Activar Precio por Mayoreo en Ventas
                         if (item["PrecioMayoreo"].Equals(1))
@@ -557,9 +562,23 @@ namespace PuntoDeVentaV2
                         {
                             chTraspasos.Checked = true;
                         }
-                        else if (item["checkNoVendidos"].Equals(0))
+                        #endregion
+                        #region Reportar a sifo.com cuando se cierre el programa
+                        if (item["WebCerrar"].Equals(1))
                         {
-                            chTraspasos.Checked = false;
+                            chWebCerrar.Checked = true;
+                        }
+                        #endregion
+                        #region Reportar a sifo.com automaticamente
+                        if (item["WebAuto"].Equals(1))
+                        {
+                            cbWebReportesPeriodicos.Checked = true;
+                        }
+                        #endregion
+                        #region Realizar respaldos completoss
+                        if (item["WebTotal"].Equals(1))
+                        {
+                            chWebTotal.Checked = true;
                         }
                         #endregion
                         #region Mostrar Stock Consulta Precio
@@ -570,6 +589,31 @@ namespace PuntoDeVentaV2
                         else if (item["checkNoVendidos"].Equals(0))
                         {
                             CHKMostrarStock.Checked = false;
+                        }
+                        #endregion
+                        #region Preguntar Ticket
+                        if (item["PreguntarTicketVenta"].Equals(1))
+                        {
+                            if (chTicketVentas.Checked == false)
+                            {
+                                chkPreguntar.Checked = true;
+                            }
+                        }
+                        else
+                        {
+                            chkPreguntar.Checked = false;
+                        }
+                        #endregion
+                        #region
+                        if (item["TicketOPDF"].Equals(1))
+                        {
+                            RBTicket.Checked = true;
+                            RBTicket.Enabled = false;
+                        }
+                        else
+                        {
+                            RBpdf.Checked = true;
+                            RBpdf.Enabled = false;
                         }
                         #endregion
                         checkRentas.Checked = (bool)item["RealizaRentas"];
@@ -583,7 +627,7 @@ namespace PuntoDeVentaV2
         private void chkCerrarSesionCorte_CheckedChanged(object sender, EventArgs e)
         {
 
-            
+
             //var habilitado = 0;
 
             //if (chkCerrarSesionCorte.Checked)
@@ -799,7 +843,7 @@ namespace PuntoDeVentaV2
                                 habilitado = 0;
                             }
 
-                            string consulta =$"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            string consulta = $"UPDATE Configuracion SET MostrarCodigoProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                             confiGeneral.Add(consulta);
                         }
                         else
@@ -880,7 +924,7 @@ namespace PuntoDeVentaV2
                                 habilitado = 0;
                             }
 
-                            string consulta =$"UPDATE Configuracion SET MostrarPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            string consulta = $"UPDATE Configuracion SET MostrarPrecioProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                             confiGeneral.Add(consulta);
 
                         }
@@ -933,7 +977,7 @@ namespace PuntoDeVentaV2
                         habilitado = 0;
                     }
 
-                    string consulta=$"UPDATE Configuracion SET StockNegativo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    string consulta = $"UPDATE Configuracion SET StockNegativo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                     confiGeneral.Add(consulta);
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
@@ -1002,13 +1046,17 @@ namespace PuntoDeVentaV2
                     if (valorCambioCheckBox.Equals(true))
                     {
                         habilitado = true;
+                        chkPreguntar.Checked = false;
+                        chkPreguntar.Enabled = false;
+                        confiGeneral.Add($"UPDATE Configuracion SET PreguntarTicketVenta = 0 WHERE IDUsuario = {FormPrincipal.userID}");
                     }
                     else
                     {
                         habilitado = false;
+                        chkPreguntar.Enabled = true;
                     }
 
-                    string consulta =$"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    string consulta = $"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                     confiGeneral.Add(consulta);
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
@@ -1025,10 +1073,14 @@ namespace PuntoDeVentaV2
                             if (valorCambioCheckBox.Equals(true))
                             {
                                 habilitado = true;
+                                chkPreguntar.Checked = false;
+                                chkPreguntar.Enabled = false;
+                                confiGeneral.Add($"UPDATE Configuracion SET PreguntarTicketVenta = 0 WHERE IDUsuario = {FormPrincipal.userID}");
                             }
                             else
                             {
                                 habilitado = false;
+                                chkPreguntar.Enabled = true;
                             }
 
                             string consulta = $"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
@@ -1089,7 +1141,7 @@ namespace PuntoDeVentaV2
                     }
 
                     string consulta = $"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
-                    confiGeneral.Add(consulta );
+                    confiGeneral.Add(consulta);
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
                 {
@@ -1121,7 +1173,7 @@ namespace PuntoDeVentaV2
                                 txtMinimoMayoreo.Text = string.Empty;
                             }
 
-                            string consulta =$"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            string consulta = $"UPDATE Configuracion SET PrecioMayoreo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                             confiGeneral.Add(consulta);
 
                         }
@@ -1198,7 +1250,7 @@ namespace PuntoDeVentaV2
                                 txtNoVendidos.Enabled = true;
                                 txtNoVendidos.Focus();
 
-                                string consulta =$"UPDATE Configuracion SET checkNoVendidos = 1 WHERE IDUsuario = {FormPrincipal.userID}";
+                                string consulta = $"UPDATE Configuracion SET checkNoVendidos = 1 WHERE IDUsuario = {FormPrincipal.userID}";
                                 confiGeneral.Add(consulta);
                                 FormPrincipal.checkNoVendidos = 1;
                             }
@@ -1206,7 +1258,7 @@ namespace PuntoDeVentaV2
                             {
                                 txtNoVendidos.Enabled = false;
                                 txtNoVendidos.Text = string.Empty;
-                                string consulta =$"UPDATE Configuracion SET checkNoVendidos = 0, diasNoVendidos = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                                string consulta = $"UPDATE Configuracion SET checkNoVendidos = 0, diasNoVendidos = 0 WHERE IDUsuario = {FormPrincipal.userID}";
                                 confiGeneral.Add(consulta);
                                 FormPrincipal.checkNoVendidos = 0;
                             }
@@ -1239,94 +1291,25 @@ namespace PuntoDeVentaV2
         private void pagWeb_MouseClick(object sender, MouseEventArgs e)
         {
             MessageBox.Show("Cambios a esta configuración solo se aplicarán tras el reinicio del sistema.");
+            int habilitado;
 
-            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("HabilitarInfoPaginaWeb", FormPrincipal.id_empleado)))
+            if (pagWeb.Checked)
             {
-                if (FormPrincipal.id_empleado.Equals(0))
-                {
-                    if (opcion11.Equals(0))
-                    {
-                        Utilidades.MensajePermiso();
-                        return;
-                    }
-
-                    var habilitado = 0;
-
-                    valorCambioCheckBox = pagWeb.Checked;
-
-                    if (valorCambioCheckBox.Equals(true))
-                    {
-                        habilitado = 1;
-                    }
-                    else
-                    {
-                        habilitado = 0;
-                    }
-
-                    string consulta = $"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
-                    confiGeneral.Add(consulta);
-                    FormPrincipal.pasar = habilitado;
-                }
-                else if (!permisoEmpleado.Rows.Count.Equals(0))
-                {
-                    foreach (DataRow item in permisoEmpleado.Rows)
-                    {
-                        if (item[0].ToString().Equals("1"))
-                        {
-
-                            if (opcion11.Equals(0))
-                            {
-                                Utilidades.MensajePermiso();
-                                return;
-                            }
-
-                            var habilitado = 0;
-
-                            valorCambioCheckBox = pagWeb.Checked;
-
-                            if (valorCambioCheckBox.Equals(true))
-                            {
-                                habilitado = 1;
-                            }
-                            else
-                            {
-                                habilitado = 0;
-                            }
-
-                            string consulta = $"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
-                            confiGeneral.Add(consulta);
-
-
-                            FormPrincipal.pasar = habilitado;
-
-                        }
-                        else
-                        {
-                            MessageBox.Show("No tienes permisos para modificar esta opcion");
-                            if (pagWeb.Checked == true)
-                            {
-                                pagWeb.Checked = false;
-                                return;
-                            }
-                            else
-                            {
-                                pagWeb.Checked = true;
-                                return;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("No tienes permisos para modificar esta opcion");
-                    return;
-                }
+                habilitado = 1;
             }
+            else
+            {
+                habilitado = 0;
+            }
+
+            string consulta = $"UPDATE Configuracion SET IniciarProceso = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+            confiGeneral.Add(consulta);
+            FormPrincipal.pasar = habilitado;
         }
 
         private void ConfiguracionGeneral_KeyDown(object sender, KeyEventArgs e)
         {
-            
+
             if (confiGeneral.Count == 0)
             {
                 if (e.KeyCode == Keys.Escape)
@@ -1472,17 +1455,17 @@ namespace PuntoDeVentaV2
                             }
                             var consulta = string.Empty;
 
-                             consulta = $"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            consulta = $"UPDATE Configuracion SET HabilitarTicketVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                             confiGeneral.Add(consulta);
 
                             if (chkMensajeRealizarInventario.Checked == true)
                             {
-                                consulta =$"UPDATE mensajesinventario SET Activo = 1";
+                                consulta = $"UPDATE mensajesinventario SET Activo = 1";
                                 confiGeneral.Add(consulta);
                             }
                             else
                             {
-                                consulta =$"UPDATE mensajesinventario SET Activo = 0";
+                                consulta = $"UPDATE mensajesinventario SET Activo = 0";
                                 confiGeneral.Add(consulta);
                             }
                         }
@@ -1512,12 +1495,11 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-
             foreach (var item in confiGeneral)
             {
                 cn.EjecutarConsulta(item);
             }
-        
+
             MessageBox.Show("Configuracion Guardada con exito", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             guardado = 1;
             this.Close();
@@ -1525,7 +1507,7 @@ namespace PuntoDeVentaV2
 
         private void label4_Click(object sender, EventArgs e)
         {
-             
+
         }
 
         private void chkMensajeRealizarInventario_CheckedChanged(object sender, EventArgs e)
@@ -1574,7 +1556,7 @@ namespace PuntoDeVentaV2
                 var consulta = $"UPDATE Configuracion SET Traspasos = {0} WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta);
             }
-            
+
         }
 
         private void CHKMostrarStock_MouseClick(object sender, MouseEventArgs e)
@@ -1655,6 +1637,249 @@ namespace PuntoDeVentaV2
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             System.Diagnostics.Process.Start("https://sifo.com.mx/WebAppPudve/index.php");
+        }
+
+        private void chkPreguntar_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("PermisoPreguntarTicketVenta", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    var habilitado = false;
+
+                    valorCambioCheckBox = chkPreguntar.Checked;
+
+                    if (valorCambioCheckBox.Equals(true))
+                    {
+                        habilitado = true;
+                    }
+                    else
+                    {
+                        habilitado = false;
+                    }
+
+                    string consulta = $"UPDATE Configuracion SET PreguntarTicketVenta = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiGeneral.Add(consulta);
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            var habilitado = false;
+
+                            valorCambioCheckBox = chkPreguntar.Checked;
+
+                            if (valorCambioCheckBox.Equals(true))
+                            {
+                                habilitado = true;
+                            }
+                            else
+                            {
+                                habilitado = false;
+                            }
+
+                            string consulta = $"UPDATE Configuracion SET PreguntarTicketVenta = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiGeneral.Add(consulta);
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (chkPreguntar.Checked == true)
+                            {
+                                chkPreguntar.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                chkPreguntar.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void RBpdf_MouseClick_1(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("PermisoTicketPDF", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    var habilitado = 0;
+
+                    if (RBpdf.Checked.Equals(true))
+                    {
+                        habilitado = 2;
+                    }
+                    else
+                    {
+                        habilitado = 1;
+                    }
+
+                    string consulta = $"UPDATE Configuracion SET TicketOPDF = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiGeneral.Add(consulta);
+                    RBTicket.Enabled = true;
+                    RBpdf.Enabled = false;
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            var habilitado = 0;
+
+                            if (RBpdf.Checked.Equals(true))
+                            {
+                                habilitado = 2;
+                            }
+                            else
+                            {
+                                habilitado = 1;
+                            }
+
+                            string consulta = $"UPDATE Configuracion SET TicketOPDF = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiGeneral.Add(consulta);
+                            RBTicket.Enabled = true;
+                            RBpdf.Enabled = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (RBpdf.Checked == true)
+                            {
+                                RBpdf.Checked = false;
+                                RBTicket.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+        private void RBTicket_MouseClick_1(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("PermisoTicketPDF", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    var habilitado = 0;
+
+                    if (RBTicket.Checked.Equals(true))
+                    {
+                        habilitado = 1;
+                    }
+                    else
+                    {
+                        habilitado = 2;
+                    }
+
+                    string consulta = $"UPDATE Configuracion SET TicketOPDF = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiGeneral.Add(consulta);
+                    RBTicket.Enabled = false;
+                    RBpdf.Enabled = true;
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            var habilitado = 0;
+
+                            if (RBTicket.Checked.Equals(true))
+                            {
+                                habilitado = 1;
+                            }
+                            else
+                            {
+                                habilitado = 2;
+                            }
+
+                            string consulta = $"UPDATE Configuracion SET TicketOPDF = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiGeneral.Add(consulta);
+                            RBTicket.Enabled = false;
+                            RBpdf.Enabled = true;
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (RBTicket.Checked == true)
+                            {
+                                RBTicket.Checked = false;
+                                RBpdf.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+
+            }
+        }
+        private void chWebCerrar_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (chWebCerrar.Checked)
+            {
+                var consulta = $"UPDATE Configuracion SET WebCerrar = {1} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
+            else
+            {
+                var consulta = $"UPDATE Configuracion SET WebCerrar = {0} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
+        }
+
+        private void chWebTotal_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (chWebTotal.Checked)
+            {
+                var consulta = $"UPDATE Configuracion SET WebTotal = {1} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
+            else
+            {
+                var consulta = $"UPDATE Configuracion SET WebTotal = {0} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
+        }
+
+        private void cbWebReportesPeriodicos_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (cbWebReportesPeriodicos.Checked)
+            {
+                var consulta = $"UPDATE Configuracion SET WebAuto = {1} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
+            else
+            {
+                var consulta = $"UPDATE Configuracion SET WebAuto = {0} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+
+            }
         }
 
         private void checkRentas_MouseClick(object sender, MouseEventArgs e)

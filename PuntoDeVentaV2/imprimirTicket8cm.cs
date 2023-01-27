@@ -269,9 +269,27 @@ namespace PuntoDeVentaV2
             rdlc.SetParameters(reportParameters);
             rdlc.DataSources.Add(rp);
             #endregion
+            using (var dtTicketOPDF = cn.CargarDatos($"SELECT TicketOPDF FROM `configuracion` WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (dtTicketOPDF.Rows[0][0].Equals(1))
+                {
+                    EnviarImprimir imp = new EnviarImprimir();
+                    imp.Imprime(rdlc);
+                    File.Delete($"{pathBarCode}{folioVentaRealizada}.png");
 
-            EnviarImprimir imp = new EnviarImprimir();
-            imp.Imprime(rdlc);
+                    if (File.Exists(finalLogoTipoPath))
+                    {
+                        File.Delete(finalLogoTipoPath);
+                    }
+                    this.Close();
+                }
+                else
+                {
+                    FormNotaDeVenta.fuePorVenta = true;
+                    FormNotaDeVenta venta = new FormNotaDeVenta(idVentaRealizada);
+                    venta.ShowDialog();
+                }
+            }
 
             File.Delete($"{pathBarCode}{folioVentaRealizada}.png");
 
@@ -279,8 +297,8 @@ namespace PuntoDeVentaV2
             {
                 File.Delete(finalLogoTipoPath);
             }
-
             this.Close();
+
         }
 
         private Image GenerarCodigoBarras(string txtCodigo, int ancho)

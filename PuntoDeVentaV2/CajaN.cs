@@ -407,6 +407,19 @@ namespace PuntoDeVentaV2
             {
                 botonRedondo3.Visible = true;
             }
+            if (Inventario.desdeRegresarProdcuto == 1)
+            {
+                this.Opacity = 0;
+
+                AgregarRetirarDinero retirar = new AgregarRetirarDinero(1);
+
+                retirar.FormClosed += delegate
+                {
+                    this.Close();
+                };
+
+                retirar.ShowDialog();
+            }
         }
 
         private void verificarSiExisteCorteDeCaja()
@@ -5659,6 +5672,7 @@ namespace PuntoDeVentaV2
 
         private void btnRedondoRetirarDinero_Click(object sender, EventArgs e)
         {
+            Inventario.operacionDevolucionProducto = 0;
             if (opcion3 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -5680,6 +5694,7 @@ namespace PuntoDeVentaV2
 
                     var cantidadRetiradaSaldoInicial = cn.CargarDatos(cs.dineroRetiradoSaldoInicial(FormPrincipal.userID, FormPrincipal.id_empleado, ultimoCorteDeCaja));
                     lblCantidadRetirada.Text = cantidadRetiradaSaldoInicial.Rows[0]["Total retirado"].ToString();
+                    Inventario.desdeRegresarProdcuto = 0;
                     //CargarSaldo();
                 };
 

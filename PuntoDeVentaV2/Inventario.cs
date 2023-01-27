@@ -35,6 +35,8 @@ namespace PuntoDeVentaV2
         public static bool botonAceptar = false;
         public static bool aceptarFiltro = false;
 
+        public static int IDProducto;
+
         public decimal getSuma { get; set; }
         public static decimal suma = 0;
 
@@ -91,6 +93,10 @@ namespace PuntoDeVentaV2
         int contadorMensaje = 0;
 
         public static string filtradoParaRealizar = string.Empty;
+
+        public static int desdeRegresarProdcuto = 0;
+
+        public static int operacionDevolucionProducto = 0;
 
         public static bool esAumentar = false;
 
@@ -1291,27 +1297,30 @@ namespace PuntoDeVentaV2
                     esAumentar = false;
                 }
 
-                SeleccionarConceptosReporteActualizarInventario SCRA = new SeleccionarConceptosReporteActualizarInventario();
-
-                SCRA.FormClosed += delegate
+                if (desdeRegresarProdcuto != 1)
                 {
-                    ConceptosSeleccionados();
-                    ValidarParaTerminarRevision();
-                };
+                    SeleccionarConceptosReporteActualizarInventario SCRA = new SeleccionarConceptosReporteActualizarInventario();
 
-                SCRA.ShowDialog();
+                    SCRA.FormClosed += delegate
+                    {
+                        ConceptosSeleccionados();
+                        ValidarParaTerminarRevision();
+                    };
 
-                if (Aceptar.Equals(true))
-                {
+                    SCRA.ShowDialog();
 
-                    FormReporteInventario xd = new FormReporteInventario(Aumentar, clave);  //ese nombre de objeto que, mas seriedad alexis por favor.
+                    if (Aceptar.Equals(true))
+                    {
 
-                    xd.ShowDialog();
-                    Aceptar = false;
-                }
-                else
-                {
-                    return;
+                        FormReporteInventario xd = new FormReporteInventario(Aumentar, clave);  //ese nombre de objeto que, mas seriedad alexis por favor.
+
+                        xd.ShowDialog();
+                        Aceptar = false;
+                    }
+                    else
+                    {
+                        return;
+                    }
                 }
 
                 if (rbAumentarProducto.Checked)
@@ -1377,6 +1386,24 @@ namespace PuntoDeVentaV2
             else
             {
                 MessageBox.Show("No existen ajustes realizados.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            if (desdeRegresarProdcuto == 1)
+            {
+                PreguntasDevolucionProductos preguntas = new PreguntasDevolucionProductos();
+                preguntas.ShowDialog();
+
+                if (operacionDevolucionProducto == 1)
+                {
+                    CajaN newCaja = new CajaN();
+                    newCaja.ShowDialog();
+                }
+                else if (operacionDevolucionProducto == 2)
+                {
+                    AgregarAnticipo anticipoDevolucion = new AgregarAnticipo();
+                    anticipoDevolucion.ShowDialog();
+                }
+                
             }
         }
 
@@ -4154,7 +4181,7 @@ namespace PuntoDeVentaV2
             var fechaCompra =  DateTime.Now.ToString("yyyy-MM-dd");
             var precioCompra = datosProducto[2];
             var cantidadCompra = datosProducto[4];
-            int IDProducto = Int32.Parse(cn.CargarDatos($"SELECT ID FROM productos WHERE CodigoBarras = '{datosProducto[1]}' AND `Status` = 1 AND IDUsuario = '{FormPrincipal.userID}'").Rows[0]["ID"].ToString());
+            IDProducto = Int32.Parse(cn.CargarDatos($"SELECT ID FROM productos WHERE CodigoBarras = '{datosProducto[1]}' AND `Status` = 1 AND IDUsuario = '{FormPrincipal.userID}'").Rows[0]["ID"].ToString());
 
             string[] datos = new string[] { datosProducto[0], cantidadCompra, precioCompra, datosProducto[3], fechaCompra, rfc, "", "", "1", fechaOperacion, reporte.ToString(), IDProducto.ToString(), FormPrincipal.userID.ToString() };
 
@@ -4269,5 +4296,172 @@ namespace PuntoDeVentaV2
             cn2.EjecutarConsulta($"UPDATE traspasosmovimiento SET Usado= 1 WHERE Clave = '{txtClaveTraspaso.Text}'");
         }
 
+        private void btnMensajeVenta_Click(object sender, EventArgs e)
+        {
+            panelContenedor.Visible = true;
+            gBSeleccionActualizarInventario.Visible = false;
+            desdeRegresarProdcuto = 1;
+            txtBusqueda.Focus();
+        }
+
+        private void Inventario_DragLeave(object sender, EventArgs e)
+        {
+            desdeRegresarProdcuto = 0;
+        }
+
+        private void botonRedondo1_Click(object sender, EventArgs e)
+        {
+            gBSeleccionActualizarInventario.Visible = false;
+            panelContenedor.Visible = false;
+
+            if (opcion1 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
+            if (!ExistenProductos("revisar"))
+            {
+                return;
+            }
+
+            if (Application.OpenForms.OfType<FiltroRevisarInventario>().Count() == 1)
+            {
+                Application.OpenForms.OfType<FiltroRevisarInventario>().First().BringToFront();
+            }
+            else
+            {
+                var filtro = new FiltroRevisarInventario();
+
+                filtro.FormClosed += delegate
+                {
+                    if (aceptarFiltro)
+                    {
+                        filtradoParaRealizar = filtro.tipoFiltro;
+
+                        if (filtradoParaRealizar.Equals("Filtros"))
+                        {
+                            if (Application.OpenForms.OfType<RevisarInventario>().Count() == 1)
+                            {
+                                Application.OpenForms.OfType<RevisarInventario>().First().BringToFront();
+                            }
+                            else
+                            {
+                                var datos = new string[] { filtro.tipoFiltro, filtro.operadorFiltro, filtro.textoFiltroDinamico.ToString() };
+
+                                panelContenedor.Visible = false;
+                                aceptarFiltro = false;
+
+                                RevisarInventario revisar = new RevisarInventario(datos);
+
+                                revisar.FormClosed += delegate
+                                {
+                                    ReporteFinalRevisarInventario reporte = new ReporteFinalRevisarInventario();
+                                    reporte.GetFilterNumActiveRecord = NumRevActivo;
+                                    reporte.limpiarTabla = limpiarTabla;
+                                    limpiarTabla = false;
+                                    reporte.ShowDialog();
+                                };
+
+                                revisar.ShowDialog();
+                            }
+                        }
+                        else
+                        {
+                            if (Application.OpenForms.OfType<RevisarInventario>().Count() == 1)
+                            {
+                                Application.OpenForms.OfType<RevisarInventario>().First().BringToFront();
+                            }
+                            else
+                            {
+                                var datos = new string[] { filtro.tipoFiltro, filtro.operadorFiltro, filtro.cantidadFiltro.ToString() };
+
+                                panelContenedor.Visible = false;
+                                aceptarFiltro = false;
+
+                                RevisarInventario revisar = new RevisarInventario(datos);
+
+                                var ocultar = RevisarInventario.mostrar;
+
+
+                                revisar.FormClosed += delegate
+                                {
+                                    var mostrado = RevisarInventario.mostrar;
+                                    if (mostrado.Equals(0))
+                                    {
+                                        ReporteFinalRevisarInventario reporte = new ReporteFinalRevisarInventario();
+                                        reporte.GetFilterNumActiveRecord = NumRevActivo;
+                                        reporte.limpiarTabla = limpiarTabla;
+                                        limpiarTabla = false;
+                                        if (RevisarInventario.mensajeInventario == 1)
+                                        {
+                                        }
+                                        else
+                                        {
+                                            reporte.ShowDialog();
+                                        }
+                                    }
+                                };
+                                revisar.ShowDialog();
+                            }
+                        }
+                    }
+                };
+
+                filtro.ShowDialog();
+            }
+        }
+
+        private void botonRedondo2_Click(object sender, EventArgs e)
+        {
+            if (opcion2 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
+            if (!ExistenProductos("actualizar"))
+            {
+                return;
+            }
+
+            gBSeleccionActualizarInventario.Visible = true;
+
+            tipoSeleccion = 0;
+
+            panelContenedor.Visible = true;
+
+            txtBusqueda.Focus();
+        }
+
+        private void botonRedondo3_Click(object sender, EventArgs e)
+        {
+            if (opcion3 == 0)
+            {
+                Utilidades.MensajePermiso();
+                return;
+            }
+
+            if (Application.OpenForms.OfType<AgregarStockXML>().Count() == 1)
+            {
+                Application.OpenForms.OfType<AgregarStockXML>().First().BringToFront();
+            }
+            else
+            {
+                gBSeleccionActualizarInventario.Visible = false;
+                panelContenedor.Visible = false;
+
+                AgregarStockXML inventarioXML = new AgregarStockXML();
+
+                inventarioXML.FormClosed += delegate
+                {
+                    GenerarReporte(idReporte, 1);
+
+                    idReporte++;
+                };
+
+                inventarioXML.Show();
+            }
+        }
     }
 }

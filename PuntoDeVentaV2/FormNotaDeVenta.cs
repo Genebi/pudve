@@ -28,7 +28,7 @@ namespace PuntoDeVentaV2
         string DireccionLogo;
         bool SiHayLogo = false;
         string pathLogoImage;
-
+        public static bool fuePorVenta = false;
         public FormNotaDeVenta(int IDDeLaVEnta)
         {
             InitializeComponent();
@@ -38,6 +38,11 @@ namespace PuntoDeVentaV2
         private void FormNotaDeVenta_Load(object sender, EventArgs e)
         {
             CargarNotaDeVenta();
+            if (fuePorVenta == true)
+            {
+                btnImprimir.PerformClick();
+                this.Close();
+            }
         }
 
         private void CargarNotaDeVenta()
