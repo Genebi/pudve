@@ -2036,6 +2036,7 @@ ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS VentasACredito INT DEFAUL
 ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS tamannoTicket INT DEFAULT 2;
 
 
+
 -- Se eliminan llaves foraneas y referencias
 ALTER TABLE Facturas_impuestos DROP FOREIGN KEY IF EXISTS id_factura_producto;
 ALTER TABLE Facturas_impuestos DROP FOREIGN KEY IF EXISTS facturas_impuestos_ibfk_1;
@@ -2055,4 +2056,22 @@ ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoTicketPDF INT 
 
 --Se agrego la columna de TicketOPDF si quiere ticket en configuracion
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS TicketOPDF INT DEFAULT 1;
+
+-- Columnas pa una cosilla de lo de web https://i.imgur.com/kTwlKPo.png
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebCerrar INT DEFAULT 0;
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebTotal INT DEFAULT 0;
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebAuto INT DEFAULT 0;
+
+--Esta tabla sirve para preparar el envio de respaldos, se usa para almacenar de manera temporal los datos que se enviaran a gran velocidad mediante un bulk insert.
+--La columna de datos almacenara hasta 30mb, modifique el maximo tamanno de paquetes por consulta a un poco mas por si acaso.
+CREATE TABLE
+IF
+	NOT EXISTS WebRespaldosBuilder (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDCliente VARCHAR (255)  NOT NULL ,
+		Fecha varchar (50) NOT NULL, 
+		DATOS LONGTEXT NOT NULL
+	);
+SET GLOBAL max_allowed_packet=60777216;
+
 
