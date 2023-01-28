@@ -33,6 +33,8 @@ namespace PuntoDeVentaV2
         // status 9 = Renta a credito
         // status 10 = Renta global
 
+        // status 11 = Orden
+
         public static double pasarSumaImportes { get; set; }
         public static double pasarTotalAnticipos { get; set; }
         private bool aplicarDescuentoG { get; set; }
@@ -234,6 +236,10 @@ namespace PuntoDeVentaV2
         public static string AplicarCantidad;
         public static bool HizoUnaAccion = false;
         public static bool SeCambioCantidad = false;
+
+        // Variables para las Ordenes
+        public static string tiempoElaboracion { get; set; }
+        public static string fechaEntrega { get; set; }
 
         int calcu = 0;
 
@@ -3835,6 +3841,7 @@ namespace PuntoDeVentaV2
             string id_empleado = Convert.ToString(FormPrincipal.id_empleado);
             var tipoDeVenta = "";
             bool esRenta = checkRenta.Checked;
+            bool esOrden = checkOrden.Checked;
 
             // variable para saber si esta facturada la venta Guardada
             var estaTimbrada = false;
@@ -3851,6 +3858,14 @@ namespace PuntoDeVentaV2
                     if (statusVenta.Equals("2"))
                     {
                         statusVenta = "7";
+                    }
+                }
+
+                if (esOrden)
+                {
+                    if (statusVenta.Equals("2") || statusVenta.Equals("7"))
+                    {
+                        statusVenta = "11";
                     }
                 }
 
@@ -8087,12 +8102,20 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
+
                 ListaClientes cliente = new ListaClientes();
 
                 cliente.FormClosed += delegate
                 {
                     if (ventaGuardada)
                     {
+                        if (checkOrden.Checked)
+                        {
+                            DatosOrden orden = new DatosOrden();
+
+                            orden.ShowDialog();
+                        }
+
                         DatosVenta();
                         liststock2.Clear();
                         idCliente = string.Empty;

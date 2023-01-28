@@ -103,10 +103,13 @@
             this.lFolio = new System.Windows.Forms.TextBox();
             this.timer_img_producto = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
-            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             this.lblCIVA0Exento = new System.Windows.Forms.Label();
             this.lblIVA0Exento = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.btnBascula = new System.Windows.Forms.Button();
+            this.lblPesoRecibido = new System.Windows.Forms.Label();
+            this.btnCSV = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.btnGanancia = new PuntoDeVentaV2.BotonRedondo();
             this.btnAbrirCaja = new PuntoDeVentaV2.BotonRedondo();
             this.btnAnticipos = new PuntoDeVentaV2.BotonRedondo();
@@ -115,10 +118,8 @@
             this.btnGuardarVenta = new PuntoDeVentaV2.BotonRedondo();
             this.btnVentasGuardadas = new PuntoDeVentaV2.BotonRedondo();
             this.btn_cancelar_venta = new PuntoDeVentaV2.BotonRedondo();
-            this.btnBascula = new System.Windows.Forms.Button();
-            this.lblPesoRecibido = new System.Windows.Forms.Label();
-            this.btnCSV = new System.Windows.Forms.Button();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
+            this.checkOrden = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -150,7 +151,7 @@
             this.btnEliminarAnticipos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEliminarAnticipos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminarAnticipos.ForeColor = System.Drawing.Color.White;
-            this.btnEliminarAnticipos.Location = new System.Drawing.Point(295, 315);
+            this.btnEliminarAnticipos.Location = new System.Drawing.Point(431, 356);
             this.btnEliminarAnticipos.Name = "btnEliminarAnticipos";
             this.btnEliminarAnticipos.Size = new System.Drawing.Size(122, 25);
             this.btnEliminarAnticipos.TabIndex = 10;
@@ -598,6 +599,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
+            this.panel1.Controls.Add(this.checkOrden);
             this.panel1.Controls.Add(this.checkRenta);
             this.panel1.Controls.Add(this.CBTipo);
             this.panel1.Controls.Add(this.panel4);
@@ -621,6 +623,7 @@
             // checkRenta
             // 
             this.checkRenta.AutoSize = true;
+            this.checkRenta.Cursor = System.Windows.Forms.Cursors.Hand;
             this.checkRenta.Location = new System.Drawing.Point(10, 311);
             this.checkRenta.Name = "checkRenta";
             this.checkRenta.Size = new System.Drawing.Size(184, 17);
@@ -1008,25 +1011,6 @@
             this.panel2.TabIndex = 62;
             this.panel2.Click += new System.EventHandler(this.panel2_Click);
             // 
-            // botonRedondo1
-            // 
-            this.botonRedondo1.BackColor = System.Drawing.Color.Red;
-            this.botonRedondo1.BackGroundColor = System.Drawing.Color.Red;
-            this.botonRedondo1.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.botonRedondo1.BorderRadius = 10;
-            this.botonRedondo1.BorderSize = 0;
-            this.botonRedondo1.FlatAppearance.BorderSize = 0;
-            this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.botonRedondo1.ForeColor = System.Drawing.Color.White;
-            this.botonRedondo1.Image = global::PuntoDeVentaV2.Properties.Resources.reply_all;
-            this.botonRedondo1.Location = new System.Drawing.Point(0, 78);
-            this.botonRedondo1.Name = "botonRedondo1";
-            this.botonRedondo1.Size = new System.Drawing.Size(25, 22);
-            this.botonRedondo1.TabIndex = 73;
-            this.botonRedondo1.TextColor = System.Drawing.Color.White;
-            this.botonRedondo1.UseVisualStyleBackColor = false;
-            this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click_1);
-            // 
             // lblCIVA0Exento
             // 
             this.lblCIVA0Exento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -1069,6 +1053,48 @@
             this.panel5.Size = new System.Drawing.Size(881, 95);
             this.panel5.TabIndex = 63;
             this.panel5.Click += new System.EventHandler(this.panel5_Click);
+            // 
+            // btnBascula
+            // 
+            this.btnBascula.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBascula.Image = global::PuntoDeVentaV2.Properties.Resources.peso;
+            this.btnBascula.Location = new System.Drawing.Point(253, 20);
+            this.btnBascula.Name = "btnBascula";
+            this.btnBascula.Size = new System.Drawing.Size(105, 40);
+            this.btnBascula.TabIndex = 99;
+            this.btnBascula.Text = "Tomar Peso Ctrl + T";
+            this.btnBascula.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnBascula.UseVisualStyleBackColor = true;
+            this.btnBascula.Click += new System.EventHandler(this.btnBascula_Click);
+            // 
+            // lblPesoRecibido
+            // 
+            this.lblPesoRecibido.AutoSize = true;
+            this.lblPesoRecibido.Location = new System.Drawing.Point(364, 26);
+            this.lblPesoRecibido.Name = "lblPesoRecibido";
+            this.lblPesoRecibido.Size = new System.Drawing.Size(13, 13);
+            this.lblPesoRecibido.TabIndex = 64;
+            this.lblPesoRecibido.Text = "0";
+            this.lblPesoRecibido.Visible = false;
+            // 
+            // btnCSV
+            // 
+            this.btnCSV.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCSV.Image = global::PuntoDeVentaV2.Properties.Resources.file_excel_o1;
+            this.btnCSV.Location = new System.Drawing.Point(383, 20);
+            this.btnCSV.Name = "btnCSV";
+            this.btnCSV.Size = new System.Drawing.Size(105, 40);
+            this.btnCSV.TabIndex = 50;
+            this.btnCSV.Text = "Operación CSV";
+            this.btnCSV.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCSV.UseVisualStyleBackColor = true;
+            this.btnCSV.Click += new System.EventHandler(this.btnCSV_Click);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // btnGanancia
             // 
@@ -1239,47 +1265,35 @@
             this.btn_cancelar_venta.UseVisualStyleBackColor = false;
             this.btn_cancelar_venta.Click += new System.EventHandler(this.botonRedondo6_Click);
             // 
-            // btnBascula
+            // botonRedondo1
             // 
-            this.btnBascula.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnBascula.Image = global::PuntoDeVentaV2.Properties.Resources.peso;
-            this.btnBascula.Location = new System.Drawing.Point(253, 20);
-            this.btnBascula.Name = "btnBascula";
-            this.btnBascula.Size = new System.Drawing.Size(105, 40);
-            this.btnBascula.TabIndex = 99;
-            this.btnBascula.Text = "Tomar Peso Ctrl + T";
-            this.btnBascula.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnBascula.UseVisualStyleBackColor = true;
-            this.btnBascula.Click += new System.EventHandler(this.btnBascula_Click);
+            this.botonRedondo1.BackColor = System.Drawing.Color.Red;
+            this.botonRedondo1.BackGroundColor = System.Drawing.Color.Red;
+            this.botonRedondo1.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo1.BorderRadius = 10;
+            this.botonRedondo1.BorderSize = 0;
+            this.botonRedondo1.FlatAppearance.BorderSize = 0;
+            this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo1.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo1.Image = global::PuntoDeVentaV2.Properties.Resources.reply_all;
+            this.botonRedondo1.Location = new System.Drawing.Point(0, 78);
+            this.botonRedondo1.Name = "botonRedondo1";
+            this.botonRedondo1.Size = new System.Drawing.Size(25, 22);
+            this.botonRedondo1.TabIndex = 73;
+            this.botonRedondo1.TextColor = System.Drawing.Color.White;
+            this.botonRedondo1.UseVisualStyleBackColor = false;
+            this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click_1);
             // 
-            // lblPesoRecibido
+            // checkOrden
             // 
-            this.lblPesoRecibido.AutoSize = true;
-            this.lblPesoRecibido.Location = new System.Drawing.Point(364, 26);
-            this.lblPesoRecibido.Name = "lblPesoRecibido";
-            this.lblPesoRecibido.Size = new System.Drawing.Size(13, 13);
-            this.lblPesoRecibido.TabIndex = 64;
-            this.lblPesoRecibido.Text = "0";
-            this.lblPesoRecibido.Visible = false;
-            // 
-            // btnCSV
-            // 
-            this.btnCSV.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCSV.Image = global::PuntoDeVentaV2.Properties.Resources.file_excel_o1;
-            this.btnCSV.Location = new System.Drawing.Point(383, 20);
-            this.btnCSV.Name = "btnCSV";
-            this.btnCSV.Size = new System.Drawing.Size(105, 40);
-            this.btnCSV.TabIndex = 50;
-            this.btnCSV.Text = "Operación CSV";
-            this.btnCSV.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnCSV.UseVisualStyleBackColor = true;
-            this.btnCSV.Click += new System.EventHandler(this.btnCSV_Click);
-            // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            this.checkOrden.AutoSize = true;
+            this.checkOrden.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.checkOrden.Location = new System.Drawing.Point(212, 311);
+            this.checkOrden.Name = "checkOrden";
+            this.checkOrden.Size = new System.Drawing.Size(82, 17);
+            this.checkOrden.TabIndex = 67;
+            this.checkOrden.Text = "ES ORDEN";
+            this.checkOrden.UseVisualStyleBackColor = true;
             // 
             // Ventas
             // 
@@ -1422,5 +1436,6 @@
         private System.Windows.Forms.CheckBox checkRenta;
         public BotonRedondo btnGanancia;
         public BotonRedondo botonRedondo1;
+        private System.Windows.Forms.CheckBox checkOrden;
     }
 }

@@ -36,6 +36,8 @@ namespace PuntoDeVentaV2
         // status 9 = Renta a credito
         // status 10 = Renta global
 
+        // status 11 = Orden
+
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();

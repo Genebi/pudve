@@ -698,6 +698,12 @@
     <Compile Include="datosExtraNvoProductos.Designer.cs">
       <DependentUpon>datosExtraNvoProductos.cs</DependentUpon>
     </Compile>
+    <Compile Include="DatosOrden.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DatosOrden.Designer.cs">
+      <DependentUpon>DatosOrden.cs</DependentUpon>
+    </Compile>
     <Compile Include="DatosTotalesReporte.cs" />
     <Compile Include="DBTables.cs" />
     <Compile Include="DetalleDescripcion.cs">
@@ -1998,6 +2004,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="datosExtraNvoProductos.resx">
       <DependentUpon>datosExtraNvoProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DatosOrden.resx">
+      <DependentUpon>DatosOrden.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DetalleDescripcion.resx">
       <DependentUpon>DetalleDescripcion.cs</DependentUpon>
