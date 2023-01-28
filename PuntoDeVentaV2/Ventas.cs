@@ -3915,7 +3915,8 @@ namespace PuntoDeVentaV2
             var guardar = new string[] {
                 IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento,
                 DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion,
-                idClienteDescuento.ToString(), id_empleado, formaDePagoDeVenta, tipoDeVenta
+                idClienteDescuento.ToString(), id_empleado, formaDePagoDeVenta, tipoDeVenta,
+                tiempoElaboracion, fechaEntrega
             };
 
 
@@ -4071,7 +4072,7 @@ namespace PuntoDeVentaV2
 
                     int idOperacionCaja = 0;
 
-                    if (!statusVenta.Equals("2") && !statusVenta.Equals("7"))
+                    if (!statusVenta.Equals("2") && !statusVenta.Equals("7") && !statusVenta.Equals("11"))
                     {
                         if (FormPrincipal.userNickName.Contains("@"))
                         {
