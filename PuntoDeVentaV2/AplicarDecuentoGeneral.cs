@@ -152,10 +152,36 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                Ventas.PorcentajeDescuento = Porcentaje.ToString();
-                Ventas.AplicarCantidad = txtCantidad.Text;
-                Ventas.AplicarPorcentaje = txtPorcentaje.Text;
-                Ventas.HizoUnaAccion = true;
+                decimal Cantidad , Porcentajev;
+                if (!string.IsNullOrWhiteSpace(txtCantidad.Text))
+                {
+                    Cantidad = Convert.ToDecimal(txtCantidad.Text);
+                }
+                else
+                {
+                    Cantidad = 0;
+                }
+                if (!string.IsNullOrWhiteSpace(txtPorcentaje.Text))
+                {
+                    Porcentajev = Convert.ToDecimal(txtPorcentaje.Text);
+                }
+                else
+                {
+                    Porcentajev = 0;
+                }
+                if (Cantidad > 0 || Porcentaje > 0)
+                {
+                    Ventas.PorcentajeDescuento = Porcentaje.ToString();
+                    Ventas.AplicarCantidad = txtCantidad.Text;
+                    Ventas.AplicarPorcentaje = txtPorcentaje.Text;
+                    Ventas.HizoUnaAccion = true;
+                }
+                else
+                {
+                    MessageBox.Show("El descuento debe ser mayor a 0","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    return;
+                }
+               
             }
             this.Close();
         }

@@ -1234,7 +1234,7 @@
             this.btnBascula.Location = new System.Drawing.Point(253, 20);
             this.btnBascula.Name = "btnBascula";
             this.btnBascula.Size = new System.Drawing.Size(105, 40);
-            this.btnBascula.TabIndex = 0;
+            this.btnBascula.TabIndex = 99;
             this.btnBascula.Text = "Tomar Peso Ctrl + T";
             this.btnBascula.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnBascula.UseVisualStyleBackColor = true;

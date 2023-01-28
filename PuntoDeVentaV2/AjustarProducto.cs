@@ -40,6 +40,8 @@ namespace PuntoDeVentaV2
         private int tipoOperacion = 0;
 
         public static string mensaje = string.Empty;
+        public static string nombreDePorducto = string.Empty;
+        public static decimal cantidadRegresada = 0;
         string proveedor = string.Empty;
 
         //apartado 1 = Productos
@@ -65,6 +67,7 @@ namespace PuntoDeVentaV2
 
         private void AjustarProducto_Load(object sender, EventArgs e)
         {
+            
             cbConceptos.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbProveedores.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             string[] datos = cn.BuscarProducto(IDProducto, FormPrincipal.userID);
@@ -202,6 +205,16 @@ namespace PuntoDeVentaV2
             if (!mensajeInventario.Rows.Count.Equals(0))
             {
                 mensaje = mensajeInventario.Rows[0]["Mensaje"].ToString();
+            }
+
+            if (Inventario.desdeRegresarProdcuto == 1)
+            {
+                this.Opacity = 0;
+                nombreDePorducto = lbProducto.Text;
+                CantidadRegresada regreso = new CantidadRegresada();
+                regreso.ShowDialog();
+                txtCantidadCompra.Text = cantidadRegresada.ToString();
+                btnAceptar.PerformClick();
             }
         }
 
@@ -1619,6 +1632,11 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private void txtDisminuir_TextChanged(object sender, EventArgs e)
+        {
+            MessageBox.Show("Test");
         }
     }
 }

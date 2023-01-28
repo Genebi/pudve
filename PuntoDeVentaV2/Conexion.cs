@@ -870,5 +870,21 @@ namespace PuntoDeVentaV2
             return nombres;
         }
 
+
+        public void insertarUnPincheTextoAcaTremendoAaaaaa(string datos,DateTime fecha)
+        {
+            string consulta = "INSERT INTO WebRespaldosBuilder(IDCliente, Datos, Fecha)";
+            consulta += $"VALUES(@IDCliente,@Datos,@Fecha)";
+
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.Parameters.Add("IDCliente", MySqlDbType.String).Value = FormPrincipal.userNickName.Split('@')[0];
+            sql_cmd.Parameters.Add("Datos", MySqlDbType.LongText).Value = datos;
+            sql_cmd.Parameters.Add("Fecha", MySqlDbType.DateTime).Value = fecha.ToString("yyyy-MM-dd HH:mm:ss");
+            sql_cmd.ExecuteNonQuery();
+            sql_con.Close();
+        }
     }
 }

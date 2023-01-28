@@ -1080,11 +1080,80 @@ namespace PuntoDeVentaV2
 
         private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
+
             mg.EliminarFiltros();
+            
+            bool ayylmao = true;
+            using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebCerrar,WebTotal FROM Configuracion WHERE IDUsuario = {userID}"))
+            {
+                if (dtConfiguracionWeb.Rows[0][0].ToString() == "1")
+                {
+                    if (pasar==1)
+                    {
+                        enviarCajaAWeb();
+                        enviarProdctosWeb();
+                    }
+
+                    if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
+                    {
+                        FormCollection fc = Application.OpenForms;
+                        foreach (Form frm in fc)
+                        {
+                            if (frm.Name == "WebUploader")
+                            {
+                                DialogResult dialogResult = MessageBox.Show("Esperar y cerrar?", "Respaldo en curso", MessageBoxButtons.YesNo);
+                                if (dialogResult == DialogResult.Yes)
+                                {
+                                    e.Cancel = true;
+                                    ayylmao = false;
+                                    frm.Refresh();
+                                    frm.Opacity = 1;
+                                    frm.TopMost = true;
+                                }
+                                else
+                                {
+                                    Environment.Exit(0);
+                                }
+                            }
+                        }
+                        if (ayylmao)
+                            {
+                                DialogResult dialogResult = MessageBox.Show("¿Quiere realizar una copia de seguridad antes de cerrar sesión?", "¿Respaldar antes de salir?", MessageBoxButtons.YesNo);
+                                if (dialogResult == DialogResult.Yes)
+                                {
+                                    WebUploader respaldazo = new WebUploader(true, this);
+                                    respaldazo.ShowDialog();
+                                }
+                                else
+                                {
+                                    Environment.Exit(0);
+                                }
+
+                            }
+                    }
+                    else
+                    {
+                        Environment.Exit(0);
+                    }
+                    
+                    
+                }            
+            }
         }
+
+        
 
         private void webListener_DoWork(object sender, DoWorkEventArgs e)
         {
+            if (userNickName.Split('@')[0]=="HOUSEDEPOTAUTLAN")
+            {
+                string path = @"C:\Archivos PUDVE\Monosas.txt";
+                if (!System.IO.File.Exists(path))
+                {
+                    return;
+                }                
+            }
+            
             solicitudWEB();
         }
 
@@ -1212,6 +1281,61 @@ namespace PuntoDeVentaV2
                 sw.Write(sw.NewLine);
             }
             sw.Close();
+
+            
+        }
+
+        private void webAuto_Tick(object sender, EventArgs e)
+        {
+            if (pasar == 1)
+            {
+                if (!webSender.IsBusy )
+                {
+                    webSender.RunWorkerAsync();
+                }
+            }
+        }
+
+        private void webSender_DoWork(object sender, DoWorkEventArgs e)
+        {
+                using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebAuto,WebTotal FROM Configuracion WHERE IDUsuario = {userID}"))
+                {
+                    if (dtConfiguracionWeb.Rows[0][0].ToString() == "1")
+                    {
+                        if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
+                        {
+                            bool chambiador = false;
+                                FormCollection fc = Application.OpenForms;
+
+                                foreach (Form frm in fc)
+                                {
+                                    if (frm.Name == "WebUploader")
+                                    {
+                                        chambiador = true;
+                                    }
+                                }
+
+                                if (!chambiador)
+                                {
+                                    CheckForIllegalCrossThreadCalls = false;
+                                    WebUploader respaldazo = new WebUploader(false, this);
+                                    respaldazo.ShowDialog();
+                                    CheckForIllegalCrossThreadCalls = true;
+                                }
+
+                    }
+                    if (pasar==1)
+                    {
+                        enviarProdctosWeb();
+                        enviarCajaAWeb();
+                    }
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+            
         }
 
         public async Task bulkInsertAsync(string tablename)
@@ -1223,40 +1347,42 @@ namespace PuntoDeVentaV2
             bl.Local = true;
             
             bl.TableName = tablename;
-            bl.FieldTerminator = "+";
-            bl.LineTerminator = "\n";
+           
+           
             bl.FileName = @"C:\Archivos PUDVE\export.txt";
             bl.NumberOfLinesToSkip = 1;
-            bl.Columns.AddRange(new List<string>() { "IDregistro", "Nombre","Stock","Precio","Codigo"});
+            switch (tablename)
+            {
+                case "Respaldos":
+                    bl.Columns.AddRange(new List<string>() { "IDCliente","FECHA", "Datos"});
+                    bl.FieldTerminator = "~";
+                    bl.LineTerminator = "^";
+                    break;
+                case "mirrorproductosdatos":
+                    bl.Columns.AddRange(new List<string>() { "IDregistro", "Nombre", "Stock", "Precio", "Codigo" });
+                    bl.FieldTerminator = "+";
+                    bl.LineTerminator = "\n";
+                    break;
+                default:
+                    break;
+            }
+            
             bl.Timeout = 50000;
             try
             {
-                //Console.WriteLine("Connecting to MySQL...");
                 conn.Open();
-
-                // Upload data from file
                 int count = bl.Load();
-                //Console.WriteLine(count + " lines uploaded.");
-
-                //string sql = "SELECT IDregistro, Nombre, Stock, Codigo FROM mirrorproductosdatos";
-                //MySqlCommand cmd = new MySqlCommand(sql, conn);
-                //MySqlDataReader rdr = cmd.ExecuteReader();
-
-                //while (rdr.Read())
-                //{
-                //    Console.WriteLine(rdr[0] + " -- " + rdr[1] + " -- " + rdr[2]);
-                //}
-
-                //rdr.Close();
 
                 conn.Close();
             }
             catch (Exception ex)
             {
                 return;
-                //Console.WriteLine(ex.ToString());
             }
-            //Console.WriteLine("Done.");
+            if (System.IO.File.Exists(@"C:\Archivos PUDVE\export.txt"))
+            {
+                System.IO.File.Delete(@"C:\Archivos PUDVE\export.txt");
+            }
         }
 
         private bool enviarCajaAWeb()
@@ -1541,6 +1667,8 @@ namespace PuntoDeVentaV2
         {
             //vs.printProductVersion();
 
+            Inventario.desdeRegresarProdcuto = 0;
+
             if (caja == 1)
             {
                 AbrirFormulario<CajaN>();
@@ -1557,7 +1685,7 @@ namespace PuntoDeVentaV2
         private void btnInventario_Click(object sender, EventArgs e)
         {
             //vs.printProductVersion();
-
+            
             if (inventarios == 1)
             {
                 AbrirFormulario<Inventario>();
