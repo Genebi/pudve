@@ -2100,3 +2100,6 @@ SET GLOBAL max_allowed_packet=60777216;
 ALTER TABLE Productos ADD COLUMN IF NOT EXISTS SoloRenta tinyint(1) DEFAULT 0;
 -- Agregar columna para guardar el si el negocio acepta ordenes en configuracion general
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS RealizaOrdenes tinyint(1) DEFAULT 0;
+-- Agregar columnas para guardar tiempo y fecha de entrega al crear odenes
+ALTER TABLE Ventas ADD COLUMN IF NOT EXISTS TiempoEntrega VARCHAR(50) DEFAULT NULL;
+ALTER TABLE Ventas ADD COLUMN IF NOT EXISTS FechaEntrega DATE DEFAULT NULL;
