@@ -43,6 +43,7 @@
             this.datetime_hora_pago = new System.Windows.Forms.DateTimePicker();
             this.label7 = new System.Windows.Forms.Label();
             this.txt_cuenta = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -87,6 +88,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.DimGray;
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label4);
@@ -94,7 +96,7 @@
             this.panel1.ForeColor = System.Drawing.Color.White;
             this.panel1.Location = new System.Drawing.Point(23, 163);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(378, 30);
+            this.panel1.Size = new System.Drawing.Size(655, 30);
             this.panel1.TabIndex = 5;
             // 
             // label8
@@ -131,7 +133,7 @@
             this.pnl_info.AutoScroll = true;
             this.pnl_info.Location = new System.Drawing.Point(23, 199);
             this.pnl_info.Name = "pnl_info";
-            this.pnl_info.Size = new System.Drawing.Size(378, 117);
+            this.pnl_info.Size = new System.Drawing.Size(655, 117);
             this.pnl_info.TabIndex = 9;
             // 
             // btn_aceptar
@@ -142,7 +144,7 @@
             this.btn_aceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_aceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_aceptar.ForeColor = System.Drawing.Color.White;
-            this.btn_aceptar.Location = new System.Drawing.Point(223, 346);
+            this.btn_aceptar.Location = new System.Drawing.Point(539, 346);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(180, 30);
             this.btn_aceptar.TabIndex = 7;
@@ -158,7 +160,7 @@
             this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar.Location = new System.Drawing.Point(98, 346);
+            this.btn_cancelar.Location = new System.Drawing.Point(414, 346);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(110, 30);
             this.btn_cancelar.TabIndex = 8;
@@ -202,11 +204,21 @@
             this.txt_cuenta.Size = new System.Drawing.Size(294, 22);
             this.txt_cuenta.TabIndex = 4;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Location = new System.Drawing.Point(442, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(113, 16);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Incluye impuestos";
+            // 
             // Complemento_pago
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(426, 388);
+            this.ClientSize = new System.Drawing.Size(742, 388);
             this.Controls.Add(this.txt_cuenta);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.datetime_hora_pago);
@@ -253,5 +265,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txt_cuenta;
+        private System.Windows.Forms.Label label1;
     }
 }

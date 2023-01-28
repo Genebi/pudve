@@ -3498,7 +3498,7 @@ namespace PuntoDeVentaV2
                             string clave_u = r_claves["UnidadMedida"].ToString();
                             string clave_p = r_claves["ClaveProducto"].ToString();
 
-                            faltantes_productos[i] = new string[12];
+                            faltantes_productos[i] = new string[16];
 
                             if (clave_p == "" | clave_u == "")
                             {
@@ -3520,6 +3520,10 @@ namespace PuntoDeVentaV2
                             faltantes_productos[i][9] = r_claves["Base"].ToString();
                             faltantes_productos[i][10] = r_claves["Impuesto"].ToString();
                             faltantes_productos[i][11] = r_claves["incluye_impuestos"].ToString();
+                            faltantes_productos[i][12] = r_claves["nombre_ctercero"].ToString();
+                            faltantes_productos[i][13] = r_claves["rfc_ctercero"].ToString();
+                            faltantes_productos[i][14] = r_claves["cp_ctercero"].ToString();
+                            faltantes_productos[i][15] = r_claves["regimen_ctercero"].ToString();
 
                             if (r_claves["incluye_impuestos"].ToString() == "" | r_claves["incluye_impuestos"].ToString() == null)
                             {

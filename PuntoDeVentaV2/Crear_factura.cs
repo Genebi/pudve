@@ -1079,15 +1079,7 @@ namespace PuntoDeVentaV2
                             botones_visibles(2);
                             return;
                         }
-                        // Monto máximo de cada factura
-
-                        /*if(txt_cantidad_max.Text.Trim() == "" | txt_cantidad_max.Text.Trim() == "0")
-                        {
-                            MessageBox.Show("La cantidad máxima en cada factura debe ser mayor a cero.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            botones_visibles(2);
-                            return;
-                        }*/
-
+                        
                         // Tipo cambio
 
                         string clave = cmb_bx_moneda.SelectedValue.ToString();
@@ -1367,7 +1359,7 @@ namespace PuntoDeVentaV2
 
                                     decimal precio = Convert.ToDecimal(r_productos["Precio"].ToString());
                                     string mbase = Convert.ToString(dos_seis_decimales(precio, 6)); //"";
-                                    string miva = "";
+                                    string miva = "0";
                                     string timpuesto = "";
                                     
                                     /*if (r_tb_producto["Base"].ToString() == "" | r_tb_producto["Impuesto"].ToString() == "")
@@ -1603,7 +1595,7 @@ namespace PuntoDeVentaV2
                                 // productos que tiene agregados 
                                 if (xflist_cantidad_productos.Count == 0)
                                 {
-                                    arr_productos_xguardar[g] = new string[11];
+                                    arr_productos_xguardar[g] = new string[16];
 
                                     if (inc == true)
                                     {
@@ -1621,7 +1613,12 @@ namespace PuntoDeVentaV2
                                     arr_productos_xguardar[g][7] = arr_dproductos[s][6]; // base
                                     arr_productos_xguardar[g][8] = arr_dproductos[s][7]; // tipo impuesto
                                     arr_productos_xguardar[g][9] = arr_dproductos[s][8]; // cant. IVA
-                                    arr_productos_xguardar[g][10] = arr_dproductos[s][9]; // descuento
+                                    arr_productos_xguardar[g][10] = arr_dproductos[s][9];  // descuento
+                                    arr_productos_xguardar[g][11] = arr_dproductos[s][14]; // incluye impuestos
+                                    arr_productos_xguardar[g][12] = arr_dproductos[s][15]; // nombre a cuenta terceros
+                                    arr_productos_xguardar[g][13] = arr_dproductos[s][16]; // RFC a cuenta terceros
+                                    arr_productos_xguardar[g][14] = arr_dproductos[s][17]; // CP a cuenta terceros
+                                    arr_productos_xguardar[g][15] = arr_dproductos[s][18]; // régimen a cuenta terceros
 
                                     g++;
                                 }
@@ -1635,19 +1632,24 @@ namespace PuntoDeVentaV2
 
                                     if (xguardar > 0)
                                     {
-                                        arr_productos_xguardar[g] = new string[11];
+                                        arr_productos_xguardar[g] = new string[16];
 
                                         arr_productos_xguardar[g][0] = "factura" + num_factura;
                                         arr_productos_xguardar[g][1] = arr_dproductos[s][0]; // id producto
                                         arr_productos_xguardar[g][2] = arr_dproductos[s][1]; // clave unidad
                                         arr_productos_xguardar[g][3] = arr_dproductos[s][2]; // clave producto
                                         arr_productos_xguardar[g][4] = arr_dproductos[s][3]; // nombre
-                                        arr_productos_xguardar[g][5] = xguardar.ToString(); // cantidad
+                                        arr_productos_xguardar[g][5] = xguardar.ToString();  // cantidad
                                         arr_productos_xguardar[g][6] = arr_dproductos[s][5]; // precio
                                         arr_productos_xguardar[g][7] = arr_dproductos[s][6]; // base
                                         arr_productos_xguardar[g][8] = arr_dproductos[s][7]; // tipo impuesto
                                         arr_productos_xguardar[g][9] = arr_dproductos[s][8]; // cant. IVA
-                                        arr_productos_xguardar[g][10] = arr_dproductos[s][9]; // descuento
+                                        arr_productos_xguardar[g][10] = arr_dproductos[s][9];  // descuento
+                                        arr_productos_xguardar[g][11] = arr_dproductos[s][14]; // incluye impuestos
+                                        arr_productos_xguardar[g][12] = arr_dproductos[s][15]; // nombre a cuenta terceros
+                                        arr_productos_xguardar[g][13] = arr_dproductos[s][16]; // RFC a cuenta terceros
+                                        arr_productos_xguardar[g][14] = arr_dproductos[s][17]; // CP a cuenta terceros
+                                        arr_productos_xguardar[g][15] = arr_dproductos[s][18]; // régimen a cuenta terceros
 
                                         g++;
                                     }
@@ -1659,19 +1661,24 @@ namespace PuntoDeVentaV2
                                             num_factura++;
                                         }
 
-                                        arr_productos_xguardar[g] = new string[11];
+                                        arr_productos_xguardar[g] = new string[16];
 
                                         arr_productos_xguardar[g][0] = "factura" + num_factura;
                                         arr_productos_xguardar[g][1] = arr_dproductos[s][0]; // id producto
                                         arr_productos_xguardar[g][2] = arr_dproductos[s][1]; // clave producto
                                         arr_productos_xguardar[g][3] = arr_dproductos[s][2]; // clave unidad
                                         arr_productos_xguardar[g][4] = arr_dproductos[s][3]; // nombre
-                                        arr_productos_xguardar[g][5] = cant_p.ToString(); // cantidad
+                                        arr_productos_xguardar[g][5] = cant_p.ToString();    // cantidad
                                         arr_productos_xguardar[g][6] = arr_dproductos[s][5]; // precio
                                         arr_productos_xguardar[g][7] = arr_dproductos[s][6]; // base
                                         arr_productos_xguardar[g][8] = arr_dproductos[s][7]; // tipo impuesto
                                         arr_productos_xguardar[g][9] = arr_dproductos[s][8]; // cant. IVA
-                                        arr_productos_xguardar[g][10] = arr_dproductos[s][9]; // descuento
+                                        arr_productos_xguardar[g][10] = arr_dproductos[s][9];  // descuento
+                                        arr_productos_xguardar[g][11] = arr_dproductos[s][14]; // incluye impuestos
+                                        arr_productos_xguardar[g][12] = arr_dproductos[s][15]; // nombre a cuenta terceros
+                                        arr_productos_xguardar[g][13] = arr_dproductos[s][16]; // RFC a cuenta terceros
+                                        arr_productos_xguardar[g][14] = arr_dproductos[s][17]; // CP a cuenta terceros
+                                        arr_productos_xguardar[g][15] = arr_dproductos[s][18]; // régimen a cuenta terceros
 
                                         g++;
                                         inc = true;
@@ -1713,12 +1720,13 @@ namespace PuntoDeVentaV2
 
                                 string[] datos_f = new string[]
                                 {
-                            id_usuario, id_venta.ToString(), id_empleado, cmb_bx_metodo_pago.SelectedValue.ToString(), cmb_bx_forma_pago.SelectedValue.ToString(), no_cuenta,
-                            cmb_bx_moneda.SelectedValue.ToString(), txt_tipo_cambio.Text, uso_cfdi,
-                            r_emisor["RFC"].ToString(), r_emisor["RazonSocial"].ToString(), r_emisor["Regimen"].ToString(), r_emisor["Email"].ToString(), r_emisor["Telefono"].ToString(), r_emisor["CodigoPostal"].ToString(),
-                            r_emisor["Estado"].ToString(), r_emisor["Municipio"].ToString(), r_emisor["Colonia"].ToString(), r_emisor["Calle"].ToString(), r_emisor["NoExterior"].ToString(), r_emisor["NoInterior"].ToString(),
-                            txt_rfc.Text, txt_razon_social.Text, txt_nombre_comercial.Text, txt_correo.Text, txt_telefono.Text, txt_pais.Text, txt_estado.Text, txt_municipio.Text, txt_localidad.Text, txt_cp.Text, txt_colonia.Text, txt_calle.Text, txt_num_ext.Text, txt_num_int.Text,
-                            r_venta["Folio"].ToString(), r_venta["Serie"].ToString(), r_emisor["nombre_comercial"].ToString()
+                                    id_usuario, id_venta.ToString(), id_empleado, cmb_bx_metodo_pago.SelectedValue.ToString(), cmb_bx_forma_pago.SelectedValue.ToString(), no_cuenta,
+                                    cmb_bx_moneda.SelectedValue.ToString(), txt_tipo_cambio.Text, uso_cfdi,
+                                    r_emisor["RFC"].ToString(), r_emisor["RazonSocial"].ToString(), r_emisor["Regimen"].ToString(), r_emisor["Email"].ToString(), r_emisor["Telefono"].ToString(), r_emisor["CodigoPostal"].ToString(),
+                                    r_emisor["Estado"].ToString(), r_emisor["Municipio"].ToString(), r_emisor["Colonia"].ToString(), r_emisor["Calle"].ToString(), r_emisor["NoExterior"].ToString(), r_emisor["NoInterior"].ToString(),
+                                    txt_rfc.Text, txt_razon_social.Text, txt_nombre_comercial.Text, txt_correo.Text, txt_telefono.Text, txt_pais.Text, txt_estado.Text, txt_municipio.Text, txt_localidad.Text, txt_cp.Text, txt_colonia.Text, txt_calle.Text, txt_num_ext.Text, txt_num_int.Text,
+                                    r_venta["Folio"].ToString(), r_venta["Serie"].ToString(), r_emisor["nombre_comercial"].ToString(),
+                                    cmb_bx_exportacion.SelectedValue.ToString(), periodicidad_ctercero, meses_ctercero, anio_ctercero, cmb_bx_regimen.SelectedValue.ToString()
                                 };
 
                                 cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(5, datos_f));
@@ -1738,8 +1746,9 @@ namespace PuntoDeVentaV2
                                         {
                                             string[] datos_fp = new string[]
                                             {
-                                    id_factura.ToString(), arr_productos_xguardar[w][3], arr_productos_xguardar[w][2], arr_productos_xguardar[w][4], arr_productos_xguardar[w][5],
-                                    arr_productos_xguardar[w][6], arr_productos_xguardar[w][7], arr_productos_xguardar[w][8], arr_productos_xguardar[w][9], arr_productos_xguardar[w][10]
+                                                id_factura.ToString(), arr_productos_xguardar[w][3], arr_productos_xguardar[w][2], arr_productos_xguardar[w][4], arr_productos_xguardar[w][5],
+                                                arr_productos_xguardar[w][6], arr_productos_xguardar[w][7], arr_productos_xguardar[w][8], arr_productos_xguardar[w][9], arr_productos_xguardar[w][10], 
+                                                arr_productos_xguardar[w][11], arr_productos_xguardar[w][12], arr_productos_xguardar[w][13], arr_productos_xguardar[w][14], arr_productos_xguardar[w][15]
                                             };
 
                                             cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(6, datos_fp));
@@ -1747,23 +1756,28 @@ namespace PuntoDeVentaV2
 
                                             // Consulta si tiene más de un impuesto
                                             // Si existen, los guarda en nueva tabla Facturas_impuestos
-                                            DataTable d_impuestos = cn.CargarDatos(cs.cargar_datos_venta_xml(8, Convert.ToInt32(arr_productos_xguardar[w][1]), Convert.ToInt32(id_usuario)));
 
-                                            if (d_impuestos.Rows.Count > 0)
+                                            if(arr_productos_xguardar[w][11] == "02")
                                             {
-                                                // Consulta el ID del producto en curso
-                                                int id_fp = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas_productos WHERE id_factura='{id_factura}' ORDER BY ID DESC LIMIT 1", 1));
+                                                DataTable d_impuestos = cn.CargarDatos(cs.cargar_datos_venta_xml(8, Convert.ToInt32(arr_productos_xguardar[w][1]), Convert.ToInt32(id_usuario)));
 
-                                                foreach (DataRow r_impuestos in d_impuestos.Rows)
+                                                if (d_impuestos.Rows.Count > 0)
                                                 {
-                                                    string[] datos_i = new string[]
-                                                    {
-                                            id_fp.ToString(), r_impuestos["Tipo"].ToString(), r_impuestos["Impuesto"].ToString(), r_impuestos["TipoFactor"].ToString(), r_impuestos["TasaCuota"].ToString(), r_impuestos["Definir"].ToString(), r_impuestos["Importe"].ToString()
-                                                    };
+                                                    // Consulta el ID del producto en curso
+                                                    int id_fp = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas_productos WHERE id_factura='{id_factura}' ORDER BY ID DESC LIMIT 1", 1));
 
-                                                    cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(7, datos_i));
+                                                    foreach (DataRow r_impuestos in d_impuestos.Rows)
+                                                    {
+                                                        string[] datos_i = new string[]
+                                                        {
+                                                            id_fp.ToString(), r_impuestos["Tipo"].ToString(), r_impuestos["Impuesto"].ToString(), r_impuestos["TipoFactor"].ToString(), r_impuestos["TasaCuota"].ToString(), r_impuestos["Definir"].ToString(), r_impuestos["Importe"].ToString()
+                                                        };
+
+                                                        cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(7, datos_i));
+                                                    }
                                                 }
                                             }
+                                            
                                         }
                                     }
 
@@ -2168,7 +2182,7 @@ namespace PuntoDeVentaV2
                 // Guardamos los datos para usarlos al momento de guardar en la BD 
                 // y no volver a hacer todo el procedimiento
 
-                arr_dproductos[z] = new string[16];
+                arr_dproductos[z] = new string[20];
 
                 arr_dproductos[z][0] = ListadoVentas.faltantes_productos[z][1]; //id producto
                 arr_dproductos[z][1] = ListadoVentas.faltantes_productos[z][2]; // clave p
@@ -2181,6 +2195,10 @@ namespace PuntoDeVentaV2
                 arr_dproductos[z][8] = miva;
                 arr_dproductos[z][9] = vdescuento_xproducto.Trim();
                 arr_dproductos[z][14] = ListadoVentas.faltantes_productos[z][11]; // incluye_impuestos
+                arr_dproductos[z][15] = ListadoVentas.faltantes_productos[z][12]; // nombre a cuenta terceros
+                arr_dproductos[z][16] = ListadoVentas.faltantes_productos[z][13]; // RFC a cuenta terceros
+                arr_dproductos[z][17] = ListadoVentas.faltantes_productos[z][14]; // CP a cuenta terceros
+                arr_dproductos[z][18] = ListadoVentas.faltantes_productos[z][15]; // régimen a cuenta terceros
 
                 if (vdescuento_xproducto.Trim() == "")
                 {
@@ -2193,20 +2211,78 @@ namespace PuntoDeVentaV2
 
                 int idp = Convert.ToInt32(ListadoVentas.faltantes_productos[z][1]);
 
-
-                DataTable d_otros_impuestos = cn.CargarDatos(cs.cargar_datos_venta_xml(8, idp, FormPrincipal.userID));
-
-                if (d_otros_impuestos.Rows.Count > 0)
+                if (vincluye_impuestos == "02")
                 {
-                    foreach (DataRow r_otros_impuestos in d_otros_impuestos.Rows)
+                    DataTable d_otros_impuestos = cn.CargarDatos(cs.cargar_datos_venta_xml(8, idp, FormPrincipal.userID));
+
+                    if (d_otros_impuestos.Rows.Count > 0)
                     {
-                        // Traslado y retención
-
-                        if (r_otros_impuestos["Tipo"].ToString() == "Traslado" | r_otros_impuestos["Tipo"].ToString() == "Retención")
+                        foreach (DataRow r_otros_impuestos in d_otros_impuestos.Rows)
                         {
-                            if (r_otros_impuestos["TipoFactor"].ToString() == "Tasa")
-                            {
+                            // Traslado y retención
 
+                            if (r_otros_impuestos["Tipo"].ToString() == "Traslado" | r_otros_impuestos["Tipo"].ToString() == "Retención")
+                            {
+                                if (r_otros_impuestos["TipoFactor"].ToString() == "Tasa")
+                                {
+
+                                    decimal vporcentaje = 0;
+
+                                    // Obtener el porcentaje
+                                    if (r_otros_impuestos["TasaCuota"].ToString() == "Definir %")
+                                    {
+                                        vporcentaje = Convert.ToDecimal(r_otros_impuestos["Definir"]);
+
+                                        if (Convert.ToDecimal(r_otros_impuestos["Definir"]) > 1)
+                                        {
+                                            vporcentaje = Convert.ToDecimal(r_otros_impuestos["Definir"]) / 100;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        vporcentaje = Convert.ToDecimal(r_otros_impuestos["TasaCuota"]);
+
+                                        if (Convert.ToDecimal(r_otros_impuestos["TasaCuota"]) > 1)
+                                        {
+                                            vporcentaje = Convert.ToDecimal(r_otros_impuestos["TasaCuota"]) / 100;
+                                        }
+                                    }
+
+                                    // Obtener el monto del impuesto
+                                    decimal vmonto_impuesto = Convert.ToDecimal(mbase) * vporcentaje;
+
+                                    // Sumarlo al traslado o retenido
+                                    if (r_otros_impuestos["Tipo"].ToString() == "Traslado")
+                                    {
+                                        vtotal_traslado += dos_seis_decimales(vmonto_impuesto, 2);
+                                    }
+                                    if (r_otros_impuestos["Tipo"].ToString() == "Retención")
+                                    {
+                                        vtotal_retencion += dos_seis_decimales(vmonto_impuesto, 2);
+                                    }
+                                }
+
+                                if (r_otros_impuestos["TipoFactor"].ToString() == "Cuota")
+                                {
+                                    // Sumarlo al traslado o retenido
+                                    if (r_otros_impuestos["Tipo"].ToString() == "Traslado")
+                                    {
+                                        vtotal_traslado += dos_seis_decimales(vcantidad * Convert.ToDecimal(r_otros_impuestos["Definir"].ToString()), 2);
+                                        vtotal_xp_traslado += dos_seis_decimales(vcantidad * Convert.ToDecimal(r_otros_impuestos["Definir"].ToString()), 2);
+                                    }
+                                    if (r_otros_impuestos["Tipo"].ToString() == "Retención")
+                                    {
+                                        vtotal_retencion += dos_seis_decimales(vcantidad * Convert.ToDecimal(r_otros_impuestos["Definir"].ToString()), 2);
+                                        vtotal_xp_retencion += dos_seis_decimales(vcantidad * Convert.ToDecimal(r_otros_impuestos["Definir"].ToString()), 2);
+                                    }
+                                }
+                            }
+
+
+                            // Impuestos locales retenidos y traslados
+
+                            if (r_otros_impuestos["Tipo"].ToString() == "Loc. Traslado" | r_otros_impuestos["Tipo"].ToString() == "Loc. Retenido")
+                            {
                                 decimal vporcentaje = 0;
 
                                 // Obtener el porcentaje
@@ -2229,97 +2305,36 @@ namespace PuntoDeVentaV2
                                     }
                                 }
 
-                                // Obtener el monto del impuesto
+                                // Obtener la monto del impuesto
                                 decimal vmonto_impuesto = Convert.ToDecimal(mbase) * vporcentaje;
 
-                                // Sumarlo al traslado o retenido
-                                if (r_otros_impuestos["Tipo"].ToString() == "Traslado")
+                                // Hacer la sumatoria
+                                if (r_otros_impuestos["Tipo"].ToString() == "Loc. Traslado")
                                 {
-                                    vtotal_traslado += dos_seis_decimales(vmonto_impuesto, 2);
+                                    vtotal_ltraslado += dos_seis_decimales((vmonto_impuesto * vcantidad), 2);
+                                    vtotal_xp_ltraslado += dos_seis_decimales((vmonto_impuesto * vcantidad), 2);
                                 }
-                                if (r_otros_impuestos["Tipo"].ToString() == "Retención")
+                                if (r_otros_impuestos["Tipo"].ToString() == "Loc. Retenido")
                                 {
-                                    vtotal_retencion += dos_seis_decimales(vmonto_impuesto, 2);
-                                }
-                            }
-
-                            if (r_otros_impuestos["TipoFactor"].ToString() == "Cuota")
-                            {
-                                // Sumarlo al traslado o retenido
-                                if (r_otros_impuestos["Tipo"].ToString() == "Traslado")
-                                {
-                                    vtotal_traslado += dos_seis_decimales(vcantidad * Convert.ToDecimal(r_otros_impuestos["Definir"].ToString()), 2);
-                                    vtotal_xp_traslado += dos_seis_decimales(vcantidad * Convert.ToDecimal(r_otros_impuestos["Definir"].ToString()), 2);
-                                }
-                                if (r_otros_impuestos["Tipo"].ToString() == "Retención")
-                                {
-                                    vtotal_retencion += dos_seis_decimales(vcantidad * Convert.ToDecimal(r_otros_impuestos["Definir"].ToString()), 2);
-                                    vtotal_xp_retencion += dos_seis_decimales(vcantidad * Convert.ToDecimal(r_otros_impuestos["Definir"].ToString()), 2);
+                                    vtotal_lretenido += dos_seis_decimales((vmonto_impuesto * vcantidad), 2);
+                                    vtotal_xp_lretenido += dos_seis_decimales((vmonto_impuesto * vcantidad), 2);
                                 }
                             }
                         }
 
 
-                        // Impuestos locales retenidos y traslados
+                        arr_dproductos[z][10] = vtotal_xp_traslado.ToString();
+                        arr_dproductos[z][11] = vtotal_xp_retencion.ToString();
+                        arr_dproductos[z][12] = vtotal_xp_ltraslado.ToString();
+                        arr_dproductos[z][13] = vtotal_xp_lretenido.ToString();
 
-                        if (r_otros_impuestos["Tipo"].ToString() == "Loc. Traslado" | r_otros_impuestos["Tipo"].ToString() == "Loc. Retenido")
-                        {
-                            decimal vporcentaje = 0;
 
-                            // Obtener el porcentaje
-                            if (r_otros_impuestos["TasaCuota"].ToString() == "Definir %")
-                            {
-                                vporcentaje = Convert.ToDecimal(r_otros_impuestos["Definir"]);
-
-                                if (Convert.ToDecimal(r_otros_impuestos["Definir"]) > 1)
-                                {
-                                    vporcentaje = Convert.ToDecimal(r_otros_impuestos["Definir"]) / 100;
-                                }
-                            }
-                            else
-                            {
-                                vporcentaje = Convert.ToDecimal(r_otros_impuestos["TasaCuota"]);
-
-                                if (Convert.ToDecimal(r_otros_impuestos["TasaCuota"]) > 1)
-                                {
-                                    vporcentaje = Convert.ToDecimal(r_otros_impuestos["TasaCuota"]) / 100;
-                                }
-                            }
-
-                            // Obtener la monto del impuesto
-                            decimal vmonto_impuesto = Convert.ToDecimal(mbase) * vporcentaje;
-
-                            // Hacer la sumatoria
-                            if (r_otros_impuestos["Tipo"].ToString() == "Loc. Traslado")
-                            {
-                                vtotal_ltraslado += dos_seis_decimales((vmonto_impuesto * vcantidad), 2);
-                                vtotal_xp_ltraslado += dos_seis_decimales((vmonto_impuesto * vcantidad), 2);
-                            }
-                            if (r_otros_impuestos["Tipo"].ToString() == "Loc. Retenido")
-                            {
-                                vtotal_lretenido += dos_seis_decimales((vmonto_impuesto * vcantidad), 2);
-                                vtotal_xp_lretenido += dos_seis_decimales((vmonto_impuesto * vcantidad), 2);
-                            }
-                        }
+                        vtotal_xp_traslado = 0;
+                        vtotal_xp_retencion = 0;
+                        vtotal_xp_ltraslado = 0;
+                        vtotal_xp_lretenido = 0;
                     }
-
-
-                    arr_dproductos[z][10] = vtotal_xp_traslado.ToString();
-                    arr_dproductos[z][11] = vtotal_xp_retencion.ToString();
-                    arr_dproductos[z][12] = vtotal_xp_ltraslado.ToString();
-                    arr_dproductos[z][13] = vtotal_xp_lretenido.ToString();
-
-                    /*if (vtotal_xp_retencion == 0)
-                    {
-                        arr_dproductos[z][11] = "0";
-                    }    arr_dproductos[z][13] = "0";
-                    }*/
-
-                    vtotal_xp_traslado = 0;
-                    vtotal_xp_retencion = 0;
-                    vtotal_xp_ltraslado = 0;
-                    vtotal_xp_lretenido = 0;
-                }
+                }                
                 else
                 {
                     arr_dproductos[z][10] = "0";

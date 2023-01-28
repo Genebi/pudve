@@ -118,22 +118,34 @@ namespace PuntoDeVentaV2
                         
                         Label lb_c_total = new Label();
                         lb_c_total.Name = "lb_total" + i;
-                        lb_c_total.Location = new Point(112, location_y);
+                        lb_c_total.Location = new Point(100, location_y);
                         lb_c_total.Text = total_f;
 
                         TextBox txt_c_total = new TextBox();
                         txt_c_total.Name = "txt_total" + i;
-                        txt_c_total.Location = new Point(235, location_y);
+                        txt_c_total.Location = new Point(210, location_y);
                         txt_c_total.Size = new Size(115, 22);
                         txt_c_total.TextAlign = HorizontalAlignment.Center;
                         txt_c_total.Text = total_f;
                         txt_c_total.KeyPress += new KeyPressEventHandler(solo_decimales);
-                   
+
+                        ComboBox cmb_bx_c_inc_impuestos = new ComboBox();
+                        cmb_bx_c_inc_impuestos.Name = "cmb_bx_incluye_impuestos" + i;
+                        cmb_bx_c_inc_impuestos.Items.Add("No objeto de impuesto.");
+                        cmb_bx_c_inc_impuestos.Items.Add("Sí objeto de impuesto.");
+                        cmb_bx_c_inc_impuestos.Items.Add("Sí objeto del impuesto y no obligado al desglose.");
+                        cmb_bx_c_inc_impuestos.Items.Add("Sí objeto del impuesto y no causa impuesto.");
+                        cmb_bx_c_inc_impuestos.SelectedIndex = 0;
+                        cmb_bx_c_inc_impuestos.DropDownStyle = ComboBoxStyle.DropDownList;
+                        cmb_bx_c_inc_impuestos.Width = 310;
+                        cmb_bx_c_inc_impuestos.Location = new Point(340, location_y);
+
 
                         pnl_info.Controls.Add(lb_c_folio_serie);
                         pnl_info.Controls.Add(lb_c_total);
                         pnl_info.Controls.Add(txt_c_total);
-                        
+                        pnl_info.Controls.Add(cmb_bx_c_inc_impuestos);
+
 
                         location_y = location_y + 24;
                     }

@@ -1776,6 +1776,11 @@
     <Compile Include="Visualizar_notaventa.Designer.cs">
       <DependentUpon>Visualizar_notaventa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Web References\FH_CFDI40_produccion\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="WEBCaja.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2939,6 +2944,17 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\ServiceReference_produccion\timbrado_cfdi33.wsdl" />
+    <None Include="Web References\FH_CFDI40_produccion\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\FH_CFDI40_produccion\WsEmisionTimbrado40.wsdl" />
+    <None Include="Web References\FH_CFDI40_produccion\WsEmisionTimbrado40.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Web References\FH_CFDI40_produccion\wsResponseBO.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\FH_CFDI40_test\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -8239,6 +8255,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>PuntoDeVentaV2_FH_CFDI40_test_WsEmisionTimbrado40</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="https://wsprod3.facturehoy.com/CFDI40/WsEmisionTimbrado40%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\FH_CFDI40_produccion\</RelPath>
+      <UpdateFromURL>https://wsprod3.facturehoy.com/CFDI40/WsEmisionTimbrado40%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>PuntoDeVentaV2_FH_CFDI40_produccion_WsEmisionTimbrado40</CachedSettingsPropName>
     </WebReferenceUrl>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -548,5 +548,15 @@ namespace PuntoDeVentaV2.Properties {
                 return ((string)(this["PuntoDeVentaV2_FH_CFDI40_test_WsEmisionTimbrado40"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://wsprod3.facturehoy.com:443/CFDI40/WsEmisionTimbrado40")]
+        public string PuntoDeVentaV2_FH_CFDI40_produccion_WsEmisionTimbrado40 {
+            get {
+                return ((string)(this["PuntoDeVentaV2_FH_CFDI40_produccion_WsEmisionTimbrado40"]));
+            }
+        }
     }
 }

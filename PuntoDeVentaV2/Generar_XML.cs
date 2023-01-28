@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-//using System.IO;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,10 +11,6 @@ using System.Xml.Serialization;
 using System.ServiceModel;
 using System.Diagnostics;
 using System.Net;
-//using PuntoDeVentaV2.ServiceR_FH_prueba;
-/*using System.Web;
-using System.web.UI;
-using System.Web.UI.WebControls;*/
 //using PuntoDeVentaV2.ServiceReferenceTPrueba;
 //using PuntoDeVentaV2.ServiceReference_produccion;
 
@@ -367,7 +363,7 @@ namespace PuntoDeVentaV2
                     // Precio unitario e importe
                     decimal importe_p = cantidad_xproducto_xml * precio_unitario_xml;
                     
-                    if (con_complemento_pg == 0)
+                    if (con_complemento_pg == 0 & incluye_impuestos == "02")
                     {
                         var x = Convert.ToString(importe_p).IndexOf(".");
                         if (x <= -1)
@@ -379,7 +375,14 @@ namespace PuntoDeVentaV2
                         concepto.ValorUnitario = seis_decimales(precio_unitario_xml);
                         concepto.Importe = seis_decimales(importe_p);
                     }
-                    else
+                    if (con_complemento_pg == 0 & (incluye_impuestos == "01" | incluye_impuestos == "03" | incluye_impuestos == "04"))
+                    {
+                        importe_p = cantidad_xproducto_xml * precio_unitario;
+
+                        concepto.ValorUnitario = seis_decimales(precio_unitario);
+                        concepto.Importe = seis_decimales(importe_p);
+                    }
+                    if (con_complemento_pg == 1)
                     {
                         concepto.ValorUnitario = 0;
                         concepto.Importe = 0;
@@ -1262,9 +1265,12 @@ namespace PuntoDeVentaV2
             //string usuario = "NUSN900420SS5";
             //string clave_u = "pGoyQq-RHsaij_yNJfHp";
             //string clave_u = "c.ofis09NSUNotcatno5SS0240";
-            string usuario = "EWE1709045U0.Test";
+            /*string usuario = "EWE1709045U0.Test";
             string clave_u = "Prueba$1";
-            int id_servicio = 194876591;
+            int id_servicio = 194876591;*/
+            string usuario = "NUSN900420SS5";
+            string clave_u = "Acceso$1";
+            int id_servicio = 196789671;
             byte[] XML40 = File.ReadAllBytes(rutaXML);
             string resultado = "";
 
@@ -1272,7 +1278,8 @@ namespace PuntoDeVentaV2
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             //Convierte archivo en bytes
-            var servicio = new FH_CFDI40_test.WsEmisionTimbrado40();
+            //var servicio = new FH_CFDI40_test.WsEmisionTimbrado40();
+            var servicio = new FH_CFDI40_produccion.WsEmisionTimbrado40();
             //WsEmisionTimbrado40Client timbrar = new WsEmisionTimbrado40Client();
             //WsEmisionTimbrado40 timbrar = new WsEmisionTimbrado40();
 
@@ -1281,7 +1288,7 @@ namespace PuntoDeVentaV2
             //timbrado_cfdi33_portClient cliente_timbrar = new timbrado_cfdi33_portClient();
             // Crear el objeto de la respuesta
             //timbrar_cfdi_result respuesta = new timbrar_cfdi_result();
-            //https:///wsprod3.facturehoy.com:443/CFDI40/WsEmisionTimbrado40?wsdl
+
             // Llamar al metodo de timbrado
             try
             {
@@ -1301,7 +1308,8 @@ namespace PuntoDeVentaV2
                             respuesta.selloDigitalEmisor + "\n" +
                             respuesta.selloDigitalTimbreSAT + "\n" +
                             respuesta.fechaHoraTimbrado;
-                    //respuesta.message + "\n" +
+                    Console.WriteLine("MENSAJE==: " + mensaje);
+                    Console.WriteLine("==> [XML] <==: " + respuesta.XML);
                 }
                 else
                 {

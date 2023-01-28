@@ -1356,12 +1356,17 @@ namespace PuntoDeVentaV2
 
                     //float porcentaje = CantidadPorcentaje(cantidadTmp[0]);
                     double porcentaje = convertir_porcentaje(Convert.ToDouble(cantidadTmp[0]), tipoPorcentaje);
+                    double importe = 0;
 
-                    double precioProductoTmp = Convert.ToDouble(txtBoxBase.Text);
-                    double importe = precioProductoTmp * porcentaje;
+                    if (txtBoxBase.Text != "")
+                    {
+                        double precioProductoTmp = Convert.ToDouble(txtBoxBase.Text);
+                        importe = precioProductoTmp * porcentaje;
 
-                    TextBox tbTmp = (TextBox)this.Controls.Find(nombre, true).FirstOrDefault();
-                    tbTmp.Text = importe.ToString("0.00");
+                        TextBox tbTmp = (TextBox)this.Controls.Find(nombre, true).FirstOrDefault();
+                        tbTmp.Text = importe.ToString("0.00");
+                    }
+                    
 
                     //Para sumar o restar la cantidad del impuesto al total final
                     if (tipoImpuesto == "Traslado" || tipoImpuesto == "Loc. Traslado")
@@ -1969,8 +1974,14 @@ namespace PuntoDeVentaV2
                 }
             }*/
 
+            double total_nuevo = 0;
 
-            double total_nuevo = Convert.ToDouble(txtIVA.Text) + Convert.ToDouble(txtBoxBase.Text);
+            if (txtIVA.Text != "" & txtBoxBase.Text != "")
+            {
+                total_nuevo = Convert.ToDouble(txtIVA.Text) + Convert.ToDouble(txtBoxBase.Text);
+            }
+
+            //double total_nuevo = Convert.ToDouble(txtIVA.Text) + Convert.ToDouble(txtBoxBase.Text);
             total_nuevo = (total_nuevo + total_tra) - total_ret;
             txtTotal.Text = total_nuevo.ToString("0.00");
         }

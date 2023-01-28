@@ -23,8 +23,8 @@ namespace PuntoDeVentaV2
         *   con sus respectivas partial class para hacer los array  *
         *                                                           *   
         ************************************************************/
-        //[XmlRootAttribute(Namespace = "http://www.sat.gob.mx/cfd/3")]
-        [XmlRootAttribute(Namespace = "http://www.sat.gob.mx/cfd/4")]
+        //[XmlRootAttribute(Namespace = "http:///www.sat.gob.mx/cfd/3")]
+        [XmlRootAttribute(Namespace = "http://www.sat.gob.mx/cfd/3")]
 
 
         public class Comprobante
@@ -498,10 +498,25 @@ namespace PuntoDeVentaV2
         private void button3_Click(object sender, EventArgs e)
         {
             origenDeLosDatos = 3;
-            
-            string querySearchProveedor = $@"SELECT * FROM Proveedores WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre = '{ds.Emisor.Nombre.Trim()}' AND RFC = '{ds.Emisor.Rfc.Trim()}'";
+
+
+            // Miri.
+            // Se modifica consulta e inserción en tabla "Proveedores". Si el XML no incluye Nombre emisor entonces no se debe agregar en la consulta
+
+            string condicional_busca_nombre = "";
+            string condicional_agrega_nombre = " Nombre = ''";
+
+            if (ds.Emisor.Nombre != null)
+            {
+                condicional_busca_nombre = " Nombre = '" + ds.Emisor.Nombre.Trim() + "'";
+                condicional_agrega_nombre = ds.Emisor.Nombre.Trim();
+            }
+
+            //string querySearchProveedor = $@"SELECT * FROM Proveedores WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre = '{ds.Emisor.Nombre.Trim()}' AND RFC = '{ds.Emisor.Rfc.Trim()}'";
+            string querySearchProveedor = $@"SELECT * FROM Proveedores WHERE IDUsuario = '{FormPrincipal.userID}' " + condicional_busca_nombre + " AND RFC = '{ds.Emisor.Rfc.Trim()}'";
             dtSearchProveedor = cn.CargarDatos(querySearchProveedor);
             
+
             if (dtSearchProveedor.Rows.Count > 0)
             {
                 drSearchProveedor = dtSearchProveedor.Rows[0];
@@ -512,7 +527,7 @@ namespace PuntoDeVentaV2
                 fecha = fechaXML.Substring(0,10);
                 hora = fechaXML.Substring(11);
                 fechaOperacion = fecha + " " + hora;
-                string queryAddProveedor = $@"INSERT INTO Proveedores (IDUsuario, Nombre, RFC, FechaOperacion) VALUES ('{FormPrincipal.userID}', '{ds.Emisor.Nombre.Trim()}', '{ds.Emisor.Rfc.Trim()}', '{fechaOperacion}')";
+                string queryAddProveedor = $@"INSERT INTO Proveedores (IDUsuario, Nombre, RFC, FechaOperacion) VALUES ('{FormPrincipal.userID}', '{condicional_agrega_nombre}', '{ds.Emisor.Rfc.Trim()}', '{fechaOperacion}')";
                 cn.EjecutarConsulta(queryAddProveedor);
                 dtSearchProveedor = cn.CargarDatos(querySearchProveedor);
                 drSearchProveedor = dtSearchProveedor.Rows[0];

@@ -679,12 +679,12 @@ namespace PuntoDeVentaV2
             string mnsj_error = "";
             int opc_tipo_factura = Convert.ToInt32(cmb_bx_tipo_factura.SelectedIndex);
 
-            if (opc_tipo_factura == 2 | opc_tipo_factura == 3)
+            /*if (opc_tipo_factura == 2 | opc_tipo_factura == 3)
             {
                 MessageBox.Show("La generación de complementos de pago no es aplicable a facturas pagadas y/o canceladas.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
-            {
+            {*/
                 int tiene_timbres = mb.obtener_cantidad_timbres();
 
                 if (tiene_timbres <= 0)
@@ -747,7 +747,7 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show(mnsj_error, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
+            //}
 
             // Obtenemos la cantidad de timbres
             actualizar_timbres();
