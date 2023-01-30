@@ -89,6 +89,7 @@
             this.txtPorcentaje.TabIndex = 4;
             this.txtPorcentaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPorcentaje.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPorcentaje_KeyDown);
+            this.txtPorcentaje.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPorcentaje_KeyPress);
             this.txtPorcentaje.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtPorcentaje_KeyUp);
             // 
             // lbCantidad
@@ -220,6 +221,7 @@
             this.txtCantidad.TabIndex = 37;
             this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCantidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown_1);
+            this.txtCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidad_KeyPress);
             this.txtCantidad.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyUp);
             this.txtCantidad.Leave += new System.EventHandler(this.txtCantidad_Leave);
             // 
