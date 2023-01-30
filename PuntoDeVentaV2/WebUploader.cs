@@ -329,7 +329,14 @@ namespace PuntoDeVentaV2
             }
             Invoke(new Action(() =>
             {
-                esto.Close();
+                if (esto.TopMost)
+                {
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    esto.Close();
+                }
 
             }));
             
