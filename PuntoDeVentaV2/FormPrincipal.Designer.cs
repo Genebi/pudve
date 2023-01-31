@@ -55,6 +55,7 @@
             this.webListener = new System.ComponentModel.BackgroundWorker();
             this.webAuto = new System.Windows.Forms.Timer(this.components);
             this.webSender = new System.ComponentModel.BackgroundWorker();
+            this.revisorCaducos = new System.Windows.Forms.Timer(this.components);
             this.panelMaestro.SuspendLayout();
             this.menuVertical.SuspendLayout();
             this.SuspendLayout();
@@ -450,6 +451,11 @@
             // 
             this.webSender.DoWork += new System.ComponentModel.DoWorkEventHandler(this.webSender_DoWork);
             // 
+            // revisorCaducos
+            // 
+            this.revisorCaducos.Interval = 3800000;
+            this.revisorCaducos.Tick += new System.EventHandler(this.revisorCaducos_Tick);
+            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -498,6 +504,7 @@
         public System.Windows.Forms.Timer actualizarCaja;
         private System.Windows.Forms.Timer webAuto;
         private System.ComponentModel.BackgroundWorker webSender;
+        private System.Windows.Forms.Timer revisorCaducos;
     }
 }
 

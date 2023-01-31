@@ -38,9 +38,15 @@ namespace PuntoDeVentaV2
             this.btnAceptar = new System.Windows.Forms.Button();
             this.cbTipoDeDatos = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.chbCaducidad = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.gbCad = new System.Windows.Forms.GroupBox();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxBorrar)).BeginInit();
             this.panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.gbCad.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel3
@@ -50,14 +56,14 @@ namespace PuntoDeVentaV2
             this.panel3.Controls.Add(this.txtSubDetalle);
             this.panel3.Location = new System.Drawing.Point(12, 11);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(351, 51);
+            this.panel3.Size = new System.Drawing.Size(404, 51);
             this.panel3.TabIndex = 5;
             // 
             // pboxBorrar
             // 
             this.pboxBorrar.Image = global::PuntoDeVentaV2.Properties.Resources.trash;
-            this.pboxBorrar.Location = new System.Drawing.Point(309, 11);
-            this.pboxBorrar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pboxBorrar.Location = new System.Drawing.Point(365, 11);
+            this.pboxBorrar.Margin = new System.Windows.Forms.Padding(2);
             this.pboxBorrar.Name = "pboxBorrar";
             this.pboxBorrar.Size = new System.Drawing.Size(27, 26);
             this.pboxBorrar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -70,16 +76,16 @@ namespace PuntoDeVentaV2
             this.txtSubDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtSubDetalle.Location = new System.Drawing.Point(7, 11);
             this.txtSubDetalle.Name = "txtSubDetalle";
-            this.txtSubDetalle.Size = new System.Drawing.Size(329, 26);
+            this.txtSubDetalle.Size = new System.Drawing.Size(385, 26);
             this.txtSubDetalle.TabIndex = 0;
             // 
             // panel2
             // 
             this.panel2.Controls.Add(this.btnCancelar);
             this.panel2.Controls.Add(this.btnAceptar);
-            this.panel2.Location = new System.Drawing.Point(11, 112);
+            this.panel2.Location = new System.Drawing.Point(11, 134);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(351, 60);
+            this.panel2.Size = new System.Drawing.Size(405, 55);
             this.panel2.TabIndex = 4;
             // 
             // btnCancelar
@@ -91,7 +97,7 @@ namespace PuntoDeVentaV2
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.White;
             this.btnCancelar.Image = global::PuntoDeVentaV2.Properties.Resources.window_close_o1;
-            this.btnCancelar.Location = new System.Drawing.Point(9, 7);
+            this.btnCancelar.Location = new System.Drawing.Point(10, 7);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(157, 41);
             this.btnCancelar.TabIndex = 1;
@@ -109,7 +115,7 @@ namespace PuntoDeVentaV2
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
             this.btnAceptar.Image = global::PuntoDeVentaV2.Properties.Resources.check_square_o1;
-            this.btnAceptar.Location = new System.Drawing.Point(181, 7);
+            this.btnAceptar.Location = new System.Drawing.Point(238, 7);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(157, 41);
             this.btnAceptar.TabIndex = 0;
@@ -126,30 +132,74 @@ namespace PuntoDeVentaV2
             "Fecha",
             "Numerico",
             "Texto"});
-            this.cbTipoDeDatos.Location = new System.Drawing.Point(12, 85);
+            this.cbTipoDeDatos.Location = new System.Drawing.Point(12, 93);
             this.cbTipoDeDatos.Name = "cbTipoDeDatos";
             this.cbTipoDeDatos.Size = new System.Drawing.Size(183, 21);
             this.cbTipoDeDatos.TabIndex = 6;
+            this.cbTipoDeDatos.SelectedIndexChanged += new System.EventHandler(this.cbTipoDeDatos_SelectedIndexChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(11, 67);
+            this.label1.Location = new System.Drawing.Point(11, 70);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 15);
             this.label1.TabIndex = 7;
             this.label1.Text = "Formato:";
             // 
+            // chbCaducidad
+            // 
+            this.chbCaducidad.AutoSize = true;
+            this.chbCaducidad.Location = new System.Drawing.Point(207, 69);
+            this.chbCaducidad.Name = "chbCaducidad";
+            this.chbCaducidad.Size = new System.Drawing.Size(91, 17);
+            this.chbCaducidad.TabIndex = 8;
+            this.chbCaducidad.Text = "Es caducidad";
+            this.chbCaducidad.UseVisualStyleBackColor = true;
+            this.chbCaducidad.Visible = false;
+            this.chbCaducidad.CheckedChanged += new System.EventHandler(this.chbCaducidad_CheckedChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 23);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(201, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Aviso a                        días para caducar";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(48, 19);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(60, 20);
+            this.numericUpDown1.TabIndex = 10;
+            // 
+            // gbCad
+            // 
+            this.gbCad.Controls.Add(this.numericUpDown1);
+            this.gbCad.Controls.Add(this.label2);
+            this.gbCad.Enabled = false;
+            this.gbCad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.gbCad.Location = new System.Drawing.Point(201, 73);
+            this.gbCad.Name = "gbCad";
+            this.gbCad.Size = new System.Drawing.Size(215, 53);
+            this.gbCad.TabIndex = 11;
+            this.gbCad.TabStop = false;
+            this.gbCad.Visible = false;
+            // 
             // categoriaSubdetalle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(377, 179);
+            this.ClientSize = new System.Drawing.Size(428, 201);
+            this.Controls.Add(this.chbCaducidad);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbTipoDeDatos);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
+            this.Controls.Add(this.gbCad);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -162,6 +212,9 @@ namespace PuntoDeVentaV2
             this.panel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxBorrar)).EndInit();
             this.panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.gbCad.ResumeLayout(false);
+            this.gbCad.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,5 +230,9 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.ComboBox cbTipoDeDatos;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pboxBorrar;
+        private System.Windows.Forms.CheckBox chbCaducidad;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.GroupBox gbCad;
     }
 }

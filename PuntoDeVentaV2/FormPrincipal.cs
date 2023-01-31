@@ -494,6 +494,15 @@ namespace PuntoDeVentaV2
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
+
+            using (DataTable dt= cn.CargarDatos($"SELECT avisoCaducidad FROM configuracion WHERE IDUsuario ={IdUsuario}"))
+            {
+                if (!dt.Rows.Count.Equals(0))
+                {
+
+                }
+            }
+
             desdeCorteDeCaja = false;
             validacionDesdeCajaN = 0;
             
@@ -1336,6 +1345,11 @@ namespace PuntoDeVentaV2
                     }
                 }
             
+        }
+
+        private void revisorCaducos_Tick(object sender, EventArgs e)
+        {
+
         }
 
         public async Task bulkInsertAsync(string tablename)

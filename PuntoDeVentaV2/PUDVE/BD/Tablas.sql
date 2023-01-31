@@ -2120,3 +2120,10 @@ IF
 		FOREIGN KEY ( IDDetalleSubDetalle ) REFERENCES DetalleSubDetalle ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
 		FOREIGN KEY ( IDVenta ) REFERENCES Ventas ( ID ) ON UPDATE CASCADE ON DELETE CASCADE
 	);
+
+--Columna para diferenciar fechas generales de fechas caducidad en subdetalles
+ALTER TABLE subdetallesdeproducto ADD COLUMN IF NOT EXISTS esCaducidad INT DEFAULT 0;
+
+-- Configuracion para aviso de caducidad
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS avisoCaducidad INT DEFAULT 0;
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS diasCaducidad INT DEFAULT 7;

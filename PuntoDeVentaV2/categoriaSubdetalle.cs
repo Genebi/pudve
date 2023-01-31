@@ -17,6 +17,7 @@ namespace PuntoDeVentaV2
         string operacion = string.Empty;
         public string subdetalle = string.Empty;
         public bool cambio = false;
+        int caducidad = 0;
         public categoriaSubdetalle(string accion = "Nuevo", string detalle = "")
         {
             InitializeComponent();
@@ -34,6 +35,11 @@ namespace PuntoDeVentaV2
                     txtSubDetalle.Text = datosEditar.Rows[0]["Categoria"].ToString();
                     cbTipoDeDatos.SelectedIndex = Int32.Parse(datosEditar.Rows[0]["TipoDato"].ToString());
                     cbTipoDeDatos.Enabled = false;
+                    if (datosEditar.Rows[0]["esCaducidad"].ToString().Equals("1"))
+                    {
+                        chbCaducidad.Visible = true;
+                        chbCaducidad.Checked = true;
+                    }
                 }
             }
         }
@@ -66,13 +72,15 @@ namespace PuntoDeVentaV2
             }
             else
             {
+
+
                 if (operacion == "Nuevo")
                 {
-                    cn.EjecutarConsulta($"INSERT INTO subdetallesdeproducto (IDProducto, IDUsuario, Categoria, Subdetalle, Stock, TipoDato) VALUES ('{Productos.idProductoAgregarSubdetalle}', '{FormPrincipal.userID}', '{txtSubDetalle.Text}', '{"NA"}', '{stockActual}', '{cbTipoDeDatos.SelectedIndex}')");
+                    cn.EjecutarConsulta($"INSERT INTO subdetallesdeproducto (IDProducto, IDUsuario, Categoria, Subdetalle, Stock, TipoDato, esCaducidad) VALUES ('{Productos.idProductoAgregarSubdetalle}', '{FormPrincipal.userID}', '{txtSubDetalle.Text}', '{"NA"}', '{stockActual}', '{cbTipoDeDatos.SelectedIndex}',{caducidad})");
                 }
                 else
                 {
-                    cn.EjecutarConsulta($"UPDATE subdetallesdeproducto SET Categoria = '{txtSubDetalle.Text}' WHERE ID = {subdetalle}");
+                    cn.EjecutarConsulta($"UPDATE subdetallesdeproducto SET Categoria = '{txtSubDetalle.Text}' esCaducidad = {caducidad} WHERE ID = {subdetalle}");
                     subdetalle = txtSubDetalle.Text;
                     cambio = true;
                 }
@@ -86,6 +94,38 @@ namespace PuntoDeVentaV2
             cn.EjecutarConsulta($"UPDATE subdetallesdeproducto SET Activo = 0 WHERE ID = {subdetalle}");
             cambio = true;
             this.Close();
+        }
+
+        private void cbTipoDeDatos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            chbCaducidad.Checked = false;
+            gbCad.Visible = false;
+            chbCaducidad.Visible = false;
+            if (cbTipoDeDatos.SelectedIndex.Equals(0))
+            {
+                using (DataTable dt = cn.CargarDatos($"SELECT ID FROM subdetallesdeproducto WHERE esCaducidad = 1 AND IDProducto = {Productos.idProductoAgregarSubdetalle} AND IDUsuario ={FormPrincipal.userID} AND Activo = 1"))
+                {
+                    if (dt.Rows.Count.Equals(0))
+                    {
+                        gbCad.Visible = true;
+                        chbCaducidad.Visible = true;
+                    }
+                }
+            }
+        }
+
+        private void chbCaducidad_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chbCaducidad.Checked)
+            {
+                caducidad = 1;
+                gbCad.Enabled = true;
+            }
+            else
+            {
+                caducidad = 0;
+                gbCad.Enabled = false;
+            }
         }
     }
 }
