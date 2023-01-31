@@ -33,7 +33,10 @@
             this.btnActualizarXML = new System.Windows.Forms.Button();
             this.btnActualizar = new System.Windows.Forms.Button();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.botonRedondo2 = new PuntoDeVentaV2.BotonRedondo();
+            this.botonRedondo3 = new PuntoDeVentaV2.BotonRedondo();
             this.btnMensajeVenta = new PuntoDeVentaV2.BotonRedondo();
+            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             this.btnConceptosReporte = new System.Windows.Forms.Button();
             this.gBSeleccionActualizarInventario = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -59,9 +62,6 @@
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Comentarios = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IDTabla = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
-            this.botonRedondo2 = new PuntoDeVentaV2.BotonRedondo();
-            this.botonRedondo3 = new PuntoDeVentaV2.BotonRedondo();
             this.panelBotones.SuspendLayout();
             this.gBSeleccionActualizarInventario.SuspendLayout();
             this.panelContenedor.SuspendLayout();
@@ -161,6 +161,50 @@
             this.panelBotones.Size = new System.Drawing.Size(834, 132);
             this.panelBotones.TabIndex = 104;
             // 
+            // botonRedondo2
+            // 
+            this.botonRedondo2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.botonRedondo2.BackColor = System.Drawing.Color.Crimson;
+            this.botonRedondo2.BackGroundColor = System.Drawing.Color.Crimson;
+            this.botonRedondo2.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo2.BorderRadius = 20;
+            this.botonRedondo2.BorderSize = 0;
+            this.botonRedondo2.FlatAppearance.BorderSize = 0;
+            this.botonRedondo2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.botonRedondo2.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo2.Location = new System.Drawing.Point(301, 7);
+            this.botonRedondo2.Name = "botonRedondo2";
+            this.botonRedondo2.Size = new System.Drawing.Size(209, 47);
+            this.botonRedondo2.TabIndex = 108;
+            this.botonRedondo2.Text = "Actualizar Inventario";
+            this.botonRedondo2.TextColor = System.Drawing.Color.White;
+            this.botonRedondo2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo2.UseVisualStyleBackColor = false;
+            this.botonRedondo2.Click += new System.EventHandler(this.botonRedondo2_Click);
+            // 
+            // botonRedondo3
+            // 
+            this.botonRedondo3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.botonRedondo3.BackColor = System.Drawing.Color.Crimson;
+            this.botonRedondo3.BackGroundColor = System.Drawing.Color.Crimson;
+            this.botonRedondo3.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo3.BorderRadius = 20;
+            this.botonRedondo3.BorderSize = 0;
+            this.botonRedondo3.FlatAppearance.BorderSize = 0;
+            this.botonRedondo3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.botonRedondo3.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo3.Location = new System.Drawing.Point(601, 3);
+            this.botonRedondo3.Name = "botonRedondo3";
+            this.botonRedondo3.Size = new System.Drawing.Size(209, 47);
+            this.botonRedondo3.TabIndex = 109;
+            this.botonRedondo3.Text = "Actualizar Inventario XML";
+            this.botonRedondo3.TextColor = System.Drawing.Color.White;
+            this.botonRedondo3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo3.UseVisualStyleBackColor = false;
+            this.botonRedondo3.Click += new System.EventHandler(this.botonRedondo3_Click);
+            // 
             // btnMensajeVenta
             // 
             this.btnMensajeVenta.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -182,6 +226,28 @@
             this.btnMensajeVenta.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnMensajeVenta.UseVisualStyleBackColor = false;
             this.btnMensajeVenta.Click += new System.EventHandler(this.btnMensajeVenta_Click);
+            // 
+            // botonRedondo1
+            // 
+            this.botonRedondo1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.botonRedondo1.BackColor = System.Drawing.Color.Crimson;
+            this.botonRedondo1.BackGroundColor = System.Drawing.Color.Crimson;
+            this.botonRedondo1.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo1.BorderRadius = 20;
+            this.botonRedondo1.BorderSize = 0;
+            this.botonRedondo1.FlatAppearance.BorderSize = 0;
+            this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.botonRedondo1.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo1.Location = new System.Drawing.Point(19, 3);
+            this.botonRedondo1.Name = "botonRedondo1";
+            this.botonRedondo1.Size = new System.Drawing.Size(209, 47);
+            this.botonRedondo1.TabIndex = 107;
+            this.botonRedondo1.Text = "Revisar Inventario";
+            this.botonRedondo1.TextColor = System.Drawing.Color.White;
+            this.botonRedondo1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo1.UseVisualStyleBackColor = false;
+            this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click);
             // 
             // btnConceptosReporte
             // 
@@ -493,72 +559,6 @@
             this.IDTabla.ReadOnly = true;
             this.IDTabla.Visible = false;
             this.IDTabla.Width = 150;
-            // 
-            // botonRedondo1
-            // 
-            this.botonRedondo1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.botonRedondo1.BackColor = System.Drawing.Color.Crimson;
-            this.botonRedondo1.BackGroundColor = System.Drawing.Color.Crimson;
-            this.botonRedondo1.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.botonRedondo1.BorderRadius = 20;
-            this.botonRedondo1.BorderSize = 0;
-            this.botonRedondo1.FlatAppearance.BorderSize = 0;
-            this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.botonRedondo1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.botonRedondo1.ForeColor = System.Drawing.Color.White;
-            this.botonRedondo1.Location = new System.Drawing.Point(19, 3);
-            this.botonRedondo1.Name = "botonRedondo1";
-            this.botonRedondo1.Size = new System.Drawing.Size(209, 47);
-            this.botonRedondo1.TabIndex = 107;
-            this.botonRedondo1.Text = "Revisar Inventario";
-            this.botonRedondo1.TextColor = System.Drawing.Color.White;
-            this.botonRedondo1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.botonRedondo1.UseVisualStyleBackColor = false;
-            this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click);
-            // 
-            // botonRedondo2
-            // 
-            this.botonRedondo2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.botonRedondo2.BackColor = System.Drawing.Color.Crimson;
-            this.botonRedondo2.BackGroundColor = System.Drawing.Color.Crimson;
-            this.botonRedondo2.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.botonRedondo2.BorderRadius = 20;
-            this.botonRedondo2.BorderSize = 0;
-            this.botonRedondo2.FlatAppearance.BorderSize = 0;
-            this.botonRedondo2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.botonRedondo2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.botonRedondo2.ForeColor = System.Drawing.Color.White;
-            this.botonRedondo2.Location = new System.Drawing.Point(301, 7);
-            this.botonRedondo2.Name = "botonRedondo2";
-            this.botonRedondo2.Size = new System.Drawing.Size(209, 47);
-            this.botonRedondo2.TabIndex = 108;
-            this.botonRedondo2.Text = "Actualizar Inventario";
-            this.botonRedondo2.TextColor = System.Drawing.Color.White;
-            this.botonRedondo2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.botonRedondo2.UseVisualStyleBackColor = false;
-            this.botonRedondo2.Click += new System.EventHandler(this.botonRedondo2_Click);
-            // 
-            // botonRedondo3
-            // 
-            this.botonRedondo3.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.botonRedondo3.BackColor = System.Drawing.Color.Crimson;
-            this.botonRedondo3.BackGroundColor = System.Drawing.Color.Crimson;
-            this.botonRedondo3.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.botonRedondo3.BorderRadius = 20;
-            this.botonRedondo3.BorderSize = 0;
-            this.botonRedondo3.FlatAppearance.BorderSize = 0;
-            this.botonRedondo3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.botonRedondo3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.botonRedondo3.ForeColor = System.Drawing.Color.White;
-            this.botonRedondo3.Location = new System.Drawing.Point(601, 3);
-            this.botonRedondo3.Name = "botonRedondo3";
-            this.botonRedondo3.Size = new System.Drawing.Size(209, 47);
-            this.botonRedondo3.TabIndex = 109;
-            this.botonRedondo3.Text = "Actualizar Inventario XML";
-            this.botonRedondo3.TextColor = System.Drawing.Color.White;
-            this.botonRedondo3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.botonRedondo3.UseVisualStyleBackColor = false;
-            this.botonRedondo3.Click += new System.EventHandler(this.botonRedondo3_Click);
             // 
             // Inventario
             // 

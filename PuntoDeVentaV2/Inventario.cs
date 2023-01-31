@@ -35,6 +35,8 @@ namespace PuntoDeVentaV2
         public static bool botonAceptar = false;
         public static bool aceptarFiltro = false;
 
+        public static decimal totalFinal = 0;
+
         public static int IDProducto;
 
         public decimal getSuma { get; set; }
@@ -1270,6 +1272,15 @@ namespace PuntoDeVentaV2
         private void bntTerminar_Click(object sender, EventArgs e)
         {
             var clave = "";
+            
+            foreach (DataGridViewRow item in DGVInventario.Rows)
+            {
+                decimal cantidad = Convert.ToDecimal(item.Cells["DiferenciaUnidades"].Value);
+                decimal precio = Convert.ToDecimal(item.Cells["Precio"].Value);
+                decimal total = cantidad * precio;
+                totalFinal += total;
+            }
+
             if (validarsiClave())
             {
                 if (rbDisminuirProducto.Checked)
@@ -1386,6 +1397,7 @@ namespace PuntoDeVentaV2
             else
             {
                 MessageBox.Show("No existen ajustes realizados.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
             if (desdeRegresarProdcuto == 1)
