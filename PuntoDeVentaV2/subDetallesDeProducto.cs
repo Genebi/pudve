@@ -125,12 +125,14 @@ namespace PuntoDeVentaV2
                 Label espacio = new Label();
 
                 Categoria.Click += new EventHandler(LB_Click);
+                Categoria.MouseHover += new EventHandler(LB_Hover);
+                Categoria.MouseLeave += new EventHandler(LB_Leave);
                 Categoria.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
                 Categoria.BackColor = Color.LightGray;
                 Categoria.TextAlign = ContentAlignment.MiddleCenter;
+                
                 Categoria.Font = new Font("Arial", 11);
-                Categoria.Size = new Size(224, 20);
-
+                Categoria.Size = new Size(224, 30);
 
                 espacio.AutoSize = true;
 
@@ -138,6 +140,20 @@ namespace PuntoDeVentaV2
                 fLPLateralCategorias.Controls.Add(espacio);
                 fLPLateralCategorias.Controls.Add(Categoria);
             }
+        }
+
+        private void LB_Leave(object sender, EventArgs e)
+        {
+
+            Label lbl = (Label)sender;
+            lbl.BackColor = Color.LightGray;
+        }
+
+        private void LB_Hover(object sender, EventArgs e)
+        {
+            Label lbl = (Label)sender;
+            lbl.Cursor = Cursors.Hand;
+            lbl.BackColor = Color.Gray;
         }
 
         private void LB_Click(object sender, EventArgs e)
