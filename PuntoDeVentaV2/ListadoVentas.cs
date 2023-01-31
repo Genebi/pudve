@@ -3206,6 +3206,17 @@ namespace PuntoDeVentaV2
                 // Información
                 if (e.ColumnIndex == 16)
                 {
+                    using (DataTable dt = cn.CargarDatos($"SELECT opcion4 FROM empleadospermisos WHERE Seccion='ventas' AND idUsuario = {FormPrincipal.userID} AND IDEmpleado = {FormPrincipal.id_empleado}"))
+                    {
+                        if (!dt.Rows.Count.Equals(0))
+                        {
+                            if (dt.Rows[0][0].ToString().Equals("0") && !FormPrincipal.id_empleado.Equals(0))
+                            {
+                                Utilidades.MensajePermiso();
+                                return;
+                            }
+                        }
+                    }
                     Ventas_ventana_informacion info = new Ventas_ventana_informacion(idVenta);
                     info.ShowDialog();
                 }

@@ -499,6 +499,17 @@ namespace PuntoDeVentaV2
 
         private void lbCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            using (DataTable dt = cn.CargarDatos($"SELECT opcion16 FROM empleadospermisos WHERE Seccion='ventas' AND idUsuario = {FormPrincipal.userID} AND IDEmpleado = {FormPrincipal.id_empleado}"))
+            {
+                if (!dt.Rows.Count.Equals(0))
+                {
+                    if (dt.Rows[0][0].ToString().Equals("0") && !FormPrincipal.id_empleado.Equals(0))
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+                }
+            }
             ListaClientes clientes = new ListaClientes(tipo: 2);
 
             clientes.FormClosed += delegate

@@ -5099,11 +5099,7 @@ namespace PuntoDeVentaV2
 
         private void btnVentasGuardadas_Click(object sender, EventArgs e)
         {
-            if (opcion13 == 0)
-            {
-                Utilidades.MensajePermiso();
-                return;
-            }
+            
 
             if (Application.OpenForms.OfType<ListadoVentasGuardadas>().Count() == 1)
             {
@@ -7913,6 +7909,19 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo3_Click(object sender, EventArgs e)
         {
+
+            using (DataTable dt = cn.CargarDatos($"SELECT opcion16 FROM empleadospermisos WHERE Seccion='ventas' AND idUsuario = {FormPrincipal.userID} AND IDEmpleado = {FormPrincipal.id_empleado}"))
+            {
+                if (!dt.Rows.Count.Equals(0))
+                {
+                    if (dt.Rows[0][0].ToString().Equals("0") && !FormPrincipal.id_empleado.Equals(0))
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+                }
+            }
+
             EsGuardarVenta = false;
             //if (opcion16 == 0)
             //{
@@ -8828,6 +8837,11 @@ namespace PuntoDeVentaV2
                 txtBuscadorProducto.Focus();
                 SendKeys.Send("{ENTER}");
             }
+        }
+
+        private void DGVentas_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         private void txtBuscadorProducto_TextChanged(object sender, EventArgs e)
