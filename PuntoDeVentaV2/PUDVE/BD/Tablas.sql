@@ -2075,3 +2075,5 @@ IF
 SET GLOBAL max_allowed_packet=60777216;
 
 
+ALTER TABLE dgvaumentarinventario ADD COLUMN IF NOT EXISTS Devolucion INT DEFAULT 0;
+
