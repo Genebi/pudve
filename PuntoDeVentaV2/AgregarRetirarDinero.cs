@@ -208,6 +208,19 @@ namespace PuntoDeVentaV2
             {
                 chkBoxDepositoSaldoInicial.Visible = true;
             }
+            if(Inventario.desdeRegresarProdcuto == 1)
+            {
+                cbConceptoConBusqueda.SelectedIndex = 1;
+                cbConceptoConBusqueda.Visible = false;
+                lbSubtitulo.Visible = false;
+                btnAgregarConcepto.Visible = false;
+                txtEfectivo.Text = Inventario.totalFinal.ToString();
+                txtCredito.Enabled = false;
+                txtTarjeta.Enabled = false;
+                txtVales.Enabled = false;
+                txtTrans.Enabled = false;
+                txtCheque.Enabled = false;
+            }
         }
 
 
@@ -312,9 +325,10 @@ namespace PuntoDeVentaV2
             {
                 Comentario = txtComentario.Text;
             }
-            else if(txtComentario.Text.Equals("COMENTARIOS") || string.IsNullOrWhiteSpace(txtComentario.Text))
+            
+            if(txtComentario.Text.Equals("COMENTARIOS") || string.IsNullOrWhiteSpace(txtComentario.Text))
             {
-                Comentario = "---";
+                Comentario = "";
             }
             var tipoOperacion = string.Empty;
             bool tipoCorte = true;
@@ -324,6 +338,7 @@ namespace PuntoDeVentaV2
             var siRetiroVales = false;
             var siRetiroCheque = false;
             var siRetiroTransferencia = false;
+            var concepto = string.Empty;
 
             FormPrincipal.condicionarMensaje = 1;
 
@@ -432,6 +447,31 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+                using (var DTCorreoHabilitado = cn.CargarDatos($"SELECT EnvioCorreoSaldoIncial FROM `configuracion` WHERE IDUsuario = {FormPrincipal.userID}"))
+                {
+                    if (DTCorreoHabilitado.Rows[0][0].ToString().Equals("1"))
+                    {
+                        string[] datos = new string[] { };
+                        tipoOperacion = "SaldoInicial";
+                        DateTime fechaOperacion = DateTime.Now;
+                        var efectivo = ValidarCampos(txtEfectivo.Text);
+                        var tarjeta = ValidarCampos(txtTarjeta.Text);
+                        var cheque = ValidarCampos(txtCheque.Text);
+                        var vales = ValidarCampos(txtVales.Text);
+                        var trans = ValidarCampos(txtTrans.Text);
+                        var credito = ValidarCampos(txtCredito.Text);
+                        var numFolio = obtenerNumFolio(tipoOperacion);
+                        float cantidad = efectivo + tarjeta + +cheque + vales + trans + credito;
+
+                        datos = new string[] {
+                        tipoOperacion, cantidad.ToString("0.00"), "0", cbConceptoConBusqueda.Text, fechaOperacion.ToString(), FormPrincipal.userID.ToString(), efectivo.ToString("C2"), tarjeta.ToString("C2"), cheque.ToString("C2"), vales.ToString("C2"), trans.ToString("C2"), credito.ToString("C2"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                        };
+                        Thread AgregarRetiroDineroSaldoInicial = new Thread(
+                                   () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
+                               );
+                        AgregarRetiroDineroSaldoInicial.Start();
+                    }
+                }
                 this.Close();
             }
             else
@@ -457,22 +497,46 @@ namespace PuntoDeVentaV2
                 var numFolio = obtenerNumFolio(tipoOperacion);
 
                 //var concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
-                var concepto = cbConceptoConBusqueda.GetItemText(cbConceptoConBusqueda.SelectedItem);
-
-                if (concepto.Equals("Seleccionar concepto..."))
+                if (Inventario.operacionDevolucionProducto == 1)
                 {
-                    concepto = string.Empty;
-                }
+                    concepto = "Devolucion de Producto";
 
-                // Deposito o retiro
-                if (operacion == 0 || operacion == 1 || operacion == 2)
-                {
-                    if (string.IsNullOrWhiteSpace(concepto))
+                    if (concepto.Equals("Seleccionar concepto..."))
                     {
-                        MessageBox.Show("Para realizar esta operación seleccione un concepto.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return;
+                        concepto = string.Empty;
+                    }
+
+                    // Deposito o retiro
+                    if (operacion == 0 || operacion == 1 || operacion == 2)
+                    {
+                        if (string.IsNullOrWhiteSpace(concepto))
+                        {
+                            MessageBox.Show("Para realizar esta operación seleccione un concepto.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
+                    }
+                    Inventario.desdeRegresarProdcuto = 0;
+                }
+                else
+                {
+                    concepto = cbConceptoConBusqueda.GetItemText(cbConceptoConBusqueda.SelectedItem);
+
+                    if (concepto.Equals("Seleccionar concepto..."))
+                    {
+                        concepto = string.Empty;
+                    }
+
+                    // Deposito o retiro
+                    if (operacion == 0 || operacion == 1 || operacion == 2)
+                    {
+                        if (string.IsNullOrWhiteSpace(concepto))
+                        {
+                            MessageBox.Show("Para realizar esta operación seleccione un concepto.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
                     }
                 }
+                
 
                 var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 CajaN.fechaUltimoCorte = Convert.ToDateTime(fechaOperacion);
@@ -1006,7 +1070,7 @@ namespace PuntoDeVentaV2
                             }
 
 
-                            if (restanteEfectivo > 0)
+                            if (restanteEfectivo >= 0)
                             {
                                 datos[6] = restanteEfectivo.ToString();
                             }
@@ -1015,7 +1079,7 @@ namespace PuntoDeVentaV2
                                 datos[6] = "0";
                             }
 
-                            if (restanteTarjeta > 0)
+                            if (restanteTarjeta >= 0)
                             {
                                 datos[7] = restanteTarjeta.ToString();
                             }
@@ -1024,7 +1088,7 @@ namespace PuntoDeVentaV2
                                 datos[7] = "0";
                             }
 
-                            if (restanteVales > 0)
+                            if (restanteVales >= 0)
                             {
                                 datos[8] = restanteVales.ToString();
                             }
@@ -1033,7 +1097,7 @@ namespace PuntoDeVentaV2
                                 datos[8] = "0";
                             }
 
-                            if (restanteCheque > 0)
+                            if (restanteCheque >= 0)
                             {
                                 datos[9] = restanteCheque.ToString();
                             }
@@ -1042,7 +1106,7 @@ namespace PuntoDeVentaV2
                                 datos[9] = "0";
                             }
 
-                            if (restanteTransferencia > 0)
+                            if (restanteTransferencia >= 0)
                             {
                                 datos[10] = restanteTransferencia.ToString();
                             }
@@ -1084,6 +1148,53 @@ namespace PuntoDeVentaV2
                     }
                     else if (Convert.ToInt32(datosConfig[14]).Equals(1) && datos[0].ToString().Equals("retiro"))
                     {
+                        if (btnRetirarTodoElDinero.Visible == true)
+                        {
+                            if (string.IsNullOrWhiteSpace(txtEfectivo.Text) || Convert.ToDecimal(txtEfectivo.Text) < 0)
+                            {
+                                datos[6] = "0";
+                            }
+                            else
+                            {
+                                datos[6] = txtEfectivo.Text;
+                            }
+
+                            if (string.IsNullOrWhiteSpace(txtTarjeta.Text) || Convert.ToDecimal(txtTarjeta.Text) < 0)
+                            {
+                                datos[7] = "0";
+                            }
+                            else
+                            {
+                                datos[7] = txtTarjeta.Text;
+                            }
+
+                            if (string.IsNullOrWhiteSpace(txtVales.Text) || Convert.ToDecimal(txtVales.Text) < 0)
+                            {
+                                datos[8] = "0";
+                            }
+                            else
+                            {
+                                datos[8] = txtVales.Text;
+                            }
+
+                            if (string.IsNullOrWhiteSpace(txtCheque.Text) || Convert.ToDecimal(txtCheque.Text) < 0)
+                            {
+                                datos[9] = "0";
+                            }
+                            else
+                            {
+                                datos[9] = txtCheque.Text;
+                            }
+
+                            if (string.IsNullOrWhiteSpace(txtTrans.Text) || Convert.ToDecimal(txtTrans.Text) < 0)
+                            {
+                                datos[10] = "0";
+                            }
+                            else
+                            {
+                                datos[10] = txtTrans.Text;
+                            }
+                        }
                         Thread AgregarAgregarDinero = new Thread(
                             () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
                         );
@@ -1394,6 +1505,7 @@ namespace PuntoDeVentaV2
                     this.Close();
                 }
             }
+           
         }
 
         private int obtenerIDHistorialCorteDeCaja(string opcionComboBoxFiltroAdminEmp)

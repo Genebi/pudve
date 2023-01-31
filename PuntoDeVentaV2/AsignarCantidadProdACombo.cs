@@ -13,7 +13,7 @@ namespace PuntoDeVentaV2
     public partial class AsignarCantidadProdACombo : Form
     {
         public string ListProd;
-        decimal cantidadDeProducto = 0;
+        public decimal cantidadDeProducto = 0;
         public decimal cantidadAsigarAlCombo;
         public int cancelar = 1;
         public AsignarCantidadProdACombo()

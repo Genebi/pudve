@@ -337,6 +337,7 @@ namespace PuntoDeVentaV2
         private void AgregarBasculas_Load(object sender, EventArgs e)
         {
             //llenamos los ComboBox
+            PuertoSerieBascula.Close();
             getBasculasRegistradas();   //Basculas Preconfiguradas
             getComPortNames();          //Puertos Activos
             getBaudRate();              //Rango BaudRate

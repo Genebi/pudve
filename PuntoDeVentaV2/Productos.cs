@@ -965,7 +965,7 @@ namespace PuntoDeVentaV2
                 var minimo = Convert.ToInt32(DGVProductos.Rows[e.RowIndex].Cells[24].Value.ToString());
                 var maximo = Convert.ToInt32(DGVProductos.Rows[e.RowIndex].Cells[25].Value.ToString());
                 
-                if (Tipo.Equals("P"))
+                if (Tipo.Equals("P") || Tipo.Equals("VR"))
                 {
                     var stock = Convert.ToDecimal(DGVProductos.Rows[e.RowIndex].Cells[2].Value.ToString());
 
@@ -2257,7 +2257,13 @@ namespace PuntoDeVentaV2
                     lista.Add(idProducto, tipoProducto);
                 }
             }
-            
+
+            if (lista.Count.Equals(0))
+            {
+                MessageBox.Show("No tiene ningun producto seleccionado","Aviso del Ssitema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                return;
+            }
+
             if (cbTodos.Checked)
             {
                 productosSeleccionados = checkboxMarcados;
@@ -3355,6 +3361,17 @@ namespace PuntoDeVentaV2
 
         private void btnCambiarTipo_Click(object sender, EventArgs e)
         {
+            using (DataTable dt = cn.CargarDatos($"SELECT opcion3 FROM empleadospermisos WHERE Seccion='productos' AND idUsuario = {FormPrincipal.userID} AND IDEmpleado = {FormPrincipal.id_empleado}"))
+            {
+                if (!dt.Rows.Count.Equals(0))
+                {
+                    if (dt.Rows[0][0].ToString().Equals("0") && !FormPrincipal.id_empleado.Equals(0))
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+                }
+            }
             ///Mostrar Mensaje ne la etiqueta de atajos
             timer1.Start();
             lAtajo.Visible = true;
@@ -4991,7 +5008,7 @@ namespace PuntoDeVentaV2
             else
             {
                 // Consulta final despues de aplicador filtros, condiciones, etc
-                consultaFiltro += extraProveedor + extraDetalles + $"WHERE P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extra}" + extraProductos;
+                consultaFiltro += extraProveedor + extraDetalles + $"WHERE Tipo != 'VR' AND P.IDUsuario = {FormPrincipal.userID} AND P.Status = {status} {extra}" + extraProductos;
                 filtroConSinFiltroAvanzado = clickBoton == 1 ? auxiliarConsulta : consultaFiltro;
             }
 
@@ -5186,7 +5203,7 @@ namespace PuntoDeVentaV2
 
                 row.Cells["Column1"].Value = filaDatos["Nombre"].ToString();
 
-                if (TipoProd == "P")
+                if (TipoProd == "P" || TipoProd == "VR")
                 {
                     //var minimoTest = filaDatos["StockMinimo"].ToString();
                     //var stockTest = filaDatos["Stock"].ToString();
@@ -5289,7 +5306,7 @@ namespace PuntoDeVentaV2
 
 
 
-                if (TipoProd == "P")
+                if (TipoProd == "P" || TipoProd == "VR")
                 {
                     row.Cells["Column16"].Value = product;
                     row.Cells["Ajustar"].Value = ajustar;

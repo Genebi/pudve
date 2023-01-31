@@ -49,7 +49,6 @@ namespace PuntoDeVentaV2
                 int rfc = Convert.ToInt32(datos2[6]);
                 int correo = Convert.ToInt32(datos2[7]);
                 int telefono = Convert.ToInt32(datos2[8]);
-
                 int nombrec = Convert.ToInt32(datos2[9]);
                 int domicilioc = Convert.ToInt32(datos2[10]);
                 int rfcc = Convert.ToInt32(datos2[11]);
@@ -63,6 +62,7 @@ namespace PuntoDeVentaV2
                 int ticket80mm = Convert.ToInt32(datos2[19]);
                 int referencia = Convert.ToInt32(datos2[20]);
                 int mostrarmensaje = Convert.ToInt32(datos2[21]);
+                int TamannoTicket = Convert.ToInt32(datos2[22]);
 
                 if (logo == 1)//////Logo  
                 {
@@ -192,21 +192,17 @@ namespace PuntoDeVentaV2
                 {
                     chkReferenciaVenta.Checked = false;
                 }
-                if (ticket58mm.Equals(1))
+                if (TamannoTicket == 1)
                 {
-                    rbTicket6cm.Checked = true;
+                    RBPequenno.Checked = true;
+                }
+                else if (TamannoTicket == 2)
+                {
+                    RBMediano.Checked = true;
                 }
                 else
                 {
-                    rbTicket6cm.Checked = false;
-                }
-                if (ticket80mm.Equals(1))
-                {
-                    rbTicket8cm.Checked = true;
-                }
-                else
-                {
-                    rbTicket8cm.Checked = false;
+                    RBGrande.Checked = true;
                 }
                 if (mostrarmensaje.Equals(1))
                 {
@@ -442,28 +438,20 @@ namespace PuntoDeVentaV2
                 var status = 0;
                 cn.EjecutarConsulta(cs.nombreComercial(status));
             }
-            /////
-            if (rbTicket6cm.Checked.Equals(true))
+
+            if (RBPequenno.Checked.Equals(true))
             {
-                var status = 1;
-                cn.EjecutarConsulta(cs.ticket58mm(status));
+                cn.EjecutarConsulta($"UPDATE editarticket SET tamannoTicket = 1 WHERE IDUsuario = {FormPrincipal.userID}");
             }
-            else
+            else if (RBMediano.Checked.Equals(true))
             {
-                var status = 0;
-                cn.EjecutarConsulta(cs.ticket58mm(status));
+                cn.EjecutarConsulta($"UPDATE editarticket SET tamannoTicket = 2 WHERE IDUsuario = {FormPrincipal.userID}");
             }
-            /////
-            if (rbTicket8cm.Checked.Equals(true))
+            else if (RBGrande.Checked.Equals(true))
             {
-                var status = 1;
-                cn.EjecutarConsulta(cs.ticket80mm(status));
+                cn.EjecutarConsulta($"UPDATE editarticket SET tamannoTicket = 3 WHERE IDUsuario = {FormPrincipal.userID}");
             }
-            else
-            {
-                var status = 0;
-                cn.EjecutarConsulta(cs.ticket80mm(status));
-            }
+            
             //Mostrar el Mensaje
             if (chkMostrarMensaje.Checked.Equals(true))
             {

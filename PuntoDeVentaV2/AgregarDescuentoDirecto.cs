@@ -15,6 +15,7 @@ namespace PuntoDeVentaV2
         public string TotalDescuento { get; set; }
         public int TipoDescuento { get; set; }
 
+        int calcu = 0;
         private int idProducto;
         private string nombreProducto;
         private double precioProducto;
@@ -32,6 +33,7 @@ namespace PuntoDeVentaV2
 
         private void AgregarDescuentoDirecto_Load(object sender, EventArgs e)
         {
+            lbTotalFinal.Text = precioProducto.ToString("0.00");
             lbProducto.Text = nombreProducto;
             lbPrecio.Text = "Precio: $" + precioProducto.ToString("0.00");
             lbCantidadProducto.Text = "Cantidad: " + cantidadProducto;
@@ -61,6 +63,13 @@ namespace PuntoDeVentaV2
                     txtPorcentaje_KeyUp(sender, new KeyEventArgs(Keys.Up));
                 }
             }
+
+
+            if (Ventas.SeCambioCantidad == true)
+            {
+                btnAceptar.PerformClick();
+                Ventas.SeCambioCantidad = false;
+            }
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -84,6 +93,8 @@ namespace PuntoDeVentaV2
             {
                 tipo = 2;
                 cantidadElegida = float.Parse(porcentaje);
+
+
                 porcentaje = $" - {porcentaje}%";
             }
 
@@ -91,12 +102,12 @@ namespace PuntoDeVentaV2
             // el descuento de uno de los productos de la lista
             if (Ventas.descuentosDirectos.ContainsKey(idProducto))
             {
-                Ventas.descuentosDirectos[idProducto] = Tuple.Create(tipo, cantidadElegida); 
+                Ventas.descuentosDirectos[idProducto] = Tuple.Create(tipo, cantidadElegida);
             }
             else
             {
                 Ventas.descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipo, cantidadElegida));
-            }  
+            }
 
             this.TotalDescuento = lbTotalDescuento.Text + porcentaje;
             this.TipoDescuento = tipo;
@@ -106,6 +117,7 @@ namespace PuntoDeVentaV2
 
         private void txtCantidad_KeyUp(object sender, KeyEventArgs e)
         {
+
             if (!string.IsNullOrWhiteSpace(txtCantidad.Text))
             {
                 lbCantidadProducto.Visible = true;
@@ -148,9 +160,10 @@ namespace PuntoDeVentaV2
             {
                 txtPorcentaje.Enabled = true;
                 lbTotalDescuento.Text = "0.00";
-                lbTotalFinal.Text = "0.00";
+                lbTotalFinal.Text = precioProducto.ToString("0.00");
                 lbCantidadProducto.Visible = false;
             }
+
         }
 
         private void txtPorcentaje_KeyUp(object sender, KeyEventArgs e)
@@ -199,7 +212,7 @@ namespace PuntoDeVentaV2
                 {
                     txtCantidad.Enabled = true;
                     lbTotalDescuento.Text = "0.00";
-                    lbTotalFinal.Text = "0.00";
+                    lbTotalFinal.Text = precioProducto.ToString("0.00");
                     lbCantidadProducto.Visible = false;
                 }
             }
@@ -237,6 +250,10 @@ namespace PuntoDeVentaV2
             if (e.KeyData == Keys.Enter)
             {
                 btnAceptar.PerformClick();
+            }
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
             }
         }
 
@@ -317,6 +334,75 @@ namespace PuntoDeVentaV2
                         words[1] = "0";
                     }
                     txtCantidad.Text = words[0] + "." + words[1];
+                }
+            }
+        }
+
+        private void txtCantidad_KeyDown_1(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
+
+        private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtCantidad.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
+        }
+
+        private void txtPorcentaje_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtPorcentaje.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+
                 }
             }
         }

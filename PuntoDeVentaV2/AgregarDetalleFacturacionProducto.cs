@@ -303,9 +303,9 @@ namespace PuntoDeVentaV2
                 cargar_impuestos();
             }
 
-                // Miri.
-                // Solo para cuando se edite un producto. Carga los impuestos guardados  
-                if (AgregarEditarProducto.DatosSourceFinal == 2)
+            // Miri.
+            // Solo para cuando se edite un producto. Carga los impuestos guardados  
+            if (AgregarEditarProducto.DatosSourceFinal == 2)
             {
                 // Obtiene la lista de impuestos guardados
                 cargar_impuestos();
@@ -1337,6 +1337,11 @@ namespace PuntoDeVentaV2
         {
             TextBox tb = sender as TextBox;
 
+            if (tb == null)
+            {
+                tb = Controls.Find(sender.ToString(), true).FirstOrDefault() as TextBox;
+            }
+
             var nombre = tb.Name.Remove(tb.Name.Length - 1);
                     
             var cantidad = tb.Text;
@@ -1893,15 +1898,34 @@ namespace PuntoDeVentaV2
                         // Combobox: tasa/cuota
 
                         ComboBox cb4 = (ComboBox)this.Controls.Find(nombre_cb + 4, true).FirstOrDefault();
-                        cb4.SelectedItem = r_impuestos_ext["tasacuota"].ToString();
+
+                        string tasaCuotaAux = "...";
+
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("0.00")) { tasaCuotaAux = "0 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("26.50")) { tasaCuotaAux = "26.5 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("30.00")) { tasaCuotaAux = "30 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("53.00")) { tasaCuotaAux = "53 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("50.00")) { tasaCuotaAux = "50 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("1.60")) { tasaCuotaAux = "1.600000"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("30.40")) { tasaCuotaAux = "30.4 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("25.00")) { tasaCuotaAux = "25 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("9.00")) { tasaCuotaAux = "9 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("8.00")) { tasaCuotaAux = "8 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("7.00")) { tasaCuotaAux = "7 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("6.00")) { tasaCuotaAux = "6 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("3.00")) { tasaCuotaAux = "3 %"; }
+                        if (r_impuestos_ext["tasacuota"].ToString().Equals("0.00") && r_impuestos_ext["Definir"].ToString() != "0.00") { tasaCuotaAux = "Definir %"; }
+
+                        cb4.SelectedItem = tasaCuotaAux;
                         int index4 = cb4.SelectedIndex;
 
-                        AccederComboBox(nombre_cb, 5, index4, r_impuestos_ext["tasacuota"].ToString()+" %");
+
+                        AccederComboBox(nombre_cb, 5, index4, r_impuestos_ext["tasacuota"].ToString() + " %");
 
 
                         // Textbox: Definir impuesto
-
-                        if (r_impuestos_ext["tasacuota"].ToString() == "Definir %")
+                        // Antes comparaba con Definir %
+                        if (r_impuestos_ext["tasacuota"].ToString() == "0.00" && r_impuestos_ext["Definir"].ToString() != "0.00")
                         {
                             TextBox tb1 = (TextBox)this.Controls.Find(nombre_tb + 1, true).FirstOrDefault();
                             tb1.Text = r_impuestos_ext["Definir"].ToString();
@@ -1912,6 +1936,7 @@ namespace PuntoDeVentaV2
                         TextBox tb2 = (TextBox)this.Controls.Find(nombre_tb + 2, true).FirstOrDefault();
                         tb2.Text = r_impuestos_ext["Importe"].ToString();
 
+                        PorcentajeManual_KeyUp(nombre_tb + 2, new KeyEventArgs(Keys.Up));
 
                         i++;
                     }
@@ -2000,12 +2025,12 @@ namespace PuntoDeVentaV2
                 var resultadoAuxialiar = Regex.Replace(resultado, @"[^0-9.]", "").Trim();
                 resultado = resultadoAuxialiar;
                 txtValidarTexto.Text = resultado;
-                txtValidarTexto.Focus();
+                //txtValidarTexto.Focus();
                 txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
             }
             else
             {
-                txtValidarTexto.Focus();
+                //txtValidarTexto.Focus();
                 txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
             }
         }

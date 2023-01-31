@@ -1406,7 +1406,15 @@ namespace PuntoDeVentaV2
                         if (producto.Value == "P")
                         {
                             valores += $"({producto.Key}, {stock}),";
-
+                            using (var DTStockMaximo =  cn.CargarDatos($"SELECT StockNecesario FROM productos WHERE ID = {producto.Key}"))
+                            {
+                                string StockMaximo = DTStockMaximo.Rows[0]["StockNecesario"].ToString();
+                                if (Convert.ToDecimal(stock)>= Convert.ToDecimal(StockMaximo))
+                                {
+                                    MessageBox.Show("El stock minimo no puede superar el Stock maximo","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                                    return;
+                                }
+                            }
                             //cn.EjecutarConsulta(consulta);
                         }
                     }

@@ -39,7 +39,9 @@ namespace PuntoDeVentaV2
             pagos.Add("02", "02 - Cheque nominativo");
             pagos.Add("03", "03 - Transferencia electrónica de fondos");
             pagos.Add("04", "04 - Tarjeta de crédito");
+            pagos.Add("05", "05 - Devolucion de Producto");
             pagos.Add("08", "08 - Vales de despensa");
+            
 
             cbFormaPago.DataSource = pagos.ToArray();
             cbFormaPago.DisplayMember = "Value";
@@ -53,6 +55,16 @@ namespace PuntoDeVentaV2
             //}
             AgregarAnticipo form = this;
             Utilidades.EjecutarAtajoKeyPreviewDown(AgregarAnticipo_PreviewKeyDown, form);
+
+            if (Inventario.desdeRegresarProdcuto == 1)
+            {
+                txtImporte.Text = Inventario.totalFinal.ToString();
+                txtConcepto.Text = "Devolucion de Productos";
+                cbFormaPago.SelectedIndex = 4;
+                cbFormaPago.Enabled = false;
+                txtConcepto.Enabled = false;
+                txtImporte.Enabled = false;
+            }
         }
 
         private void CargarClientes()

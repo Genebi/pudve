@@ -303,7 +303,7 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado {
             
             private global::System.Data.DataColumn columnClienteTelefono;
             
-            private global::System.Data.DataColumn columnIDVenta;
+            private global::System.Data.DataColumn columnFolio;
             
             private global::System.Data.DataColumn columnTotalOriginal;
             
@@ -448,9 +448,9 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn IDVentaColumn {
+            public global::System.Data.DataColumn FolioColumn {
                 get {
-                    return this.columnIDVenta;
+                    return this.columnFolio;
                 }
             }
             
@@ -552,7 +552,7 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado {
                         string ClienteColoniaCodigoPostal, 
                         string ClienteCorreo, 
                         string ClienteTelefono, 
-                        string IDVenta, 
+                        string Folio, 
                         string TotalOriginal, 
                         string SaldoAnterior, 
                         string CantidadAbonada, 
@@ -573,7 +573,7 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado {
                         ClienteColoniaCodigoPostal,
                         ClienteCorreo,
                         ClienteTelefono,
-                        IDVenta,
+                        Folio,
                         TotalOriginal,
                         SaldoAnterior,
                         CantidadAbonada,
@@ -614,7 +614,7 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado {
                 this.columnClienteColoniaCodigoPostal = base.Columns["ClienteColoniaCodigoPostal"];
                 this.columnClienteCorreo = base.Columns["ClienteCorreo"];
                 this.columnClienteTelefono = base.Columns["ClienteTelefono"];
-                this.columnIDVenta = base.Columns["IDVenta"];
+                this.columnFolio = base.Columns["Folio"];
                 this.columnTotalOriginal = base.Columns["TotalOriginal"];
                 this.columnSaldoAnterior = base.Columns["SaldoAnterior"];
                 this.columnCantidadAbonada = base.Columns["CantidadAbonada"];
@@ -650,8 +650,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado {
                 base.Columns.Add(this.columnClienteCorreo);
                 this.columnClienteTelefono = new global::System.Data.DataColumn("ClienteTelefono", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnClienteTelefono);
-                this.columnIDVenta = new global::System.Data.DataColumn("IDVenta", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnIDVenta);
+                this.columnFolio = new global::System.Data.DataColumn("Folio", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnFolio);
                 this.columnTotalOriginal = new global::System.Data.DataColumn("TotalOriginal", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTotalOriginal);
                 this.columnSaldoAnterior = new global::System.Data.DataColumn("SaldoAnterior", typeof(string), null, global::System.Data.MappingType.Element);
@@ -999,17 +999,17 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string IDVenta {
+            public string Folio {
                 get {
                     try {
-                        return ((string)(this[this.tableDataTable1.IDVentaColumn]));
+                        return ((string)(this[this.tableDataTable1.FolioColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'IDVenta\' in table \'DataTable1\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Folio\' in table \'DataTable1\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableDataTable1.IDVentaColumn] = value;
+                    this[this.tableDataTable1.FolioColumn] = value;
                 }
             }
             
@@ -1255,14 +1255,14 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.AbonoRealizado {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsIDVentaNull() {
-                return this.IsNull(this.tableDataTable1.IDVentaColumn);
+            public bool IsFolioNull() {
+                return this.IsNull(this.tableDataTable1.FolioColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetIDVentaNull() {
-                this[this.tableDataTable1.IDVentaColumn] = global::System.Convert.DBNull;
+            public void SetFolioNull() {
+                this[this.tableDataTable1.FolioColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

@@ -1355,6 +1355,13 @@ namespace PuntoDeVentaV2
                 e.Handled = true;
             }
 
+            calculadora(sender, e);
+
+        }
+        private void calculadora(object sender, KeyPressEventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            int calcu = 0;
             if (e.KeyChar == Convert.ToChar(Keys.Space))
             {
                 calcu++;
@@ -1367,14 +1374,10 @@ namespace PuntoDeVentaV2
                     {
                         if (calculadora.seEnvia.Equals(true))
                         {
-                           
-                            txtStockMinimo.Text = calculadora.lCalculadora.Text;
-                            
+                            txt.Text = calculadora.lCalculadora.Text;
                         }
-                       
+                        calcu = 0;
                     };
-
-                    calcu = 0;
                     if (!calculadora.Visible)
                     {
                         calculadora.Show();
@@ -1385,9 +1388,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
         }
-
         private void txtStockMinimo_KeyUp(object sender, KeyEventArgs e)
         {
             stockMinimo = txtStockMinimo.Text;
@@ -1483,34 +1484,7 @@ namespace PuntoDeVentaV2
                 e.Handled = true;
             }
 
-            if (e.KeyChar == Convert.ToChar(Keys.Space))
-            {
-                calcu++;
-
-                if (calcu == 1)
-                {
-                    calculadora calculadora = new calculadora();
-
-                    calculadora.FormClosed += delegate
-                   {
-                       if (calculadora.seEnvia.Equals(true))
-                       {
-                           txtStockMaximo.Text = calculadora.lCalculadora.Text;
-                       }
-                   };
-
-                    calcu = 0;
-                    if (!calculadora.Visible)
-                    {
-                        calculadora.Show();
-                    }
-                    else
-                    {
-                        calculadora.Show();
-                    }
-                }
-            }
-
+            calculadora(sender, e);
         }
 
         private void txtStockMaximo_KeyUp(object sender, KeyEventArgs e)
@@ -1594,37 +1568,7 @@ namespace PuntoDeVentaV2
                 e.Handled = true;
             }
 
-            if (e.KeyChar == Convert.ToChar(Keys.Space))
-            {
-                calcu++;
-
-                if (calcu == 1)
-                {
-                    calculadora calculadora = new calculadora();
-
-                    calculadora.FormClosed += delegate
-                    {
-                        if (calculadora.seEnvia.Equals(true))
-                        {
-                          txtStockMinimo.Text = calculadora.lCalculadora.Text; 
-                        }
-                        calcu = 0;
-                    };
-                    if (!calculadora.Visible)
-                    {
-                        calculadora.Show();
-                    }
-                    else
-                    {
-                        calculadora.Show();
-                    }
-
-                    //if ()
-                    //{
-                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
-                    //}
-                }
-            }
+            calculadora(sender, e);
         }
 
         private void ValidarStockMaximo()
@@ -1980,7 +1924,7 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            if (txtPrecioProducto.Text == "" || txtPrecioProducto.Text == "0.0" || txtPrecioProducto.Text == "0")
+            if (txtPrecioProducto.Text == "" || txtPrecioProducto.Text == "0.00" || txtPrecioProducto.Text == "0.0" || txtPrecioProducto.Text == "0." || txtPrecioProducto.Text == ".00" || txtPrecioProducto.Text == ".0" || txtPrecioProducto.Text == "0")
             {
                 MessageBox.Show("Es necesario agregar el precio del producto", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -2009,7 +1953,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    var datos = cn.CargarDatos($"SELECT * FROM productos WHERE CodigoBarras = {txtCodigoBarras.Text}");
+                    var datos = cn.CargarDatos($"SELECT * FROM productos WHERE CodigoBarras = '{txtCodigoBarras.Text}'");
                     var tieneDescuento = 0;
                     if (Productos.tieneDescMay.Equals(1) || Productos.tieneDescIndiv.Equals(1))
                     {
@@ -3724,7 +3668,7 @@ namespace PuntoDeVentaV2
                                                     datos = item.Split('|');
                                                     string fech = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                                                     datos[0] = fech.Trim();
-                                                    string[] nuevosDatos = { datos[0], datos[1], datos[3], datos[4], "0" };
+                                                    string[] nuevosDatos = { datos[0], datos[1], datos[3], datos[4], datos[5] };
                                                     cn.EjecutarConsulta(cs.insertarProductosServicios(nuevosDatos)); //Cuando se agrega un servicio al Producto---------------
                                                 }
                                                 using (DataTable dtProductosDeServicios = cn.CargarDatos(cs.ObtenerProductosServPaq(datos[1].ToString())))
@@ -4422,9 +4366,9 @@ namespace PuntoDeVentaV2
 
             if (!string.IsNullOrWhiteSpace(resultado))
             {
-                if (resultado.Contains("|") || resultado.Contains("+")||resultado.Contains("-"))
+                if (resultado.Contains("|") || resultado.Contains("+")||resultado.Contains("-")|| resultado.Contains("'")|| resultado.Contains("*")|| resultado.Contains("/"))
                 {
-                    var resultadoAuxialiar = Regex.Replace(resultado, @"[+\|\-]", string.Empty);
+                    var resultadoAuxialiar = Regex.Replace(resultado, @"[+\|\-\'\*\/]", string.Empty);
                     resultado = resultadoAuxialiar;
                     txtValidarTexto.Text = resultado;
                     txtValidarTexto.Focus();
@@ -4944,7 +4888,16 @@ namespace PuntoDeVentaV2
             nombreProdSubDetalles = txtNombreProducto.Text;
             subDetallesDeProducto detalles = new subDetallesDeProducto(idEditarProducto);
             detalles.ShowDialog();
-           
+        }
+        private void txtCodigoBarras_TextChanged(object sender, EventArgs e)
+        {
+            ValidarEntradaDeTexto(sender, e);
+        }
+
+        private void btnConfiguracionPeso_Click(object sender, EventArgs e)
+        {
+            ConfiguracionEditarProducto config = new ConfiguracionEditarProducto();
+            config.ShowDialog();
         }
 
         public void cargarDatos()
@@ -5082,37 +5035,7 @@ namespace PuntoDeVentaV2
                 e.Handled = true;
             }
 
-            if (e.KeyChar == Convert.ToChar(Keys.Space))
-            {
-                calcu++;
-
-                if (calcu == 1)
-                {
-                    calculadora calculadora = new calculadora();
-
-                    calculadora.FormClosed += delegate
-                    {
-                        if (calculadora.seEnvia.Equals(true))
-                        {
-                           txtStockMinimo.Text = calculadora.lCalculadora.Text;
-                        }
-                        calcu = 0;
-                    };
-                    if (!calculadora.Visible)
-                    {
-                        calculadora.Show();
-                    }
-                    else
-                    {
-                        calculadora.Show();
-                    }
-
-                    //if ()
-                    //{
-                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
-                    //}
-                }
-            }
+            calculadora(sender, e);
         }
 
         private void txtStockProducto_Leave(object sender, EventArgs e)
@@ -5159,37 +5082,7 @@ namespace PuntoDeVentaV2
                 e.Handled = true;
             }
 
-            if (e.KeyChar == Convert.ToChar(Keys.Space))
-            {
-                calcu++;
-
-                if (calcu == 1)
-                {
-                    calculadora calculadora = new calculadora();
-
-                    calculadora.FormClosed += delegate
-                    {
-                        if (calculadora.seEnvia.Equals(true))
-                        {
-                            txtPrecioCompra.Text = calculadora.lCalculadora.Text;  
-                        }
-                        calcu = 0;
-                    };
-                    if (!calculadora.Visible)
-                    {
-                        calculadora.Show();
-                    }
-                    else
-                    {
-                        calculadora.Show();
-                    }
-
-                    //if ()
-                    //{
-                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
-                    //}
-                }
-            }
+            calculadora(sender, e);
         }
 
         private void txtPrecioProducto_KeyPress(object sender, KeyPressEventArgs e)
@@ -5211,37 +5104,7 @@ namespace PuntoDeVentaV2
                 e.Handled = true;
             }
 
-            if (e.KeyChar == Convert.ToChar(Keys.Space))
-            {
-                calcu++;
-
-                if (calcu == 1)
-                {
-                    calculadora calculadora = new calculadora();
-
-                    calculadora.FormClosed += delegate
-                    {
-                        if (calculadora.seEnvia.Equals(true))
-                        {
-                            txtPrecioProducto.Text = calculadora.lCalculadora.Text;
-                        }
-                        calcu = 0;
-                    };
-                    if (!calculadora.Visible)
-                    {
-                        calculadora.Show();
-                    }
-                    else
-                    {
-                        calculadora.Show();
-                    }
-
-                    //if ()
-                    //{
-                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
-                    //}
-                }
-            }
+            calculadora(sender, e);
         }
 
         private void txtPrecioProducto_Leave(object sender, EventArgs e)
@@ -8114,6 +7977,12 @@ namespace PuntoDeVentaV2
                     else
                     {
                         var iva = imp[3].Replace(" %", string.Empty);
+
+                        if (iva.Equals("Definir"))
+                        {
+                            iva = "0";
+                        }
+
                         imp[3] = iva;
                     }
                     if (imp[4] == " - ")
@@ -9442,6 +9311,7 @@ namespace PuntoDeVentaV2
             {
                 e.Handled = true;
             }
+            calculadora(sender, e);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -9667,6 +9537,19 @@ namespace PuntoDeVentaV2
                             //prodSerPaq += row["Nombre"].ToString() + "|";
                             prodSerPaq += row["ID"].ToString() + "|";
                             prodSerPaq += row["Nombre"].ToString() + "|";
+                            decimal cantidad = 0;
+                            int secancelo = 0;
+                            AsignarCantidadProdACombo FormCantidad = new AsignarCantidadProdACombo();
+                            FormCantidad.FormClosing += delegate
+                            {
+                                cantidad = FormCantidad.cantidadDeProducto;
+                                secancelo = FormCantidad.cancelar;
+                            };
+                            FormCantidad.ShowDialog();
+                            if (secancelo == 1)
+                            {
+                                return;
+                            }
                             using (DataTable dtIdEditarProducto = cn.CargarDatos(cs.obtenerNombreDelProducto(idEditarProducto)))
                             {
                                 if (!dtIdEditarProducto.Rows.Count.Equals(0))
@@ -9675,6 +9558,8 @@ namespace PuntoDeVentaV2
                                     {
                                         prodSerPaq += item["ID"].ToString() + "|";
                                         prodSerPaq += item["Nombre"].ToString() + "|";
+                                        prodSerPaq += cantidad.ToString("0.00") + "|";
+                                   
                                     }
                                 }
                             }

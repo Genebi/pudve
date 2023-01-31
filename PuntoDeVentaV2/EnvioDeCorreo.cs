@@ -62,6 +62,7 @@ namespace PuntoDeVentaV2
         bool check23 = false;
         bool check24 = false;
         bool check25 = false;
+        bool check26 = false;
         int guardado =0;
 
         List<String> confiCorreo;
@@ -124,8 +125,12 @@ namespace PuntoDeVentaV2
 
                 cbRecibirAnricipo.Checked = Convert.ToBoolean(datosConfig[27]);
                 check24 = cbRecibirAnricipo.Checked;
+
                 CBXClienteDescuento.Checked = Convert.ToBoolean(datosConfig[28]);
                 check25 = CBXClienteDescuento.Checked;
+
+                chkBoxSaldoInicial.Checked = Convert.ToBoolean(datosConfig[30]);
+                check26 = chkBoxSaldoInicial.Checked;
             }
             else
             {
@@ -1411,6 +1416,69 @@ namespace PuntoDeVentaV2
         private void groupBox1_Enter(object sender, EventArgs e)
         {
 
+        }
+
+        private void cbCorreoIniciar_CheckedChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkBoxSaldoInicial_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("PermisoCorreoSaldoInicial", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    var habilitado = 0;
+
+                    if (chkBoxSaldoInicial.Checked)
+                    {
+                        habilitado = 1;
+                    }
+
+                    string consulta = $"UPDATE Configuracion SET EnvioCorreoSaldoIncial = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiCorreo.Add(consulta);
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            var habilitado = 0;
+
+                            if (chkBoxSaldoInicial.Checked)
+                            {
+                                habilitado = 1;
+                            }
+
+                            string consulta = $"UPDATE Configuracion SET EnvioCorreoSaldoIncial = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiCorreo.Add(consulta);
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (chkBoxSaldoInicial.Checked == true)
+                            {
+                                chkBoxSaldoInicial.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                chkBoxSaldoInicial.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
         }
     }
 }

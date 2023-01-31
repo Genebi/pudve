@@ -41,6 +41,8 @@ namespace PuntoDeVentaV2
         private int tipoOperacion = 0;
 
         public static string mensaje = string.Empty;
+        public static string nombreDePorducto = string.Empty;
+        public static decimal cantidadRegresada = 0;
         string proveedor = string.Empty;
 
         //apartado 1 = Productos
@@ -66,6 +68,7 @@ namespace PuntoDeVentaV2
 
         private void AjustarProducto_Load(object sender, EventArgs e)
         {
+            
             cbConceptos.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbProveedores.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             string[] datos = cn.BuscarProducto(IDProducto, FormPrincipal.userID);
@@ -204,6 +207,16 @@ namespace PuntoDeVentaV2
             {
                 mensaje = mensajeInventario.Rows[0]["Mensaje"].ToString();
             }
+
+            if (Inventario.desdeRegresarProdcuto == 1)
+            {
+                this.Opacity = 0;
+                nombreDePorducto = lbProducto.Text;
+                CantidadRegresada regreso = new CantidadRegresada();
+                regreso.ShowDialog();
+                txtCantidadCompra.Text = cantidadRegresada.ToString();
+                btnAceptar.PerformClick();
+            }
         }
 
         private void Permiso(object sender, KeyPressEventArgs e)
@@ -258,9 +271,30 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-
+            if (!txtCantidadCompra.Text.All(char.IsDigit) && !string.IsNullOrEmpty(txtCantidadCompra.Text))
+            {
+                MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCantidadCompra.Clear();
+                txtCantidadCompra.Focus();
+                return;
+            }
+            if (!txtPrecioCompra.Text.All(char.IsDigit) && !string.IsNullOrEmpty(txtPrecioCompra.Text))
+                        {
+                            MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtPrecioCompra.Clear();
+                txtPrecioCompra.Focus();
+                            return; 
+            }
+        if (!txtDisminuir.Text.All(char.IsDigit) && !string.IsNullOrEmpty(txtDisminuir.Text))
+                    {
+                        MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDisminuir.Clear();
+                txtDisminuir.Focus();
+                        return;
+                    }
             var datoUsuario = FormPrincipal.userNickName;
             var empleado = "0";
+
             //Tipo de ajuste es cuando se hace desde una de estas dos opciones
             //Cuando se carga desde un XML o registro normal el tipo de ajuste es 0
             //Cuando se hace la moficiacion desde la opcion producto comprado es 1
@@ -523,6 +557,7 @@ namespace PuntoDeVentaV2
                                 var aumentar = txtAumentar.Text;
                                 var disminuir = txtDisminuir.Text;
 
+
                                 var concepto = cbConceptos.GetItemText(cbConceptos.SelectedItem);
 
                                 if (concepto.Equals("Seleccionar concepto..."))
@@ -749,6 +784,11 @@ namespace PuntoDeVentaV2
                                         if (stockProducto < 0)
                                         {
                                             stockProducto = 0;
+                                        }
+                                        if (auxiliar==0)
+                                        {
+                                            MessageBox.Show("Ingrese una cantidad para aumentar y/o disminuir", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            return;
                                         }
 
                                         auxiliar *= -1;

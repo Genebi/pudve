@@ -28,6 +28,11 @@ namespace PuntoDeVentaV2
         private void VisualizadorTicketAnticipo_Load(object sender, EventArgs e)
         {
             CargarDatosAnticipo();
+            if (Ventas.EsEnVentas.Equals(true))
+            {
+                btnReImprimirTicket.PerformClick();
+                this.Close();
+            }
         }
 
         private void CargarDatosAnticipo()
@@ -73,7 +78,7 @@ namespace PuntoDeVentaV2
             DataTable ventaDT = new DataTable();
 
             ventaDA.Fill(ventaDT);
-
+          
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             this.reportViewer1.LocalReport.DataSources.Clear();
@@ -143,7 +148,12 @@ namespace PuntoDeVentaV2
             DataTable ventaDT = new DataTable();
 
             ventaDA.Fill(ventaDT);
-
+            decimal TotalRecibido = Convert.ToDecimal(ventaDT.Rows[0]["TotalRecibido"]);
+            decimal AnticipoAplicado = Convert.ToDecimal(ventaDT.Rows[0]["AnticipoAplicado"]);
+            if (TotalRecibido < AnticipoAplicado)
+            {
+                ventaDT.Rows[0]["AnticipoAplicado"] = TotalRecibido.ToString();
+            }
             //this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             //this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             //this.reportViewer1.LocalReport.DataSources.Clear();

@@ -80,11 +80,26 @@ namespace PuntoDeVentaV2
             }
 
             string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm.rdlc";
 
-           
-            
+            string FullReportPath = string.Empty;
+            int tamanno = 0;
+            using (var DTTammanoTicket = cn.CargarDatos($"SELECT tamannoTicket from editarticket WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                tamanno = Convert.ToInt32(DTTammanoTicket.Rows[0][0]);
+            }
+            if (tamanno == 1)
+            {
+                FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm.rdlc";
+            }
+            else if (tamanno == 2)
+            {
+                FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm2.rdlc";
+            }
+            else
+            {
+                FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm3.rdlc";
 
+            }
             MySqlDataAdapter ventaDA = new MySqlDataAdapter(queryVenta, conn);
             DataTable ventaDT = new DataTable();
 
@@ -95,9 +110,20 @@ namespace PuntoDeVentaV2
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             this.reportViewer1.LocalReport.DataSources.Clear();
-
-           
-
+            decimal cantidadDesceunto = 0;
+            int TieneDescuento = 1;
+            foreach (DataRow dataRow in ventaDT.Rows)
+            {
+                string moneda1 = FormPrincipal.Moneda;
+                var moneda2 = moneda1.Split('(');
+                moneda2[1] = moneda2[1].Replace(")", "");
+                var canditda = dataRow["ProductoDescuento"].ToString().Split(Convert.ToChar(moneda2[1]));
+                cantidadDesceunto += Convert.ToDecimal(canditda[1]);
+            }
+            if (cantidadDesceunto == 0)
+            {
+                TieneDescuento = 0;
+            }
             #region Impresion Ticket de 80 mm
             ReportDataSource rp = new ReportDataSource("TicketVenta", ventaDT);
 
@@ -108,6 +134,7 @@ namespace PuntoDeVentaV2
             ReportParameterCollection reportParameters = new ReportParameterCollection();
             string path = string.Empty;
             reportParameters.Add(new ReportParameter("Usuario", FormPrincipal.userNickName.ToString()));
+            reportParameters.Add(new ReportParameter("TieneDescuento", TieneDescuento.ToString()));
             string pathBarCode = $@"C:\Archivos PUDVE\Ventas\Tickets\BarCode\";
 
             var servidor = Properties.Settings.Default.Hosting;
@@ -208,6 +235,28 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("PathBarCode", pathBarCodeFull));
             //18 parametro string para mostrar / ocultar Codigo de Barras
             reportParameters.Add(new ReportParameter("Referencia", Referencia.ToString()));
+            string UsuarioRealizoVenta =  string.Empty;
+
+            using (var DTUsuario = cn.CargarDatos($"SELECT VEN.IDEmpleado, EMP.usuario FROM VENTAS AS VEN INNER JOIN empleados AS EMP ON( EMP.ID = VEN.IDEmpleado) WHERE VEN.ID = {idVentaRealizada} AND VEN.IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (!DTUsuario.Rows.Count.Equals(0))
+                {
+                    if (string.IsNullOrWhiteSpace(DTUsuario.Rows[0][0].ToString()))
+                    {
+                        UsuarioRealizoVenta = FormPrincipal.userNickName;
+                    }
+                    else
+                    {
+                        UsuarioRealizoVenta = DTUsuario.Rows[0][1].ToString();
+                    }
+                }
+                else
+                {
+                    UsuarioRealizoVenta = FormPrincipal.userNickName;
+                }
+                
+            }
+            reportParameters.Add(new ReportParameter("Usuario", UsuarioRealizoVenta));
 
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Add(rp);
@@ -219,9 +268,27 @@ namespace PuntoDeVentaV2
             rdlc.SetParameters(reportParameters);
             rdlc.DataSources.Add(rp);
             #endregion
+            using (var dtTicketOPDF = cn.CargarDatos($"SELECT TicketOPDF FROM `configuracion` WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (dtTicketOPDF.Rows[0][0].Equals(1))
+                {
+                    EnviarImprimir imp = new EnviarImprimir();
+                    imp.Imprime(rdlc);
+                    File.Delete($"{pathBarCode}{folioVentaRealizada}.png");
 
-            EnviarImprimir imp = new EnviarImprimir();
-            imp.Imprime(rdlc);
+                    if (File.Exists(finalLogoTipoPath))
+                    {
+                        File.Delete(finalLogoTipoPath);
+                    }
+                    this.Close();
+                }
+                else
+                {
+                    FormNotaDeVenta.fuePorVenta = true;
+                    FormNotaDeVenta venta = new FormNotaDeVenta(idVentaRealizada);
+                    venta.ShowDialog();
+                }
+            }
 
             File.Delete($"{pathBarCode}{folioVentaRealizada}.png");
 
@@ -229,8 +296,8 @@ namespace PuntoDeVentaV2
             {
                 File.Delete(finalLogoTipoPath);
             }
-
             this.Close();
+
         }
 
         private Image GenerarCodigoBarras(string txtCodigo, int ancho)

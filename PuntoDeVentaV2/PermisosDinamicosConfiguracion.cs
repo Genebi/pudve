@@ -58,7 +58,8 @@ namespace PuntoDeVentaV2
                     "HacerVentaDescuento",
                     "EviarRespaldoCerrarSesion",
                     "PermisoCorreoAnticipo",
-                    "VentaClienteDescuento"};
+                    "VentaClienteDescuento",
+                    "PermisoCorreoSaldoInicial"};
 
                 var permisosConfiguracion = String.Join(", ", datos);
                 var permisos = mb.PermisosEmpleadoConfiguracion(permisosConfiguracion, FormPrincipal.id_empleado);
@@ -84,9 +85,10 @@ namespace PuntoDeVentaV2
                 GenerarCheckbox(190, 220, 200, "Al hacer una venta con\ndescuento", permisos[11]);
 
                 GenerarCheckbox(220, 10, 200, "Enviar respaldo al cerrar sesion", permisos[12]);
-
                 GenerarCheckbox(220, 220, 220, "Enviar Nuevo Anticpo al recibirlo", permisos[13]);
-                GenerarCheckbox(250, 10, 220, "Enviar venta a cliente con descuento", permisos[14]);
+
+                GenerarCheckbox(250, 10, 205, "Enviar venta a cliente con descuento", permisos[14]);
+                GenerarCheckbox(250, 220, 220, "Enviar saldo inicial agregado", permisos[15]);
             }
             if (tipoPermisos == "configuracionGeneral")
             {
@@ -105,8 +107,10 @@ namespace PuntoDeVentaV2
                     "AvisarProductosNoVendidos",
                     "ActivarPrecioMayoreoVentas",
                     "MensajeVentas",
-                    "MensajeInventario"
-
+                    "MensajeInventario",
+                    "PermisoStockConsultarPrecio",
+                    "PermisoPreguntarTicketVenta",
+                    "PermisoTicketPDF"
                 };
 
                 var permisosConfiguracion = String.Join(", ",datos);
@@ -130,6 +134,10 @@ namespace PuntoDeVentaV2
                 GenerarCheckbox(160, 220, 200, "Mensaje Ventas", permisos[9]);
 
                 GenerarCheckbox(190, 10, 200, "Mensaje Inventario", permisos[10]);
+                GenerarCheckbox(190, 220, 200, "Mostrar Stock Consultar Precio", permisos[11]);
+
+                GenerarCheckbox(220, 10, 200, "Pregutar Imprimir Ticket Venta", permisos[12]);
+                GenerarCheckbox(220, 220, 200, "Seleccionar Ticket o PDF", permisos[13]);
             }
             if (tipoPermisos == "porcentageGanancia")
             {

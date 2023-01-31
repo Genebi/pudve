@@ -171,10 +171,19 @@ namespace PuntoDeVentaV2
             {
                 credito2 = Convert.ToDecimal(txtCredito.Text);
 
-                if (idCliente.Equals(0) && credito2 > 0)
+                if (idCliente.Equals(0))
                 {
                     MessageBox.Show("Asigné un Cliente para hacer una venta a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
+                }
+                else if (!FormPrincipal.id_empleado.Equals(0) && credito2 > 0)
+                {
+                    var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+                    if (datos[47].Equals(0))
+                    {
+                        MessageBox.Show("No cuenta con permiso para vender a credito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
                 }
             }
 
@@ -490,6 +499,17 @@ namespace PuntoDeVentaV2
 
         private void lbCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            using (DataTable dt = cn.CargarDatos($"SELECT opcion16 FROM empleadospermisos WHERE Seccion='ventas' AND idUsuario = {FormPrincipal.userID} AND IDEmpleado = {FormPrincipal.id_empleado}"))
+            {
+                if (!dt.Rows.Count.Equals(0))
+                {
+                    if (dt.Rows[0][0].ToString().Equals("0") && !FormPrincipal.id_empleado.Equals(0))
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+                }
+            }
             ListaClientes clientes = new ListaClientes(tipo: 2);
 
             clientes.FormClosed += delegate

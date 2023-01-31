@@ -90,6 +90,7 @@
             this.cInformacion = new System.Windows.Forms.DataGridViewImageColumn();
             this.retomarVenta = new System.Windows.Forms.DataGridViewImageColumn();
             this.ganancia = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Abonado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -136,7 +137,8 @@
             this.Timbrar,
             this.cInformacion,
             this.retomarVenta,
-            this.ganancia});
+            this.ganancia,
+            this.Abonado});
             this.DGVListadoVentas.Location = new System.Drawing.Point(13, 194);
             this.DGVListadoVentas.Name = "DGVListadoVentas";
             this.DGVListadoVentas.ReadOnly = true;
@@ -686,6 +688,7 @@
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
             this.ID.Visible = false;
+            this.ID.Width = 80;
             // 
             // Cliente
             // 
@@ -726,27 +729,28 @@
             this.Total.HeaderText = "Total";
             this.Total.Name = "Total";
             this.Total.ReadOnly = true;
+            this.Total.Width = 80;
             // 
             // Folio
             // 
             this.Folio.HeaderText = "Folio";
             this.Folio.Name = "Folio";
             this.Folio.ReadOnly = true;
-            this.Folio.Width = 50;
+            this.Folio.Width = 40;
             // 
             // Serie
             // 
             this.Serie.HeaderText = "Serie";
             this.Serie.Name = "Serie";
             this.Serie.ReadOnly = true;
-            this.Serie.Width = 50;
+            this.Serie.Width = 40;
             // 
             // Fecha
             // 
             this.Fecha.HeaderText = "Fecha";
             this.Fecha.Name = "Fecha";
             this.Fecha.ReadOnly = true;
-            this.Fecha.Width = 150;
+            this.Fecha.Width = 130;
             // 
             // Cancelar
             // 
@@ -804,6 +808,16 @@
             this.ganancia.Name = "ganancia";
             this.ganancia.ReadOnly = true;
             this.ganancia.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ganancia.Width = 60;
+            // 
+            // Abonado
+            // 
+            this.Abonado.DataPropertyName = "Abonado";
+            this.Abonado.HeaderText = "Abonado";
+            this.Abonado.Name = "Abonado";
+            this.Abonado.ReadOnly = true;
+            this.Abonado.Visible = false;
+            this.Abonado.Width = 80;
             // 
             // ListadoVentas
             // 
@@ -900,5 +914,6 @@
         private System.Windows.Forms.DataGridViewImageColumn cInformacion;
         private System.Windows.Forms.DataGridViewImageColumn retomarVenta;
         private System.Windows.Forms.DataGridViewImageColumn ganancia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Abonado;
     }
 }

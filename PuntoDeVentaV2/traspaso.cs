@@ -18,7 +18,6 @@ namespace PuntoDeVentaV2
         bool init = false;
         public static string ID="";
         public List<string> updatesSubdetalles = new List<string>();
-
         public traspaso(DataTable datosTraspaso)
         {
             InitializeComponent();
@@ -46,8 +45,8 @@ namespace PuntoDeVentaV2
                     row.Cells["PCompra"].Value = "";
                     row.Cells["PVenta"].Value = "";
                 }
-                
-                }
+
+            }
             init = true;
         }
 
@@ -90,7 +89,7 @@ namespace PuntoDeVentaV2
                         foreach (DataRow relacionCombo in buscarCombo.Rows)
                         {
                             DataTable productoRelacioando = new DataTable();
-productoRelacioando=                            cn.CargarDatos($"SELECT * FROM Productos WHERE ID = {relacionCombo["IDProducto"].ToString()}");
+                            productoRelacioando = cn.CargarDatos($"SELECT * FROM Productos WHERE ID = {relacionCombo["IDProducto"].ToString()}");
                             decimal cantidad = Decimal.Parse(relacionCombo["Cantidad"].ToString()) * Decimal.Parse(row.Cells["CantidadT"].Value.ToString());
                             Inventario.productosTraspaso.Add($"{productoRelacioando.Rows[0]["Nombre"].ToString()}%{productoRelacioando.Rows[0]["CodigoBarras"].ToString()}%{productoRelacioando.Rows[0]["PrecioCompra"].ToString()}%{productoRelacioando.Rows[0]["Precio"].ToString()}%{cantidad.ToString()}");
                         }
@@ -102,38 +101,38 @@ productoRelacioando=                            cn.CargarDatos($"SELECT * FROM P
 
         private void DGVTraspaso_CellClick_1(object sender, DataGridViewCellEventArgs e)
         {
-                if (e.RowIndex >= 0)
-                {
+            if (e.RowIndex >= 0)
+            {
                 if (init)
                 {
                     if (e.RowIndex >= 0)
                     {
                         if (e.ColumnIndex == 5)
                         {
-                            
-                                ConsultarProductoTraspaso consultarProducto = new ConsultarProductoTraspaso();
 
-                                consultarProducto.FormClosed += delegate
+                            ConsultarProductoTraspaso consultarProducto = new ConsultarProductoTraspaso();
+
+                            consultarProducto.FormClosed += delegate
+                            {
+                                if (!ID.Equals(""))
                                 {
-                                    if (!ID.Equals(""))
-                                    {
-                                        DataTable dt = new DataTable();
-                                        dt = cn.CargarDatos($"SELECT * FROM Productos WHERE ID = {ID}");
-                                        DGVTraspaso["NombreL", e.RowIndex].Value = dt.Rows[0]["Nombre"].ToString();
-                                        DGVTraspaso["CodigoL", e.RowIndex].Value = dt.Rows[0]["CodigoBarras"].ToString();
-                                        DGVTraspaso["PCompra", e.RowIndex].Value = dt.Rows[0]["PrecioCompra"].ToString();
-                                        DGVTraspaso["PVenta", e.RowIndex].Value = dt.Rows[0]["Precio"].ToString();
-                                    }
+                                    DataTable dt = new DataTable();
+                                    dt = cn.CargarDatos($"SELECT * FROM Productos WHERE ID = {ID}");
+                                    DGVTraspaso["NombreL", e.RowIndex].Value = dt.Rows[0]["Nombre"].ToString();
+                                    DGVTraspaso["CodigoL", e.RowIndex].Value = dt.Rows[0]["CodigoBarras"].ToString();
+                                    DGVTraspaso["PCompra", e.RowIndex].Value = dt.Rows[0]["PrecioCompra"].ToString();
+                                    DGVTraspaso["PVenta", e.RowIndex].Value = dt.Rows[0]["Precio"].ToString();
+                                }
 
-                                    ID = "";
-                                };
-                                consultarProducto.ShowDialog();
+                                ID = "";
+                            };
+                            consultarProducto.ShowDialog();
 
                         }
                     }
                 }
             }
-            }
+        }
 
         private bool verificarSubDetalles(DataGridViewRow ProductoDGV)
         {
@@ -162,7 +161,6 @@ productoRelacioando=                            cn.CargarDatos($"SELECT * FROM P
                         detalles.ShowDialog();
                     }
                 }
-            //}
             return registroCorrectoDeSubdetalles;
         }
     }

@@ -55,7 +55,7 @@ namespace PuntoDeVentaV2
             this.txtCantidad.TabIndex = 52;
             this.txtCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCantidad.TextChanged += new System.EventHandler(this.txtCantidad_TextChanged);
-            this.txtCantidad.Enter += new System.EventHandler(this.txtCantidad_Enter);
+            this.txtCantidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown);
             this.txtCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidad_KeyPress);
             // 
             // btnEliminar
@@ -169,14 +169,14 @@ namespace PuntoDeVentaV2
             // 
             this.txtPorcentaje.Location = new System.Drawing.Point(236, 123);
             this.txtPorcentaje.Margin = new System.Windows.Forms.Padding(4);
-            this.txtPorcentaje.MaxLength = 3;
+            this.txtPorcentaje.MaxLength = 5;
             this.txtPorcentaje.Name = "txtPorcentaje";
             this.txtPorcentaje.ShortcutsEnabled = false;
             this.txtPorcentaje.Size = new System.Drawing.Size(132, 20);
             this.txtPorcentaje.TabIndex = 41;
             this.txtPorcentaje.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPorcentaje.TextChanged += new System.EventHandler(this.txtPorcentaje_TextChanged);
-            this.txtPorcentaje.Enter += new System.EventHandler(this.txtPorcentaje_Enter);
+            this.txtPorcentaje.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPorcentaje_KeyDown);
             this.txtPorcentaje.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPorcentaje_KeyPress);
             // 
             // lbDescuento
@@ -237,6 +237,7 @@ namespace PuntoDeVentaV2
             this.Name = "AplicarDecuentoGeneral";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.AplicarDecuentoGeneral_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.AplicarDecuentoGeneral_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

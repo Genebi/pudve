@@ -42,7 +42,15 @@ namespace PuntoDeVentaV2
             var year = Convert.ToInt32(DateTime.Now.Year.ToString());
             var month = Convert.ToInt32(DateTime.Now.Month.ToString());
             var day = 1;
-            dtpInicio.Value = new DateTime(year, month-1, day);
+            if (month == 1)
+            {
+                dtpInicio.Value = new DateTime(year-1, month + 11, day);
+            }
+            else
+            {
+                dtpInicio.Value = new DateTime(year, month - 1, day);
+            }
+            
 
             dtpFin.Format = DateTimePickerFormat.Custom;
             dtpFin.CustomFormat = personalizada;

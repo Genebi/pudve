@@ -419,6 +419,8 @@ namespace PuntoDeVentaV2
                 GenerarCheckbox(100, 35, 150, "Tipo de Moneda", datos[39]);
                 //=============================================================
                 GenerarCheckbox(100, 210, 150, "Respaldar Informacion", datos[40]);
+
+
             }
             else
             {
@@ -575,6 +577,8 @@ namespace PuntoDeVentaV2
                 GenerarCheckbox(230, 130, 110, "Terminar Venta", datos[19]);
                 GenerarCheckbox(230, 250, 200, "Venta con descuento", datos[43]);
                 //=============================================================
+
+                GenerarCheckbox(260, 10, 220, "Hacer venta a crédito", datos[47]);
                 //GenerarCheckbox(260, 10, 250, "Venta a Cliente con descuento sin autorizacion", datos[44]);
             }
             else
@@ -902,10 +906,12 @@ namespace PuntoDeVentaV2
                 if (seccion.Equals("Ventas"))
                 {
                     var datos = PermisosElegidos();
-
+                    //AQUI SE PONE LA COLUMNA A MODIFICAR FIJAMENTE
                     cn.EjecutarConsulta($"UPDATE empleadospermisos SET PermisoVentaClienteDescuento = {datos[20]} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = '{apartado}'");
-                   //
-                   //cn.EjecutarConsulta($"UPDATE empleadospermisos SET PermisoVentaClienteDescuentoSinAutorizacion = {datos[21]} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = '{apartado}'");
+
+                    cn.EjecutarConsulta($"UPDATE empleadospermisos SET VentasACredito = {datos[21]} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = '{apartado}'");
+                    //
+                    //cn.EjecutarConsulta($"UPDATE empleadospermisos SET PermisoVentaClienteDescuentoSinAutorizacion = {datos[21]} WHERE IDEmpleado = {id_empleado} AND IDUsuario = {FormPrincipal.userID} AND Seccion = '{apartado}'");
                 }
             }
 

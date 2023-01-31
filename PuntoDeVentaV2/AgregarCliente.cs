@@ -149,6 +149,13 @@ namespace PuntoDeVentaV2
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             valdarRFCExistente();
+            if (!txtTelefono.Text.All(char.IsDigit) && !string.IsNullOrEmpty(txtTelefono.Text))
+            {
+                MessageBox.Show("El número de teléfono no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTelefono.Clear();
+                txtTelefono.Focus();
+                return;
+            }
 
             if (validarRFC == true || cbCliente.Checked)
             {

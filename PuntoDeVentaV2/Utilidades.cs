@@ -1689,6 +1689,17 @@ namespace PuntoDeVentaV2
                                         </tr>";
                 asunto = "RETIRO DINERO \"APARTADO CAJA\"";
             }
+            else
+            {
+                encabezadoHTML = @"<h3 style='text-align: center; color: blue;'>AGREGAR DINERO A SALDO INCIAL CAJA (Click en botón Agregar Dinero) EN EL SISTEMA</h3><br>
+                                <p>Registro de deposito de dinero a saldo inicial en el sistema; la siguiente información es la registrada en dicha operación:</p>";
+                cuerpoHTML = $@"<div style = 'text-align: center;'>
+                                    <table style = 'width:50%; margin: 0 auto; text-align: left;'>
+                                        <tr>
+                                            <th style = 'text-align: center;' colspan = '3'>Cantidad fue Agregada</th>
+                                        </tr>";
+                asunto = "AGREGAR DINERO A SALDO INICAL \"APARTADO CAJA\"";
+            }
 
             cuerpoHTML += $@"     <tr>
                                             <th style = 'text-align: left;'>

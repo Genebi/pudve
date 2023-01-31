@@ -13,15 +13,16 @@ namespace PuntoDeVentaV2
     public partial class AplicarDecuentoGeneral : Form
     {
         decimal Total, Porcentaje,cantidad, Resultado;
+        int calcu = 0;
 
-
-        private void txtPorcentaje_Enter(object sender, EventArgs e)
-        {
-            txtCantidad.Clear();
-        }
+      
 
         private void txtCantidad_TextChanged(object sender, EventArgs e)
         {
+            if (!string.IsNullOrWhiteSpace(txtCantidad.Text))
+            {
+                txtPorcentaje.Clear();
+            }
             if (string.IsNullOrWhiteSpace(txtCantidad.Text))
             {
                 cantidad = 0;
@@ -40,18 +41,17 @@ namespace PuntoDeVentaV2
                 }
                 
             }
-
+            if (cantidad > Total)
+            {
+                txtCantidad.Text = (Total - 1).ToString();
+                txtCantidad.SelectAll();
+                txtCantidad.Focus();
+            }
             Porcentaje = (cantidad * 100) / Total;
             lbTotalDescuento.Text = cantidad.ToString();
             lbTotalFinal.Text = (Total - cantidad).ToString();
 
         }
-
-        private void txtCantidad_Enter(object sender, EventArgs e)
-        {
-            txtPorcentaje.Clear();
-        }
-
         private void txtPorcentaje_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
@@ -63,6 +63,38 @@ namespace PuntoDeVentaV2
             if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
+            }
+
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtPorcentaje.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+
+                    //if ()
+                    //{
+                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
+                    //}
+                }
             }
         }
 
@@ -78,22 +110,122 @@ namespace PuntoDeVentaV2
             {
                 e.Handled = true;
             }
+
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtCantidad.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+
+                    //if ()
+                    //{
+                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
+                    //}
+                }
+            }
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            Ventas.PorcentajeDescuento = Porcentaje.ToString();
+            if (string.IsNullOrWhiteSpace(txtPorcentaje.Text) && string.IsNullOrWhiteSpace(txtCantidad.Text))
+            {
+                MessageBox.Show("No se aplicara ningun descuento", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                decimal Cantidad , Porcentajev;
+                if (!string.IsNullOrWhiteSpace(txtCantidad.Text))
+                {
+                    Cantidad = Convert.ToDecimal(txtCantidad.Text);
+                }
+                else
+                {
+                    Cantidad = 0;
+                }
+                if (!string.IsNullOrWhiteSpace(txtPorcentaje.Text))
+                {
+                    Porcentajev = Convert.ToDecimal(txtPorcentaje.Text);
+                }
+                else
+                {
+                    Porcentajev = 0;
+                }
+                if (Cantidad > 0 || Porcentaje > 0)
+                {
+                    Ventas.PorcentajeDescuento = Porcentaje.ToString();
+                    Ventas.AplicarCantidad = txtCantidad.Text;
+                    Ventas.AplicarPorcentaje = txtPorcentaje.Text;
+                    Ventas.HizoUnaAccion = true;
+                }
+                else
+                {
+                    MessageBox.Show("El descuento debe ser mayor a 0","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    return;
+                }
+               
+            }
             this.Close();
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            Ventas.PorcentajeDescuento = "";
+            Ventas.PorcentajeDescuento = "0";
+            Ventas.AplicarCantidad = "";
+            Ventas.AplicarPorcentaje = ""; 
+            Ventas.HizoUnaAccion = true;
             this.Close();
+        }
+
+        private void AplicarDecuentoGeneral_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
+
+        private void txtPorcentaje_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+
+        }
+
+        private void txtCantidad_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
         }
 
         private void txtPorcentaje_TextChanged(object sender, EventArgs e)
         {
+            if (!string.IsNullOrWhiteSpace(txtPorcentaje.Text))
+            {
+                txtCantidad.Clear();
+            }
             if (string.IsNullOrWhiteSpace(txtPorcentaje.Text))
             {
                 Porcentaje = 0;
@@ -111,9 +243,16 @@ namespace PuntoDeVentaV2
                     Porcentaje = Convert.ToDecimal(txtPorcentaje.Text);
                 }
             }
+            if (Porcentaje > 99)
+            {
+                txtPorcentaje.Text = "99";
+                txtPorcentaje.Select();
+                txtPorcentaje.Focus();
+            }
             decimal resulta = (Porcentaje * Total) / 100;
             lbTotalDescuento.Text = resulta.ToString();
             lbTotalFinal.Text = (Total - resulta).ToString();
+          
         }
 
         public AplicarDecuentoGeneral(string Precio)
@@ -126,6 +265,18 @@ namespace PuntoDeVentaV2
         {
             lbPrecio.Text = "Precio Total: $" + Total.ToString();
             lbTotalFinal.Text = Total.ToString();
+            if (!string.IsNullOrWhiteSpace(Ventas.AplicarPorcentaje))
+            {
+                txtPorcentaje.Text = Ventas.AplicarPorcentaje;
+                txtPorcentaje.SelectAll();
+                txtPorcentaje.Focus();
+            }
+            else if (!string.IsNullOrWhiteSpace(Ventas.AplicarCantidad))
+            {
+                txtCantidad.Text = Ventas.AplicarCantidad;
+                txtCantidad.SelectAll();
+                txtCantidad.Focus();
+            }
         }
     }
 }

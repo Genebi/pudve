@@ -48,7 +48,15 @@ namespace PuntoDeVentaV2
         {
             //cargarDGVInicial();
             DateTime date = DateTime.Now;
-            DateTime PrimerDia = new DateTime(date.Year, date.Month - 1, 1);
+            DateTime PrimerDia;
+            if (!date.Month.Equals(1))
+            {
+                PrimerDia = new DateTime(date.Year, date.Month - 1, 1);
+            }
+            else
+            {
+                PrimerDia = new DateTime(date.Year - 1, date.Month + 11, 1);
+            }
             primerDatePicker.Value = PrimerDia;
             segundoDatePicker.Value = DateTime.Now;
             DGVReporteCaja.Rows.Clear();

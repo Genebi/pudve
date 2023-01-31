@@ -72,7 +72,7 @@ namespace PuntoDeVentaV2
             {
                 if (dt.Rows[0]["Comentarios"].ToString().Equals("COMENTARIOS") || dt.Rows[0]["Comentarios"].ToString().Equals(""))
                 {
-                    Comentario = " ";
+                    Comentario = "";
                 }
                 else
                 {

@@ -102,6 +102,7 @@
             this.lFolio = new System.Windows.Forms.TextBox();
             this.timer_img_producto = new System.Windows.Forms.Timer(this.components);
             this.panel2 = new System.Windows.Forms.Panel();
+            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             this.lblCIVA0Exento = new System.Windows.Forms.Label();
             this.lblIVA0Exento = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -778,6 +779,7 @@
             0,
             0,
             0});
+            this.nudCantidadPS.ValueChanged += new System.EventHandler(this.nudCantidadPS_ValueChanged);
             this.nudCantidadPS.Click += new System.EventHandler(this.nudCantidadPS_Click);
             this.nudCantidadPS.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.nudCantidadPS_KeyPress);
             // 
@@ -964,6 +966,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
+            this.panel2.Controls.Add(this.botonRedondo1);
             this.panel2.Controls.Add(this.lblCIVA0Exento);
             this.panel2.Controls.Add(this.lblIVA0Exento);
             this.panel2.Controls.Add(this.PBImagen);
@@ -993,6 +996,25 @@
             this.panel2.Size = new System.Drawing.Size(312, 585);
             this.panel2.TabIndex = 62;
             this.panel2.Click += new System.EventHandler(this.panel2_Click);
+            // 
+            // botonRedondo1
+            // 
+            this.botonRedondo1.BackColor = System.Drawing.Color.Red;
+            this.botonRedondo1.BackGroundColor = System.Drawing.Color.Red;
+            this.botonRedondo1.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo1.BorderRadius = 10;
+            this.botonRedondo1.BorderSize = 0;
+            this.botonRedondo1.FlatAppearance.BorderSize = 0;
+            this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo1.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo1.Image = global::PuntoDeVentaV2.Properties.Resources.reply_all;
+            this.botonRedondo1.Location = new System.Drawing.Point(0, 78);
+            this.botonRedondo1.Name = "botonRedondo1";
+            this.botonRedondo1.Size = new System.Drawing.Size(25, 22);
+            this.botonRedondo1.TabIndex = 73;
+            this.botonRedondo1.TextColor = System.Drawing.Color.White;
+            this.botonRedondo1.UseVisualStyleBackColor = false;
+            this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click_1);
             // 
             // lblCIVA0Exento
             // 
@@ -1213,7 +1235,7 @@
             this.btnBascula.Location = new System.Drawing.Point(253, 20);
             this.btnBascula.Name = "btnBascula";
             this.btnBascula.Size = new System.Drawing.Size(105, 40);
-            this.btnBascula.TabIndex = 0;
+            this.btnBascula.TabIndex = 99;
             this.btnBascula.Text = "Tomar Peso Ctrl + T";
             this.btnBascula.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnBascula.UseVisualStyleBackColor = true;
@@ -1387,5 +1409,6 @@
         private System.Windows.Forms.ComboBox CBTipo;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         public BotonRedondo btnGanancia;
+        public BotonRedondo botonRedondo1;
     }
 }

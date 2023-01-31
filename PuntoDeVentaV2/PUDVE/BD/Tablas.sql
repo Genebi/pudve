@@ -2001,13 +2001,79 @@ ALTER TABLE dgvdisminuirinventario MODIFY COLUMN NuevoStock VARCHAR(100);
 --ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditodiassincobro INT DEFAULT 0 ;
 
 -- Agregar Columna de la ganancia por venta para graficarlo 
-	ALTER TABLE ventas ADD COLUMN IF NOT EXISTS Ganancia VARCHAR ( 255 ) DEFAULT NULL ;
+ALTER TABLE ventas ADD COLUMN IF NOT EXISTS Ganancia VARCHAR ( 255 ) DEFAULT NULL ;
 
 --Columna de Comenatrios para caja los tickets agregar retirar dinero y de caja
 ALTER TABLE caja ADD COLUMN IF NOT EXISTS Comentarios TEXT DEFAULT NULL;
 
- -- Oa
-  ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS traspasos INTEGER(11) DEFAULT (0);
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS traspasos INTEGER(11) DEFAULT (0);
+
+   -- Se agrego la columna MostrarStockConsultaPrecio a la tabla de Configuracion
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS MostrarStockConsultaPrecio INT DEFAULT 1;
+
+   -- Se agrego la columna MostrarStockConsultaPrecio a la tabla de Configuracion
+  ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoStockConsultarPrecio INT DEFAULT 1;
+
+   -- Se agrego la columna PrimerCorte a la tabla de historialCorteDeCaja
+  ALTER TABLE historialcortesdecaja ADD COLUMN IF NOT EXISTS PrimerCorte INT DEFAULT 1;
+
+   -- Se agrego la columna PermisoCorreoSaldoInicial a la tabla de permisosconfiguracion
+  ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoCorreoSaldoInicial INT DEFAULT 1;
+
+  -- Se agrego la columna EnvioCorreoSaldoIncial a la tabla de permisosconfiguracion
+  ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS EnvioCorreoSaldoIncial INT DEFAULT 1;
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoStockConsultarPrecio INT DEFAULT 1;
+
+   -- Se agrego la columna PesoAutomatico en Productos para recibir el peso automaticamente. // 0 = Acepta todo tipo de forma venta //1 = Solo se puede vender por Enteros //2 = Toma el peso en automatico de la bascula
+ALTER TABLE productos ADD COLUMN IF NOT EXISTS FormatoDeVenta INT DEFAULT 0;
+
+ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS VentasACredito INT DEFAULT 1;
+
+   -- Columna para guardar la clave de traspaso de un movimiento si existe, de manera en que se pueda volver a ver cuando se haga un reporte.
+  ALTER TABLE dgvdisminuirinventario ADD COLUMN IF NOT EXISTS claveTraspaso VARCHAR ( 15 ) DEFAULT NULL ;
+
+--Se agrego la columna de tamannoTicket a la tabla editarticket
+ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS tamannoTicket INT DEFAULT 2;
+
+
+
+-- Se eliminan llaves foraneas y referencias
+ALTER TABLE Facturas_impuestos DROP FOREIGN KEY IF EXISTS id_factura_producto;
+ALTER TABLE Facturas_impuestos DROP FOREIGN KEY IF EXISTS facturas_impuestos_ibfk_1;
+ALTER TABLE Facturas_productos DROP FOREIGN KEY IF EXISTS id_factura;
+ALTER TABLE Facturas_productos DROP FOREIGN KEY IF EXISTS facturas_productos_ibfk_1;
+
+--Se agreggo la Columna de preguntar si quiere ticket venta en permisosconfiguracion
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoPreguntarTicketVenta INT DEFAULT 1;
+
+--Se agrego la columna de preguntar si quiere ticket en configuracion
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS PreguntarTicketVenta INT DEFAULT 0;
+
+
+--Se agrego la Columna de PermisoTicketPDF en permisosconfiguracion
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoTicketPDF INT DEFAULT 1;
+
+
+--Se agrego la columna de TicketOPDF si quiere ticket en configuracion
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS TicketOPDF INT DEFAULT 1;
+
+-- Columnas pa una cosilla de lo de web https://i.imgur.com/kTwlKPo.png
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebCerrar INT DEFAULT 0;
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebTotal INT DEFAULT 0;
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebAuto INT DEFAULT 0;
+
+--Esta tabla sirve para preparar el envio de respaldos, se usa para almacenar de manera temporal los datos que se enviaran a gran velocidad mediante un bulk insert.
+--La columna de datos almacenara hasta 30mb, modifique el maximo tamanno de paquetes por consulta a un poco mas por si acaso.
+CREATE TABLE
+IF
+	NOT EXISTS WebRespaldosBuilder (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDCliente VARCHAR (255)  NOT NULL ,
+		Fecha varchar (50) NOT NULL, 
+		DATOS LONGTEXT NOT NULL
+	);
+SET GLOBAL max_allowed_packet=60777216;
+
 
 --Creacion de la tana de subdetalles para los detalles que se agreguen a un producto
  CREATE TABLE

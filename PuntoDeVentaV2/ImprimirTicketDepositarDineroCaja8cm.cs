@@ -83,7 +83,7 @@ namespace PuntoDeVentaV2
             string comentario = dineroAgregadoDT.Rows[0]["Comentarios"].ToString();
             if (string.IsNullOrWhiteSpace(comentario))
             {
-                comentario = "---";
+                comentario = "";
             }
             reportParameters.Add(new ReportParameter("Comentario", comentario));
 
