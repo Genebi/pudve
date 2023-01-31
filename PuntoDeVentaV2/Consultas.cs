@@ -1983,7 +1983,7 @@ namespace PuntoDeVentaV2
 
         public string searchProductList(string typeToSearch, string busqueda)
         {
-            var consulta = $"SELECT DISTINCT P.ID, P.Nombre, P.Stock, P.Precio, IF ( P.Categoria = 'PAQUETES', 'SERVICIOS', P.Categoria ) AS Categoria, P.CodigoBarras FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID LEFT JOIN CodigoBarrasExtras AS BarCodExt ON BarCodExt.IDProducto = P.ID LEFT JOIN subdetallesdeproducto AS Sub ON Sub.IDProducto = (Sub.IDProducto = P.ID AND sub.Activo=1) WHERE U.ID = '{FormPrincipal.userID}' AND Sub.IDProducto IS NULL AND P.STATUS = '1' AND ( { typeToSearch } ) AND ( P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%' OR BarCodExt.CodigoBarraExtra LIKE '%{busqueda}%' ) GROUP BY P.Nombre ASC; ";
+            var consulta = $"SELECT DISTINCT P.ID, P.Nombre, P.Stock, P.Precio, IF ( P.Categoria = 'PAQUETES', 'SERVICIOS', P.Categoria ) AS Categoria, P.CodigoBarras FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID LEFT JOIN CodigoBarrasExtras AS BarCodExt ON BarCodExt.IDProducto = P.ID LEFT JOIN subdetallesdeproducto AS Sub ON (Sub.IDProducto = P.ID AND sub.Activo=1) WHERE U.ID = '{FormPrincipal.userID}' AND Sub.IDProducto IS NULL AND P.STATUS = '1' AND ( { typeToSearch } ) AND ( P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%' OR BarCodExt.CodigoBarraExtra LIKE '%{busqueda}%' ) GROUP BY P.Nombre ASC; ";
 
             return consulta;
         }
