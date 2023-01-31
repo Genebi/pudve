@@ -152,7 +152,12 @@ namespace PuntoDeVentaV2
                         StatusVenta += TipoVenta + ",";
                     }
                 }
-                if (StatusVenta.Equals(""))
+                DataTable dato = cn.CargarDatos($"SELECT  FormaPago FROM ventas where ID = {IDVenta}");
+                if (dato.Rows[0]["FormaPago"].ToString().Equals("Presupuesto"))
+                {
+                    StatusVenta = "Presupuesto";
+                }
+                else if (StatusVenta.Equals(""))
                 {
                     StatusVenta = "Anticipo";
                 }
@@ -185,14 +190,14 @@ namespace PuntoDeVentaV2
             }
             reportParameters.Add(new ReportParameter("StatusVenta", StatusVenta));
 
-            LocalReport rdlc = new LocalReport();
+            LocalReport rdlc = new LocalReport(); 
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;
             rdlc.SetParameters(reportParameters);
 
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
-            this.reportViewer1.LocalReport.DataSources.Clear();
+            this.reportViewer1.LocalReport.DataSources.Clear(); 
 
             ReportDataSource NotasVENTAS = new ReportDataSource("DTNotaVenta", DTNotaDeVentas);
 
