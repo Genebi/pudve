@@ -318,6 +318,14 @@ namespace PuntoDeVentaV2
 
         private void btnAddDetalle_Click(object sender, EventArgs e)
         {
+            using (DataTable dt = cn.CargarDatos($"SELECT productosdeservicios.id FROM productosdeservicios INNER JOIN productos ON (productosdeservicios.IDServicio = productos.ID AND productos.`Status`=1) WHERE IDProducto = {idProducto}"))
+            {
+                if (!dt.Rows.Count.Equals(0))
+                {
+                    MessageBox.Show($"Para agregar subdetalles, el producto no puede pertenecer a un combo", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
             categoriaSubdetalle subdetalle = new categoriaSubdetalle();
             subdetalle.ShowDialog();
             fLPLateralCategorias.Controls.Clear();
