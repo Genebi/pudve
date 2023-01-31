@@ -231,6 +231,11 @@ namespace PuntoDeVentaV2
                     tablaBusqueda = "dgvaumentarinventario";
                     consulta = $"SELECT NoRevision, NombreProducto, NameUsr, IDEmpleado, Fecha, Folio FROM {tablaBusqueda} WHERE IDUsuario = '{FormPrincipal.userID}'AND Folio != 0 AND NameUsr LIKE '%{datoBuscado}%' AND (Fecha BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) GROUP BY NoRevision ORDER BY Fecha DESC";
                 }
+                else if (revisarInventrario.Equals("AIDevolucion"))
+                {
+                    tablaBusqueda = "dgvaumentarinventario";
+                    consulta = $"SELECT NoRevision, NombreProducto, NameUsr, IDEmpleado, Fecha, Folio FROM {tablaBusqueda} WHERE IDUsuario = '{FormPrincipal.userID}'/*AND Folio != 0*/ AND NameUsr LIKE '%{datoBuscado}%' AND (Fecha BETWEEN CAST('{primerFecha}' AS DATE) AND CAST('{segundaFecha}' AS DATE)) AND Devolucion = 1 GROUP BY NoRevision ORDER BY Fecha DESC";
+                }
                 else
                 {
                     tablaBusqueda = "dgvdisminuirinventario";
@@ -1548,10 +1553,10 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string InsertIntoAumentarInventario(string[] datosAumentarInventario)
+        public string InsertIntoAumentarInventario(string[] datosAumentarInventario, int devolucion = 0)
         {
-            var consulta = "INSERT INTO DGVAumentarInventario(IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, IdUsuario, IDEmpleado, NameUsr) VALUES";
-            consulta += $"('{datosAumentarInventario[0]}', '{datosAumentarInventario[1]}', '{datosAumentarInventario[2].ToString()}', '{datosAumentarInventario[3].ToString()}', '{datosAumentarInventario[4].ToString()}', '{datosAumentarInventario[5]}', '{datosAumentarInventario[6]}', '{datosAumentarInventario[7]}', '{datosAumentarInventario[8]}', '{datosAumentarInventario[9]}', '{datosAumentarInventario[10]}', '{datosAumentarInventario[11]}', '{datosAumentarInventario[12]}', '{datosAumentarInventario[13]}', '{datosAumentarInventario[14]}', '{datosAumentarInventario[15]}', '{datosAumentarInventario[16]}')";
+            var consulta = "INSERT INTO DGVAumentarInventario(IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, IdUsuario, IDEmpleado, NameUsr, Devolucion) VALUES";
+            consulta += $"('{datosAumentarInventario[0]}', '{datosAumentarInventario[1]}', '{datosAumentarInventario[2].ToString()}', '{datosAumentarInventario[3].ToString()}', '{datosAumentarInventario[4].ToString()}', '{datosAumentarInventario[5]}', '{datosAumentarInventario[6]}', '{datosAumentarInventario[7]}', '{datosAumentarInventario[8]}', '{datosAumentarInventario[9]}', '{datosAumentarInventario[10]}', '{datosAumentarInventario[11]}', '{datosAumentarInventario[12]}', '{datosAumentarInventario[13]}', '{datosAumentarInventario[14]}', '{datosAumentarInventario[15]}', '{datosAumentarInventario[16]}', {devolucion})";
 
             return consulta;
         }
@@ -2818,7 +2823,14 @@ namespace PuntoDeVentaV2
 
         public string consultaReporteGeneralAumentarInventario()
         {
-            var consulta = $"SELECT NoRevision, IDEmpleado, Fecha, Folio FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0 GROUP BY NoRevision ORDER BY Fecha DESC";
+            var consulta = $"SELECT NoRevision, IDEmpleado, Fecha, Folio FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0 AND Devolucion = 0 GROUP BY NoRevision ORDER BY Fecha DESC";
+            return consulta;
+
+        }
+
+        public string consultaReporteGeneralDevolucionInventario()
+        {
+            var consulta = $"SELECT NoRevision, IDEmpleado, Fecha, Folio FROM dgvaumentarinventario WHERE IDUsuario = '{FormPrincipal.userID}' AND Folio != 0 AND Devolucion = 1 GROUP BY NoRevision ORDER BY Fecha DESC";
             return consulta;
 
         }

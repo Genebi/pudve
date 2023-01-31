@@ -1115,8 +1115,12 @@ namespace PuntoDeVentaV2
                 if (string.IsNullOrEmpty(idEmplado)) { idEmplado = "0"; }
 
                 string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString(), idEmplado, empleadoFinal };
-
-                var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario);
+                int dev = 0;
+                if (Inventario.desdeRegresarProdcuto == 1)
+                {
+                    dev = 1;
+                }
+                var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario, dev);
                 cn.EjecutarConsulta(insertAumentarInventario);
 
 
@@ -4426,6 +4430,7 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo2_Click(object sender, EventArgs e)
         {
+            desdeRegresarProdcuto = 0;
             if (opcion2 == 0)
             {
                 Utilidades.MensajePermiso();

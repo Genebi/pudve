@@ -277,13 +277,13 @@ namespace PuntoDeVentaV2
                 txtCantidadCompra.Focus();
                 return;
             }
-            if (!txtPrecioCompra.Text.All(char.IsDigit) && !string.IsNullOrEmpty(txtPrecioCompra.Text))
-                        {
-                            MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtPrecioCompra.Clear();
-                txtPrecioCompra.Focus();
-                            return; 
-            }
+            //if (!txtPrecioCompra.Text.All(char.IsDigit) && !string.IsNullOrEmpty(txtPrecioCompra.Text))
+            //            {
+            //                MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    txtPrecioCompra.Clear();
+            //    txtPrecioCompra.Focus();
+            //                return; 
+            //}
         if (!txtDisminuir.Text.All(char.IsDigit) && !string.IsNullOrEmpty(txtDisminuir.Text))
                     {
                         MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
