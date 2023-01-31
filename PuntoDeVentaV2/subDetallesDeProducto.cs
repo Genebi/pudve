@@ -272,6 +272,7 @@ namespace PuntoDeVentaV2
                     colDato = "Nombre";
                     break;
             }
+            dtDetallesSubdetalle.Rows.RemoveAt(0);
         }
 
         private void calcularRestante()
@@ -508,13 +509,66 @@ namespace PuntoDeVentaV2
         private void btnAgregarSubDetalle_Click(object sender, EventArgs e)
         {
             btnGuardar.Enabled = false;
-            if (!dtDetallesSubdetalle.Rows.Count.Equals(0))
+            if (dtDetallesSubdetalle.Rows.Count.Equals(0))
+            {
+                dtDetallesSubdetalle.Rows.Add();
+                dtDetallesSubdetalle.Rows[dtDetallesSubdetalle.Rows.Count - 1]["Stock"] = "0.00";
+
+
+                if (accion == "Inventario")
+                {
+                    dtDetallesSubdetalle.Rows[dtDetallesSubdetalle.Rows.Count - 1]["0.00"] = "0.00";
+                    dgvDetallesSubdetalle.CurrentCell = dgvDetallesSubdetalle.Rows[dgvDetallesSubdetalle.RowCount - 1].Cells[7];
+                    dgvDetallesSubdetalle.Rows[dgvDetallesSubdetalle.CurrentRow.Index].Cells["Stock"].ReadOnly = true;
+                }
+                else
+                {
+                    dgvDetallesSubdetalle.CurrentCell = dgvDetallesSubdetalle.Rows[dgvDetallesSubdetalle.RowCount - 1].Cells[3];
+                }
+
+                if (tipoDato == "0" && accion == "Nuevo")
+                {
+                    //Creamos el control por código
+                    dateTimePicker1 = new DateTimePicker();
+
+                    //Agregamos el control de fecha dentro del DataGridView 
+                    dgvDetallesSubdetalle.Controls.Add(dateTimePicker1);
+
+                    // Hacemos que el control sea invisible (para que no moleste visualmente)
+                    dateTimePicker1.Visible = false;
+
+                    // Establecemos el formato (depende de tu localización en tu PC)
+                    dateTimePicker1.Format = DateTimePickerFormat.Short;
+
+                    // Agregamos el evento para cuando seleccionemos una fecha
+                    dateTimePicker1.TextChanged += new EventHandler(dateTimePicker1_OnTextChange);
+
+                    // Lo hacemos visible
+                    dateTimePicker1.Visible = true;
+
+                    // Creamos un rectángulo que representa el área visible de la celda
+                    Rectangle rectangle1 = dgvDetallesSubdetalle.GetCellDisplayRectangle(dgvDetallesSubdetalle.CurrentCell.ColumnIndex, dgvDetallesSubdetalle.CurrentCell.RowIndex, true);
+
+                    //Establecemos el tamaño del control DateTimePicker (que sería el tamaño total de la celda)
+                    dateTimePicker1.Size = new Size(rectangle1.Width, rectangle1.Height);
+
+                    // Establecemos la ubicación del control
+                    dateTimePicker1.Location = new Point(rectangle1.X, rectangle1.Y);
+
+                    // Generamos el evento de cierre del control fecha
+                    dateTimePicker1.CloseUp += new EventHandler(dateTimePicker1_CloseUp);
+                    dateTimePicker1.Focus();
+                    // Generamos el evento de cierre del control fecha
+                    dateTimePicker1.LostFocus += new EventHandler(dateTimePicker1_loseFocus);
+                }
+            }
+            else
             {
                 if (!string.IsNullOrEmpty(dtDetallesSubdetalle.Rows[(dtDetallesSubdetalle.Rows.Count) - 1]["Valor"].ToString()))
                 {
                     dtDetallesSubdetalle.Rows.Add();
-                    dtDetallesSubdetalle.Rows[dtDetallesSubdetalle.Rows.Count-1]["Stock"] = "0.00";
-                    
+                    dtDetallesSubdetalle.Rows[dtDetallesSubdetalle.Rows.Count - 1]["Stock"] = "0.00";
+
 
                     if (accion == "Inventario")
                     {
@@ -558,6 +612,7 @@ namespace PuntoDeVentaV2
 
                         // Generamos el evento de cierre del control fecha
                         dateTimePicker1.CloseUp += new EventHandler(dateTimePicker1_CloseUp);
+                        dateTimePicker1.Focus();
 
                         // Generamos el evento de cierre del control fecha
                         dateTimePicker1.LostFocus += new EventHandler(dateTimePicker1_loseFocus);
@@ -737,7 +792,7 @@ namespace PuntoDeVentaV2
 
                 // Generamos el evento de cierre del control fecha
                 dateTimePicker1.CloseUp += new EventHandler(dateTimePicker1_CloseUp);
-
+                dateTimePicker1.Focus();
                 // Generamos el evento de cierre del control fecha
                 dateTimePicker1.LostFocus += new EventHandler(dateTimePicker1_loseFocus);
             }
@@ -785,7 +840,7 @@ namespace PuntoDeVentaV2
 
                 // Generamos el evento de cierre del control fecha
                 dateTimePicker1.CloseUp += new EventHandler(dateTimePicker1_CloseUp);
-
+                dateTimePicker1.Focus();
                 // Generamos el evento de cierre del control fecha
                 dateTimePicker1.LostFocus += new EventHandler(dateTimePicker1_loseFocus);
             }
