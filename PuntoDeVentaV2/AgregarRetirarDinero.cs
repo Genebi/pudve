@@ -214,6 +214,12 @@ namespace PuntoDeVentaV2
                 cbConceptoConBusqueda.Visible = false;
                 lbSubtitulo.Visible = false;
                 btnAgregarConcepto.Visible = false;
+                txtEfectivo.Text = Inventario.totalFinal.ToString();
+                txtCredito.Enabled = false;
+                txtTarjeta.Enabled = false;
+                txtVales.Enabled = false;
+                txtTrans.Enabled = false;
+                txtCheque.Enabled = false;
             }
         }
 
