@@ -3912,6 +3912,11 @@ namespace PuntoDeVentaV2
                 formaDePagoDeVenta = "Presupuesto";
             }
 
+            if (string.IsNullOrWhiteSpace(fechaEntrega))
+            {
+                fechaEntrega = "0001-01-01";
+            }
+
             var guardar = new string[] {
                 IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento,
                 DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion,
