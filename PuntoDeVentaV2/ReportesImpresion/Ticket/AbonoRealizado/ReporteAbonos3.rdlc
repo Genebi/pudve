@@ -117,7 +117,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.38cm</Height>
+                  <Height>0.5cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -131,7 +131,7 @@
                                   <Value>=First(Fields!RazonSocial.Value, "TicketAbono")</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -155,7 +155,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -168,7 +168,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!Domicilio.Value, "TicketAbono")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -192,7 +192,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -205,7 +205,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!ColyCP.Value, "TicketAbono")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -229,7 +229,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -242,7 +242,7 @@
                                 <TextRun>
                                   <Value>="RFC: " + First(Fields!RFC.Value, "TicketAbono")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -266,7 +266,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -279,7 +279,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!Correo.Value, "TicketAbono")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -303,7 +303,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -316,7 +316,7 @@
                                 <TextRun>
                                   <Value>="Tel: " + First(Fields!Telefono.Value, "TicketAbono")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -358,7 +358,7 @@
             </TablixRowHierarchy>
             <Top>0.3175cm</Top>
             <Left>0.1cm</Left>
-            <Height>2.03cm</Height>
+            <Height>2.75cm</Height>
             <Width>7.758cm</Width>
             <Style>
               <Border>
@@ -375,7 +375,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.38cm</Height>
+                  <Height>0.5cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -389,7 +389,7 @@
                                   <Value>=First(Fields!ClienteNombre.Value, "TicketAbono")</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -413,7 +413,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -426,7 +426,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!ClienteRFC.Value, "TicketAbono")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -450,7 +450,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -463,7 +463,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!ClienteDomicilio.Value, "TicketAbono")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -487,7 +487,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -500,7 +500,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!ClienteColoniaCodigoPostal.Value, "TicketAbono")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -524,7 +524,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -537,7 +537,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!ClienteCorreo.Value, "TicketAbono")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -561,7 +561,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -574,7 +574,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!ClienteTelefono.Value, "TicketAbono")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -614,9 +614,9 @@
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>2.3475cm</Top>
-            <Left>0.1cm</Left>
-            <Height>2.03cm</Height>
+            <Top>3.0675cm</Top>
+            <Left>0.09223cm</Left>
+            <Height>2.75cm</Height>
             <Width>7.758cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
@@ -637,7 +637,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -651,7 +651,7 @@
                                   <Value>Folio. Venta:</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -683,7 +683,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!Folio.Value, "TicketAbono")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -704,7 +704,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -717,7 +717,7 @@
                                 <TextRun>
                                   <Value>Total Original:</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -746,7 +746,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!TotalOriginal.Value, "TicketAbono")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -767,7 +767,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -780,7 +780,7 @@
                                 <TextRun>
                                   <Value>Saldo Anterior:</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -809,7 +809,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!SaldoAnterior.Value, "TicketAbono")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -830,7 +830,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -843,7 +843,7 @@
                                 <TextRun>
                                   <Value>Cantidad Abonada:</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -872,7 +872,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!CantidadAbonada.Value, "TicketAbono")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -893,7 +893,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -906,7 +906,7 @@
                                 <TextRun>
                                   <Value>CantidadRestante de Pago:</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -935,7 +935,7 @@
                                 <TextRun>
                                   <Value>=Parameters!CantidadRestante.Value</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -972,9 +972,9 @@
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>4.3775cm</Top>
-            <Left>0.10777cm</Left>
-            <Height>1.65cm</Height>
+            <Top>5.8175cm</Top>
+            <Left>0.11554cm</Left>
+            <Height>2.25cm</Height>
             <Width>7.75023cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
@@ -992,7 +992,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1005,7 +1005,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!FechaUltimoAbono.Value, "TicketAbono")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1035,7 +1035,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -1048,7 +1048,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!Comprobante.Value, "TicketAbono")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -1081,9 +1081,9 @@
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>6.0275cm</Top>
-            <Left>0.1cm</Left>
-            <Height>0.66cm</Height>
+            <Top>8.0675cm</Top>
+            <Left>0.11554cm</Left>
+            <Height>0.9cm</Height>
             <Width>7.758cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
@@ -1093,7 +1093,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>6.80562cm</Height>
+        <Height>9.05458cm</Height>
         <Style />
       </Body>
       <Width>8.0714cm</Width>

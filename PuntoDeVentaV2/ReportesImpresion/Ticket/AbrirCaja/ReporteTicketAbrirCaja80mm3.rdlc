@@ -85,9 +85,9 @@
             <Value>=Parameters!PathLogo.Value+First(Fields!LogoTipo.Value, "TicketAbrirCaja")</Value>
             <Sizing>Fit</Sizing>
             <Top>0.32491cm</Top>
-            <Left>2.16146cm</Left>
-            <Height>2.90979cm</Height>
-            <Width>3.67708cm</Width>
+            <Left>1.42063cm</Left>
+            <Height>4.55903cm</Height>
+            <Width>5.3175cm</Width>
             <Visibility>
               <Hidden>=iif(First(Fields!LogoTipo.Value, "TicketAbrirCaja").ToString() = "", True, False)</Hidden>
             </Visibility>
@@ -106,7 +106,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.38cm</Height>
+                  <Height>0.5cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -120,7 +120,7 @@
                                   <Value>=First(Fields!RazonSocial.Value, "TicketAbrirCaja")</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -141,7 +141,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -154,7 +154,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!NombreComercial.Value, "TicketAbrirCaja")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -175,7 +175,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -188,7 +188,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!Direccion1.Value, "TicketAbrirCaja")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -209,7 +209,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -222,7 +222,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!RFC.Value, "TicketAbrirCaja")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -243,7 +243,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -256,7 +256,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!Telefono.Value, "TicketAbrirCaja")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -292,9 +292,9 @@
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>3.26998cm</Top>
+            <Top>4.88394cm</Top>
             <Left>0.1cm</Left>
-            <Height>1.7cm</Height>
+            <Height>2.3cm</Height>
             <Width>7.758cm</Width>
             <ZIndex>1</ZIndex>
             <Style>
@@ -312,7 +312,7 @@
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>0.38cm</Height>
+                  <Height>0.5cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -326,7 +326,7 @@
                                   <Value>=First(Fields!TipoDeMovimiento.Value, "TicketAbrirCaja")</Value>
                                   <Style>
                                     <FontFamily>Arial Black</FontFamily>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -347,7 +347,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -360,7 +360,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!NombreEmpleado.Value, "TicketAbrirCaja")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -381,7 +381,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -394,7 +394,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!UsuarioEmpleado.Value, "TicketAbrirCaja")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -415,7 +415,7 @@
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
-                  <Height>0.33cm</Height>
+                  <Height>0.45cm</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
@@ -428,7 +428,7 @@
                                 <TextRun>
                                   <Value>=First(Fields!FechaDeAperturaCaja.Value, "TicketAbrirCaja")</Value>
                                   <Style>
-                                    <FontSize>7pt</FontSize>
+                                    <FontSize>9pt</FontSize>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -463,9 +463,9 @@
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>4.96998cm</Top>
+            <Top>7.18394cm</Top>
             <Left>0.1cm</Left>
-            <Height>1.37cm</Height>
+            <Height>1.85cm</Height>
             <Width>7.758cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
@@ -475,7 +475,7 @@
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>6.43979cm</Height>
+        <Height>9.18567cm</Height>
         <Style />
       </Body>
       <Width>8.02599cm</Width>

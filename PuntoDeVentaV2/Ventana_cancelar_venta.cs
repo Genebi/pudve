@@ -107,28 +107,28 @@ namespace PuntoDeVentaV2
 
                                     //if (mensaje == DialogResult.Yes)
                                     //{
-                                        if (estatusVenta.Equals(1))
+                                    if (estatusVenta.Equals(1))
+                                    {
+
+                                        var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+
+                                        // Operacion para que la devolucion del dinero afecte al apartado Caja
+                                        if (formasPago.Length > 0)
                                         {
+                                            var total = formasPago.Sum().ToString();
+                                            var efectivo = formasPago[0].ToString();
+                                            var tarjeta = formasPago[1].ToString();
+                                            var vales = formasPago[2].ToString();
+                                            var cheque = formasPago[3].ToString();
+                                            var transferencia = formasPago[4].ToString();
+                                            var credito = formasPago[5].ToString();
+                                            var anticipo = "0";
 
-                                            var formasPago = mb.ObtenerFormasPagoVenta(idVenta, FormPrincipal.userID);
+                                            var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                                            var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
 
-                                            // Operacion para que la devolucion del dinero afecte al apartado Caja
-                                            if (formasPago.Length > 0)
+                                            if (CajaN.cantidadTotalEfectivoSaldoInicial >= Convert.ToDecimal(total))
                                             {
-                                                var total = formasPago.Sum().ToString();
-                                                var efectivo = formasPago[0].ToString();
-                                                var tarjeta = formasPago[1].ToString();
-                                                var vales = formasPago[2].ToString();
-                                                var cheque = formasPago[3].ToString();
-                                                var transferencia = formasPago[4].ToString();
-                                                var credito = formasPago[5].ToString();
-                                                var anticipo = "0";
-
-                                                var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                                                var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
-
-                                                if (CajaN.cantidadTotalEfectivoSaldoInicial >= Convert.ToDecimal(total))
-                                                {
                                                 //    string[] datos = new string[] {
                                                 //    "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
                                                 //    efectivo, tarjeta, vales, cheque, transferencia, credito, anticipo
@@ -143,22 +143,22 @@ namespace PuntoDeVentaV2
                                                 //Yo le movi aqui ATTE: El destroyer xD
                                                 cn.EjecutarConsulta($"INSERT INTO caja ( Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IDEmpleado, NumFolio, CantidadRetiradaCorte )VALUES( 'retiro', '{total}', '0.00', '{concepto}', '{fechaOperacion}', '{FormPrincipal.userID}', '{efectivo}', '{tarjeta}', '{vales}', '{cheque}', '{transferencia}', '{credito}', '{anticipo}', '{FormPrincipal.id_empleado}', '{folio}', '0.00' )");
                                                 //cn.EjecutarConsulta(cs.OperacionCaja(datos));
-                                                }
-                                                else
-                                                {
-                                                    MessageBox.Show("No se cuenta con el suficiente saldo para cancelar la venta.");
-                                                    return;
-                                                }
+                                            }
+                                            else
+                                            {
+                                                MessageBox.Show("No se cuenta con el suficiente saldo para cancelar la venta.");
+                                                return;
+                                            }
 
 
                                         }
 
-                                            //seCancelaLaVenta = true;
-                                        }
-                                        else if (estatusVenta.Equals(4))
-                                        {
-                                            validarDatos(idVenta);
-                                        }
+                                        //seCancelaLaVenta = true;
+                                    }
+                                    else if (estatusVenta.Equals(4))
+                                    {
+                                        validarDatos(idVenta);
+                                    }
                                     //}
 
                                     venta_cancelada = 1;
@@ -303,64 +303,88 @@ namespace PuntoDeVentaV2
                                                 referencia = Convert.ToInt32(item["Referencia"].ToString());
                                             }
 
-                                            //DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket De La Cancelación", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                                            //if (respuestaImpresion.Equals(DialogResult.Yes))
-                                            //{
-                                                if (ticket6cm.Equals(1))
-                                                {
-                                                    using (ImprimirTicketCancelado8cm imprimirTicketVenta = new ImprimirTicketCancelado8cm())
-                                                    {
-                                                        imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
-                                                            
-                                                        imprimirTicketVenta.Logo = logo;
-                                                        imprimirTicketVenta.Nombre = Usuario;
-                                                        imprimirTicketVenta.NombreComercial = NombreComercial;
-                                                        imprimirTicketVenta.DireccionCiudad = Direccion;
-                                                        imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
-                                                        imprimirTicketVenta.RFC = RFC;
-                                                        imprimirTicketVenta.Correo = Correo;
-                                                        imprimirTicketVenta.Telefono = Telefono;
-                                                        imprimirTicketVenta.NombreCliente = NombreC;
-                                                        imprimirTicketVenta.RFCCliente = RFCC;
-                                                        imprimirTicketVenta.DomicilioCliente = DomicilioC;
-                                                        imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
-                                                        imprimirTicketVenta.CorreoCliente = CorreoC;
-                                                        imprimirTicketVenta.TelefonoCliente = TelefonoC;
-                                                        imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
-                                                        imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
-                                                        imprimirTicketVenta.Referencia = referencia;
 
-                                                        imprimirTicketVenta.ShowDialog();
+                                            using (var dt = cn.CargarDatos($"SELECT TicketVentaCancelada,PregutarTicketVentaCancelada,TicketOPDFTicketVentaCancelada FROM configuraciondetickets WHERE IDUsuario = {FormPrincipal.userID}"))
+                                            {
+                                                if (dt.Rows[0]["TicketVentaCancelada"].Equals(1))
+                                                {
+                                                    if (dt.Rows[0]["TicketOPDFTicketVentaCancelada"].Equals(1))
+                                                    {
+                                                        using (ImprimirTicketCancelado8cm imprimirTicketVenta = new ImprimirTicketCancelado8cm())
+                                                        {
+                                                            imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+
+                                                            imprimirTicketVenta.Logo = logo;
+                                                            imprimirTicketVenta.Nombre = Usuario;
+                                                            imprimirTicketVenta.NombreComercial = NombreComercial;
+                                                            imprimirTicketVenta.DireccionCiudad = Direccion;
+                                                            imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                                            imprimirTicketVenta.RFC = RFC;
+                                                            imprimirTicketVenta.Correo = Correo;
+                                                            imprimirTicketVenta.Telefono = Telefono;
+                                                            imprimirTicketVenta.NombreCliente = NombreC;
+                                                            imprimirTicketVenta.RFCCliente = RFCC;
+                                                            imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                                            imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                                            imprimirTicketVenta.CorreoCliente = CorreoC;
+                                                            imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                                            imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                                            imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                                            imprimirTicketVenta.Referencia = referencia;
+
+                                                            imprimirTicketVenta.ShowDialog();
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        FormNotaDeVenta form = new FormNotaDeVenta(idVenta);
+                                                        FormNotaDeVenta.fuePorVenta = true;
+                                                        form.ShowDialog();
+                                                    }
+
+                                                   
+                                                }
+                                                else if (dt.Rows[0]["PregutarTicketVentaCancelada"].Equals(1))
+                                                {
+                                                    DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket De La Cancelación", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                                    if (respuestaImpresion.Equals(DialogResult.Yes))
+                                                    {
+                                                        if (dt.Rows[0]["TicketOPDFTicketVentaCancelada"].Equals(1))
+                                                        {
+                                                            using (ImprimirTicketCancelado8cm imprimirTicketVenta = new ImprimirTicketCancelado8cm())
+                                                            {
+                                                                imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+
+                                                                imprimirTicketVenta.Logo = logo;
+                                                                imprimirTicketVenta.Nombre = Usuario;
+                                                                imprimirTicketVenta.NombreComercial = NombreComercial;
+                                                                imprimirTicketVenta.DireccionCiudad = Direccion;
+                                                                imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                                                imprimirTicketVenta.RFC = RFC;
+                                                                imprimirTicketVenta.Correo = Correo;
+                                                                imprimirTicketVenta.Telefono = Telefono;
+                                                                imprimirTicketVenta.NombreCliente = NombreC;
+                                                                imprimirTicketVenta.RFCCliente = RFCC;
+                                                                imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                                                imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                                                imprimirTicketVenta.CorreoCliente = CorreoC;
+                                                                imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                                                imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                                                imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                                                imprimirTicketVenta.Referencia = referencia;
+
+                                                                imprimirTicketVenta.ShowDialog();
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            FormNotaDeVenta form = new FormNotaDeVenta(idVenta);
+                                                            FormNotaDeVenta.fuePorVenta = true;
+                                                            form.ShowDialog();
+                                                        }
                                                     }
                                                 }
-                                                else if (ticket8cm.Equals(1))
-                                                {
-                                                    using (ImprimirTicketCancelado8cm imprimirTicketVenta = new ImprimirTicketCancelado8cm())
-                                                    {
-                                                        imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
-
-                                                        imprimirTicketVenta.Logo = logo;
-                                                        imprimirTicketVenta.Nombre = Usuario;
-                                                        imprimirTicketVenta.NombreComercial = NombreComercial;
-                                                        imprimirTicketVenta.DireccionCiudad = Direccion;
-                                                        imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
-                                                        imprimirTicketVenta.RFC = RFC;
-                                                        imprimirTicketVenta.Correo = Correo;
-                                                        imprimirTicketVenta.Telefono = Telefono;
-                                                        imprimirTicketVenta.NombreCliente = NombreC;
-                                                        imprimirTicketVenta.RFCCliente = RFCC;
-                                                        imprimirTicketVenta.DomicilioCliente = DomicilioC;
-                                                        imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
-                                                        imprimirTicketVenta.CorreoCliente = CorreoC;
-                                                        imprimirTicketVenta.TelefonoCliente = TelefonoC;
-                                                        imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
-                                                        imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
-                                                        imprimirTicketVenta.Referencia = referencia;
-
-                                                        imprimirTicketVenta.ShowDialog();
-                                                    }
-                                                }
-                                            //}
+                                            }
                                         }
                                     }
                                 }

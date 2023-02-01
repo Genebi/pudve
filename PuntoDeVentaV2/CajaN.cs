@@ -6004,87 +6004,182 @@ namespace PuntoDeVentaV2
             }
             #endregion
 
-            using (visualizadorCorteDeCaja verCorteDeCaja = new visualizadorCorteDeCaja())
+            using (var dt = cn.CargarDatos($"SELECT TicketCorteDeCaja,PreguntarTicketCorteDeCaja FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
             {
-                #region Tabla de los totales de ventas
-                verCorteDeCaja.conceptoEfectivoDeVentas = conceptoEfectivoDeVentas;
-                verCorteDeCaja.conceptoTarjetaDeVentas = conceptoTarjetaDeVentas;
-                verCorteDeCaja.conceptoValeDeVentas = conceptoValeDeVentas;
-                verCorteDeCaja.conceptoChequeDeVentas = conceptoChequeDeVentas;
-                verCorteDeCaja.conceptoTransferenciDeVentas = conceptoTransferenciDeVentas;
-                verCorteDeCaja.conceptoCreditoDeVentas = conceptoCreditoDeVentas;
-                verCorteDeCaja.conceptoAbonosDeVentas = conceptoAbonosDeVentas;
-                verCorteDeCaja.conceptoAnticiposUtilizados = conceptoAnticiposUtilizados;
-                #endregion
-                #region Tabla de los totales de Anticipos
-                verCorteDeCaja.conceptoEfectivoDeAnticipos = conceptoEfectivoDeAnticipos;
-                verCorteDeCaja.conceptoTarjetaDeAnticipos = conceptoTarjetaDeAnticipos;
-                verCorteDeCaja.conceptoValeDeAnticipos = conceptoValeDeAnticipos;
-                verCorteDeCaja.conceptoChequeDeAnticipos = conceptoChequeDeAnticipos;
-                verCorteDeCaja.conceptoTransferenciaDeAnticipos = conceptoTransferenciaDeAnticipos;
-                #endregion
-                #region Tabla de los totales de Depositos
-                verCorteDeCaja.conceptoEfectivoDeDineroAgregado = conceptoEfectivoDeDineroAgregado;
-                verCorteDeCaja.conceptoTarjetaDeDineroAgregado = conceptoTarjetaDeDineroAgregado;
-                verCorteDeCaja.conceptoValeDeDineroAgregado = conceptoValeDeDineroAgregado;
-                verCorteDeCaja.conceptoChequeDeDineroAgregado = conceptoChequeDeDineroAgregado;
-                verCorteDeCaja.conceptoTransferenciaDeDineroAgregado = conceptoTransferenciaDeDineroAgregado;
-                #endregion
-                #region Tabla de los totales de Retiros
-                verCorteDeCaja.conceptoEfectivoDeDineroRetirado = conceptoEfectivoDeDineroRetirado;
-                verCorteDeCaja.conceptoTarjetaDeDineroRetirado = conceptoTarjetaDeDineroRetirado;
-                verCorteDeCaja.conceptoValeDeDineroRetirado = conceptoValeDeDineroRetirado;
-                verCorteDeCaja.conceptoChequeDeDineroRetirado = conceptoChequeDeDineroRetirado;
-                verCorteDeCaja.conceptoTransferenciaDeDineroRetirado = conceptoTransferenciaDeDineroRetirado;
-                verCorteDeCaja.conceptoDevolucionDeDineroRetirado = conceptoDevolucionDeDineroRetirado;
-                #endregion
-                #region Tabla de los totales de Caja
-                verCorteDeCaja.conceptoEfectivoDeTotalCaja = conceptoEfectivoDeTotalCaja;
-                verCorteDeCaja.conceptoTarjetaDeTotalCaja = conceptoTarjetaDeTotalCaja;
-                verCorteDeCaja.conceptoValeDeTotalCaja = conceptoValeDeTotalCaja;
-                verCorteDeCaja.conceptoChequeDeTotalCaja = conceptoChequeDeTotalCaja;
-                verCorteDeCaja.conceptoTransferenciaDeTotalCaja = conceptoTransferenciaDeTotalCaja;
-                verCorteDeCaja.conceptoSaldoInicialDeTotalCaja = conceptoSaldoInicialDeTotalCaja;
-                #endregion
-                #region Total monto antes del corte
-                verCorteDeCaja.conceptoCantidadEnCajaAntesDelCorte = conceptoCantidadEnCajaAntesDelCorte;
-                #endregion
-                #region Total monto cantidad retirada en el corte
-                verCorteDeCaja.conceptoCantidadRetiradaAlCorteDeCaja = conceptoCantidadRetiradaAlCorteDeCaja;
-                #endregion
-                #region Total de ventas
-                verCorteDeCaja.conceptoTotalVentas = conceptoTotalVentas;
-                #endregion
-                #region Total de anticipos
-                verCorteDeCaja.conceptoTotalAnticipos = conceptoTotalAnticipos;
-                #endregion
-                #region Total de depositos
-                verCorteDeCaja.conceptoTotalDineroAgregado = conceptoTotalDineroAgregado;
-                #endregion
-                #region Total de retiros
-                verCorteDeCaja.conceptoTotalDineroRetirado = conceptoTotalDineroRetirado;
-                #endregion
-                #region Restante al corte de caja
-                verCorteDeCaja.conceptoRestanteCorteCaja = conceptoRestanteCorteCaja;
-                #endregion
-                #region Nombre de usuario
-                verCorteDeCaja.nombreUsuario = nombreUsuario;
-                #endregion
-                #region Nombre de empleado
-                verCorteDeCaja.nombreEmpleado = nombreEmpleado;
-                #endregion
-                #region Número de folio
-                verCorteDeCaja.numFolio = numFolio.ToString();
-                #endregion
-                #region Fecha de corte de caja
-                verCorteDeCaja.fechaCorteCaja = fechaCorteCaja;
-                #endregion
-                #region 
-                verCorteDeCaja.idPenultimoCorteDeCaja = idPenultimoCorteDeCaja;
-                #endregion
-
-                verCorteDeCaja.ShowDialog();
+                if (dt.Rows[0][0].Equals(1))
+                {
+                    using (visualizadorCorteDeCaja verCorteDeCaja = new visualizadorCorteDeCaja())
+                    {
+                        #region Tabla de los totales de ventas
+                        verCorteDeCaja.conceptoEfectivoDeVentas = conceptoEfectivoDeVentas;
+                        verCorteDeCaja.conceptoTarjetaDeVentas = conceptoTarjetaDeVentas;
+                        verCorteDeCaja.conceptoValeDeVentas = conceptoValeDeVentas;
+                        verCorteDeCaja.conceptoChequeDeVentas = conceptoChequeDeVentas;
+                        verCorteDeCaja.conceptoTransferenciDeVentas = conceptoTransferenciDeVentas;
+                        verCorteDeCaja.conceptoCreditoDeVentas = conceptoCreditoDeVentas;
+                        verCorteDeCaja.conceptoAbonosDeVentas = conceptoAbonosDeVentas;
+                        verCorteDeCaja.conceptoAnticiposUtilizados = conceptoAnticiposUtilizados;
+                        #endregion
+                        #region Tabla de los totales de Anticipos
+                        verCorteDeCaja.conceptoEfectivoDeAnticipos = conceptoEfectivoDeAnticipos;
+                        verCorteDeCaja.conceptoTarjetaDeAnticipos = conceptoTarjetaDeAnticipos;
+                        verCorteDeCaja.conceptoValeDeAnticipos = conceptoValeDeAnticipos;
+                        verCorteDeCaja.conceptoChequeDeAnticipos = conceptoChequeDeAnticipos;
+                        verCorteDeCaja.conceptoTransferenciaDeAnticipos = conceptoTransferenciaDeAnticipos;
+                        #endregion
+                        #region Tabla de los totales de Depositos
+                        verCorteDeCaja.conceptoEfectivoDeDineroAgregado = conceptoEfectivoDeDineroAgregado;
+                        verCorteDeCaja.conceptoTarjetaDeDineroAgregado = conceptoTarjetaDeDineroAgregado;
+                        verCorteDeCaja.conceptoValeDeDineroAgregado = conceptoValeDeDineroAgregado;
+                        verCorteDeCaja.conceptoChequeDeDineroAgregado = conceptoChequeDeDineroAgregado;
+                        verCorteDeCaja.conceptoTransferenciaDeDineroAgregado = conceptoTransferenciaDeDineroAgregado;
+                        #endregion
+                        #region Tabla de los totales de Retiros
+                        verCorteDeCaja.conceptoEfectivoDeDineroRetirado = conceptoEfectivoDeDineroRetirado;
+                        verCorteDeCaja.conceptoTarjetaDeDineroRetirado = conceptoTarjetaDeDineroRetirado;
+                        verCorteDeCaja.conceptoValeDeDineroRetirado = conceptoValeDeDineroRetirado;
+                        verCorteDeCaja.conceptoChequeDeDineroRetirado = conceptoChequeDeDineroRetirado;
+                        verCorteDeCaja.conceptoTransferenciaDeDineroRetirado = conceptoTransferenciaDeDineroRetirado;
+                        verCorteDeCaja.conceptoDevolucionDeDineroRetirado = conceptoDevolucionDeDineroRetirado;
+                        #endregion
+                        #region Tabla de los totales de Caja
+                        verCorteDeCaja.conceptoEfectivoDeTotalCaja = conceptoEfectivoDeTotalCaja;
+                        verCorteDeCaja.conceptoTarjetaDeTotalCaja = conceptoTarjetaDeTotalCaja;
+                        verCorteDeCaja.conceptoValeDeTotalCaja = conceptoValeDeTotalCaja;
+                        verCorteDeCaja.conceptoChequeDeTotalCaja = conceptoChequeDeTotalCaja;
+                        verCorteDeCaja.conceptoTransferenciaDeTotalCaja = conceptoTransferenciaDeTotalCaja;
+                        verCorteDeCaja.conceptoSaldoInicialDeTotalCaja = conceptoSaldoInicialDeTotalCaja;
+                        #endregion
+                        #region Total monto antes del corte
+                        verCorteDeCaja.conceptoCantidadEnCajaAntesDelCorte = conceptoCantidadEnCajaAntesDelCorte;
+                        #endregion
+                        #region Total monto cantidad retirada en el corte
+                        verCorteDeCaja.conceptoCantidadRetiradaAlCorteDeCaja = conceptoCantidadRetiradaAlCorteDeCaja;
+                        #endregion
+                        #region Total de ventas
+                        verCorteDeCaja.conceptoTotalVentas = conceptoTotalVentas;
+                        #endregion
+                        #region Total de anticipos
+                        verCorteDeCaja.conceptoTotalAnticipos = conceptoTotalAnticipos;
+                        #endregion
+                        #region Total de depositos
+                        verCorteDeCaja.conceptoTotalDineroAgregado = conceptoTotalDineroAgregado;
+                        #endregion
+                        #region Total de retiros
+                        verCorteDeCaja.conceptoTotalDineroRetirado = conceptoTotalDineroRetirado;
+                        #endregion
+                        #region Restante al corte de caja
+                        verCorteDeCaja.conceptoRestanteCorteCaja = conceptoRestanteCorteCaja;
+                        #endregion
+                        #region Nombre de usuario
+                        verCorteDeCaja.nombreUsuario = nombreUsuario;
+                        #endregion
+                        #region Nombre de empleado
+                        verCorteDeCaja.nombreEmpleado = nombreEmpleado;
+                        #endregion
+                        #region Número de folio
+                        verCorteDeCaja.numFolio = numFolio.ToString();
+                        #endregion
+                        #region Fecha de corte de caja
+                        verCorteDeCaja.fechaCorteCaja = fechaCorteCaja;
+                        #endregion
+                        #region 
+                        verCorteDeCaja.idPenultimoCorteDeCaja = idPenultimoCorteDeCaja;
+                        #endregion
+                        visualizadorCorteDeCaja.fuePorCorteDeCAJA = true;
+                        verCorteDeCaja.ShowDialog();
+                    }
+                }
+                else if (dt.Rows[0][1].Equals(1))
+                {
+                    DialogResult result = MessageBox.Show("¿Desea imprimir el Ticket?","Aviso del sistema",MessageBoxButtons.YesNo,MessageBoxIcon.Information);
+                    if (result.Equals(DialogResult.Yes))
+                    {
+                        using (visualizadorCorteDeCaja verCorteDeCaja = new visualizadorCorteDeCaja())
+                        {
+                            #region Tabla de los totales de ventas
+                            verCorteDeCaja.conceptoEfectivoDeVentas = conceptoEfectivoDeVentas;
+                            verCorteDeCaja.conceptoTarjetaDeVentas = conceptoTarjetaDeVentas;
+                            verCorteDeCaja.conceptoValeDeVentas = conceptoValeDeVentas;
+                            verCorteDeCaja.conceptoChequeDeVentas = conceptoChequeDeVentas;
+                            verCorteDeCaja.conceptoTransferenciDeVentas = conceptoTransferenciDeVentas;
+                            verCorteDeCaja.conceptoCreditoDeVentas = conceptoCreditoDeVentas;
+                            verCorteDeCaja.conceptoAbonosDeVentas = conceptoAbonosDeVentas;
+                            verCorteDeCaja.conceptoAnticiposUtilizados = conceptoAnticiposUtilizados;
+                            #endregion
+                            #region Tabla de los totales de Anticipos
+                            verCorteDeCaja.conceptoEfectivoDeAnticipos = conceptoEfectivoDeAnticipos;
+                            verCorteDeCaja.conceptoTarjetaDeAnticipos = conceptoTarjetaDeAnticipos;
+                            verCorteDeCaja.conceptoValeDeAnticipos = conceptoValeDeAnticipos;
+                            verCorteDeCaja.conceptoChequeDeAnticipos = conceptoChequeDeAnticipos;
+                            verCorteDeCaja.conceptoTransferenciaDeAnticipos = conceptoTransferenciaDeAnticipos;
+                            #endregion
+                            #region Tabla de los totales de Depositos
+                            verCorteDeCaja.conceptoEfectivoDeDineroAgregado = conceptoEfectivoDeDineroAgregado;
+                            verCorteDeCaja.conceptoTarjetaDeDineroAgregado = conceptoTarjetaDeDineroAgregado;
+                            verCorteDeCaja.conceptoValeDeDineroAgregado = conceptoValeDeDineroAgregado;
+                            verCorteDeCaja.conceptoChequeDeDineroAgregado = conceptoChequeDeDineroAgregado;
+                            verCorteDeCaja.conceptoTransferenciaDeDineroAgregado = conceptoTransferenciaDeDineroAgregado;
+                            #endregion
+                            #region Tabla de los totales de Retiros
+                            verCorteDeCaja.conceptoEfectivoDeDineroRetirado = conceptoEfectivoDeDineroRetirado;
+                            verCorteDeCaja.conceptoTarjetaDeDineroRetirado = conceptoTarjetaDeDineroRetirado;
+                            verCorteDeCaja.conceptoValeDeDineroRetirado = conceptoValeDeDineroRetirado;
+                            verCorteDeCaja.conceptoChequeDeDineroRetirado = conceptoChequeDeDineroRetirado;
+                            verCorteDeCaja.conceptoTransferenciaDeDineroRetirado = conceptoTransferenciaDeDineroRetirado;
+                            verCorteDeCaja.conceptoDevolucionDeDineroRetirado = conceptoDevolucionDeDineroRetirado;
+                            #endregion
+                            #region Tabla de los totales de Caja
+                            verCorteDeCaja.conceptoEfectivoDeTotalCaja = conceptoEfectivoDeTotalCaja;
+                            verCorteDeCaja.conceptoTarjetaDeTotalCaja = conceptoTarjetaDeTotalCaja;
+                            verCorteDeCaja.conceptoValeDeTotalCaja = conceptoValeDeTotalCaja;
+                            verCorteDeCaja.conceptoChequeDeTotalCaja = conceptoChequeDeTotalCaja;
+                            verCorteDeCaja.conceptoTransferenciaDeTotalCaja = conceptoTransferenciaDeTotalCaja;
+                            verCorteDeCaja.conceptoSaldoInicialDeTotalCaja = conceptoSaldoInicialDeTotalCaja;
+                            #endregion
+                            #region Total monto antes del corte
+                            verCorteDeCaja.conceptoCantidadEnCajaAntesDelCorte = conceptoCantidadEnCajaAntesDelCorte;
+                            #endregion
+                            #region Total monto cantidad retirada en el corte
+                            verCorteDeCaja.conceptoCantidadRetiradaAlCorteDeCaja = conceptoCantidadRetiradaAlCorteDeCaja;
+                            #endregion
+                            #region Total de ventas
+                            verCorteDeCaja.conceptoTotalVentas = conceptoTotalVentas;
+                            #endregion
+                            #region Total de anticipos
+                            verCorteDeCaja.conceptoTotalAnticipos = conceptoTotalAnticipos;
+                            #endregion
+                            #region Total de depositos
+                            verCorteDeCaja.conceptoTotalDineroAgregado = conceptoTotalDineroAgregado;
+                            #endregion
+                            #region Total de retiros
+                            verCorteDeCaja.conceptoTotalDineroRetirado = conceptoTotalDineroRetirado;
+                            #endregion
+                            #region Restante al corte de caja
+                            verCorteDeCaja.conceptoRestanteCorteCaja = conceptoRestanteCorteCaja;
+                            #endregion
+                            #region Nombre de usuario
+                            verCorteDeCaja.nombreUsuario = nombreUsuario;
+                            #endregion
+                            #region Nombre de empleado
+                            verCorteDeCaja.nombreEmpleado = nombreEmpleado;
+                            #endregion
+                            #region Número de folio
+                            verCorteDeCaja.numFolio = numFolio.ToString();
+                            #endregion
+                            #region Fecha de corte de caja
+                            verCorteDeCaja.fechaCorteCaja = fechaCorteCaja;
+                            #endregion
+                            #region 
+                            verCorteDeCaja.idPenultimoCorteDeCaja = idPenultimoCorteDeCaja;
+                            #endregion
+                            visualizadorCorteDeCaja.fuePorCorteDeCAJA = true;
+                            verCorteDeCaja.ShowDialog();
+                        }
+                    }
+                }
             }
+            
         }
 
         private void btnRedondoAbrirCaja_Click(object sender, EventArgs e)

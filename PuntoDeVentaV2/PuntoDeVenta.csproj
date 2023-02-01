@@ -653,6 +653,12 @@
     <Compile Include="ConfiguracionMariaDB.Designer.cs">
       <DependentUpon>ConfiguracionMariaDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfiguracionTickets.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfiguracionTickets.Designer.cs">
+      <DependentUpon>ConfiguracionTickets.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConnectionHandler.cs" />
     <Compile Include="ConsultaPrecio.cs">
       <SubType>Form</SubType>
@@ -1972,6 +1978,9 @@
     <EmbeddedResource Include="ConfiguracionMariaDB.resx">
       <DependentUpon>ConfiguracionMariaDB.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConfiguracionTickets.resx">
+      <DependentUpon>ConfiguracionTickets.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConsultaPrecio.resx">
       <DependentUpon>ConsultaPrecio.cs</DependentUpon>
     </EmbeddedResource>
@@ -2378,6 +2387,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm3.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos2.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos3.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\AbrirCaja\ReporteTicketAbrirCaja80mm2.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\AbrirCaja\ReporteTicketAbrirCaja80mm3.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="ReportesRetirosConceptosPorMes.resx">
