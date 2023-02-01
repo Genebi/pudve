@@ -1184,7 +1184,9 @@ namespace PuntoDeVentaV2
             Image informacion = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
             Image reusarVentas = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\repeat.png");
             Image ganancia = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\statistics.png");
-            Image circuloColor = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\circle-orange.png");
+            Image circuloRojo = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\circle-red.png");
+            Image circuloAmarillo = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\circle-yellow.png");
+            Image circuloVerde = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\circle-green.png");
 
 
             Bitmap sinImagen = new Bitmap(1, 1);
@@ -1198,8 +1200,8 @@ namespace PuntoDeVentaV2
                 foreach (DataRow filaDatos in dtDatos.Rows)
                 {
                     int idVenta = Convert.ToInt32(filaDatos["ID"].ToString());
-
                     int status = Convert.ToInt32(filaDatos["Status"].ToString());
+                    int estadoEntrega = Convert.ToInt16(filaDatos["EstadoEntrega"].ToString());
 
                     //string cliente = "Público General";
                     //string rfc = "XAXX010101000";
@@ -1306,6 +1308,8 @@ namespace PuntoDeVentaV2
                     // Ordenes
                     if (status.Equals(11))
                     {
+                        var circuloColor = estadoEntrega == 0 ? circuloRojo : estadoEntrega == 1 ? circuloAmarillo : circuloVerde;
+
                         row.Cells["Abono"].Value = circuloColor;
                     }
 
@@ -3202,7 +3206,7 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    // Verificamos si es presupuesto u orden
+                    // Verificamos si es presupuesto u ordenes
                     if (opcion.Equals("VG"))
                     {
                         var Status = string.Empty;
@@ -3215,7 +3219,19 @@ namespace PuntoDeVentaV2
 
                                 if (infoVenta["Status"].ToString().Equals("11"))
                                 {
-                                    MessageBox.Show("Test");
+                                    int estadoEntrega = Convert.ToInt16(infoVenta["EstadoEntrega"].ToString());
+
+                                    using (CambiarEstadoEntrega cambiar = new CambiarEstadoEntrega())
+                                    {
+                                        if (cambiar.ShowDialog() == DialogResult.OK)
+                                        {
+                                            string icono = cambiar.estado == 0 ? "circle-red" : cambiar.estado == 1 ? "circle-yellow" : "circle-green";
+
+                                            Image circuloColor = Image.FromFile(Properties.Settings.Default.rutaDirectorio + $@"\PUDVE\icon\black16\{icono}.png");
+                                            DGVListadoVentas.Rows[fila].Cells["Abono"].Value = circuloColor;
+                                            cn.EjecutarConsulta($"UPDATE Ventas SET EstadoEntrega = {cambiar.estado} WHERE ID = {idVenta}");
+                                        }
+                                    }
                                 }
                             }
                         }

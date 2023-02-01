@@ -542,6 +542,12 @@
     <Compile Include="calculadora.Designer.cs">
       <DependentUpon>calculadora.cs</DependentUpon>
     </Compile>
+    <Compile Include="CambiarEstadoEntrega.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CambiarEstadoEntrega.Designer.cs">
+      <DependentUpon>CambiarEstadoEntrega.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cancelar_XML.cs" />
     <Compile Include="Cancelar_XML_mensajes.cs">
       <SubType>Form</SubType>
@@ -1355,6 +1361,9 @@
       <DependentUpon>TicketDineroRetirado.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <None Include="PUDVE\icon\black16\circle-yellow-48.png" />
+    <None Include="PUDVE\icon\black16\circle-green-48.png" />
+    <None Include="PUDVE\icon\black16\circle-red-48.png" />
     <Content Include="ReportesImpresion\Ticket\Inventario\DTInventario.cs">
       <DependentUpon>DTInventario.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1938,6 +1947,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="calculadora.resx">
       <DependentUpon>calculadora.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CambiarEstadoEntrega.resx">
+      <DependentUpon>CambiarEstadoEntrega.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Cancelar_XML_mensajes.resx">
       <DependentUpon>Cancelar_XML_mensajes.cs</DependentUpon>

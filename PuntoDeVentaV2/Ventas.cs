@@ -3914,7 +3914,7 @@ namespace PuntoDeVentaV2
 
             if (string.IsNullOrWhiteSpace(fechaEntrega))
             {
-                fechaEntrega = "0001-01-01";
+                fechaEntrega = "0001-01-01 00:00:00";
             }
 
             var guardar = new string[] {
