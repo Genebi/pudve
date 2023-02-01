@@ -747,7 +747,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Parameters!conceptoEfectivoDeVentas.Value</Value>
+                    <Value>=Parameters!conceptoEfectivoDeAnticipos.Value</Value>
                     <Style>
                       <FontSize>7pt</FontSize>
                     </Style>
@@ -807,7 +807,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Parameters!conceptoTarjetaDeVentas.Value</Value>
+                    <Value>=Parameters!conceptoTarjetaDeAnticipos.Value</Value>
                     <Style>
                       <FontSize>7pt</FontSize>
                     </Style>
@@ -867,7 +867,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Parameters!conceptoValeDeVentas.Value</Value>
+                    <Value>=Parameters!conceptoValeDeAnticipos.Value</Value>
                     <Style>
                       <FontSize>7pt</FontSize>
                     </Style>
@@ -927,7 +927,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Parameters!conceptoChequeDeVentas.Value</Value>
+                    <Value>=Parameters!conceptoChequeDeAnticipos.Value</Value>
                     <Style>
                       <FontSize>7pt</FontSize>
                     </Style>
@@ -987,7 +987,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Parameters!conceptoTransferenciDeVentas.Value</Value>
+                    <Value>=Parameters!conceptoTransferenciaDeAnticipos.Value</Value>
                     <Style>
                       <FontSize>7pt</FontSize>
                     </Style>
