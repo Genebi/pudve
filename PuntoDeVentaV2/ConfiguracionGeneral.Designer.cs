@@ -30,13 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfiguracionGeneral));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbWebReportesPeriodicos = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
+            this.chWebTotal = new System.Windows.Forms.CheckBox();
             this.pagWeb = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.RBTicket = new System.Windows.Forms.RadioButton();
-            this.RBpdf = new System.Windows.Forms.RadioButton();
-            this.chkPreguntar = new System.Windows.Forms.CheckBox();
-            this.chTicketVentas = new System.Windows.Forms.CheckBox();
+            this.chWebCerrar = new System.Windows.Forms.CheckBox();
             this.CHKMostrarStock = new System.Windows.Forms.CheckBox();
             this.chTraspasos = new System.Windows.Forms.CheckBox();
             this.chkCerrarSesionCorte = new System.Windows.Forms.CheckBox();
@@ -44,10 +43,6 @@
             this.cbMostrarCB = new System.Windows.Forms.CheckBox();
             this.cbMostrarPrecio = new System.Windows.Forms.CheckBox();
             this.cbStockNegativo = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.chWebTotal = new System.Windows.Forms.CheckBox();
-            this.cbWebReportesPeriodicos = new System.Windows.Forms.CheckBox();
-            this.chWebCerrar = new System.Windows.Forms.CheckBox();
             this.chkMensajeVenderProducto = new System.Windows.Forms.CheckBox();
             this.chkMensajeRealizarInventario = new System.Windows.Forms.CheckBox();
             this.btnAceptar = new System.Windows.Forms.Button();
@@ -59,7 +54,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtMinimoMayoreo = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -70,7 +64,6 @@
             this.groupBox2.Controls.Add(this.linkLabel2);
             this.groupBox2.Controls.Add(this.chWebTotal);
             this.groupBox2.Controls.Add(this.pagWeb);
-            this.groupBox2.Controls.Add(this.groupBox1);
             this.groupBox2.Controls.Add(this.chWebCerrar);
             this.groupBox2.Controls.Add(this.CHKMostrarStock);
             this.groupBox2.Controls.Add(this.chTraspasos);
@@ -82,10 +75,35 @@
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(9, 18);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(895, 272);
+            this.groupBox2.Size = new System.Drawing.Size(648, 197);
             this.groupBox2.TabIndex = 130;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CONFIGURACION GENERAL";
+            // 
+            // cbWebReportesPeriodicos
+            // 
+            this.cbWebReportesPeriodicos.AutoSize = true;
+            this.cbWebReportesPeriodicos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbWebReportesPeriodicos.Location = new System.Drawing.Point(20, 168);
+            this.cbWebReportesPeriodicos.Name = "cbWebReportesPeriodicos";
+            this.cbWebReportesPeriodicos.Size = new System.Drawing.Size(242, 21);
+            this.cbWebReportesPeriodicos.TabIndex = 0;
+            this.cbWebReportesPeriodicos.Text = "Realizar reportes automáticamente ";
+            this.cbWebReportesPeriodicos.UseVisualStyleBackColor = true;
+            this.cbWebReportesPeriodicos.CheckedChanged += new System.EventHandler(this.cbWebReportesPeriodicos_CheckedChanged);
+            this.cbWebReportesPeriodicos.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbWebReportesPeriodicos_MouseClick);
+            // 
+            // label4
+            // 
+            this.label4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.RoyalBlue;
+            this.label4.Location = new System.Drawing.Point(21, 130);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(261, 35);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "(puede afectar el rendimiento en computadores de gama baja)";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // linkLabel2
             // 
@@ -99,6 +117,18 @@
             this.linkLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
             // 
+            // chWebTotal
+            // 
+            this.chWebTotal.AutoSize = true;
+            this.chWebTotal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chWebTotal.Location = new System.Drawing.Point(20, 106);
+            this.chWebTotal.Name = "chWebTotal";
+            this.chWebTotal.Size = new System.Drawing.Size(262, 21);
+            this.chWebTotal.TabIndex = 0;
+            this.chWebTotal.Text = "Realizar respaldos totales (base entera)";
+            this.chWebTotal.UseVisualStyleBackColor = true;
+            this.chWebTotal.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chWebTotal_MouseClick);
+            // 
             // pagWeb
             // 
             this.pagWeb.AutoSize = true;
@@ -111,79 +141,23 @@
             this.pagWeb.UseVisualStyleBackColor = true;
             this.pagWeb.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pagWeb_MouseClick);
             // 
-            // groupBox1
+            // chWebCerrar
             // 
-            this.groupBox1.Controls.Add(this.RBTicket);
-            this.groupBox1.Controls.Add(this.RBpdf);
-            this.groupBox1.Controls.Add(this.chkPreguntar);
-            this.groupBox1.Controls.Add(this.chTicketVentas);
-            this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(615, 21);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(260, 100);
-            this.groupBox1.TabIndex = 133;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Ticket Venta";
-            // 
-            // RBTicket
-            // 
-            this.RBTicket.AutoSize = true;
-            this.RBTicket.Location = new System.Drawing.Point(4, 67);
-            this.RBTicket.Margin = new System.Windows.Forms.Padding(2);
-            this.RBTicket.Name = "RBTicket";
-            this.RBTicket.Size = new System.Drawing.Size(100, 19);
-            this.RBTicket.TabIndex = 137;
-            this.RBTicket.TabStop = true;
-            this.RBTicket.Text = "Imprimir Ticket";
-            this.RBTicket.UseVisualStyleBackColor = true;
-            this.RBTicket.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RBTicket_MouseClick_1);
-            // 
-            // RBpdf
-            // 
-            this.RBpdf.AutoSize = true;
-            this.RBpdf.Location = new System.Drawing.Point(108, 67);
-            this.RBpdf.Margin = new System.Windows.Forms.Padding(2);
-            this.RBpdf.Name = "RBpdf";
-            this.RBpdf.Size = new System.Drawing.Size(143, 19);
-            this.RBpdf.TabIndex = 136;
-            this.RBpdf.TabStop = true;
-            this.RBpdf.Text = "Imprimir nota de venta";
-            this.RBpdf.UseVisualStyleBackColor = true;
-            this.RBpdf.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RBpdf_MouseClick_1);
-            // 
-            // chkPreguntar
-            // 
-            this.chkPreguntar.AutoSize = true;
-            this.chkPreguntar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkPreguntar.Location = new System.Drawing.Point(4, 42);
-            this.chkPreguntar.Margin = new System.Windows.Forms.Padding(2);
-            this.chkPreguntar.Name = "chkPreguntar";
-            this.chkPreguntar.Size = new System.Drawing.Size(233, 21);
-            this.chkPreguntar.TabIndex = 135;
-            this.chkPreguntar.Text = "Pregutar si desea imprimir ticket";
-            this.chkPreguntar.UseVisualStyleBackColor = true;
-            this.chkPreguntar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkPreguntar_MouseClick);
-            // 
-            // chTicketVentas
-            // 
-            this.chTicketVentas.AutoSize = true;
-            this.chTicketVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chTicketVentas.Location = new System.Drawing.Point(4, 19);
-            this.chTicketVentas.Name = "chTicketVentas";
-            this.chTicketVentas.Size = new System.Drawing.Size(232, 21);
-            this.chTicketVentas.TabIndex = 128;
-            this.chTicketVentas.Text = "Generar ticket al realizar ventas";
-            this.chTicketVentas.UseVisualStyleBackColor = true;
-            this.chTicketVentas.CheckedChanged += new System.EventHandler(this.chTicketVentas_CheckedChanged);
-            this.chTicketVentas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chTicketVentas_MouseClick);
+            this.chWebCerrar.AutoSize = true;
+            this.chWebCerrar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chWebCerrar.Location = new System.Drawing.Point(20, 78);
+            this.chWebCerrar.Name = "chWebCerrar";
+            this.chWebCerrar.Size = new System.Drawing.Size(258, 21);
+            this.chWebCerrar.TabIndex = 0;
+            this.chWebCerrar.Text = "Reportar al cerrar sesión o el programa";
+            this.chWebCerrar.UseVisualStyleBackColor = true;
+            this.chWebCerrar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chWebCerrar_MouseClick);
             // 
             // CHKMostrarStock
             // 
             this.CHKMostrarStock.AutoSize = true;
             this.CHKMostrarStock.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CHKMostrarStock.Location = new System.Drawing.Point(20, 56);
+            this.CHKMostrarStock.Location = new System.Drawing.Point(308, 164);
             this.CHKMostrarStock.Name = "CHKMostrarStock";
             this.CHKMostrarStock.Size = new System.Drawing.Size(243, 21);
             this.CHKMostrarStock.TabIndex = 133;
@@ -233,7 +207,7 @@
             // 
             this.cbMostrarCB.AutoSize = true;
             this.cbMostrarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbMostrarCB.Location = new System.Drawing.Point(20, 83);
+            this.cbMostrarCB.Location = new System.Drawing.Point(20, 51);
             this.cbMostrarCB.Name = "cbMostrarCB";
             this.cbMostrarCB.Size = new System.Drawing.Size(283, 21);
             this.cbMostrarCB.TabIndex = 117;
@@ -267,54 +241,6 @@
             this.cbStockNegativo.UseVisualStyleBackColor = true;
             this.cbStockNegativo.CheckedChanged += new System.EventHandler(this.cbStockNegativo_CheckedChanged);
             this.cbStockNegativo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbStockNegativo_MouseClick);
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label4.Location = new System.Drawing.Point(17, 188);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(261, 35);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "(puede afectar el rendimiento en computadores de gama baja)";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // chWebTotal
-            // 
-            this.chWebTotal.AutoSize = true;
-            this.chWebTotal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chWebTotal.Location = new System.Drawing.Point(20, 164);
-            this.chWebTotal.Name = "chWebTotal";
-            this.chWebTotal.Size = new System.Drawing.Size(262, 21);
-            this.chWebTotal.TabIndex = 0;
-            this.chWebTotal.Text = "Realizar respaldos totales (base entera)";
-            this.chWebTotal.UseVisualStyleBackColor = true;
-            this.chWebTotal.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chWebTotal_MouseClick);
-            // 
-            // cbWebReportesPeriodicos
-            // 
-            this.cbWebReportesPeriodicos.AutoSize = true;
-            this.cbWebReportesPeriodicos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbWebReportesPeriodicos.Location = new System.Drawing.Point(20, 226);
-            this.cbWebReportesPeriodicos.Name = "cbWebReportesPeriodicos";
-            this.cbWebReportesPeriodicos.Size = new System.Drawing.Size(242, 21);
-            this.cbWebReportesPeriodicos.TabIndex = 0;
-            this.cbWebReportesPeriodicos.Text = "Realizar reportes automáticamente ";
-            this.cbWebReportesPeriodicos.UseVisualStyleBackColor = true;
-            this.cbWebReportesPeriodicos.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbWebReportesPeriodicos_MouseClick);
-            // 
-            // chWebCerrar
-            // 
-            this.chWebCerrar.AutoSize = true;
-            this.chWebCerrar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chWebCerrar.Location = new System.Drawing.Point(20, 137);
-            this.chWebCerrar.Name = "chWebCerrar";
-            this.chWebCerrar.Size = new System.Drawing.Size(258, 21);
-            this.chWebCerrar.TabIndex = 0;
-            this.chWebCerrar.Text = "Reportar al cerrar sesión o el programa";
-            this.chWebCerrar.UseVisualStyleBackColor = true;
-            this.chWebCerrar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chWebCerrar_MouseClick);
             // 
             // chkMensajeVenderProducto
             // 
@@ -353,7 +279,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(388, 296);
+            this.btnAceptar.Location = new System.Drawing.Point(274, 218);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(117, 29);
             this.btnAceptar.TabIndex = 132;
@@ -458,7 +384,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(910, 332);
+            this.ClientSize = new System.Drawing.Size(663, 253);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.checkMayoreo);
             this.Controls.Add(this.label1);
@@ -483,8 +409,6 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConfiguracionGeneral_KeyDown);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -493,7 +417,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckBox chTicketVentas;
         private System.Windows.Forms.CheckBox checkCBVenta;
         private System.Windows.Forms.CheckBox pagWeb;
         private System.Windows.Forms.Label label3;
@@ -514,10 +437,6 @@
         private System.Windows.Forms.CheckBox CHKMostrarStock;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.LinkLabel linkLabel2;
-        private System.Windows.Forms.CheckBox chkPreguntar;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton RBTicket;
-        private System.Windows.Forms.RadioButton RBpdf;
         private System.Windows.Forms.CheckBox chWebTotal;
         private System.Windows.Forms.CheckBox chWebCerrar;
         private System.Windows.Forms.Label label4;

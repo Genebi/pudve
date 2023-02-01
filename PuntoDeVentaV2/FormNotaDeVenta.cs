@@ -40,6 +40,7 @@ namespace PuntoDeVentaV2
             CargarNotaDeVenta();
             if (fuePorVenta == true)
             {
+                fuePorVenta = false; 
                 btnImprimir.PerformClick();
                 this.Close();
             }
