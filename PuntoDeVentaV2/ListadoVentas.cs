@@ -1184,6 +1184,7 @@ namespace PuntoDeVentaV2
             Image informacion = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
             Image reusarVentas = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\repeat.png");
             Image ganancia = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\statistics.png");
+            Image circuloColor = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\circle-orange.png");
 
 
             Bitmap sinImagen = new Bitmap(1, 1);
@@ -1279,7 +1280,7 @@ namespace PuntoDeVentaV2
                     row.Cells["retomarVenta"].Value = reusarVentas;
 
                     // Para rentas
-                    if (status > 5)
+                    if (status > 5 && status < 11)
                     {
                         row.Cells["Cancelar"].Value = reusarVentas;
                     }
@@ -1294,6 +1295,18 @@ namespace PuntoDeVentaV2
                     if (status != 4 && status != 9)
                     {
                         row.Cells["Abono"].Value = info;
+                    }
+
+                    // Presupuestos
+                    if (status.Equals(2))
+                    {
+                        row.Cells["Abono"].Value = sinImagen;
+                    }
+
+                    // Ordenes
+                    if (status.Equals(11))
+                    {
+                        row.Cells["Abono"].Value = circuloColor;
                     }
 
                     //Retomar Ventas Canceladas
@@ -3189,41 +3202,62 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    //Verificamos si tiene seleccionada la opcion de ventas a credito
-                    if (opcion == "VCC" || opcion == "RCC")
+                    // Verificamos si es presupuesto u orden
+                    if (opcion.Equals("VG"))
                     {
-                        var total = float.Parse(DGVListadoVentas.Rows[fila].Cells["Total"].Value.ToString());
+                        var Status = string.Empty;
 
-                        AsignarAbonos abono = new AsignarAbonos(idVenta, total, opcion);
-
-                        abono.FormClosed += delegate
+                        using (DataTable dtVenta = cn.CargarDatos($"SELECT * FROM Ventas WHERE ID = {idVenta}"))
                         {
-                            if (opcion.Equals("VCC"))
+                            if (dtVenta.Rows.Count > 0)
                             {
-                                CargarDatos(4);
-                            }
-                            else
-                            {
-                                CargarDatos(9);
-                            }
-                        };
+                                DataRow infoVenta = dtVenta.Rows[0];
 
-                        abono.ShowDialog();
+                                if (infoVenta["Status"].ToString().Equals("11"))
+                                {
+                                    MessageBox.Show("Test");
+                                }
+                            }
+                        }
                     }
                     else
                     {
-                        //Comprobamos si tiene historial de abonos
-                        var existenAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
-
-                        if (existenAbonos)
+                        //Verificamos si tiene seleccionada la opcion de ventas a credito
+                        if (opcion == "VCC" || opcion == "RCC")
                         {
-                            ListaAbonosVenta abonos = new ListaAbonosVenta(idVenta);
+                            var total = float.Parse(DGVListadoVentas.Rows[fila].Cells["Total"].Value.ToString());
 
-                            abonos.ShowDialog();
+                            AsignarAbonos abono = new AsignarAbonos(idVenta, total, opcion);
+
+                            abono.FormClosed += delegate
+                            {
+                                if (opcion.Equals("VCC"))
+                                {
+                                    CargarDatos(4);
+                                }
+                                else
+                                {
+                                    CargarDatos(9);
+                                }
+                            };
+
+                            abono.ShowDialog();
                         }
                         else
                         {
-                            MessageBox.Show("No hay información adicional sobre esta venta", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //Comprobamos si tiene historial de abonos
+                            var existenAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
+
+                            if (existenAbonos)
+                            {
+                                ListaAbonosVenta abonos = new ListaAbonosVenta(idVenta);
+
+                                abonos.ShowDialog();
+                            }
+                            else
+                            {
+                                MessageBox.Show("No hay información adicional sobre esta venta", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                         }
                     }
                 }

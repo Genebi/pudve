@@ -2103,3 +2103,4 @@ ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS RealizaOrdenes tinyint(1) DEF
 -- Agregar columnas para guardar tiempo y fecha de entrega al crear odenes
 ALTER TABLE Ventas ADD COLUMN IF NOT EXISTS TiempoEntrega VARCHAR(50) DEFAULT NULL;
 ALTER TABLE Ventas ADD COLUMN IF NOT EXISTS FechaEntrega DATE DEFAULT '0001-01-01';
+ALTER TABLE Ventas ADD COLUMN IF NOT EXISTS EstadoEntrega TINYINT(1) DEFAULT 0;
