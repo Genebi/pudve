@@ -38,6 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dtpFechaEntrega = new System.Windows.Forms.DateTimePicker();
             this.btnAceptar = new System.Windows.Forms.Button();
+            this.dtpHoraEntrega = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinutos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudHoras)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDias)).BeginInit();
@@ -133,11 +134,11 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(89, 153);
+            this.label1.Location = new System.Drawing.Point(105, 153);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(123, 17);
+            this.label1.Size = new System.Drawing.Size(167, 17);
             this.label1.TabIndex = 24;
-            this.label1.Text = "Fecha de entrega";
+            this.label1.Text = "Fecha y hora de entrega";
             // 
             // dtpFechaEntrega
             // 
@@ -146,7 +147,7 @@
             this.dtpFechaEntrega.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpFechaEntrega.Location = new System.Drawing.Point(92, 184);
             this.dtpFechaEntrega.Name = "dtpFechaEntrega";
-            this.dtpFechaEntrega.Size = new System.Drawing.Size(198, 22);
+            this.dtpFechaEntrega.Size = new System.Drawing.Size(115, 22);
             this.dtpFechaEntrega.TabIndex = 25;
             // 
             // btnAceptar
@@ -165,11 +166,23 @@
             this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
             // 
+            // dtpHoraEntrega
+            // 
+            this.dtpHoraEntrega.CustomFormat = "HH:mm";
+            this.dtpHoraEntrega.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpHoraEntrega.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpHoraEntrega.Location = new System.Drawing.Point(228, 184);
+            this.dtpHoraEntrega.Name = "dtpHoraEntrega";
+            this.dtpHoraEntrega.ShowUpDown = true;
+            this.dtpHoraEntrega.Size = new System.Drawing.Size(64, 22);
+            this.dtpHoraEntrega.TabIndex = 27;
+            // 
             // DatosOrden
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 271);
+            this.Controls.Add(this.dtpHoraEntrega);
             this.Controls.Add(this.btnAceptar);
             this.Controls.Add(this.dtpFechaEntrega);
             this.Controls.Add(this.label1);
@@ -207,5 +220,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dtpFechaEntrega;
         private System.Windows.Forms.Button btnAceptar;
+        private System.Windows.Forms.DateTimePicker dtpHoraEntrega;
     }
 }

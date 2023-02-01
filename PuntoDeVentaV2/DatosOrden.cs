@@ -34,9 +34,10 @@ namespace PuntoDeVentaV2
 
             var tiempoEntrega = $"{dias}|{horas}|{minutos}";
             var fechaEntrega = dtpFechaEntrega.Value.ToString("yyyy-MM-dd");
+            var horaEntrega = dtpHoraEntrega.Value.ToString("HH:mm") + ":00";
 
             Ventas.tiempoElaboracion = tiempoEntrega;
-            Ventas.fechaEntrega = fechaEntrega;
+            Ventas.fechaEntrega = $"{fechaEntrega} {horaEntrega}";
 
             Close();
         }
