@@ -3467,7 +3467,7 @@ namespace PuntoDeVentaV2
 
             // Obtiene el número de usuarios. 
 
-            DataTable dt_usuarios = cn.CargarDatos("SELECT ID, Usuario FROM usuarios");
+            DataTable dt_usuarios = cn.CargarDatos($"SELECT ID, Usuario FROM usuarios WHERE ID = '{FormPrincipal.userID}'");
             int tam_usuarios = dt_usuarios.Rows.Count;
 
             var carpetaCSDAdministrador = FormPrincipal.userNickName;
@@ -3479,7 +3479,7 @@ namespace PuntoDeVentaV2
                 carpetaCSDAdministrador = dividirAdministradorEmpleado[0];
             }
 
-            if (tam_usuarios > 1)
+            if (tam_usuarios >= 1)
             {
                 DataRow dr_usuarios = dt_usuarios.Rows[0];
 
