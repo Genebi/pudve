@@ -288,7 +288,7 @@ namespace PuntoDeVentaV2
             MySqlDataAdapter retiroDA = new MySqlDataAdapter(queryVentas, conn);
             DataTable DTNotaDeVentas = new DataTable();
             retiroDA.Fill(DTNotaDeVentas);
-
+            string formaPago = DTNotaDeVentas.Rows[0]["FormadePago"].ToString();
             Total = Convert.ToDecimal(DTNotaDeVentas.Rows[0]["total"]);
             resultado = oMoneda.Convertir(Total.ToString(), true, "PESOS");
 
@@ -303,7 +303,7 @@ namespace PuntoDeVentaV2
                 DireccionLogo = "";
                 reportParameters.Add(new ReportParameter("Logo", DireccionLogo));
             }
-            reportParameters.Add(new ReportParameter("StatusVenta", "Venta Pagada"));
+            reportParameters.Add(new ReportParameter("StatusVenta", formaPago));
 
             ReportDataSource NotasVENTAS = new ReportDataSource("DTNotaVenta", DTNotaDeVentas);
 
@@ -314,7 +314,7 @@ namespace PuntoDeVentaV2
             rdlc.SetParameters(reportParameters);
 
             FormatoCarta imp = new FormatoCarta();
-            imp.Imprime(rdlc);
+            imp.Imprime(rdlc); 
 
             this.Close();
         }
