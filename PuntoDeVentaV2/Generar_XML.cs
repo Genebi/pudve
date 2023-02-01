@@ -164,13 +164,13 @@ namespace PuntoDeVentaV2
                     if (!Directory.Exists(ruta_carpeta_archivos))
                     {
                         cambia_nombre_carpeta = true;
-                        ruta_carpeta_archivos = @"C:\Archivos PUDVE\MisDatos\CSD_" + dr_usuarios["Usuario"].ToString();
+                        ruta_carpeta_archivos = @"C:\Archivos PUDVE\MisDatos\CSD_" + dr_usuarios["Usuario"].ToString() + @"\"; 
                     }
                 }
                 else
                 {
                     cambia_nombre_carpeta = true;
-                    ruta_carpeta_archivos = @"C:\Archivos PUDVE\MisDatos\CSD_" + dr_usuarios["Usuario"].ToString();
+                    ruta_carpeta_archivos = @"C:\Archivos PUDVE\MisDatos\CSD_" + dr_usuarios["Usuario"].ToString() + @"\";
                 }
             }
 
@@ -180,7 +180,7 @@ namespace PuntoDeVentaV2
 
                 if(cambia_nombre_carpeta == true)
                 {
-                    ruta_carpeta_archivos = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_" + dr_usuarios["Usuario"].ToString();
+                    ruta_carpeta_archivos = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_" + dr_usuarios["Usuario"].ToString() + @"\";
                 }
             }
 
