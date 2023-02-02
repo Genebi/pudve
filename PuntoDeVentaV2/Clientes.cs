@@ -83,7 +83,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                string extra = $"AND (RazonSocial LIKE '%{busqueda}%' OR NombreComercial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%')";
+                string extra = $"AND (RazonSocial LIKE '%{busqueda}%' OR NombreComercial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR NumeroCliente LIKE '%{busqueda}%' OR Telefono LIKE '%{busqueda}%')";
 
                 consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = {status} {extra}";
             }
