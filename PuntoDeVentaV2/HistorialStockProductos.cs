@@ -92,7 +92,7 @@ namespace PuntoDeVentaV2
             string StockInicialH = "";
             var stockInicialProductos = string.Empty;
             int idprod = Productos.idProductoHistorialStock;
-            var datos = cn.CargarDatos($"SELECT ID, TipoDeMovimiento AS 'Tipo de Movimiento', StockAnterior AS 'Stock Anterior', Cantidad, StockNuevo 'Nuevo Stock', Fecha, NombreUsuario AS 'Nombre de Usuario', StockInicial FROM historialstock WHERE IDProducto = {idprod}");
+            var datos = cn.CargarDatos($"SELECT ID, TipoDeMovimiento AS 'Tipo de Movimiento', StockAnterior AS 'Stock Anterior', Cantidad, StockNuevo 'Nuevo Stock', Fecha, NombreUsuario AS 'Nombre de Usuario', StockInicial FROM historialstock WHERE IDProducto = {idprod} ORDER BY Fecha DESC");
 
             var datoStock = cn.CargarDatos($"SELECT Cantidad FROM `historialstock` WHERE IDProducto = {idprod} ORDER BY Fecha ASC LIMIT 1");
             if (!datoStock.Rows.Count.Equals(0))
