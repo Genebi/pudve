@@ -30,10 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfiguracionGeneral));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.numDiasCad = new System.Windows.Forms.NumericUpDown();
             this.cbWebReportesPeriodicos = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.chWebTotal = new System.Windows.Forms.CheckBox();
+            this.chbCaducidad = new System.Windows.Forms.CheckBox();
             this.pagWeb = new System.Windows.Forms.CheckBox();
             this.chWebCerrar = new System.Windows.Forms.CheckBox();
             this.CHKMostrarStock = new System.Windows.Forms.CheckBox();
@@ -54,15 +56,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtMinimoMayoreo = new System.Windows.Forms.TextBox();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numDiasCad)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox2.Controls.Add(this.numDiasCad);
             this.groupBox2.Controls.Add(this.cbWebReportesPeriodicos);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.linkLabel2);
             this.groupBox2.Controls.Add(this.chWebTotal);
+            this.groupBox2.Controls.Add(this.chbCaducidad);
             this.groupBox2.Controls.Add(this.pagWeb);
             this.groupBox2.Controls.Add(this.chWebCerrar);
             this.groupBox2.Controls.Add(this.CHKMostrarStock);
@@ -75,10 +80,24 @@
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(9, 18);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(648, 197);
+            this.groupBox2.Size = new System.Drawing.Size(648, 241);
             this.groupBox2.TabIndex = 130;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CONFIGURACION GENERAL";
+            // 
+            // numDiasCad
+            // 
+            this.numDiasCad.Enabled = false;
+            this.numDiasCad.Location = new System.Drawing.Point(224, 205);
+            this.numDiasCad.Maximum = new decimal(new int[] {
+            365,
+            0,
+            0,
+            0});
+            this.numDiasCad.Name = "numDiasCad";
+            this.numDiasCad.Size = new System.Drawing.Size(76, 23);
+            this.numDiasCad.TabIndex = 135;
+            this.numDiasCad.Visible = false;
             // 
             // cbWebReportesPeriodicos
             // 
@@ -128,6 +147,21 @@
             this.chWebTotal.Text = "Realizar respaldos totales (base entera)";
             this.chWebTotal.UseVisualStyleBackColor = true;
             this.chWebTotal.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chWebTotal_MouseClick);
+            // 
+            // chbCaducidad
+            // 
+            this.chbCaducidad.AutoSize = true;
+            this.chbCaducidad.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chbCaducidad.Location = new System.Drawing.Point(20, 207);
+            this.chbCaducidad.Name = "chbCaducidad";
+            this.chbCaducidad.Size = new System.Drawing.Size(593, 21);
+            this.chbCaducidad.TabIndex = 115;
+            this.chbCaducidad.Text = "Notificarme cuando falten                        días o menos para que caduque un" +
+    " producto";
+            this.chbCaducidad.UseVisualStyleBackColor = true;
+            this.chbCaducidad.Visible = false;
+            this.chbCaducidad.CheckedChanged += new System.EventHandler(this.chbCaducidad_CheckedChanged);
+            this.chbCaducidad.Click += new System.EventHandler(this.chbCaducidad_Click);
             // 
             // pagWeb
             // 
@@ -279,7 +313,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(274, 218);
+            this.btnAceptar.Location = new System.Drawing.Point(274, 276);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(117, 29);
             this.btnAceptar.TabIndex = 132;
@@ -384,7 +418,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(663, 253);
+            this.ClientSize = new System.Drawing.Size(663, 311);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.checkMayoreo);
             this.Controls.Add(this.label1);
@@ -409,6 +443,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConfiguracionGeneral_KeyDown);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numDiasCad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -441,5 +476,7 @@
         private System.Windows.Forms.CheckBox chWebCerrar;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox cbWebReportesPeriodicos;
+        private System.Windows.Forms.NumericUpDown numDiasCad;
+        private System.Windows.Forms.CheckBox chbCaducidad;
     }
 }

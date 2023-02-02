@@ -42,6 +42,11 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+
+            using (DataTable dt = cn.CargarDatos($"SELECT diasCaducidad FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                numericUpDown1.Value = Int32.Parse(dt.Rows[0][0].ToString());
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -79,10 +84,12 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    cn.EjecutarConsulta($"UPDATE subdetallesdeproducto SET Categoria = '{txtSubDetalle.Text}' esCaducidad = {caducidad} WHERE ID = {subdetalle}");
+                    cn.EjecutarConsulta($"UPDATE subdetallesdeproducto SET Categoria = '{txtSubDetalle.Text}', esCaducidad = {caducidad} WHERE ID = {subdetalle}");
                     subdetalle = txtSubDetalle.Text;
                     cambio = true;
                 }
+
+            cn.EjecutarConsulta($"UPDATE configuracion SET diasCaducidad = {numericUpDown1.Value} WHERE IDUsuario = {FormPrincipal.userID}");
             this.Close();
         }
 
@@ -116,6 +123,7 @@ namespace PuntoDeVentaV2
             if (chbCaducidad.Checked)
             {
                 caducidad = 1;
+                gbCad.Visible = true;
                 gbCad.Enabled = true;
             }
             else

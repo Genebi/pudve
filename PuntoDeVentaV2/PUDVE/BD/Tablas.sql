@@ -2160,7 +2160,7 @@ IF
 ALTER TABLE subdetallesdeproducto ADD COLUMN IF NOT EXISTS esCaducidad INT DEFAULT 0;
 
 -- Configuracion para aviso de caducidad
-ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS avisoCaducidad INT DEFAULT 0;
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS avisoCaducidad INT DEFAULT 1;
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS diasCaducidad INT DEFAULT 7;
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS correoCaducidad INT DEFAULT 1;
 
