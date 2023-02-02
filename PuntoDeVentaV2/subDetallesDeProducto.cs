@@ -272,7 +272,10 @@ namespace PuntoDeVentaV2
                     colDato = "Nombre";
                     break;
             }
-            dtDetallesSubdetalle.Rows.RemoveAt(0);
+            if (string.IsNullOrEmpty(dtDetallesSubdetalle.Rows[0]["ID"].ToString()))
+            {
+                dtDetallesSubdetalle.Rows.RemoveAt(0);
+            }
         }
 
         private void calcularRestante()

@@ -518,6 +518,18 @@
     <Compile Include="BusquedaRevisionInventario.Designer.cs">
       <DependentUpon>BusquedaRevisionInventario.cs</DependentUpon>
     </Compile>
+    <Compile Include="CaducidadReporte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CaducidadReporte.Designer.cs">
+      <DependentUpon>CaducidadReporte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Caducos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Caducos.Designer.cs">
+      <DependentUpon>Caducos.cs</DependentUpon>
+    </Compile>
     <Compile Include="CajaAbonos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1321,6 +1333,15 @@
       <DependentUpon>TicketAbrirCaja.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="ReportesImpresion\Ticket\Caducidad\productosCaducidad.cs">
+      <DependentUpon>productosCaducidad.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReportesImpresion\Ticket\Caducidad\productosCaducidad.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>productosCaducidad.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\CorteDeCaja\DSReporteCorteDeCaja.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1927,6 +1948,12 @@
     <EmbeddedResource Include="BusquedaRevisionInventario.resx">
       <DependentUpon>BusquedaRevisionInventario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CaducidadReporte.resx">
+      <DependentUpon>CaducidadReporte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Caducos.resx">
+      <DependentUpon>Caducos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CajaAbonos.resx">
       <DependentUpon>CajaAbonos.cs</DependentUpon>
     </EmbeddedResource>
@@ -2395,6 +2422,9 @@
     <Content Include="ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm3.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="ReportesImpresion\Ticket\Caducidad\ReporteCaducidad.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportesRetirosConceptosPorMes.resx">
       <DependentUpon>ReportesRetirosConceptosPorMes.cs</DependentUpon>
     </EmbeddedResource>
@@ -2595,6 +2625,20 @@
     </Content>
     <None Include="ReportesImpresion\Ticket\AbrirCaja\TicketAbrirCaja.xss">
       <DependentUpon>TicketAbrirCaja.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\Caducidad\productosCaducidad.xsc">
+      <DependentUpon>productosCaducidad.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\Caducidad\productosCaducidad.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>productosCaducidad.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\Caducidad\productosCaducidad.xss">
+      <DependentUpon>productosCaducidad.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportesImpresion\Ticket\CorteDeCaja\DSReporteCorteDeCaja.xsc">

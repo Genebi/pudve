@@ -494,15 +494,6 @@ namespace PuntoDeVentaV2
 
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
-
-            using (DataTable dt= cn.CargarDatos($"SELECT avisoCaducidad FROM configuracion WHERE IDUsuario ={IdUsuario}"))
-            {
-                if (!dt.Rows.Count.Equals(0))
-                {
-
-                }
-            }
-
             desdeCorteDeCaja = false;
             validacionDesdeCajaN = 0;
             
@@ -540,12 +531,15 @@ namespace PuntoDeVentaV2
 
             recargarDatos();
 
+
             TempUserID = TempIdUsuario;
             TempUserNickName = TempNickUsr;
             TempUserPass = TempPassUsr;
 
+            //Caducos caducos = new Caducos(userID, this, this.btnCad);
+            //caducos.ShowDialog();
+            bgwCaducos.RunWorkerAsync();
             ObtenerDatosUsuario(userID);
-
             var servidor = Properties.Settings.Default.Hosting;
 
             if (string.IsNullOrWhiteSpace(servidor))
@@ -1347,10 +1341,29 @@ namespace PuntoDeVentaV2
             
         }
 
-        private void revisorCaducos_Tick(object sender, EventArgs e)
-        {
 
+        private void btnCad_Click(object sender, EventArgs e)
+        {
+            FormCollection fc = Application.OpenForms;
+            CheckForIllegalCrossThreadCalls = false;
+            foreach (Form frm in fc)
+            {
+                if (frm.Name == "Caducos")
+                {
+                    frm.TopMost = true;
+                    frm.Opacity = 1;
+                    frm.TopMost = false;
+                    CheckForIllegalCrossThreadCalls = true;
+                }
+            }
         }
+
+        private void bgwCaducos_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Caducos caducos = new Caducos(userID, this, this.btnCad);
+            caducos.ShowDialog();
+        }
+
 
         public async Task bulkInsertAsync(string tablename)
         {

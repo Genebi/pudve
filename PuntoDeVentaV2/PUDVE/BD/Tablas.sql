@@ -2127,3 +2127,15 @@ ALTER TABLE subdetallesdeproducto ADD COLUMN IF NOT EXISTS esCaducidad INT DEFAU
 -- Configuracion para aviso de caducidad
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS avisoCaducidad INT DEFAULT 0;
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS diasCaducidad INT DEFAULT 7;
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS correoCaducidad INT DEFAULT 1;
+
+--Tabla para comprobar que se envia un unico correo al dia notificando el estado de caducidad de los productos.
+ CREATE TABLE
+IF
+	NOT EXISTS caducadoCorreos (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDUsuario INTEGER NOT NULL DEFAULT 0,
+		Fecha DATE,
+		Estado INTEGER DEFAULT 1,
+		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE
+	);
