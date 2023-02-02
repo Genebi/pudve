@@ -3914,7 +3914,10 @@ namespace PuntoDeVentaV2
                     cantidad = Convert.ToDecimal(item["CantidadRetirada"].ToString());
                 }
             }
-
+            var ListMoneda = FormPrincipal.Moneda.Split('(');
+            var moneda = ListMoneda[1].Replace(")", string.Empty);
+            var datos2 = lbTCredito.Text.Replace(Convert.ToChar(moneda), ' ');
+            cantidad = cantidad + Convert.ToDecimal(datos2);
             return cantidad;
         }
 
@@ -5856,7 +5859,7 @@ namespace PuntoDeVentaV2
             var conceptoTransferenciDeVentas = lbTTrans.Text;
             var conceptoCreditoDeVentas = lbTCredito.Text;
             var conceptoAbonosDeVentas = lbTCreditoC.Text;
-            var conceptoAnticiposUtilizados = lbTCreditoC.Text;
+            var conceptoAnticiposUtilizados = lbTAnticipos.Text;
             #endregion
 
             #region sección Anticipos Recibidos
@@ -5893,8 +5896,12 @@ namespace PuntoDeVentaV2
             var conceptoSaldoInicialDeTotalCaja = lbTSaldoInicial.Text;
             #endregion
 
+            var ListMoneda = FormPrincipal.Moneda.Split('(');
+            var moneda = ListMoneda[1].Replace(")", string.Empty);
             #region Sección Monto Antes del Corte
-            var conceptoCantidadEnCajaAntesDelCorte = Convert.ToString(Convert.ToDecimal(lbTTotalCaja.Text.ToString().Replace("$", string.Empty)));
+            var datos1 = Convert.ToString(Convert.ToDecimal(lbTTotalCaja.Text.ToString().Replace("$", string.Empty)));
+            var datos2 = conceptoCreditoDeVentas.Replace(Convert.ToChar(moneda),' ');
+            var conceptoCantidadEnCajaAntesDelCorte = (Convert.ToDecimal(datos1) + Convert.ToDecimal(datos2)).ToString();
             #endregion
 
             #region Sección Cantidad Retirada en el Corte

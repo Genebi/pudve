@@ -1476,12 +1476,6 @@
                       <FontSize>7pt</FontSize>
                     </Style>
                   </TextRun>
-                  <TextRun>
-                    <Value>=Parameters!conceptoEfectivoDeDineroAgregado.Value</Value>
-                    <Style>
-                      <FontSize>7pt</FontSize>
-                    </Style>
-                  </TextRun>
                 </TextRuns>
                 <Style>
                   <TextAlign>Right</TextAlign>
@@ -1904,12 +1898,6 @@
                       <FontSize>7pt</FontSize>
                     </Style>
                   </TextRun>
-                  <TextRun>
-                    <Value>=Parameters!conceptoEfectivoDeDineroAgregado.Value</Value>
-                    <Style>
-                      <FontSize>7pt</FontSize>
-                    </Style>
-                  </TextRun>
                 </TextRuns>
                 <Style>
                   <TextAlign>Right</TextAlign>
@@ -2188,8 +2176,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>18.19218cm</Top>
-            <Left>0.07422cm</Left>
+            <Top>18.55746cm</Top>
+            <Left>0.07897cm</Left>
             <Height>0.7cm</Height>
             <Width>3.831cm</Width>
             <ZIndex>71</ZIndex>
@@ -2219,8 +2207,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>18.19218cm</Top>
-            <Left>3.97578cm</Left>
+            <Top>18.55746cm</Top>
+            <Left>3.95747cm</Left>
             <Height>0.7cm</Height>
             <Width>3.889cm</Width>
             <ZIndex>72</ZIndex>
@@ -2309,7 +2297,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>17.4969cm</Top>
+            <Top>17.86218cm</Top>
             <Left>0.07422cm</Left>
             <Height>0.33cm</Height>
             <Width>3.831cm</Width>
@@ -2339,8 +2327,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>17.4969cm</Top>
-            <Left>3.95747cm</Left>
+            <Top>17.86218cm</Top>
+            <Left>3.93372cm</Left>
             <Height>0.33cm</Height>
             <Width>3.889cm</Width>
             <ZIndex>76</ZIndex>
@@ -2369,8 +2357,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>17.86218cm</Top>
-            <Left>0.07422cm</Left>
+            <Top>18.22746cm</Top>
+            <Left>0.10475cm</Left>
             <Height>0.33cm</Height>
             <Width>3.831cm</Width>
             <ZIndex>77</ZIndex>
@@ -2399,8 +2387,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>Textbox2</rd:DefaultName>
-            <Top>17.86218cm</Top>
-            <Left>3.95747cm</Left>
+            <Top>18.22746cm</Top>
+            <Left>3.93372cm</Left>
             <Height>0.33cm</Height>
             <Width>3.889cm</Width>
             <ZIndex>78</ZIndex>
@@ -2575,8 +2563,68 @@
               </Border>
             </Style>
           </Textbox>
+          <Textbox Name="Textbox80">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Total Credito:</Value>
+                    <Style>
+                      <FontSize>7pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox2</rd:DefaultName>
+            <Top>17.4969cm</Top>
+            <Left>0.081cm</Left>
+            <Height>0.33cm</Height>
+            <Width>3.831cm</Width>
+            <ZIndex>84</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox81">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!conceptoCreditoDeVentas.Value</Value>
+                    <Style>
+                      <FontSize>7pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox2</rd:DefaultName>
+            <Top>17.4969cm</Top>
+            <Left>3.93372cm</Left>
+            <Height>0.33cm</Height>
+            <Width>3.889cm</Width>
+            <ZIndex>85</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>19.12072cm</Height>
+        <Height>20.75848cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
