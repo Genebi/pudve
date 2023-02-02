@@ -271,21 +271,22 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (!txtCantidadCompra.Text.All(char.IsDigit) && !string.IsNullOrEmpty(txtCantidadCompra.Text))
+            decimal parser;
+            if (!decimal.TryParse(txtCantidadCompra.Text,out parser) && !string.IsNullOrEmpty(txtCantidadCompra.Text))
             {
                 MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtCantidadCompra.Clear();
                 txtCantidadCompra.Focus();
                 return;
             }
-            if (!txtPrecioCompra.Text.All(char.IsDigit) && !string.IsNullOrEmpty(txtPrecioCompra.Text))
-                        {
-                            MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            if (!decimal.TryParse(txtPrecioCompra.Text, out parser) && !string.IsNullOrEmpty(txtPrecioCompra.Text))
+            {
+                MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtPrecioCompra.Clear();
                 txtPrecioCompra.Focus();
-                            return; 
+                return;
             }
-        if (!txtDisminuir.Text.All(char.IsDigit) && !string.IsNullOrEmpty(txtDisminuir.Text))
+            if (!decimal.TryParse(txtDisminuir.Text, out parser) && !string.IsNullOrEmpty(txtDisminuir.Text))
                     {
                         MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtDisminuir.Clear();
