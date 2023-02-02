@@ -679,6 +679,14 @@ namespace PuntoDeVentaV2
             {
                 actualizarCaja.Enabled = true;
             }
+
+            using (var dtTickets = cn.CargarDatos($"SELECT * FROM configuraciondetickets WHERE IDUsuario = {IdUsuario}"))
+            {
+                if (dtTickets.Rows.Count.Equals(0))
+                {
+                    cn.EjecutarConsulta($"INSERT INTO configuraciondetickets(IDUsuario)VALUES({IdUsuario})");
+                }
+            }
         }
 
         private void EnvioCorreoLicenciaActiva()
