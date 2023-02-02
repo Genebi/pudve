@@ -402,7 +402,7 @@ namespace PuntoDeVentaV2
 
             linkLblPaginaActual.Text = p.numPag().ToString();
             linkLblPaginaActual.LinkColor = System.Drawing.Color.White;
-            linkLblPaginaActual.BackColor = System.Drawing.Color.Black;
+            linkLblPaginaActual.BackColor = System.Drawing.Color.Black;            
 
             BeforePage = p.numPag() - 1;
             AfterPage = p.numPag() + 1;
@@ -436,6 +436,39 @@ namespace PuntoDeVentaV2
                     linkLblPaginaSiguiente.Text = AfterPage.ToString();
                     linkLblPaginaSiguiente.Visible = false;
                 }
+            }
+
+            if (Convert.ToInt32(linkLblPaginaActual.Text) >= 2)
+            {
+                linkLblPaginaAnterior.Text = BeforePage.ToString();
+                linkLblPaginaAnterior.Visible = true;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                }
+            }
+            if (Convert.ToInt32(linkLblPaginaActual.Text) > 2)
+            {
+                linkFirst.Visible = true;
+            }
+            else
+            {
+                linkFirst.Visible = false;
+            }
+            if (Convert.ToInt32(linkLblPaginaActual.Text) < LastPage-1)
+            {
+                linkLast.Text = $"...{p.countPag().ToString()}";
+                linkLast.Visible = true;
+            }
+            else
+            {
+                linkLast.Visible = false;
             }
         }
 
