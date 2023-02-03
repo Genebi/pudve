@@ -881,7 +881,7 @@ namespace PuntoDeVentaV2
             Dictionary<string, string> tipoUsuario = new Dictionary<string, string>();
             tipoUsuario.Add("Admin", $"{FormPrincipal.userNickName} (ADMIN)");
 
-            using (DataTable dtEmpleados = cn.CargarDatos(cs.obtenerEmpleados(FormPrincipal.userID)))
+            using (DataTable dtEmpleados = cn.CargarDatos(cs.obtenerEmpleadosB(FormPrincipal.userID)))
             {
                 if (!dtEmpleados.Rows.Count.Equals(0))
                 {
