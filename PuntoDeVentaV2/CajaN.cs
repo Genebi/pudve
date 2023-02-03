@@ -285,6 +285,21 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo1_Click(object sender, EventArgs e)
         {
+            using (DataTable dt = cn.CargarDatos($"SELECT Opcion2 FROM empleadospermisos WHERE IdEmpleado = {FormPrincipal.id_empleado} AND Seccion = 'caja'"))
+            {
+                if (FormPrincipal.userNickName.Contains("@"))
+                {
+                    if (!dt.Rows.Equals(0))
+                    {
+                        if (dt.Rows[0][0].ToString().Equals("0"))
+                        {
+                            Utilidades.MensajePermiso();
+                            return;
+                        }
+                    }
+                }
+            }
+
             string todos = string.Empty;
             detalleAbonoRetiro = "abono";
             if (!FormPrincipal.userNickName.Contains("@"))
@@ -332,6 +347,20 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo2_Click(object sender, EventArgs e)
         {
+            using (DataTable dt = cn.CargarDatos($"SELECT Opcion4 FROM empleadospermisos WHERE IdEmpleado = {FormPrincipal.id_empleado} AND Seccion = 'caja'"))
+            {
+                if (FormPrincipal.userNickName.Contains("@"))
+                {
+                    if (!dt.Rows.Equals(0))
+                    {
+                        if (dt.Rows[0][0].ToString().Equals("0"))
+                        {
+                            Utilidades.MensajePermiso();
+                            return;
+                        }
+                    }
+                }
+            }
             string todos = string.Empty;
             if (!FormPrincipal.userNickName.Contains("@"))
             {
