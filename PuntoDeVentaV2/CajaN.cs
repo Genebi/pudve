@@ -215,6 +215,8 @@ namespace PuntoDeVentaV2
                 cantidadTransferenciaRetirado = 0,
                 cantidadTotalDineroRetirado = 0;
 
+        public static bool CancelaVenta = false;
+
         private void botonRedondo3_Click(object sender, EventArgs e)
         {
             opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
@@ -396,6 +398,10 @@ namespace PuntoDeVentaV2
 
         private void CajaN_Load(object sender, EventArgs e)
         {
+            if (CancelaVenta.Equals(true))
+            {
+                this.Opacity = 0;
+            }
             cbFiltroAdminEmpleado.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             recargarDatos = true;
             verificarSiExisteCorteDeCaja();
@@ -448,6 +454,11 @@ namespace PuntoDeVentaV2
                 };
 
                 retirar.ShowDialog();
+            }
+            if (CancelaVenta.Equals(true))
+            {
+                CancelaVenta = false;
+                this.Close();
             }
         }
 
@@ -540,6 +551,11 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta($"INSERT INTO historialcortesdecaja ( IDCorteDeCaja, IDUsuario, IDEmpleado, FechaOperacion, SaldoInicialEfectivo, SaldoInicialTarjeta, SaldoInicialVales, SaldoInicialCheque, SaldoInicialTransferencia, SaldoInicialCredito, SaldoInicialAnticipo, CantidadRetiradaDelCorte,PrimerCorte ) VALUES ( '{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}',0)");
                     }
                 }
+            }
+            if (CancelaVenta.Equals(true))
+            {
+                CancelaVenta = false;
+                this.Close();
             }
         }
 
@@ -882,7 +898,6 @@ namespace PuntoDeVentaV2
             cbFiltroAdminEmpleado.DataSource = tipoUsuario.ToArray();
             cbFiltroAdminEmpleado.DisplayMember = "Value";
             cbFiltroAdminEmpleado.ValueMember = "Key";
-
             cbFiltroAdminEmpleado.SelectedIndex = 0;
         }
 
@@ -2101,6 +2116,8 @@ namespace PuntoDeVentaV2
 
             var cantidadAgregadaSaldoInicial = cn.CargarDatos(cs.dineroAgregadoSaldoInicial(FormPrincipal.userID, FormPrincipal.id_empleado, ultimoCorteDeCaja));
             lblTotalAgregado.Text = cantidadAgregadaSaldoInicial.Rows[0]["Total agregado"].ToString();
+
+       
         }
 
         private void CajaN_Resize(object sender, EventArgs e)
@@ -3943,10 +3960,6 @@ namespace PuntoDeVentaV2
                     cantidad = Convert.ToDecimal(item["CantidadRetirada"].ToString());
                 }
             }
-            var ListMoneda = FormPrincipal.Moneda.Split('(');
-            var moneda = ListMoneda[1].Replace(")", string.Empty);
-            var datos2 = lbTCredito.Text.Replace(Convert.ToChar(moneda), ' ');
-            cantidad = cantidad + Convert.ToDecimal(datos2);
             return cantidad;
         }
 

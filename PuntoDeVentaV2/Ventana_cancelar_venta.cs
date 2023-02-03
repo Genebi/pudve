@@ -127,13 +127,53 @@ namespace PuntoDeVentaV2
                                             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                                             var concepto = $"DEVOLUCION DINERO VENTA CANCELADA ID {idVenta}";
 
-                                            if (CajaN.cantidadTotalEfectivoSaldoInicial >= Convert.ToDecimal(total))
+                                            using (var DtTotal = cn.CargarDatos($"SELECT Total, Status FROM Ventas WHERE IDusuario = '{FormPrincipal.userID}' AND ID = '{idVenta}'"))
                                             {
-                                                //    string[] datos = new string[] {
-                                                //    "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
-                                                //    efectivo, tarjeta, vales, cheque, transferencia, credito, anticipo
-                                                //};
-                                                string[] datos = new string[]
+                                                var fecha = cn.CargarDatos(cs.ultimaFechaDeCorte());
+                                                var fechaDelCorte = Convert.ToDateTime(fecha.Rows[0]["FechaOperacion"]).ToString("yyyy/MM/dd HH:mm:ss");
+                                                var TotalEfectivoEnCaja = cn.CargarDatos(cs.TotalAgregadoEfectivoACaja(fechaDelCorte));
+                                                var TotalEfectivoRetirado = cn.CargarDatos(cs.TotalRetiradoEfectivoDeCaja(fechaDelCorte));
+                                                var totalAbonosEnCaja = cn.CargarDatos(cs.AbonosDespuesDelCorte(fechaDelCorte, idVenta));
+
+                                                decimal abonosEnCaja = Convert.ToDecimal(totalAbonosEnCaja.Rows[0]["AbonosDespuesDelCorte"].ToString());
+                                                decimal abonosEfectivoEnCaja = 0;
+                                                if (string.IsNullOrWhiteSpace(totalAbonosEnCaja.Rows[0]["Efectivo"].ToString()))
+                                                {
+                                                    abonosEfectivoEnCaja = 0;
+                                                }
+                                                else
+                                                {
+                                                    abonosEfectivoEnCaja = Convert.ToDecimal(totalAbonosEnCaja.Rows[0]["Efectivo"]);
+                                                }
+                                                decimal totalEfectivonCaja = Convert.ToDecimal(TotalEfectivoEnCaja.Rows[0]["Efectivo"].ToString());
+                                                decimal RetiradoEfectivoCaja = Convert.ToDecimal(TotalEfectivoRetirado.Rows[0]["Efectivo"].ToString());
+                                                decimal totalActualEfectivoEnCaja = (totalEfectivonCaja + abonosEnCaja) - RetiradoEfectivoCaja;
+                                                decimal Dinero = Convert.ToDecimal(DtTotal.Rows[0]["Total"]);
+                                                var tipoDeVenta = DtTotal.Rows[0]["Status"].ToString();
+
+                                                if (tipoDeVenta == "4")
+                                                {
+                                                    if (abonosEnCaja > totalEfectivonCaja + abonosEfectivoEnCaja)
+                                                    {
+                                                        MessageBox.Show("No se cuenta con suficiente Efectivo en caja", "Avido del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                        return;
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (Dinero > totalActualEfectivoEnCaja)
+                                                    {
+                                                        MessageBox.Show("No se cuenta con suficiente Efectivo en caja", "Avido del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                        return;
+                                                    }
+                                                }
+                                            }
+
+                                            //    string[] datos = new string[] {
+                                            //    "retiro", total, "0", concepto, fechaOperacion, FormPrincipal.userID.ToString(),
+                                            //    efectivo, tarjeta, vales, cheque, transferencia, credito, anticipo
+                                            //};
+                                            string[] datos = new string[]
                                                 {
                                                     id.ToString(), FormPrincipal.userID.ToString(), total, efectivo, tarjeta,
                                                     vales, cheque, transferencia, concepto, fechaOperacion
@@ -143,12 +183,7 @@ namespace PuntoDeVentaV2
                                                 //Yo le movi aqui ATTE: El destroyer xD
                                                 cn.EjecutarConsulta($"INSERT INTO caja ( Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IDEmpleado, NumFolio, CantidadRetiradaCorte )VALUES( 'retiro', '{total}', '0.00', '{concepto}', '{fechaOperacion}', '{FormPrincipal.userID}', '{efectivo}', '{tarjeta}', '{vales}', '{cheque}', '{transferencia}', '{credito}', '{anticipo}', '{FormPrincipal.id_empleado}', '{folio}', '0.00' )");
                                                 //cn.EjecutarConsulta(cs.OperacionCaja(datos));
-                                            }
-                                            else
-                                            {
-                                                MessageBox.Show("No se cuenta con el suficiente saldo para cancelar la venta.");
-                                                return;
-                                            }
+                                          
 
 
                                         }
