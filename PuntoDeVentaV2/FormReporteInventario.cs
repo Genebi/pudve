@@ -304,7 +304,7 @@ namespace PuntoDeVentaV2
                     string columna = item.ToString();
                     if (columna.Equals("No"))
                     {
-                        datoscompletos += contadorproducos.ToString() + ",";
+                        datoscompletos += contadorproducos.ToString() + "ඞ";
                         contadorproducos++;
                     }
                     if (columna.Equals("Producto"))
@@ -312,12 +312,12 @@ namespace PuntoDeVentaV2
                         if (Inventario.listaConceptosSeleccionados.Contains("Producto"))
                         {
                             producto = DTConssulta.Rows[contadorRows]["Producto"].ToString();
-                            datoscompletos += producto + ",";
+                            datoscompletos += producto + "ඞ";
                         }
                         else
                         {
                             producto = "";
-                            datoscompletos += producto + ",";
+                            datoscompletos += producto + "ඞ";
                         }
 
                     }
@@ -334,13 +334,13 @@ namespace PuntoDeVentaV2
                                 proveedor = "---";
                             }
                             
-                            datoscompletos += proveedor + ",";
+                            datoscompletos += proveedor + "ඞ";
 
                         }
                         else
                         {
                             proveedor = "";
-                            datoscompletos += proveedor + ",";
+                            datoscompletos += proveedor + "ඞ";
                         }
 
                     }
@@ -353,12 +353,12 @@ namespace PuntoDeVentaV2
                             {
                                 unidadesCompradas = "0";
                             }
-                            datoscompletos += unidadesCompradas + ",";
+                            datoscompletos += unidadesCompradas + "ඞ";
                         }
                         else
                         {
                             unidadesCompradas = "";
-                            datoscompletos += unidadesCompradas + ",";
+                            datoscompletos += unidadesCompradas + "ඞ";
                         }
 
                     }
@@ -367,12 +367,12 @@ namespace PuntoDeVentaV2
                         if (Inventario.listaConceptosSeleccionados.Contains("Precio Compra"))
                         {
                             PrecioCompra = Inventario.DTDatos.Rows[RowsDatosInventario]["Precio_Compra"].ToString();
-                            datoscompletos += PrecioCompra + ",";
+                            datoscompletos += PrecioCompra + "ඞ";
                         }
                         else
                         {
                             PrecioCompra = "";
-                            datoscompletos += PrecioCompra + ",";
+                            datoscompletos += PrecioCompra + "ඞ";
                         }
 
                     }
@@ -391,12 +391,12 @@ namespace PuntoDeVentaV2
 
                             var operacion = Convert.ToDecimal(unidadesCompradas) * Convert.ToDecimal(PrecioCompra);
                             TotalComprado = operacion.ToString();
-                            datoscompletos += TotalComprado + ",";
+                            datoscompletos += TotalComprado + "ඞ";
                         }
                         else
                         {
                             TotalComprado = "";
-                            datoscompletos += TotalComprado + ",";
+                            datoscompletos += TotalComprado + "ඞ";
                         }
 
                     }
@@ -405,12 +405,12 @@ namespace PuntoDeVentaV2
                         if (Inventario.listaConceptosSeleccionados.Contains("Precio Venta"))
                         {
                             PrecioVenta = DTConssulta.Rows[contadorRows]["Precio Venta"].ToString();
-                            datoscompletos += PrecioVenta + ",";
+                            datoscompletos += PrecioVenta + "ඞ";
                         }
                         else
                         {
                             PrecioVenta = "";
-                            datoscompletos += PrecioVenta + ",";
+                            datoscompletos += PrecioVenta + "ඞ";
                         }
 
                     }
@@ -419,12 +419,12 @@ namespace PuntoDeVentaV2
                         if (Inventario.listaConceptosSeleccionados.Contains("Stock Anterior"))
                         {
                             StockAnterior = DTConssulta.Rows[contadorRows]["Stock Anterior"].ToString();
-                            datoscompletos += StockAnterior + ",";
+                            datoscompletos += StockAnterior + "ඞ";
                         }
                         else
                         {
                             StockAnterior = "";
-                            datoscompletos += StockAnterior + ",";
+                            datoscompletos += StockAnterior + "ඞ";
                         }
 
                     }
@@ -451,12 +451,12 @@ namespace PuntoDeVentaV2
                             }
                             
                             StockNuevo = nuevo.ToString();
-                            datoscompletos += StockNuevo + ",";
+                            datoscompletos += StockNuevo + "ඞ";
                         }
                         else
                         {
                             StockNuevo = "";
-                            datoscompletos += StockNuevo + ",";
+                            datoscompletos += StockNuevo + "ඞ";
                         }
 
                     }
@@ -466,12 +466,12 @@ namespace PuntoDeVentaV2
                         {
                             DateTime hoy = DateTime.Now;
                             fechOperacion = hoy.ToString("dd-MM-yyyy HH:mm");
-                            datoscompletos += fechOperacion + ",";
+                            datoscompletos += fechOperacion + "ඞ";
                         }
                         else
                         {
                             fechOperacion = "";
-                            datoscompletos += fechOperacion + ",";
+                            datoscompletos += fechOperacion + "ඞ";
                         }
 
                     }
@@ -484,12 +484,12 @@ namespace PuntoDeVentaV2
                             {
                                 comentarios = "---";
                             }
-                            datoscompletos += comentarios + ",";
+                            datoscompletos += comentarios + "ඞ";
                         }
                         else
                         {
                             comentarios = "";
-                            datoscompletos += comentarios + ",";
+                            datoscompletos += comentarios + "ඞ";
                         }
 
                     }
@@ -505,7 +505,7 @@ namespace PuntoDeVentaV2
                         {
                             ubicacion = "S/A";
                         }
-                        datoscompletos += ubicacion + ",";
+                        datoscompletos += ubicacion + "ඞ";
                     }
                     if (columna.Equals("Color"))
                     {
@@ -519,13 +519,13 @@ namespace PuntoDeVentaV2
                         {
                             color = "S/A";
                         }
-                        datoscompletos += color + ",";
+                        datoscompletos += color + "ඞ";
                     }
 
                 }
                 contadorRows++;
-                datoscompletos = datoscompletos.TrimEnd(',');
-                var jaja = datoscompletos.Split(',');
+                datoscompletos = datoscompletos.TrimEnd('ඞ');
+                var jaja = datoscompletos.Split('ඞ');
                 int contadorDatos = 0;
                 DTFinal.Rows.Add();
                 foreach (var item in DTFinal.Columns)
