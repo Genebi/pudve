@@ -74,14 +74,14 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ticketDineroAgregado1 = new PuntoDeVentaV2.ReportesImpresion.Ticket.DineroAgregado.TicketDineroAgregado();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
-            this.botonRedondo5 = new PuntoDeVentaV2.BotonRedondo();
-            this.botonRedondo4 = new PuntoDeVentaV2.BotonRedondo();
-            this.btnConfiguracionGeneral = new PuntoDeVentaV2.BotonRedondo();
-            this.btnEnvioCorreo = new PuntoDeVentaV2.BotonRedondo();
-            this.botonRedondo2 = new PuntoDeVentaV2.BotonRedondo();
-            this.btnRespaldarInformacion = new PuntoDeVentaV2.BotonRedondo();
             this.btnCredito = new PuntoDeVentaV2.BotonRedondo();
+            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
+            this.botonRedondo2 = new PuntoDeVentaV2.BotonRedondo();
+            this.btnEnvioCorreo = new PuntoDeVentaV2.BotonRedondo();
+            this.btnConfiguracionGeneral = new PuntoDeVentaV2.BotonRedondo();
+            this.botonRedondo4 = new PuntoDeVentaV2.BotonRedondo();
+            this.botonRedondo5 = new PuntoDeVentaV2.BotonRedondo();
+            this.btnRespaldarInformacion = new PuntoDeVentaV2.BotonRedondo();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ticketDineroAgregado1)).BeginInit();
@@ -892,6 +892,35 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(953, 207);
             this.tableLayoutPanel1.TabIndex = 138;
             // 
+            // btnCredito
+            // 
+            this.btnCredito.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCredito.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnCredito.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnCredito.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnCredito.BorderRadius = 40;
+            this.btnCredito.BorderSize = 0;
+            this.btnCredito.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCredito.FlatAppearance.BorderSize = 0;
+            this.btnCredito.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.btnCredito.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.btnCredito.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCredito.ForeColor = System.Drawing.Color.White;
+            this.btnCredito.Image = global::PuntoDeVentaV2.Properties.Resources.cash_register;
+            this.btnCredito.Location = new System.Drawing.Point(3, 106);
+            this.btnCredito.Name = "btnCredito";
+            this.btnCredito.Size = new System.Drawing.Size(152, 98);
+            this.btnCredito.TabIndex = 133;
+            this.btnCredito.Text = "Crédito";
+            this.btnCredito.TextColor = System.Drawing.Color.White;
+            this.btnCredito.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnCredito.UseMnemonic = false;
+            this.btnCredito.UseVisualStyleBackColor = false;
+            this.btnCredito.Visible = false;
+            this.btnCredito.Click += new System.EventHandler(this.btnCredito_Click);
+            // 
             // botonRedondo1
             // 
             this.botonRedondo1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -921,80 +950,33 @@
             this.botonRedondo1.Visible = false;
             this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click);
             // 
-            // botonRedondo5
+            // botonRedondo2
             // 
-            this.botonRedondo5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.botonRedondo2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.botonRedondo5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.botonRedondo5.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.botonRedondo5.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.botonRedondo5.BorderRadius = 40;
-            this.botonRedondo5.BorderSize = 0;
-            this.botonRedondo5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.botonRedondo5.FlatAppearance.BorderSize = 0;
-            this.botonRedondo5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.botonRedondo5.ForeColor = System.Drawing.Color.White;
-            this.botonRedondo5.Image = global::PuntoDeVentaV2.Properties.Resources.money_dollar;
-            this.botonRedondo5.Location = new System.Drawing.Point(635, 3);
-            this.botonRedondo5.Name = "botonRedondo5";
-            this.botonRedondo5.Size = new System.Drawing.Size(152, 97);
-            this.botonRedondo5.TabIndex = 127;
-            this.botonRedondo5.Text = "Tipo de moneda ($)";
-            this.botonRedondo5.TextColor = System.Drawing.Color.White;
-            this.botonRedondo5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.botonRedondo5.UseVisualStyleBackColor = false;
-            this.botonRedondo5.Click += new System.EventHandler(this.botonRedondo5_Click);
-            // 
-            // botonRedondo4
-            // 
-            this.botonRedondo4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.botonRedondo4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.botonRedondo4.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.botonRedondo4.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.botonRedondo4.BorderRadius = 40;
-            this.botonRedondo4.BorderSize = 0;
-            this.botonRedondo4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.botonRedondo4.FlatAppearance.BorderSize = 0;
-            this.botonRedondo4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.botonRedondo4.ForeColor = System.Drawing.Color.White;
-            this.botonRedondo4.Image = global::PuntoDeVentaV2.Properties.Resources.finance;
-            this.botonRedondo4.Location = new System.Drawing.Point(477, 3);
-            this.botonRedondo4.Name = "botonRedondo4";
-            this.botonRedondo4.Size = new System.Drawing.Size(152, 97);
-            this.botonRedondo4.TabIndex = 136;
-            this.botonRedondo4.Text = "Porcentaje % de ganancia";
-            this.botonRedondo4.TextColor = System.Drawing.Color.White;
-            this.botonRedondo4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.botonRedondo4.UseVisualStyleBackColor = false;
-            this.botonRedondo4.Click += new System.EventHandler(this.botonRedondo4_Click);
-            // 
-            // btnConfiguracionGeneral
-            // 
-            this.btnConfiguracionGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnConfiguracionGeneral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btnConfiguracionGeneral.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btnConfiguracionGeneral.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnConfiguracionGeneral.BorderRadius = 40;
-            this.btnConfiguracionGeneral.BorderSize = 0;
-            this.btnConfiguracionGeneral.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConfiguracionGeneral.FlatAppearance.BorderSize = 0;
-            this.btnConfiguracionGeneral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConfiguracionGeneral.ForeColor = System.Drawing.Color.White;
-            this.btnConfiguracionGeneral.Image = global::PuntoDeVentaV2.Properties.Resources.gear_in;
-            this.btnConfiguracionGeneral.Location = new System.Drawing.Point(319, 3);
-            this.btnConfiguracionGeneral.Name = "btnConfiguracionGeneral";
-            this.btnConfiguracionGeneral.Size = new System.Drawing.Size(152, 97);
-            this.btnConfiguracionGeneral.TabIndex = 135;
-            this.btnConfiguracionGeneral.Text = "Configuracion general";
-            this.btnConfiguracionGeneral.TextColor = System.Drawing.Color.White;
-            this.btnConfiguracionGeneral.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnConfiguracionGeneral.UseVisualStyleBackColor = false;
-            this.btnConfiguracionGeneral.Click += new System.EventHandler(this.btnConfiguracionGeneral_Click);
+            this.botonRedondo2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.botonRedondo2.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.botonRedondo2.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo2.BorderRadius = 40;
+            this.botonRedondo2.BorderSize = 0;
+            this.botonRedondo2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.botonRedondo2.FlatAppearance.BorderSize = 0;
+            this.botonRedondo2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.botonRedondo2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
+            this.botonRedondo2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo2.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo2.Image = global::PuntoDeVentaV2.Properties.Resources.cinema_ticket;
+            this.botonRedondo2.Location = new System.Drawing.Point(3, 3);
+            this.botonRedondo2.Name = "botonRedondo2";
+            this.botonRedondo2.Size = new System.Drawing.Size(152, 97);
+            this.botonRedondo2.TabIndex = 137;
+            this.botonRedondo2.Text = "Configuracion de Tickets";
+            this.botonRedondo2.TextColor = System.Drawing.Color.White;
+            this.botonRedondo2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo2.UseMnemonic = false;
+            this.botonRedondo2.UseVisualStyleBackColor = false;
+            this.botonRedondo2.Click += new System.EventHandler(this.botonRedondo2_Click);
             // 
             // btnEnvioCorreo
             // 
@@ -1021,33 +1003,80 @@
             this.btnEnvioCorreo.UseVisualStyleBackColor = false;
             this.btnEnvioCorreo.Click += new System.EventHandler(this.btnEnvioCorreo_Click);
             // 
-            // botonRedondo2
+            // btnConfiguracionGeneral
             // 
-            this.botonRedondo2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.btnConfiguracionGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.botonRedondo2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.botonRedondo2.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.botonRedondo2.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.botonRedondo2.BorderRadius = 40;
-            this.botonRedondo2.BorderSize = 0;
-            this.botonRedondo2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.botonRedondo2.FlatAppearance.BorderSize = 0;
-            this.botonRedondo2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.botonRedondo2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.botonRedondo2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.botonRedondo2.ForeColor = System.Drawing.Color.White;
-            this.botonRedondo2.Image = ((System.Drawing.Image)(resources.GetObject("botonRedondo2.Image")));
-            this.botonRedondo2.Location = new System.Drawing.Point(3, 3);
-            this.botonRedondo2.Name = "botonRedondo2";
-            this.botonRedondo2.Size = new System.Drawing.Size(152, 97);
-            this.botonRedondo2.TabIndex = 137;
-            this.botonRedondo2.Text = "Configuracion de Tickets";
-            this.botonRedondo2.TextColor = System.Drawing.Color.White;
-            this.botonRedondo2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.botonRedondo2.UseMnemonic = false;
-            this.botonRedondo2.UseVisualStyleBackColor = false;
-            this.botonRedondo2.Click += new System.EventHandler(this.botonRedondo2_Click);
+            this.btnConfiguracionGeneral.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnConfiguracionGeneral.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnConfiguracionGeneral.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnConfiguracionGeneral.BorderRadius = 40;
+            this.btnConfiguracionGeneral.BorderSize = 0;
+            this.btnConfiguracionGeneral.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConfiguracionGeneral.FlatAppearance.BorderSize = 0;
+            this.btnConfiguracionGeneral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConfiguracionGeneral.ForeColor = System.Drawing.Color.White;
+            this.btnConfiguracionGeneral.Image = global::PuntoDeVentaV2.Properties.Resources.gear_in;
+            this.btnConfiguracionGeneral.Location = new System.Drawing.Point(319, 3);
+            this.btnConfiguracionGeneral.Name = "btnConfiguracionGeneral";
+            this.btnConfiguracionGeneral.Size = new System.Drawing.Size(152, 97);
+            this.btnConfiguracionGeneral.TabIndex = 135;
+            this.btnConfiguracionGeneral.Text = "Configuracion general";
+            this.btnConfiguracionGeneral.TextColor = System.Drawing.Color.White;
+            this.btnConfiguracionGeneral.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnConfiguracionGeneral.UseVisualStyleBackColor = false;
+            this.btnConfiguracionGeneral.Click += new System.EventHandler(this.btnConfiguracionGeneral_Click);
+            // 
+            // botonRedondo4
+            // 
+            this.botonRedondo4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.botonRedondo4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.botonRedondo4.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.botonRedondo4.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo4.BorderRadius = 40;
+            this.botonRedondo4.BorderSize = 0;
+            this.botonRedondo4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.botonRedondo4.FlatAppearance.BorderSize = 0;
+            this.botonRedondo4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo4.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo4.Image = global::PuntoDeVentaV2.Properties.Resources.finance;
+            this.botonRedondo4.Location = new System.Drawing.Point(477, 3);
+            this.botonRedondo4.Name = "botonRedondo4";
+            this.botonRedondo4.Size = new System.Drawing.Size(152, 97);
+            this.botonRedondo4.TabIndex = 136;
+            this.botonRedondo4.Text = "Porcentaje % de ganancia";
+            this.botonRedondo4.TextColor = System.Drawing.Color.White;
+            this.botonRedondo4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo4.UseVisualStyleBackColor = false;
+            this.botonRedondo4.Click += new System.EventHandler(this.botonRedondo4_Click);
+            // 
+            // botonRedondo5
+            // 
+            this.botonRedondo5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.botonRedondo5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.botonRedondo5.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.botonRedondo5.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.botonRedondo5.BorderRadius = 40;
+            this.botonRedondo5.BorderSize = 0;
+            this.botonRedondo5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.botonRedondo5.FlatAppearance.BorderSize = 0;
+            this.botonRedondo5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo5.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo5.Image = global::PuntoDeVentaV2.Properties.Resources.money_dollar;
+            this.botonRedondo5.Location = new System.Drawing.Point(635, 3);
+            this.botonRedondo5.Name = "botonRedondo5";
+            this.botonRedondo5.Size = new System.Drawing.Size(152, 97);
+            this.botonRedondo5.TabIndex = 127;
+            this.botonRedondo5.Text = "Tipo de moneda ($)";
+            this.botonRedondo5.TextColor = System.Drawing.Color.White;
+            this.botonRedondo5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo5.UseVisualStyleBackColor = false;
+            this.botonRedondo5.Click += new System.EventHandler(this.botonRedondo5_Click);
             // 
             // btnRespaldarInformacion
             // 
@@ -1073,35 +1102,6 @@
             this.btnRespaldarInformacion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnRespaldarInformacion.UseVisualStyleBackColor = false;
             this.btnRespaldarInformacion.Click += new System.EventHandler(this.btnRespaldarInformacion_Click);
-            // 
-            // btnCredito
-            // 
-            this.btnCredito.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCredito.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btnCredito.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btnCredito.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnCredito.BorderRadius = 40;
-            this.btnCredito.BorderSize = 0;
-            this.btnCredito.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCredito.FlatAppearance.BorderSize = 0;
-            this.btnCredito.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.btnCredito.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Red;
-            this.btnCredito.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCredito.ForeColor = System.Drawing.Color.White;
-            this.btnCredito.Image = global::PuntoDeVentaV2.Properties.Resources.cash_register;
-            this.btnCredito.Location = new System.Drawing.Point(3, 106);
-            this.btnCredito.Name = "btnCredito";
-            this.btnCredito.Size = new System.Drawing.Size(152, 98);
-            this.btnCredito.TabIndex = 133;
-            this.btnCredito.Text = "Crédito";
-            this.btnCredito.TextColor = System.Drawing.Color.White;
-            this.btnCredito.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnCredito.UseMnemonic = false;
-            this.btnCredito.UseVisualStyleBackColor = false;
-            this.btnCredito.Visible = false;
-            this.btnCredito.Click += new System.EventHandler(this.btnCredito_Click);
             // 
             // SetUpPUDVE
             // 
