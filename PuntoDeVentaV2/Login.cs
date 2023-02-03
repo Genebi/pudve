@@ -1272,7 +1272,7 @@ namespace PuntoDeVentaV2
 
             if (string.IsNullOrWhiteSpace(usuario) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Para utilizar esta opción es necesario ingresar tu usuario y contraseña en la ventana de inicio de sesión.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Para utilizar esta opción es necesario ingresar tu usuario y contraseña en la ventana de inicio de sesión.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
