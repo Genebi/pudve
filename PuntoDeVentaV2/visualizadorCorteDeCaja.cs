@@ -286,6 +286,14 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("CantidadDSRetiros", retiroDT.Rows.Count.ToString()));
             #endregion
 
+            LocalReport rdlc = new LocalReport();
+            rdlc.ReportPath = FullReportPath;
+            rdlc.EnableExternalImages = true;
+            rdlc.DataSources.Add(sumaRetiros);
+            rdlc.DataSources.Add(sumaDepositos);
+            rdlc.DataSources.Add(depositos);
+            rdlc.DataSources.Add(retiros);
+            rdlc.SetParameters(reportParameters);
 
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Add(depositos);
@@ -295,9 +303,7 @@ namespace PuntoDeVentaV2
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
             this.reportViewer1.RefreshReport();
             #endregion
-            LocalReport rdlc = new LocalReport();
-            rdlc.ReportPath = FullReportPath;
-            rdlc.SetParameters(reportParameters);
+           
             EnviarImprimir imp = new EnviarImprimir();
             imp.Imprime(rdlc);
             this.Close();
@@ -390,6 +396,7 @@ namespace PuntoDeVentaV2
             LocalReport rdlc = new LocalReport();
             rdlc.ReportPath = FullReportPath;
             rdlc.SetParameters(reportParameters);
+
             #endregion
 
             EnviarImprimir imp = new EnviarImprimir();
