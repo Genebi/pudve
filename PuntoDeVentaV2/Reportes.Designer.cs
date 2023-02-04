@@ -45,6 +45,7 @@
             this.btnReporteInventario = new PuntoDeVentaV2.BotonRedondo();
             this.btnClientes = new PuntoDeVentaV2.BotonRedondo();
             this.btnReporteVentas = new PuntoDeVentaV2.BotonRedondo();
+            this.btnDeudas = new PuntoDeVentaV2.BotonRedondo();
             this.Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
@@ -159,11 +160,13 @@
             this.tableLayoutPanel1.Controls.Add(this.btnReporteInventario, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnClientes, 4, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnReporteVentas, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnDeudas, 0, 1);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(42, 68);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1138, 103);
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1138, 210);
             this.tableLayoutPanel1.TabIndex = 117;
             this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
@@ -183,7 +186,7 @@
             this.btnHistorialPrecios.Image = global::PuntoDeVentaV2.Properties.Resources.research;
             this.btnHistorialPrecios.Location = new System.Drawing.Point(3, 3);
             this.btnHistorialPrecios.Name = "btnHistorialPrecios";
-            this.btnHistorialPrecios.Size = new System.Drawing.Size(156, 97);
+            this.btnHistorialPrecios.Size = new System.Drawing.Size(156, 99);
             this.btnHistorialPrecios.TabIndex = 110;
             this.btnHistorialPrecios.Text = "Historial de Precios";
             this.btnHistorialPrecios.TextColor = System.Drawing.Color.White;
@@ -207,7 +210,7 @@
             this.btnRetiroConcepto.Image = ((System.Drawing.Image)(resources.GetObject("btnRetiroConcepto.Image")));
             this.btnRetiroConcepto.Location = new System.Drawing.Point(975, 3);
             this.btnRetiroConcepto.Name = "btnRetiroConcepto";
-            this.btnRetiroConcepto.Size = new System.Drawing.Size(160, 97);
+            this.btnRetiroConcepto.Size = new System.Drawing.Size(160, 99);
             this.btnRetiroConcepto.TabIndex = 116;
             this.btnRetiroConcepto.Text = "Retiro por Conceptos";
             this.btnRetiroConcepto.TextColor = System.Drawing.Color.White;
@@ -232,7 +235,7 @@
             this.btnCaja.Image = global::PuntoDeVentaV2.Properties.Resources.cash_register;
             this.btnCaja.Location = new System.Drawing.Point(165, 3);
             this.btnCaja.Name = "btnCaja";
-            this.btnCaja.Size = new System.Drawing.Size(156, 97);
+            this.btnCaja.Size = new System.Drawing.Size(156, 99);
             this.btnCaja.TabIndex = 111;
             this.btnCaja.Text = "Caja";
             this.btnCaja.TextColor = System.Drawing.Color.White;
@@ -256,7 +259,7 @@
             this.btnMenosVendidos.Image = global::PuntoDeVentaV2.Properties.Resources.decrease;
             this.btnMenosVendidos.Location = new System.Drawing.Point(813, 3);
             this.btnMenosVendidos.Name = "btnMenosVendidos";
-            this.btnMenosVendidos.Size = new System.Drawing.Size(156, 97);
+            this.btnMenosVendidos.Size = new System.Drawing.Size(156, 99);
             this.btnMenosVendidos.TabIndex = 115;
             this.btnMenosVendidos.Text = "Reporte Más/Menos Vendidos";
             this.btnMenosVendidos.TextColor = System.Drawing.Color.White;
@@ -280,7 +283,7 @@
             this.btnReporteInventario.Image = global::PuntoDeVentaV2.Properties.Resources.report_2_;
             this.btnReporteInventario.Location = new System.Drawing.Point(327, 3);
             this.btnReporteInventario.Name = "btnReporteInventario";
-            this.btnReporteInventario.Size = new System.Drawing.Size(156, 97);
+            this.btnReporteInventario.Size = new System.Drawing.Size(156, 99);
             this.btnReporteInventario.TabIndex = 112;
             this.btnReporteInventario.Text = "Reportes de Inventario";
             this.btnReporteInventario.TextColor = System.Drawing.Color.White;
@@ -304,7 +307,7 @@
             this.btnClientes.Image = global::PuntoDeVentaV2.Properties.Resources.report_user;
             this.btnClientes.Location = new System.Drawing.Point(651, 3);
             this.btnClientes.Name = "btnClientes";
-            this.btnClientes.Size = new System.Drawing.Size(156, 97);
+            this.btnClientes.Size = new System.Drawing.Size(156, 99);
             this.btnClientes.TabIndex = 114;
             this.btnClientes.Text = "Reporte Clientes";
             this.btnClientes.TextColor = System.Drawing.Color.White;
@@ -328,13 +331,37 @@
             this.btnReporteVentas.Image = global::PuntoDeVentaV2.Properties.Resources.report;
             this.btnReporteVentas.Location = new System.Drawing.Point(489, 3);
             this.btnReporteVentas.Name = "btnReporteVentas";
-            this.btnReporteVentas.Size = new System.Drawing.Size(156, 97);
+            this.btnReporteVentas.Size = new System.Drawing.Size(156, 99);
             this.btnReporteVentas.TabIndex = 113;
             this.btnReporteVentas.Text = "Reporte Ventas";
             this.btnReporteVentas.TextColor = System.Drawing.Color.White;
             this.btnReporteVentas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnReporteVentas.UseVisualStyleBackColor = false;
             this.btnReporteVentas.Click += new System.EventHandler(this.botonRedondo4_Click);
+            // 
+            // btnDeudas
+            // 
+            this.btnDeudas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDeudas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnDeudas.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnDeudas.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnDeudas.BorderRadius = 20;
+            this.btnDeudas.BorderSize = 0;
+            this.btnDeudas.FlatAppearance.BorderSize = 0;
+            this.btnDeudas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDeudas.ForeColor = System.Drawing.Color.White;
+            this.btnDeudas.Image = global::PuntoDeVentaV2.Properties.Resources.cash_back;
+            this.btnDeudas.Location = new System.Drawing.Point(3, 108);
+            this.btnDeudas.Name = "btnDeudas";
+            this.btnDeudas.Size = new System.Drawing.Size(156, 99);
+            this.btnDeudas.TabIndex = 110;
+            this.btnDeudas.Text = "Reporte Deudas";
+            this.btnDeudas.TextColor = System.Drawing.Color.White;
+            this.btnDeudas.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnDeudas.UseVisualStyleBackColor = false;
+            this.btnDeudas.Click += new System.EventHandler(this.btnDeudas_Click);
             // 
             // s
             // 
@@ -375,5 +402,6 @@
         private BotonRedondo btnMenosVendidos;
         private BotonRedondo btnRetiroConcepto;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private BotonRedondo btnDeudas;
     }
 }

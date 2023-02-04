@@ -718,6 +718,12 @@
     <Compile Include="DetalleVenta.Designer.cs">
       <DependentUpon>DetalleVenta.cs</DependentUpon>
     </Compile>
+    <Compile Include="deudasReporte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="deudasReporte.Designer.cs">
+      <DependentUpon>deudasReporte.cs</DependentUpon>
+    </Compile>
     <Compile Include="DevolverAnticipo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1276,11 +1282,23 @@
     <Compile Include="RenombrarDetalle.Designer.cs">
       <DependentUpon>RenombrarDetalle.cs</DependentUpon>
     </Compile>
+    <Compile Include="repCreditoNotas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="repCreditoNotas.Designer.cs">
+      <DependentUpon>repCreditoNotas.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReporteCaja.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ReporteCaja.Designer.cs">
       <DependentUpon>ReporteCaja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="reporteCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="reporteCredito.Designer.cs">
+      <DependentUpon>reporteCredito.cs</DependentUpon>
     </Compile>
     <Compile Include="ReporteDineroAgregado.cs">
       <SubType>Form</SubType>
@@ -1335,6 +1353,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TicketCredito.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="ReportesImpresion\Ticket\Deudas\deudas.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>deudas.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ReportesImpresion\Ticket\DineroAgregado\TicketDineroAgregado.Designer.cs">
@@ -2008,6 +2032,9 @@
     <EmbeddedResource Include="DetalleVenta.resx">
       <DependentUpon>DetalleVenta.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="deudasReporte.resx">
+      <DependentUpon>deudasReporte.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DevolverAnticipo.resx">
       <DependentUpon>DevolverAnticipo.cs</DependentUpon>
     </EmbeddedResource>
@@ -2283,9 +2310,15 @@
     <EmbeddedResource Include="RenombrarDetalle.resx">
       <DependentUpon>RenombrarDetalle.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="repCreditoNotas.resx">
+      <DependentUpon>repCreditoNotas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report1.rdlc" />
     <EmbeddedResource Include="ReporteCaja.resx">
       <DependentUpon>ReporteCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporteCredito.resx">
+      <DependentUpon>reporteCredito.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteDineroAgregado.resx">
       <DependentUpon>ReporteDineroAgregado.cs</DependentUpon>
@@ -2401,6 +2434,9 @@
     <Content Include="ReportesImpresion\Ticket\AbrirCaja\ReporteTicketAbrirCaja80mm3.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="ReportesImpresion\Ticket\Deudas\Deudas.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportesRetirosConceptosPorMes.resx">
       <DependentUpon>ReportesRetirosConceptosPorMes.cs</DependentUpon>
     </EmbeddedResource>
@@ -2626,6 +2662,20 @@
     </Content>
     <None Include="ReportesImpresion\Ticket\CreditoRealizado\TicketCredito.xss">
       <DependentUpon>TicketCredito.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\Deudas\deudas.xsc">
+      <DependentUpon>deudas.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\Deudas\deudas.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>deudas.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\Deudas\deudas.xss">
+      <DependentUpon>deudas.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportesImpresion\Ticket\DineroAgregado\TicketDineroAgregado.xsc">
