@@ -3590,8 +3590,9 @@ namespace PuntoDeVentaV2
                                 DetalleVenta.cliente = string.Empty;
                                 AsignarCreditoVenta.idCliente = 0;
                                 AsignarCreditoVenta.cliente = string.Empty;
-                                ultimaVentaInformacion();
                                 cargarTicketAnticipo();
+                                ultimaVentaInformacion();
+                                
                                 panel1.Focus();
                             }
                             else
@@ -3844,8 +3845,16 @@ namespace PuntoDeVentaV2
 
             if (formaDePagoDeVenta.Equals(string.Empty))
             {
-                formaDePagoDeVenta = "Presupuesto";
+                if (cAnticipoUtilizado.Visible.Equals(true))
+                {
+                    formaDePagoDeVenta = "Anticipos";
+                }
+                else
+                {
+                    formaDePagoDeVenta = "Presupuesto";
+                }
             }
+          
 
             var guardar = new string[] {
                 IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento,
