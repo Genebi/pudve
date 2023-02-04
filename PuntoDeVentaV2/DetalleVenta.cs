@@ -275,23 +275,23 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    if (checarEfectivo.Equals((float)mayor))
+                    if (checarEfectivo > 0)
                     {
                         Ventas.formaDePagoDeVenta = "Efectivo";
                     }
-                    else if (checarTarjeta.Equals((float)mayor))
+                    else if (checarTarjeta > 0)
                     {
                         Ventas.formaDePagoDeVenta = "Tarjeta";
                     }
-                    else if (checarTransferencia.Equals((float)mayor))
+                    else if (checarTransferencia > 0)
                     {
                         Ventas.formaDePagoDeVenta = "Transferencia";
                     }
-                    else if (checarCheque.Equals((float)mayor))
+                    else if (checarCheque > 0)
                     {
                         Ventas.formaDePagoDeVenta = "Cheque";
                     }
-                    else if (checarVales.Equals((float)mayor))
+                    else if (checarVales > 0)
                     {
                         Ventas.formaDePagoDeVenta = "Vales";
                     }
