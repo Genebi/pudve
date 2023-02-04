@@ -44,15 +44,6 @@ namespace PuntoDeVentaV2
             if (!datos.Rows.Count.Equals(0))
             {
                 DataRow drow = dtHistorialStock.NewRow();
-                drow["ID"] = string.Empty;
-                drow["Tipo de Movimiento"] = "Stock inicial al realizar el primer movimiento";
-                drow["Stock Anterior"] = 0;
-                drow["Cantidad"] = StockInicialH;
-                drow["Nuevo Stock"] = 0;
-                drow["Nombre de Usuario"] = FormPrincipal.userNickName;
-                //drow["StockInicial"] = string.Empty;
-                drow["Fecha"] = datos.Rows[0]["Fecha"].ToString();
-                dtHistorialStock.Rows.Add(drow);
 
                 foreach (DataRow item in datos.Rows)
                 {
@@ -67,6 +58,17 @@ namespace PuntoDeVentaV2
                     drow["Fecha"] = item["Fecha"].ToString();
                     dtHistorialStock.Rows.Add(drow);
                 }
+
+                DataRow oerow = dtHistorialStock.NewRow();
+                oerow["ID"] = string.Empty;
+                oerow["Tipo de Movimiento"] = "Stock inicial al realizar el primer movimiento";
+                oerow["Stock Anterior"] = 0;
+                oerow["Cantidad"] = StockInicialH;
+                oerow["Nuevo Stock"] = 0;
+                oerow["Nombre de Usuario"] = FormPrincipal.userNickName;
+                //drow["StockInicial"] = string.Empty;
+                oerow["Fecha"] = datos.Rows[0]["Fecha"].ToString();
+                dtHistorialStock.Rows.Add(oerow);
             }
             else
             {
