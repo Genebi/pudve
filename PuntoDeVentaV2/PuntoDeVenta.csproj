@@ -1276,6 +1276,12 @@
     <Compile Include="RenombrarDetalle.Designer.cs">
       <DependentUpon>RenombrarDetalle.cs</DependentUpon>
     </Compile>
+    <Compile Include="repCreditoNotas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="repCreditoNotas.Designer.cs">
+      <DependentUpon>repCreditoNotas.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReporteCaja.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2289,9 +2295,15 @@
     <EmbeddedResource Include="RenombrarDetalle.resx">
       <DependentUpon>RenombrarDetalle.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="repCreditoNotas.resx">
+      <DependentUpon>repCreditoNotas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report1.rdlc" />
     <EmbeddedResource Include="ReporteCaja.resx">
       <DependentUpon>ReporteCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="reporteCredito.resx">
+      <DependentUpon>reporteCredito.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReporteDineroAgregado.resx">
       <DependentUpon>ReporteDineroAgregado.cs</DependentUpon>

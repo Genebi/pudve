@@ -47,13 +47,10 @@ namespace PuntoDeVentaV2
                 using (DataTable ConsultaNombre = cn.CargarDatos(cs.NombreClientePorID(Ventas.idCliente)))
                 {
                     string Nombre = ConsultaNombre.Rows[0]["RazonSocial"].ToString();
-                    lblCliente.Visible = true;
-                    lblCliente.Text = $"Cliente Recomendado: {Nombre}";
                 }
             }
 
             CargarDatos();
-            btnPublicoGeneral.Focus();
         }
 
         private void CargarDatos(string busqueda = "")
@@ -75,26 +72,24 @@ namespace PuntoDeVentaV2
 
             if (string.IsNullOrWhiteSpace(busqueda))
             {
-                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1";
+                consulta = $"SELECT Clientes.ID, Clientes.RFC, Clientes.RazonSocial, SUM(Vent.Total) AS Total FROM Clientes INNER JOIN ventas AS Vent ON ( Clientes.ID = Vent.IDCliente AND Vent.`Status` = 4 )WHERE Clientes.IDUsuario = {FormPrincipal.userID} AND Clientes.STATUS = 1 GROUP BY clientes.id";
             }
             else
             {
-                consulta = $"SELECT * FROM Clientes WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (RazonSocial LIKE '%{busqueda}%' OR RFC LIKE '%{busqueda}%' OR NumeroCliente LIKE '%{busqueda}%')";
+                consulta = $"SELECT Clientes.ID, Clientes.RFC, Clientes.RazonSocial, SUM(Vent.Total) AS Total FROM Clientes INNER JOIN ventas AS Vent ON ( Clientes.ID = Vent.IDCliente AND Vent.`Status` = 4 )WHERE Clientes.IDUsuario = 26 AND Clientes.STATUS = 1 AND (Clientes.RazonSocial LIKE '%{busqueda}%' OR Clientes.RFC LIKE '%{busqueda}%' OR Clientes. NumeroCliente LIKE '%{busqueda}%') GROUP BY clientes.id";
             }
 
-            if (Ventas.EsGuardarVenta.Equals(false))
+                    if (Ventas.EsGuardarVenta.Equals(false))
             {
                 if (FormPrincipal.userNickName.Contains('@'))
                 {
                     var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
                     if (datos[15].Equals(1))
                     {
-                        CBXConDescuento.Visible = true;
                     }
                 }
                 else
                 {
-                    CBXConDescuento.Visible = true;
                 }
 
             }
@@ -110,19 +105,27 @@ namespace PuntoDeVentaV2
 
                 DataGridViewRow row = DGVClientes.Rows[rowId];
 
-                Image agregar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
+                Image agregar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\th-list.png");
 
-                var numeroCliente = dr.GetValue(dr.GetOrdinal("NumeroCliente")).ToString();
 
-                if (string.IsNullOrWhiteSpace(numeroCliente))
-                {
-                    numeroCliente = "N/A";
-                }
 
                 row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
                 row.Cells["RFC"].Value = dr.GetValue(dr.GetOrdinal("RFC"));
                 row.Cells["RazonSocial"].Value = dr.GetValue(dr.GetOrdinal("RazonSocial"));
-                row.Cells["NumeroCliente"].Value = numeroCliente;
+
+                using (DataTable dt = cn.CargarDatos($"SELECT SUM(Abo.Total) AS 'Abonado' FROM Clientes INNER JOIN ventas AS Vent ON ( Clientes.ID = Vent.IDCliente AND Vent.`Status` = 4 )LEFT JOIN abonos AS Abo ON ( Vent.ID = Abo.IDVenta ) WHERE Clientes.IDUsuario = {FormPrincipal.userID} AND Clientes.id = {dr.GetValue(dr.GetOrdinal("ID")).ToString()} AND Clientes.STATUS = 1 GROUP BY clientes.id"))
+                {
+                    decimal test = decimal.Parse(dr.GetValue(dr.GetOrdinal("Total")).ToString());
+                    if (string.IsNullOrEmpty(dt.Rows[0][0].ToString()))
+                    {
+                        row.Cells["DeudaTotal"].Value =test.ToString("C2");
+                    }
+                    else
+                    {
+                        row.Cells["DeudaTotal"].Value = (test - decimal.Parse(dt.Rows[0][0].ToString())).ToString("C2");
+                    }
+                }
+                    
                 row.Cells["Agregar"].Value = agregar;
             }
 
@@ -143,72 +146,10 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
-                if (e.ColumnIndex == 4)
+                if (e.ColumnIndex.Equals(4))
                 {
-                    var idCliente = Convert.ToInt32(DGVClientes.Rows[e.RowIndex].Cells["ID"].Value);
-                    idClienteGlobal = idCliente;
-                    var cliente = DGVClientes.Rows[e.RowIndex].Cells["RazonSocial"].Value.ToString();
-
-                    if (tipo == 0)
-                    {
-                        if (origenOperacion == null)
-                        {
-                            if (idVenta > 0)
-                            {
-                                AsignarCliente(idVenta, idCliente, cliente);
-                            }
-                            else
-                            {
-                                DetalleVenta.idCliente = idCliente;
-                                DetalleVenta.cliente = cliente;
-                                DetalleVenta.nameClienteNameVenta = cliente;
-
-                                AsignarCreditoVenta.idCliente = idCliente;
-                                AsignarCreditoVenta.cliente = cliente;
-
-                                Ventas.idCliente = idCliente.ToString();
-                                Ventas.statusVenta = "2";
-                                Ventas.ventaGuardada = true;
-                            }
-                        }
-                        else
-                        {
-                            if (origenOperacion.Equals("VentaGlobal"))
-                            {
-                                clienteId = idCliente;
-                                DialogResult = DialogResult.OK;
-                            }
-                        }
-
-
-                    }
-
-                    //Editar
-                    if (tipo == 1)
-                    {
-                        datosCliente = mb.ObtenerDatosCliente(idCliente, FormPrincipal.userID);
-
-                        if (datosCliente.Length > 0)
-                        {
-                            datosCliente = new List<string>(datosCliente) { idCliente.ToString() }.ToArray();
-                            DialogResult = DialogResult.OK;
-                        }
-                    }
-
-                    if (tipo == 2)
-                    {
-                        DetalleVenta.idCliente = idCliente;
-                        DetalleVenta.cliente = cliente;
-                        DetalleVenta.nameClienteNameVenta = cliente;
-
-                        AsignarCreditoVenta.idCliente = idCliente;
-                        AsignarCreditoVenta.cliente = cliente;
-
-                        Ventas.idCliente = idCliente.ToString();
-                        Ventas.ventaGuardada = false;
-                    }
-
-                    this.Close();
+                    repCreditoNotas repcrednot = new repCreditoNotas(DGVClientes.Rows[e.RowIndex].Cells[0].Value.ToString());
+                    repcrednot.ShowDialog();
                 }
             }
         }
@@ -276,7 +217,6 @@ namespace PuntoDeVentaV2
 
         private void ListaClientes_Shown(object sender, EventArgs e)
         {
-            btnPublicoGeneral.Focus();
         }
 
         private void btnPublicoG_Click(object sender, EventArgs e)
@@ -525,7 +465,7 @@ namespace PuntoDeVentaV2
 
             var consulta = string.Empty;
 
-            if (CBXConDescuento.Checked.Equals(true))
+            if (/*CBXConDescuento.Checked.Equals(*/true)
             {
                 if (string.IsNullOrWhiteSpace(busqueda))
                 {
@@ -561,19 +501,14 @@ namespace PuntoDeVentaV2
 
                 DataGridViewRow row = DGVClientes.Rows[rowId];
 
-                Image agregar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\reply.png");
+                Image agregar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\th-list.png");
 
-                var numeroCliente = dr.GetValue(dr.GetOrdinal("NumeroCliente")).ToString();
-
-                if (string.IsNullOrWhiteSpace(numeroCliente))
-                {
-                    numeroCliente = "N/A";
-                }
 
                 row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
                 row.Cells["RFC"].Value = dr.GetValue(dr.GetOrdinal("RFC"));
                 row.Cells["RazonSocial"].Value = dr.GetValue(dr.GetOrdinal("RazonSocial"));
-                row.Cells["NumeroCliente"].Value = numeroCliente;
+                row.Cells["DeudaTotal"].Value = dr.GetValue(dr.GetOrdinal("Total"));
+                row.Cells["Abonado"].Value = dr.GetValue(dr.GetOrdinal("Abonado"));
                 row.Cells["Agregar"].Value = agregar;
             }
 
@@ -591,6 +526,11 @@ namespace PuntoDeVentaV2
                 txtBuscador.Text = producto;
                 txtBuscador.Select(txtBuscador.Text.Length, 0);
             }
+        }
+
+        private void btnGenerarReporte_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

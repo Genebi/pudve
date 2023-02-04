@@ -1705,7 +1705,7 @@ namespace PuntoDeVentaV2
             //Ventas canceladas
             if (opcion == "VC") { CargarDatos(3); }
             //Ventas a credito
-            if (opcion == "VCC") { CargarDatos(4); }
+            if (opcion == "VCC") { CargarDatos(4); btnCreditos.Visible = true; } else { btnCreditos.Visible = false; }
             //Ventas globales
             if (opcion == "VGG") { CargarDatos(5); }
 
@@ -2488,11 +2488,11 @@ namespace PuntoDeVentaV2
                 if (e.ColumnIndex == 12)
                 {
                     //Comprobar si adobe esta instalado
-                    if (!Utilidades.AdobeReaderInstalado())
-                    {
-                        Utilidades.MensajeAdobeReader();
-                        return;
-                    }
+                    //if (!Utilidades.AdobeReaderInstalado())
+                    //{
+                    //    Utilidades.MensajeAdobeReader();
+                    //    return;
+                    //}
 
                     //Verifica si el PDF ya esta creado
                     var servidor = Properties.Settings.Default.Hosting;
@@ -5403,6 +5403,12 @@ namespace PuntoDeVentaV2
                 txtBuscador.Text = producto;
                 txtBuscador.Select(txtBuscador.Text.Length, 0);
             }
+        }
+
+        private void btnCreditos_Click(object sender, EventArgs e)
+        {
+            reporteCredito repcred = new reporteCredito();
+            repcred.ShowDialog();
         }
     }
 }

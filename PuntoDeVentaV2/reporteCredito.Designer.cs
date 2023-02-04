@@ -38,17 +38,12 @@
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RazonSocial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NumeroCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeudaTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Agregar = new System.Windows.Forms.DataGridViewImageColumn();
-            this.lbAgregarCliente = new System.Windows.Forms.LinkLabel();
             this.txtBuscador = new System.Windows.Forms.TextBox();
             this.lbBuscar = new System.Windows.Forms.Label();
-            this.btnPublicoG = new System.Windows.Forms.Button();
             this.btnBucarCliente = new System.Windows.Forms.Button();
-            this.btnPublicoGeneral = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.lblCliente = new System.Windows.Forms.LinkLabel();
-            this.CBXConDescuento = new System.Windows.Forms.CheckBox();
+            this.btnGenerarReporte = new PuntoDeVentaV2.BotonRedondo();
             ((System.ComponentModel.ISupportInitialize)(this.DGVClientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,7 +66,7 @@
             this.ID,
             this.RFC,
             this.RazonSocial,
-            this.NumeroCliente,
+            this.DeudaTotal,
             this.Agregar});
             this.DGVClientes.Location = new System.Drawing.Point(2, 84);
             this.DGVClientes.Name = "DGVClientes";
@@ -87,7 +82,7 @@
             this.DGVClientes.RowHeadersVisible = false;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.DGVClientes.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.DGVClientes.Size = new System.Drawing.Size(579, 168);
+            this.DGVClientes.Size = new System.Drawing.Size(579, 215);
             this.DGVClientes.TabIndex = 0;
             this.DGVClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellClick);
             this.DGVClientes.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellMouseEnter);
@@ -121,32 +116,20 @@
             this.RazonSocial.Name = "RazonSocial";
             this.RazonSocial.ReadOnly = true;
             // 
-            // NumeroCliente
+            // DeudaTotal
             // 
-            this.NumeroCliente.HeaderText = "No. Cliente";
-            this.NumeroCliente.Name = "NumeroCliente";
-            this.NumeroCliente.ReadOnly = true;
+            this.DeudaTotal.DataPropertyName = "DeudaTotal";
+            this.DeudaTotal.HeaderText = "Deuda Total";
+            this.DeudaTotal.Name = "DeudaTotal";
+            this.DeudaTotal.ReadOnly = true;
             // 
             // Agregar
             // 
             this.Agregar.Description = "Seleccionar";
-            this.Agregar.HeaderText = "";
+            this.Agregar.HeaderText = "Detalles";
             this.Agregar.Name = "Agregar";
             this.Agregar.ReadOnly = true;
             this.Agregar.Width = 50;
-            // 
-            // lbAgregarCliente
-            // 
-            this.lbAgregarCliente.AutoSize = true;
-            this.lbAgregarCliente.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAgregarCliente.Location = new System.Drawing.Point(443, 31);
-            this.lbAgregarCliente.Name = "lbAgregarCliente";
-            this.lbAgregarCliente.Size = new System.Drawing.Size(152, 17);
-            this.lbAgregarCliente.TabIndex = 1;
-            this.lbAgregarCliente.TabStop = true;
-            this.lbAgregarCliente.Text = "Agregar nuevo cliente";
-            this.lbAgregarCliente.Visible = false;
-            this.lbAgregarCliente.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lbAgregarCliente_LinkClicked);
             // 
             // txtBuscador
             // 
@@ -154,7 +137,7 @@
             this.txtBuscador.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBuscador.Location = new System.Drawing.Point(121, 32);
             this.txtBuscador.Name = "txtBuscador";
-            this.txtBuscador.Size = new System.Drawing.Size(306, 23);
+            this.txtBuscador.Size = new System.Drawing.Size(421, 23);
             this.txtBuscador.TabIndex = 2;
             this.txtBuscador.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtBuscador.TextChanged += new System.EventHandler(this.txtBuscador_TextChanged);
@@ -164,117 +147,58 @@
             // 
             this.lbBuscar.AutoSize = true;
             this.lbBuscar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbBuscar.Location = new System.Drawing.Point(19, 35);
+            this.lbBuscar.Location = new System.Drawing.Point(12, 35);
             this.lbBuscar.Name = "lbBuscar";
             this.lbBuscar.Size = new System.Drawing.Size(96, 17);
             this.lbBuscar.TabIndex = 3;
             this.lbBuscar.Text = "Buscar cliente";
             // 
-            // btnPublicoG
-            // 
-            this.btnPublicoG.BackColor = System.Drawing.Color.Green;
-            this.btnPublicoG.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPublicoG.FlatAppearance.BorderSize = 0;
-            this.btnPublicoG.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPublicoG.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPublicoG.ForeColor = System.Drawing.Color.White;
-            this.btnPublicoG.Location = new System.Drawing.Point(454, 31);
-            this.btnPublicoG.Name = "btnPublicoG";
-            this.btnPublicoG.Size = new System.Drawing.Size(118, 25);
-            this.btnPublicoG.TabIndex = 113;
-            this.btnPublicoG.Text = "Público general";
-            this.btnPublicoG.UseVisualStyleBackColor = false;
-            this.btnPublicoG.Visible = false;
-            this.btnPublicoG.Click += new System.EventHandler(this.btnPublicoG_Click);
-            // 
             // btnBucarCliente
             // 
             this.btnBucarCliente.Image = global::PuntoDeVentaV2.Properties.Resources.search;
-            this.btnBucarCliente.Location = new System.Drawing.Point(428, 32);
+            this.btnBucarCliente.Location = new System.Drawing.Point(548, 31);
             this.btnBucarCliente.Name = "btnBucarCliente";
             this.btnBucarCliente.Size = new System.Drawing.Size(25, 24);
             this.btnBucarCliente.TabIndex = 114;
             this.btnBucarCliente.UseVisualStyleBackColor = true;
             this.btnBucarCliente.Click += new System.EventHandler(this.btnBucarCliente_Click);
             // 
-            // btnPublicoGeneral
+            // btnGenerarReporte
             // 
-            this.btnPublicoGeneral.BackColor = System.Drawing.Color.Green;
-            this.btnPublicoGeneral.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPublicoGeneral.FlatAppearance.BorderSize = 0;
-            this.btnPublicoGeneral.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPublicoGeneral.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPublicoGeneral.ForeColor = System.Drawing.Color.White;
-            this.btnPublicoGeneral.Location = new System.Drawing.Point(336, 264);
-            this.btnPublicoGeneral.Name = "btnPublicoGeneral";
-            this.btnPublicoGeneral.Size = new System.Drawing.Size(118, 25);
-            this.btnPublicoGeneral.TabIndex = 116;
-            this.btnPublicoGeneral.Text = "Público general";
-            this.btnPublicoGeneral.UseVisualStyleBackColor = false;
-            this.btnPublicoGeneral.Visible = false;
-            this.btnPublicoGeneral.Click += new System.EventHandler(this.btnPublicoGeneral_Click);
+            this.btnGenerarReporte.BackColor = System.Drawing.Color.Firebrick;
+            this.btnGenerarReporte.BackGroundColor = System.Drawing.Color.Firebrick;
+            this.btnGenerarReporte.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnGenerarReporte.BorderRadius = 40;
+            this.btnGenerarReporte.BorderSize = 0;
+            this.btnGenerarReporte.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGenerarReporte.FlatAppearance.BorderSize = 0;
+            this.btnGenerarReporte.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGenerarReporte.ForeColor = System.Drawing.Color.White;
+            this.btnGenerarReporte.Location = new System.Drawing.Point(216, 407);
+            this.btnGenerarReporte.Name = "btnGenerarReporte";
+            this.btnGenerarReporte.Size = new System.Drawing.Size(150, 40);
+            this.btnGenerarReporte.TabIndex = 115;
+            this.btnGenerarReporte.Text = "GENERAR REPORTE";
+            this.btnGenerarReporte.TextColor = System.Drawing.Color.White;
+            this.btnGenerarReporte.UseVisualStyleBackColor = false;
+            this.btnGenerarReporte.Click += new System.EventHandler(this.btnGenerarReporte_Click);
             // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Green;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(213, 264);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(154, 25);
-            this.button1.TabIndex = 117;
-            this.button1.Text = "Agregar nuevo cliente";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // lblCliente
-            // 
-            this.lblCliente.AutoSize = true;
-            this.lblCliente.Location = new System.Drawing.Point(12, 68);
-            this.lblCliente.Name = "lblCliente";
-            this.lblCliente.Size = new System.Drawing.Size(55, 13);
-            this.lblCliente.TabIndex = 118;
-            this.lblCliente.TabStop = true;
-            this.lblCliente.Text = "linkLabel1";
-            this.lblCliente.Visible = false;
-            this.lblCliente.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
-            // CBXConDescuento
-            // 
-            this.CBXConDescuento.AutoSize = true;
-            this.CBXConDescuento.Location = new System.Drawing.Point(442, 64);
-            this.CBXConDescuento.Name = "CBXConDescuento";
-            this.CBXConDescuento.Size = new System.Drawing.Size(139, 17);
-            this.CBXConDescuento.TabIndex = 119;
-            this.CBXConDescuento.Text = "Clientes con Descuento";
-            this.CBXConDescuento.UseVisualStyleBackColor = true;
-            this.CBXConDescuento.Visible = false;
-            this.CBXConDescuento.CheckedChanged += new System.EventHandler(this.CBXConDescuento_CheckedChanged);
-            // 
-            // ListaClientes
+            // reporteCredito
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 311);
-            this.Controls.Add(this.CBXConDescuento);
-            this.Controls.Add(this.lblCliente);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.btnPublicoGeneral);
+            this.ClientSize = new System.Drawing.Size(585, 459);
+            this.Controls.Add(this.btnGenerarReporte);
             this.Controls.Add(this.btnBucarCliente);
-            this.Controls.Add(this.btnPublicoG);
             this.Controls.Add(this.lbBuscar);
             this.Controls.Add(this.txtBuscador);
-            this.Controls.Add(this.lbAgregarCliente);
             this.Controls.Add(this.DGVClientes);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.MaximizeBox = false;
-            this.Name = "ListaClientes";
+            this.Name = "reporteCredito";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PUDVE - Lista de Clientes";
+            this.Text = "Reporte de creditos";
             this.Load += new System.EventHandler(this.ListaClientes_Load);
             this.Shown += new System.EventHandler(this.ListaClientes_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListaClientes_KeyDown);
@@ -287,19 +211,14 @@
         #endregion
 
         private System.Windows.Forms.DataGridView DGVClientes;
-        private System.Windows.Forms.LinkLabel lbAgregarCliente;
+        private System.Windows.Forms.TextBox txtBuscador;
+        private System.Windows.Forms.Label lbBuscar;
+        private System.Windows.Forms.Button btnBucarCliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn RFC;
         private System.Windows.Forms.DataGridViewTextBoxColumn RazonSocial;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NumeroCliente;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DeudaTotal;
         private System.Windows.Forms.DataGridViewImageColumn Agregar;
-        private System.Windows.Forms.TextBox txtBuscador;
-        private System.Windows.Forms.Label lbBuscar;
-        private System.Windows.Forms.Button btnPublicoG;
-        private System.Windows.Forms.Button btnBucarCliente;
-        private System.Windows.Forms.Button btnPublicoGeneral;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.LinkLabel lblCliente;
-        private System.Windows.Forms.CheckBox CBXConDescuento;
+        private BotonRedondo btnGenerarReporte;
     }
 }
