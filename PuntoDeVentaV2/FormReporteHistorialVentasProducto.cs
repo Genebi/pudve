@@ -212,11 +212,12 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                var IDSVentasCorrectas = cn.CargarDatos($"SELECT PV.*, VEN.IDEmpleado, VEN.IDCliente FROM productosventa AS PV INNER JOIN ventas AS VEN ON(PV.IDVenta = VEN.ID) WHERE PV.IDVenta IN ({IDsVentasporFechaYEmpleado}) AND IDProducto = {IDProd}");
+                var IDSVentasCorrectas = cn.CargarDatos($"SELECT PV.*,VEN.IDEmpleado,VEN.IDCliente,IF(DVEN.Efectivo IS NOT NULL ,DVEN.Efectivo,0.00) AS Efectivo,IF(DVEN.Tarjeta IS NOT NULL ,DVEN.Tarjeta,0.00)AS Tarjeta,IF(DVEN.Vales IS NOT NULL ,DVEN.Vales,0.00)AS Vales,IF(DVEN.Cheque IS NOT NULL ,DVEN.Cheque,0.00)AS Cheque,IF(DVEN.Transferencia IS NOT NULL ,DVEN.Transferencia,0.00)AS Transferencia,IF(DVEN.Credito IS NOT NULL ,DVEN.Credito,0.00)AS Credito,IF(DVEN.Anticipo IS NOT NULL ,DVEN.Anticipo,0.00) AS Anticipo FROM productosventa AS PV INNER JOIN ventas AS VEN ON(PV.IDVenta = VEN.ID) LEFT JOIN detallesventa AS DVEN ON ( PV.IDVenta = DVEN.IDVenta )  WHERE PV.IDVenta IN ({IDsVentasporFechaYEmpleado}) AND IDProducto = {IDProd} GROUP BY IDVenta");
 
                 DTDatos.Columns.Add("Folio", typeof(String));
                 DTDatos.Columns.Add("Usuario", typeof(String));
                 DTDatos.Columns.Add("Fecha", typeof(String));
+                DTDatos.Columns.Add("Modopago", typeof(String));
                 DTDatos.Columns.Add("Cantidad", typeof(String));
                 DTDatos.Columns.Add("PrecioUnidad", typeof(String));
                 DTDatos.Columns.Add("Total", typeof(String));
@@ -224,8 +225,40 @@ namespace PuntoDeVentaV2
                 DTDatos.Columns.Add("Cliente", typeof(String));
 
                 int rows = 0;
-                foreach (var item in IDSVentasCorrectas.Rows)
+                foreach (DataRow item in IDSVentasCorrectas.Rows)
                 {
+                    string modopago = string.Empty;
+                    if (decimal.Parse(item["Efectivo"].ToString()) > 0)
+                    {
+                        modopago += "Efectivo,";
+                    }
+                    if (decimal.Parse(item["Tarjeta"].ToString()) > 0)
+                    {
+                        modopago += "Tarjeta,";
+                    }
+                    if (decimal.Parse(item["Vales"].ToString()) > 0)
+                    {
+                        modopago += "Vales,";
+                    }
+                    if (decimal.Parse(item["Cheque"].ToString()) > 0)
+                    {
+                        modopago += "Cheque,";
+                    }
+                    if (decimal.Parse(item["Transferencia"].ToString()) > 0)
+                    {
+                        modopago += "Transferencia,";
+                    }
+                    if (decimal.Parse(item["Credito"].ToString()) > 0)
+                    {
+                        modopago += "Credito,";
+                    }
+                    if (decimal.Parse(item["Anticipo"].ToString()) > 0)
+                    {
+                        modopago += "Anticipo,";
+                    }
+
+                    modopago = modopago.Trim(',');
+
                     DTDatos.Rows.Add();
                     foreach (var DT in DTDatos.Columns)
                     {
@@ -234,6 +267,20 @@ namespace PuntoDeVentaV2
                         {
                             DTDatos.Rows[rows]["Folio"] = ventas.Rows[rows]["Folio"].ToString();
                         }
+
+                        if (Columna.Equals("Modopago"))
+                        {
+                            if (string.IsNullOrEmpty(modopago))
+                            {
+                                DTDatos.Rows[rows]["Modopago"] = "N/A";
+                            }
+                            else
+                            {
+                                DTDatos.Rows[rows]["Modopago"] = modopago;
+                            }
+                           
+                        }
+
                         else if (Columna.Equals("Usuario"))
                         {
                             string Usuario;
@@ -306,7 +353,7 @@ namespace PuntoDeVentaV2
                     rows++;
                 }
             }
-            DTDatos2 = DTDatos;
+                    DTDatos2 = DTDatos;
         }
 
         private void CargarRdcl()

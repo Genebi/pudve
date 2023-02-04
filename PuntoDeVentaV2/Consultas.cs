@@ -3672,10 +3672,10 @@ namespace PuntoDeVentaV2
             var consulta = $"SELECT Vent.*, Usr.Usuario, IF( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF( Emp.nombre IS NULL, CONCAT( Usr.Usuario, ' (ADMIN)' ), CONCAT( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{estado}' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.FechaOperacion BETWEEN '{ultimaFechaDeCorte}.999999' AND '{rangoFechaLimite}.999999' AND Emp.nombre IS NULL  ORDER BY ID DESC";
 
             return consulta;
-        }
+        }       
 
         public string verVentasCreditoPorEmpleadoDesdeAdministrador(int estado, int idEmpleado, string ultimaFechaDeCorte, string rangoFechaLimite, string formaPago = "NA")
-        {
+                {
             if (formaPago.Equals("NA"))
             {
                 formaPago = string.Empty;
