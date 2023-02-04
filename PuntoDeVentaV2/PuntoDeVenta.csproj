@@ -1282,6 +1282,12 @@
     <Compile Include="ReporteCaja.Designer.cs">
       <DependentUpon>ReporteCaja.cs</DependentUpon>
     </Compile>
+    <Compile Include="reporteCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="reporteCredito.Designer.cs">
+      <DependentUpon>reporteCredito.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReporteDineroAgregado.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -81,6 +81,8 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnPrimeraPagina = new System.Windows.Forms.Button();
             this.btnAnterior = new System.Windows.Forms.Button();
+            this.linkFirst = new System.Windows.Forms.LinkLabel();
+            this.linkLast = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaSiguiente = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaActual = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaAnterior = new System.Windows.Forms.LinkLabel();
@@ -91,8 +93,7 @@
             this.lb_txt_ruta_descargar = new System.Windows.Forms.Label();
             this.chTodos = new System.Windows.Forms.CheckBox();
             this.chkHDAutlan = new System.Windows.Forms.CheckBox();
-            this.linkLast = new System.Windows.Forms.LinkLabel();
-            this.linkFirst = new System.Windows.Forms.LinkLabel();
+            this.btnCreditos = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -317,6 +318,7 @@
             this.panelBotones.Controls.Add(this.dpFechaFinal);
             this.panelBotones.Controls.Add(this.dpFechaInicial);
             this.panelBotones.Controls.Add(this.btnNuevaVenta);
+            this.panelBotones.Controls.Add(this.btnCreditos);
             this.panelBotones.Controls.Add(this.btnBuscarVentas);
             this.panelBotones.Controls.Add(this.cbVentas);
             this.panelBotones.Controls.Add(this.cbTipoVentas);
@@ -705,6 +707,36 @@
             this.btnAnterior.UseVisualStyleBackColor = false;
             this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
             // 
+            // linkFirst
+            // 
+            this.linkFirst.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linkFirst.AutoSize = true;
+            this.linkFirst.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linkFirst.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkFirst.Location = new System.Drawing.Point(451, 28);
+            this.linkFirst.Name = "linkFirst";
+            this.linkFirst.Size = new System.Drawing.Size(24, 16);
+            this.linkFirst.TabIndex = 24;
+            this.linkFirst.TabStop = true;
+            this.linkFirst.Text = "1...";
+            this.linkFirst.Visible = false;
+            this.linkFirst.Click += new System.EventHandler(this.btnPrimeraPagina_Click);
+            // 
+            // linkLast
+            // 
+            this.linkLast.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linkLast.AutoSize = true;
+            this.linkLast.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linkLast.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLast.Location = new System.Drawing.Point(545, 28);
+            this.linkLast.Name = "linkLast";
+            this.linkLast.Size = new System.Drawing.Size(24, 16);
+            this.linkLast.TabIndex = 24;
+            this.linkLast.TabStop = true;
+            this.linkLast.Text = "...4";
+            this.linkLast.Visible = false;
+            this.linkLast.Click += new System.EventHandler(this.btnUltimaPagina_Click);
+            // 
             // linkLblPaginaSiguiente
             // 
             this.linkLblPaginaSiguiente.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -823,35 +855,22 @@
             this.chkHDAutlan.CheckedChanged += new System.EventHandler(this.chkHDAutlan_CheckedChanged);
             this.chkHDAutlan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkHDAutlan_MouseClick);
             // 
-            // linkLast
+            // btnCreditos
             // 
-            this.linkLast.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.linkLast.AutoSize = true;
-            this.linkLast.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.linkLast.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLast.Location = new System.Drawing.Point(545, 28);
-            this.linkLast.Name = "linkLast";
-            this.linkLast.Size = new System.Drawing.Size(24, 16);
-            this.linkLast.TabIndex = 24;
-            this.linkLast.TabStop = true;
-            this.linkLast.Text = "...4";
-            this.linkLast.Visible = false;
-            this.linkLast.Click += new System.EventHandler(this.btnUltimaPagina_Click);
-            // 
-            // linkFirst
-            // 
-            this.linkFirst.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.linkFirst.AutoSize = true;
-            this.linkFirst.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.linkFirst.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkFirst.Location = new System.Drawing.Point(451, 28);
-            this.linkFirst.Name = "linkFirst";
-            this.linkFirst.Size = new System.Drawing.Size(24, 16);
-            this.linkFirst.TabIndex = 24;
-            this.linkFirst.TabStop = true;
-            this.linkFirst.Text = "1...";
-            this.linkFirst.Visible = false;
-            this.linkFirst.Click += new System.EventHandler(this.btnPrimeraPagina_Click);
+            this.btnCreditos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnCreditos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCreditos.FlatAppearance.BorderSize = 0;
+            this.btnCreditos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnCreditos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnCreditos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCreditos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCreditos.ForeColor = System.Drawing.Color.White;
+            this.btnCreditos.Location = new System.Drawing.Point(506, 78);
+            this.btnCreditos.Name = "btnCreditos";
+            this.btnCreditos.Size = new System.Drawing.Size(220, 26);
+            this.btnCreditos.TabIndex = 4;
+            this.btnCreditos.Text = "Reporte de creditos";
+            this.btnCreditos.UseVisualStyleBackColor = false;
             // 
             // ListadoVentas
             // 
@@ -951,5 +970,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Abonado;
         private System.Windows.Forms.LinkLabel linkLast;
         private System.Windows.Forms.LinkLabel linkFirst;
+        private System.Windows.Forms.Button btnCreditos;
     }
 }
