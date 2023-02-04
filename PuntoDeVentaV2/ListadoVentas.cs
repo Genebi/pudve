@@ -1705,7 +1705,7 @@ namespace PuntoDeVentaV2
             //Ventas canceladas
             if (opcion == "VC") { CargarDatos(3); }
             //Ventas a credito
-            if (opcion == "VCC") { CargarDatos(4); btnCreditos.Visible = true; } else { btnCreditos.Visible = false; }
+            if (opcion == "VCC") { CargarDatos(4);}
             //Ventas globales
             if (opcion == "VGG") { CargarDatos(5); }
 
@@ -5405,10 +5405,5 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void btnCreditos_Click(object sender, EventArgs e)
-        {
-            reporteCredito repcred = new reporteCredito();
-            repcred.ShowDialog();
-        }
     }
 }

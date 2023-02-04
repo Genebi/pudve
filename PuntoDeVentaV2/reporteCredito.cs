@@ -530,7 +530,17 @@ namespace PuntoDeVentaV2
 
         private void btnGenerarReporte_Click(object sender, EventArgs e)
         {
+            DataTable monosas = new DataTable();
+            monosas.Columns.Add("RFC");
+            monosas.Columns.Add("RazonSocial");
+            monosas.Columns.Add("Deuda");
 
+            foreach (DataGridViewRow dataGridViewRow in DGVClientes.Rows)
+            {
+                monosas.Rows.Add(dataGridViewRow.Cells[1].Value.ToString(), dataGridViewRow.Cells[2].Value.ToString(),dataGridViewRow.Cells[3].Value.ToString());
+            }
+            deudasReporte ded = new deudasReporte(monosas);
+            ded.ShowDialog();
         }
     }
 }

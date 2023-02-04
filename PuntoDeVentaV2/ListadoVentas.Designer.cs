@@ -68,7 +68,6 @@
             this.dpFechaFinal = new System.Windows.Forms.DateTimePicker();
             this.dpFechaInicial = new System.Windows.Forms.DateTimePicker();
             this.btnNuevaVenta = new System.Windows.Forms.Button();
-            this.btnCreditos = new System.Windows.Forms.Button();
             this.btnBuscarVentas = new System.Windows.Forms.Button();
             this.cbVentas = new System.Windows.Forms.ComboBox();
             this.cbTipoVentas = new System.Windows.Forms.ComboBox();
@@ -318,7 +317,6 @@
             this.panelBotones.Controls.Add(this.dpFechaFinal);
             this.panelBotones.Controls.Add(this.dpFechaInicial);
             this.panelBotones.Controls.Add(this.btnNuevaVenta);
-            this.panelBotones.Controls.Add(this.btnCreditos);
             this.panelBotones.Controls.Add(this.btnBuscarVentas);
             this.panelBotones.Controls.Add(this.cbVentas);
             this.panelBotones.Controls.Add(this.cbTipoVentas);
@@ -522,25 +520,6 @@
             this.btnNuevaVenta.Text = "Nueva venta";
             this.btnNuevaVenta.UseVisualStyleBackColor = false;
             this.btnNuevaVenta.Click += new System.EventHandler(this.btnNuevaVenta_Click);
-            // 
-            // btnCreditos
-            // 
-            this.btnCreditos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btnCreditos.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCreditos.FlatAppearance.BorderSize = 0;
-            this.btnCreditos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.btnCreditos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
-            this.btnCreditos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCreditos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreditos.ForeColor = System.Drawing.Color.White;
-            this.btnCreditos.Location = new System.Drawing.Point(506, 81);
-            this.btnCreditos.Name = "btnCreditos";
-            this.btnCreditos.Size = new System.Drawing.Size(220, 21);
-            this.btnCreditos.TabIndex = 4;
-            this.btnCreditos.Text = "Reporte de creditos";
-            this.btnCreditos.UseVisualStyleBackColor = false;
-            this.btnCreditos.Visible = false;
-            this.btnCreditos.Click += new System.EventHandler(this.btnCreditos_Click);
             // 
             // btnBuscarVentas
             // 
@@ -858,6 +837,7 @@
             this.chTodos.TabIndex = 12;
             this.chTodos.Text = "Seleccionar todos ";
             this.chTodos.UseVisualStyleBackColor = true;
+            this.chTodos.Visible = false;
             this.chTodos.CheckedChanged += new System.EventHandler(this.chTodos_CheckedChanged);
             // 
             // chkHDAutlan
@@ -972,6 +952,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Abonado;
         private System.Windows.Forms.LinkLabel linkLast;
         private System.Windows.Forms.LinkLabel linkFirst;
-        private System.Windows.Forms.Button btnCreditos;
     }
 }

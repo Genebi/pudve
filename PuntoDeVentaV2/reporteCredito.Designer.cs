@@ -82,7 +82,7 @@
             this.DGVClientes.RowHeadersVisible = false;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.DGVClientes.RowsDefaultCellStyle = dataGridViewCellStyle6;
-            this.DGVClientes.Size = new System.Drawing.Size(579, 215);
+            this.DGVClientes.Size = new System.Drawing.Size(579, 317);
             this.DGVClientes.TabIndex = 0;
             this.DGVClientes.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellClick);
             this.DGVClientes.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellMouseEnter);
