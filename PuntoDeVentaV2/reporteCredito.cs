@@ -76,7 +76,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                consulta = $"SELECT Clientes.ID, Clientes.RFC, Clientes.RazonSocial, SUM(Vent.Total) AS Total FROM Clientes INNER JOIN ventas AS Vent ON ( Clientes.ID = Vent.IDCliente AND Vent.`Status` = 4 )WHERE Clientes.IDUsuario = 26 AND Clientes.STATUS = 1 AND (Clientes.RazonSocial LIKE '%{busqueda}%' OR Clientes.RFC LIKE '%{busqueda}%' OR Clientes. NumeroCliente LIKE '%{busqueda}%') GROUP BY clientes.id";
+                consulta = $"SELECT Clientes.ID, Clientes.RFC, Clientes.RazonSocial, SUM(Vent.Total) AS Total FROM Clientes INNER JOIN ventas AS Vent ON ( Clientes.ID = Vent.IDCliente AND Vent.`Status` = 4 )WHERE Clientes.IDUsuario = {FormPrincipal.userID} AND Clientes.STATUS = 1 AND (Clientes.RazonSocial LIKE '%{busqueda}%' OR Clientes.RFC LIKE '%{busqueda}%' OR Clientes. NumeroCliente LIKE '%{busqueda}%') GROUP BY clientes.id";
             }
 
                     if (Ventas.EsGuardarVenta.Equals(false))
