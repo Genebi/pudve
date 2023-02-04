@@ -81,8 +81,6 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnPrimeraPagina = new System.Windows.Forms.Button();
             this.btnAnterior = new System.Windows.Forms.Button();
-            this.linkFirst = new System.Windows.Forms.LinkLabel();
-            this.linkLast = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaSiguiente = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaActual = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaAnterior = new System.Windows.Forms.LinkLabel();
@@ -93,6 +91,8 @@
             this.lb_txt_ruta_descargar = new System.Windows.Forms.Label();
             this.chTodos = new System.Windows.Forms.CheckBox();
             this.chkHDAutlan = new System.Windows.Forms.CheckBox();
+            this.linkLast = new System.Windows.Forms.LinkLabel();
+            this.linkFirst = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -116,8 +116,8 @@
             // 
             this.DGVListadoVentas.AllowUserToAddRows = false;
             this.DGVListadoVentas.AllowUserToDeleteRows = false;
-            this.DGVListadoVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.DGVListadoVentas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DGVListadoVentas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVListadoVentas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -300,7 +300,7 @@
             // 
             // panelBotones
             // 
-            this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelBotones.Controls.Add(this.cbFormasPago);
             this.panelBotones.Controls.Add(this.cbFiltroAdminEmpleado);
@@ -705,36 +705,6 @@
             this.btnAnterior.UseVisualStyleBackColor = false;
             this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
             // 
-            // linkFirst
-            // 
-            this.linkFirst.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.linkFirst.AutoSize = true;
-            this.linkFirst.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.linkFirst.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkFirst.Location = new System.Drawing.Point(451, 28);
-            this.linkFirst.Name = "linkFirst";
-            this.linkFirst.Size = new System.Drawing.Size(24, 16);
-            this.linkFirst.TabIndex = 24;
-            this.linkFirst.TabStop = true;
-            this.linkFirst.Text = "1...";
-            this.linkFirst.Visible = false;
-            this.linkFirst.Click += new System.EventHandler(this.btnPrimeraPagina_Click);
-            // 
-            // linkLast
-            // 
-            this.linkLast.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.linkLast.AutoSize = true;
-            this.linkLast.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.linkLast.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLast.Location = new System.Drawing.Point(545, 28);
-            this.linkLast.Name = "linkLast";
-            this.linkLast.Size = new System.Drawing.Size(24, 16);
-            this.linkLast.TabIndex = 24;
-            this.linkLast.TabStop = true;
-            this.linkLast.Text = "...4";
-            this.linkLast.Visible = false;
-            this.linkLast.Click += new System.EventHandler(this.btnUltimaPagina_Click);
-            // 
             // linkLblPaginaSiguiente
             // 
             this.linkLblPaginaSiguiente.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -791,7 +761,7 @@
             // 
             // pBar_descarga_verpdf
             // 
-            this.pBar_descarga_verpdf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.pBar_descarga_verpdf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pBar_descarga_verpdf.Location = new System.Drawing.Point(136, 421);
             this.pBar_descarga_verpdf.Name = "pBar_descarga_verpdf";
@@ -802,7 +772,7 @@
             // 
             // lb_texto_descarga_verpdf
             // 
-            this.lb_texto_descarga_verpdf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.lb_texto_descarga_verpdf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lb_texto_descarga_verpdf.AutoSize = true;
             this.lb_texto_descarga_verpdf.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -816,7 +786,7 @@
             // 
             // lb_txt_ruta_descargar
             // 
-            this.lb_txt_ruta_descargar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.lb_txt_ruta_descargar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lb_txt_ruta_descargar.AutoSize = true;
             this.lb_txt_ruta_descargar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -837,7 +807,6 @@
             this.chTodos.TabIndex = 12;
             this.chTodos.Text = "Seleccionar todos ";
             this.chTodos.UseVisualStyleBackColor = true;
-            this.chTodos.Visible = false;
             this.chTodos.CheckedChanged += new System.EventHandler(this.chTodos_CheckedChanged);
             // 
             // chkHDAutlan
@@ -853,6 +822,36 @@
             this.chkHDAutlan.Visible = false;
             this.chkHDAutlan.CheckedChanged += new System.EventHandler(this.chkHDAutlan_CheckedChanged);
             this.chkHDAutlan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkHDAutlan_MouseClick);
+            // 
+            // linkLast
+            // 
+            this.linkLast.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linkLast.AutoSize = true;
+            this.linkLast.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linkLast.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLast.Location = new System.Drawing.Point(545, 28);
+            this.linkLast.Name = "linkLast";
+            this.linkLast.Size = new System.Drawing.Size(24, 16);
+            this.linkLast.TabIndex = 24;
+            this.linkLast.TabStop = true;
+            this.linkLast.Text = "...4";
+            this.linkLast.Visible = false;
+            this.linkLast.Click += new System.EventHandler(this.btnUltimaPagina_Click);
+            // 
+            // linkFirst
+            // 
+            this.linkFirst.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linkFirst.AutoSize = true;
+            this.linkFirst.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linkFirst.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkFirst.Location = new System.Drawing.Point(451, 28);
+            this.linkFirst.Name = "linkFirst";
+            this.linkFirst.Size = new System.Drawing.Size(24, 16);
+            this.linkFirst.TabIndex = 24;
+            this.linkFirst.TabStop = true;
+            this.linkFirst.Text = "1...";
+            this.linkFirst.Visible = false;
+            this.linkFirst.Click += new System.EventHandler(this.btnPrimeraPagina_Click);
             // 
             // ListadoVentas
             // 

@@ -402,7 +402,7 @@ namespace PuntoDeVentaV2
 
             linkLblPaginaActual.Text = p.numPag().ToString();
             linkLblPaginaActual.LinkColor = System.Drawing.Color.White;
-            linkLblPaginaActual.BackColor = System.Drawing.Color.Black;            
+            linkLblPaginaActual.BackColor = System.Drawing.Color.Black;
 
             BeforePage = p.numPag() - 1;
             AfterPage = p.numPag() + 1;
@@ -461,7 +461,7 @@ namespace PuntoDeVentaV2
             {
                 linkFirst.Visible = false;
             }
-            if (Convert.ToInt32(linkLblPaginaActual.Text) < LastPage-1)
+            if (Convert.ToInt32(linkLblPaginaActual.Text) < LastPage - 1)
             {
                 linkLast.Text = $"...{p.countPag().ToString()}";
                 linkLast.Visible = true;
@@ -887,7 +887,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                            if (buscarPorFecha == 1)
+                    if (buscarPorFecha == 1)
                     {
                         fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
                         horaInicial = dpHoraInicial.Value.ToString("HH:mm");
@@ -1231,7 +1231,7 @@ namespace PuntoDeVentaV2
                     total += totalTmp;
 
                     //Mexicanada nivel un millon
-                    using (DataTable dt= cn.CargarDatos($"SELECT SUM(Total) AS Abonado FROM Abonos WHERE IDVenta= {idVenta}"))
+                    using (DataTable dt = cn.CargarDatos($"SELECT SUM(Total) AS Abonado FROM Abonos WHERE IDVenta= {idVenta}"))
                     {
                         if (string.IsNullOrEmpty(dt.Rows[0][0].ToString()))
                         {
@@ -1277,7 +1277,7 @@ namespace PuntoDeVentaV2
                     {
                         row.Cells["Cancelar"].Value = sinImagen;
                     }
-                    
+
                     // Ventas a credito
                     if (status != 4)
                     {
@@ -1292,11 +1292,11 @@ namespace PuntoDeVentaV2
 
                 }
 
-                AgregarTotales(iva, subtotal, total,abonado);
+                AgregarTotales(iva, subtotal, total, abonado);
 
                 using (DataTable dbTotalesGenerales = cn.CargarDatos(FiltroAvanzado))
                 {
-                    float ivaTmpGral = 0, subtotalTmpGral = 0, totalTmpGral = 0,totalAbonos=0;
+                    float ivaTmpGral = 0, subtotalTmpGral = 0, totalTmpGral = 0, totalAbonos = 0;
                     foreach (DataRow row in dbTotalesGenerales.Rows)
                     {
                         if (float.Parse(row["IVA8"].ToString()) > 0)
@@ -1304,7 +1304,7 @@ namespace PuntoDeVentaV2
                             ivaTmpGral += float.Parse(row["IVA8"].ToString());
                         }
                         DataColumnCollection columns = dbTotalesGenerales.Columns;
-                        if (columns.Contains("Abonado"))        
+                        if (columns.Contains("Abonado"))
                         {
                             if (!string.IsNullOrEmpty(row["Abonado"].ToString()))
                             {
@@ -1319,7 +1319,7 @@ namespace PuntoDeVentaV2
                         subtotalTmpGral += float.Parse(row["Subtotal"].ToString());
                         totalTmpGral += float.Parse(row["Total"].ToString());
                     }
-                    AgregarTotalesGenerales(ivaTmpGral, subtotalTmpGral, totalTmpGral,totalAbonos);
+                    AgregarTotalesGenerales(ivaTmpGral, subtotalTmpGral, totalTmpGral, totalAbonos);
                 }
 
                 DGVListadoVentas.FirstDisplayedScrollingRowIndex = DGVListadoVentas.RowCount - 1;
@@ -1351,7 +1351,7 @@ namespace PuntoDeVentaV2
 
         private void UpdListadoCols(string estado)
         {
-            if (estado=="VCC")
+            if (estado == "VCC")
             {
                 DGVListadoVentas.Columns["Abonado"].DisplayIndex = 5;
                 DGVListadoVentas.Columns["Abonado"].Visible = true;
@@ -1482,7 +1482,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void AgregarTotalesGenerales(float ivaGral, float subtotalGral, float totalGral,float abonado)
+        private void AgregarTotalesGenerales(float ivaGral, float subtotalGral, float totalGral, float abonado)
         {
             int idFila = DGVListadoVentas.Rows.Add();
             DataGridViewRow fila = DGVListadoVentas.Rows[idFila];
@@ -1705,7 +1705,7 @@ namespace PuntoDeVentaV2
             //Ventas canceladas
             if (opcion == "VC") { CargarDatos(3); }
             //Ventas a credito
-            if (opcion == "VCC") { CargarDatos(4);}
+            if (opcion == "VCC") { CargarDatos(4); }
             //Ventas globales
             if (opcion == "VGG") { CargarDatos(5); }
 
@@ -1967,7 +1967,7 @@ namespace PuntoDeVentaV2
                                         return;
                                     }
                                 }
-                               
+
                             }
 
                             var statusVentaParaCancelar = 0;
@@ -2488,11 +2488,11 @@ namespace PuntoDeVentaV2
                 if (e.ColumnIndex == 12)
                 {
                     //Comprobar si adobe esta instalado
-                    //if (!Utilidades.AdobeReaderInstalado())
-                    //{
-                    //    Utilidades.MensajeAdobeReader();
-                    //    return;
-                    //}
+                    if (!Utilidades.AdobeReaderInstalado())
+                    {
+                        Utilidades.MensajeAdobeReader();
+                        return;
+                    }
 
                     //Verifica si el PDF ya esta creado
                     var servidor = Properties.Settings.Default.Hosting;
@@ -2660,8 +2660,8 @@ namespace PuntoDeVentaV2
 
                 }
 
-                    //Ver ticket
-                    if (e.ColumnIndex == 13)
+                //Ver ticket
+                if (e.ColumnIndex == 13)
                 {
                     if (opcion3 == 0)
                     {
@@ -4684,7 +4684,7 @@ namespace PuntoDeVentaV2
                         contador++;
                     }
                 }
-                VisualizadorReporteVentas VRV = new VisualizadorReporteVentas(codigosBuscar,cbTipoVentas.SelectedIndex);
+                VisualizadorReporteVentas VRV = new VisualizadorReporteVentas(codigosBuscar, cbTipoVentas.SelectedIndex);
                 VRV.ShowDialog();
 
                 //if (!query.Rows.Count.Equals(0))
@@ -5116,7 +5116,7 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-                    }
+            }
             else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
             {
 
@@ -5404,6 +5404,5 @@ namespace PuntoDeVentaV2
                 txtBuscador.Select(txtBuscador.Text.Length, 0);
             }
         }
-
     }
 }
