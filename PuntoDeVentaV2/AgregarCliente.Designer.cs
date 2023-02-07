@@ -70,9 +70,9 @@
             this.lAgregarClienteNuevo = new System.Windows.Forms.Label();
             this.gbContenedor = new System.Windows.Forms.GroupBox();
             this.cmb_bx_regimen = new System.Windows.Forms.ComboBox();
-            this.label19 = new System.Windows.Forms.Label();
             this.btnPublicoGeneral = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             this.gbContenedor.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -534,8 +534,8 @@
             // 
             // gbContenedor
             // 
+            this.gbContenedor.Controls.Add(this.label20);
             this.gbContenedor.Controls.Add(this.cmb_bx_regimen);
-            this.gbContenedor.Controls.Add(this.label19);
             this.gbContenedor.Controls.Add(this.btnPublicoGeneral);
             this.gbContenedor.Controls.Add(this.label19);
             this.gbContenedor.Controls.Add(this.lAgregarClienteNuevo);
@@ -596,16 +596,6 @@
             this.cmb_bx_regimen.Size = new System.Drawing.Size(497, 25);
             this.cmb_bx_regimen.TabIndex = 88;
             // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(28, 469);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(60, 17);
-            this.label19.TabIndex = 87;
-            this.label19.Text = "Régimen";
-            // 
             // btnPublicoGeneral
             // 
             this.btnPublicoGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -619,7 +609,7 @@
             this.btnPublicoGeneral.Name = "btnPublicoGeneral";
             this.btnPublicoGeneral.Size = new System.Drawing.Size(106, 28);
             this.btnPublicoGeneral.TabIndex = 86;
-            this.btnPublicoGeneral.Text = "Publico General";
+            this.btnPublicoGeneral.Text = "Público General";
             this.btnPublicoGeneral.UseVisualStyleBackColor = false;
             this.btnPublicoGeneral.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -635,6 +625,16 @@
             this.label19.Text = "Registro biométrico";
             this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.label19.Visible = false;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(28, 469);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(60, 17);
+            this.label20.TabIndex = 89;
+            this.label20.Text = "Régimen";
             // 
             // AgregarCliente
             // 
@@ -703,5 +703,6 @@
         private System.Windows.Forms.Button btnPublicoGeneral;
         private System.Windows.Forms.ComboBox cmb_bx_regimen;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
     }
 }

@@ -30,6 +30,7 @@ namespace PuntoDeVentaV2
         private void Complemento_pago_Load(object sender, EventArgs e)
         {
             cmb_bx_forma_pago.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            
             // Forma de pago
 
             Dictionary<string, string> forma_pago = new Dictionary<string, string>();
@@ -53,17 +54,44 @@ namespace PuntoDeVentaV2
             forma_pago.Add("28", "28 - Tarjeta de débito");
             forma_pago.Add("29", "29 - Tarjeta de servicios");
             forma_pago.Add("30", "30 - Aplicación de anticipos");
+            forma_pago.Add("31", "31 - Intermediario pagos");
 
             cmb_bx_forma_pago.DataSource = forma_pago.ToArray();
             cmb_bx_forma_pago.DisplayMember = "Value";
             cmb_bx_forma_pago.ValueMember = "Key";
             cmb_bx_forma_pago.SelectedIndex = 0;
 
+
             // Fecha actual
 
             DateTime f_actual = DateTime.Now;
             string fecha_actual = f_actual.ToShortDateString();
             datetime_fecha_pago.Text = fecha_actual;
+
+
+            // Moneda
+
+            Dictionary<string, string> moneda = new Dictionary<string, string>();
+            DataTable d_moneda;
+
+            d_moneda = cn.CargarDatos(cs.cargar_datos_venta_xml(6, 0, 0));
+
+            moneda.Add("EUR", "EUR - Euro");
+            moneda.Add("MXN", "MXN - Peso Mexicano");
+            moneda.Add("USD", "USD - Dolar americano");
+
+            foreach (DataRow r_moneda in d_moneda.Rows)
+            {
+                if (r_moneda["clave_moneda"].ToString() != "EUR" & r_moneda["clave_moneda"].ToString() != "MXN" & r_moneda["clave_moneda"].ToString() != "USD")
+                {
+                    moneda.Add(r_moneda["clave_moneda"].ToString(), r_moneda["clave_moneda"].ToString() + " - " + r_moneda["descripcion"].ToString());
+                }
+            }
+
+            cmb_bx_moneda_pago.DataSource = moneda.ToArray();
+            cmb_bx_moneda_pago.DisplayMember = "Value";
+            cmb_bx_moneda_pago.ValueMember = "Key";
+            cmb_bx_moneda_pago.SelectedIndex = 1;
 
             // Facturas a pagar/abonar
 
@@ -427,6 +455,53 @@ namespace PuntoDeVentaV2
             {
                 this.Close();
             }
+        }
+
+        private void encampo_cuenta(object sender, EventArgs e)
+        {
+            if (txt_cuenta.Text == "(Opcional) No. cuenta")
+            {
+                txt_cuenta.Text = "";
+            }
+        }
+
+        private void scampo_cuenta(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txt_cuenta.Text))
+            {
+                txt_cuenta.Text = "(Opcional) No. cuenta";
+            }
+        }
+
+        private bool val_campos_forma_pago(string nom_campo)
+        {
+            var campo_avalidar = "";
+            var clave_formap = cmb_bx_forma_pago.SelectedValue.ToString();
+            bool resultado = false;
+
+
+            if(nom_campo == "txt_cuenta")
+            {
+                campo_avalidar = txt_cuenta.Text;
+            }
+            if (nom_campo == "txt_rfc_ordenante")
+            {
+                campo_avalidar = txt_rfc_ordenante.Text;
+            }
+            if (nom_campo == "txt_cuenta_beneficiario")
+            {
+                campo_avalidar = txt_cuenta_beneficiario.Text;
+            }
+            if (nom_campo == "txt_rfc_beneficiario")
+            {
+                campo_avalidar = txt_rfc_beneficiario.Text;
+            }
+
+
+            TextBox campo_txt = (TextBox)this.Controls.Find(campo_avalidar, true).FirstOrDefault();
+            campo_txt.Text = "";
+
+            return resultado;
         }
     }
 }

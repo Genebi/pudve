@@ -92,6 +92,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.cmb_bx_clientes = new CustomControlPUDVE.ComboBoxPUDVE();
             this.groupb_monto_max = new System.Windows.Forms.GroupBox();
+            this.cmb_bx_exportacion = new System.Windows.Forms.ComboBox();
+            this.label33 = new System.Windows.Forms.Label();
             this.txt_cantidad_max = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
             this.groupb_pago = new System.Windows.Forms.GroupBox();
@@ -105,8 +107,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btn_anterior = new System.Windows.Forms.Button();
-            this.label33 = new System.Windows.Forms.Label();
-            this.cmb_bx_exportacion = new System.Windows.Forms.ComboBox();
             this.pnl_datos_cliente.SuspendLayout();
             this.groupb_informacion_global.SuspendLayout();
             this.tab_control.SuspendLayout();
@@ -796,7 +796,7 @@
             // cmb_bx_clientes
             // 
             this.cmb_bx_clientes.FormattingEnabled = true;
-            this.cmb_bx_clientes.Location = new System.Drawing.Point(0, 30);
+            this.cmb_bx_clientes.Location = new System.Drawing.Point(17, 24);
             this.cmb_bx_clientes.MaxDropDownItems = 12;
             this.cmb_bx_clientes.Name = "cmb_bx_clientes";
             this.cmb_bx_clientes.Size = new System.Drawing.Size(700, 25);
@@ -819,6 +819,27 @@
             this.groupb_monto_max.TabStop = false;
             this.groupb_monto_max.Text = "Monto por factura.  Exportación";
             this.groupb_monto_max.Visible = false;
+            // 
+            // cmb_bx_exportacion
+            // 
+            this.cmb_bx_exportacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmb_bx_exportacion.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmb_bx_exportacion.FormattingEnabled = true;
+            this.cmb_bx_exportacion.Location = new System.Drawing.Point(363, 25);
+            this.cmb_bx_exportacion.Name = "cmb_bx_exportacion";
+            this.cmb_bx_exportacion.Size = new System.Drawing.Size(461, 24);
+            this.cmb_bx_exportacion.TabIndex = 3;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Century Gothic", 9F);
+            this.label33.ForeColor = System.Drawing.Color.Black;
+            this.label33.Location = new System.Drawing.Point(280, 31);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(79, 17);
+            this.label33.TabIndex = 2;
+            this.label33.Text = "Exportación";
             // 
             // txt_cantidad_max
             // 
@@ -981,27 +1002,6 @@
             this.btn_anterior.Text = "Anterior";
             this.btn_anterior.UseVisualStyleBackColor = false;
             this.btn_anterior.Click += new System.EventHandler(this.btn_anterior_Click);
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Font = new System.Drawing.Font("Century Gothic", 9F);
-            this.label33.ForeColor = System.Drawing.Color.Black;
-            this.label33.Location = new System.Drawing.Point(280, 31);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(79, 17);
-            this.label33.TabIndex = 2;
-            this.label33.Text = "Exportación";
-            // 
-            // cmb_bx_exportacion
-            // 
-            this.cmb_bx_exportacion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmb_bx_exportacion.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmb_bx_exportacion.FormattingEnabled = true;
-            this.cmb_bx_exportacion.Location = new System.Drawing.Point(363, 25);
-            this.cmb_bx_exportacion.Name = "cmb_bx_exportacion";
-            this.cmb_bx_exportacion.Size = new System.Drawing.Size(461, 24);
-            this.cmb_bx_exportacion.TabIndex = 3;
             // 
             // Crear_factura
             // 

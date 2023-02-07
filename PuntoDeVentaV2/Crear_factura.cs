@@ -1524,6 +1524,7 @@ namespace PuntoDeVentaV2
 
                                 xftotal_suma += Convert.ToDecimal(arr_dproductos[s][6]) + Convert.ToDecimal(arr_dproductos[s][8]);
                                 xftotal_suma += Convert.ToDecimal(arr_dproductos[s][10]) + Convert.ToDecimal(arr_dproductos[s][12]);
+                                xftotal_suma += Convert.ToDecimal(arr_dproductos[s][9]); // Se agrega la suma del descuento para que los calculos coincidan
 
                                 xftotal_resta += Convert.ToDecimal(arr_dproductos[s][9]) + Convert.ToDecimal(arr_dproductos[s][11]);
                                 xftotal_resta += Convert.ToDecimal(arr_dproductos[s][13]);
@@ -2052,9 +2053,10 @@ namespace PuntoDeVentaV2
                 string vdescuento = ListadoVentas.faltantes_productos[z][7];
                 string vincluye_impuestos = ListadoVentas.faltantes_productos[z][11];
 
-                string mbase = Convert.ToString(dos_seis_decimales(vprecio, 6));  //"";
+                decimal mbase = dos_seis_decimales(vprecio, 6);  //"";
                 string miva = "";
                 string timpuesto = "";
+                string mbase_ar = "";
 
                 string vdescuento_xproducto = "";
                 decimal vtotal_xp_traslado = 0;
@@ -2114,8 +2116,9 @@ namespace PuntoDeVentaV2
                         b = vprecio;
                     }
 
-                    mbase = Convert.ToString(dos_seis_decimales(b, 6));
+                    mbase = dos_seis_decimales(b, 6);
                     miva = Convert.ToString(dos_seis_decimales(bs, 6));
+                    mbase_ar = Convert.ToString(mbase);
                 }
 
                 // Si el producto tiene descuento, se hará una modificación del valor del campo base
@@ -2152,7 +2155,11 @@ namespace PuntoDeVentaV2
 
                         nbase = dos_seis_decimales(nbase, 6);
 
-                        mbase = Convert.ToString(nbase);
+                        miva = Convert.ToString(dos_seis_decimales(pu_desc - nbase, 6));
+                        mbase = nbase + desc_encant;
+
+                        // Se agrega la base sin descuento para ser guardado en el arreglo
+                        mbase_ar = Convert.ToString(nbase);
                     }
                     else
                     {
@@ -2171,13 +2178,20 @@ namespace PuntoDeVentaV2
                         {
                             nbase = pu_desc / 1.08m;
                         }
+                        
+                        nbase = dos_seis_decimales(nbase, 6);                        
+                        
+                        miva= Convert.ToString(dos_seis_decimales(pu_desc - nbase, 6));
+                        mbase = nbase + descuento_xcantidad;
 
-                        nbase = dos_seis_decimales(nbase, 6);
-
-                        mbase = Convert.ToString(nbase);
+                        // Se agrega la base sin descuento para ser guardado en el arreglo
+                        mbase_ar = Convert.ToString(nbase);
                     }
                 }
 
+                
+
+                
 
                 // Guardamos los datos para usarlos al momento de guardar en la BD 
                 // y no volver a hacer todo el procedimiento
@@ -2190,7 +2204,7 @@ namespace PuntoDeVentaV2
                 arr_dproductos[z][3] = ListadoVentas.faltantes_productos[z][4]; // nombre
                 arr_dproductos[z][4] = ListadoVentas.faltantes_productos[z][5]; // cantidad
                 arr_dproductos[z][5] = ListadoVentas.faltantes_productos[z][6]; // precio
-                arr_dproductos[z][6] = mbase;
+                arr_dproductos[z][6] = mbase_ar;
                 arr_dproductos[z][7] = timpuesto;
                 arr_dproductos[z][8] = miva;
                 arr_dproductos[z][9] = vdescuento_xproducto.Trim();
@@ -2345,7 +2359,7 @@ namespace PuntoDeVentaV2
 
 
 
-                vtotal_base += Convert.ToDecimal(mbase) * vcantidad;
+                vtotal_base += mbase * vcantidad;
                 vtotal_ivag += Convert.ToDecimal(miva) * vcantidad;
 
                 if (vdescuento_xproducto.Trim() != "")
@@ -2361,9 +2375,11 @@ namespace PuntoDeVentaV2
                     vdescuento_xproducto = "0";
                 }
 
-                decimal vt_suma = Convert.ToDecimal(mbase) + Convert.ToDecimal(miva) + vtotal_xp_traslado + vtotal_xp_ltraslado;
+                decimal vt_suma = mbase + Convert.ToDecimal(miva) + vtotal_xp_traslado + vtotal_xp_ltraslado;
 
-                decimal vt_resta = Convert.ToDecimal(vdescuento_xproducto) + vtotal_xp_retencion + vtotal_xp_lretenido;
+                //decimal vt_resta = Convert.ToDecimal(vdescuento_xproducto) + vtotal_xp_retencion + vtotal_xp_lretenido;
+
+                decimal vt_resta = vtotal_xp_retencion + vtotal_xp_lretenido;
 
                 decimal vt_xproducto = (vt_suma - vt_resta) / vcantidad;
 

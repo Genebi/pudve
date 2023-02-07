@@ -14,7 +14,7 @@ using System.Net;
 //using PuntoDeVentaV2.ServiceReferenceTPrueba;
 //using PuntoDeVentaV2.ServiceReference_produccion;
 
-using System.IO;
+
 namespace PuntoDeVentaV2
 {
     class Generar_XML
@@ -46,7 +46,7 @@ namespace PuntoDeVentaV2
             DataTable d_facturas;
             DataRow r_facturas;
             string folio = "",            serie = "";
-            string fecha = "",            moneda = "";
+            string moneda = "";
             string forma_pago = "",       tipo_cambio = "";     
             string metodo_pago = "",      lugar_expedicion = "";
             string tipo_comprobante = "",  exportacion = ""; 
@@ -1217,13 +1217,6 @@ namespace PuntoDeVentaV2
                 rutaXML = $@"\\{servidor}\Archivos PUDVE\Facturas\XML_" + nombre_xml + id_factura + ".xml";
             }
 
-            string rutaXMLl = @"C:\Archivos PUDVE\Facturas\XML_" + nombre_xml + id_factura + "a.xml";
-
-            if (!string.IsNullOrWhiteSpace(servidor))
-            {
-                rutaXMLl = $@"\\{servidor}\Archivos PUDVE\Facturas\XML_" + nombre_xml + id_factura + "a.xml";
-            }
-
 
 
 
@@ -1261,10 +1254,6 @@ namespace PuntoDeVentaV2
             // .    Timbrar CFDI    .
             // ......................
 
-            //var bXML = File.ReadAllBytes(rutaXML);
-            //string usuario = "NUSN900420SS5";
-            //string clave_u = "pGoyQq-RHsaij_yNJfHp";
-            //string clave_u = "c.ofis09NSUNotcatno5SS0240";
             /*string usuario = "EWE1709045U0.Test";
             string clave_u = "Prueba$1";
             int id_servicio = 194876591;*/
@@ -1272,130 +1261,115 @@ namespace PuntoDeVentaV2
             string clave_u = "Acceso$1";
             int id_servicio = 196789671;
             byte[] XML40 = File.ReadAllBytes(rutaXML);
-            string resultado = "";
 
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             //Convierte archivo en bytes
-            //var servicio = new FH_CFDI40_test.WsEmisionTimbrado40();
             var servicio = new FH_CFDI40_produccion.WsEmisionTimbrado40();
-            //WsEmisionTimbrado40Client timbrar = new WsEmisionTimbrado40Client();
-            //WsEmisionTimbrado40 timbrar = new WsEmisionTimbrado40();
+            //var servicio = new FH_CFDI40_test.WsEmisionTimbrado40();
 
 
-            // Crear el objeto cliente
-            //timbrado_cfdi33_portClient cliente_timbrar = new timbrado_cfdi33_portClient();
-            // Crear el objeto de la respuesta
-            //timbrar_cfdi_result respuesta = new timbrar_cfdi_result();
-
-            // Llamar al metodo de timbrado
             try
             {
                 //Crea un objeto del web service
                 var respuesta = servicio.EmitirTimbrar(usuario, clave_u, id_servicio, XML40);
-                Console.WriteLine(respuesta);
-                //Llama el metodo timbrar
+                
+
                 if (!respuesta.isError)
                 {
                     //Si no hay errores guarda el xml timbrado
-                    //File.WriteAllBytes(@"C:\tickets\XMLs\Nomina-Timbrado.xml", response.XML);
-                    File.WriteAllBytes(rutaXMLl, respuesta.XML);
+                    File.WriteAllBytes(rutaXML, respuesta.XML);
 
-                    mensaje = "Exíto: " + "\n" +                            
-                            respuesta.folioUDDI + "\n" +
-                            respuesta.cadenaOriginal + "\n" +
-                            respuesta.selloDigitalEmisor + "\n" +
-                            respuesta.selloDigitalTimbreSAT + "\n" +
-                            respuesta.fechaHoraTimbrado;
-                    Console.WriteLine("MENSAJE==: " + mensaje);
-                    Console.WriteLine("==> [XML] <==: " + respuesta.XML);
+                    // mensaje = "Exíto: " + "\n" +                            
+                    //respuesta.folioUDDI + "\n" +
+                    //respuesta.cadenaOriginal + "\n" +
+                    // respuesta.selloDigitalEmisor + "\n" +
+                    //respuesta.selloDigitalTimbreSAT + "\n" +
+                    // respuesta.fechaHoraTimbrado;
+
+
+                    // Cambia a timbrada la nota de venta
+
+                    if (con_complemento_pg == 0)
+                    {
+                        string[] datos = new string[] { id_venta.ToString() };
+
+                        cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(4, datos));
+                    }
+
+                    // Cambia a timbrada la factura
+
+                    string[] dat_f = new string[] { id_factura.ToString() };
+
+                    cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(8, dat_f));
+
+                    // Cambia a timbrado cada documento relacionado del complemento de pago
+
+                    if (con_complemento_pg == 1)
+                    {
+                        string[] dat_cp = new string[] { id_factura.ToString() };
+                        cn.EjecutarConsulta(cs.crear_complemento_pago(5, dat_cp));
+
+                        // Cambia variable a 1 para indicar que la factura principal tienen complementos de pago
+
+                        for (int x = 0; x < arr_idf_principal_pago.Length; x++)
+                        {
+                            string[] datos_v = new string[]
+                            {
+                                arr_idf_principal_pago[x][0].ToString(), arr_idf_principal_pago[x][1].ToString()
+                            };
+
+                            cn.EjecutarConsulta(cs.crear_complemento_pago(4, datos_v));
+                        }
+                    }
+
+
+                    // Leer XML para obtener total, UUID, sellos 
+
+                    XmlDocument xdoc = new XmlDocument();
+                    xdoc.Load(rutaXML);
+
+                    // Total
+                    XmlAttributeCollection c_total = xdoc.DocumentElement.Attributes;
+                    string obt_total = ((XmlAttribute)c_total.GetNamedItem("Total")).Value;
+
+                    // Datos del nodo timbre fiscal
+
+                    string uuid = "", fecha_cer = "";
+                    string sello_cfd = "", rfc_pac = "";
+                    string sello_sat = "";
+
+                    XmlNodeList nod_list = xdoc.GetElementsByTagName("tfd:TimbreFiscalDigital");
+                    XmlAttributeCollection rr = nod_list[0].Attributes;
+
+                    uuid = ((XmlAttribute)rr.GetNamedItem("UUID")).Value;
+                    fecha_cer = ((XmlAttribute)rr.GetNamedItem("FechaTimbrado")).Value;
+                    rfc_pac = ((XmlAttribute)rr.GetNamedItem("RfcProvCertif")).Value;
+                    sello_cfd = ((XmlAttribute)rr.GetNamedItem("SelloCFD")).Value;
+                    sello_sat = ((XmlAttribute)rr.GetNamedItem("SelloSAT")).Value;
+
+
+                    string[] datos_xml = new string[]
+                    {
+                        id_factura.ToString(), fecha_cer, uuid, rfc_pac, sello_sat, sello_cfd, obt_total
+                    };
+                    cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(9, datos_xml));
+
+
+                    // Resta timbre
+
+                    cn.EjecutarConsulta(cs.descontar_timbres(id_usuario));
+
                 }
                 else
                 {
-                    Console.WriteLine("Error: " + respuesta.message);
-                    mensaje = "Error: " + respuesta.message;
+                    mensaje = respuesta.message;
                 }
 
-                //respuesta = cliente_timbrar.timbrar_cfdi(usuario, clave_u, Convert.ToBase64String(bXML));
-                //File.WriteAllText(rutaXML, respuesta.xml);
-
-                // Cambia a timbrada la nota de venta
-
-                /* if (con_complemento_pg == 0)
-                 {
-                     string[] datos = new string[] { id_venta.ToString() };
-
-                     cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(4, datos));
-                 }
-
-                 // Cambia a timbrada la factura
-
-                 string[] dat_f = new string[] { id_factura.ToString() };
-
-                 cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(8, dat_f));
-
-                 // Cambia a timbrado cada documento relacionado del complemento de pago
-
-                 if (con_complemento_pg == 1)
-                 {
-                     string[] dat_cp = new string[] { id_factura.ToString() };
-                     cn.EjecutarConsulta(cs.crear_complemento_pago(5, dat_cp));
-
-                     // Cambia variable a 1 para indicar que la factura principal tienen complementos de pago
-
-                     for (int x = 0; x < arr_idf_principal_pago.Length; x++)
-                     {
-                         string[] datos_v = new string[]
-                         {
-                             arr_idf_principal_pago[x][0].ToString(), arr_idf_principal_pago[x][1].ToString()
-                         };
-
-                         cn.EjecutarConsulta(cs.crear_complemento_pago(4, datos_v));
-                     }
-                 }
-
-
-                 // Leer XML para obtener total, UUID, sellos 
-
-                 XmlDocument xdoc = new XmlDocument();
-                 xdoc.Load(rutaXML);
-
-                 // Total
-                 XmlAttributeCollection c_total = xdoc.DocumentElement.Attributes;
-                 string obt_total = ((XmlAttribute)c_total.GetNamedItem("Total")).Value;
-
-                 // Datos del nodo timbre fiscal
-
-                 string uuid = "", fecha_cer = "";
-                 string sello_cfd = "", rfc_pac = "";
-                 string sello_sat = "";
-
-                 XmlNodeList nod_list = xdoc.GetElementsByTagName("tfd:TimbreFiscalDigital");
-                 XmlAttributeCollection rr = nod_list[0].Attributes;
-
-                 uuid = ((XmlAttribute)rr.GetNamedItem("UUID")).Value;
-                 fecha_cer = ((XmlAttribute)rr.GetNamedItem("FechaTimbrado")).Value;
-                 rfc_pac = ((XmlAttribute)rr.GetNamedItem("RfcProvCertif")).Value;
-                 sello_cfd = ((XmlAttribute)rr.GetNamedItem("SelloCFD")).Value;
-                 sello_sat = ((XmlAttribute)rr.GetNamedItem("SelloSAT")).Value;
-
-
-                 string[] datos_xml = new string[]
-                 {
-                     id_factura.ToString(), fecha_cer, uuid, rfc_pac, sello_sat, sello_cfd, obt_total
-                 };
-                 cn.EjecutarConsulta(cs.guarda_datos_faltantes_xml(9, datos_xml));
-
-
-                 // Resta timbre
-
-                 cn.EjecutarConsulta(cs.descontar_timbres(id_usuario));*/
             }
             catch (FaultException fex)
-            {
-                //var codigo = fex.Code.ToString();
-                
+            {                
                 mensaje = fex.Message;
 
                 // Elimina la factura que fue creada
@@ -1403,10 +1377,7 @@ namespace PuntoDeVentaV2
             }
             catch (XmlException e_xml)
             {
-                mensaje = e_xml.Message + e_xml.LineNumber;
-
-                // Elimina la factura que fue creada
-                //error_eliminar_factura(id_factura, con_complemento_pg);
+                mensaje = e_xml.Message;
             }
             catch(CommunicationException com)
             {
@@ -1428,7 +1399,7 @@ namespace PuntoDeVentaV2
             string xml = string.Empty;
 
             XmlSerializerNamespaces xmlNameSpaces = new XmlSerializerNamespaces();
-            xmlNameSpaces.Add("cfdi", "http://www.sat.gob.mx/cfd/3");
+            xmlNameSpaces.Add("cfdi", "http://www.sat.gob.mx/cfd/4");
             xmlNameSpaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
 
             if(complemento_pg == 1)
