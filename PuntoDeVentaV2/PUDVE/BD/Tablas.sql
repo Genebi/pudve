@@ -2112,6 +2112,10 @@ IF
 
 ALTER TABLE dgvaumentarinventario ADD COLUMN IF NOT EXISTS Devolucion INT DEFAULT 0;
 
+
+
+
+
 -- Nuevas Columnas para la tabla de imprimir ticket
 ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaVentas INT DEFAULT 0;
 ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaGuardada INT DEFAULT 0;
