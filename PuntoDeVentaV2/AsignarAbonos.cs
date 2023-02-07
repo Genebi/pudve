@@ -183,7 +183,7 @@ namespace PuntoDeVentaV2
                         datos = new string[] { idVenta.ToString(), idAbono, totalOriginal.ToString("0.00"), totalPendiente.ToString("0.00"), totalAbonado.ToString("0.00"), restante.ToString("0.00"), fechaOperacion };
 
                         GenerarTicket(datos);
-                        using (var dt = cn.CargarDatos($"SELECT TicketAbono,PreguntarTicketAbono FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
+                        using (var dt = cn.CargarDatos($"SELECT TicketAbono,PreguntarTicketAbono,AbrirCajaAbonos FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
                         {
                             if (dt.Rows[0]["TicketAbono"].Equals(1))
                             {
@@ -193,13 +193,23 @@ namespace PuntoDeVentaV2
                             }
                             else if (dt.Rows[0]["PreguntarTicketAbono"].Equals(1))
                             {
-                                DialogResult result =  MessageBox.Show("¿Desea imprimir Ticket?","Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                DialogResult result = MessageBox.Show("¿Desea imprimir Ticket?", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                                 if (result.Equals(DialogResult.Yes))
                                 {
                                     ImprimirTicketAbono impresionTicketAbono = new ImprimirTicketAbono();
                                     impresionTicketAbono.idAbono = idVenta;
                                     impresionTicketAbono.ShowDialog();
                                 }
+                                else if (dt.Rows[0]["AbrirCajaAbonos"].Equals(1))
+                                {
+                                    AbrirSinTicket abrir = new AbrirSinTicket();
+                                    abrir.Show();
+                                }
+                            }
+                            else if (dt.Rows[0]["AbrirCajaAbonos"].Equals(1))
+                            {
+                                AbrirSinTicket abrir = new AbrirSinTicket();
+                                abrir.Show();
                             }
                         }
                        

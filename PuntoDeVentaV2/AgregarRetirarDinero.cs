@@ -402,7 +402,7 @@ namespace PuntoDeVentaV2
 
                 }
 
-                using (var dt = cn.CargarDatos($"SELECT TicketDineroAgregado,PreguntarTicketDineroAgregado FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
+                using (var dt = cn.CargarDatos($"SELECT TicketDineroAgregado,PreguntarTicketDineroAgregado,AbrirCajaAgregar FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
                 {
                     if (dt.Rows[0][0].Equals(1))
                     {
@@ -492,6 +492,11 @@ namespace PuntoDeVentaV2
                                 }
                             }
                         }
+                        else if (dt.Rows[0]["AbrirCajaAgregar"].Equals(1))
+                        {
+                            AbrirSinTicket abrir = new AbrirSinTicket();
+                            abrir.Show();
+                        }
                         using (var DTCorreoHabilitado = cn.CargarDatos($"SELECT EnvioCorreoSaldoIncial FROM `configuracion` WHERE IDUsuario = {FormPrincipal.userID}"))
                         {
                             if (DTCorreoHabilitado.Rows[0][0].ToString().Equals("1"))
@@ -517,6 +522,11 @@ namespace PuntoDeVentaV2
                                 AgregarRetiroDineroSaldoInicial.Start();
                             }
                         }
+                    }
+                    else if (dt.Rows[0]["AbrirCajaAgregar"].Equals(1))
+                    {
+                        AbrirSinTicket abrir = new AbrirSinTicket();
+                        abrir.Show();
                     }
                 }
                
@@ -1256,7 +1266,7 @@ namespace PuntoDeVentaV2
                     // Para generar Ticket al depositar dinero
                     if (operacion == 0)
                     {
-                        using (var dt = cn.CargarDatos($"SELECT TicketDineroAgregado,PreguntarTicketDineroAgregado FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
+                        using (var dt = cn.CargarDatos($"SELECT TicketDineroAgregado,PreguntarTicketDineroAgregado,AbrirCajaAgregar FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
                         {
                             if (dt.Rows[0][0].Equals(1))
                             {
@@ -1342,6 +1352,16 @@ namespace PuntoDeVentaV2
                                         }
                                     }
                                 }
+                                else if (dt.Rows[0]["AbrirCajaAgregar"].Equals(1))
+                                {
+                                    AbrirSinTicket abrir = new AbrirSinTicket();
+                                    abrir.Show();
+                                }
+                            }
+                            else if (dt.Rows[0]["AbrirCajaAgregar"].Equals(1))
+                            {
+                                AbrirSinTicket abrir = new AbrirSinTicket();
+                                abrir.Show();
                             }
                         }
                            
@@ -1359,7 +1379,7 @@ namespace PuntoDeVentaV2
                     // Para generar Ticket al retirar dinero
                     if (operacion == 1)
                     {
-                        using (var dt = cn.CargarDatos($"SELECT TicketRetiradoAgregado,PreguntarTicketRetiradoAgregado FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
+                        using (var dt = cn.CargarDatos($"SELECT TicketRetiradoAgregado,PreguntarTicketRetiradoAgregado,AbrirCajaRetirar FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
                         {
                             if (dt.Rows[0][0].Equals(1))
                             {
@@ -1487,6 +1507,16 @@ namespace PuntoDeVentaV2
                                         }
                                     }
                                 }
+                                if (dt.Rows[0]["AbrirCajaRetirar"].Equals(1))
+                                {
+                                    AbrirSinTicket abrir = new AbrirSinTicket();
+                                    abrir.Show();
+                                }
+                            }
+                            if (dt.Rows[0]["AbrirCajaRetirar"].Equals(1))
+                            {
+                                AbrirSinTicket abrir = new AbrirSinTicket();
+                                abrir.Show();
                             }
                         }
                         //if (Utilidades.AdobeReaderInstalado())

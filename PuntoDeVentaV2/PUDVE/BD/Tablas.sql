@@ -2113,3 +2113,14 @@ IF
 ALTER TABLE dgvaumentarinventario ADD COLUMN IF NOT EXISTS Devolucion INT DEFAULT 0;
 
 ALTER TABLE historialcompras ADD COLUMN IF NOT EXISTS IDEmpleado INT DEFAULT 0;
+
+-- Nuevas Columnas para la tabla de imprimir ticket
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaVentas INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaGuardada INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaCancelada INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaCredito INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaAnticipos INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaAbonos INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaCorte INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaAgregar INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaRetirar INT DEFAULT 0;
