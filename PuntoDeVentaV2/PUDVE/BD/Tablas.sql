@@ -2112,3 +2112,4 @@ IF
 
 ALTER TABLE dgvaumentarinventario ADD COLUMN IF NOT EXISTS Devolucion INT DEFAULT 0;
 
+ALTER TABLE historialcompras ADD COLUMN IF NOT EXISTS IDEmpleado INT DEFAULT 0;

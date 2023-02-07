@@ -170,20 +170,26 @@ namespace PuntoDeVentaV2
             if (!string.IsNullOrWhiteSpace(txtCredito.Text))
             {
                 credito2 = Convert.ToDecimal(txtCredito.Text);
-
-                if (idCliente.Equals(0))
+                if (credito2 >0)
                 {
-                    MessageBox.Show("Asigné un Cliente para hacer una venta a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                else if (!FormPrincipal.id_empleado.Equals(0) && credito2 > 0)
-                {
-                    var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
-                    if (datos[47].Equals(0))
+                    if (idCliente.Equals(0))
                     {
-                        MessageBox.Show("No cuenta con permiso para vender a credito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Asigné un Cliente para hacer una venta a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
+                    else if (!FormPrincipal.id_empleado.Equals(0) && credito2 > 0)
+                    {
+                        var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+                        if (datos[47].Equals(0))
+                        {
+                            MessageBox.Show("No cuenta con permiso para vender a credito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+                }
+                else
+                {
+                    txtCredito.Clear();
                 }
             }
 
