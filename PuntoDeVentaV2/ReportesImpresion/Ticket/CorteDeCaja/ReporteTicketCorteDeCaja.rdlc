@@ -2495,7 +2495,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>="Fecha: "+Parameters!fechaCorteCaja.Value</Value>
+                    <Value>="Fecha: "+ DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")</Value>
                     <Style>
                       <FontSize>7pt</FontSize>
                     </Style>
