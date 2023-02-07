@@ -2315,7 +2315,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=Parameters!conceptoCantidadEnCajaAntesDelCorte.Value</Value>
+                    <Value>="$"+Parameters!conceptoCantidadEnCajaAntesDelCorte.Value</Value>
                     <Style>
                       <FontSize>7pt</FontSize>
                     </Style>
