@@ -134,7 +134,6 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
         }
         #region
         private bool Validacion(int IDProd, string IDSEmple, string FechaI, string FechaF)

@@ -6053,7 +6053,7 @@ namespace PuntoDeVentaV2
             }
             #endregion
 
-            using (var dt = cn.CargarDatos($"SELECT TicketCorteDeCaja,PreguntarTicketCorteDeCaja FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
+            using (var dt = cn.CargarDatos($"SELECT TicketCorteDeCaja,PreguntarTicketCorteDeCaja,AbrirCajaCorte FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
             {
                 if (dt.Rows[0][0].Equals(1))
                 {
@@ -6226,7 +6226,18 @@ namespace PuntoDeVentaV2
                             verCorteDeCaja.ShowDialog();
                         }
                     }
+                    else if (dt.Rows[0]["AbrirCajaCorte"].Equals(1))
+                    {
+                        AbrirSinTicket abrir = new AbrirSinTicket();
+                        abrir.Show();
+                    }
                 }
+                else if (dt.Rows[0]["AbrirCajaCorte"].Equals(1))
+                {
+                    AbrirSinTicket abrir = new AbrirSinTicket();
+                    abrir.Show();
+                }
+                
             }
             
         }

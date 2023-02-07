@@ -339,7 +339,7 @@ namespace PuntoDeVentaV2
                                             }
 
 
-                                            using (var dt = cn.CargarDatos($"SELECT TicketVentaCancelada,PregutarTicketVentaCancelada,TicketOPDFTicketVentaCancelada FROM configuraciondetickets WHERE IDUsuario = {FormPrincipal.userID}"))
+                                            using (var dt = cn.CargarDatos($"SELECT TicketVentaCancelada,PregutarTicketVentaCancelada,TicketOPDFTicketVentaCancelada FROM configuraciondetickets,,AbrirCajaCancelada WHERE IDUsuario = {FormPrincipal.userID}"))
                                             {
                                                 if (dt.Rows[0]["TicketVentaCancelada"].Equals(1))
                                                 {
@@ -418,6 +418,16 @@ namespace PuntoDeVentaV2
                                                             form.ShowDialog();
                                                         }
                                                     }
+                                                    else if (dt.Rows[0]["AbrirCajaCancelada"].Equals(1))
+                                                    {
+                                                        AbrirSinTicket abrir = new AbrirSinTicket();
+                                                        abrir.Show();
+                                                    }
+                                                }
+                                                else if (dt.Rows[0]["AbrirCajaCancelada"].Equals(1))
+                                                {
+                                                    AbrirSinTicket abrir = new AbrirSinTicket();
+                                                    abrir.Show();
                                                 }
                                             }
                                         }

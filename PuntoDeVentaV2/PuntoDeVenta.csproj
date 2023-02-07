@@ -291,6 +291,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbrirSinTicket.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbrirSinTicket.Designer.cs">
+      <DependentUpon>AbrirSinTicket.cs</DependentUpon>
+    </Compile>
     <Compile Include="AgregarAnticipo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1810,6 +1816,9 @@
     <Compile Include="WinQueryString.Designer.cs">
       <DependentUpon>WinQueryString.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AbrirSinTicket.resx">
+      <DependentUpon>AbrirSinTicket.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AgregarAnticipo.resx">
       <DependentUpon>AgregarAnticipo.cs</DependentUpon>
     </EmbeddedResource>
@@ -2399,6 +2408,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ReportesImpresion\Ticket\AbrirCaja\ReporteTicketAbrirCaja80mm3.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\AbrirSinImprimirCaja\RDLCSINIMPRIMIR.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="ReportesRetirosConceptosPorMes.resx">
