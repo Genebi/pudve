@@ -2116,6 +2116,15 @@ namespace PuntoDeVentaV2
             }
 
             copiarMensajesProd = 0;
+
+            if (AgregarEditarProducto.desdeConsultar == 1)
+            {
+                groupBox1.Visible = false;
+            }
+            else
+            {
+                groupBox1.Visible = true;
+            }
         }
 
         private void validarConexionServidor()
