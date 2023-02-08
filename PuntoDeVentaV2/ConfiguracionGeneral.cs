@@ -546,6 +546,12 @@ namespace PuntoDeVentaV2
                             chTraspasos.Checked = true;
                         }
                         #endregion
+                        #region Traspasos rapidos
+                        if (item["traspasoManual"].Equals(1))
+                        {
+                            chbTraspasoManual.Checked = true;
+                        }
+                        #endregion
                         #region Reportar a sifo.com cuando se cierre el programa
                         if (item["WebCerrar"].Equals(1))
                         {
@@ -1566,9 +1572,19 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void cbWebReportesPeriodicos_CheckedChanged(object sender, EventArgs e)
+        private void chbTraspasoManual_MouseClick(object sender, MouseEventArgs e)
         {
+            if (chbTraspasoManual.Checked)
+            {
+                var consulta = $"UPDATE Configuracion SET traspasoManual = {1} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
+            else
+            {
+                var consulta = $"UPDATE Configuracion SET traspasoManual = {0} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
 
+            }
         }
     }
 }

@@ -2124,3 +2124,6 @@ ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaAbonos INT 
 ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaCorte INT DEFAULT 0;
 ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaAgregar INT DEFAULT 0;
 ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaRetirar INT DEFAULT 0;
+
+-- Columna para realizar traspasos al putazo
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS traspasoManual INT DEFAULT 0;

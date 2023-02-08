@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfiguracionGeneral));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cbWebReportesPeriodicos = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.chWebTotal = new System.Windows.Forms.CheckBox();
             this.pagWeb = new System.Windows.Forms.CheckBox();
@@ -53,6 +52,7 @@
             this.checkMayoreo = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMinimoMayoreo = new System.Windows.Forms.TextBox();
+            this.chbTraspasoManual = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,12 +60,12 @@
             // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
             this.groupBox2.Controls.Add(this.cbWebReportesPeriodicos);
-            this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.linkLabel2);
             this.groupBox2.Controls.Add(this.chWebTotal);
             this.groupBox2.Controls.Add(this.pagWeb);
             this.groupBox2.Controls.Add(this.chWebCerrar);
             this.groupBox2.Controls.Add(this.CHKMostrarStock);
+            this.groupBox2.Controls.Add(this.chbTraspasoManual);
             this.groupBox2.Controls.Add(this.chTraspasos);
             this.groupBox2.Controls.Add(this.chkCerrarSesionCorte);
             this.groupBox2.Controls.Add(this.checkCBVenta);
@@ -90,20 +90,7 @@
             this.cbWebReportesPeriodicos.TabIndex = 0;
             this.cbWebReportesPeriodicos.Text = "Realizar reportes automáticamente ";
             this.cbWebReportesPeriodicos.UseVisualStyleBackColor = true;
-            this.cbWebReportesPeriodicos.CheckedChanged += new System.EventHandler(this.cbWebReportesPeriodicos_CheckedChanged);
             this.cbWebReportesPeriodicos.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbWebReportesPeriodicos_MouseClick);
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label4.Location = new System.Drawing.Point(21, 130);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(261, 35);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "(puede afectar el rendimiento en computadores de gama baja)";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // linkLabel2
             // 
@@ -379,6 +366,18 @@
             this.txtMinimoMayoreo.Visible = false;
             this.txtMinimoMayoreo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtMinimoMayoreo_KeyUp);
             // 
+            // chbTraspasoManual
+            // 
+            this.chbTraspasoManual.AutoSize = true;
+            this.chbTraspasoManual.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chbTraspasoManual.Location = new System.Drawing.Point(20, 137);
+            this.chbTraspasoManual.Name = "chbTraspasoManual";
+            this.chbTraspasoManual.Size = new System.Drawing.Size(232, 21);
+            this.chbTraspasoManual.TabIndex = 130;
+            this.chbTraspasoManual.Text = "Revisar traspasos manualmente";
+            this.chbTraspasoManual.UseVisualStyleBackColor = true;
+            this.chbTraspasoManual.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chbTraspasoManual_MouseClick);
+            // 
             // ConfiguracionGeneral
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -439,7 +438,7 @@
         private System.Windows.Forms.LinkLabel linkLabel2;
         private System.Windows.Forms.CheckBox chWebTotal;
         private System.Windows.Forms.CheckBox chWebCerrar;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox cbWebReportesPeriodicos;
+        private System.Windows.Forms.CheckBox chbTraspasoManual;
     }
 }
