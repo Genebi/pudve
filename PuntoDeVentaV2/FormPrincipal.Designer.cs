@@ -49,6 +49,7 @@
             this.btnClientes = new System.Windows.Forms.Button();
             this.btnVentas = new System.Windows.Forms.Button();
             this.btnProductos = new System.Windows.Forms.Button();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.temporizador_respaldo = new System.Windows.Forms.Timer(this.components);
             this.actualizarCaja = new System.Windows.Forms.Timer(this.components);
             this.timerProductos = new System.Windows.Forms.Timer(this.components);
@@ -66,7 +67,7 @@
             this.panelMaestro.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMaestro.Location = new System.Drawing.Point(0, 0);
             this.panelMaestro.Name = "panelMaestro";
-            this.panelMaestro.Size = new System.Drawing.Size(856, 456);
+            this.panelMaestro.Size = new System.Drawing.Size(856, 650);
             this.panelMaestro.TabIndex = 0;
             // 
             // panelContenedor
@@ -74,7 +75,7 @@
             this.panelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContenedor.Location = new System.Drawing.Point(230, 0);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(626, 456);
+            this.panelContenedor.Size = new System.Drawing.Size(626, 650);
             this.panelContenedor.TabIndex = 2;
             this.panelContenedor.Paint += new System.Windows.Forms.PaintEventHandler(this.panelContenedor_Paint);
             // 
@@ -97,10 +98,11 @@
             this.menuVertical.Controls.Add(this.btnClientes);
             this.menuVertical.Controls.Add(this.btnVentas);
             this.menuVertical.Controls.Add(this.btnProductos);
+            this.menuVertical.Controls.Add(this.linkLabel1);
             this.menuVertical.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuVertical.Location = new System.Drawing.Point(0, 0);
             this.menuVertical.Name = "menuVertical";
-            this.menuVertical.Size = new System.Drawing.Size(230, 456);
+            this.menuVertical.Size = new System.Drawing.Size(230, 650);
             this.menuVertical.TabIndex = 0;
             this.menuVertical.Paint += new System.Windows.Forms.PaintEventHandler(this.menuVertical_Paint);
             // 
@@ -420,6 +422,19 @@
             this.btnProductos.UseVisualStyleBackColor = true;
             this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click);
             // 
+            // linkLabel1
+            // 
+            this.linkLabel1.Image = global::PuntoDeVentaV2.Properties.Resources.youtube_play1;
+            this.linkLabel1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.linkLabel1.Location = new System.Drawing.Point(48, 593);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(128, 25);
+            this.linkLabel1.TabIndex = 114;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "SIFO en YouTube";
+            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // temporizador_respaldo
             // 
             this.temporizador_respaldo.Interval = 900000;
@@ -454,7 +469,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(856, 456);
+            this.ClientSize = new System.Drawing.Size(856, 650);
             this.Controls.Add(this.panelMaestro);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(857, 454);
@@ -498,6 +513,7 @@
         public System.Windows.Forms.Timer actualizarCaja;
         private System.Windows.Forms.Timer webAuto;
         private System.ComponentModel.BackgroundWorker webSender;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }
 

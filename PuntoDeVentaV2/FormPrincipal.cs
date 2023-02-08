@@ -1346,6 +1346,16 @@ namespace PuntoDeVentaV2
             
         }
 
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.youtube.com/@sifo1887/videos");
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.youtube.com/@sifo1887/videos");
+        }
+
         public async Task bulkInsertAsync(string tablename)
         {
             string connStr = "server=74.208.135.60;user=app;database=pudve;port=3306;password=12Steroids12;AllowLoadLocalInfile=true;";
