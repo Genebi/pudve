@@ -70,69 +70,28 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (Productos.HistorialVenta.Equals(false))
+            var fechaInicio = primerDatePicker.Value.ToString("yyyy-MM-dd HH:mm:ss");
+            var fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd HH:mm:ss");
+
+            var tipoBusqurda = cbEmpleados.SelectedItem.ToString();
+
+            if (cbEmpleados.SelectedIndex.Equals(0))
             {
-                if (cbEmpleados.SelectedIndex.Equals(0))
+                var datos = cn.CargarDatos($"SELECT SUBSTRING_INDEX(HS.TipoDeMovimiento, ':', -1) AS 'Folio', HS.Fecha, ven.FormaPago AS 'modopago', SUM( HS.Cantidad * (-1)) AS Cantidad, SUM( HS.Cantidad * (-pro.Precio) ) AS 'PrecioUnidad', HS.NombreUsuario AS 'Empleado', cli.RazonSocial AS 'Cliente' FROM historialstock AS HS LEFT JOIN productos AS pro ON ( pro.ID = HS.IDProducto ) LEFT JOIN ventas AS ven ON (HS.Fecha = ven.FechaOperacion) LEFT JOIN clientes AS cli ON(ven.IDCliente = cli.ID) WHERE IDProducto = '{Productos.idProductoHistorialStock}' AND TipoDeMovimiento LIKE '%Venta Ralizada%' AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}' GROUP BY hs.ID");
+
+                if (datos.Rows.Count.Equals(0))
                 {
-                    MessageBox.Show("Seleccione si es Empleado o Producto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    cbEmpleados.Focus();
+                    MessageBox.Show("Test");
+                    return;
                 }
-                else
-                {
-                    fechaInicial = primerDatePicker.Value.ToString("yyyy-MM-dd");
-                    fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd");
 
-                    var tipoBusqurda = cbEmpleados.SelectedItem.ToString();
-
-                    var existencia = verificarExistencia(tipoBusqurda);
-
-                    if (existencia)
-                    {
-                        HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda, fechaInicial, fechaFinal);
-
-                        if (tipoBusqurda.Equals("Seleccionar Empleado/Producto") || tipoBusqurda.Equals("Reporte general"))
-                        {
-                            terminarOperaciones();
-                        }
-                        else
-                        {
-                            hpBuscador.FormClosed += delegate
-                            {
-                                var idBusqueda = HistorialPrecioBuscador.idEmpleadoObtenido;
-                                if (!string.IsNullOrEmpty(idBusqueda))
-                                {
-                                    terminarOperaciones();
-                                }
-                            };
-
-                            hpBuscador.ShowDialog();
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show($"No cuenta con ningun {tipoBusqurda}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
+                FormReporteHistorialVentasProducto historial = new FormReporteHistorialVentasProducto(datos);
+                historial.ShowDialog();
             }
             else
             {
-                fechaInicial = primerDatePicker.Value.ToString("yyyy-MM-dd");
-                fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd");
-                var tipoBusqurda = cbEmpleados.SelectedItem.ToString();
-                if (cbEmpleados.SelectedIndex.Equals(1))
-                {
-                    HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda, fechaInicial, fechaFinal);
-                    hpBuscador.ShowDialog();
-                }
-                else
-                {
-                    var algo = Validacion(Productos.idProductoHistorialStock, "", fechaInicial, fechaFinal);
-                    if (algo.Equals(true))
-                    {
-                        FormReporteHistorialVentasProducto formReporte = new FormReporteHistorialVentasProducto(Productos.idProductoHistorialStock, "", fechaInicial, fechaFinal);
-                        formReporte.ShowDialog();
-                    }
-                }
+                HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda, fechaInicio, fechaFinal);
+                hpBuscador.ShowDialog();
             }
         }
         #region
