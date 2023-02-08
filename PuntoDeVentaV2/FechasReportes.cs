@@ -70,259 +70,31 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (Productos.HistorialVenta.Equals(false))
+            var fechaInicio = primerDatePicker.Value.ToString("yyyy-MM-dd HH:mm:ss");
+            var fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd HH:mm:ss");
+
+            var tipoBusqurda = cbEmpleados.SelectedItem.ToString();
+
+            if (cbEmpleados.SelectedIndex.Equals(0))
             {
-                if (cbEmpleados.SelectedIndex.Equals(0))
+                var datos = cn.CargarDatos($"SELECT SUBSTRING_INDEX(HS.TipoDeMovimiento, ':', -1) AS 'Folio', HS.Fecha, SUM( HS.Cantidad * (-1)) AS Cantidad, SUM( HS.Cantidad * (-pro.Precio) ) AS 'PrecioUnidad', HS.NombreUsuario AS 'Empleado', cli.RazonSocial AS 'Cliente' FROM historialstock AS HS LEFT JOIN productos AS pro ON ( pro.ID = HS.IDProducto ) LEFT JOIN ventas AS ven ON (HS.Fecha = ven.FechaOperacion) LEFT JOIN clientes AS cli ON(ven.IDCliente = cli.ID) WHERE IDProducto = '{Productos.idProductoHistorialStock}' AND TipoDeMovimiento LIKE '%Venta Ralizada%' AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}' GROUP BY hs.ID");
+
+                if (datos.Rows.Count.Equals(0))
                 {
-                    MessageBox.Show("Seleccione si es Empleado o Producto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    cbEmpleados.Focus();
+                    MessageBox.Show("Test");
+                    return;
                 }
-                else
-                {
-                    fechaInicial = primerDatePicker.Value.ToString("yyyy-MM-dd");
-                    fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd");
 
-                    var tipoBusqurda = cbEmpleados.SelectedItem.ToString();
-
-                    var existencia = verificarExistencia(tipoBusqurda);
-
-                    if (existencia)
-                    {
-                        HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda, fechaInicial, fechaFinal);
-
-                        if (tipoBusqurda.Equals("Seleccionar Empleado/Producto") || tipoBusqurda.Equals("Reporte general"))
-                        {
-                            terminarOperaciones();
-                        }
-                        else
-                        {
-                            hpBuscador.FormClosed += delegate
-                            {
-                                var idBusqueda = HistorialPrecioBuscador.idEmpleadoObtenido;
-                                if (!string.IsNullOrEmpty(idBusqueda))
-                                {
-                                    terminarOperaciones();
-                                }
-                            };
-
-                            hpBuscador.ShowDialog();
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show($"No cuenta con ningun {tipoBusqurda}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
+                FormReporteHistorialVentasProducto historial = new FormReporteHistorialVentasProducto(datos);
+                historial.ShowDialog();
             }
             else
             {
-                fechaInicial = primerDatePicker.Value.ToString("yyyy-MM-dd");
-                fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd");
-                var tipoBusqurda = cbEmpleados.SelectedItem.ToString();
-                if (cbEmpleados.SelectedIndex.Equals(1))
-                {
-                    HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda, fechaInicial, fechaFinal);
-                    hpBuscador.ShowDialog();
-                }
-                else
-                {
-                    var algo = Validacion(Productos.idProductoHistorialStock, "", fechaInicial, fechaFinal);
-                    if (algo.Equals(true))
-                    {
-                        FormReporteHistorialVentasProducto formReporte = new FormReporteHistorialVentasProducto(Productos.idProductoHistorialStock, "", fechaInicial, fechaFinal);
-                        formReporte.ShowDialog();
-                    }
-                }
+                HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda, fechaInicio, fechaFinal);
+                hpBuscador.ShowDialog();
             }
-
+           
         }
-        #region
-        private bool Validacion(int IDProd, string IDSEmple, string FechaI, string FechaF)
-        {
-            DataTable DTDatos = new DataTable();
-            bool TodoCorrecto = false;
-            string IDsVentas = "";
-            using (var DTIDVenta1 = cn.CargarDatos($"SELECT IDVenta FROM productosventa WHERE IDProducto = {IDProd}"))
-            {
-                if (!DTIDVenta1.Rows.Count.Equals(0))
-                {
-                    int row = 0;
-                    foreach (var item in DTIDVenta1.Rows)
-                    {
-                        IDsVentas += DTIDVenta1.Rows[row]["IDVenta"].ToString() + ",";
-                        row++;
-                    }
-                    IDsVentas = IDsVentas.TrimEnd(',');
-                }
-                else
-                {
-                    MessageBox.Show("Este producto no a sido vendido", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return TodoCorrecto;
-                }
-            }
-            if (!IDSEmple.Equals(""))
-            {
-                DataTable ventas = new DataTable();
-                string IDsVentasporFechaYEmpleado = "";
-                using (var DTIDSVentaPorEmpleadoYFecha = cn.CargarDatos($"SELECT ID,Folio,IDEmpleado,FechaOperacion FROM ventas WHERE ID IN ({IDsVentas}) AND DATE(FechaOperacion) BETWEEN '{FechaI}' AND '{FechaF}' AND IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({IDSEmple}) AND `Status` = 1"))
-                {
-                    if (!DTIDSVentaPorEmpleadoYFecha.Rows.Count.Equals(0))
-                    {
-                        ventas = DTIDSVentaPorEmpleadoYFecha;
-                        int row = 0;
-                        foreach (var item in DTIDSVentaPorEmpleadoYFecha.Rows)
-                        {
-                            IDsVentasporFechaYEmpleado += DTIDSVentaPorEmpleadoYFecha.Rows[row]["ID"].ToString() + ",";
-                        }
-                        IDsVentasporFechaYEmpleado = IDsVentasporFechaYEmpleado.TrimEnd(',');
-                    }
-                    else
-                    {
-                        string Usuario;
-                        using (var dtusuario = cn.CargarDatos($"SELECT usuario FROM empleados WHERE ID IN ({IDSEmple})"))
-                        {
-                            Usuario = dtusuario.Rows[0]["usuario"].ToString();
-                        }
-                        MessageBox.Show($"El usuario {Usuario} no a vendido este producto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return TodoCorrecto;
-                    }
-                }
-
-                var IDSVentasCorrectas = cn.CargarDatos($"SELECT * FROM productosventa WHERE IDVenta IN ({IDsVentasporFechaYEmpleado}) AND IDProducto = {IDProd}");
-
-                DTDatos.Columns.Add("Folio", typeof(String));
-                DTDatos.Columns.Add("Usuario", typeof(String));
-                DTDatos.Columns.Add("Fecha", typeof(String));
-                DTDatos.Columns.Add("Cantidad", typeof(String));
-                DTDatos.Columns.Add("PrecioUnidad", typeof(String));
-                DTDatos.Columns.Add("Total", typeof(String));
-                int rows = 0;
-                foreach (var item in IDSVentasCorrectas.Rows)
-                {
-                    DTDatos.Rows.Add();
-                    foreach (var DT in DTDatos.Columns)
-                    {
-                        string Columna = DT.ToString();
-                        if (Columna.Equals("Folio"))
-                        {
-                            DTDatos.Rows[rows]["Folio"] = ventas.Rows[rows]["Folio"].ToString();
-                        }
-                        else if (Columna.Equals("Usuario"))
-                        {
-                            string Usuario;
-                            using (var DTUsuario = cn.CargarDatos($"SELECT Usuario FROM empleados WHERE ID = {ventas.Rows[rows]["IDEmpleado"].ToString()}"))
-                            {
-                                Usuario = DTUsuario.Rows[0]["Usuario"].ToString();
-                            }
-                            DTDatos.Rows[rows]["Usuario"] = Usuario;
-                        }
-                        else if (Columna.Equals("Fecha"))
-                        {
-                            DTDatos.Rows[rows]["Fecha"] = ventas.Rows[rows]["FechaOperacion"].ToString();
-                        }
-                        else if (Columna.Equals("Cantidad"))
-                        {
-                            DTDatos.Rows[rows]["Cantidad"] = IDSVentasCorrectas.Rows[rows]["Cantidad"].ToString();
-                        }
-                        else if (Columna.Equals("PrecioUnidad"))
-                        {
-                            DTDatos.Rows[rows]["PrecioUnidad"] = IDSVentasCorrectas.Rows[rows]["Precio"].ToString();
-                        }
-                        else if (Columna.Equals("Total"))
-                        {
-                            decimal total = Convert.ToDecimal(IDSVentasCorrectas.Rows[rows]["Cantidad"].ToString()) * Convert.ToDecimal(IDSVentasCorrectas.Rows[rows]["Precio"].ToString());
-                            DTDatos.Rows[rows]["Total"] = total.ToString("0.00");
-                        }
-                    }
-                    rows++;
-                }
-                TodoCorrecto = true;
-            }
-            else
-            {
-                DataTable ventas = new DataTable();
-                string IDsVentasporFechaYEmpleado = "";
-                using (var DTIDSVentaPorEmpleadoYFecha = cn.CargarDatos($"SELECT ID,Folio,IDEmpleado,FechaOperacion FROM ventas WHERE ID IN ({IDsVentas}) AND DATE(FechaOperacion) BETWEEN '{FechaI}' AND '{FechaF}' AND IDUsuario = {FormPrincipal.userID} AND `Status` = 1"))
-                {
-                    if (!DTIDSVentaPorEmpleadoYFecha.Rows.Count.Equals(0))
-                    {
-                        ventas = DTIDSVentaPorEmpleadoYFecha;
-                        int row = 0;
-                        foreach (var item in DTIDSVentaPorEmpleadoYFecha.Rows)
-                        {
-                            IDsVentasporFechaYEmpleado += DTIDSVentaPorEmpleadoYFecha.Rows[row]["ID"].ToString() + ",";
-                        }
-                        IDsVentasporFechaYEmpleado = IDsVentasporFechaYEmpleado.TrimEnd(',');
-                    }
-                    else
-                    {
-
-                        MessageBox.Show($"Este producto no se ha vendido", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        return TodoCorrecto;
-                    }
-                }
-
-                var IDSVentasCorrectas = cn.CargarDatos($"SELECT * FROM productosventa WHERE IDVenta IN ({IDsVentasporFechaYEmpleado}) AND IDProducto = {IDProd}");
-
-                DTDatos.Columns.Add("Folio", typeof(String));
-                DTDatos.Columns.Add("Usuario", typeof(String));
-                DTDatos.Columns.Add("Fecha", typeof(String));
-                DTDatos.Columns.Add("Cantidad", typeof(String));
-                DTDatos.Columns.Add("PrecioUnidad", typeof(String));
-                DTDatos.Columns.Add("Total", typeof(String));
-                int rows = 0;
-                foreach (var item in IDSVentasCorrectas.Rows)
-                {
-                    DTDatos.Rows.Add();
-                    foreach (var DT in DTDatos.Columns)
-                    {
-                        string Columna = DT.ToString();
-                        if (Columna.Equals("Folio"))
-                        {
-                            DTDatos.Rows[rows]["Folio"] = ventas.Rows[rows]["Folio"].ToString();
-                        }
-                        else if (Columna.Equals("Usuario"))
-                        {
-                            string Usuario;
-                            string ID = ventas.Rows[rows]["IDEmpleado"].ToString();
-                            using (var DTUsuario = cn.CargarDatos($"SELECT Usuario FROM empleados WHERE ID = {ID}"))
-                            {
-                                if (DTUsuario.Rows.Count.Equals(0))
-                                {
-                                    Usuario = FormPrincipal.userNickName;
-                                }
-                                else
-                                {
-                                    Usuario = DTUsuario.Rows[0]["Usuario"].ToString();
-                                }
-                            }
-                            DTDatos.Rows[rows]["Usuario"] = Usuario;
-                        }
-                        else if (Columna.Equals("Fecha"))
-                        {
-                            DTDatos.Rows[rows]["Fecha"] = ventas.Rows[rows]["FechaOperacion"].ToString();
-                        }
-                        else if (Columna.Equals("Cantidad"))
-                        {
-                            DTDatos.Rows[rows]["Cantidad"] = IDSVentasCorrectas.Rows[rows]["Cantidad"].ToString();
-                        }
-                        else if (Columna.Equals("PrecioUnidad"))
-                        {
-                            DTDatos.Rows[rows]["PrecioUnidad"] = IDSVentasCorrectas.Rows[rows]["Precio"].ToString();
-                        }
-                        else if (Columna.Equals("Total"))
-                        {
-                            decimal total = Convert.ToDecimal(IDSVentasCorrectas.Rows[rows]["Cantidad"].ToString()) * Convert.ToDecimal(IDSVentasCorrectas.Rows[rows]["Precio"].ToString());
-                            DTDatos.Rows[rows]["Total"] = total.ToString("0.00");
-                        }
-                    }
-                    rows++;
-                }
-                TodoCorrecto = true;
-            }
-            return TodoCorrecto;
-        }
-        #endregion
         private bool verificarExistencia(string empleadoProducto)
         {
             var result = false;
