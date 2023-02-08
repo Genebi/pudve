@@ -1066,7 +1066,7 @@ namespace PuntoDeVentaV2
         private void btnProductos_Click(object sender, EventArgs e)
         {
             //vs.printProductVersion();
-
+            AgregarEditarProducto.desdeConsultar = 0;
             if (productos == 1)
             {
                 AbrirFormulario<Productos>();
