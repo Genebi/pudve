@@ -2756,7 +2756,7 @@ namespace PuntoDeVentaV2
 
         public string cargarDatosDeConfiguracion()
         {
-            var consulta = $"SELECT IDUsuario, TicketVenta, IniciarProceso, MostrarCodigoProducto, CerrarSesionAuto, MostrarPrecioProducto, StockNegativo, HabilitarTicketVentas, PrecioMayoreo, checkNoVendidos, traspasos ,MostrarStockConsultaPrecio,PreguntarTicketVenta,TicketOPDF,WebCerrar,WebTotal,WebAuto FROM Configuracion WHERE IDUsuario = '{FormPrincipal.userID}'";
+            var consulta = $"SELECT IDUsuario, TicketVenta, IniciarProceso, MostrarCodigoProducto, CerrarSesionAuto, MostrarPrecioProducto, StockNegativo, HabilitarTicketVentas, PrecioMayoreo, checkNoVendidos, traspasos ,MostrarStockConsultaPrecio,PreguntarTicketVenta,TicketOPDF,WebCerrar,WebTotal,WebAuto,traspasoManual FROM Configuracion WHERE IDUsuario = '{FormPrincipal.userID}'";
 
             return consulta;
         }
