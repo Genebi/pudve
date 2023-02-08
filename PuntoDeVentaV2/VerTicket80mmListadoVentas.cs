@@ -259,6 +259,21 @@ namespace PuntoDeVentaV2
             //19 parametro integer para mostrar / ocultar Referencia
             reportParameters.Add(new ReportParameter("Referencia", Referencia.ToString()));
 
+            using (var dt = cn.CargarDatos($"SELECT SUM(Subtotal + IVA16+IVA8) AS 'Total' FROM `ventas` WHERE ID ={idVentaRealizada}"))
+            {
+                string Anticipo = string.Empty;
+                if (Convert.ToDecimal(dt.Rows[0][0]) > Convert.ToDecimal(ventaDT.Rows[0]["Anticipo"]))
+                {
+                    Anticipo = ventaDT.Rows[0]["Anticipo"].ToString();
+                    reportParameters.Add(new ReportParameter("Anticipo", Anticipo));
+                }
+                else
+                {
+                    Anticipo = dt.Rows[0][0].ToString();
+                    reportParameters.Add(new ReportParameter("Anticipo", Anticipo));
+                }
+            }
+
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Add(rp);
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
