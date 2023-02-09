@@ -397,7 +397,7 @@ namespace PuntoDeVentaV2
                 habilitado = true;
                 cbkAbrirVenta.Enabled = false;
                 cbkAbrirVenta.Checked = false;
-                string consulta2 = $"UPDATE configuracion SET AbrirCajaVentas = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaVentas = 0 WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta2);
             }
             else
