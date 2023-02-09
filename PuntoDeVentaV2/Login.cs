@@ -1048,6 +1048,11 @@ namespace PuntoDeVentaV2
                 // Si acepta el mensaje de confirmación realiza el siguiente procedimiento
                 if (respuesta == DialogResult.OK)
                 {
+                    DialogResult dialogResult = MessageBox.Show("¿Deseas realizar una copia de seguridad de tu base de datos actual antes de sobreescribir?, el proceso tardara un poco más.", "Copia de seguridad", MessageBoxButtons.YesNo);
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        RespaldarBaseDatos();
+                    }
                     // Se guarda la ruta completa junto con el nombre del archivo que se selecciono
                     var rutaArchivo = buscarArchivoBD.FileName;
 
@@ -1089,6 +1094,65 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private void RespaldarBaseDatos()
+        {
+            DateTime fechaCreacion = DateTime.Now;
+            SaveFileDialog saveFile = new SaveFileDialog();
+
+            saveFile.FileName = $"{FormPrincipal.userNickName}";
+            saveFile.Filter = "SQL (*.sql)|*.sql";
+            saveFile.FilterIndex = 1;
+            saveFile.RestoreDirectory = true;
+
+            if (saveFile.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    var archivo = saveFile.FileName;
+                    var datoConexion = conexionRuta();
+
+                    using (MySqlConnection con = new MySqlConnection(datoConexion))
+                    {
+                        using (MySqlCommand cmd = new MySqlCommand())
+                        {
+                            using (MySqlBackup backup = new MySqlBackup(cmd))
+                            {
+                                cmd.Connection = con;
+                                con.Open();
+                                backup.ExportToFile(archivo);
+                                con.Close();
+                            }
+                        }
+                    }
+                    MessageBox.Show("Información respaldada exitosamente, realizando importación", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+        }
+
+        private string conexionRuta()
+        {
+            string conexion = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                conexion = "datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;";
+            }
+            else
+            {
+                conexion = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
+            }
+
+            // Important Additional Connection Options
+            conexion += "charset=utf8;convertzerodatetime=true;";
+
+            return conexion;
         }
 
         private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)

@@ -49,13 +49,13 @@
             this.btnClientes = new System.Windows.Forms.Button();
             this.btnVentas = new System.Windows.Forms.Button();
             this.btnProductos = new System.Windows.Forms.Button();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.temporizador_respaldo = new System.Windows.Forms.Timer(this.components);
             this.actualizarCaja = new System.Windows.Forms.Timer(this.components);
             this.timerProductos = new System.Windows.Forms.Timer(this.components);
             this.webListener = new System.ComponentModel.BackgroundWorker();
             this.webAuto = new System.Windows.Forms.Timer(this.components);
             this.webSender = new System.ComponentModel.BackgroundWorker();
+            this.btnAyuda = new PuntoDeVentaV2.BotonRedondo();
             this.panelMaestro.SuspendLayout();
             this.menuVertical.SuspendLayout();
             this.SuspendLayout();
@@ -82,6 +82,7 @@
             // menuVertical
             // 
             this.menuVertical.BackColor = System.Drawing.Color.Gold;
+            this.menuVertical.Controls.Add(this.btnAyuda);
             this.menuVertical.Controls.Add(this.BtnConsulta);
             this.menuVertical.Controls.Add(this.btnImpresoras);
             this.menuVertical.Controls.Add(this.btnEmpleados);
@@ -98,7 +99,6 @@
             this.menuVertical.Controls.Add(this.btnClientes);
             this.menuVertical.Controls.Add(this.btnVentas);
             this.menuVertical.Controls.Add(this.btnProductos);
-            this.menuVertical.Controls.Add(this.linkLabel1);
             this.menuVertical.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuVertical.Location = new System.Drawing.Point(0, 0);
             this.menuVertical.Name = "menuVertical";
@@ -422,19 +422,6 @@
             this.btnProductos.UseVisualStyleBackColor = true;
             this.btnProductos.Click += new System.EventHandler(this.btnProductos_Click);
             // 
-            // linkLabel1
-            // 
-            this.linkLabel1.Image = global::PuntoDeVentaV2.Properties.Resources.youtube_play1;
-            this.linkLabel1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.linkLabel1.Location = new System.Drawing.Point(48, 593);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(128, 25);
-            this.linkLabel1.TabIndex = 114;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "SIFO en YouTube";
-            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
-            // 
             // temporizador_respaldo
             // 
             this.temporizador_respaldo.Interval = 900000;
@@ -464,6 +451,32 @@
             // webSender
             // 
             this.webSender.DoWork += new System.ComponentModel.DoWorkEventHandler(this.webSender_DoWork);
+            // 
+            // btnAyuda
+            // 
+            this.btnAyuda.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAyuda.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnAyuda.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnAyuda.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnAyuda.BorderRadius = 21;
+            this.btnAyuda.BorderSize = 0;
+            this.btnAyuda.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAyuda.FlatAppearance.BorderSize = 0;
+            this.btnAyuda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAyuda.ForeColor = System.Drawing.Color.White;
+            this.btnAyuda.Image = ((System.Drawing.Image)(resources.GetObject("btnAyuda.Image")));
+            this.btnAyuda.Location = new System.Drawing.Point(63, 596);
+            this.btnAyuda.Name = "btnAyuda";
+            this.btnAyuda.Size = new System.Drawing.Size(99, 42);
+            this.btnAyuda.TabIndex = 137;
+            this.btnAyuda.Text = "Ayuda";
+            this.btnAyuda.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAyuda.TextColor = System.Drawing.Color.White;
+            this.btnAyuda.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAyuda.UseVisualStyleBackColor = false;
+            this.btnAyuda.Click += new System.EventHandler(this.btnAyuda_Click);
             // 
             // FormPrincipal
             // 
@@ -513,7 +526,7 @@
         public System.Windows.Forms.Timer actualizarCaja;
         private System.Windows.Forms.Timer webAuto;
         private System.ComponentModel.BackgroundWorker webSender;
-        private System.Windows.Forms.LinkLabel linkLabel1;
+        private BotonRedondo btnAyuda;
     }
 }
 

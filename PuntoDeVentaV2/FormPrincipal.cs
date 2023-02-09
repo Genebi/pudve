@@ -1346,12 +1346,7 @@ namespace PuntoDeVentaV2
             
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("https://www.youtube.com/@sifo1887/videos");
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void btnAyuda_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://www.youtube.com/@sifo1887/videos");
         }
