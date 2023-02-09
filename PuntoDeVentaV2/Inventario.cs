@@ -35,6 +35,8 @@ namespace PuntoDeVentaV2
         public static bool botonAceptar = false;
         public static bool aceptarFiltro = false;
 
+        public static decimal totalFinal = 0;
+
         public static int IDProducto;
 
         public decimal getSuma { get; set; }
@@ -1113,8 +1115,12 @@ namespace PuntoDeVentaV2
                 if (string.IsNullOrEmpty(idEmplado)) { idEmplado = "0"; }
 
                 string[] datosAumentarInventario = { id, nombre, stockActual, diferenciaUnidades, nuevoStock, precio, clave, codigo, fecha, NoRev, "1", NombreEmisor, Comentarios, ValorUnitario, FormPrincipal.userID.ToString(), idEmplado, empleadoFinal };
-
-                var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario);
+                int dev = 0;
+                if (Inventario.desdeRegresarProdcuto == 1)
+                {
+                    dev = 1;
+                }
+                var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario, dev);
                 cn.EjecutarConsulta(insertAumentarInventario);
 
 
@@ -1270,6 +1276,15 @@ namespace PuntoDeVentaV2
         private void bntTerminar_Click(object sender, EventArgs e)
         {
             var clave = "";
+            
+            foreach (DataGridViewRow item in DGVInventario.Rows)
+            {
+                decimal cantidad = Convert.ToDecimal(item.Cells["DiferenciaUnidades"].Value);
+                decimal precio = Convert.ToDecimal(item.Cells["Precio"].Value);
+                decimal total = cantidad * precio;
+                totalFinal += total;
+            }
+
             if (validarsiClave())
             {
                 if (rbDisminuirProducto.Checked)
@@ -1386,6 +1401,7 @@ namespace PuntoDeVentaV2
             else
             {
                 MessageBox.Show("No existen ajustes realizados.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
 
             if (desdeRegresarProdcuto == 1)
@@ -4414,6 +4430,7 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo2_Click(object sender, EventArgs e)
         {
+            desdeRegresarProdcuto = 0;
             if (opcion2 == 0)
             {
                 Utilidades.MensajePermiso();

@@ -676,6 +676,14 @@ namespace PuntoDeVentaV2
             {
                 actualizarCaja.Enabled = true;
             }
+
+            using (var dtTickets = cn.CargarDatos($"SELECT * FROM configuraciondetickets WHERE IDUsuario = {IdUsuario}"))
+            {
+                if (dtTickets.Rows.Count.Equals(0))
+                {
+                    cn.EjecutarConsulta($"INSERT INTO configuraciondetickets(IDUsuario)VALUES({IdUsuario})");
+                }
+            }
         }
 
         private void EnvioCorreoLicenciaActiva()
@@ -1287,13 +1295,13 @@ namespace PuntoDeVentaV2
 
         private void webAuto_Tick(object sender, EventArgs e)
         {
-            if (pasar == 1)
-            {
+            //if (pasar == 1)
+            //{
                 if (!webSender.IsBusy )
                 {
                     webSender.RunWorkerAsync();
                 }
-            }
+            //}
         }
 
         private void webSender_DoWork(object sender, DoWorkEventArgs e)

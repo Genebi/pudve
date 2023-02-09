@@ -2321,5 +2321,11 @@ namespace PuntoDeVentaV2
         {
 
         }
+
+        private void btnDeudas_Click(object sender, EventArgs e)
+        {
+            reporteCredito repcred = new reporteCredito();
+            repcred.ShowDialog();
+        }
     }
 }

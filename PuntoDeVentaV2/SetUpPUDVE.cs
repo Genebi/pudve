@@ -1311,5 +1311,11 @@ namespace PuntoDeVentaV2
             configCredito creditoConfig = new configCredito();
             creditoConfig.ShowDialog();
         }
+
+        private void botonRedondo2_Click(object sender, EventArgs e)
+        {
+            ConfiguracionTickets tickets = new ConfiguracionTickets();
+            tickets.ShowDialog();
+        }
     }
 }

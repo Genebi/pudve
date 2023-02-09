@@ -235,6 +235,25 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("PathBarCode", pathBarCodeFull));
             //18 parametro string para mostrar / ocultar Codigo de Barras
             reportParameters.Add(new ReportParameter("Referencia", Referencia.ToString()));
+            // Anticipo
+
+            using (var dt = cn.CargarDatos($"SELECT SUM(Subtotal + IVA16+IVA8) AS 'Total' FROM `ventas` WHERE ID ={idVentaRealizada}"))
+                    {
+                string Anticipo = string.Empty;
+                if (Convert.ToDecimal(dt.Rows[0][0]) > Convert.ToDecimal(ventaDT.Rows[0]["Anticipo"]))
+                {
+                     Anticipo = ventaDT.Rows[0]["Anticipo"].ToString();
+                    reportParameters.Add(new ReportParameter("Anticipo", Anticipo));
+                }
+                else
+                {
+                    Anticipo = dt.Rows[0][0].ToString();
+                    reportParameters.Add(new ReportParameter("Anticipo", Anticipo));
+                }
+            }
+          
+
+
             string UsuarioRealizoVenta =  string.Empty;
 
             using (var DTUsuario = cn.CargarDatos($"SELECT VEN.IDEmpleado, EMP.usuario FROM VENTAS AS VEN INNER JOIN empleados AS EMP ON( EMP.ID = VEN.IDEmpleado) WHERE VEN.ID = {idVentaRealizada} AND VEN.IDUsuario = {FormPrincipal.userID}"))

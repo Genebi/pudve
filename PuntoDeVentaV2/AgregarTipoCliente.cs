@@ -59,6 +59,8 @@ namespace PuntoDeVentaV2
         {
             var nombre = txtNombre.Text.Trim();
             var descuento = txtDescuento.Text.Trim();
+
+            
             var fechaOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
             
@@ -192,7 +194,13 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                Descuento = Convert.ToDecimal(txtDescuento.Text);
+                if (!decimal.TryParse(txtDescuento.Text.Trim(), out Descuento))
+                {
+                    MessageBox.Show("El valor introducido no es valido", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtDescuento.Focus();
+                    txtDescuento.Clear();
+                    return;
+                }
             }
             if (Descuento>99)
             {

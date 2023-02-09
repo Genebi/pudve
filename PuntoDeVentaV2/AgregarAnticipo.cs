@@ -39,7 +39,9 @@ namespace PuntoDeVentaV2
             pagos.Add("02", "02 - Cheque nominativo");
             pagos.Add("03", "03 - Transferencia electrónica de fondos");
             pagos.Add("04", "04 - Tarjeta de crédito");
+            pagos.Add("05", "05 - Devolucion de Producto");
             pagos.Add("08", "08 - Vales de despensa");
+            
 
             cbFormaPago.DataSource = pagos.ToArray();
             cbFormaPago.DisplayMember = "Value";
@@ -53,6 +55,16 @@ namespace PuntoDeVentaV2
             //}
             AgregarAnticipo form = this;
             Utilidades.EjecutarAtajoKeyPreviewDown(AgregarAnticipo_PreviewKeyDown, form);
+
+            if (Inventario.desdeRegresarProdcuto == 1)
+            {
+                txtImporte.Text = Inventario.totalFinal.ToString();
+                txtConcepto.Text = "Devolucion de Productos";
+                cbFormaPago.SelectedIndex = 4;
+                cbFormaPago.Enabled = false;
+                txtConcepto.Enabled = false;
+                txtImporte.Enabled = false;
+            }
         }
 
         private void CargarClientes()
@@ -169,12 +181,29 @@ namespace PuntoDeVentaV2
                     datos = new string[] { FechaOperacion, cliente, concepto, importe.ToString("0.00"), comentario, idAnticipo };
 
                     GenerarTicket(datos);
-
+                    using (var dt = cn.CargarDatos($"SELECT TicketAnticipo,PreguntarTicketAnticipo FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
+                    {
+                        if (dt.Rows[0][0].Equals(1))
+                        {
+                            ImpresionTicketAnticipo imprimirAnt = new ImpresionTicketAnticipo();
+                            imprimirAnt.idAnticipo = Convert.ToInt32(idAnticipo);
+                            imprimirAnt.anticipoSinHistorial = 1;
+                            imprimirAnt.ShowDialog();
+                        }
+                        else if (dt.Rows[0][1].Equals(1))
+                        {
+                            DialogResult nose = MessageBox.Show("¿Desea imprimir Ticket?", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (nose.Equals(DialogResult.Yes))
+                            {
+                                ImpresionTicketAnticipo imprimirAnt = new ImpresionTicketAnticipo();
+                                imprimirAnt.idAnticipo = Convert.ToInt32(idAnticipo);
+                                imprimirAnt.anticipoSinHistorial = 1;
+                                imprimirAnt.ShowDialog();
+                            }
+                        }
+                    }
                     
-                    ImpresionTicketAnticipo imprimirAnt = new ImpresionTicketAnticipo();
-                    imprimirAnt.idAnticipo = Convert.ToInt32(idAnticipo);
-                    imprimirAnt.anticipoSinHistorial = 1;
-                    imprimirAnt.ShowDialog();
+                   
 
                     var datosConfig = mb.ComprobarConfiguracion();
                     if (datosConfig.Count > 0)

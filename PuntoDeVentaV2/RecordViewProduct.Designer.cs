@@ -61,6 +61,8 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.lblEmpleado = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProductRecord)).BeginInit();
             this.panel2.SuspendLayout();
@@ -211,7 +213,9 @@
             this.DGVProductRecord.Margin = new System.Windows.Forms.Padding(2);
             this.DGVProductRecord.Name = "DGVProductRecord";
             this.DGVProductRecord.ReadOnly = true;
+            this.DGVProductRecord.RowHeadersVisible = false;
             this.DGVProductRecord.RowTemplate.Height = 24;
+            this.DGVProductRecord.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVProductRecord.Size = new System.Drawing.Size(838, 153);
             this.DGVProductRecord.TabIndex = 1;
             this.DGVProductRecord.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVProductRecord_CellClick);
@@ -224,8 +228,10 @@
             // 
             this.panel2.Controls.Add(this.lblDescuentoProducto);
             this.panel2.Controls.Add(this.lblValorUnitarioProducto);
+            this.panel2.Controls.Add(this.label18);
             this.panel2.Controls.Add(this.label16);
             this.panel2.Controls.Add(this.label12);
+            this.panel2.Controls.Add(this.lblEmpleado);
             this.panel2.Controls.Add(this.lblPrecioCompra);
             this.panel2.Controls.Add(this.lblCantidadCompra);
             this.panel2.Controls.Add(this.lblFechaCompletaCompra);
@@ -290,7 +296,7 @@
             // lblPrecioCompra
             // 
             this.lblPrecioCompra.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.lblPrecioCompra.Location = new System.Drawing.Point(286, 105);
+            this.lblPrecioCompra.Location = new System.Drawing.Point(101, 105);
             this.lblPrecioCompra.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblPrecioCompra.Name = "lblPrecioCompra";
             this.lblPrecioCompra.Size = new System.Drawing.Size(359, 19);
@@ -372,7 +378,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(183, 107);
+            this.label14.Location = new System.Drawing.Point(11, 108);
             this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(86, 13);
@@ -439,6 +445,26 @@
             this.label7.TabIndex = 0;
             this.label7.Text = "Folio:";
             // 
+            // lblEmpleado
+            // 
+            this.lblEmpleado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.lblEmpleado.Location = new System.Drawing.Point(530, 107);
+            this.lblEmpleado.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblEmpleado.Name = "lblEmpleado";
+            this.lblEmpleado.Size = new System.Drawing.Size(286, 19);
+            this.lblEmpleado.TabIndex = 16;
+            this.lblEmpleado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(467, 110);
+            this.label18.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(57, 13);
+            this.label18.TabIndex = 18;
+            this.label18.Text = "Empleado:";
+            // 
             // RecordViewProduct
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -501,5 +527,7 @@
         public System.Windows.Forms.Label lblFolioCompra;
         public System.Windows.Forms.Label lblDescuentoProducto;
         public System.Windows.Forms.Label lblValorUnitarioProducto;
+        private System.Windows.Forms.Label label18;
+        public System.Windows.Forms.Label lblEmpleado;
     }
 }

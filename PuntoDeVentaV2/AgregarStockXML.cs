@@ -1817,7 +1817,8 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,
+                                        IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -1831,7 +1832,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{idProducto}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
             }
             else if (!string.IsNullOrEmpty(idListProd))
             {
@@ -1849,7 +1850,8 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,
+                                        IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -1863,7 +1865,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{idListProd}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
             }
             else if (!string.IsNullOrEmpty(IdProductoSugerido))
             {
@@ -1881,7 +1883,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -1895,7 +1897,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{IdProductoSugerido}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
             }
 
             try
@@ -1945,7 +1947,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -1959,7 +1961,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{idProducto}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
             }
             else if (!string.IsNullOrEmpty(idListProd))
             {
@@ -1977,7 +1979,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario, IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -1991,7 +1993,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{idListProd}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
             }
             else if (!string.IsNullOrEmpty(IdProductoSugerido))
             {
@@ -2009,7 +2011,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2023,7 +2025,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{IdProductoSugerido}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
             }
             try
             {
@@ -2070,7 +2072,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2084,7 +2086,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{idProducto}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
             }
             else if (!string.IsNullOrEmpty(idListProd))
             {
@@ -2102,7 +2104,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2116,7 +2118,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{idListProd}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
             }
             else if (!string.IsNullOrEmpty(IdProductoSugerido))
             {
@@ -2134,7 +2136,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2148,7 +2150,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{IdProductoSugerido}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
             }
             try
             {
@@ -2203,7 +2205,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2217,7 +2219,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{idProducto}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
             }
             else if (!string.IsNullOrEmpty(idListProd))
             {
@@ -2235,7 +2237,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2249,7 +2251,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{idListProd}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
             }
             else if (!string.IsNullOrEmpty(IdProductoSugerido))
             {
@@ -2267,7 +2269,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpelado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2281,7 +2283,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{IdProductoSugerido}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
             }
 
             try
@@ -2338,7 +2340,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2352,7 +2354,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{idProducto}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
                         }
                         else if (!string.IsNullOrEmpty(idListProd))
                         {
@@ -2370,7 +2372,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2384,7 +2386,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{idListProd}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
                         }
                         else if (!string.IsNullOrEmpty(IdProductoSugerido))
                         {
@@ -2402,7 +2404,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2416,7 +2418,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{IdProductoSugerido}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
                         }
                         cn.EjecutarConsulta(query);
                         idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
@@ -2458,7 +2460,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2472,7 +2474,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{idProducto}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
                         }
                         else if (!string.IsNullOrEmpty(idListProd))
                         {
@@ -2490,7 +2492,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2504,7 +2506,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{idListProd}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
                         }
                         else if (!string.IsNullOrEmpty(IdProductoSugerido))
                         {
@@ -2522,7 +2524,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2536,7 +2538,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{IdProductoSugerido}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
                         }
                         cn.EjecutarConsulta(query);
                         idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
@@ -2582,7 +2584,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2596,7 +2598,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{idProducto}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
                         }
                         else if (!string.IsNullOrEmpty(idListProd))
                         {
@@ -2614,7 +2616,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2628,7 +2630,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{idListProd}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
                         }
                         else if (!string.IsNullOrEmpty(IdProductoSugerido))
                         {
@@ -2646,7 +2648,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2660,7 +2662,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{IdProductoSugerido}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
                         }
                         cn.EjecutarConsulta(query);
                         idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
@@ -2697,7 +2699,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2710,8 +2712,8 @@ namespace PuntoDeVentaV2
 		                                '{claveProdEmisor}',
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
-		                                '{idProducto}',
-		                                '{userId}')";
+		                                '{IdProductoSugerido}',
+		                                '{userId}',{FormPrincipal.id_empleado})";
                         }
                         else if (!string.IsNullOrEmpty(idListProd))
                         {
@@ -2729,7 +2731,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2742,8 +2744,8 @@ namespace PuntoDeVentaV2
 		                                '{claveProdEmisor}',
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
-		                                '{idListProd}',
-		                                '{userId}')";
+		                                '{IdProductoSugerido}',
+		                                '{userId}',{FormPrincipal.id_empleado})";
                         }
                         else if (!string.IsNullOrEmpty(IdProductoSugerido))
                         {
@@ -2761,7 +2763,7 @@ namespace PuntoDeVentaV2
 		                                FechaOperacion, 
 		                                IDReporte,
 		                                IDProducto,
-		                                IDUsuario) 
+		                                IDUsuario,IDEmpleado) 
                                     VALUES('{concepto}',
 		                                '{cantidad}',
 		                                '{precioOriginalConIVA.ToString("N2")}',
@@ -2775,7 +2777,7 @@ namespace PuntoDeVentaV2
 		                                '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
 		                                '{Inventario.idReporte}',
 		                                '{IdProductoSugerido}',
-		                                '{userId}')";
+		                                '{userId}',{FormPrincipal.id_empleado})";
                         }
                         cn.EjecutarConsulta(query);
                         idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));
@@ -2813,7 +2815,7 @@ namespace PuntoDeVentaV2
                             FechaOperacion, 
                             IDReporte,
 		                    IDProducto,
-		                    IDUsuario) 
+		                    IDUsuario,IDEmpelado) 
                      VALUES('{concepto}',
 	                        '{cantidad}',
 	                        '{precioOriginalConIVA.ToString("N2")}',
@@ -2827,7 +2829,7 @@ namespace PuntoDeVentaV2
                             '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
                             '{Inventario.idReporte}',
 	                        '{idProducto}',
-	                        '{userId}')";
+	                        '{userId}',{FormPrincipal.id_empleado})";
                     }
                     else if (!string.IsNullOrEmpty(idListProd))
                     {
@@ -2845,7 +2847,7 @@ namespace PuntoDeVentaV2
                             FechaOperacion, 
                             IDReporte,
 		                    IDProducto,
-		                    IDUsuario) 
+		                    IDUsuario,IDEmpelado) 
                      VALUES('{concepto}',
 	                        '{cantidad}',
 	                        '{precioOriginalConIVA.ToString("N2")}',
@@ -2858,8 +2860,8 @@ namespace PuntoDeVentaV2
 	                        '{claveProdEmisor}',
                             '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
                             '{Inventario.idReporte}',
-	                        '{idListProd}',
-	                        '{userId}')";
+	                        '{idProducto}',
+	                        '{userId}',{FormPrincipal.id_empleado})";
                     }
                     else if (!string.IsNullOrEmpty(IdProductoSugerido))
                     {
@@ -2877,7 +2879,7 @@ namespace PuntoDeVentaV2
                             FechaOperacion, 
                             IDReporte,
 		                    IDProducto,
-		                    IDUsuario) 
+		                    IDUsuario,IDEmpelado) 
                      VALUES('{concepto}',
 	                        '{cantidad}',
 	                        '{precioOriginalConIVA.ToString("N2")}',
@@ -2890,8 +2892,8 @@ namespace PuntoDeVentaV2
 	                        '{claveProdEmisor}',
                             '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 
                             '{Inventario.idReporte}',
-	                        '{IdProductoSugerido}',
-	                        '{userId}')";
+	                        '{idProducto}',
+	                        '{userId}',{FormPrincipal.id_empleado})";
                     }
                     cn.EjecutarConsulta(query);
                     idRecordProd = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM HistorialCompras ORDER BY ID DESC LIMIT 1", 1));

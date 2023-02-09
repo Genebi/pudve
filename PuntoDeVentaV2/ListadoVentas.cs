@@ -437,6 +437,39 @@ namespace PuntoDeVentaV2
                     linkLblPaginaSiguiente.Visible = false;
                 }
             }
+
+            if (Convert.ToInt32(linkLblPaginaActual.Text) >= 2)
+            {
+                linkLblPaginaAnterior.Text = BeforePage.ToString();
+                linkLblPaginaAnterior.Visible = true;
+                if (AfterPage <= LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = true;
+                }
+                else if (AfterPage > LastPage)
+                {
+                    linkLblPaginaSiguiente.Text = AfterPage.ToString();
+                    linkLblPaginaSiguiente.Visible = false;
+                }
+            }
+            if (Convert.ToInt32(linkLblPaginaActual.Text) > 2)
+            {
+                linkFirst.Visible = true;
+            }
+            else
+            {
+                linkFirst.Visible = false;
+            }
+            if (Convert.ToInt32(linkLblPaginaActual.Text) < LastPage - 1)
+            {
+                linkLast.Text = $"...{p.countPag().ToString()}";
+                linkLast.Visible = true;
+            }
+            else
+            {
+                linkLast.Visible = false;
+            }
         }
 
         #region Método para cargar los datos en el DataGridView
@@ -854,7 +887,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                            if (buscarPorFecha == 1)
+                    if (buscarPorFecha == 1)
                     {
                         fechaInicial = dpFechaInicial.Value.ToString("yyyy-MM-dd");
                         horaInicial = dpHoraInicial.Value.ToString("HH:mm");
@@ -1114,6 +1147,8 @@ namespace PuntoDeVentaV2
                 DGVListadoVentas.Columns["Timbrar"].Visible = true;
             }
 
+            UpdListadoCols(opcionOcultarColumnasEnCancelar);
+
             DataSet datos = p.cargar();
             DataTable dtDatos = datos.Tables[0];
 
@@ -1137,6 +1172,8 @@ namespace PuntoDeVentaV2
                 float iva = 0f;
                 float subtotal = 0f;
                 float total = 0f;
+                decimal abonado = 0;
+
                 foreach (DataRow filaDatos in dtDatos.Rows)
                 {
                     int idVenta = Convert.ToInt32(filaDatos["ID"].ToString());
@@ -1193,6 +1230,20 @@ namespace PuntoDeVentaV2
                     subtotal += subtotalTmp;
                     total += totalTmp;
 
+                    //Mexicanada nivel un millon
+                    using (DataTable dt = cn.CargarDatos($"SELECT SUM(Total) AS Abonado FROM Abonos WHERE IDVenta= {idVenta}"))
+                    {
+                        if (string.IsNullOrEmpty(dt.Rows[0][0].ToString()))
+                        {
+                            row.Cells["Abonado"].Value = "0.00";
+                        }
+                        else
+                        {
+                            row.Cells["Abonado"].Value = dt.Rows[0][0].ToString();
+                            abonado += decimal.Parse(dt.Rows[0][0].ToString());
+                        }
+                    }
+
                     row.Cells["ID"].Value = idVenta;
                     row.Cells["col_checkbox"].Value = false;
                     row.Cells["Cliente"].Value = cliente;
@@ -1241,16 +1292,24 @@ namespace PuntoDeVentaV2
 
                 }
 
-                AgregarTotales(iva, subtotal, total);
+                AgregarTotales(iva, subtotal, total, abonado);
 
                 using (DataTable dbTotalesGenerales = cn.CargarDatos(FiltroAvanzado))
                 {
-                    float ivaTmpGral = 0, subtotalTmpGral = 0, totalTmpGral = 0;
+                    float ivaTmpGral = 0, subtotalTmpGral = 0, totalTmpGral = 0, totalAbonos = 0;
                     foreach (DataRow row in dbTotalesGenerales.Rows)
                     {
                         if (float.Parse(row["IVA8"].ToString()) > 0)
                         {
                             ivaTmpGral += float.Parse(row["IVA8"].ToString());
+                        }
+                        DataColumnCollection columns = dbTotalesGenerales.Columns;
+                        if (columns.Contains("Abonado"))
+                        {
+                            if (!string.IsNullOrEmpty(row["Abonado"].ToString()))
+                            {
+                                totalAbonos += float.Parse(row["Abonado"].ToString());
+                            }
                         }
                         if (float.Parse(row["IVA16"].ToString()) > 0)
                         {
@@ -1260,7 +1319,7 @@ namespace PuntoDeVentaV2
                         subtotalTmpGral += float.Parse(row["Subtotal"].ToString());
                         totalTmpGral += float.Parse(row["Total"].ToString());
                     }
-                    AgregarTotalesGenerales(ivaTmpGral, subtotalTmpGral, totalTmpGral);
+                    AgregarTotalesGenerales(ivaTmpGral, subtotalTmpGral, totalTmpGral, totalAbonos);
                 }
 
                 DGVListadoVentas.FirstDisplayedScrollingRowIndex = DGVListadoVentas.RowCount - 1;
@@ -1287,6 +1346,19 @@ namespace PuntoDeVentaV2
             else
             {
                 DGVListadoVentas.Columns["ganancia"].Visible = true;
+            }
+        }
+
+        private void UpdListadoCols(string estado)
+        {
+            if (estado == "VCC")
+            {
+                DGVListadoVentas.Columns["Abonado"].DisplayIndex = 5;
+                DGVListadoVentas.Columns["Abonado"].Visible = true;
+            }
+            else
+            {
+                DGVListadoVentas.Columns["Abonado"].Visible = false;
             }
         }
 
@@ -1410,7 +1482,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void AgregarTotalesGenerales(float ivaGral, float subtotalGral, float totalGral)
+        private void AgregarTotalesGenerales(float ivaGral, float subtotalGral, float totalGral, float abonado)
         {
             int idFila = DGVListadoVentas.Rows.Add();
             DataGridViewRow fila = DGVListadoVentas.Rows[idFila];
@@ -1423,9 +1495,10 @@ namespace PuntoDeVentaV2
             fila.Cells["Subtotal"].Value = subtotalGral.ToString("0.00");
             fila.Cells["IVA"].Value = ivaGral.ToString("0.00");
             fila.Cells["Total"].Value = totalGral.ToString("0.00");
+            fila.Cells["Abonado"].Value = abonado.ToString("0.00");
         }
 
-        private void AgregarTotales(float iva, float subtotal, float total)
+        private void AgregarTotales(float iva, float subtotal, float total, decimal abonado)
         {
             int idFila = DGVListadoVentas.Rows.Add();
             DataGridViewRow fila = DGVListadoVentas.Rows[idFila];
@@ -1439,6 +1512,7 @@ namespace PuntoDeVentaV2
             fila.Cells["Subtotal"].Value = subtotal.ToString("0.00");
             fila.Cells["IVA"].Value = iva.ToString("0.00");
             fila.Cells["Total"].Value = total.ToString("0.00");
+            fila.Cells["Abonado"].Value = abonado.ToString("0.00");
         }
 
         private void btnBuscarVentas_Click(object sender, EventArgs e)
@@ -1893,7 +1967,7 @@ namespace PuntoDeVentaV2
                                         return;
                                     }
                                 }
-                               
+
                             }
 
                             var statusVentaParaCancelar = 0;
@@ -2586,8 +2660,8 @@ namespace PuntoDeVentaV2
 
                 }
 
-                    //Ver ticket
-                    if (e.ColumnIndex == 13)
+                //Ver ticket
+                if (e.ColumnIndex == 13)
                 {
                     if (opcion3 == 0)
                     {
@@ -3165,6 +3239,17 @@ namespace PuntoDeVentaV2
                 // Información
                 if (e.ColumnIndex == 16)
                 {
+                    using (DataTable dt = cn.CargarDatos($"SELECT opcion4 FROM empleadospermisos WHERE Seccion='ventas' AND idUsuario = {FormPrincipal.userID} AND IDEmpleado = {FormPrincipal.id_empleado}"))
+                    {
+                        if (!dt.Rows.Count.Equals(0))
+                        {
+                            if (dt.Rows[0][0].ToString().Equals("0") && !FormPrincipal.id_empleado.Equals(0))
+                            {
+                                Utilidades.MensajePermiso();
+                                return;
+                            }
+                        }
+                    }
                     Ventas_ventana_informacion info = new Ventas_ventana_informacion(idVenta);
                     info.ShowDialog();
                 }
@@ -3415,7 +3500,7 @@ namespace PuntoDeVentaV2
 
             // Obtiene el número de usuarios. 
 
-            DataTable dt_usuarios = cn.CargarDatos("SELECT ID, Usuario FROM usuarios");
+            DataTable dt_usuarios = cn.CargarDatos($"SELECT ID, Usuario FROM usuarios WHERE ID = '{FormPrincipal.userID}'");
             int tam_usuarios = dt_usuarios.Rows.Count;
 
             var carpetaCSDAdministrador = FormPrincipal.userNickName;
@@ -3427,7 +3512,7 @@ namespace PuntoDeVentaV2
                 carpetaCSDAdministrador = dividirAdministradorEmpleado[0];
             }
 
-            if (tam_usuarios > 1)
+            if (tam_usuarios >= 1)
             {
                 DataRow dr_usuarios = dt_usuarios.Rows[0];
 
@@ -4620,7 +4705,7 @@ namespace PuntoDeVentaV2
                         contador++;
                     }
                 }
-                VisualizadorReporteVentas VRV = new VisualizadorReporteVentas(codigosBuscar,cbTipoVentas.SelectedIndex);
+                VisualizadorReporteVentas VRV = new VisualizadorReporteVentas(codigosBuscar, cbTipoVentas.SelectedIndex);
                 VRV.ShowDialog();
 
                 //if (!query.Rows.Count.Equals(0))

@@ -183,9 +183,26 @@ namespace PuntoDeVentaV2
                         datos = new string[] { idVenta.ToString(), idAbono, totalOriginal.ToString("0.00"), totalPendiente.ToString("0.00"), totalAbonado.ToString("0.00"), restante.ToString("0.00"), fechaOperacion };
 
                         GenerarTicket(datos);
-                        ImprimirTicketAbono impresionTicketAbono = new ImprimirTicketAbono();
-                        impresionTicketAbono.idAbono = idVenta;
-                        impresionTicketAbono.ShowDialog();
+                        using (var dt = cn.CargarDatos($"SELECT TicketAbono,PreguntarTicketAbono FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
+                        {
+                            if (dt.Rows[0]["TicketAbono"].Equals(1))
+                            {
+                                ImprimirTicketAbono impresionTicketAbono = new ImprimirTicketAbono();
+                                impresionTicketAbono.idAbono = idVenta;
+                                impresionTicketAbono.ShowDialog();
+                            }
+                            else if (dt.Rows[0]["PreguntarTicketAbono"].Equals(1))
+                            {
+                                DialogResult result =  MessageBox.Show("¿Desea imprimir Ticket?","Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                if (result.Equals(DialogResult.Yes))
+                                {
+                                    ImprimirTicketAbono impresionTicketAbono = new ImprimirTicketAbono();
+                                    impresionTicketAbono.idAbono = idVenta;
+                                    impresionTicketAbono.ShowDialog();
+                                }
+                            }
+                        }
+                       
                         //ImprimirTicket(idVenta.ToString(), idAbono);
                         //MostrarTicketAbonos(idVenta.ToString(), idAbono);
 

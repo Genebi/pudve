@@ -209,6 +209,7 @@ namespace PuntoDeVentaV2
             {
                 this.Close();
             }
+
         }
 
         private void txtCantidad_KeyDown(object sender, KeyEventArgs e)

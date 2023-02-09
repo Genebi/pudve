@@ -2074,4 +2074,42 @@ IF
 	);
 SET GLOBAL max_allowed_packet=60777216;
 
+--Se creo tabla de Tickets(no esta implementado el tickets de ventas porque ya esta implementado en otra tabla)
+CREATE TABLE 
+IF 
+	NOT EXISTS ConfiguracionDeTickets (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDUsuario INTEGER NOT NULL DEFAULT 0,
+		TicketAbono INTEGER DEFAULT 1,
+		PreguntarTicketAbono INTEGER DEFAULT 0,
+		TicketAbrirCaja INTEGER DEFAULT 1,
+		PreguntarTicketAbrirCaja INTEGER DEFAULT 0,
+		TicketCorteDeCaja INTEGER DEFAULT 1,
+		PreguntarTicketCorteDeCaja INTEGER DEFAULT 0,
+		TicketOPDFCorteDeCaja INTEGER DEFAULT 1,
+		CreditoRealizado INTEGER DEFAULT 1,
+		PreguntarCreditoRealizado INTEGER DEFAULT 0,
+		TicketOPDFCreditoRealizado INTEGER DEFAULT 1,
+		TicketDineroAgregado INTEGER DEFAULT 1,
+		PreguntarTicketDineroAgregado INTEGER DEFAULT 0,
+		TicketRetiradoAgregado INTEGER DEFAULT 1,
+		PreguntarTicketRetiradoAgregado INTEGER DEFAULT 0,
+		TicketPresupuesto INTEGER DEFAULT 1,
+		PreguntarTicketPresupuesto INTEGER DEFAULT 0,
+		TicketOPDFPresupuesto INTEGER DEFAULT 1,
+		TicketAnticipo INTEGER DEFAULT 1,
+		PreguntarTicketAnticipo INTEGER DEFAULT 0,
+		TicketVentaCancelada  INTEGER DEFAULT 1,
+		PregutarTicketVentaCancelada INTEGER DEFAULT 0,
+		TicketOPDFTicketVentaCancelada INTEGER DEFAULT 1,
+		TicketVentaGlobal INTEGER DEFAULT 1,
+		PreguntarTicketVentaGlobal INTEGER DEFAULT 0,
+		TicketOPDFVentaGlobal INTEGER DEFAULT 1,
+		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE
+	);
 
+
+
+ALTER TABLE dgvaumentarinventario ADD COLUMN IF NOT EXISTS Devolucion INT DEFAULT 0;
+
+ALTER TABLE historialcompras ADD COLUMN IF NOT EXISTS IDEmpleado INT DEFAULT 0;

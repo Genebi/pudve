@@ -25,7 +25,7 @@ namespace PuntoDeVentaV2
         private MySqlCommand sql_cmd;
         private MySqlDataAdapter DB;
         private DataSet DS = new DataSet();
-        private DataTable DT = new DataTable();
+       private DataTable DT = new DataTable();
         
         // pasamos variables entre la calse de conexion con la de consultas
         public static MySqlConnection cs_sql_con;

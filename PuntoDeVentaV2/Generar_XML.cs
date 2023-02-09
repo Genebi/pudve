@@ -166,12 +166,13 @@ namespace PuntoDeVentaV2
 
             // Obtiene el número de usuarios. 
 
-            DataTable dt_usuarios = cn.CargarDatos("SELECT ID, Usuario FROM usuarios");
+            DataTable dt_usuarios = cn.CargarDatos($"SELECT ID, Usuario FROM usuarios WHERE ID = '{FormPrincipal.userID}'");
             int tam_usuarios = dt_usuarios.Rows.Count;
+            DataRow dr_usuarios = dt_usuarios.Rows[0];
 
-            if (tam_usuarios > 1)
+            if (tam_usuarios >= 1)
             {
-                DataRow dr_usuarios = dt_usuarios.Rows[0];
+                
 
                 if (dr_usuarios["Usuario"].ToString() == FormPrincipal.userNickName)
                 {
@@ -181,13 +182,13 @@ namespace PuntoDeVentaV2
                     if (!Directory.Exists(ruta_carpeta_archivos))
                     {
                         cambia_nombre_carpeta = true;
-                        ruta_carpeta_archivos = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                        ruta_carpeta_archivos = @"C:\Archivos PUDVE\MisDatos\CSD_" + dr_usuarios["Usuario"].ToString() + @"\"; 
                     }
                 }
                 else
                 {
                     cambia_nombre_carpeta = true;
-                    ruta_carpeta_archivos = @"C:\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                    ruta_carpeta_archivos = @"C:\Archivos PUDVE\MisDatos\CSD_" + dr_usuarios["Usuario"].ToString() + @"\";
                 }
             }
 
@@ -197,7 +198,7 @@ namespace PuntoDeVentaV2
 
                 if(cambia_nombre_carpeta == true)
                 {
-                    ruta_carpeta_archivos = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_" + FormPrincipal.userNickName + @"\";
+                    ruta_carpeta_archivos = $@"\\{servidor}\Archivos PUDVE\MisDatos\CSD_" + dr_usuarios["Usuario"].ToString() + @"\";
                 }
             }
 

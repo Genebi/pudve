@@ -170,20 +170,26 @@ namespace PuntoDeVentaV2
             if (!string.IsNullOrWhiteSpace(txtCredito.Text))
             {
                 credito2 = Convert.ToDecimal(txtCredito.Text);
-
-                if (idCliente.Equals(0))
+                if (credito2 >0)
                 {
-                    MessageBox.Show("Asigné un Cliente para hacer una venta a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-                else if (!FormPrincipal.id_empleado.Equals(0) && credito2 > 0)
-                {
-                    var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
-                    if (datos[47].Equals(0))
+                    if (idCliente.Equals(0))
                     {
-                        MessageBox.Show("No cuenta con permiso para vender a credito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Asigné un Cliente para hacer una venta a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
+                    else if (!FormPrincipal.id_empleado.Equals(0) && credito2 > 0)
+                    {
+                        var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+                        if (datos[47].Equals(0))
+                        {
+                            MessageBox.Show("No cuenta con permiso para vender a credito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+                }
+                else
+                {
+                    txtCredito.Clear();
                 }
             }
 
@@ -275,23 +281,23 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    if (checarEfectivo.Equals((float)mayor))
+                    if (checarEfectivo > 0)
                     {
                         Ventas.formaDePagoDeVenta = "Efectivo";
                     }
-                    else if (checarTarjeta.Equals((float)mayor))
+                    else if (checarTarjeta > 0)
                     {
                         Ventas.formaDePagoDeVenta = "Tarjeta";
                     }
-                    else if (checarTransferencia.Equals((float)mayor))
+                    else if (checarTransferencia > 0)
                     {
                         Ventas.formaDePagoDeVenta = "Transferencia";
                     }
-                    else if (checarCheque.Equals((float)mayor))
+                    else if (checarCheque > 0)
                     {
                         Ventas.formaDePagoDeVenta = "Cheque";
                     }
-                    else if (checarVales.Equals((float)mayor))
+                    else if (checarVales > 0)
                     {
                         Ventas.formaDePagoDeVenta = "Vales";
                     }
@@ -499,6 +505,17 @@ namespace PuntoDeVentaV2
 
         private void lbCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
+            using (DataTable dt = cn.CargarDatos($"SELECT opcion16 FROM empleadospermisos WHERE Seccion='ventas' AND idUsuario = {FormPrincipal.userID} AND IDEmpleado = {FormPrincipal.id_empleado}"))
+            {
+                if (!dt.Rows.Count.Equals(0))
+                {
+                    if (dt.Rows[0][0].ToString().Equals("0") && !FormPrincipal.id_empleado.Equals(0))
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+                }
+            }
             ListaClientes clientes = new ListaClientes(tipo: 2);
 
             clientes.FormClosed += delegate

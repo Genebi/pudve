@@ -270,6 +270,28 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            decimal parser;
+            if (!decimal.TryParse(txtCantidadCompra.Text,out parser) && !string.IsNullOrEmpty(txtCantidadCompra.Text))
+            {
+                MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtCantidadCompra.Clear();
+                txtCantidadCompra.Focus();
+                return;
+            }
+            if (!decimal.TryParse(txtPrecioCompra.Text, out parser) && !string.IsNullOrEmpty(txtPrecioCompra.Text))
+            {
+                MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtPrecioCompra.Clear();
+                txtPrecioCompra.Focus();
+                return;
+            }
+            if (!decimal.TryParse(txtDisminuir.Text, out parser) && !string.IsNullOrEmpty(txtDisminuir.Text))
+                    {
+                        MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDisminuir.Clear();
+                txtDisminuir.Focus();
+                        return;
+                    }
             var datoUsuario = FormPrincipal.userNickName;
             var empleado = "0";
 

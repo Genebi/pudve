@@ -159,6 +159,13 @@ namespace PuntoDeVentaV2
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             valdarRFCExistente();
+            if (!txtTelefono.Text.All(char.IsDigit) && !string.IsNullOrEmpty(txtTelefono.Text))
+            {
+                MessageBox.Show("El número de teléfono no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTelefono.Clear();
+                txtTelefono.Focus();
+                return;
+            }
             bool r_uso_regimen = validar_usocfdi_regimen();
 
             if (validarRFC == true || cbCliente.Checked)
@@ -819,5 +826,34 @@ namespace PuntoDeVentaV2
                 e.Handled = true;
             }
         }
+
+        private void txtEmail_TextChanged(object sender, EventArgs e)
+        {
+            ValidarEntradaDeTexto(sender, e);
+        }
+
+        private void ValidarEntradaDeTexto(object sender, EventArgs e)
+        {
+            var resultado = string.Empty;
+            var txtValidarTexto = (TextBox)sender;
+            resultado = txtValidarTexto.Text;
+
+            if (!string.IsNullOrWhiteSpace(resultado))
+            {
+                if (resultado.Contains("|") || resultado.Contains("+") || resultado.Contains("'") || resultado.Contains("*") || resultado.Contains("/") || resultado.Contains(","))
+                {
+                    var resultadoAuxialiar = Regex.Replace(resultado, @"[+\|\,\'\*\/]", string.Empty);
+                    resultado = resultadoAuxialiar;
+                    txtValidarTexto.Text = resultado;
+                    txtValidarTexto.Focus();
+                    txtValidarTexto.Select(txtValidarTexto.Text.Length, 0);
+                }
+            }
+            else
+            {
+                txtValidarTexto.Focus();
+            }
+        }
+
     }
 }
