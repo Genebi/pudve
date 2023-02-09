@@ -215,6 +215,7 @@ namespace PuntoDeVentaV2
                 lbSubtitulo.Visible = false;
                 btnAgregarConcepto.Visible = false;
                 txtEfectivo.Text = Inventario.totalFinal.ToString();
+                Inventario.totalFinal = 0; 
                 txtCredito.Enabled = false;
                 txtTarjeta.Enabled = false;
                 txtVales.Enabled = false;
