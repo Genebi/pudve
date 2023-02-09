@@ -55,6 +55,8 @@
             this.webListener = new System.ComponentModel.BackgroundWorker();
             this.webAuto = new System.Windows.Forms.Timer(this.components);
             this.webSender = new System.ComponentModel.BackgroundWorker();
+            this.bwOrdenes = new System.ComponentModel.BackgroundWorker();
+            this.timerOrdenes = new System.Windows.Forms.Timer(this.components);
             this.panelMaestro.SuspendLayout();
             this.menuVertical.SuspendLayout();
             this.SuspendLayout();
@@ -450,6 +452,18 @@
             // 
             this.webSender.DoWork += new System.ComponentModel.DoWorkEventHandler(this.webSender_DoWork);
             // 
+            // bwOrdenes
+            // 
+            this.bwOrdenes.WorkerReportsProgress = true;
+            this.bwOrdenes.WorkerSupportsCancellation = true;
+            this.bwOrdenes.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwOrdenes_DoWork);
+            // 
+            // timerOrdenes
+            // 
+            this.timerOrdenes.Enabled = true;
+            this.timerOrdenes.Interval = 60000;
+            this.timerOrdenes.Tick += new System.EventHandler(this.timerOrdenes_Tick);
+            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -498,6 +512,8 @@
         public System.Windows.Forms.Timer actualizarCaja;
         private System.Windows.Forms.Timer webAuto;
         private System.ComponentModel.BackgroundWorker webSender;
+        private System.ComponentModel.BackgroundWorker bwOrdenes;
+        private System.Windows.Forms.Timer timerOrdenes;
     }
 }
 

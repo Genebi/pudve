@@ -676,6 +676,9 @@ namespace PuntoDeVentaV2
             {
                 actualizarCaja.Enabled = true;
             }
+
+            // Realiza Ordenes
+            timerOrdenes.Start();
         }
 
         private void EnvioCorreoLicenciaActiva()
@@ -2124,6 +2127,66 @@ namespace PuntoDeVentaV2
             }
 
             Utilidades.EnviarEmail(html, asunto, email);
+        }
+
+
+        private void timerOrdenes_Tick(object sender, EventArgs e)
+        {
+            // BackgroundWorker para Ordenes
+            if (!bwOrdenes.IsBusy)
+            {
+                bwOrdenes.RunWorkerAsync();
+            }
+        }
+
+        private void bwOrdenes_DoWork(object sender, DoWorkEventArgs e)
+        {
+            using (DataTable dtConfig = cn.CargarDatos($"SELECT RealizaOrdenes FROM Configuracion WHERE IDUsuario = {userID}"))
+            {
+                if (dtConfig.Rows.Count > 0)
+                {
+                    DataRow config = dtConfig.Rows[0];
+
+                    bool realizaOrdenes = Convert.ToBoolean(config["RealizaOrdenes"].ToString());
+
+                    if (realizaOrdenes)
+                    {
+                        using (DataTable dtVentas = cn.CargarDatos($"SELECT * FROM Ventas WHERE IDUsuario = {userID} AND Status = 11 AND EstadoEntrega = 0"))
+                        {
+                            if (dtVentas.Rows.Count > 0)
+                            {
+                                foreach (DataRow venta in dtVentas.Rows)
+                                {
+                                    var datosTiempoEntrega = venta["TiempoEntrega"].ToString().Split('|');
+
+                                    var dias = Convert.ToInt16(datosTiempoEntrega[0]);
+                                    var horas = Convert.ToInt16(datosTiempoEntrega[1]);
+                                    var minutos = Convert.ToInt16(datosTiempoEntrega[2]);
+
+
+                                    var fechaHoy = DateTime.Now;
+                                    fechaHoy = dias > 0 ? fechaHoy.AddDays(-dias) : fechaHoy;
+                                    fechaHoy = horas > 0 ? fechaHoy.AddHours(-horas) : fechaHoy;
+                                    fechaHoy = minutos > 0 ? fechaHoy.AddMinutes(-minutos) : fechaHoy;
+
+
+                                    // Comparamos la fecha de entrega con la fecha actual
+                                    // Si la fecha de hoy es mayor o igual a la fecha de entrega actualizar
+                                    var fechaEntrega = Convert.ToDateTime(venta["FechaEntrega"].ToString());
+
+                                    
+                                    if (fechaHoy >= fechaEntrega)
+                                    {
+                                        int id = Convert.ToInt32(venta["ID"]);
+                                        cn.EjecutarConsulta($"UPDATE Ventas SET EstadoEntrega = 1 WHERE ID = {id}");
+                                        //Console.WriteLine($"FH: {fechaHoy} | FE: {fechaEntrega}");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
