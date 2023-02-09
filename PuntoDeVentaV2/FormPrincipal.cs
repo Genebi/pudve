@@ -2178,14 +2178,26 @@ namespace PuntoDeVentaV2
                                     if (fechaHoy >= fechaEntrega)
                                     {
                                         int id = Convert.ToInt32(venta["ID"]);
+
                                         cn.EjecutarConsulta($"UPDATE Ventas SET EstadoEntrega = 1 WHERE ID = {id}");
-                                        //Console.WriteLine($"FH: {fechaHoy} | FE: {fechaEntrega}");
                                     }
                                 }
                             }
                         }
                     }
                 }
+            }
+        }
+
+        private void bwOrdenes_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                Console.WriteLine("El proceso se ha cancelado");
+            }
+            else
+            {
+                // Enviar notificacion por algun medio de las ordenes que cambiaron a procesando
             }
         }
     }

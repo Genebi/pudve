@@ -457,6 +457,7 @@
             this.bwOrdenes.WorkerReportsProgress = true;
             this.bwOrdenes.WorkerSupportsCancellation = true;
             this.bwOrdenes.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwOrdenes_DoWork);
+            this.bwOrdenes.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bwOrdenes_RunWorkerCompleted);
             // 
             // timerOrdenes
             // 
