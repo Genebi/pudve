@@ -251,6 +251,38 @@ namespace PuntoDeVentaV2
                     reportParameters.Add(new ReportParameter("Anticipo", Anticipo));
                 }
             }
+
+            using (var dt = cn.CargarDatos($"SELECT mostrarIVA FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (dt.Rows[0][0].Equals(1))
+                {
+                    string iva8 = "";
+                    string iva16 = "";
+                    using (var dt2 = cn.CargarDatos($"SELECT IVA8,IVA16 FROM ventas WHERE ID = {idVentaRealizada}"))
+                    {
+                        iva8 = dt2.Rows[0]["IVA8"].ToString();
+                        iva16 = dt2.Rows[0]["IVA16"].ToString();
+                    }
+
+                    if (!iva8.Equals("0.00"))
+                    {
+                        reportParameters.Add(new ReportParameter("IVA", iva8));
+                    }
+                    else if (!iva16.Equals("0.00"))
+                    {
+                        reportParameters.Add(new ReportParameter("IVA", iva16));
+                    }
+                    else
+                    {
+                        reportParameters.Add(new ReportParameter("IVA", "0"));
+                    }
+                }
+                else
+                {
+                    reportParameters.Add(new ReportParameter("IVA", "0"));
+                }
+            }
+           
           
 
 

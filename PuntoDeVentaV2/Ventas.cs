@@ -2993,56 +2993,68 @@ namespace PuntoDeVentaV2
                         else
                         {
                             var diferencia = importeTmp - sumaImportes;
-
                             cAnticipoUtilizado.Text = diferencia.ToString("N");
                         }
                     }
                 }
             }
-            if (total_importe_cero_exe > 0)
+            using (var dt = cn.CargarDatos($"SELECT mostrarIVA FROM configuracion WHERE IDUsuario= {FormPrincipal.userID}"))
             {
-                lblIVA0Exento.Visible = true;
-                lblCIVA0Exento.Visible = true;
-            }
-            else
-            {
-                lblIVA0Exento.Visible = false;
-                lblCIVA0Exento.Visible = false;
-            }
-            if (totalIVA8 > 0)
-            {
-                lbIVA8.Visible = true;
-                cIVA8.Visible = true;
-                if (totalIVA16 > 0)
+                if (dt.Rows[0][0].Equals(1))
                 {
+                    if (total_importe_cero_exe > 0)
+                    {
+                        lblIVA0Exento.Visible = true;
+                        lblCIVA0Exento.Visible = true;
+                    }
+                    else
+                    {
+                        lblIVA0Exento.Visible = false;
+                        lblCIVA0Exento.Visible = false;
+                    }
+                    if (totalIVA8 > 0)
+                    {
+                        lbIVA8.Visible = true;
+                        cIVA8.Visible = true;
+                        if (totalIVA16 > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            lbIVA.Visible = false;
+                            cIVA.Visible = false;
+                        }
+
+                    }
+                    else
+                    {
+                        lbIVA8.Visible = false;
+                        cIVA8.Visible = false;
+                        lbIVA.Visible = true;
+                        cIVA.Visible = true;
+                    }
+
+                    if (totalIVA16 > 0)
+                    {
+                        lbIVA.Visible = true;
+                        cIVA.Visible = true;
+                    }
+                    else
+                    {
+                        lbIVA.Visible = false;
+                        cIVA.Visible = false;
+                    }
 
                 }
                 else
                 {
                     lbIVA.Visible = false;
+                    lbIVA8.Visible = false;
                     cIVA.Visible = false;
                 }
-
             }
-            else
-            {
-                lbIVA8.Visible = false;
-                cIVA8.Visible = false;
-                lbIVA.Visible = true;
-                cIVA.Visible = true;
-            }
-
-            if (totalIVA16 > 0)
-            {
-                lbIVA.Visible = true;
-                cIVA.Visible = true;
-            }
-            else
-            {
-                lbIVA.Visible = false;
-                cIVA.Visible = false;
-            }
-
+            
 
             cIVA.Text = totalIVA16.ToString("N");
             cIVA8.Text = totalIVA8.ToString("N");

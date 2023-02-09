@@ -580,7 +580,17 @@ namespace PuntoDeVentaV2
                             CHKMostrarStock.Checked = false;
                         }
                         #endregion
-                   
+
+                        #region Mostrar IVA
+                        if (item["mostrarIVA"].Equals(1))
+                        {
+                            cbkMostrarIVA.Checked = true;
+                        }
+                        else 
+                        {
+                            cbkMostrarIVA.Checked = false;
+                        }
+                        #endregion
                     }
                 }
             }
@@ -1586,5 +1596,77 @@ namespace PuntoDeVentaV2
 
             }
         }
+
+        private void cbkMostrarIVA_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("PermisoMostrarIVA", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    var habilitado = 0;
+
+                    valorCambioCheckBox = cbkMostrarIVA.Checked;
+
+                    if (valorCambioCheckBox.Equals(true))
+                    {
+                        habilitado = 1;
+                    }
+                    else
+                    {
+                        habilitado = 0;
+                    }
+
+                    var consulta = $"UPDATE Configuracion SET mostrarIVA = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiGeneral.Add(consulta);
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            var habilitado = 0;
+
+                            valorCambioCheckBox = cbkMostrarIVA.Checked;
+
+                            if (valorCambioCheckBox.Equals(true))
+                            {
+                                habilitado = 1;
+                            }
+                            else
+                            {
+                                habilitado = 0;
+                            }
+
+                            var consulta = $"UPDATE Configuracion SET mostrarIVA = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiGeneral.Add(consulta);
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbkMostrarIVA.Checked == true)
+                            {
+                                cbkMostrarIVA.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbkMostrarIVA.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+
     }
 }

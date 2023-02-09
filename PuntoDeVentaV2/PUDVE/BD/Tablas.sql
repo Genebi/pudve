@@ -2125,5 +2125,10 @@ ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaCorte INT D
 ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaAgregar INT DEFAULT 0;
 ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaRetirar INT DEFAULT 0;
 
--- Columna para realizar traspasos al putazo
+-- Columna para realizar traspasos al putazo  --Aaron ¿que es ese vocabulario? Que no se vuelva a repetir
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS traspasoManual INT DEFAULT 0;
+
+--Columna para permiso de modificar la configuracion de de IVA
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoMostrarIVA INT DEFAULT 1;
+--Columna para configuacion de mostrar IVA
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS mostrarIVA INT DEFAULT 1;

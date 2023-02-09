@@ -556,7 +556,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>12.57953cm</Top>
+            <Top>13.05578cm</Top>
             <Left>0.166cm</Left>
             <Height>0.4cm</Height>
             <Width>7.758cm</Width>
@@ -571,7 +571,7 @@
             <Source>External</Source>
             <Value>=Parameters!PathBarCode.Value</Value>
             <Sizing>Fit</Sizing>
-            <Top>12.97953cm</Top>
+            <Top>13.45578cm</Top>
             <Left>1.51559cm</Left>
             <Height>0.78563cm</Height>
             <Width>5cm</Width>
@@ -1574,7 +1574,7 @@
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>11.41953cm</Top>
+            <Top>12.30853cm</Top>
             <Left>0.15cm</Left>
             <Height>0.76cm</Height>
             <Width>7.758cm</Width>
@@ -1921,7 +1921,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>12.17953cm</Top>
+            <Top>11.41753cm</Top>
             <Left>0.15cm</Left>
             <Height>0.4cm</Height>
             <Width>7.758cm</Width>
@@ -1935,8 +1935,49 @@
               </Border>
             </Style>
           </Textbox>
+          <Textbox Name="MensajeDelTicket3">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>IVA: $</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!IVA.Value</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
+            <Top>11.86692cm</Top>
+            <Left>0.15cm</Left>
+            <Height>0.4cm</Height>
+            <Width>7.758cm</Width>
+            <ZIndex>11</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Parameters!IVA.Value, "TicketVenta").ToString = "0", True, False)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>13.93675cm</Height>
+        <Height>14.33363cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
@@ -2042,6 +2083,10 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="Anticipo">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="IVA">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
@@ -2160,6 +2205,11 @@
           <ColumnIndex>1</ColumnIndex>
           <RowIndex>5</RowIndex>
           <ParameterName>Anticipo</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>5</RowIndex>
+          <ParameterName>IVA</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
