@@ -109,6 +109,7 @@
             this.MinimizeBox = false;
             this.Name = "TipoHistorial";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.TipoHistorial_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TipoHistorial_KeyDown);
             this.ResumeLayout(false);
 
