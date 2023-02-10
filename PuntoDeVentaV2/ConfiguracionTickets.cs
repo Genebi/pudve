@@ -340,7 +340,7 @@ namespace PuntoDeVentaV2
                 DialogResult mensaje = MessageBox.Show("¿Desea guardar los cambios?", "Aviso del Ssitema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (mensaje.Equals(DialogResult.Yes))
                 {
-                    this.Close();
+                    button2.PerformClick();
                 }
             }
         }
