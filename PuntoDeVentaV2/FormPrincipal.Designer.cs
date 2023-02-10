@@ -199,6 +199,7 @@
             this.btnSesion.TabIndex = 110;
             this.btnSesion.Text = "Cerrar  Sesión";
             this.btnSesion.UseVisualStyleBackColor = false;
+            this.btnSesion.Visible = false;
             this.btnSesion.Click += new System.EventHandler(this.btnSesion_Click);
             // 
             // btnEmpresas
@@ -454,9 +455,7 @@
             // 
             // btnAyuda
             // 
-            this.btnAyuda.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAyuda.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnAyuda.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btnAyuda.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
             this.btnAyuda.BorderColor = System.Drawing.Color.PaleVioletRed;
