@@ -215,7 +215,7 @@ namespace PuntoDeVentaV2
                 lbSubtitulo.Visible = false;
                 btnAgregarConcepto.Visible = false;
                 txtEfectivo.Text = Inventario.totalFinal.ToString();
-                Inventario.totalFinal = 0; 
+                
                 txtCredito.Enabled = false;
                 txtTarjeta.Enabled = false;
                 txtVales.Enabled = false;
@@ -574,7 +574,7 @@ namespace PuntoDeVentaV2
                             return;
                         }
                     }
-                    Inventario.desdeRegresarProdcuto = 0;
+                   
                 }
                 else
                 {
@@ -613,7 +613,7 @@ namespace PuntoDeVentaV2
 
                 if (!operacion.Equals(0))
                 {
-                    if (efectivo < 0 && efectivo > (float)totalEfectivo)
+                    if (efectivo > 0 && efectivo > (float)totalEfectivo)
                     {
                         if (efectivo < 0)
                         {
@@ -623,6 +623,21 @@ namespace PuntoDeVentaV2
                         {
                             efectivo = (float)totalEfectivo;
                             MessageBox.Show($"El monto de efectivo tiene que ser menor o igual que el monto que hay en caja: {totalEfectivo.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            if (Inventario.desdeRegresarProdcuto == 1)
+                            {
+                                Inventario.operacionDevolucionProducto = 2;
+                                AgregarAnticipo anticipoDevolucion = new AgregarAnticipo();
+                                anticipoDevolucion.ShowDialog();
+                                Inventario.desdeRegresarProdcuto = 0;
+                                Inventario.totalFinal = 0;
+                            }
+                            else
+                            {
+                                Inventario.desdeRegresarProdcuto = 0;
+                                Inventario.totalFinal = 0;
+                            }
+                            this.Close();
+                            
                         }
                         txtEfectivo.Text = efectivo.ToString();
                     }
@@ -631,7 +646,7 @@ namespace PuntoDeVentaV2
                         siRetiroEfectivo = true;
                     }
 
-                    if (tarjeta < 0 && tarjeta > (float)totalTarjeta)
+                    if (tarjeta > 0 && tarjeta > (float)totalTarjeta)
                     {
                         if (tarjeta < 0)
                         {
@@ -649,7 +664,7 @@ namespace PuntoDeVentaV2
                         siRetiroTarjeta = true;
                     }
 
-                    if (cheque < 0 && cheque > (float)totalCheque)
+                    if (cheque > 0 && cheque > (float)totalCheque)
                     {
                         if (cheque < 0)
                         {
@@ -667,7 +682,7 @@ namespace PuntoDeVentaV2
                         siRetiroCheque = true;
                     }
 
-                    if (vales < 0 && vales > (float)totalVales)
+                    if (vales > 0 && vales > (float)totalVales)
                     {
                         if (vales < 0)
                         {
@@ -685,7 +700,7 @@ namespace PuntoDeVentaV2
                         siRetiroVales = true;
                     }
 
-                    if (trans < 0 && trans > (float)totalTransferencia)
+                    if (trans > 0 && trans > (float)totalTransferencia)
                     {
                         if (trans < 0)
                         {
