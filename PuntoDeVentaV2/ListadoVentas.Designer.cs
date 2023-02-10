@@ -837,7 +837,6 @@
             this.chTodos.TabIndex = 12;
             this.chTodos.Text = "Seleccionar todos ";
             this.chTodos.UseVisualStyleBackColor = true;
-            this.chTodos.Visible = false;
             this.chTodos.CheckedChanged += new System.EventHandler(this.chTodos_CheckedChanged);
             // 
             // chkHDAutlan

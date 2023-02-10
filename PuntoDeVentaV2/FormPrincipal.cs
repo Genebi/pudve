@@ -1096,12 +1096,6 @@ namespace PuntoDeVentaV2
             {
                 if (dtConfiguracionWeb.Rows[0][0].ToString() == "1")
                 {
-                    if (pasar==1)
-                    {
-                        enviarCajaAWeb();
-                        enviarProdctosWeb();
-                    }
-
                     if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
                     {
                         FormCollection fc = Application.OpenForms;
@@ -1126,10 +1120,15 @@ namespace PuntoDeVentaV2
                         }
                         if (ayylmao)
                             {
-                                DialogResult dialogResult = MessageBox.Show("¿Quiere realizar una copia de seguridad antes de cerrar sesión?", "¿Respaldar antes de salir?", MessageBoxButtons.YesNo);
+                                DialogResult dialogResult = MessageBox.Show("¿Quiere realizar una copia de seguridad antes de cerrar el programa?", "¿Respaldar antes de salir?", MessageBoxButtons.YesNo);
                                 if (dialogResult == DialogResult.Yes)
                                 {
-                                    WebUploader respaldazo = new WebUploader(true, this);
+                                if (pasar == 1)
+                                {
+                                    enviarCajaAWeb();
+                                    enviarProdctosWeb();
+                                }
+                                WebUploader respaldazo = new WebUploader(true, this);
                                     respaldazo.ShowDialog();
                                 }
                                 else
