@@ -55,6 +55,7 @@ namespace PuntoDeVentaV2
 
         private void CargarDatos(string busqueda = "")
         {
+            DGVClientes.Rows.Clear();
             MySqlConnection sql_con;
             MySqlCommand sql_cmd;
             MySqlDataReader dr;
@@ -78,63 +79,26 @@ namespace PuntoDeVentaV2
             {
                 consulta = $"SELECT Clientes.ID, Clientes.RFC, Clientes.RazonSocial, SUM(Vent.Total) AS Total FROM Clientes INNER JOIN ventas AS Vent ON ( Clientes.ID = Vent.IDCliente AND Vent.`Status` = 4 )WHERE Clientes.IDUsuario = {FormPrincipal.userID} AND Clientes.STATUS = 1 AND (Clientes.RazonSocial LIKE '%{busqueda}%' OR Clientes.RFC LIKE '%{busqueda}%' OR Clientes. NumeroCliente LIKE '%{busqueda}%') GROUP BY clientes.id";
             }
+            var DT = cn.CargarDatos(consulta);
+            Image detalles = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\th-list.png");
 
-                    if (Ventas.EsGuardarVenta.Equals(false))
+            foreach (DataRow item in DT.Rows)
             {
-                if (FormPrincipal.userNickName.Contains('@'))
-                {
-                    var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
-                    if (datos[15].Equals(1))
-                    {
-                    }
-                }
-                else
-                {
-                }
+                var numeroDeRows = DGVClientes.Rows.Add();
+                DataGridViewRow row = DGVClientes.Rows[numeroDeRows];
 
+                // Columna IdProducto 
+                string ID = item["ID"].ToString();
+                string RFC = item["RFC"].ToString();
+                string RS = item["RazonSocial"].ToString();
+                string total = item["Total"].ToString();
+
+                row.Cells["ID"].Value = ID;
+                row.Cells["RFC"].Value = RFC;
+                row.Cells["RazonSocial"].Value = RS;
+                row.Cells["DeudaTotal"].Value = total;
+                row.Cells["Detalles"].Value = detalles;
             }
-            sql_con.Open();
-            sql_cmd = new MySqlCommand(consulta, sql_con);
-            dr = sql_cmd.ExecuteReader();
-
-            DGVClientes.Rows.Clear();
-
-            while (dr.Read())
-            {
-                int rowId = DGVClientes.Rows.Add();
-
-                DataGridViewRow row = DGVClientes.Rows[rowId];
-
-                Image agregar = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\th-list.png");
-
-
-
-                row.Cells["ID"].Value = dr.GetValue(dr.GetOrdinal("ID"));
-                row.Cells["RFC"].Value = dr.GetValue(dr.GetOrdinal("RFC"));
-                row.Cells["RazonSocial"].Value = dr.GetValue(dr.GetOrdinal("RazonSocial"));
-
-                using (DataTable dt = cn.CargarDatos($"SELECT SUM(Abo.Total) AS 'Abonado' FROM Clientes INNER JOIN ventas AS Vent ON ( Clientes.ID = Vent.IDCliente AND Vent.`Status` = 4 )LEFT JOIN abonos AS Abo ON ( Vent.ID = Abo.IDVenta ) WHERE Clientes.IDUsuario = {FormPrincipal.userID} AND Clientes.id = {dr.GetValue(dr.GetOrdinal("ID")).ToString()} AND Clientes.STATUS = 1 GROUP BY clientes.id"))
-                {
-                    decimal test = decimal.Parse(dr.GetValue(dr.GetOrdinal("Total")).ToString());
-                    if (string.IsNullOrEmpty(dt.Rows[0][0].ToString()))
-                    {
-                        row.Cells["DeudaTotal"].Value =test.ToString("C2");
-                    }
-                    else
-                    {
-                        row.Cells["DeudaTotal"].Value = (test - decimal.Parse(dt.Rows[0][0].ToString())).ToString("C2");
-                    }
-                }
-                    
-                row.Cells["Agregar"].Value = agregar;
-            }
-
-            DGVClientes.ClearSelection();
-
-            dr.Close();
-            sql_con.Close();
-
-
         }
 
         private void realizarMovimiento()
