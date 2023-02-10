@@ -345,6 +345,7 @@ namespace PuntoDeVentaV2
                 GenerarCheckbox(90, 215, 150, "Reportes de Ventas", datos[3]);
                 GenerarCheckbox(130, 215, 150, "Reportes de Clientes", datos[4]);
                 GenerarCheckbox(170, 215, 150, "Reportes de Mas/Menos Vnedido", datos[5]);
+                GenerarCheckbox(210, 215, 150, "Reporte de Adeudos", datos[48]);
             }
             else
             {
@@ -643,6 +644,7 @@ namespace PuntoDeVentaV2
                 GenerarCheckbox(120, 130, 150, "Actualizar Inventario XML", datos[2]);
                 GenerarCheckbox(160, 130, 100, "Botón Buscar", datos[3]);
                 GenerarCheckbox(200, 130, 120, "Botón Terminar", datos[4]);
+                GenerarCheckbox(240, 130, 120, "Devolver Producto", datos[49]);
             }
             else
             {
@@ -667,6 +669,7 @@ namespace PuntoDeVentaV2
                 GenerarCheckbox(120, 130, 150, "Actualizar Inventario XML", Convert.ToInt32(datos[2]));
                 GenerarCheckbox(160, 130, 100, "Botón Buscar", Convert.ToInt32(datos[3]));
                 GenerarCheckbox(200, 130, 120, "Botón Terminar", Convert.ToInt32(datos[4]));
+
             }
           
         }
@@ -902,6 +905,46 @@ namespace PuntoDeVentaV2
                         
                         numero++;
                     }
+
+                    //De aqui para abajo tuve que agregar otra validacion para permisos porque solo dios sabe que programador hizo la consulta de arriba con las patas :D
+                    if (seccion.Equals("Reportes") || seccion.Equals("Inventario"))
+                    {
+                        foreach (Control item in panelContenedor.Controls)
+                        {
+                            if (item is CheckBox && !item.Text.Equals("Marcar todos"))
+                            {
+                                if (item is CheckBox && !item.Text.Equals("Desmarcar todos"))
+                                {
+                                    if (item.Text.Equals("Reporte de Adeudos"))
+                                    {
+                                        var cb = (CheckBox)item;
+
+                                        var seleccionado = 0;
+
+                                        if (cb.Checked)
+                                        {
+                                            seleccionado = 1;
+                                        }
+
+                                        cn.EjecutarConsulta($"UPDATE empleadospermisos SET ReporteDeudas = {seleccionado} WHERE IDEmpleado = {id_empleado} AND Seccion = '{seccion}' AND IDUsuario = {FormPrincipal.userID}");
+                                    }
+                                    else if (item.Text.Equals("Devolver Producto"))
+                                    {
+                                        var cb = (CheckBox)item;
+
+                                        var seleccionado = 0;
+
+                                        if (cb.Checked)
+                                        {
+                                            seleccionado = 1;
+                                        }
+
+                                        cn.EjecutarConsulta($"UPDATE empleadospermisos SET RegresarProducto = {seleccionado} WHERE IDEmpleado = {id_empleado} AND Seccion = '{seccion}' AND IDUsuario = {FormPrincipal.userID}");
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
                 if (seccion.Equals("Ventas"))
                 {
@@ -979,7 +1022,7 @@ namespace PuntoDeVentaV2
             {
                 if (item is CheckBox && !item.Text.Equals("Marcar todos"))
                 {
-                    if (item is CheckBox && !item.Text.Equals("Desmarcar todos"))
+                    if (item is CheckBox && !item.Text.Equals("Desmarcar todos") && !item.Text.Equals("Reporte de Adeudos") && !item.Text.Equals("Devolver Producto"))
                     {
                         var cb = (CheckBox)item;
 
@@ -989,7 +1032,9 @@ namespace PuntoDeVentaV2
                         {
                             seleccionado = 1;
                         }
+
                         opciones.Add(seleccionado);
+
                         if (seccion.Equals("Caja"))
                         {
                             Agregar_empleado_permisos.Caja.Add(seleccionado);

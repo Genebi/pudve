@@ -2324,6 +2324,17 @@ namespace PuntoDeVentaV2
 
         private void btnDeudas_Click(object sender, EventArgs e)
         {
+            if (FormPrincipal.userNickName.Contains('@'))
+            {
+                using (var dt = cn.CargarDatos($"SELECT ReporteDeudas FROM empleadospermisos WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado ={FormPrincipal.id_empleado} AND Seccion ='Reportes'"))
+                {
+                    if (dt.Rows[0][0].Equals(0))
+                    {
+                        MessageBox.Show("No tienes permiso para esta funcion", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                }
+            }
             reporteCredito repcred = new reporteCredito();
             repcred.ShowDialog();
         }
