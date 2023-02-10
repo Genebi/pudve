@@ -4314,6 +4314,17 @@ namespace PuntoDeVentaV2
 
         private void btnMensajeVenta_Click(object sender, EventArgs e)
         {
+            if (FormPrincipal.userNickName.Contains('@'))
+            {
+                using (var dt = cn.CargarDatos($"SELECT RegresarProducto FROM empleadospermisos WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado ={FormPrincipal.id_empleado} AND Seccion ='Inventario'"))
+                {
+                    if (dt.Rows[0][0].Equals(0))
+                    {
+                        MessageBox.Show("No tienes permiso para esta funcion","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                }
+            }
             panelContenedor.Visible = true;
             gBSeleccionActualizarInventario.Visible = false;
             desdeRegresarProdcuto = 1;
