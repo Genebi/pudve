@@ -123,39 +123,6 @@
   <metadata name="timerProdPaqSer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="botonRedondo1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        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
-        DI/4uz9IMeUPsQU0AK2F3BEAAAAASUVORK5CYII=
-</value>
-  </data>
   <data name="lblMsgSinSelecDetalles.Text" xml:space="preserve">
     <value>A tus productos puedes agregar detalles de producto  (Botón morado) Por ejemplo: Ubicación, talla, color, material, gramaje o cualquier cosa que usted necesite o imagine, ¡No hay limites! e incluso podrá generar reportes con esta características, por ejemplo, generar un reporte de un proveedor en especifico, con lo productos que venden de la "talla" 22 (Talla seria un detalle de producto agregado), también todos los productos de un "color" en especifico(Color seria un detalle de producto agregado), los reportes no tienen limites, puedes generarlos como gustes.</value>
   </data>
@@ -165,6 +132,7 @@
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>25</value>
   </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAEREAAAEAIADwBAAAFgAAACgAAAARAAAAIgAAAAEAIAAAAAAAhAQAACcAAAAnAAAAAAAAAAAA
