@@ -1114,9 +1114,7 @@ namespace PuntoDeVentaV2
                                 }
                                 else
                                 {
-                                    //Environment.Exit(0);
-                                    cerrarAplicacion = true;
-                                    desdeDondeCerrarSesion();
+                                    Environment.Exit(0);
                                 }
                             }
                         }
@@ -1135,18 +1133,14 @@ namespace PuntoDeVentaV2
                                 }
                                 else
                                 {
-                                //Environment.Exit(0);
-                                cerrarAplicacion = true;
-                                desdeDondeCerrarSesion();
-                            }
+                                    Environment.Exit(0);
+                                }
 
                             }
                     }
                     else
                     {
-                        //Environment.Exit(0);
-                        cerrarAplicacion = true;
-                        desdeDondeCerrarSesion();
+                        Environment.Exit(0);
                     }
                     
                     
