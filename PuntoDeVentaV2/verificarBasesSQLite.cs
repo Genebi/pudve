@@ -52,17 +52,17 @@ namespace PuntoDeVentaV2
 
         public verificarBasesSQLite()
         {
-            InitializeComponent();
-            ResetNameMachine();
-            createDirToBackUpDB();  // Se crea una carpeta si no existe
-            doBackUpDB();           // Realizamos el copiado del archivo de un directorio a otro
-            Shown += new EventHandler(verificarBasesSQLite_Shown);  // Agregamos un manejador del evento Shown de la forma
-            // To report progress form the background worker we need to set this property
-            verificarDBSQLiteSegundoPlano.WorkerReportsProgress = true;
-            // This event will be raised on the worker thread when the worker starts
-            verificarDBSQLiteSegundoPlano.DoWork += new DoWorkEventHandler(verificarDBSQLiteSegundoPlano_DoWork);
-            // This event will be raised when we call ReportProgress
-            verificarDBSQLiteSegundoPlano.ProgressChanged += new ProgressChangedEventHandler(verificarDBSQLiteSegundoPlano_ProgressChanged);
+            //InitializeComponent();
+            //ResetNameMachine();
+            //createDirToBackUpDB();  // Se crea una carpeta si no existe
+            //doBackUpDB();           // Realizamos el copiado del archivo de un directorio a otro
+            //Shown += new EventHandler(verificarBasesSQLite_Shown);  // Agregamos un manejador del evento Shown de la forma
+            //// To report progress form the background worker we need to set this property
+            //verificarDBSQLiteSegundoPlano.WorkerReportsProgress = true;
+            //// This event will be raised on the worker thread when the worker starts
+            //verificarDBSQLiteSegundoPlano.DoWork += new DoWorkEventHandler(verificarDBSQLiteSegundoPlano_DoWork);
+            //// This event will be raised when we call ReportProgress
+            //verificarDBSQLiteSegundoPlano.ProgressChanged += new ProgressChangedEventHandler(verificarDBSQLiteSegundoPlano_ProgressChanged);
         }
 
         private void verificarDBSQLiteSegundoPlano_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

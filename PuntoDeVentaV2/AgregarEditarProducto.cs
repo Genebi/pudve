@@ -55,6 +55,8 @@ namespace PuntoDeVentaV2
         static public int descuentosSinGuardar = 0;
         static public int rbDescuentoSinGuardar = 0;
 
+        public static int desdeConsultar = 0;
+
 
         //Miooooooooooo
         public string titulo;
@@ -2612,7 +2614,7 @@ namespace PuntoDeVentaV2
 
                                                 DateTime dt = DateTime.Now;
 
-                                                string query = $@"INSERT INTO HistorialCompras(Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario) VALUES('{nombre}','{stock}','{PrecioCompraXMLNvoProd}','{descuentoXML}','{precio}','{fechaCompleta}','{folio.Trim()}','{RFCEmisor.Trim()}','{nombreEmisor.Trim()}','{claveProdEmisor.Trim()}','{dt.ToString("yyyy-MM-dd hh:mm:ss")}','{Inventario.idReporte}','{idProducto}','{FormPrincipal.userID}')";
+                                                string query = $@"INSERT INTO HistorialCompras(Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario,IDEmpleado) VALUES('{nombre}','{stock}','{PrecioCompraXMLNvoProd}','{descuentoXML}','{precio}','{fechaCompleta}','{folio.Trim()}','{RFCEmisor.Trim()}','{nombreEmisor.Trim()}','{claveProdEmisor.Trim()}','{dt.ToString("yyyy-MM-dd hh:mm:ss")}','{Inventario.idReporte}','{idProducto}','{FormPrincipal.userID}',{FormPrincipal.id_empleado})";
 
                                                 #region Inicio Historial de Compras
                                                 try
@@ -3067,7 +3069,7 @@ namespace PuntoDeVentaV2
 
                                                 //string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{precioOriginalConIVA.ToString("N2")}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{FormPrincipal.userID}')";
 
-                                                string query = $@"INSERT INTO HistorialCompras(Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario) VALUES('{nombre}','{stock}','{PrecioCompraXMLNvoProd}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{Inventario.idReporte}','{idProducto}','{FormPrincipal.userID}')";
+                                                string query = $@"INSERT INTO HistorialCompras(Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario,IDEmpleado) VALUES('{nombre}','{stock}','{PrecioCompraXMLNvoProd}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{Inventario.idReporte}','{idProducto}','{FormPrincipal.userID}',{FormPrincipal.id_empleado})";
 
                                                 try
                                                 {
@@ -4243,7 +4245,7 @@ namespace PuntoDeVentaV2
                 if (precioProdActual != precioCompra)
                 {
                     cn.EjecutarConsulta($"UPDATE productos SET PrecioCompra = {precioCompra} WHERE ID = {idEditarProducto}; ");
-                    cn.EjecutarConsulta($"INSERT INTO historialcompras ( Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario ) VALUES ( '{nombre}', '0', '{precioCompra}', '0','{precio}', '{fecha2}','N/A', 'AJUSTE PRECIO DE COMPRA', 'N/A', 'N/A', '{fecha2}', '{Inventario.idReporte}', '{idEditarProducto}', '{FormPrincipal.userID}')");
+                    cn.EjecutarConsulta($"INSERT INTO historialcompras ( Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario, IDEmpleado) VALUES ( '{nombre}', '0', '{precioCompra}', '0','{precio}', '{fecha2}','N/A', 'AJUSTE PRECIO DE COMPRA', 'N/A', 'N/A', '{fecha2}', '{Inventario.idReporte}', '{idEditarProducto}', '{FormPrincipal.userID}',{FormPrincipal.id_empleado})");
                 }
             }
 
@@ -4526,28 +4528,32 @@ namespace PuntoDeVentaV2
 
         private void AgregarEditarProducto_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (contador == 0)
+            if (!string.IsNullOrWhiteSpace(txtCodigoBarras.Text) || !txtStockMinimo.Text.Equals("0") || !txtStockMaximo.Text.Equals("0") || !txtStockProducto.Text.Equals("0") || !txtPrecioCompra.Text.Equals("0") || !txtPrecioProducto.Text.Equals("0") || !string.IsNullOrWhiteSpace(txtNombreProducto.Text))
             {
-                MensajeSiNoCancelar Opcion = new MensajeSiNoCancelar();
-                Opcion.ShowDialog();
+                if (contador == 0)
+                {
+                    MensajeSiNoCancelar Opcion = new MensajeSiNoCancelar();
+                    Opcion.ShowDialog();
 
-                if (Opcion.opcionMensaje == "si")
-                {
-                    contador++;
-                    btnGuardarProducto.PerformClick();
+                    if (Opcion.opcionMensaje == "si")
+                    {
+                        contador++;
+                        btnGuardarProducto.PerformClick();
+                    }
+                    else if (Opcion.opcionMensaje == "no")
+                    {
+                        listaProductoToCombo.Clear();
+                        ProductosDeServicios.Clear();
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
                 }
-                else if (Opcion.opcionMensaje == "no")
-                {
-                    listaProductoToCombo.Clear();
-                    ProductosDeServicios.Clear();
-                }
-                else
-                {
-                    e.Cancel = true;
-                    return;
-                }
+                Productos.SeAbrioCopia = false;
             }
-            Productos.SeAbrioCopia = false;
+            
         }
 
         public void cargarCodBarExt()
@@ -4898,6 +4904,14 @@ namespace PuntoDeVentaV2
         {
             ConfiguracionEditarProducto config = new ConfiguracionEditarProducto();
             config.ShowDialog();
+        }
+
+        private void btnConsultarProducto_Click(object sender, EventArgs e)
+        {
+            desdeConsultar = 1;
+            Productos prods = new Productos();
+            prods.StartPosition = FormStartPosition.CenterParent;
+            prods.ShowDialog();
         }
 
         public void cargarDatos()
@@ -6267,7 +6281,7 @@ namespace PuntoDeVentaV2
 
                                             DateTime dt = DateTime.Now;
 
-                                            string query = $@"INSERT INTO HistorialCompras(Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario) VALUES('{nombre}','{stock}','{PrecioCompraXMLNvoProd}','{descuentoXML}','{precio}','{fechaCompleta}','{folio.Trim()}','{RFCEmisor.Trim()}','{nombreEmisor.Trim()}','{claveProdEmisor.Trim()}','{dt.ToString("yyyy-MM-dd hh:mm:ss")}','{Inventario.idReporte}','{idProducto}','{FormPrincipal.userID}')";
+                                            string query = $@"INSERT INTO HistorialCompras(Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario,IDEmpleado) VALUES('{nombre}','{stock}','{PrecioCompraXMLNvoProd}','{descuentoXML}','{precio}','{fechaCompleta}','{folio.Trim()}','{RFCEmisor.Trim()}','{nombreEmisor.Trim()}','{claveProdEmisor.Trim()}','{dt.ToString("yyyy-MM-dd hh:mm:ss")}','{Inventario.idReporte}','{idProducto}','{FormPrincipal.userID}',{FormPrincipal.id_empleado})";
 
                                             #region Inicio Historial de Compras
                                             try
@@ -6703,7 +6717,7 @@ namespace PuntoDeVentaV2
 
                                             //string query = $"INSERT INTO HistorialCompras(Concepto,Cantidad,ValorUnitario,Descuento,Precio,FechaLarga,Folio,RFCEmisor,NomEmisor,ClaveProdEmisor,IDProducto,IDUsuario) VALUES('{nombre}','{stock}','{precioOriginalConIVA.ToString("N2")}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{idProducto}','{FormPrincipal.userID}')";
 
-                                            string query = $@"INSERT INTO HistorialCompras(Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario) VALUES('{nombre}','{stock}','{PrecioCompraXMLNvoProd}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{Inventario.idReporte}','{idProducto}','{FormPrincipal.userID}')";
+                                            string query = $@"INSERT INTO HistorialCompras(Concepto, Cantidad, ValorUnitario, Descuento, Precio, FechaLarga, Folio, RFCEmisor, NomEmisor, ClaveProdEmisor, FechaOperacion, IDReporte, IDProducto, IDUsuario, IDEmpleado) VALUES('{nombre}','{stock}','{PrecioCompraXMLNvoProd}','{descuentoXML}','{precio}','{fechaCompleta}','{folio}','{RFCEmisor}','{nombreEmisor}','{claveProdEmisor}','{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}','{Inventario.idReporte}','{idProducto}','{FormPrincipal.userID}',{FormPrincipal.id_empleado}";
 
                                             try
                                             {

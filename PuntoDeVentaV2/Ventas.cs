@@ -2995,56 +2995,68 @@ namespace PuntoDeVentaV2
                         else
                         {
                             var diferencia = importeTmp - sumaImportes;
-
                             cAnticipoUtilizado.Text = diferencia.ToString("N");
                         }
                     }
                 }
             }
-            if (total_importe_cero_exe > 0)
+            using (var dt = cn.CargarDatos($"SELECT mostrarIVA FROM configuracion WHERE IDUsuario= {FormPrincipal.userID}"))
             {
-                lblIVA0Exento.Visible = true;
-                lblCIVA0Exento.Visible = true;
-            }
-            else
-            {
-                lblIVA0Exento.Visible = false;
-                lblCIVA0Exento.Visible = false;
-            }
-            if (totalIVA8 > 0)
-            {
-                lbIVA8.Visible = true;
-                cIVA8.Visible = true;
-                if (totalIVA16 > 0)
+                if (dt.Rows[0][0].Equals(1))
                 {
+                    if (total_importe_cero_exe > 0)
+                    {
+                        lblIVA0Exento.Visible = true;
+                        lblCIVA0Exento.Visible = true;
+                    }
+                    else
+                    {
+                        lblIVA0Exento.Visible = false;
+                        lblCIVA0Exento.Visible = false;
+                    }
+                    if (totalIVA8 > 0)
+                    {
+                        lbIVA8.Visible = true;
+                        cIVA8.Visible = true;
+                        if (totalIVA16 > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            lbIVA.Visible = false;
+                            cIVA.Visible = false;
+                        }
+
+                    }
+                    else
+                    {
+                        lbIVA8.Visible = false;
+                        cIVA8.Visible = false;
+                        lbIVA.Visible = true;
+                        cIVA.Visible = true;
+                    }
+
+                    if (totalIVA16 > 0)
+                    {
+                        lbIVA.Visible = true;
+                        cIVA.Visible = true;
+                    }
+                    else
+                    {
+                        lbIVA.Visible = false;
+                        cIVA.Visible = false;
+                    }
 
                 }
                 else
                 {
                     lbIVA.Visible = false;
+                    lbIVA8.Visible = false;
                     cIVA.Visible = false;
                 }
-
             }
-            else
-            {
-                lbIVA8.Visible = false;
-                cIVA8.Visible = false;
-                lbIVA.Visible = true;
-                cIVA.Visible = true;
-            }
-
-            if (totalIVA16 > 0)
-            {
-                lbIVA.Visible = true;
-                cIVA.Visible = true;
-            }
-            else
-            {
-                lbIVA.Visible = false;
-                cIVA.Visible = false;
-            }
-
+            
 
             cIVA.Text = totalIVA16.ToString("N");
             cIVA8.Text = totalIVA8.ToString("N");
@@ -3600,8 +3612,9 @@ namespace PuntoDeVentaV2
                                 DetalleVenta.cliente = string.Empty;
                                 AsignarCreditoVenta.idCliente = 0;
                                 AsignarCreditoVenta.cliente = string.Empty;
-                                ultimaVentaInformacion();
                                 cargarTicketAnticipo();
+                                ultimaVentaInformacion();
+                                
                                 panel1.Focus();
                             }
                             else
@@ -3887,8 +3900,16 @@ namespace PuntoDeVentaV2
 
             if (formaDePagoDeVenta.Equals(string.Empty))
             {
-                formaDePagoDeVenta = "Presupuesto";
+                if (cAnticipoUtilizado.Visible.Equals(true))
+                {
+                    formaDePagoDeVenta = "Anticipos";
+                }
+                else
+                {
+                    formaDePagoDeVenta = "Presupuesto";
+                }
             }
+          
 
             var guardar = new string[] {
                 IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento,
@@ -4175,6 +4196,7 @@ namespace PuntoDeVentaV2
                                         // faltaba esa validacion de si no tenia nada la consulta
                                         if (consulta.Rows.Count > 1) //Combo o Servicio con mas de 1 producto asignado
                                         {
+
                                             foreach (DataRow item in consulta.Rows)
                                             {
                                                 idprodCombo = item[3].ToString();
@@ -4199,6 +4221,9 @@ namespace PuntoDeVentaV2
                                                     cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
                                                 }
                                             }
+                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idComboServicio}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','N/A','N/A','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])      }','{tipoDeVenta}',{idComboServicio})");
+
+
                                         }
                                         else if (!consulta.Rows.Count.Equals(0))//Combo o Servicio con 1 solo producto agregado
                                         {
@@ -4224,7 +4249,8 @@ namespace PuntoDeVentaV2
 
                                                 cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
                                             }
-                                        }
+                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idComboServicio}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','N/A','N/A','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
+                                        }       
                                     }
                                     else
                                     {
@@ -4638,6 +4664,7 @@ namespace PuntoDeVentaV2
                                         form.ShowDialog();
                                     }
                                     
+                                    
                                 }
                                 else
                                 {
@@ -4683,6 +4710,29 @@ namespace PuntoDeVentaV2
                                                 }
 
                                             }
+                                            else 
+                                            {
+                                                using (var dt = cn.CargarDatos($"SELECT AbrirCajaVentas FROM configuraciondetickets WHERE IDUsuario = {FormPrincipal.userID}"))
+                                                {
+                                                    if (dt.Rows[0][0].Equals(1))
+                                                    {
+                                                        AbrirSinTicket abrirSin1 = new AbrirSinTicket();
+                                                        abrirSin1.Show();
+                                                    }
+                                                }
+                                                
+                                            }
+                                        }
+                                        else
+                                        {
+                                            using (var dt = cn.CargarDatos($"SELECT AbrirCajaVentas FROM configuraciondetickets WHERE IDUsuario = {FormPrincipal.userID}"))
+                                            {
+                                                if (dt.Rows[0][0].Equals(1))
+                                                {
+                                                    AbrirSinTicket abrirSin1 = new AbrirSinTicket();
+                                                    abrirSin1.Show();
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -4693,7 +4743,7 @@ namespace PuntoDeVentaV2
                             if (tipoDeVentaRealizada.Equals(2))
                             {
 
-                                using (var dt =  cn.CargarDatos($"SELECT TicketPresupuesto,PreguntarTicketPresupuesto,TicketOPDFPresupuesto FROM configuraciondetickets where IDUsuario = {FormPrincipal.userID}"))
+                                using (var dt =  cn.CargarDatos($"SELECT TicketPresupuesto,PreguntarTicketPresupuesto,TicketOPDFPresupuesto,AbrirCajaGuardada FROM configuraciondetickets where IDUsuario = {FormPrincipal.userID}"))
                                 {
                                     if (dt.Rows[0]["TicketPresupuesto"].Equals(1))
                                     {
@@ -4769,62 +4819,83 @@ namespace PuntoDeVentaV2
 
                                         if (respuestaImpresion.Equals(DialogResult.Yes))
                                         {
-                                            if (ticket6cm.Equals(1))
+                                            if (dt.Rows[0]["TicketOPDFPresupuesto"].Equals(1))
                                             {
-                                                using (imprimirTicketPresupuesto8cm imprimirTicketVenta = new imprimirTicketPresupuesto8cm())
+                                                if (ticket6cm.Equals(1))
                                                 {
-                                                    imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
 
-                                                    imprimirTicketVenta.Logo = logo;
-                                                    imprimirTicketVenta.Nombre = Usuario;
-                                                    imprimirTicketVenta.NombreComercial = NombreComercial;
-                                                    imprimirTicketVenta.DireccionCiudad = Direccion;
-                                                    imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
-                                                    imprimirTicketVenta.RFC = RFC;
-                                                    imprimirTicketVenta.Correo = Correo;
-                                                    imprimirTicketVenta.Telefono = Telefono;
-                                                    imprimirTicketVenta.NombreCliente = NombreC;
-                                                    imprimirTicketVenta.RFCCliente = RFCC;
-                                                    imprimirTicketVenta.DomicilioCliente = DomicilioC;
-                                                    imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
-                                                    imprimirTicketVenta.CorreoCliente = CorreoC;
-                                                    imprimirTicketVenta.TelefonoCliente = TelefonoC;
-                                                    imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
-                                                    imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
-                                                    imprimirTicketVenta.Referencia = referencia;
+                                                    using (imprimirTicketPresupuesto8cm imprimirTicketVenta = new imprimirTicketPresupuesto8cm())
+                                                    {
+                                                        imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
 
-                                                    imprimirTicketVenta.ShowDialog();
+                                                        imprimirTicketVenta.Logo = logo;
+                                                        imprimirTicketVenta.Nombre = Usuario;
+                                                        imprimirTicketVenta.NombreComercial = NombreComercial;
+                                                        imprimirTicketVenta.DireccionCiudad = Direccion;
+                                                        imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                                        imprimirTicketVenta.RFC = RFC;
+                                                        imprimirTicketVenta.Correo = Correo;
+                                                        imprimirTicketVenta.Telefono = Telefono;
+                                                        imprimirTicketVenta.NombreCliente = NombreC;
+                                                        imprimirTicketVenta.RFCCliente = RFCC;
+                                                        imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                                        imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                                        imprimirTicketVenta.CorreoCliente = CorreoC;
+                                                        imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                                        imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                                        imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                                        imprimirTicketVenta.Referencia = referencia;
+
+                                                        imprimirTicketVenta.ShowDialog();
+                                                    }
+                                                }
+                                                else if (ticket8cm.Equals(1))
+                                                {
+                                                    using (imprimirTicketPresupuesto8cm imprimirTicketVenta = new imprimirTicketPresupuesto8cm())
+                                                    {
+                                                        imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+
+                                                        imprimirTicketVenta.Logo = logo;
+                                                        imprimirTicketVenta.Nombre = Usuario;
+                                                        imprimirTicketVenta.NombreComercial = NombreComercial;
+                                                        imprimirTicketVenta.DireccionCiudad = Direccion;
+                                                        imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                                        imprimirTicketVenta.RFC = RFC;
+                                                        imprimirTicketVenta.Correo = Correo;
+                                                        imprimirTicketVenta.Telefono = Telefono;
+                                                        imprimirTicketVenta.NombreCliente = NombreC;
+                                                        imprimirTicketVenta.RFCCliente = RFCC;
+                                                        imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                                        imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                                        imprimirTicketVenta.CorreoCliente = CorreoC;
+                                                        imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                                        imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                                        imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                                        imprimirTicketVenta.Referencia = referencia;
+
+                                                        imprimirTicketVenta.ShowDialog();
+                                                    }
                                                 }
                                             }
-                                            else if (ticket8cm.Equals(1))
+                                            else
                                             {
-                                                using (imprimirTicketPresupuesto8cm imprimirTicketVenta = new imprimirTicketPresupuesto8cm())
-                                                {
-                                                    imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
-
-                                                    imprimirTicketVenta.Logo = logo;
-                                                    imprimirTicketVenta.Nombre = Usuario;
-                                                    imprimirTicketVenta.NombreComercial = NombreComercial;
-                                                    imprimirTicketVenta.DireccionCiudad = Direccion;
-                                                    imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
-                                                    imprimirTicketVenta.RFC = RFC;
-                                                    imprimirTicketVenta.Correo = Correo;
-                                                    imprimirTicketVenta.Telefono = Telefono;
-                                                    imprimirTicketVenta.NombreCliente = NombreC;
-                                                    imprimirTicketVenta.RFCCliente = RFCC;
-                                                    imprimirTicketVenta.DomicilioCliente = DomicilioC;
-                                                    imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
-                                                    imprimirTicketVenta.CorreoCliente = CorreoC;
-                                                    imprimirTicketVenta.TelefonoCliente = TelefonoC;
-                                                    imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
-                                                    imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
-                                                    imprimirTicketVenta.Referencia = referencia;
-
-                                                    imprimirTicketVenta.ShowDialog();
-                                                }
+                                                FormNotaDeVenta formNota = new FormNotaDeVenta(Convert.ToInt32(idVenta));
+                                                FormNotaDeVenta.fuePorVenta = true;
+                                                formNota.ShowDialog();
                                             }
                                         }
+                                        else if (dt.Rows[0]["AbrirCajaGuardada"].Equals(1))
+                                        {
+                                            AbrirSinTicket abrirSin = new AbrirSinTicket();
+                                            abrirSin.Show();
+                                        }
                                     }
+                                    else if (dt.Rows[0]["AbrirCajaGuardada"].Equals(1))
+                                    {
+                                        AbrirSinTicket abrirSin = new AbrirSinTicket();
+                                        abrirSin.Show();
+                                    }
+                                  
                                 }
                                 
                                 txtBuscadorProducto.Focus();
@@ -4837,7 +4908,7 @@ namespace PuntoDeVentaV2
                             // Imprimir Ticket Venta a Credito
                             if (tipoDeVentaRealizada.Equals(4))
                             {
-                                using (var dt = cn.CargarDatos($"SELECT CreditoRealizado,PreguntarCreditoRealizado,TicketOPDFCreditoRealizado FROM configuraciondetickets where IDUsuario = {FormPrincipal.userID}"))
+                                using (var dt = cn.CargarDatos($"SELECT CreditoRealizado,PreguntarCreditoRealizado,TicketOPDFCreditoRealizado,AbrirCajaCredito FROM configuraciondetickets where IDUsuario = {FormPrincipal.userID}"))
                                 {
                                     if (dt.Rows[0]["CreditoRealizado"].Equals(1))
                                     {
@@ -4914,6 +4985,16 @@ namespace PuntoDeVentaV2
                                                 venta.ShowDialog();
                                             }
                                         }
+                                        else if (dt.Rows[0]["AbrirCajaCredito"].Equals(1))
+                                        {
+                                            AbrirSinTicket abrirSin = new AbrirSinTicket();
+                                            abrirSin.Show();
+                                        }
+                                    }
+                                    else if (dt.Rows[0]["AbrirCajaCredito"].Equals(1))
+                                    {
+                                        AbrirSinTicket abrirSin = new AbrirSinTicket();
+                                        abrirSin.Show();
                                     }
                                 }
                                 txtBuscadorProducto.Focus();

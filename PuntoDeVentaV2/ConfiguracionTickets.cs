@@ -17,6 +17,8 @@ namespace PuntoDeVentaV2
         List<String> confiGeneral;
         bool valorCambioCheckBox = false;
         bool guardado = false;
+        string[] ArrayImprimir = new string[] { "AbrirCajaVentas", "AbrirCajaGuardada", "AbrirCajaCancelada" , "AbrirCajaCredito" , "AbrirCajaAnticipos" ,"AbrirCajaAbonos", "AbrirCajaCorte", "AbrirCajaAgregar", "AbrirCajaRetirar" };
+        int contadorArray = 0;
         public ConfiguracionTickets()
         {
             InitializeComponent();
@@ -29,7 +31,6 @@ namespace PuntoDeVentaV2
 
         private void CargarCheckBoxs()
         {
-
             using (var dt = cn.CargarDatos($"SELECT HabilitarTicketVentas,PreguntarTicketVenta,TicketOPDF FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
             {
                 if (dt.Rows[0]["HabilitarTicketVentas"].Equals(true))
@@ -37,12 +38,27 @@ namespace PuntoDeVentaV2
                     CBVentas.Checked = true;
                     CBPreguntar.Checked = false;
                     CBPreguntar.Enabled = false;
+                    cbkAbrirVenta.Enabled = false;
+                    cbkAbrirVenta.Checked = false;
                 }
                 else if (dt.Rows[0]["PreguntarTicketVenta"].Equals(1))
                 {
                     CBVentas.Checked = false;
                     CBPreguntar.Checked = true;
                     CBPreguntar.Enabled = true;
+                    cbkAbrirVenta.Enabled = false;
+                    cbkAbrirVenta.Checked = false;
+                }
+                else
+                {
+                    using (var DT = cn.CargarDatos($"SELECT AbrirCajaVentas FROM configuraciondetickets WHERE IDUsuario ={FormPrincipal.userID}"))
+                    {
+                        if (DT.Rows[0][0].Equals(1))
+                        {
+                            cbkAbrirVenta.Enabled = true;
+                            cbkAbrirVenta.Checked = true;
+                        }
+                    }      
                 }
 
                 if (dt.Rows[0]["TicketOPDF"].Equals(1))
@@ -64,13 +80,23 @@ namespace PuntoDeVentaV2
                     cbImprimirGuardada.Checked = true;
                     cbPreguntarGuardad.Checked = false;
                     cbPreguntarGuardad.Enabled = false;
+                    cbkAbrirGGuardadas.Enabled = false;
+                    cbkAbrirGGuardadas.Checked = false;
                 }
                 else if (dt2.Rows[0]["PreguntarTicketPresupuesto"].Equals(1))
                 {
                     cbImprimirGuardada.Checked = false;
                     cbPreguntarGuardad.Checked = true;
                     cbPreguntarGuardad.Enabled = true;
+                    cbkAbrirGGuardadas.Enabled = false;
+                    cbkAbrirGGuardadas.Checked = false;
                 }
+                else if (dt2.Rows[0]["AbrirCajaGuardada"].Equals(1))
+                {
+                    cbkAbrirGGuardadas.Enabled = true;
+                    cbkAbrirGGuardadas.Checked = true;
+                }
+
                 if (dt2.Rows[0]["TicketOPDFPresupuesto"].Equals(1))
                 {
                     rbTicketGuardada.Checked = true;
@@ -88,12 +114,21 @@ namespace PuntoDeVentaV2
                     cbimprimirCancelada.Checked = true;
                     cbPreguntarCANCELADA.Checked = false;
                     cbPreguntarCANCELADA.Enabled = false;
+                    cbkAbrirCanceladas.Checked = false;
+                    cbkAbrirCanceladas.Enabled = false;
                 }
                 else if (dt2.Rows[0]["PregutarTicketVentaCancelada"].Equals(1))
                 {
                     cbimprimirCancelada.Checked = false;
                     cbPreguntarCANCELADA.Checked = true;
                     cbPreguntarCANCELADA.Enabled = true;
+                    cbkAbrirCanceladas.Checked = false;
+                    cbkAbrirCanceladas.Enabled = false;
+                }
+                else if (dt2.Rows[0]["AbrirCajaCancelada"].Equals(1))
+                {
+                    cbkAbrirCanceladas.Checked = true;
+                    cbkAbrirCanceladas.Enabled = true;
                 }
 
                 if (dt2.Rows[0]["TicketOPDFTicketVentaCancelada"].Equals(1))
@@ -113,6 +148,8 @@ namespace PuntoDeVentaV2
                     CBVentaCredito.Checked = true;
                     CBPregutnarVentaCrediro.Checked = false;
                     CBPregutnarVentaCrediro.Enabled = false;
+                    cbkAbrirCredito.Checked = false;
+                    cbkAbrirCredito.Enabled = false;
 
                 }
                 else if (dt2.Rows[0]["PreguntarCreditoRealizado"].Equals(1))
@@ -120,6 +157,13 @@ namespace PuntoDeVentaV2
                     CBVentaCredito.Checked = false;
                     CBPregutnarVentaCrediro.Checked = true;
                     CBPregutnarVentaCrediro.Enabled = true;
+                    cbkAbrirCredito.Checked = false;
+                    cbkAbrirCredito.Enabled = false;
+                }
+                else if (dt2.Rows[0]["AbrirCajaCredito"].Equals(1))
+                {
+                    cbkAbrirCredito.Checked = true;
+                    cbkAbrirCredito.Enabled = true;
                 }
 
                 if (dt2.Rows[0]["TicketOPDFCreditoRealizado"].Equals(1))
@@ -164,12 +208,21 @@ namespace PuntoDeVentaV2
                     cbImprimirAbonos.Checked = true;
                     cbpreguntarAbonos.Checked = false;
                     cbpreguntarAbonos.Enabled = false;
+                    cbkAbrirAbonos.Checked = false;
+                    cbkAbrirAbonos.Enabled = false;
                 }
                 else if (dt2.Rows[0]["PreguntarTicketAbono"].Equals(1))
                 {
                     cbimprimirCancelada.Checked = false;
                     cbpreguntarAbonos.Checked = true;
                     cbpreguntarAbonos.Enabled = true;
+                    cbkAbrirAbonos.Checked = false;
+                    cbkAbrirAbonos.Enabled = false;
+                }
+                else if (dt2.Rows[0]["AbrirCajaAbonos"].Equals(1))
+                {
+                    cbkAbrirAbonos.Checked = true;
+                    cbkAbrirAbonos.Enabled = true;
                 }
                 #endregion
                 #region Corte de Caja
@@ -178,13 +231,23 @@ namespace PuntoDeVentaV2
                     cbImprimirCorte.Checked = true;
                     cbPreguntarCorte.Checked = false;
                     cbPreguntarCorte.Enabled = false;
+                    cbkAbrirCorte.Checked = false;
+                    cbkAbrirCorte.Enabled = false;
                 }
                 else if (dt2.Rows[0]["PreguntarTicketCorteDeCaja"].Equals(1))
                 {
                     cbImprimirCorte.Checked = false;
                     cbPreguntarCorte.Checked = true;
                     cbPreguntarCorte.Enabled = true;
+                    cbkAbrirCorte.Checked = false;
+                    cbkAbrirCorte.Enabled = false;
                 }
+                else if (dt2.Rows[0]["AbrirCajaCorte"].Equals(1))
+                {
+                    cbkAbrirCorte.Checked = true;
+                    cbkAbrirCorte.Enabled = true;
+                }
+
                 if (dt2.Rows[0]["TicketOPDFCorteDeCaja"].Equals(1))
                 {
                     RBTicketCorte.Checked = true;
@@ -202,12 +265,21 @@ namespace PuntoDeVentaV2
                     cbImprimirAgregar.Checked = true;
                     cbPreguntarAgregar.Checked = false;
                     cbPreguntarAgregar.Enabled = false;
+                    cbkAbrirAgregar.Checked = false;
+                    cbkAbrirAgregar.Enabled = false;
                 }
                 else if (dt2.Rows[0]["PreguntarTicketDineroAgregado"].Equals(1))
                 {
                     cbImprimirAgregar.Checked = false;
                     cbPreguntarAgregar.Checked = true;
                     cbPreguntarAgregar.Enabled = true;
+                    cbkAbrirAgregar.Checked = false;
+                    cbkAbrirAgregar.Enabled = false;
+                }
+                else if (dt2.Rows[0]["AbrirCajaAgregar"].Equals(1))
+                {
+                    cbkAbrirAgregar.Checked = true;
+                    cbkAbrirAgregar.Enabled = true;
                 }
                 #endregion
                 #region retirar Dinero 
@@ -216,12 +288,21 @@ namespace PuntoDeVentaV2
                     cbImprimirRetirar.Checked = true;
                     cbPreguntarRetirar.Checked = false;
                     cbPreguntarRetirar.Enabled = false;
+                    cbkAbrirRetirar.Checked = false;
+                    cbkAbrirRetirar.Enabled = false;
                 }
                 else if (dt2.Rows[0]["PreguntarTicketRetiradoAgregado"].Equals(1))
                 {
                     cbImprimirRetirar.Checked = false;
                     cbPreguntarRetirar.Checked = true;
                     cbPreguntarRetirar.Enabled = true;
+                    cbkAbrirRetirar.Checked = false;
+                    cbkAbrirRetirar.Enabled = false;
+                }
+                else if (dt2.Rows[0]["AbrirCajaRetirar"].Equals(1))
+                {
+                    cbkAbrirRetirar.Checked = true;
+                    cbkAbrirRetirar.Enabled = true;
                 }
                 #endregion
                 #region Anticipos
@@ -230,12 +311,21 @@ namespace PuntoDeVentaV2
                     CBImprimirAnticipos.Checked = true;
                     cbPreguntarAnticipos.Checked = false;
                     cbPreguntarAnticipos.Enabled = false;
+                    cbkAbrirAnticipos.Checked = false;
+                    cbkAbrirAnticipos.Enabled = false;
                 }
                 else if (dt2.Rows[0]["PreguntarTicketAnticipo"].Equals(1))
                 {
                     CBImprimirAnticipos.Checked = false;
                     cbPreguntarAnticipos.Checked = true;
                     cbPreguntarAnticipos.Enabled = true;
+                    cbkAbrirAnticipos.Checked = false;
+                    cbkAbrirAnticipos.Enabled = false;
+                }
+                else if (dt2.Rows[0]["AbrirCajaAnticipos"].Equals(1))
+                {
+                    cbkAbrirAnticipos.Checked = true;
+                    cbkAbrirAnticipos.Enabled = true;
                 }
                 #endregion
             }
@@ -250,7 +340,7 @@ namespace PuntoDeVentaV2
                 DialogResult mensaje = MessageBox.Show("¿Desea guardar los cambios?", "Aviso del Ssitema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (mensaje.Equals(DialogResult.Yes))
                 {
-                    this.Close();
+                    button2.PerformClick();
                 }
             }
         }
@@ -278,14 +368,21 @@ namespace PuntoDeVentaV2
             {
                 CBPreguntar.Checked = false;
                 CBPreguntar.Enabled = false;
+                cbkAbrirVenta.Enabled = false;
+                cbkAbrirVenta.Checked = false;
                 string consulta1 = $"UPDATE configuracion SET PreguntarTicketVenta = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaVentas = 0 WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta1);
+                confiGeneral.Add(consulta2);
             }
             else
             {
                 CBPreguntar.Enabled = true;
+                cbkAbrirVenta.Enabled = true;
                 string consulta1 = $"UPDATE configuracion SET PreguntarTicketVenta = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaVentas = 0 WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta1);
+                confiGeneral.Add(consulta2);
             }
         }
         ///PREGUNTAR TICKET
@@ -298,10 +395,15 @@ namespace PuntoDeVentaV2
             if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = true;
+                cbkAbrirVenta.Enabled = false;
+                cbkAbrirVenta.Checked = false;
+                string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaVentas = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta2);
             }
             else
             {
                 habilitado = false;
+                cbkAbrirVenta.Enabled = true;
             }
             string consulta = $"UPDATE configuracion SET PreguntarTicketVenta = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
             confiGeneral.Add(consulta);
@@ -387,12 +489,17 @@ namespace PuntoDeVentaV2
             {
                 cbPreguntarGuardad.Checked = false;
                 cbPreguntarGuardad.Enabled = false;
+                cbkAbrirGGuardadas.Enabled = false;
+                cbkAbrirGGuardadas.Checked = false;
                 string consulta1 = $"UPDATE configuraciondetickets SET PreguntarTicketPresupuesto = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaGuardada = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta2);
                 confiGeneral.Add(consulta1);
             }
             else
             {
                 cbPreguntarGuardad.Enabled = true;
+                cbkAbrirGGuardadas.Enabled = true;
                 string consulta1 = $"UPDATE configuraciondetickets SET PreguntarTicketPresupuesto = 0 WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta1);
             }
@@ -407,12 +514,17 @@ namespace PuntoDeVentaV2
             if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = true;
+                cbkAbrirGGuardadas.Enabled = false;
+                cbkAbrirGGuardadas.Checked = false;
             }
             else
             {
                 habilitado = false;
+                cbkAbrirGGuardadas.Enabled = true;
             }
             string consulta = $"UPDATE configuraciondetickets SET PreguntarTicketPresupuesto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+            string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaGuardada = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+            confiGeneral.Add(consulta2);
             confiGeneral.Add(consulta);
         }
 
@@ -475,12 +587,18 @@ namespace PuntoDeVentaV2
             {
                 cbPreguntarCANCELADA.Checked = false;
                 cbPreguntarCANCELADA.Enabled = false;
+                cbkAbrirCanceladas.Checked = false;
+                cbkAbrirCanceladas.Enabled = false;
+
                 string consulta1 = $"UPDATE configuraciondetickets SET PregutarTicketVentaCancelada = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaCancelada = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta2);
                 confiGeneral.Add(consulta1);
             }
             else
             {
                 cbPreguntarCANCELADA.Enabled = true;
+                cbkAbrirCanceladas.Enabled = true;
                 string consulta1 = $"UPDATE configuraciondetickets SET PregutarTicketVentaCancelada = 0 WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta1);
             }
@@ -495,12 +613,17 @@ namespace PuntoDeVentaV2
             if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = true;
+                cbkAbrirCanceladas.Checked = false;
+                cbkAbrirCanceladas.Enabled = false;
             }
             else
             {
                 habilitado = false;
+                cbkAbrirCanceladas.Enabled = true;
             }
             string consulta = $"UPDATE configuraciondetickets SET PregutarTicketVentaCancelada = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+            string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaCancelada = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+            confiGeneral.Add(consulta2);
             confiGeneral.Add(consulta);
         }
 
@@ -562,12 +685,17 @@ namespace PuntoDeVentaV2
             {
                 CBPregutnarVentaCrediro.Checked = false;
                 CBPregutnarVentaCrediro.Enabled = false;
+                cbkAbrirCredito.Checked = false;
+                cbkAbrirCredito.Enabled = false;
                 string consulta1 = $"UPDATE configuraciondetickets SET PreguntarCreditoRealizado = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaCredito = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta2);
                 confiGeneral.Add(consulta1);
             }
             else
             {
                 CBPregutnarVentaCrediro.Enabled = true;
+                cbkAbrirCredito.Enabled = true;
                 string consulta1 = $"UPDATE configuraciondetickets SET PreguntarCreditoRealizado = 0 WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta1);
             }
@@ -582,12 +710,17 @@ namespace PuntoDeVentaV2
             if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = true;
+                cbkAbrirCredito.Checked = false;
+                cbkAbrirCredito.Enabled = false;
             }
             else
             {
                 habilitado = false;
+                cbkAbrirCredito.Enabled = true;
             }
             string consulta = $"UPDATE configuraciondetickets SET PreguntarCreditoRealizado = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+            string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaCredito = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+            confiGeneral.Add(consulta2);
             confiGeneral.Add(consulta);
         }
 
@@ -738,12 +871,17 @@ namespace PuntoDeVentaV2
             {
                 cbpreguntarAbonos.Checked = false;
                 cbpreguntarAbonos.Enabled = false;
+                cbkAbrirAbonos.Checked = false;
+                cbkAbrirAbonos.Enabled = false;
                 string consulta1 = $"UPDATE configuraciondetickets SET PreguntarTicketAbono = 0 WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta1);
+                string consulta2 = $"UPDATE configuracion SET AbrirCajaAbonos = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta2);
             }
             else
             {
                 cbpreguntarAbonos.Enabled = true;
+                cbkAbrirAbonos.Enabled = true;
                 string consulta1 = $"UPDATE configuraciondetickets SET PreguntarTicketAbono = 0 WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta1);
             }
@@ -758,13 +896,18 @@ namespace PuntoDeVentaV2
             if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = true;
+                cbkAbrirAbonos.Checked = false;
+                cbkAbrirAbonos.Enabled = false;
             }
             else
             {
                 habilitado = false;
+                cbkAbrirAbonos.Enabled = true;
             }
             string consulta = $"UPDATE configuraciondetickets SET PreguntarTicketAbono = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
             confiGeneral.Add(consulta);
+            string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaAbonos = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+            confiGeneral.Add(consulta2);
         }
 
         private void cbImprimirCorte_MouseClick(object sender, MouseEventArgs e)
@@ -788,12 +931,17 @@ namespace PuntoDeVentaV2
             {
                 cbPreguntarCorte.Checked = false;
                 cbPreguntarCorte.Enabled = false;
+                cbkAbrirCorte.Checked = false;
+                cbkAbrirCorte.Enabled = false;
                 string consulta1 = $"UPDATE configuraciondetickets SET PreguntarTicketCorteDeCaja = 0 WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta1);
+                string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaCorte = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta2);
             }
             else
             {
                 cbPreguntarCorte.Enabled = true;
+                cbkAbrirCorte.Enabled = true;
                 string consulta1 = $"UPDATE configuraciondetickets SET PreguntarTicketCorteDeCaja = 0 WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta1);
             }
@@ -808,13 +956,19 @@ namespace PuntoDeVentaV2
             if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = true;
+                cbkAbrirCorte.Checked = false;
+                cbkAbrirCorte.Enabled = false;
+
             }
             else
             {
                 habilitado = false;
+                cbkAbrirCorte.Enabled = true;
             }
             string consulta = $"UPDATE configuraciondetickets SET PreguntarTicketCorteDeCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
             confiGeneral.Add(consulta);
+            string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaCorte = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+            confiGeneral.Add(consulta2);
         }
 
         private void RBTicketCorte_MouseClick(object sender, MouseEventArgs e)
@@ -876,12 +1030,17 @@ namespace PuntoDeVentaV2
             {
                 cbPreguntarAgregar.Checked = false;
                 cbPreguntarAgregar.Enabled = false;
+                cbkAbrirAgregar.Enabled = false;
+                cbkAbrirAgregar.Checked = false;
                 string consulta1 = $"UPDATE configuraciondetickets SET PreguntarTicketDineroAgregado = 0 WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta1);
+                string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaAgregar = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta2);
             }
             else
             {
                 cbPreguntarAgregar.Enabled = true;
+                cbkAbrirAgregar.Enabled = true;
                 string consulta1 = $"UPDATE configuraciondetickets SET PreguntarTicketDineroAgregado = 0 WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta1);
             }
@@ -896,10 +1055,16 @@ namespace PuntoDeVentaV2
             if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = true;
+                cbkAbrirAgregar.Enabled = false;
+                cbkAbrirAgregar.Checked = false;
+
+                string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaAgregar = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta2);
             }
             else
             {
                 habilitado = false;
+                cbkAbrirAgregar.Enabled = true;
             }
             string consulta = $"UPDATE configuraciondetickets SET PreguntarTicketDineroAgregado = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
             confiGeneral.Add(consulta);
@@ -926,12 +1091,17 @@ namespace PuntoDeVentaV2
             {
                 cbPreguntarRetirar.Checked = false;
                 cbPreguntarRetirar.Enabled = false;
+                cbkAbrirRetirar.Checked = false;
+                cbkAbrirRetirar.Enabled = false;
                 string consulta1 = $"UPDATE configuraciondetickets SET PreguntarTicketRetiradoAgregado = 0 WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta1);
+                string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaRetirar = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta2);
             }
             else
             {
                 cbPreguntarRetirar.Enabled = true;
+                cbkAbrirRetirar.Enabled = true;
                 string consulta1 = $"UPDATE configuraciondetickets SET PreguntarTicketRetiradoAgregado = 0 WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta1);
             }
@@ -946,13 +1116,19 @@ namespace PuntoDeVentaV2
             if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = true;
+                cbkAbrirRetirar.Checked = false;
+                cbkAbrirRetirar.Enabled = false;
+                string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaRetirar = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta2);
             }
             else
             {
                 habilitado = false;
+                cbkAbrirRetirar.Enabled = true;
             }
             string consulta = $"UPDATE configuraciondetickets SET PreguntarTicketRetiradoAgregado = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
             confiGeneral.Add(consulta);
+
         }
 
         private void CBImprimirAnticipos_MouseClick(object sender, MouseEventArgs e)
@@ -964,10 +1140,13 @@ namespace PuntoDeVentaV2
             if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = true;
+                cbkAbrirAnticipos.Enabled = false;
+                cbkAbrirAnticipos.Checked = false;
             }
             else
             {
                 habilitado = false;
+                cbkAbrirAnticipos.Enabled = true;
             }
             string consulta = $"UPDATE configuraciondetickets SET TicketAnticipo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
             confiGeneral.Add(consulta);
@@ -976,12 +1155,17 @@ namespace PuntoDeVentaV2
             {
                 cbPreguntarAnticipos.Checked = false;
                 cbPreguntarAnticipos.Enabled = false;
+                cbkAbrirAnticipos.Enabled = false;
+                cbkAbrirAnticipos.Checked = false;
                 string consulta1 = $"UPDATE configuraciondetickets SET PreguntarTicketAnticipo = 0 WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta1);
+                string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaAnticipos = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta2);
             }
             else
             {
                 cbPreguntarAnticipos.Enabled = true;
+                cbkAbrirAnticipos.Enabled = true;
                 string consulta1 = $"UPDATE configuraciondetickets SET PreguntarTicketAnticipo = 0 WHERE IDUsuario = {FormPrincipal.userID}";
                 confiGeneral.Add(consulta1);
             }
@@ -996,13 +1180,19 @@ namespace PuntoDeVentaV2
             if (valorCambioCheckBox.Equals(true))
             {
                 habilitado = true;
+                cbkAbrirAnticipos.Enabled = false;
+                cbkAbrirAnticipos.Checked = false;
+                string consulta2 = $"UPDATE configuraciondetickets SET AbrirCajaAnticipos = 0 WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta2);
             }
             else
             {
                 habilitado = false;
+                cbkAbrirAnticipos.Enabled = true;
             }
             string consulta = $"UPDATE configuraciondetickets SET PreguntarTicketAnticipo = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
             confiGeneral.Add(consulta);
+           
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1017,7 +1207,79 @@ namespace PuntoDeVentaV2
             this.Close();
         }
 
-       
+        private void GuardarCambios(object sender, MouseEventArgs e) 
+        {
+            var habilitado = 0;
+
+            CheckBox cb = (CheckBox)sender;
+            valorCambioCheckBox = cb.Checked;
+
+            if (valorCambioCheckBox.Equals(true))
+            {
+                habilitado = 1;
+            }
+            else
+            {
+                habilitado = 0;
+            }
+            string consulta = $"UPDATE configuraciondetickets SET {ArrayImprimir[contadorArray]} = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+            confiGeneral.Add(consulta);
+        }
+
+        private void cbkAbrirVenta_MouseClick(object sender, MouseEventArgs e)
+        {
+            contadorArray = 0;
+            GuardarCambios(sender, e);
+        }
+
+
+        private void cbkAbrirGGuardadas_MouseClick(object sender, MouseEventArgs e)
+        {
+            contadorArray = 1;
+            GuardarCambios(sender, e);
+        }
+
+        private void cbkAbrirCanceladas_MouseClick(object sender, MouseEventArgs e)
+        {
+            contadorArray = 2;
+            GuardarCambios(sender, e);
+        }
+
+        private void cbkAbrirCredito_MouseClick(object sender, MouseEventArgs e)
+        {
+            contadorArray = 3;
+            GuardarCambios(sender, e);
+        }
+
+        private void cbkAbrirAnticipos_MouseClick(object sender, MouseEventArgs e)
+        {
+            contadorArray = 4;
+            GuardarCambios(sender, e);
+        }
+
+        private void cbkAbrirAbonos_MouseClick(object sender, MouseEventArgs e)
+        {
+            contadorArray = 5;
+            GuardarCambios(sender, e);
+        }
+
+        private void cbkAbrirCorte_MouseClick(object sender, MouseEventArgs e)
+        {
+            contadorArray = 6;
+            GuardarCambios(sender, e);
+        }
+
+        private void cbkAbrirAgregar_MouseClick(object sender, MouseEventArgs e)
+        {
+            contadorArray = 7;
+            GuardarCambios(sender, e);
+        }
+
+        private void cbkAbrirRetirar_MouseClick(object sender, MouseEventArgs e)
+        {
+            contadorArray = 8;
+            GuardarCambios(sender, e);
+        }
     }
 }
 

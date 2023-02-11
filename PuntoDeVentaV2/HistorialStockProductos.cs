@@ -44,15 +44,6 @@ namespace PuntoDeVentaV2
             if (!datos.Rows.Count.Equals(0))
             {
                 DataRow drow = dtHistorialStock.NewRow();
-                drow["ID"] = string.Empty;
-                drow["Tipo de Movimiento"] = "Stock inicial al realizar el primer movimiento";
-                drow["Stock Anterior"] = 0;
-                drow["Cantidad"] = StockInicialH;
-                drow["Nuevo Stock"] = 0;
-                drow["Nombre de Usuario"] = FormPrincipal.userNickName;
-                //drow["StockInicial"] = string.Empty;
-                drow["Fecha"] = datos.Rows[0]["Fecha"].ToString();
-                dtHistorialStock.Rows.Add(drow);
 
                 foreach (DataRow item in datos.Rows)
                 {
@@ -67,6 +58,17 @@ namespace PuntoDeVentaV2
                     drow["Fecha"] = item["Fecha"].ToString();
                     dtHistorialStock.Rows.Add(drow);
                 }
+
+                DataRow tdrow = dtHistorialStock.NewRow();
+                tdrow["ID"] = string.Empty;
+                tdrow["Tipo de Movimiento"] = "Stock inicial al realizar el primer movimiento";
+                tdrow["Stock Anterior"] = 0;
+                tdrow["Cantidad"] = StockInicialH;
+                tdrow["Nuevo Stock"] = 0;
+                tdrow["Nombre de Usuario"] = FormPrincipal.userNickName;
+                //drow["StockInicial"] = string.Empty;
+                tdrow["Fecha"] = datos.Rows[0]["Fecha"].ToString();
+                dtHistorialStock.Rows.Add(tdrow);
             }
             else
             {
@@ -92,7 +94,7 @@ namespace PuntoDeVentaV2
             string StockInicialH = "";
             var stockInicialProductos = string.Empty;
             int idprod = Productos.idProductoHistorialStock;
-            var datos = cn.CargarDatos($"SELECT ID, TipoDeMovimiento AS 'Tipo de Movimiento', StockAnterior AS 'Stock Anterior', Cantidad, StockNuevo 'Nuevo Stock', Fecha, NombreUsuario AS 'Nombre de Usuario', StockInicial FROM historialstock WHERE IDProducto = {idprod}");
+            var datos = cn.CargarDatos($"SELECT ID, TipoDeMovimiento AS 'Tipo de Movimiento', StockAnterior AS 'Stock Anterior', Cantidad, StockNuevo 'Nuevo Stock', Fecha, NombreUsuario AS 'Nombre de Usuario', StockInicial FROM historialstock WHERE IDProducto = {idprod} ORDER BY Fecha DESC");
 
             var datoStock = cn.CargarDatos($"SELECT Cantidad FROM `historialstock` WHERE IDProducto = {idprod} ORDER BY Fecha ASC LIMIT 1");
             if (!datoStock.Rows.Count.Equals(0))

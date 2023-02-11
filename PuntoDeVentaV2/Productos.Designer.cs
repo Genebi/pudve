@@ -581,6 +581,7 @@
             this.cbTodos.TabIndex = 25;
             this.cbTodos.Text = "Seleccionar todas las páginas";
             this.cbTodos.UseVisualStyleBackColor = true;
+            this.cbTodos.Visible = false;
             this.cbTodos.CheckedChanged += new System.EventHandler(this.cbTodos_CheckedChanged);
             // 
             // btnCambiarTipo

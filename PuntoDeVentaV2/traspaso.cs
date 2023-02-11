@@ -16,8 +16,13 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         bool init = false;
+<<<<<<< HEAD
         public static string ID="";
         public List<string> updatesSubdetalles = new List<string>();
+=======
+        public static string ID = "";
+        bool auto = true;
+>>>>>>> master
         public traspaso(DataTable datosTraspaso)
         {
             InitializeComponent();
@@ -44,10 +49,29 @@ namespace PuntoDeVentaV2
                     row.Cells["CodigoL"].Value = "";
                     row.Cells["PCompra"].Value = "";
                     row.Cells["PVenta"].Value = "";
+                    auto = false;
                 }
 
             }
             init = true;
+
+
+            using (DataTable dt = cn.CargarDatos($"SELECT traspasoManual FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (dt.Rows[0][0].ToString().Equals("0"))
+                {
+
+                    if (auto)
+                    {
+                        btnAceptar.PerformClick();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo realizar el traspaso automáticamente, revise manualmente que todos los productos coincidan.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            
         }
 
 

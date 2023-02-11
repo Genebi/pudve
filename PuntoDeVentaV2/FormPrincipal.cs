@@ -1069,7 +1069,7 @@ namespace PuntoDeVentaV2
         private void btnProductos_Click(object sender, EventArgs e)
         {
             //vs.printProductVersion();
-
+            AgregarEditarProducto.desdeConsultar = 0;
             if (productos == 1)
             {
                 AbrirFormulario<Productos>();
@@ -1099,12 +1099,6 @@ namespace PuntoDeVentaV2
             {
                 if (dtConfiguracionWeb.Rows[0][0].ToString() == "1")
                 {
-                    if (pasar==1)
-                    {
-                        enviarCajaAWeb();
-                        enviarProdctosWeb();
-                    }
-
                     if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
                     {
                         FormCollection fc = Application.OpenForms;
@@ -1129,10 +1123,15 @@ namespace PuntoDeVentaV2
                         }
                         if (ayylmao)
                             {
-                                DialogResult dialogResult = MessageBox.Show("¿Quiere realizar una copia de seguridad antes de cerrar sesión?", "¿Respaldar antes de salir?", MessageBoxButtons.YesNo);
+                                DialogResult dialogResult = MessageBox.Show("¿Quiere realizar una copia de seguridad antes de cerrar el programa?", "¿Respaldar antes de salir?", MessageBoxButtons.YesNo);
                                 if (dialogResult == DialogResult.Yes)
                                 {
-                                    WebUploader respaldazo = new WebUploader(true, this);
+                                if (pasar == 1)
+                                {
+                                    enviarCajaAWeb();
+                                    enviarProdctosWeb();
+                                }
+                                WebUploader respaldazo = new WebUploader(true, this);
                                     respaldazo.ShowDialog();
                                 }
                                 else
@@ -1183,14 +1182,12 @@ namespace PuntoDeVentaV2
                             switch (peticion["Solicitud"].ToString())
                             {
                                 case "Caja":
-                                    if (enviarCajaAWeb())
-                                    {
-                                        cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Caja';");
-                                    }
+                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Caja';");
+                                    enviarCajaAWeb();
                                     break;
-                                case "Producto":
-                                    enviarProdctosWeb();
+                                case "Producto":                                    
                                     cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Producto';");
+                                    enviarProdctosWeb();
                                     break;
                                 default:
                                     break;
@@ -1244,7 +1241,7 @@ namespace PuntoDeVentaV2
                 newColumn.SetOrdinal(0);
                 ToCSV(valoresProducto, @"C:\Archivos PUDVE\export.txt");
                 bulkInsertAsync("mirrorproductosdatos");
-                con.EjecutarConsulta($"UPDATE mirrorproductoregistro SET Completo = 'Completo' WHERE ID = (SELECT MAX(ID))");
+                con.EjecutarConsulta($"UPDATE mirrorproductoregistro SET Completo = '1' WHERE ID = (SELECT MAX(ID))");
                 }
         }
             catch (Exception)
@@ -1309,44 +1306,55 @@ namespace PuntoDeVentaV2
 
         private void webSender_DoWork(object sender, DoWorkEventArgs e)
         {
-                using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebAuto,WebTotal FROM Configuracion WHERE IDUsuario = {userID}"))
+            using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebAuto,WebTotal FROM Configuracion WHERE IDUsuario = {userID}"))
+            {
+                if (dtConfiguracionWeb.Rows[0][0].ToString() == "1")
                 {
-                    if (dtConfiguracionWeb.Rows[0][0].ToString() == "1")
+                    if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
                     {
-                        if (dtConfiguracionWeb.Rows[0][1].ToString() == "1")
+                        if (string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
                         {
                             bool chambiador = false;
-                                FormCollection fc = Application.OpenForms;
+                            FormCollection fc = Application.OpenForms;
 
-                                foreach (Form frm in fc)
+                            foreach (Form frm in fc)
+                            {
+                                if (frm.Name == "WebUploader")
                                 {
-                                    if (frm.Name == "WebUploader")
-                                    {
-                                        chambiador = true;
-                                    }
+                                    chambiador = true;
                                 }
+                            }
 
-                                if (!chambiador)
-                                {
-                                    CheckForIllegalCrossThreadCalls = false;
-                                    WebUploader respaldazo = new WebUploader(false, this);
-                                    respaldazo.ShowDialog();
-                                    CheckForIllegalCrossThreadCalls = true;
-                                }
+                            if (!chambiador)
+                            {
+                                CheckForIllegalCrossThreadCalls = false;
+                                WebUploader respaldazo = new WebUploader(false, this);
+                                respaldazo.ShowDialog();
+                                CheckForIllegalCrossThreadCalls = true;
+                            }
+                        }
 
                     }
-                    if (pasar==1)
+                    if (string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
                     {
-                        enviarProdctosWeb();
-                        enviarCajaAWeb();
+                        if (pasar == 1)
+                        {
+                            enviarProdctosWeb();
+                            enviarCajaAWeb();
+                        }
                     }
-                    }
-                    else
-                    {
-                        return;
-                    }
+
                 }
-            
+                else
+                {
+                    return;
+                }
+            }
+        }
+
+        private void btnAyuda_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.youtube.com/@sifo1887/videos");
         }
 
 

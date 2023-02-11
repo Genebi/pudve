@@ -1151,28 +1151,28 @@ namespace PuntoDeVentaV2
                         return;
                     }
 
-                    using (var dbEsComboServicio = cn.CargarDatos(cs.SaberSiEsComboServicio(idProducto)))
-                    {
-                        if (!dbEsComboServicio.Rows.Count.Equals(0))
-                        {
-                            var mensajeSiEsComboServicioHistorial = string.Empty;
+                    //using (var dbEsComboServicio = cn.CargarDatos(cs.SaberSiEsComboServicio(idProducto)))
+                    //{
+                        //if (!dbEsComboServicio.Rows.Count.Equals(0))
+                        //{
+                            //var mensajeSiEsComboServicioHistorial = string.Empty;
 
-                            foreach (DataRow item in dbEsComboServicio.Rows)
-                            {
-                                if (item["Tipo"].Equals("PQ"))
-                                {
-                                    mensajeSiEsComboServicioHistorial = "Los Combos No Manejan Stock Físico";
-                                }
-                                else if (item["Tipo"].Equals("S"))
-                                {
-                                    mensajeSiEsComboServicioHistorial = "Los Servicios No Manejan Stock Físico";
-                                }
+                            //foreach (DataRow item in dbEsComboServicio.Rows)
+                            //{
+                            //    if (item["Tipo"].Equals("PQ"))
+                            //    {
+                            //        mensajeSiEsComboServicioHistorial = "Los Combos No Manejan Stock Físico";
+                            //    }
+                            //    else if (item["Tipo"].Equals("S"))
+                            //    {
+                            //        mensajeSiEsComboServicioHistorial = "Los Servicios No Manejan Stock Físico";
+                            //    }
 
-                                MessageBox.Show(mensajeSiEsComboServicioHistorial, "Aviso Historial Producto, Combo, Servicio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                return;
-                            }
-                        }
-                    }
+                            //    MessageBox.Show(mensajeSiEsComboServicioHistorial, "Aviso Historial Producto, Combo, Servicio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            //    return;
+                            //}
+                        //}
+                    //}
                     HistorialVenta = true;
                     idProductoHistorialStock = idProducto;
                     using (var historial = new TipoHistorial(idProducto))
@@ -2119,6 +2119,15 @@ namespace PuntoDeVentaV2
             }
 
             copiarMensajesProd = 0;
+
+            if (AgregarEditarProducto.desdeConsultar == 1)
+            {
+                groupBox1.Visible = false;
+            }
+            else
+            {
+                groupBox1.Visible = true;
+            }
         }
 
         private void validarConexionServidor()

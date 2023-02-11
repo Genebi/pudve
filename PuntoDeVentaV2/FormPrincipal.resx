@@ -118,6 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+<<<<<<< HEAD
   <data name="btnCad.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         R0lGODlhMAAwAPcAAAAAAAEBAQICAgMDAwQEBAUFBQYGBgcHBwgICAkJCQoKCgsLCwwMDA4MGBAMJBIM
@@ -633,6 +634,16 @@
         rVtzr1y3dLnG5Zi3rV++AgcTBgv47kjFi/UergsZL+PJfCsXnut3puanUTv3xTx57L3KpTXe3dxYale6
         rAOrTRr77eygtV2XLOoUDNStKlGfNA2TNOLgpIlnrKx8997mSx371JkU+lHg0+3GtD5UZvbiLr8KF+cu
         /jT58j4DAgA7
+=======
+  <data name="btnAyuda.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAA
+        WQAAAFkBqp2phgAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAADUSURBVDhPzdI9
+        DoJAFATg5RY0JJJwCL2AxiuY6C3UC2hib6KxpaSGQ0Ct3kMrfxnnsRBwtzDY6Eu+ZnZ3EshT/zFQyqcx
+        zWhJK9rQrrQuswVNaUSd6vGAroSWLtSXgrgRthVLwcEINd+3M9teCk5GqG23QJoC3a59VjtJwcMINSmQ
+        eT6BMARc176j1P1zQZ4DUQR4nn2nLDgboSYFWQb0evZZrfiEoxFqQQA4jp2/K35iYoRtJFIwpG8W6UbD
+        ahubqywrK6tbrbG5znOaUFA8/vEo9QIny3bFQTV6sQAAAABJRU5ErkJggg==
+>>>>>>> master
 </value>
   </data>
   <data name="BtnConsulta.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

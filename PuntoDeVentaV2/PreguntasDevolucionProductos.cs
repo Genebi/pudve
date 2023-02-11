@@ -20,6 +20,7 @@ namespace PuntoDeVentaV2
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+            return;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)

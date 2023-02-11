@@ -30,22 +30,26 @@ namespace PuntoDeVentaV2
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbkAbrirVenta = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.RBPDFVentas = new System.Windows.Forms.RadioButton();
             this.RBTicketVentas = new System.Windows.Forms.RadioButton();
             this.CBPreguntar = new System.Windows.Forms.CheckBox();
             this.CBVentas = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbkAbrirCredito = new System.Windows.Forms.CheckBox();
             this.RBPDFCredito = new System.Windows.Forms.RadioButton();
             this.RBTicketCredito = new System.Windows.Forms.RadioButton();
             this.CBPregutnarVentaCrediro = new System.Windows.Forms.CheckBox();
             this.CBVentaCredito = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cbkAbrirGGuardadas = new System.Windows.Forms.CheckBox();
             this.rbPDFGuardada = new System.Windows.Forms.RadioButton();
             this.rbTicketGuardada = new System.Windows.Forms.RadioButton();
             this.cbPreguntarGuardad = new System.Windows.Forms.CheckBox();
             this.cbImprimirGuardada = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cbkAbrirCanceladas = new System.Windows.Forms.CheckBox();
             this.rcPDFCancelada = new System.Windows.Forms.RadioButton();
             this.rbTicketCanceada = new System.Windows.Forms.RadioButton();
             this.cbPreguntarCANCELADA = new System.Windows.Forms.CheckBox();
@@ -56,20 +60,25 @@ namespace PuntoDeVentaV2
             this.cbPreguntarGobal = new System.Windows.Forms.CheckBox();
             this.cbImprimirVentaGlobal = new System.Windows.Forms.CheckBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.cbkAbrirAbonos = new System.Windows.Forms.CheckBox();
             this.cbpreguntarAbonos = new System.Windows.Forms.CheckBox();
             this.cbImprimirAbonos = new System.Windows.Forms.CheckBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.cbkAbrirCorte = new System.Windows.Forms.CheckBox();
             this.RBPDFCorte = new System.Windows.Forms.RadioButton();
             this.RBTicketCorte = new System.Windows.Forms.RadioButton();
             this.cbPreguntarCorte = new System.Windows.Forms.CheckBox();
             this.cbImprimirCorte = new System.Windows.Forms.CheckBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.cbkAbrirAgregar = new System.Windows.Forms.CheckBox();
             this.cbPreguntarAgregar = new System.Windows.Forms.CheckBox();
             this.cbImprimirAgregar = new System.Windows.Forms.CheckBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.cbkAbrirRetirar = new System.Windows.Forms.CheckBox();
             this.cbPreguntarRetirar = new System.Windows.Forms.CheckBox();
             this.cbImprimirRetirar = new System.Windows.Forms.CheckBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.cbkAbrirAnticipos = new System.Windows.Forms.CheckBox();
             this.cbPreguntarAnticipos = new System.Windows.Forms.CheckBox();
             this.CBImprimirAnticipos = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -87,6 +96,7 @@ namespace PuntoDeVentaV2
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cbkAbrirVenta);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.RBPDFVentas);
             this.groupBox1.Controls.Add(this.RBTicketVentas);
@@ -96,10 +106,23 @@ namespace PuntoDeVentaV2
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(235, 140);
+            this.groupBox1.Size = new System.Drawing.Size(235, 166);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "TICKET DE VENTA";
+            // 
+            // cbkAbrirVenta
+            // 
+            this.cbkAbrirVenta.AutoSize = true;
+            this.cbkAbrirVenta.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbkAbrirVenta.Location = new System.Drawing.Point(8, 81);
+            this.cbkAbrirVenta.Margin = new System.Windows.Forms.Padding(4);
+            this.cbkAbrirVenta.Name = "cbkAbrirVenta";
+            this.cbkAbrirVenta.Size = new System.Drawing.Size(187, 21);
+            this.cbkAbrirVenta.TabIndex = 5;
+            this.cbkAbrirVenta.Text = "Abrir cajon sin imprimir ticket";
+            this.cbkAbrirVenta.UseVisualStyleBackColor = true;
+            this.cbkAbrirVenta.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbkAbrirVenta_MouseClick);
             // 
             // button1
             // 
@@ -107,7 +130,7 @@ namespace PuntoDeVentaV2
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button1.Location = new System.Drawing.Point(39, 106);
+            this.button1.Location = new System.Drawing.Point(39, 132);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(161, 27);
             this.button1.TabIndex = 4;
@@ -119,7 +142,7 @@ namespace PuntoDeVentaV2
             // 
             this.RBPDFVentas.AutoSize = true;
             this.RBPDFVentas.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBPDFVentas.Location = new System.Drawing.Point(121, 83);
+            this.RBPDFVentas.Location = new System.Drawing.Point(121, 109);
             this.RBPDFVentas.Name = "RBPDFVentas";
             this.RBPDFVentas.Size = new System.Drawing.Size(97, 21);
             this.RBPDFVentas.TabIndex = 3;
@@ -132,7 +155,7 @@ namespace PuntoDeVentaV2
             // 
             this.RBTicketVentas.AutoSize = true;
             this.RBTicketVentas.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBTicketVentas.Location = new System.Drawing.Point(9, 84);
+            this.RBTicketVentas.Location = new System.Drawing.Point(9, 110);
             this.RBTicketVentas.Name = "RBTicketVentas";
             this.RBTicketVentas.Size = new System.Drawing.Size(108, 21);
             this.RBTicketVentas.TabIndex = 2;
@@ -169,11 +192,12 @@ namespace PuntoDeVentaV2
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cbkAbrirCredito);
             this.groupBox2.Controls.Add(this.RBPDFCredito);
             this.groupBox2.Controls.Add(this.RBTicketCredito);
             this.groupBox2.Controls.Add(this.CBPregutnarVentaCrediro);
             this.groupBox2.Controls.Add(this.CBVentaCredito);
-            this.groupBox2.Location = new System.Drawing.Point(17, 165);
+            this.groupBox2.Location = new System.Drawing.Point(17, 185);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
@@ -182,11 +206,24 @@ namespace PuntoDeVentaV2
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "TICKET DE VENTA A CREDITO";
             // 
+            // cbkAbrirCredito
+            // 
+            this.cbkAbrirCredito.AutoSize = true;
+            this.cbkAbrirCredito.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbkAbrirCredito.Location = new System.Drawing.Point(9, 82);
+            this.cbkAbrirCredito.Margin = new System.Windows.Forms.Padding(4);
+            this.cbkAbrirCredito.Name = "cbkAbrirCredito";
+            this.cbkAbrirCredito.Size = new System.Drawing.Size(187, 21);
+            this.cbkAbrirCredito.TabIndex = 6;
+            this.cbkAbrirCredito.Text = "Abrir cajon sin imprimir ticket";
+            this.cbkAbrirCredito.UseVisualStyleBackColor = true;
+            this.cbkAbrirCredito.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbkAbrirCredito_MouseClick);
+            // 
             // RBPDFCredito
             // 
             this.RBPDFCredito.AutoSize = true;
             this.RBPDFCredito.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBPDFCredito.Location = new System.Drawing.Point(121, 83);
+            this.RBPDFCredito.Location = new System.Drawing.Point(121, 106);
             this.RBPDFCredito.Name = "RBPDFCredito";
             this.RBPDFCredito.Size = new System.Drawing.Size(97, 21);
             this.RBPDFCredito.TabIndex = 3;
@@ -199,7 +236,7 @@ namespace PuntoDeVentaV2
             // 
             this.RBTicketCredito.AutoSize = true;
             this.RBTicketCredito.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBTicketCredito.Location = new System.Drawing.Point(9, 84);
+            this.RBTicketCredito.Location = new System.Drawing.Point(9, 107);
             this.RBTicketCredito.Name = "RBTicketCredito";
             this.RBTicketCredito.Size = new System.Drawing.Size(108, 21);
             this.RBTicketCredito.TabIndex = 2;
@@ -236,6 +273,7 @@ namespace PuntoDeVentaV2
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.cbkAbrirGGuardadas);
             this.groupBox3.Controls.Add(this.rbPDFGuardada);
             this.groupBox3.Controls.Add(this.rbTicketGuardada);
             this.groupBox3.Controls.Add(this.cbPreguntarGuardad);
@@ -244,16 +282,29 @@ namespace PuntoDeVentaV2
             this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox3.Size = new System.Drawing.Size(235, 140);
+            this.groupBox3.Size = new System.Drawing.Size(235, 166);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "TICKET DE VENTA GUARDADA";
+            // 
+            // cbkAbrirGGuardadas
+            // 
+            this.cbkAbrirGGuardadas.AutoSize = true;
+            this.cbkAbrirGGuardadas.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbkAbrirGGuardadas.Location = new System.Drawing.Point(9, 81);
+            this.cbkAbrirGGuardadas.Margin = new System.Windows.Forms.Padding(4);
+            this.cbkAbrirGGuardadas.Name = "cbkAbrirGGuardadas";
+            this.cbkAbrirGGuardadas.Size = new System.Drawing.Size(187, 21);
+            this.cbkAbrirGGuardadas.TabIndex = 6;
+            this.cbkAbrirGGuardadas.Text = "Abrir cajon sin imprimir ticket";
+            this.cbkAbrirGGuardadas.UseVisualStyleBackColor = true;
+            this.cbkAbrirGGuardadas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbkAbrirGGuardadas_MouseClick);
             // 
             // rbPDFGuardada
             // 
             this.rbPDFGuardada.AutoSize = true;
             this.rbPDFGuardada.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbPDFGuardada.Location = new System.Drawing.Point(121, 83);
+            this.rbPDFGuardada.Location = new System.Drawing.Point(121, 109);
             this.rbPDFGuardada.Name = "rbPDFGuardada";
             this.rbPDFGuardada.Size = new System.Drawing.Size(97, 21);
             this.rbPDFGuardada.TabIndex = 3;
@@ -266,7 +317,7 @@ namespace PuntoDeVentaV2
             // 
             this.rbTicketGuardada.AutoSize = true;
             this.rbTicketGuardada.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbTicketGuardada.Location = new System.Drawing.Point(9, 84);
+            this.rbTicketGuardada.Location = new System.Drawing.Point(9, 109);
             this.rbTicketGuardada.Name = "rbTicketGuardada";
             this.rbTicketGuardada.Size = new System.Drawing.Size(108, 21);
             this.rbTicketGuardada.TabIndex = 2;
@@ -303,6 +354,7 @@ namespace PuntoDeVentaV2
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.cbkAbrirCanceladas);
             this.groupBox4.Controls.Add(this.rcPDFCancelada);
             this.groupBox4.Controls.Add(this.rbTicketCanceada);
             this.groupBox4.Controls.Add(this.cbPreguntarCANCELADA);
@@ -311,16 +363,29 @@ namespace PuntoDeVentaV2
             this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox4.Size = new System.Drawing.Size(248, 140);
+            this.groupBox4.Size = new System.Drawing.Size(248, 166);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "TICKET DE VENTA CANCELADA";
+            // 
+            // cbkAbrirCanceladas
+            // 
+            this.cbkAbrirCanceladas.AutoSize = true;
+            this.cbkAbrirCanceladas.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbkAbrirCanceladas.Location = new System.Drawing.Point(7, 81);
+            this.cbkAbrirCanceladas.Margin = new System.Windows.Forms.Padding(4);
+            this.cbkAbrirCanceladas.Name = "cbkAbrirCanceladas";
+            this.cbkAbrirCanceladas.Size = new System.Drawing.Size(187, 21);
+            this.cbkAbrirCanceladas.TabIndex = 6;
+            this.cbkAbrirCanceladas.Text = "Abrir cajon sin imprimir ticket";
+            this.cbkAbrirCanceladas.UseVisualStyleBackColor = true;
+            this.cbkAbrirCanceladas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbkAbrirCanceladas_MouseClick);
             // 
             // rcPDFCancelada
             // 
             this.rcPDFCancelada.AutoSize = true;
             this.rcPDFCancelada.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rcPDFCancelada.Location = new System.Drawing.Point(121, 83);
+            this.rcPDFCancelada.Location = new System.Drawing.Point(121, 109);
             this.rcPDFCancelada.Name = "rcPDFCancelada";
             this.rcPDFCancelada.Size = new System.Drawing.Size(97, 21);
             this.rcPDFCancelada.TabIndex = 3;
@@ -333,7 +398,7 @@ namespace PuntoDeVentaV2
             // 
             this.rbTicketCanceada.AutoSize = true;
             this.rbTicketCanceada.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbTicketCanceada.Location = new System.Drawing.Point(9, 84);
+            this.rbTicketCanceada.Location = new System.Drawing.Point(9, 109);
             this.rbTicketCanceada.Name = "rbTicketCanceada";
             this.rbTicketCanceada.Size = new System.Drawing.Size(108, 21);
             this.rbTicketCanceada.TabIndex = 2;
@@ -374,7 +439,7 @@ namespace PuntoDeVentaV2
             this.groupBox5.Controls.Add(this.radioButton2);
             this.groupBox5.Controls.Add(this.cbPreguntarGobal);
             this.groupBox5.Controls.Add(this.cbImprimirVentaGlobal);
-            this.groupBox5.Location = new System.Drawing.Point(260, 165);
+            this.groupBox5.Location = new System.Drawing.Point(260, 185);
             this.groupBox5.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Padding = new System.Windows.Forms.Padding(4);
@@ -438,9 +503,10 @@ namespace PuntoDeVentaV2
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.cbkAbrirAbonos);
             this.groupBox6.Controls.Add(this.cbpreguntarAbonos);
             this.groupBox6.Controls.Add(this.cbImprimirAbonos);
-            this.groupBox6.Location = new System.Drawing.Point(503, 165);
+            this.groupBox6.Location = new System.Drawing.Point(503, 185);
             this.groupBox6.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Padding = new System.Windows.Forms.Padding(4);
@@ -448,6 +514,19 @@ namespace PuntoDeVentaV2
             this.groupBox6.TabIndex = 5;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "TICKET DE ABONOS";
+            // 
+            // cbkAbrirAbonos
+            // 
+            this.cbkAbrirAbonos.AutoSize = true;
+            this.cbkAbrirAbonos.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbkAbrirAbonos.Location = new System.Drawing.Point(7, 82);
+            this.cbkAbrirAbonos.Margin = new System.Windows.Forms.Padding(4);
+            this.cbkAbrirAbonos.Name = "cbkAbrirAbonos";
+            this.cbkAbrirAbonos.Size = new System.Drawing.Size(187, 21);
+            this.cbkAbrirAbonos.TabIndex = 6;
+            this.cbkAbrirAbonos.Text = "Abrir cajon sin imprimir ticket";
+            this.cbkAbrirAbonos.UseVisualStyleBackColor = true;
+            this.cbkAbrirAbonos.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbkAbrirAbonos_MouseClick);
             // 
             // cbpreguntarAbonos
             // 
@@ -477,11 +556,12 @@ namespace PuntoDeVentaV2
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.cbkAbrirCorte);
             this.groupBox8.Controls.Add(this.RBPDFCorte);
             this.groupBox8.Controls.Add(this.RBTicketCorte);
             this.groupBox8.Controls.Add(this.cbPreguntarCorte);
             this.groupBox8.Controls.Add(this.cbImprimirCorte);
-            this.groupBox8.Location = new System.Drawing.Point(17, 315);
+            this.groupBox8.Location = new System.Drawing.Point(17, 330);
             this.groupBox8.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Padding = new System.Windows.Forms.Padding(4);
@@ -490,11 +570,24 @@ namespace PuntoDeVentaV2
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "TICKET CORTE DE CAJA";
             // 
+            // cbkAbrirCorte
+            // 
+            this.cbkAbrirCorte.AutoSize = true;
+            this.cbkAbrirCorte.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbkAbrirCorte.Location = new System.Drawing.Point(7, 82);
+            this.cbkAbrirCorte.Margin = new System.Windows.Forms.Padding(4);
+            this.cbkAbrirCorte.Name = "cbkAbrirCorte";
+            this.cbkAbrirCorte.Size = new System.Drawing.Size(187, 21);
+            this.cbkAbrirCorte.TabIndex = 6;
+            this.cbkAbrirCorte.Text = "Abrir cajon sin imprimir ticket";
+            this.cbkAbrirCorte.UseVisualStyleBackColor = true;
+            this.cbkAbrirCorte.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbkAbrirCorte_MouseClick);
+            // 
             // RBPDFCorte
             // 
             this.RBPDFCorte.AutoSize = true;
             this.RBPDFCorte.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBPDFCorte.Location = new System.Drawing.Point(119, 82);
+            this.RBPDFCorte.Location = new System.Drawing.Point(119, 108);
             this.RBPDFCorte.Name = "RBPDFCorte";
             this.RBPDFCorte.Size = new System.Drawing.Size(97, 21);
             this.RBPDFCorte.TabIndex = 5;
@@ -507,7 +600,7 @@ namespace PuntoDeVentaV2
             // 
             this.RBTicketCorte.AutoSize = true;
             this.RBTicketCorte.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RBTicketCorte.Location = new System.Drawing.Point(7, 83);
+            this.RBTicketCorte.Location = new System.Drawing.Point(7, 109);
             this.RBTicketCorte.Name = "RBTicketCorte";
             this.RBTicketCorte.Size = new System.Drawing.Size(108, 21);
             this.RBTicketCorte.TabIndex = 4;
@@ -544,9 +637,10 @@ namespace PuntoDeVentaV2
             // 
             // groupBox9
             // 
+            this.groupBox9.Controls.Add(this.cbkAbrirAgregar);
             this.groupBox9.Controls.Add(this.cbPreguntarAgregar);
             this.groupBox9.Controls.Add(this.cbImprimirAgregar);
-            this.groupBox9.Location = new System.Drawing.Point(260, 315);
+            this.groupBox9.Location = new System.Drawing.Point(260, 330);
             this.groupBox9.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Padding = new System.Windows.Forms.Padding(4);
@@ -554,6 +648,19 @@ namespace PuntoDeVentaV2
             this.groupBox9.TabIndex = 7;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "TICKET DE AGREGAR DINERO";
+            // 
+            // cbkAbrirAgregar
+            // 
+            this.cbkAbrirAgregar.AutoSize = true;
+            this.cbkAbrirAgregar.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbkAbrirAgregar.Location = new System.Drawing.Point(7, 82);
+            this.cbkAbrirAgregar.Margin = new System.Windows.Forms.Padding(4);
+            this.cbkAbrirAgregar.Name = "cbkAbrirAgregar";
+            this.cbkAbrirAgregar.Size = new System.Drawing.Size(187, 21);
+            this.cbkAbrirAgregar.TabIndex = 6;
+            this.cbkAbrirAgregar.Text = "Abrir cajon sin imprimir ticket";
+            this.cbkAbrirAgregar.UseVisualStyleBackColor = true;
+            this.cbkAbrirAgregar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbkAbrirAgregar_MouseClick);
             // 
             // cbPreguntarAgregar
             // 
@@ -583,9 +690,10 @@ namespace PuntoDeVentaV2
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.cbkAbrirRetirar);
             this.groupBox10.Controls.Add(this.cbPreguntarRetirar);
             this.groupBox10.Controls.Add(this.cbImprimirRetirar);
-            this.groupBox10.Location = new System.Drawing.Point(503, 315);
+            this.groupBox10.Location = new System.Drawing.Point(503, 330);
             this.groupBox10.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Padding = new System.Windows.Forms.Padding(4);
@@ -593,6 +701,19 @@ namespace PuntoDeVentaV2
             this.groupBox10.TabIndex = 7;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "TICKET DE RETIRAR DINERO";
+            // 
+            // cbkAbrirRetirar
+            // 
+            this.cbkAbrirRetirar.AutoSize = true;
+            this.cbkAbrirRetirar.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbkAbrirRetirar.Location = new System.Drawing.Point(7, 82);
+            this.cbkAbrirRetirar.Margin = new System.Windows.Forms.Padding(4);
+            this.cbkAbrirRetirar.Name = "cbkAbrirRetirar";
+            this.cbkAbrirRetirar.Size = new System.Drawing.Size(187, 21);
+            this.cbkAbrirRetirar.TabIndex = 6;
+            this.cbkAbrirRetirar.Text = "Abrir cajon sin imprimir ticket";
+            this.cbkAbrirRetirar.UseVisualStyleBackColor = true;
+            this.cbkAbrirRetirar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbkAbrirRetirar_MouseClick);
             // 
             // cbPreguntarRetirar
             // 
@@ -622,16 +743,30 @@ namespace PuntoDeVentaV2
             // 
             // groupBox11
             // 
+            this.groupBox11.Controls.Add(this.cbkAbrirAnticipos);
             this.groupBox11.Controls.Add(this.cbPreguntarAnticipos);
             this.groupBox11.Controls.Add(this.CBImprimirAnticipos);
-            this.groupBox11.Location = new System.Drawing.Point(260, 167);
+            this.groupBox11.Location = new System.Drawing.Point(260, 187);
             this.groupBox11.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox11.Size = new System.Drawing.Size(235, 140);
+            this.groupBox11.Size = new System.Drawing.Size(235, 138);
             this.groupBox11.TabIndex = 8;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "TICKET DE ANTICIPOS";
+            // 
+            // cbkAbrirAnticipos
+            // 
+            this.cbkAbrirAnticipos.AutoSize = true;
+            this.cbkAbrirAnticipos.Font = new System.Drawing.Font("Franklin Gothic Book", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbkAbrirAnticipos.Location = new System.Drawing.Point(7, 82);
+            this.cbkAbrirAnticipos.Margin = new System.Windows.Forms.Padding(4);
+            this.cbkAbrirAnticipos.Name = "cbkAbrirAnticipos";
+            this.cbkAbrirAnticipos.Size = new System.Drawing.Size(187, 21);
+            this.cbkAbrirAnticipos.TabIndex = 6;
+            this.cbkAbrirAnticipos.Text = "Abrir cajon sin imprimir ticket";
+            this.cbkAbrirAnticipos.UseVisualStyleBackColor = true;
+            this.cbkAbrirAnticipos.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbkAbrirAnticipos_MouseClick);
             // 
             // cbPreguntarAnticipos
             // 
@@ -663,7 +798,8 @@ namespace PuntoDeVentaV2
             // 
             this.button2.BackColor = System.Drawing.Color.Green;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(329, 462);
+            this.button2.ForeColor = System.Drawing.SystemColors.Control;
+            this.button2.Location = new System.Drawing.Point(329, 479);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(101, 30);
             this.button2.TabIndex = 9;
@@ -675,7 +811,7 @@ namespace PuntoDeVentaV2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(758, 503);
+            this.ClientSize = new System.Drawing.Size(758, 517);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox11);
             this.Controls.Add(this.groupBox10);
@@ -767,5 +903,14 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.CheckBox cbPreguntarAnticipos;
         private System.Windows.Forms.CheckBox CBImprimirAnticipos;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.CheckBox cbkAbrirVenta;
+        private System.Windows.Forms.CheckBox cbkAbrirCredito;
+        private System.Windows.Forms.CheckBox cbkAbrirGGuardadas;
+        private System.Windows.Forms.CheckBox cbkAbrirCanceladas;
+        private System.Windows.Forms.CheckBox cbkAbrirAbonos;
+        private System.Windows.Forms.CheckBox cbkAbrirAnticipos;
+        private System.Windows.Forms.CheckBox cbkAbrirCorte;
+        private System.Windows.Forms.CheckBox cbkAbrirAgregar;
+        private System.Windows.Forms.CheckBox cbkAbrirRetirar;
     }
 }

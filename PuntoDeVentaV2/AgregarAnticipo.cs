@@ -181,7 +181,7 @@ namespace PuntoDeVentaV2
                     datos = new string[] { FechaOperacion, cliente, concepto, importe.ToString("0.00"), comentario, idAnticipo };
 
                     GenerarTicket(datos);
-                    using (var dt = cn.CargarDatos($"SELECT TicketAnticipo,PreguntarTicketAnticipo FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
+                    using (var dt = cn.CargarDatos($"SELECT TicketAnticipo,PreguntarTicketAnticipo,AbrirCajaAnticipos FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
                     {
                         if (dt.Rows[0][0].Equals(1))
                         {
@@ -200,6 +200,16 @@ namespace PuntoDeVentaV2
                                 imprimirAnt.anticipoSinHistorial = 1;
                                 imprimirAnt.ShowDialog();
                             }
+                            else if (dt.Rows[0]["AbrirCajaAnticipos"].Equals(1))
+                            {
+                                AbrirSinTicket abrir = new AbrirSinTicket();
+                                abrir.Show();
+                            }
+                        }
+                        else if (dt.Rows[0]["AbrirCajaAnticipos"].Equals(1))
+                        {
+                            AbrirSinTicket abrir = new AbrirSinTicket();
+                            abrir.Show();
                         }
                     }
                     
