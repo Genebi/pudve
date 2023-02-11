@@ -16,13 +16,9 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         bool init = false;
-<<<<<<< HEAD
         public static string ID="";
         public List<string> updatesSubdetalles = new List<string>();
-=======
-        public static string ID = "";
         bool auto = true;
->>>>>>> master
         public traspaso(DataTable datosTraspaso)
         {
             InitializeComponent();
