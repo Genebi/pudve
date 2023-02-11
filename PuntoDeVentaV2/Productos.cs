@@ -398,6 +398,7 @@ namespace PuntoDeVentaV2
             if (e.KeyCode == Keys.Enter)
                 {
                 btnActualizarMaximoProductos.PerformClick();
+
             //    if (!txtMaximoPorPagina.Text.Equals(string.Empty))
             //    {
             //        var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
