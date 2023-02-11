@@ -292,6 +292,7 @@ namespace PuntoDeVentaV2
         static public string CBNombProd = string.Empty;
         static public string CBIdProd = string.Empty;
         static public int seleccionListaStock;
+        static public string nombreProdSubDetalles = string.Empty;
 
         public static bool ejecutarMetodos = false;
         private object cbProveedor_SelectValueChanged;
