@@ -4619,8 +4619,6 @@ namespace PuntoDeVentaV2
                                         FormNotaDeVenta.fuePorVenta = true;
                                         form.ShowDialog();
                                     }
-                                    
-                                    
                                 }
                                 else
                                 {
