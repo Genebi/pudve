@@ -33,6 +33,7 @@
             this.panelMaestro = new System.Windows.Forms.Panel();
             this.panelContenedor = new System.Windows.Forms.Panel();
             this.menuVertical = new System.Windows.Forms.Panel();
+            this.btnAyuda = new PuntoDeVentaV2.BotonRedondo();
             this.BtnConsulta = new System.Windows.Forms.Button();
             this.btnImpresoras = new System.Windows.Forms.Button();
             this.btnEmpleados = new System.Windows.Forms.Button();
@@ -55,7 +56,6 @@
             this.webListener = new System.ComponentModel.BackgroundWorker();
             this.webAuto = new System.Windows.Forms.Timer(this.components);
             this.webSender = new System.ComponentModel.BackgroundWorker();
-            this.btnAyuda = new PuntoDeVentaV2.BotonRedondo();
             this.panelMaestro.SuspendLayout();
             this.menuVertical.SuspendLayout();
             this.SuspendLayout();
@@ -105,6 +105,30 @@
             this.menuVertical.Size = new System.Drawing.Size(230, 650);
             this.menuVertical.TabIndex = 0;
             this.menuVertical.Paint += new System.Windows.Forms.PaintEventHandler(this.menuVertical_Paint);
+            // 
+            // btnAyuda
+            // 
+            this.btnAyuda.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnAyuda.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnAyuda.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnAyuda.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnAyuda.BorderRadius = 21;
+            this.btnAyuda.BorderSize = 0;
+            this.btnAyuda.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAyuda.FlatAppearance.BorderSize = 0;
+            this.btnAyuda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAyuda.ForeColor = System.Drawing.Color.White;
+            this.btnAyuda.Image = ((System.Drawing.Image)(resources.GetObject("btnAyuda.Image")));
+            this.btnAyuda.Location = new System.Drawing.Point(63, 596);
+            this.btnAyuda.Name = "btnAyuda";
+            this.btnAyuda.Size = new System.Drawing.Size(99, 42);
+            this.btnAyuda.TabIndex = 137;
+            this.btnAyuda.Text = "Ayuda";
+            this.btnAyuda.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAyuda.TextColor = System.Drawing.Color.White;
+            this.btnAyuda.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAyuda.UseVisualStyleBackColor = false;
+            this.btnAyuda.Click += new System.EventHandler(this.btnAyuda_Click);
             // 
             // BtnConsulta
             // 
@@ -446,36 +470,12 @@
             // webAuto
             // 
             this.webAuto.Enabled = true;
-            this.webAuto.Interval = 7200000;
+            this.webAuto.Interval = 5000;
             this.webAuto.Tick += new System.EventHandler(this.webAuto_Tick);
             // 
             // webSender
             // 
             this.webSender.DoWork += new System.ComponentModel.DoWorkEventHandler(this.webSender_DoWork);
-            // 
-            // btnAyuda
-            // 
-            this.btnAyuda.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnAyuda.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btnAyuda.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
-            this.btnAyuda.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnAyuda.BorderRadius = 21;
-            this.btnAyuda.BorderSize = 0;
-            this.btnAyuda.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAyuda.FlatAppearance.BorderSize = 0;
-            this.btnAyuda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAyuda.ForeColor = System.Drawing.Color.White;
-            this.btnAyuda.Image = ((System.Drawing.Image)(resources.GetObject("btnAyuda.Image")));
-            this.btnAyuda.Location = new System.Drawing.Point(63, 596);
-            this.btnAyuda.Name = "btnAyuda";
-            this.btnAyuda.Size = new System.Drawing.Size(99, 42);
-            this.btnAyuda.TabIndex = 137;
-            this.btnAyuda.Text = "Ayuda";
-            this.btnAyuda.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnAyuda.TextColor = System.Drawing.Color.White;
-            this.btnAyuda.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnAyuda.UseVisualStyleBackColor = false;
-            this.btnAyuda.Click += new System.EventHandler(this.btnAyuda_Click);
             // 
             // FormPrincipal
             // 
