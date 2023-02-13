@@ -23,7 +23,7 @@ namespace PuntoDeVentaV2
         *   con sus respectivas partial class para hacer los array  *
         *                                                           *   
         ************************************************************/
-        [XmlRootAttribute(Namespace = "http://www.sat.gob.mx/cfd/3")]
+        //[XmlRootAttribute(Namespace = "http://www.sat.gob.mx/cfd/3")]
         
         public class Comprobante
         {
@@ -3256,16 +3256,19 @@ namespace PuntoDeVentaV2
                         xdoc.Load(ruta_XML);
 
                         string nm_nodo = xdoc.DocumentElement.Name;
+                        string namespace_nodo = xdoc.DocumentElement.NamespaceURI;
 
 
                         if (nm_nodo == "cfdi:Comprobante")
-                        {                            
-                            //MessageBox.Show("El archivo seleccionado,\nse esta Procesando", "Tipo de Archivo Valido", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            serial = new XmlSerializer(typeof(Comprobante));                    // iniciamos el objeto serial para leer el XML
-                            fs = new FileStream(f.FileName, FileMode.Open, FileAccess.Read);    // iniciamos el objeto fs para poder leer el archivo XML y no dejarlo en uso
-                            ds = (Comprobante)serial.Deserialize(fs);                           // iniciamos el objeto ds y le hacemos un cast con la clase Comprobante y le pasamos la lectura del XML
-
-                            if (ds.Receptor.Rfc == rfc | ds.Emisor.Rfc == rfc)                                         // comparamos si el RFC-Receptor(del archivo XML) es igual al RFC del usruario del sistema
+                        {
+                            // iniciamos el objeto serial para leer el XML
+                            serial = new XmlSerializer(typeof(Comprobante), namespace_nodo);
+                            // iniciamos el objeto fs para poder leer el archivo XML y no dejarlo en uso
+                            fs = new FileStream(f.FileName, FileMode.Open, FileAccess.Read);
+                            // iniciamos el objeto ds y le hacemos un cast con la clase Comprobante y le pasamos la lectura del XML
+                            ds = (Comprobante)serial.Deserialize(fs);
+                            // comparamos si el RFC-Receptor(del archivo XML) es igual al RFC del usruario del sistema
+                            if (ds.Receptor.Rfc == rfc | ds.Emisor.Rfc == rfc)
                             {
                                 rutaXML = f.FileName; //Almacenamos el nombre y ruta completa del archivo cargado
                                 cantProductos = 0;          // la cantidad de Productos la ponemos en 0
