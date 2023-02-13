@@ -68,6 +68,9 @@
             this.dpFechaFinal = new System.Windows.Forms.DateTimePicker();
             this.dpFechaInicial = new System.Windows.Forms.DateTimePicker();
             this.btnNuevaVenta = new System.Windows.Forms.Button();
+            this.btnPorVencer = new System.Windows.Forms.Button();
+            this.btnVencidas = new System.Windows.Forms.Button();
+            this.btnBuscarPorHuella = new System.Windows.Forms.Button();
             this.btnBuscarVentas = new System.Windows.Forms.Button();
             this.cbVentas = new System.Windows.Forms.ComboBox();
             this.cbTipoVentas = new System.Windows.Forms.ComboBox();
@@ -93,6 +96,25 @@
             this.lb_txt_ruta_descargar = new System.Windows.Forms.Label();
             this.chTodos = new System.Windows.Forms.CheckBox();
             this.chkHDAutlan = new System.Windows.Forms.CheckBox();
+            this.col_checkbox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Vendedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IVA = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Serie = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cancelar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Factura = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Abono = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Timbrar = new System.Windows.Forms.DataGridViewImageColumn();
+            this.cInformacion = new System.Windows.Forms.DataGridViewImageColumn();
+            this.retomarVenta = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ganancia = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -317,6 +339,9 @@
             this.panelBotones.Controls.Add(this.dpFechaFinal);
             this.panelBotones.Controls.Add(this.dpFechaInicial);
             this.panelBotones.Controls.Add(this.btnNuevaVenta);
+            this.panelBotones.Controls.Add(this.btnPorVencer);
+            this.panelBotones.Controls.Add(this.btnVencidas);
+            this.panelBotones.Controls.Add(this.btnBuscarPorHuella);
             this.panelBotones.Controls.Add(this.btnBuscarVentas);
             this.panelBotones.Controls.Add(this.cbVentas);
             this.panelBotones.Controls.Add(this.cbTipoVentas);
@@ -521,6 +546,63 @@
             this.btnNuevaVenta.UseVisualStyleBackColor = false;
             this.btnNuevaVenta.Click += new System.EventHandler(this.btnNuevaVenta_Click);
             // 
+            // btnPorVencer
+            // 
+            this.btnPorVencer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnPorVencer.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPorVencer.FlatAppearance.BorderSize = 0;
+            this.btnPorVencer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnPorVencer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnPorVencer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPorVencer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPorVencer.ForeColor = System.Drawing.Color.White;
+            this.btnPorVencer.Location = new System.Drawing.Point(808, 81);
+            this.btnPorVencer.Name = "btnPorVencer";
+            this.btnPorVencer.Size = new System.Drawing.Size(147, 21);
+            this.btnPorVencer.TabIndex = 4;
+            this.btnPorVencer.Text = "POR VENCER";
+            this.btnPorVencer.UseVisualStyleBackColor = false;
+            this.btnPorVencer.Visible = false;
+            this.btnPorVencer.Click += new System.EventHandler(this.btnPorVencer_Click);
+            // 
+            // btnVencidas
+            // 
+            this.btnVencidas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnVencidas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnVencidas.FlatAppearance.BorderSize = 0;
+            this.btnVencidas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnVencidas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnVencidas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVencidas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVencidas.ForeColor = System.Drawing.Color.White;
+            this.btnVencidas.Location = new System.Drawing.Point(645, 81);
+            this.btnVencidas.Name = "btnVencidas";
+            this.btnVencidas.Size = new System.Drawing.Size(147, 21);
+            this.btnVencidas.TabIndex = 4;
+            this.btnVencidas.Text = "VENCIDAS";
+            this.btnVencidas.UseVisualStyleBackColor = false;
+            this.btnVencidas.Visible = false;
+            this.btnVencidas.Click += new System.EventHandler(this.btnVencidas_Click);
+            // 
+            // btnBuscarPorHuella
+            // 
+            this.btnBuscarPorHuella.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnBuscarPorHuella.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBuscarPorHuella.FlatAppearance.BorderSize = 0;
+            this.btnBuscarPorHuella.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnBuscarPorHuella.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnBuscarPorHuella.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscarPorHuella.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarPorHuella.ForeColor = System.Drawing.Color.White;
+            this.btnBuscarPorHuella.Location = new System.Drawing.Point(482, 81);
+            this.btnBuscarPorHuella.Name = "btnBuscarPorHuella";
+            this.btnBuscarPorHuella.Size = new System.Drawing.Size(147, 21);
+            this.btnBuscarPorHuella.TabIndex = 4;
+            this.btnBuscarPorHuella.Text = "BUSCAR POR HUELLA";
+            this.btnBuscarPorHuella.UseVisualStyleBackColor = false;
+            this.btnBuscarPorHuella.Visible = false;
+            this.btnBuscarPorHuella.Click += new System.EventHandler(this.btnBuscarPorHuella_Click);
+            // 
             // btnBuscarVentas
             // 
             this.btnBuscarVentas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
@@ -533,7 +615,7 @@
             this.btnBuscarVentas.ForeColor = System.Drawing.Color.White;
             this.btnBuscarVentas.Location = new System.Drawing.Point(319, 81);
             this.btnBuscarVentas.Name = "btnBuscarVentas";
-            this.btnBuscarVentas.Size = new System.Drawing.Size(176, 21);
+            this.btnBuscarVentas.Size = new System.Drawing.Size(147, 21);
             this.btnBuscarVentas.TabIndex = 4;
             this.btnBuscarVentas.Text = "BUSCAR";
             this.btnBuscarVentas.UseVisualStyleBackColor = false;
@@ -951,5 +1033,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Abonado;
         private System.Windows.Forms.LinkLabel linkLast;
         private System.Windows.Forms.LinkLabel linkFirst;
+        private System.Windows.Forms.Button btnBuscarPorHuella;
+        private System.Windows.Forms.Button btnPorVencer;
+        private System.Windows.Forms.Button btnVencidas;
     }
 }

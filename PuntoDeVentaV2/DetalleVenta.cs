@@ -22,10 +22,13 @@ namespace PuntoDeVentaV2
         public static float credito = 0f;
         public static float cambio = 0f;
         public static float restante = 0f;
+        string idHuella = "";
         private float total = 0;
         private float totalMetodos = 0;
         int calcu = 0;
+        private bool creditoMaster = false;
         private bool calculadoraisOut = false;
+        DateTime proximoPago;
 
         public static int validarNoDuplicarVentas = 0;
 
@@ -38,7 +41,7 @@ namespace PuntoDeVentaV2
 
         bool dioClickEnTextBox = false;
 
-        //mio pruebas a ver si jala xd
+        //mio pruebas a ver si jala xd ----------------------- Mas seriedad con los comentarios por favor Alexis 8).
         int escredito = 0;
         int primer = 0;
         bool dioClickEnCredito = false;
@@ -83,6 +86,15 @@ namespace PuntoDeVentaV2
 
         private void DetalleVenta_Load(object sender, EventArgs e)
         {
+            using (DataTable dtBuscarConfiguracion = cn.CargarDatos($"SELECT * FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (dtBuscarConfiguracion.Rows[0]["creditoMaster"].ToString().Equals("1"))
+                {
+                    creditoMaster = true;
+                }
+            }
+
+            dtpLaMeraFecha.Value = DateTime.Today;
 
             txtTotalVenta.Text = "$" + total.ToString("0.00");
 
@@ -166,7 +178,6 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-
             if (!string.IsNullOrEmpty(txtCredito.Text))
             {
                 if (Decimal.Parse(lbTotalCambio.Text.Split('$')[1]) > 0 && Decimal.Parse(txtCredito.Text) > 0)
@@ -182,29 +193,162 @@ namespace PuntoDeVentaV2
             if (!string.IsNullOrWhiteSpace(txtCredito.Text))
             {
                 credito2 = Convert.ToDecimal(txtCredito.Text);
-                if (credito2 >0)
+                if (credito2 > 0)
                 {
                     if (idCliente.Equals(0))
                     {
-                        MessageBox.Show("Asigné un Cliente para hacer una venta a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
+                        credito2 = 0;
                     }
-                    else if (!FormPrincipal.id_empleado.Equals(0) && credito2 > 0)
+                    if (!string.IsNullOrWhiteSpace(txtCredito.Text))
                     {
-                        var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
-                        if (datos[47].Equals(0))
+                        credito2 = Convert.ToDecimal(txtCredito.Text);
+
+                        if (idCliente.Equals(0) && credito2 > 0)
                         {
-                            MessageBox.Show("No cuenta con permiso para vender a credito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            MessageBox.Show("Asigné un Cliente para hacer una venta a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             return;
+                        }
+                        else if (!FormPrincipal.id_empleado.Equals(0) && credito2 > 0)
+                        {
+                            var datos = mb.ObtenerPermisosEmpleado(FormPrincipal.id_empleado, "Ventas");
+                            if (datos[47].Equals(0))
+                            {
+                                MessageBox.Show("No cuenta con permiso para vender a credito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        txtCredito.Clear();
+                    }
+                    if (creditoMaster)
+                    {
+
+
+                        using (DataTable dtBuscarConfiguracion = cn.CargarDatos($"SELECT * FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                        {
+                            if (dtBuscarConfiguracion.Rows[0]["creditoHuella"].ToString().Equals("1"))
+                            {
+                                if (!idCliente.Equals(0) && credito2 > 0)
+                                {
+                                    using (DataTable dtHuellas = cn.CargarDatos($"SELECT * FROM huellasClientes WHERE IDUsuario = {FormPrincipal.userID} AND IDCliente = {idCliente}"))
+                                    {
+                                        if (dtHuellas.Rows.Count.Equals(0))
+                                        {
+                                            //No tiene huella, vamos a ver si la quiere registrar
+                                            DialogResult dialogResult = MessageBox.Show("El cliente seleccionado no cuenta con un registro de datos biométricos, quieres registrarlos ahora?", "Error de registro biométrico", MessageBoxButtons.YesNo);
+                                            if (dialogResult == DialogResult.Yes)
+                                            {
+                                                clientesAltaHuella capturar = new clientesAltaHuella(idCliente);
+                                                capturar.ShowDialog();
+                                                return;
+                                            }
+                                            else if (dialogResult == DialogResult.No)
+                                            {
+                                                MessageBox.Show("Esta venta no se puede consolidar sin revisión biométrica de acuerdo a la configuración actual", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                return;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            //Si tiene huella
+                                            if (!revisarHuella())
+                                            {
+                                                MessageBox.Show($"No coincidio la muestra", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                return;
+                                            }
+                                        }
+                                    }
+
+
+                                }
+                            }
+
+                            //if (dtBuscarConfiguracion.Rows[0]["creditoMovil"].ToString().Equals("1"))
+                            //{
+                            //    if (!verificarFono())
+                            //    {
+                            //        MessageBox.Show($"Bajo las configuraciones actuales, es necesario confirmar mediante un dispositivo móvil para consolidar la venta. Termine el proceso de verificación o actualicé su configuración.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            //        return;
+                            //    }
+                            //}
+
+                            if (dtBuscarConfiguracion.Rows[0]["creditoAplicarpagoinicial"].ToString().Equals("1"))
+                            {
+                                decimal maximoCredito = Decimal.Parse(total.ToString()) - (Decimal.Parse(total.ToString()) / 100 * Decimal.Parse((dtBuscarConfiguracion.Rows[0]["creditoPagoinicial"]).ToString()));
+                                if (Decimal.Parse(txtCredito.Text) > maximoCredito)
+                                {
+                                    MessageBox.Show($"De acuerdo a la configuración del sistema, es necesario realizar un pago inicial mínimo del {dtBuscarConfiguracion.Rows[0]["creditoPagoinicial"].ToString()}% en ventas a Crédito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
+                                }
+                                Decimal.Parse(dtBuscarConfiguracion.Rows[0]["creditoPagoinicial"].ToString());
+                            }
+
+                            using (DataTable dtReglasCliente = cn.CargarDatos($"SELECT * FROM clienteReglasCredito WHERE IDCliente={idCliente}"))
+                            {
+                                int ventasMaximas = 0;
+                                decimal creditoMaximo = 0;
+                                if (!dtBuscarConfiguracion.Rows[0]["creditomodolimiteventas"].ToString().Equals("Ninguno"))
+                                {
+                                    if (dtBuscarConfiguracion.Rows[0]["creditomodolimiteventas"].ToString().Equals("Por cliente") && !dtReglasCliente.Rows.Count.Equals(0))
+                                    {
+                                        ventasMaximas = Int32.Parse(dtReglasCliente.Rows[0]["VentasAbiertas"].ToString());
+                                    }
+                                    else
+                                    {
+                                        ventasMaximas = Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditolimiteventas"].ToString());
+                                    }
+                                    using (DataTable dtVentasDeudas = cn.CargarDatos($"SELECT * FROM Ventas WHERE IDUsuario ={FormPrincipal.userID} AND IDCliente={idCliente} AND Status = 4"))
+                                    {
+                                        if (dtVentasDeudas.Rows.Count >= ventasMaximas)
+                                        {
+                                            DialogResult dialogResult = MessageBox.Show("Este cliente ha alcanzado su límite máximo de ventas activas a crédito, actualice las configuraciones o liquide las deudas para continuar.", "Límite de ventas a crédito alcanzado", MessageBoxButtons.OK);
+                                            return;
+                                        }
+                                    }
+                                }
+
+                                if (!dtBuscarConfiguracion.Rows[0]["creditomodototalcredito"].ToString().Equals("Ninguno"))
+                                {
+                                    if (dtBuscarConfiguracion.Rows[0]["creditomodototalcredito"].ToString().Equals("Por cliente") && !dtReglasCliente.Rows.Count.Equals(0))
+                                    {
+                                        creditoMaximo = Decimal.Parse(dtReglasCliente.Rows[0]["Credito"].ToString());
+                                    }
+                                    else
+                                    {
+                                        creditoMaximo = Decimal.Parse(dtBuscarConfiguracion.Rows[0]["creditototalcredito"].ToString());
+                                    }
+
+                                    using (DataTable dtVentasDeudas = cn.CargarDatos($"SELECT ID, Total FROM ventas WHERE IDUsuario ={FormPrincipal.userID} AND IDCliente={idCliente} AND Status = 4"))
+                                    {
+                                        decimal creditoDeudo = 0;
+                                        foreach (DataRow ventaDeuda in dtVentasDeudas.Rows)
+                                        {
+                                            creditoDeudo += Decimal.Parse(ventaDeuda["total"].ToString());
+                                            using (DataTable total = cn.CargarDatos($"SELECT SUM(Total-Cambio) AS Total FROM abonos WHERE IDVenta ={ventaDeuda["ID"].ToString()}"))
+                                            {
+                                                if (!string.IsNullOrEmpty(total.Rows[0]["Total"].ToString()))
+                                                {
+                                                    creditoDeudo -= Decimal.Parse(total.Rows[0]["Total"].ToString());
+                                                }
+                                            }
+
+                                        }
+                                        if ((creditoDeudo + Decimal.Parse(txtCredito.Text) > creditoMaximo))
+                                        {
+                                            DialogResult dialogResult = MessageBox.Show("Este cliente ha alcanzado su límite máximo de crédito, actualice las configuraciones o liquide las deudas para continuar.", "Límite de crédito alcanzado", MessageBoxButtons.OK);
+                                            return;
+                                        }
+
+                                    }
+                                }
+                            }
+
                         }
                     }
                 }
-                else
-                {
-                    txtCredito.Clear();
-                }
             }
-
 
             Ventas venta = new Ventas();
             float pagado = (CantidadDecimal(txtEfectivo.Text) + SumaMetodos()) * 100 / 100;
@@ -440,6 +584,178 @@ namespace PuntoDeVentaV2
                 //idCliente = 0 ;
                 //nameClienteNameVenta = string.Empty;
                 Ventas.VentaRealizada = true;
+                        if (credito>0 && creditoMaster)
+                {
+                    using (DataTable dtBuscarConfiguracion = cn.CargarDatos($"SELECT * FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                    {
+                        using (DataTable dtIdVenta = cn.CargarDatos($"SELECT MAX(ID) FROM Ventas"))
+                        {
+                            
+                            string consulta = "INSERT INTO reglasCreditoVenta(IDVenta,IDHuella, FechaInteres, creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro, creditoCantidadAbonos, creditoMinimoAbono, creditoPerdon, FechaApertura, FechaCierre, creditoMovil)";
+                            consulta += $"VALUES('{Int32.Parse(dtIdVenta.Rows[0]["MAX(ID)"].ToString())+1}', ";
+                            if (!string.IsNullOrEmpty(idHuella))
+                            {
+                                consulta += $"'{idHuella}', ";
+                            }
+                            else
+                            {
+                                        consulta += $"null, ";
+                            }
+
+                            //consulta += $"'{proximoPago.ToString("yyyy-MM-dd")}', ";
+
+                            //proximoPago = DateTime.Now;
+
+
+                            
+                               
+                            switch (dtBuscarConfiguracion.Rows[0]["creditoperiodocobro"].ToString())
+                            {
+                                case "Semanal":
+                                    proximoPago = dtpLaMeraFecha.Value.AddDays(7);
+                                    consulta += $"'{proximoPago.ToString("yyyy-MM-dd")}";
+                                    for (int i = 1; i < Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()); i++)
+                                    {
+                                        proximoPago = proximoPago.AddDays(7);
+                                        consulta += $"%{proximoPago.ToString("yyyy-MM-dd")}";
+                                    }
+                                    //proximoPago = proximoPago.AddDays(7);
+                                    //consulta += $"%{proximoPago.ToString("yyyy-MM-dd")}', ";
+                                    break;
+                                case "Quincenal":
+                                    proximoPago = dtpLaMeraFecha.Value.AddDays(15);
+                                    consulta += $"'{proximoPago.ToString("yyyy-MM-dd")}";
+                                    for (int i = 1; i < Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()); i++)
+                                    {
+                                        proximoPago = proximoPago.AddDays(15);
+                                        consulta += $"%{proximoPago.ToString("yyyy-MM-dd")}";
+                                    }
+                                    //proximoPago = proximoPago.AddDays(15);
+                                    //consulta += $"%{proximoPago.ToString("yyyy-MM-dd")}',";
+                                            break;
+                                case "Mensual":
+                                    proximoPago = dtpLaMeraFecha.Value.AddMonths(1);
+                                    consulta += $"'{proximoPago.ToString("yyyy-MM-dd")}";
+                                    switch (proximoPago.Day)
+                                        {               
+                                            case 31:
+                                                for (int i = 1; i < Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()); i++)
+                                                {
+                                                    //Tomaremos siempre el ultimo dia del mes
+                                                    proximoPago = proximoPago.AddMonths(1);
+                                                double test = DateTime.DaysInMonth(proximoPago.Year, proximoPago.Month) - proximoPago.Day;
+                                                    proximoPago= proximoPago.AddDays(test);
+                                                    consulta += $"%{proximoPago.ToString("yyyy-MM-dd")}";
+                                                }
+                                                break;
+                                            case 30:
+                                                //Tomaremos siempre 30, caso especial por febrero https://i.imgur.com/11aJVQe.png
+                                                for (       int i = 1; i < Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()); i++)
+                                                {
+
+                                                switch (proximoPago.Day)
+                                                {
+                                                    case 28:
+                                                        proximoPago = proximoPago.AddMonths(1);
+                                                        proximoPago = proximoPago.AddDays(2);
+                                                        break;
+                                                    case 29:
+                                                        proximoPago = proximoPago.AddMonths(1);
+                                                        proximoPago = proximoPago.AddDays(1);
+                                                        break;
+                                                    default:
+                                                                proximoPago = proximoPago.AddMonths(1);
+                                                                break;
+                                                }
+                                                consulta += $"%{proximoPago.ToString("yyyy-MM-dd")}";
+                                                }
+                                                break;
+                                            case 29:
+                                                for (int i = 1; i < Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()); i++)
+                                                        {
+                                                    //Tomaremos siempre 29, caso especial por febrero https://i.imgur.com/11aJVQe.png
+
+                                                    if (proximoPago.Day == 28)
+                                                    {
+                                                        proximoPago = proximoPago.AddMonths(1);
+                                                        proximoPago = proximoPago.AddDays(1);
+                                                }
+                                                else
+                                                {
+                                                    proximoPago = proximoPago.AddMonths(1);     
+                                                }
+                                                
+                                                    consulta += $"%{proximoPago.ToString("yyyy-MM-dd")}";
+                                                }
+                                                break;
+                                            default:
+                                            for (int i = 1; i < Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()); i++)
+                                            {
+                                                proximoPago = proximoPago.AddMonths(1);
+                                                consulta += $"%{proximoPago.ToString("yyyy-MM-dd")}";
+                                                    }
+                                            break;
+                                    }
+                                    //proximoPago = proximoPago.AddMonths(1);
+                                    //consulta += "', ";
+                                    break;
+                                default:
+                                    break;
+                            }
+                            consulta += "', ";
+                            using (DataTable dtReglasCliente = cn.CargarDatos($"SELECT * FROM clienteReglasCredito WHERE IDCliente={idCliente}"))
+                            {
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoHuella"].ToString()}', ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoMoratorio"].ToString()}', ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoPorcentajemoratorio"].ToString()}', ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoAplicarpordefecto"].ToString()}', ";
+                                if (dtBuscarConfiguracion.Rows[0]["creditoAplicarpordefecto"].ToString().Equals("0") && dtReglasCliente.Rows.Count>0)
+                                {
+                                    consulta += $"'{dtReglasCliente.Rows[0]["interes"].ToString()}', ";
+                                }
+                                else
+                                {
+                                    consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoPorcentajeinteres"].ToString()}', ";
+                                }
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoAplicarpagoinicial"].ToString()}', ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoPagoinicial"].ToString()}', ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditomodolimiteventas"].ToString()}', ";
+                                if (dtBuscarConfiguracion.Rows[0]["creditomodolimiteventas"].ToString().Equals("Por cliente") && dtReglasCliente.Rows.Count > 0)
+                                {
+                                    consulta += $"'{dtReglasCliente.Rows[0]["VentasAbiertas"].ToString()}', ";
+                                }
+                                else
+                                {
+                                    consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditolimiteventas"].ToString()}', ";
+                                }
+
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditomodototalcredito"].ToString()}', ";
+
+                                if (dtBuscarConfiguracion.Rows[0]["creditomodototalcredito"].ToString().Equals("Por cliente") && dtReglasCliente.Rows.Count > 0)
+                                {
+                                    consulta += $"'{dtReglasCliente.Rows[0]["Credito"].ToString()}', ";
+                                }
+                                else
+                                {
+                                    consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditototalcredito"].ToString()}', ";
+                                }
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoperiodocobro"].ToString()}', ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditomodocobro"].ToString()}', ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditodiassincobro"].ToString()}', ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()}', ";
+
+                                consulta += $"'{Convert.ToDecimal(txtCredito.Text) / Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString())}', ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoPerdon"].ToString()}', ";
+                                consulta += $"'{dtpLaMeraFecha.Value.ToString("yyyy-MM-dd")}', ";
+                                consulta += $"'{proximoPago.AddDays(1).ToString("yyyy-MM-dd")}',        ";
+                                consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoMovil"].ToString()}')";
+                                Ventas.consutlaCredito = consulta;
+                                consulta = string.Empty;
+                            }
+                        }
+                    }
+                }
+                
                 this.Hide();
                 this.Close();
             }
@@ -514,6 +830,40 @@ namespace PuntoDeVentaV2
                 restante = total;
             }
         }
+
+        private bool revisarHuella()
+        {
+            bool coincidencia = false;
+
+            clientesVerificarHuella checador = new clientesVerificarHuella(idCliente.ToString());
+            checador.FormClosed += delegate
+            {
+                if (!string.IsNullOrEmpty(checador.idCliente))
+                {
+                    if (checador.idCliente==idCliente.ToString())
+                    {
+                        idHuella = checador.idregistro;
+                        coincidencia = true;
+                    }
+                    
+                }
+            };
+            checador.ShowDialog();
+            return coincidencia;
+        }
+
+        //private bool verificarFono()
+        //{
+        //    bool coincidencia = false;
+
+        //    creditoVerificacion verificadorNum = new creditoVerificacion();
+        //    verificadorNum.FormClosed += delegate
+        //    {
+        //        coincidencia = verificadorNum.validado;
+        //    };
+        //    verificadorNum.ShowDialog();
+        //    return coincidencia;
+        //}
 
         private void lbCliente_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -1433,10 +1783,27 @@ namespace PuntoDeVentaV2
                 if (txtCredito.Text == "")
                 {
                     credito = 0;
+                    //lblfechacredito.Visible = false;
+                    if (creditoMaster)
+                    {
+                        lblFechaApertura.Visible = false;
+                        dtpLaMeraFecha.Visible = false;
+                    }
                 }
                 else
                 {
                     credito = Convert.ToDecimal(txtCredito.Text);
+                    //using (DataTable dtBuscarConfiguracion = cn.CargarDatos($"SELECT * FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                    //{
+                    //    proximoPago = DateTime.Now.AddDays(Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditodiassincobro"].ToString())).Date;
+                    //    //lblfechacredito.Visible = true;
+                    //    //lblfechacredito.Text = $"Fecha próxima para realizar\nabono el día: {proximoPago.ToString("dd/MM/yyyy")}\nA {dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString()} pagos de {(credito/ Int32.Parse(dtBuscarConfiguracion.Rows[0]["creditoCantidadAbonos"].ToString())).ToString("C2")}";
+                    //}
+                    if (creditoMaster)
+                    {
+                        lblFechaApertura.Visible = true;
+                        dtpLaMeraFecha.Visible = true;
+                    }
                 }
                 if (Convert.ToDecimal(total) < credito)
                 {

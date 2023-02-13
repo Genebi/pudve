@@ -25,8 +25,23 @@ namespace PuntoDeVentaV2
         {
             DataTable dt = new DataTable();
             numTotaldecredito.Controls[0].Visible = false;
-            dt = cn.CargarDatos($"SELECT creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}");
+            dt = cn.CargarDatos($"SELECT creditoMaster, creditoHuella, creditoMoratorio, creditoPorcentajemoratorio, creditoAplicarpordefecto, creditoPorcentajeinteres, creditoAplicarpagoinicial, creditoPagoinicial, creditomodolimiteventas, creditolimiteventas, creditomodototalcredito, creditototalcredito, creditoperiodocobro, creditomodocobro, creditodiassincobro, creditoCantidadAbonos, creditoPerdon, creditoMovil FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}");
             //A checar datos
+
+            if (!dt.Rows[0]["creditoMaster"].ToString().Equals("0"))
+            {
+                cbMaster.Checked = true;
+            }
+            if (!dt.Rows[0]["creditoMovil"].ToString().Equals("0"))
+            {
+                cbVerificar.Checked = true;
+            }
+
+            if (!dt.Rows[0]["creditoPerdon"].ToString().Equals("0"))
+            {
+                chbPerdonarInteres.Checked = true;
+            }
+
             if (!dt.Rows[0]["creditoHuella"].ToString().Equals("0"))
             {
                 cbHuella.Checked = true;
@@ -58,6 +73,7 @@ namespace PuntoDeVentaV2
 
             numVentasAbiertas.Value = Decimal.Parse(dt.Rows[0]["creditolimiteventas"].ToString());
             numTotaldecredito.Value = Decimal.Parse(dt.Rows[0]["creditototalcredito"].ToString());
+            numCantidadAbonos.Value = Decimal.Parse(dt.Rows[0]["creditoCantidadAbonos"].ToString());
 
         }
 
@@ -87,6 +103,33 @@ namespace PuntoDeVentaV2
             //Es el momento de actualizar los datos
             //, , , , , , , , , , ,   IDUsuario
             string consulta = "UPDATE configuracion SET ";
+
+            if (cbMaster.Checked)
+            {
+                consulta = consulta += $"creditoMaster = 1, ";
+            }
+            else
+            {
+                consulta = consulta += $"creditoMaster = 0, ";
+            }
+
+            if (chbPerdonarInteres.Checked)
+            {
+                consulta = consulta += $"creditoPerdon = 1, ";
+            }
+            else
+            {
+                consulta = consulta += $"creditoPerdon = 0, ";
+            }
+
+            if (cbVerificar.Checked)
+            {
+                consulta = consulta += $"creditoMovil = 1, ";
+            }
+            else
+            {
+                consulta = consulta += $"creditoMovil = 0, ";
+            }
 
             if (cbHuella.Checked)
             {
@@ -130,6 +173,8 @@ namespace PuntoDeVentaV2
 
             consulta = consulta += $"creditomodolimiteventas = '{combVentasAbiertas.Text}', ";
 
+            consulta = consulta += $"creditoPagoinicial = '{numPagoInicial.Value.ToString()}', ";
+
             consulta = consulta += $"creditolimiteventas = {numVentasAbiertas.Value.ToString()}, ";
 
             consulta = consulta += $"creditomodototalcredito = '{combTotalCredito.Text}', ";
@@ -140,7 +185,11 @@ namespace PuntoDeVentaV2
 
             consulta = consulta += $"creditomodocobro = '{combMododecobro.Text}', ";
 
-            consulta = consulta += $"creditodiassincobro = {numDiasdecobrosininteres.Value.ToString()} ";
+            consulta = consulta += $"creditodiassincobro = '{numDiasdecobrosininteres.Value.ToString()}', ";
+
+            consulta = consulta += $"creditoCantidadAbonos = '{numCantidadAbonos.Value.ToString()}' ";
+
+
 
             consulta = consulta += $"WHERE IDUsuario = {FormPrincipal.userID}";
             cn.EjecutarConsulta(consulta);
@@ -198,6 +247,18 @@ namespace PuntoDeVentaV2
             else
             {
                 numMoratorio.Enabled = false;
+            }
+        }
+
+        private void cbMaster_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbMaster.Checked)
+            {
+                GBControles.Enabled = true;
+            }
+            else
+            {
+                GBControles.Enabled = false;
             }
         }
     }

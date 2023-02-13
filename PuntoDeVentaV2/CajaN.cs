@@ -602,13 +602,15 @@ namespace PuntoDeVentaV2
             var idUltimoCorteDeCaja = ultimoCorteDeCaja;
             var idUsuarioEmpleado = string.Empty;
 
-            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+            decimal totalIntereses = 0;
+
+                    if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
             {
                 idUsuarioEmpleado = FormPrincipal.userID.ToString();
 
                 if (!string.IsNullOrWhiteSpace(idUltimoCorteDeCaja))
                 {
-                    if (!string.IsNullOrWhiteSpace(fechaFormateadaCorteParaAbonos))
+                            if (!string.IsNullOrWhiteSpace(fechaFormateadaCorteParaAbonos))
                     {
                         limpirVariablesDeAbonos();
                         using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoAdministrador(idUsuarioEmpleado, fechaFormateadaCorteParaAbonos)))
@@ -629,6 +631,7 @@ namespace PuntoDeVentaV2
                                         totalAbonoCheque += Convert.ToDecimal(item["Cheque"].ToString());
                                         totalAbonoTransferencia += Convert.ToDecimal(item["Transferencia"].ToString());
                                         AbonosAMisVentasACredito += Convert.ToDecimal(item["Total"].ToString());
+                                        totalIntereses += Convert.ToDecimal(item["Intereses"].ToString());
                                     }
                                 }
                             }
@@ -636,6 +639,7 @@ namespace PuntoDeVentaV2
                             {
                                 lbCambioAbonos.Visible = false;
                                 lbTCreditoC.Text = totalAbonoRealizado.ToString("C2");
+                                lbTInteres.Text = totalIntereses.ToString("C2");
                             }
                         }
 
@@ -667,8 +671,9 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        totalAbonoRealizado = AbonosAMisVentasACredito + AbonosAOtrasVentasACreditoDeUsuarios;
+                        totalAbonoRealizado = AbonosAMisVentasACredito + AbonosAOtrasVentasACreditoDeUsuarios-totalIntereses;
                         lbTCreditoC.Text = (totalAbonoRealizado).ToString("C2");
+                        lbTInteres.Text = totalIntereses.ToString("C2");
                     }
                     else
                     {

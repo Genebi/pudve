@@ -38,7 +38,10 @@
             this.Vales = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cheque = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Trans = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.abono = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Interes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Cambio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVAbonos)).BeginInit();
@@ -64,7 +67,10 @@
             this.Vales,
             this.Cheque,
             this.Trans,
+            this.abono,
+            this.Interes,
             this.Total,
+            this.Cambio,
             this.Fecha,
             this.Ticket});
             this.DGVAbonos.Location = new System.Drawing.Point(1, 1);
@@ -81,7 +87,7 @@
             this.DGVAbonos.RowHeadersVisible = false;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.DGVAbonos.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.DGVAbonos.Size = new System.Drawing.Size(552, 259);
+            this.DGVAbonos.Size = new System.Drawing.Size(726, 259);
             this.DGVAbonos.TabIndex = 0;
             this.DGVAbonos.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAbonos_CellClick);
             this.DGVAbonos.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVAbonos_CellMouseEnter);
@@ -129,12 +135,33 @@
             this.Trans.ReadOnly = true;
             this.Trans.Width = 80;
             // 
+            // abono
+            // 
+            this.abono.HeaderText = "Total abono al capital";
+            this.abono.Name = "abono";
+            this.abono.ReadOnly = true;
+            this.abono.Width = 90;
+            // 
+            // Interes
+            // 
+            this.Interes.HeaderText = "Interes";
+            this.Interes.Name = "Interes";
+            this.Interes.ReadOnly = true;
+            this.Interes.Width = 60;
+            // 
             // Total
             // 
             this.Total.HeaderText = "Total";
             this.Total.Name = "Total";
             this.Total.ReadOnly = true;
             this.Total.Width = 60;
+            // 
+            // Cambio
+            // 
+            this.Cambio.HeaderText = "Cambio";
+            this.Cambio.Name = "Cambio";
+            this.Cambio.ReadOnly = true;
+            this.Cambio.Width = 60;
             // 
             // Fecha
             // 
@@ -154,7 +181,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(554, 261);
+            this.ClientSize = new System.Drawing.Size(727, 261);
             this.Controls.Add(this.DGVAbonos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -177,7 +204,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Vales;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cheque;
         private System.Windows.Forms.DataGridViewTextBoxColumn Trans;
+        private System.Windows.Forms.DataGridViewTextBoxColumn abono;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Interes;
         private System.Windows.Forms.DataGridViewTextBoxColumn Total;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Cambio;
         private System.Windows.Forms.DataGridViewTextBoxColumn Fecha;
         private System.Windows.Forms.DataGridViewImageColumn Ticket;
     }

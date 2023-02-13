@@ -1718,7 +1718,6 @@
             this.tlpVentas.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tlpVentas.Controls.Add(this.lbCambioAbonos, 1, 6);
             this.tlpVentas.Controls.Add(this.lbEfectivo, 0, 0);
-            this.tlpVentas.Controls.Add(this.lbTAnticipos, 2, 7);
             this.tlpVentas.Controls.Add(this.lbTarjeta, 0, 1);
             this.tlpVentas.Controls.Add(this.lbCreditoC, 0, 6);
             this.tlpVentas.Controls.Add(this.lbTCredito, 2, 5);
@@ -1730,7 +1729,6 @@
             this.tlpVentas.Controls.Add(this.lbTVales, 2, 2);
             this.tlpVentas.Controls.Add(this.lbCredito, 0, 5);
             this.tlpVentas.Controls.Add(this.lbTTarjeta, 2, 1);
-            this.tlpVentas.Controls.Add(this.lbAnticipos, 0, 7);
             this.tlpVentas.Controls.Add(this.lbTEfectivo, 2, 0);
             this.tlpVentas.Controls.Add(this.lbTCreditoC, 2, 6);
             this.tlpVentas.Location = new System.Drawing.Point(0, 85);

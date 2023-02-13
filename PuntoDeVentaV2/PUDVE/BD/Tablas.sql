@@ -1983,22 +1983,96 @@ ALTER TABLE dgvdisminuirinventario MODIFY COLUMN DiferenciaUnidades VARCHAR(100)
 ALTER TABLE dgvdisminuirinventario MODIFY COLUMN StockActual VARCHAR(100);
 ALTER TABLE dgvdisminuirinventario MODIFY COLUMN NuevoStock VARCHAR(100);
 
+-- Columnas para configuracion de creditos
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoMaster INT DEFAULT 0 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoHuella INT DEFAULT 0 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoMoratorio INT DEFAULT 0 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPorcentajemoratorio DECIMAl ( 16, 4 ) DEFAULT 10.00;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoAplicarpordefecto INT DEFAULT 1 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPorcentajeinteres DECIMAl ( 16, 4 ) DEFAULT 10.00;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoAplicarpagoinicial INT DEFAULT 0 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPagoinicial DECIMAl ( 16, 2 ) DEFAULT 1;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodolimiteventas VARCHAR(100) DEFAULT 'Ninguno';
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditolimiteventas INT DEFAULT 0 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodototalcredito VARCHAR(100) DEFAULT 'Ninguno';
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditototalcredito DECIMAl ( 16, 2 ) DEFAULT 0;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoperiodocobro VARCHAR(100) DEFAULT 'Mensual';
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodocobro VARCHAR(100) DEFAULT 'Dias trascurridos';
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditodiassincobro INT DEFAULT 0 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoCantidadAbonos INT DEFAULT 1 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPerdon INT DEFAULT 0 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoMovil INT DEFAULT 0 ;
 
----- Columnas para configuracion de creditos
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoHuella INT DEFAULT 0 ;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoMoratorio INT DEFAULT 0 ;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPorcentajemoratorio DECIMAl ( 16, 4 ) DEFAULT 10.00;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoAplicarpordefecto INT DEFAULT 1 ;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPorcentajeinteres DECIMAl ( 16, 4 ) DEFAULT 10.00;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoAplicarpagoinicial INT DEFAULT 0 ;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPagoinicial DECIMAl ( 16, 2 ) DEFAULT 1;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodolimiteventas VARCHAR(100) DEFAULT 'Ninguno';
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditolimiteventas INT DEFAULT 0 ;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodototalcredito VARCHAR(100) DEFAULT 'Ninguno';
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditototalcredito DECIMAl ( 16, 2 ) DEFAULT 0;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoperiodocobro VARCHAR(100) DEFAULT 'Mensual';
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodocobro VARCHAR(100) DEFAULT 'Dias trascurridos';
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditodiassincobro INT DEFAULT 0 ;
+--Crear tabla para guardar las reglas de credito activas cuando se hace una venta.
+CREATE TABLE
+IF
+	NOT EXISTS reglasCreditoVenta(
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDVenta INTEGER NOT NULL,
+		IDHuella INTEGER,
+		FechaInteres TEXT NOT NULL,
+		creditoHuella INTEGER DEFAULT 0,
+		creditoMoratorio INTEGER DEFAULT 0,
+		creditoPorcentajemoratorio DECIMAl ( 16, 4 ),
+		creditoAplicarpordefecto INTEGER DEFAULT 0,
+		creditoPorcentajeinteres DECIMAl ( 16, 4 ),
+		creditoAplicarpagoinicial INT DEFAULT 0,
+		creditoPagoinicial DECIMAl ( 16, 2 ),
+		creditomodolimiteventas VARCHAR(100),
+		creditolimiteventas INTEGER DEFAULT 0,
+		creditomodototalcredito VARCHAR(100),
+		creditototalcredito DECIMAl ( 16, 2 ),
+		creditoperiodocobro VARCHAR(100),
+		creditomodocobro VARCHAR(100),
+		creditodiassincobro INTEGER DEFAULT 5,
+		creditoCantidadAbonos INTEGER DEFAULT 1,
+		creditoMinimoAbono  DECIMAl ( 16, 2 ),
+		creditoPerdon INTEGER DEFAULT 0,
+		creditoMovil INTEGER DEFAULT 0,
+		FOREIGN KEY ( IDVenta ) REFERENCES ventas ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
+		FOREIGN KEY ( IDHuella ) REFERENCES huellasclientes ( ID ) ON UPDATE CASCADE ON DELETE CASCADE
+	);
+
+-- Columnas para manejar bien chidin los creditos asi bien coppel
+	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS intereses DECIMAl ( 16, 2 ) DEFAULT 0;
+	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS cambio DECIMAl ( 16, 2 ) DEFAULT 0;
+	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS estado INTEGER DEFAULT 0;
+	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS perdonado DECIMAl ( 16, 2 ) DEFAULT 0;
+
+--Tabla para guardar las goellas de los clientesillos
+CREATE TABLE
+IF
+	NOT EXISTS huellasClientes (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDUsuario INTEGER NOT NULL DEFAULT 0,
+		IDCliente INTEGER NOT NULL DEFAULT 0,
+		Nombre TEXT NOT NULL,
+		Huella LONGBLOB DEFAULT NULL,
+		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
+		FOREIGN KEY ( IDCliente ) REFERENCES clientes ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
+	);
+
+--Tabla para guardar las reglas de credito especificas de cada cliente 
+CREATE TABLE
+IF
+	NOT EXISTS clienteReglasCredito (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDUsuario INTEGER NOT NULL DEFAULT 0,
+		IDCliente INTEGER NOT NULL DEFAULT 0,
+		Interes DECIMAl ( 16, 4 ),
+		VentasAbiertas INTEGER DEFAULT 0,
+		Credito DECIMAl ( 16, 2 ),
+		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
+		FOREIGN KEY ( IDCliente ) REFERENCES clientes ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
+	);
+
+-- Columnas para manejar bien chidin los creditos asi bien coppel
+	ALTER TABLE reglasCreditoVenta ADD COLUMN IF NOT EXISTS FechaApertura DATE;
+	ALTER TABLE reglasCreditoVenta ADD COLUMN IF NOT EXISTS FechaCierre DATE;
+
+-- bruh
+	ALTER TABLE clientes ADD COLUMN IF NOT EXISTS verificado INTEGER DEFAULT 0;
+
 
 -- Agregar Columna de la ganancia por venta para graficarlo 
 ALTER TABLE ventas ADD COLUMN IF NOT EXISTS Ganancia VARCHAR ( 255 ) DEFAULT NULL ;

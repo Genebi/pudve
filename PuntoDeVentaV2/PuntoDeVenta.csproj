@@ -95,7 +95,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="CustomControlPUDVE">
-      <HintPath>..\..\..\..\Downloads\CustomControlPUDVE.dll</HintPath>
+      <HintPath>..\..\..\..\..\Downloads\CustomControlPUDVE.dll</HintPath>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.16.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
       <HintPath>..\packages\DocumentFormat.OpenXml.2.16.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
@@ -297,6 +297,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbonosPerdonarIntereses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbonosPerdonarIntereses.Designer.cs">
+      <DependentUpon>AbonosPerdonarIntereses.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbrirSinTicket.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -458,6 +464,12 @@
     </Compile>
     <Compile Include="AsignarAbonos.Designer.cs">
       <DependentUpon>AsignarAbonos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="asignarAbonosSinCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="asignarAbonosSinCredito.Designer.cs">
+      <DependentUpon>asignarAbonosSinCredito.cs</DependentUpon>
     </Compile>
     <Compile Include="AsignarCantidadProdACombo.cs">
       <SubType>Form</SubType>
@@ -623,6 +635,30 @@
     <Compile Include="Clientes.Designer.cs">
       <DependentUpon>Clientes.cs</DependentUpon>
     </Compile>
+    <Compile Include="clientesAltaHuella.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clientesAltaHuella.Designer.cs">
+      <DependentUpon>clientesAltaHuella.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clientesBuscarPorHuella.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clientesBuscarPorHuella.Designer.cs">
+      <DependentUpon>clientesBuscarPorHuella.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clientesReglasdeCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clientesReglasdeCredito.Designer.cs">
+      <DependentUpon>clientesReglasdeCredito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clientesVerificarHuella.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clientesVerificarHuella.Designer.cs">
+      <DependentUpon>clientesVerificarHuella.cs</DependentUpon>
+    </Compile>
     <Compile Include="ClosedXML\Excel\Application.cs" />
     <Compile Include="CodeBarMake.cs">
       <SubType>Form</SubType>
@@ -720,6 +756,18 @@
     </Compile>
     <Compile Include="Crear_factura.Designer.cs">
       <DependentUpon>Crear_factura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="creditoFiltradorPorVencer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="creditoFiltradorPorVencer.Designer.cs">
+      <DependentUpon>creditoFiltradorPorVencer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="creditoVerificacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="creditoVerificacion.Designer.cs">
+      <DependentUpon>creditoVerificacion.cs</DependentUpon>
     </Compile>
     <Compile Include="DatosEncabezadoReportes.cs" />
     <Compile Include="datosExtraNvoProductos.cs">
@@ -1363,6 +1411,12 @@
       <DependentUpon>TicketAbono.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatosPrimerAbono.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\AbrirCaja\TicketAbrirCaja.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1789,6 +1843,12 @@
     <Compile Include="VincularPC.Designer.cs">
       <DependentUpon>VincularPC.cs</DependentUpon>
     </Compile>
+    <Compile Include="visualizadorAbonoPrimero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="visualizadorAbonoPrimero.Designer.cs">
+      <DependentUpon>visualizadorAbonoPrimero.cs</DependentUpon>
+    </Compile>
     <Compile Include="visualizadorCorteDeCaja.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1879,6 +1939,9 @@
     <Compile Include="WinQueryString.Designer.cs">
       <DependentUpon>WinQueryString.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AbonosPerdonarIntereses.resx">
+      <DependentUpon>AbonosPerdonarIntereses.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbrirSinTicket.resx">
       <DependentUpon>AbrirSinTicket.cs</DependentUpon>
     </EmbeddedResource>
@@ -2032,6 +2095,18 @@
     <EmbeddedResource Include="Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="clientesAltaHuella.resx">
+      <DependentUpon>clientesAltaHuella.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clientesBuscarPorHuella.resx">
+      <DependentUpon>clientesBuscarPorHuella.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clientesReglasdeCredito.resx">
+      <DependentUpon>clientesReglasdeCredito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clientesVerificarHuella.resx">
+      <DependentUpon>clientesVerificarHuella.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CodeBarMake.resx">
       <DependentUpon>CodeBarMake.cs</DependentUpon>
     </EmbeddedResource>
@@ -2076,6 +2151,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Crear_factura.resx">
       <DependentUpon>Crear_factura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="creditoFiltradorPorVencer.resx">
+      <DependentUpon>creditoFiltradorPorVencer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="creditoVerificacion.resx">
+      <DependentUpon>creditoVerificacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="datosExtraNvoProductos.resx">
       <DependentUpon>datosExtraNvoProductos.cs</DependentUpon>
@@ -2611,6 +2692,9 @@
     <EmbeddedResource Include="VincularPC.resx">
       <DependentUpon>VincularPC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="visualizadorAbonoPrimero.resx">
+      <DependentUpon>visualizadorAbonoPrimero.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="visualizadorCorteDeCaja.resx">
       <DependentUpon>visualizadorCorteDeCaja.cs</DependentUpon>
     </EmbeddedResource>
@@ -2688,6 +2772,20 @@
       <DependentUpon>TicketAbono.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.xsc">
+      <DependentUpon>DatosPrimerAbono.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatosPrimerAbono.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.xss">
+      <DependentUpon>DatosPrimerAbono.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="ReportesImpresion\Ticket\AbrirCaja\TicketAbrirCaja.xsc">
       <DependentUpon>TicketAbrirCaja.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
