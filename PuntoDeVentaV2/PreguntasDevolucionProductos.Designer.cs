@@ -118,6 +118,7 @@ namespace PuntoDeVentaV2
             // 
             // PreguntasDevolucionProductos
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(404, 210);
@@ -127,6 +128,7 @@ namespace PuntoDeVentaV2
             this.Controls.Add(this.rbGenerarTicket);
             this.Controls.Add(this.rbDevolverDinero);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "PreguntasDevolucionProductos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PreguntasDevolucionProductos";
