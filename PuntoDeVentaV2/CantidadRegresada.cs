@@ -24,14 +24,14 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(txtCantidad.Text) <= 0)
-            {
-                MessageBox.Show("Favor de ingresar una cantidad mayor a 0", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
             if (string.IsNullOrWhiteSpace(txtCantidad.Text))
             {
                 MessageBox.Show("Favor de ingresar una cantidad valida", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+            if (Convert.ToInt32(txtCantidad.Text) <= 0)
+            {
+                MessageBox.Show("Favor de ingresar una cantidad mayor a 0", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             else

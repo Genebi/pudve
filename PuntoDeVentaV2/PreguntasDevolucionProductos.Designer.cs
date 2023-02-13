@@ -34,7 +34,6 @@ namespace PuntoDeVentaV2
             this.rbGenerarTicket = new System.Windows.Forms.RadioButton();
             this.rbNada = new System.Windows.Forms.RadioButton();
             this.btnAceptar = new System.Windows.Forms.Button();
-            this.btnCancelar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -54,10 +53,10 @@ namespace PuntoDeVentaV2
             this.rbDevolverDinero.AutoSize = true;
             this.rbDevolverDinero.Location = new System.Drawing.Point(136, 76);
             this.rbDevolverDinero.Name = "rbDevolverDinero";
-            this.rbDevolverDinero.Size = new System.Drawing.Size(122, 17);
+            this.rbDevolverDinero.Size = new System.Drawing.Size(128, 17);
             this.rbDevolverDinero.TabIndex = 1;
             this.rbDevolverDinero.TabStop = true;
-            this.rbDevolverDinero.Text = "DEVOVER DINERO";
+            this.rbDevolverDinero.Text = "DEVOLVER DINERO";
             this.rbDevolverDinero.UseVisualStyleBackColor = true;
             // 
             // rbGenerarTicket
@@ -91,30 +90,13 @@ namespace PuntoDeVentaV2
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(217, 171);
+            this.btnAceptar.Location = new System.Drawing.Point(156, 169);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(87, 29);
             this.btnAceptar.TabIndex = 67;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = false;
             this.btnAceptar.Click += new System.EventHandler(this.btnAceptar_Click);
-            // 
-            // btnCancelar
-            // 
-            this.btnCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancelar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Maroon;
-            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.ForeColor = System.Drawing.Color.White;
-            this.btnCancelar.Location = new System.Drawing.Point(93, 171);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(87, 29);
-            this.btnCancelar.TabIndex = 68;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // PreguntasDevolucionProductos
             // 
@@ -123,7 +105,6 @@ namespace PuntoDeVentaV2
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(404, 210);
             this.Controls.Add(this.btnAceptar);
-            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.rbNada);
             this.Controls.Add(this.rbGenerarTicket);
             this.Controls.Add(this.rbDevolverDinero);
@@ -144,6 +125,5 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.RadioButton rbGenerarTicket;
         private System.Windows.Forms.RadioButton rbNada;
         private System.Windows.Forms.Button btnAceptar;
-        private System.Windows.Forms.Button btnCancelar;
     }
 }
