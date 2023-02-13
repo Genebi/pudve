@@ -17,6 +17,7 @@ using System.Deployment.Application;
 using System.Security.Cryptography;
 using System.Globalization;
 using System.Threading;
+using System.Management;
 
 namespace PuntoDeVentaV2
 {
@@ -555,6 +556,32 @@ namespace PuntoDeVentaV2
 
             bool verificado = Convert.ToBoolean(Convert.ToInt32(datos[12]));
 
+            //Esto es para ver si se pueden recuperar los usuarios de la base que borro Andoni desde sus bases locales.
+            if (Registro.ConectadoInternet())
+            {
+                try
+                {
+                    ConexionAPPWEB con = new ConexionAPPWEB();
+
+                    using (DataTable dt = con.CargarDatos($"SELECT Usuario FROM usuarios WHERE usuario = '{usuario.Split('@')[0]}'"))
+                    {
+                        if (dt.Rows.Count.Equals(0))
+                        {
+                            using (DataTable dtt = cn.CargarDatos($"SELECT * FROM Usuarios WHERE ID = {datos[13]}"))
+                            {
+                                con.EjecutarConsulta($"INSERT INTO Usuarios ( usuario, PASSWORD, razonSocial, email, telefono, numeroSerie, idLocal, verificacionNS, licencia, estadoLicencia, timbres,FechaInicioLicencia,FechaFinLicencia)VALUES('{dtt.Rows[0]["usuario"].ToString()}','{dtt.Rows[0]["PASSWORD"].ToString()}','{dtt.Rows[0]["razonSocial"].ToString()}','{dtt.Rows[0]["email"].ToString()}','{dtt.Rows[0]["telefono"].ToString()}','{tarjetamadreID()}','{dtt.Rows[0]["id"].ToString()}','{dtt.Rows[0]["verificacionNS"].ToString()}','{dtt.Rows[0]["licencia"].ToString()}','{dtt.Rows[0]["estadoLicencia"].ToString()}','{dtt.Rows[0]["timbres"].ToString()}','{DateTime.Parse(dtt.Rows[0]["FechaInicioLicencia"].ToString()).ToString("yyyy-MM-dd")}','{DateTime.Parse(dtt.Rows[0]["FechaFinLicencia"].ToString()).ToString("yyyy-MM-dd")}')");
+
+                            }
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    //Error de conexion
+                }
+                
+            }
+
             if (!verificado)
             {
                 // Verificamos que haya conexion a internet
@@ -613,6 +640,24 @@ namespace PuntoDeVentaV2
             }
 
             return verificado;
+        }
+
+        public static string tarjetamadreID()
+        {
+            string mbInfo = string.Empty;
+            ManagementScope scope = new ManagementScope("\\\\" + Environment.MachineName + "\\root\\cimv2");
+            scope.Connect();
+            ManagementObject wmiClass = new ManagementObject(scope, new ManagementPath("Win32_BaseBoard.Tag=\"Base Board\""), new ObjectGetOptions());
+
+            foreach (PropertyData propData in wmiClass.Properties)
+            {
+                if (propData.Name == "SerialNumber")
+                {
+                    mbInfo = Convert.ToString(propData.Value);
+                }
+            }
+
+            return mbInfo;
         }
 
         private void txtPassword_KeyDown(object sender, KeyEventArgs e)
