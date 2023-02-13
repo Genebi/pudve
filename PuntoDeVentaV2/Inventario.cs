@@ -94,6 +94,8 @@ namespace PuntoDeVentaV2
         string numCodigo;
         int contadorMensaje = 0;
 
+        System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+
         public static string filtradoParaRealizar = string.Empty;
 
         public static int desdeRegresarProdcuto = 0;
@@ -1275,6 +1277,11 @@ namespace PuntoDeVentaV2
 
         private void bntTerminar_Click(object sender, EventArgs e)
         {
+            timer.Interval = 2000; // here time in milliseconds
+            timer.Tick += timer_Tick;
+            timer.Start();
+            bntTerminar.Enabled = false;
+
             var clave = "";
             
             foreach (DataGridViewRow item in DGVInventario.Rows)
@@ -1419,8 +1426,13 @@ namespace PuntoDeVentaV2
                     AgregarAnticipo anticipoDevolucion = new AgregarAnticipo();
                     anticipoDevolucion.ShowDialog();
                 }
-                
             }
+        }
+
+        void timer_Tick(object sender, System.EventArgs e)
+        {
+            bntTerminar.Enabled = true;
+            timer.Stop();
         }
 
         private string generadorClaves()

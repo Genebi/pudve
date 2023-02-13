@@ -17,6 +17,7 @@ namespace PuntoDeVentaV2
         string mensaje;
         string cantidadDeCompra;
         private const char SignoDecimal = '.';
+        bool Eliminarensaje = false;
         public EditarMensajesParaEnviar()
         {
             InitializeComponent();
@@ -113,9 +114,9 @@ namespace PuntoDeVentaV2
 
                 FlowLayoutPanel flpDatos = new FlowLayoutPanel();
                 flpDatos.Name = "flpDatos";
-                flpDatos.Dock = DockStyle.Top; 
+                flpDatos.Dock = DockStyle.Top;
                 flpDatos.Height = 69;
-                
+
                 Panel panelDatos = new Panel();
                 panelDatos.Name = "panelDatos";
                 panelDatos.Width = 320;
@@ -140,14 +141,14 @@ namespace PuntoDeVentaV2
                 txtCantidadCompra.KeyPress += new KeyPressEventHandler(txtCantidadCompra_KeyPress);
                 txtCantidadCompra.Width = 35;
                 txtCantidadCompra.Height = 20;
-                txtCantidadCompra.Location = new Point(270,33);
+                txtCantidadCompra.Location = new Point(270, 33);
                 txtCantidadCompra.ShortcutsEnabled = false;
 
                 panelDatos.Controls.Add(lbNombreProducto);
                 panelDatos.Controls.Add(lbCantidadCompra);
                 panelDatos.Controls.Add(txtCantidadCompra);
                 flpDatos.Controls.Add(panelDatos);
-               
+
                 //Panel para modificar el mensaje------------------------------------------------------
 
                 FlowLayoutPanel flpMensaje = new FlowLayoutPanel();
@@ -166,12 +167,26 @@ namespace PuntoDeVentaV2
                 lbMensajeActual.AutoSize = true;
                 lbMensajeActual.Location = new Point(7, 6);
 
+                CheckBox chkEliminarMsj = new CheckBox();
+                chkEliminarMsj.Text = "Eliminar Mensaje";
+                chkEliminarMsj.Name = "EliminarMsj";
+                chkEliminarMsj.AutoSize = true;
+                chkEliminarMsj.Location = new Point(100, 6);
+                chkEliminarMsj.CheckedChanged += new EventHandler(cbxN_chkEliminarMsj);
+                using (var algo = cn.CargarDatos($"SELECT * FROM `productmessage` where IDProducto ={Productos.codProductoEditarVenta}"))
+                {
+                    if (algo.Rows.Count.Equals(0))
+                    {
+                        chkEliminarMsj.Visible = false;
+                    }
+                }
+
                 CheckBox chkMostrarMensaje = new CheckBox();
                 chkMostrarMensaje.Text = "Mostrar Mensaje";
                 chkMostrarMensaje.Name = "chkMostrarMensajeVenta";
                 chkMostrarMensaje.Checked = activoInactivo;
                 chkMostrarMensaje.AutoCheck = true;
-                chkMostrarMensaje.Location = new Point(190, 3);
+                chkMostrarMensaje.Location = new Point(210, 3);
                 chkMostrarMensaje.CheckedChanged += new EventHandler(cbxN_CheckedChanged);
 
                 TextBox txtNuevoMensaje = new TextBox();
@@ -185,6 +200,7 @@ namespace PuntoDeVentaV2
                 panelMensaje.Controls.Add(lbMensajeActual);
                 panelMensaje.Controls.Add(txtNuevoMensaje);
                 panelMensaje.Controls.Add(chkMostrarMensaje);
+                panelMensaje.Controls.Add(chkEliminarMsj);
                 flpMensaje.Controls.Add(panelMensaje);
 
                 //Panel para botones------------------------------------------------------------------
@@ -206,7 +222,7 @@ namespace PuntoDeVentaV2
                 botonConfirmar.Height = 37;
                 botonConfirmar.Click += new EventHandler(botonConfirmar_click);
                 botonConfirmar.Cursor = Cursors.Hand;
-                botonConfirmar.Location = new Point(17,3);
+                botonConfirmar.Location = new Point(17, 3);
 
                 Button botonCancelar = new Button();
                 botonCancelar.Name = "btnCancelar";
@@ -268,7 +284,7 @@ namespace PuntoDeVentaV2
                         mensaje = "";
                     }
                 }
-                   
+
 
 
                 this.Height = 251;
@@ -319,14 +335,29 @@ namespace PuntoDeVentaV2
                 txtNuevoMensaje.Height = 70;
                 txtNuevoMensaje.Location = new Point(7, 30);
 
+                CheckBox chkEliminarMsj = new CheckBox();
+                chkEliminarMsj.Text = "Eliminar Mensaje";
+                chkEliminarMsj.Name = "EliminarMsj";
+                chkEliminarMsj.AutoSize = true;
+                chkEliminarMsj.Location = new Point(100, 6);
+                chkEliminarMsj.CheckedChanged += new EventHandler(cbxN_chkEliminarMsj);
+                using (var algo = cn.CargarDatos($"SELECT * FROM `mensajesInventario` where IDProducto ={Productos.codProductoEditarVenta}"))
+                {
+                    if (algo.Rows.Count.Equals(0))
+                    {
+                        chkEliminarMsj.Visible = false;
+                    }
+                }
+
                 CheckBox chkMostrarMensaje = new CheckBox();
                 chkMostrarMensaje.Text = "Mostrar Mensaje";
                 chkMostrarMensaje.Name = "chkMostrarMensajeInventario";
-                chkMostrarMensaje.Location = new Point(190, 3);
+                chkMostrarMensaje.Location = new Point(210, 3);
                 chkMostrarMensaje.Checked = activoInactivo;
                 chkMostrarMensaje.CheckedChanged += new EventHandler(chkEstado_CheckedChanged);
 
                 panelMensaje.Controls.Add(chkMostrarMensaje);
+                panelMensaje.Controls.Add(chkEliminarMsj);
                 panelMensaje.Controls.Add(lbMensajeActual);
                 panelMensaje.Controls.Add(txtNuevoMensaje);
                 flpMensaje.Controls.Add(panelMensaje);
@@ -399,6 +430,84 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void cbxN_chkEliminarMsj(object sender, EventArgs e)
+        {
+            var dato = MensajeVentasYMensajeInventario.enviarDato;
+            if (dato == "mensajeVentas")
+            {
+                CheckBox CHK = (CheckBox)sender;
+                foreach (Control item in this.Controls)
+                {
+                    if (item is FlowLayoutPanel && item.Name.Equals("flpMensaje"))
+                    {
+                        foreach (Control panel in item.Controls)
+                        {
+                            if (panel is Panel && panel.Name.Equals("panelMensaje"))
+                            {
+                                foreach (Control chkitems in panel.Controls)
+                                {
+                                    if (chkitems is CheckBox && chkitems.Name.Equals("chkMostrarMensajeVenta"))
+                                    {
+                                        if (CHK.Checked.Equals(true))
+                                        {
+                                            CheckBox like = (CheckBox)chkitems;
+                                            like.Checked = false;
+                                            like.Enabled = false;
+                                            Eliminarensaje = true;
+                                        }
+                                        else
+                                        {
+                                            CheckBox like = (CheckBox)chkitems;
+                                            like.Enabled = true;
+                                            Eliminarensaje = false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                CheckBox CHK = (CheckBox)sender;
+                foreach (Control item in this.Controls)
+                {
+                    if (item is FlowLayoutPanel && item.Name.Equals("flplMensaje"))
+                    {
+                        foreach (Control panel in item.Controls)
+                        {
+                            if (panel is Panel && panel.Name.Equals("panelDatos"))
+                            {
+                                foreach (Control chkitems in panel.Controls)
+                                {
+                                    if (chkitems is CheckBox && chkitems.Name.Equals("chkMostrarMensajeInventario"))
+                                    {
+                                        if (CHK.Checked.Equals(true))
+                                        {
+                                            CheckBox like = (CheckBox)chkitems;
+                                            like.Checked = false;
+                                            like.Enabled = false;
+                                            Eliminarensaje = true;
+                                        }
+                                        else
+                                        {
+                                             CheckBox like = (CheckBox)chkitems;
+                                            like.Enabled = true;
+                                            Eliminarensaje = false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                   
+                }
+            }
+            
+        }
+
         private void cbxN_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox checkbox = (CheckBox)sender;
@@ -406,7 +515,7 @@ namespace PuntoDeVentaV2
             {
                 if (checkbox.Checked.Equals(true))
                 {
-                    cn.EjecutarConsulta(cs.cambiarEstadoMensaje(Productos.codProductoEditarVenta,1));
+                    cn.EjecutarConsulta(cs.cambiarEstadoMensaje(Productos.codProductoEditarVenta, 1));
                 }
                 else
                 {
@@ -568,7 +677,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            
+
         }
 
         private void botonConfirmar_click(object sender, EventArgs e)
@@ -580,12 +689,12 @@ namespace PuntoDeVentaV2
                 TextBox cantidadCompra = (TextBox)Controls.Find("txtCantidadCompra", true)[0];
                 TextBox mensajeMostrado = (TextBox)Controls.Find("txtMensaje", true)[0];
 
-                if (string.IsNullOrWhiteSpace(cantidadCompra.Text))
+                if (string.IsNullOrWhiteSpace(cantidadCompra.Text) && Eliminarensaje.Equals(false))
                 {
                     MessageBox.Show("Favor de asignar una cantidad de compra minima.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                if (string.IsNullOrWhiteSpace(mensajeMostrado.Text))
+                if (string.IsNullOrWhiteSpace(mensajeMostrado.Text) && Eliminarensaje.Equals(false))
                 {
                     MessageBox.Show("Favor de asignar un mensaje a mostrar.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
@@ -595,7 +704,7 @@ namespace PuntoDeVentaV2
             {
                 TextBox mensajeMostrado = (TextBox)Controls.Find("txtMensaje", true)[0];
 
-                if (string.IsNullOrWhiteSpace(mensajeMostrado.Text))
+                if (string.IsNullOrWhiteSpace(mensajeMostrado.Text) && Eliminarensaje.Equals(false))
                 {
                     MessageBox.Show("Favor de asignar un mensaje a mostrar.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
@@ -645,10 +754,13 @@ namespace PuntoDeVentaV2
 
                                                 if (updateOinsert.Rows.Count.Equals(0))
                                                 {
-                                                    var cantidadMinimaCompra = textoMensaje.Text;
-                                                    if (!string.IsNullOrWhiteSpace(cantidadDeCompra))
+                                                    if (Eliminarensaje.Equals(false))
                                                     {
-                                                        cn.EjecutarConsulta(cs.insertarCompraMinima(Productos.codProductoEditarVenta, Convert.ToInt32(cantidadMinimaCompra)));
+                                                        var cantidadMinimaCompra = textoMensaje.Text;
+                                                        if (!string.IsNullOrWhiteSpace(cantidadDeCompra))
+                                                        {
+                                                            cn.EjecutarConsulta(cs.insertarCompraMinima(Productos.codProductoEditarVenta, Convert.ToInt32(cantidadMinimaCompra)));
+                                                        }
                                                     }
                                                 }
                                                 else
@@ -666,18 +778,18 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-                        if (item is FlowLayoutPanel && item.Name.Equals("flpMensaje"))
+                    if (item is FlowLayoutPanel && item.Name.Equals("flpMensaje"))
                     {
-                            foreach (Control itemMensaje in item.Controls)
+                        foreach (Control itemMensaje in item.Controls)
+                        {
+                            if (itemMensaje is Panel && itemMensaje.Name.Equals("panelMensaje"))
                             {
-                                if (itemMensaje is Panel && itemMensaje.Name.Equals("panelMensaje"))
+                                foreach (Control textoMensaje in itemMensaje.Controls)
                                 {
-                                    foreach (Control textoMensaje in itemMensaje.Controls)
+                                    if (textoMensaje is TextBox)
                                     {
-                                        if (textoMensaje is TextBox)
-                                        {
                                         if (textoMensaje.Name.Equals("txtMensaje"))
-                                            {
+                                        {
                                             if (Productos.dobleClickProducto == 1)
                                             {
                                                 var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.idprodDobleClick));
@@ -696,14 +808,14 @@ namespace PuntoDeVentaV2
                                                         if (Productos.dobleClickProducto == 1)
                                                         {
                                                             cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.idprodDobleClick, estado, NuevoMensaje));
-                                                            MessageBox.Show("Actualizado Correctamente.","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                         }
                                                         else
                                                         {
                                                             cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.codProductoEditarVenta, estado, NuevoMensaje));
                                                             MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                         }
-                                                        
+
                                                     }
                                                 }
                                                 else
@@ -759,6 +871,12 @@ namespace PuntoDeVentaV2
                                                 }
                                                 else
                                                 {
+                                                    if (Eliminarensaje.Equals(true))
+                                                    {
+                                                        cn.EjecutarConsulta($"DELETE from productmessage WHERE IDProducto = {Productos.codProductoEditarVenta}");
+                                                        MessageBox.Show("Mensaje eliminado con Exito","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                                                        break;
+                                                    }
                                                     var NuevoMensaje = textoMensaje.Text;
                                                     if (!string.IsNullOrWhiteSpace(NuevoMensaje))
                                                     {
@@ -773,14 +891,14 @@ namespace PuntoDeVentaV2
                                                     }
                                                 }
                                             }
-                                            
-                                            
-                                                
-                                            }
+
+
+
                                         }
                                     }
                                 }
                             }
+                        }
                     }
                 }
                 this.Close();
@@ -825,6 +943,12 @@ namespace PuntoDeVentaV2
                                                     }
                                                     else
                                                     {
+                                                        if (Eliminarensaje.Equals(true))
+                                                        {
+                                                            cn.EjecutarConsulta($"DELETE from mensajesInventario WHERE IDProducto = {Productos.codProductoEditarVenta}");
+                                                            MessageBox.Show("Mensaje eliminado con Exito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                            break;
+                                                        }
                                                         var NuevoMensaje = textoMensaje.Text;
                                                         if (!string.IsNullOrWhiteSpace(NuevoMensaje))
                                                         {
@@ -841,6 +965,12 @@ namespace PuntoDeVentaV2
                                                 }
                                                 else
                                                 {
+                                                    if (Eliminarensaje.Equals(true))
+                                                    {
+                                                        cn.EjecutarConsulta($"DELETE from mensajesInventario WHERE IDProducto = {Productos.codProductoEditarVenta}");
+                                                        MessageBox.Show("Mensaje eliminado con Exito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                        break;
+                                                    }
                                                     var updateOinsert = cn.CargarDatos(cs.viewMensajeInventario(Productos.codProductoEditarVenta));
                                                     if (updateOinsert.Rows.Count.Equals(0))
                                                     {
@@ -864,7 +994,7 @@ namespace PuntoDeVentaV2
                                                         if (!string.IsNullOrWhiteSpace(NuevoMensaje))
                                                         {
                                                             var estado = 1;
-                                                            CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
+                                                            CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeInventario", true)[0];
                                                             if (!txtCantidadCompra.Checked.Equals(true))
                                                             {
                                                                 estado = 0;
@@ -874,7 +1004,7 @@ namespace PuntoDeVentaV2
                                                         }
                                                     }
                                                 }
-                                                
+
                                             }
                                         }
                                     }
@@ -884,7 +1014,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            this.Close(); 
+            this.Close();
         }
 
         private void EditarMensajesParaEnviar_KeyDown(object sender, KeyEventArgs e)

@@ -717,7 +717,15 @@ namespace PuntoDeVentaV2
                     if (restante < 1)
                     {
                         txtPendiente.Text = "$0.00";
-                        cambio = restante * (-1);
+                        if (restante < 0)
+                        {
+                            cambio = restante * (-1);
+                        }
+                        else
+                        {
+                            cambio = restante * (1);
+                        }
+
                         lbTotalCambio.Text = cambio.ToString("C2");
                     }
                     else
@@ -757,7 +765,15 @@ namespace PuntoDeVentaV2
                     if (restante < 1)
                     {
                         txtPendiente.Text = "$0.00";
-                        cambio = restante * (-1);
+                        if (restante < 0)
+                        {
+                            cambio = restante * (-1);
+                        }
+                        else
+                        {
+                            cambio = restante * (1);
+                        }
+                        
                         lbTotalCambio.Text = cambio.ToString("C2");
                     }
                     else
