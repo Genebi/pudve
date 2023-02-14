@@ -214,7 +214,15 @@ namespace PuntoDeVentaV2
                 CantidadRegresada regreso = new CantidadRegresada();
                 regreso.ShowDialog();
                 txtCantidadCompra.Text = cantidadRegresada.ToString();
-                btnAceptar.PerformClick();
+                if (string.IsNullOrWhiteSpace(cantidadRegresada.ToString()) || cantidadRegresada == 0)
+                {
+                    this.Close();
+                }
+                else
+                {
+                    btnAceptar.PerformClick();
+                }
+               
             }
         }
 

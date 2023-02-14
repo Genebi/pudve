@@ -29,7 +29,7 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Favor de ingresar una cantidad valida", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            if (Convert.ToInt32(txtCantidad.Text) <= 0)
+            if (Convert.ToDecimal(txtCantidad.Text) <= 0)
             {
                 MessageBox.Show("Favor de ingresar una cantidad mayor a 0", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;

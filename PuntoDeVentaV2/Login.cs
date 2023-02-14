@@ -1096,7 +1096,9 @@ namespace PuntoDeVentaV2
                     //DialogResult dialogResult = MessageBox.Show("¿Deseas realizar una copia de seguridad de tu base de datos actual antes de sobreescribir?, el proceso tardara un poco más.", "Copia de seguridad", MessageBoxButtons.YesNo);
                     //if (dialogResult == DialogResult.Yes)
                     //{
-                        RespaldarBaseDatos();
+                    MessageBoxTemporal.Show("Realizando respaldo", "Aviso del Sistema", 30, false);
+                    RespaldarBaseDatos();
+                    MessageBoxTemporal.Show("Importando datos", "Aviso del Sistema", 30, false);
                     //}
                     // Se guarda la ruta completa junto con el nombre del archivo que se selecciono
                     var rutaArchivo = buscarArchivoBD.FileName;
