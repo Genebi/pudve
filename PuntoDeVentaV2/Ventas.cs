@@ -9607,6 +9607,7 @@ namespace PuntoDeVentaV2
 
                 CalculoMayoreo();
                 //CantidadesFinalesVenta();
+
                 CantidadesFinalesVenta();
                 if (CantidadAnteriorEdit != NuevaCantidadEdit)
                 {

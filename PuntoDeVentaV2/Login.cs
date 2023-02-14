@@ -1085,19 +1085,19 @@ namespace PuntoDeVentaV2
                     $"{buscarArchivoBD.FileName}?\n",
                     "NOTA: Esta operación sobreescribirá el archivo",
                     "actual de tu base de datos en caso de que exista",
-                    "alguno."
+                    "alguno. Se realizará un respaldo automático."
                 );
 
                 var respuesta = MessageBox.Show(mensaje, "Mensaje de confirmación", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
                 // Si acepta el mensaje de confirmación realiza el siguiente procedimiento
-                if (respuesta == DialogResult.OK)
+                if (true)
                 {
-                    DialogResult dialogResult = MessageBox.Show("¿Deseas realizar una copia de seguridad de tu base de datos actual antes de sobreescribir?, el proceso tardara un poco más.", "Copia de seguridad", MessageBoxButtons.YesNo);
-                    if (dialogResult == DialogResult.Yes)
-                    {
+                    //DialogResult dialogResult = MessageBox.Show("¿Deseas realizar una copia de seguridad de tu base de datos actual antes de sobreescribir?, el proceso tardara un poco más.", "Copia de seguridad", MessageBoxButtons.YesNo);
+                    //if (dialogResult == DialogResult.Yes)
+                    //{
                         RespaldarBaseDatos();
-                    }
+                    //}
                     // Se guarda la ruta completa junto con el nombre del archivo que se selecciono
                     var rutaArchivo = buscarArchivoBD.FileName;
 
@@ -1131,11 +1131,11 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        MessageBox.Show("Importación realizada con éxito", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //MessageBox.Show("Importación realizada con éxito", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -1143,19 +1143,19 @@ namespace PuntoDeVentaV2
 
         private void RespaldarBaseDatos()
         {
-            DateTime fechaCreacion = DateTime.Now;
-            SaveFileDialog saveFile = new SaveFileDialog();
+            //DateTime fechaCreacion = DateTime.Now;
+            //SaveFileDialog saveFile = new SaveFileDialog();
 
-            saveFile.FileName = $"{FormPrincipal.userNickName}";
-            saveFile.Filter = "SQL (*.sql)|*.sql";
-            saveFile.FilterIndex = 1;
-            saveFile.RestoreDirectory = true;
+            //saveFile.FileName = $"{FormPrincipal.userNickName}";
+            //saveFile.Filter = "SQL (*.sql)|*.sql";
+            //saveFile.FilterIndex = 1;
+            //saveFile.RestoreDirectory = true;
 
-            if (saveFile.ShowDialog() == DialogResult.OK)
+            if (true)
             {
                 try
                 {
-                    var archivo = saveFile.FileName;
+                    var archivo = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}/Respaldo {DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss")}.sql";
                     var datoConexion = conexionRuta();
 
                     using (MySqlConnection con = new MySqlConnection(datoConexion))
@@ -1171,11 +1171,11 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-                    MessageBox.Show("Información respaldada exitosamente, realizando importación", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("Información respaldada exitosamente, realizando importación", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //MessageBox.Show(ex.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
             }
