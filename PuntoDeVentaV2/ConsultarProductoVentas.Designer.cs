@@ -359,6 +359,7 @@
             this.txtMaximoPorPagina.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.txtMaximoPorPagina.Location = new System.Drawing.Point(790, 12);
             this.txtMaximoPorPagina.Name = "txtMaximoPorPagina";
+            this.txtMaximoPorPagina.ShortcutsEnabled = false;
             this.txtMaximoPorPagina.Size = new System.Drawing.Size(56, 20);
             this.txtMaximoPorPagina.TabIndex = 40;
             this.txtMaximoPorPagina.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
