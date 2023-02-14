@@ -149,7 +149,16 @@ namespace PuntoDeVentaV2
 
             ventaDA.Fill(ventaDT);
             decimal TotalRecibido = Convert.ToDecimal(ventaDT.Rows[0]["TotalRecibido"]);
-            decimal AnticipoAplicado = Convert.ToDecimal(ventaDT.Rows[0]["AnticipoAplicado"]);
+            decimal AnticipoAplicado = 0;
+            if (ventaDT.Rows[0]["AnticipoAplicado"].Equals("N/A"))
+            {
+                AnticipoAplicado = 0;
+            }
+            else
+            {
+                AnticipoAplicado = Convert.ToDecimal(ventaDT.Rows[0]["AnticipoAplicado"]);
+            }
+             
             if (TotalRecibido < AnticipoAplicado)
             {
                 ventaDT.Rows[0]["AnticipoAplicado"] = TotalRecibido.ToString();
