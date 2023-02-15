@@ -487,6 +487,7 @@ namespace PuntoDeVentaV2
                     var producto = cn.BuscarProducto(Convert.ToInt32(idProducto), FormPrincipal.userID);
 
                     string typeProduct = producto[5];
+                    
 
                     if (typeProduct == "S")
                     {
@@ -546,6 +547,7 @@ namespace PuntoDeVentaV2
 
                     string typeProduct = producto[5];
 
+                    codProductoEditarVenta = idProducto;
                     if (typeProduct == "S")
                     {
                         btnAgregarServicio.PerformClick();

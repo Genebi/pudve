@@ -1065,7 +1065,10 @@ namespace PuntoDeVentaV2
                 }
             };
             ap.ShowDialog();
-            cargarDatos2();
+            if (desdeRegresarProdcuto == 1)
+            {
+                cargarDatos2();
+            }
         }
 
         private void AgregarProductoDGV(string[] producto)
@@ -1575,6 +1578,7 @@ namespace PuntoDeVentaV2
                     AgregarAnticipo anticipoDevolucion = new AgregarAnticipo();
                     anticipoDevolucion.ShowDialog();
                 }
+                totalFinal = 0;
             }
         }
 

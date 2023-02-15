@@ -714,7 +714,7 @@ namespace PuntoDeVentaV2
                     var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
                     restante = totalPendiente - nuevoabono;
                     txtPendiente.Text = restante.ToString("C2");
-                    if (restante < 1)
+                    if (restante < 0)
                     {
                         txtPendiente.Text = "$0.00";
                         if (restante < 0)
@@ -762,7 +762,7 @@ namespace PuntoDeVentaV2
                     var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
                     restante = totalPendiente - nuevoabono;
                     txtPendiente.Text = restante.ToString("C2");
-                    if (restante < 1)
+                    if (restante < 0)
                     {
                         txtPendiente.Text = "$0.00";
                         if (restante < 0)

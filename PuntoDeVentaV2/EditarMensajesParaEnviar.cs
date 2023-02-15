@@ -733,11 +733,15 @@ namespace PuntoDeVentaV2
 
                                                 if (updateOinsert.Rows.Count.Equals(0))
                                                 {
-                                                    var cantidadMinimaCompra = textoMensaje.Text;
-                                                    if (!string.IsNullOrWhiteSpace(cantidadDeCompra))
+                                                    if (Eliminarensaje.Equals(false))
                                                     {
-                                                        cn.EjecutarConsulta(cs.insertarCompraMinima(Productos.idprodDobleClick, Convert.ToInt32(cantidadMinimaCompra)));
+                                                        var cantidadMinimaCompra = textoMensaje.Text;
+                                                        if (!string.IsNullOrWhiteSpace(cantidadDeCompra))
+                                                        {
+                                                            cn.EjecutarConsulta(cs.insertarCompraMinima(Productos.idprodDobleClick, Convert.ToInt32(cantidadMinimaCompra)));
+                                                        }
                                                     }
+                                                   
                                                 }
                                                 else
                                                 {
@@ -823,6 +827,12 @@ namespace PuntoDeVentaV2
                                                     var NuevoMensaje = textoMensaje.Text;
                                                     if (!string.IsNullOrWhiteSpace(NuevoMensaje))
                                                     {
+                                                        if (Eliminarensaje.Equals(true))
+                                                    {
+                                                        cn.EjecutarConsulta($"DELETE from productmessage WHERE IDProducto = {Productos.codProductoEditarVenta}");
+                                                        MessageBox.Show("Mensaje eliminado con Exito","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                                                        break;
+                                                    }
                                                         var estado = 1;
                                                         CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
                                                         if (!txtCantidadCompra.Checked.Equals(true))
