@@ -548,7 +548,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>11.12743cm</Top>
+            <Top>11.25443cm</Top>
             <Left>0.182cm</Left>
             <Height>0.34cm</Height>
             <Width>7.758cm</Width>
@@ -563,7 +563,7 @@
             <Source>External</Source>
             <Value>=Parameters!PathBarCode.Value</Value>
             <Sizing>Fit</Sizing>
-            <Top>11.50271cm</Top>
+            <Top>11.66146cm</Top>
             <Left>1.53159cm</Left>
             <Height>0.78563cm</Height>
             <Width>5cm</Width>
@@ -1566,7 +1566,7 @@
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>10.45096cm</Top>
+            <Top>10.54621cm</Top>
             <Left>0.182cm</Left>
             <Height>0.68cm</Height>
             <Width>7.758cm</Width>
@@ -1907,7 +1907,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>9.73968cm</Top>
+            <Top>9.77143cm</Top>
             <Left>0.182cm</Left>
             <Height>0.34cm</Height>
             <Width>7.726cm</Width>
@@ -1948,7 +1948,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>10.08674cm</Top>
+            <Top>10.15024cm</Top>
             <Left>0.18175cm</Left>
             <Height>0.34cm</Height>
             <Width>7.758cm</Width>
@@ -1963,7 +1963,7 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>12.37301cm</Height>
+        <Height>12.44709cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
