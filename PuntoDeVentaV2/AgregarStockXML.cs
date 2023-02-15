@@ -1249,7 +1249,7 @@ namespace PuntoDeVentaV2
             // Precio del producto con IVA incluido.
             if (xml_iva > 0)
             {
-                precioOriginalConIVA = precioOriginalSinIVA + (precioOriginalSinIVA * xml_iva);
+                precioOriginalConIVA = precioOriginalSinIVA;// + (precioOriginalSinIVA * xml_iva);
             }
             else
             {
@@ -1288,7 +1288,8 @@ namespace PuntoDeVentaV2
                 }
             }
             lblNoIdentificacionXML.Text = ClaveInterna;
-            PrecioRecomendado = precioOriginalConIVA * porcentajeGanancia; // calculamos Precio Recomendado (precioOriginalConIVA)*1.60
+            PrecioRecomendado = precioOriginalConIVA * (porcentajeGanancia / 100); // calculamos Precio Recomendado (precioOriginalConIVA)*1.60
+            PrecioRecomendado = PrecioRecomendado + precioOriginalConIVA;
             lblPrecioRecomendadoXML.Text = PrecioRecomendado.ToString("N2");
             try
             {
@@ -1428,7 +1429,7 @@ namespace PuntoDeVentaV2
             lblCodigoBarrasProd.Text = dtProductos.Rows[0]["CodigoBarras"].ToString();
             lblPrecioRecomendadoProd.Text = lblPrecioRecomendadoXML.Text;
             PrecioProd = float.Parse(dtProductos.Rows[0]["Precio"].ToString());             // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
-            txtBoxPrecioProd.Text = PrecioProd.ToString("N2");
+            txtBoxPrecioProd.Text = lblPrecioRecomendadoXML.Text;// PrecioProd.ToString("N2");
         }
 
         // funsion para hacer la lectura del Archivo XML 
