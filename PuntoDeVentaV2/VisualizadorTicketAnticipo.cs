@@ -79,7 +79,12 @@ namespace PuntoDeVentaV2
 
             ventaDA.Fill(ventaDT);
             ReportParameterCollection reportParameters = new ReportParameterCollection();
-            decimal algo = Convert.ToDecimal(ventaDT.Rows[0]["TotalRecibido"]) - Convert.ToDecimal(ventaDT.Rows[0]["AnticipoAplicado"]) - Convert.ToDecimal(ventaDT.Rows[0]["SaldoRestante"]);
+            decimal AnticipoAplicado = 0;
+            if (!ventaDT.Rows[0]["AnticipoAplicado"].Equals("N/A"))
+            {
+                AnticipoAplicado = Convert.ToDecimal(ventaDT.Rows[0]["AnticipoAplicado"]);
+            }
+            decimal algo = Convert.ToDecimal(ventaDT.Rows[0]["TotalRecibido"]) - AnticipoAplicado - Convert.ToDecimal(ventaDT.Rows[0]["SaldoRestante"]);
             reportParameters.Add(new ReportParameter("Anterior", algo.ToString("0.00")));
 
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
@@ -169,7 +174,7 @@ namespace PuntoDeVentaV2
                 ventaDT.Rows[0]["AnticipoAplicado"] = TotalRecibido.ToString();
             }
             ReportParameterCollection reportParameters = new ReportParameterCollection();
-            decimal algo = Convert.ToDecimal(ventaDT.Rows[0]["TotalRecibido"]) - Convert.ToDecimal(ventaDT.Rows[0]["AnticipoAplicado"]) - Convert.ToDecimal(ventaDT.Rows[0]["SaldoRestante"]);
+            decimal algo = Convert.ToDecimal(ventaDT.Rows[0]["TotalRecibido"]) - AnticipoAplicado - Convert.ToDecimal(ventaDT.Rows[0]["SaldoRestante"]);
             reportParameters.Add(new ReportParameter("Anterior", algo.ToString("0.00")));
             //this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             //this.reportViewer1.LocalReport.ReportPath = FullReportPath;
