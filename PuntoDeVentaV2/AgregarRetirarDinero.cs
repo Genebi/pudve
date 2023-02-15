@@ -636,8 +636,10 @@ namespace PuntoDeVentaV2
                                 Inventario.desdeRegresarProdcuto = 0;
                                 Inventario.totalFinal = 0;
                             }
+                            btnCancelar.PerformClick();
+                            return;
                             this.Close();
-                            
+
                         }
                         txtEfectivo.Text = efectivo.ToString();
                     }
