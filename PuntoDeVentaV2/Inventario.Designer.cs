@@ -169,9 +169,9 @@
             this.panelBotones.Controls.Add(this.btnRevisar);
             this.panelBotones.Controls.Add(this.btnActualizarXML);
             this.panelBotones.Controls.Add(this.btnActualizar);
-            this.panelBotones.Location = new System.Drawing.Point(9, 40);
+            this.panelBotones.Location = new System.Drawing.Point(9, 36);
             this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(834, 132);
+            this.panelBotones.Size = new System.Drawing.Size(834, 142);
             this.panelBotones.TabIndex = 104;
             // 
             // botonRedondo2
@@ -288,7 +288,7 @@
             this.gBSeleccionActualizarInventario.Controls.Add(this.txtClaveTraspaso);
             this.gBSeleccionActualizarInventario.Controls.Add(this.rbDisminuirProducto);
             this.gBSeleccionActualizarInventario.Controls.Add(this.rbAumentarProducto);
-            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(295, 51);
+            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(295, 53);
             this.gBSeleccionActualizarInventario.Name = "gBSeleccionActualizarInventario";
             this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(261, 83);
             this.gBSeleccionActualizarInventario.TabIndex = 104;
