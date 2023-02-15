@@ -1675,10 +1675,5 @@ namespace PuntoDeVentaV2
                 }
             }
         }
-
-        private void txtDisminuir_TextChanged(object sender, EventArgs e)
-        {
-            MessageBox.Show("Test");
-        }
     }
 }
