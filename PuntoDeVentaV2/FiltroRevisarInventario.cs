@@ -364,6 +364,7 @@ namespace PuntoDeVentaV2
                 cbTipoRevision.ValueMember = "Key";
 
                 cbTipoRevision.Visible = true;
+                cbTipoRevision.SelectedIndex = 1; 
             }
         }
     }
