@@ -1321,7 +1321,7 @@ namespace PuntoDeVentaV2
             DGVentas.ClearSelection();
             indiceColumna++;
 
-            var datos = cn.CargarDatos($"SELECT FormatoDeVenta FROM productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{datosProducto[7]}' AND Status = '1'");
+            var datos = cn.CargarDatos($"SELECT FormatoDeVenta FROM productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{datosProducto[7]}' ORDER BY ID DESC LIMIT 1");
             var pesoAutomatico = datos.Rows[0]["FormatoDeVenta"].ToString();
             if (pesoAutomatico == "2")
             {
@@ -5503,6 +5503,40 @@ namespace PuntoDeVentaV2
                     //AgregarProductoLista(datosProducto, cantidad, true);
                     AgregarProducto(datosProducto, cantidad);
                     nudCantidadPS.Value = 1;
+                }
+
+                foreach (DataGridViewRow fila in DGVentas.Rows)
+                {
+                    var idProdutoInactivo = fila.Cells["IDProducto"].Value.ToString();
+
+                    using (DataTable dtProductoInactivo = cn.CargarDatos(cs.productoInactivo(idProdutoInactivo)))
+                    {
+                        if (!dtProductoInactivo.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtProductoInactivo.Rows)
+                            {
+                                productoDeshabilitado.Add($"{item["ID"].ToString()}|{item["Nombre"].ToString()}");
+                            }
+                        }
+                    }
+                }
+                if (!productoDeshabilitado.Count.Equals(0))
+                {
+                    // Code to search the  alphanumneric Part Number (in Column1 header called "PART NUMBER") and highlihgt the row
+                    foreach (var item in productoDeshabilitado)
+                    {
+                        var palabraParaBuscar = item.Split('|');
+
+                        foreach (DataGridViewRow row in DGVentas.Rows)
+                        {
+                            var contenidoDeCelda = row.Cells["Descripcion"].Value.ToString();
+                            if (!string.IsNullOrWhiteSpace(contenidoDeCelda) && contenidoDeCelda.Equals(palabraParaBuscar[1].ToString()))
+                            {
+                                DGVentas.Rows[row.Index].DefaultCellStyle.BackColor = Color.DarkSlateGray;
+                            }
+                        }
+                    }
+                    productoDeshabilitado.Clear();
                 }
             }
 
