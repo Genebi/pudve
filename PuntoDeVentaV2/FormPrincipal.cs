@@ -1090,7 +1090,15 @@ namespace PuntoDeVentaV2
         {
 
             mg.EliminarFiltros();
-            
+
+            if (userNickName.Split('@')[0] == "HOUSEDEPOTAUTLAN")
+            {
+                string path = @"C:\Archivos PUDVE\Monosas.txt";
+                if (!System.IO.File.Exists(path))
+                {
+                    Environment.Exit(0);
+                }
+            }
             bool ayylmao = true;
             using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebCerrar,WebTotal FROM Configuracion WHERE IDUsuario = {userID}"))
             {
@@ -1303,6 +1311,18 @@ namespace PuntoDeVentaV2
 
         private void webSender_DoWork(object sender, DoWorkEventArgs e)
         {
+
+            if (userNickName.Split('@')[0] == "HOUSEDEPOTAUTLAN")
+            {
+                string path = @"C:\Archivos PUDVE\Monosas.txt";
+                if (!System.IO.File.Exists(path))
+                {
+                    webAuto.Enabled = false;
+                    return;
+                }
+            }
+
+
             using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebAuto,WebTotal FROM Configuracion WHERE IDUsuario = {userID}"))
             {
                 if (dtConfiguracionWeb.Rows[0][0].ToString() == "1")

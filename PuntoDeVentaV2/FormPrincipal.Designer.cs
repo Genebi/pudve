@@ -454,7 +454,7 @@
             // 
             // actualizarCaja
             // 
-            this.actualizarCaja.Interval = 3000;
+            this.actualizarCaja.Interval = 1;
             this.actualizarCaja.Tick += new System.EventHandler(this.actualizarCaja_Tick_1);
             // 
             // timerProductos
