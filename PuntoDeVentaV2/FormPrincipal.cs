@@ -1170,6 +1170,7 @@ namespace PuntoDeVentaV2
             }
             
             solicitudWEB();
+
         }
 
         private void solicitudWEB()
@@ -1200,13 +1201,13 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-        }
+            }
             catch (Exception)
             {
                 Console.WriteLine("Error garrafal");
                 return;
             }
-}
+        }
 
         private void enviarProdctosWeb()
         {
@@ -1426,7 +1427,7 @@ namespace PuntoDeVentaV2
             try
             {
 
-            ConexionAPPWEB con = new ConexionAPPWEB();
+                ConexionAPPWEB con = new ConexionAPPWEB();
             DataTable valoresCaja = new DataTable();
             DataTable valoresCajaDep = new DataTable();
             DataTable valoresCajaRet = new DataTable();
@@ -1447,7 +1448,7 @@ namespace PuntoDeVentaV2
                 {
                     string consulta = $"DELETE FROM cajamirror WHERE cliente = '{userNickName.Split('@')[0]}' AND Fecha = '{DateTime.Parse(dt.Rows[0]["Fecha"].ToString()).ToString("yyyy-MM-dd HH:mm:ss")}'";
                     con.EjecutarConsulta(consulta);
-                    consulta = $"DELETE FROM cajamirrorDetalles WHERE cliente = '{userNickName.Split('@')[0]}' AND Fecha = '{DateTime.Parse(dt.Rows[0]["Fecha"].ToString()).ToString("yyyy-MM-dd HH:mm:ss")}'";
+                    consulta = $"DELETE FROM cajamirrorDetalles WHERE IDCliente = '{userNickName.Split('@')[0]}' AND Fecha = '{DateTime.Parse(dt.Rows[0]["Fecha"].ToString()).ToString("yyyy-MM-dd HH:mm:ss")}'";
                     con.EjecutarConsulta(consulta);
                     }
                     string fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -1476,6 +1477,7 @@ namespace PuntoDeVentaV2
             }
             catch (Exception)
             {
+                MessageBox.Show($"Error");
                 return false;
             }
         }
