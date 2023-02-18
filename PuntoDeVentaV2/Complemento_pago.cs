@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace PuntoDeVentaV2
 {
-    public partial class Complemento_pago : Form
+    public partial class Complemento_pago : Form 
     {
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -19,6 +19,11 @@ namespace PuntoDeVentaV2
         int id_empleado = FormPrincipal.id_empleado;
         int tam_arr = Facturas.arr_id_facturas.Length;
         decimal[][] arr_totales;
+
+        static public string clave_moneda = "";
+        static public bool ban_moneda = false;
+
+
 
 
         public Complemento_pago()
@@ -71,7 +76,7 @@ namespace PuntoDeVentaV2
 
             // Moneda
 
-            Dictionary<string, string> moneda = new Dictionary<string, string>();
+            /*Dictionary<string, string> moneda = new Dictionary<string, string>();
             DataTable d_moneda;
 
             d_moneda = cn.CargarDatos(cs.cargar_datos_venta_xml(6, 0, 0));
@@ -91,7 +96,7 @@ namespace PuntoDeVentaV2
             cmb_bx_moneda_pago.DataSource = moneda.ToArray();
             cmb_bx_moneda_pago.DisplayMember = "Value";
             cmb_bx_moneda_pago.ValueMember = "Key";
-            cmb_bx_moneda_pago.SelectedIndex = 1;
+            cmb_bx_moneda_pago.SelectedIndex = 1;*/
 
             // Facturas a pagar/abonar
 
@@ -141,18 +146,18 @@ namespace PuntoDeVentaV2
 
                         Label lb_c_folio_serie = new Label();
                         lb_c_folio_serie.Name = "lb_folio_serie" + i;
-                        lb_c_folio_serie.Location = new Point(15, location_y);
+                        lb_c_folio_serie.Location = new Point(12, location_y);
                         lb_c_folio_serie.Text = r_factura["folio"].ToString() + " " + r_factura["serie"].ToString();
                         
                         Label lb_c_total = new Label();
                         lb_c_total.Name = "lb_total" + i;
-                        lb_c_total.Location = new Point(100, location_y);
+                        lb_c_total.Location = new Point(97, location_y);
                         lb_c_total.Text = total_f;
 
                         TextBox txt_c_total = new TextBox();
                         txt_c_total.Name = "txt_total" + i;
-                        txt_c_total.Location = new Point(210, location_y);
-                        txt_c_total.Size = new Size(115, 22);
+                        txt_c_total.Location = new Point(207, location_y);
+                        txt_c_total.Size = new Size(100, 22);
                         txt_c_total.TextAlign = HorizontalAlignment.Center;
                         txt_c_total.Text = total_f;
                         txt_c_total.KeyPress += new KeyPressEventHandler(solo_decimales);
@@ -165,17 +170,34 @@ namespace PuntoDeVentaV2
                         cmb_bx_c_inc_impuestos.Items.Add("Sí objeto del impuesto y no causa impuesto.");
                         cmb_bx_c_inc_impuestos.SelectedIndex = 0;
                         cmb_bx_c_inc_impuestos.DropDownStyle = ComboBoxStyle.DropDownList;
-                        cmb_bx_c_inc_impuestos.Width = 310;
-                        cmb_bx_c_inc_impuestos.Location = new Point(340, location_y);
+                        cmb_bx_c_inc_impuestos.Width = 300;
+                        cmb_bx_c_inc_impuestos.Location = new Point(325, location_y);
+
+                        TextBox txt_c_moneda_dr = new TextBox();
+                        txt_c_moneda_dr.Name = "txt_monda_dr" + i;
+                        txt_c_moneda_dr.Location = new Point(655, location_y);
+                        txt_c_moneda_dr.Size = new Size(60, 22);
+                        txt_c_moneda_dr.TextAlign = HorizontalAlignment.Center;
+                        txt_c_moneda_dr.ReadOnly = true;
+                        txt_c_moneda_dr.Click += new EventHandler(abrir_vnt_moneda);
+
+                        TextBox txt_c_tcambio_dr = new TextBox();
+                        txt_c_tcambio_dr.Name = "txt_tcambio_dr" + i;
+                        txt_c_tcambio_dr.Location = new Point(760, location_y);
+                        txt_c_tcambio_dr.Size = new Size(100, 22);
+                        txt_c_tcambio_dr.TextAlign = HorizontalAlignment.Center;
+                        txt_c_tcambio_dr.KeyPress += new KeyPressEventHandler(solo_decimales);
 
 
                         pnl_info.Controls.Add(lb_c_folio_serie);
                         pnl_info.Controls.Add(lb_c_total);
                         pnl_info.Controls.Add(txt_c_total);
                         pnl_info.Controls.Add(cmb_bx_c_inc_impuestos);
+                        pnl_info.Controls.Add(txt_c_moneda_dr);
+                        pnl_info.Controls.Add(txt_c_tcambio_dr);
 
 
-                        location_y = location_y + 24;
+                        location_y = location_y + 25;
                     }
                 }
             }
@@ -433,18 +455,45 @@ namespace PuntoDeVentaV2
                 if (clave == 02 | clave == 03) // Dígitos. Cheque y transferencia
                 {
                     txt_cuenta.MaxLength = 18;
+
+                    if(clave == 02)
+                    {
+                        txt_cuenta_beneficiario.MaxLength = 50;
+                    }
+                    if (clave == 03)
+                    {
+                        txt_cuenta_beneficiario.MaxLength = 18;
+                    }
+
+                    txt_rfc_ordenante.Enabled = true;
+                    txt_banco.Enabled = true;
+                    txt_cuenta_beneficiario.Enabled = true;
+                    txt_rfc_beneficiario.Enabled = true;
                 }
                 if (clave == 04 | clave == 28 | clave == 29) // Dígitos. Tarjeta de crédito, debito y servicios
                 {
                     txt_cuenta.MaxLength = 16;
+                    txt_cuenta_beneficiario.MaxLength = 50;
+
+                    txt_rfc_ordenante.Enabled = true;
+                    txt_banco.Enabled = true;
+                    txt_cuenta_beneficiario.Enabled = true;
+                    txt_rfc_beneficiario.Enabled = true;
                 }
                 if (clave == 05) // Alfanumérica. Monedero electrónico
                 {
                     txt_cuenta.MaxLength = 50;
+                    txt_cuenta_beneficiario.MaxLength = 50;
+
+                    txt_rfc_ordenante.Enabled = true;
+                    txt_cuenta_beneficiario.Enabled = true;
+                    txt_rfc_beneficiario.Enabled = true;
                 }
                 if (clave == 06) // Dígitos. Dinero electrónico
                 {
                     txt_cuenta.MaxLength = 10;
+
+                    txt_rfc_ordenante.Enabled = true;
                 }
             }
         }
@@ -502,6 +551,26 @@ namespace PuntoDeVentaV2
             campo_txt.Text = "";
 
             return resultado;
+        }
+
+        private void abrir_vnt_moneda(object sender, EventArgs e)
+        {
+
+            TextBox  campo = (TextBox)sender; 
+
+            Elegir_moneda vnt_moneda = new Elegir_moneda();
+
+            vnt_moneda.FormClosed += delegate
+            {
+                if(ban_moneda == true)
+                {
+                    campo.Text = clave_moneda;
+                }
+                
+                vnt_moneda.Dispose();
+            };
+
+            vnt_moneda.ShowDialog();
         }
     }
 }
