@@ -2233,8 +2233,7 @@ IF
 --Columna para diferenciar fechas generales de fechas caducidad en subdetalles
 ALTER TABLE subdetallesdeproducto ADD COLUMN IF NOT EXISTS esCaducidad INT DEFAULT 0;
 
--- Configuracion para aviso de caducidad
-ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS avisoCaducidad INT DEFAULT 1;
+
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS diasCaducidad INT DEFAULT 7;
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS correoCaducidad INT DEFAULT 1;
 
@@ -2277,3 +2276,6 @@ ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS ReporteDeudas INT DEFAULT
 
 --Columna del permiso para RegresarProducto
 ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS RegresarProducto INT DEFAULT 1;
+
+-- Configuracion para ventas faciles
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS ventaFacil INT DEFAULT 0;

@@ -7131,6 +7131,10 @@ namespace PuntoDeVentaV2
             {
                 btnAplicarDescuento.PerformClick();
             }
+            else if (e.KeyCode == Keys.V && (e.Control))//Boton Venta facil
+            {
+                btnVentaFacil.PerformClick();
+            }
 
         }
 
@@ -9106,6 +9110,16 @@ namespace PuntoDeVentaV2
         private void DGVentas_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void btnVentaFacil_Click(object sender, EventArgs e)
+        {
+            ConsultarProductosVentaFacil consul = new ConsultarProductosVentaFacil();
+            consul.FormClosed += delegate
+            {
+                
+            };
+            consul.ShowDialog();
         }
 
         private void txtBuscadorProducto_TextChanged(object sender, EventArgs e)

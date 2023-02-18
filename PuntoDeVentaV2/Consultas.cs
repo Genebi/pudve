@@ -2044,7 +2044,7 @@ namespace PuntoDeVentaV2
 
         public string VerificarContenidoDinamicoHabilitado(int idUsuario)
         {
-            var consulta = $"SELECT ID, concepto AS Concepto, IDUsuario AS Usuario FROM appSettings WHERE IDUsuario = '{idUsuario}' AND Mostrar = 1 AND concepto != 'Proveedor' ORDER BY Concepto ASC;";
+            var consulta = $"SELECT ID, concepto AS Concepto, IDUsuario AS Usuario FROM appSettings WHERE IDUsuario = '{idUsuario}' AND Mostrar = 1 AND concepto != 'Proveedor' AND concepto != 'Venta_fácil' ORDER BY Concepto ASC;";
 
             return consulta;
         }
@@ -2771,7 +2771,7 @@ namespace PuntoDeVentaV2
 
         public string cargarDatosDeConfiguracion()
         {
-            var consulta = $"SELECT IDUsuario, TicketVenta, IniciarProceso, MostrarCodigoProducto, CerrarSesionAuto, MostrarPrecioProducto, StockNegativo, HabilitarTicketVentas, PrecioMayoreo, checkNoVendidos, traspasos ,MostrarStockConsultaPrecio,PreguntarTicketVenta,TicketOPDF,WebCerrar,WebTotal,WebAuto,traspasoManual,mostrarIVA,avisoCaducidad,diasCaducidad FROM Configuracion WHERE IDUsuario = '{FormPrincipal.userID}'";
+            var consulta = $"SELECT * FROM Configuracion WHERE IDUsuario = '{FormPrincipal.userID}'"; //Le puse el * para no estar modificnado esto diario que gueba 
 
             return consulta;
         }

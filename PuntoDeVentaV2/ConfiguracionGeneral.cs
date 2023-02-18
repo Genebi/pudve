@@ -580,6 +580,16 @@ namespace PuntoDeVentaV2
                             CHKMostrarStock.Checked = false;
                         }
                         #endregion
+                        #region Ventas faciles
+                        if (item["ventaFacil"].Equals(1))
+                        {
+                            chbVentaFacil.Checked = true;
+                        }
+                        else if (item["ventaFacil"].Equals(0))
+                        {
+                            chbVentaFacil.Checked = false;
+                        }
+                        #endregion
                         #region Avisar cuando algun producto va a caducar
                         if (item["avisoCaducidad"].Equals(1))
                         {
@@ -1706,6 +1716,21 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("No tienes permisos para modificar esta opcion");
                     return;
                 }
+            }
+        }
+
+        private void chbVentaRapida_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (chbVentaFacil.Checked)
+            {
+                var consulta = $"UPDATE Configuracion SET ventaFacil = {1} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
+            else
+            {
+                var consulta = $"UPDATE Configuracion SET ventaFacil = {0} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+
             }
         }
     }

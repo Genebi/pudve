@@ -38,6 +38,7 @@
             this.chbCaducidad = new System.Windows.Forms.CheckBox();
             this.pagWeb = new System.Windows.Forms.CheckBox();
             this.chWebCerrar = new System.Windows.Forms.CheckBox();
+            this.chbVentaFacil = new System.Windows.Forms.CheckBox();
             this.CHKMostrarStock = new System.Windows.Forms.CheckBox();
             this.chbTraspasoManual = new System.Windows.Forms.CheckBox();
             this.chTraspasos = new System.Windows.Forms.CheckBox();
@@ -71,6 +72,7 @@
             this.groupBox2.Controls.Add(this.chbCaducidad);
             this.groupBox2.Controls.Add(this.pagWeb);
             this.groupBox2.Controls.Add(this.chWebCerrar);
+            this.groupBox2.Controls.Add(this.chbVentaFacil);
             this.groupBox2.Controls.Add(this.CHKMostrarStock);
             this.groupBox2.Controls.Add(this.chbTraspasoManual);
             this.groupBox2.Controls.Add(this.chTraspasos);
@@ -187,6 +189,18 @@
             this.chWebCerrar.Text = "Reportar a la nube antes de cerrar";
             this.chWebCerrar.UseVisualStyleBackColor = true;
             this.chWebCerrar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chWebCerrar_MouseClick);
+            // 
+            // chbVentaFacil
+            // 
+            this.chbVentaFacil.AutoSize = true;
+            this.chbVentaFacil.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chbVentaFacil.Location = new System.Drawing.Point(20, 195);
+            this.chbVentaFacil.Name = "chbVentaFacil";
+            this.chbVentaFacil.Size = new System.Drawing.Size(287, 21);
+            this.chbVentaFacil.TabIndex = 133;
+            this.chbVentaFacil.Text = "Habilitar venta fácil en detalle de producto";
+            this.chbVentaFacil.UseVisualStyleBackColor = true;
+            this.chbVentaFacil.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chbVentaRapida_MouseClick);
             // 
             // CHKMostrarStock
             // 
@@ -492,5 +506,6 @@
         private System.Windows.Forms.CheckBox chbCaducidad;
         private System.Windows.Forms.CheckBox chbTraspasoManual;
         private System.Windows.Forms.CheckBox cbkMostrarIVA;
+        private System.Windows.Forms.CheckBox chbVentaFacil;
     }
 }
