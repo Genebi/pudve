@@ -1698,7 +1698,7 @@ namespace PuntoDeVentaV2
                                         <tr>
                                             <th style = 'text-align: center;' colspan = '3'>Cantidad fue Agregada</th>
                                         </tr>";
-                asunto = "AGREGAR DINERO A SALDO INICAL \"APARTADO CAJA\"";
+                asunto = "AGREGAR DINERO A SALDO INICIAL \"APARTADO CAJA\"";
             }
 
             cuerpoHTML += $@"     <tr>
