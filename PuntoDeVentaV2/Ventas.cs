@@ -6563,6 +6563,10 @@ namespace PuntoDeVentaV2
 
                 checkFoundPlusAndDot = verifiedContainsPlusSymbol(cadena);
 
+                if (cadena.Contains('-'))
+                {
+                    cadena = cadena.Replace('+', ' ');
+                }
                 var estaDentroDelLimite = false;
                 decimal esNumeroLaBusqueda;
                 string vacia = string.Empty;
@@ -6647,8 +6651,11 @@ namespace PuntoDeVentaV2
                     else
                     {
                         var resultado = segundaCoincidencia.Value.Trim();
-
-                        if (resultado.Equals("+") || resultado.Equals("++"))
+                        if (cadena.Contains('-'))
+                        {
+                            cantidadExtra = Convert.ToDecimal(cadena);
+                        }
+                        else if (resultado.Equals("+") || resultado.Equals("++"))
                         {
                             cantidadExtra = 1;
                         }
@@ -7106,7 +7113,6 @@ namespace PuntoDeVentaV2
         }
 
         private void OperacionBusqueda(int tipo = 0)
-
         {
             listaProductos.Items.Clear();
 
@@ -7135,7 +7141,7 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            if (auxTxtBuscadorProducto.Contains("+."))
+            if (auxTxtBuscadorProducto.Contains("+.") || auxTxtBuscadorProducto.Contains("-"))
             {
                 return;
             }
