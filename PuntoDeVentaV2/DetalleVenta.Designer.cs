@@ -84,6 +84,7 @@
             this.lbTotalCambio.TabIndex = 120;
             this.lbTotalCambio.Text = "$0.00";
             this.lbTotalCambio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbTotalCambio.TextChanged += new System.EventHandler(this.lbTotalCambio_TextChanged);
             // 
             // lbCambio
             // 

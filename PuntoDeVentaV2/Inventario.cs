@@ -94,6 +94,8 @@ namespace PuntoDeVentaV2
         string numCodigo;
         int contadorMensaje = 0;
 
+        System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+
         public static string filtradoParaRealizar = string.Empty;
 
         public static int desdeRegresarProdcuto = 0;
@@ -134,6 +136,8 @@ namespace PuntoDeVentaV2
             {
                 populateDisminuirDGVInventario();
             }
+
+            
 
             if (columnasConcepto.Equals(0))
             {
@@ -766,17 +770,20 @@ namespace PuntoDeVentaV2
 
                 foreach (DataGridViewRow fila in DGVInventario.Rows)
                 {
-                    var codigo = fila.Cells[7].Value.ToString();
-                    if (codigo.Equals(numCodigo) && contadorMensaje.Equals(0))
+                    if (desdeRegresarProdcuto != 1)
                     {
-                        var resultado = MessageBox.Show("Este producto ya fue actualizado. \n ¿Desea volver a actualizarlo?", "Aviso del sistema.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-
-                        if (resultado.Equals(DialogResult.No))
+                        var codigo = fila.Cells[7].Value.ToString();
+                        if (codigo.Equals(numCodigo) && contadorMensaje.Equals(0))
                         {
-                            return;
+                            var resultado = MessageBox.Show("Este producto ya fue actualizado. \n ¿Desea volver a actualizarlo?", "Aviso del sistema.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                            if (resultado.Equals(DialogResult.No))
+                            {
+                                return;
+                            }
                         }
+                        contadorMensaje++;
                     }
-                    contadorMensaje++;
                 }
                 contadorMensaje = 0;
 
@@ -807,6 +814,11 @@ namespace PuntoDeVentaV2
                             botonAceptar = false;
                             idProductoDelCombo.Clear();
                         }
+                        if (desdeRegresarProdcuto == 1)
+                        {
+                            cargarDatos2();
+                        }
+                       
                     };
 
                     if (idProductoDelCombo.Count > 1)
@@ -831,7 +843,10 @@ namespace PuntoDeVentaV2
                             ap.cantidadPasadaProductoCombo = 0;
                         }
                     }
-
+                    if (desdeRegresarProdcuto == 1)
+                        {
+                            cargarDatos2();
+                        }
                     ap.ShowDialog();
                 }
                 else
@@ -1011,17 +1026,17 @@ namespace PuntoDeVentaV2
 
             foreach (DataGridViewRow fila in DGVInventario.Rows)
             {
-                var codigo = fila.Cells[7].Value.ToString();
-                if (codigo.Equals(numCodigo) && contadorMensaje.Equals(0))
-                {
-                    var resultado = MessageBox.Show("Este producto ya fue actualizado. \n ¿Desea volver a actualizarlo?", "Aviso del sistema.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-
-                    if (resultado.Equals(DialogResult.No))
+                    var codigo = fila.Cells[7].Value.ToString();
+                    if (codigo.Equals(numCodigo) && contadorMensaje.Equals(0))
                     {
-                        return;
+                        var resultado = MessageBox.Show("Este producto ya fue actualizado. \n ¿Desea volver a actualizarlo?", "Aviso del sistema.", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                        if (resultado.Equals(DialogResult.No))
+                        {
+                            return;
+                        }
+                        contadorMensaje++;
                     }
-                    contadorMensaje++;
-                }
             }
 
             contadorMensaje = 0;
@@ -1050,6 +1065,10 @@ namespace PuntoDeVentaV2
                 }
             };
             ap.ShowDialog();
+            if (desdeRegresarProdcuto == 1)
+            {
+                cargarDatos2();
+            }
         }
 
         private void AgregarProductoDGV(string[] producto)
@@ -1119,6 +1138,7 @@ namespace PuntoDeVentaV2
                 if (Inventario.desdeRegresarProdcuto == 1)
                 {
                     dev = 1;
+                    datosAumentarInventario[10] = "2";
                 }
                 var insertAumentarInventario = cs.InsertIntoAumentarInventario(datosAumentarInventario, dev);
                 cn.EjecutarConsulta(insertAumentarInventario);
@@ -1275,134 +1295,273 @@ namespace PuntoDeVentaV2
 
         private void bntTerminar_Click(object sender, EventArgs e)
         {
+            timer.Interval = 2000; // here time in milliseconds
+            timer.Tick += timer_Tick;
+            timer.Start();
+            bntTerminar.Enabled = false;
+
             var clave = "";
-            
-            foreach (DataGridViewRow item in DGVInventario.Rows)
+
+            if (desdeRegresarProdcuto == 1)
             {
-                decimal cantidad = Convert.ToDecimal(item.Cells["DiferenciaUnidades"].Value);
-                decimal precio = Convert.ToDecimal(item.Cells["Precio"].Value);
-                decimal total = cantidad * precio;
-                totalFinal += total;
-            }
-
-            if (validarsiClave())
-            {
-                if (rbDisminuirProducto.Checked)
+                foreach (DataGridViewRow item in DGVInventario2.Rows)
                 {
-                    clave = generadorClaves();
-                }
-            }
-             
-
-            if (!DGVInventario.Rows.Count.Equals(0))
-            {
-                if (opcion5 == 0)
-                {
-                    Utilidades.MensajePermiso();
-                    return;
+                    decimal cantidad = Convert.ToDecimal(item.Cells["DiferenciaUnidades2"].Value);
+                    decimal precio = Convert.ToDecimal(item.Cells["Precio2"].Value);
+                    decimal total = cantidad * precio;
+                    totalFinal += total;
                 }
 
-                DatosSeleccionadoos();
-                if (rbAumentarProducto.Checked)
+                if (validarsiClave())
                 {
-                    esAumentar = true;
-                }
-                else if (rbDisminuirProducto.Checked)
-                {
-                    esAumentar = false;
-                }
-
-                if (desdeRegresarProdcuto != 1)
-                {
-                    SeleccionarConceptosReporteActualizarInventario SCRA = new SeleccionarConceptosReporteActualizarInventario();
-
-                    SCRA.FormClosed += delegate
+                    if (rbDisminuirProducto.Checked)
                     {
-                        ConceptosSeleccionados();
-                        ValidarParaTerminarRevision();
-                    };
-
-                    SCRA.ShowDialog();
-
-                    if (Aceptar.Equals(true))
-                    {
-
-                        FormReporteInventario xd = new FormReporteInventario(Aumentar, clave);  //ese nombre de objeto que, mas seriedad alexis por favor.
-
-                        xd.ShowDialog();
-                        Aceptar = false;
+                        clave = generadorClaves();
                     }
-                    else
+                }
+
+
+                if (!DGVInventario2.Rows.Count.Equals(0))
+                {
+                    if (opcion5 == 0)
                     {
+                        Utilidades.MensajePermiso();
                         return;
                     }
-                }
 
-                if (rbAumentarProducto.Checked)
-                {
-                    var NewNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
-                    cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev + 1));
-                    cn.EjecutarConsulta(cs.UpdateStatusActualizacionAumentarInventario());
-                }
-                else if (rbDisminuirProducto.Checked)
-                {
-                    //Lista con las ids
-                    
-                    var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
-                    cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
-                    cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
-
-                    if (validarsiClave())
+                    DatosSeleccionadoos(2);
+                    if (rbAumentarProducto.Checked)
                     {
-                        DataTable dt = new DataTable();
+                        esAumentar = true;
+                    }
+                    else if (rbDisminuirProducto.Checked)
+                    {
+                        esAumentar = false;
+                    }
 
-                        string momentoMoment = DateTime.Now.ToString("yyyy-MM-dd");
+                    if (desdeRegresarProdcuto != 1)
+                    {
+                        SeleccionarConceptosReporteActualizarInventario SCRA = new SeleccionarConceptosReporteActualizarInventario();
 
+                        SCRA.FormClosed += delegate
+                        {
+                            ConceptosSeleccionados();
+                            ValidarParaTerminarRevision();
+                        };
 
-                        cn2.EjecutarConsulta(cs.insertarRegistroTraspaso(clave, cn.CargarDatos(cs.BuscarUsuario(FormPrincipal.userID)).Rows[0]["usuario"].ToString(), momentoMoment));
-                        foreach (DataGridViewRow item in DGVInventario.Rows)
+                        SCRA.ShowDialog();
+
+                        if (Aceptar.Equals(true))
                         {
 
-                            dt = cn.CargarDatos($"SELECT Nombre FROM productos WHERE `Status` = 1 AND CodigoBarras = '{item.Cells[7].Value.ToString()}' AND IDUsuario = '{FormPrincipal.userID}'");
+                            FormReporteInventario xd = new FormReporteInventario(Aumentar, clave); 
 
-
-                            cn2.EjecutarConsulta(cs.insertarDatosTraspaso(clave, dt.Rows[0]["Nombre"].ToString(), item.Cells[7].Value.ToString(), item.Cells[3].Value.ToString()));
-
+                            xd.ShowDialog();
+                            Aceptar = false;
                         }
-                        MessageBox.Show($"Tu clave de traspaso es: {clave}");
-                        cn.EjecutarConsulta($"UPDATE DGVDisminuirInventario SET claveTraspaso = '{clave}' WHERE Folio = (SELECT MAX(Folio) FROM dgvdisminuirinventario WHERE IDUsuario = {FormPrincipal.userID}) AND IdUsuario = {FormPrincipal.userID}");
-                        clave = "";
+                        else
+                        {
+                            return;
+                        }
                     }
-                }
-                int opcion;
-                using (var Permiso = cn.CargarDatos($"SELECT CorreoStockProducto FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
-                {
-                    opcion = Convert.ToInt32(Permiso.Rows[0]["CorreoStockProducto"]);
-                }
-                if (opcion.Equals(1))
-                {
-                    if (productosAumentoDecremento.Count > 0)
+
+                    if (rbAumentarProducto.Checked)
                     {
-                        var titulo = rbAumentarProducto.Checked == true ? "AUMENTADO" : "DISMINUIDO";
+                        var NewNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
+                        //cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev + 1));
+                        cn.EjecutarConsulta(cs.UpdateStatusDevolverInventario());
+                    }
+                    else if (rbDisminuirProducto.Checked)
+                    {
+                        //Lista con las ids
 
-                        Thread notificacion = new Thread(
-                            () => Utilidades.CambioStockAumentoDecremento(productosAumentoDecremento, titulo)
-                        );
+                        var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
+                        cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
+                        cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
 
-                        notificacion.Start();
+                        if (validarsiClave())
+                        {
+                            DataTable dt = new DataTable();
+
+                            string momentoMoment = DateTime.Now.ToString("yyyy-MM-dd");
+
+
+                            cn2.EjecutarConsulta(cs.insertarRegistroTraspaso(clave, cn.CargarDatos(cs.BuscarUsuario(FormPrincipal.userID)).Rows[0]["usuario"].ToString(), momentoMoment));
+                            foreach (DataGridViewRow item in DGVInventario2.Rows)
+                            {
+
+                                dt = cn.CargarDatos($"SELECT Nombre FROM productos WHERE `Status` = 1 AND CodigoBarras = '{item.Cells[7].Value.ToString()}' AND IDUsuario = '{FormPrincipal.userID}'");
+
+
+                                cn2.EjecutarConsulta(cs.insertarDatosTraspaso(clave, dt.Rows[0]["Nombre"].ToString(), item.Cells[7].Value.ToString(), item.Cells[3].Value.ToString()));
+
+                            }
+                            MessageBox.Show($"Tu clave de traspaso es: {clave}");
+                            cn.EjecutarConsulta($"UPDATE DGVDisminuirInventario SET claveTraspaso = '{clave}' WHERE Folio = (SELECT MAX(Folio) FROM dgvdisminuirinventario WHERE IDUsuario = {FormPrincipal.userID}) AND IdUsuario = {FormPrincipal.userID}");
+                            clave = "";
+                        }
+                    }
+                    int opcion;
+                    using (var Permiso = cn.CargarDatos($"SELECT CorreoStockProducto FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                    {
+                        opcion = Convert.ToInt32(Permiso.Rows[0]["CorreoStockProducto"]);
+                    }
+                    if (opcion.Equals(1))
+                    {
+                        if (productosAumentoDecremento.Count > 0)
+                        {
+                            var titulo = rbAumentarProducto.Checked == true ? "AUMENTADO" : "DISMINUIDO";
+
+                            Thread notificacion = new Thread(
+                                () => Utilidades.CambioStockAumentoDecremento(productosAumentoDecremento, titulo)
+                            );
+
+                            notificacion.Start();
+                        }
+                    }
+
+
+                    DGVInventario2.Rows.Clear();
+
+                    idReporte++;
+                }
+                else
+                {
+                    MessageBox.Show("No existen ajustes realizados.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+            else//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            {
+                foreach (DataGridViewRow item in DGVInventario.Rows)
+                {
+                    decimal cantidad = Convert.ToDecimal(item.Cells["DiferenciaUnidades"].Value);
+                    decimal precio = Convert.ToDecimal(item.Cells["Precio"].Value);
+                    decimal total = cantidad * precio;
+                    totalFinal += total;
+                }
+
+                if (validarsiClave())
+                {
+                    if (rbDisminuirProducto.Checked)
+                    {
+                        clave = generadorClaves();
                     }
                 }
 
 
-                DGVInventario.Rows.Clear();
+                if (!DGVInventario.Rows.Count.Equals(0))
+                {
+                    if (opcion5 == 0)
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
 
-                idReporte++;
+                    DatosSeleccionadoos(1);
+                    if (rbAumentarProducto.Checked)
+                    {
+                        esAumentar = true;
+                    }
+                    else if (rbDisminuirProducto.Checked)
+                    {
+                        esAumentar = false;
+                    }
+
+                    if (desdeRegresarProdcuto != 1)
+                    {
+                        SeleccionarConceptosReporteActualizarInventario SCRA = new SeleccionarConceptosReporteActualizarInventario();
+
+                        SCRA.FormClosed += delegate
+                        {
+                            ConceptosSeleccionados();
+                            ValidarParaTerminarRevision();
+                        };
+
+                        SCRA.ShowDialog();
+
+                        if (Aceptar.Equals(true))
+                        {
+
+                            FormReporteInventario xd = new FormReporteInventario(Aumentar, clave);  //ese nombre de objeto que, mas seriedad alexis por favor.
+
+                            xd.ShowDialog();
+                            Aceptar = false;
+                        }
+                        else
+                        {
+                            return;
+                        }
+                    }
+
+                    if (rbAumentarProducto.Checked)
+                    {
+                        var NewNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
+                        cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev + 1));
+                        cn.EjecutarConsulta(cs.UpdateStatusActualizacionAumentarInventario());
+                    }
+                    else if (rbDisminuirProducto.Checked)
+                    {
+                        //Lista con las ids
+
+                        var NewNoRev = Convert.ToInt32(cs.GetNoRevDisminuirInventario());
+                        cn.EjecutarConsulta(cs.UpdateNoRevDisminuirInventario(NewNoRev + 1));
+                        cn.EjecutarConsulta(cs.UpdateStatusActualizacionDisminuirInventario());
+
+                        if (validarsiClave())
+                        {
+                            DataTable dt = new DataTable();
+
+                            string momentoMoment = DateTime.Now.ToString("yyyy-MM-dd");
+
+
+                            cn2.EjecutarConsulta(cs.insertarRegistroTraspaso(clave, cn.CargarDatos(cs.BuscarUsuario(FormPrincipal.userID)).Rows[0]["usuario"].ToString(), momentoMoment));
+                            foreach (DataGridViewRow item in DGVInventario.Rows)
+                            {
+
+                                dt = cn.CargarDatos($"SELECT Nombre FROM productos WHERE `Status` = 1 AND CodigoBarras = '{item.Cells[7].Value.ToString()}' AND IDUsuario = '{FormPrincipal.userID}'");
+
+
+                                cn2.EjecutarConsulta(cs.insertarDatosTraspaso(clave, dt.Rows[0]["Nombre"].ToString(), item.Cells[7].Value.ToString(), item.Cells[3].Value.ToString()));
+
+                            }
+                            MessageBox.Show($"Tu clave de traspaso es: {clave}");
+                            cn.EjecutarConsulta($"UPDATE DGVDisminuirInventario SET claveTraspaso = '{clave}' WHERE Folio = (SELECT MAX(Folio) FROM dgvdisminuirinventario WHERE IDUsuario = {FormPrincipal.userID}) AND IdUsuario = {FormPrincipal.userID}");
+                            clave = "";
+                        }
+                    }
+                    int opcion;
+                    using (var Permiso = cn.CargarDatos($"SELECT CorreoStockProducto FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                    {
+                        opcion = Convert.ToInt32(Permiso.Rows[0]["CorreoStockProducto"]);
+                    }
+                    if (opcion.Equals(1))
+                    {
+                        if (productosAumentoDecremento.Count > 0)
+                        {
+                            var titulo = rbAumentarProducto.Checked == true ? "AUMENTADO" : "DISMINUIDO";
+
+                            Thread notificacion = new Thread(
+                                () => Utilidades.CambioStockAumentoDecremento(productosAumentoDecremento, titulo)
+                            );
+
+                            notificacion.Start();
+                        }
+                    }
+
+
+                    DGVInventario.Rows.Clear();
+
+                    idReporte++;
+                }
+                else
+                {
+                    MessageBox.Show("No existen ajustes realizados.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
             }
-            else
-            {
-                MessageBox.Show("No existen ajustes realizados.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
+                
+            
 
             if (desdeRegresarProdcuto == 1)
             {
@@ -1419,8 +1578,14 @@ namespace PuntoDeVentaV2
                     AgregarAnticipo anticipoDevolucion = new AgregarAnticipo();
                     anticipoDevolucion.ShowDialog();
                 }
-                
+                totalFinal = 0;
             }
+        }
+
+        void timer_Tick(object sender, System.EventArgs e)
+        {
+            bntTerminar.Enabled = true;
+            timer.Stop();
         }
 
         private string generadorClaves()
@@ -1479,13 +1644,13 @@ namespace PuntoDeVentaV2
 
         //}
 
-        private void DatosSeleccionadoos()
+        private void DatosSeleccionadoos(int tipo)
         {
             if (rbAumentarProducto.Checked)
             {
                 var NoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
 
-                using (DataTable dtAumentarInventario = cn.CargarDatos(cs.SearchDGVAumentarInventario(NoRev)))
+                using (DataTable dtAumentarInventario = cn.CargarDatos(cs.SearchDGVAumentarInventario(NoRev,tipo)))
                 {
                     if (!dtAumentarInventario.Rows.Count.Equals(0))
                     {
@@ -1648,7 +1813,7 @@ namespace PuntoDeVentaV2
                 {
                     var NoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
 
-                    using (DataTable dtAumentarInventario = cn.CargarDatos(cs.SearchDGVAumentarInventario(NoRev)))
+                    using (DataTable dtAumentarInventario = cn.CargarDatos(cs.SearchDGVAumentarInventario(NoRev, tipo)))
                     {
                         if (!dtAumentarInventario.Rows.Count.Equals(0))
                         {
@@ -2003,7 +2168,7 @@ namespace PuntoDeVentaV2
                         if (rbAumentarProducto.Checked)
                         {
                             var NoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
-                            sql_cmd = new MySqlCommand(cs.SearchDGVAumentarInventario(NoRev), sql_con);
+                            sql_cmd = new MySqlCommand(cs.SearchDGVAumentarInventario(NoRev, tipo), sql_con);
                             dr = sql_cmd.ExecuteReader();
 
                             while (dr.Read())
@@ -2942,7 +3107,7 @@ namespace PuntoDeVentaV2
                         if (rbAumentarProducto.Checked)
                         {
                             var NoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
-                            sql_cmd = new MySqlCommand(cs.SearchDGVAumentarInventario(NoRev), sql_con);
+                            sql_cmd = new MySqlCommand(cs.SearchDGVAumentarInventario(NoRev, tipo), sql_con);
                             dr = sql_cmd.ExecuteReader();
 
                             while (dr.Read())
@@ -4314,12 +4479,67 @@ namespace PuntoDeVentaV2
 
         private void btnMensajeVenta_Click(object sender, EventArgs e)
         {
+            cargarDatos2();
+        }
+
+        public void cargarDatos2()
+        {
+            var datos = cn.CargarDatos($"SELECT IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, ID FROM DGVAumentarInventario WHERE StatusActualizacion = 2 AND IdUsuario = {FormPrincipal.userID}");
+
+            if (!datos.Rows.Count.Equals(0))
+            {
+                using (DataTable dtRetriveAumentarInventario = cn.CargarDatos($"SELECT IdProducto, NombreProducto, StockActual, DiferenciaUnidades, NuevoStock, Precio, Clave, Codigo, Fecha, NoRevision, StatusActualizacion, NombreEmisor, Comentarios, ValorUnitario, ID FROM DGVAumentarInventario WHERE StatusActualizacion = 2 AND IdUsuario = {FormPrincipal.userID}"))
+                {
+                    if (!dtRetriveAumentarInventario.Rows.Count.Equals(0))
+                    {
+                        DGVInventario2.Rows.Clear();
+                        foreach (DataRow dr in dtRetriveAumentarInventario.Rows)
+                        {
+                            int rowId = DGVInventario2.Rows.Add();
+
+                            DataGridViewRow row = DGVInventario2.Rows[rowId];
+
+                            row.Cells["ID2"].Value = dr["IdProducto"].ToString();
+                            row.Cells["Nombre2"].Value = dr["NombreProducto"].ToString();
+                            row.Cells["Stock2"].Value = dr["StockActual"].ToString();
+                            row.Cells["DiferenciaUnidades2"].Value = dr["DiferenciaUnidades"].ToString();
+                            row.Cells["DiferenciaUnidades2"].Style.ForeColor = Color.DodgerBlue;
+                            row.Cells["DiferenciaUnidades2"].Style.Font = new System.Drawing.Font(DGVInventario2.Font, FontStyle.Bold);
+                            row.Cells["NuevoStock2"].Value = dr["NuevoStock"].ToString();
+                            row.Cells["IDTabla2"].Value = dr["ID"].ToString();
+                            row.Cells["Precio2"].Value = dr["Precio"].ToString();
+                            row.Cells["Clave2"].Value = dr["Clave"].ToString();
+                            row.Cells["Codigo2"].Value = dr["Codigo"].ToString();
+                            row.Cells["Fecha2"].Value = dr["Fecha"].ToString();
+                            if (!dr["Comentarios"].ToString().Equals(""))
+                            {
+                                DGVInventario2.Columns["Comentarios"].Visible = true;
+                                row.Cells["Comentarios"].Value = dr["Comentarios"].ToString();
+                            }
+                        }
+                    }
+                }
+                DGVInventario2.Sort(DGVInventario2.Columns["Fecha2"], ListSortDirection.Descending);
+            }
+
+            if (FormPrincipal.userNickName.Contains('@'))
+            {
+                using (var dt = cn.CargarDatos($"SELECT RegresarProducto FROM empleadospermisos WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado ={FormPrincipal.id_empleado} AND Seccion ='Inventario'"))
+                {
+                    if (dt.Rows[0][0].Equals(0))
+                    {
+                        MessageBox.Show("No tienes permiso para esta funcion", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+                }
+            }
             panelContenedor.Visible = true;
             gBSeleccionActualizarInventario.Visible = false;
             desdeRegresarProdcuto = 1;
+            DGVInventario.Visible = false;
+            DGVInventario2.Visible = true;
             txtBusqueda.Focus();
         }
-
         private void Inventario_DragLeave(object sender, EventArgs e)
         {
             desdeRegresarProdcuto = 0;
@@ -4447,6 +4667,8 @@ namespace PuntoDeVentaV2
             tipoSeleccion = 0;
 
             panelContenedor.Visible = true;
+            DGVInventario2.Visible = false;
+            DGVInventario.Visible = true;
 
             txtBusqueda.Focus();
         }

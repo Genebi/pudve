@@ -35,15 +35,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DGVClientes = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RazonSocial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeudaTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Agregar = new System.Windows.Forms.DataGridViewImageColumn();
             this.txtBuscador = new System.Windows.Forms.TextBox();
             this.lbBuscar = new System.Windows.Forms.Label();
             this.btnBucarCliente = new System.Windows.Forms.Button();
             this.btnGenerarReporte = new PuntoDeVentaV2.BotonRedondo();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RazonSocial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeudaTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Detalles = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGVClientes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -67,7 +67,7 @@
             this.RFC,
             this.RazonSocial,
             this.DeudaTotal,
-            this.Agregar});
+            this.Detalles});
             this.DGVClientes.Location = new System.Drawing.Point(2, 84);
             this.DGVClientes.Name = "DGVClientes";
             this.DGVClientes.ReadOnly = true;
@@ -88,48 +88,6 @@
             this.DGVClientes.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellMouseEnter);
             this.DGVClientes.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVClientes_CellMouseLeave);
             this.DGVClientes.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DGVClientes_KeyDown);
-            // 
-            // ID
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.ID.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ID.HeaderText = "ID";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
-            this.ID.Visible = false;
-            // 
-            // RFC
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.RFC.DefaultCellStyle = dataGridViewCellStyle3;
-            this.RFC.HeaderText = "RFC";
-            this.RFC.Name = "RFC";
-            this.RFC.ReadOnly = true;
-            this.RFC.Width = 150;
-            // 
-            // RazonSocial
-            // 
-            this.RazonSocial.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.RazonSocial.DefaultCellStyle = dataGridViewCellStyle4;
-            this.RazonSocial.HeaderText = "Razón Social";
-            this.RazonSocial.Name = "RazonSocial";
-            this.RazonSocial.ReadOnly = true;
-            // 
-            // DeudaTotal
-            // 
-            this.DeudaTotal.DataPropertyName = "DeudaTotal";
-            this.DeudaTotal.HeaderText = "Deuda Total";
-            this.DeudaTotal.Name = "DeudaTotal";
-            this.DeudaTotal.ReadOnly = true;
-            // 
-            // Agregar
-            // 
-            this.Agregar.Description = "Seleccionar";
-            this.Agregar.HeaderText = "Detalles";
-            this.Agregar.Name = "Agregar";
-            this.Agregar.ReadOnly = true;
-            this.Agregar.Width = 50;
             // 
             // txtBuscador
             // 
@@ -183,6 +141,48 @@
             this.btnGenerarReporte.UseVisualStyleBackColor = false;
             this.btnGenerarReporte.Click += new System.EventHandler(this.btnGenerarReporte_Click);
             // 
+            // ID
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.ID.DefaultCellStyle = dataGridViewCellStyle2;
+            this.ID.HeaderText = "ID";
+            this.ID.Name = "ID";
+            this.ID.ReadOnly = true;
+            this.ID.Visible = false;
+            // 
+            // RFC
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.RFC.DefaultCellStyle = dataGridViewCellStyle3;
+            this.RFC.HeaderText = "RFC";
+            this.RFC.Name = "RFC";
+            this.RFC.ReadOnly = true;
+            this.RFC.Width = 150;
+            // 
+            // RazonSocial
+            // 
+            this.RazonSocial.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.RazonSocial.DefaultCellStyle = dataGridViewCellStyle4;
+            this.RazonSocial.HeaderText = "Razón Social";
+            this.RazonSocial.Name = "RazonSocial";
+            this.RazonSocial.ReadOnly = true;
+            // 
+            // DeudaTotal
+            // 
+            this.DeudaTotal.DataPropertyName = "DeudaTotal";
+            this.DeudaTotal.HeaderText = "Deuda Total";
+            this.DeudaTotal.Name = "DeudaTotal";
+            this.DeudaTotal.ReadOnly = true;
+            // 
+            // Detalles
+            // 
+            this.Detalles.Description = "Seleccionar";
+            this.Detalles.HeaderText = "Detalles";
+            this.Detalles.Name = "Detalles";
+            this.Detalles.ReadOnly = true;
+            this.Detalles.Width = 50;
+            // 
             // reporteCredito
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -214,11 +214,11 @@
         private System.Windows.Forms.TextBox txtBuscador;
         private System.Windows.Forms.Label lbBuscar;
         private System.Windows.Forms.Button btnBucarCliente;
+        private BotonRedondo btnGenerarReporte;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn RFC;
         private System.Windows.Forms.DataGridViewTextBoxColumn RazonSocial;
         private System.Windows.Forms.DataGridViewTextBoxColumn DeudaTotal;
-        private System.Windows.Forms.DataGridViewImageColumn Agregar;
-        private BotonRedondo btnGenerarReporte;
+        private System.Windows.Forms.DataGridViewImageColumn Detalles;
     }
 }

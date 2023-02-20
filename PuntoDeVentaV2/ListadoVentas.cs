@@ -2670,11 +2670,11 @@ namespace PuntoDeVentaV2
                     }
 
                     // Comprobar si adobe esta instalado
-                    if (!Utilidades.AdobeReaderInstalado())
-                    {
-                        Utilidades.MensajeAdobeReader();
-                        return;
-                    }
+                    //if (!Utilidades.AdobeReaderInstalado())
+                    //{
+                    //    Utilidades.MensajeAdobeReader();
+                    //    return;
+                    //}
 
                     var Folio = string.Empty;
                     var Serie = string.Empty;

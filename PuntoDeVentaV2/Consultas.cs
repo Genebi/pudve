@@ -1581,6 +1581,13 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
+        public string UpdateStatusDevolverInventario()
+        {
+            var consulta = $"UPDATE DGVAumentarInventario SET StatusActualizacion = 0 WHERE StatusActualizacion = 2 AND IdUsuario = {FormPrincipal.userID}";
+
+            return consulta;
+        }
+
         public string InsertIntoNoRevDisminuirInvntario(string NoRev)
         {
             var consulta = string.Empty;
@@ -1662,7 +1669,7 @@ namespace PuntoDeVentaV2
             return consulta;
         }
 
-        public string SearchDGVAumentarInventario(int NoRev)
+        public string SearchDGVAumentarInventario(int NoRev, int tipoActu)
         {
             //var consulta = $"SELECT * FROM DGVAumentarInventario WHERE NoRevision = {NoRev} AND StatusActualizacion = 1 AND IDUsuario = {FormPrincipal.userID}";
 
@@ -1674,7 +1681,15 @@ namespace PuntoDeVentaV2
 
             List<string> columnasDinamicas = new List<string>();
 
-            consulta = $"CREATE OR REPLACE VIEW ReporteAumentarInventario AS SELECT PlusInv.*, GralDetail.ID AS IDConcepto, IFNULL( GralDetail.ChckName, \"N/A\" ) AS Concepto, IFNULL( GralDetail.Descripcion, \"N/A\" ) AS Descripcion FROM dgvaumentarinventario AS PlusInv LEFT JOIN detallesproductogenerales AS GralDetailProd ON GralDetailProd.IDProducto = PlusInv.IdProducto LEFT JOIN detallegeneral AS GralDetail ON GralDetail.ID = GralDetailProd.IDDetalleGral WHERE PlusInv.IdUsuario = '{FormPrincipal.userID}' AND PlusInv.StatusActualizacion = '1' AND PlusInv.NoRevision = '{NoRev}' ORDER BY PlusInv.IDProducto;";
+            if (tipoActu == 1)
+            {
+                consulta = $"CREATE OR REPLACE VIEW ReporteAumentarInventario AS SELECT PlusInv.*, GralDetail.ID AS IDConcepto, IFNULL( GralDetail.ChckName, \"N/A\" ) AS Concepto, IFNULL( GralDetail.Descripcion, \"N/A\" ) AS Descripcion FROM dgvaumentarinventario AS PlusInv LEFT JOIN detallesproductogenerales AS GralDetailProd ON GralDetailProd.IDProducto = PlusInv.IdProducto LEFT JOIN detallegeneral AS GralDetail ON GralDetail.ID = GralDetailProd.IDDetalleGral WHERE PlusInv.IdUsuario = '{FormPrincipal.userID}' AND PlusInv.StatusActualizacion = '{tipoActu}' AND PlusInv.NoRevision = '{NoRev}' ORDER BY PlusInv.IDProducto;";
+            }
+            else
+            {
+                consulta = $"CREATE OR REPLACE VIEW ReporteAumentarInventario AS SELECT PlusInv.*, GralDetail.ID AS IDConcepto, IFNULL( GralDetail.ChckName, \"N/A\" ) AS Concepto, IFNULL( GralDetail.Descripcion, \"N/A\" ) AS Descripcion FROM dgvaumentarinventario AS PlusInv LEFT JOIN detallesproductogenerales AS GralDetailProd ON GralDetailProd.IDProducto = PlusInv.IdProducto LEFT JOIN detallegeneral AS GralDetail ON GralDetail.ID = GralDetailProd.IDDetalleGral WHERE PlusInv.IdUsuario = '{FormPrincipal.userID}' AND PlusInv.StatusActualizacion = '{tipoActu}' ORDER BY PlusInv.IDProducto;";
+            }
+            
 
             cn.crearViewDinamica(consulta);
 
@@ -2756,7 +2771,7 @@ namespace PuntoDeVentaV2
 
         public string cargarDatosDeConfiguracion()
         {
-            var consulta = $"SELECT IDUsuario, TicketVenta, IniciarProceso, MostrarCodigoProducto, CerrarSesionAuto, MostrarPrecioProducto, StockNegativo, HabilitarTicketVentas, PrecioMayoreo, checkNoVendidos, traspasos ,MostrarStockConsultaPrecio,PreguntarTicketVenta,TicketOPDF,WebCerrar,WebTotal,WebAuto FROM Configuracion WHERE IDUsuario = '{FormPrincipal.userID}'";
+            var consulta = $"SELECT IDUsuario, TicketVenta, IniciarProceso, MostrarCodigoProducto, CerrarSesionAuto, MostrarPrecioProducto, StockNegativo, HabilitarTicketVentas, PrecioMayoreo, checkNoVendidos, traspasos ,MostrarStockConsultaPrecio,PreguntarTicketVenta,TicketOPDF,WebCerrar,WebTotal,WebAuto,traspasoManual,mostrarIVA FROM Configuracion WHERE IDUsuario = '{FormPrincipal.userID}'";
 
             return consulta;
         }

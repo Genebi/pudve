@@ -247,6 +247,30 @@ namespace PuntoDeVentaV2
                         textoStatus = "habilitar";
                     }
 
+                    using (DataTable dt = cn.CargarDatos($"SELECT SUM( Vent.Total ) AS Total FROM Clientes INNER JOIN ventas AS Vent ON ( Clientes.ID = Vent.IDCliente AND Vent.`Status` = 4 ) WHERE Clientes.IDUsuario = {FormPrincipal.userID} AND Clientes.STATUS = 1 AND Clientes.ID = {idCliente.ToString()} GROUP BY clientes.id"))
+                    {
+                        using (DataTable dtt = cn.CargarDatos($"SELECT SUM( Abo.Total ) AS 'Abonado' FROM Clientes INNER JOIN ventas AS Vent ON ( Clientes.ID = Vent.IDCliente AND Vent.`Status` = 4 ) LEFT JOIN abonos AS Abo ON ( Vent.ID = Abo.IDVenta ) WHERE Clientes.IDUsuario = {FormPrincipal.userID} AND Clientes.id = {idCliente}  AND Clientes.STATUS = 1 GROUP BY clientes.id"))
+                        {
+                            if (!dt.Rows.Count.Equals(0) && !dtt.Rows.Count.Equals(0) && !string.IsNullOrEmpty(dt.Rows[0][0].ToString()))
+                            {
+                                if (!string.IsNullOrEmpty(dtt.Rows[0][0].ToString()))
+                                {
+                                    if ((decimal.Parse(dt.Rows[0][0].ToString()) - decimal.Parse(dtt.Rows[0][0].ToString())) > 0)
+                                    {
+                                        MessageBox.Show($"No se puede desactivar este cliente, pues cuenta con una deuda.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        return;
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show($"No se puede desactivar este cliente, pues cuenta con una deuda.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+                                
+                            }
+                        }
+                    }
+
                     var respuesta = MessageBox.Show($"¿Estás seguro de {textoStatus} este cliente?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (respuesta == DialogResult.Yes)

@@ -320,9 +320,17 @@ namespace PuntoDeVentaV2
             string pathfile = abrirArchivo();
             if (pathfile!="")
             {
-                columnasyPathFile = getExcelFile(pathfile);
-                importarExcelProductos ventanaImprotar = new importarExcelProductos(columnasyPathFile, pathfile);
-                ventanaImprotar.ShowDialog();
+                try
+                {
+                    columnasyPathFile = getExcelFile(pathfile);
+                    importarExcelProductos ventanaImprotar = new importarExcelProductos(columnasyPathFile, pathfile);
+                    ventanaImprotar.ShowDialog();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Verifica tu instalación de Microsoft Excel, incluyendo la activación.", "Error de Microsoft Excel", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                
             }
             else
             {
@@ -354,9 +362,6 @@ namespace PuntoDeVentaV2
                     if (xlRange.Cells[1, j] != null && xlRange.Cells[1, j].Value2 != null) ;
                     columnas.Add(xlRange.Cells[1, j].Value2.ToString());
                 }
-            
-
-
 
             //cleanup
             GC.Collect();

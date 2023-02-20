@@ -45,9 +45,21 @@
             this.rbDisminuirProducto = new System.Windows.Forms.RadioButton();
             this.rbAumentarProducto = new System.Windows.Forms.RadioButton();
             this.panelContenedor = new System.Windows.Forms.Panel();
+            this.listaProductos = new System.Windows.Forms.ListBox();
+            this.DGVInventario2 = new System.Windows.Forms.DataGridView();
+            this.ID2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Nombre2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Stock2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DiferenciaUnidades2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NuevoStock2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Precio2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Clave2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Codigo2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fecha2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Comentarios2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IDTabla2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.bntTerminar = new System.Windows.Forms.Button();
-            this.listaProductos = new System.Windows.Forms.ListBox();
             this.tituloBusqueda = new System.Windows.Forms.Label();
             this.txtBusqueda = new System.Windows.Forms.TextBox();
             this.DGVInventario = new System.Windows.Forms.DataGridView();
@@ -65,6 +77,7 @@
             this.panelBotones.SuspendLayout();
             this.gBSeleccionActualizarInventario.SuspendLayout();
             this.panelContenedor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVInventario2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).BeginInit();
             this.SuspendLayout();
             // 
@@ -156,9 +169,9 @@
             this.panelBotones.Controls.Add(this.btnRevisar);
             this.panelBotones.Controls.Add(this.btnActualizarXML);
             this.panelBotones.Controls.Add(this.btnActualizar);
-            this.panelBotones.Location = new System.Drawing.Point(9, 40);
+            this.panelBotones.Location = new System.Drawing.Point(9, 36);
             this.panelBotones.Name = "panelBotones";
-            this.panelBotones.Size = new System.Drawing.Size(834, 132);
+            this.panelBotones.Size = new System.Drawing.Size(834, 142);
             this.panelBotones.TabIndex = 104;
             // 
             // botonRedondo2
@@ -275,7 +288,7 @@
             this.gBSeleccionActualizarInventario.Controls.Add(this.txtClaveTraspaso);
             this.gBSeleccionActualizarInventario.Controls.Add(this.rbDisminuirProducto);
             this.gBSeleccionActualizarInventario.Controls.Add(this.rbAumentarProducto);
-            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(295, 51);
+            this.gBSeleccionActualizarInventario.Location = new System.Drawing.Point(295, 53);
             this.gBSeleccionActualizarInventario.Name = "gBSeleccionActualizarInventario";
             this.gBSeleccionActualizarInventario.Size = new System.Drawing.Size(261, 83);
             this.gBSeleccionActualizarInventario.TabIndex = 104;
@@ -348,9 +361,10 @@
             this.panelContenedor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelContenedor.Controls.Add(this.listaProductos);
+            this.panelContenedor.Controls.Add(this.DGVInventario2);
             this.panelContenedor.Controls.Add(this.btnBuscar);
             this.panelContenedor.Controls.Add(this.bntTerminar);
-            this.panelContenedor.Controls.Add(this.listaProductos);
             this.panelContenedor.Controls.Add(this.tituloBusqueda);
             this.panelContenedor.Controls.Add(this.txtBusqueda);
             this.panelContenedor.Controls.Add(this.DGVInventario);
@@ -360,6 +374,140 @@
             this.panelContenedor.Size = new System.Drawing.Size(834, 283);
             this.panelContenedor.TabIndex = 105;
             this.panelContenedor.Visible = false;
+            // 
+            // listaProductos
+            // 
+            this.listaProductos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listaProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listaProductos.FormattingEnabled = true;
+            this.listaProductos.ItemHeight = 16;
+            this.listaProductos.Location = new System.Drawing.Point(0, 45);
+            this.listaProductos.Name = "listaProductos";
+            this.listaProductos.Size = new System.Drawing.Size(583, 116);
+            this.listaProductos.TabIndex = 12;
+            this.listaProductos.Visible = false;
+            this.listaProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listaProductos_KeyDown);
+            this.listaProductos.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listaProductos_MouseDoubleClick);
+            // 
+            // DGVInventario2
+            // 
+            this.DGVInventario2.AllowUserToAddRows = false;
+            this.DGVInventario2.AllowUserToDeleteRows = false;
+            this.DGVInventario2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DGVInventario2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVInventario2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ID2,
+            this.Nombre2,
+            this.Stock2,
+            this.DiferenciaUnidades2,
+            this.NuevoStock2,
+            this.Precio2,
+            this.Clave2,
+            this.Codigo2,
+            this.Fecha2,
+            this.Comentarios2,
+            this.IDTabla2});
+            this.DGVInventario2.Location = new System.Drawing.Point(0, 65);
+            this.DGVInventario2.Name = "DGVInventario2";
+            this.DGVInventario2.ReadOnly = true;
+            this.DGVInventario2.RowHeadersVisible = false;
+            this.DGVInventario2.RowHeadersWidth = 62;
+            this.DGVInventario2.Size = new System.Drawing.Size(834, 177);
+            this.DGVInventario2.TabIndex = 106;
+            // 
+            // ID2
+            // 
+            this.ID2.HeaderText = "ID";
+            this.ID2.MinimumWidth = 8;
+            this.ID2.Name = "ID2";
+            this.ID2.ReadOnly = true;
+            this.ID2.Visible = false;
+            this.ID2.Width = 150;
+            // 
+            // Nombre2
+            // 
+            this.Nombre2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Nombre2.HeaderText = "Nombre";
+            this.Nombre2.MinimumWidth = 8;
+            this.Nombre2.Name = "Nombre2";
+            this.Nombre2.ReadOnly = true;
+            // 
+            // Stock2
+            // 
+            this.Stock2.HeaderText = "Stock Anterior";
+            this.Stock2.MinimumWidth = 8;
+            this.Stock2.Name = "Stock2";
+            this.Stock2.ReadOnly = true;
+            this.Stock2.Width = 70;
+            // 
+            // DiferenciaUnidades2
+            // 
+            this.DiferenciaUnidades2.HeaderText = "Diferencia de Unidades";
+            this.DiferenciaUnidades2.MinimumWidth = 8;
+            this.DiferenciaUnidades2.Name = "DiferenciaUnidades2";
+            this.DiferenciaUnidades2.ReadOnly = true;
+            this.DiferenciaUnidades2.Width = 90;
+            // 
+            // NuevoStock2
+            // 
+            this.NuevoStock2.HeaderText = "Stock Actual";
+            this.NuevoStock2.MinimumWidth = 8;
+            this.NuevoStock2.Name = "NuevoStock2";
+            this.NuevoStock2.ReadOnly = true;
+            this.NuevoStock2.Width = 70;
+            // 
+            // Precio2
+            // 
+            this.Precio2.HeaderText = "Precio";
+            this.Precio2.MinimumWidth = 8;
+            this.Precio2.Name = "Precio2";
+            this.Precio2.ReadOnly = true;
+            this.Precio2.Width = 70;
+            // 
+            // Clave2
+            // 
+            this.Clave2.HeaderText = "Clave";
+            this.Clave2.MinimumWidth = 8;
+            this.Clave2.Name = "Clave2";
+            this.Clave2.ReadOnly = true;
+            this.Clave2.Width = 150;
+            // 
+            // Codigo2
+            // 
+            this.Codigo2.HeaderText = "Código";
+            this.Codigo2.MinimumWidth = 8;
+            this.Codigo2.Name = "Codigo2";
+            this.Codigo2.ReadOnly = true;
+            this.Codigo2.Width = 95;
+            // 
+            // Fecha2
+            // 
+            this.Fecha2.HeaderText = "Fecha";
+            this.Fecha2.MinimumWidth = 8;
+            this.Fecha2.Name = "Fecha2";
+            this.Fecha2.ReadOnly = true;
+            this.Fecha2.Width = 95;
+            // 
+            // Comentarios2
+            // 
+            this.Comentarios2.HeaderText = "Comentarios";
+            this.Comentarios2.MinimumWidth = 8;
+            this.Comentarios2.Name = "Comentarios2";
+            this.Comentarios2.ReadOnly = true;
+            this.Comentarios2.Visible = false;
+            this.Comentarios2.Width = 150;
+            // 
+            // IDTabla2
+            // 
+            this.IDTabla2.HeaderText = "IDTabla";
+            this.IDTabla2.MinimumWidth = 8;
+            this.IDTabla2.Name = "IDTabla2";
+            this.IDTabla2.ReadOnly = true;
+            this.IDTabla2.Visible = false;
+            this.IDTabla2.Width = 150;
             // 
             // btnBuscar
             // 
@@ -398,21 +546,6 @@
             this.bntTerminar.UseVisualStyleBackColor = false;
             this.bntTerminar.Click += new System.EventHandler(this.bntTerminar_Click);
             this.bntTerminar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.bntTerminar_KeyDown);
-            // 
-            // listaProductos
-            // 
-            this.listaProductos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listaProductos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listaProductos.FormattingEnabled = true;
-            this.listaProductos.ItemHeight = 16;
-            this.listaProductos.Location = new System.Drawing.Point(3, 49);
-            this.listaProductos.Name = "listaProductos";
-            this.listaProductos.Size = new System.Drawing.Size(583, 116);
-            this.listaProductos.TabIndex = 12;
-            this.listaProductos.Visible = false;
-            this.listaProductos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listaProductos_KeyDown);
-            this.listaProductos.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listaProductos_MouseDoubleClick);
             // 
             // tituloBusqueda
             // 
@@ -467,7 +600,6 @@
             this.DGVInventario.RowHeadersWidth = 62;
             this.DGVInventario.Size = new System.Drawing.Size(834, 177);
             this.DGVInventario.TabIndex = 9;
-            this.DGVInventario.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVInventario_CellContentClick);
             // 
             // ID
             // 
@@ -582,6 +714,7 @@
             this.gBSeleccionActualizarInventario.PerformLayout();
             this.panelContenedor.ResumeLayout(false);
             this.panelContenedor.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVInventario2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGVInventario)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -623,5 +756,17 @@
         private BotonRedondo botonRedondo1;
         private BotonRedondo botonRedondo3;
         private BotonRedondo botonRedondo2;
+        private System.Windows.Forms.DataGridView DGVInventario2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Nombre2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Stock2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn DiferenciaUnidades2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NuevoStock2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Precio2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Clave2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Codigo2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Fecha2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Comentarios2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IDTabla2;
     }
 }

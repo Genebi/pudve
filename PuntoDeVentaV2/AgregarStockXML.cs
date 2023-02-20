@@ -499,23 +499,15 @@ namespace PuntoDeVentaV2
         {
             origenDeLosDatos = 3;
 
-
-            // Miri.
-            // Se modifica consulta e inserción en tabla "Proveedores". Si el XML no incluye Nombre emisor entonces no se debe agregar en la consulta
-
-            string condicional_busca_nombre = "";
-            string condicional_agrega_nombre_dt = "";
-            string condicional_agrega_nombre_col = "";
-
-            if (ds.Emisor.Nombre != null)
+            if (ds.Emisor.Nombre == null)
             {
-                condicional_busca_nombre = " Nombre = '" + ds.Emisor.Nombre.Trim() + "'";
-                condicional_agrega_nombre_dt = ds.Emisor.Nombre.Trim() + ", ";
-                condicional_agrega_nombre_col = " Nombre, ";
+                if (ds.Emisor.Rfc != null)
+                {
+                    ds.Emisor.Nombre = ds.Emisor.Rfc;
+                }
             }
-
-            //string querySearchProveedor = $@"SELECT * FROM Proveedores WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre = '{ds.Emisor.Nombre.Trim()}' AND RFC = '{ds.Emisor.Rfc.Trim()}'";
-            string querySearchProveedor = $@"SELECT * FROM Proveedores WHERE IDUsuario = '{FormPrincipal.userID}'  AND RFC = '{ds.Emisor.Rfc.Trim()}' " + condicional_busca_nombre + "";
+            
+            string querySearchProveedor = $@"SELECT * FROM Proveedores WHERE IDUsuario = '{FormPrincipal.userID}' AND Nombre = '{ds.Emisor.Nombre.Trim()}' AND RFC = '{ds.Emisor.Rfc.Trim()}'";
             dtSearchProveedor = cn.CargarDatos(querySearchProveedor);
             Console.WriteLine("RFC EMISOR=" + ds.Emisor.Rfc.Trim());
 
@@ -1308,7 +1300,7 @@ namespace PuntoDeVentaV2
             // Precio del producto con IVA incluido.
             if (xml_iva > 0)
             {
-                precioOriginalConIVA = precioOriginalSinIVA + (precioOriginalSinIVA * xml_iva);
+                precioOriginalConIVA = precioOriginalSinIVA;// + (precioOriginalSinIVA * xml_iva);
             }
             else
             {
@@ -1347,7 +1339,8 @@ namespace PuntoDeVentaV2
                 }
             }
             lblNoIdentificacionXML.Text = ClaveInterna;
-            PrecioRecomendado = precioOriginalConIVA * porcentajeGanancia; // calculamos Precio Recomendado (precioOriginalConIVA)*1.60
+            PrecioRecomendado = precioOriginalConIVA * (porcentajeGanancia / 100); // calculamos Precio Recomendado (precioOriginalConIVA)*1.60
+            PrecioRecomendado = PrecioRecomendado + precioOriginalConIVA;
             lblPrecioRecomendadoXML.Text = PrecioRecomendado.ToString("N2");
             try
             {
@@ -1517,7 +1510,7 @@ namespace PuntoDeVentaV2
             lblCodigoBarrasProd.Text = dtProductos.Rows[0]["CodigoBarras"].ToString();
             lblPrecioRecomendadoProd.Text = lblPrecioRecomendadoXML.Text;
             PrecioProd = float.Parse(dtProductos.Rows[0]["Precio"].ToString());             // almacenamos el Precio del Producto en PrecioProd para su posterior manipulacion
-            txtBoxPrecioProd.Text = PrecioProd.ToString("N2");
+            txtBoxPrecioProd.Text = lblPrecioRecomendadoXML.Text;// PrecioProd.ToString("N2");
         }
 
         // funsion para hacer la lectura del Archivo XML 
@@ -3353,16 +3346,19 @@ namespace PuntoDeVentaV2
                         xdoc.Load(ruta_XML);
 
                         string nm_nodo = xdoc.DocumentElement.Name;
+                        string namespace_nodo = xdoc.DocumentElement.NamespaceURI;
 
 
                         if (nm_nodo == "cfdi:Comprobante")
-                        {                            
-                            //MessageBox.Show("El archivo seleccionado,\nse esta Procesando", "Tipo de Archivo Valido", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            serial = new XmlSerializer(typeof(Comprobante));                    // iniciamos el objeto serial para leer el XML
-                            fs = new FileStream(f.FileName, FileMode.Open, FileAccess.Read);    // iniciamos el objeto fs para poder leer el archivo XML y no dejarlo en uso
-                            ds = (Comprobante)serial.Deserialize(fs);                           // iniciamos el objeto ds y le hacemos un cast con la clase Comprobante y le pasamos la lectura del XML
-
-                            if (ds.Receptor.Rfc == rfc | ds.Emisor.Rfc == rfc)                                         // comparamos si el RFC-Receptor(del archivo XML) es igual al RFC del usruario del sistema
+                        {
+                            // iniciamos el objeto serial para leer el XML
+                            serial = new XmlSerializer(typeof(Comprobante), namespace_nodo);
+                            // iniciamos el objeto fs para poder leer el archivo XML y no dejarlo en uso
+                            fs = new FileStream(f.FileName, FileMode.Open, FileAccess.Read);
+                            // iniciamos el objeto ds y le hacemos un cast con la clase Comprobante y le pasamos la lectura del XML
+                            ds = (Comprobante)serial.Deserialize(fs);
+                            // comparamos si el RFC-Receptor(del archivo XML) es igual al RFC del usruario del sistema
+                            if (ds.Receptor.Rfc == rfc | ds.Emisor.Rfc == rfc)
                             {
                                 rutaXML = f.FileName; //Almacenamos el nombre y ruta completa del archivo cargado
                                 cantProductos = 0;          // la cantidad de Productos la ponemos en 0

@@ -546,6 +546,12 @@ namespace PuntoDeVentaV2
                             chTraspasos.Checked = true;
                         }
                         #endregion
+                        #region Traspasos rapidos
+                        if (item["traspasoManual"].Equals(1))
+                        {
+                            chbTraspasoManual.Checked = true;
+                        }
+                        #endregion
                         #region Reportar a sifo.com cuando se cierre el programa
                         if (item["WebCerrar"].Equals(1))
                         {
@@ -574,7 +580,17 @@ namespace PuntoDeVentaV2
                             CHKMostrarStock.Checked = false;
                         }
                         #endregion
-                   
+
+                        #region Mostrar IVA
+                        if (item["mostrarIVA"].Equals(1))
+                        {
+                            cbkMostrarIVA.Checked = true;
+                        }
+                        else 
+                        {
+                            cbkMostrarIVA.Checked = false;
+                        }
+                        #endregion
                     }
                 }
             }
@@ -1566,9 +1582,91 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void cbWebReportesPeriodicos_CheckedChanged(object sender, EventArgs e)
+        private void chbTraspasoManual_MouseClick(object sender, MouseEventArgs e)
         {
+            if (chbTraspasoManual.Checked)
+            {
+                var consulta = $"UPDATE Configuracion SET traspasoManual = {1} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
+            else
+            {
+                var consulta = $"UPDATE Configuracion SET traspasoManual = {0} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
 
+            }
         }
+
+        private void cbkMostrarIVA_MouseClick(object sender, MouseEventArgs e)
+        {
+            using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("PermisoMostrarIVA", FormPrincipal.id_empleado)))
+            {
+                if (FormPrincipal.id_empleado.Equals(0))
+                {
+                    var habilitado = 0;
+
+                    valorCambioCheckBox = cbkMostrarIVA.Checked;
+
+                    if (valorCambioCheckBox.Equals(true))
+                    {
+                        habilitado = 1;
+                    }
+                    else
+                    {
+                        habilitado = 0;
+                    }
+
+                    var consulta = $"UPDATE Configuracion SET mostrarIVA = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    confiGeneral.Add(consulta);
+                }
+                else if (!permisoEmpleado.Rows.Count.Equals(0))
+                {
+                    foreach (DataRow item in permisoEmpleado.Rows)
+                    {
+                        if (item[0].ToString().Equals("1"))
+                        {
+
+                            var habilitado = 0;
+
+                            valorCambioCheckBox = cbkMostrarIVA.Checked;
+
+                            if (valorCambioCheckBox.Equals(true))
+                            {
+                                habilitado = 1;
+                            }
+                            else
+                            {
+                                habilitado = 0;
+                            }
+
+                            var consulta = $"UPDATE Configuracion SET mostrarIVA = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            confiGeneral.Add(consulta);
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("No tienes permisos para modificar esta opcion");
+                            if (cbkMostrarIVA.Checked == true)
+                            {
+                                cbkMostrarIVA.Checked = false;
+                                return;
+                            }
+                            else
+                            {
+                                cbkMostrarIVA.Checked = true;
+                                return;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("No tienes permisos para modificar esta opcion");
+                    return;
+                }
+            }
+        }
+
+
     }
 }

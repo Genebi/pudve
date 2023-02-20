@@ -60,6 +60,8 @@ namespace PuntoDeVentaV2
         static public int descuentosSinGuardar = 0;
         static public int rbDescuentoSinGuardar = 0;
 
+        public static int desdeConsultar = 0;
+
 
         //Miooooooooooo
         public string titulo;
@@ -4609,10 +4611,12 @@ namespace PuntoDeVentaV2
 
         private void AgregarEditarProducto_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (contador == 0)
+            if (!string.IsNullOrWhiteSpace(txtCodigoBarras.Text) || !txtStockMinimo.Text.Equals("0") || !txtStockMaximo.Text.Equals("0") || !txtStockProducto.Text.Equals("0") || !txtPrecioCompra.Text.Equals("0") || !txtPrecioProducto.Text.Equals("0") || !string.IsNullOrWhiteSpace(txtNombreProducto.Text))
             {
-                MensajeSiNoCancelar Opcion = new MensajeSiNoCancelar();
-                Opcion.ShowDialog();
+                if (contador == 0)
+                {
+                    MensajeSiNoCancelar Opcion = new MensajeSiNoCancelar();
+                    Opcion.ShowDialog();
 
                 if (Opcion.opcionMensaje == "si")
                 {
@@ -4977,6 +4981,14 @@ namespace PuntoDeVentaV2
         {
             ConfiguracionEditarProducto config = new ConfiguracionEditarProducto();
             config.ShowDialog();
+        }
+
+        private void btnConsultarProducto_Click(object sender, EventArgs e)
+        {
+            desdeConsultar = 1;
+            Productos prods = new Productos();
+            prods.StartPosition = FormStartPosition.CenterParent;
+            prods.ShowDialog();
         }
 
         public void cargarDatos()
@@ -12521,6 +12533,9 @@ namespace PuntoDeVentaV2
 
 
                 // Guardar
+                var tasa_cuota_aux = tasa_cuota.Split(' ');
+
+                tasa_cuota = tasa_cuota_aux[0];
 
                 string[] datos = new string[]{
                     tra_ret, t_impuesto, tipo_factor, tasa_cuota, definir, importe_impuesto.ToString("0.00")

@@ -78,9 +78,18 @@ namespace PuntoDeVentaV2
             DataTable ventaDT = new DataTable();
 
             ventaDA.Fill(ventaDT);
-          
+            ReportParameterCollection reportParameters = new ReportParameterCollection();
+            decimal AnticipoAplicado = 0;
+            if (!ventaDT.Rows[0]["AnticipoAplicado"].Equals("N/A"))
+            {
+                AnticipoAplicado = Convert.ToDecimal(ventaDT.Rows[0]["AnticipoAplicado"]);
+            }
+            decimal algo = Convert.ToDecimal(ventaDT.Rows[0]["TotalRecibido"]) - AnticipoAplicado - Convert.ToDecimal(ventaDT.Rows[0]["SaldoRestante"]);
+            reportParameters.Add(new ReportParameter("Anterior", algo.ToString("0.00")));
+
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
+            this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Clear();
 
             #region Impresion Ticket de 80 mm
@@ -92,6 +101,7 @@ namespace PuntoDeVentaV2
 
             this.reportViewer1.LocalReport.DataSources.Add(rp);
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
+            this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.RefreshReport();
 
             //LocalReport rdlc = new LocalReport();
@@ -149,11 +159,23 @@ namespace PuntoDeVentaV2
 
             ventaDA.Fill(ventaDT);
             decimal TotalRecibido = Convert.ToDecimal(ventaDT.Rows[0]["TotalRecibido"]);
-            decimal AnticipoAplicado = Convert.ToDecimal(ventaDT.Rows[0]["AnticipoAplicado"]);
+            decimal AnticipoAplicado = 0;
+            if (ventaDT.Rows[0]["AnticipoAplicado"].Equals("N/A"))
+            {
+                AnticipoAplicado = 0;
+            }
+            else
+            {
+                AnticipoAplicado = Convert.ToDecimal(ventaDT.Rows[0]["AnticipoAplicado"]);
+            }
+             
             if (TotalRecibido < AnticipoAplicado)
             {
                 ventaDT.Rows[0]["AnticipoAplicado"] = TotalRecibido.ToString();
             }
+            ReportParameterCollection reportParameters = new ReportParameterCollection();
+            decimal algo = Convert.ToDecimal(ventaDT.Rows[0]["TotalRecibido"]) - AnticipoAplicado - Convert.ToDecimal(ventaDT.Rows[0]["SaldoRestante"]);
+            reportParameters.Add(new ReportParameter("Anterior", algo.ToString("0.00")));
             //this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             //this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             //this.reportViewer1.LocalReport.DataSources.Clear();
@@ -173,6 +195,7 @@ namespace PuntoDeVentaV2
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\TicketAnticipo\ReporteTicketAnticipo.rdlc";
             rdlc.DataSources.Add(rp);
+            rdlc.SetParameters(reportParameters);
             #endregion
 
             EnviarImprimir imp = new EnviarImprimir();

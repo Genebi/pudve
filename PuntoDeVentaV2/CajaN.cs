@@ -5940,10 +5940,11 @@ namespace PuntoDeVentaV2
 
             var ListMoneda = FormPrincipal.Moneda.Split('(');
             var moneda = ListMoneda[1].Replace(")", string.Empty);
-            #region Sección Monto Antes del Corte
+            #region Sección Monto Antes del Corte       
             var datos1 = Convert.ToString(Convert.ToDecimal(lbTTotalCaja.Text.ToString().Replace("$", string.Empty)));
             var datos2 = conceptoCreditoDeVentas.Replace(Convert.ToChar(moneda),' ');
-            var conceptoCantidadEnCajaAntesDelCorte = (Convert.ToDecimal(datos1) + Convert.ToDecimal(datos2)).ToString();
+            //var conceptoCantidadEnCajaAntesDelCorte = (Convert.ToDecimal(datos1) + Convert.ToDecimal(datos2)).ToString();
+            var conceptoCantidadEnCajaAntesDelCorte = Convert.ToDecimal(datos1).ToString();
             #endregion
 
             #region Sección Cantidad Retirada en el Corte
@@ -6053,7 +6054,7 @@ namespace PuntoDeVentaV2
             }
             #endregion
 
-            using (var dt = cn.CargarDatos($"SELECT TicketCorteDeCaja,PreguntarTicketCorteDeCaja FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
+            using (var dt = cn.CargarDatos($"SELECT TicketCorteDeCaja,PreguntarTicketCorteDeCaja,AbrirCajaCorte FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
             {
                 if (dt.Rows[0][0].Equals(1))
                 {
@@ -6226,7 +6227,18 @@ namespace PuntoDeVentaV2
                             verCorteDeCaja.ShowDialog();
                         }
                     }
+                    else if (dt.Rows[0]["AbrirCajaCorte"].Equals(1))
+                    {
+                        AbrirSinTicket abrir = new AbrirSinTicket();
+                        abrir.Show();
+                    }
                 }
+                else if (dt.Rows[0]["AbrirCajaCorte"].Equals(1))
+                {
+                    AbrirSinTicket abrir = new AbrirSinTicket();
+                    abrir.Show();
+                }
+                
             }
             
         }

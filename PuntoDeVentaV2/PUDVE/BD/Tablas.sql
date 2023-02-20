@@ -2059,8 +2059,8 @@ ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS TicketOPDF INT DEFAULT 1;
 
 -- Columnas pa una cosilla de lo de web https://i.imgur.com/kTwlKPo.png
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebCerrar INT DEFAULT 0;
-ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebTotal INT DEFAULT 0;
-ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebAuto INT DEFAULT 0;
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebTotal INT DEFAULT 1;
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebAuto INT DEFAULT 1;
 
 --Esta tabla sirve para preparar el envio de respaldos, se usa para almacenar de manera temporal los datos que se enviaran a gran velocidad mediante un bulk insert.
 --La columna de datos almacenara hasta 30mb, modifique el maximo tamanno de paquetes por consulta a un poco mas por si acaso.
@@ -2113,3 +2113,28 @@ IF
 ALTER TABLE dgvaumentarinventario ADD COLUMN IF NOT EXISTS Devolucion INT DEFAULT 0;
 
 ALTER TABLE historialcompras ADD COLUMN IF NOT EXISTS IDEmpleado INT DEFAULT 0;
+
+-- Nuevas Columnas para la tabla de imprimir ticket
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaVentas INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaGuardada INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaCancelada INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaCredito INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaAnticipos INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaAbonos INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaCorte INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaAgregar INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaRetirar INT DEFAULT 0;
+
+-- Columna para realizar traspasos al putazo  --Aaron ¿que es ese vocabulario? Que no se vuelva a repetir
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS traspasoManual INT DEFAULT 0;
+
+--Columna para permiso de modificar la configuracion de de IVA
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoMostrarIVA INT DEFAULT 1;
+--Columna para configuacion de mostrar IVA
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS mostrarIVA INT DEFAULT 1;
+
+--Columna del permiso para ReporteDeudas
+ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS ReporteDeudas INT DEFAULT 1;
+
+--Columna del permiso para RegresarProducto
+ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS RegresarProducto INT DEFAULT 1;

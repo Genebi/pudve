@@ -53,14 +53,14 @@ namespace PuntoDeVentaV2
                     fechaInicial = fechas.fechaInicial;
                     fechaFinal = fechas.fechaFinal;
 
-                    if (Utilidades.AdobeReaderInstalado())
-                    {
-                        GenerarReporte();
-                    }
-                    else
-                    {
-                        Utilidades.MensajeAdobeReader();
-                    }
+                    //if (Utilidades.AdobeReaderInstalado())
+                    //{
+                    GenerarReporte();
+                    //}
+                    //else
+                    //{
+                    //    Utilidades.MensajeAdobeReader();
+                    //}
                 }
             }
         }
@@ -609,6 +609,21 @@ namespace PuntoDeVentaV2
             {
                 this.Close();
             }
+        }
+
+        private void TipoHistorial_Load(object sender, EventArgs e)
+        {
+            using (var dbEsComboServicio = cn.CargarDatos(cs.SaberSiEsComboServicio(idProducto)))
+            {
+                if (!dbEsComboServicio.Rows.Count.Equals(0))
+                {
+                    btnHistorialCompras.Enabled = false;
+                    btnHistorialCompras.ForeColor = Color.DarkGray;
+                    btnHistorialCompras.Cursor = Cursors.No;
+                    botonRedondo1.Enabled = false;
+                    botonRedondo1.Cursor = Cursors.No;
+                }
+        }
         }
     }
 }

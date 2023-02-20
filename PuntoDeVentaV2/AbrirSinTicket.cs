@@ -14,7 +14,7 @@ using System.Windows.Forms;
 
 namespace PuntoDeVentaV2
 {
-    public partial class imprimirTicket8cm : Form
+    public partial class AbrirSinTicket : Form
     {
         Consultas cs = new Consultas();
         Conexion cn = new Conexion();
@@ -41,12 +41,12 @@ namespace PuntoDeVentaV2
 
         public int idVentaRealizada { get; set; }
 
-        public imprimirTicket8cm()
+        public AbrirSinTicket()
         {
             InitializeComponent();
         }
 
-        private void imprimirTicket8cm_Load(object sender, EventArgs e)
+        private void AbrirSinTicket_Load(object sender, EventArgs e)
         {
             CargarDatosCaja();
         }
@@ -82,28 +82,14 @@ namespace PuntoDeVentaV2
             string pathApplication = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
             string FullReportPath = string.Empty;
-            int tamanno = 0;
-            using (var DTTammanoTicket = cn.CargarDatos($"SELECT tamannoTicket from editarticket WHERE IDUsuario = {FormPrincipal.userID}"))
-            {
-                tamanno = Convert.ToInt32(DTTammanoTicket.Rows[0][0]);
-            }
-            if (tamanno == 1)
-            {
-                FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm.rdlc";
-            }
-            else if (tamanno == 2)
-            {
-                FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm2.rdlc";
-            }
-            else
-            {
-                FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm3.rdlc";
-
-            }
+        
+          
+             FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\AbrirSinImprimirCaja\RDLCSINIMPRIMIR.rdlc";
+            
             MySqlDataAdapter ventaDA = new MySqlDataAdapter(queryVenta, conn);
             DataTable ventaDT = new DataTable();
 
-            
+
 
             ventaDA.Fill(ventaDT);
 
@@ -153,9 +139,6 @@ namespace PuntoDeVentaV2
                     folioVentaRealizada = drFolioVenta["Folio"].ToString();
                 }
             }
-
-            var codigoBarraTicket = GenerarCodigoBarras(folioVentaRealizada, 170);
-            codigoBarraTicket.Save($"{pathBarCode}{folioVentaRealizada}.png");
 
             var pathBarCodeFull = new Uri($"C:/Archivos PUDVE/Ventas/Tickets/BarCode/{folioVentaRealizada}.png").AbsoluteUri;
 
@@ -236,57 +219,12 @@ namespace PuntoDeVentaV2
             //18 parametro string para mostrar / ocultar Codigo de Barras
             reportParameters.Add(new ReportParameter("Referencia", Referencia.ToString()));
             // Anticipo
-
-            using (var dt = cn.CargarDatos($"SELECT SUM(Subtotal + IVA16+IVA8) AS 'Total' FROM `ventas` WHERE ID ={idVentaRealizada}"))
-                    {
-                string Anticipo = string.Empty;
-                if (Convert.ToDecimal(dt.Rows[0][0]) > Convert.ToDecimal(ventaDT.Rows[0]["Anticipo"]))
-                {
-                     Anticipo = ventaDT.Rows[0]["Anticipo"].ToString();
-                    reportParameters.Add(new ReportParameter("Anticipo", Anticipo));
-                }
-                else
-                {
-                    Anticipo = dt.Rows[0][0].ToString();
-                    reportParameters.Add(new ReportParameter("Anticipo", Anticipo));
-                }
-            }
-
-            using (var dt = cn.CargarDatos($"SELECT mostrarIVA FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
-            {
-                if (dt.Rows[0][0].Equals(1))
-                {
-                    string iva8 = "";
-                    string iva16 = "";
-                    using (var dt2 = cn.CargarDatos($"SELECT IVA8,IVA16 FROM ventas WHERE ID = {idVentaRealizada}"))
-                    {
-                        iva8 = dt2.Rows[0]["IVA8"].ToString();
-                        iva16 = dt2.Rows[0]["IVA16"].ToString();
-                    }
-
-                    if (!iva8.Equals("0.00"))
-                    {
-                        reportParameters.Add(new ReportParameter("IVA", iva8));
-                    }
-                    else if (!iva16.Equals("0.00"))
-                    {
-                        reportParameters.Add(new ReportParameter("IVA", iva16));
-                    }
-                    else
-                    {
-                        reportParameters.Add(new ReportParameter("IVA", "0"));
-                    }
-                }
-                else
-                {
-                    reportParameters.Add(new ReportParameter("IVA", "0"));
-                }
-            }
+            string Anticipo = "0.00";
+            reportParameters.Add(new ReportParameter("Anticipo", Anticipo));
            
-          
 
 
-            string UsuarioRealizoVenta =  string.Empty;
+            string UsuarioRealizoVenta = string.Empty;
 
             using (var DTUsuario = cn.CargarDatos($"SELECT VEN.IDEmpleado, EMP.usuario FROM VENTAS AS VEN INNER JOIN empleados AS EMP ON( EMP.ID = VEN.IDEmpleado) WHERE VEN.ID = {idVentaRealizada} AND VEN.IDUsuario = {FormPrincipal.userID}"))
             {
@@ -305,7 +243,7 @@ namespace PuntoDeVentaV2
                 {
                     UsuarioRealizoVenta = FormPrincipal.userNickName;
                 }
-                
+
             }
             reportParameters.Add(new ReportParameter("Usuario", UsuarioRealizoVenta));
 
@@ -351,30 +289,6 @@ namespace PuntoDeVentaV2
 
         }
 
-        private Image GenerarCodigoBarras(string txtCodigo, int ancho)
-        {
-            Image imagen;
-
-            BarcodeLib.Barcode codigo = new BarcodeLib.Barcode();
-
-            try
-            {
-                var anchoTmp = ancho / 2;
-                var auxiliar = anchoTmp;
-
-                anchoTmp = auxiliar / 2;
-                ancho = ancho - anchoTmp;
-
-                imagen = codigo.Encode(BarcodeLib.TYPE.CODE128, txtCodigo, Color.Black, Color.White, ancho, 40);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al generar código de barras para el ticket", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                imagen = null;
-            }
-
-            return imagen;
-        }
+      
     }
 }

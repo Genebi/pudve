@@ -33,6 +33,7 @@
             this.panelMaestro = new System.Windows.Forms.Panel();
             this.panelContenedor = new System.Windows.Forms.Panel();
             this.menuVertical = new System.Windows.Forms.Panel();
+            this.btnAyuda = new PuntoDeVentaV2.BotonRedondo();
             this.BtnConsulta = new System.Windows.Forms.Button();
             this.btnImpresoras = new System.Windows.Forms.Button();
             this.btnEmpleados = new System.Windows.Forms.Button();
@@ -66,7 +67,7 @@
             this.panelMaestro.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMaestro.Location = new System.Drawing.Point(0, 0);
             this.panelMaestro.Name = "panelMaestro";
-            this.panelMaestro.Size = new System.Drawing.Size(856, 456);
+            this.panelMaestro.Size = new System.Drawing.Size(856, 650);
             this.panelMaestro.TabIndex = 0;
             // 
             // panelContenedor
@@ -74,13 +75,14 @@
             this.panelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContenedor.Location = new System.Drawing.Point(230, 0);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(626, 456);
+            this.panelContenedor.Size = new System.Drawing.Size(626, 650);
             this.panelContenedor.TabIndex = 2;
             this.panelContenedor.Paint += new System.Windows.Forms.PaintEventHandler(this.panelContenedor_Paint);
             // 
             // menuVertical
             // 
             this.menuVertical.BackColor = System.Drawing.Color.Gold;
+            this.menuVertical.Controls.Add(this.btnAyuda);
             this.menuVertical.Controls.Add(this.BtnConsulta);
             this.menuVertical.Controls.Add(this.btnImpresoras);
             this.menuVertical.Controls.Add(this.btnEmpleados);
@@ -100,9 +102,33 @@
             this.menuVertical.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuVertical.Location = new System.Drawing.Point(0, 0);
             this.menuVertical.Name = "menuVertical";
-            this.menuVertical.Size = new System.Drawing.Size(230, 456);
+            this.menuVertical.Size = new System.Drawing.Size(230, 650);
             this.menuVertical.TabIndex = 0;
             this.menuVertical.Paint += new System.Windows.Forms.PaintEventHandler(this.menuVertical_Paint);
+            // 
+            // btnAyuda
+            // 
+            this.btnAyuda.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnAyuda.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnAyuda.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnAyuda.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnAyuda.BorderRadius = 21;
+            this.btnAyuda.BorderSize = 0;
+            this.btnAyuda.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAyuda.FlatAppearance.BorderSize = 0;
+            this.btnAyuda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAyuda.ForeColor = System.Drawing.Color.White;
+            this.btnAyuda.Image = ((System.Drawing.Image)(resources.GetObject("btnAyuda.Image")));
+            this.btnAyuda.Location = new System.Drawing.Point(63, 596);
+            this.btnAyuda.Name = "btnAyuda";
+            this.btnAyuda.Size = new System.Drawing.Size(99, 42);
+            this.btnAyuda.TabIndex = 137;
+            this.btnAyuda.Text = "Ayuda";
+            this.btnAyuda.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAyuda.TextColor = System.Drawing.Color.White;
+            this.btnAyuda.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAyuda.UseVisualStyleBackColor = false;
+            this.btnAyuda.Click += new System.EventHandler(this.btnAyuda_Click);
             // 
             // BtnConsulta
             // 
@@ -197,6 +223,7 @@
             this.btnSesion.TabIndex = 110;
             this.btnSesion.Text = "Cerrar  Sesión";
             this.btnSesion.UseVisualStyleBackColor = false;
+            this.btnSesion.Visible = false;
             this.btnSesion.Click += new System.EventHandler(this.btnSesion_Click);
             // 
             // btnEmpresas
@@ -443,7 +470,7 @@
             // webAuto
             // 
             this.webAuto.Enabled = true;
-            this.webAuto.Interval = 7200000;
+            this.webAuto.Interval = 4500000;
             this.webAuto.Tick += new System.EventHandler(this.webAuto_Tick);
             // 
             // webSender
@@ -454,7 +481,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(856, 456);
+            this.ClientSize = new System.Drawing.Size(856, 650);
             this.Controls.Add(this.panelMaestro);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(857, 454);
@@ -498,6 +525,7 @@
         public System.Windows.Forms.Timer actualizarCaja;
         private System.Windows.Forms.Timer webAuto;
         private System.ComponentModel.BackgroundWorker webSender;
+        private BotonRedondo btnAyuda;
     }
 }
 

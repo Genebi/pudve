@@ -259,6 +259,52 @@ namespace PuntoDeVentaV2
             //19 parametro integer para mostrar / ocultar Referencia
             reportParameters.Add(new ReportParameter("Referencia", Referencia.ToString()));
 
+            using (var dt = cn.CargarDatos($"SELECT SUM(Subtotal + IVA16+IVA8) AS 'Total' FROM `ventas` WHERE ID ={idVentaRealizada}"))
+            {
+                string Anticipo = string.Empty;
+                if (Convert.ToDecimal(dt.Rows[0][0]) > Convert.ToDecimal(ventaDT.Rows[0]["Anticipo"]))
+                {
+                    Anticipo = ventaDT.Rows[0]["Anticipo"].ToString();
+                    reportParameters.Add(new ReportParameter("Anticipo", Anticipo));
+                }
+                else
+                {
+                    Anticipo = dt.Rows[0][0].ToString();
+                    reportParameters.Add(new ReportParameter("Anticipo", Anticipo));
+                }
+            }
+
+            using (var dt = cn.CargarDatos($"SELECT mostrarIVA FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (dt.Rows[0][0].Equals(1))
+                {
+                    string iva8 = "";
+                    string iva16 = "";
+                    using (var dt2 = cn.CargarDatos($"SELECT IVA8,IVA16 FROM ventas WHERE ID = {idVentaRealizada}"))
+                    {
+                        iva8 = dt2.Rows[0]["IVA8"].ToString();
+                        iva16 = dt2.Rows[0]["IVA16"].ToString();
+                    }
+
+                    if (!iva8.Equals("0.00"))
+                    {
+                        reportParameters.Add(new ReportParameter("IVA", iva8));
+                    }
+                    else if (!iva16.Equals("0.00"))
+                    {
+                        reportParameters.Add(new ReportParameter("IVA", iva16));
+                    }
+                    else
+                    {
+                        reportParameters.Add(new ReportParameter("IVA", "0"));
+                    }
+                }
+                else
+                {
+                    reportParameters.Add(new ReportParameter("IVA", "0"));
+                }
+            }
+
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Add(rp);
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
@@ -486,6 +532,51 @@ namespace PuntoDeVentaV2
                 }
             }
             reportParameters.Add(new ReportParameter("Usuario", UsuarioRealizoVenta));
+            using (var dt = cn.CargarDatos($"SELECT SUM(Subtotal + IVA16+IVA8) AS 'Total' FROM `ventas` WHERE ID ={idVentaRealizada}"))
+            {
+                string Anticipo = string.Empty;
+                if (Convert.ToDecimal(dt.Rows[0][0]) > Convert.ToDecimal(ventaDT.Rows[0]["Anticipo"]))
+                {
+                    Anticipo = ventaDT.Rows[0]["Anticipo"].ToString();
+                    reportParameters.Add(new ReportParameter("Anticipo", Anticipo));
+                }
+                else
+                {
+                    Anticipo = dt.Rows[0][0].ToString();
+                    reportParameters.Add(new ReportParameter("Anticipo", Anticipo));
+                }
+            }
+
+            using (var dt = cn.CargarDatos($"SELECT mostrarIVA FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (dt.Rows[0][0].Equals(1))
+                {
+                    string iva8 = "";
+                    string iva16 = "";
+                    using (var dt2 = cn.CargarDatos($"SELECT IVA8,IVA16 FROM ventas WHERE ID = {idVentaRealizada}"))
+                    {
+                        iva8 = dt2.Rows[0]["IVA8"].ToString();
+                        iva16 = dt2.Rows[0]["IVA16"].ToString();
+                    }
+
+                    if (!iva8.Equals("0.00"))
+                    {
+                        reportParameters.Add(new ReportParameter("IVA", iva8));
+                    }
+                    else if (!iva16.Equals("0.00"))
+                    {
+                        reportParameters.Add(new ReportParameter("IVA", iva16));
+                    }
+                    else
+                    {
+                        reportParameters.Add(new ReportParameter("IVA", "0"));
+                    }
+                }
+                else
+                {
+                    reportParameters.Add(new ReportParameter("IVA", "0"));
+                }
+            }
             LocalReport rdlc = new LocalReport();
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;

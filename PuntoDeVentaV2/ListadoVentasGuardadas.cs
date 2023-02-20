@@ -113,7 +113,8 @@ namespace PuntoDeVentaV2
 
                 // Verificar que todos los productos de la venta guardada esten habilitados
                 var productosVenta = mb.ProductosGuardados(IDVenta);
-
+                string Mensaje = "";
+                int contador = 0;
                 if (productosVenta.Count > 0)
                 {
                     foreach (var producto in productosVenta)
@@ -133,12 +134,22 @@ namespace PuntoDeVentaV2
                                 if (tipo == "S") { tipoProducto = "Servicio"; }
                                 if (tipo == "PQ") { tipoProducto = "Combo"; }
 
-                                MessageBox.Show($"El {tipoProducto} {datosProducto[1]} con código {datosProducto[7]} se encuentra deshabilitado, esto evitará que la venta guardada se cargue.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                Mensaje = $"El {tipoProducto} {datosProducto[1]} con código {datosProducto[7]} se encuentra deshabilitado";
+                                contador++;
                             }
 
-                            Ventas.mostrarVenta = 0;
-                            Ventas.idCliente = "0";
+                            //Ventas.mostrarVenta = 0;
+                            //Ventas.idCliente = "0";
                         }
+                    }
+
+                    if (contador==1)
+                    {
+                        MessageBox.Show(Mensaje,"Aviso del Sistema", MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                    }
+                    else if (contador > 1)
+                    {
+                        MessageBox.Show("En esta venta se encuentran productos deshabilitados", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
 
