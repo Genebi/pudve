@@ -181,11 +181,11 @@ namespace PuntoDeVentaV2
             cantidadTotalTransferenciaEnCaja = CajaN.cantidadTotalTransferenciaEnCaja;
             cantidadTransferenciaSaldoInicialEnCaja = CajaN.cantidadTransferenciaSaldoInicialEnCaja;
 
-            totalEfectivo = cantidadTotalEfectivoEnCaja /*+ cantidadEfectivoSaldoInicialEnCaja*/;
-            totalTarjeta = cantidadTotalTarjetaEnCaja /*+ cantidadTarjetaSaldoInicialEnCaja*/;
-            totalVales = cantidadTotalValesEnCaja/* + cantidadValesSaldoInicialEnCaja*/;
-            totalCheque = cantidadTotalCehqueEnCaja /*+ cantidadChequeSaldoInicialEnCaja*/;
-            totalTransferencia = cantidadTotalTransferenciaEnCaja /*+ cantidadTransferenciaSaldoInicialEnCaja*/;
+            totalEfectivo = cantidadTotalEfectivoEnCaja+cantidadEfectivoSaldoInicialEnCaja /*+ cantidadEfectivoSaldoInicialEnCaja*/;
+            totalTarjeta = cantidadTotalTarjetaEnCaja+cantidadTarjetaSaldoInicialEnCaja /*+ cantidadTarjetaSaldoInicialEnCaja*/;
+            totalVales = cantidadTotalValesEnCaja+cantidadValesSaldoInicialEnCaja/* + cantidadValesSaldoInicialEnCaja*/;
+            totalCheque = cantidadTotalCehqueEnCaja+cantidadChequeSaldoInicialEnCaja /*+ cantidadChequeSaldoInicialEnCaja*/;
+            totalTransferencia = cantidadTotalTransferenciaEnCaja+cantidadTotalTransferenciaEnCaja /*+ cantidadTransferenciaSaldoInicialEnCaja*/;
 
             totalSaldoInicial = CajaN.totalSaldoInicial;
             totalEnCaja = CajaN.sumaDeTotalesEnCaja;

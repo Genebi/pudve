@@ -234,6 +234,8 @@ namespace PuntoDeVentaV2
         public static string codBarProdVentaRapida;
 
         public static int IDAnticipo = 0;
+
+        bool QueLoLimipie = false;
         #region Proceso de Bascula
         // Constructores
         private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
@@ -459,6 +461,7 @@ namespace PuntoDeVentaV2
 
         private void ocultarResultados()
         {
+            
             listaProductos.Visible = false;
         }
 
@@ -834,6 +837,7 @@ namespace PuntoDeVentaV2
                                 if (result.ToString().Contains('.'))
                                 {
                                     MessageBox.Show("Este producto se vende solo por unidades enteras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    txtBuscadorProducto.Clear();
                                     return existe;
                                 }
 
@@ -1471,11 +1475,11 @@ namespace PuntoDeVentaV2
                         cantidad.ShowDialog();
                         //if (cantidadComprada.nuevaCantidad > cantidadAnterior)
                         //{
-                        
+
                         txtBuscadorProducto.Text = "+" + (cantidadComprada.nuevaCantidad - 1);
                         txtBuscadorProducto.Focus();
-                       SendKeys.Send("{ENTER}");
-                     listaProductos.Visible = false;
+                        SendKeys.Send("{ENTER}");
+                        listaProductos.Visible = false;
                         //}
                         //else
                         //{
@@ -1485,7 +1489,7 @@ namespace PuntoDeVentaV2
                         //    listaProductos.Visible = false;
                         //}
                     }
-                  SendKeys.Send("{BACKSPACE}");
+                    SendKeys.Send("{BACKSPACE}");
                     cambioCantidadProd = 0;
                     if (SeCambioCantidad == true)
                     {
@@ -3054,7 +3058,7 @@ namespace PuntoDeVentaV2
                     cIVA.Visible = false;
                 }
             }
-            
+
 
             cIVA.Text = totalIVA16.ToString("N");
             cIVA8.Text = totalIVA8.ToString("N");
@@ -3604,7 +3608,7 @@ namespace PuntoDeVentaV2
                                 AsignarCreditoVenta.cliente = string.Empty;
                                 cargarTicketAnticipo();
                                 ultimaVentaInformacion();
-                                
+
                                 panel1.Focus();
                             }
                             else
@@ -3866,7 +3870,7 @@ namespace PuntoDeVentaV2
                     formaDePagoDeVenta = "Presupuesto";
                 }
             }
-          
+
 
             var guardar = new string[] {
                 IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento,
@@ -4207,7 +4211,7 @@ namespace PuntoDeVentaV2
                                                 cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
                                             }
                                             cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idComboServicio}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','N/A','N/A','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
-                                        }       
+                                        }
                                     }
                                     else
                                     {
@@ -4626,8 +4630,8 @@ namespace PuntoDeVentaV2
                                     {
                                         if (DTpermiso.Rows[0][0].Equals(1))
                                         {
-                                            DialogResult RespuestaPregunta = MessageBox.Show("Desea imprimir el Ticket", "Aviso del Sistem",MessageBoxButtons.YesNo,MessageBoxIcon.Information);
-                                           
+                                            DialogResult RespuestaPregunta = MessageBox.Show("Desea imprimir el Ticket", "Aviso del Sistem", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
                                             if (RespuestaPregunta.Equals(DialogResult.Yes))
                                             {
                                                 if (TicketPDF.Equals(1))
@@ -4664,7 +4668,7 @@ namespace PuntoDeVentaV2
                                                 }
 
                                             }
-                                            else 
+                                            else
                                             {
                                                 using (var dt = cn.CargarDatos($"SELECT AbrirCajaVentas FROM configuraciondetickets WHERE IDUsuario = {FormPrincipal.userID}"))
                                                 {
@@ -4674,7 +4678,7 @@ namespace PuntoDeVentaV2
                                                         abrirSin1.Show();
                                                     }
                                                 }
-                                                
+
                                             }
                                         }
                                         else
@@ -4697,7 +4701,7 @@ namespace PuntoDeVentaV2
                             if (tipoDeVentaRealizada.Equals(2))
                             {
 
-                                using (var dt =  cn.CargarDatos($"SELECT TicketPresupuesto,PreguntarTicketPresupuesto,TicketOPDFPresupuesto,AbrirCajaGuardada FROM configuraciondetickets where IDUsuario = {FormPrincipal.userID}"))
+                                using (var dt = cn.CargarDatos($"SELECT TicketPresupuesto,PreguntarTicketPresupuesto,TicketOPDFPresupuesto,AbrirCajaGuardada FROM configuraciondetickets where IDUsuario = {FormPrincipal.userID}"))
                                 {
                                     if (dt.Rows[0]["TicketPresupuesto"].Equals(1))
                                     {
@@ -4765,7 +4769,7 @@ namespace PuntoDeVentaV2
                                             FormNotaDeVenta.fuePorVenta = true;
                                             formNota.ShowDialog();
                                         }
-                                        
+
                                     }
                                     else if (dt.Rows[0]["PreguntarTicketPresupuesto"].Equals(1))
                                     {
@@ -4849,9 +4853,9 @@ namespace PuntoDeVentaV2
                                         AbrirSinTicket abrirSin = new AbrirSinTicket();
                                         abrirSin.Show();
                                     }
-                                  
+
                                 }
-                                
+
                                 txtBuscadorProducto.Focus();
                             }
                             // Imprimir Ticket Venta Cancelada
@@ -4902,7 +4906,7 @@ namespace PuntoDeVentaV2
                                     }
                                     else if (dt.Rows[0]["PreguntarCreditoRealizado"].Equals(1))
                                     {
-                                        DialogResult mensaje = MessageBox.Show("¿Desea imprimir el ticket?","Aviso del sistema",MessageBoxButtons.YesNo,MessageBoxIcon.Information);
+                                        DialogResult mensaje = MessageBox.Show("¿Desea imprimir el ticket?", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                                         if (mensaje.Equals(DialogResult.Yes))
                                         {
                                             if (dt.Rows[0]["TicketOPDFCreditoRealizado"].Equals(1))
@@ -5300,7 +5304,7 @@ namespace PuntoDeVentaV2
 
         private void btnVentasGuardadas_Click(object sender, EventArgs e)
         {
-            
+
 
             if (Application.OpenForms.OfType<ListadoVentasGuardadas>().Count() == 1)
             {
@@ -6557,12 +6561,16 @@ namespace PuntoDeVentaV2
 
                 cadena = Regex.Replace(cadena, primerPatron, string.Empty);
             }
-            else if (segundaCoincidencia.Success)// AQUI ENTRA
+            else if (segundaCoincidencia.Success || txtBuscadorProducto.Text.Contains("-0.") || txtBuscadorProducto.Text.Contains("-."))// AQUI ENTRA
             {
                 bool checkFoundPlusAndDot = false;
 
                 checkFoundPlusAndDot = verifiedContainsPlusSymbol(cadena);
 
+                if (cadena.Contains('-'))
+                {
+                    cadena = cadena.Replace('+', ' ');
+                }
                 var estaDentroDelLimite = false;
                 decimal esNumeroLaBusqueda;
                 string vacia = string.Empty;
@@ -6577,23 +6585,32 @@ namespace PuntoDeVentaV2
 
                 if (sumarProducto)
                 {
-                    if (checkFoundPlusAndDot)           //AQUI SE BRINCA CUANDO TIENE +9.9
+                    if (checkFoundPlusAndDot || txtBuscadorProducto.Text.Contains("-0.") || txtBuscadorProducto.Text.Contains("-."))           //AQUI SE BRINCA CUANDO TIENE +9.9
                     {
-                        var infoTmp = cadena.Split('+');
                         float cantidadExtraDecimal = 0;
-
-                        if (!infoTmp[0].Equals(string.Empty))
+                        if (txtBuscadorProducto.Text.Contains("-0.") || txtBuscadorProducto.Text.Contains("-."))
                         {
-                            cantidadExtraDecimal = (float)Convert.ToDouble(infoTmp[0].ToString());
+                            cantidadExtraDecimal = (float)Convert.ToDecimal(cadena);
                         }
-
-                        if (!infoTmp[1].Equals(string.Empty))
+                        else
                         {
-                            cantidadExtraDecimal = (float)Convert.ToDouble(infoTmp[1].ToString());
+                            var infoTmp = cadena.Split('+');
+
+
+                            if (!infoTmp[0].Equals(string.Empty))
+                            {
+                                cantidadExtraDecimal = (float)Convert.ToDouble(infoTmp[0].ToString());
+                            }
+
+                            if (!infoTmp[1].Equals(string.Empty))
+                            {
+                                cantidadExtraDecimal = (float)Convert.ToDouble(infoTmp[1].ToString());
+                            }
+
+
                         }
 
                         cadena = Regex.Replace(cadena, segundoPatron, string.Empty);
-
                         //Verifica que exista algun producto o servicio en el datagridview
                         if (DGVentas.Rows.Count > 0)
                         {
@@ -6611,7 +6628,9 @@ namespace PuntoDeVentaV2
                                     decimal result = Convert.ToDecimal(cantidadExtraDecimal);
                                     if (result.ToString().Contains('.'))
                                     {
+                                        QueLoLimipie = true;
                                         MessageBox.Show("Este producto se vende solo por unidades enteras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        txtBuscadorProducto.Clear();
                                         return cadena;
                                     }
                                 }
@@ -6647,8 +6666,11 @@ namespace PuntoDeVentaV2
                     else
                     {
                         var resultado = segundaCoincidencia.Value.Trim();
-
-                        if (resultado.Equals("+") || resultado.Equals("++"))
+                        if (cadena.Contains('-'))
+                        {
+                            cantidadExtra = Convert.ToDecimal(cadena);
+                        }
+                        else if (resultado.Equals("+") || resultado.Equals("++"))
                         {
                             cantidadExtra = 1;
                         }
@@ -6979,11 +7001,11 @@ namespace PuntoDeVentaV2
 
         private bool verifiedContainsPlusSymbol(string cadena)
         {
-            Regex regex1 = new Regex(@"^(\+\.\d+)");        
-            Regex regex2 = new Regex(@"^(\.\d+\+)");        
-            Regex regex3 = new Regex(@"^(\+\d+\.\d+)");    
-            Regex regex4 = new Regex(@"^(\d+\.\d+\+)");    
-            Regex regex5 = new Regex(@"^(\d+\.\d+)");     
+            Regex regex1 = new Regex(@"^(\+\.\d+)");
+            Regex regex2 = new Regex(@"^(\.\d+\+)");
+            Regex regex3 = new Regex(@"^(\+\d+\.\d+)");
+            Regex regex4 = new Regex(@"^(\d+\.\d+\+)");
+            Regex regex5 = new Regex(@"^(\d+\.\d+)");
 
             Match match1 = regex1.Match(cadena);
             Match match2 = regex2.Match(cadena);
@@ -7106,7 +7128,6 @@ namespace PuntoDeVentaV2
         }
 
         private void OperacionBusqueda(int tipo = 0)
-
         {
             listaProductos.Items.Clear();
 
@@ -7120,8 +7141,9 @@ namespace PuntoDeVentaV2
 
             output = Regex.Replace(auxTxtBuscadorProducto, pattern, string.Empty);
 
-            if (output.Equals(string.Empty))
+            if (output.Equals(string.Empty) || QueLoLimipie.Equals(true))
             {
+                QueLoLimipie = false;
                 txtBuscadorProducto.Text = string.Empty;
             }
             else
@@ -7135,7 +7157,7 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            if (auxTxtBuscadorProducto.Contains("+."))
+            if (auxTxtBuscadorProducto.Contains("+.") || auxTxtBuscadorProducto.Contains("-"))
             {
                 return;
             }
@@ -7711,6 +7733,7 @@ namespace PuntoDeVentaV2
                 if (result.ToString().Contains('.'))
                 {
                     MessageBox.Show("Este producto se vende solo por unidades enteras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtBuscadorProducto.Text = "";
                     return;
                 }
             }
