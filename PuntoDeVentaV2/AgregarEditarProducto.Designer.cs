@@ -47,6 +47,7 @@ namespace PuntoDeVentaV2
             this.label7 = new System.Windows.Forms.Label();
             this.cbTipo = new System.Windows.Forms.ComboBox();
             this.PDetalleProdcuto = new System.Windows.Forms.Panel();
+            this.btnConsultarProducto = new System.Windows.Forms.Button();
             this.lblArrow = new System.Windows.Forms.Label();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -100,7 +101,6 @@ namespace PuntoDeVentaV2
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.errorProvAgregarEditarProducto = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnConsultarProducto = new System.Windows.Forms.Button();
             this.btnConfiguracionPeso = new PuntoDeVentaV2.BotonRedondo();
             this.btnMensajeVenta = new PuntoDeVentaV2.BotonRedondo();
             this.button1 = new PuntoDeVentaV2.BotonRedondo();
@@ -319,6 +319,18 @@ namespace PuntoDeVentaV2
             this.PDetalleProdcuto.Name = "PDetalleProdcuto";
             this.PDetalleProdcuto.Size = new System.Drawing.Size(885, 62);
             this.PDetalleProdcuto.TabIndex = 0;
+            // 
+            // btnConsultarProducto
+            // 
+            this.btnConsultarProducto.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConsultarProducto.Image = global::PuntoDeVentaV2.Properties.Resources.search;
+            this.btnConsultarProducto.Location = new System.Drawing.Point(862, 34);
+            this.btnConsultarProducto.Margin = new System.Windows.Forms.Padding(2);
+            this.btnConsultarProducto.Name = "btnConsultarProducto";
+            this.btnConsultarProducto.Size = new System.Drawing.Size(22, 25);
+            this.btnConsultarProducto.TabIndex = 31;
+            this.btnConsultarProducto.UseVisualStyleBackColor = true;
+            this.btnConsultarProducto.Click += new System.EventHandler(this.btnConsultarProducto_Click);
             // 
             // lblArrow
             // 
@@ -958,18 +970,6 @@ namespace PuntoDeVentaV2
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
-            // 
-            // btnConsultarProducto
-            // 
-            this.btnConsultarProducto.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConsultarProducto.Image = global::PuntoDeVentaV2.Properties.Resources.search;
-            this.btnConsultarProducto.Location = new System.Drawing.Point(862, 34);
-            this.btnConsultarProducto.Margin = new System.Windows.Forms.Padding(2);
-            this.btnConsultarProducto.Name = "btnConsultarProducto";
-            this.btnConsultarProducto.Size = new System.Drawing.Size(22, 25);
-            this.btnConsultarProducto.TabIndex = 31;
-            this.btnConsultarProducto.UseVisualStyleBackColor = true;
-            this.btnConsultarProducto.Click += new System.EventHandler(this.btnConsultarProducto_Click);
             // 
             // btnConfiguracionPeso
             // 

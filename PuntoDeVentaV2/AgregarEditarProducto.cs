@@ -10198,6 +10198,7 @@ namespace PuntoDeVentaV2
             }
 
             ConsultarPaginasRegistradas();
+            txtCodigoBarras.Focus();
         }
 
         private void llenarListaDatosDinamicos()

@@ -214,6 +214,7 @@ namespace PuntoDeVentaV2
                 cbConceptoConBusqueda.Visible = false;
                 lbSubtitulo.Visible = false;
                 btnAgregarConcepto.Visible = false;
+                btnRetirarTodoElDinero.Visible = false;
                 txtEfectivo.Text = Inventario.totalFinal.ToString();
                 
                 txtCredito.Enabled = false;
