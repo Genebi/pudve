@@ -341,6 +341,7 @@
             this.rbDisminuirProducto.Text = "Disminuir";
             this.rbDisminuirProducto.UseVisualStyleBackColor = true;
             this.rbDisminuirProducto.CheckedChanged += new System.EventHandler(this.rbDisminuirProducto_CheckedChanged);
+            this.rbDisminuirProducto.Click += new System.EventHandler(this.rbDisminuirProducto_Click);
             // 
             // rbAumentarProducto
             // 
@@ -355,6 +356,7 @@
             this.rbAumentarProducto.Text = "Aumentar";
             this.rbAumentarProducto.UseVisualStyleBackColor = true;
             this.rbAumentarProducto.CheckedChanged += new System.EventHandler(this.rbAumentarProducto_CheckedChanged);
+            this.rbAumentarProducto.Click += new System.EventHandler(this.rbAumentarProducto_Click);
             // 
             // panelContenedor
             // 
