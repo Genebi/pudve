@@ -34,6 +34,7 @@ namespace PuntoDeVentaV2
         public static int idReporte = 0;
         public static bool botonAceptar = false;
         public static bool aceptarFiltro = false;
+        public static int AumentarDisminuir = 0;
 
         public static decimal totalFinal = 0;
 
@@ -4701,6 +4702,16 @@ namespace PuntoDeVentaV2
 
                 inventarioXML.Show();
             }
+        }
+
+        private void rbAumentarProducto_Click(object sender, EventArgs e)
+        {
+            AumentarDisminuir = 0;
+        }
+
+        private void rbDisminuirProducto_Click(object sender, EventArgs e)
+        {
+            AumentarDisminuir = 1;
         }
     }
 }
