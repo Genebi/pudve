@@ -66,7 +66,21 @@ namespace PuntoDeVentaV2
                 row.Cells["Vales"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Vales")).ToString());
                 row.Cells["Cheque"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Cheque")).ToString());
                 row.Cells["Trans"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Transferencia")).ToString());
-                row.Cells["Total"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Total")).ToString());
+
+                if (dr.GetValue(dr.GetOrdinal("Total")).ToString().Equals("0.00"))
+                {
+                    decimal total = 0;
+                    total += decimal.Parse(dr.GetValue(dr.GetOrdinal("Efectivo")).ToString());
+                    total += decimal.Parse(dr.GetValue(dr.GetOrdinal("Tarjeta")).ToString());
+                    total += decimal.Parse(dr.GetValue(dr.GetOrdinal("Vales")).ToString());
+                    total += decimal.Parse(dr.GetValue(dr.GetOrdinal("Cheque")).ToString());
+                    total += decimal.Parse(dr.GetValue(dr.GetOrdinal("Transferencia")).ToString());
+                    row.Cells["Total"].Value = total.ToString();
+                }
+                else
+                {
+                    row.Cells["Total"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Total")).ToString());
+                }
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
                 row.Cells["Ticket"].Value = ticket;
             }

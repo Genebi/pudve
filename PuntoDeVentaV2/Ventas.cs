@@ -3772,6 +3772,66 @@ namespace PuntoDeVentaV2
             };
 
             cn.EjecutarConsulta(cs.GuardarDetallesVenta(info));
+            if (decimal.Parse(info[7])>0)
+            {
+                bool haylana = false;
+                string efectivo = "0.00";
+                string tarjeta = "0.00";
+                string vales = "0.00";
+                string cheque = "0.00";
+                string transferencia = "0.00";
+                decimal total=0;    
+
+                if (decimal.Parse(info[2]) > 0)
+                {
+                    efectivo = info[2];
+                    total += decimal.Parse(efectivo);
+                    haylana = true;
+                }
+                if (decimal.Parse(info[3]) > 0)
+                {
+                    tarjeta = info[2];
+                    total += decimal.Parse(tarjeta);
+                    haylana = true;
+                }
+                if (decimal.Parse(info[4]) > 0)
+                {
+                    vales = info[2];
+                    total += decimal.Parse(vales);
+                    haylana = true;
+                }
+                if (decimal.Parse(info[5]) > 0)
+                {
+                    cheque = info[2];
+                    total += decimal.Parse(cheque);
+                    haylana = true;
+                }
+                if (decimal.Parse(info[6]) > 0)
+                {
+                    transferencia = info[2];
+                    total += decimal.Parse(transferencia);
+                    haylana = true;
+                }
+                total = 0;
+                if (haylana)
+                {
+                    if (FormPrincipal.userNickName.Contains('@'))
+                    {
+                        string[] abono = new string[] {
+                IDVenta, FormPrincipal.userID.ToString(), total.ToString(), efectivo, tarjeta, vales,
+                cheque, transferencia,"INICIAL",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),FormPrincipal.id_empleado.ToString()};
+                        cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(abono));
+                    }
+                    else
+                    {
+                        string[] abono = new string[] {
+                IDVenta, FormPrincipal.userID.ToString(), total.ToString(), efectivo, tarjeta, vales,
+                cheque, transferencia,"INICIAL",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")};
+                        cn.EjecutarConsulta(cs.GuardarAbonos(abono));
+                    }
+                
+                }
+            }
         }
 
         private void DetallesCliente(string idVenta)
@@ -4008,12 +4068,12 @@ namespace PuntoDeVentaV2
                         }
                     }
                     else
-                    {
+                    {       
                         mostrarVenta = 0;
                         respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas, gananciaTotalPorVenta));
                         //Venta normal
                     }
-                }
+                }       
 
                 if (respuesta > 0)
                 {
