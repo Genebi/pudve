@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.panel3 = new System.Windows.Forms.Panel();
-            this.txtCantidad = new System.Windows.Forms.TextBox();
+            this.num1 = new System.Windows.Forms.NumericUpDown();
             this.panel2 = new System.Windows.Forms.Panel();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.btnAceptar = new System.Windows.Forms.Button();
@@ -37,6 +37,7 @@
             this.lblPrompt = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num1)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -44,22 +45,25 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel3.Controls.Add(this.txtCantidad);
+            this.panel3.Controls.Add(this.num1);
             this.panel3.Location = new System.Drawing.Point(25, 59);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(351, 51);
             this.panel3.TabIndex = 5;
             // 
-            // txtCantidad
+            // num1
             // 
-            this.txtCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCantidad.Location = new System.Drawing.Point(7, 7);
-            this.txtCantidad.Name = "txtCantidad";
-            this.txtCantidad.Size = new System.Drawing.Size(329, 26);
-            this.txtCantidad.TabIndex = 0;
-            this.txtCantidad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyDown);
-            this.txtCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCantidad_KeyPress);
-            this.txtCantidad.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCantidad_KeyUp);
+            this.num1.DecimalPlaces = 2;
+            this.num1.Location = new System.Drawing.Point(7, 14);
+            this.num1.Maximum = new decimal(new int[] {
+            1410065407,
+            2,
+            0,
+            0});
+            this.num1.Name = "num1";
+            this.num1.Size = new System.Drawing.Size(337, 20);
+            this.num1.TabIndex = 0;
+            this.num1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.num1_KeyDown);
             // 
             // panel2
             // 
@@ -135,7 +139,7 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Ingrese la cantidad de productos que necesita:";
             // 
-            // inputMessageBoxVentas
+            // canditadPVF
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -148,13 +152,13 @@
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "inputMessageBoxVentas";
+            this.Name = "canditadPVF";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.inputMessageBoxVentas_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.inputMessageBoxVentas_KeyDown);
             this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -165,12 +169,12 @@
         #endregion
 
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.TextBox txtCantidad;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lblPrompt;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown num1;
     }
 }

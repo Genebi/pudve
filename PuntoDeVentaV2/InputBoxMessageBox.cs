@@ -103,6 +103,13 @@ namespace PuntoDeVentaV2
         private void InputBoxMessageBox_Load(object sender, EventArgs e)
         {
             cargarValores();
+            using (DataTable dt = cn.CargarDatos($"SELECT ventaFacil FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (dt.Rows[0][0].ToString().Equals("1"))
+                {
+                    chbVentaFacil.Visible = true;
+                }
+            }
         }
 
         public InputBoxMessageBox(string _Prompt, string _Title, string _DefaultResponse)

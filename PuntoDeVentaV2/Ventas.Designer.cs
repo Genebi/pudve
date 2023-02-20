@@ -1282,6 +1282,7 @@
             this.btnVentaFacil.Text = "Venta Fácil\r\nCtrl + V";
             this.btnVentaFacil.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnVentaFacil.UseVisualStyleBackColor = true;
+            this.btnVentaFacil.Visible = false;
             this.btnVentaFacil.Click += new System.EventHandler(this.btnVentaFacil_Click);
             // 
             // Ventas

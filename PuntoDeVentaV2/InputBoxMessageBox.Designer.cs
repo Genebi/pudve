@@ -133,6 +133,7 @@
             this.chbVentaFacil.TabIndex = 3;
             this.chbVentaFacil.Text = "Venta fácil";
             this.chbVentaFacil.UseVisualStyleBackColor = true;
+            this.chbVentaFacil.Visible = false;
             this.chbVentaFacil.CheckedChanged += new System.EventHandler(this.chbVentaFacil_CheckedChanged);
             // 
             // InputBoxMessageBox

@@ -41,7 +41,7 @@ namespace PuntoDeVentaV2
         private void btnAceptar_Click(object sender, EventArgs e)
         {
              Ventas.sonido = true;
-             cantidad = txtCantidad.Text;
+             cantidad = num1.Value.ToString();
              this.Close();
         }
 
@@ -55,142 +55,7 @@ namespace PuntoDeVentaV2
 
         }
 
-        private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e)
-        {
-
-            var validarGuion = txtCantidad.Text;
-            Boolean guion = validarGuion.Contains('-');
-            if (guion == true)
-            {
-                validGuion = "guion";
-            }
-            else
-            {
-                validGuion = "Todo";
-                conteoGuion = 0;
-            }
-
-            var validarPunto = txtCantidad.Text;
-            Boolean punto = validarPunto.Contains('.');
-            if (punto == true)
-            {
-                validPunto = "punto";
-            }
-            else
-            {
-                validPunto = "Todo";
-                conteoPunto = 0;
-            }
-
-            ////////////////////////////////////Validacion de punto y guion/////////////////////////////////////////
-
-            if (!txtCantidad.Text.Equals(string.Empty))
-            {
-                validGuion = "guion";
-            }
-            if (validGuion == "Todo" && validPunto == "Todo")
-            {
-                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.') && (e.KeyChar != '-'))
-                {
-                    if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-                    {
-                        e.Handled = true;
-                    }
-                    //Si deseas, puedes permitir numeros decimales (o float)
-                    //If you want, you can allow decimal (float) numbers
-                    if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
-                    {
-                        e.Handled = true;
-                    }
-                }
-            }
-
-            else if(validPunto == "punto" && conteoPunto == 0)
-            {
-                if (!char.IsControl(e.KeyChar))
-                {
-                    if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-                    {
-                        e.Handled = true;
-                    }
-                    //Si deseas, puedes permitir numeros decimales (o float)
-                    //If you want, you can allow decimal (float) numbers
-                    if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
-                    {
-                        e.Handled = true;
-                    }
-                }
-                conteoGuion = 1;
-            }
-
-            else if (validGuion == "guion" && conteoGuion == 0)
-            {
-                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
-                {
-                    if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-                    {
-                        e.Handled = true;
-                    }
-                    //Si deseas, puedes permitir numeros decimales (o float)
-                    //If you want, you can allow decimal (float) numbers
-                    if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
-                    {
-                        e.Handled = true;
-                    }
-                }
-                conteoPunto = 1;
-            }
-
-            if (validGuion == "guion" && validPunto == "punto")
-            {
-                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-                {
-                    if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-                    {
-                        e.Handled = true;
-                    }
-                    //Si deseas, puedes permitir numeros decimales (o float)
-                    //If you want, you can allow decimal (float) numbers
-                    if ((e.KeyChar == '.') && (sender as TextBox).Text.IndexOf('.') > -1)
-                    {
-                        e.Handled = true;
-                    }
-                }
-            }
-
-            if (e.KeyChar == Convert.ToChar(Keys.Space))
-            {
-                calcu++;
-
-                if (calcu == 1)
-                {
-                    calculadora calculadora = new calculadora();
-
-                    calculadora.FormClosed += delegate
-                    {
-                        if (calculadora.seEnvia.Equals(true))
-                        {
-                            txtCantidad.Text = calculadora.lCalculadora.Text;
-                        }
-                        calcu = 0;
-                    };
-                    if (!calculadora.Visible)
-                    {
-                        calculadora.Show();
-                    }
-                    else
-                    {
-                        calculadora.Show();
-                    }
-
-                    //if ()
-                    //{
-                    //    txtStockMaximo.Text = calculadora.lCalculadora.Text;
-                    //}
-                }
-            }
-
-        }
+        
 
         private void inputMessageBoxVentas_KeyDown(object sender, KeyEventArgs e)
         {
@@ -200,10 +65,14 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void txtCantidad_KeyUp(object sender, KeyEventArgs e)
+        private void num1_KeyDown(object sender, KeyEventArgs e)
         {
-            
+            if (e.KeyCode.Equals(Keys.Enter))
+            {
+                btnAceptar.PerformClick();
+            }
         }
+
 
         private void inputMessageBoxVentas_Load(object sender, EventArgs e)
         {
@@ -214,9 +83,8 @@ namespace PuntoDeVentaV2
         {
             lblPrompt.Text = promptMsg;
             this.Text = titleWindow;
-            txtCantidad.Text = strDefaultResponse;
-            txtCantidad.Focus();
-            txtCantidad.Select();
+            num1.Focus();
+            num1.Select(0, 100);
         }
     }
 }

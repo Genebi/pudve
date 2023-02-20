@@ -317,6 +317,13 @@ namespace PuntoDeVentaV2
 
         private void Ventas_Load(object sender, EventArgs e)
         {
+            using (DataTable dt = cn.CargarDatos($"SELECT ventaFacil FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (dt.Rows[0][0].ToString().Equals("1"))
+                {
+                    btnVentaFacil.Visible = true;
+                }
+            }
             CBTipo.SelectedItem = "Todos";
             CBTipo.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
 
@@ -7133,7 +7140,14 @@ namespace PuntoDeVentaV2
             }
             else if (e.KeyCode == Keys.V && (e.Control))//Boton Venta facil
             {
-                btnVentaFacil.PerformClick();
+                using (DataTable dt = cn.CargarDatos($"SELECT ventaFacil FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                {
+                    if (dt.Rows[0][0].ToString().Equals("1"))
+                    {
+                        btnVentaFacil.PerformClick();
+                    }
+                }
+                
             }
 
         }
@@ -9117,6 +9131,11 @@ namespace PuntoDeVentaV2
             ConsultarProductosVentaFacil consul = new ConsultarProductosVentaFacil();
             consul.FormClosed += delegate
             {
+                foreach (DataRow dataRow in consul.ayylmao.Rows)
+                {
+                    string[] datosProducto = cn.BuscarProducto(Int32.Parse(dataRow[0].ToString()), FormPrincipal.userID);
+                    AgregarProducto(datosProducto,decimal.Parse(dataRow[1].ToString()));
+                }
                 
             };
             consul.ShowDialog();
