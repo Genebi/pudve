@@ -522,7 +522,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>=First(Fields!AnticipoAplicado.Value, "TicketAnticipo")</Value>
+                    <Value>=Parameters!Actual.Value</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
@@ -1068,6 +1068,10 @@
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="Actual">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -1078,6 +1082,11 @@
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>0</RowIndex>
           <ParameterName>Anterior</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Actual</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
