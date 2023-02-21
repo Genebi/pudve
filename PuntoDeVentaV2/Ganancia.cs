@@ -143,8 +143,13 @@ namespace PuntoDeVentaV2
                     //Validar cuando el Combo/Servicio tiene precio de Compra
                     if (productoPAquete.Rows[0]["Tipo"].ToString().Equals("PQ") || productoPAquete.Rows[0]["Tipo"].ToString().Equals("S"))
                     {
+                        var idProd = "";
                         var idsProdCombo = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM `productosdeservicios` WHERE IDServicio = {item[0]}"); //Si el combo no tiene productos se tomara el precio de compra y venta para calcular su posible ganancia
-                        var idProd = idsProdCombo.Rows[0]["IDProducto"].ToString(); //Validar que se un producto y no vengan en 0 el id 
+                        if (!idsProdCombo.Rows.Count.Equals(0))
+                        {
+                            idProd = idsProdCombo.Rows[0]["IDProducto"].ToString(); //Validar que se un producto y no vengan en 0 el id      
+                        }
+                        
                         var precioPQ = cn.CargarDatos($"SELECT PrecioCompra FROM productos WHERE ID = {item[0]}"); //Consultar su el combo cuenta con un precio de compra
 
                         if (!idsProdCombo.Rows.Count.Equals(0) && !idProd.Equals("0") && precioPQ.Rows[0]["PrecioCompra"].ToString().Equals("0.00")) //Cuando el combo tiene productos y su precio de compra es 0
