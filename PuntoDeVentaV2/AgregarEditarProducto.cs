@@ -12522,6 +12522,8 @@ namespace PuntoDeVentaV2
                                     if (!string.IsNullOrWhiteSpace(nombreProducto))
                                     {
                                         sugerencias.Add(nombreProducto);
+
+                                        ActualizarPaginaUtilizada(pagina.Key);
                                     }
                                 }
                             }
@@ -12686,6 +12688,30 @@ namespace PuntoDeVentaV2
                 ObtenerPaginasRegistradas();
                 Console.WriteLine("se ejecuto");
             }, null, startTimeSpan, periodTimeSpan);
+        }
+
+        private void ActualizarPaginaUtilizada(string pagina)
+        {
+            if (Registro.ConectadoInternet())
+            {
+                MySqlConnection conexion = new MySqlConnection();
+
+                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+                try
+                {
+                    conexion.Open();
+
+                    MySqlCommand cmd = new MySqlCommand("UPDATE paginas SET veces_utilizada = veces_utilizada + 1 WHERE enlace = @pagina", conexion);
+                    cmd.Parameters.AddWithValue("@pagina", pagina);
+                    cmd.ExecuteNonQuery();
+                    conexion.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void EjecutarBusquedaGoogle()
