@@ -12642,7 +12642,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void RegistrarCodigoNoEncontrados(string codigo)
+        private void RegistrarCodigoNoEncontrado(string codigo)
         {
             if (Registro.ConectadoInternet())
             {
@@ -12664,6 +12664,43 @@ namespace PuntoDeVentaV2
                         dr.Close();
                         //Consulta de MySQL
                         registrar.CommandText = $"INSERT INTO codigos_buscados (codigo) VALUES ('{codigo}')";
+                        int resultado = registrar.ExecuteNonQuery();
+                    }
+
+                    //Cerramos la conexion de MySQL
+                    dr.Close();
+                    conexion.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void RegistrarCodigoEncontrado(string codigo)
+        {
+            if (Registro.ConectadoInternet())
+            {
+                MySqlConnection conexion = new MySqlConnection();
+
+                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+                try
+                {
+                    conexion.Open();
+
+                    MySqlCommand consultar = new MySqlCommand("SELECT * FROM codigos_encontrados WHERE codigo = @codigo", conexion);
+                    consultar.Parameters.AddWithValue("@codigo", codigo);
+                    MySqlDataReader dr = consultar.ExecuteReader();
+
+                    if (!dr.HasRows)
+                    {
+                        dr.Close();
+                        //Consulta de MySQL
+                        MySqlCommand registrar = new MySqlCommand("INSERT INTO codigos_encontrados (codigo, usuario) VALUES (@codigo, @usuario)", conexion);
+                        registrar.Parameters.AddWithValue("@codigo", codigo);
+                        registrar.Parameters.AddWithValue("@usuario", FormPrincipal.userNickName);
                         int resultado = registrar.ExecuteNonQuery();
                     }
 
@@ -12733,6 +12770,8 @@ namespace PuntoDeVentaV2
 
                         if (sugerencias.Count > 0)
                         {
+                            RegistrarCodigoEncontrado(codigo);
+
                             using (SugerenciasGoogle formSugerencias = new SugerenciasGoogle(sugerencias))
                             {
                                 var resultado = formSugerencias.ShowDialog();
@@ -12745,7 +12784,7 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            RegistrarCodigoNoEncontrados(codigo);
+                            RegistrarCodigoNoEncontrado(codigo);
                             MessageBox.Show("No se ha encontrado ningún resultado.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
