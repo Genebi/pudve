@@ -1195,6 +1195,14 @@ namespace PuntoDeVentaV2
                                     cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Producto';");
                                     enviarProdctosWeb();
                                     break;
+                                case "Empleados":
+                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Empleado';");
+                                    enviarEmpleadosWeb();
+                                    break;
+                                case "SesionInventario":
+                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'SesionInventario';");
+                                    iniciarSesionInventario(peticion["Tipo"].ToString());
+                                    break;
                                 default:
                                     break;
                             }
@@ -1207,6 +1215,20 @@ namespace PuntoDeVentaV2
                 Console.WriteLine("Error garrafal");
                 return;
             }
+        }
+
+        private void iniciarSesionInventario(string tipo)
+        {
+
+        }
+
+        private void enviarEmpleadosWeb()
+        {
+            ConexionAPPWEB con = new ConexionAPPWEB();
+            con.EjecutarConsulta($"DELETE FROM webempleados WHERE IDUsuario = {userNickName.Split('@')[0]}");
+            DataTable empliados = cn.CargarDatos($"SELECT IF(true,'{userNickName.Split('@')[0]}','{userNickName.Split('@')[0]}') AS IDUsuario, Nombre,Usuario,contrasena WHERE {IdUsuario} AND estatus = 1");
+            ToCSV(empliados, @"C:\Archivos PUDVE\export.txt");
+            bulkInsertAsync("webempleados");
         }
 
         private void enviarProdctosWeb()
@@ -1396,6 +1418,11 @@ namespace PuntoDeVentaV2
                     bl.LineTerminator = "^";
                     break;
                 case "mirrorproductosdatos":
+                    bl.Columns.AddRange(new List<string>() { "IDregistro", "Nombre", "Stock", "Precio", "Codigo" });
+                    bl.FieldTerminator = "+";
+                    bl.LineTerminator = "\n";
+                    break;
+                case "webempleados":
                     bl.Columns.AddRange(new List<string>() { "IDregistro", "Nombre", "Stock", "Precio", "Codigo" });
                     bl.FieldTerminator = "+";
                     bl.LineTerminator = "\n";
