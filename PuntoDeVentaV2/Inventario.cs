@@ -1369,7 +1369,7 @@ namespace PuntoDeVentaV2
                     if (rbAumentarProducto.Checked)
                     {
                         var NewNoRev = Convert.ToInt32(cs.GetNoRevAumentarInventario());
-                        //cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev + 1));
+                        cn.EjecutarConsulta(cs.UpdateNoRevAumentarInventario(NewNoRev + 1));
                         cn.EjecutarConsulta(cs.UpdateStatusDevolverInventario());
                     }
                     else if (rbDisminuirProducto.Checked)
@@ -4480,6 +4480,7 @@ namespace PuntoDeVentaV2
 
         private void btnMensajeVenta_Click(object sender, EventArgs e)
         {
+            rbAumentarProducto.Checked = true;
             cargarDatos2();
         }
 

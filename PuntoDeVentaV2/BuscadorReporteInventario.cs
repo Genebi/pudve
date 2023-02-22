@@ -1462,7 +1462,7 @@ namespace PuntoDeVentaV2
 
             var tablaBuscar = string.Empty;
 
-            if (tipoDatoReporte.Equals("AIAumentar"))
+            if (tipoDatoReporte.Equals("AIAumentar") || tipoDatoReporte.Equals("AIDevolucion"))
             {
                 tablaBuscar = "dgvaumentarinventario";
             }

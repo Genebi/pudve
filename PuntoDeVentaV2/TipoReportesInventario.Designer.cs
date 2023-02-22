@@ -30,10 +30,10 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TipoReportesInventario));
             this.label1 = new System.Windows.Forms.Label();
+            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             this.btnActualizarInventarioDisminuir = new PuntoDeVentaV2.BotonRedondo();
             this.btnActualizarInventarioAumentar = new PuntoDeVentaV2.BotonRedondo();
             this.btnActualizarInventarioNew = new PuntoDeVentaV2.BotonRedondo();
-            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             this.SuspendLayout();
             // 
             // label1
@@ -46,6 +46,31 @@
             this.label1.TabIndex = 111;
             this.label1.Text = "Seleccione una opción ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // botonRedondo1
+            // 
+            this.botonRedondo1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.botonRedondo1.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
+            this.botonRedondo1.BorderColor = System.Drawing.Color.Empty;
+            this.botonRedondo1.BorderRadius = 40;
+            this.botonRedondo1.BorderSize = 1;
+            this.botonRedondo1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.botonRedondo1.FlatAppearance.BorderSize = 0;
+            this.botonRedondo1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.botonRedondo1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
+            this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.botonRedondo1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.botonRedondo1.ForeColor = System.Drawing.Color.White;
+            this.botonRedondo1.Image = global::PuntoDeVentaV2.Properties.Resources.statistics;
+            this.botonRedondo1.Location = new System.Drawing.Point(193, 196);
+            this.botonRedondo1.Name = "botonRedondo1";
+            this.botonRedondo1.Size = new System.Drawing.Size(150, 104);
+            this.botonRedondo1.TabIndex = 115;
+            this.botonRedondo1.Text = "Actualizar Inventario (Devolucion)";
+            this.botonRedondo1.TextColor = System.Drawing.Color.White;
+            this.botonRedondo1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.botonRedondo1.UseVisualStyleBackColor = false;
+            this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click);
             // 
             // btnActualizarInventarioDisminuir
             // 
@@ -121,31 +146,6 @@
             this.btnActualizarInventarioNew.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnActualizarInventarioNew.UseVisualStyleBackColor = false;
             this.btnActualizarInventarioNew.Click += new System.EventHandler(this.btnActualizarInventarioNew_Click);
-            // 
-            // botonRedondo1
-            // 
-            this.botonRedondo1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
-            this.botonRedondo1.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(104)))), ((int)(((byte)(144)))));
-            this.botonRedondo1.BorderColor = System.Drawing.Color.Empty;
-            this.botonRedondo1.BorderRadius = 40;
-            this.botonRedondo1.BorderSize = 1;
-            this.botonRedondo1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.botonRedondo1.FlatAppearance.BorderSize = 0;
-            this.botonRedondo1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.botonRedondo1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Firebrick;
-            this.botonRedondo1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.botonRedondo1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.botonRedondo1.ForeColor = System.Drawing.Color.White;
-            this.botonRedondo1.Image = global::PuntoDeVentaV2.Properties.Resources.statistics;
-            this.botonRedondo1.Location = new System.Drawing.Point(193, 196);
-            this.botonRedondo1.Name = "botonRedondo1";
-            this.botonRedondo1.Size = new System.Drawing.Size(150, 104);
-            this.botonRedondo1.TabIndex = 115;
-            this.botonRedondo1.Text = "Actualizar Inventario (Devolucion)";
-            this.botonRedondo1.TextColor = System.Drawing.Color.White;
-            this.botonRedondo1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.botonRedondo1.UseVisualStyleBackColor = false;
-            this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click);
             // 
             // TipoReportesInventario
             // 
