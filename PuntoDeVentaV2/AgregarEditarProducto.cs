@@ -12701,7 +12701,14 @@ namespace PuntoDeVentaV2
                         MySqlCommand registrar = new MySqlCommand("INSERT INTO codigos_encontrados (codigo, usuario) VALUES (@codigo, @usuario)", conexion);
                         registrar.Parameters.AddWithValue("@codigo", codigo);
                         registrar.Parameters.AddWithValue("@usuario", FormPrincipal.userNickName);
-                        int resultado = registrar.ExecuteNonQuery();
+                        registrar.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        dr.Close();
+                        MySqlCommand actualizar = new MySqlCommand("UPDATE codigos_encontrados SET veces_encontrado = veces_encontrado + 1 WHERE codigo = @codigo", conexion);
+                        actualizar.Parameters.AddWithValue("@codigo", codigo);
+                        actualizar.ExecuteNonQuery();
                     }
 
                     //Cerramos la conexion de MySQL
