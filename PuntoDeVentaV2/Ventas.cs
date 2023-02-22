@@ -6621,7 +6621,7 @@ namespace PuntoDeVentaV2
 
                 cadena = Regex.Replace(cadena, primerPatron, string.Empty);
             }
-            else if (segundaCoincidencia.Success || txtBuscadorProducto.Text.Contains("-0.") || txtBuscadorProducto.Text.Contains("-."))// AQUI ENTRA
+            else if (segundaCoincidencia.Success || txtBuscadorProducto.Text.Contains("-0.") || txtBuscadorProducto.Text.Contains("-.") || txtBuscadorProducto.Text.Contains("-"))// AQUI ENTRA
             {
                 bool checkFoundPlusAndDot = false;
 
@@ -6645,11 +6645,12 @@ namespace PuntoDeVentaV2
 
                 if (sumarProducto)
                 {
-                    if (checkFoundPlusAndDot || txtBuscadorProducto.Text.Contains("-0.") || txtBuscadorProducto.Text.Contains("-."))           //AQUI SE BRINCA CUANDO TIENE +9.9
+                    if (checkFoundPlusAndDot || txtBuscadorProducto.Text.Contains("-0.") || txtBuscadorProducto.Text.Contains("-.") || txtBuscadorProducto.Text.Contains("-"))           //AQUI SE BRINCA CUANDO TIENE +9.9
                     {
                         float cantidadExtraDecimal = 0;
-                        if (txtBuscadorProducto.Text.Contains("-0.") || txtBuscadorProducto.Text.Contains("-."))
+                        if (txtBuscadorProducto.Text.Contains("-0.") || txtBuscadorProducto.Text.Contains("-.") || txtBuscadorProducto.Text.Contains("-"))
                         {
+                            cadena.Replace('-', ' ');
                             cantidadExtraDecimal = (float)Convert.ToDecimal(cadena);
                         }
                         else
