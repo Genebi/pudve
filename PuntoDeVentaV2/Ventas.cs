@@ -6689,6 +6689,7 @@ namespace PuntoDeVentaV2
                                     decimal result = Convert.ToDecimal(cantidadExtraDecimal);
                                     if (result.ToString().Contains('.'))
                                     {
+
                                         QueLoLimipie = true;
                                         MessageBox.Show("Este producto se vende solo por unidades enteras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                         txtBuscadorProducto.Clear();
