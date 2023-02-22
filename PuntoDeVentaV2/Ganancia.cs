@@ -212,7 +212,7 @@ namespace PuntoDeVentaV2
                             lblMensaje.Visible = true;
                             lblGanancia.Text = "SIN PODER CALCULAR";
                             precioTotalDeCompra = 0;
-                            return;
+                            break;
                         }
                         else
                         {
@@ -223,13 +223,12 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-
-                if (gananciaGrafica == 3)
-                {
-                    Ventas.gananciaTotalPorVenta = lblGanancia.Text;
-                    gananciaGrafica = 0;
-                    this.Close();
-                }
+            }
+            if (gananciaGrafica == 3)
+            {
+                Ventas.gananciaTotalPorVenta = lblGanancia.Text;
+                gananciaGrafica = 0;
+                this.Close();
             }
         }
     }
