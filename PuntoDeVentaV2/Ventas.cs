@@ -3771,67 +3771,51 @@ namespace PuntoDeVentaV2
                 cheque, transferencia, credito, referencia, idCliente, cliente
             };
 
-            cn.EjecutarConsulta(cs.GuardarDetallesVenta(info));
-            //if (decimal.Parse(info[7])>0)
-            //{
-            //    bool haylana = false;
-            //    string efectivo = "0.00";
-            //    string tarjeta = "0.00";
-            //    string vales = "0.00";
-            //    string cheque = "0.00";
-            //    string transferencia = "0.00";
-            //    decimal total=0;    
+            if (decimal.Parse(info[7]) > 0)
+            {
+                string efectivo = "0.00";
+                string tarjeta = "0.00";
+                string vales = "0.00";
+                string cheque = "0.00";
+                string transferencia = "0.00";
+                decimal total = 0;
 
-            //    if (decimal.Parse(info[2]) > 0)
-            //    {
-            //        efectivo = info[2];
-            //        total += decimal.Parse(efectivo);
-            //        haylana = true;
-            //    }
-            //    if (decimal.Parse(info[3]) > 0)
-            //    {
-            //        tarjeta = info[2];
-            //        total += decimal.Parse(tarjeta);
-            //        haylana = true;
-            //    }
-            //    if (decimal.Parse(info[4]) > 0)
-            //    {
-            //        vales = info[2];
-            //        total += decimal.Parse(vales);
-            //        haylana = true;
-            //    }
-            //    if (decimal.Parse(info[5]) > 0)
-            //    {
-            //        cheque = info[2];
-            //        total += decimal.Parse(cheque);
-            //        haylana = true;
-            //    }
-            //    if (decimal.Parse(info[6]) > 0)
-            //    {
-            //        transferencia = info[2];
-            //        total += decimal.Parse(transferencia);
-            //        haylana = true;
-            //    }
-            //    total = 0;
-            //    if (haylana)
-            //    {
-            //        if (FormPrincipal.userNickName.Contains('@'))
-            //        {
-            //            string[] abono = new string[] {
-            //    IDVenta, FormPrincipal.userID.ToString(), total.ToString(), efectivo, tarjeta, vales,
-            //    cheque, transferencia,"INICIAL",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),FormPrincipal.id_empleado.ToString()};
-            //            cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(abono));
-            //        }
-            //        else
-            //        {
-            //            string[] abono = new string[] {
-            //    IDVenta, FormPrincipal.userID.ToString(), total.ToString(), efectivo, tarjeta, vales,
-            //    cheque, transferencia,"INICIAL",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")};
-            //            cn.EjecutarConsulta(cs.GuardarAbonos(abono));
-            //        }
-                
-                //}
-            //}
+                if (decimal.Parse(info[2]) > 0)
+                {
+                    efectivo = info[2];
+                    total += decimal.Parse(efectivo);       
+                }
+                if (decimal.Parse(info[3]) > 0)
+                {
+                    tarjeta = info[3];
+                    total += decimal.Parse(tarjeta);
+                }
+                if (decimal.Parse(info[4]) > 0)
+                {
+                    vales = info[4];
+                    total += decimal.Parse(vales);
+                }
+                if (decimal.Parse(info[5]) > 0)
+                {
+                    cheque = info[5];
+                    total += decimal.Parse(cheque);
+                }
+                if (decimal.Parse(info[6]) > 0)
+                {
+                    transferencia = info[6];
+                    total += decimal.Parse(transferencia);
+                }
+                string[] todoCredito = new string[] {
+                IDVenta, FormPrincipal.userID.ToString(), "0",  "0",  "0",
+                 "0",  "0", (total+decimal.Parse(credito)).ToString(), referencia, idCliente, cliente
+            };      
+                cn.EjecutarConsulta(cs.GuardarDetallesVenta(todoCredito));
+            }       
+            else
+            {
+
+                cn.EjecutarConsulta(cs.GuardarDetallesVenta(info));
+            }
         }
 
         private void DetallesCliente(string idVenta)
@@ -4093,23 +4077,49 @@ namespace PuntoDeVentaV2
 
                     if (!statusVenta.Equals("2"))
                     {
-                        if (FormPrincipal.userNickName.Contains("@"))
+                        if (statusVenta.Equals("4"))
                         {
-                            string[] datos = new string[] {
+                            if (FormPrincipal.userNickName.Contains("@"))
+                            {
+                                decimal tota = decimal.Parse(efectivo) + decimal.Parse(tarjeta) + decimal.Parse(vales) + decimal.Parse(cheque) + decimal.Parse(transferencia) + decimal.Parse(credito);
+                                string[] datos = new string[] {
+                                "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
+                                 "0", "0", "0", "0", "0", tota.ToString(), Anticipo, FormPrincipal.id_empleado.ToString()
+                            };
+
+                                idOperacionCaja = cn.EjecutarConsulta(cs.OperacionCajaEmpleado(datos), regresarID: true);
+                            }
+                            else
+                            {
+                                decimal tota = decimal.Parse(efectivo) + decimal.Parse(tarjeta) + decimal.Parse(vales) + decimal.Parse(cheque) + decimal.Parse(transferencia) + decimal.Parse(credito);
+                                string[] datos = new string[] {
+                                "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
+                                "0", "0", "0", "0", "0", tota.ToString(), Anticipo, FormPrincipal.id_empleado.ToString()
+                            };
+
+                                idOperacionCaja = cn.EjecutarConsulta(cs.OperacionCaja(datos), regresarID: true);
+                            }
+                        }
+                        else
+                        {
+                            if (FormPrincipal.userNickName.Contains("@"))
+                            {
+                                string[] datos = new string[] {
                                 "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
                                  efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo, FormPrincipal.id_empleado.ToString()
                             };
 
-                            idOperacionCaja = cn.EjecutarConsulta(cs.OperacionCajaEmpleado(datos), regresarID: true);
-                        }
-                        else
-                        {
-                            string[] datos = new string[] {
+                                idOperacionCaja = cn.EjecutarConsulta(cs.OperacionCajaEmpleado(datos), regresarID: true);
+                            }
+                            else
+                            {
+                                string[] datos = new string[] {
                                 "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
                                 efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo, FormPrincipal.id_empleado.ToString()
                             };
 
-                            idOperacionCaja = cn.EjecutarConsulta(cs.OperacionCaja(datos), regresarID: true);
+                                idOperacionCaja = cn.EjecutarConsulta(cs.OperacionCaja(datos), regresarID: true);
+                            }
                         }
                     }
 
@@ -5115,21 +5125,20 @@ namespace PuntoDeVentaV2
                     total += decimal.Parse(transferencia);
                     haylana = true;
                 }
-                total = 0;
                 if (haylana)
                 {
                     if (FormPrincipal.userNickName.Contains('@'))
                     {
                         string[] abono = new string[] {
                 IDVenta, FormPrincipal.userID.ToString(), total.ToString(), efectivo, tarjeta, vales,
-                cheque, transferencia,"INICIAL",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),FormPrincipal.id_empleado.ToString()};
+                cheque, transferencia,"",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),FormPrincipal.id_empleado.ToString()};
                         cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(abono));
                     }
                     else
                     {
                         string[] abono = new string[] {
                 IDVenta, FormPrincipal.userID.ToString(), total.ToString(), efectivo, tarjeta, vales,
-                cheque, transferencia,"INICIAL",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")};
+                cheque, transferencia,"",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")};
                         cn.EjecutarConsulta(cs.GuardarAbonos(abono));
                     }
 
