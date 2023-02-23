@@ -897,6 +897,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            
             return existe;
         }
 
@@ -1671,7 +1672,7 @@ namespace PuntoDeVentaV2
                             string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
                             if (!datosDescuento.Equals(null) && datosDescuento.Length > 0)
                             {
-                                CalcularDescuento(datosDescuento, tipoDescuento, (int)cantidad, celdaCellClick);
+                                CalcularDescuento(datosDescuento, tipoDescuento, cantidad, celdaCellClick);
                             }
                         }
                         reproducirProductoAgregado();
@@ -1815,7 +1816,7 @@ namespace PuntoDeVentaV2
                                 string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
                                 if (!datosDescuento.Equals(null) && datosDescuento.Length > 0)
                                 {
-                                    CalcularDescuento(datosDescuento, tipoDescuento, (int)nuevaCantidad, celdaCellClick);
+                                    CalcularDescuento(datosDescuento, tipoDescuento, nuevaCantidad, celdaCellClick);
                                 }
                             }
 
@@ -2351,10 +2352,10 @@ namespace PuntoDeVentaV2
         {
             int idProducto = Convert.ToInt32(DGVentas.Rows[indiceFila].Cells["IDProducto"].Value);
             int tipoDescuento = Convert.ToInt32(DGVentas.Rows[indiceFila].Cells["DescuentoTipo"].Value);
-            var precio = float.Parse(DGVentas.Rows[indiceFila].Cells["Precio"].Value.ToString());
-            int cantidad = Convert.ToInt32(DGVentas.Rows[indiceFila].Cells["Cantidad"].Value) + cantidadFila;
+            decimal precio = Convert.ToDecimal(DGVentas.Rows[indiceFila].Cells["Precio"].Value.ToString());
+            decimal cantidad = Convert.ToDecimal(DGVentas.Rows[indiceFila].Cells["Cantidad"].Value) + cantidadFila;
 
-            float importe = cantidad * precio;
+            decimal importe = cantidad * precio;
 
             // Verificar si tiene descuento directo
             if (descuentosDirectos.ContainsKey(idProducto))
@@ -2364,7 +2365,7 @@ namespace PuntoDeVentaV2
                 // Si el descuento directo es por descuento
                 if (tipoDescuentoDirecto == 2)
                 {
-                    var porcentaje = descuentosDirectos[idProducto].Item2;
+                    decimal porcentaje = Convert.ToDecimal(descuentosDirectos[idProducto].Item2);
 
                     var descuentoTmp = (precio * cantidad) * (porcentaje / 100);
                     var importeTmp = (precio * cantidad) - descuentoTmp;
@@ -2394,7 +2395,7 @@ namespace PuntoDeVentaV2
         {
             if (!datosDescuento.Equals(null) && datosDescuento.Length > 0)
             {
-                //Cliente
+                //Producto
                 if (tipo == 1)
                 {
                     var descuento = datosDescuento[0].Split('-');
@@ -6794,7 +6795,7 @@ namespace PuntoDeVentaV2
                                     string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
                                     if (!datosDescuento.Equals(null) && datosDescuento.Length > 0)
                                     {
-                                        CalcularDescuento(datosDescuento, tipoDescuento, (int)cantidad, 0);
+                                        CalcularDescuento(datosDescuento, tipoDescuento, (decimal)cantidad, 0);
                                     }
                                 }
 
@@ -6861,11 +6862,11 @@ namespace PuntoDeVentaV2
                                     if (tipoDescuento > 0)
                                     {
                                         var cantidadNueva = Decimal.Parse(cantidad.ToString(), NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint);
-                                        var cantidadInt = Convert.ToInt32(cantidadNueva);
+                                        decimal cantidaddec = cantidadNueva;
                                         string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
                                         if (!datosDescuento.Equals(null) && datosDescuento.Length > 0)
                                         {
-                                            CalcularDescuento(datosDescuento, tipoDescuento, cantidadInt, 0);
+                                            CalcularDescuento(datosDescuento, tipoDescuento, cantidaddec, 0);
                                         }
                                     }
 
@@ -6948,7 +6949,7 @@ namespace PuntoDeVentaV2
                                         string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
                                         if (!datosDescuento.Equals(null) && datosDescuento.Length > 0)
                                         {
-                                            CalcularDescuento(datosDescuento, tipoDescuento, (int)cantidad, 0);
+                                            CalcularDescuento(datosDescuento, tipoDescuento, (decimal)cantidad, 0);
                                         }
                                     }
 
