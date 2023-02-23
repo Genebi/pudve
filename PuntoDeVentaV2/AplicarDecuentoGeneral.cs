@@ -205,6 +205,10 @@ namespace PuntoDeVentaV2
 
         private void txtPorcentaje_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyData == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
@@ -214,6 +218,10 @@ namespace PuntoDeVentaV2
 
         private void txtCantidad_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyData == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();

@@ -398,52 +398,54 @@ namespace PuntoDeVentaV2
         private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-            {
-                if (!txtMaximoPorPagina.Text.Equals(string.Empty))
                 {
-                    var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
+                btnActualizarMaximoProductos.PerformClick();
 
-                    if (cantidadAMostrar <= 0)
-                    {
-                        mensajeParaMostrar = "Catidad a mostrar debe ser mayor a 0";
-                        Utilidades.MensajeCuandoSeaCeroEnElListado(mensajeParaMostrar);
-                        txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
-                        return;
-                    }
+            //    if (!txtMaximoPorPagina.Text.Equals(string.Empty))
+            //    {
+            //        var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
 
-                    maximo_x_pagina = cantidadAMostrar;
-                    p.actualizarTope(maximo_x_pagina);
-                    CargarDatos();
-                    actualizar();
+                //        if (cantidadAMostrar <= 0)
+                //        {
+                //            mensajeParaMostrar = "Catidad a mostrar debe ser mayor a 0";
+                //            Utilidades.MensajeCuandoSeaCeroEnElListado(mensajeParaMostrar);
+                //            txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                //            return;
+                //        }
 
-                    //if (txtMaximoPorPagina.Text.Equals("0"))
-                    //{
-                    //    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
-                    //}
-                    //else
-                    //{
-                    //    maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
-                    //    p.actualizarTope(maximo_x_pagina);
-                    //    CargarDatos();
-                    //    actualizar();
-                    //}
-                }
-                else if (txtMaximoPorPagina.Text.Equals(string.Empty))
-                {
-                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
-                }
-                if (cbMostrar.SelectedIndex.Equals(0))
-                {
-                    CargarDatos(1);
-                }
-                else if (cbMostrar.SelectedIndex.Equals(1))
-                {
-                    CargarDatos(0);
-                }
-                else
-                {
-                    CargarDatos();
-                }
+                //        maximo_x_pagina = cantidadAMostrar;
+                //        p.actualizarTope(maximo_x_pagina);
+                //        CargarDatos();
+                //        actualizar();
+
+                //        //if (txtMaximoPorPagina.Text.Equals("0"))
+                //        //{
+                //        //    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                //        //}
+                //        //else
+                //        //{
+                //        //    maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                //        //    p.actualizarTope(maximo_x_pagina);
+                //        //    CargarDatos();
+                //        //    actualizar();
+                //        //}
+                //    }
+                //    else if (txtMaximoPorPagina.Text.Equals(string.Empty))
+                //    {
+                //        txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                //    }
+                //    if (cbMostrar.SelectedIndex.Equals(0))
+                //    {
+                //        CargarDatos(1);
+                //    }
+                //    else if (cbMostrar.SelectedIndex.Equals(1))
+                //    {
+                //        CargarDatos(0);
+                //    }
+                //    else
+                //    {
+                //        CargarDatos();
+                //    }
             }
         }
 
@@ -487,6 +489,7 @@ namespace PuntoDeVentaV2
                     var producto = cn.BuscarProducto(Convert.ToInt32(idProducto), FormPrincipal.userID);
 
                     string typeProduct = producto[5];
+                    
 
                     if (typeProduct == "S")
                     {
@@ -546,6 +549,7 @@ namespace PuntoDeVentaV2
 
                     string typeProduct = producto[5];
 
+                    codProductoEditarVenta = idProducto;
                     if (typeProduct == "S")
                     {
                         btnAgregarServicio.PerformClick();
@@ -5525,15 +5529,21 @@ namespace PuntoDeVentaV2
                 p.actualizarTope(maximo_x_pagina);
                 if (cbMostrar.SelectedIndex.Equals(0))
                 {
-                    CargarDatos(1);
+                    txtBusqueda.Focus();
+                    SendKeys.Send("{ENTER}");
+                    //CargarDatos(1);
                 }
                 else if (cbMostrar.SelectedIndex.Equals(1))
                 {
-                    CargarDatos(0);
+                    txtBusqueda.Focus();
+                    SendKeys.Send("{ENTER}");
+                    //CargarDatos(0);
                 }
                 else
                 {
-                    CargarDatos();
+                    txtBusqueda.Focus();
+                    SendKeys.Send("{ENTER}");
+                    //CargarDatos();
                 }
                 
                 //actualizarDatosDespuesDeAgregarProducto();

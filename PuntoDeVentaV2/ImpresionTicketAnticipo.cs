@@ -73,9 +73,18 @@ namespace PuntoDeVentaV2
             DataTable ventaDT = new DataTable();
 
             ventaDA.Fill(ventaDT);
+            ReportParameterCollection reportParameters = new ReportParameterCollection();
+            decimal AnticipoAplicado = 0;
+            if (!ventaDT.Rows[0]["AnticipoAplicado"].Equals("N/A"))
+            {
+                AnticipoAplicado = Convert.ToDecimal(ventaDT.Rows[0]["AnticipoAplicado"]);
+            }
+            decimal algo = Convert.ToDecimal(ventaDT.Rows[0]["TotalRecibido"]) - AnticipoAplicado - Convert.ToDecimal(ventaDT.Rows[0]["SaldoRestante"]);
+            reportParameters.Add(new ReportParameter("Anterior", algo.ToString("0.00")));
 
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
+            this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Clear();
 
             #region Impresion Ticket de 80 mm
@@ -86,11 +95,13 @@ namespace PuntoDeVentaV2
             this.reportViewer1.LocalReport.EnableExternalImages = true;
 
             this.reportViewer1.LocalReport.DataSources.Add(rp);
+            this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.RefreshReport();
 
             LocalReport rdlc = new LocalReport();
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;
+            rdlc.SetParameters(reportParameters);
             rdlc.DataSources.Add(rp);
             #endregion
 

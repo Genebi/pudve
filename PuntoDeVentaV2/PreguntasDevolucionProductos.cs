@@ -35,6 +35,7 @@ namespace PuntoDeVentaV2
             }
             else if (rbNada.Checked == true)
             {
+                Inventario.operacionDevolucionProducto = 0;
                 this.Close();
             }
             this.Close();

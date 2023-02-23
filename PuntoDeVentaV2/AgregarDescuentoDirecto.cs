@@ -340,6 +340,10 @@ namespace PuntoDeVentaV2
 
         private void txtCantidad_KeyDown_1(object sender, KeyEventArgs e)
         {
+            if (e.KeyData == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();

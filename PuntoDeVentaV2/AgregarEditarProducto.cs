@@ -12453,6 +12453,9 @@ namespace PuntoDeVentaV2
 
 
                 // Guardar
+                var tasa_cuota_aux = tasa_cuota.Split(' ');
+
+                tasa_cuota = tasa_cuota_aux[0];
 
                 string[] datos = new string[]{
                     tra_ret, t_impuesto, tipo_factor, tasa_cuota, definir, importe_impuesto.ToString("0.00")

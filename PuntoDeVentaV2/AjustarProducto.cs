@@ -215,7 +215,15 @@ namespace PuntoDeVentaV2
                 CantidadRegresada regreso = new CantidadRegresada();
                 regreso.ShowDialog();
                 txtCantidadCompra.Text = cantidadRegresada.ToString();
-                btnAceptar.PerformClick();
+                if (string.IsNullOrWhiteSpace(cantidadRegresada.ToString()) || cantidadRegresada == 0)
+                {
+                    this.Close();
+                }
+                else
+                {
+                    btnAceptar.PerformClick();
+                }
+               
             }
         }
 
@@ -272,6 +280,11 @@ namespace PuntoDeVentaV2
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             decimal parser;
+            if (txtCantidadCompra.Text.Equals("0") || string.IsNullOrWhiteSpace(txtCantidadCompra.Text.ToString()))
+            {
+                MessageBox.Show("El campo de cantidad tiene que ser mayor a 0.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
             if (!decimal.TryParse(txtCantidadCompra.Text,out parser) && !string.IsNullOrEmpty(txtCantidadCompra.Text))
             {
                 MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -284,7 +297,7 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtPrecioCompra.Clear();
                 txtPrecioCompra.Focus();
-                return;
+                return; 
             }
             if (!decimal.TryParse(txtDisminuir.Text, out parser) && !string.IsNullOrEmpty(txtDisminuir.Text))
                     {

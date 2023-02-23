@@ -354,7 +354,7 @@ namespace PuntoDeVentaV2
                                             }
 
 
-                                            using (var dt = cn.CargarDatos($"SELECT TicketVentaCancelada,PregutarTicketVentaCancelada,TicketOPDFTicketVentaCancelada FROM configuraciondetickets,,AbrirCajaCancelada WHERE IDUsuario = {FormPrincipal.userID}"))
+                                            using (var dt = cn.CargarDatos($"SELECT TicketVentaCancelada,PregutarTicketVentaCancelada,TicketOPDFTicketVentaCancelada,AbrirCajaCancelada,AbrirCajaCancelada FROM configuraciondetickets WHERE IDUsuario = {FormPrincipal.userID}"))
                                             {
                                                 if (dt.Rows[0]["TicketVentaCancelada"].Equals(1))
                                                 {
