@@ -76,7 +76,7 @@ namespace PuntoDeVentaV2
                 consulta = consulta += $"Interes = {numInteresDefecto.Value.ToString()}, ";
                 consulta = consulta += $"VentasAbiertas = {numVentasAbiertas.Value.ToString()}, ";
                 consulta = consulta += $"Credito = {numTotaldecredito.Value.ToString()}";
-                consulta = consulta += "WHERE IDCliente = ";
+                consulta = consulta += " WHERE IDCliente = ";
                 consulta = consulta += $"{IDCliente}";
                 cn.EjecutarConsulta(consulta);
             }

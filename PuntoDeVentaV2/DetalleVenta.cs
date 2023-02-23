@@ -291,7 +291,7 @@ namespace PuntoDeVentaV2
                                 decimal creditoMaximo = 0;
                                 if (!dtBuscarConfiguracion.Rows[0]["creditomodolimiteventas"].ToString().Equals("Ninguno"))
                                 {
-                                    if (dtBuscarConfiguracion.Rows[0]["creditomodolimiteventas"].ToString().Equals("Por cliente") && !dtReglasCliente.Rows.Count.Equals(0))
+                                    if (dtBuscarConfiguracion.Rows[0]["creditomodolimiteventas"].ToString().Equals("Por Cliente") && !dtReglasCliente.Rows.Count.Equals(0))
                                     {
                                         ventasMaximas = Int32.Parse(dtReglasCliente.Rows[0]["VentasAbiertas"].ToString());
                                     }
@@ -311,7 +311,7 @@ namespace PuntoDeVentaV2
 
                                 if (!dtBuscarConfiguracion.Rows[0]["creditomodototalcredito"].ToString().Equals("Ninguno"))
                                 {
-                                    if (dtBuscarConfiguracion.Rows[0]["creditomodototalcredito"].ToString().Equals("Por cliente") && !dtReglasCliente.Rows.Count.Equals(0))
+                                    if (dtBuscarConfiguracion.Rows[0]["creditomodototalcredito"].ToString().Equals("Por Cliente") && !dtReglasCliente.Rows.Count.Equals(0))
                                     {
                                         creditoMaximo = Decimal.Parse(dtReglasCliente.Rows[0]["Credito"].ToString());
                                     }
@@ -1780,15 +1780,15 @@ namespace PuntoDeVentaV2
             {
                 decimal credito;
                 decimal newTotal;
-                if (txtCredito.Text == "")
+                if (txtCredito.Text == "" || decimal.Parse(txtCredito.Text) <= 0)
                 {
                     credito = 0;
                     //lblfechacredito.Visible = false;
-                    if (creditoMaster)
-                    {
+                    //if (creditoMaster)
+                    //{
                         lblFechaApertura.Visible = false;
                         dtpLaMeraFecha.Visible = false;
-                    }
+                    //}
                 }
                 else
                 {

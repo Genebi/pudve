@@ -154,7 +154,7 @@ namespace PuntoDeVentaV2
                 totalAbonoEfectivo = 0,
                 totalAbonoTarjeta = 0,
                 totalAbonoVales = 0,
-                totalAbonoCheque = 0, 
+                totalAbonoCheque = 0,
                 totalAbonoTransferencia = 0,
                 totalAbonoRealizado = 0,
                 totalAbonoRealizadoDeOtrosUsuarios = 0,
@@ -228,7 +228,7 @@ namespace PuntoDeVentaV2
             {
                 CargarDatosEmpleadoVentasProveedor();
             }
-            
+
         }
 
         private void CargarDatosEmpleadoVentasProveedor()
@@ -309,7 +309,7 @@ namespace PuntoDeVentaV2
                 var datosall = cbFiltroAdminEmpleado.SelectedItem.ToString().Split(',');
                 todos = datosall[0].Replace("[", "");
             }
-            
+
             if (!FormPrincipal.userNickName.Contains("@"))
             {
                 if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) && !todos.Equals("All"))
@@ -325,11 +325,11 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    usuarioEmpleado = "usuario"; 
+                    usuarioEmpleado = "usuario";
                     FormPrincipal.id_empleado = 0;
                 }
             }
-           
+
             detallesIngresosRetirosDinero detalles = new detallesIngresosRetirosDinero();
             detalles.ShowDialog();
         }
@@ -369,7 +369,7 @@ namespace PuntoDeVentaV2
                 var datosall = cbFiltroAdminEmpleado.SelectedItem.ToString().Split(',');
                 todos = datosall[0].Replace("[", "");
             }
-                
+
 
             if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) && !todos.Equals("All"))
             {
@@ -602,15 +602,13 @@ namespace PuntoDeVentaV2
             var idUltimoCorteDeCaja = ultimoCorteDeCaja;
             var idUsuarioEmpleado = string.Empty;
 
-            decimal totalIntereses = 0;
-
-                    if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
             {
                 idUsuarioEmpleado = FormPrincipal.userID.ToString();
 
                 if (!string.IsNullOrWhiteSpace(idUltimoCorteDeCaja))
                 {
-                            if (!string.IsNullOrWhiteSpace(fechaFormateadaCorteParaAbonos))
+                    if (!string.IsNullOrWhiteSpace(fechaFormateadaCorteParaAbonos))
                     {
                         limpirVariablesDeAbonos();
                         using (DataTable dtAbonos = cn.CargarDatos(cs.cargarAbonosDesdeUltimoCorteRealizadoAdministrador(idUsuarioEmpleado, fechaFormateadaCorteParaAbonos)))
@@ -631,7 +629,6 @@ namespace PuntoDeVentaV2
                                         totalAbonoCheque += Convert.ToDecimal(item["Cheque"].ToString());
                                         totalAbonoTransferencia += Convert.ToDecimal(item["Transferencia"].ToString());
                                         AbonosAMisVentasACredito += Convert.ToDecimal(item["Total"].ToString());
-                                        totalIntereses += Convert.ToDecimal(item["Intereses"].ToString());
                                     }
                                 }
                             }
@@ -639,7 +636,6 @@ namespace PuntoDeVentaV2
                             {
                                 lbCambioAbonos.Visible = false;
                                 lbTCreditoC.Text = totalAbonoRealizado.ToString("C2");
-                                lbTInteres.Text = totalIntereses.ToString("C2");
                             }
                         }
 
@@ -661,7 +657,7 @@ namespace PuntoDeVentaV2
                         //}
 
                         using (DataTable dtAbonosDesdeOtrosUsuarios = cn.CargarDatos(cs.AbonosRealizadosDeOtrosUsuariosAMisVentasACredito(fechaFormateadaCorteParaAbonos)))
-                        {       
+                        {
                             if (!dtAbonosDesdeOtrosUsuarios.Rows.Count.Equals(0))
                             {
                                 foreach (DataRow item in dtAbonosDesdeOtrosUsuarios.Rows)
@@ -671,9 +667,8 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        totalAbonoRealizado = AbonosAMisVentasACredito + AbonosAOtrasVentasACreditoDeUsuarios-totalIntereses;
+                        totalAbonoRealizado = AbonosAMisVentasACredito + AbonosAOtrasVentasACreditoDeUsuarios;
                         lbTCreditoC.Text = (totalAbonoRealizado).ToString("C2");
-                        lbTInteres.Text = totalIntereses.ToString("C2");
                     }
                     else
                     {
@@ -714,7 +709,7 @@ namespace PuntoDeVentaV2
                             foreach (DataRow item in dtCargarAbonosTodos.Rows)
                             {
                                 idEmpleado = item["IDEmpleado"].ToString();
-                                
+
                                 DateTime fechaUltimaCorte = Convert.ToDateTime(item["Fecha"].ToString());
                                 fechaUltimaDeCorteConFormatoUSA = fechaUltimaCorte.ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -729,7 +724,7 @@ namespace PuntoDeVentaV2
                             }
 
                             var UnionQuerysTodosLosTotales = string.Join("UNION", QuerysDeTodosLosTotalesAbonos);
-                             
+
                             if (!string.IsNullOrWhiteSpace(UnionQuerysTodosLosTotales))
                             {
                                 using (DataTable dtUnionQuerysTodosLosTotales = cn.CargarDatos(UnionQuerysTodosLosTotales))
@@ -825,7 +820,7 @@ namespace PuntoDeVentaV2
                                     {
                                         totalAbonoRealizadoDeOtrosUsuarios += Convert.ToDecimal(item["Total"].ToString());
                                     }
-                                    
+
                                     lbTCreditoC.Text = (totalAbonoRealizado /*+ totalAbonoRealizadoDeOtrosUsuarios*/ + totalAbonoRealizadoOtrasVentas).ToString("C2");
                                 }
                             }
@@ -1159,28 +1154,28 @@ namespace PuntoDeVentaV2
                 {
                     btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + "0.00";
                 }
-                
-                
+
+
             }
 
-            if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) &&!FormPrincipal.userNickName.Contains('@'))
+            if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) && !FormPrincipal.userNickName.Contains('@'))
             {
                 var datosCB = cbFiltroAdminEmpleado.SelectedItem.ToString();
                 var nombreID = datosCB.Split(',');
-                var idEmpleado = nombreID[0].ToString().Replace("[","");
+                var idEmpleado = nombreID[0].ToString().Replace("[", "");
 
                 if (!idEmpleado.Equals("All"))
                 {
                     FormPrincipal.id_empleado = Convert.ToInt32(idEmpleado);
                 }
-                        
+
             }
             //var datos2 = cn.CargarDatos($"SELECT FORMAT( IF ( SUM( Efectivo ) = '' OR SUM( Efectivo ) IS NULL, '0', SUM( Efectivo ) ), 2 ) AS 'Efectivo', FORMAT( IF ( SUM( Tarjeta ) = '' OR SUM( Tarjeta ) IS NULL, '0', SUM( Tarjeta ) ), 2 ) AS 'Tarjeta', FORMAT( IF ( SUM( Vales ) = '' OR SUM( Vales ) IS NULL, '0', SUM( Vales ) ), 2 ) AS 'Vales', FORMAT( IF ( SUM( Cheque ) = '' OR SUM( Cheque ) IS NULL, '0', SUM( Cheque ) ), 2 ) AS 'Cheque', FORMAT( IF ( SUM( Transferencia ) = '' OR SUM( Transferencia ) IS NULL, '0', SUM( Transferencia ) ), 2 ) AS 'Transferencia', FORMAT( IF ( SUM( Efectivo ) = '' OR SUM( Efectivo ) IS NULL, '0', SUM( Efectivo ) ) + IF ( SUM( Tarjeta ) = '' OR SUM( Tarjeta ) IS NULL, '0', SUM( Tarjeta ) ) + IF ( SUM( Vales ) = '' OR SUM( Vales ) IS NULL, '0', SUM( Vales ) ) + IF ( SUM( Cheque ) = '' OR SUM( Cheque ) IS NULL, '0', SUM( Cheque ) ) + IF ( SUM( Transferencia ) = '' OR SUM( Transferencia ) IS NULL, '0', SUM( Transferencia ) ), 2 ) AS 'Total' FROM `caja` WHERE FechaOperacion >= '{ultimoCorteDeCaja}' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' AND Concepto = 'agregado a saldo inicial' AND Operacion = 'deposito'");
 
             //var agregadoSaldoInicial = Convert.ToDecimal(datos2.Rows[0]["Total"].ToString());
-            
 
-            lblCantidadSaldoActual.Text =  $"{moneda} {(totalSaldoInicial - retiradoSaldoInicial) /*+ (agregadoSaldoInicial)*/}";
+
+            lblCantidadSaldoActual.Text = $"{moneda} {(totalSaldoInicial - retiradoSaldoInicial) /*+ (agregadoSaldoInicial)*/}";
 
 
         }
@@ -2122,7 +2117,7 @@ namespace PuntoDeVentaV2
             var cantidadAgregadaSaldoInicial = cn.CargarDatos(cs.dineroAgregadoSaldoInicial(FormPrincipal.userID, FormPrincipal.id_empleado, ultimoCorteDeCaja));
             lblTotalAgregado.Text = cantidadAgregadaSaldoInicial.Rows[0]["Total agregado"].ToString();
 
-       
+
         }
 
         private void CajaN_Resize(object sender, EventArgs e)
@@ -5671,7 +5666,7 @@ namespace PuntoDeVentaV2
 
         private void CajaN_Activated(object sender, EventArgs e)
         {
-            
+
             //this.Refresh();
             //Application.DoEvents();
         }
@@ -5947,7 +5942,7 @@ namespace PuntoDeVentaV2
             var moneda = ListMoneda[1].Replace(")", string.Empty);
             #region Sección Monto Antes del Corte       
             var datos1 = Convert.ToString(Convert.ToDecimal(lbTTotalCaja.Text.ToString().Replace("$", string.Empty)));
-            var datos2 = conceptoCreditoDeVentas.Replace(Convert.ToChar(moneda),' ');
+            var datos2 = conceptoCreditoDeVentas.Replace(Convert.ToChar(moneda), ' ');
             //var conceptoCantidadEnCajaAntesDelCorte = (Convert.ToDecimal(datos1) + Convert.ToDecimal(datos2)).ToString();
             var conceptoCantidadEnCajaAntesDelCorte = Convert.ToDecimal(datos1).ToString();
             #endregion
@@ -6147,7 +6142,7 @@ namespace PuntoDeVentaV2
                 }
                 else if (dt.Rows[0][1].Equals(1))
                 {
-                    DialogResult result = MessageBox.Show("¿Desea imprimir el Ticket?","Aviso del sistema",MessageBoxButtons.YesNo,MessageBoxIcon.Information);
+                    DialogResult result = MessageBox.Show("¿Desea imprimir el Ticket?", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                     if (result.Equals(DialogResult.Yes))
                     {
                         using (visualizadorCorteDeCaja verCorteDeCaja = new visualizadorCorteDeCaja())
@@ -6243,9 +6238,9 @@ namespace PuntoDeVentaV2
                     AbrirSinTicket abrir = new AbrirSinTicket();
                     abrir.Show();
                 }
-                
+
             }
-            
+
         }
 
         private void btnRedondoAbrirCaja_Click(object sender, EventArgs e)
@@ -6793,14 +6788,14 @@ namespace PuntoDeVentaV2
             else
             {
                 ///////////////////////////////////////////////////////////TOTALES EN CAJA DE VENTAS, ABONOS, DINERO AGREGADO Y ANTICIPOS/////////////////////////////////////////////////
-                
-                cantidadTotalEfectivoEnCaja = ((totalEfectivoVentaEnCaja + totalEfectivoAnticiposEnCaja + totalEfectivoDepsitosEnCaja + totalAbonoEfectivo ) - totalEfectivoRetiroEnCaja);
+
+                cantidadTotalEfectivoEnCaja = ((totalEfectivoVentaEnCaja + totalEfectivoAnticiposEnCaja + totalEfectivoDepsitosEnCaja + totalAbonoEfectivo) - totalEfectivoRetiroEnCaja);
                 if (cantidadTotalEfectivoEnCaja <= 0)
                 {
                     cantidadTotalEfectivoEnCaja = 0;
                 }
 
-                cantidadTotalTarjetaEnCaja = ((totalTarjetaVentaEnCaja + totalTarjetaAnticiposEnCaja + totalTarjetaDepositosEnCaja + totalAbonoTarjeta ) - totalTarjetaRetiroEnCaja);
+                cantidadTotalTarjetaEnCaja = ((totalTarjetaVentaEnCaja + totalTarjetaAnticiposEnCaja + totalTarjetaDepositosEnCaja + totalAbonoTarjeta) - totalTarjetaRetiroEnCaja);
                 if (cantidadTotalTarjetaEnCaja <= 0)
                 {
                     cantidadTotalTarjetaEnCaja = 0;

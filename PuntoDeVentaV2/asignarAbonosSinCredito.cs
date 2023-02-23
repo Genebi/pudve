@@ -50,7 +50,7 @@ namespace PuntoDeVentaV2
             this.totalOriginal = totalOriginal;
         }
 
-        private void asignarAbonosSinCredito_Load(object sender, EventArgs e)
+        private void AsignarAbonos_Load(object sender, EventArgs e)
         {
             //Asignamos el evento para solo aceptar cantidades decimales
             txtEfectivo.KeyPress += new KeyPressEventHandler(SoloDecimales);
@@ -183,9 +183,36 @@ namespace PuntoDeVentaV2
                         datos = new string[] { idVenta.ToString(), idAbono, totalOriginal.ToString("0.00"), totalPendiente.ToString("0.00"), totalAbonado.ToString("0.00"), restante.ToString("0.00"), fechaOperacion };
 
                         GenerarTicket(datos);
-                        ImprimirTicketAbono impresionTicketAbono = new ImprimirTicketAbono();
-                        impresionTicketAbono.idAbono = idVenta;
-                        impresionTicketAbono.ShowDialog();
+                        using (var dt = cn.CargarDatos($"SELECT TicketAbono,PreguntarTicketAbono,AbrirCajaAbonos FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
+                        {
+                            if (dt.Rows[0]["TicketAbono"].Equals(1))
+                            {
+                                ImprimirTicketAbono impresionTicketAbono = new ImprimirTicketAbono();
+                                impresionTicketAbono.idAbono = idVenta;
+                                impresionTicketAbono.ShowDialog();
+                            }
+                            else if (dt.Rows[0]["PreguntarTicketAbono"].Equals(1))
+                            {
+                                DialogResult result = MessageBox.Show("¿Desea imprimir Ticket?", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                if (result.Equals(DialogResult.Yes))
+                                {
+                                    ImprimirTicketAbono impresionTicketAbono = new ImprimirTicketAbono();
+                                    impresionTicketAbono.idAbono = idVenta;
+                                    impresionTicketAbono.ShowDialog();
+                                }
+                                else if (dt.Rows[0]["AbrirCajaAbonos"].Equals(1))
+                                {
+                                    AbrirSinTicket abrir = new AbrirSinTicket();
+                                    abrir.Show();
+                                }
+                            }
+                            else if (dt.Rows[0]["AbrirCajaAbonos"].Equals(1))
+                            {
+                                AbrirSinTicket abrir = new AbrirSinTicket();
+                                abrir.Show();
+                            }
+                        }
+
                         //ImprimirTicket(idVenta.ToString(), idAbono);
                         //MostrarTicketAbonos(idVenta.ToString(), idAbono);
 
@@ -455,6 +482,7 @@ namespace PuntoDeVentaV2
             }
         }
 
+
         private void GenerarTicket(string[] info)
         {
             var datos = FormPrincipal.datosUsuario;
@@ -689,7 +717,15 @@ namespace PuntoDeVentaV2
                     if (restante < 1)
                     {
                         txtPendiente.Text = "$0.00";
-                        cambio = restante * (-1);
+                        if (restante < 0)
+                        {
+                            cambio = restante * (-1);
+                        }
+                        else
+                        {
+                            cambio = restante * (1);
+                        }
+
                         lbTotalCambio.Text = cambio.ToString("C2");
                     }
                     else
@@ -729,7 +765,15 @@ namespace PuntoDeVentaV2
                     if (restante < 1)
                     {
                         txtPendiente.Text = "$0.00";
-                        cambio = restante * (-1);
+                        if (restante < 0)
+                        {
+                            cambio = restante * (-1);
+                        }
+                        else
+                        {
+                            cambio = restante * (1);
+                        }
+
                         lbTotalCambio.Text = cambio.ToString("C2");
                     }
                     else
@@ -1070,6 +1114,63 @@ namespace PuntoDeVentaV2
 
             if (e.KeyCode.Equals(Keys.Left))
                 SendKeys.Send("+{TAB}");
+        }
+
+        private void txtEfectivo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            calculadora(sender, e);
+        }
+
+        private void calculadora(object sender, KeyPressEventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            int calcu = 0;
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txt.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
+        }
+
+        private void txtTarjeta_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            calculadora(sender, e);
+        }
+
+        private void txtVales_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            calculadora(sender, e);
+        }
+
+        private void txtCheque_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            calculadora(sender, e);
+        }
+
+        private void txtTransferencia_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            calculadora(sender, e);
         }
     }
 }

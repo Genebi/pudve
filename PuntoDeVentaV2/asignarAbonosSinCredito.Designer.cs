@@ -165,6 +165,7 @@
             this.txtTransferencia.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtTransferencia.TextChanged += new System.EventHandler(this.txtTransferencia_TextChanged);
             this.txtTransferencia.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTransferencia_KeyDown);
+            this.txtTransferencia.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTransferencia_KeyPress);
             this.txtTransferencia.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTransferencia_KeyUp);
             // 
             // txtCheque
@@ -178,6 +179,7 @@
             this.txtCheque.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCheque.TextChanged += new System.EventHandler(this.txtCheque_TextChanged);
             this.txtCheque.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtCheque_KeyDown);
+            this.txtCheque.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCheque_KeyPress);
             this.txtCheque.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtCheque_KeyUp);
             // 
             // txtVales
@@ -191,6 +193,7 @@
             this.txtVales.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtVales.TextChanged += new System.EventHandler(this.txtVales_TextChanged);
             this.txtVales.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtVales_KeyDown);
+            this.txtVales.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtVales_KeyPress);
             this.txtVales.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtVales_KeyUp);
             // 
             // txtTarjeta
@@ -204,6 +207,7 @@
             this.txtTarjeta.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtTarjeta.TextChanged += new System.EventHandler(this.txtTarjeta_TextChanged);
             this.txtTarjeta.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTarjeta_KeyDown);
+            this.txtTarjeta.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTarjeta_KeyPress);
             this.txtTarjeta.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtTarjeta_KeyUp);
             // 
             // txtEfectivo
@@ -218,6 +222,7 @@
             this.txtEfectivo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtEfectivo.TextChanged += new System.EventHandler(this.txtEfectivo_TextChanged);
             this.txtEfectivo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyDown);
+            this.txtEfectivo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEfectivo_KeyPress);
             this.txtEfectivo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtEfectivo_KeyUp);
             // 
             // txtPendiente
@@ -295,7 +300,7 @@
             this.lbCambio.TabIndex = 143;
             this.lbCambio.Text = "Cambio";
             // 
-            // asignarAbonosSinCredito
+            // AsignarAbonos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -325,10 +330,10 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "asignarAbonosSinCredito";
+            this.Name = "AsignarAbonos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "PUDVE - Abono";
-            this.Load += new System.EventHandler(this.asignarAbonosSinCredito_Load);
+            this.Load += new System.EventHandler(this.AsignarAbonos_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

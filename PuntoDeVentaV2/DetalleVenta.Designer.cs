@@ -416,6 +416,7 @@
             this.lblFechaApertura.TabIndex = 125;
             this.lblFechaApertura.Text = "Fecha de apertura del crédito:";
             this.lblFechaApertura.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblFechaApertura.Visible = false;
             // 
             // DetalleVenta
             // 
