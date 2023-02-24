@@ -57,6 +57,8 @@ namespace PuntoDeVentaV2
 
         public static int desdeConsultar = 0;
 
+        public static string formatoDeVenta = "0";
+
 
         //Miooooooooooo
         public string titulo;
@@ -2413,7 +2415,7 @@ namespace PuntoDeVentaV2
                                     nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,
                                     tipoDescuento, idUsrNvo, logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto,
                                     mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre), stockNecesario, stockMinimo,
-                                    txtPrecioCompra.Text, precioMayoreo };
+                                    txtPrecioCompra.Text, precioMayoreo, formatoDeVenta };
 
                                     #region Inicio Se guardan los datos principales del Producto
                                     //Se guardan los datos principales del producto
@@ -2427,7 +2429,7 @@ namespace PuntoDeVentaV2
                                             claveUnidadMedida = string.Empty;
 
                                             //Se obtiene la ID del último producto agregado
-                                            idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1));
+                                            idProducto = Convert.ToInt32(cn.EjecutarSelect("SELECT ID FROM Productos ORDER BY ID DESC LIMIT 1", 1)); 
                                             var claveP = txtClaveProducto.Text;
 
                                             // Agregar la relacion de producto ya registrado con Combo Servicio

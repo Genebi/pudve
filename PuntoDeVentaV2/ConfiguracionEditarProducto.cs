@@ -59,18 +59,21 @@ namespace PuntoDeVentaV2
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
-        {
+        { 
             if (rbPeroAutomatico.Checked == true)
             {
                 cn.EjecutarConsulta($"UPDATE productos SET FormatoDeVenta = '2' WHERE CodigoBarras = '{AgregarEditarProducto.ProdCodBarrasFinal}' AND IDUsuario = {FormPrincipal.userID} AND Status = '1'");
+                AgregarEditarProducto.formatoDeVenta = "2";
             }
             else if (rbSoloPorEnteros.Checked == true)
             {
                 cn.EjecutarConsulta($"UPDATE productos SET FormatoDeVenta = '1' WHERE CodigoBarras = '{AgregarEditarProducto.ProdCodBarrasFinal}' AND IDUsuario = {FormPrincipal.userID} AND Status = '1'");
+                AgregarEditarProducto.formatoDeVenta = "1";
             }
             else
             {
                 cn.EjecutarConsulta($"UPDATE productos SET FormatoDeVenta = '0' WHERE CodigoBarras = '{AgregarEditarProducto.ProdCodBarrasFinal}' AND IDUsuario = {FormPrincipal.userID} AND Status = '1'");
+                AgregarEditarProducto.formatoDeVenta = "0";
             }
 
             MessageBox.Show("Guardado con Extito", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
