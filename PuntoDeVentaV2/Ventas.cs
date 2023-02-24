@@ -97,6 +97,8 @@ namespace PuntoDeVentaV2
         public static string idCliente = string.Empty;
         public static string credito = string.Empty;
 
+        public static decimal totalAnticipoAplicado;
+
         public static string codBarras;
         // Para saber con que boton se cerro el form DetalleVenta.cs, en este caso saber si se cerro con el boton aceptar (terminar)
         public static bool botonAceptar = false;
@@ -9163,6 +9165,7 @@ namespace PuntoDeVentaV2
 
         private void btnGanancia_Click(object sender, EventArgs e)
         {
+            totalAnticipoAplicado = Convert.ToDecimal(cAnticipoUtilizado.Text);
             if (!DGVentas.Rows.Count.Equals(0))
             {
                 Ganancia cantidadGanancia = new Ganancia();
