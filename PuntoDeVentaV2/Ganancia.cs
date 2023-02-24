@@ -221,7 +221,7 @@ namespace PuntoDeVentaV2
                         else
                         {
                             precioTotalDeCompra = (validacion * cantidad);
-                            VentaTotal = (VentaTotal - precioTotalDeCompra);
+                            VentaTotal = (VentaTotal - precioTotalDeCompra) + Ventas.totalAnticipoAplicado;
                             lblGanancia.Text = (VentaTotal.ToString("C"));
                             iterador++;
                         }
