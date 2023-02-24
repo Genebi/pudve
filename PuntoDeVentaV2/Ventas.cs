@@ -7888,94 +7888,94 @@ namespace PuntoDeVentaV2
 
         private void CalculoMayoreo()
         {
-            float contadorMayoreo = 0;
-            // Si la casilla de mayoreo de config esta activa
-            if (mayoreoActivo)
-            {
-                // Si la cantidad minima es mayor a cero
-                if (cantidadMayoreo > 0)
-                {
-                    foreach (DataGridViewRow fila in DGVentas.Rows)
-                    {
-                        var mayoreo = float.Parse(fila.Cells["PrecioMayoreo"].Value.ToString());
-                        var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
+            //float contadorMayoreo = 0;
+            //// Si la casilla de mayoreo de config esta activa
+            //if (mayoreoActivo)
+            //{
+            //    // Si la cantidad minima es mayor a cero
+            //    if (cantidadMayoreo > 0)
+            //    {
+            //        foreach (DataGridViewRow fila in DGVentas.Rows)
+            //        {
+            //            var mayoreo = float.Parse(fila.Cells["PrecioMayoreo"].Value.ToString());
+            //            var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
 
-                        if (mayoreo > 0)
-                        {
-                            contadorMayoreo += cantidad;
-                        }
-                    }
+            //            if (mayoreo > 0)
+            //            {
+            //                contadorMayoreo += cantidad;
+            //            }
+            //        }
 
-                    if (contadorMayoreo >= cantidadMayoreo)
-                    {
-                        foreach (DataGridViewRow fila in DGVentas.Rows)
-                        {
-                            var precio = float.Parse(fila.Cells["PrecioMayoreo"].Value.ToString());
+            //        if (contadorMayoreo >= cantidadMayoreo)
+            //        {
+            //            foreach (DataGridViewRow fila in DGVentas.Rows)
+            //            {
+            //                var precio = float.Parse(fila.Cells["PrecioMayoreo"].Value.ToString());
 
-                            if (precio > 0)
-                            {
-                                var nombre = fila.Cells["Descripcion"].Value.ToString();
-                                var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
-                                var importe = cantidad * precio;
+            //                if (precio > 0)
+            //                {
+            //                    var nombre = fila.Cells["Descripcion"].Value.ToString();
+            //                    var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
+            //                    var importe = cantidad * precio;
 
-                                if (nombre.Length > 3)
-                                {
-                                    var caracteres = nombre.Substring(0, 3);
+            //                    if (nombre.Length > 3)
+            //                    {
+            //                        var caracteres = nombre.Substring(0, 3);
 
-                                    if (caracteres.Equals("***"))
-                                    {
-                                        nombre = nombre.Remove(0, 3);
-                                        nombre = "***" + nombre;
-                                    }
-                                    else
-                                    {
-                                        nombre = "***" + nombre;
-                                    }
-                                }
+            //                        if (caracteres.Equals("***"))
+            //                        {
+            //                            nombre = nombre.Remove(0, 3);
+            //                            nombre = "***" + nombre;
+            //                        }
+            //                        else
+            //                        {
+            //                            nombre = "***" + nombre;
+            //                        }
+            //                    }
 
-                                fila.Cells["Descripcion"].Value = nombre;
-                                fila.Cells["PrecioOriginal"].Value = precio;
-                                fila.Cells["Precio"].Value = precio;
-                                fila.Cells["Importe"].Value = importe;
-                            }
-                        }
+            //                    fila.Cells["Descripcion"].Value = nombre;
+            //                    fila.Cells["PrecioOriginal"].Value = precio;
+            //                    fila.Cells["Precio"].Value = precio;
+            //                    fila.Cells["Importe"].Value = importe;
+            //                }
+            //            }
 
-                        lbMayoreo.Visible = true;
-                    }
-                    else
-                    {
-                        foreach (DataGridViewRow fila in DGVentas.Rows)
-                        {
-                            var precio = float.Parse(fila.Cells["PrecioAuxiliar"].Value.ToString());
+            //            lbMayoreo.Visible = true;
+            //        }
+            //        else
+            //        {
+            //            foreach (DataGridViewRow fila in DGVentas.Rows)
+            //            {
+            //                var precio = float.Parse(fila.Cells["PrecioAuxiliar"].Value.ToString());
 
-                            if (precio > 0)
-                            {
-                                var nombre = fila.Cells["Descripcion"].Value.ToString();
-                                var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
-                                var importe = cantidad * precio;
+            //                if (precio > 0)
+            //                {
+            //                    var nombre = fila.Cells["Descripcion"].Value.ToString();
+            //                    var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
+            //                    var importe = cantidad * precio;
 
-                                if (nombre.Length > 3)
-                                {
-                                    var caracteres = nombre.Substring(0, 3);
+            //                    if (nombre.Length > 3)
+            //                    {
+            //                        var caracteres = nombre.Substring(0, 3);
 
-                                    if (caracteres.Equals("***"))
-                                    {
-                                        nombre = nombre.Remove(0, 3);
+            //                        if (caracteres.Equals("***"))
+            //                        {
+            //                            nombre = nombre.Remove(0, 3);
 
-                                        fila.Cells["Descripcion"].Value = nombre;
-                                    }
-                                }
+            //                            fila.Cells["Descripcion"].Value = nombre;
+            //                        }
+            //                    }
 
-                                fila.Cells["PrecioOriginal"].Value = precio;
-                                fila.Cells["Precio"].Value = precio;
-                                fila.Cells["Importe"].Value = importe;
-                            }
-                        }
+            //                    fila.Cells["PrecioOriginal"].Value = precio;
+            //                    fila.Cells["Precio"].Value = precio;
+            //                    fila.Cells["Importe"].Value = importe;
+            //                }
+            //            }
 
-                        lbMayoreo.Visible = false;
-                    }
-                }
-            }
+            //            lbMayoreo.Visible = false;
+            //        }
+            //    }
+            //}
             //txtBuscadorProducto.Focus();
         }
 
