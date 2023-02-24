@@ -1201,9 +1201,10 @@ namespace PuntoDeVentaV2
                                     break;
                                 case "SesionInventario":
                                     cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'SesionInventario';");
-                                    iniciarSesionInventario(peticion["Tipo"].ToString());
+                                    iniciarSesionInventario(peticion["Tipo"].ToString(), peticion["Empleado"].ToString());
                                     break;
                                 default:
+                                    //Posiblemente una solicitud como de inventario, esas no se toman aqui
                                     break;
                             }
                         }
@@ -1217,9 +1218,22 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void iniciarSesionInventario(string tipo)
+        private void iniciarSesionInventario(string tipo,string idEmpleado)
         {
-
+            switch (tipo)
+            {
+                case "Normal":
+                    var datos = new string[] { tipo, "NA", "0",idEmpleado};
+                    new Thread(() =>
+                    {
+                        Thread.CurrentThread.IsBackground = true;
+                        WEBRevisarInventario revInv = new WEBRevisarInventario(datos);
+                        revInv.ShowDialog();
+                    }).Start();
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void enviarEmpleadosWeb()

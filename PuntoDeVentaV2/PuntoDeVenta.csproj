@@ -1834,6 +1834,12 @@
     <Compile Include="WEBCaja.Designer.cs">
       <DependentUpon>WEBCaja.cs</DependentUpon>
     </Compile>
+    <Compile Include="WEBRevisarInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WEBRevisarInventario.Designer.cs">
+      <DependentUpon>WEBRevisarInventario.cs</DependentUpon>
+    </Compile>
     <Compile Include="WebUploader.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2601,6 +2607,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WEBCaja.resx">
       <DependentUpon>WEBCaja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WEBRevisarInventario.resx">
+      <DependentUpon>WEBRevisarInventario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WebUploader.resx">
       <DependentUpon>WebUploader.cs</DependentUpon>
