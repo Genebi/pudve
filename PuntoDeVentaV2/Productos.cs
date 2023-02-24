@@ -562,6 +562,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            idprodDobleClick = 0;
         }
 
         // Unhighlight the currently highlighted row.
@@ -684,6 +685,7 @@ namespace PuntoDeVentaV2
 
                 HighlightedRowIndex = -1;
             }
+            dobleClickProducto = 0;
         }
 
         private void btnFilterSearch_Click(object sender, EventArgs e)
