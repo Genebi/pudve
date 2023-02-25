@@ -96,7 +96,7 @@ namespace PuntoDeVentaV2
             {
                 cantidadFiltro = Convert.ToInt32(datos[2]);
             }
-            if (FiltroRevisarInventario.datoCbo == "Normal")
+            if (tipoFiltro == "Normal")
             {
                 //btnAnterior.Visible = false;
                 btnOmitir.Location = new Point(23, 19);
@@ -1224,17 +1224,6 @@ namespace PuntoDeVentaV2
                     {
                         var cantidadStock = double.Parse(txtCantidadStock.Text);
 
-                        if (cantidadStock >= 1000)
-                        {
-                            var respuesta = MessageBox.Show("¿Estás seguro de agregar esta cantidad al stock?\n\nCantidad: " + cantidadStock, "Mensaje del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                            if (respuesta == DialogResult.No)
-                            {
-                                txtCantidadStock.Focus();
-                                txtCantidadStock.SelectAll();
-                                return;
-                            }
-                        }
 
                         // Comprobamos si el producto ya fue revisado
                         var existe = (bool)cn.EjecutarSelect($"SELECT * FROM RevisarInventario WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}' AND (CodigoBarras != '' OR ClaveInterna != '')");
@@ -1587,11 +1576,9 @@ namespace PuntoDeVentaV2
 
         private void btnTerminar_Click(object sender, EventArgs e)
         {
-            
-           
             if (true)
             {
-                if (FiltroRevisarInventario.datoCbo == "Normal")
+                if (tipoFiltro== "Normal")
                 {
                     //btnSiguiente.PerformClick();
                 }
@@ -1666,6 +1653,7 @@ namespace PuntoDeVentaV2
                 }
 
                 this.Hide();
+                cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE NoRevision = {numeroRevision} AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
                 this.Close();
                 //}
             }
@@ -1723,7 +1711,7 @@ namespace PuntoDeVentaV2
             Inventario.NumRevActivo = Convert.ToInt32(numeroRevision);
             NoRevision = Convert.ToInt32(numeroRevision);
             // Obtener el nombre de la computadora
-            nombrePC = Environment.MachineName;
+            nombrePC = $"MOVIL {idEmpleado}";
 
             // Ejecutar busqueda de productos cuando hay filtro
             if (tipoFiltro != "Normal")
@@ -2180,7 +2168,7 @@ namespace PuntoDeVentaV2
                         {
                             var idEmp = buscarEmpleado(FormPrincipal.userNickName);
                             var usr = cs.validarEmpleado(FormPrincipal.userNickName);
-                            cn.EjecutarConsulta($"INSERT INTO RevisarInventarioReportes (ID, NameUsr, IDAlmacen, Nombre, ClaveInterna, CodigoBarras, StockAlmacen, StockFisico, NoRevision, Fecha, Vendido, Diferencia, IDUsuario, Tipo, StatusRevision, StatusInventariado, PrecioProducto, IDComputadora, IDEmpleado, NumFolio, TipoRevision) VALUES ('{id}', '{usr}', '{idAlmacen}','{nombre}','{claveInterna}','{codigoBarras}','{stockAlmacen}','{stockFisico}','{noRevision}','{date.ToString("yyyy-MM-dd hh:mm:ss")}','{vendido}','{diferencia}','{idUsuario}','{tipo}','{statusRevision}','{statusInventariado}','{precioProducto}','{idComputadora}', '{idEmp}', '{ultimoFolio}', '{tipoFiltro}')");
+                            cn.EjecutarConsulta($"INSERT INTO RevisarInventarioReportes (ID, NameUsr, IDAlmacen, Nombre, ClaveInterna, CodigoBarras, StockAlmacen, StockFisico, NoRevision, Fecha, Vendido, Diferencia, IDUsuario, Tipo, StatusRevision, StatusInventariado, PrecioProducto, IDComputadora, IDEmpleado, NumFolio, TipoRevision) VALUES ('{id}', '{usr}', '{idAlmacen}','{idEmpleado.Split('@')[1]}','{claveInterna}','{codigoBarras}','{stockAlmacen}','{stockFisico}','{noRevision}','{date.ToString("yyyy-MM-dd hh:mm:ss")}','{vendido}','{diferencia}','{idUsuario}','{tipo}','{statusRevision}','{statusInventariado}','{precioProducto}','{idComputadora}', '{idEmp}', '{ultimoFolio}', '{tipoFiltro}')");
                         }
                     }
                 }

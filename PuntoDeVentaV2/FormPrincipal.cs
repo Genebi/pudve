@@ -1200,7 +1200,15 @@ namespace PuntoDeVentaV2
                                     enviarEmpleadosWeb();
                                     break;
                                 case "SesionInventario":
-                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'SesionInventario';");
+                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Empleado = '{peticion["Empleado"].ToString()}' ");
+                                    iniciarSesionInventario(peticion["Tipo"].ToString(), peticion["Empleado"].ToString());
+                                    break;
+                                case "proveedorDesde0":
+                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Empleado = '{peticion["Empleado"].ToString()}' ");
+                                    iniciarSesionInventario(peticion["Tipo"].ToString(), peticion["Empleado"].ToString());
+                                    break;
+                                case "proveedorContinuar":
+                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Empleado = '{peticion["Empleado"].ToString()}' ");
                                     iniciarSesionInventario(peticion["Tipo"].ToString(), peticion["Empleado"].ToString());
                                     break;
                                 default:
@@ -1218,7 +1226,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void iniciarSesionInventario(string tipo,string idEmpleado)
+        private void iniciarSesionInventario(string tipo, string idEmpleado, string proveedor = "")
         {
             switch (tipo)
             {
@@ -1231,8 +1239,58 @@ namespace PuntoDeVentaV2
                         revInv.ShowDialog();
                     }).Start();
                     break;
+                case "Proveedores":
+                    try
+                    {
+                        ConexionAPPWEB con = new ConexionAPPWEB();
+                        con.EjecutarConsulta($"DELETE FROM sesioninventario WHERE IDEmpleado ='{idEmpleado}'");//Se cierran las demas sesiones
+                        //enviarProveedores();
+                        string consulta = $"INSERT INTO sesioninventario (IDUsuario, IDEmpleado, Session, Tipo) VALUES('{FormPrincipal.userNickName.Split('@')[0]}','{idEmpleado}', 0, 'Proveedores')";
+                        con.EjecutarConsulta(consulta);
+                    }
+                    catch (Exception)
+                    {
+                        //Error de conexion
+                    }
+                    break;
+                case "proveedorDesde0":
+                    var datosP = new string[] { "Proveedores", proveedor+"|1", "0", idEmpleado };
+                    new Thread(() =>
+                    {
+                        Thread.CurrentThread.IsBackground = true;
+                        WEBRevisarInventario revInv = new WEBRevisarInventario(datosP);
+                        revInv.ShowDialog();
+                    }).Start();
+                    break;
+                case "proveedorContinuar":
+                    var datosPC = new string[] { "Proveedores", proveedor + "|2", "0", idEmpleado };
+                    new Thread(() =>
+                    {
+                        Thread.CurrentThread.IsBackground = true;
+                        WEBRevisarInventario revInv = new WEBRevisarInventario(datosPC);
+                        revInv.ShowDialog();
+                    }).Start();
+                    break;
                 default:
                     break;
+            }
+        }
+
+        private void enviarProveedores()
+        {
+            try
+            {
+                ConexionAPPWEB con = new ConexionAPPWEB();
+                DataTable valoresProvedores = cn.CargarDatos($"SELECT  IF(true,'{userNickName.Split('@')[0]}','{userNickName.Split('@')[0]}') AS IDUsuario, Nombre, ID FROM proveedores WHERE IDUsuario={userID} AND `Status`=1");
+                string consulta = $"DELETE FROM webproveedores WHERE IDUsuario = '{userNickName.Split('@')[0]}'";
+                con.EjecutarConsulta(consulta);
+                ToCSV(valoresProvedores, @"C:\Archivos PUDVE\export.txt");
+                bulkInsertAsync("proveedores");
+            }
+            catch (Exception)
+            {
+                //No se logro la conexion a internet.
+                return;
             }
         }
 
@@ -1285,13 +1343,13 @@ namespace PuntoDeVentaV2
                 bulkInsertAsync("mirrorproductosdatos");
                 con.EjecutarConsulta($"UPDATE mirrorproductoregistro SET Completo = '1' WHERE ID = (SELECT MAX(ID))");
                 }
-        }
+            }
             catch (Exception)
             {
                 //No se logro la conexion a internet.
                 return;
             }
-}
+        }
 
         private void ToCSV(DataTable dtDataTable, string strFilePath)
         {
@@ -1437,7 +1495,12 @@ namespace PuntoDeVentaV2
                     bl.LineTerminator = "\n";
                     break;
                 case "webempleados":
-                    bl.Columns.AddRange(new List<string>() { "IDregistro", "Nombre", "Stock", "Precio", "Codigo" });
+                    bl.Columns.AddRange(new List<string>() { "IDUsuario", "Nombre","Usuario", "Pass"});
+                    bl.FieldTerminator = "+";
+                    bl.LineTerminator = "\n";
+                    break;
+                case "proveedores":
+                    bl.Columns.AddRange(new List<string>() { "IDUsuario", "Nombre","IDLocal" });
                     bl.FieldTerminator = "+";
                     bl.LineTerminator = "\n";
                     break;
