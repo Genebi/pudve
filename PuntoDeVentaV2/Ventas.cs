@@ -8224,7 +8224,7 @@ namespace PuntoDeVentaV2
             lbDatosCliente.Text = string.Empty;
             lbDatosCliente.Visible = false;
             lbEliminarCliente.Visible = false;
-            btnEliminarDescuentos.PerformClick();
+            //btnEliminarDescuentos.PerformClick();
             idCliente = "";
             ClienteConDescuento = false;
         }
