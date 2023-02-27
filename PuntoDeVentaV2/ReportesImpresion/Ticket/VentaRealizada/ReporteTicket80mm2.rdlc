@@ -556,8 +556,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>13.43678cm</Top>
-            <Left>0.166cm</Left>
+            <Top>13.41678cm</Top>
+            <Left>0.15cm</Left>
             <Height>0.4cm</Height>
             <Width>7.758cm</Width>
             <ZIndex>2</ZIndex>
@@ -571,8 +571,8 @@
             <Source>External</Source>
             <Value>=Parameters!PathBarCode.Value</Value>
             <Sizing>Fit</Sizing>
-            <Top>13.86853cm</Top>
-            <Left>1.51559cm</Left>
+            <Top>13.84853cm</Top>
+            <Left>1.49959cm</Left>
             <Height>0.78563cm</Height>
             <Width>5cm</Width>
             <ZIndex>3</ZIndex>
@@ -1574,8 +1574,8 @@
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>12.68456cm</Top>
-            <Left>0.166cm</Left>
+            <Top>12.66456cm</Top>
+            <Left>0.15cm</Left>
             <Height>0.76cm</Height>
             <Width>7.758cm</Width>
             <ZIndex>8</ZIndex>
@@ -1921,7 +1921,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>11.44928cm</Top>
+            <Top>11.81953cm</Top>
             <Left>0.15cm</Left>
             <Height>0.4cm</Height>
             <Width>7.758cm</Width>
@@ -1962,8 +1962,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>12.28456cm</Top>
-            <Left>0.166cm</Left>
+            <Top>12.26456cm</Top>
+            <Left>0.15cm</Left>
             <Height>0.4cm</Height>
             <Width>7.758cm</Width>
             <ZIndex>11</ZIndex>
@@ -2003,8 +2003,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>11.88456cm</Top>
-            <Left>0.15cm</Left>
+            <Top>11.41953cm</Top>
+            <Left>0.166cm</Left>
             <Height>0.4cm</Height>
             <Width>7.758cm</Width>
             <ZIndex>12</ZIndex>
@@ -2018,7 +2018,7 @@
             </Style>
           </Textbox>
         </ReportItems>
-        <Height>14.71766cm</Height>
+        <Height>14.74412cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
