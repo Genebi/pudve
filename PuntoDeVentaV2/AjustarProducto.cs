@@ -1237,7 +1237,7 @@ namespace PuntoDeVentaV2
             {
                 var precio = txtPrecio.Text.Trim();
 
-                if (!string.IsNullOrWhiteSpace(precio))
+                if (!string.IsNullOrWhiteSpace(precio) && !Convert.ToDecimal(precio).Equals(0))
                 {
                     var precioTmp = float.Parse(precio);
                     txtPrecio.Text = "$" + precioTmp.ToString("N2");
