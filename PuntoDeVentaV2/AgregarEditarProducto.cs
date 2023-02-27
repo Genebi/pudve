@@ -4617,26 +4617,27 @@ namespace PuntoDeVentaV2
                 {
                     MensajeSiNoCancelar Opcion = new MensajeSiNoCancelar();
                     Opcion.ShowDialog();
-
-                if (Opcion.opcionMensaje == "si")
-                {
-                    contador++;
-                    btnGuardarProducto.PerformClick();
+                
+                    if (Opcion.opcionMensaje == "si")
+                    {
+                        contador++;
+                        btnGuardarProducto.PerformClick();
+                    }
+                    else if (Opcion.opcionMensaje == "no")
+                    {
+                        listaProductoToCombo.Clear();
+                        ProductosDeServicios.Clear();
+                        // Miri.
+                        limpiar_variables_cnt_3ro();
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
                 }
-                else if (Opcion.opcionMensaje == "no")
-                {
-                    listaProductoToCombo.Clear();
-                    ProductosDeServicios.Clear();
-                    // Miri.
-                    limpiar_variables_cnt_3ro();
-                }
-                else
-                {
-                    e.Cancel = true;
-                    return;
-                }
+                Productos.SeAbrioCopia = false;
             }
-            Productos.SeAbrioCopia = false;
         }
 
         public void cargarCodBarExt()
@@ -12835,4 +12836,4 @@ namespace PuntoDeVentaV2
             Productos.regimen_cnt_3ro = string.Empty;
         }
     }
-}
+} 

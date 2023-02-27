@@ -626,6 +626,12 @@
     <Compile Include="Complemento_pago.Designer.cs">
       <DependentUpon>Complemento_pago.cs</DependentUpon>
     </Compile>
+    <Compile Include="Complemento_pago_impuestos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Complemento_pago_impuestos.Designer.cs">
+      <DependentUpon>Complemento_pago_impuestos.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConceptosCaja.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2016,6 +2022,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Complemento_pago.resx">
       <DependentUpon>Complemento_pago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Complemento_pago_impuestos.resx">
+      <DependentUpon>Complemento_pago_impuestos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ConceptosCaja.resx">
       <DependentUpon>ConceptosCaja.cs</DependentUpon>

@@ -58,13 +58,14 @@
             this.label14 = new System.Windows.Forms.Label();
             this.txt_rfc_beneficiario = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 60);
+            this.label2.Location = new System.Drawing.Point(37, 60);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(83, 17);
             this.label2.TabIndex = 1;
@@ -74,7 +75,7 @@
             // 
             this.cmb_bx_forma_pago.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb_bx_forma_pago.FormattingEnabled = true;
-            this.cmb_bx_forma_pago.Location = new System.Drawing.Point(119, 54);
+            this.cmb_bx_forma_pago.Location = new System.Drawing.Point(126, 54);
             this.cmb_bx_forma_pago.Name = "cmb_bx_forma_pago";
             this.cmb_bx_forma_pago.Size = new System.Drawing.Size(264, 25);
             this.cmb_bx_forma_pago.TabIndex = 2;
@@ -83,7 +84,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(33, 23);
+            this.label3.Location = new System.Drawing.Point(40, 23);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(80, 17);
             this.label3.TabIndex = 5;
@@ -93,7 +94,7 @@
             // 
             this.datetime_fecha_pago.CustomFormat = "yyyy-MM-dd";
             this.datetime_fecha_pago.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.datetime_fecha_pago.Location = new System.Drawing.Point(119, 23);
+            this.datetime_fecha_pago.Location = new System.Drawing.Point(126, 23);
             this.datetime_fecha_pago.Name = "datetime_fecha_pago";
             this.datetime_fecha_pago.Size = new System.Drawing.Size(104, 22);
             this.datetime_fecha_pago.TabIndex = 6;
@@ -102,6 +103,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.DimGray;
+            this.panel1.Controls.Add(this.label17);
             this.panel1.Controls.Add(this.label16);
             this.panel1.Controls.Add(this.label15);
             this.panel1.Controls.Add(this.label1);
@@ -110,15 +112,15 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.ForeColor = System.Drawing.Color.White;
-            this.panel1.Location = new System.Drawing.Point(20, 184);
+            this.panel1.Location = new System.Drawing.Point(12, 184);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(877, 30);
+            this.panel1.Size = new System.Drawing.Size(902, 30);
             this.panel1.TabIndex = 5;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(755, 6);
+            this.label16.Location = new System.Drawing.Point(394, 6);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(109, 16);
             this.label16.TabIndex = 12;
@@ -127,7 +129,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(640, 6);
+            this.label15.Location = new System.Drawing.Point(313, 6);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(82, 16);
             this.label15.TabIndex = 11;
@@ -137,7 +139,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Location = new System.Drawing.Point(425, 6);
+            this.label1.Location = new System.Drawing.Point(588, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(113, 16);
             this.label1.TabIndex = 10;
@@ -175,9 +177,9 @@
             // pnl_info
             // 
             this.pnl_info.AutoScroll = true;
-            this.pnl_info.Location = new System.Drawing.Point(20, 220);
+            this.pnl_info.Location = new System.Drawing.Point(12, 220);
             this.pnl_info.Name = "pnl_info";
-            this.pnl_info.Size = new System.Drawing.Size(877, 168);
+            this.pnl_info.Size = new System.Drawing.Size(902, 168);
             this.pnl_info.TabIndex = 9;
             // 
             // btn_aceptar
@@ -188,7 +190,7 @@
             this.btn_aceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_aceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_aceptar.ForeColor = System.Drawing.Color.White;
-            this.btn_aceptar.Location = new System.Drawing.Point(717, 414);
+            this.btn_aceptar.Location = new System.Drawing.Point(723, 414);
             this.btn_aceptar.Name = "btn_aceptar";
             this.btn_aceptar.Size = new System.Drawing.Size(180, 30);
             this.btn_aceptar.TabIndex = 7;
@@ -204,7 +206,7 @@
             this.btn_cancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btn_cancelar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_cancelar.ForeColor = System.Drawing.Color.White;
-            this.btn_cancelar.Location = new System.Drawing.Point(592, 414);
+            this.btn_cancelar.Location = new System.Drawing.Point(598, 414);
             this.btn_cancelar.Name = "btn_cancelar";
             this.btn_cancelar.Size = new System.Drawing.Size(110, 30);
             this.btn_cancelar.TabIndex = 8;
@@ -215,7 +217,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(234, 23);
+            this.label6.Location = new System.Drawing.Point(241, 23);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(71, 17);
             this.label6.TabIndex = 7;
@@ -225,7 +227,7 @@
             // 
             this.datetime_hora_pago.CustomFormat = "hh:mm tt";
             this.datetime_hora_pago.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.datetime_hora_pago.Location = new System.Drawing.Point(311, 23);
+            this.datetime_hora_pago.Location = new System.Drawing.Point(318, 23);
             this.datetime_hora_pago.Name = "datetime_hora_pago";
             this.datetime_hora_pago.ShowUpDown = true;
             this.datetime_hora_pago.Size = new System.Drawing.Size(102, 22);
@@ -234,7 +236,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(14, 98);
+            this.label7.Location = new System.Drawing.Point(21, 98);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(99, 17);
             this.label7.TabIndex = 3;
@@ -243,16 +245,17 @@
             // txt_cuenta
             // 
             this.txt_cuenta.Enabled = false;
-            this.txt_cuenta.Location = new System.Drawing.Point(119, 95);
+            this.txt_cuenta.Location = new System.Drawing.Point(126, 95);
             this.txt_cuenta.MaxLength = 50;
             this.txt_cuenta.Name = "txt_cuenta";
             this.txt_cuenta.Size = new System.Drawing.Size(264, 22);
             this.txt_cuenta.TabIndex = 4;
+            this.txt_cuenta.Text = "(Opcional) No. cuenta ordenante";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(389, 57);
+            this.label9.Location = new System.Drawing.Point(396, 57);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(93, 17);
             this.label9.TabIndex = 10;
@@ -261,7 +264,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(629, 57);
+            this.label10.Location = new System.Drawing.Point(636, 57);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(81, 17);
             this.label10.TabIndex = 12;
@@ -269,7 +272,7 @@
             // 
             // txt_tipo_cambio_pago
             // 
-            this.txt_tipo_cambio_pago.Location = new System.Drawing.Point(716, 54);
+            this.txt_tipo_cambio_pago.Location = new System.Drawing.Point(723, 54);
             this.txt_tipo_cambio_pago.Name = "txt_tipo_cambio_pago";
             this.txt_tipo_cambio_pago.Size = new System.Drawing.Size(184, 22);
             this.txt_tipo_cambio_pago.TabIndex = 13;
@@ -277,7 +280,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(398, 98);
+            this.label11.Location = new System.Drawing.Point(405, 98);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(96, 17);
             this.label11.TabIndex = 16;
@@ -286,16 +289,17 @@
             // txt_rfc_ordenante
             // 
             this.txt_rfc_ordenante.Enabled = false;
-            this.txt_rfc_ordenante.Location = new System.Drawing.Point(500, 95);
+            this.txt_rfc_ordenante.Location = new System.Drawing.Point(507, 95);
             this.txt_rfc_ordenante.MaxLength = 13;
             this.txt_rfc_ordenante.Name = "txt_rfc_ordenante";
             this.txt_rfc_ordenante.Size = new System.Drawing.Size(123, 22);
             this.txt_rfc_ordenante.TabIndex = 17;
+            this.txt_rfc_ordenante.Text = "(Opcional) RFC";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(664, 98);
+            this.label12.Location = new System.Drawing.Point(671, 98);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(46, 17);
             this.label12.TabIndex = 18;
@@ -304,16 +308,17 @@
             // txt_banco
             // 
             this.txt_banco.Enabled = false;
-            this.txt_banco.Location = new System.Drawing.Point(716, 95);
+            this.txt_banco.Location = new System.Drawing.Point(723, 95);
             this.txt_banco.MaxLength = 300;
             this.txt_banco.Name = "txt_banco";
             this.txt_banco.Size = new System.Drawing.Size(184, 22);
             this.txt_banco.TabIndex = 19;
+            this.txt_banco.Text = "(Opcional) Nombre banco";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(5, 126);
+            this.label13.Location = new System.Drawing.Point(12, 126);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(108, 17);
             this.label13.TabIndex = 20;
@@ -322,16 +327,17 @@
             // txt_cuenta_beneficiario
             // 
             this.txt_cuenta_beneficiario.Enabled = false;
-            this.txt_cuenta_beneficiario.Location = new System.Drawing.Point(119, 123);
+            this.txt_cuenta_beneficiario.Location = new System.Drawing.Point(126, 123);
             this.txt_cuenta_beneficiario.MaxLength = 50;
             this.txt_cuenta_beneficiario.Name = "txt_cuenta_beneficiario";
             this.txt_cuenta_beneficiario.Size = new System.Drawing.Size(264, 22);
             this.txt_cuenta_beneficiario.TabIndex = 21;
+            this.txt_cuenta_beneficiario.Text = "(Opcional) No. cuenta beneficiario";
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(389, 126);
+            this.label14.Location = new System.Drawing.Point(396, 126);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(105, 17);
             this.label14.TabIndex = 22;
@@ -340,26 +346,36 @@
             // txt_rfc_beneficiario
             // 
             this.txt_rfc_beneficiario.Enabled = false;
-            this.txt_rfc_beneficiario.Location = new System.Drawing.Point(500, 123);
+            this.txt_rfc_beneficiario.Location = new System.Drawing.Point(507, 123);
             this.txt_rfc_beneficiario.MaxLength = 13;
             this.txt_rfc_beneficiario.Name = "txt_rfc_beneficiario";
             this.txt_rfc_beneficiario.Size = new System.Drawing.Size(123, 22);
             this.txt_rfc_beneficiario.TabIndex = 23;
+            this.txt_rfc_beneficiario.Text = "(Opcional) RFC.";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(500, 54);
+            this.textBox1.Location = new System.Drawing.Point(507, 54);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
             this.textBox1.Size = new System.Drawing.Size(123, 22);
             this.textBox1.TabIndex = 24;
             this.textBox1.Click += new System.EventHandler(this.abrir_vnt_moneda);
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(817, 6);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(67, 16);
+            this.label17.TabIndex = 13;
+            this.label17.Text = "Impuestos";
+            // 
             // Complemento_pago
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(920, 456);
+            this.ClientSize = new System.Drawing.Size(926, 456);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.txt_rfc_beneficiario);
             this.Controls.Add(this.label14);
@@ -433,5 +449,6 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label17;
     }
 }

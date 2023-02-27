@@ -67,6 +67,26 @@ namespace PuntoDeVentaV2
             cmb_bx_forma_pago.SelectedIndex = 0;
 
 
+            // Datos de la forma de pago
+
+            txt_cuenta.GotFocus += new EventHandler(encampo_cuenta);
+            txt_cuenta.LostFocus += new EventHandler(scampo_cuenta);
+            txt_cuenta.KeyPress += new KeyPressEventHandler(cta_ordenante);
+
+            txt_rfc_ordenante.GotFocus += new EventHandler(encampo_cuenta);
+            txt_rfc_ordenante.LostFocus += new EventHandler(scampo_cuenta);
+
+            txt_banco.GotFocus += new EventHandler(encampo_cuenta);
+            txt_banco.LostFocus += new EventHandler(scampo_cuenta);
+            
+            txt_cuenta_beneficiario.GotFocus += new EventHandler(encampo_cuenta);
+            txt_cuenta_beneficiario.LostFocus += new EventHandler(scampo_cuenta);
+            txt_cuenta_beneficiario.KeyPress += new KeyPressEventHandler(cta_beneficiario);
+
+            txt_rfc_beneficiario.GotFocus += new EventHandler(encampo_cuenta);
+            txt_rfc_beneficiario.LostFocus += new EventHandler(scampo_cuenta);
+
+
             // Fecha actual
 
             DateTime f_actual = DateTime.Now;
@@ -103,6 +123,7 @@ namespace PuntoDeVentaV2
             if (tam_arr > 0)
             {
                 int location_y = 6;
+                int nfila = 1;
 
                 for (int i=0; i<tam_arr; i++)
                 {
@@ -145,25 +166,40 @@ namespace PuntoDeVentaV2
                         }
 
                         Label lb_c_folio_serie = new Label();
-                        lb_c_folio_serie.Name = "lb_folio_serie" + i;
+                        lb_c_folio_serie.Name = "lb_folio_serie" + nfila;
                         lb_c_folio_serie.Location = new Point(12, location_y);
                         lb_c_folio_serie.Text = r_factura["folio"].ToString() + " " + r_factura["serie"].ToString();
                         
                         Label lb_c_total = new Label();
-                        lb_c_total.Name = "lb_total" + i;
+                        lb_c_total.Name = "lb_total" + nfila;
                         lb_c_total.Location = new Point(97, location_y);
                         lb_c_total.Text = total_f;
 
                         TextBox txt_c_total = new TextBox();
-                        txt_c_total.Name = "txt_total" + i;
+                        txt_c_total.Name = "txt_total" + nfila;
                         txt_c_total.Location = new Point(207, location_y);
                         txt_c_total.Size = new Size(100, 22);
                         txt_c_total.TextAlign = HorizontalAlignment.Center;
                         txt_c_total.Text = total_f;
                         txt_c_total.KeyPress += new KeyPressEventHandler(solo_decimales);
 
+                        TextBox txt_c_moneda_dr = new TextBox();
+                        txt_c_moneda_dr.Name = "txt_moneda_dr" + nfila;
+                        txt_c_moneda_dr.Location = new Point(320, location_y);
+                        txt_c_moneda_dr.Size = new Size(60, 22);
+                        txt_c_moneda_dr.TextAlign = HorizontalAlignment.Center;
+                        txt_c_moneda_dr.ReadOnly = true;
+                        txt_c_moneda_dr.Click += new EventHandler(abrir_vnt_moneda);
+
+                        TextBox txt_c_tcambio_dr = new TextBox();
+                        txt_c_tcambio_dr.Name = "txt_tcambio_dr" + nfila;
+                        txt_c_tcambio_dr.Location = new Point(390, location_y);
+                        txt_c_tcambio_dr.Size = new Size(100, 22);
+                        txt_c_tcambio_dr.TextAlign = HorizontalAlignment.Center;
+                        txt_c_tcambio_dr.KeyPress += new KeyPressEventHandler(solo_decimales);
+
                         ComboBox cmb_bx_c_inc_impuestos = new ComboBox();
-                        cmb_bx_c_inc_impuestos.Name = "cmb_bx_incluye_impuestos" + i;
+                        cmb_bx_c_inc_impuestos.Name = "cmb_bx_incluye_impuestos" + nfila;
                         cmb_bx_c_inc_impuestos.Items.Add("No objeto de impuesto.");
                         cmb_bx_c_inc_impuestos.Items.Add("Sí objeto de impuesto.");
                         cmb_bx_c_inc_impuestos.Items.Add("Sí objeto del impuesto y no obligado al desglose.");
@@ -171,23 +207,18 @@ namespace PuntoDeVentaV2
                         cmb_bx_c_inc_impuestos.SelectedIndex = 0;
                         cmb_bx_c_inc_impuestos.DropDownStyle = ComboBoxStyle.DropDownList;
                         cmb_bx_c_inc_impuestos.Width = 300;
-                        cmb_bx_c_inc_impuestos.Location = new Point(325, location_y);
+                        cmb_bx_c_inc_impuestos.Location = new Point(500, location_y);
 
-                        TextBox txt_c_moneda_dr = new TextBox();
-                        txt_c_moneda_dr.Name = "txt_monda_dr" + i;
-                        txt_c_moneda_dr.Location = new Point(655, location_y);
-                        txt_c_moneda_dr.Size = new Size(60, 22);
-                        txt_c_moneda_dr.TextAlign = HorizontalAlignment.Center;
-                        txt_c_moneda_dr.ReadOnly = true;
-                        txt_c_moneda_dr.Click += new EventHandler(abrir_vnt_moneda);
-
-                        TextBox txt_c_tcambio_dr = new TextBox();
-                        txt_c_tcambio_dr.Name = "txt_tcambio_dr" + i;
-                        txt_c_tcambio_dr.Location = new Point(760, location_y);
-                        txt_c_tcambio_dr.Size = new Size(100, 22);
-                        txt_c_tcambio_dr.TextAlign = HorizontalAlignment.Center;
-                        txt_c_tcambio_dr.KeyPress += new KeyPressEventHandler(solo_decimales);
-
+                        Button btn_agregar_impuestos = new Button();
+                        btn_agregar_impuestos.Name = "btn_agregar_impuestos-" + nfila;
+                        btn_agregar_impuestos.Location = new Point(815, location_y);
+                        btn_agregar_impuestos.Size = new Size(70, 28);
+                        btn_agregar_impuestos.Text = "Agregar";
+                        btn_agregar_impuestos.BackColor = Color.Teal;
+                        btn_agregar_impuestos.ForeColor = Color.White;
+                        btn_agregar_impuestos.Cursor = Cursors.Hand;
+                        btn_agregar_impuestos.FlatStyle = FlatStyle.Flat;
+                        btn_agregar_impuestos.Click += new EventHandler(abrir_vnt_impuestos);
 
                         pnl_info.Controls.Add(lb_c_folio_serie);
                         pnl_info.Controls.Add(lb_c_total);
@@ -195,9 +226,11 @@ namespace PuntoDeVentaV2
                         pnl_info.Controls.Add(cmb_bx_c_inc_impuestos);
                         pnl_info.Controls.Add(txt_c_moneda_dr);
                         pnl_info.Controls.Add(txt_c_tcambio_dr);
+                        pnl_info.Controls.Add(btn_agregar_impuestos);
 
 
-                        location_y = location_y + 25;
+                        location_y = location_y + 30;
+                        nfila++;
                     }
                 }
             }
@@ -443,12 +476,20 @@ namespace PuntoDeVentaV2
 
             if(clave == 01 | clave == 08 | (clave >= 12 & clave <= 27) | clave == 30)
             {
-                txt_cuenta.Text = string.Empty;
+                limpiar_campos_forma_pago();
+
                 txt_cuenta.Enabled = false;
                 txt_cuenta.Cursor = Cursors.No;
+
+                txt_rfc_ordenante.Enabled = false;
+                txt_banco.Enabled = false;
+                txt_cuenta_beneficiario.Enabled = false;
+                txt_rfc_beneficiario.Enabled = false;
             }
             else
             {
+                limpiar_campos_forma_pago();
+
                 txt_cuenta.Enabled = true;
                 txt_cuenta.Cursor = Cursors.IBeam;
 
@@ -488,12 +529,17 @@ namespace PuntoDeVentaV2
                     txt_rfc_ordenante.Enabled = true;
                     txt_cuenta_beneficiario.Enabled = true;
                     txt_rfc_beneficiario.Enabled = true;
+
+                    txt_banco.Enabled = false;
                 }
                 if (clave == 06) // Dígitos. Dinero electrónico
                 {
                     txt_cuenta.MaxLength = 10;
 
                     txt_rfc_ordenante.Enabled = true;
+                    txt_banco.Enabled = false;
+                    txt_cuenta_beneficiario.Enabled = false;
+                    txt_rfc_beneficiario.Enabled = false;
                 }
             }
         }
@@ -508,54 +554,135 @@ namespace PuntoDeVentaV2
 
         private void encampo_cuenta(object sender, EventArgs e)
         {
-            if (txt_cuenta.Text == "(Opcional) No. cuenta")
+            TextBox campo_avalidar = (TextBox)sender;
+
+            if (campo_avalidar.Text == "(Opcional) No. cuenta ordenante")
             {
-                txt_cuenta.Text = "";
+                campo_avalidar.Text = "";
+            }
+            if (campo_avalidar.Text == "(Opcional) RFC")
+            {
+                campo_avalidar.Text = "";
+            }
+            if (campo_avalidar.Text == "(Opcional) Nombre banco")
+            {
+                campo_avalidar.Text = "";
+            }
+            if (campo_avalidar.Text == "(Opcional) No. cuenta beneficiario")
+            {
+                campo_avalidar.Text = "";
+            }
+            if (campo_avalidar.Text == "(Opcional) RFC.")
+            {
+                campo_avalidar.Text = "";
             }
         }
 
         private void scampo_cuenta(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txt_cuenta.Text))
+            TextBox campo_avalidar = (TextBox)sender;
+            var nombre_campo = campo_avalidar.Name;
+
+            if (string.IsNullOrWhiteSpace(campo_avalidar.Text))
             {
-                txt_cuenta.Text = "(Opcional) No. cuenta";
+                if (nombre_campo == "txt_cuenta")
+                {
+                    campo_avalidar.Text = "(Opcional) No. cuenta ordenante";
+                }
+                if (nombre_campo == "txt_rfc_ordenante")
+                {
+                    campo_avalidar.Text = "(Opcional) RFC";
+                }
+                if (nombre_campo == "txt_banco")
+                {
+                    campo_avalidar.Text = "(Opcional) Nombre banco";
+                }                
+                if (nombre_campo == "txt_cuenta_beneficiario")
+                {
+                    campo_avalidar.Text = "(Opcional) No. cuenta beneficiario";
+                }
+                if (nombre_campo == "txt_rfc_beneficiario")
+                {
+                    campo_avalidar.Text = "(Opcional) RFC.";
+                }
             }
         }
 
-        private bool val_campos_forma_pago(string nom_campo)
+        private void cta_ordenante(object sender, KeyPressEventArgs e)
         {
-            var campo_avalidar = "";
-            var clave_formap = cmb_bx_forma_pago.SelectedValue.ToString();
-            bool resultado = false;
+            string clave = cmb_bx_forma_pago.SelectedValue.ToString();
 
-
-            if(nom_campo == "txt_cuenta")
+                        
+            if (clave == "02" | clave == "03" | clave == "04" | clave == "06" | clave == "28" | clave == "29")
             {
-                campo_avalidar = txt_cuenta.Text;
-            }
-            if (nom_campo == "txt_rfc_ordenante")
-            {
-                campo_avalidar = txt_rfc_ordenante.Text;
-            }
-            if (nom_campo == "txt_cuenta_beneficiario")
-            {
-                campo_avalidar = txt_cuenta_beneficiario.Text;
-            }
-            if (nom_campo == "txt_rfc_beneficiario")
-            {
-                campo_avalidar = txt_rfc_beneficiario.Text;
+                if (Char.IsNumber(e.KeyChar) | Char.IsControl(e.KeyChar))
+                {
+                    e.Handled = false;
+                }
+                else
+                {
+                    e.Handled = true;
+                }
             }
 
+            if (clave == "05")
+            {
+                if (Char.IsLetterOrDigit(e.KeyChar) | Char.IsControl(e.KeyChar))
+                {
+                    e.Handled = false;
+                }
+                else
+                {
+                    e.Handled = true;
+                }
+            }
+        }
 
-            TextBox campo_txt = (TextBox)this.Controls.Find(campo_avalidar, true).FirstOrDefault();
-            campo_txt.Text = "";
+        private void cta_beneficiario(object sender, KeyPressEventArgs e)
+        {
+            string clave = cmb_bx_forma_pago.SelectedValue.ToString();
 
-            return resultado;
+            if (clave == "02" | clave == "04" | clave == "05" | clave == "28" | clave == "29") 
+            {
+                if (Char.IsLetterOrDigit(e.KeyChar) | Char.IsControl(e.KeyChar))
+                {
+                    e.Handled = false;
+                }
+                else
+                {
+                    e.Handled = true;
+                }
+            }
+            if (clave == "03")
+            {
+                if (Char.IsNumber(e.KeyChar) | Char.IsControl(e.KeyChar))
+                {
+                    e.Handled = false;
+                }
+                else
+                {
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void limpiar_campos_forma_pago()
+        {
+            txt_cuenta.Text = string.Empty;
+            txt_rfc_ordenante.Text = string.Empty;
+            txt_banco.Text = string.Empty;
+            txt_cuenta_beneficiario.Text = string.Empty;
+            txt_rfc_beneficiario.Text = string.Empty;
+
+            txt_cuenta.Text = "(Opcional) No. cuenta ordenante";
+            txt_rfc_ordenante.Text = "(Opcional) RFC";
+            txt_banco.Text = "(Opcional) Nombre banco";
+            txt_cuenta_beneficiario.Text = "(Opcional) No. cuenta beneficiario";
+            txt_rfc_beneficiario.Text = "(Opcional) RFC.";
         }
 
         private void abrir_vnt_moneda(object sender, EventArgs e)
         {
-
             TextBox  campo = (TextBox)sender; 
 
             Elegir_moneda vnt_moneda = new Elegir_moneda();
@@ -571,6 +698,16 @@ namespace PuntoDeVentaV2
             };
 
             vnt_moneda.ShowDialog();
+        }
+
+        private void abrir_vnt_impuestos(object sender, EventArgs e)
+        {
+            Button boton = (Button)sender;
+            var nombre_boton = boton.Name; 
+            var num_dr = nombre_boton.Split('-'); 
+
+            Complemento_pago_impuestos vnt_impuestos = new Complemento_pago_impuestos(Convert.ToInt32(num_dr[1]));
+            vnt_impuestos.ShowDialog();
         }
     }
 }
