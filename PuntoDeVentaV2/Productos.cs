@@ -1092,6 +1092,7 @@ namespace PuntoDeVentaV2
 
                     codProductoEditarVenta = codProductoEditarInventario;
 
+                    idprodDobleClick = codProductoEditarInventario;
                     var producto = cn.BuscarProducto(Convert.ToInt32(idProductoEditar), Convert.ToInt32(id));
                     typeProduct = producto[5];
 
