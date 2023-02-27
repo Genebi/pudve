@@ -62,6 +62,8 @@ namespace PuntoDeVentaV2
 
         public static int desdeConsultar = 0;
 
+        public static string formatoDeVenta = "0";
+
 
         //Miooooooooooo
         public string titulo;
@@ -2435,7 +2437,7 @@ namespace PuntoDeVentaV2
                                     nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,
                                     tipoDescuento, idUsrNvo, logoTipo, ProdServPaq, baseProducto, ivaProducto, impuestoProducto,
                                     mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre), stockNecesario, stockMinimo,
-                                    txtPrecioCompra.Text, precioMayoreo, incluye_impuestos, nombre_cterceros, rfc_cterceros, cp_cterceros, regimen_cterceros };
+                                    txtPrecioCompra.Text, precioMayoreo, incluye_impuestos, nombre_cterceros, rfc_cterceros, cp_cterceros, regimen_cterceros, formatoDeVenta };
 
                                     #region Inicio Se guardan los datos principales del Producto
                                     //Se guardan los datos principales del producto
@@ -10287,6 +10289,7 @@ namespace PuntoDeVentaV2
             }
 
             ConsultarPaginasRegistradas();
+            txtCodigoBarras.Focus();
         }
 
         private void llenarListaDatosDinamicos()
@@ -12610,6 +12613,8 @@ namespace PuntoDeVentaV2
                                     if (!string.IsNullOrWhiteSpace(nombreProducto))
                                     {
                                         sugerencias.Add(nombreProducto);
+
+                                        ActualizarPaginaUtilizada(pagina.Key);
                                     }
                                 }
                             }
@@ -12728,7 +12733,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void RegistrarCodigoNoEncontrados(string codigo)
+        private void RegistrarCodigoNoEncontrado(string codigo)
         {
             if (Registro.ConectadoInternet())
             {
@@ -12764,6 +12769,50 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void RegistrarCodigoEncontrado(string codigo)
+        {
+            if (Registro.ConectadoInternet())
+            {
+                MySqlConnection conexion = new MySqlConnection();
+
+                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+                try
+                {
+                    conexion.Open();
+
+                    MySqlCommand consultar = new MySqlCommand("SELECT * FROM codigos_encontrados WHERE codigo = @codigo", conexion);
+                    consultar.Parameters.AddWithValue("@codigo", codigo);
+                    MySqlDataReader dr = consultar.ExecuteReader();
+
+                    if (!dr.HasRows)
+                    {
+                        dr.Close();
+                        //Consulta de MySQL
+                        MySqlCommand registrar = new MySqlCommand("INSERT INTO codigos_encontrados (codigo, usuario) VALUES (@codigo, @usuario)", conexion);
+                        registrar.Parameters.AddWithValue("@codigo", codigo);
+                        registrar.Parameters.AddWithValue("@usuario", FormPrincipal.userNickName);
+                        registrar.ExecuteNonQuery();
+                    }
+                    else
+                    {
+                        dr.Close();
+                        MySqlCommand actualizar = new MySqlCommand("UPDATE codigos_encontrados SET veces_encontrado = veces_encontrado + 1 WHERE codigo = @codigo", conexion);
+                        actualizar.Parameters.AddWithValue("@codigo", codigo);
+                        actualizar.ExecuteNonQuery();
+                    }
+
+                    //Cerramos la conexion de MySQL
+                    dr.Close();
+                    conexion.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
         private void ConsultarPaginasRegistradas()
         {
             var startTimeSpan = TimeSpan.Zero;
@@ -12774,6 +12823,30 @@ namespace PuntoDeVentaV2
                 ObtenerPaginasRegistradas();
                 Console.WriteLine("se ejecuto");
             }, null, startTimeSpan, periodTimeSpan);
+        }
+
+        private void ActualizarPaginaUtilizada(string pagina)
+        {
+            if (Registro.ConectadoInternet())
+            {
+                MySqlConnection conexion = new MySqlConnection();
+
+                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+                try
+                {
+                    conexion.Open();
+
+                    MySqlCommand cmd = new MySqlCommand("UPDATE paginas SET veces_utilizada = veces_utilizada + 1 WHERE enlace = @pagina", conexion);
+                    cmd.Parameters.AddWithValue("@pagina", pagina);
+                    cmd.ExecuteNonQuery();
+                    conexion.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private void EjecutarBusquedaGoogle()
@@ -12795,6 +12868,8 @@ namespace PuntoDeVentaV2
 
                         if (sugerencias.Count > 0)
                         {
+                            RegistrarCodigoEncontrado(codigo);
+
                             using (SugerenciasGoogle formSugerencias = new SugerenciasGoogle(sugerencias))
                             {
                                 var resultado = formSugerencias.ShowDialog();
@@ -12807,7 +12882,7 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            RegistrarCodigoNoEncontrados(codigo);
+                            RegistrarCodigoNoEncontrado(codigo);
                             MessageBox.Show("No se ha encontrado ningún resultado.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }

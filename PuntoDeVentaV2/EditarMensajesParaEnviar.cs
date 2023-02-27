@@ -994,7 +994,7 @@ namespace PuntoDeVentaV2
                                                             {
                                                                 estado = 0;
                                                             }
-                                                            cn.EjecutarConsulta(cs.insertarMensajeInventario(Productos.codProductoEditarInventario, NuevoMensaje, estado));
+                                                            cn.EjecutarConsulta(cs.insertarMensajeInventario(Productos.idprodDobleClick, NuevoMensaje, estado));
                                                             MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                         }
                                                     }

@@ -181,11 +181,11 @@ namespace PuntoDeVentaV2
             cantidadTotalTransferenciaEnCaja = CajaN.cantidadTotalTransferenciaEnCaja;
             cantidadTransferenciaSaldoInicialEnCaja = CajaN.cantidadTransferenciaSaldoInicialEnCaja;
 
-            totalEfectivo = cantidadTotalEfectivoEnCaja /*+ cantidadEfectivoSaldoInicialEnCaja*/;
-            totalTarjeta = cantidadTotalTarjetaEnCaja /*+ cantidadTarjetaSaldoInicialEnCaja*/;
-            totalVales = cantidadTotalValesEnCaja/* + cantidadValesSaldoInicialEnCaja*/;
-            totalCheque = cantidadTotalCehqueEnCaja /*+ cantidadChequeSaldoInicialEnCaja*/;
-            totalTransferencia = cantidadTotalTransferenciaEnCaja /*+ cantidadTransferenciaSaldoInicialEnCaja*/;
+            totalEfectivo = cantidadTotalEfectivoEnCaja+cantidadEfectivoSaldoInicialEnCaja /*+ cantidadEfectivoSaldoInicialEnCaja*/;
+            totalTarjeta = cantidadTotalTarjetaEnCaja+cantidadTarjetaSaldoInicialEnCaja /*+ cantidadTarjetaSaldoInicialEnCaja*/;
+            totalVales = cantidadTotalValesEnCaja+cantidadValesSaldoInicialEnCaja/* + cantidadValesSaldoInicialEnCaja*/;
+            totalCheque = cantidadTotalCehqueEnCaja+cantidadChequeSaldoInicialEnCaja /*+ cantidadChequeSaldoInicialEnCaja*/;
+            totalTransferencia = cantidadTotalTransferenciaEnCaja+cantidadTotalTransferenciaEnCaja /*+ cantidadTransferenciaSaldoInicialEnCaja*/;
 
             totalSaldoInicial = CajaN.totalSaldoInicial;
             totalEnCaja = CajaN.sumaDeTotalesEnCaja;
@@ -214,6 +214,7 @@ namespace PuntoDeVentaV2
                 cbConceptoConBusqueda.Visible = false;
                 lbSubtitulo.Visible = false;
                 btnAgregarConcepto.Visible = false;
+                btnRetirarTodoElDinero.Visible = false;
                 txtEfectivo.Text = Inventario.totalFinal.ToString();
                 
                 txtCredito.Enabled = false;
@@ -498,31 +499,7 @@ namespace PuntoDeVentaV2
                             AbrirSinTicket abrir = new AbrirSinTicket();
                             abrir.Show();
                         }
-                        using (var DTCorreoHabilitado = cn.CargarDatos($"SELECT EnvioCorreoSaldoIncial FROM `configuracion` WHERE IDUsuario = {FormPrincipal.userID}"))
-                        {
-                            if (DTCorreoHabilitado.Rows[0][0].ToString().Equals("1"))
-                            {
-                                string[] datos = new string[] { };
-                                tipoOperacion = "SaldoInicial";
-                                DateTime fechaOperacion = DateTime.Now;
-                                var efectivo = ValidarCampos(txtEfectivo.Text);
-                                var tarjeta = ValidarCampos(txtTarjeta.Text);
-                                var cheque = ValidarCampos(txtCheque.Text);
-                                var vales = ValidarCampos(txtVales.Text);
-                                var trans = ValidarCampos(txtTrans.Text);
-                                var credito = ValidarCampos(txtCredito.Text);
-                                var numFolio = obtenerNumFolio(tipoOperacion);
-                                float cantidad = efectivo + tarjeta + +cheque + vales + trans + credito;
-
-                                datos = new string[] {
-                        tipoOperacion, cantidad.ToString("0.00"), "0", cbConceptoConBusqueda.Text, fechaOperacion.ToString(), FormPrincipal.userID.ToString(), efectivo.ToString("C2"), tarjeta.ToString("C2"), cheque.ToString("C2"), vales.ToString("C2"), trans.ToString("C2"), credito.ToString("C2"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
-                        };
-                                Thread AgregarRetiroDineroSaldoInicial = new Thread(
-                                           () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
-                                       );
-                                AgregarRetiroDineroSaldoInicial.Start();
-                            }
-                        }
+                       
                     }
                     else if (dt.Rows[0]["AbrirCajaAgregar"].Equals(1))
                     {
@@ -530,7 +507,31 @@ namespace PuntoDeVentaV2
                         abrir.Show();
                     }
                 }
-               
+                using (var DTCorreoHabilitado = cn.CargarDatos($"SELECT EnvioCorreoSaldoIncial FROM `configuracion` WHERE IDUsuario = {FormPrincipal.userID}"))
+                {
+                    if (DTCorreoHabilitado.Rows[0][0].ToString().Equals("1"))
+                    {
+                        string[] datos = new string[] { };
+                        tipoOperacion = "SaldoInicial";
+                        DateTime fechaOperacion = DateTime.Now;
+                        var efectivo = ValidarCampos(txtEfectivo.Text);
+                        var tarjeta = ValidarCampos(txtTarjeta.Text);
+                        var cheque = ValidarCampos(txtCheque.Text);
+                        var vales = ValidarCampos(txtVales.Text);
+                        var trans = ValidarCampos(txtTrans.Text);
+                        var credito = ValidarCampos(txtCredito.Text);
+                        var numFolio = obtenerNumFolio(tipoOperacion);
+                        float cantidad = efectivo + tarjeta + +cheque + vales + trans + credito;
+
+                        datos = new string[] {
+                        tipoOperacion, cantidad.ToString("0.00"), "0", cbConceptoConBusqueda.Text, fechaOperacion.ToString(), FormPrincipal.userID.ToString(), efectivo.ToString("C2"), tarjeta.ToString("C2"), cheque.ToString("C2"), vales.ToString("C2"), trans.ToString("C2"), credito.ToString("C2"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
+                        };
+                        Thread AgregarRetiroDineroSaldoInicial = new Thread(
+                                   () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
+                               );
+                        AgregarRetiroDineroSaldoInicial.Start();
+                    }
+                }
                 this.Close();
             }
             else

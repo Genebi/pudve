@@ -556,7 +556,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>15.92864cm</Top>
+            <Top>16.32967cm</Top>
             <Left>0.166cm</Left>
             <Height>0.45cm</Height>
             <Width>7.758cm</Width>
@@ -571,7 +571,7 @@
             <Source>External</Source>
             <Value>=Parameters!PathBarCode.Value</Value>
             <Sizing>Fit</Sizing>
-            <Top>16.37864cm</Top>
+            <Top>16.77967cm</Top>
             <Left>1.5156cm</Left>
             <Height>0.78563cm</Height>
             <Width>5cm</Width>
@@ -1574,7 +1574,7 @@
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>15.06039cm</Top>
+            <Top>15.42967cm</Top>
             <Left>0.166cm</Left>
             <Height>0.9cm</Height>
             <Width>7.758cm</Width>
@@ -1921,8 +1921,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>14.05539cm</Top>
-            <Left>0.166cm</Left>
+            <Top>14.49439cm</Top>
+            <Left>0.134cm</Left>
             <Height>0.45cm</Height>
             <Width>7.758cm</Width>
             <ZIndex>10</ZIndex>
@@ -1962,7 +1962,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>14.55478cm</Top>
+            <Top>14.94439cm</Top>
             <Left>0.166cm</Left>
             <Height>0.45cm</Height>
             <Width>7.758cm</Width>
@@ -1976,8 +1976,49 @@
               </Border>
             </Style>
           </Textbox>
+          <Textbox Name="MensajeDelTicket5">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>SubTotal: $</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!SubTotal.Value</Value>
+                    <Style>
+                      <FontSize>9pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
+            <Top>14.04439cm</Top>
+            <Left>0.134cm</Left>
+            <Height>0.45cm</Height>
+            <Width>7.758cm</Width>
+            <ZIndex>12</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Parameters!IVA.Value, "TicketVenta").ToString = "0", True, False)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>17.21719cm</Height>
+        <Height>17.64053cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
@@ -2087,6 +2128,10 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="IVA">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SubTotal">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
@@ -2210,6 +2255,11 @@
           <ColumnIndex>2</ColumnIndex>
           <RowIndex>5</RowIndex>
           <ParameterName>IVA</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>5</RowIndex>
+          <ParameterName>SubTotal</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
