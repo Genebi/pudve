@@ -103,7 +103,7 @@ namespace PuntoDeVentaV2
             MySqlDataAdapter ventaDA = new MySqlDataAdapter(queryVenta, conn);
             DataTable ventaDT = new DataTable();
 
-            
+
 
             ventaDA.Fill(ventaDT);
 
@@ -238,11 +238,11 @@ namespace PuntoDeVentaV2
             // Anticipo
 
             using (var dt = cn.CargarDatos($"SELECT SUM(Subtotal + IVA16+IVA8) AS 'Total' FROM `ventas` WHERE ID ={idVentaRealizada}"))
-                    {
+            {
                 string Anticipo = string.Empty;
                 if (Convert.ToDecimal(dt.Rows[0][0]) > Convert.ToDecimal(ventaDT.Rows[0]["Anticipo"]))
                 {
-                     Anticipo = ventaDT.Rows[0]["Anticipo"].ToString();
+                    Anticipo = ventaDT.Rows[0]["Anticipo"].ToString();
                     reportParameters.Add(new ReportParameter("Anticipo", Anticipo));
                 }
                 else
@@ -282,9 +282,9 @@ namespace PuntoDeVentaV2
                     reportParameters.Add(new ReportParameter("IVA", "0"));
                 }
             }
-           
-          
 
+            string SubTotal = ventaDT.Rows[0]["Subtotal"].ToString();
+            reportParameters.Add(new ReportParameter("SubTotal", SubTotal));
 
             string UsuarioRealizoVenta =  string.Empty;
 

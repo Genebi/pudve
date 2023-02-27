@@ -556,7 +556,7 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>13.18278cm</Top>
+            <Top>13.43678cm</Top>
             <Left>0.166cm</Left>
             <Height>0.4cm</Height>
             <Width>7.758cm</Width>
@@ -571,7 +571,7 @@
             <Source>External</Source>
             <Value>=Parameters!PathBarCode.Value</Value>
             <Sizing>Fit</Sizing>
-            <Top>13.61453cm</Top>
+            <Top>13.86853cm</Top>
             <Left>1.51559cm</Left>
             <Height>0.78563cm</Height>
             <Width>5cm</Width>
@@ -1574,8 +1574,8 @@
                 <TablixMember />
               </TablixMembers>
             </TablixRowHierarchy>
-            <Top>12.40378cm</Top>
-            <Left>0.15cm</Left>
+            <Top>12.68456cm</Top>
+            <Left>0.166cm</Left>
             <Height>0.76cm</Height>
             <Width>7.758cm</Width>
             <ZIndex>8</ZIndex>
@@ -1962,8 +1962,8 @@
               </Paragraph>
             </Paragraphs>
             <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
-            <Top>11.93042cm</Top>
-            <Left>0.15cm</Left>
+            <Top>12.28456cm</Top>
+            <Left>0.166cm</Left>
             <Height>0.4cm</Height>
             <Width>7.758cm</Width>
             <ZIndex>11</ZIndex>
@@ -1976,8 +1976,49 @@
               </Border>
             </Style>
           </Textbox>
+          <Textbox Name="MensajeDelTicket4">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>SubTotal: $</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>=Parameters!SubTotal.Value</Value>
+                    <Style>
+                      <FontSize>8pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Right</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>MensajeDelTicket</rd:DefaultName>
+            <Top>11.88456cm</Top>
+            <Left>0.15cm</Left>
+            <Height>0.4cm</Height>
+            <Width>7.758cm</Width>
+            <ZIndex>12</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Parameters!IVA.Value, "TicketVenta").ToString = "0", True, False)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>14.40016cm</Height>
+        <Height>14.71766cm</Height>
         <Style>
           <Border>
             <Style>None</Style>
@@ -2087,6 +2128,10 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="IVA">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="SubTotal">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
@@ -2210,6 +2255,11 @@
           <ColumnIndex>2</ColumnIndex>
           <RowIndex>5</RowIndex>
           <ParameterName>IVA</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>5</RowIndex>
+          <ParameterName>SubTotal</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
