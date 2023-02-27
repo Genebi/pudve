@@ -465,14 +465,14 @@
             // verificadorSesion
             // 
             this.verificadorSesion.Enabled = true;
-            this.verificadorSesion.Interval = 120000;
+            this.verificadorSesion.Interval = 10000;
             this.verificadorSesion.Tick += new System.EventHandler(this.verificadorSesion_Tick);
             // 
             // WEBRevisarInventario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(442, 632);
+            this.ClientSize = new System.Drawing.Size(442, 647);
             this.Controls.Add(this.btnDeshabilitarProducto);
             this.Controls.Add(this.lbCantidadFiltro);
             this.Controls.Add(this.lblNoRevision);

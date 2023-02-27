@@ -122,13 +122,25 @@ namespace PuntoDeVentaV2
         {
             try
             {
-                con.EjecutarConsulta($"DELETE FROM sesioninventario WHERE IDEmpleado ='{idEmpleado}'");//Se cierran las demas sesiones
-                string consulta = $"INSERT INTO sesioninventario (IDUsuario, IDEmpleado, Session, Tipo) VALUES('{FormPrincipal.userNickName.Split('@')[0]}','{idEmpleado}', 0, '{tipoFiltro}')";
+                string consulta = string.Empty;
+                switch (tipoFiltro)
+                {
+                    case "Normal":
+                        con.EjecutarConsulta($"DELETE FROM sesioninventario WHERE IDEmpleado ='{idEmpleado}'");//Se cierran las demas sesiones                        
+                        consulta = $"INSERT INTO sesioninventario (IDUsuario, IDEmpleado, Session, Tipo) VALUES('{FormPrincipal.userNickName.Split('@')[0]}','{idEmpleado}', 0, '{tipoFiltro}')";
+                        break;
+                    case "Proveedores":
+                        consulta = $"UPDATE sesioninventario SET session = 1 WHERE IDEmpleado = '{idEmpleado}'";
+                        break;
+                    default:
+                        break;
+                }
+                
                 con.EjecutarConsulta(consulta);
             }
             catch (Exception)
             {
-                this.Close();
+                //this.Close();
             }
             
 
@@ -603,18 +615,8 @@ namespace PuntoDeVentaV2
 
                         }
                         else
-                        {
-                            if (tipoFiltro != "Normal")
-                            {
-                                MessageBox.Show("No se encontraron productos o no hay más con el filtro aplicado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                //ultimoProductoRevision(infoProducto);
-                                //btnSiguiente.PerformClick();
-                                //btnTerminar.PerformClick();
-                            }
-                            else
-                            {
+                        {                            
                                 con.EjecutarConsulta($"INSERT INTO datosProducto(Usuario, Empleado,Exito) VALUES('{FormPrincipal.userNickName.Split('@')[0]}', '{idEmpleado}',0)");
-                            }
                         }
                         txtCantidadStock.SelectAll();
                     }
@@ -644,10 +646,17 @@ namespace PuntoDeVentaV2
                     }
                     else
                     {
-                        mostrar = 1;
-                        MessageBox.Show("No se encontraron productos \ncon este filtro", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        ultimoProductoRevision();
-                        this.Close();
+                        try
+                        {
+                            con.EjecutarConsulta($"UPDATE sesioninventario SET tipo = failure WHERE IDEmpleado = '{idEmpleado}'");
+                        }
+                        catch (Exception)
+                        {
+
+                            throw;
+                        }
+                        
+                        //this.Close();
                     }
                 }
             }
@@ -1113,7 +1122,17 @@ namespace PuntoDeVentaV2
             {
                 if (tipoFiltro != "Normal")
                 {
-                    MessageBox.Show("No se encontraron productos o no hay más con el filtro aplicado", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    try
+                    {
+                        con.EjecutarConsulta($"UPDATE sesioninventario SET tipo = failure WHERE IDEmpleado = '{idEmpleado}'");
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+
+                    //this.Close();
                     //ultimoProductoRevision(infoProducto);
                     //btnSiguiente.PerformClick();
                     //btnTerminar.PerformClick();
@@ -1526,6 +1545,7 @@ namespace PuntoDeVentaV2
             }
             catch (Exception)
             {
+                Thread.Sleep(6000);
                 this.Close();
             }
             
@@ -1652,9 +1672,9 @@ namespace PuntoDeVentaV2
                     listaProductos.Clear();
                 }
 
-                this.Hide();
+                //this.Hide();
                 cn.EjecutarConsulta($"DELETE FROM RevisarInventario WHERE NoRevision = {numeroRevision} AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
-                this.Close();
+                //this.Close();
                 //}
             }
         }
@@ -1790,10 +1810,17 @@ namespace PuntoDeVentaV2
 
                 if (cantidadRegistros == 0)
                 {
-                    mensajeInventario = 1;
-                    MessageBox.Show($"NO SE ENCONTRARON RESULTADOS CON EL FILTRO SELECCIONADO", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Close();
-                    return;
+                    try
+                    {
+                        con.EjecutarConsulta($"UPDATE sesioninventario SET tipo = 'failure' WHERE IDEmpleado = '{idEmpleado}'");
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("bruh");
+                    }
+
+                    //this.Close();
+                    //return;
                 }
                 //lbCantidadFiltro.Text = $"{cantidadRegistrosAux} de {cantidadRegistros}";
                 buscarCodigoBarras();
@@ -2214,8 +2241,8 @@ namespace PuntoDeVentaV2
 
         private void CalarProducto_Tick(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 ConexionAPPWEB cn2 = new ConexionAPPWEB();
                 using (DataTable dt = cn2.CargarDatos($"SELECT * FROM peticiones WHERE Cliente = '{FormPrincipal.userNickName.Split('@')[0]}' AND Empleado = '{idEmpleado}'"))
                 {
@@ -2240,6 +2267,10 @@ namespace PuntoDeVentaV2
                                     txtCantidadStock.Text = peticion["tipo"].ToString();
                                     btnSiguiente.PerformClick();
                                     break;
+                                case "invAnterior":
+                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{FormPrincipal.userNickName.Split('@')[0]}'");
+                                    btnAnterior.PerformClick();
+                                    break;
                                 case "invTerminar":
                                     cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{FormPrincipal.userNickName.Split('@')[0]}'");
                                     btnTerminar.PerformClick();
@@ -2250,12 +2281,12 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Error garrafal");
-                return;
-            }
+            //}
+            //catch (Exception)
+            //{
+                //Console.WriteLine("Error garrafal");
+                //return;
+            //}
         }
 
         private void ejecutarBusqeuda(string id)

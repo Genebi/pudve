@@ -1205,11 +1205,11 @@ namespace PuntoDeVentaV2
                                     break;
                                 case "proveedorDesde0":
                                     cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Empleado = '{peticion["Empleado"].ToString()}' ");
-                                    iniciarSesionInventario(peticion["Tipo"].ToString(), peticion["Empleado"].ToString());
+                                    iniciarSesionInventario(peticion["Solicitud"].ToString(), peticion["Empleado"].ToString(), peticion["Tipo"].ToString());
                                     break;
                                 case "proveedorContinuar":
                                     cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Empleado = '{peticion["Empleado"].ToString()}' ");
-                                    iniciarSesionInventario(peticion["Tipo"].ToString(), peticion["Empleado"].ToString());
+                                    iniciarSesionInventario(peticion["Solicitud"].ToString(), peticion["Empleado"].ToString(), peticion["Tipo"].ToString());
                                     break;
                                 default:
                                     //Posiblemente una solicitud como de inventario, esas no se toman aqui
@@ -1254,22 +1254,25 @@ namespace PuntoDeVentaV2
                     }
                     break;
                 case "proveedorDesde0":
-                    var datosP = new string[] { "Proveedores", proveedor+"|1", "0", idEmpleado };
+                        var datosP = new string[] { "Proveedores", proveedor+ "|1", "0", idEmpleado };
                     new Thread(() =>
                     {
                         Thread.CurrentThread.IsBackground = true;
-                        WEBRevisarInventario revInv = new WEBRevisarInventario(datosP);
-                        revInv.ShowDialog();
-                    }).Start();
-                    break;
+                        WEBRevisarInventario revInvP = new WEBRevisarInventario(datosP);
+                             revInvP.ShowDialog();
+            }).Start();
+
+            break;
                 case "proveedorContinuar":
-                    var datosPC = new string[] { "Proveedores", proveedor + "|2", "0", idEmpleado };
-                    new Thread(() =>
-                    {
-                        Thread.CurrentThread.IsBackground = true;
-                        WEBRevisarInventario revInv = new WEBRevisarInventario(datosPC);
-                        revInv.ShowDialog();
-                    }).Start();
+
+                        //var datosPb = new string[] { "Proveedores", proveedor+ "|2", "0", idEmpleado };
+                        //new Thread(() =>
+                        //{
+                        //    Thread.CurrentThread.IsBackground = true;
+                        //    WEBRevisarInventario revInv = new WEBRevisarInventario(datosPb);
+                        //    revInv.ShowDialog();
+                        //}).Start();
+                    
                     break;
                 default:
                     break;
