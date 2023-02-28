@@ -161,7 +161,7 @@ namespace PuntoDeVentaV2
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion,"0","0","0","0"
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
@@ -169,7 +169,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString()
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),"0","0","0","0"
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));
@@ -224,7 +224,7 @@ namespace PuntoDeVentaV2
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion,"0","0","0","0"
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
@@ -232,7 +232,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString()
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),"0","0","0","0"
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));
@@ -714,7 +714,7 @@ namespace PuntoDeVentaV2
                     var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
                     restante = totalPendiente - nuevoabono;
                     txtPendiente.Text = restante.ToString("C2");
-                    if (restante < 1)
+                    if (restante < 0)
                     {
                         txtPendiente.Text = "$0.00";
                         if (restante < 0)
@@ -762,7 +762,7 @@ namespace PuntoDeVentaV2
                     var nuevoabono = abonado + efectivo + tarjeta + vales + cheque + transferencia;
                     restante = totalPendiente - nuevoabono;
                     txtPendiente.Text = restante.ToString("C2");
-                    if (restante < 1)
+                    if (restante < 0)
                     {
                         txtPendiente.Text = "$0.00";
                         if (restante < 0)
