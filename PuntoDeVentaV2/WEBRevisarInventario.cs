@@ -2061,7 +2061,12 @@ namespace PuntoDeVentaV2
             {
                 cantidadRegistrosAux = 1;
                 //lbCantidadFiltro.Text = $"{cantidadRegistros} de {cantidadRegistros}";
-                MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //MessageBox.Show("No hay mas productos anteriores", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                con.EjecutarConsulta($"INSERT INTO datosProducto(Usuario, Empleado,Exito) VALUES('{FormPrincipal.userNickName.Split('@')[0]}', '{idEmpleado}',0)");
+            }
+            else
+            {
+                con.EjecutarConsulta($"INSERT INTO datosProducto(CodigoBarras, Nombre, Proveedores, Precio, StockMin, StockMax, Stock, Usuario, Empleado,Exito, Revision) VALUES('{txtCodigoBarras.Text}', '{txtNombreProducto.Text}', 'TEST', '{lblPrecioProducto.Text}', '{lblStockMinimo.Text}', '{lblStockMaximo.Text}', '{txtCantidadStock.Text}', '{FormPrincipal.userNickName.Split('@')[0]}', '{idEmpleado}',1,{lblNoRevision.Text})");
             }
         }
 
@@ -2195,7 +2200,7 @@ namespace PuntoDeVentaV2
                         {
                             var idEmp = buscarEmpleado(FormPrincipal.userNickName);
                             var usr = cs.validarEmpleado(FormPrincipal.userNickName);
-                            cn.EjecutarConsulta($"INSERT INTO RevisarInventarioReportes (ID, NameUsr, IDAlmacen, Nombre, ClaveInterna, CodigoBarras, StockAlmacen, StockFisico, NoRevision, Fecha, Vendido, Diferencia, IDUsuario, Tipo, StatusRevision, StatusInventariado, PrecioProducto, IDComputadora, IDEmpleado, NumFolio, TipoRevision) VALUES ('{id}', '{usr}', '{idAlmacen}','{idEmpleado.Split('@')[1]}','{claveInterna}','{codigoBarras}','{stockAlmacen}','{stockFisico}','{noRevision}','{date.ToString("yyyy-MM-dd hh:mm:ss")}','{vendido}','{diferencia}','{idUsuario}','{tipo}','{statusRevision}','{statusInventariado}','{precioProducto}','{idComputadora}', '{idEmp}', '{ultimoFolio}', '{tipoFiltro}')");
+                            cn.EjecutarConsulta($"INSERT INTO RevisarInventarioReportes (ID, NameUsr, IDAlmacen, Nombre, ClaveInterna, CodigoBarras, StockAlmacen, StockFisico, NoRevision, Fecha, Vendido, Diferencia, IDUsuario, Tipo, StatusRevision, StatusInventariado, PrecioProducto, IDComputadora, IDEmpleado, NumFolio, TipoRevision) VALUES ('{id}', '{idEmpleado.Split('@')[1]}', '{idAlmacen}','{nombre}','{claveInterna}','{codigoBarras}','{stockAlmacen}','{stockFisico}','{noRevision}','{date.ToString("yyyy-MM-dd hh:mm:ss")}','{vendido}','{diferencia}','{idUsuario}','{tipo}','{statusRevision}','{statusInventariado}','{precioProducto}','{idComputadora}', '{idEmp}', '{ultimoFolio}', '{tipoFiltro}')");
                         }
                     }
                 }
