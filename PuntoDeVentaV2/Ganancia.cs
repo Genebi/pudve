@@ -220,7 +220,7 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            precioTotalDeCompra = (validacion * cantidad);
+                            precioTotalDeCompra += (validacion * cantidad);
                             iterador++;
                         }
                     }
