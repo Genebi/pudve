@@ -341,7 +341,8 @@ namespace PuntoDeVentaV2
 
                     if (op4 > op3)
                     {
-                        MessageBox.Show("El precio nuevo no puede ser mayor o igual al anterior.");
+                        MessageBox.Show("El precio nuevo no puede ser mayor o igual al anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        AgregarEditarProducto.descuentos.Clear();
                         SeCierra = false;
                         return;
                     }
@@ -355,17 +356,22 @@ namespace PuntoDeVentaV2
                 {
                     refrescarForm = false;
                     MessageBox.Show("Es necesario agregar minímo 2 descuentos a mayoreo.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    AgregarEditarProducto.descuentos.Clear();
                     return;
                 }
+
                 AgregarEditarProducto.rbDescuentoSinGuardar = 2;
             }
+
             AgregarEditarProducto.validacionUpdateDescuentos = 1;
             refrescarForm = false;
+
             if (SeCierra == true)
             {
                 SeCierra = false;
                 this.Hide();
             }
+
             SeCierra = true;
         }
 
