@@ -38,15 +38,14 @@ namespace PuntoDeVentaV2
                     Capturer.EventHandler = this;                   // Subscribe for capturing events.
                                                                     //else
                                                                     //SetPrompt("No se pudo iniciar la operación de captura");
+                Verificator = new DPFP.Verification.Verification();     // Create a fingerprint template verificator
+                UpdateStatus(0);
             }
             catch
             {
                 MessageBox.Show("No se pudo iniciar la operación de captura", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 this.Close();
             }
-
-            Verificator = new DPFP.Verification.Verification();     // Create a fingerprint template verificator
-            UpdateStatus(0);
         }
 
         private void UpdateStatus(int FAR)

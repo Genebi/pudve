@@ -5204,14 +5204,14 @@ namespace PuntoDeVentaV2
                     {
                         string[] abono = new string[] {
                 IDVenta, FormPrincipal.userID.ToString(), total.ToString(), efectivo, tarjeta, vales,
-                cheque, transferencia,"",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),FormPrincipal.id_empleado.ToString()};
+                cheque, transferencia,"",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),FormPrincipal.id_empleado.ToString(),"0","0","0","0"};
                         cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(abono));
                     }
                     else
                     {
                         string[] abono = new string[] {
                 IDVenta, FormPrincipal.userID.ToString(), total.ToString(), efectivo, tarjeta, vales,
-                cheque, transferencia,"",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")};
+                cheque, transferencia,"",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),"0","0","0","0"};
                         cn.EjecutarConsulta(cs.GuardarAbonos(abono));
                     }
 
