@@ -6858,7 +6858,7 @@ namespace PuntoDeVentaV2
                                 if (cantidad <= 0)
                                 {
                                     MessageBox.Show("No puedes se puede vende un producto con cantidad 0","Aviso del Sistema", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
-                                    txtBuscadorProducto.Clear();
+                                    QueLoLimipie = true;
                                     return cadena;
                                 }
                                 DGVentas.Rows[0].Cells["Cantidad"].Value = cantidad;
