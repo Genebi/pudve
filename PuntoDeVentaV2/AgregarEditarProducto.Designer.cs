@@ -92,6 +92,7 @@ namespace PuntoDeVentaV2
             this.btnMensajeVenta = new PuntoDeVentaV2.BotonRedondo();
             this.button1 = new PuntoDeVentaV2.BotonRedondo();
             this.btnAgregarDescuento = new PuntoDeVentaV2.BotonRedondo();
+            this.btnSubdetalle = new PuntoDeVentaV2.BotonRedondo();
             this.btnDetalleProducto = new PuntoDeVentaV2.BotonRedondo();
             this.btnProdUpdate = new System.Windows.Forms.Button();
             this.btnDetalleFacturacion = new PuntoDeVentaV2.BotonRedondo();
@@ -108,7 +109,6 @@ namespace PuntoDeVentaV2
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.errorProvAgregarEditarProducto = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnSubdetalle = new PuntoDeVentaV2.BotonRedondo();
             this.PDetalleProdcuto.SuspendLayout();
             this.PImagen.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -931,6 +931,29 @@ namespace PuntoDeVentaV2
             this.btnAgregarDescuento.UseVisualStyleBackColor = false;
             this.btnAgregarDescuento.Click += new System.EventHandler(this.botonRedondo4_Click);
             // 
+            // btnSubdetalle
+            // 
+            this.btnSubdetalle.BackColor = System.Drawing.Color.Orchid;
+            this.btnSubdetalle.BackGroundColor = System.Drawing.Color.Orchid;
+            this.btnSubdetalle.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnSubdetalle.BorderRadius = 20;
+            this.btnSubdetalle.BorderSize = 0;
+            this.btnSubdetalle.Enabled = false;
+            this.btnSubdetalle.FlatAppearance.BorderSize = 0;
+            this.btnSubdetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSubdetalle.ForeColor = System.Drawing.Color.White;
+            this.btnSubdetalle.Image = global::PuntoDeVentaV2.Properties.Resources.product_hunt1;
+            this.btnSubdetalle.Location = new System.Drawing.Point(367, 5);
+            this.btnSubdetalle.Name = "btnSubdetalle";
+            this.btnSubdetalle.Size = new System.Drawing.Size(109, 75);
+            this.btnSubdetalle.TabIndex = 1;
+            this.btnSubdetalle.Text = "Sub Detalle de producto";
+            this.btnSubdetalle.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnSubdetalle.TextColor = System.Drawing.Color.White;
+            this.btnSubdetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSubdetalle.UseVisualStyleBackColor = false;
+            this.btnSubdetalle.Click += new System.EventHandler(this.btnSubdetalle_Click);
+            // 
             // btnDetalleProducto
             // 
             this.btnDetalleProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(88)))), ((int)(((byte)(168)))));
@@ -1124,28 +1147,6 @@ namespace PuntoDeVentaV2
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
-            // 
-            // btnSubdetalle
-            // 
-            this.btnSubdetalle.BackColor = System.Drawing.Color.Orchid;
-            this.btnSubdetalle.BackGroundColor = System.Drawing.Color.Orchid;
-            this.btnSubdetalle.BorderColor = System.Drawing.Color.PaleVioletRed;
-            this.btnSubdetalle.BorderRadius = 20;
-            this.btnSubdetalle.BorderSize = 0;
-            this.btnSubdetalle.FlatAppearance.BorderSize = 0;
-            this.btnSubdetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSubdetalle.ForeColor = System.Drawing.Color.White;
-            this.btnSubdetalle.Image = global::PuntoDeVentaV2.Properties.Resources.product_hunt1;
-            this.btnSubdetalle.Location = new System.Drawing.Point(367, 5);
-            this.btnSubdetalle.Name = "btnSubdetalle";
-            this.btnSubdetalle.Size = new System.Drawing.Size(109, 75);
-            this.btnSubdetalle.TabIndex = 1;
-            this.btnSubdetalle.Text = "Sub Detalle de producto";
-            this.btnSubdetalle.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.btnSubdetalle.TextColor = System.Drawing.Color.White;
-            this.btnSubdetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSubdetalle.UseVisualStyleBackColor = false;
-            this.btnSubdetalle.Click += new System.EventHandler(this.btnSubdetalle_Click);
             // 
             // AgregarEditarProducto
             // 

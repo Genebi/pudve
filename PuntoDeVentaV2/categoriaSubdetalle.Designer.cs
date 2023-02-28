@@ -42,6 +42,7 @@ namespace PuntoDeVentaV2
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.gbCad = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pboxBorrar)).BeginInit();
             this.panel2.SuspendLayout();
@@ -53,16 +54,17 @@ namespace PuntoDeVentaV2
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel3.Controls.Add(this.pboxBorrar);
+            this.panel3.Controls.Add(this.label3);
             this.panel3.Controls.Add(this.txtSubDetalle);
-            this.panel3.Location = new System.Drawing.Point(12, 11);
+            this.panel3.Location = new System.Drawing.Point(12, 12);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(404, 51);
+            this.panel3.Size = new System.Drawing.Size(404, 77);
             this.panel3.TabIndex = 5;
             // 
             // pboxBorrar
             // 
             this.pboxBorrar.Image = global::PuntoDeVentaV2.Properties.Resources.trash;
-            this.pboxBorrar.Location = new System.Drawing.Point(365, 11);
+            this.pboxBorrar.Location = new System.Drawing.Point(365, 32);
             this.pboxBorrar.Margin = new System.Windows.Forms.Padding(2);
             this.pboxBorrar.Name = "pboxBorrar";
             this.pboxBorrar.Size = new System.Drawing.Size(27, 26);
@@ -74,7 +76,7 @@ namespace PuntoDeVentaV2
             // txtSubDetalle
             // 
             this.txtSubDetalle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSubDetalle.Location = new System.Drawing.Point(7, 11);
+            this.txtSubDetalle.Location = new System.Drawing.Point(7, 32);
             this.txtSubDetalle.Name = "txtSubDetalle";
             this.txtSubDetalle.Size = new System.Drawing.Size(385, 26);
             this.txtSubDetalle.TabIndex = 0;
@@ -83,7 +85,7 @@ namespace PuntoDeVentaV2
             // 
             this.panel2.Controls.Add(this.btnCancelar);
             this.panel2.Controls.Add(this.btnAceptar);
-            this.panel2.Location = new System.Drawing.Point(11, 134);
+            this.panel2.Location = new System.Drawing.Point(11, 161);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(405, 55);
             this.panel2.TabIndex = 4;
@@ -132,7 +134,7 @@ namespace PuntoDeVentaV2
             "Fecha",
             "Numerico",
             "Texto"});
-            this.cbTipoDeDatos.Location = new System.Drawing.Point(12, 93);
+            this.cbTipoDeDatos.Location = new System.Drawing.Point(12, 120);
             this.cbTipoDeDatos.Name = "cbTipoDeDatos";
             this.cbTipoDeDatos.Size = new System.Drawing.Size(183, 21);
             this.cbTipoDeDatos.TabIndex = 6;
@@ -142,7 +144,7 @@ namespace PuntoDeVentaV2
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(11, 70);
+            this.label1.Location = new System.Drawing.Point(11, 97);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 15);
             this.label1.TabIndex = 7;
@@ -151,7 +153,7 @@ namespace PuntoDeVentaV2
             // chbCaducidad
             // 
             this.chbCaducidad.AutoSize = true;
-            this.chbCaducidad.Location = new System.Drawing.Point(207, 69);
+            this.chbCaducidad.Location = new System.Drawing.Point(207, 96);
             this.chbCaducidad.Name = "chbCaducidad";
             this.chbCaducidad.Size = new System.Drawing.Size(91, 17);
             this.chbCaducidad.TabIndex = 8;
@@ -187,18 +189,28 @@ namespace PuntoDeVentaV2
             this.gbCad.Controls.Add(this.label2);
             this.gbCad.Enabled = false;
             this.gbCad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.gbCad.Location = new System.Drawing.Point(201, 73);
+            this.gbCad.Location = new System.Drawing.Point(201, 100);
             this.gbCad.Name = "gbCad";
             this.gbCad.Size = new System.Drawing.Size(215, 53);
             this.gbCad.TabIndex = 11;
             this.gbCad.TabStop = false;
             this.gbCad.Visible = false;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(4, 11);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(162, 15);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Nombre de la categoria:";
+            // 
             // categoriaSubdetalle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(428, 201);
+            this.ClientSize = new System.Drawing.Size(428, 236);
             this.Controls.Add(this.chbCaducidad);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbTipoDeDatos);
@@ -239,5 +251,6 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.GroupBox gbCad;
+        private System.Windows.Forms.Label label3;
     }
 }

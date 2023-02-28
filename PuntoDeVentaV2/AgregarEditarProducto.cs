@@ -10209,6 +10209,10 @@ namespace PuntoDeVentaV2
 
             ConsultarPaginasRegistradas();
             txtCodigoBarras.Focus();
+            if (Titulo.Equals("Editar Producto"))
+            {
+                btnSubdetalle.Enabled = true;
+            }
         }
 
         private void llenarListaDatosDinamicos()
