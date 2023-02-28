@@ -899,7 +899,10 @@ namespace PuntoDeVentaV2
 
         private void dgvDetallesSubdetalle_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
-
+            if (e.ColumnIndex == 1 && accion == "Nuevo")
+            {
+                return;
+            }
             if (!validarunique(dtDetallesSubdetalle.Rows[e.RowIndex]["Valor"].ToString()))
             {
                 MessageBox.Show($"No puedes utilizar el mismo valor para dos subdetalles", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
