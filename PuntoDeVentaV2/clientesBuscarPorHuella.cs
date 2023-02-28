@@ -42,6 +42,7 @@ namespace PuntoDeVentaV2
             catch
             {
                 MessageBox.Show("No se pudo iniciar la operación de captura", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
             }
 
             Verificator = new DPFP.Verification.Verification();     // Create a fingerprint template verificator
