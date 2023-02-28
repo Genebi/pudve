@@ -220,13 +220,18 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            precioTotalDeCompra = (validacion * cantidad);
-                            VentaTotal = (VentaTotal - precioTotalDeCompra) + Ventas.totalAnticipoAplicado;
-                            lblGanancia.Text = (VentaTotal.ToString("C"));
+                            precioTotalDeCompra += (validacion * cantidad);
                             iterador++;
                         }
                     }
                 }
+                if (lblGanancia.Text != "SIN PODER CALCULAR")
+                {
+                    VentaTotal = VentaTotal + Ventas.totalAnticipoAplicado;
+                    VentaTotal = (VentaTotal - precioTotalDeCompra);
+                    lblGanancia.Text = (VentaTotal.ToString("C"));
+                }
+                
             }
             if (gananciaGrafica == 3)
             {

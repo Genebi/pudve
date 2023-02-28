@@ -37,6 +37,8 @@ namespace PuntoDeVentaV2
         public static bool EsGuardarVenta;
         decimal primeraCantidad;
         List<string> ListaProdutos;
+        List<string> ListaSubDetallesProdutos = new List<string>();
+        List<string> ListaUpdatesSubDetallesProdutos = new List<string>();
         // Almacena los ID de los productos a los que se aplica descuento general
         private Dictionary<int, bool> productosDescuentoG = new Dictionary<int, bool>();
         float porcentajeGeneral = 0;
@@ -100,6 +102,9 @@ namespace PuntoDeVentaV2
         public static decimal totalAnticipoAplicado;
 
         public static string codBarras;
+        public static string consutlaCredito = string.Empty;
+
+
         // Para saber con que boton se cerro el form DetalleVenta.cs, en este caso saber si se cerro con el boton aceptar (terminar)
         public static bool botonAceptar = false;
 
@@ -317,6 +322,13 @@ namespace PuntoDeVentaV2
 
         private void Ventas_Load(object sender, EventArgs e)
         {
+            using (DataTable dt = cn.CargarDatos($"SELECT ventaFacil FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (dt.Rows[0][0].ToString().Equals("1"))
+                {
+                    btnVentaFacil.Visible = true;
+                }
+            }
             CBTipo.SelectedItem = "Todos";
             CBTipo.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
 
@@ -3320,7 +3332,15 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
+            ListaSubDetallesProdutos.Clear();
+            ListaUpdatesSubDetallesProdutos.Clear();
+            if (!verificarSubDetalles())
+            {
+                MessageBox.Show("Todos los productos con subdetalles deben tener especificada su categoría y la cantidad vendida.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                ListaSubDetallesProdutos.Clear();
+                ListaUpdatesSubDetallesProdutos.Clear();
+                return;
+            }
             //if (ClienteConDescuento.Equals(true))
             //{
             //    if (!FormPrincipal.id_empleado.Equals(0))
@@ -3699,6 +3719,39 @@ namespace PuntoDeVentaV2
             yasemando = false;
         }
 
+        private bool verificarSubDetalles()
+        {
+            bool registroCorrectoDeSubdetalles = true ;
+            foreach (DataGridViewRow producto in DGVentas.Rows)
+            {
+                if (!registroCorrectoDeSubdetalles)
+                {
+                    return registroCorrectoDeSubdetalles;
+                }
+                //0 es id, 5 es stock?
+                using (DataTable dtBuscarSubdetalles = cn.CargarDatos($"SELECT detallesubdetalle.ID FROM detallesubdetalle LEFT JOIN subdetallesdeproducto ON ( detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado = 1 ) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE productos.id = {producto.Cells[0].Value.ToString()}"))
+                {
+                    if (!dtBuscarSubdetalles.Rows.Count.Equals(0))
+                    {
+                        subDetallesDeProducto detalles = new subDetallesDeProducto(producto.Cells[0].Value.ToString(), "Venta", Convert.ToDecimal(producto.Cells[5].Value.ToString()));
+                        detalles.FormClosed += delegate
+                        {
+                            if (!detalles.finalizado)
+                            {
+                                registroCorrectoDeSubdetalles = detalles.finalizado;
+                            }
+                            else
+                            {
+                                ListaSubDetallesProdutos.AddRange(detalles.subdetallesVenta);
+                                ListaUpdatesSubDetallesProdutos.AddRange(detalles.updates);
+                            }
+                        };
+                        detalles.ShowDialog();
+                    }
+                }
+            }
+            return registroCorrectoDeSubdetalles;
+        }
         private void cargarTicketAnticipo()
         {
             if (!IDAnticipo.Equals(0))
@@ -4057,7 +4110,12 @@ namespace PuntoDeVentaV2
                     else
                     {       
                         mostrarVenta = 0;
-                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas, gananciaTotalPorVenta));
+                                respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas, gananciaTotalPorVenta));
+                        if (!consutlaCredito.Equals(string.Empty))
+                        {
+                            cn.EjecutarConsulta(consutlaCredito);
+                            consutlaCredito = string.Empty;
+                        }
                         //Venta normal
                     }
                 }       
@@ -4649,6 +4707,7 @@ namespace PuntoDeVentaV2
                                 {
                                     DataRow drTipoVentaRealizada = dtTipoDeVentaRealizada.Rows[0];
                                     tipoDeVentaRealizada = Convert.ToInt32(drTipoVentaRealizada["Status"].ToString());
+
                                 }
                             }
 
@@ -5032,6 +5091,16 @@ namespace PuntoDeVentaV2
                                 txtBuscadorProducto.Focus();
                             }
                         }
+
+                        foreach (string subdetalle in ListaSubDetallesProdutos)
+                        {
+                            cn.EjecutarConsulta($"{subdetalle}{idVenta})");
+                        }
+                                foreach (string updateStockSubdetalle in ListaUpdatesSubDetallesProdutos)
+                        {
+                            cn.EjecutarConsulta(updateStockSubdetalle);
+                        }
+
                     }
 
                     //if (ventaGuardada)
@@ -5066,8 +5135,9 @@ namespace PuntoDeVentaV2
                     //    {
                     //        Utilidades.MensajeAdobeReader();
                     //    }
-                    //}
+                    //}                
                 }
+                
 
                 LimpiarVariables();
 
@@ -5134,14 +5204,14 @@ namespace PuntoDeVentaV2
                     {
                         string[] abono = new string[] {
                 IDVenta, FormPrincipal.userID.ToString(), total.ToString(), efectivo, tarjeta, vales,
-                cheque, transferencia,"",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),FormPrincipal.id_empleado.ToString()};
+                cheque, transferencia,"",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),FormPrincipal.id_empleado.ToString(),"0","0","0","0"};
                         cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(abono));
                     }
                     else
                     {
                         string[] abono = new string[] {
                 IDVenta, FormPrincipal.userID.ToString(), total.ToString(), efectivo, tarjeta, vales,
-                cheque, transferencia,"",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss")};
+                cheque, transferencia,"",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),"0","0","0","0"};
                         cn.EjecutarConsulta(cs.GuardarAbonos(abono));
                     }
 
@@ -5185,6 +5255,7 @@ namespace PuntoDeVentaV2
 
             idCliente = string.Empty;
             cliente = string.Empty;
+            ListaSubDetallesProdutos.Clear();
         }
 
         private void aumentoFolio()
@@ -6784,7 +6855,12 @@ namespace PuntoDeVentaV2
 
                                 // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
                                 float importe = cantidad * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
-
+                                if (cantidad <= 0)
+                                {
+                                    MessageBox.Show("No puedes se puede vende un producto con cantidad 0","Aviso del Sistema", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                                    QueLoLimipie = true;
+                                    return cadena;
+                                }
                                 DGVentas.Rows[0].Cells["Cantidad"].Value = cantidad;
                                 DGVentas.Rows[0].Cells["Importe"].Value = importe;
 
@@ -7268,6 +7344,17 @@ namespace PuntoDeVentaV2
             else if (e.KeyCode == Keys.NumPad3 && (e.Alt) || e.KeyCode == Keys.D3 && (e.Alt))//Boton Aplicar
             {
                 btnAplicarDescuento.PerformClick();
+            }
+            else if (e.KeyCode == Keys.V && (e.Control))//Boton Venta facil
+            {
+                using (DataTable dt = cn.CargarDatos($"SELECT ventaFacil FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                {
+                    if (dt.Rows[0][0].ToString().Equals("1"))
+                    {
+                        btnVentaFacil.PerformClick();
+                    }
+                }
+                
             }
 
         }
@@ -9246,6 +9333,21 @@ namespace PuntoDeVentaV2
         private void DGVentas_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void btnVentaFacil_Click(object sender, EventArgs e)
+        {
+            ConsultarProductosVentaFacil consul = new ConsultarProductosVentaFacil();
+            consul.FormClosed += delegate
+            {
+                foreach (DataRow dataRow in consul.ayylmao.Rows)
+                {
+                    string[] datosProducto = cn.BuscarProducto(Int32.Parse(dataRow[0].ToString()), FormPrincipal.userID);
+                    AgregarProducto(datosProducto,decimal.Parse(dataRow[1].ToString()));
+                }
+                
+            };
+            consul.ShowDialog();
         }
 
         private void txtBuscadorProducto_TextChanged(object sender, EventArgs e)

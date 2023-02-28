@@ -33,6 +33,7 @@ namespace PuntoDeVentaV2
         private string[] listaProveedores = new string[] { };
         // Listas para guardar los ID's de los productos que se enviara correo
         private Dictionary<int, string> enviarStockMinimo;
+        List<string> updatesSubdetalles = new List<string>();
 
         public int cantidadPasadaProductoCombo { set; get; }
         public static int cantidadProductoCombo = 0;
@@ -279,7 +280,7 @@ namespace PuntoDeVentaV2
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             decimal parser;
-            if (Convert.ToDecimal(txtPrecio.Text).Equals(0))
+            if (Convert.ToDecimal(txtPrecio.Text.Split('$')[1]).Equals(0))
             {
                 MessageBox.Show($"El precio de {lbProducto.Text} debe ser mayor a 0", "Aviso del Sistema" , MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
@@ -477,6 +478,13 @@ namespace PuntoDeVentaV2
 
                 var stockActual = stockProducto;
 
+                if (!verificarSubDetalles(Convert.ToDecimal(cantidadCompra)))
+                {
+                    MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    stockProducto -= decimal.Parse(cantidadCompra);
+                    return;
+                }
+
                 int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 1));
 
                 if (resultado > 0)
@@ -517,6 +525,11 @@ namespace PuntoDeVentaV2
                     datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
 
                     cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+
+                    foreach (string subdetalleUpdate in updatesSubdetalles)
+                    {
+                        cn.EjecutarConsulta(subdetalleUpdate);
+                    }
 
                     //Productos
                     if (apartado == 1)
@@ -624,6 +637,13 @@ namespace PuntoDeVentaV2
 
                                 stockActual = (float)stockProducto;
 
+                                if (!verificarSubDetalles(Convert.ToDecimal(stockAgregado)))
+                                {
+                                    MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    
+                                    return;
+                                }
+
                                 if (string.IsNullOrWhiteSpace(aumentar) && string.IsNullOrWhiteSpace(disminuir))
                                 {
                                     MessageBox.Show("Ingrese una cantidad para aumentar y/o disminuir", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -653,6 +673,11 @@ namespace PuntoDeVentaV2
                                 };
 
                                 int resultado = cn.EjecutarConsulta(cs.AjustarProducto(datos, 2));
+
+                                foreach (string subdetalleUpdate in updatesSubdetalles)
+                                {
+                                    cn.EjecutarConsulta(subdetalleUpdate);
+                                }
 
                                 if (resultado > 0)
                                 {
@@ -819,6 +844,13 @@ namespace PuntoDeVentaV2
                                         return;
                                     }
 
+                                    if (!verificarSubDetalles(Convert.ToDecimal(auxiliar)))
+                                    {
+                                        MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        stockProducto -= Convert.ToDecimal(auxiliar);
+                                        return;
+                                    }
+
                                     //Datos para la tabla historial de compras
                                     string[] datos = new string[]
                                     {
@@ -848,6 +880,11 @@ namespace PuntoDeVentaV2
                                         datos = new string[] { IDProducto.ToString(), stockProducto.ToString(), FormPrincipal.userID.ToString() };
 
                                         cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+
+                                        foreach (string subdetalleUpdate in updatesSubdetalles)
+                                        {
+                                            cn.EjecutarConsulta(subdetalleUpdate);
+                                        }
 
                                         // Envio de correo al agregar cantidad de producto
                                         var datosConfig = mb.ComprobarConfiguracion();
@@ -1695,6 +1732,28 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private bool verificarSubDetalles(decimal stock)
+        {
+            bool registroCorrectoDeSubdetalles = true;
+            updatesSubdetalles.Clear();
+
+            subDetallesDeProducto detalles = new subDetallesDeProducto(IDProducto.ToString(), "Inventario", cantidad: stock);
+            detalles.FormClosed += delegate
+            {
+                if (!detalles.finalizado)
+                {
+                    registroCorrectoDeSubdetalles = detalles.finalizado;
+                    updatesSubdetalles.Clear();
+                }
+                else
+                {
+                    updatesSubdetalles.AddRange(detalles.updates);
+                }
+            };
+            detalles.ShowDialog();
+            return registroCorrectoDeSubdetalles;
         }
     }
 }

@@ -580,13 +580,37 @@ namespace PuntoDeVentaV2
                             CHKMostrarStock.Checked = false;
                         }
                         #endregion
-
+                        #region Ventas faciles
+                        if (item["ventaFacil"].Equals(1))
+                        {
+                            chbVentaFacil.Checked = true;
+                        }
+                        else if (item["ventaFacil"].Equals(0))
+                        {
+                            chbVentaFacil.Checked = false;
+                        }
+                        #endregion
+                        #region Avisar cuando algun producto va a caducar
+                        if (item["avisoCaducidad"].Equals(1))
+                        {
+                            chbCaducidad.Checked = true;
+                        }
+                        using (DataTable dt = cn.CargarDatos($"SELECT subdetallesdeproducto.ID FROM subdetallesdeproducto INNER JOIN detallesubdetalle AS Sub ON (Sub.IDSubDetalle = subdetallesdeproducto.id) WHERE esCaducidad = 1 AND IDUsuario = {FormPrincipal.userID} AND Activo = 1"))
+                        {
+                            if (!dt.Rows.Count.Equals(0))
+                            {
+                                numDiasCad.Visible = true;
+                                numDiasCad.Value = Int32.Parse(item["diasCaducidad"].ToString());
+                                chbCaducidad.Visible = true;
+                            }
+                        }
+                        #endregion
                         #region Mostrar IVA
                         if (item["mostrarIVA"].Equals(1))
                         {
                             cbkMostrarIVA.Checked = true;
                         }
-                        else 
+                        else
                         {
                             cbkMostrarIVA.Checked = false;
                         }
@@ -1006,7 +1030,7 @@ namespace PuntoDeVentaV2
             }
         }
 
-       
+
 
         private void checkMayoreo_MouseClick(object sender, MouseEventArgs e)
         {
@@ -1392,6 +1416,7 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            confiGeneral.Add($"UPDATE configuracion SET diasCaducidad = {numDiasCad.Value} WHERE IDUsuario = {FormPrincipal.userID}");
             foreach (var item in confiGeneral)
             {
                 cn.EjecutarConsulta(item);
@@ -1536,9 +1561,9 @@ namespace PuntoDeVentaV2
             System.Diagnostics.Process.Start("https://sifo.com.mx/WebAppPudve/index.php");
         }
 
-        
-     
-        
+
+
+
         private void chWebCerrar_MouseClick(object sender, MouseEventArgs e)
         {
             if (chWebCerrar.Checked)
@@ -1597,6 +1622,33 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void chbCaducidad_Click(object sender, EventArgs e)
+        {
+            if (chbCaducidad.Checked)
+            {
+                var consulta = $"UPDATE Configuracion SET avisoCaducidad = {1} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
+            else
+            {
+                var consulta = $"UPDATE Configuracion SET avisoCaducidad = {0} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+
+            }
+        }
+
+        private void chbCaducidad_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chbCaducidad.Checked)
+            {
+                numDiasCad.Enabled = true;
+            }
+            else
+            {
+                numDiasCad.Enabled = false;
+
+            }
+        }
         private void cbkMostrarIVA_MouseClick(object sender, MouseEventArgs e)
         {
             using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("PermisoMostrarIVA", FormPrincipal.id_empleado)))
@@ -1667,6 +1719,19 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void chbVentaRapida_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (chbVentaFacil.Checked)
+            {
+                var consulta = $"UPDATE Configuracion SET ventaFacil = {1} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
+            }
+            else
+            {
+                var consulta = $"UPDATE Configuracion SET ventaFacil = {0} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiGeneral.Add(consulta);
 
+            }
+        }
     }
 }

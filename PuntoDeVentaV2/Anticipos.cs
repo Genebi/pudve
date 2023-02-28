@@ -47,7 +47,7 @@ namespace PuntoDeVentaV2
         private Paginar p;
         int clickBoton = 0;
         string DataMemberDGV = "Anticipos";
-
+                
         IEnumerable<AgregarAnticipo> FormAnticipo = Application.OpenForms.OfType<AgregarAnticipo>();
 
         public Anticipos()

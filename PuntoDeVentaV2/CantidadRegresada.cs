@@ -43,7 +43,9 @@ namespace PuntoDeVentaV2
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
+            AjustarProducto.cantidadRegresada = 0;
             this.Close();
+            return;
         }
 
         private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e)

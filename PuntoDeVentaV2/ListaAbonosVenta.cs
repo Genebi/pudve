@@ -67,20 +67,24 @@ namespace PuntoDeVentaV2
                 row.Cells["Cheque"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Cheque")).ToString());
                 row.Cells["Trans"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Transferencia")).ToString());
 
-                if (dr.GetValue(dr.GetOrdinal("Total")).ToString().Equals("0.00"))
-                {
-                    decimal total = 0;
-                    total += decimal.Parse(dr.GetValue(dr.GetOrdinal("Efectivo")).ToString());
-                    total += decimal.Parse(dr.GetValue(dr.GetOrdinal("Tarjeta")).ToString());
-                    total += decimal.Parse(dr.GetValue(dr.GetOrdinal("Vales")).ToString());
-                    total += decimal.Parse(dr.GetValue(dr.GetOrdinal("Cheque")).ToString());
-                    total += decimal.Parse(dr.GetValue(dr.GetOrdinal("Transferencia")).ToString());
-                    row.Cells["Total"].Value = total.ToString();
-                }
-                else
-                {
-                    row.Cells["Total"].Value = Modificar(dr.GetValue(dr.GetOrdinal("Total")).ToString());
-                }
+
+                //decimal interesesAlMomento = Decimal.Parse(Modificar(dr.GetValue(dr.GetOrdinal("intereses")).ToString()));
+                decimal total = Decimal.Parse(Modificar(dr.GetValue(dr.GetOrdinal("Total")).ToString())) - Decimal.Parse(Modificar(dr.GetValue(dr.GetOrdinal("perdonado")).ToString()));
+
+                row.Cells["Total"].Value = total.ToString();
+                //if (interesesAlMomento-total > 0)
+                //{
+                row.Cells["Interes"].Value = Modificar(dr.GetValue(dr.GetOrdinal("intereses")).ToString());
+                row.Cells["abono"].Value = (total - Decimal.Parse(Modificar(dr.GetValue(dr.GetOrdinal("intereses")).ToString())) ).ToString();
+                //}
+                //else      
+                //{
+                //    row.Cells["Interes"].Value ="0.00";
+                //    row.Cells["abono"].Value = (total-interesesAlMomento+ Decimal.Parse(Modificar(dr.GetValue(dr.GetOrdinal("perdonado")).ToString())));
+                //}
+                //row.Cells["Interes"].Value = Modificar(dr.GetValue(dr.GetOrdinal("intereses")).ToString());
+
+                row.Cells["Cambio"].Value = Modificar(dr.GetValue(dr.GetOrdinal("cambio")).ToString());
                 row.Cells["Fecha"].Value = Convert.ToDateTime(dr.GetValue(dr.GetOrdinal("FechaOperacion"))).ToString("yyyy-MM-dd HH:mm:ss");
                 row.Cells["Ticket"].Value = ticket;
             }
@@ -124,7 +128,7 @@ namespace PuntoDeVentaV2
         {
             if (e.RowIndex >= 0)
             {
-                if (e.ColumnIndex == 8)
+                if (e.ColumnIndex == 10)
                 {
                     var idAbono = DGVAbonos.Rows[DGVAbonos.CurrentCell.RowIndex].Cells["ID"].Value.ToString();
                     var consulta = cn.CargarDatos($"SELECT IDVenta FROM abonos WHERE ID = '{idAbono}'");

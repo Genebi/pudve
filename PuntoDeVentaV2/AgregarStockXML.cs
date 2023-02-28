@@ -2900,6 +2900,14 @@ namespace PuntoDeVentaV2
 
         private void button2_Click(object sender, EventArgs e)
         {
+
+            //Subdetallones
+            if (!verificarSubdetalles())
+            {
+                MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             // Iniciamos las variables a 0
             resultadoSearchNoIdentificacion = 0;
             resultadoSearchCodBar = 0;
@@ -2937,6 +2945,8 @@ namespace PuntoDeVentaV2
                 NombreProd = txtBoxDescripcionProd.Text;    // Almacenamos el contenido del TextBox
                 
                 verNvoStock();  // Funcion para ver el nvo stock
+
+
 
                 if (resultadoSearchNoIdentificacion == 1 && resultadoSearchCodBar == 1)
                 {
@@ -3077,6 +3087,34 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private bool verificarSubdetalles()
+        {
+
+            List<string> updatesSubdetalles = new List<string>();
+            bool registroCorrectoDeSubdetalles = true;
+
+                    subDetallesDeProducto detalles = new subDetallesDeProducto(idProducto, "Inventario", cantidad: ((decimal)((int)stockProd + stockProdXML)));
+                    detalles.FormClosed += delegate
+                    {
+                        if (!detalles.finalizado)
+                        {
+                            registroCorrectoDeSubdetalles = detalles.finalizado;
+                            updatesSubdetalles.Clear();
+                        }
+                        else
+                        {
+                            updatesSubdetalles.AddRange(detalles.updates);
+                            foreach (string consulta in updatesSubdetalles)
+                            {
+                                cn.EjecutarConsulta(consulta);
+                            }
+                        }
+                    };
+                    detalles.ShowDialog();          
+            
+            return registroCorrectoDeSubdetalles;
         }
 
         private void picBoxBuscar_Click(object sender, EventArgs e)

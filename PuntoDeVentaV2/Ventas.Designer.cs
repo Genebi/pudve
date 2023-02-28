@@ -118,6 +118,7 @@
             this.lblPesoRecibido = new System.Windows.Forms.Label();
             this.btnCSV = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btnVentaFacil = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -1270,6 +1271,20 @@
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
+            // btnVentaFacil
+            // 
+            this.btnVentaFacil.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnVentaFacil.Image = global::PuntoDeVentaV2.Properties.Resources.table1;
+            this.btnVentaFacil.Location = new System.Drawing.Point(383, 20);
+            this.btnVentaFacil.Name = "btnVentaFacil";
+            this.btnVentaFacil.Size = new System.Drawing.Size(105, 40);
+            this.btnVentaFacil.TabIndex = 50;
+            this.btnVentaFacil.Text = "Venta Fácil\r\nCtrl + V";
+            this.btnVentaFacil.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnVentaFacil.UseVisualStyleBackColor = true;
+            this.btnVentaFacil.Visible = false;
+            this.btnVentaFacil.Click += new System.EventHandler(this.btnVentaFacil_Click);
+            // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1277,6 +1292,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
             this.ClientSize = new System.Drawing.Size(1232, 608);
             this.Controls.Add(this.lblPesoRecibido);
+            this.Controls.Add(this.btnVentaFacil);
             this.Controls.Add(this.btnCSV);
             this.Controls.Add(this.btnBascula);
             this.Controls.Add(this.panel5);
@@ -1410,5 +1426,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         public BotonRedondo btnGanancia;
         public BotonRedondo botonRedondo1;
+        private System.Windows.Forms.Button btnVentaFacil;
     }
 }

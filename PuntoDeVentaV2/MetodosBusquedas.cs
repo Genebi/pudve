@@ -143,7 +143,7 @@ namespace PuntoDeVentaV2
         {
             float cantidad = 0f;
 
-            DatosConexion($"SELECT SUM(Total) AS Total FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {idUsuario}");
+            DatosConexion($"SELECT SUM(Total - intereses) AS Total FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {idUsuario}");
 
             MySqlDataReader dr = sql_cmd.ExecuteReader();
 
@@ -154,6 +154,8 @@ namespace PuntoDeVentaV2
 
             dr.Close();
             CerrarConexion();
+
+
 
             return cantidad;
         }
@@ -234,6 +236,7 @@ namespace PuntoDeVentaV2
                 lista.Add(dr[18].ToString()); //Forma de pago       15
                 lista.Add(dr[21].ToString()); //TipoCliente         16
                 lista.Add(dr[22].ToString()); //NumeroCliente       17
+                lista.Add(dr[23].ToString()); //Verificado          18
             }
 
             dr.Close();

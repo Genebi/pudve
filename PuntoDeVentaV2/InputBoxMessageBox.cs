@@ -12,13 +12,14 @@ namespace PuntoDeVentaV2
 {
     public partial class InputBoxMessageBox : Form
     {
-        string  promptMsg = string.Empty, 
-                titleWindow = string.Empty, 
+        string promptMsg = string.Empty,
+                titleWindow = string.Empty,
                 strDefaultResponse = string.Empty;
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
 
         public string retornoNombreConcepto = string.Empty;
+        public string ventaFacil = string.Empty;
 
         private void cargarValores()
         {
@@ -48,6 +49,11 @@ namespace PuntoDeVentaV2
                 retornoNombreConcepto = retornoNombreConcepto.Replace("\r\n", " ");
             }
 
+            if (chbVentaFacil.Checked)
+            {
+                ventaFacil = "";
+            }
+
             this.Close();
         }
 
@@ -72,9 +78,38 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private void chbVentaFacil_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chbVentaFacil.Checked)
+            {
+                txtDefaultResponse.Text = "Venta fácil";
+                txtDefaultResponse.Enabled = false;
+            }
+            else
+            {
+                txtDefaultResponse.Text = "";
+                txtDefaultResponse.Enabled = true;
+            }
+        }
+
+        private void txtDefaultResponse_TextChanged(object sender, EventArgs e)
+        {
+            if (txtDefaultResponse.Text.Equals("Venta fácil"))
+            {
+                chbVentaFacil.Checked = true;
+            }
+        }
+
         private void InputBoxMessageBox_Load(object sender, EventArgs e)
         {
             cargarValores();
+            using (DataTable dt = cn.CargarDatos($"SELECT ventaFacil FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (dt.Rows[0][0].ToString().Equals("1"))
+                {
+                    chbVentaFacil.Visible = true;
+                }
+            }
         }
 
         public InputBoxMessageBox(string _Prompt, string _Title, string _DefaultResponse)

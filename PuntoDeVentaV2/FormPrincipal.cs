@@ -531,12 +531,15 @@ namespace PuntoDeVentaV2
 
             recargarDatos();
 
+
             TempUserID = TempIdUsuario;
             TempUserNickName = TempNickUsr;
             TempUserPass = TempPassUsr;
 
+            //Caducos caducos = new Caducos(userID, this, this.btnCad);
+            //caducos.ShowDialog();
+            bgwCaducos.RunWorkerAsync();
             ObtenerDatosUsuario(userID);
-
             var servidor = Properties.Settings.Default.Hosting;
 
             if (string.IsNullOrWhiteSpace(servidor))
@@ -1375,6 +1378,30 @@ namespace PuntoDeVentaV2
             System.Diagnostics.Process.Start("https://www.youtube.com/@sifo1887/videos");
         }
 
+
+        private void btnCad_Click(object sender, EventArgs e)
+        {
+            FormCollection fc = Application.OpenForms;
+            CheckForIllegalCrossThreadCalls = false;
+            foreach (Form frm in fc)
+            {
+                if (frm.Name == "Caducos")
+                {
+                    frm.TopMost = true;
+                    frm.Opacity = 1;
+                    frm.TopMost = false;
+                    CheckForIllegalCrossThreadCalls = true;
+                }
+            }
+        }
+
+        private void bgwCaducos_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Caducos caducos = new Caducos(userID, this, this.btnCad);
+            caducos.ShowDialog();
+        }
+
+
         public async Task bulkInsertAsync(string tablename)
         {
             string connStr = "server=74.208.135.60;user=app;database=pudve;port=3306;password=12Steroids12;AllowLoadLocalInfile=true;";
@@ -1621,7 +1648,7 @@ namespace PuntoDeVentaV2
                 formulario.Dock = DockStyle.Fill;
                 panelContenedor.Controls.Add(formulario);
                 panelContenedor.Tag = formulario;
-                formulario.Show();
+                        formulario.Show();
                 formulario.BringToFront();
             }
             else
