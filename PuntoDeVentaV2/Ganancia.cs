@@ -40,7 +40,8 @@ namespace PuntoDeVentaV2
                 var totalDeVenta = cn.CargarDatos($"SELECT Total FROM ventas WHERE ID = {ListadoVentas.idGananciaVenta}");
                 List<string> productosEnCombos = new List<string>();
                 List<string> combosEliminar = new List<string>();
-
+                DataTable dtTablaIdsProducs = new DataTable();
+                decimal precioPodsEnCombo = 0;
 
                 foreach (DataRow item in IdsProductVenta.Rows)
                 {
@@ -49,47 +50,40 @@ namespace PuntoDeVentaV2
                     //Validar cuando el Combo/Servicio tiene precio de Compra
                     if (productoPAquete.Rows[0]["Tipo"].ToString().Equals("PQ") || productoPAquete.Rows[0]["Tipo"].ToString().Equals("S"))
                     {
-                        var idsProdCombo = cn.CargarDatos($"SELECT IDProducto FROM `productosdeservicios` WHERE IDServicio = {item[0]}");
+                        var idProd = "";
+                        var idsProdCombo = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM `productosdeservicios` WHERE IDServicio = {item[0]}"); //Si el combo no tiene productos se tomara el precio de compra y venta para calcular su posible ganancia
                         if (!idsProdCombo.Rows.Count.Equals(0))
                         {
-                            var precioPQ = cn.CargarDatos($"SELECT PrecioCompra FROM productos WHERE ID = {item[0]}");
-                            if (!precioPQ.Rows[0]["PrecioCompra"].ToString().Equals("0.00"))
+                            idProd = idsProdCombo.Rows[0]["IDProducto"].ToString(); //Validar que se un producto y no vengan en 0 el id      
+                        }
+                        var precioPQ = cn.CargarDatos($"SELECT PrecioCompra FROM productos WHERE ID = {item[0]}"); //Consultar su el combo cuenta con un precio de compra
+
+                        if (!idsProdCombo.Rows.Count.Equals(0) && precioPQ.Rows[0]["PrecioCompra"].ToString().Equals("0.00")) //Cuando el combo tiene productos y su precio de compra es 0
+                        {
+                            foreach (DataRow item2 in IdsProductVenta.Rows) //Foreach para recorrer los ids de productos que contiene el combo
                             {
-                                if (!idsProdCombo.Rows[0]["IDProducto"].ToString().Equals("0"))
+                                var datos = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM `productosdeservicios` WHERE IDServicio = {item2[0]}"); //Se obtienen los id y cantidad de cada producto que contiene el combo
+                                if (!datos.Rows.Count.Equals(0))
                                 {
-                                    for (int i = 0; i < idsProdCombo.Rows.Count; i++)
-                                    {
-                                        productosEnCombos.Add(idsProdCombo.Rows[i][0].ToString());
-                                    }
-                                    combosEliminar.Add(item[0].ToString());
+                                    dtTablaIdsProducs = datos;
                                 }
                             }
-                            
+                            combosEliminar.Add(item[0].ToString());
                         }
                     }
                 }
 
-                if (!productosEnCombos.Count.Equals(0))
+                if (!dtTablaIdsProducs.Rows.Count.Equals(0))
                 {
-                    for (int i = 0; i < productosEnCombos.Count; i++)
+                    foreach (DataRow item in dtTablaIdsProducs.Rows)
                     {
-                        IdsProductVenta.Rows.Add(productosEnCombos[i]);
-                    }
-
-
-                    List<DataRow> rowsToDelete = new List<DataRow>();
-
-                    foreach (DataRow row in IdsProductVenta.Rows)
-                    {
-                        if (combosEliminar.Contains(row["IDProducto"].ToString()))
+                        var dato = cn.CargarDatos($"SELECT PrecioCompra FROM productos WHERE ID = {item[0]}");
+                        if (!dato.Rows.Count.Equals(0))
                         {
-                            rowsToDelete.Add(row);
+                            var costoCompraProd = Convert.ToDecimal(dato.Rows[0]["PrecioCompra"].ToString());
+                            decimal cantidadComprada = Convert.ToDecimal(item[1]);
+                            precioPodsEnCombo += cantidadComprada * costoCompraProd;
                         }
-                    }
-
-                    foreach (DataRow row in rowsToDelete)
-                    {
-                        IdsProductVenta.Rows.Remove(row);
                     }
                 }
 
@@ -104,18 +98,19 @@ namespace PuntoDeVentaV2
                     {
                         decimal validacion = Convert.ToDecimal(precio.Rows[0]["PrecioCompra"]);
                         decimal cantidad = Convert.ToDecimal(cantidadComp.Rows[iterador]["Cantidad"]);
+                        var tipo = cn.CargarDatos($"SELECT Tipo FROM productos WHERE ID = {item[0]}");
 
-                        if (validacion.Equals(Convert.ToDecimal(0.00)))
+                        if (validacion.Equals(0) && tipo.Rows[0][0].Equals("P"))//Solo tomar en cuenta si no tiene precio de compra cuando sea un producto
                         {
                             lblMensaje.Visible = true;
                             lblGanancia.Text = "SIN PODER CALCULAR";
                             precioTotalDeCompra = 0;
-                            return;
+                            //return;
                         }
                         else
                         {
                             precioTotalDeCompra = (validacion * cantidad);
-                            VentaTotal = (VentaTotal - precioTotalDeCompra);
+                            VentaTotal = (VentaTotal - precioTotalDeCompra)-(precioPodsEnCombo);
                             lblGanancia.Text = (VentaTotal.ToString("C"));
                             iterador++;
                         }
@@ -124,8 +119,6 @@ namespace PuntoDeVentaV2
             }
             else if (lugarGanancia == 2)// GANANCIA POR ARTICULOS EN EL CARRITO----------------------------------------------------------------------------------------- 
             {
-
-                //var IdsProductVenta = cn.CargarDatos($"SELECT IDProducto FROM productosventa WHERE IDVenta = {ListadoVentas.idGananciaVenta}");
                 var totalDeVenta = cn.CargarDatos($"SELECT Total FROM ventas WHERE ID = {ListadoVentas.idGananciaVenta}");
                 List<string> productosEnCombos = new List<string>();
                 DataTable dtTablaIdsProducs = new DataTable();
@@ -146,24 +139,35 @@ namespace PuntoDeVentaV2
                     tablaIds.Rows.Add(row);
 
                 }
-               
+
                 foreach (DataRow item in tablaIds.Rows)
                 {
                     var productoPAquete = cn.CargarDatos($"SELECT Tipo FROM productos WHERE ID = {item[0]}");
-                    
+
                     //Validar cuando el Combo/Servicio tiene precio de Compra
                     if (productoPAquete.Rows[0]["Tipo"].ToString().Equals("PQ") || productoPAquete.Rows[0]["Tipo"].ToString().Equals("S"))
                     {
-                        var precioPQ = cn.CargarDatos($"SELECT PrecioCompra FROM productos WHERE ID = {item[0]}");
-                        if (!precioPQ.Rows[0]["PrecioCompra"].ToString().Equals("0.00"))
+                        var idProd = "";
+                        var idsProdCombo = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM `productosdeservicios` WHERE IDServicio = {item[0]}"); //Si el combo no tiene productos se tomara el precio de compra y venta para calcular su posible ganancia
+                        if (!idsProdCombo.Rows.Count.Equals(0))
                         {
-                            //var idsProdCombo = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM `productosdeservicios` WHERE IDServicio = {item[0]}");
-                            //if (!idsProdCombo.Rows.Count.Equals(0))
-                            //{
-                            //    dtTablaIdsProducs = idsProdCombo;
-                            //}
+                            idProd = idsProdCombo.Rows[0]["IDProducto"].ToString(); //Validar que se un producto y no vengan en 0 el id      
                         }
                         
+                        var precioPQ = cn.CargarDatos($"SELECT PrecioCompra FROM productos WHERE ID = {item[0]}"); //Consultar su el combo cuenta con un precio de compra
+
+                        if (!idsProdCombo.Rows.Count.Equals(0) && !idProd.Equals("0") && precioPQ.Rows[0]["PrecioCompra"].ToString().Equals("0.00")) //Cuando el combo tiene productos y su precio de compra es 0
+                        {
+                            foreach (DataRow item2 in tablaIds.Rows) //Foreach para recorrer los ids de productos que contiene el combo
+                            {
+                                var datos = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM `productosdeservicios` WHERE IDServicio = {item2[0]}"); //Se obtienen los id y cantidad de cada producto que contiene el combo
+                                if (!datos.Rows.Count.Equals(0))
+                                {
+                                    dtTablaIdsProducs = datos;
+                                }
+                            }
+                            combosEliminar.Add(item[0].ToString());
+                        }
                     }
                 }
 
@@ -205,32 +209,31 @@ namespace PuntoDeVentaV2
                     {
                         decimal validacion = Convert.ToDecimal(precio.Rows[0]["PrecioCompra"]);
                         decimal cantidad = Convert.ToDecimal(cantidadComp);
+                        var tipo = cn.CargarDatos($"SELECT Tipo FROM productos WHERE ID = {item[0]}");
 
-                        if (validacion.Equals(Convert.ToDecimal(0.00)))
+                        if (validacion.Equals(0) && tipo.Rows[0][0].Equals("P"))//Solo tomar en cuenta si no tiene precio de compra cuando sea un producto
                         {
                             lblMensaje.Visible = true;
                             lblGanancia.Text = "SIN PODER CALCULAR";
                             precioTotalDeCompra = 0;
-                            //return;
+                            break;
                         }
                         else
                         {
                             precioTotalDeCompra = (validacion * cantidad);
-                            VentaTotal = (VentaTotal - precioTotalDeCompra);
+                            VentaTotal = (VentaTotal - precioTotalDeCompra) + Ventas.totalAnticipoAplicado;
                             lblGanancia.Text = (VentaTotal.ToString("C"));
                             iterador++;
                         }
-                    } 
-                }
-                
-                if (gananciaGrafica == 3)
-                {
-                    Ventas.gananciaTotalPorVenta = lblGanancia.Text; 
-                    gananciaGrafica = 0;
-                    this.Close();
+                    }
                 }
             }
-           
+            if (gananciaGrafica == 3)
+            {
+                Ventas.gananciaTotalPorVenta = lblGanancia.Text;
+                gananciaGrafica = 0;
+                this.Close();
+            }
         }
     }
 }

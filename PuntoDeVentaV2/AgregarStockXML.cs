@@ -3314,6 +3314,31 @@ namespace PuntoDeVentaV2
                             fs = new FileStream(f.FileName, FileMode.Open, FileAccess.Read);
                             // iniciamos el objeto ds y le hacemos un cast con la clase Comprobante y le pasamos la lectura del XML
                             ds = (Comprobante)serial.Deserialize(fs);
+
+                            // Detectar si es nota de crédito
+                            if (ds.TipoDeComprobante.Equals("E"))
+                            {
+                                if (ds.Receptor.Rfc.Equals(rfc) || ds.Emisor.Rfc.Equals(rfc))
+                                {
+                                    MessageBox.Show("No se pueden cargar notas de crédito al sistema.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+                            }
+
+                            // Detectar si es una nómina
+                            if (ds.TipoDeComprobante.Equals("N"))
+                            {
+                                MessageBox.Show("No se pueden cargar nóminas al sistema.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
+                            // Detectar si es complemento de pago
+                            if (ds.TipoDeComprobante.Equals("P"))
+                            {
+                                MessageBox.Show("No se pueden cargar complementos de pago al sistema.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+
                             // comparamos si el RFC-Receptor(del archivo XML) es igual al RFC del usruario del sistema
                             if (ds.Receptor.Rfc == rfc | ds.Emisor.Rfc == rfc)
                             {

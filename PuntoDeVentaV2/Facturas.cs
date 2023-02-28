@@ -1642,6 +1642,35 @@ namespace PuntoDeVentaV2
             // Obtenemos la cantidad de timbres
             int timbres_disponibles = mb.obtener_cantidad_timbres();
             lb_timbres.Text = timbres_disponibles.ToString();
+            ActualizarTimbresOnline(timbres_disponibles);
+        }
+
+        private void ActualizarTimbresOnline(int timbres)
+        {
+            if (Registro.ConectadoInternet())
+            {
+                MySqlConnection conexion = new MySqlConnection();
+
+                conexion.ConnectionString = "server=74.208.135.60;database=pudve;uid=pudvesoftware;pwd=Steroids12;";
+
+                try
+                {
+                    conexion.Open();
+
+                    MySqlCommand actualizar = new MySqlCommand("UPDATE usuarios SET timbres = @timbres WHERE usuario = @usuario", conexion);
+                    actualizar.Parameters.AddWithValue("@timbres", timbres);
+                    actualizar.Parameters.AddWithValue("@usuario", FormPrincipal.userNickName);
+                    actualizar.ExecuteNonQuery();
+
+                    //Cerramos la conexion de MySQL
+                    conexion.Close();
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.Message, "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Console.WriteLine(ex.Message);
+                }
+            }
         }
 
         private void buscar_por_confoco(object sender, EventArgs e)

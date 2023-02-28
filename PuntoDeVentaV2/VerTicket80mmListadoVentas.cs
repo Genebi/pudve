@@ -305,6 +305,9 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            string SubTotal = ventaDT.Rows[0]["Subtotal"].ToString();
+            reportParameters.Add(new ReportParameter("SubTotal", SubTotal));
+
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Add(rp);
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
@@ -577,6 +580,9 @@ namespace PuntoDeVentaV2
                     reportParameters.Add(new ReportParameter("IVA", "0"));
                 }
             }
+
+            string SubTotal = ventaDT.Rows[0]["Subtotal"].ToString();
+            reportParameters.Add(new ReportParameter("SubTotal", SubTotal));
             LocalReport rdlc = new LocalReport();
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;

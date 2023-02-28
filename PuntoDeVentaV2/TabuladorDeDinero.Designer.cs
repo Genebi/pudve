@@ -159,6 +159,7 @@ namespace PuntoDeVentaV2
             this.txtbillete20.Location = new System.Drawing.Point(125, 45);
             this.txtbillete20.MaxLength = 7;
             this.txtbillete20.Name = "txtbillete20";
+            this.txtbillete20.ShortcutsEnabled = false;
             this.txtbillete20.Size = new System.Drawing.Size(100, 20);
             this.txtbillete20.TabIndex = 11;
             this.txtbillete20.Text = "0";
@@ -173,6 +174,7 @@ namespace PuntoDeVentaV2
             this.txtBillete50.Location = new System.Drawing.Point(125, 71);
             this.txtBillete50.MaxLength = 7;
             this.txtBillete50.Name = "txtBillete50";
+            this.txtBillete50.ShortcutsEnabled = false;
             this.txtBillete50.Size = new System.Drawing.Size(100, 20);
             this.txtBillete50.TabIndex = 12;
             this.txtBillete50.Text = "0";
@@ -186,6 +188,7 @@ namespace PuntoDeVentaV2
             this.txtBillete100.Location = new System.Drawing.Point(125, 97);
             this.txtBillete100.MaxLength = 7;
             this.txtBillete100.Name = "txtBillete100";
+            this.txtBillete100.ShortcutsEnabled = false;
             this.txtBillete100.Size = new System.Drawing.Size(100, 20);
             this.txtBillete100.TabIndex = 13;
             this.txtBillete100.Text = "0";
@@ -199,6 +202,7 @@ namespace PuntoDeVentaV2
             this.txtBillete200.Location = new System.Drawing.Point(125, 123);
             this.txtBillete200.MaxLength = 7;
             this.txtBillete200.Name = "txtBillete200";
+            this.txtBillete200.ShortcutsEnabled = false;
             this.txtBillete200.Size = new System.Drawing.Size(100, 20);
             this.txtBillete200.TabIndex = 14;
             this.txtBillete200.Text = "0";
@@ -212,6 +216,7 @@ namespace PuntoDeVentaV2
             this.txtBillete500.Location = new System.Drawing.Point(125, 149);
             this.txtBillete500.MaxLength = 7;
             this.txtBillete500.Name = "txtBillete500";
+            this.txtBillete500.ShortcutsEnabled = false;
             this.txtBillete500.Size = new System.Drawing.Size(100, 20);
             this.txtBillete500.TabIndex = 15;
             this.txtBillete500.Text = "0";
@@ -225,6 +230,7 @@ namespace PuntoDeVentaV2
             this.txtBillete1000.Location = new System.Drawing.Point(125, 175);
             this.txtBillete1000.MaxLength = 7;
             this.txtBillete1000.Name = "txtBillete1000";
+            this.txtBillete1000.ShortcutsEnabled = false;
             this.txtBillete1000.Size = new System.Drawing.Size(100, 20);
             this.txtBillete1000.TabIndex = 16;
             this.txtBillete1000.Text = "0";
@@ -336,6 +342,7 @@ namespace PuntoDeVentaV2
             this.txt20centavos.Location = new System.Drawing.Point(125, 71);
             this.txt20centavos.MaxLength = 7;
             this.txt20centavos.Name = "txt20centavos";
+            this.txt20centavos.ShortcutsEnabled = false;
             this.txt20centavos.Size = new System.Drawing.Size(100, 20);
             this.txt20centavos.TabIndex = 27;
             this.txt20centavos.Text = "0";
@@ -349,6 +356,7 @@ namespace PuntoDeVentaV2
             this.txt50centavos.Location = new System.Drawing.Point(125, 97);
             this.txt50centavos.MaxLength = 7;
             this.txt50centavos.Name = "txt50centavos";
+            this.txt50centavos.ShortcutsEnabled = false;
             this.txt50centavos.Size = new System.Drawing.Size(100, 20);
             this.txt50centavos.TabIndex = 28;
             this.txt50centavos.Text = "0";
@@ -362,6 +370,7 @@ namespace PuntoDeVentaV2
             this.txt1peso.Location = new System.Drawing.Point(125, 123);
             this.txt1peso.MaxLength = 7;
             this.txt1peso.Name = "txt1peso";
+            this.txt1peso.ShortcutsEnabled = false;
             this.txt1peso.Size = new System.Drawing.Size(100, 20);
             this.txt1peso.TabIndex = 29;
             this.txt1peso.Text = "0";
@@ -375,6 +384,7 @@ namespace PuntoDeVentaV2
             this.txt2pesos.Location = new System.Drawing.Point(125, 149);
             this.txt2pesos.MaxLength = 7;
             this.txt2pesos.Name = "txt2pesos";
+            this.txt2pesos.ShortcutsEnabled = false;
             this.txt2pesos.Size = new System.Drawing.Size(100, 20);
             this.txt2pesos.TabIndex = 30;
             this.txt2pesos.Text = "0";
@@ -388,6 +398,7 @@ namespace PuntoDeVentaV2
             this.txt5pesos.Location = new System.Drawing.Point(125, 175);
             this.txt5pesos.MaxLength = 7;
             this.txt5pesos.Name = "txt5pesos";
+            this.txt5pesos.ShortcutsEnabled = false;
             this.txt5pesos.Size = new System.Drawing.Size(100, 20);
             this.txt5pesos.TabIndex = 31;
             this.txt5pesos.Text = "0";
@@ -461,6 +472,7 @@ namespace PuntoDeVentaV2
             this.txt10pesos.Location = new System.Drawing.Point(125, 200);
             this.txt10pesos.MaxLength = 7;
             this.txt10pesos.Name = "txt10pesos";
+            this.txt10pesos.ShortcutsEnabled = false;
             this.txt10pesos.Size = new System.Drawing.Size(100, 20);
             this.txt10pesos.TabIndex = 38;
             this.txt10pesos.Text = "0";
@@ -474,6 +486,7 @@ namespace PuntoDeVentaV2
             this.txt20pesos.Location = new System.Drawing.Point(125, 227);
             this.txt20pesos.MaxLength = 7;
             this.txt20pesos.Name = "txt20pesos";
+            this.txt20pesos.ShortcutsEnabled = false;
             this.txt20pesos.Size = new System.Drawing.Size(100, 20);
             this.txt20pesos.TabIndex = 39;
             this.txt20pesos.Text = "0";

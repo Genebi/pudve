@@ -1093,7 +1093,15 @@ namespace PuntoDeVentaV2
         {
 
             mg.EliminarFiltros();
-            
+
+            if (userNickName.Split('@')[0] == "HOUSEDEPOTAUTLAN")
+            {
+                string path = @"C:\Archivos PUDVE\Monosas.txt";
+                if (!System.IO.File.Exists(path))
+                {
+                    Environment.Exit(0);
+                }
+            }
             bool ayylmao = true;
             using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebCerrar,WebTotal FROM Configuracion WHERE IDUsuario = {userID}"))
             {
@@ -1165,6 +1173,7 @@ namespace PuntoDeVentaV2
             }
             
             solicitudWEB();
+
         }
 
         private void solicitudWEB()
@@ -1195,13 +1204,13 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-        }
+            }
             catch (Exception)
             {
                 Console.WriteLine("Error garrafal");
                 return;
             }
-}
+        }
 
         private void enviarProdctosWeb()
         {
@@ -1306,6 +1315,18 @@ namespace PuntoDeVentaV2
 
         private void webSender_DoWork(object sender, DoWorkEventArgs e)
         {
+
+            if (userNickName.Split('@')[0] == "HOUSEDEPOTAUTLAN")
+            {
+                string path = @"C:\Archivos PUDVE\Monosas.txt";
+                if (!System.IO.File.Exists(path))
+                {
+                    webAuto.Enabled = false;
+                    return;
+                }
+            }
+
+
             using (DataTable dtConfiguracionWeb = cn.CargarDatos($"SELECT WebAuto,WebTotal FROM Configuracion WHERE IDUsuario = {userID}"))
             {
                 if (dtConfiguracionWeb.Rows[0][0].ToString() == "1")
@@ -1433,7 +1454,7 @@ namespace PuntoDeVentaV2
             try
             {
 
-            ConexionAPPWEB con = new ConexionAPPWEB();
+                ConexionAPPWEB con = new ConexionAPPWEB();
             DataTable valoresCaja = new DataTable();
             DataTable valoresCajaDep = new DataTable();
             DataTable valoresCajaRet = new DataTable();
@@ -1454,7 +1475,7 @@ namespace PuntoDeVentaV2
                 {
                     string consulta = $"DELETE FROM cajamirror WHERE cliente = '{userNickName.Split('@')[0]}' AND Fecha = '{DateTime.Parse(dt.Rows[0]["Fecha"].ToString()).ToString("yyyy-MM-dd HH:mm:ss")}'";
                     con.EjecutarConsulta(consulta);
-                    consulta = $"DELETE FROM cajamirrorDetalles WHERE cliente = '{userNickName.Split('@')[0]}' AND Fecha = '{DateTime.Parse(dt.Rows[0]["Fecha"].ToString()).ToString("yyyy-MM-dd HH:mm:ss")}'";
+                    consulta = $"DELETE FROM cajamirrorDetalles WHERE IDCliente = '{userNickName.Split('@')[0]}' AND Fecha = '{DateTime.Parse(dt.Rows[0]["Fecha"].ToString()).ToString("yyyy-MM-dd HH:mm:ss")}'";
                     con.EjecutarConsulta(consulta);
                     }
                     string fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -1483,6 +1504,7 @@ namespace PuntoDeVentaV2
             }
             catch (Exception)
             {
+                MessageBox.Show($"Error");
                 return false;
             }
         }

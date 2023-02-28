@@ -564,6 +564,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            idprodDobleClick = 0;
         }
 
         // Unhighlight the currently highlighted row.
@@ -686,6 +687,7 @@ namespace PuntoDeVentaV2
 
                 HighlightedRowIndex = -1;
             }
+            dobleClickProducto = 0;
         }
 
         private void btnFilterSearch_Click(object sender, EventArgs e)
@@ -1092,6 +1094,7 @@ namespace PuntoDeVentaV2
 
                     codProductoEditarVenta = codProductoEditarInventario;
 
+                    idprodDobleClick = codProductoEditarInventario;
                     var producto = cn.BuscarProducto(Convert.ToInt32(idProductoEditar), Convert.ToInt32(id));
                     typeProduct = producto[5];
 
@@ -2266,8 +2269,11 @@ namespace PuntoDeVentaV2
                 {
                     var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
                     var tipoProducto = Convert.ToString(row.Cells["TipoProducto"].Value);
-
-                    lista.Add(idProducto, tipoProducto);
+                    if (!lista.ContainsKey(idProducto))
+                    {
+                        lista.Add(idProducto, tipoProducto);
+                    }
+                   
                 }
             }
 

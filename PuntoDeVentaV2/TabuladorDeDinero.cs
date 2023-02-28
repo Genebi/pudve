@@ -111,6 +111,7 @@ namespace PuntoDeVentaV2
         
         private void txtbillete20_KeyPress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
               (e.KeyChar != '0'))
             {
@@ -118,10 +119,41 @@ namespace PuntoDeVentaV2
             }
         }
 
-       
+        private void calculadora(object sender, KeyPressEventArgs e)
+        {
+            TextBox txt = (TextBox)sender;
+            int calcu = 0;
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txt.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
+        }
 
         private void txtBillete50_KeyPress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
               (e.KeyChar != '0'))
             {
@@ -131,6 +163,7 @@ namespace PuntoDeVentaV2
 
         private void txtBillete100_KeyPress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
                (e.KeyChar != '0'))
             {
@@ -140,6 +173,7 @@ namespace PuntoDeVentaV2
 
         private void txtBillete200_KeyPress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
               (e.KeyChar != '0'))
             {
@@ -149,6 +183,7 @@ namespace PuntoDeVentaV2
 
         private void txtBillete500_KeyPress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
               (e.KeyChar != '0'))
             {
@@ -158,6 +193,7 @@ namespace PuntoDeVentaV2
 
         private void txtBillete1000_KeyPress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
               (e.KeyChar != '0'))
             {
@@ -167,6 +203,7 @@ namespace PuntoDeVentaV2
 
         private void txt10centavo_KeyPress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
               (e.KeyChar != '0'))
             {
@@ -176,6 +213,7 @@ namespace PuntoDeVentaV2
 
         private void txt20centavos_KeyPress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
                (e.KeyChar != '0'))
             {
@@ -185,6 +223,7 @@ namespace PuntoDeVentaV2
 
         private void txt50centavos_KeyPress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
               (e.KeyChar != '0'))
             {
@@ -194,6 +233,7 @@ namespace PuntoDeVentaV2
 
         private void txt1peso_KeyPress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
               (e.KeyChar != '0'))
             {
@@ -203,6 +243,7 @@ namespace PuntoDeVentaV2
 
         private void txt2pesos_KeyPress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
               (e.KeyChar != '0'))
             {
@@ -212,6 +253,7 @@ namespace PuntoDeVentaV2
 
         private void txt5pesos_KeyPress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
               (e.KeyChar != '0'))
             {
@@ -221,6 +263,7 @@ namespace PuntoDeVentaV2
 
         private void txt10pesos_KeyPress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
               (e.KeyChar != '0'))
             {
@@ -230,6 +273,7 @@ namespace PuntoDeVentaV2
 
         private void txt20pesos_KeyPress(object sender, KeyPressEventArgs e)
         {
+            calculadora(sender, e);
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
               (e.KeyChar != '0'))
             {
