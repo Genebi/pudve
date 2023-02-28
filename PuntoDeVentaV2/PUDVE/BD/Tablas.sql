@@ -2003,6 +2003,20 @@ ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoCantidadAbonos INT DEF
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPerdon INT DEFAULT 0 ;
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoMovil INT DEFAULT 0 ;
 
+
+--Tabla para guardar las goellas de los clientesillos
+CREATE TABLE
+IF
+	NOT EXISTS huellasClientes (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDUsuario INTEGER NOT NULL DEFAULT 0,
+		IDCliente INTEGER NOT NULL DEFAULT 0,
+		Nombre TEXT NOT NULL,
+		Huella LONGBLOB DEFAULT NULL,
+		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
+		FOREIGN KEY ( IDCliente ) REFERENCES clientes ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
+	);
+
 --Crear tabla para guardar las reglas de credito activas cuando se hace una venta.
 CREATE TABLE
 IF
@@ -2039,18 +2053,6 @@ IF
 	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS estado INTEGER DEFAULT 0;
 	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS perdonado DECIMAl ( 16, 2 ) DEFAULT 0;
 
---Tabla para guardar las goellas de los clientesillos
-CREATE TABLE
-IF
-	NOT EXISTS huellasClientes (
-		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
-		IDUsuario INTEGER NOT NULL DEFAULT 0,
-		IDCliente INTEGER NOT NULL DEFAULT 0,
-		Nombre TEXT NOT NULL,
-		Huella LONGBLOB DEFAULT NULL,
-		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
-		FOREIGN KEY ( IDCliente ) REFERENCES clientes ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
-	);
 
 --Tabla para guardar las reglas de credito especificas de cada cliente 
 CREATE TABLE
@@ -2279,3 +2281,4 @@ ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS RegresarProducto INT DEFA
 
 -- Configuracion para ventas faciles
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS ventaFacil INT DEFAULT 0;
+

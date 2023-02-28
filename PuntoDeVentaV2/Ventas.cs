@@ -6855,7 +6855,12 @@ namespace PuntoDeVentaV2
 
                                 // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
                                 float importe = cantidad * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
-
+                                if (cantidad <= 0)
+                                {
+                                    MessageBox.Show("No puedes se puede vende un producto con cantidad 0","Aviso del Sistema", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                                    txtBuscadorProducto.Clear();
+                                    return cadena;
+                                }
                                 DGVentas.Rows[0].Cells["Cantidad"].Value = cantidad;
                                 DGVentas.Rows[0].Cells["Importe"].Value = importe;
 
