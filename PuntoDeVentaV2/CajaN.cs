@@ -6707,6 +6707,7 @@ namespace PuntoDeVentaV2
                 {
                     botonRedondo1.Visible = false;
                     botonRedondo2.Visible = false;
+                    btnRedondoSaldoInicial.Text = "SALDO INICIAL\n" + lblCantidadSaldoActual.Text;
                 }
                 else
                 {
