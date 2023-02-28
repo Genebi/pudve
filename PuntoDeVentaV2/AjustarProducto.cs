@@ -280,7 +280,7 @@ namespace PuntoDeVentaV2
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             decimal parser;
-            if (Convert.ToDecimal(txtPrecio.Text).Equals(0))
+            if (Convert.ToDecimal(txtPrecio.Text.Split('$')[1]).Equals(0))
             {
                 MessageBox.Show($"El precio de {lbProducto.Text} debe ser mayor a 0", "Aviso del Sistema" , MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
