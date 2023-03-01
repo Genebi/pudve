@@ -306,15 +306,6 @@ namespace PuntoDeVentaV2
 
                             var DateInicioSesion = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
 
-                            ConnectionHandler manejadorConexion = new ConnectionHandler();
-                            var siHayConexion = manejadorConexion.verificarInternet();
-
-                            if (siHayConexion)
-                            {
-                                cnx.actualizarConteo(usuario);//actualiza el conteo online
-                                cnx.registrarInicio(usuario, DateInicioSesion);
-                            }
-
                             cn.EjecutarConsulta(cs.registroSesiones(usuario, DateInicioSesion,correo));
                             
                             if (chkRecordarContraseña.Checked == true || checkBoxRecordarUsuarui.Checked == true)
@@ -330,20 +321,11 @@ namespace PuntoDeVentaV2
                             var DateInicioSesion = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
                             cn.EjecutarConsulta(cs.registroSesiones(usuario, DateInicioSesion, correo));
                             
-                            ConnectionHandler manejadorConexion = new ConnectionHandler();
-                            var siHayConexion = manejadorConexion.verificarInternet();
 
                             Id = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDUsuario FROM Empleados WHERE usuario='{usuario}' AND contrasena='{password}'", 3));
                             // ID del empleado
                             id_emp = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Empleados WHERE usuario='{usuario}' AND contrasena='{password}'", 1));
                             cn.EjecutarConsulta(cs.aumentoContadorSesiones(Id));
-                            string [] newUsuario = usuario.Split('@');
-
-                            if (siHayConexion)
-                            {
-                                cnx.registrarInicio(usuario, DateInicioSesion);
-                                cnx.actualizarConteo(newUsuario[0].ToString());
-                            }
 
                             if (chkRecordarContraseña.Checked == true || checkBoxRecordarUsuarui.Checked == true)
                             {
@@ -376,6 +358,26 @@ namespace PuntoDeVentaV2
                         //}
 
                         this.Hide();
+
+
+                        if (Registro.ConectadoInternet())
+                        {
+                            var DateInicioSesion = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+
+                            if (tipo_us == 0)
+                            {
+                                cnx.actualizarConteo(usuario);//actualiza el conteo online
+                                cnx.registrarInicio(usuario, DateInicioSesion);
+                            }
+                            else
+                            {
+                                string[] newUsuario = usuario.Split('@');
+
+                                cnx.registrarInicio(usuario, DateInicioSesion);
+                                cnx.actualizarConteo(newUsuario[0].ToString());
+                            }
+                        }
+
 
                         fp.IdUsuario = Id;
                         fp.nickUsuario = usuario;
