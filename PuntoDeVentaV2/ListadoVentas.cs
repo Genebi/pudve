@@ -481,7 +481,7 @@ namespace PuntoDeVentaV2
         #region Método para cargar los datos en el DataGridView
         public void CargarDatos(int estado = 1, bool busqueda = false, string clienteFolio = "")
         {
-            
+
             var consulta = string.Empty;
             bool esNumero = false;
 
@@ -1821,7 +1821,7 @@ namespace PuntoDeVentaV2
             var opcion = cbTipoVentas.SelectedValue.ToString();
             clickBoton = 0;
 
-            if (cbTipoVentas.SelectedIndex==3)
+            if (cbTipoVentas.SelectedIndex == 3)
             {
                 btnBuscarPorHuella.Visible = true;
                 btnVencidas.Visible = true;
@@ -1857,7 +1857,7 @@ namespace PuntoDeVentaV2
             if (opcion == "VGG") { CargarDatos(5); }
             //Ventas a credito atrasadas
             if (opcion == "VCA") { CargarDatos(6); }
-        
+
 
             var incremento = -1;
             var penultimaFila = DGVListadoVentas.Rows.Count - 2;
@@ -1925,7 +1925,8 @@ namespace PuntoDeVentaV2
                         textoTT = "Abonos";
                         coordenadaX = 54;
 
-                        if (opcion != "VCC") {
+                        if (opcion != "VCC")
+                        {
                             if (opcion != "VCA")
                             {
                                 permitir = false;
@@ -2497,7 +2498,7 @@ namespace PuntoDeVentaV2
                                     if (resultado > 0)
                                     {
                                         //Restore stock subtedalles si existe
-                                        using (DataTable dtSubdetalles= cn.CargarDatos($"SELECT * FROM detallesubdetalleventa WHERE IDVenta = {idVenta}"))
+                                        using (DataTable dtSubdetalles = cn.CargarDatos($"SELECT * FROM detallesubdetalleventa WHERE IDVenta = {idVenta}"))
                                         {
                                             if (!dtSubdetalles.Rows.Equals(0))
                                             {
@@ -2505,7 +2506,7 @@ namespace PuntoDeVentaV2
                                                 {
                                                     cn.EjecutarConsulta($"UPDATE detallesubdetalle SET Stock = Stock + {subdetalleEncontrado["Cantidad"]} WHERE ID = {subdetalleEncontrado["IDDetalleSubDetalle"]}");
                                                 }
-                                                
+
                                             }
                                         }
 
@@ -2640,6 +2641,147 @@ namespace PuntoDeVentaV2
                                     }
                                 }
 
+                                using (DataTable dtConfiguracionTipoTicket = cn.CargarDatos(cs.tipoDeTicket()))
+                                {
+                                    if (!dtConfiguracionTipoTicket.Rows.Count.Equals(0))
+                                    {
+                                        var Usuario = 0;
+                                        var NombreComercial = 0;
+                                        var Direccion = 0;
+                                        var ColyCP = 0;
+                                        var RFC = 0;
+                                        var Correo = 0;
+                                        var Telefono = 0;
+                                        var NombreC = 0;
+                                        var DomicilioC = 0;
+                                        var RFCC = 0;
+                                        var CorreoC = 0;
+                                        var TelefonoC = 0;
+                                        var ColyCPC = 0;
+                                        var FormaPagoC = 0;
+                                        var logo = 0;
+                                        var ticket8cm = 0;
+                                        var ticket6cm = 0;
+                                        var codigoBarraTicket = 0;
+                                        var referencia = 0;
+
+                                        foreach (DataRow item in dtConfiguracionTipoTicket.Rows)
+                                        {
+                                            Usuario = Convert.ToInt32(item["Usuario"].ToString());
+                                            NombreComercial = Convert.ToInt32(item["NombreComercial"].ToString());
+                                            Direccion = Convert.ToInt32(item["Direccion"].ToString());
+                                            ColyCP = Convert.ToInt32(item["ColyCP"].ToString());
+                                            RFC = Convert.ToInt32(item["RFC"].ToString());
+                                            Correo = Convert.ToInt32(item["Correo"].ToString());
+                                            Telefono = Convert.ToInt32(item["Telefono"].ToString());
+                                            NombreC = Convert.ToInt32(item["NombreC"].ToString());
+                                            DomicilioC = Convert.ToInt32(item["DomicilioC"].ToString());
+                                            RFCC = Convert.ToInt32(item["RFCC"].ToString());
+                                            CorreoC = Convert.ToInt32(item["CorreoC"].ToString());
+                                            TelefonoC = Convert.ToInt32(item["TelefonoC"].ToString());
+                                            ColyCPC = Convert.ToInt32(item["ColyCPC"].ToString());
+                                            FormaPagoC = Convert.ToInt32(item["FormaPagoC"].ToString());
+                                            logo = Convert.ToInt32(item["logo"].ToString());
+                                            ticket6cm = Convert.ToInt32(item["ticket58mm"].ToString());
+                                            ticket8cm = Convert.ToInt32(item["ticket80mm"].ToString());
+                                            codigoBarraTicket = Convert.ToInt32(item["TicketVenta"].ToString());
+                                            referencia = Convert.ToInt32(item["Referencia"].ToString());
+                                        }
+
+
+                                        using (var dt = cn.CargarDatos($"SELECT TicketVentaCancelada,PregutarTicketVentaCancelada,TicketOPDFTicketVentaCancelada,AbrirCajaCancelada,AbrirCajaCancelada FROM configuraciondetickets WHERE IDUsuario = {FormPrincipal.userID}"))
+                                        {
+                                            if (dt.Rows[0]["TicketVentaCancelada"].Equals(1))
+                                            {
+                                                if (dt.Rows[0]["TicketOPDFTicketVentaCancelada"].Equals(1))
+                                                {
+                                                    using (ImprimirTicketCancelado8cm imprimirTicketVenta = new ImprimirTicketCancelado8cm())
+                                                    {
+                                                        imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+
+                                                        imprimirTicketVenta.Logo = logo;
+                                                        imprimirTicketVenta.Nombre = Usuario;
+                                                        imprimirTicketVenta.NombreComercial = NombreComercial;
+                                                        imprimirTicketVenta.DireccionCiudad = Direccion;
+                                                        imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                                        imprimirTicketVenta.RFC = RFC;
+                                                        imprimirTicketVenta.Correo = Correo;
+                                                        imprimirTicketVenta.Telefono = Telefono;
+                                                        imprimirTicketVenta.NombreCliente = NombreC;
+                                                        imprimirTicketVenta.RFCCliente = RFCC;
+                                                        imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                                        imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                                        imprimirTicketVenta.CorreoCliente = CorreoC;
+                                                        imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                                        imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                                        imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                                        imprimirTicketVenta.Referencia = referencia;
+
+                                                        imprimirTicketVenta.ShowDialog();
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    FormNotaDeVenta form = new FormNotaDeVenta(idVenta);
+                                                    FormNotaDeVenta.fuePorVenta = true;
+                                                    form.ShowDialog();
+                                                }
+
+
+                                            }
+                                            else if (dt.Rows[0]["PregutarTicketVentaCancelada"].Equals(1))
+                                            {
+                                                DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket De La Cancelación", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                                if (respuestaImpresion.Equals(DialogResult.Yes))
+                                                {
+                                                    if (dt.Rows[0]["TicketOPDFTicketVentaCancelada"].Equals(1))
+                                                    {
+                                                        using (ImprimirTicketCancelado8cm imprimirTicketVenta = new ImprimirTicketCancelado8cm())
+                                                        {
+                                                            imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+
+                                                            imprimirTicketVenta.Logo = logo;
+                                                            imprimirTicketVenta.Nombre = Usuario;
+                                                            imprimirTicketVenta.NombreComercial = NombreComercial;
+                                                            imprimirTicketVenta.DireccionCiudad = Direccion;
+                                                            imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                                            imprimirTicketVenta.RFC = RFC;
+                                                            imprimirTicketVenta.Correo = Correo;
+                                                            imprimirTicketVenta.Telefono = Telefono;
+                                                            imprimirTicketVenta.NombreCliente = NombreC;
+                                                            imprimirTicketVenta.RFCCliente = RFCC;
+                                                            imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                                            imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                                            imprimirTicketVenta.CorreoCliente = CorreoC;
+                                                            imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                                            imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                                            imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                                            imprimirTicketVenta.Referencia = referencia;
+
+                                                            imprimirTicketVenta.ShowDialog();
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        FormNotaDeVenta form = new FormNotaDeVenta(idVenta);
+                                                        FormNotaDeVenta.fuePorVenta = true;
+                                                        form.ShowDialog();
+                                                    }
+                                                }
+                                                else if (dt.Rows[0]["AbrirCajaCancelada"].Equals(1))
+                                                {
+                                                    AbrirSinTicket abrir = new AbrirSinTicket();
+                                                    abrir.Show();
+                                                }
+                                            }
+                                            else if (dt.Rows[0]["AbrirCajaCancelada"].Equals(1))
+                                            {
+                                                AbrirSinTicket abrir = new AbrirSinTicket();
+                                                abrir.Show();
+                                            }
+                                        }
+                                    }
+                                }
                                 var mensajeCancelar = string.Empty;
 
                                 mensajeCancelar = cancelarMensajeExitoso();
@@ -3324,7 +3466,7 @@ namespace PuntoDeVentaV2
 
                         using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
                         {
-                            if (dtReglasCreditoVenta.Rows.Count.Equals(0))      
+                            if (dtReglasCreditoVenta.Rows.Count.Equals(0))
                             {
                                 asignarAbonosSinCredito abono = new asignarAbonosSinCredito(idVenta, total);
                                 abono.FormClosed += delegate
@@ -3336,15 +3478,15 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                 AsignarAbonos abono = new AsignarAbonos(idVenta, total);
-                                 abono.FormClosed += delegate
-                            {
-                                  CargarDatos(4);
-                                   };
+                                AsignarAbonos abono = new AsignarAbonos(idVenta, total);
+                                abono.FormClosed += delegate
+                           {
+                               CargarDatos(4);
+                           };
 
-                                 abono.ShowDialog();
+                                abono.ShowDialog();
                             }
-                            
+
                         }
                     }
                     else
@@ -3511,7 +3653,7 @@ namespace PuntoDeVentaV2
             {
                 cancelarDesdeDonde = "Venta (Cancelada) cancelada exitosamente";
             }
-            else if (opcion == "VCC" || opcion== "VCA") //Ventas a credito
+            else if (opcion == "VCC" || opcion == "VCA") //Ventas a credito
             {
                 cancelarDesdeDonde = "Venta a credito cancelada exitosamente";
             }
@@ -5615,7 +5757,7 @@ namespace PuntoDeVentaV2
                 {
                     MessageBox.Show("Sin coincidencias");
                 }
-                
+
             };
             checador.ShowDialog();
         }

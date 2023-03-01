@@ -2051,7 +2051,7 @@ namespace PuntoDeVentaV2
                 var valorPorc = tb.Text;
                 valorPorc = procesarPorcentaje(valorPorc);
                 double porcentaje = Convert.ToDouble(valorPorc);
-                if (porcentaje == 0) { tb.Text = ""; }
+                //if (porcentaje == 0) { tb.Text = ""; }
                 double descuento = precioProducto * porcentaje;
                 tbDescuento.Text = descuento.ToString("0.00");
                 tbPrecioDescuento.Text = (precioProducto - descuento).ToString("0.00");
@@ -2257,7 +2257,15 @@ namespace PuntoDeVentaV2
             }
             else if (longitud == 1)
             {
-                porcentaje = "0.0" + porcentaje;
+                if (porcentaje.Equals("."))
+                {
+                    porcentaje = "0.";
+                }
+                else
+                {
+                    porcentaje = "0.0" + porcentaje;
+                }
+                
             }
             else
             {
