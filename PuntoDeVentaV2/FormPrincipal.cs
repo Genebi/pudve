@@ -1228,6 +1228,7 @@ namespace PuntoDeVentaV2
 
         private void iniciarSesionInventario(string tipo, string idEmpleado, string proveedor = "")
         {
+            proveedor = proveedor.Trim();
             switch (tipo)
             {
                 case "Normal":

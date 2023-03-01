@@ -465,7 +465,7 @@
             // verificadorSesion
             // 
             this.verificadorSesion.Enabled = true;
-            this.verificadorSesion.Interval = 10000;
+            this.verificadorSesion.Interval = 15000;
             this.verificadorSesion.Tick += new System.EventHandler(this.verificadorSesion_Tick);
             // 
             // WEBRevisarInventario
