@@ -94,6 +94,7 @@
             this.txtImporte.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtImporte.Location = new System.Drawing.Point(354, 52);
             this.txtImporte.Name = "txtImporte";
+            this.txtImporte.ShortcutsEnabled = false;
             this.txtImporte.Size = new System.Drawing.Size(225, 21);
             this.txtImporte.TabIndex = 10;
             this.txtImporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
