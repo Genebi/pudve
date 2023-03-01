@@ -1196,7 +1196,7 @@ namespace PuntoDeVentaV2
                                     enviarProdctosWeb();
                                     break;
                                 case "Empleados":
-                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Empleado';");
+                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Empleados';");
                                     enviarEmpleadosWeb();
                                     break;
                                 case "SesionInventario":
@@ -1244,7 +1244,7 @@ namespace PuntoDeVentaV2
                     {
                         ConexionAPPWEB con = new ConexionAPPWEB();
                         con.EjecutarConsulta($"DELETE FROM sesioninventario WHERE IDEmpleado ='{idEmpleado}'");//Se cierran las demas sesiones
-                        //enviarProveedores();
+                        enviarProveedores();
                         string consulta = $"INSERT INTO sesioninventario (IDUsuario, IDEmpleado, Session, Tipo) VALUES('{FormPrincipal.userNickName.Split('@')[0]}','{idEmpleado}', 0, 'Proveedores')";
                         con.EjecutarConsulta(consulta);
                     }
@@ -1265,14 +1265,14 @@ namespace PuntoDeVentaV2
             break;
                 case "proveedorContinuar":
 
-                        //var datosPb = new string[] { "Proveedores", proveedor+ "|2", "0", idEmpleado };
-                        //new Thread(() =>
-                        //{
-                        //    Thread.CurrentThread.IsBackground = true;
-                        //    WEBRevisarInventario revInv = new WEBRevisarInventario(datosPb);
-                        //    revInv.ShowDialog();
-                        //}).Start();
-                    
+                    var datosPb = new string[] { "Proveedores", proveedor + "|2", "0", idEmpleado };
+                    new Thread(() =>
+                    {
+                        Thread.CurrentThread.IsBackground = true;
+                        WEBRevisarInventario revInv = new WEBRevisarInventario(datosPb);
+                        revInv.ShowDialog();
+                    }).Start();
+
                     break;
                 default:
                     break;
@@ -1284,24 +1284,24 @@ namespace PuntoDeVentaV2
             try
             {
                 ConexionAPPWEB con = new ConexionAPPWEB();
-                DataTable valoresProvedores = cn.CargarDatos($"SELECT  IF(true,'{userNickName.Split('@')[0]}','{userNickName.Split('@')[0]}') AS IDUsuario, Nombre, ID FROM proveedores WHERE IDUsuario={userID} AND `Status`=1");
+                DataTable valoresProvedores = cn.CargarDatos($"SELECT  IF(true,'{userNickName.Split('@')[0]}','{userNickName.Split('@')[0]}') AS IDUsuario, Nombre, ID AS IDLocal FROM proveedores WHERE IDUsuario={userID} AND `Status`=1");
                 string consulta = $"DELETE FROM webproveedores WHERE IDUsuario = '{userNickName.Split('@')[0]}'";
                 con.EjecutarConsulta(consulta);
                 ToCSV(valoresProvedores, @"C:\Archivos PUDVE\export.txt");
-                bulkInsertAsync("proveedores");
-            }
+                bulkInsertAsync("webproveedores");
+        }
             catch (Exception)
             {
                 //No se logro la conexion a internet.
                 return;
             }
-        }
+}
 
         private void enviarEmpleadosWeb()
         {
             ConexionAPPWEB con = new ConexionAPPWEB();
-            con.EjecutarConsulta($"DELETE FROM webempleados WHERE IDUsuario = {userNickName.Split('@')[0]}");
-            DataTable empliados = cn.CargarDatos($"SELECT IF(true,'{userNickName.Split('@')[0]}','{userNickName.Split('@')[0]}') AS IDUsuario, Nombre,Usuario,contrasena WHERE {IdUsuario} AND estatus = 1");
+            con.EjecutarConsulta($"DELETE FROM webempleados WHERE IDUsuario = '{userNickName.Split('@')[0]}'");
+            DataTable empliados = cn.CargarDatos($"SELECT IF(true,'{userNickName.Split('@')[0]}','{userNickName.Split('@')[0]}') AS IDUsuario, Nombre,Usuario,contrasena FROM empleados WHERE IDUsuario = {IdUsuario} AND estatus = 1");
             ToCSV(empliados, @"C:\Archivos PUDVE\export.txt");
             bulkInsertAsync("webempleados");
         }
@@ -1502,7 +1502,7 @@ namespace PuntoDeVentaV2
                     bl.FieldTerminator = "+";
                     bl.LineTerminator = "\n";
                     break;
-                case "proveedores":
+                case "webproveedores":
                     bl.Columns.AddRange(new List<string>() { "IDUsuario", "Nombre","IDLocal" });
                     bl.FieldTerminator = "+";
                     bl.LineTerminator = "\n";

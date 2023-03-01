@@ -84,7 +84,7 @@ namespace PuntoDeVentaV2
         public WEBRevisarInventario(string[] datos)
         {
             InitializeComponent();
-
+            this.Visible = false;
             tipoFiltro = datos[0];
             operadorFiltro = datos[1];
             idEmpleado = datos[3];
