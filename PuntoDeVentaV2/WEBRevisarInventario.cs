@@ -98,7 +98,7 @@ namespace PuntoDeVentaV2
             }
             if (tipoFiltro == "Normal")
             {
-                //btnAnterior.Visible = false;
+                btnAnterior.Visible = false;
                 btnOmitir.Location = new Point(23, 19);
                 btnTerminar.Location = new Point(23, 83);
                 btnTerminar.Size = new Size(373, 48);
