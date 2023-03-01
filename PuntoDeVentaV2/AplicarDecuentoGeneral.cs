@@ -41,7 +41,7 @@ namespace PuntoDeVentaV2
                 }
                 
             }
-            if (cantidad > Total)
+            if (cantidad >= Total)
             {
                 txtCantidad.Text = (Total - 1).ToString();
                 txtCantidad.SelectAll();
