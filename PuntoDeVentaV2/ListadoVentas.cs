@@ -5531,17 +5531,17 @@ namespace PuntoDeVentaV2
                     {
                         var lista = new Dictionary<int, Tuple<string, decimal, decimal, decimal>>();
 
-                        decimal anticipo = 0;
+                        //decimal anticipo = 0;
 
                         foreach (var venta in ventas)
                         {
-                            var datosVentas = cn.CargarDatos($"SELECT * FROM Ventas WHERE ID = {venta} AND IDUsuario = {FormPrincipal.userID}");
+                            //var datosVentas = cn.CargarDatos($"SELECT * FROM Ventas WHERE ID = {venta} AND IDUsuario = {FormPrincipal.userID}");
 
-                            if (datosVentas.Rows.Count > 0)
-                            {
-                                DataRow anticipoAux = datosVentas.Rows[0];
-                                anticipo += (decimal)anticipoAux["Anticipo"];
-                            }
+                            //if (datosVentas.Rows.Count > 0)
+                            //{
+                            //    DataRow anticipoAux = datosVentas.Rows[0];
+                            //    anticipo += (decimal)anticipoAux["Anticipo"];
+                            //}
 
                             var datosProductos = cn.CargarDatos($"SELECT * FROM ProductosVenta WHERE IDVenta = {venta}");
 
@@ -5596,7 +5596,7 @@ namespace PuntoDeVentaV2
                             }
 
                             descuento = Math.Round(descuento, 2);
-                            total = Math.Round(total - descuento - anticipo, 2);
+                            total = Math.Round(total - descuento, 2);
                             subTotal = Math.Round(total / (decimal)1.16, 2);
                             iva = Math.Round(subTotal * (decimal)0.16, 2);
 
@@ -5606,8 +5606,8 @@ namespace PuntoDeVentaV2
 
                             string consulta = string.Empty;
 
-                            consulta = $@"INSERT INTO Ventas (IDUsuario, IDCliente, Subtotal, IVA16, Total, Descuento, Anticipo, Folio, Status, FechaOperacion, FormaPago, Cliente, RFC)
-                                        VALUES ('{FormPrincipal.userID}', '{clienteId}', '{subTotal}', '{iva}', '{total}', '{descuento}', '{anticipo}', '{folioVenta}', 5, '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 'Efectivo', 'PUBLICO GENERAL', 'XAXX010101000')";
+                            consulta = $@"INSERT INTO Ventas (IDUsuario, IDCliente, Subtotal, IVA16, Total, Descuento, Folio, Status, FechaOperacion, FormaPago, Cliente, RFC)
+                                        VALUES ('{FormPrincipal.userID}', '{clienteId}', '{subTotal}', '{iva}', '{total}', '{descuento}', '{folioVenta}', 5, '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 'Efectivo', 'PUBLICO GENERAL', 'XAXX010101000')";
 
                             int idVenta = cn.EjecutarConsulta(consulta, regresarID: true);
 
