@@ -6710,10 +6710,16 @@ namespace PuntoDeVentaV2
                     botonRedondo1.Visible = false;
                     botonRedondo2.Visible = false;
                     var datos = cn.CargarDatos($"SELECT GROUP_CONCAT(id SEPARATOR ',') as ids FROM empleados WHERE IDUsuario = {FormPrincipal.userID} AND estatus = 1");
-                    if (!datos.Rows.Count.Equals(0))
+                    if (!string.IsNullOrWhiteSpace(datos.Rows[0][0].ToString()))
                     {
                         var datos2 = cn.CargarDatos($"SELECT SUM(UltimoSaldo ) AS TotalUltimoSaldo FROM(SELECT IDEmpleado, Cantidad AS UltimoSaldo FROM(SELECT IDEmpleado, Cantidad, ROW_NUMBER() OVER(PARTITION BY IDEmpleado ORDER BY FechaOperacion DESC) AS row_num FROM Caja WHERE Concepto = 'Insert primer saldo inicial' AND IDEmpleado IN (0, {datos.Rows[0][0].ToString()}) AND IDUsuario = {FormPrincipal.userID}) c WHERE c.row_num = 1) d");
                         btnRedondoSaldoInicial.Text = "SALDO INICIAL\n" + datos2.Rows[0][0].ToString();
+                        lblCantidadRetirada.Visible = false;
+                        label7.Visible = false;
+                    }
+                    else
+                    { 
+                        btnRedondoSaldoInicial.Text = "SALDO INICIAL\n" + "$ 0.00";
                         lblCantidadRetirada.Visible = false;
                         label7.Visible = false;
                     }
