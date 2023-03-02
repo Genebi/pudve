@@ -485,7 +485,7 @@
             // 
             // actualizarCaja
             // 
-            this.actualizarCaja.Interval = 3000;
+            this.actualizarCaja.Interval = 5000;
             this.actualizarCaja.Tick += new System.EventHandler(this.actualizarCaja_Tick_1);
             // 
             // timerProductos
@@ -506,7 +506,6 @@
             // 
             // webSender
             // 
-            this.webSender.DoWork += new System.ComponentModel.DoWorkEventHandler(this.webSender_DoWork);
             // 
             // bgwCaducos
             // 
