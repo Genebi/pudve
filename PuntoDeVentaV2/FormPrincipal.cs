@@ -35,6 +35,8 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         RespadoBaseDatos backUpDB = new RespadoBaseDatos();
         Cargando cargando = new Cargando();
+        bool listenerIsRunning = false;
+        bool senderIsRunning = false;
 
         //checarVersion vs = new checarVersion();
 
@@ -346,16 +348,19 @@ namespace PuntoDeVentaV2
 
         private void actualizarCaja_Tick_1(object sender, EventArgs e)
         {
-            //if (!FormPrincipal.userNickName.Contains("@"))
-            //{
+            if (listenerIsRunning)
+            {
+                return;
+            }
+          
                 if (pasar==1)
                 {
-                    if (!webListener.IsBusy)
-                    {
-                        webListener.RunWorkerAsync();
-                    }
-                }
-            //}
+                // Create a new thread
+                Thread newThread = new Thread(solicitudWEB);
+
+                // Start the thread
+                newThread.Start();
+            }
         }
 
         private void panelContenedor_Paint(object sender, PaintEventArgs e)
@@ -1175,6 +1180,7 @@ namespace PuntoDeVentaV2
 
         private void solicitudWEB()
         {
+            listenerIsRunning = true;
             try
             {
                 ConexionAPPWEB cn2 = new ConexionAPPWEB();
@@ -1196,6 +1202,8 @@ namespace PuntoDeVentaV2
                                     enviarProdctosWeb();
                                     break;
                                 default:
+                                    listenerIsRunning = false;
+                                    return;
                                     break;
                             }
                         }
@@ -1204,9 +1212,12 @@ namespace PuntoDeVentaV2
             }
             catch (Exception)
             {
+                listenerIsRunning = false;
                 Console.WriteLine("Error garrafal");
                 return;
             }
+            listenerIsRunning = false;
+            return;
         }
 
         private void enviarProdctosWeb()
@@ -1301,18 +1312,20 @@ namespace PuntoDeVentaV2
 
         private void webAuto_Tick(object sender, EventArgs e)
         {
-            //if (pasar == 1)
-            //{
-                if (!webSender.IsBusy )
-                {
-                    webSender.RunWorkerAsync();
-                }
-            //}
+            if (senderIsRunning)
+            {
+                return;
+            }
+            // Create a new thread
+            Thread newThread = new Thread(enviarWebAuto);
+
+            // Start the thread
+            newThread.Start();
         }
 
-        private void webSender_DoWork(object sender, DoWorkEventArgs e)
+        private void enviarWebAuto()
         {
-
+            senderIsRunning = true;
             if (userNickName.Split('@')[0] == "HOUSEDEPOTAUTLAN")
             {
                 string path = @"C:\Archivos PUDVE\Monosas.txt";
@@ -1365,9 +1378,12 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
+                    senderIsRunning = false;
                     return;
                 }
             }
+            senderIsRunning = false;
+            return;
         }
 
         private void btnAyuda_Click(object sender, EventArgs e)

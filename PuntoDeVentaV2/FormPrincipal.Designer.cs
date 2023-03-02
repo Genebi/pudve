@@ -454,7 +454,7 @@
             // 
             // actualizarCaja
             // 
-            this.actualizarCaja.Interval = 3000;
+            this.actualizarCaja.Interval = 5000;
             this.actualizarCaja.Tick += new System.EventHandler(this.actualizarCaja_Tick_1);
             // 
             // timerProductos
@@ -472,10 +472,6 @@
             this.webAuto.Enabled = true;
             this.webAuto.Interval = 4500000;
             this.webAuto.Tick += new System.EventHandler(this.webAuto_Tick);
-            // 
-            // webSender
-            // 
-            this.webSender.DoWork += new System.ComponentModel.DoWorkEventHandler(this.webSender_DoWork);
             // 
             // FormPrincipal
             // 
