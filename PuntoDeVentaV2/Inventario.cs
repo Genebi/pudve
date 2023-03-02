@@ -1397,7 +1397,9 @@ namespace PuntoDeVentaV2
                                 cn2.EjecutarConsulta(cs.insertarDatosTraspaso(clave, dt.Rows[0]["Nombre"].ToString(), item.Cells[7].Value.ToString(), item.Cells[3].Value.ToString()));
 
                             }
-                            MessageBox.Show($"Tu clave de traspaso es: {clave}");
+                            //MessageBox.Show($"Tu clave de traspaso es: {clave}");
+                            mensajeCopiar customMessageBox = new mensajeCopiar($"Tu clave de traspaso es:","Clave generada","Copiar",clave);
+                            customMessageBox.ShowDialog();
                             cn.EjecutarConsulta($"UPDATE DGVDisminuirInventario SET claveTraspaso = '{clave}' WHERE Folio = (SELECT MAX(Folio) FROM dgvdisminuirinventario WHERE IDUsuario = {FormPrincipal.userID}) AND IdUsuario = {FormPrincipal.userID}");
                             clave = "";
                         }
@@ -1526,7 +1528,8 @@ namespace PuntoDeVentaV2
                                 cn2.EjecutarConsulta(cs.insertarDatosTraspaso(clave, dt.Rows[0]["Nombre"].ToString(), item.Cells[7].Value.ToString(), item.Cells[3].Value.ToString()));
 
                             }
-                            MessageBox.Show($"Tu clave de traspaso es: {clave}");
+                            mensajeCopiar customMessageBox = new mensajeCopiar($"Tu clave de traspaso es:", "Clave generada", "Copiar", clave);
+                            customMessageBox.ShowDialog();
                             cn.EjecutarConsulta($"UPDATE DGVDisminuirInventario SET claveTraspaso = '{clave}' WHERE Folio = (SELECT MAX(Folio) FROM dgvdisminuirinventario WHERE IDUsuario = {FormPrincipal.userID}) AND IdUsuario = {FormPrincipal.userID}");
                             clave = "";
                         }

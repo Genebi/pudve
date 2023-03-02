@@ -22,6 +22,7 @@ namespace PuntoDeVentaV2
         public traspaso(DataTable datosTraspaso)
         {
             InitializeComponent();
+            this.Visible = false;
             DGVTraspaso.DataSource = datosTraspaso;
         }
 
@@ -59,12 +60,18 @@ namespace PuntoDeVentaV2
 
                     if (auto)
                     {
+                        MessageBox.Show("Traspaso automático realizado exitosamente.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         btnAceptar.PerformClick();
                     }
                     else
                     {
                         MessageBox.Show("No se pudo realizar el traspaso automáticamente, revise manualmente que todos los productos coincidan.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Visible = true;
                     }
+                }
+                else
+                {
+                    this.Visible = true;
                 }
             }
             

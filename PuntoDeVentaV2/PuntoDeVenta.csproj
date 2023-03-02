@@ -1196,6 +1196,12 @@
     <Compile Include="MensajeConfirmacionDeHabilitarODeshabilitar.Designer.cs">
       <DependentUpon>MensajeConfirmacionDeHabilitarODeshabilitar.cs</DependentUpon>
     </Compile>
+    <Compile Include="mensajeCopiar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mensajeCopiar.Designer.cs">
+      <DependentUpon>mensajeCopiar.cs</DependentUpon>
+    </Compile>
     <Compile Include="MensajeDeHabilitarODeshabilitarProveedor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -2385,6 +2391,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MensajeConfirmacionDeHabilitarODeshabilitar.resx">
       <DependentUpon>MensajeConfirmacionDeHabilitarODeshabilitar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="mensajeCopiar.resx">
+      <DependentUpon>mensajeCopiar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MensajeDeHabilitarODeshabilitarProveedor.resx">
       <DependentUpon>MensajeDeHabilitarODeshabilitarProveedor.cs</DependentUpon>
