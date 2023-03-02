@@ -1858,7 +1858,7 @@ namespace PuntoDeVentaV2
         }
 
         private void calculadora(object sender, KeyPressEventArgs e)
-        {   if (!calculadoraisOut)
+        {if (!calculadoraisOut)
             {
                 calculadoraisOut = true;
                 TextBox tb = (TextBox)sender;
@@ -1992,7 +1992,42 @@ namespace PuntoDeVentaV2
 
         private void soloDecimales(object sender, KeyPressEventArgs e)
         {
-            calculadora2(sender, e);
+            if (!calculadoraisOut)
+            {
+                calculadoraisOut = true;
+                TextBox tb = (TextBox)sender;
+                if (e.KeyChar == Convert.ToChar(Keys.Space))
+                {
+                    calcu++;
+
+                    if (calcu == 1)
+                    {
+                        calculadora calculadora = new calculadora();
+
+                        calculadora.FormClosed += delegate
+                        {
+                            if (calculadora.seEnvia.Equals(true))
+                            {
+
+                                tb.Text = calculadora.lCalculadora.Text;
+                                calculadoraisOut = false;
+
+                            }
+
+                        };
+
+                        calcu = 0;
+                        if (!calculadora.Visible)
+                        {
+                            calculadora.Show();
+                        }
+                        else
+                        {
+                            calculadora.Show();
+                        }
+                    }
+                }
+            }
             //permite 0-9, eliminar y decimal
             if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
             {
@@ -2009,37 +2044,7 @@ namespace PuntoDeVentaV2
             
         }
 
-        private void calculadora2(object sender, KeyPressEventArgs e)
-        {
-            TextBox txt = (TextBox)sender;
-            int calcu = 0;
-            if (e.KeyChar == Convert.ToChar(Keys.Space))
-            {
-                calcu++;
-
-                if (calcu == 1)
-                {
-                    calculadora calculadora = new calculadora();
-
-                    calculadora.FormClosed += delegate
-                    {
-                        if (calculadora.seEnvia.Equals(true))
-                        {
-                            txt.Text = calculadora.lCalculadora.Text;
-                        }
-                        calcu = 0;
-                    };
-                    if (!calculadora.Visible)
-                    {
-                        calculadora.Show();
-                    }
-                    else
-                    {
-                        calculadora.Show();
-                    }
-                }
-            }
-        }
+       
         //Este evento es principalmente para los descuentos por Cliente
         private void calculoDescuento(object sender, KeyEventArgs e)
         {
