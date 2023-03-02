@@ -2134,6 +2134,12 @@ namespace PuntoDeVentaV2
 
             if (id == "1")
             {
+                if (Convert.ToDecimal(tb1.Text)<=1)
+                {
+                    MessageBox.Show("La cantidad limite nueva no puede ser menor o igual a la cantidad limite anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    tb1.Focus();
+                    return;
+                }
                 cb.Text = "Las primeras " + tb1.Text + " siempre costarán " + precioProducto.ToString("0.00");
             }
             else
