@@ -687,6 +687,8 @@ namespace PuntoDeVentaV2
                     cn.EjecutarConsulta($"INSERT INTO configuraciondetickets(IDUsuario)VALUES({IdUsuario})");
                 }
             }
+
+            btnAyuda.Focus();
         }
 
         private void EnvioCorreoLicenciaActiva()
