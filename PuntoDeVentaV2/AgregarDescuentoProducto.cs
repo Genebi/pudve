@@ -2053,6 +2053,11 @@ namespace PuntoDeVentaV2
                 double porcentaje = Convert.ToDouble(valorPorc);
                 //if (porcentaje == 0) { tb.Text = ""; }
                 double descuento = precioProducto * porcentaje;
+                if (valorPorc.Equals("0."))
+                {
+                    tb.Text = "0.";
+                    tb.Select(tb.Text.Length, 0);
+                }
                 tbDescuento.Text = descuento.ToString("0.00");
                 tbPrecioDescuento.Text = (precioProducto - descuento).ToString("0.00");
             }
