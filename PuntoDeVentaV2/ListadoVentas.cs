@@ -1473,6 +1473,10 @@ namespace PuntoDeVentaV2
             {
                 DGVListadoVentas.Columns["ganancia"].Visible = true;
             }
+            if (cbTipoVentas.SelectedIndex.Equals(1))
+            {
+                DGVListadoVentas.Columns["Timbrar"].Visible = false;
+            }
         }
 
         private void UpdListadoCols(string estado)
