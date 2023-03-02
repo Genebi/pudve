@@ -1771,7 +1771,7 @@ namespace PuntoDeVentaV2
                 formulario.Dock = DockStyle.Fill;
                 panelContenedor.Controls.Add(formulario);
                 panelContenedor.Tag = formulario;
-                formulario.Show();
+                        formulario.Show();
                 formulario.BringToFront();
             }
             else
