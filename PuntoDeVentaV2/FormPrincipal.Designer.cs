@@ -504,9 +504,6 @@
             this.webAuto.Interval = 4500000;
             this.webAuto.Tick += new System.EventHandler(this.webAuto_Tick);
             // 
-            // webSender
-            // 
-            // 
             // bgwCaducos
             // 
             this.bgwCaducos.WorkerSupportsCancellation = true;

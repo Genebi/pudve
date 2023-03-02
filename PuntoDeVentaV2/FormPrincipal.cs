@@ -1170,16 +1170,16 @@ namespace PuntoDeVentaV2
 
         private void webListener_DoWork(object sender, DoWorkEventArgs e)
         {
-            if (userNickName.Split('@')[0]=="HOUSEDEPOTAUTLAN")
-            {
-                string path = @"C:\Archivos PUDVE\Monosas.txt";
-                if (!System.IO.File.Exists(path))
-                {
-                    return;
-                }                
-            }
+            //if (userNickName.Split('@')[0]=="HOUSEDEPOTAUTLAN")
+            //{
+            //    string path = @"C:\Archivos PUDVE\Monosas.txt";
+            //    if (!System.IO.File.Exists(path))
+            //    {
+            //        return;
+            //    }                
+            //}
             
-            solicitudWEB();
+            //solicitudWEB();
 
         }
 
@@ -1210,6 +1210,10 @@ namespace PuntoDeVentaV2
                                     cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Empleados';");
                                     enviarEmpleadosWeb();
                                     break;
+                                case "Filtros":
+                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Filtros';");
+                                    enviarFiltrosWeb();
+                                    break;
                                 case "SesionInventario":
                                     cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Empleado = '{peticion["Empleado"].ToString()}' ");
                                     iniciarSesionInventario(peticion["Tipo"].ToString(), peticion["Empleado"].ToString());
@@ -1235,6 +1239,26 @@ namespace PuntoDeVentaV2
             {
                 listenerIsRunning = false;
                 Console.WriteLine("Error garrafal");
+                return;
+            }
+            listenerIsRunning = false;
+            return;
+        }
+
+        private void enviarFiltrosWeb()
+        {
+            try
+            {
+                ConexionAPPWEB con = new ConexionAPPWEB();
+                DataTable valoresProvedores = cn.CargarDatos($"SELECT  IF(true,'{userNickName.Split('@')[0]}','{userNickName.Split('@')[0]}') AS IDUsuario, ChckName AS Filtro, Descripcion AS Valor FROM detallegeneral WHERE IDUsuario={userID} AND `Mostrar`=1");
+                string consulta = $"DELETE FROM webproveedores WHERE IDUsuario = '{userNickName.Split('@')[0]}'";
+                con.EjecutarConsulta(consulta);
+                ToCSV(valoresProvedores, @"C:\Archivos PUDVE\export.txt");
+                bulkInsertAsync("webproveedores");
+            }
+            catch (Exception)
+            {
+                //No se logro la conexion a internet.
                 return;
             }
         }

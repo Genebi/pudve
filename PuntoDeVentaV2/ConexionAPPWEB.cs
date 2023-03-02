@@ -46,8 +46,8 @@ namespace PuntoDeVentaV2
 
         public void Conectarse(bool ignorar = false)
         {
-            sql_con = new MySqlConnection("datasource=74.208.135.60;port=3306;username=app;password=12Steroids12;database=pudve;");
-            //sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
+            //sql_con = new MySqlConnection("datasource=74.208.135.60;port=3306;username=app;password=12Steroids12;database=pudve;");
+            sql_con = new MySqlConnection("datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;");
         }
 
         //Sirve para los INSERT, UPDATE, DELETE
