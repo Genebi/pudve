@@ -2171,6 +2171,16 @@ namespace PuntoDeVentaV2
 
                 cb.Text = $"De entre {(Convert.ToInt32(rangoInicial) + 1)} a {tb1.Text} siempre costarán {tb2.Text}";
             }
+            try
+            {
+                rangoInicial = float.Parse(tb1.Text);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No se permiten los caracteres especiales", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tb1.Clear();
+                return;
+            }
 
             tb1.Enabled = false;
             tb2.Enabled = false;
@@ -2191,15 +2201,7 @@ namespace PuntoDeVentaV2
                 Button bt = (Button)this.Controls.Find("btnAgregarD" + id, true).FirstOrDefault();
                 bt.Enabled = false;
             }
-            try
-            {
-                rangoInicial = float.Parse(tb1.Text);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("No se permiten los caracteres especiales", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+           
             
 
 
