@@ -4911,6 +4911,19 @@ namespace PuntoDeVentaV2
 
         private void btnSubdetalle_Click(object sender, EventArgs e)
         {
+            if (Productos.codProductoEditarVenta.Equals(0) && Productos.dobleClickProducto.Equals(0))
+            {
+                if (Productos.copiarDatos.Equals(1) || Productos.copiarMensajesProd.Equals(1))
+                {
+
+                }
+                else
+                {
+                    MessageBox.Show("Se requiere guardar el producto antes de asignarle sub detalles", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+            }
             nombreProdSubDetalles = txtNombreProducto.Text;
             subDetallesDeProducto detalles = new subDetallesDeProducto(idEditarProducto);
             detalles.ShowDialog();

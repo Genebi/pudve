@@ -938,7 +938,6 @@ namespace PuntoDeVentaV2
             this.btnSubdetalle.BorderColor = System.Drawing.Color.PaleVioletRed;
             this.btnSubdetalle.BorderRadius = 20;
             this.btnSubdetalle.BorderSize = 0;
-            this.btnSubdetalle.Enabled = false;
             this.btnSubdetalle.FlatAppearance.BorderSize = 0;
             this.btnSubdetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSubdetalle.ForeColor = System.Drawing.Color.White;

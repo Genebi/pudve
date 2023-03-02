@@ -217,6 +217,9 @@ namespace PuntoDeVentaV2
                     {
                         cargarsubCategorias(categoria);
                     }
+
+                    dgvDetallesSubdetalle.CurrentCell = dgvDetallesSubdetalle.Rows[0].Cells[7];
+                    dgvDetallesSubdetalle.BeginEdit(true);
                     break;
                 case "Inventario":
                     dtDetallesSubdetalle = cn.CargarDatos($"SELECT detallesubdetalle.ID, IF(subdetallesdeproducto.TipoDato = 0, detallesubdetalle.Fecha, IF( subdetallesdeproducto.TipoDato = 1, detallesubdetalle.Valor, detallesubdetalle.Nombre)) AS Valor, detallesubdetalle.Stock, productos.Stock AS TotalStock,subdetallesdeproducto.TipoDato,subdetallesdeproducto.ID AS SubID,0.00 FROM subdetallesdeproducto LEFT JOIN detallesubdetalle ON (detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado=1) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE subdetallesdeproducto.Categoria = '{categoria}' AND productos.id = {idProducto} AND subdetallesdeproducto.Activo = 1");
