@@ -81,6 +81,8 @@ namespace PuntoDeVentaV2
 
         public static int mostrar = 0;
 
+        string CantidadNueva = "";
+
         public RevisarInventario(string[] datos)
         {
             InitializeComponent();
@@ -1263,7 +1265,7 @@ namespace PuntoDeVentaV2
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
 
-
+            CantidadNueva = txtCantidadStock.Text;
 
             verificarCodigoFiltroProveedor();
 
@@ -1406,7 +1408,9 @@ namespace PuntoDeVentaV2
 
                             LimpiarCampos();
                             //txtBoxBuscarCodigoBarras.Focus();
-
+                            
+                            Thread envio = new Thread(() => CuerpoEmails());
+                            envio.Start();
                             if (tipoFiltro == "Normal")
                             {
                                 txtBoxBuscarCodigoBarras.Focus();
@@ -1517,6 +1521,10 @@ namespace PuntoDeVentaV2
                                         cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProducto}','Asignacion por Revision  ','{StockAnterior}','{stockFisico}','{fecha}','{FormPrincipal.userNickName}','0.0')");
                                     }
 
+                                    CantidadNueva = txtCantidadStock.Text;
+                                    Thread envio = new Thread(() => CuerpoEmails());
+                                    envio.Start();
+
                                     // Actualizar stock del producto
                                     cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
                                     foreach (string subdetalleUpdate in updatesSubdetalles)
@@ -1575,6 +1583,46 @@ namespace PuntoDeVentaV2
             {
                 cbProveedores.Enabled = false;
                 cbProveedores.Text = "";
+            }
+        }
+
+        private void CuerpoEmails()
+        {
+            using (var dt = cn.CargarDatos($"SELECT StockMinimo from productos WHERE ID = {idProducto}"))
+            {
+                string asunto1 = "";
+                string html1 = "";
+
+                var anterior = Convert.ToDecimal(dt.Rows[0][0]);
+                if (anterior >= Convert.ToDecimal(CantidadNueva))
+                {
+                    asunto1 = "¡AVISO! STOCK MINIMO ALCANZADO POR INVENTARIO.";
+
+                    html1 = @"
+                    <div style='margin-bottom: 50px;'>
+                        <h3 style='text-align: center;'>PRODUCTOS CON STOCK MINIMO</h3><hr>
+                        <ul style='color: black; font-size: 0.9em;'>";
+                    var nombre = "";
+                    using (var DoraCastrosa = cn.CargarDatos($"	SELECT Nombre, CodigoBarras,StockMinimo FROM productos WHERE ID = {idProducto}"))
+                    {
+                        nombre = $"{DoraCastrosa.Rows[0]["Nombre"].ToString()} --- CÓDIGO BARRAS: {DoraCastrosa.Rows[0]["CodigoBarras"].ToString()} --- STOCK MINIMO: {DoraCastrosa.Rows[0]["StockMinimo"].ToString()} --- STOCK ACTUAL: {CantidadNueva}";
+                    }
+                    html1 += $"<li>{nombre}</li>";
+                    
+
+                    var footerCorreo = string.Empty;
+
+                    html1 += $@"
+                        </ul><hr>
+                        {footerCorreo}
+                    </div>";
+                }
+                string Correo = "";
+                using (var DTcorreo = cn.CargarDatos($"SELECT Email FROM usuarios WHERE ID = {FormPrincipal.userID}"))
+                {
+                    Correo = DTcorreo.Rows[0][0].ToString();
+                }
+                Utilidades.EnviarEmail(html1, asunto1, Correo);
             }
         }
 
