@@ -64,7 +64,8 @@ namespace PuntoDeVentaV2
         public string titulo;
         public string texto;
         public string SeleccionaImagen;
-
+        static public string SeCopioMensajeVenta ="";
+        static public string SeCopioMensajeInventario = "";
 
         List<string> prodServPaq = new List<string>();
 
@@ -4265,6 +4266,23 @@ namespace PuntoDeVentaV2
             if (cbDetalleGeneralDefault == "1")
             {
                 limpiarDatosGral(panel);
+            }
+            if (!string.IsNullOrWhiteSpace(SeCopioMensajeVenta))
+            {
+                using (var dt = cn.CargarDatos($"SELECT ID FROM productos ORDER BY ID DESC LIMIT 1"))
+                {
+                    var array = SeCopioMensajeVenta.Split(',');
+                    cn.EjecutarConsulta($"INSERT INTO productmessage(IDProducto,ProductOfMessage,ProductMessageActivated,CantidadMinimaDeCompra)VALUES({dt.Rows[0][0].ToString()},'{array[1]}',1,{array[0]})");
+                }
+                SeCopioMensajeVenta = "";
+            }
+            if (!string.IsNullOrWhiteSpace(SeCopioMensajeInventario))
+            {
+                using (var dt = cn.CargarDatos($"SELECT ID FROM productos ORDER BY ID DESC LIMIT 1"))
+                {
+                    cn.EjecutarConsulta($"INSERT INTO mensajesinventario(IDUsuario,IDProducto,Mensaje,Activo) VALUE({FormPrincipal.userID},{dt.Rows[0][0]},'{SeCopioMensajeInventario}',1)");    
+                }
+                SeCopioMensajeInventario = ""; 
             }
         }
 
