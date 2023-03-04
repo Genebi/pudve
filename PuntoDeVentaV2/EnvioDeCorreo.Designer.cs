@@ -45,10 +45,11 @@
             this.cbCorreoRetirarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoAgregarDineroCaja = new System.Windows.Forms.CheckBox();
             this.cbCorreoPrecioProducto = new System.Windows.Forms.CheckBox();
+            this.chbCaducidad = new System.Windows.Forms.CheckBox();
             this.cbCorreoStockProducto = new System.Windows.Forms.CheckBox();
             this.cbCorreoStockMinimo = new System.Windows.Forms.CheckBox();
             this.cbCorreoVenderProducto = new System.Windows.Forms.CheckBox();
-            this.chbCaducidad = new System.Windows.Forms.CheckBox();
+            this.ckbCorreoAbonos = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,6 +58,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox1.Controls.Add(this.ckbCorreoAbonos);
             this.groupBox1.Controls.Add(this.chkBoxSaldoInicial);
             this.groupBox1.Controls.Add(this.CBXClienteDescuento);
             this.groupBox1.Controls.Add(this.cbRecibirAnricipo);
@@ -101,7 +103,7 @@
             // 
             this.CBXClienteDescuento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.CBXClienteDescuento.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.CBXClienteDescuento.Location = new System.Drawing.Point(468, 136);
+            this.CBXClienteDescuento.Location = new System.Drawing.Point(11, 183);
             this.CBXClienteDescuento.Name = "CBXClienteDescuento";
             this.CBXClienteDescuento.Size = new System.Drawing.Size(261, 21);
             this.CBXClienteDescuento.TabIndex = 135;
@@ -144,7 +146,7 @@
             // 
             this.chRespaldo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chRespaldo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
-            this.chRespaldo.Location = new System.Drawing.Point(468, 159);
+            this.chRespaldo.Location = new System.Drawing.Point(11, 206);
             this.chRespaldo.Name = "chRespaldo";
             this.chRespaldo.Size = new System.Drawing.Size(381, 21);
             this.chRespaldo.TabIndex = 126;
@@ -280,6 +282,20 @@
             this.cbCorreoPrecioProducto.UseVisualStyleBackColor = true;
             this.cbCorreoPrecioProducto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoPrecioProducto_MouseClick);
             // 
+            // chbCaducidad
+            // 
+            this.chbCaducidad.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.chbCaducidad.AutoSize = true;
+            this.chbCaducidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chbCaducidad.Location = new System.Drawing.Point(239, 159);
+            this.chbCaducidad.Name = "chbCaducidad";
+            this.chbCaducidad.Size = new System.Drawing.Size(189, 20);
+            this.chbCaducidad.TabIndex = 112;
+            this.chbCaducidad.Text = "Diariamente  de caducidad";
+            this.chbCaducidad.UseVisualStyleBackColor = true;
+            this.chbCaducidad.Visible = false;
+            this.chbCaducidad.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chbCaducidad_MouseClick);
+            // 
             // cbCorreoStockProducto
             // 
             this.cbCorreoStockProducto.Anchor = System.Windows.Forms.AnchorStyles.Top;
@@ -319,19 +335,17 @@
             this.cbCorreoVenderProducto.UseVisualStyleBackColor = true;
             this.cbCorreoVenderProducto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbCorreoVenderProducto_MouseClick);
             // 
-            // chbCaducidad
+            // ckbCorreoAbonos
             // 
-            this.chbCaducidad.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.chbCaducidad.AutoSize = true;
-            this.chbCaducidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chbCaducidad.Location = new System.Drawing.Point(239, 159);
-            this.chbCaducidad.Name = "chbCaducidad";
-            this.chbCaducidad.Size = new System.Drawing.Size(189, 20);
-            this.chbCaducidad.TabIndex = 112;
-            this.chbCaducidad.Text = "Diariamente  de caducidad";
-            this.chbCaducidad.UseVisualStyleBackColor = true;
-            this.chbCaducidad.Visible = false;
-            this.chbCaducidad.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chbCaducidad_MouseClick);
+            this.ckbCorreoAbonos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ckbCorreoAbonos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.ckbCorreoAbonos.Location = new System.Drawing.Point(468, 142);
+            this.ckbCorreoAbonos.Name = "ckbCorreoAbonos";
+            this.ckbCorreoAbonos.Size = new System.Drawing.Size(381, 21);
+            this.ckbCorreoAbonos.TabIndex = 137;
+            this.ckbCorreoAbonos.Text = "Al recibir un Abono";
+            this.ckbCorreoAbonos.UseVisualStyleBackColor = true;
+            this.ckbCorreoAbonos.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ckbCorreoAbonos_MouseClick);
             // 
             // EnvioDeCorreo
             // 
@@ -380,5 +394,6 @@
         private System.Windows.Forms.CheckBox CBXClienteDescuento;
         private System.Windows.Forms.CheckBox chkBoxSaldoInicial;
         private System.Windows.Forms.CheckBox chbCaducidad;
+        private System.Windows.Forms.CheckBox ckbCorreoAbonos;
     }
 }
