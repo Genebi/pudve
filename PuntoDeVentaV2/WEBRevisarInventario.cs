@@ -132,6 +132,9 @@ namespace PuntoDeVentaV2
                     case "Proveedores":
                         consulta = $"UPDATE sesioninventario SET session = 1 WHERE IDEmpleado = '{idEmpleado}'";
                         break;
+                    case "Filtros":
+                        consulta = $"UPDATE sesioninventario SET session = 1 WHERE IDEmpleado = '{idEmpleado}'";
+                        break;
                     default:
                         break;
                 }
@@ -610,7 +613,7 @@ namespace PuntoDeVentaV2
                                 LimpiarCampos();
                                 txtBoxBuscarCodigoBarras.Focus();
                             }
-                            //Si jalo puta madre fierro alaverga
+
                             con.EjecutarConsulta($"INSERT INTO datosProducto(CodigoBarras, Nombre, Proveedores, Precio, StockMin, StockMax, Stock, Usuario, Empleado,Exito, Revision) VALUES('{txtCodigoBarras.Text}', '{txtNombreProducto.Text}', 'TEST', '{lblPrecioProducto.Text}', '{lblStockMinimo.Text}', '{lblStockMaximo.Text}', '{txtCantidadStock.Text}', '{FormPrincipal.userNickName.Split('@')[0]}', '{idEmpleado}',1,{lblNoRevision.Text})");
 
                         }
@@ -660,6 +663,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            con.EjecutarConsulta($"INSERT INTO datosProducto(CodigoBarras, Nombre, Proveedores, Precio, StockMin, StockMax, Stock, Usuario, Empleado,Exito, Revision) VALUES('{txtCodigoBarras.Text}', '{txtNombreProducto.Text}', 'TEST', '{lblPrecioProducto.Text}', '{lblStockMinimo.Text}', '{lblStockMaximo.Text}', '{txtCantidadStock.Text}', '{FormPrincipal.userNickName.Split('@')[0]}', '{idEmpleado}',1,{lblNoRevision.Text})");
         }
 
         private void funcionesFiltroProveedor(List<string> listaCodigosBarras, string codigo)

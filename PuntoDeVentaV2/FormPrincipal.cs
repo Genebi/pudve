@@ -1210,10 +1210,6 @@ namespace PuntoDeVentaV2
                                     cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Empleados';");
                                     enviarEmpleadosWeb();
                                     break;
-                                case "Filtros":
-                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Filtros';");
-                                    enviarFiltrosWeb();
-                                    break;
                                 case "SesionInventario":
                                     cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Empleado = '{peticion["Empleado"].ToString()}' ");
                                     iniciarSesionInventario(peticion["Tipo"].ToString(), peticion["Empleado"].ToString());
@@ -1223,6 +1219,10 @@ namespace PuntoDeVentaV2
                                     iniciarSesionInventario(peticion["Solicitud"].ToString(), peticion["Empleado"].ToString(), peticion["Tipo"].ToString());
                                     break;
                                 case "proveedorContinuar":
+                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Empleado = '{peticion["Empleado"].ToString()}' ");
+                                    iniciarSesionInventario(peticion["Solicitud"].ToString(), peticion["Empleado"].ToString(), peticion["Tipo"].ToString());
+                                    break;
+                                case "FiltrosS":
                                     cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Empleado = '{peticion["Empleado"].ToString()}' ");
                                     iniciarSesionInventario(peticion["Solicitud"].ToString(), peticion["Empleado"].ToString(), peticion["Tipo"].ToString());
                                     break;
@@ -1250,11 +1250,12 @@ namespace PuntoDeVentaV2
             try
             {
                 ConexionAPPWEB con = new ConexionAPPWEB();
-                DataTable valoresProvedores = cn.CargarDatos($"SELECT  IF(true,'{userNickName.Split('@')[0]}','{userNickName.Split('@')[0]}') AS IDUsuario, ChckName AS Filtro, Descripcion AS Valor FROM detallegeneral WHERE IDUsuario={userID} AND `Mostrar`=1");
-                string consulta = $"DELETE FROM webproveedores WHERE IDUsuario = '{userNickName.Split('@')[0]}'";
+                DataTable valoresFiltros = cn.CargarDatos($"SELECT  IF(true,'{userNickName.Split('@')[0]}','{userNickName.Split('@')[0]}') AS IDUsuario, ChckName AS Filtro, Descripcion AS Valor FROM detallegeneral WHERE IDUsuario={userID} AND `Mostrar`=1");
+                string consulta = $"DELETE FROM webfiltros WHERE IDUsuario = '{userNickName.Split('@')[0]}'";
                 con.EjecutarConsulta(consulta);
-                ToCSV(valoresProvedores, @"C:\Archivos PUDVE\export.txt");
-                bulkInsertAsync("webproveedores");
+                ToCSV(valoresFiltros, @"C:\Archivos PUDVE\export.txt");
+                bulkInsertAsync("webfiltros");
+                return;
             }
             catch (Exception)
             {
@@ -1263,9 +1264,9 @@ namespace PuntoDeVentaV2
             }
         }
 
-        private void iniciarSesionInventario(string tipo, string idEmpleado, string proveedor = "")
+        private void iniciarSesionInventario(string tipo, string idEmpleado, string valor = "")
         {
-            proveedor = proveedor.Trim();
+            valor = valor.Trim();
             switch (tipo)
             {
                 case "Normal":
@@ -1291,8 +1292,22 @@ namespace PuntoDeVentaV2
                         //Error de conexion
                     }
                     break;
+                case "Filtros":
+                    try
+                    {
+                        ConexionAPPWEB con = new ConexionAPPWEB();
+                        con.EjecutarConsulta($"DELETE FROM sesioninventario WHERE IDEmpleado ='{idEmpleado}'");//Se cierran las demas sesiones
+                        enviarFiltrosweb();
+                        string consulta = $"INSERT INTO sesioninventario (IDUsuario, IDEmpleado, Session, Tipo) VALUES('{FormPrincipal.userNickName.Split('@')[0]}','{idEmpleado}', 0, 'Personalizado')";
+                        con.EjecutarConsulta(consulta);
+                    }
+                    catch (Exception)
+                    {
+                        //Error de conexion
+                    }
+                    break;
                 case "proveedorDesde0":
-                        var datosP = new string[] { "Proveedores", proveedor+ "|1", "0", idEmpleado };
+                        var datosP = new string[] { "Proveedores", valor+ "|1", "0", idEmpleado };
                     new Thread(() =>
                     {
                         Thread.CurrentThread.IsBackground = true;
@@ -1303,7 +1318,7 @@ namespace PuntoDeVentaV2
             break;
                 case "proveedorContinuar":
 
-                    var datosPb = new string[] { "Proveedores", proveedor + "|2", "0", idEmpleado };
+                    var datosPb = new string[] { "Proveedores", valor + "|2", "0", idEmpleado };
                     new Thread(() =>
                     {
                         Thread.CurrentThread.IsBackground = true;
@@ -1312,8 +1327,52 @@ namespace PuntoDeVentaV2
                     }).Start();
 
                     break;
+                case "FiltrosS":
+                    
+                    var datosPF = new string[] { "Filtros", valor.Split('|')[0], valor.Split('|')[1], idEmpleado };
+                    new Thread(() =>
+                    {
+                        Thread.CurrentThread.IsBackground = true;
+                        WEBRevisarInventario revInv = new WEBRevisarInventario(datosPF);
+                        revInv.ShowDialog();
+                    }).Start();
+
+                    break;
                 default:
                     break;
+            }
+        }
+
+        private void enviarFiltrosweb()
+        {
+            try
+            {
+                ConexionAPPWEB con = new ConexionAPPWEB();
+                DataTable valoresProvedores = cn.CargarDatos($"SELECT  IF(true,'{userNickName.Split('@')[0]}','{userNickName.Split('@')[0]}') AS IDUsuario, ChckName AS Filtro, Descripcion AS Valor FROM detallegeneral WHERE IDUsuario={userID} AND `Mostrar`=1");
+                string consulta = $"DELETE FROM webfiltros WHERE IDUsuario = '{userNickName.Split('@')[0]}'";
+                con.EjecutarConsulta(consulta);
+                ToCSV(valoresProvedores, @"C:\Archivos PUDVE\export.txt");
+                bulkInsertAsync("webfiltros");
+            }
+            catch (Exception)
+            {
+                //No se logro la conexion a internet.
+                return;
+            }
+
+            try
+            {
+                ConexionAPPWEB con = new ConexionAPPWEB();
+                DataTable valoresProvedores = cn.CargarDatos($"SELECT  IF(true,'{userNickName.Split('@')[0]}','{userNickName.Split('@')[0]}') AS IDUsuario, Nombre, ID AS IDLocal FROM proveedores WHERE IDUsuario={userID} AND `Status`=1");
+                string consulta = $"DELETE FROM webproveedores WHERE IDUsuario = '{userNickName.Split('@')[0]}'";
+                con.EjecutarConsulta(consulta);
+                ToCSV(valoresProvedores, @"C:\Archivos PUDVE\export.txt");
+                bulkInsertAsync("webproveedores");
+            }
+            catch (Exception)
+            {
+                //No se logro la conexion a internet.
+                return;
             }
         }
 
@@ -1574,7 +1633,13 @@ namespace PuntoDeVentaV2
                     bl.FieldTerminator = "+";
                     bl.LineTerminator = "\n";
                     break;
+                case "webfiltros":
+                    bl.Columns.AddRange(new List<string>() { "IDUsuario", "Filtro", "Valor" });
+                    bl.FieldTerminator = "+";
+                    bl.LineTerminator = "\n";
+                    break;
                 default:
+                    // ??????
                     break;
             }
             
