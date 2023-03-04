@@ -1402,6 +1402,7 @@ namespace PuntoDeVentaV2
 
             // Crea registro en Facturas_productos
             if (opc == 2)
+
             {
                 crea = $"INSERT INTO Facturas_productos (id_factura, clave_unidad, clave_producto, descripcion, cantidad, precio_u) VALUES ('{datos[0]}', 'ACT', '84111506', 'Pago', '1', '0')";
             }

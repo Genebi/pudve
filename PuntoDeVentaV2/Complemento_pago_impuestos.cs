@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace PuntoDeVentaV2
 {
@@ -14,18 +15,97 @@ namespace PuntoDeVentaV2
     {
         int fila_dr = 0;
         int fila_im = 1;
+        int id_factura = 0;
+        
 
-        public Complemento_pago_impuestos(int num_dr)
+        public Complemento_pago_impuestos(int num_dr, int id_fct)
         {
             InitializeComponent();
 
             // Obtiene el número de fila del documento relacionado
-            fila_dr = num_dr; Console.WriteLine("fila_dr=" + fila_dr);
+            fila_dr = num_dr; Console.WriteLine("fila_dr=" + fila_dr+"="+ id_fct);
+            id_factura = id_fct;
         }
 
         private void Complemento_pago_impuestos_Load(object sender, EventArgs e)
         {
+            id_factura = 333;
+            string[][] arr_traslado;
+            string[][] arr_retencion;
+            int t = 0;
+            int r = 0;
 
+            var servidor = Properties.Settings.Default.Hosting;
+            string rutaXML = @"C:\Archivos PUDVE\Facturas\XML_INGRESOS_" + id_factura + ".xml";
+
+            if (!string.IsNullOrWhiteSpace(servidor))
+            {
+                rutaXML = $@"\\{servidor}\Archivos PUDVE\Facturas\XML_INGRESOS_" + id_factura + ".xml";
+            }
+
+            // Leer XML
+
+            XmlDocument xdoc = new XmlDocument();
+            xdoc.Load(rutaXML);
+
+            // Total
+            XmlAttributeCollection c_total = xdoc.DocumentElement.Attributes;
+            string obt_total = ((XmlAttribute)c_total.GetNamedItem("Total")).Value;
+
+
+            // Obtener datos de los nodos impuestos
+
+            XmlNodeList nod_list = xdoc.GetElementsByTagName("cfdi:Conceptos");            
+            XmlNode K = nod_list.Item(0);
+
+            foreach(XmlNode nd_conceptos in K.ChildNodes)
+            {
+                foreach (XmlNode nd_concepto in nd_conceptos.ChildNodes)
+                {
+                    if (nd_concepto.HasChildNodes)
+                    {
+                        foreach (XmlNode nd_impuestos in nd_concepto.ChildNodes)
+                        {
+                            if (nd_impuestos.LocalName == "Traslados")
+                            {
+                                foreach (XmlNode nd_traslados in nd_impuestos.ChildNodes)
+                                {
+                                    XmlNodeList cant_traslado = xdoc.GetElementsByTagName("cfdi:Traslado");
+                                    
+                                    //if(t == 0)
+                                    //{
+                                        arr_traslado = new string[cant_traslado.Count][];
+                                   // }
+                                    
+
+                                    arr_traslado[t] = new string[5];
+
+                                    //arr_traslado[0] = new string[5];
+                                    Console.WriteLine("HOLA traslado");
+                                    Console.WriteLine("DATO= " + nd_traslados.Attributes["Importe"].Value);
+
+                                    t++;
+                                }                                
+                            }
+                            if (nd_impuestos.LocalName == "Retenciones")
+                            {
+                                foreach (XmlNode nd_traslados in nd_impuestos.ChildNodes)
+                                {
+                                    Console.WriteLine("HOLA retención");
+                                }                                    
+                            }
+                        }
+                    }                        
+                }
+                    
+            }
+
+            /*XmlNodeList nod_list = xdoc.GetElementsByTagName("cfdi:Conceptos");
+           
+            foreach(XmlNodeList nd_concepto in nod_list)
+            {
+                Console.WriteLine(nd_concepto.Item(1) + "\n");
+            }*/
         }
 
         private void agregar_nuevo_impuesto(object sender, EventArgs e)

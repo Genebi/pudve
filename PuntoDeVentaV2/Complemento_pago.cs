@@ -199,7 +199,7 @@ namespace PuntoDeVentaV2
                         txt_c_tcambio_dr.KeyPress += new KeyPressEventHandler(solo_decimales);
 
                         ComboBox cmb_bx_c_inc_impuestos = new ComboBox();
-                        cmb_bx_c_inc_impuestos.Name = "cmb_bx_incluye_impuestos" + nfila;
+                        cmb_bx_c_inc_impuestos.Name = "cmb_bx_incluye_impuestos-" + nfila;
                         cmb_bx_c_inc_impuestos.Items.Add("No objeto de impuesto.");
                         cmb_bx_c_inc_impuestos.Items.Add("Sí objeto de impuesto.");
                         cmb_bx_c_inc_impuestos.Items.Add("Sí objeto del impuesto y no obligado al desglose.");
@@ -208,6 +208,7 @@ namespace PuntoDeVentaV2
                         cmb_bx_c_inc_impuestos.DropDownStyle = ComboBoxStyle.DropDownList;
                         cmb_bx_c_inc_impuestos.Width = 300;
                         cmb_bx_c_inc_impuestos.Location = new Point(500, location_y);
+                        cmb_bx_c_inc_impuestos.SelectedValueChanged += new EventHandler(sel_inc_impuestos);
 
                         Button btn_agregar_impuestos = new Button();
                         btn_agregar_impuestos.Name = "btn_agregar_impuestos-" + nfila;
@@ -218,7 +219,16 @@ namespace PuntoDeVentaV2
                         btn_agregar_impuestos.ForeColor = Color.White;
                         btn_agregar_impuestos.Cursor = Cursors.Hand;
                         btn_agregar_impuestos.FlatStyle = FlatStyle.Flat;
+                        btn_agregar_impuestos.Enabled = false;
                         btn_agregar_impuestos.Click += new EventHandler(abrir_vnt_impuestos);
+
+                        Label lb_idf = new Label();
+                        lb_idf.Name = "lb_idf-" + nfila;
+                        lb_idf.Location = new Point(890, location_y);
+                        lb_idf.Size = new Size(10, 28);
+                        lb_idf.Text = id_f.ToString();
+                        lb_idf.Visible = false;
+
 
                         pnl_info.Controls.Add(lb_c_folio_serie);
                         pnl_info.Controls.Add(lb_c_total);
@@ -227,6 +237,7 @@ namespace PuntoDeVentaV2
                         pnl_info.Controls.Add(txt_c_moneda_dr);
                         pnl_info.Controls.Add(txt_c_tcambio_dr);
                         pnl_info.Controls.Add(btn_agregar_impuestos);
+                        pnl_info.Controls.Add(lb_idf);
 
 
                         location_y = location_y + 30;
@@ -681,6 +692,25 @@ namespace PuntoDeVentaV2
             txt_rfc_beneficiario.Text = "(Opcional) RFC.";
         }
 
+        private void sel_inc_impuestos(object sender, EventArgs e)
+        {
+            ComboBox cmb_box = (ComboBox)sender;
+            var nom = cmb_box.Name;
+            var nfila = nom.Split('-');
+
+            Button btn_des_habilita = (Button)this.Controls.Find("btn_agregar_impuestos-" + nfila[1], true).FirstOrDefault();
+
+            
+            if (cmb_box.SelectedItem.ToString() == "Sí objeto de impuesto.")
+            {                
+                btn_des_habilita.Enabled = true;
+            }
+            else
+            {
+                btn_des_habilita.Enabled = false;
+            }
+        }
+
         private void abrir_vnt_moneda(object sender, EventArgs e)
         {
             TextBox  campo = (TextBox)sender; 
@@ -704,9 +734,12 @@ namespace PuntoDeVentaV2
         {
             Button boton = (Button)sender;
             var nombre_boton = boton.Name; 
-            var num_dr = nombre_boton.Split('-'); 
+            var num_dr = nombre_boton.Split('-');
 
-            Complemento_pago_impuestos vnt_impuestos = new Complemento_pago_impuestos(Convert.ToInt32(num_dr[1]));
+            Label lb_id = (Label)this.Controls.Find("lb_idf-" + num_dr[1], true).FirstOrDefault();
+            int id_fct = Convert.ToInt32(lb_id.Text);
+
+            Complemento_pago_impuestos vnt_impuestos = new Complemento_pago_impuestos(Convert.ToInt32(num_dr[1]), id_fct);
             vnt_impuestos.ShowDialog();
         }
     }
