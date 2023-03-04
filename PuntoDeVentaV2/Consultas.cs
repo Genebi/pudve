@@ -789,8 +789,8 @@ namespace PuntoDeVentaV2
 
             if (tipo == 0)
             {
-                consulta = "INSERT INTO Clientes (IDUsuario, RazonSocial, NombreComercial, RFC, UsoCFDI, Pais, Estado, Municipio, Localidad, CodigoPostal, Colonia, Calle, NoExterior, NoInterior, RegimenFiscal, Email, Telefono, FormaPago, FechaOperacion, TipoCliente, NumeroCliente)";
-                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[20]}', '{datos[21]}')";
+                consulta = "INSERT INTO Clientes (IDUsuario, RazonSocial, NombreComercial, RFC, UsoCFDI, Pais, Estado, Municipio, Localidad, CodigoPostal, Colonia, Calle, NoExterior, NoInterior, RegimenFiscal, Email, Telefono, FormaPago, FechaOperacion, TipoCliente, NumeroCliente,Verificado)";
+                consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[20]}', '{datos[21]}','{datos[22]}')";
             }
 
             if (tipo == 1)
@@ -800,7 +800,7 @@ namespace PuntoDeVentaV2
                 //FormaPago = '{datos[17]}', FechaOperacion = '{datos[18]}', TipoCliente = '{datos[20]}' WHERE IDUsuario = {datos[0]} AND RFC = '{datos[3]}' AND ID = '{datos[19]}'";
                 consulta = $@"UPDATE Clientes SET RazonSocial = '{datos[1]}', NombreComercial = '{datos[2]}', RFC = '{datos[3]}', UsoCFDI = '{datos[4]}', Pais = '{datos[5]}', Estado = '{datos[6]}', Municipio = '{datos[7]}', Localidad = '{datos[8]}', 
                             CodigoPostal = '{datos[9]}', Colonia = '{datos[10]}', Calle = '{datos[11]}', NoExterior = '{datos[12]}', NoInterior = '{datos[13]}', RegimenFiscal = '{datos[14]}', Email = '{datos[15]}', Telefono = '{datos[16]}',
-                            FormaPago = '{datos[17]}', FechaOperacion = '{datos[18]}', TipoCliente = '{datos[20]}' WHERE IDUsuario = {datos[0]} AND ID = '{datos[19]}'";
+                            FormaPago = '{datos[17]}', FechaOperacion = '{datos[18]}', TipoCliente = '{datos[20]}', Verificado ='{datos[22]}' WHERE IDUsuario = {datos[0]} AND ID = '{datos[19]}'";
             }
 
             if (tipo == 2)
@@ -831,14 +831,14 @@ namespace PuntoDeVentaV2
 
         public string GuardarAbonos(string[] datos)
         {
-            string consulta = "INSERT INTO Abonos (IDVenta, IDUsuario, Total, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Referencia, FechaOperacion)";
-            consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}')";
+            string consulta = "INSERT INTO Abonos (IDVenta, IDUsuario, Total, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Referencia, FechaOperacion,intereses, cambio,estado,perdonado)";
+            consulta += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}','{datos[10]}','{datos[11]}','{datos[12]}','{datos[13]}')";
             return consulta;
         }
 
         public string GuardarAbonosEmpleados(string[] datos)
         {
-            string consulta = $"INSERT INTO Abonos (IDVenta, IDUsuario, Total, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Referencia, FechaOperacion, IDEmpleado) VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}')";
+            string consulta = $"INSERT INTO Abonos (IDVenta, IDUsuario, Total, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Referencia, FechaOperacion, IDEmpleado,intereses, cambio,estado,perdonado) VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}','{datos[11]}','{datos[12]}','{datos[13]}','{datos[14]}')";
 
             return consulta;
         }
@@ -2004,7 +2004,7 @@ namespace PuntoDeVentaV2
 
         public string searchProductList(string typeToSearch, string busqueda)
         {
-            var consulta = $"SELECT DISTINCT P.ID, P.Nombre, P.Stock, P.Precio, IF ( P.Categoria = 'PAQUETES', 'SERVICIOS', P.Categoria ) AS Categoria, P.CodigoBarras FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID LEFT JOIN CodigoBarrasExtras AS BarCodExt ON BarCodExt.IDProducto = P.ID WHERE U.ID = '{FormPrincipal.userID}' AND P.STATUS = '1' AND ( { typeToSearch } ) AND ( P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%' OR BarCodExt.CodigoBarraExtra LIKE '%{busqueda}%' ) GROUP BY P.Nombre ASC; ";
+            var consulta = $"SELECT DISTINCT P.ID, P.Nombre, P.Stock, P.Precio, IF ( P.Categoria = 'PAQUETES', 'SERVICIOS', P.Categoria ) AS Categoria, P.CodigoBarras FROM Productos AS P INNER JOIN Usuarios AS U ON P.IDUsuario = U.ID LEFT JOIN CodigoBarrasExtras AS BarCodExt ON BarCodExt.IDProducto = P.ID LEFT JOIN subdetallesdeproducto AS Sub ON (Sub.IDProducto = P.ID AND sub.Activo=1) WHERE U.ID = '{FormPrincipal.userID}' AND Sub.IDProducto IS NULL AND P.STATUS = '1' AND ( { typeToSearch } ) AND ( P.Nombre LIKE '%{busqueda}%' OR P.NombreAlterno1 LIKE '%{busqueda}%' OR P.NombreAlterno2 LIKE '%{busqueda}%' OR P.CodigoBarras LIKE '%{busqueda}%' OR BarCodExt.CodigoBarraExtra LIKE '%{busqueda}%' ) GROUP BY P.Nombre ASC; ";
 
             return consulta;
         }
@@ -2045,7 +2045,7 @@ namespace PuntoDeVentaV2
 
         public string VerificarContenidoDinamicoHabilitado(int idUsuario)
         {
-            var consulta = $"SELECT ID, concepto AS Concepto, IDUsuario AS Usuario FROM appSettings WHERE IDUsuario = '{idUsuario}' AND Mostrar = 1 AND concepto != 'Proveedor' ORDER BY Concepto ASC;";
+            var consulta = $"SELECT ID, concepto AS Concepto, IDUsuario AS Usuario FROM appSettings WHERE IDUsuario = '{idUsuario}' AND Mostrar = 1 AND concepto != 'Proveedor' AND concepto != 'Venta_fácil' ORDER BY Concepto ASC;";
 
             return consulta;
         }
@@ -2772,7 +2772,7 @@ namespace PuntoDeVentaV2
 
         public string cargarDatosDeConfiguracion()
         {
-            var consulta = $"SELECT IDUsuario, TicketVenta, IniciarProceso, MostrarCodigoProducto, CerrarSesionAuto, MostrarPrecioProducto, StockNegativo, HabilitarTicketVentas, PrecioMayoreo, checkNoVendidos, traspasos ,MostrarStockConsultaPrecio,PreguntarTicketVenta,TicketOPDF,WebCerrar,WebTotal,WebAuto,traspasoManual,mostrarIVA FROM Configuracion WHERE IDUsuario = '{FormPrincipal.userID}'";
+            var consulta = $"SELECT * FROM Configuracion WHERE IDUsuario = '{FormPrincipal.userID}'"; //Le puse el * para no estar modificnado esto diario que gueba 
 
             return consulta;
         }
@@ -3194,6 +3194,39 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+        public string VerComoAdministradorTodasLasVentasACreditoAtrasadas(int estado, string ultimaFechaDeCorte, string rangoFechaLimite, string formaPago = "NA")
+        {
+            if (formaPago.Equals("NA"))
+            {
+                formaPago = string.Empty;
+            }
+            else
+            {
+                formaPago = $"AND Vent.`FormaPago` = '{formaPago}'";
+            }
+
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '4' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Reg.FechaCierre <= '{DateTime.Now.ToString("yyyy-MM-dd")}' {formaPago} ORDER BY ID DESC ";
+
+            return consulta;
+        }
+
+        public string VerComoAdministradorTodasLasVentasACreditoPorAtrasar(string ayylmao, string formaPago = "NA")
+        {
+            if (formaPago.Equals("NA"))
+            {
+                formaPago = string.Empty;
+            }
+            else
+            {
+                formaPago = $"AND Vent.`FormaPago` = '{formaPago}'";
+            }
+
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '4' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Reg.FechaCierre <= '{ayylmao}' {formaPago} ORDER BY ID DESC ";
+
+            return consulta;
+        }
+
         #endregion
 
         #region Listado Ventas desde Empleado sin busqueda
@@ -3230,6 +3263,20 @@ namespace PuntoDeVentaV2
         public string VerComoEmpleadoTodasLasVentasACredito(int estado, string ultimaFechaDeCorte, string rangoFechaLimite)
         {
             var consulta = $"SELECT Vent.*, Usr.Usuario,SUM(Ab.Total) AS Abonado, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) LEFT JOIN abonos AS Ab ON ( Vent.ID = Ab.IDVenta ) WHERE Vent.`Status` = '{estado}' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Vent.FechaOperacion BETWEEN '{ultimaFechaDeCorte}.999999' AND '{rangoFechaLimite}.999999'GROUP BY Vent.ID ORDER BY ID DESC ";
+
+            return consulta;
+        }
+
+        public string VerComoEmpleadoTodasLasVentasACreditoAtrasadas(int estado, string ultimaFechaDeCorte, string rangoFechaLimite)
+        {
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '4' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Reg.FechaCierre <= '{DateTime.Now.ToString("yyyy-MM-dd")}' ORDER BY ID DESC ";
+
+            return consulta;
+        }
+
+        public string VerComoEmpleadoTodasLasVentasACreditoPorVencer(string fechaProxima)
+        {
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF(Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial) AS 'Consumidor', IF(Emp.nombre IS NULL, CONCAT(Usr.Usuario, ' (ADMIN)'), CONCAT(Emp.nombre, ' (EMPLEADO)') ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '4' AND Vent.IDUsuario = '{FormPrincipal.userID}' AND Reg.FechaCierre <= '{fechaProxima}' ORDER BY ID DESC ";
 
             return consulta;
         }
@@ -3363,6 +3410,8 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+
+
         #endregion
 
         #region Listado Ventas desde Usuario con texto que buscar pero con rango de fechas
@@ -3470,6 +3519,21 @@ namespace PuntoDeVentaV2
 
             return consulta;
         }
+        public string VerComoAdministradorTodasLaVentasGuardadasPorFechasYBusquedaAtrasadas(int status, string FechaInicial, string FechaFinal, string busqueda, string formaPago = "NA")
+        {
+            if (formaPago.Equals("NA"))
+            {
+                formaPago = string.Empty;
+            }
+            else
+            {
+                formaPago = $"AND Vent.`FormaPago` = '{formaPago}'";
+            }
+
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT ( Usr.Usuario, ' (ADMIN)' ), CONCAT ( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM Ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '{status}' AND Vent.IDUsuario = '{FormPrincipal.userID}' {formaPago} AND Reg.FechaCierre <= '{DateTime.Now.ToString("yyyy-MM-dd")}' {busqueda} ORDER BY Vent.ID DESC";
+
+            return consulta;
+        }
 
         public string VerComoAdministradorTodasLaVentasCanceladasPorFechasYBusqueda(int status, string FechaInicial, string FechaFinal, string busqueda, string formaPago = "NA")
         {
@@ -3508,6 +3572,22 @@ namespace PuntoDeVentaV2
             }
 
             var consulta = $"SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT ( Usr.Usuario, ' (ADMIN)' ), CONCAT ( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM Ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{status}' AND Vent.IDEmpleado = '{idEmpleado}' {formaPago} AND Vent.FechaOperacion BETWEEN '{FechaInicial}.999999' AND '{FechaFinal}.999999' { busqueda } ORDER BY Vent.ID DESC";
+
+            return consulta;
+        }
+
+        public string VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusquedaAtrasadas(int status, int idEmpleado, string FechaInicial, string FechaFinal, string busqueda, string formaPago = "NA")
+        {
+            if (formaPago.Equals("NA"))
+            {
+                formaPago = string.Empty;
+            }
+            else
+            {
+                formaPago = $"AND Vent.`FormaPago` = '{formaPago}'";
+            }
+
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT ( Usr.Usuario, ' (ADMIN)' ), CONCAT ( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM Ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '{status}' AND Vent.IDEmpleado = '{idEmpleado}' {formaPago} AND Reg.FechaCierre <= '{DateTime.Now.ToString("yyyy-MM-dd")}' { busqueda } ORDER BY Vent.ID DESC";
 
             return consulta;
         }
@@ -3572,6 +3652,21 @@ namespace PuntoDeVentaV2
             }
 
             var consulta = $"SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT ( Usr.Usuario, ' (ADMIN)' ), CONCAT ( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM Ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) WHERE Vent.`Status` = '{status}'  AND Vent.IDUsuario = '{FormPrincipal.userID}' {formaPago} AND Vent.FechaOperacion BETWEEN '{FechaInicial}.999999' AND '{FechaFinal}.999999' { busqueda } ORDER BY Vent.ID DESC";
+
+            return consulta;
+        }
+        public string VerComoEmpleadoTodasLasVentasACreditoAtrasadasPorFechasYBusqueda(int status, string FechaInicial, string FechaFinal, string busqueda, string formaPago = "NA")
+        {
+            if (formaPago.Equals("NA"))
+            {
+                formaPago = string.Empty;
+            }
+            else
+            {
+                formaPago = $"AND Vent.`FormaPago` = '{formaPago}'";
+            }
+
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF ( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF ( Emp.nombre IS NULL, CONCAT ( Usr.Usuario, ' (ADMIN)' ), CONCAT ( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM Ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa as Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '{status}'  AND Vent.IDUsuario = '{FormPrincipal.userID}' {formaPago} AND Reg.FechaCierre <= '{DateTime.Now.ToString("yyyy-MM-dd")}' { busqueda } ORDER BY Vent.ID DESC";
 
             return consulta;
         }
@@ -3702,6 +3797,38 @@ namespace PuntoDeVentaV2
             }
 
             var consulta = $"SELECT Vent.*, Usr.Usuario,SUM(Ab.Total) AS Abonado, IF( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF( Emp.nombre IS NULL, CONCAT( Usr.Usuario, ' (ADMIN)' ), CONCAT( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado )LEFT JOIN abonos AS Ab ON ( Vent.ID = Ab.IDVenta )  WHERE Vent.`Status` = '{estado}' AND Vent.IDEmpleado = '{idEmpleado}' {formaPago} AND Vent.FechaOperacion BETWEEN '{ultimaFechaDeCorte}.999999' AND '{rangoFechaLimite}.999999' GROUP BY Vent.ID ORDER BY ID DESC";
+
+            return consulta;
+        }
+
+        public string verVentasCreditoAtrasadasPorEmpleadoDesdeAdministrador(int estado, int idEmpleado, string ultimaFechaDeCorte, string rangoFechaLimite, string formaPago = "NA")
+        {
+            if (formaPago.Equals("NA"))
+            {
+                formaPago = string.Empty;
+            }
+            else
+            {
+                formaPago = $"AND Vent.`FormaPago` = '{formaPago}'";
+            }
+
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF( Emp.nombre IS NULL, CONCAT( Usr.Usuario, ' (ADMIN)' ), CONCAT( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa AS Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '4' AND Vent.IDEmpleado = '{idEmpleado}' {formaPago} AND Reg.FechaCierre <= '{DateTime.Now.ToString("yyyy-MM-dd")}' ORDER BY ID DESC";
+
+            return consulta;
+        }
+
+        public string verVentasCreditoVencerPorEmpleadoDesdeAdministrador(int idEmpleado,string fechini, string formaPago = "NA")
+        {
+            if (formaPago.Equals("NA"))
+            {
+                formaPago = string.Empty;
+            }
+            else
+            {
+                formaPago = $"AND Vent.`FormaPago` = '{formaPago}'";
+            }
+
+            var consulta = $"SELECT Vent.*, Usr.Usuario, IF( Clte.RazonSocial IS NULL, 'PUBLICO GENERAL', Clte.RazonSocial ) AS 'Consumidor', IF( Emp.nombre IS NULL, CONCAT( Usr.Usuario, ' (ADMIN)' ), CONCAT( Emp.nombre, ' (EMPLEADO)' ) ) AS 'Vendedor' FROM ventas AS Vent INNER JOIN usuarios AS Usr ON ( Usr.ID = Vent.IDUsuario ) LEFT JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) LEFT JOIN empleados AS Emp ON ( Emp.ID = Vent.IDEmpleado ) INNER JOIN reglascreditoventa AS Reg ON ( Reg.IDVenta = Vent.ID ) WHERE Vent.`Status` = '4' AND Vent.IDEmpleado = '{idEmpleado}' {formaPago} AND Reg.FechaCierre <= '{fechini}' ORDER BY ID DESC";
 
             return consulta;
         }
@@ -4336,6 +4463,7 @@ namespace PuntoDeVentaV2
         public string visualizadorTicketAbono(int idVenta, int idAbono)
         {
             var consulta = $"SELECT usr.RazonSocial, CONCAT( IF ( Usr.Calle = '' OR Usr.Calle IS NULL, '', CONCAT( 'DIRECCION: ', Usr.Calle ) ), IF ( Usr.NoExterior = '' OR Usr.NoExterior IS NULL, '', CONCAT( ' #', Usr.NoExterior ) ), IF ( Usr.NoInterior = '' OR Usr.NoInterior IS NULL, '', CONCAT( ', INTERIOR: ', Usr.NoInterior ) ), IF ( Usr.Municipio = '' OR Usr.Municipio IS NULL, '', CONCAT( ', ', Usr.Municipio ) ), IF ( Usr.Estado = '' OR Usr.Estado IS NULL, '', CONCAT( ', ', Usr.Estado ) ) ) AS 'Domicilio', CONCAT( IF ( Usr.Colonia = '' OR Usr.Colonia IS NULL, '', CONCAT( 'COLONIA: ', Usr.Colonia ) ), IF ( Usr.CodigoPostal = '' OR Usr.CodigoPostal IS NULL, '', CONCAT( ', C.P.:', Usr.CodigoPostal ) ) ) AS 'ColyCP', IF ( Usr.RFC = '' OR Usr.RFC IS NULL, '', Usr.RFC ) AS 'RFC', IF ( Usr.Email = '' OR Usr.Email IS NULL, '', Usr.Email ) AS 'Correo', IF ( Usr.Telefono = '' OR Usr.Telefono IS NULL, '', Usr.Telefono ) AS 'Telefono', IF ( Clte.RazonSocial = '' OR Clte.RazonSocial IS NULL, IF ( Vent.IDCliente = '0', 'PUBLICO GENERAL', '' ), Clte.RazonSocial ) AS 'ClienteNombre', IF ( Clte.RFC = '' OR Clte.RFC IS NULL, IF ( Vent.IDCliente = '0', 'RFC: XAXX010101000', '' ), CONCAT( 'RFC: ', Clte.RFC ) ) AS 'ClienteRFC', CONCAT( IF ( Clte.Calle = '' OR Clte.Calle IS NULL, '', CONCAT( 'DOMICILIO: CALLE/AV.: ', Clte.Calle ) ), IF ( Clte.NoExterior = '' OR Clte.NoExterior IS NULL, '', CONCAT( ' #', Clte.NoExterior ) ), IF ( Clte.NoInterior = '' OR Clte.NoInterior IS NULL, '', CONCAT( ', INTERIOR: ', Clte.NoInterior ) ), IF ( Clte.Localidad = '' OR Clte.Localidad IS NULL, '', CONCAT( ', LOCALIDAD: ', Clte.Localidad ) ), IF ( Clte.Municipio = '' OR Clte.Municipio IS NULL, '', CONCAT( ', MUNICIPIO: ', Clte.Municipio ) ) ) AS 'ClienteDomicilio', CONCAT( IF ( Clte.Colonia = '' OR Clte.Colonia IS NULL, '', CONCAT( 'COLONIA: ', Clte.Colonia ) ), IF ( Clte.CodigoPostal = '' OR Clte.CodigoPostal IS NULL, '', CONCAT( ', C.P.: ', Clte.CodigoPostal ) ) ) AS 'ClienteColoniaCodigoPostal', IF ( Clte.Email = '' OR Clte.Email IS NULL, '', CONCAT( 'CORREO: ', Clte.Email ) ) AS 'ClienteCorreo', IF ( Clte.Telefono = '' OR Clte.Telefono IS NULL, '', CONCAT( 'TELEFONO: ', Clte.Telefono ) ) AS 'ClienteTelefono', vent.Folio AS 'Folio', CONCAT( '$ ', FORMAT( vent.Total, 2 ) ) AS 'TotalOriginal', IF ( SUM( abonos.Total ) = '' OR SUM( abonos.Total ) IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( ( SELECT CASE WHEN ( SELECT MIN( ID ) FROM abonos WHERE IDVenta = '{idVenta}' ) = '{idAbono}' THEN Vent.Total WHEN ( SELECT MIN( ID ) FROM abonos WHERE IDVenta = '{idVenta}' ) != '{idAbono}' THEN ( vent.Total - ( SELECT SUM( Total ) AS 'Total' FROM abonos WHERE ID BETWEEN ( SELECT MIN( ID ) FROM abonos WHERE IDVenta = '{idVenta}' ) AND ( '{idAbono}' - 1 ) ) ) ELSE SUM( abonos.Total ) END AS 'Saldo Anterior' FROM abonos INNER JOIN ventas AS Vent ON ( Vent.ID = abonos.IDVenta ) WHERE abonos.IDVenta = '{idVenta}' ), 2 ) ) ) AS 'SaldoAnterior', IF ( SUM( abonos.Total ) = '' OR SUM( abonos.Total ) IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( ( SELECT Total FROM abonos WHERE IDVenta = '{idVenta}' AND ID = '{idAbono}' ORDER BY ID DESC LIMIT 1 ), 2 ) ) ) AS 'CantidadAbonada', IF ( SUM( abonos.Total ) = '' OR SUM( abonos.Total ) IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( ( vent.Total - ( SELECT SUM( Total ) AS 'Total' FROM abonos WHERE ID BETWEEN ( SELECT MIN( ID ) FROM abonos WHERE IDVenta = '{idVenta}' ) AND ( '{idAbono}' ) ) ), 2 ) ) ) AS 'CantidadRestante', ( SELECT FechaOperacion FROM abonos WHERE IDVenta = '{idVenta}' AND ID = '{idAbono}' ORDER BY ID DESC LIMIT 1 ) AS 'FechaUltimoAbono', 'Comprobante de Abono' AS 'comprobante' FROM `ventas` AS vent INNER JOIN usuarios AS usr ON ( usr.ID = vent.IDUsuario ) INNER JOIN abonos ON ( abonos.IDVenta = vent.ID ) INNER JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) WHERE IDVenta = '{idVenta}'";
+            //var consulta = $"SELECT usr.RazonSocial, CONCAT( IF ( Usr.Calle = '' OR Usr.Calle IS NULL, '', CONCAT( 'DIRECCION: ', Usr.Calle ) ), IF ( Usr.NoExterior = '' OR Usr.NoExterior IS NULL, '', CONCAT( ' #', Usr.NoExterior ) ), IF ( Usr.NoInterior = '' OR Usr.NoInterior IS NULL, '', CONCAT( ', INTERIOR: ', Usr.NoInterior ) ), IF ( Usr.Municipio = '' OR Usr.Municipio IS NULL, '', CONCAT( ', ', Usr.Municipio ) ), IF ( Usr.Estado = '' OR Usr.Estado IS NULL, '', CONCAT( ', ', Usr.Estado ) ) ) AS 'Domicilio', CONCAT( IF ( Usr.Colonia = '' OR Usr.Colonia IS NULL, '', CONCAT( 'COLONIA: ', Usr.Colonia ) ), IF ( Usr.CodigoPostal = '' OR Usr.CodigoPostal IS NULL, '', CONCAT( 'C.P.:', Usr.CodigoPostal ) ) ) AS 'ColyCP', IF ( Usr.RFC = '' OR Usr.RFC IS NULL, '', Usr.RFC ) AS 'RFC', IF ( Usr.Email = '' OR Usr.Email IS NULL, '', Usr.Email ) AS 'Correo', IF ( Usr.Telefono = '' OR Usr.Telefono IS NULL, '', Usr.Telefono ) AS 'Telefono', IF ( Clte.RazonSocial = '' OR Clte.RazonSocial IS NULL, IF ( Vent.IDCliente = '0', 'PUBLICO GENERAL', '' ), Clte.RazonSocial ) AS 'ClienteNombre', IF ( Clte.RFC = '' OR Clte.RFC IS NULL, IF ( Vent.IDCliente = '0', 'RFC: XAXX010101000', '' ), CONCAT( 'RFC: ', Clte.RFC ) ) AS 'ClienteRFC', CONCAT( IF ( Clte.Calle = '' OR Clte.Calle IS NULL, '', CONCAT( 'DOMICILIO: CALLE/AV.: ', Clte.Calle ) ), IF ( Clte.NoExterior = '' OR Clte.NoExterior IS NULL, '', CONCAT( ' #', Clte.NoExterior ) ), IF ( Clte.NoInterior = '' OR Clte.NoInterior IS NULL, '', CONCAT( ', INTERIOR: ', Clte.NoInterior ) ), IF ( Clte.Localidad = '' OR Clte.Localidad IS NULL, '', CONCAT( ', LOCALIDAD: ', Clte.Localidad ) ), IF ( Clte.Municipio = '' OR Clte.Municipio IS NULL, '', CONCAT( ', MUNICIPIO: ', Clte.Municipio ) ) ) AS 'ClienteDomicilio', CONCAT( IF ( Clte.Colonia = '' OR Clte.Colonia IS NULL, '', CONCAT( 'COLONIA: ', Clte.Colonia ) ), IF ( Clte.CodigoPostal = '' OR Clte.CodigoPostal IS NULL, '', CONCAT( ', C.P.: ', Clte.CodigoPostal ) ) ) AS 'ClienteColoniaCodigoPostal', IF ( Clte.Email = '' OR Clte.Email IS NULL, '', CONCAT( 'CORREO: ', Clte.Email ) ) AS 'ClienteCorreo', IF ( Clte.Telefono = '' OR Clte.Telefono IS NULL, '', CONCAT( 'TELEFONO: ', Clte.Telefono ) ) AS 'ClienteTelefono', vent.ID AS 'IDVenta', CONCAT( '$ ', FORMAT( vent.Total, 2 ) ) AS 'TotalOriginal', IF ( SUM( abonos.Total ) = '' OR SUM( abonos.Total ) IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( ( SELECT CASE WHEN ( SELECT MIN( ID ) FROM abonos WHERE IDVenta = '{idVenta}' ) = '{idAbono}' THEN Vent.Total WHEN ( SELECT MIN( ID ) FROM abonos WHERE IDVenta = '{idVenta}' ) != '{idAbono}' THEN ( vent.Total - ( SELECT SUM( Total ) AS 'Total' FROM abonos WHERE ID BETWEEN ( SELECT MIN( ID ) FROM abonos WHERE IDVenta = '{idVenta}' ) AND ( '{idAbono}' - 1 ) ) ) ELSE SUM( abonos.Total ) END AS 'Saldo Anterior' FROM abonos INNER JOIN ventas AS Vent ON ( Vent.ID = abonos.IDVenta ) WHERE abonos.IDVenta = '{idVenta}' ), 2 ) ) ) AS 'SaldoAnterior', IF ( SUM( abonos.Total ) = '' OR SUM( abonos.Total ) IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( ( SELECT Total FROM abonos WHERE IDVenta = '{idVenta}' AND ID = '{idAbono}' ORDER BY ID DESC LIMIT 1 ), 2 ) ) ) AS 'CantidadAbonada',IF(SUM( abonos.intereses ) = '' OR SUM( abonos.intereses ) IS NULL,CONCAT( '$ ', FORMAT( 0, 2 ) ),CONCAT('$ ',FORMAT( ( SELECT Total FROM abonos WHERE IDVenta = '213240' AND ID = '357' ORDER BY ID DESC LIMIT 1),2)))AS'CantidadAbonadaInteres', IF ( SUM( abonos.Total ) = '' OR SUM( abonos.Total ) IS NULL, CONCAT( '$ ', FORMAT( 0, 2 ) ), CONCAT( '$ ', FORMAT( ( vent.Total - ( SELECT SUM( Total ) AS 'Total' FROM abonos WHERE ID BETWEEN ( SELECT MIN( ID ) FROM abonos WHERE IDVenta = '{idVenta}' ) AND ( '{idAbono}' ) ) ), 2 ) ) ) AS 'CantidadRestante', ( SELECT FechaOperacion FROM abonos WHERE IDVenta = '{idVenta}' AND ID = '{idAbono}' ORDER BY ID DESC LIMIT 1 ) AS 'FechaUltimoAbono', 'Comprobante de Abono' AS 'comprobante' FROM `ventas` AS vent INNER JOIN usuarios AS usr ON ( usr.ID = vent.IDUsuario ) INNER JOIN abonos ON ( abonos.IDVenta = vent.ID ) INNER JOIN clientes AS Clte ON ( Clte.ID = Vent.IDCliente ) WHERE IDVenta = '{idVenta}'";
 
             return consulta;
         }
@@ -5085,6 +5213,17 @@ namespace PuntoDeVentaV2
             return nameEmpleado;
         }
 
+        public string BuscarClienteHuella(string idCliente)
+        {
+            string nameEmpleado = string.Empty;
+
+            var query = cn.CargarDatos($"SELECT RazonSocial FROM clientes WHERE ID = '{idCliente}'");
+
+            if (!query.Rows.Count.Equals(0)) { nameEmpleado = query.Rows[0]["RazonSocial"].ToString(); }
+
+            return nameEmpleado;
+        }
+
         public string buscarExistenciaHuellas(string empleadoID)
         {
             var consulta = $"SELECT * FROM detalleschecadorempleados WHERE idEmpleado = '{empleadoID}'";
@@ -5096,6 +5235,15 @@ namespace PuntoDeVentaV2
         {
             var consulta = $"DELETE FROM detalleschecadorempleados WHERE idEmpleado = {empleadoID}";
 
+            return consulta;
+        }
+
+        public string insertarHuellaCliente()
+        {
+            //string consulta = "INSERT INTO detalleschecadorempleados(IDUsuario, IDEmpleado, Huella)";
+            //consulta += $"VALUES('{FormPrincipal.userID}', '{idEmpleado}', '{huella}')";
+            string consulta = "INSERT INTO huellasClientes(IDUsuario, IDCliente, Huella, Nombre)";
+            consulta += $"VALUES(@IDUsuario,@IDEmpleado,@Huella,@Nombre)";
             return consulta;
         }
 

@@ -298,6 +298,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbonosPerdonarIntereses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AbonosPerdonarIntereses.Designer.cs">
+      <DependentUpon>AbonosPerdonarIntereses.cs</DependentUpon>
+    </Compile>
     <Compile Include="AbrirSinTicket.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -460,6 +466,12 @@
     <Compile Include="AsignarAbonos.Designer.cs">
       <DependentUpon>AsignarAbonos.cs</DependentUpon>
     </Compile>
+    <Compile Include="asignarAbonosSinCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="asignarAbonosSinCredito.Designer.cs">
+      <DependentUpon>asignarAbonosSinCredito.cs</DependentUpon>
+    </Compile>
     <Compile Include="AsignarCantidadProdACombo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -531,6 +543,18 @@
     <Compile Include="BusquedaRevisionInventario.Designer.cs">
       <DependentUpon>BusquedaRevisionInventario.cs</DependentUpon>
     </Compile>
+    <Compile Include="CaducidadReporte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CaducidadReporte.Designer.cs">
+      <DependentUpon>CaducidadReporte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Caducos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Caducos.Designer.cs">
+      <DependentUpon>Caducos.cs</DependentUpon>
+    </Compile>
     <Compile Include="CajaAbonos.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -562,6 +586,12 @@
     <Compile Include="Cancelar_XML_mensajes.Designer.cs">
       <DependentUpon>Cancelar_XML_mensajes.cs</DependentUpon>
     </Compile>
+    <Compile Include="canditadPVF.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="canditadPVF.Designer.cs">
+      <DependentUpon>canditadPVF.cs</DependentUpon>
+    </Compile>
     <Compile Include="cantidadComprada.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -589,6 +619,12 @@
     <Compile Include="CargarDatosCaja.cs" />
     <Compile Include="Carga_logo.cs" />
     <Compile Include="catCFDI_tdCFDI_catPagos_Pagos10.cs" />
+    <Compile Include="categoriaSubdetalle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="categoriaSubdetalle.Designer.cs">
+      <DependentUpon>categoriaSubdetalle.cs</DependentUpon>
+    </Compile>
     <Compile Include="CFDI\OpenSSLKey.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -605,6 +641,30 @@
     </Compile>
     <Compile Include="Clientes.Designer.cs">
       <DependentUpon>Clientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clientesAltaHuella.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clientesAltaHuella.Designer.cs">
+      <DependentUpon>clientesAltaHuella.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clientesBuscarPorHuella.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clientesBuscarPorHuella.Designer.cs">
+      <DependentUpon>clientesBuscarPorHuella.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clientesReglasdeCredito.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clientesReglasdeCredito.Designer.cs">
+      <DependentUpon>clientesReglasdeCredito.cs</DependentUpon>
+    </Compile>
+    <Compile Include="clientesVerificarHuella.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="clientesVerificarHuella.Designer.cs">
+      <DependentUpon>clientesVerificarHuella.cs</DependentUpon>
     </Compile>
     <Compile Include="ClosedXML\Excel\Application.cs" />
     <Compile Include="CodeBarMake.cs">
@@ -691,6 +751,12 @@
     <Compile Include="ConsultarListaRelacionados.Designer.cs">
       <DependentUpon>ConsultarListaRelacionados.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConsultarProductosVentaFacil.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConsultarProductosVentaFacil.Designer.cs">
+      <DependentUpon>ConsultarProductosVentaFacil.cs</DependentUpon>
+    </Compile>
     <Compile Include="consultarProductoTraspaso.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -709,6 +775,18 @@
     </Compile>
     <Compile Include="Crear_factura.Designer.cs">
       <DependentUpon>Crear_factura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="creditoFiltradorPorVencer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="creditoFiltradorPorVencer.Designer.cs">
+      <DependentUpon>creditoFiltradorPorVencer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="creditoVerificacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="creditoVerificacion.Designer.cs">
+      <DependentUpon>creditoVerificacion.cs</DependentUpon>
     </Compile>
     <Compile Include="DatosEncabezadoReportes.cs" />
     <Compile Include="datosExtraNvoProductos.cs">
@@ -1131,6 +1209,12 @@
     <Compile Include="MensajeConfirmacionDeHabilitarODeshabilitar.Designer.cs">
       <DependentUpon>MensajeConfirmacionDeHabilitarODeshabilitar.cs</DependentUpon>
     </Compile>
+    <Compile Include="mensajeCopiar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mensajeCopiar.Designer.cs">
+      <DependentUpon>mensajeCopiar.cs</DependentUpon>
+    </Compile>
     <Compile Include="MensajeDeHabilitarODeshabilitarProveedor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1358,10 +1442,25 @@
       <DependentUpon>TicketAbono.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DatosPrimerAbono.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="ReportesImpresion\Ticket\AbrirCaja\TicketAbrirCaja.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>TicketAbrirCaja.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="ReportesImpresion\Ticket\Caducidad\productosCaducidad.cs">
+      <DependentUpon>productosCaducidad.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ReportesImpresion\Ticket\Caducidad\productosCaducidad.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>productosCaducidad.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ReportesImpresion\Ticket\CorteDeCaja\DSReporteCorteDeCaja.Designer.cs">
@@ -1604,6 +1703,12 @@
       <DependentUpon>SetUpPUDVE.cs</DependentUpon>
     </Compile>
     <Compile Include="SQLiteSchema.cs" />
+    <Compile Include="subDetallesDeProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="subDetallesDeProducto.Designer.cs">
+      <DependentUpon>subDetallesDeProducto.cs</DependentUpon>
+    </Compile>
     <Compile Include="Subir_archivos_digitales.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1770,6 +1875,12 @@
     <Compile Include="VincularPC.Designer.cs">
       <DependentUpon>VincularPC.cs</DependentUpon>
     </Compile>
+    <Compile Include="visualizadorAbonoPrimero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="visualizadorAbonoPrimero.Designer.cs">
+      <DependentUpon>visualizadorAbonoPrimero.cs</DependentUpon>
+    </Compile>
     <Compile Include="visualizadorCorteDeCaja.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1853,6 +1964,12 @@
     <Compile Include="WEBCaja.Designer.cs">
       <DependentUpon>WEBCaja.cs</DependentUpon>
     </Compile>
+    <Compile Include="WEBRevisarInventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WEBRevisarInventario.Designer.cs">
+      <DependentUpon>WEBRevisarInventario.cs</DependentUpon>
+    </Compile>
     <Compile Include="WebUploader.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1870,6 +1987,9 @@
     <Compile Include="WinQueryString.Designer.cs">
       <DependentUpon>WinQueryString.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AbonosPerdonarIntereses.resx">
+      <DependentUpon>AbonosPerdonarIntereses.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AbrirSinTicket.resx">
       <DependentUpon>AbrirSinTicket.cs</DependentUpon>
     </EmbeddedResource>
@@ -1984,6 +2104,12 @@
     <EmbeddedResource Include="BusquedaRevisionInventario.resx">
       <DependentUpon>BusquedaRevisionInventario.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CaducidadReporte.resx">
+      <DependentUpon>CaducidadReporte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Caducos.resx">
+      <DependentUpon>Caducos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CajaAbonos.resx">
       <DependentUpon>CajaAbonos.cs</DependentUpon>
     </EmbeddedResource>
@@ -1999,6 +2125,9 @@
     <EmbeddedResource Include="Cancelar_XML_mensajes.resx">
       <DependentUpon>Cancelar_XML_mensajes.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="canditadPVF.resx">
+      <DependentUpon>canditadPVF.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="cantidadComprada.resx">
       <DependentUpon>cantidadComprada.cs</DependentUpon>
     </EmbeddedResource>
@@ -2011,8 +2140,23 @@
     <EmbeddedResource Include="Cargando.resx">
       <DependentUpon>Cargando.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="categoriaSubdetalle.resx">
+      <DependentUpon>categoriaSubdetalle.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Clientes.resx">
       <DependentUpon>Clientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clientesAltaHuella.resx">
+      <DependentUpon>clientesAltaHuella.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clientesBuscarPorHuella.resx">
+      <DependentUpon>clientesBuscarPorHuella.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clientesReglasdeCredito.resx">
+      <DependentUpon>clientesReglasdeCredito.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="clientesVerificarHuella.resx">
+      <DependentUpon>clientesVerificarHuella.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CodeBarMake.resx">
       <DependentUpon>CodeBarMake.cs</DependentUpon>
@@ -2053,6 +2197,9 @@
     <EmbeddedResource Include="ConsultarListaRelacionados.resx">
       <DependentUpon>ConsultarListaRelacionados.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConsultarProductosVentaFacil.resx">
+      <DependentUpon>ConsultarProductosVentaFacil.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="consultarProductoTraspaso.resx">
       <DependentUpon>consultarProductoTraspaso.cs</DependentUpon>
     </EmbeddedResource>
@@ -2061,6 +2208,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Crear_factura.resx">
       <DependentUpon>Crear_factura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="creditoFiltradorPorVencer.resx">
+      <DependentUpon>creditoFiltradorPorVencer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="creditoVerificacion.resx">
+      <DependentUpon>creditoVerificacion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="datosExtraNvoProductos.resx">
       <DependentUpon>datosExtraNvoProductos.cs</DependentUpon>
@@ -2269,6 +2422,9 @@
     <EmbeddedResource Include="MensajeConfirmacionDeHabilitarODeshabilitar.resx">
       <DependentUpon>MensajeConfirmacionDeHabilitarODeshabilitar.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="mensajeCopiar.resx">
+      <DependentUpon>mensajeCopiar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MensajeDeHabilitarODeshabilitarProveedor.resx">
       <DependentUpon>MensajeDeHabilitarODeshabilitarProveedor.cs</DependentUpon>
     </EmbeddedResource>
@@ -2467,6 +2623,9 @@
     <Content Include="ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm3.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="ReportesImpresion\Ticket\Caducidad\ReporteCaducidad.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="ReportesImpresion\Ticket\AbonoRealizado\ReporteAbonos2.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -2511,6 +2670,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SetUpPUDVE.resx">
       <DependentUpon>SetUpPUDVE.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="subDetallesDeProducto.resx">
+      <DependentUpon>subDetallesDeProducto.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Subir_archivos_digitales.resx">
       <DependentUpon>Subir_archivos_digitales.cs</DependentUpon>
@@ -2593,6 +2755,9 @@
     <EmbeddedResource Include="VincularPC.resx">
       <DependentUpon>VincularPC.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="visualizadorAbonoPrimero.resx">
+      <DependentUpon>visualizadorAbonoPrimero.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="visualizadorCorteDeCaja.resx">
       <DependentUpon>visualizadorCorteDeCaja.cs</DependentUpon>
     </EmbeddedResource>
@@ -2632,6 +2797,9 @@
     <EmbeddedResource Include="WEBCaja.resx">
       <DependentUpon>WEBCaja.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WEBRevisarInventario.resx">
+      <DependentUpon>WEBRevisarInventario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WebUploader.resx">
       <DependentUpon>WebUploader.cs</DependentUpon>
     </EmbeddedResource>
@@ -2670,6 +2838,20 @@
       <DependentUpon>TicketAbono.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.xsc">
+      <DependentUpon>DatosPrimerAbono.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DatosPrimerAbono.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\AbonosNuevo\DatosPrimerAbono.xss">
+      <DependentUpon>DatosPrimerAbono.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="ReportesImpresion\Ticket\AbrirCaja\TicketAbrirCaja.xsc">
       <DependentUpon>TicketAbrirCaja.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -2682,6 +2864,20 @@
     </Content>
     <None Include="ReportesImpresion\Ticket\AbrirCaja\TicketAbrirCaja.xss">
       <DependentUpon>TicketAbrirCaja.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\Caducidad\productosCaducidad.xsc">
+      <DependentUpon>productosCaducidad.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\Caducidad\productosCaducidad.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>productosCaducidad.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ReportesImpresion\Ticket\Caducidad\productosCaducidad.xss">
+      <DependentUpon>productosCaducidad.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="ReportesImpresion\Ticket\CorteDeCaja\DSReporteCorteDeCaja.xsc">

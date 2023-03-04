@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
         string cantidadDeCompra;
         private const char SignoDecimal = '.';
         bool Eliminarensaje = false;
+
         public EditarMensajesParaEnviar()
         {
             InitializeComponent();
@@ -93,15 +94,17 @@ namespace PuntoDeVentaV2
                     {
                         mensaje = Productos.copMensajeVent[0];
                         cantidadDeCompra = Productos.copMensajeVent[2];
-                        if (Productos.copMensajeVent[1].ToString().Equals("True"))
+                        if (!string.IsNullOrWhiteSpace(Productos.copMensajeVent[1]))
                         {
-                            activoInactivo = true;
+                            if (Productos.copMensajeVent[1].ToString().Equals("True"))
+                            {
+                                activoInactivo = true;
+                            }
+                            else
+                            {
+                                activoInactivo = false;
+                            }
                         }
-                        else
-                        {
-                            activoInactivo = false;
-                        }
-
                     }
                     else
                     {
@@ -143,6 +146,11 @@ namespace PuntoDeVentaV2
                 txtCantidadCompra.Height = 20;
                 txtCantidadCompra.Location = new Point(270, 33);
                 txtCantidadCompra.ShortcutsEnabled = false;
+                if (!string.IsNullOrWhiteSpace(AgregarEditarProducto.SeCopioMensajeVenta))
+                {
+                    var Array = AgregarEditarProducto.SeCopioMensajeVenta.Split(',');
+                    txtCantidadCompra.Text = Array[0].ToString();
+                }
 
                 panelDatos.Controls.Add(lbNombreProducto);
                 panelDatos.Controls.Add(lbCantidadCompra);
@@ -188,6 +196,7 @@ namespace PuntoDeVentaV2
                 chkMostrarMensaje.AutoCheck = true;
                 chkMostrarMensaje.Location = new Point(210, 3);
                 chkMostrarMensaje.CheckedChanged += new EventHandler(cbxN_CheckedChanged);
+              
 
                 TextBox txtNuevoMensaje = new TextBox();
                 txtNuevoMensaje.Name = "txtMensaje";
@@ -196,6 +205,12 @@ namespace PuntoDeVentaV2
                 txtNuevoMensaje.Width = 299;
                 txtNuevoMensaje.Height = 79;
                 txtNuevoMensaje.Location = new Point(7, 25);
+                if (!string.IsNullOrWhiteSpace(AgregarEditarProducto.SeCopioMensajeVenta))
+                {
+                    var Array = AgregarEditarProducto.SeCopioMensajeVenta.Split(',');
+                    txtNuevoMensaje.Text = Array[1].ToString();
+                }
+
 
                 panelMensaje.Controls.Add(lbMensajeActual);
                 panelMensaje.Controls.Add(txtNuevoMensaje);
@@ -270,13 +285,16 @@ namespace PuntoDeVentaV2
                     if (Productos.copiarMensajesProd.Equals(1))
                     {
                         mensaje = Productos.copMensajeInv[0];
-                        if (Productos.copMensajeInv[1].ToString().Equals("1"))
+                        if (!string.IsNullOrWhiteSpace(Productos.copMensajeInv[1]))
                         {
-                            activoInactivo = true;
-                        }
-                        else
-                        {
-                            activoInactivo = false;
+                            if (Productos.copMensajeInv[1].ToString().Equals("1"))
+                            {
+                                activoInactivo = true;
+                            }
+                            else
+                            {
+                                activoInactivo = false;
+                            }
                         }
                     }
                     else
@@ -334,6 +352,11 @@ namespace PuntoDeVentaV2
                 txtNuevoMensaje.Width = 299;
                 txtNuevoMensaje.Height = 70;
                 txtNuevoMensaje.Location = new Point(7, 30);
+                if (!string.IsNullOrWhiteSpace(AgregarEditarProducto.SeCopioMensajeInventario))
+                {
+                    txtNuevoMensaje.Text = AgregarEditarProducto.SeCopioMensajeInventario;
+                }
+
 
                 CheckBox chkEliminarMsj = new CheckBox();
                 chkEliminarMsj.Text = "Eliminar Mensaje";
@@ -683,248 +706,143 @@ namespace PuntoDeVentaV2
         private void botonConfirmar_click(object sender, EventArgs e)
         {
             var dato = MensajeVentasYMensajeInventario.enviarDato;
-
-            if (dato == "mensajeVentas")
+            if (Productos.SeAbrioCopia.Equals(true))
             {
-                TextBox cantidadCompra = (TextBox)Controls.Find("txtCantidadCompra", true)[0];
-                TextBox mensajeMostrado = (TextBox)Controls.Find("txtMensaje", true)[0];
+                if (dato == "mensajeVentas")
+                {
+                    TextBox cantidadCompra = (TextBox)Controls.Find("txtCantidadCompra", true)[0];
+                    TextBox mensajeMostrado = (TextBox)Controls.Find("txtMensaje", true)[0];
 
-                if (string.IsNullOrWhiteSpace(cantidadCompra.Text) && Eliminarensaje.Equals(false))
-                {
-                    MessageBox.Show("Favor de asignar una cantidad de compra minima.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-                if (string.IsNullOrWhiteSpace(mensajeMostrado.Text) && Eliminarensaje.Equals(false))
-                {
-                    MessageBox.Show("Favor de asignar un mensaje a mostrar.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-            }
-            else if (dato == "mensajeInventario")
-            {
-                TextBox mensajeMostrado = (TextBox)Controls.Find("txtMensaje", true)[0];
-
-                if (string.IsNullOrWhiteSpace(mensajeMostrado.Text) && Eliminarensaje.Equals(false))
-                {
-                    MessageBox.Show("Favor de asignar un mensaje a mostrar.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-            }
-
-            if (dato == "mensajeVentas")
-            {
-                foreach (Control item in this.Controls)
-                {
-                    if (item is FlowLayoutPanel && item.Name.Equals("flpDatos"))
+                    if (string.IsNullOrWhiteSpace(cantidadCompra.Text) && Eliminarensaje.Equals(false))
                     {
-                        foreach (Control itemMensaje in item.Controls)
-                        {
-                            if (itemMensaje is Panel && itemMensaje.Name.Equals("panelDatos"))
-                            {
-                                foreach (Control textoMensaje in itemMensaje.Controls)
-                                {
-                                    if (textoMensaje is TextBox)
-                                    {
-                                        if (textoMensaje.Name.Equals("txtCantidadCompra"))
-                                        {
-                                            if (Productos.dobleClickProducto == 1)
-                                            {
-                                                var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.idprodDobleClick));
-
-                                                if (updateOinsert.Rows.Count.Equals(0))
-                                                {
-                                                    if (Eliminarensaje.Equals(false))
-                                                    {
-                                                        var cantidadMinimaCompra = textoMensaje.Text;
-                                                        if (!string.IsNullOrWhiteSpace(cantidadDeCompra))
-                                                        {
-                                                            cn.EjecutarConsulta(cs.insertarCompraMinima(Productos.idprodDobleClick, Convert.ToInt32(cantidadMinimaCompra)));
-                                                        }
-                                                    }
-                                                   
-                                                }
-                                                else
-                                                {
-                                                    var cantidadMinimaCompra = textoMensaje.Text;
-                                                    if (!string.IsNullOrWhiteSpace(cantidadMinimaCompra))
-                                                    {
-                                                        cn.EjecutarConsulta(cs.actualizarCompraMinima(Productos.idprodDobleClick, cantidadMinimaCompra));
-                                                    }
-                                                }
-                                            }
-                                            else
-                                            {
-                                                var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.codProductoEditarVenta));
-
-                                                if (updateOinsert.Rows.Count.Equals(0))
-                                                {
-                                                    if (Eliminarensaje.Equals(false))
-                                                    {
-                                                        var cantidadMinimaCompra = textoMensaje.Text;
-                                                        if (!string.IsNullOrWhiteSpace(cantidadDeCompra))
-                                                        {
-                                                            cn.EjecutarConsulta(cs.insertarCompraMinima(Productos.codProductoEditarVenta, Convert.ToInt32(cantidadMinimaCompra)));
-                                                        }
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    var cantidadMinimaCompra = textoMensaje.Text;
-                                                    if (!string.IsNullOrWhiteSpace(cantidadMinimaCompra))
-                                                    {
-                                                        cn.EjecutarConsulta(cs.actualizarCompraMinima(Productos.codProductoEditarVenta, cantidadMinimaCompra));
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        MessageBox.Show("Favor de asignar una cantidad de compra minima.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
                     }
-                    if (item is FlowLayoutPanel && item.Name.Equals("flpMensaje"))
+                    if (string.IsNullOrWhiteSpace(mensajeMostrado.Text) && Eliminarensaje.Equals(false))
                     {
-                        foreach (Control itemMensaje in item.Controls)
-                        {
-                            if (itemMensaje is Panel && itemMensaje.Name.Equals("panelMensaje"))
-                            {
-                                foreach (Control textoMensaje in itemMensaje.Controls)
-                                {
-                                    if (textoMensaje is TextBox)
-                                    {
-                                        if (textoMensaje.Name.Equals("txtMensaje"))
-                                        {
-                                            if (Productos.dobleClickProducto == 1)
-                                            {
-                                                var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.idprodDobleClick));
-
-                                                if (updateOinsert.Rows.Count.Equals(0))
-                                                {
-                                                    var NuevoMensaje = textoMensaje.Text;
-                                                    if (!string.IsNullOrWhiteSpace(NuevoMensaje))
-                                                    {
-                                                        var estado = 1;
-                                                        CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
-                                                        if (!txtCantidadCompra.Checked.Equals(true))
-                                                        {
-                                                            estado = 0;
-                                                        }
-                                                        if (Productos.dobleClickProducto == 1)
-                                                        {
-                                                            cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.idprodDobleClick, estado, NuevoMensaje));
-                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                        }
-                                                        else
-                                                        {
-                                                            cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.codProductoEditarVenta, estado, NuevoMensaje));
-                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                        }
-
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    var NuevoMensaje = textoMensaje.Text;
-                                                    if (!string.IsNullOrWhiteSpace(NuevoMensaje))
-                                                    {
-                                                        if (Eliminarensaje.Equals(true))
-                                                    {
-                                                        cn.EjecutarConsulta($"DELETE from productmessage WHERE IDProducto = {Productos.codProductoEditarVenta}");
-                                                        MessageBox.Show("Mensaje eliminado con Exito","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
-                                                        break;
-                                                    }
-                                                        var estado = 1;
-                                                        CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
-                                                        if (!txtCantidadCompra.Checked.Equals(true))
-                                                        {
-                                                            estado = 0;
-                                                        }
-                                                        if (Productos.dobleClickProducto == 1)
-                                                        {
-                                                            cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.idprodDobleClick, NuevoMensaje, estado));
-                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                        }
-                                                        else
-                                                        {
-                                                            cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.codProductoEditarVenta, NuevoMensaje, estado));
-                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                            else
-                                            {
-                                                var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.codProductoEditarVenta));
-
-                                                if (updateOinsert.Rows.Count.Equals(0))
-                                                {
-                                                    var NuevoMensaje = textoMensaje.Text;
-                                                    if (!string.IsNullOrWhiteSpace(NuevoMensaje))
-                                                    {
-                                                        var estado = 1;
-                                                        CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
-                                                        if (!txtCantidadCompra.Checked.Equals(true))
-                                                        {
-                                                            estado = 0;
-                                                        }
-                                                        if (Productos.dobleClickProducto == 1)
-                                                        {
-                                                            cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.idprodDobleClick, estado, NuevoMensaje));
-                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                        }
-                                                        else
-                                                        {
-                                                            cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.codProductoEditarVenta, estado, NuevoMensaje));
-                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                        }
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    if (Eliminarensaje.Equals(true))
-                                                    {
-                                                        cn.EjecutarConsulta($"DELETE from productmessage WHERE IDProducto = {Productos.codProductoEditarVenta}");
-                                                        MessageBox.Show("Mensaje eliminado con Exito","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
-                                                        break;
-                                                    }
-                                                    var NuevoMensaje = textoMensaje.Text;
-                                                    if (!string.IsNullOrWhiteSpace(NuevoMensaje))
-                                                    {
-                                                        var estado = 1;
-                                                        CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
-                                                        if (!txtCantidadCompra.Checked.Equals(true))
-                                                        {
-                                                            estado = 0;
-                                                        }
-                                                        cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.codProductoEditarVenta, NuevoMensaje, estado));
-                                                        MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                    }
-                                                }
-                                            }
-
-
-
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                        MessageBox.Show("Favor de asignar un mensaje a mostrar.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
                     }
+                    AgregarEditarProducto.SeCopioMensajeVenta = cantidadCompra.Text + "," + mensajeMostrado.Text;
+                }
+                else if (dato == "mensajeInventario")
+                {
+                    TextBox mensajeMostrado = (TextBox)Controls.Find("txtMensaje", true)[0];
+
+                    if (string.IsNullOrWhiteSpace(mensajeMostrado.Text) && Eliminarensaje.Equals(false))
+                    {
+                        MessageBox.Show("Favor de asignar un mensaje a mostrar.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    AgregarEditarProducto.SeCopioMensajeInventario = mensajeMostrado.Text;
                 }
                 this.Close();
             }
-            // Esta seccion es para modificar o insertar el mensaje a la hora de actualizar inventario----------------------------------------------------------
-            else if (dato == "mensajeInventario")
+            else
             {
-                foreach (Control item in this.Controls)
+                if (dato == "mensajeVentas")
                 {
-                    if (item is FlowLayoutPanel)
+                    TextBox cantidadCompra = (TextBox)Controls.Find("txtCantidadCompra", true)[0];
+                    TextBox mensajeMostrado = (TextBox)Controls.Find("txtMensaje", true)[0];
+
+                    if (string.IsNullOrWhiteSpace(cantidadCompra.Text) && Eliminarensaje.Equals(false))
                     {
-                        if (item.Name.Equals("flplMensaje"))
+                        MessageBox.Show("Favor de asignar una cantidad de compra minima.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                    if (string.IsNullOrWhiteSpace(mensajeMostrado.Text) && Eliminarensaje.Equals(false))
+                    {
+                        MessageBox.Show("Favor de asignar un mensaje a mostrar.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+                else if (dato == "mensajeInventario")
+                {
+                    TextBox mensajeMostrado = (TextBox)Controls.Find("txtMensaje", true)[0];
+
+                    if (string.IsNullOrWhiteSpace(mensajeMostrado.Text) && Eliminarensaje.Equals(false))
+                    {
+                        MessageBox.Show("Favor de asignar un mensaje a mostrar.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+
+                if (dato == "mensajeVentas")
+                {
+                    foreach (Control item in this.Controls)
+                    {
+                        if (item is FlowLayoutPanel && item.Name.Equals("flpDatos"))
                         {
                             foreach (Control itemMensaje in item.Controls)
                             {
-                                if (itemMensaje is Panel)
+                                if (itemMensaje is Panel && itemMensaje.Name.Equals("panelDatos"))
+                                {
+                                    foreach (Control textoMensaje in itemMensaje.Controls)
+                                    {
+                                        if (textoMensaje is TextBox)
+                                        {
+                                            if (textoMensaje.Name.Equals("txtCantidadCompra"))
+                                            {
+                                                if (Productos.dobleClickProducto == 1)
+                                                {
+                                                    var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.idprodDobleClick));
+
+                                                    if (updateOinsert.Rows.Count.Equals(0))
+                                                    {
+                                                        if (Eliminarensaje.Equals(false))
+                                                        {
+                                                            var cantidadMinimaCompra = textoMensaje.Text;
+                                                            if (!string.IsNullOrWhiteSpace(cantidadDeCompra))
+                                                            {
+                                                                cn.EjecutarConsulta(cs.insertarCompraMinima(Productos.idprodDobleClick, Convert.ToInt32(cantidadMinimaCompra)));
+                                                            }
+                                                        }
+
+                                                    }
+                                                    else
+                                                    {
+                                                        var cantidadMinimaCompra = textoMensaje.Text;
+                                                        if (!string.IsNullOrWhiteSpace(cantidadMinimaCompra))
+                                                        {
+                                                            cn.EjecutarConsulta(cs.actualizarCompraMinima(Productos.idprodDobleClick, cantidadMinimaCompra));
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.codProductoEditarVenta));
+
+                                                    if (updateOinsert.Rows.Count.Equals(0))
+                                                    {
+                                                        if (Eliminarensaje.Equals(false))
+                                                        {
+                                                            var cantidadMinimaCompra = textoMensaje.Text;
+                                                            if (!string.IsNullOrWhiteSpace(cantidadDeCompra))
+                                                            {
+                                                                cn.EjecutarConsulta(cs.insertarCompraMinima(Productos.codProductoEditarVenta, Convert.ToInt32(cantidadMinimaCompra)));
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        var cantidadMinimaCompra = textoMensaje.Text;
+                                                        if (!string.IsNullOrWhiteSpace(cantidadMinimaCompra))
+                                                        {
+                                                            cn.EjecutarConsulta(cs.actualizarCompraMinima(Productos.codProductoEditarVenta, cantidadMinimaCompra));
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        if (item is FlowLayoutPanel && item.Name.Equals("flpMensaje"))
+                        {
+                            foreach (Control itemMensaje in item.Controls)
+                            {
+                                if (itemMensaje is Panel && itemMensaje.Name.Equals("panelMensaje"))
                                 {
                                     foreach (Control textoMensaje in itemMensaje.Controls)
                                     {
@@ -934,21 +852,181 @@ namespace PuntoDeVentaV2
                                             {
                                                 if (Productos.dobleClickProducto == 1)
                                                 {
-                                                    var updateOinsert = cn.CargarDatos(cs.viewMensajeInventario(Productos.idprodDobleClick));
+                                                    var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.idprodDobleClick));
+
                                                     if (updateOinsert.Rows.Count.Equals(0))
                                                     {
                                                         var NuevoMensaje = textoMensaje.Text;
-
                                                         if (!string.IsNullOrWhiteSpace(NuevoMensaje))
                                                         {
                                                             var estado = 1;
-                                                            CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeInventario", true)[0];
+                                                            CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
                                                             if (!txtCantidadCompra.Checked.Equals(true))
                                                             {
                                                                 estado = 0;
                                                             }
-                                                            cn.EjecutarConsulta(cs.insertarMensajeInventario(Productos.idprodDobleClick, NuevoMensaje, estado));
+                                                            if (Productos.dobleClickProducto == 1)
+                                                            {
+                                                                cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.idprodDobleClick, estado, NuevoMensaje));
+                                                                MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                            }
+                                                            else
+                                                            {
+                                                                cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.codProductoEditarVenta, estado, NuevoMensaje));
+                                                                MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                            }
+
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        var NuevoMensaje = textoMensaje.Text;
+                                                        if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                        {
+                                                            if (Eliminarensaje.Equals(true))
+                                                            {
+                                                                cn.EjecutarConsulta($"DELETE from productmessage WHERE IDProducto = {Productos.codProductoEditarVenta}");
+                                                                MessageBox.Show("Mensaje eliminado con Exito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                                break;
+                                                            }
+                                                            var estado = 1;
+                                                            CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
+                                                            if (!txtCantidadCompra.Checked.Equals(true))
+                                                            {
+                                                                estado = 0;
+                                                            }
+                                                            if (Productos.dobleClickProducto == 1)
+                                                            {
+                                                                cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.idprodDobleClick, NuevoMensaje, estado));
+                                                                MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                            }
+                                                            else
+                                                            {
+                                                                cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.codProductoEditarVenta, NuevoMensaje, estado));
+                                                                MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    var updateOinsert = cn.CargarDatos(cs.viewMensajeVentas(Productos.codProductoEditarVenta));
+
+                                                    if (updateOinsert.Rows.Count.Equals(0))
+                                                    {
+                                                        var NuevoMensaje = textoMensaje.Text;
+                                                        if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                        {
+                                                            var estado = 1;
+                                                            CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
+                                                            if (!txtCantidadCompra.Checked.Equals(true))
+                                                            {
+                                                                estado = 0;
+                                                            }
+                                                            if (Productos.dobleClickProducto == 1)
+                                                            {
+                                                                cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.idprodDobleClick, estado, NuevoMensaje));
+                                                                MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                            }
+                                                            else
+                                                            {
+                                                                cn.EjecutarConsulta(cs.insertarMensajeVenta(Productos.codProductoEditarVenta, estado, NuevoMensaje));
+                                                                MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        if (Eliminarensaje.Equals(true))
+                                                        {
+                                                            cn.EjecutarConsulta($"DELETE from productmessage WHERE IDProducto = {Productos.codProductoEditarVenta}");
+                                                            MessageBox.Show("Mensaje eliminado con Exito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                            break;
+                                                        }
+                                                        var NuevoMensaje = textoMensaje.Text;
+                                                        if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                        {
+                                                            var estado = 1;
+                                                            CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeVenta", true)[0];
+                                                            if (!txtCantidadCompra.Checked.Equals(true))
+                                                            {
+                                                                estado = 0;
+                                                            }
+                                                            cn.EjecutarConsulta(cs.actualizarMensajeVentas(Productos.codProductoEditarVenta, NuevoMensaje, estado));
                                                             MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                        }
+                                                    }
+                                                }
+
+
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    this.Close();
+                }
+                // Esta seccion es para modificar o insertar el mensaje a la hora de actualizar inventario----------------------------------------------------------
+                else if (dato == "mensajeInventario")
+                {
+                    foreach (Control item in this.Controls)
+                    {
+                        if (item is FlowLayoutPanel)
+                        {
+                            if (item.Name.Equals("flplMensaje"))
+                            {
+                                foreach (Control itemMensaje in item.Controls)
+                                {
+                                    if (itemMensaje is Panel)
+                                    {
+                                        foreach (Control textoMensaje in itemMensaje.Controls)
+                                        {
+                                            if (textoMensaje is TextBox)
+                                            {
+                                                if (textoMensaje.Name.Equals("txtMensaje"))
+                                                {
+                                                    if (Productos.dobleClickProducto == 1)
+                                                    {
+                                                        var updateOinsert = cn.CargarDatos(cs.viewMensajeInventario(Productos.idprodDobleClick));
+                                                        if (updateOinsert.Rows.Count.Equals(0))
+                                                        {
+                                                            var NuevoMensaje = textoMensaje.Text;
+
+                                                            if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                            {
+                                                                var estado = 1;
+                                                                CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeInventario", true)[0];
+                                                                if (!txtCantidadCompra.Checked.Equals(true))
+                                                                {
+                                                                    estado = 0;
+                                                                }
+                                                                cn.EjecutarConsulta(cs.insertarMensajeInventario(Productos.idprodDobleClick, NuevoMensaje, estado));
+                                                                MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                            if (Eliminarensaje.Equals(true))
+                                                            {
+                                                                cn.EjecutarConsulta($"DELETE from mensajesInventario WHERE IDProducto = {Productos.codProductoEditarVenta}");
+                                                                MessageBox.Show("Mensaje eliminado con Exito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                                break;
+                                                            }
+                                                            var NuevoMensaje = textoMensaje.Text;
+                                                            if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                            {
+                                                                var estado = 1;
+                                                                CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeInventario", true)[0];
+                                                                if (!txtCantidadCompra.Checked.Equals(true))
+                                                                {
+                                                                    estado = 0;
+                                                                }
+                                                                cn.EjecutarConsulta(cs.actualizarMensajeInventario(Productos.idprodDobleClick, NuevoMensaje, estado));
+                                                                MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                            }
                                                         }
                                                     }
                                                     else
@@ -959,62 +1037,41 @@ namespace PuntoDeVentaV2
                                                             MessageBox.Show("Mensaje eliminado con Exito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                             break;
                                                         }
-                                                        var NuevoMensaje = textoMensaje.Text;
-                                                        if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                        var updateOinsert = cn.CargarDatos(cs.viewMensajeInventario(Productos.codProductoEditarVenta));
+                                                        if (updateOinsert.Rows.Count.Equals(0))
                                                         {
-                                                            var estado = 1;
-                                                            CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeInventario", true)[0];
-                                                            if (!txtCantidadCompra.Checked.Equals(true))
-                                                            {
-                                                                estado = 0;
-                                                            }
-                                                            cn.EjecutarConsulta(cs.actualizarMensajeInventario(Productos.idprodDobleClick, NuevoMensaje, estado));
-                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                        }
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    if (Eliminarensaje.Equals(true))
-                                                    {
-                                                        cn.EjecutarConsulta($"DELETE from mensajesInventario WHERE IDProducto = {Productos.codProductoEditarVenta}");
-                                                        MessageBox.Show("Mensaje eliminado con Exito", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                        break;
-                                                    }
-                                                    var updateOinsert = cn.CargarDatos(cs.viewMensajeInventario(Productos.codProductoEditarVenta));
-                                                    if (updateOinsert.Rows.Count.Equals(0))
-                                                    {
-                                                        var NuevoMensaje = textoMensaje.Text;
+                                                            var NuevoMensaje = textoMensaje.Text;
 
-                                                        if (!string.IsNullOrWhiteSpace(NuevoMensaje))
-                                                        {
-                                                            var estado = 1;
-                                                            CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeInventario", true)[0];
-                                                            if (!txtCantidadCompra.Checked.Equals(true))
+                                                            if (!string.IsNullOrWhiteSpace(NuevoMensaje))
                                                             {
-                                                                estado = 0;
+                                                                var estado = 1;
+                                                                CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeInventario", true)[0];
+                                                                if (!txtCantidadCompra.Checked.Equals(true))
+                                                                {
+                                                                    estado = 0;
+                                                                }
+                                                                cn.EjecutarConsulta(cs.insertarMensajeInventario(Productos.idprodDobleClick, NuevoMensaje, estado));
+                                                                MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                             }
-                                                            cn.EjecutarConsulta(cs.insertarMensajeInventario(Productos.idprodDobleClick, NuevoMensaje, estado));
-                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                        }
+                                                        else
+                                                        {
+                                                            var NuevoMensaje = textoMensaje.Text;
+                                                            if (!string.IsNullOrWhiteSpace(NuevoMensaje))
+                                                            {
+                                                                var estado = 1;
+                                                                CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeInventario", true)[0];
+                                                                if (!txtCantidadCompra.Checked.Equals(true))
+                                                                {
+                                                                    estado = 0;
+                                                                }
+                                                                cn.EjecutarConsulta(cs.actualizarMensajeInventario(Productos.codProductoEditarInventario, NuevoMensaje, estado));
+                                                                MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                                            }
                                                         }
                                                     }
-                                                    else
-                                                    {
-                                                        var NuevoMensaje = textoMensaje.Text;
-                                                        if (!string.IsNullOrWhiteSpace(NuevoMensaje))
-                                                        {
-                                                            var estado = 1;
-                                                            CheckBox txtCantidadCompra = (CheckBox)Controls.Find("chkMostrarMensajeInventario", true)[0];
-                                                            if (!txtCantidadCompra.Checked.Equals(true))
-                                                            {
-                                                                estado = 0;
-                                                            }
-                                                            cn.EjecutarConsulta(cs.actualizarMensajeInventario(Productos.codProductoEditarInventario, NuevoMensaje, estado));
-                                                            MessageBox.Show("Actualizado Correctamente.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                        }
-                                                    }
-                                                }
 
+                                                }
                                             }
                                         }
                                     }
@@ -1023,8 +1080,8 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
+                this.Close();
             }
-            this.Close();
         }
 
         private void EditarMensajesParaEnviar_KeyDown(object sender, KeyEventArgs e)

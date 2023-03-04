@@ -225,6 +225,21 @@ namespace PuntoDeVentaV2
         {
             VerificarConfiguracion();
             confiCorreo = new List<string>();
+
+            using (DataTable dt = cn.CargarDatos($"SELECT subdetallesdeproducto.ID FROM subdetallesdeproducto INNER JOIN detallesubdetalle AS Sub ON (Sub.IDSubDetalle = subdetallesdeproducto.id) WHERE esCaducidad = 1 AND IDUsuario = {FormPrincipal.userID} AND Activo = 1"))
+            {
+                if (!dt.Rows.Count.Equals(0))
+                {
+                    chbCaducidad.Visible = true;
+                    using (DataTable dtConfig = cn.CargarDatos($"SELECT correoCaducidad FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                    {
+                        if (dtConfig.Rows[0][0].ToString().Equals("1"))
+                        {
+                            chbCaducidad.Checked=true;
+                        }
+                    }
+                }
+            }
         }
 
         private void cbCorreoAgregarDineroCaja_MouseClick(object sender, MouseEventArgs e)
@@ -1478,6 +1493,21 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("No tienes permisos para modificar esta opcion");
                     return;
                 }
+            }
+        }
+
+        private void chbCaducidad_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (chbCaducidad.Checked)
+            {
+                var consulta = $"UPDATE Configuracion SET correoCaducidad = {1} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiCorreo.Add(consulta);
+            }
+            else
+            {
+                var consulta = $"UPDATE Configuracion SET correoCaducidad = {0} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiCorreo.Add(consulta);
+
             }
         }
     }

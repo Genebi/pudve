@@ -73,6 +73,8 @@ namespace PuntoDeVentaV2
         public static bool recargarDatos = false;
         public static bool primeraVez = true;
 
+        public static int idProductoAgregarSubdetalle = 0;
+
         private bool checkBoxMasterUtilizado = false;
         // Este array es para guardar los productos seleccionados que seran tomados
 
@@ -1796,6 +1798,7 @@ namespace PuntoDeVentaV2
         public void obtenerDatosDGVProductos(int fila, int idProducto = 0)
         {
             idProductoEditar = DGVProductos.Rows[fila].Cells["_IDProducto"].Value.ToString();
+            idProductoAgregarSubdetalle = Convert.ToInt32(idProductoEditar);
 
             if (idProducto > 0)
             {
@@ -2282,8 +2285,11 @@ namespace PuntoDeVentaV2
                 {
                     var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
                     var tipoProducto = Convert.ToString(row.Cells["TipoProducto"].Value);
-
-                    lista.Add(idProducto, tipoProducto);
+                    if (!lista.ContainsKey(idProducto))
+                    {
+                        lista.Add(idProducto, tipoProducto);
+                    }
+                   
                 }
             }
 

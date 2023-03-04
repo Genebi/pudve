@@ -824,8 +824,20 @@ namespace PuntoDeVentaV2
             sql_cmd.Parameters.Add("Huella", MySqlDbType.VarBinary, 65000).Value = huella;
             sql_cmd.ExecuteNonQuery();
             sql_con.Close();
+        }
 
-            
+        public void insertarHuellaCliente(string consulta, string idCliente, byte[] huella,string nombre)
+        {
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.Parameters.Add("IDUsuario", MySqlDbType.Int32).Value = FormPrincipal.userID;
+            sql_cmd.Parameters.Add("IDEmpleado", MySqlDbType.Int32).Value = idCliente;
+            sql_cmd.Parameters.Add("Huella", MySqlDbType.VarBinary, 65000).Value = huella;
+            sql_cmd.Parameters.Add("Nombre", MySqlDbType.Text).Value = nombre;
+            sql_cmd.ExecuteNonQuery();
+            sql_con.Close();
         }
 
         public List<byte[]> sacargoella()
@@ -849,6 +861,51 @@ namespace PuntoDeVentaV2
             dr.Close();
             return lista;
         }
+
+        public List<byte[]> buscarMuestrasClientesHuella(string idCliente)
+        {
+            string consulta = $"SELECT * FROM huellasclientes WHERE IDUsuario = '{FormPrincipal.userID}' AND IDCliente = {idCliente}";
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.ExecuteNonQuery();
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+            List<byte[]> lista = new List<byte[]>();
+
+            while (dr.Read())
+            {
+                byte[] huella = (byte[])dr["Huella"];
+                lista.Add(huella);
+            }
+
+            dr.Close();
+            return lista;
+        }
+
+        public List<byte[]> buscarMuestrasClientesHuella()
+        {
+            string consulta = $"SELECT * FROM huellasclientes WHERE IDUsuario = '{FormPrincipal.userID}'";
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.ExecuteNonQuery();
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+            List<byte[]> lista = new List<byte[]>();
+
+            while (dr.Read())
+            {
+                byte[] huella = (byte[])dr["Huella"];
+                lista.Add(huella);
+            }
+
+            dr.Close();
+            return lista;
+        }
+
         public List<string> sacarUsuariosgoella()
         {
             string consulta = $"SELECT * FROM detalleschecadorempleados WHERE idUsuario = '{FormPrincipal.userID}'";
@@ -869,6 +926,112 @@ namespace PuntoDeVentaV2
             dr.Close();
             return nombres;
         }
+
+        public List<string> buscarClientesHuella(string idCliente)
+        {
+            string consulta = $"SELECT * FROM huellasclientes WHERE idUsuario = '{FormPrincipal.userID}' AND IDCliente = {idCliente}";
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.ExecuteNonQuery();
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+            List<string> nombres = new List<string>();
+
+            while (dr.Read())
+            {
+                nombres.Add(dr["IDCliente"].ToString());
+            }
+
+            dr.Close();
+            return nombres;
+        }
+
+        public List<string> buscarClientesHuella()
+        {
+            string consulta = $"SELECT * FROM huellasclientes WHERE idUsuario = '{FormPrincipal.userID}'";
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.ExecuteNonQuery();
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+            List<string> nombres = new List<string>();
+
+            while (dr.Read())
+            {
+                nombres.Add(dr["IDCliente"].ToString());
+            }
+
+            dr.Close();
+            return nombres;
+        }
+
+        public List<string> buscarNombresHuella(string idCliente)
+        {
+            string consulta = $"SELECT * FROM huellasclientes WHERE idUsuario = '{FormPrincipal.userID}' AND IDCliente = {idCliente}";
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.ExecuteNonQuery();
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+            List<string> nombres = new List<string>();
+
+            while (dr.Read())
+            {
+                nombres.Add(dr["Nombre"].ToString());
+            }
+
+            dr.Close();
+            return nombres;
+        }
+
+        public List<string> buscarNombresHuella()
+        {
+            string consulta = $"SELECT * FROM huellasclientes WHERE idUsuario = '{FormPrincipal.userID}'";
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.ExecuteNonQuery();
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+            List<string> nombres = new List<string>();
+
+            while (dr.Read())
+            {
+                nombres.Add(dr["Nombre"].ToString());
+            }
+
+            dr.Close();
+            return nombres;
+        }
+
+        public List<string> buscarIdsHuellaClientes(string idCliente)
+        {
+            string consulta = $"SELECT * FROM huellasclientes WHERE idUsuario = '{FormPrincipal.userID}' AND IDCliente = {idCliente}";
+            Conectarse();
+            sql_con.Open();
+            sql_cmd = sql_con.CreateCommand();
+            sql_cmd.CommandText = consulta;
+            sql_cmd.ExecuteNonQuery();
+
+            MySqlDataReader dr = sql_cmd.ExecuteReader();
+            List<string> nombres = new List<string>();
+
+            while (dr.Read())
+            {
+                nombres.Add(dr["ID"].ToString());
+            }
+
+            dr.Close();
+            return nombres;
+        }
+
 
 
         public void insertarUnPincheTextoAcaTremendoAaaaaa(string datos,DateTime fecha)

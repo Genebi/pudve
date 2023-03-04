@@ -45,6 +45,7 @@ namespace PuntoDeVentaV2
         private DateTime fechaUltimoCorte;
         private bool existenProductos;
         private bool hay_productos_habilitados;
+        private bool creditoMaster = false;
 
         public static bool recargarDatos = false;
         public static bool abrirNuevaVenta = false;
@@ -53,6 +54,8 @@ namespace PuntoDeVentaV2
         public static int obtenerIdVenta { get; set; }
         public static int folioVenta { get; set; }
         public static int obtenerIDVentaTimbrado { get; set; }
+
+        DateTime fechonon;
 
         public static int tipo_venta = 0;
         public static string[][] faltantes_productos;
@@ -122,6 +125,9 @@ namespace PuntoDeVentaV2
 
         private void ListadoVentas_Load(object sender, EventArgs e)
         {
+
+
+
             if (FormPrincipal.id_empleado != 0)
             {
                 DGVListadoVentas.Columns["Ganancia"].Visible = false;
@@ -475,6 +481,7 @@ namespace PuntoDeVentaV2
         #region Método para cargar los datos en el DataGridView
         public void CargarDatos(int estado = 1, bool busqueda = false, string clienteFolio = "")
         {
+
             var consulta = string.Empty;
             bool esNumero = false;
 
@@ -522,7 +529,10 @@ namespace PuntoDeVentaV2
                     if (opcion == "VCC") { estado = 4; }
                     // Ventas globales
                     if (opcion == "VGG") { estado = 5; }
-
+                    // Ventas a credito atrasadas
+                    if (opcion == "VCA") { estado = 6; }
+                    // Ventas a credito por vencer
+                    if (opcion == "VPV") { estado = 7; }
 
                     if (buscador.Equals("BUSCAR POR RFC, CLIENTE, EMPLEADO O FOLIO..."))
                     {
@@ -565,6 +575,16 @@ namespace PuntoDeVentaV2
                             {
                                 consulta = cs.VerComoEpleadoTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
                             }
+                            //En algun momento de echo se entra aqui?
+
+                            //else if (estado.Equals(6)) // Ventas a credito expiradas
+                            //{
+                            //    consulta = cs.VerComoEpleadoTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
+                            //}
+                            //else if (estado.Equals(7)) // Ventas a credito por vencer
+                            //{
+                            //    consulta = cs.VerComoEpleadoTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
+                            //}
                         }
                         else
                         {
@@ -628,6 +648,38 @@ namespace PuntoDeVentaV2
                                 else
                                 {
                                     consulta = cs.verVentasCreditoPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, formaPagoFiltro);
+                                }
+                            }
+                            else if (estado.Equals(6)) // Ventas a credito atrasadas
+                            {
+                                //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal);
+                                if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLasVentasACreditoAtrasadas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
+                                }
+                                else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLasVentasACreditoAtrasadas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
+                                }
+                                else
+                                {
+                                    consulta = cs.verVentasCreditoAtrasadasPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, formaPagoFiltro);
+                                }
+                            }
+                            else if (estado.Equals(7)) // Ventas a credito por expirar
+                            {
+                                //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal);
+                                if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLasVentasACreditoPorAtrasar(fechonon.ToString("yyyy-MM-dd"));
+                                }
+                                else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLasVentasACreditoPorAtrasar(fechonon.ToString("yyyy-MM-dd"));
+                                }
+                                else
+                                {
+                                    consulta = cs.verVentasCreditoVencerPorEmpleadoDesdeAdministrador(idAdministradorOrUsuario, fechonon.ToString("yyyy-MM-dd"));
                                 }
                             }
                         }
@@ -732,6 +784,10 @@ namespace PuntoDeVentaV2
                                 {
                                     buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
                                 }
+                                else if (opcionFiltrado == "VCA") //Ventas a credito atrasadas
+                                {
+                                    buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
+                                }
                             }
                             else
                             {
@@ -775,6 +831,12 @@ namespace PuntoDeVentaV2
                                 else if (opcionFiltrado == "VCC") //Ventas a credito
                                 {
                                     buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
+
+                                }
+                                else if (opcionFiltrado == "VCA") //Ventas a credito atrasadas
+                                {
+                                    buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
+
                                 }
                             }
 
@@ -813,6 +875,10 @@ namespace PuntoDeVentaV2
                             else if (estado.Equals(4)) // Ventas a credito
                             {
                                 consulta = cs.VerComoEmpleadoTodasLasVentasACreditoPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
+                            }
+                            else if (estado.Equals(6)) // Ventas a credito atrasadas
+                            {
+                                consulta = cs.VerComoEmpleadoTodasLasVentasACreditoAtrasadasPorFechasYBusqueda(4, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                             }
                         }
                         else
@@ -878,6 +944,22 @@ namespace PuntoDeVentaV2
                                 else
                                 {
                                     consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra, formaPagoFiltro);
+                                }
+                            }
+                            else if (estado.Equals(6)) // Ventas a credito atrasadas
+                            {
+                                //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
+                                if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechasYBusquedaAtrasadas(4, fechaInicial, fechaFinal, extra, formaPagoFiltro);
+                                }
+                                else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                                {
+                                    consulta = cs.VerComoAdministradorTodasLaVentasGuardadasPorFechasYBusquedaAtrasadas(4, fechaInicial, fechaFinal, extra, formaPagoFiltro);
+                                }
+                                else
+                                {
+                                    consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(4, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                             }
                         }
@@ -969,6 +1051,14 @@ namespace PuntoDeVentaV2
                         else if (estado.Equals(4)) // Ventas a credito
                         {
                             consulta = cs.VerComoEmpleadoTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
+                        }
+                        else if (estado.Equals(6)) // Ventas a credito atrasada 
+                        {
+                            consulta = cs.VerComoEmpleadoTodasLasVentasACreditoAtrasadas(estado, fechaInicial, fechaFinal);
+                        }
+                        else if (estado.Equals(7)) // Ventas a credito por atrasar
+                        {
+                            consulta = cs.VerComoEmpleadoTodasLasVentasACreditoPorVencer(fechonon.ToString("yyyy-MM-dd"));
                         }
                     }
                     else
@@ -1121,6 +1211,39 @@ namespace PuntoDeVentaV2
                             else
                             {
                                 consulta = cs.verVentasCreditoPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
+                            }
+                        }
+                        else if (estado.Equals(6)) // Ventas a credito atrasadas
+                        {
+                            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                            {
+                                //consulta = cs.verVentasCreditoDelAdministrador(estado, fechaInicial, fechaFinal);
+                                consulta = cs.VerComoAdministradorTodasLasVentasACreditoAtrasadas(estado, fechaInicial, fechaFinal);
+                            }
+                            else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                            {
+                                consulta = cs.VerComoAdministradorTodasLasVentasACreditoAtrasadas(estado, fechaInicial, fechaFinal);
+                            }
+                            else
+                            {
+                                consulta = cs.verVentasCreditoAtrasadasPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
+                            }
+                        }
+
+                        else if (estado.Equals(7)) // Ventas a credito por vencer
+                        {
+                            if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
+                            {
+                                //consulta = cs.verVentasCreditoDelAdministrador(estado, fechaInicial, fechaFinal);
+                                consulta = cs.VerComoAdministradorTodasLasVentasACreditoPorAtrasar(fechonon.ToString("yyyy-MM-dd"));
+                            }
+                            else if (opcionComboBoxFiltroAdminEmp.Equals("All"))
+                            {
+                                consulta = cs.VerComoAdministradorTodasLasVentasACreditoPorAtrasar(fechonon.ToString("yyyy-MM-dd"));
+                            }
+                            else
+                            {
+                                consulta = cs.verVentasCreditoVencerPorEmpleadoDesdeAdministrador(idAdministradorOrUsuario, fechonon.ToString("yyyy-MM-dd"));
                             }
                         }
                     }
@@ -1281,7 +1404,10 @@ namespace PuntoDeVentaV2
                     // Ventas a credito
                     if (status != 4)
                     {
-                        row.Cells["Abono"].Value = info;
+                        if (status != 6)
+                        {
+                            row.Cells["Abono"].Value = info;
+                        }
                     }
 
                     //Retomar Ventas Canceladas
@@ -1346,6 +1472,10 @@ namespace PuntoDeVentaV2
             else
             {
                 DGVListadoVentas.Columns["ganancia"].Visible = true;
+            }
+            if (cbTipoVentas.SelectedIndex.Equals(1))
+            {
+                DGVListadoVentas.Columns["Timbrar"].Visible = false;
             }
         }
 
@@ -1480,6 +1610,10 @@ namespace PuntoDeVentaV2
             {
                 CargarDatos(4);
             }
+            else if (opcion == "VCA") //Ventas a credito
+            {
+                CargarDatos(6);
+            }
         }
 
         private void AgregarTotalesGenerales(float ivaGral, float subtotalGral, float totalGral, float abonado)
@@ -1574,6 +1708,10 @@ namespace PuntoDeVentaV2
             else if (opcion == "VGG") // Ventas globales
             {
                 estado = 5;
+            }
+            else if (opcion == "VCA") // Ventas a credito atrasadas (un periodo de retraso)
+            {
+                estado = 6;
             }
 
             return estado;
@@ -1687,6 +1825,19 @@ namespace PuntoDeVentaV2
             var opcion = cbTipoVentas.SelectedValue.ToString();
             clickBoton = 0;
 
+            if (cbTipoVentas.SelectedIndex == 3)
+            {
+                btnBuscarPorHuella.Visible = true;
+                btnVencidas.Visible = true;
+                btnPorVencer.Visible = true;
+            }
+            else
+            {
+                btnBuscarPorHuella.Visible = false;
+                btnVencidas.Visible = false;
+                btnPorVencer.Visible = false;
+            }
+
             // Desactivar checkbox al cambios tipos de ventas
             chTodos.Checked = false;
             chkHDAutlan.Checked = false;
@@ -1708,6 +1859,9 @@ namespace PuntoDeVentaV2
             if (opcion == "VCC") { CargarDatos(4); }
             //Ventas globales
             if (opcion == "VGG") { CargarDatos(5); }
+            //Ventas a credito atrasadas
+            if (opcion == "VCA") { CargarDatos(6); }
+
 
             var incremento = -1;
             var penultimaFila = DGVListadoVentas.Rows.Count - 2;
@@ -1775,7 +1929,13 @@ namespace PuntoDeVentaV2
                         textoTT = "Abonos";
                         coordenadaX = 54;
 
-                        if (opcion != "VCC") { permitir = false; }
+                        if (opcion != "VCC")
+                        {
+                            if (opcion != "VCA")
+                            {
+                                permitir = false;
+                            }
+                        }
                     }
 
                     if (e.ColumnIndex == 15)
@@ -1880,6 +2040,7 @@ namespace PuntoDeVentaV2
 
                                     return;
                                 }
+
                             }
                         }
                     }
@@ -2337,8 +2498,22 @@ namespace PuntoDeVentaV2
                                     // Cancelar la venta
                                     int resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
 
+
                                     if (resultado > 0)
                                     {
+                                        //Restore stock subtedalles si existe
+                                        using (DataTable dtSubdetalles = cn.CargarDatos($"SELECT * FROM detallesubdetalleventa WHERE IDVenta = {idVenta}"))
+                                        {
+                                            if (!dtSubdetalles.Rows.Equals(0))
+                                            {
+                                                foreach (DataRow subdetalleEncontrado in dtSubdetalles.Rows)
+                                                {
+                                                    cn.EjecutarConsulta($"UPDATE detallesubdetalle SET Stock = Stock + {subdetalleEncontrado["Cantidad"]} WHERE ID = {subdetalleEncontrado["IDDetalleSubDetalle"]}");
+                                                }
+
+                                            }
+                                        }
+
                                         // Miri. Modificado.
                                         // Obtiene el id del combo cancelado
                                         DataTable d_prod_venta = cn.CargarDatos($"SELECT IDProducto, Cantidad FROM ProductosVenta WHERE IDVenta='{idVenta}'");
@@ -2470,6 +2645,147 @@ namespace PuntoDeVentaV2
                                     }
                                 }
 
+                                using (DataTable dtConfiguracionTipoTicket = cn.CargarDatos(cs.tipoDeTicket()))
+                                {
+                                    if (!dtConfiguracionTipoTicket.Rows.Count.Equals(0))
+                                    {
+                                        var Usuario = 0;
+                                        var NombreComercial = 0;
+                                        var Direccion = 0;
+                                        var ColyCP = 0;
+                                        var RFC = 0;
+                                        var Correo = 0;
+                                        var Telefono = 0;
+                                        var NombreC = 0;
+                                        var DomicilioC = 0;
+                                        var RFCC = 0;
+                                        var CorreoC = 0;
+                                        var TelefonoC = 0;
+                                        var ColyCPC = 0;
+                                        var FormaPagoC = 0;
+                                        var logo = 0;
+                                        var ticket8cm = 0;
+                                        var ticket6cm = 0;
+                                        var codigoBarraTicket = 0;
+                                        var referencia = 0;
+
+                                        foreach (DataRow item in dtConfiguracionTipoTicket.Rows)
+                                        {
+                                            Usuario = Convert.ToInt32(item["Usuario"].ToString());
+                                            NombreComercial = Convert.ToInt32(item["NombreComercial"].ToString());
+                                            Direccion = Convert.ToInt32(item["Direccion"].ToString());
+                                            ColyCP = Convert.ToInt32(item["ColyCP"].ToString());
+                                            RFC = Convert.ToInt32(item["RFC"].ToString());
+                                            Correo = Convert.ToInt32(item["Correo"].ToString());
+                                            Telefono = Convert.ToInt32(item["Telefono"].ToString());
+                                            NombreC = Convert.ToInt32(item["NombreC"].ToString());
+                                            DomicilioC = Convert.ToInt32(item["DomicilioC"].ToString());
+                                            RFCC = Convert.ToInt32(item["RFCC"].ToString());
+                                            CorreoC = Convert.ToInt32(item["CorreoC"].ToString());
+                                            TelefonoC = Convert.ToInt32(item["TelefonoC"].ToString());
+                                            ColyCPC = Convert.ToInt32(item["ColyCPC"].ToString());
+                                            FormaPagoC = Convert.ToInt32(item["FormaPagoC"].ToString());
+                                            logo = Convert.ToInt32(item["logo"].ToString());
+                                            ticket6cm = Convert.ToInt32(item["ticket58mm"].ToString());
+                                            ticket8cm = Convert.ToInt32(item["ticket80mm"].ToString());
+                                            codigoBarraTicket = Convert.ToInt32(item["TicketVenta"].ToString());
+                                            referencia = Convert.ToInt32(item["Referencia"].ToString());
+                                        }
+
+
+                                        using (var dt = cn.CargarDatos($"SELECT TicketVentaCancelada,PregutarTicketVentaCancelada,TicketOPDFTicketVentaCancelada,AbrirCajaCancelada,AbrirCajaCancelada FROM configuraciondetickets WHERE IDUsuario = {FormPrincipal.userID}"))
+                                        {
+                                            if (dt.Rows[0]["TicketVentaCancelada"].Equals(1))
+                                            {
+                                                if (dt.Rows[0]["TicketOPDFTicketVentaCancelada"].Equals(1))
+                                                {
+                                                    using (ImprimirTicketCancelado8cm imprimirTicketVenta = new ImprimirTicketCancelado8cm())
+                                                    {
+                                                        imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+
+                                                        imprimirTicketVenta.Logo = logo;
+                                                        imprimirTicketVenta.Nombre = Usuario;
+                                                        imprimirTicketVenta.NombreComercial = NombreComercial;
+                                                        imprimirTicketVenta.DireccionCiudad = Direccion;
+                                                        imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                                        imprimirTicketVenta.RFC = RFC;
+                                                        imprimirTicketVenta.Correo = Correo;
+                                                        imprimirTicketVenta.Telefono = Telefono;
+                                                        imprimirTicketVenta.NombreCliente = NombreC;
+                                                        imprimirTicketVenta.RFCCliente = RFCC;
+                                                        imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                                        imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                                        imprimirTicketVenta.CorreoCliente = CorreoC;
+                                                        imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                                        imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                                        imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                                        imprimirTicketVenta.Referencia = referencia;
+
+                                                        imprimirTicketVenta.ShowDialog();
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    FormNotaDeVenta form = new FormNotaDeVenta(idVenta);
+                                                    FormNotaDeVenta.fuePorVenta = true;
+                                                    form.ShowDialog();
+                                                }
+
+
+                                            }
+                                            else if (dt.Rows[0]["PregutarTicketVentaCancelada"].Equals(1))
+                                            {
+                                                DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket De La Cancelación", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                                                if (respuestaImpresion.Equals(DialogResult.Yes))
+                                                {
+                                                    if (dt.Rows[0]["TicketOPDFTicketVentaCancelada"].Equals(1))
+                                                    {
+                                                        using (ImprimirTicketCancelado8cm imprimirTicketVenta = new ImprimirTicketCancelado8cm())
+                                                        {
+                                                            imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+
+                                                            imprimirTicketVenta.Logo = logo;
+                                                            imprimirTicketVenta.Nombre = Usuario;
+                                                            imprimirTicketVenta.NombreComercial = NombreComercial;
+                                                            imprimirTicketVenta.DireccionCiudad = Direccion;
+                                                            imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                                            imprimirTicketVenta.RFC = RFC;
+                                                            imprimirTicketVenta.Correo = Correo;
+                                                            imprimirTicketVenta.Telefono = Telefono;
+                                                            imprimirTicketVenta.NombreCliente = NombreC;
+                                                            imprimirTicketVenta.RFCCliente = RFCC;
+                                                            imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                                            imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                                            imprimirTicketVenta.CorreoCliente = CorreoC;
+                                                            imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                                            imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                                            imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                                            imprimirTicketVenta.Referencia = referencia;
+
+                                                            imprimirTicketVenta.ShowDialog();
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        FormNotaDeVenta form = new FormNotaDeVenta(idVenta);
+                                                        FormNotaDeVenta.fuePorVenta = true;
+                                                        form.ShowDialog();
+                                                    }
+                                                }
+                                                else if (dt.Rows[0]["AbrirCajaCancelada"].Equals(1))
+                                                {
+                                                    AbrirSinTicket abrir = new AbrirSinTicket();
+                                                    abrir.Show();
+                                                }
+                                            }
+                                            else if (dt.Rows[0]["AbrirCajaCancelada"].Equals(1))
+                                            {
+                                                AbrirSinTicket abrir = new AbrirSinTicket();
+                                                abrir.Show();
+                                            }
+                                        }
+                                    }
+                                }
                                 var mensajeCancelar = string.Empty;
 
                                 mensajeCancelar = cancelarMensajeExitoso();
@@ -3148,18 +3464,34 @@ namespace PuntoDeVentaV2
                     }
 
                     //Verificamos si tiene seleccionada la opcion de ventas a credito
-                    if (opcion == "VCC")
+                    if (opcion == "VCC" || opcion == "VCA")
                     {
                         var total = float.Parse(DGVListadoVentas.Rows[fila].Cells["Total"].Value.ToString());
 
-                        AsignarAbonos abono = new AsignarAbonos(idVenta, total);
-
-                        abono.FormClosed += delegate
+                        using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
                         {
-                            CargarDatos(4);
-                        };
+                            if (dtReglasCreditoVenta.Rows.Count.Equals(0))
+                            {
+                                asignarAbonosSinCredito abono = new asignarAbonosSinCredito(idVenta, total);
+                                abono.FormClosed += delegate
+                                {
+                                    CargarDatos(4);
+                                };
 
-                        abono.ShowDialog();
+                                abono.ShowDialog();
+                            }
+                            else
+                            {
+                                AsignarAbonos abono = new AsignarAbonos(idVenta, total);
+                                abono.FormClosed += delegate
+                           {
+                               CargarDatos(4);
+                           };
+
+                                abono.ShowDialog();
+                            }
+
+                        }
                     }
                     else
                     {
@@ -3299,7 +3631,7 @@ namespace PuntoDeVentaV2
             {
                 preguntaDesdeDonde = "¿Estás seguro de cancelar la venta cancelada?";
             }
-            else if (opcion == "VCC") //Ventas a credito
+            else if (opcion == "VCC" || opcion == "VCA") //Ventas a credito
             {
                 preguntaDesdeDonde = "¿Estás seguro de cancelar el crédito?";
             }
@@ -3325,7 +3657,7 @@ namespace PuntoDeVentaV2
             {
                 cancelarDesdeDonde = "Venta (Cancelada) cancelada exitosamente";
             }
-            else if (opcion == "VCC") //Ventas a credito
+            else if (opcion == "VCC" || opcion == "VCA") //Ventas a credito
             {
                 cancelarDesdeDonde = "Venta a credito cancelada exitosamente";
             }
@@ -5224,8 +5556,18 @@ namespace PuntoDeVentaV2
                     {
                         var lista = new Dictionary<int, Tuple<string, decimal, decimal, decimal>>();
 
+                        //decimal anticipo = 0;
+
                         foreach (var venta in ventas)
                         {
+                            //var datosVentas = cn.CargarDatos($"SELECT * FROM Ventas WHERE ID = {venta} AND IDUsuario = {FormPrincipal.userID}");
+
+                            //if (datosVentas.Rows.Count > 0)
+                            //{
+                            //    DataRow anticipoAux = datosVentas.Rows[0];
+                            //    anticipo += (decimal)anticipoAux["Anticipo"];
+                            //}
+
                             var datosProductos = cn.CargarDatos($"SELECT * FROM ProductosVenta WHERE IDVenta = {venta}");
 
                             if (datosProductos.Rows.Count > 0)
@@ -5424,6 +5766,72 @@ namespace PuntoDeVentaV2
                 txtBuscador.Text = producto;
                 txtBuscador.Select(txtBuscador.Text.Length, 0);
             }
+        }
+
+        private void btnBuscarPorHuella_Click(object sender, EventArgs e)
+        {
+            clientesBuscarPorHuella checador = new clientesBuscarPorHuella();
+            checador.FormClosed += delegate
+            {
+                if (!string.IsNullOrEmpty(checador.cliente))
+                {
+                    txtBuscador.Text = checador.cliente;
+                    btnBuscarVentas.PerformClick();
+                }
+                else
+                {
+                    MessageBox.Show("Sin coincidencias");
+                }
+
+            };
+            checador.ShowDialog();
+        }
+
+        private void btnVencidas_Click(object sender, EventArgs e)
+        {
+            tipoVenta = cbTipoVentas.SelectedIndex;
+            var opcion = "VCA";
+            clickBoton = 0;
+
+            // Desactivar checkbox al cambios tipos de ventas
+            chTodos.Checked = false;
+            chkHDAutlan.Checked = false;
+
+            if (DGVListadoVentas.Controls.Find("checkBoxMaster", true).Length > 0)
+            {
+                CheckBox headerBox = (CheckBox)DGVListadoVentas.Controls.Find("checkBoxMaster", true)[0];
+                headerBox.Checked = false;
+            }
+
+            //Ventas a credito atrasadas
+            if (opcion == "VCA") { CargarDatos(6); }
+        }
+
+        private void btnPorVencer_Click(object sender, EventArgs e)
+        {
+            creditoFiltradorPorVencer filtrador = new creditoFiltradorPorVencer();
+            filtrador.FormClosed += delegate
+            {
+                fechonon = filtrador.lamerafecha;
+            };
+            filtrador.ShowDialog();
+
+            tipoVenta = cbTipoVentas.SelectedIndex;
+            var opcion = "VPV";
+            clickBoton = 0;
+
+            // Desactivar checkbox al cambios tipos de ventas
+            chTodos.Checked = false;
+            chkHDAutlan.Checked = false;
+
+            if (DGVListadoVentas.Controls.Find("checkBoxMaster", true).Length > 0)
+            {
+                CheckBox headerBox = (CheckBox)DGVListadoVentas.Controls.Find("checkBoxMaster", true)[0];
+                headerBox.Checked = false;
+            }
+
+            //Ventas a credito por vencer
+            if (opcion == "VPV") { CargarDatos(7); }
         }
     }
 }

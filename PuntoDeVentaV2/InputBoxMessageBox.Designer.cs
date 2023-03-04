@@ -35,6 +35,7 @@
             this.btnAceptar = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.txtDefaultResponse = new System.Windows.Forms.TextBox();
+            this.chbVentaFacil = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -63,7 +64,7 @@
             // 
             this.panel2.Controls.Add(this.btnCancelar);
             this.panel2.Controls.Add(this.btnAceptar);
-            this.panel2.Location = new System.Drawing.Point(12, 73);
+            this.panel2.Location = new System.Drawing.Point(12, 98);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(351, 60);
             this.panel2.TabIndex = 1;
@@ -120,13 +121,27 @@
             this.txtDefaultResponse.Name = "txtDefaultResponse";
             this.txtDefaultResponse.Size = new System.Drawing.Size(329, 26);
             this.txtDefaultResponse.TabIndex = 0;
+            this.txtDefaultResponse.TextChanged += new System.EventHandler(this.txtDefaultResponse_TextChanged);
             this.txtDefaultResponse.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDefaultResponse_KeyDown);
+            // 
+            // chbVentaFacil
+            // 
+            this.chbVentaFacil.AutoSize = true;
+            this.chbVentaFacil.Location = new System.Drawing.Point(12, 69);
+            this.chbVentaFacil.Name = "chbVentaFacil";
+            this.chbVentaFacil.Size = new System.Drawing.Size(76, 17);
+            this.chbVentaFacil.TabIndex = 3;
+            this.chbVentaFacil.Text = "Venta fácil";
+            this.chbVentaFacil.UseVisualStyleBackColor = true;
+            this.chbVentaFacil.Visible = false;
+            this.chbVentaFacil.CheckedChanged += new System.EventHandler(this.chbVentaFacil_CheckedChanged);
             // 
             // InputBoxMessageBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(375, 141);
+            this.ClientSize = new System.Drawing.Size(375, 170);
+            this.Controls.Add(this.chbVentaFacil);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -144,6 +159,7 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -156,5 +172,6 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Button btnAceptar;
         private System.Windows.Forms.TextBox txtDefaultResponse;
+        private System.Windows.Forms.CheckBox chbVentaFacil;
     }
 }

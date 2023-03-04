@@ -341,7 +341,8 @@ namespace PuntoDeVentaV2
 
                     if (op4 > op3)
                     {
-                        MessageBox.Show("El precio nuevo no puede ser mayor o igual al anterior.");
+                        MessageBox.Show("El precio nuevo no puede ser mayor o igual al anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        AgregarEditarProducto.descuentos.Clear();
                         SeCierra = false;
                         return;
                     }
@@ -355,17 +356,22 @@ namespace PuntoDeVentaV2
                 {
                     refrescarForm = false;
                     MessageBox.Show("Es necesario agregar minímo 2 descuentos a mayoreo.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    AgregarEditarProducto.descuentos.Clear();
                     return;
                 }
+
                 AgregarEditarProducto.rbDescuentoSinGuardar = 2;
             }
+
             AgregarEditarProducto.validacionUpdateDescuentos = 1;
             refrescarForm = false;
+
             if (SeCierra == true)
             {
                 SeCierra = false;
                 this.Hide();
             }
+
             SeCierra = true;
         }
 
@@ -1852,7 +1858,7 @@ namespace PuntoDeVentaV2
         }
 
         private void calculadora(object sender, KeyPressEventArgs e)
-        {   if (!calculadoraisOut)
+        {if (!calculadoraisOut)
             {
                 calculadoraisOut = true;
                 TextBox tb = (TextBox)sender;
@@ -1986,7 +1992,42 @@ namespace PuntoDeVentaV2
 
         private void soloDecimales(object sender, KeyPressEventArgs e)
         {
-            calculadora2(sender, e);
+            if (!calculadoraisOut)
+            {
+                calculadoraisOut = true;
+                TextBox tb = (TextBox)sender;
+                if (e.KeyChar == Convert.ToChar(Keys.Space))
+                {
+                    calcu++;
+
+                    if (calcu == 1)
+                    {
+                        calculadora calculadora = new calculadora();
+
+                        calculadora.FormClosed += delegate
+                        {
+                            if (calculadora.seEnvia.Equals(true))
+                            {
+
+                                tb.Text = calculadora.lCalculadora.Text;
+                                calculadoraisOut = false;
+
+                            }
+
+                        };
+
+                        calcu = 0;
+                        if (!calculadora.Visible)
+                        {
+                            calculadora.Show();
+                        }
+                        else
+                        {
+                            calculadora.Show();
+                        }
+                    }
+                }
+            }
             //permite 0-9, eliminar y decimal
             if (((e.KeyChar < 48 || e.KeyChar > 57) && e.KeyChar != 8 && e.KeyChar != 46))
             {
@@ -2003,37 +2044,7 @@ namespace PuntoDeVentaV2
             
         }
 
-        private void calculadora2(object sender, KeyPressEventArgs e)
-        {
-            TextBox txt = (TextBox)sender;
-            int calcu = 0;
-            if (e.KeyChar == Convert.ToChar(Keys.Space))
-            {
-                calcu++;
-
-                if (calcu == 1)
-                {
-                    calculadora calculadora = new calculadora();
-
-                    calculadora.FormClosed += delegate
-                    {
-                        if (calculadora.seEnvia.Equals(true))
-                        {
-                            txt.Text = calculadora.lCalculadora.Text;
-                        }
-                        calcu = 0;
-                    };
-                    if (!calculadora.Visible)
-                    {
-                        calculadora.Show();
-                    }
-                    else
-                    {
-                        calculadora.Show();
-                    }
-                }
-            }
-        }
+       
         //Este evento es principalmente para los descuentos por Cliente
         private void calculoDescuento(object sender, KeyEventArgs e)
         {
@@ -2045,8 +2056,13 @@ namespace PuntoDeVentaV2
                 var valorPorc = tb.Text;
                 valorPorc = procesarPorcentaje(valorPorc);
                 double porcentaje = Convert.ToDouble(valorPorc);
-                if (porcentaje == 0) { tb.Text = ""; }
+                //if (porcentaje == 0) { tb.Text = ""; }
                 double descuento = precioProducto * porcentaje;
+                if (valorPorc.Equals("0."))
+                {
+                    tb.Text = "0.";
+                    tb.Select(tb.Text.Length, 0);
+                }
                 tbDescuento.Text = descuento.ToString("0.00");
                 tbPrecioDescuento.Text = (precioProducto - descuento).ToString("0.00");
             }
@@ -2118,6 +2134,12 @@ namespace PuntoDeVentaV2
 
             if (id == "1")
             {
+                if (Convert.ToDecimal(tb1.Text)<=1)
+                {
+                    MessageBox.Show("La cantidad limite nueva no puede ser menor o igual a la cantidad limite anterior.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    tb1.Focus();
+                    return;
+                }
                 cb.Text = "Las primeras " + tb1.Text + " siempre costarán " + precioProducto.ToString("0.00");
             }
             else
@@ -2160,6 +2182,16 @@ namespace PuntoDeVentaV2
 
                 cb.Text = $"De entre {(Convert.ToInt32(rangoInicial) + 1)} a {tb1.Text} siempre costarán {tb2.Text}";
             }
+            try
+            {
+                rangoInicial = float.Parse(tb1.Text);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No se permiten los caracteres especiales", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                tb1.Clear();
+                return;
+            }
 
             tb1.Enabled = false;
             tb2.Enabled = false;
@@ -2180,15 +2212,7 @@ namespace PuntoDeVentaV2
                 Button bt = (Button)this.Controls.Find("btnAgregarD" + id, true).FirstOrDefault();
                 bt.Enabled = false;
             }
-            try
-            {
-                rangoInicial = float.Parse(tb1.Text);
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("No se permiten los caracteres especiales", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+           
             
 
 
@@ -2251,7 +2275,15 @@ namespace PuntoDeVentaV2
             }
             else if (longitud == 1)
             {
-                porcentaje = "0.0" + porcentaje;
+                if (porcentaje.Equals("."))
+                {
+                    porcentaje = "0.";
+                }
+                else
+                {
+                    porcentaje = "0.0" + porcentaje;
+                }
+                
             }
             else
             {

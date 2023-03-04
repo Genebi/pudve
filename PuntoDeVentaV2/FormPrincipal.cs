@@ -35,6 +35,8 @@ namespace PuntoDeVentaV2
         Consultas cs = new Consultas();
         RespadoBaseDatos backUpDB = new RespadoBaseDatos();
         Cargando cargando = new Cargando();
+        bool listenerIsRunning = false;
+        bool senderIsRunning = false;
 
         //checarVersion vs = new checarVersion();
 
@@ -346,16 +348,19 @@ namespace PuntoDeVentaV2
 
         private void actualizarCaja_Tick_1(object sender, EventArgs e)
         {
-            //if (!FormPrincipal.userNickName.Contains("@"))
-            //{
+            if (listenerIsRunning)
+            {
+                return;
+            }
+          
                 if (pasar==1)
                 {
-                    if (!webListener.IsBusy)
-                    {
-                        webListener.RunWorkerAsync();
-                    }
-                }
-            //}
+                // Create a new thread
+                Thread newThread = new Thread(solicitudWEB);
+
+                // Start the thread
+                newThread.Start();
+            }
         }
 
         private void panelContenedor_Paint(object sender, PaintEventArgs e)
@@ -531,12 +536,15 @@ namespace PuntoDeVentaV2
 
             recargarDatos();
 
+
             TempUserID = TempIdUsuario;
             TempUserNickName = TempNickUsr;
             TempUserPass = TempPassUsr;
 
+            //Caducos caducos = new Caducos(userID, this, this.btnCad);
+            //caducos.ShowDialog();
+            bgwCaducos.RunWorkerAsync();
             ObtenerDatosUsuario(userID);
-
             var servidor = Properties.Settings.Default.Hosting;
 
             if (string.IsNullOrWhiteSpace(servidor))
@@ -684,6 +692,8 @@ namespace PuntoDeVentaV2
                     cn.EjecutarConsulta($"INSERT INTO configuraciondetickets(IDUsuario)VALUES({IdUsuario})");
                 }
             }
+
+            btnAyuda.Focus();
         }
 
         private void EnvioCorreoLicenciaActiva()
@@ -1175,6 +1185,7 @@ namespace PuntoDeVentaV2
 
         private void solicitudWEB()
         {
+            listenerIsRunning = true;
             try
             {
                 ConexionAPPWEB cn2 = new ConexionAPPWEB();
@@ -1195,7 +1206,25 @@ namespace PuntoDeVentaV2
                                     cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Producto';");
                                     enviarProdctosWeb();
                                     break;
+                                case "Empleados":
+                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Cliente = '{userNickName.Split('@')[0]}' AND Solicitud = 'Empleados';");
+                                    enviarEmpleadosWeb();
+                                    break;
+                                case "SesionInventario":
+                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Empleado = '{peticion["Empleado"].ToString()}' ");
+                                    iniciarSesionInventario(peticion["Tipo"].ToString(), peticion["Empleado"].ToString());
+                                    break;
+                                case "proveedorDesde0":
+                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Empleado = '{peticion["Empleado"].ToString()}' ");
+                                    iniciarSesionInventario(peticion["Solicitud"].ToString(), peticion["Empleado"].ToString(), peticion["Tipo"].ToString());
+                                    break;
+                                case "proveedorContinuar":
+                                    cn2.EjecutarConsulta($"DELETE FROM peticiones WHERE Empleado = '{peticion["Empleado"].ToString()}' ");
+                                    iniciarSesionInventario(peticion["Solicitud"].ToString(), peticion["Empleado"].ToString(), peticion["Tipo"].ToString());
+                                    break;
                                 default:
+                                    listenerIsRunning = false;
+                                    return;
                                     break;
                             }
                         }
@@ -1204,9 +1233,91 @@ namespace PuntoDeVentaV2
             }
             catch (Exception)
             {
+                listenerIsRunning = false;
                 Console.WriteLine("Error garrafal");
                 return;
             }
+        }
+
+        private void iniciarSesionInventario(string tipo, string idEmpleado, string proveedor = "")
+        {
+            proveedor = proveedor.Trim();
+            switch (tipo)
+            {
+                case "Normal":
+                    var datos = new string[] { tipo, "NA", "0",idEmpleado};
+                    new Thread(() =>
+                    {
+                        Thread.CurrentThread.IsBackground = true;
+                        WEBRevisarInventario revInv = new WEBRevisarInventario(datos);
+                        revInv.ShowDialog();
+                    }).Start();
+                    break;
+                case "Proveedores":
+                    try
+                    {
+                        ConexionAPPWEB con = new ConexionAPPWEB();
+                        con.EjecutarConsulta($"DELETE FROM sesioninventario WHERE IDEmpleado ='{idEmpleado}'");//Se cierran las demas sesiones
+                        enviarProveedores();
+                        string consulta = $"INSERT INTO sesioninventario (IDUsuario, IDEmpleado, Session, Tipo) VALUES('{FormPrincipal.userNickName.Split('@')[0]}','{idEmpleado}', 0, 'Proveedores')";
+                        con.EjecutarConsulta(consulta);
+                    }
+                    catch (Exception)
+                    {
+                        //Error de conexion
+                    }
+                    break;
+                case "proveedorDesde0":
+                        var datosP = new string[] { "Proveedores", proveedor+ "|1", "0", idEmpleado };
+                    new Thread(() =>
+                    {
+                        Thread.CurrentThread.IsBackground = true;
+                        WEBRevisarInventario revInvP = new WEBRevisarInventario(datosP);
+                             revInvP.ShowDialog();
+            }).Start();
+
+            break;
+                case "proveedorContinuar":
+
+                    var datosPb = new string[] { "Proveedores", proveedor + "|2", "0", idEmpleado };
+                    new Thread(() =>
+                    {
+                        Thread.CurrentThread.IsBackground = true;
+                        WEBRevisarInventario revInv = new WEBRevisarInventario(datosPb);
+                        revInv.ShowDialog();
+                    }).Start();
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void enviarProveedores()
+        {
+            try
+            {
+                ConexionAPPWEB con = new ConexionAPPWEB();
+                DataTable valoresProvedores = cn.CargarDatos($"SELECT  IF(true,'{userNickName.Split('@')[0]}','{userNickName.Split('@')[0]}') AS IDUsuario, Nombre, ID AS IDLocal FROM proveedores WHERE IDUsuario={userID} AND `Status`=1");
+                string consulta = $"DELETE FROM webproveedores WHERE IDUsuario = '{userNickName.Split('@')[0]}'";
+                con.EjecutarConsulta(consulta);
+                ToCSV(valoresProvedores, @"C:\Archivos PUDVE\export.txt");
+                bulkInsertAsync("webproveedores");
+        }
+            catch (Exception)
+            {
+                //No se logro la conexion a internet.
+                return;
+            }
+}
+
+        private void enviarEmpleadosWeb()
+        {
+            ConexionAPPWEB con = new ConexionAPPWEB();
+            con.EjecutarConsulta($"DELETE FROM webempleados WHERE IDUsuario = '{userNickName.Split('@')[0]}'");
+            DataTable empliados = cn.CargarDatos($"SELECT IF(true,'{userNickName.Split('@')[0]}','{userNickName.Split('@')[0]}') AS IDUsuario, Nombre,Usuario,contrasena FROM empleados WHERE IDUsuario = {IdUsuario} AND estatus = 1");
+            ToCSV(empliados, @"C:\Archivos PUDVE\export.txt");
+            bulkInsertAsync("webempleados");
         }
 
         private void enviarProdctosWeb()
@@ -1249,13 +1360,13 @@ namespace PuntoDeVentaV2
                 bulkInsertAsync("mirrorproductosdatos");
                 con.EjecutarConsulta($"UPDATE mirrorproductoregistro SET Completo = '1' WHERE ID = (SELECT MAX(ID))");
                 }
-        }
+            }
             catch (Exception)
             {
                 //No se logro la conexion a internet.
                 return;
             }
-}
+        }
 
         private void ToCSV(DataTable dtDataTable, string strFilePath)
         {
@@ -1301,18 +1412,20 @@ namespace PuntoDeVentaV2
 
         private void webAuto_Tick(object sender, EventArgs e)
         {
-            //if (pasar == 1)
-            //{
-                if (!webSender.IsBusy )
-                {
-                    webSender.RunWorkerAsync();
-                }
-            //}
+            if (senderIsRunning)
+            {
+                return;
+            }
+            // Create a new thread
+            Thread newThread = new Thread(enviarWebAuto);
+
+            // Start the thread
+            newThread.Start();
         }
 
-        private void webSender_DoWork(object sender, DoWorkEventArgs e)
+        private void enviarWebAuto()
         {
-
+            senderIsRunning = true;
             if (userNickName.Split('@')[0] == "HOUSEDEPOTAUTLAN")
             {
                 string path = @"C:\Archivos PUDVE\Monosas.txt";
@@ -1365,15 +1478,42 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
+                    senderIsRunning = false;
                     return;
                 }
             }
+            senderIsRunning = false;
+            return;
         }
 
         private void btnAyuda_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start("https://www.youtube.com/@sifo1887/videos");
         }
+
+
+        private void btnCad_Click(object sender, EventArgs e)
+        {
+            FormCollection fc = Application.OpenForms;
+            CheckForIllegalCrossThreadCalls = false;
+            foreach (Form frm in fc)
+            {
+                if (frm.Name == "Caducos")
+                {
+                    frm.TopMost = true;
+                    frm.Opacity = 1;
+                    frm.TopMost = false;
+                    CheckForIllegalCrossThreadCalls = true;
+                }
+            }
+        }
+
+        private void bgwCaducos_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Caducos caducos = new Caducos(userID, this, this.btnCad);
+            caducos.ShowDialog();
+        }
+
 
         public async Task bulkInsertAsync(string tablename)
         {
@@ -1397,6 +1537,16 @@ namespace PuntoDeVentaV2
                     break;
                 case "mirrorproductosdatos":
                     bl.Columns.AddRange(new List<string>() { "IDregistro", "Nombre", "Stock", "Precio", "Codigo" });
+                    bl.FieldTerminator = "+";
+                    bl.LineTerminator = "\n";
+                    break;
+                case "webempleados":
+                    bl.Columns.AddRange(new List<string>() { "IDUsuario", "Nombre","Usuario", "Pass"});
+                    bl.FieldTerminator = "+";
+                    bl.LineTerminator = "\n";
+                    break;
+                case "webproveedores":
+                    bl.Columns.AddRange(new List<string>() { "IDUsuario", "Nombre","IDLocal" });
                     bl.FieldTerminator = "+";
                     bl.LineTerminator = "\n";
                     break;
@@ -1621,7 +1771,7 @@ namespace PuntoDeVentaV2
                 formulario.Dock = DockStyle.Fill;
                 panelContenedor.Controls.Add(formulario);
                 panelContenedor.Tag = formulario;
-                formulario.Show();
+                        formulario.Show();
                 formulario.BringToFront();
             }
             else

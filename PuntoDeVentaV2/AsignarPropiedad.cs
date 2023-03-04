@@ -1313,6 +1313,7 @@ namespace PuntoDeVentaV2
 
                 var stock = txtStock.Text;
                 var html = string.Empty;
+                List<string> monosas = new List<string>();
 
                 var consulta = "INSERT IGNORE INTO Productos (ID, Stock) VALUES";
                 var segundaConsulta = "INSERT IGNORE INTO RevisarInventario (ID, StockFisico) VALUES";
@@ -1322,47 +1323,67 @@ namespace PuntoDeVentaV2
                 {
                     foreach (var producto in productos)
                     {
-                        if (producto.Value == "P")
+                        using (DataTable dtBuscarSubdetalles = cn.CargarDatos($"SELECT productos.nombre FROM subdetallesdeproducto INNER JOIN detallesubdetalle ON subdetallesdeproducto.ID = detallesubdetalle.IDSubDetalle INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE IDProducto = '{producto.Key}' AND subdetallesdeproducto.IDUsuario = '{FormPrincipal.userID}' AND Activo = 1 Group by productos.Nombre"))
                         {
-                            var datosConfig = mb.ComprobarConfiguracion();
-
-                            if (datosConfig.Count > 0)
+                            if (dtBuscarSubdetalles.Rows.Count.Equals(0))
                             {
-                                if (Convert.ToInt16(datosConfig[1]) == 1)
+                                if (producto.Value == "P")
                                 {
-                                    var configProducto = mb.ComprobarCorreoProducto(producto.Key);
+                                    var datosConfig = mb.ComprobarConfiguracion();
 
-                                    if (configProducto.Count > 0)
+                                    if (datosConfig.Count > 0)
                                     {
-                                        if (configProducto[1] == 1)
+                                        if (Convert.ToInt16(datosConfig[1]) == 1)
                                         {
-                                            // Obtenemos los datos del producto para el email
-                                            var datosProducto = cn.BuscarProducto(producto.Key, FormPrincipal.userID);
+                                            var configProducto = mb.ComprobarCorreoProducto(producto.Key);
 
-                                            html += $@"<li>
+                                            if (configProducto.Count > 0)
+                                            {
+                                                if (configProducto[1] == 1)
+                                                {
+                                                    // Obtenemos los datos del producto para el email
+                                                    var datosProducto = cn.BuscarProducto(producto.Key, FormPrincipal.userID);
+
+                                                    html += $@"<li>
                                                     <span style='color: black;'>{datosProducto[1]}</span> 
                                                     --- <b>STOCK ANTERIOR:</b> 
                                                     <span style='color: black;'>{datosProducto[4]}</span> 
                                                     --- <b>STOCK NUEVO:</b> 
                                                     <span style='color: black;'>{stock}</span>
                                                 </li>";
+                                                }
+                                            }
                                         }
                                     }
+
+                                    valores += $"({producto.Key}, {stock}),";
+
+                                    //datos = new string[] { producto.Key.ToString(), stock, FormPrincipal.userID.ToString() };
+
+                                    //cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
+                                    var datoStock = cn.CargarDatos($"SELECT Stock FROM Productos WHERE ID = {producto.Key}");
+                                    var stockActual = datoStock.Rows[0]["Stock"].ToString();
+                                    decimal stockNuevo = Convert.ToDecimal(stock);
+                                    var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+
+                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{producto.Key}','Asignacion de Stock ','{stockActual}','{stockNuevo}','{fecha}','{FormPrincipal.userNickName}', '0')");
                                 }
                             }
-
-                            valores += $"({producto.Key}, {stock}),";
-
-                            //datos = new string[] { producto.Key.ToString(), stock, FormPrincipal.userID.ToString() };
-
-                            //cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
-                            var datoStock = cn.CargarDatos($"SELECT Stock FROM Productos WHERE ID = {producto.Key}");
-                            var stockActual = datoStock.Rows[0]["Stock"].ToString();
-                            decimal stockNuevo = Convert.ToDecimal(stock);
-                            var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-
-                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{producto.Key}','Asignacion de Stock ','{stockActual}','{stockNuevo}','{fecha}','{FormPrincipal.userNickName}', '0')");
+                            else
+                            {
+                                monosas.Add(dtBuscarSubdetalles.Rows[0][0].ToString());
+                            }
                         }
+                    }
+
+                    if (monosas.Count>0)
+                    {
+                        string mensaje = "Los siguientes productos se ignoraron por contar con sub detalles, para actualizar su stock  utilice las ventanas de inventario o edite los sub detalles.";
+                        foreach (string productoConSubdetalle in monosas)
+                        {
+                            mensaje += $"\n{productoConSubdetalle}";
+                        }
+                        MessageBox.Show(mensaje, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
                     if (!string.IsNullOrWhiteSpace(valores))

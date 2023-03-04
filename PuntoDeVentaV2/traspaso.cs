@@ -16,11 +16,13 @@ namespace PuntoDeVentaV2
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         bool init = false;
-        public static string ID = "";
+        public static string ID="";
+        public List<string> updatesSubdetalles = new List<string>();
         bool auto = true;
         public traspaso(DataTable datosTraspaso)
         {
             InitializeComponent();
+            this.Visible = false;
             DGVTraspaso.DataSource = datosTraspaso;
         }
 
@@ -58,12 +60,18 @@ namespace PuntoDeVentaV2
 
                     if (auto)
                     {
+                        MessageBox.Show("Traspaso automático realizado exitosamente.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         btnAceptar.PerformClick();
                     }
                     else
                     {
                         MessageBox.Show("No se pudo realizar el traspaso automáticamente, revise manualmente que todos los productos coincidan.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Visible = true;
                     }
+                }
+                else
+                {
+                    this.Visible = true;
                 }
             }
             
@@ -87,6 +95,12 @@ namespace PuntoDeVentaV2
                     MessageBox.Show("No puedes dejar entradas en blanco, también puedes ómitir si lo deseas");
                     return;
                 }
+                if (!verificarSubDetalles(row))
+                {
+                    MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 if (!Convert.ToBoolean(row.Cells["Omitir"].Value))
                 {
                     DataTable buscarCombo = new DataTable();
@@ -145,6 +159,36 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+        }
+
+        private bool verificarSubDetalles(DataGridViewRow ProductoDGV)
+        {
+            bool registroCorrectoDeSubdetalles = true;
+
+            //foreach (DataGridViewRow ProductoDGV in DGVTraspaso.Rows)
+            //{
+                if (!Convert.ToBoolean(ProductoDGV.Cells["Omitir"].Value))
+                {
+                    using (DataTable ids = cn.CargarDatos($"SELECT ID,Stock FROM Productos WHERE CodigoBarras = {ProductoDGV.Cells["CodigoL"].Value.ToString()} AND Status = 1 AND IDUsuario = {FormPrincipal.userID}"))
+                    {
+
+                        subDetallesDeProducto detalles = new subDetallesDeProducto(ids.Rows[0]["ID"].ToString(), "Inventario", cantidad: decimal.Parse(ProductoDGV.Cells["CantidadT"].Value.ToString()));
+                        detalles.FormClosed += delegate
+                        {
+                            if (!detalles.finalizado)
+                            {
+                                registroCorrectoDeSubdetalles = detalles.finalizado;
+                                updatesSubdetalles.Clear();
+                            }
+                            else
+                            {
+                                updatesSubdetalles.AddRange(detalles.updates);
+                            }
+                        };
+                        detalles.ShowDialog();
+                    }
+                }
+            return registroCorrectoDeSubdetalles;
         }
     }
 }

@@ -105,16 +105,21 @@ namespace PuntoDeVentaV2
                             lblMensaje.Visible = true;
                             lblGanancia.Text = "SIN PODER CALCULAR";
                             precioTotalDeCompra = 0;
-                            //return;
+                            break;
                         }
                         else
                         {
-                            precioTotalDeCompra = (validacion * cantidad);
-                            VentaTotal = (VentaTotal - precioTotalDeCompra)-(precioPodsEnCombo);
-                            lblGanancia.Text = (VentaTotal.ToString("C"));
+                            precioTotalDeCompra += (validacion * cantidad);
                             iterador++;
                         }
                     }
+                }
+                if (lblGanancia.Text != "SIN PODER CALCULAR")
+                {
+                    var datos = cn.CargarDatos($"SELECT Anticipo FROM ventas WHERE Folio = {ListadoVentas.folioVenta} AND IDUsuario = {FormPrincipal.userID} AND IDEmpleado = {FormPrincipal.id_empleado};");
+                    VentaTotal = VentaTotal + Convert.ToDecimal(datos.Rows[0][0].ToString());
+                    VentaTotal = (VentaTotal - precioTotalDeCompra);
+                    lblGanancia.Text = (VentaTotal.ToString("C"));
                 }
             }
             else if (lugarGanancia == 2)// GANANCIA POR ARTICULOS EN EL CARRITO----------------------------------------------------------------------------------------- 
@@ -220,13 +225,18 @@ namespace PuntoDeVentaV2
                         }
                         else
                         {
-                            precioTotalDeCompra = (validacion * cantidad);
-                            VentaTotal = (VentaTotal - precioTotalDeCompra) + Ventas.totalAnticipoAplicado;
-                            lblGanancia.Text = (VentaTotal.ToString("C"));
+                            precioTotalDeCompra += (validacion * cantidad);
                             iterador++;
                         }
                     }
                 }
+                if (lblGanancia.Text != "SIN PODER CALCULAR")
+                {
+                    VentaTotal = VentaTotal + Ventas.totalAnticipoAplicado;
+                    VentaTotal = (VentaTotal - precioTotalDeCompra);
+                    lblGanancia.Text = (VentaTotal.ToString("C"));
+                }
+                
             }
             if (gananciaGrafica == 3)
             {
