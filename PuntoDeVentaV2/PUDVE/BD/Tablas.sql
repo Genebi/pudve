@@ -2282,3 +2282,6 @@ ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS RegresarProducto INT DEFA
 -- Configuracion para ventas faciles
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS ventaFacil INT DEFAULT 0;
 
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS avisoCaducidad INT DEFAULT 1;
+
+
