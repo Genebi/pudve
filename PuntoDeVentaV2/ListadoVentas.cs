@@ -264,6 +264,17 @@ namespace PuntoDeVentaV2
             //cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo ) VALUES('retiro', '0.00', '0.00', '', '{fechaCreacion}', '{FormPrincipal.userID}', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00' )");
 
             txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+
+            var configuracion = mb.ComprobarConfiguracion();
+
+            if (configuracion.Count > 0)
+            {
+                // Realiza rentas
+                if (configuracion[32].Equals(1))
+                {
+                    rbRentas.Checked = true;
+                }
+            }
         }
 
         private void verificarSiExisteCorteDeCaja()

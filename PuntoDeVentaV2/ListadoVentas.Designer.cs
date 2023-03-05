@@ -53,6 +53,7 @@
             this.ganancia = new System.Windows.Forms.DataGridViewImageColumn();
             this.Abonado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.cbTipoRentas = new System.Windows.Forms.ComboBox();
             this.cbFormasPago = new System.Windows.Forms.ComboBox();
             this.cbFiltroAdminEmpleado = new System.Windows.Forms.ComboBox();
             this.dpHoraFinal = new System.Windows.Forms.DateTimePicker();
@@ -98,7 +99,6 @@
             this.chkHDAutlan = new System.Windows.Forms.CheckBox();
             this.rbVentas = new System.Windows.Forms.RadioButton();
             this.rbRentas = new System.Windows.Forms.RadioButton();
-            this.cbTipoRentas = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -334,6 +334,17 @@
             this.panelBotones.Name = "panelBotones";
             this.panelBotones.Size = new System.Drawing.Size(960, 110);
             this.panelBotones.TabIndex = 6;
+            // 
+            // cbTipoRentas
+            // 
+            this.cbTipoRentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipoRentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTipoRentas.FormattingEnabled = true;
+            this.cbTipoRentas.Location = new System.Drawing.Point(3, 30);
+            this.cbTipoRentas.Name = "cbTipoRentas";
+            this.cbTipoRentas.Size = new System.Drawing.Size(240, 21);
+            this.cbTipoRentas.TabIndex = 20;
+            this.cbTipoRentas.Visible = false;
             // 
             // cbFormasPago
             // 
@@ -923,6 +934,7 @@
             // rbVentas
             // 
             this.rbVentas.AutoSize = true;
+            this.rbVentas.Checked = true;
             this.rbVentas.Location = new System.Drawing.Point(12, 32);
             this.rbVentas.Name = "rbVentas";
             this.rbVentas.Size = new System.Drawing.Size(68, 17);
@@ -939,21 +951,9 @@
             this.rbRentas.Name = "rbRentas";
             this.rbRentas.Size = new System.Drawing.Size(173, 17);
             this.rbRentas.TabIndex = 70;
-            this.rbRentas.TabStop = true;
             this.rbRentas.Text = "RENTAS (ARRENDAMIENTO)";
             this.rbRentas.UseVisualStyleBackColor = true;
             this.rbRentas.CheckedChanged += new System.EventHandler(this.rbRentas_CheckedChanged);
-            // 
-            // cbTipoRentas
-            // 
-            this.cbTipoRentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTipoRentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbTipoRentas.FormattingEnabled = true;
-            this.cbTipoRentas.Location = new System.Drawing.Point(3, 30);
-            this.cbTipoRentas.Name = "cbTipoRentas";
-            this.cbTipoRentas.Size = new System.Drawing.Size(240, 21);
-            this.cbTipoRentas.TabIndex = 20;
-            this.cbTipoRentas.Visible = false;
             // 
             // ListadoVentas
             // 
