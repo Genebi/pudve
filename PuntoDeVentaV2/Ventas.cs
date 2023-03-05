@@ -148,6 +148,7 @@ namespace PuntoDeVentaV2
         private int mostrarCBProducto = 0;
         private int correoVenta = 0;
         private int correoDescuento = 0;
+        private int aceptaRenta = 0;
         // Variables para la configuracion referente a los productos con mayoreo
         private bool mayoreoActivo = false;
         private int cantidadMayoreo = 0;
@@ -383,6 +384,18 @@ namespace PuntoDeVentaV2
                 cantidadMayoreo = Convert.ToInt32(configCorreos[10]);
                 correoVenta = Convert.ToInt32(configCorreos[21]);
                 correoDescuento = Convert.ToInt32(configCorreos[23]);
+
+                // Realiza rentas
+                if (configCorreos[32].Equals(1))
+                {
+                    checkRenta.Checked = Convert.ToBoolean(configCorreos[31]);
+                    aceptaRenta = 1;
+                }
+
+                if (configCorreos[32].Equals(0))
+                {
+                    checkRenta.Enabled = false;
+                }
             }
 
             enviarStockMinimo = new Dictionary<int, string>();
@@ -3931,6 +3944,8 @@ namespace PuntoDeVentaV2
             var idClienteTmp = idCliente;
             string id_empleado = Convert.ToString(FormPrincipal.id_empleado);
             var tipoDeVenta = "";
+            bool esRenta = checkRenta.Checked;
+            bool esOrden = checkOrden.Checked;
 
             // variable para saber si esta facturada la venta Guardada
             var estaTimbrada = false;
@@ -3942,6 +3957,22 @@ namespace PuntoDeVentaV2
                     statusVenta = "2";
                 }
 
+                if (esRenta)
+                {
+                    if (statusVenta.Equals("2"))
+                    {
+                        statusVenta = "7";
+                    }
+                }
+
+                if (esOrden)
+                {
+                    if (statusVenta.Equals("2") || statusVenta.Equals("7"))
+                    {
+                        statusVenta = "11";
+                    }
+                }
+
                 if (string.IsNullOrWhiteSpace(idClienteTmp))
                 {
                     idClienteTmp = "0";
@@ -3949,6 +3980,19 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                if (esRenta)
+                {
+                    if (statusVenta.Equals("1"))
+                    {
+                        statusVenta = "6";
+                    }
+
+                    if (statusVenta.Equals("4"))
+                    {
+                        statusVenta = "9";
+                    }
+                }
+
                 if (idClienteTmp.Equals(""))
                 {
                     idClienteTmp = "0";
@@ -7400,13 +7444,14 @@ namespace PuntoDeVentaV2
                 var resultados = new Dictionary<int, string>();
 
                 var coincidenciaExacta = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND STATUS = 1 AND CodigoBarras = '{txtBuscadorProducto.Text.Trim()}'");
+
                 if (coincidenciaExacta.Rows.Count.Equals(0))
                 {
-                    resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text.Trim(), filtro, mostrarPrecioProducto, mostrarCBProducto);
+                    resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text.Trim(), filtro, mostrarPrecioProducto, mostrarCBProducto, aceptaRenta);
                 }
                 else
                 {
-                    resultados = mb.BusquedaCoincidenciaExacta(txtBuscadorProducto.Text.Trim(), filtro, mostrarPrecioProducto, mostrarCBProducto);
+                    resultados = mb.BusquedaCoincidenciaExacta(txtBuscadorProducto.Text.Trim(), filtro, mostrarPrecioProducto, mostrarCBProducto, aceptaRenta);
                 }
 
                 int coincidencias = resultados.Count;
