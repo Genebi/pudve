@@ -315,6 +315,7 @@ namespace PuntoDeVentaV2
              Utilidades.EnviarEmail(html, asunto, correo);
         }
 
+
         private float sumarMetodosTemporal()
         {
             float efectivo = CantidadDecimal(txtEfectivo.Text);
