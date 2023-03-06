@@ -1127,11 +1127,12 @@ namespace PuntoDeVentaV2
             totalSaldoInicial = (decimal)saldoInicial;
 
             //tituloSeccion.Text = "SALDO INICIAL: \r\n" + moneda + cdc.CargarSaldoInicial().ToString("0.00");
-            //btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + totalSaldoInicial /*cdc.CargarSaldoInicial().ToString("0.00")*/;
+            //btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + totalSaldoInicial /cdc.CargarSaldoInicial().ToString("0.00")/;
             var datos = cn.CargarDatos($"SELECT FORMAT(IF(SUM(Efectivo)= '' OR SUM(Efectivo) IS NULL,'0',SUM(Efectivo)),2) AS 'Efectivo', FORMAT(IF(SUM(Tarjeta)= '' OR SUM(Tarjeta) IS NULL,'0',SUM(Tarjeta)),2) AS 'Tarjeta', FORMAT(IF(SUM(Vales)= '' OR SUM(Vales) IS NULL,'0',SUM(Vales)),2) AS 'Vales', FORMAT(IF(SUM(Cheque)= '' OR SUM(Cheque) IS NULL,'0',SUM(Cheque)),2) AS 'Cheque', FORMAT(IF(SUM(Transferencia)= '' OR SUM(Transferencia) IS NULL,'0',SUM(Transferencia)),2) AS 'Transferencia', FORMAT(IF(SUM(Efectivo)= '' OR SUM(Efectivo) IS NULL,'0',SUM(Efectivo)) + IF(SUM(Tarjeta)= '' OR SUM(Tarjeta) IS NULL,'0',SUM(Tarjeta)) + IF(SUM(Vales)= '' OR SUM(Vales) IS NULL,'0',SUM(Vales)) + IF(SUM(Cheque)= '' OR SUM(Cheque) IS NULL,'0',SUM(Cheque)) + IF(SUM(Transferencia)= '' OR SUM(Transferencia) IS NULL,'0',SUM(Transferencia)),2) AS 'Total' FROM `caja` WHERE FechaOperacion >= '{ultimoCorteDeCaja}' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' AND Concepto = 'Complemento de retiro desde saldo inicial' AND Operacion = 'retiro'");
             var datosSaldo = cn.CargarDatos($"SELECT Cantidad FROM `caja` WHERE IDUsuario = {FormPrincipal.userID} AND IdEmpleado = {FormPrincipal.id_empleado} AND Operacion = 'deposito' AND Concepto = 'Insert primer saldo inicial' AND FechaOperacion >= '{ultimoCorteDeCaja}'");
 
             var retiradoSaldoInicial = Convert.ToDecimal(datos.Rows[0]["Total"].ToString());
+
             if (datosSaldo.Rows.Count > 0)
             {
                 btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + datosSaldo.Rows[0]["Cantidad"].ToString();
@@ -1170,14 +1171,7 @@ namespace PuntoDeVentaV2
                 }
 
             }
-            //var datos2 = cn.CargarDatos($"SELECT FORMAT( IF ( SUM( Efectivo ) = '' OR SUM( Efectivo ) IS NULL, '0', SUM( Efectivo ) ), 2 ) AS 'Efectivo', FORMAT( IF ( SUM( Tarjeta ) = '' OR SUM( Tarjeta ) IS NULL, '0', SUM( Tarjeta ) ), 2 ) AS 'Tarjeta', FORMAT( IF ( SUM( Vales ) = '' OR SUM( Vales ) IS NULL, '0', SUM( Vales ) ), 2 ) AS 'Vales', FORMAT( IF ( SUM( Cheque ) = '' OR SUM( Cheque ) IS NULL, '0', SUM( Cheque ) ), 2 ) AS 'Cheque', FORMAT( IF ( SUM( Transferencia ) = '' OR SUM( Transferencia ) IS NULL, '0', SUM( Transferencia ) ), 2 ) AS 'Transferencia', FORMAT( IF ( SUM( Efectivo ) = '' OR SUM( Efectivo ) IS NULL, '0', SUM( Efectivo ) ) + IF ( SUM( Tarjeta ) = '' OR SUM( Tarjeta ) IS NULL, '0', SUM( Tarjeta ) ) + IF ( SUM( Vales ) = '' OR SUM( Vales ) IS NULL, '0', SUM( Vales ) ) + IF ( SUM( Cheque ) = '' OR SUM( Cheque ) IS NULL, '0', SUM( Cheque ) ) + IF ( SUM( Transferencia ) = '' OR SUM( Transferencia ) IS NULL, '0', SUM( Transferencia ) ), 2 ) AS 'Total' FROM `caja` WHERE FechaOperacion >= '{ultimoCorteDeCaja}' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' AND Concepto = 'agregado a saldo inicial' AND Operacion = 'deposito'");
-
-            //var agregadoSaldoInicial = Convert.ToDecimal(datos2.Rows[0]["Total"].ToString());
-
-
             lblCantidadSaldoActual.Text = $"{moneda} {(totalSaldoInicial - retiradoSaldoInicial) /*+ (agregadoSaldoInicial)*/}";
-
-
         }
 
         private bool IsEmpty(List<int> iDEmpleados)
@@ -6709,23 +6703,23 @@ namespace PuntoDeVentaV2
                 {
                     botonRedondo1.Visible = false;
                     botonRedondo2.Visible = false;
-                    var datos = cn.CargarDatos($"SELECT GROUP_CONCAT(id SEPARATOR ',') as ids FROM empleados WHERE IDUsuario = {FormPrincipal.userID} AND estatus = 1");
-                    if (!string.IsNullOrWhiteSpace(datos.Rows[0][0].ToString()))
-                    {
-                        var datos2 = cn.CargarDatos($"SELECT SUM(UltimoSaldo ) AS TotalUltimoSaldo FROM(SELECT IDEmpleado, Cantidad AS UltimoSaldo FROM(SELECT IDEmpleado, Cantidad, ROW_NUMBER() OVER(PARTITION BY IDEmpleado ORDER BY FechaOperacion DESC) AS row_num FROM Caja WHERE Concepto = 'Insert primer saldo inicial' AND IDEmpleado IN (0, {datos.Rows[0][0].ToString()}) AND IDUsuario = {FormPrincipal.userID}) c WHERE c.row_num = 1) d");
-                        btnRedondoSaldoInicial.Text = "SALDO INICIAL\n" + datos2.Rows[0][0].ToString();
-                        lblCantidadRetirada.Visible = false;
-                        label7.Visible = false;
-                    }
-                    else
-                    { 
-                        btnRedondoSaldoInicial.Text = "SALDO INICIAL\n" + "$ 0.00";
-                        lblCantidadRetirada.Visible = false;
-                        label7.Visible = false;
-                    }
+                    var ids = cn.CargarDatos($"SELECT GROUP_CONCAT(ID SEPARATOR ', ') AS IDs FROM empleados WHERE IDUsuario = {FormPrincipal.userID} AND estatus = 1");
+                    var datos = cn.CargarDatos($"SELECT SUM(Efectivo) + SUM(Tarjeta) + SUM(Vales) + SUM(Cheque) + SUM(Transferencia) AS Total FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString()}) AND FechaOperacion > ( SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString()}) AND Concepto = 'Complemento de retiro desde saldo inicial' GROUP BY IDEmpleado ORDER BY FechaOperacion DESC LIMIT 1 )");
+                    var saldoInicialTotal = cn.CargarDatos($"SELECT SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) AS Total FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString() + ",0"}) AND FechaOperacion IN ( SELECT MAX(FechaOperacion) FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString() + ",0"}) AND Operacion IN ('deposito', 'PrimerSaldo') AND Concepto IN ('Insert primer saldo inicial', 'Insert primer saldo inicial con corte') GROUP BY IDEmpleado )");
+                    btnRedondoSaldoInicial.Text = "SALDO INICIAL\n" + $"$ {saldoInicialTotal.Rows[0][0].ToString()}";
+                    lblCantidadSaldoActual.Text = "$" + "  " + Convert.ToString(Convert.ToDecimal(saldoInicialTotal.Rows[0][0].ToString()) - Convert.ToDecimal(datos.Rows[0][0].ToString()));
+
+                    lblCantidadRetirada.Visible = false;
+                    label7.Visible = false;
                 }
                 else
                 {
+                    //var fechaCorte = cn.CargarDatos($"SELECT MAX(fechaOperacion) FROM historialcortesdecaja WHERE idusuario = {FormPrincipal.userID} AND idEmpleado = {FormPrincipal.id_empleado}");
+                    var SaldoInicial = cn.CargarDatos($"SELECT Cantidad FROM Caja WHERE idusuario = {FormPrincipal.userID} AND idempleado = {FormPrincipal.id_empleado} AND (Operacion = 'deposito' OR Operacion = 'PrimerSaldo') AND (Concepto = 'Insert primer saldo inicial' OR Concepto = 'Insert primer saldo inicial con corte') AND FechaOperacion >= (SELECT MAX(fechaOperacion) FROM historialcortesdecaja WHERE idusuario = {FormPrincipal.userID} AND idempleado = {FormPrincipal.id_empleado})");
+                    if (SaldoInicial.Rows.Count.Equals(1))
+                    {
+                        btnRedondoSaldoInicial.Text = "SALDO INICIAL\n" + $"$ {SaldoInicial.Rows[0][0].ToString()}";
+                    }
                     botonRedondo1.Visible = true;
                     botonRedondo2.Visible = true;
                 }
