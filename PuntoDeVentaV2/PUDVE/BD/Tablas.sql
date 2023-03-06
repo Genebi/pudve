@@ -2292,4 +2292,23 @@ ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS CorreoAbonoRecibidos INT DEFA
 ALTER TABLE permisosconfiguracion  ADD COLUMN IF NOT EXISTS PermisoEnvioDeCorreoAbono INT DEFAULT 1;
 
 
+-- Tabla de configuracion para Ordenes
+CREATE TABLE 
+IF 
+	NOT EXISTS ConfiguracionOrdenes (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+		IDUsuario INTEGER NOT NULL,
+		TiempoEntrega VARCHAR(50),
+		FechaOperacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+	);
 
+-- Agregar columna para guardar el si el negocio acepta rentas en configuracion general
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS RealizaRentas tinyint(1) DEFAULT 0;
+-- Agregar columna para saber si el producto solo es para rentas
+ALTER TABLE Productos ADD COLUMN IF NOT EXISTS SoloRenta tinyint(1) DEFAULT 0;
+-- Agregar columna para guardar el si el negocio acepta ordenes en configuracion general
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS RealizaOrdenes tinyint(1) DEFAULT 0;
+-- Agregar columnas para guardar tiempo y fecha de entrega al crear odenes
+ALTER TABLE Ventas ADD COLUMN IF NOT EXISTS TiempoEntrega VARCHAR(50) DEFAULT NULL;
+ALTER TABLE Ventas ADD COLUMN IF NOT EXISTS FechaEntrega DATETIME DEFAULT '0001-01-01 00:00:00';
+ALTER TABLE Ventas ADD COLUMN IF NOT EXISTS EstadoEntrega INT DEFAULT 0;

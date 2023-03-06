@@ -615,6 +615,8 @@ namespace PuntoDeVentaV2
                             cbkMostrarIVA.Checked = false;
                         }
                         #endregion
+                        checkRentas.Checked = (bool)item["RealizaRentas"];
+                        checkOrdenes.Checked = (bool)item["RealizaOrdenes"];
                     }
                 }
             }
@@ -1732,6 +1734,39 @@ namespace PuntoDeVentaV2
                 confiGeneral.Add(consulta);
 
             }
+        }
+
+        private void checkRentas_MouseClick(object sender, MouseEventArgs e)
+        {
+            int realizaRentas = 0;
+
+            if (checkRentas.Checked)
+            {
+                realizaRentas = 1;
+            }
+
+            var consulta = $"UPDATE Configuracion SET RealizaRentas = {realizaRentas} WHERE IDUsuario = {FormPrincipal.userID}";
+
+            confiGeneral.Add(consulta);
+        }
+
+        private void checkOrdenes_MouseClick(object sender, MouseEventArgs e)
+        {
+            int realizaOrdenes = 0;
+
+            if (checkOrdenes.Checked)
+            {
+                realizaOrdenes = 1;
+
+                using (ConfiguracionOrdenes config = new ConfiguracionOrdenes())
+                {
+                    config.ShowDialog();
+                }
+            }
+
+            var consulta = $"UPDATE Configuracion SET RealizaOrdenes = {realizaOrdenes} WHERE IDUsuario = {FormPrincipal.userID}";
+
+            confiGeneral.Add(consulta);
         }
     }
 }

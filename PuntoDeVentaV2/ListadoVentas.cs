@@ -144,6 +144,7 @@ namespace PuntoDeVentaV2
             cbTipoVentas.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbFiltroAdminEmpleado.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbVentas.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbTipoRentas.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             recargarDatos = true;
             // Se crea el directorio para almacenar los tickets y otros archivos relacionados con ventas
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Ventas\Tickets");
@@ -183,12 +184,24 @@ namespace PuntoDeVentaV2
             ventas.Add("VCC", "VENTAS A CRÉDITO");
             ventas.Add("VGG", "VENTAS GLOBALES");
 
+            Dictionary<string, string> rentas = new Dictionary<string, string>();
+            rentas.Add("RP", "RENTAS PAGADAS");
+            rentas.Add("RG", "RENTAS GUARDADAS (PRESUPUESTOS)");
+            rentas.Add("RC", "RENTAS DEVUELTAS");
+            rentas.Add("RCC", "RENTAS A CRÉDITO");
+            rentas.Add("RGG", "RENTAS GLOBALES");
+
             cbTipoVentas.DataSource = ventas.ToArray();
             cbTipoVentas.DisplayMember = "Value";
             cbTipoVentas.ValueMember = "Key";
 
+            cbTipoRentas.DataSource = rentas.ToArray();
+            cbTipoRentas.DisplayMember = "Value";
+            cbTipoRentas.ValueMember = "Key";
+
             cbVentas.SelectedIndex = 0;
             cbTipoVentas.SelectedIndex = 0;
+            cbTipoRentas.SelectedIndex = 0;
 
             // Combobox formas de pago
             Dictionary<string, string> formas = new Dictionary<string, string>();
@@ -251,6 +264,17 @@ namespace PuntoDeVentaV2
             //cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo ) VALUES('retiro', '0.00', '0.00', '', '{fechaCreacion}', '{FormPrincipal.userID}', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00' )");
 
             txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+
+            var configuracion = mb.ComprobarConfiguracion();
+
+            if (configuracion.Count > 0)
+            {
+                // Realiza rentas
+                if (configuracion[32].Equals(1))
+                {
+                    rbRentas.Checked = true;
+                }
+            }
         }
 
         private void verificarSiExisteCorteDeCaja()
@@ -533,6 +557,22 @@ namespace PuntoDeVentaV2
                     if (opcion == "VCA") { estado = 6; }
                     // Ventas a credito por vencer
                     if (opcion == "VPV") { estado = 7; }
+
+                    if (cbTipoRentas.Visible)
+                    {
+                        opcion = cbTipoRentas.SelectedValue.ToString();
+
+                        // Rentas pagadas
+                        if (opcion.Equals("RP")) { estado = 6; }
+                        // Rentas guardadas
+                        if (opcion.Equals("RG")) { estado = 7; }
+                        // Rentas canceladas
+                        if (opcion.Equals("RC")) { estado = 8; }
+                        // Rentas a credito
+                        if (opcion.Equals("RCC")) { estado = 9; }
+                        // Rentas globales
+                        if (opcion.Equals("RGG")) { estado = 10; }
+                    }
 
                     if (buscador.Equals("BUSCAR POR RFC, CLIENTE, EMPLEADO O FOLIO..."))
                     {
@@ -5811,6 +5851,34 @@ namespace PuntoDeVentaV2
 
             //Ventas a credito por vencer
             if (opcion == "VPV") { CargarDatos(7); }
+        }
+
+        private void rbVentas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbVentas.Checked)
+            {
+                tituloSeccion.Text = "VENTAS";
+                btnNuevaVenta.Text = "Nueva venta";
+                cbTipoRentas.Visible = false;
+                cbTipoVentas.Visible = true;
+                cbTipoVentas.SelectedIndex = 0;
+
+                CargarDatos();
+            }
+        }
+
+        private void rbRentas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbRentas.Checked)
+            {
+                tituloSeccion.Text = "RENTAS (ARRENDAMIENTO)";
+                btnNuevaVenta.Text = "Nueva renta";
+                cbTipoVentas.Visible = false;
+                cbTipoRentas.Visible = true;
+                cbTipoRentas.SelectedIndex = 0;
+
+                CargarDatos(6);
+            }
         }
     }
 }
