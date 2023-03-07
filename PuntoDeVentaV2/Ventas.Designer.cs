@@ -74,7 +74,6 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkRenta = new System.Windows.Forms.CheckBox();
             this.CBTipo = new System.Windows.Forms.ComboBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -625,17 +624,6 @@
             this.panel1.Size = new System.Drawing.Size(890, 389);
             this.panel1.TabIndex = 34;
             this.panel1.Click += new System.EventHandler(this.panel1_Click);
-            // 
-            // checkRenta
-            // 
-            this.checkRenta.AutoSize = true;
-            this.checkRenta.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.checkRenta.Location = new System.Drawing.Point(10, 311);
-            this.checkRenta.Name = "checkRenta";
-            this.checkRenta.Size = new System.Drawing.Size(184, 17);
-            this.checkRenta.TabIndex = 66;
-            this.checkRenta.Text = "ES RENTA (ARRENDAMIENTO)";
-            this.checkRenta.UseVisualStyleBackColor = true;
             // 
             // CBTipo
             // 
@@ -1290,17 +1278,6 @@
             this.botonRedondo1.UseVisualStyleBackColor = false;
             this.botonRedondo1.Click += new System.EventHandler(this.botonRedondo1_Click_1);
             // 
-            // checkOrden
-            // 
-            this.checkOrden.AutoSize = true;
-            this.checkOrden.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.checkOrden.Location = new System.Drawing.Point(212, 311);
-            this.checkOrden.Name = "checkOrden";
-            this.checkOrden.Size = new System.Drawing.Size(82, 17);
-            this.checkOrden.TabIndex = 67;
-            this.checkOrden.Text = "ES ORDEN";
-            this.checkOrden.UseVisualStyleBackColor = true;
-            // 
             // btnVentaFacil
             // 
             this.btnVentaFacil.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1474,7 +1451,6 @@
         private System.Windows.Forms.Label lblIVA0Exento;
         private System.Windows.Forms.ComboBox CBTipo;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.CheckBox checkRenta;
         public BotonRedondo btnGanancia;
         public BotonRedondo botonRedondo1;
         private System.Windows.Forms.Button btnVentaFacil;

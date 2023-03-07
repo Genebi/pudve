@@ -2242,11 +2242,9 @@ namespace PuntoDeVentaV2
                 var PermisoCorreoAnticipo = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoAnticipo")));
                 var PermisoCorreoVentaClienteDescuento= Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoVentaClienteDescuento")));
                 var realizaRentas = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("RealizaRentas")));
-
                 var Traspasos = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("traspasos")));
                 var EnvioSaldoInicial = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("EnvioCorreoSaldoIncial")));
                 var CorreoAbonos = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoAbonoRecibidos")));
-                var realizaRentas = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("RealizaRentas")));
 
                 config.Add(correoPrecio);                   // 0
                 config.Add(correoStock);                    // 1

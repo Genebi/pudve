@@ -3642,25 +3642,28 @@ namespace PuntoDeVentaV2
                                     CargarDatos(9);
                                 }
                             };
-                        using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
-                        {
-                            if (dtReglasCreditoVenta.Rows.Count.Equals(0))
-                            {
-                                asignarAbonosSinCredito abono = new asignarAbonosSinCredito(idVenta, total);
-                                abono.FormClosed += delegate
-                                {
-                                    CargarDatos(4);
-                                };
 
-                                abono.ShowDialog();
-                            }
-                            else
-                            {
-                                AsignarAbonos abono = new AsignarAbonos(idVenta, total);
-                                abono.FormClosed += delegate
-                           {
-                               CargarDatos(4);
-                           };
+                            //using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
+                            //{
+                            //    if (dtReglasCreditoVenta.Rows.Count.Equals(0))
+                            //    {
+                            //        asignarAbonosSinCredito abono = new asignarAbonosSinCredito(idVenta, total);
+                            //        abono.FormClosed += delegate
+                            //        {
+                            //            CargarDatos(4);
+                            //        };
+
+                            //        abono.ShowDialog();
+                            //    }
+                            //    else
+                            //    {
+                            //        AsignarAbonos abono = new AsignarAbonos(idVenta, total);
+                            //        abono.FormClosed += delegate
+                            //        {
+                            //            CargarDatos(4);
+                            //        };
+                            //    }
+                            //}
 
                             abono.ShowDialog();
                         }
@@ -6042,6 +6045,43 @@ namespace PuntoDeVentaV2
                 cbTipoRentas.SelectedIndex = 0;
 
                 CargarDatos(6);
+            }
+        }
+
+        private void cbTipoRentas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tipoVenta = cbTipoVentas.SelectedIndex;
+            var opcion = cbTipoRentas.SelectedValue.ToString();
+            clickBoton = 0;
+
+            // Desactivar checkbox al cambios tipos de ventas
+            chTodos.Checked = false;
+            chkHDAutlan.Checked = false;
+
+            if (DGVListadoVentas.Controls.Find("checkBoxMaster", true).Length > 0)
+            {
+                CheckBox headerBox = (CheckBox)DGVListadoVentas.Controls.Find("checkBoxMaster", true)[0];
+                headerBox.Checked = false;
+            }
+
+
+            //Rentas pagadas
+            if (opcion == "RP") { CargarDatos(6); }
+            //Rentas guardadas
+            if (opcion == "RG") { CargarDatos(7); }
+            //Rentas canceladas
+            if (opcion == "RC") { CargarDatos(8); }
+            //Rentas a credito
+            if (opcion == "RCC") { CargarDatos(9); }
+            //Rentas globales
+            if (opcion == "RGG") { CargarDatos(10); }
+        }
+
+        private void cbTipoRentas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                btnNuevaVenta.PerformClick();
             }
         }
     }

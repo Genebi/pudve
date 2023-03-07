@@ -410,16 +410,16 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                ////var totalAbonado = totalEfectivo + tarjeta + vales + cheque + transferencia; //=150
+                //var totalAbonado = totalEfectivo + tarjeta + vales + cheque + transferencia; //=150
                 //var totalAbonado = total;
 
                 //Condicion para saber si se termino de pagar y cambiar el status de la venta
-                if (totalAbonado >= totalPendiente)
-                {
-                    int status = tipoCredito.Equals("RCC") ? 6 : 1;
+                //if (totalAbonado >= totalPendiente)
+                //{
+                //    int status = tipoCredito.Equals("RCC") ? 6 : 1;
 
-                    cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, status, FormPrincipal.userID));
-                }
+                //    cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, status, FormPrincipal.userID));
+                //}
 
                 
                 if (restante <= 0)
