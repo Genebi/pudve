@@ -65,9 +65,9 @@ namespace PuntoDeVentaV2
             RevisarInventario.mensajeInventario = 0;
 
             filtros.Add("Normal", "Revision Normal");
-            filtros.Add("Stock", "Stock");
-            filtros.Add("StockMinimo", "Stock Mínimo");
-            filtros.Add("StockNecesario", "Stock Máximo");
+            //filtros.Add("Stock", "Stock");
+            //filtros.Add("StockMinimo", "Stock Mínimo");
+            //filtros.Add("StockNecesario", "Stock Máximo");
             filtros.Add("NumeroRevision", "Número de Revisión");
             filtros.Add("CantidadPedir", "Cantidad a Pedir");
             filtros.Add("Proveedor", "Proveedores");
@@ -364,6 +364,7 @@ namespace PuntoDeVentaV2
                 cbTipoRevision.ValueMember = "Key";
 
                 cbTipoRevision.Visible = true;
+                cbTipoRevision.SelectedIndex = 1; 
             }
         }
     }

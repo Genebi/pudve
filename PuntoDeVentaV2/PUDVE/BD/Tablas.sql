@@ -2001,22 +2001,98 @@ ALTER TABLE dgvdisminuirinventario MODIFY COLUMN StockActual VARCHAR(100);
 
 ALTER TABLE dgvdisminuirinventario MODIFY COLUMN NuevoStock VARCHAR(100);
 
+-- Columnas para configuracion de creditos
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoMaster INT DEFAULT 0 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoHuella INT DEFAULT 0 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoMoratorio INT DEFAULT 0 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPorcentajemoratorio DECIMAl ( 16, 4 ) DEFAULT 10.00;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoAplicarpordefecto INT DEFAULT 1 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPorcentajeinteres DECIMAl ( 16, 4 ) DEFAULT 10.00;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoAplicarpagoinicial INT DEFAULT 0 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPagoinicial DECIMAl ( 16, 2 ) DEFAULT 1;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodolimiteventas VARCHAR(100) DEFAULT 'Ninguno';
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditolimiteventas INT DEFAULT 0 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodototalcredito VARCHAR(100) DEFAULT 'Ninguno';
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditototalcredito DECIMAl ( 16, 2 ) DEFAULT 0;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoperiodocobro VARCHAR(100) DEFAULT 'Mensual';
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodocobro VARCHAR(100) DEFAULT 'Dias trascurridos';
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditodiassincobro INT DEFAULT 0 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoCantidadAbonos INT DEFAULT 1 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPerdon INT DEFAULT 0 ;
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoMovil INT DEFAULT 0 ;
 
----- Columnas para configuracion de creditos
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoHuella INT DEFAULT 0 ;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoMoratorio INT DEFAULT 0 ;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPorcentajemoratorio DECIMAl ( 16, 4 ) DEFAULT 10.00;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoAplicarpordefecto INT DEFAULT 1 ;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPorcentajeinteres DECIMAl ( 16, 4 ) DEFAULT 10.00;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoAplicarpagoinicial INT DEFAULT 0 ;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoPagoinicial DECIMAl ( 16, 2 ) DEFAULT 1;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodolimiteventas VARCHAR(100) DEFAULT 'Ninguno';
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditolimiteventas INT DEFAULT 0 ;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodototalcredito VARCHAR(100) DEFAULT 'Ninguno';
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditototalcredito DECIMAl ( 16, 2 ) DEFAULT 0;
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditoperiodocobro VARCHAR(100) DEFAULT 'Mensual';
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditomodocobro VARCHAR(100) DEFAULT 'Dias trascurridos';
---ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS creditodiassincobro INT DEFAULT 0 ;
+
+--Tabla para guardar las goellas de los clientesillos
+CREATE TABLE
+IF
+	NOT EXISTS huellasClientes (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDUsuario INTEGER NOT NULL DEFAULT 0,
+		IDCliente INTEGER NOT NULL DEFAULT 0,
+		Nombre TEXT NOT NULL,
+		Huella LONGBLOB DEFAULT NULL,
+		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
+		FOREIGN KEY ( IDCliente ) REFERENCES clientes ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
+	);
+
+--Crear tabla para guardar las reglas de credito activas cuando se hace una venta.
+CREATE TABLE
+IF
+	NOT EXISTS reglasCreditoVenta(
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDVenta INTEGER NOT NULL,
+		IDHuella INTEGER,
+		FechaInteres TEXT NOT NULL,
+		creditoHuella INTEGER DEFAULT 0,
+		creditoMoratorio INTEGER DEFAULT 0,
+		creditoPorcentajemoratorio DECIMAl ( 16, 4 ),
+		creditoAplicarpordefecto INTEGER DEFAULT 0,
+		creditoPorcentajeinteres DECIMAl ( 16, 4 ),
+		creditoAplicarpagoinicial INT DEFAULT 0,
+		creditoPagoinicial DECIMAl ( 16, 2 ),
+		creditomodolimiteventas VARCHAR(100),
+		creditolimiteventas INTEGER DEFAULT 0,
+		creditomodototalcredito VARCHAR(100),
+		creditototalcredito DECIMAl ( 16, 2 ),
+		creditoperiodocobro VARCHAR(100),
+		creditomodocobro VARCHAR(100),
+		creditodiassincobro INTEGER DEFAULT 5,
+		creditoCantidadAbonos INTEGER DEFAULT 1,
+		creditoMinimoAbono  DECIMAl ( 16, 2 ),
+		creditoPerdon INTEGER DEFAULT 0,
+		creditoMovil INTEGER DEFAULT 0,
+		FOREIGN KEY ( IDVenta ) REFERENCES ventas ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
+		FOREIGN KEY ( IDHuella ) REFERENCES huellasclientes ( ID ) ON UPDATE CASCADE ON DELETE CASCADE
+	);
+
+-- Columnas para manejar bien chidin los creditos asi bien coppel
+	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS intereses DECIMAl ( 16, 2 ) DEFAULT 0;
+	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS cambio DECIMAl ( 16, 2 ) DEFAULT 0;
+	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS estado INTEGER DEFAULT 0;
+	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS perdonado DECIMAl ( 16, 2 ) DEFAULT 0;
+
+
+--Tabla para guardar las reglas de credito especificas de cada cliente 
+CREATE TABLE
+IF
+	NOT EXISTS clienteReglasCredito (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDUsuario INTEGER NOT NULL DEFAULT 0,
+		IDCliente INTEGER NOT NULL DEFAULT 0,
+		Interes DECIMAl ( 16, 4 ),
+		VentasAbiertas INTEGER DEFAULT 0,
+		Credito DECIMAl ( 16, 2 ),
+		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
+		FOREIGN KEY ( IDCliente ) REFERENCES clientes ( ID ) ON UPDATE CASCADE ON DELETE CASCADE 
+	);
+
+-- Columnas para manejar bien chidin los creditos asi bien coppel
+	ALTER TABLE reglasCreditoVenta ADD COLUMN IF NOT EXISTS FechaApertura DATE;
+	ALTER TABLE reglasCreditoVenta ADD COLUMN IF NOT EXISTS FechaCierre DATE;
+
+-- bruh
+	ALTER TABLE clientes ADD COLUMN IF NOT EXISTS verificado INTEGER DEFAULT 0;
+
 
 -- Agregar Columna de la ganancia por venta para graficarlo 
 ALTER TABLE ventas ADD COLUMN IF NOT EXISTS Ganancia VARCHAR ( 255 ) DEFAULT NULL ;
@@ -2081,8 +2157,8 @@ ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS TicketOPDF INT DEFAULT 1;
 
 -- Columnas pa una cosilla de lo de web https://i.imgur.com/kTwlKPo.png
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebCerrar INT DEFAULT 0;
-ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebTotal INT DEFAULT 0;
-ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebAuto INT DEFAULT 0;
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebTotal INT DEFAULT 1;
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS WebAuto INT DEFAULT 1;
 
 --Esta tabla sirve para preparar el envio de respaldos, se usa para almacenar de manera temporal los datos que se enviaran a gran velocidad mediante un bulk insert.
 --La columna de datos almacenara hasta 30mb, modifique el maximo tamanno de paquetes por consulta a un poco mas por si acaso.
@@ -2096,6 +2172,160 @@ IF
 	);
 SET GLOBAL max_allowed_packet=60777216;
 
+--Se creo tabla de Tickets(no esta implementado el tickets de ventas porque ya esta implementado en otra tabla)
+CREATE TABLE 
+IF 
+	NOT EXISTS ConfiguracionDeTickets (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDUsuario INTEGER NOT NULL DEFAULT 0,
+		TicketAbono INTEGER DEFAULT 1,
+		PreguntarTicketAbono INTEGER DEFAULT 0,
+		TicketAbrirCaja INTEGER DEFAULT 1,
+		PreguntarTicketAbrirCaja INTEGER DEFAULT 0,
+		TicketCorteDeCaja INTEGER DEFAULT 1,
+		PreguntarTicketCorteDeCaja INTEGER DEFAULT 0,
+		TicketOPDFCorteDeCaja INTEGER DEFAULT 1,
+		CreditoRealizado INTEGER DEFAULT 1,
+		PreguntarCreditoRealizado INTEGER DEFAULT 0,
+		TicketOPDFCreditoRealizado INTEGER DEFAULT 1,
+		TicketDineroAgregado INTEGER DEFAULT 1,
+		PreguntarTicketDineroAgregado INTEGER DEFAULT 0,
+		TicketRetiradoAgregado INTEGER DEFAULT 1,
+		PreguntarTicketRetiradoAgregado INTEGER DEFAULT 0,
+		TicketPresupuesto INTEGER DEFAULT 1,
+		PreguntarTicketPresupuesto INTEGER DEFAULT 0,
+		TicketOPDFPresupuesto INTEGER DEFAULT 1,
+		TicketAnticipo INTEGER DEFAULT 1,
+		PreguntarTicketAnticipo INTEGER DEFAULT 0,
+		TicketVentaCancelada  INTEGER DEFAULT 1,
+		PregutarTicketVentaCancelada INTEGER DEFAULT 0,
+		TicketOPDFTicketVentaCancelada INTEGER DEFAULT 1,
+		TicketVentaGlobal INTEGER DEFAULT 1,
+		PreguntarTicketVentaGlobal INTEGER DEFAULT 0,
+		TicketOPDFVentaGlobal INTEGER DEFAULT 1,
+		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE
+	);
+
+
+
+--Creacion de la tana de subdetalles para los detalles que se agreguen a un producto
+ CREATE TABLE
+IF
+	NOT EXISTS SubDetallesDeProducto (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDProducto INTEGER DEFAULT 0,
+		IDUsuario INTEGER DEFAULT 0,
+		Categoria VARCHAR ( 100 ) DEFAULT NULL,
+		subDetalle VARCHAR ( 100 ) DEFAULT NULL,
+		Stock DECIMAL DEFAULT 0,
+		TipoDato INTEGER DEFAULT NULL,
+		Caducidad DATE,
+		FechaOpcional DATETIME,
+		Activo INTEGER DEFAULT 1);
+
+
+--Se agrego una columna a productos para saber si el producto cuenta con subdetalles agregados.
+ALTER TABLE productos ADD COLUMN IF NOT EXISTS SubDetalles INTEGER(5) DEFAULT (0);
+
+--Creacion de la tana de subdetalles para los detalles que se agreguen a un producto
+ CREATE TABLE
+IF
+	NOT EXISTS DetalleSubDetalle (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDSubDetalle INTEGER DEFAULT 0,
+		Nombre TEXT,
+		Valor DECIMAL ( 16, 2 ),
+		Fecha DATE,
+		Stock  DECIMAL ( 16, 2 ) NOT NULL DEFAULT 0,
+		Estado INTEGER DEFAULT 1,
+		FOREIGN KEY ( IDSubDetalle ) REFERENCES SubDetallesDeProducto ( ID ) ON UPDATE CASCADE ON DELETE CASCADE
+	);
+
+--Tabla para guardar movimientos de stock para subdetalles en especifico en una venta, guardamos estos datos para manejar la cancelacion de ventas.
+ CREATE TABLE
+IF
+	NOT EXISTS DetalleSubDetalleVenta (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDVenta INTEGER,
+		IDDetalleSubDetalle INTEGER,
+		Cantidad  DECIMAL ( 16, 2 ) NOT NULL DEFAULT 0,
+		Estado INTEGER DEFAULT 1,
+		FOREIGN KEY ( IDDetalleSubDetalle ) REFERENCES DetalleSubDetalle ( ID ) ON UPDATE CASCADE ON DELETE CASCADE,
+		FOREIGN KEY ( IDVenta ) REFERENCES Ventas ( ID ) ON UPDATE CASCADE ON DELETE CASCADE
+	);
+
+--Columna para diferenciar fechas generales de fechas caducidad en subdetalles
+ALTER TABLE subdetallesdeproducto ADD COLUMN IF NOT EXISTS esCaducidad INT DEFAULT 0;
+
+
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS diasCaducidad INT DEFAULT 7;
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS correoCaducidad INT DEFAULT 1;
+
+--Tabla para comprobar que se envia un unico correo al dia notificando el estado de caducidad de los productos.
+ CREATE TABLE
+IF
+	NOT EXISTS caducadoCorreos (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT NOT NULL,
+		IDUsuario INTEGER NOT NULL DEFAULT 0,
+		Fecha DATE,
+		Estado INTEGER DEFAULT 1,
+		FOREIGN KEY ( IDUsuario ) REFERENCES usuarios ( ID ) ON UPDATE CASCADE ON DELETE CASCADE
+	);
+
+ALTER TABLE dgvaumentarinventario ADD COLUMN IF NOT EXISTS Devolucion INT DEFAULT 0;
+
+ALTER TABLE historialcompras ADD COLUMN IF NOT EXISTS IDEmpleado INT DEFAULT 0;
+
+-- Nuevas Columnas para la tabla de imprimir ticket
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaVentas INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaGuardada INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaCancelada INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaCredito INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaAnticipos INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaAbonos INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaCorte INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaAgregar INT DEFAULT 0;
+ALTER TABLE ConfiguracionDeTickets ADD COLUMN IF NOT EXISTS AbrirCajaRetirar INT DEFAULT 0;
+
+-- Columna para realizar traspasos al putazo  --Aaron ¿que es ese vocabulario? Que no se vuelva a repetir
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS traspasoManual INT DEFAULT 0;
+
+--Columna para permiso de modificar la configuracion de de IVA
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoMostrarIVA INT DEFAULT 1;
+--Columna para configuacion de mostrar IVA
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS mostrarIVA INT DEFAULT 1;
+
+--Columna del permiso para ReporteDeudas
+ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS ReporteDeudas INT DEFAULT 1;
+
+--Columna del permiso para RegresarProducto
+ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS RegresarProducto INT DEFAULT 1;
+
+-- Configuracion para ventas faciles
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS ventaFacil INT DEFAULT 0;
+
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS avisoCaducidad INT DEFAULT 1;
+
+--Configuracino envio de correo abono
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS CorreoAbonoRecibidos INT DEFAULT 0;
+
+--Permiso Empleado envio de corre abono
+
+ALTER TABLE permisosconfiguracion  ADD COLUMN IF NOT EXISTS PermisoEnvioDeCorreoAbono INT DEFAULT 1;
+
+
+-- Tabla de configuracion para Ordenes
+CREATE TABLE 
+IF 
+	NOT EXISTS ConfiguracionOrdenes (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+		IDUsuario INTEGER NOT NULL,
+		TiempoEntrega VARCHAR(50),
+		FechaOperacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+	);
+
+-- Agregar columna para guardar el si el negocio acepta rentas en configuracion general
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS RealizaRentas tinyint(1) DEFAULT 0;
 -- Agregar columna para saber si el producto solo es para rentas
 ALTER TABLE Productos ADD COLUMN IF NOT EXISTS SoloRenta tinyint(1) DEFAULT 0;
 -- Agregar columna para guardar el si el negocio acepta ordenes en configuracion general

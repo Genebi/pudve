@@ -64,6 +64,7 @@ namespace PuntoDeVentaV2
         public static string Comentario = "";
         string idParaComboBox = string.Empty;
 
+
         public AgregarRetirarDinero(int operacion = 0)
         {
             InitializeComponent();
@@ -181,11 +182,11 @@ namespace PuntoDeVentaV2
             cantidadTotalTransferenciaEnCaja = CajaN.cantidadTotalTransferenciaEnCaja;
             cantidadTransferenciaSaldoInicialEnCaja = CajaN.cantidadTransferenciaSaldoInicialEnCaja;
 
-            totalEfectivo = cantidadTotalEfectivoEnCaja /*+ cantidadEfectivoSaldoInicialEnCaja*/;
-            totalTarjeta = cantidadTotalTarjetaEnCaja /*+ cantidadTarjetaSaldoInicialEnCaja*/;
-            totalVales = cantidadTotalValesEnCaja/* + cantidadValesSaldoInicialEnCaja*/;
-            totalCheque = cantidadTotalCehqueEnCaja /*+ cantidadChequeSaldoInicialEnCaja*/;
-            totalTransferencia = cantidadTotalTransferenciaEnCaja /*+ cantidadTransferenciaSaldoInicialEnCaja*/;
+            totalEfectivo = cantidadTotalEfectivoEnCaja+cantidadEfectivoSaldoInicialEnCaja /*+ cantidadEfectivoSaldoInicialEnCaja*/;
+            totalTarjeta = cantidadTotalTarjetaEnCaja+cantidadTarjetaSaldoInicialEnCaja /*+ cantidadTarjetaSaldoInicialEnCaja*/;
+            totalVales = cantidadTotalValesEnCaja+cantidadValesSaldoInicialEnCaja/* + cantidadValesSaldoInicialEnCaja*/;
+            totalCheque = cantidadTotalCehqueEnCaja+cantidadChequeSaldoInicialEnCaja /*+ cantidadChequeSaldoInicialEnCaja*/;
+            totalTransferencia = cantidadTotalTransferenciaEnCaja+cantidadTotalTransferenciaEnCaja /*+ cantidadTransferenciaSaldoInicialEnCaja*/;
 
             totalSaldoInicial = CajaN.totalSaldoInicial;
             totalEnCaja = CajaN.sumaDeTotalesEnCaja;
@@ -214,6 +215,14 @@ namespace PuntoDeVentaV2
                 cbConceptoConBusqueda.Visible = false;
                 lbSubtitulo.Visible = false;
                 btnAgregarConcepto.Visible = false;
+                btnRetirarTodoElDinero.Visible = false;
+                txtEfectivo.Text = Inventario.totalFinal.ToString();
+                
+                txtCredito.Enabled = false;
+                txtTarjeta.Enabled = false;
+                txtVales.Enabled = false;
+                txtTrans.Enabled = false;
+                txtCheque.Enabled = false;
             }
         }
 
@@ -395,50 +404,108 @@ namespace PuntoDeVentaV2
                     cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo, IdEmpleado,Comentarios) VALUES ('deposito', '{totalInicial}', '0', 'Agregado a saldo inicial', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', '{FormPrincipal.userID}', '{cantidadesIniciales[0]}', '{cantidadesIniciales[1]}', '{cantidadesIniciales[2]}', '{cantidadesIniciales[3]}', '{cantidadesIniciales[4]}', '0', '0', '{FormPrincipal.id_empleado}','{Comentario}')");
 
                 }
-                
 
-                DialogResult resultadoAgregarDinero = MessageBox.Show("Desea imprimir ticket de la operación Agregar Dinero", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                if (resultadoAgregarDinero.Equals(DialogResult.Yes))
+                using (var dt = cn.CargarDatos($"SELECT TicketDineroAgregado,PreguntarTicketDineroAgregado,AbrirCajaAgregar FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
                 {
-                   
-                    var idDeposito = 0;
-                    var usuarioActivo = FormPrincipal.userNickName;
-
-                    if (!usuarioActivo.Contains("@"))
+                    if (dt.Rows[0][0].Equals(1))
                     {
-                        using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoAdministrador()))
-                        {
-                            if (!dtDepositoDeDinero.Rows.Count.Equals(0))
-                            {
-                                DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
-                                idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
+                        var idDeposito = 0;
+                        var usuarioActivo = FormPrincipal.userNickName;
 
-                                using (ImprimirTicketDepositarDineroCaja8cm imprimirTicketDineroAgregado = new ImprimirTicketDepositarDineroCaja8cm())
+                        if (!usuarioActivo.Contains("@"))
+                        {
+                            using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoAdministrador()))
+                            {
+                                if (!dtDepositoDeDinero.Rows.Count.Equals(0))
                                 {
-                                    ImprimirTicketDepositarDineroCaja8cm.SaldoACaja = true;
-                                    imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
-                                    imprimirTicketDineroAgregado.ShowDialog();
+                                    DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
+                                    idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
+
+                                    using (ImprimirTicketDepositarDineroCaja8cm imprimirTicketDineroAgregado = new ImprimirTicketDepositarDineroCaja8cm())
+                                    {
+                                        ImprimirTicketDepositarDineroCaja8cm.SaldoACaja = true;
+                                        imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
+                                        imprimirTicketDineroAgregado.ShowDialog();
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoEmpleado(FormPrincipal.id_empleado)))
+                            {
+                                if (!dtDepositoDeDinero.Rows.Count.Equals(0))
+                                {
+                                    DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
+                                    idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
+
+                                    using (imprimirTicketDineroAgregadoEmpleado imprimirTicketDineroAgregado = new imprimirTicketDineroAgregadoEmpleado())
+                                    {
+                                        imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
+                                        imprimirTicketDineroAgregado.ShowDialog();
+                                    }
                                 }
                             }
                         }
                     }
-                    else
+                    else if (dt.Rows[0][1].Equals(1))
                     {
-                        using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoEmpleado(FormPrincipal.id_empleado)))
-                        {
-                            if (!dtDepositoDeDinero.Rows.Count.Equals(0))
-                            {
-                                DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
-                                idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
 
-                                using (imprimirTicketDineroAgregadoEmpleado imprimirTicketDineroAgregado = new imprimirTicketDineroAgregadoEmpleado())
+                        DialogResult resultadoAgregarDinero = MessageBox.Show("Desea imprimir ticket de la operación Agregar Dinero", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (resultadoAgregarDinero.Equals(DialogResult.Yes))
+                        {
+
+                            var idDeposito = 0;
+                            var usuarioActivo = FormPrincipal.userNickName;
+
+                            if (!usuarioActivo.Contains("@"))
+                            {
+                                using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoAdministrador()))
                                 {
-                                    imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
-                                    imprimirTicketDineroAgregado.ShowDialog();
+                                    if (!dtDepositoDeDinero.Rows.Count.Equals(0))
+                                    {
+                                        DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
+                                        idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
+
+                                        using (ImprimirTicketDepositarDineroCaja8cm imprimirTicketDineroAgregado = new ImprimirTicketDepositarDineroCaja8cm())
+                                        {
+                                            ImprimirTicketDepositarDineroCaja8cm.SaldoACaja = true;
+                                            imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
+                                            imprimirTicketDineroAgregado.ShowDialog();
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoEmpleado(FormPrincipal.id_empleado)))
+                                {
+                                    if (!dtDepositoDeDinero.Rows.Count.Equals(0))
+                                    {
+                                        DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
+                                        idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
+
+                                        using (imprimirTicketDineroAgregadoEmpleado imprimirTicketDineroAgregado = new imprimirTicketDineroAgregadoEmpleado())
+                                        {
+                                            imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
+                                            imprimirTicketDineroAgregado.ShowDialog();
+                                        }
+                                    }
                                 }
                             }
                         }
+                        else if (dt.Rows[0]["AbrirCajaAgregar"].Equals(1))
+                        {
+                            AbrirSinTicket abrir = new AbrirSinTicket();
+                            abrir.Show();
+                        }
+                       
+                    }
+                    else if (dt.Rows[0]["AbrirCajaAgregar"].Equals(1))
+                    {
+                        AbrirSinTicket abrir = new AbrirSinTicket();
+                        abrir.Show();
                     }
                 }
                 using (var DTCorreoHabilitado = cn.CargarDatos($"SELECT EnvioCorreoSaldoIncial FROM `configuracion` WHERE IDUsuario = {FormPrincipal.userID}"))
@@ -460,6 +527,7 @@ namespace PuntoDeVentaV2
                         datos = new string[] {
                         tipoOperacion, cantidad.ToString("0.00"), "0", cbConceptoConBusqueda.Text, fechaOperacion.ToString(), FormPrincipal.userID.ToString(), efectivo.ToString("C2"), tarjeta.ToString("C2"), cheque.ToString("C2"), vales.ToString("C2"), trans.ToString("C2"), credito.ToString("C2"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
                         };
+                        Comentario = txtComentario.Text;
                         Thread AgregarRetiroDineroSaldoInicial = new Thread(
                                    () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
                                );
@@ -509,7 +577,7 @@ namespace PuntoDeVentaV2
                             return;
                         }
                     }
-                    Inventario.desdeRegresarProdcuto = 0;
+                   
                 }
                 else
                 {
@@ -548,7 +616,7 @@ namespace PuntoDeVentaV2
 
                 if (!operacion.Equals(0))
                 {
-                    if (efectivo < 0 && efectivo > (float)totalEfectivo)
+                    if (efectivo > 0 && efectivo > (float)totalEfectivo)
                     {
                         if (efectivo < 0)
                         {
@@ -558,6 +626,23 @@ namespace PuntoDeVentaV2
                         {
                             efectivo = (float)totalEfectivo;
                             MessageBox.Show($"El monto de efectivo tiene que ser menor o igual que el monto que hay en caja: {totalEfectivo.ToString("C2")}", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            if (Inventario.desdeRegresarProdcuto == 1)
+                            {
+                                Inventario.operacionDevolucionProducto = 2;
+                                AgregarAnticipo anticipoDevolucion = new AgregarAnticipo();
+                                anticipoDevolucion.ShowDialog();
+                                Inventario.desdeRegresarProdcuto = 0;
+                                Inventario.totalFinal = 0;
+                            }
+                            else
+                            {
+                                Inventario.desdeRegresarProdcuto = 0;
+                                Inventario.totalFinal = 0;
+                            }
+                            btnCancelar.PerformClick();
+                            return;
+                            this.Close();
+
                         }
                         txtEfectivo.Text = efectivo.ToString();
                     }
@@ -566,7 +651,7 @@ namespace PuntoDeVentaV2
                         siRetiroEfectivo = true;
                     }
 
-                    if (tarjeta < 0 && tarjeta > (float)totalTarjeta)
+                    if (tarjeta > 0 && tarjeta > (float)totalTarjeta)
                     {
                         if (tarjeta < 0)
                         {
@@ -584,7 +669,7 @@ namespace PuntoDeVentaV2
                         siRetiroTarjeta = true;
                     }
 
-                    if (cheque < 0 && cheque > (float)totalCheque)
+                    if (cheque > 0 && cheque > (float)totalCheque)
                     {
                         if (cheque < 0)
                         {
@@ -602,7 +687,7 @@ namespace PuntoDeVentaV2
                         siRetiroCheque = true;
                     }
 
-                    if (vales < 0 && vales > (float)totalVales)
+                    if (vales > 0 && vales > (float)totalVales)
                     {
                         if (vales < 0)
                         {
@@ -620,7 +705,7 @@ namespace PuntoDeVentaV2
                         siRetiroVales = true;
                     }
 
-                    if (trans < 0 && trans > (float)totalTransferencia)
+                    if (trans > 0 && trans > (float)totalTransferencia)
                     {
                         if (trans < 0)
                         {
@@ -1134,6 +1219,7 @@ namespace PuntoDeVentaV2
                 {
                     if (Convert.ToInt32(datosConfig[13]).Equals(1) && datos[0].ToString().Equals("deposito"))
                     {
+                        Comentario = txtComentario.Text;
                         Thread AgregarRetiroDinero = new Thread(
                             () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
                         );
@@ -1189,6 +1275,7 @@ namespace PuntoDeVentaV2
                                 datos[10] = txtTrans.Text;
                             }
                         }
+                        Comentario = txtComentario.Text;
                         Thread AgregarAgregarDinero = new Thread(
                             () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
                         );
@@ -1202,49 +1289,105 @@ namespace PuntoDeVentaV2
                     // Para generar Ticket al depositar dinero
                     if (operacion == 0)
                     {
-
-                        DialogResult resultadoAgregarDinero = MessageBox.Show("Desea imprimir ticket de la operación Agregar Dinero", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                        if (resultadoAgregarDinero.Equals(DialogResult.Yes))
+                        using (var dt = cn.CargarDatos($"SELECT TicketDineroAgregado,PreguntarTicketDineroAgregado,AbrirCajaAgregar FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
                         {
-                            var idDeposito = 0;
-                            var usuarioActivo = FormPrincipal.userNickName;
-
-                            if (!usuarioActivo.Contains("@"))
+                            if (dt.Rows[0][0].Equals(1))
                             {
-                                using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoAdministrador()))
-                                {
-                                    if (!dtDepositoDeDinero.Rows.Count.Equals(0))
-                                    {
-                                        DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
-                                        idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
+                                var idDeposito = 0;
+                                var usuarioActivo = FormPrincipal.userNickName;
 
-                                        using (ImprimirTicketDepositarDineroCaja8cm imprimirTicketDineroAgregado = new ImprimirTicketDepositarDineroCaja8cm())
+                                if (!usuarioActivo.Contains("@"))
+                                {
+                                    using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoAdministrador()))
+                                    {
+                                        if (!dtDepositoDeDinero.Rows.Count.Equals(0))
                                         {
-                                            imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
-                                            imprimirTicketDineroAgregado.ShowDialog();
+                                            DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
+                                            idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
+
+                                            using (ImprimirTicketDepositarDineroCaja8cm imprimirTicketDineroAgregado = new ImprimirTicketDepositarDineroCaja8cm())
+                                            {
+                                                imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
+                                                imprimirTicketDineroAgregado.ShowDialog();
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoEmpleado(FormPrincipal.id_empleado)))
+                                    {
+                                        if (!dtDepositoDeDinero.Rows.Count.Equals(0))
+                                        {
+                                            DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
+                                            idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
+
+                                            using (imprimirTicketDineroAgregadoEmpleado imprimirTicketDineroAgregado = new imprimirTicketDineroAgregadoEmpleado())
+                                            {
+                                                imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
+                                                imprimirTicketDineroAgregado.ShowDialog();
+                                            }
                                         }
                                     }
                                 }
                             }
-                            else
+                            else if (dt.Rows[0][1].Equals(1))
                             {
-                                using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoEmpleado(FormPrincipal.id_empleado)))
-                                {
-                                    if (!dtDepositoDeDinero.Rows.Count.Equals(0))
-                                    {
-                                        DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
-                                        idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
+                                DialogResult resultadoAgregarDinero = MessageBox.Show("Desea imprimir ticket de la operación Agregar Dinero", "Aviso del Sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                                        using (imprimirTicketDineroAgregadoEmpleado imprimirTicketDineroAgregado = new imprimirTicketDineroAgregadoEmpleado())
+                                if (resultadoAgregarDinero.Equals(DialogResult.Yes))
+                                {
+                                    var idDeposito = 0;
+                                    var usuarioActivo = FormPrincipal.userNickName;
+
+                                    if (!usuarioActivo.Contains("@"))
+                                    {
+                                        using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoAdministrador()))
                                         {
-                                            imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
-                                            imprimirTicketDineroAgregado.ShowDialog();
+                                            if (!dtDepositoDeDinero.Rows.Count.Equals(0))
+                                            {
+                                                DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
+                                                idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
+
+                                                using (ImprimirTicketDepositarDineroCaja8cm imprimirTicketDineroAgregado = new ImprimirTicketDepositarDineroCaja8cm())
+                                                {
+                                                    imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
+                                                    imprimirTicketDineroAgregado.ShowDialog();
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        using (DataTable dtDepositoDeDinero = cn.CargarDatos(cs.obtenerIdUltimoDepositoDeDineroComoEmpleado(FormPrincipal.id_empleado)))
+                                        {
+                                            if (!dtDepositoDeDinero.Rows.Count.Equals(0))
+                                            {
+                                                DataRow drIdDepositoDeDinero = dtDepositoDeDinero.Rows[0];
+                                                idDeposito = Convert.ToInt32(drIdDepositoDeDinero["ID"].ToString());
+
+                                                using (imprimirTicketDineroAgregadoEmpleado imprimirTicketDineroAgregado = new imprimirTicketDineroAgregadoEmpleado())
+                                                {
+                                                    imprimirTicketDineroAgregado.idDineroAgregado = idDeposito;
+                                                    imprimirTicketDineroAgregado.ShowDialog();
+                                                }
+                                            }
                                         }
                                     }
                                 }
+                                else if (dt.Rows[0]["AbrirCajaAgregar"].Equals(1))
+                                {
+                                    AbrirSinTicket abrir = new AbrirSinTicket();
+                                    abrir.Show();
+                                }
+                            }
+                            else if (dt.Rows[0]["AbrirCajaAgregar"].Equals(1))
+                            {
+                                AbrirSinTicket abrir = new AbrirSinTicket();
+                                abrir.Show();
                             }
                         }
+                           
 
                         //if (Utilidades.AdobeReaderInstalado())
                         //{
@@ -1259,70 +1402,146 @@ namespace PuntoDeVentaV2
                     // Para generar Ticket al retirar dinero
                     if (operacion == 1)
                     {
-                        DialogResult resultadoRetirarDinero = MessageBox.Show("Desea imprimir ticket de la operación Retirar Dinero", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-                        if (resultadoRetirarDinero.Equals(DialogResult.Yes))
+                        using (var dt = cn.CargarDatos($"SELECT TicketRetiradoAgregado,PreguntarTicketRetiradoAgregado,AbrirCajaRetirar FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
                         {
-                            var idRetiro = 0;
-                            var usuarioActivo = FormPrincipal.userNickName;
-
-                            if (!usuarioActivo.Contains("@"))
+                            if (dt.Rows[0][0].Equals(1))
                             {
-                                using (DataTable dtRetiroDeDinero = cn.CargarDatos(cs.obtenerIdUltimoRetiroDeDineroComoAdministrador()))
+                                var idRetiro = 0;
+                                var usuarioActivo = FormPrincipal.userNickName;
+
+                                if (!usuarioActivo.Contains("@"))
                                 {
-                                    if (!dtRetiroDeDinero.Rows.Count.Equals(0))
+                                    using (DataTable dtRetiroDeDinero = cn.CargarDatos(cs.obtenerIdUltimoRetiroDeDineroComoAdministrador()))
                                     {
-                                        DataRow drIdReriroDeDinero = dtRetiroDeDinero.Rows[0];
-                                        idRetiro = Convert.ToInt32(drIdReriroDeDinero["ID"].ToString());
-                                        using (ImprimirTicketRetirarDineroCaja8cm imprimirTicketDineroRetirado = new ImprimirTicketRetirarDineroCaja8cm())
+                                        if (!dtRetiroDeDinero.Rows.Count.Equals(0))
                                         {
-                                            imprimirTicketDineroRetirado.idDineroRetirado = idRetiro;
-                                            imprimirTicketDineroRetirado.ShowDialog();
-                                        }
-
-
-                                        var conceptoAnterior = cn.CargarDatos($"SELECT Concepto FROM caja WHERE ID = {Convert.ToInt32(idRetiro)}");
-
-                                        if (conceptoAnterior.Rows[0]["Concepto"].ToString().Equals("Complemento de retiro desde saldo inicial"))
-                                        {
+                                            DataRow drIdReriroDeDinero = dtRetiroDeDinero.Rows[0];
+                                            idRetiro = Convert.ToInt32(drIdReriroDeDinero["ID"].ToString());
                                             using (ImprimirTicketRetirarDineroCaja8cm imprimirTicketDineroRetirado = new ImprimirTicketRetirarDineroCaja8cm())
                                             {
-                                                imprimirTicketDineroRetirado.idDineroRetirado = Convert.ToInt32(idRetiro) - 1;
+                                                imprimirTicketDineroRetirado.idDineroRetirado = idRetiro;
                                                 imprimirTicketDineroRetirado.ShowDialog();
+                                            }
+
+
+                                            var conceptoAnterior = cn.CargarDatos($"SELECT Concepto FROM caja WHERE ID = {Convert.ToInt32(idRetiro)}");
+
+                                            if (conceptoAnterior.Rows[0]["Concepto"].ToString().Equals("Complemento de retiro desde saldo inicial"))
+                                            {
+                                                using (ImprimirTicketRetirarDineroCaja8cm imprimirTicketDineroRetirado = new ImprimirTicketRetirarDineroCaja8cm())
+                                                {
+                                                    imprimirTicketDineroRetirado.idDineroRetirado = Convert.ToInt32(idRetiro) - 1;
+                                                    imprimirTicketDineroRetirado.ShowDialog();
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    using (DataTable dtRetiroDeDinero = cn.CargarDatos(cs.obtenerIdUltimoRetiroDeDineroComoEmpleado(FormPrincipal.id_empleado)))
+                                    {
+                                        if (!dtRetiroDeDinero.Rows.Count.Equals(0))
+                                        {
+                                            DataRow drIdReriroDeDinero = dtRetiroDeDinero.Rows[0];
+                                            idRetiro = Convert.ToInt32(drIdReriroDeDinero["ID"].ToString());
+                                            using (imprimirTicketDineroRetiradoEmpleado imprimirTicketDineroRetirado = new imprimirTicketDineroRetiradoEmpleado())
+                                            {
+                                                imprimirTicketDineroRetirado.idDineroRetirado = idRetiro;
+                                                imprimirTicketDineroRetirado.ShowDialog();
+                                            }
+
+                                            var conceptoAnterior = cn.CargarDatos($"SELECT Concepto FROM caja WHERE ID = {Convert.ToInt32(idRetiro)}");
+
+                                            if (conceptoAnterior.Rows[0]["Concepto"].ToString().Equals("Complemento de retiro desde saldo inicial"))
+                                            {
+                                                using (ImprimirTicketRetirarDineroCaja8cm imprimirTicketDineroRetirado = new ImprimirTicketRetirarDineroCaja8cm())
+                                                {
+                                                    imprimirTicketDineroRetirado.idDineroRetirado = Convert.ToInt32(idRetiro) - 1;
+                                                    imprimirTicketDineroRetirado.ShowDialog();
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
-                            else
+                            else if (dt.Rows[0][1].Equals(1))
                             {
-                                using (DataTable dtRetiroDeDinero = cn.CargarDatos(cs.obtenerIdUltimoRetiroDeDineroComoEmpleado(FormPrincipal.id_empleado)))
+                                DialogResult resultadoRetirarDinero = MessageBox.Show("Desea imprimir ticket de la operación Retirar Dinero", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                                if (resultadoRetirarDinero.Equals(DialogResult.Yes))
                                 {
-                                    if (!dtRetiroDeDinero.Rows.Count.Equals(0))
+                                    var idRetiro = 0;
+                                    var usuarioActivo = FormPrincipal.userNickName;
+
+                                    if (!usuarioActivo.Contains("@"))
                                     {
-                                        DataRow drIdReriroDeDinero = dtRetiroDeDinero.Rows[0];
-                                        idRetiro = Convert.ToInt32(drIdReriroDeDinero["ID"].ToString());
-                                        using (imprimirTicketDineroRetiradoEmpleado imprimirTicketDineroRetirado = new imprimirTicketDineroRetiradoEmpleado())
+                                        using (DataTable dtRetiroDeDinero = cn.CargarDatos(cs.obtenerIdUltimoRetiroDeDineroComoAdministrador()))
                                         {
-                                            imprimirTicketDineroRetirado.idDineroRetirado = idRetiro;
-                                            imprimirTicketDineroRetirado.ShowDialog();
-                                        }
-
-                                        var conceptoAnterior = cn.CargarDatos($"SELECT Concepto FROM caja WHERE ID = {Convert.ToInt32(idRetiro)}");
-
-                                        if (conceptoAnterior.Rows[0]["Concepto"].ToString().Equals("Complemento de retiro desde saldo inicial"))
-                                        {
-                                            using (ImprimirTicketRetirarDineroCaja8cm imprimirTicketDineroRetirado = new ImprimirTicketRetirarDineroCaja8cm())
+                                            if (!dtRetiroDeDinero.Rows.Count.Equals(0))
                                             {
-                                                imprimirTicketDineroRetirado.idDineroRetirado = Convert.ToInt32(idRetiro) - 1;
-                                                imprimirTicketDineroRetirado.ShowDialog();
+                                                DataRow drIdReriroDeDinero = dtRetiroDeDinero.Rows[0];
+                                                idRetiro = Convert.ToInt32(drIdReriroDeDinero["ID"].ToString());
+                                                using (ImprimirTicketRetirarDineroCaja8cm imprimirTicketDineroRetirado = new ImprimirTicketRetirarDineroCaja8cm())
+                                                {
+                                                    imprimirTicketDineroRetirado.idDineroRetirado = idRetiro;
+                                                    imprimirTicketDineroRetirado.ShowDialog();
+                                                }
+
+
+                                                var conceptoAnterior = cn.CargarDatos($"SELECT Concepto FROM caja WHERE ID = {Convert.ToInt32(idRetiro)}");
+
+                                                if (conceptoAnterior.Rows[0]["Concepto"].ToString().Equals("Complemento de retiro desde saldo inicial"))
+                                                {
+                                                    using (ImprimirTicketRetirarDineroCaja8cm imprimirTicketDineroRetirado = new ImprimirTicketRetirarDineroCaja8cm())
+                                                    {
+                                                        imprimirTicketDineroRetirado.idDineroRetirado = Convert.ToInt32(idRetiro) - 1;
+                                                        imprimirTicketDineroRetirado.ShowDialog();
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        using (DataTable dtRetiroDeDinero = cn.CargarDatos(cs.obtenerIdUltimoRetiroDeDineroComoEmpleado(FormPrincipal.id_empleado)))
+                                        {
+                                            if (!dtRetiroDeDinero.Rows.Count.Equals(0))
+                                            {
+                                                DataRow drIdReriroDeDinero = dtRetiroDeDinero.Rows[0];
+                                                idRetiro = Convert.ToInt32(drIdReriroDeDinero["ID"].ToString());
+                                                using (imprimirTicketDineroRetiradoEmpleado imprimirTicketDineroRetirado = new imprimirTicketDineroRetiradoEmpleado())
+                                                {
+                                                    imprimirTicketDineroRetirado.idDineroRetirado = idRetiro;
+                                                    imprimirTicketDineroRetirado.ShowDialog();
+                                                }
+
+                                                var conceptoAnterior = cn.CargarDatos($"SELECT Concepto FROM caja WHERE ID = {Convert.ToInt32(idRetiro)}");
+
+                                                if (conceptoAnterior.Rows[0]["Concepto"].ToString().Equals("Complemento de retiro desde saldo inicial"))
+                                                {
+                                                    using (ImprimirTicketRetirarDineroCaja8cm imprimirTicketDineroRetirado = new ImprimirTicketRetirarDineroCaja8cm())
+                                                    {
+                                                        imprimirTicketDineroRetirado.idDineroRetirado = Convert.ToInt32(idRetiro) - 1;
+                                                        imprimirTicketDineroRetirado.ShowDialog();
+                                                    }
+                                                }
                                             }
                                         }
                                     }
                                 }
+                                if (dt.Rows[0]["AbrirCajaRetirar"].Equals(1))
+                                {
+                                    AbrirSinTicket abrir = new AbrirSinTicket();
+                                    abrir.Show();
+                                }
+                            }
+                            if (dt.Rows[0]["AbrirCajaRetirar"].Equals(1))
+                            {
+                                AbrirSinTicket abrir = new AbrirSinTicket();
+                                abrir.Show();
                             }
                         }
-
                         //if (Utilidades.AdobeReaderInstalado())
                         //{
                         //    GenerarTicket(datos);

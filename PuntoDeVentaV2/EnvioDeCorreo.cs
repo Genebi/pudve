@@ -63,7 +63,7 @@ namespace PuntoDeVentaV2
         bool check24 = false;
         bool check25 = false;
         bool check26 = false;
-        int guardado =0;
+        int guardado = 0;
 
         List<String> confiCorreo;
 
@@ -71,13 +71,13 @@ namespace PuntoDeVentaV2
         {
             "OXXITO",
             "MUELAS0",
-            "HOUSEDEPOTAUTLAN", 
+            "HOUSEDEPOTAUTLAN",
             "HOUSEDEPOTGRULLO",
             "HOUSEDEPOTREPARTO"
-        }; 
-        public EnvioDeCorreo() 
-        { 
-            InitializeComponent(); 
+        };
+        public EnvioDeCorreo()
+        {
+            InitializeComponent();
 
         }
         private void VerificarConfiguracion()
@@ -131,6 +131,8 @@ namespace PuntoDeVentaV2
 
                 chkBoxSaldoInicial.Checked = Convert.ToBoolean(datosConfig[30]);
                 check26 = chkBoxSaldoInicial.Checked;
+
+                ckbCorreoAbonos.Checked = Convert.ToBoolean(datosConfig[31]);
             }
             else
             {
@@ -140,12 +142,12 @@ namespace PuntoDeVentaV2
 
         private void cbCorreoAgregarDineroCaja_CheckedChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void cbCorreoRetirarDineroCaja_CheckedChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void cbCorreoCorteCaja_CheckedChanged(object sender, EventArgs e)
@@ -156,7 +158,7 @@ namespace PuntoDeVentaV2
 
                 cbCorreoCorteCaja.Checked = false;
             }
-            
+
             //if (!usuariosPermitidos.Contains(FormPrincipal.userNickName))
             //{
             //    MessageBox.Show("Estamos trabajando en esta opción", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -173,47 +175,47 @@ namespace PuntoDeVentaV2
 
         private void cbCorreoStockMinimo_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void cbCorreoStockProducto_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void cbCorreoPrecioProducto_CheckedChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void cbCorreoVenderProducto_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void cbCorreoCerrarVentanaVentas_CheckedChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void cbCorreoEliminarListaProductosVentas_CheckedChanged(object sender, EventArgs e)
         {
-           
+
         }
 
         private void cbCorreoVenta_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void cbCorreoIniciar_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void cbCorreoDescuento_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void chRespaldo_CheckedChanged(object sender, EventArgs e)
@@ -225,6 +227,21 @@ namespace PuntoDeVentaV2
         {
             VerificarConfiguracion();
             confiCorreo = new List<string>();
+
+            using (DataTable dt = cn.CargarDatos($"SELECT subdetallesdeproducto.ID FROM subdetallesdeproducto INNER JOIN detallesubdetalle AS Sub ON (Sub.IDSubDetalle = subdetallesdeproducto.id) WHERE esCaducidad = 1 AND IDUsuario = {FormPrincipal.userID} AND Activo = 1"))
+            {
+                if (!dt.Rows.Count.Equals(0))
+                {
+                    chbCaducidad.Visible = true;
+                    using (DataTable dtConfig = cn.CargarDatos($"SELECT correoCaducidad FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                    {
+                        if (dtConfig.Rows[0][0].ToString().Equals("1"))
+                        {
+                            chbCaducidad.Checked = true;
+                        }
+                    }
+                }
+            }
         }
 
         private void cbCorreoAgregarDineroCaja_MouseClick(object sender, MouseEventArgs e)
@@ -277,7 +294,7 @@ namespace PuntoDeVentaV2
                                 habilitado = 1;
                             }
 
-                            string consulta= $"UPDATE Configuracion SET CorreoAgregarDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            string consulta = $"UPDATE Configuracion SET CorreoAgregarDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                             confiCorreo.Add(consulta);
                         }
                         else
@@ -326,7 +343,7 @@ namespace PuntoDeVentaV2
                         habilitado = 1;
                     }
 
-                    string Consulta=$"UPDATE Configuracion SET CorreoRetiroDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    string Consulta = $"UPDATE Configuracion SET CorreoRetiroDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                     confiCorreo.Add(Consulta);
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
@@ -352,7 +369,7 @@ namespace PuntoDeVentaV2
                                 habilitado = 1;
                             }
 
-                            string consulta=$"UPDATE Configuracion SET CorreoRetiroDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            string consulta = $"UPDATE Configuracion SET CorreoRetiroDineroCaja = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                             confiCorreo.Add(consulta);
                         }
                         else
@@ -661,7 +678,7 @@ namespace PuntoDeVentaV2
                                 habilitado = 1;
                             }
 
-                            string consulta =$"UPDATE Configuracion SET CorreoStockProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            string consulta = $"UPDATE Configuracion SET CorreoStockProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                             confiCorreo.Add(consulta);
 
                         }
@@ -713,7 +730,7 @@ namespace PuntoDeVentaV2
 
                     string consulta = $"UPDATE Configuracion SET CorreoVentaProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                     confiCorreo.Add(consulta);
-                 }
+                }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
                 {
                     foreach (DataRow item in permisoEmpleado.Rows)
@@ -737,7 +754,7 @@ namespace PuntoDeVentaV2
                                 habilitado = 1;
                             }
 
-                            string conulta =$"UPDATE Configuracion SET CorreoVentaProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            string conulta = $"UPDATE Configuracion SET CorreoVentaProducto = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                             confiCorreo.Add(conulta);
 
                         }
@@ -787,7 +804,7 @@ namespace PuntoDeVentaV2
                         habilitado = 1;
                     }
 
-                    string consulta=$"UPDATE Configuracion SET CorreoCerrarVentanaVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    string consulta = $"UPDATE Configuracion SET CorreoCerrarVentanaVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                     confiCorreo.Add(consulta);
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
@@ -864,16 +881,16 @@ namespace PuntoDeVentaV2
                     }
                     var consulta = string.Empty;
 
-                    consulta=$"UPDATE Configuracion SET CorreoEliminarListaProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    consulta = $"UPDATE Configuracion SET CorreoEliminarListaProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                     confiCorreo.Add(consulta);
 
-                    consulta= $"UPDATE Configuracion SET CorreoEliminarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    consulta = $"UPDATE Configuracion SET CorreoEliminarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                     confiCorreo.Add(consulta);
 
-                    consulta=$"UPDATE Configuracion SET CorreoEliminarUltimoProductoAgregadoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    consulta = $"UPDATE Configuracion SET CorreoEliminarUltimoProductoAgregadoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                     confiCorreo.Add(consulta);
 
-                    consulta= $"UPDATE Configuracion SET CorreoRestarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    consulta = $"UPDATE Configuracion SET CorreoRestarProductoVentas = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                     confiCorreo.Add(consulta);
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
@@ -950,7 +967,7 @@ namespace PuntoDeVentaV2
                         habilitado = 1;
                     }
 
-                    string consulta=$"UPDATE Configuracion SET CorreoVenta = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    string consulta = $"UPDATE Configuracion SET CorreoVenta = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                     confiCorreo.Add(consulta);
                 }
                 else if (!permisoEmpleado.Rows.Count.Equals(0))
@@ -967,7 +984,7 @@ namespace PuntoDeVentaV2
                                 habilitado = 1;
                             }
 
-                            var consulta =$"UPDATE Configuracion SET CorreoVenta = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                            var consulta = $"UPDATE Configuracion SET CorreoVenta = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                             confiCorreo.Add(consulta);
 
 
@@ -1066,7 +1083,7 @@ namespace PuntoDeVentaV2
                     {
                         habilitado = 1;
                     }
-                    string consulta =$"UPDATE Configuracion SET CorreoVentaDescuento = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                    string consulta = $"UPDATE Configuracion SET CorreoVentaDescuento = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
                     confiCorreo.Add(consulta);
 
                 }
@@ -1085,7 +1102,7 @@ namespace PuntoDeVentaV2
                             }
 
                             string consulta = $"UPDATE Configuracion SET CorreoVentaDescuento = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
-                            confiCorreo.Add(consulta); 
+                            confiCorreo.Add(consulta);
 
                         }
                         else
@@ -1192,7 +1209,7 @@ namespace PuntoDeVentaV2
 
         private void EnvioDeCorreo_KeyDown(object sender, KeyEventArgs e)
         {
-            if (confiCorreo.Count==0)
+            if (confiCorreo.Count == 0)
             {
                 if (e.KeyCode == Keys.Escape)
                 {
@@ -1205,7 +1222,7 @@ namespace PuntoDeVentaV2
                 if (result.Equals(DialogResult.Yes))
                 {
                     btnAceptar.PerformClick();
-                    
+
                 }
                 else
                 {
@@ -1213,7 +1230,7 @@ namespace PuntoDeVentaV2
                     this.Close();
                 }
             }
-            
+
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -1223,7 +1240,7 @@ namespace PuntoDeVentaV2
                 cn.EjecutarConsulta(item);
             }
 
-            MessageBox.Show("Configuracion Guardada con Exito", "Mensaje de sistema", MessageBoxButtons.OK,MessageBoxIcon.Information);
+            MessageBox.Show("Configuracion Guardada con Exito", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
             guardado = 1;
 
             this.Close();
@@ -1231,7 +1248,7 @@ namespace PuntoDeVentaV2
 
         private void EnvioDeCorreo_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (guardado==0)
+            if (guardado == 0)
             {
                 if (confiCorreo.Count == 0)
                 {
@@ -1251,7 +1268,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            
+
         }
 
         private void EnvioDeCorreo_FormClosed(object sender, FormClosedEventArgs e)
@@ -1479,6 +1496,72 @@ namespace PuntoDeVentaV2
                     return;
                 }
             }
+        }
+
+        private void chbCaducidad_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (chbCaducidad.Checked)
+            {
+                var consulta = $"UPDATE Configuracion SET correoCaducidad = {1} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiCorreo.Add(consulta);
+            }
+            else
+            {
+                var consulta = $"UPDATE Configuracion SET correoCaducidad = {0} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiCorreo.Add(consulta);
+
+            }
+        }
+
+        private void ckbCorreoAbonos_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (FormPrincipal.userNickName.Contains('@'))
+            {
+                using (DataTable permisoEmpleado = cn.CargarDatos(cs.permisosEmpleado("PermisoEnvioDeCorreoAbono", FormPrincipal.id_empleado)))
+                {
+                    if (!permisoEmpleado.Rows[0][0].Equals(0))
+                    {
+
+                        var habilitado = 0;
+
+                        if (ckbCorreoAbonos.Checked)
+                        {
+                            habilitado = 1;
+                        }
+
+                        string consulta = $"UPDATE Configuracion SET CorreoAbonoRecibidos = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                        confiCorreo.Add(consulta);
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("No tienes permisos para modificar esta opcion");
+                        if (ckbCorreoAbonos.Checked == true)
+                        {
+                            ckbCorreoAbonos.Checked = false;
+                            return;
+                        }
+                        else
+                        {
+                            ckbCorreoAbonos.Checked = true;
+                            return;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var habilitado = 0;
+
+                if (ckbCorreoAbonos.Checked)
+                {
+                    habilitado = 1;
+                }
+
+                string consulta = $"UPDATE Configuracion SET CorreoAbonoRecibidos = {habilitado} WHERE IDUsuario = {FormPrincipal.userID}";
+                confiCorreo.Add(consulta);
+            }
+
         }
     }
 }

@@ -295,6 +295,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.HistorialVenta {
             
             private global::System.Data.DataColumn columnCliente;
             
+            private global::System.Data.DataColumn columnmodopago;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DTHistorialVentaDataTable() {
@@ -394,6 +396,14 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.HistorialVenta {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn modopagoColumn {
+                get {
+                    return this.columnmodopago;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -429,7 +439,7 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.HistorialVenta {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DTHistorialVentaRow AddDTHistorialVentaRow(string Folio, string Usuario, string Fecha, string Cantidad, string PrecioUnidad, string Total, string Empleado, string Cliente) {
+            public DTHistorialVentaRow AddDTHistorialVentaRow(string Folio, string Usuario, string Fecha, string Cantidad, string PrecioUnidad, string Total, string Empleado, string Cliente, string modopago) {
                 DTHistorialVentaRow rowDTHistorialVentaRow = ((DTHistorialVentaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Folio,
@@ -439,7 +449,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.HistorialVenta {
                         PrecioUnidad,
                         Total,
                         Empleado,
-                        Cliente};
+                        Cliente,
+                        modopago};
                 rowDTHistorialVentaRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDTHistorialVentaRow);
                 return rowDTHistorialVentaRow;
@@ -470,6 +481,7 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.HistorialVenta {
                 this.columnTotal = base.Columns["Total"];
                 this.columnEmpleado = base.Columns["Empleado"];
                 this.columnCliente = base.Columns["Cliente"];
+                this.columnmodopago = base.Columns["modopago"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -491,6 +503,8 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.HistorialVenta {
                 base.Columns.Add(this.columnEmpleado);
                 this.columnCliente = new global::System.Data.DataColumn("Cliente", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnCliente);
+                this.columnmodopago = new global::System.Data.DataColumn("modopago", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnmodopago);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -761,6 +775,22 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.HistorialVenta {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string modopago {
+                get {
+                    try {
+                        return ((string)(this[this.tableDTHistorialVenta.modopagoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'modopago\' in table \'DTHistorialVenta\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDTHistorialVenta.modopagoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsFolioNull() {
                 return this.IsNull(this.tableDTHistorialVenta.FolioColumn);
             }
@@ -853,6 +883,18 @@ namespace PuntoDeVentaV2.ReportesImpresion.Ticket.HistorialVenta {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetClienteNull() {
                 this[this.tableDTHistorialVenta.ClienteColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsmodopagoNull() {
+                return this.IsNull(this.tableDTHistorialVenta.modopagoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetmodopagoNull() {
+                this[this.tableDTHistorialVenta.modopagoColumn] = global::System.Convert.DBNull;
             }
         }
         

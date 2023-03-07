@@ -48,6 +48,7 @@ namespace PuntoDeVentaV2
             this.cbTipo = new System.Windows.Forms.ComboBox();
             this.PDetalleProdcuto = new System.Windows.Forms.Panel();
             this.checkRenta = new System.Windows.Forms.CheckBox();
+            this.btnConsultarProducto = new System.Windows.Forms.Button();
             this.lblArrow = new System.Windows.Forms.Label();
             this.tituloSeccion = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -92,6 +93,7 @@ namespace PuntoDeVentaV2
             this.btnMensajeVenta = new PuntoDeVentaV2.BotonRedondo();
             this.button1 = new PuntoDeVentaV2.BotonRedondo();
             this.btnAgregarDescuento = new PuntoDeVentaV2.BotonRedondo();
+            this.btnSubdetalle = new PuntoDeVentaV2.BotonRedondo();
             this.btnDetalleProducto = new PuntoDeVentaV2.BotonRedondo();
             this.btnProdUpdate = new System.Windows.Forms.Button();
             this.btnDetalleFacturacion = new PuntoDeVentaV2.BotonRedondo();
@@ -309,6 +311,7 @@ namespace PuntoDeVentaV2
             // 
             this.PDetalleProdcuto.BackColor = System.Drawing.SystemColors.Control;
             this.PDetalleProdcuto.Controls.Add(this.checkRenta);
+            this.PDetalleProdcuto.Controls.Add(this.btnConsultarProducto);
             this.PDetalleProdcuto.Controls.Add(this.lblArrow);
             this.PDetalleProdcuto.Controls.Add(this.tituloSeccion);
             this.PDetalleProdcuto.Controls.Add(this.btnAdd);
@@ -323,13 +326,24 @@ namespace PuntoDeVentaV2
             // checkRenta
             // 
             this.checkRenta.AutoSize = true;
-            this.checkRenta.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkRenta.Location = new System.Drawing.Point(185, 13);
+            this.checkRenta.Location = new System.Drawing.Point(189, 16);
             this.checkRenta.Name = "checkRenta";
-            this.checkRenta.Size = new System.Drawing.Size(87, 19);
-            this.checkRenta.TabIndex = 31;
+            this.checkRenta.Size = new System.Drawing.Size(79, 17);
+            this.checkRenta.TabIndex = 32;
             this.checkRenta.Text = "Solo Renta";
             this.checkRenta.UseVisualStyleBackColor = true;
+            // 
+            // btnConsultarProducto
+            // 
+            this.btnConsultarProducto.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConsultarProducto.Image = global::PuntoDeVentaV2.Properties.Resources.search;
+            this.btnConsultarProducto.Location = new System.Drawing.Point(862, 34);
+            this.btnConsultarProducto.Margin = new System.Windows.Forms.Padding(2);
+            this.btnConsultarProducto.Name = "btnConsultarProducto";
+            this.btnConsultarProducto.Size = new System.Drawing.Size(22, 25);
+            this.btnConsultarProducto.TabIndex = 31;
+            this.btnConsultarProducto.UseVisualStyleBackColor = true;
+            this.btnConsultarProducto.Click += new System.EventHandler(this.btnConsultarProducto_Click);
             // 
             // lblArrow
             // 
@@ -831,6 +845,7 @@ namespace PuntoDeVentaV2
             this.PAccion.Controls.Add(this.button1);
             this.PAccion.Controls.Add(this.btnAgregarDescuento);
             this.PAccion.Controls.Add(this.PCategoria);
+            this.PAccion.Controls.Add(this.btnSubdetalle);
             this.PAccion.Controls.Add(this.btnDetalleProducto);
             this.PAccion.Controls.Add(this.btnProdUpdate);
             this.PAccion.Controls.Add(this.btnDetalleFacturacion);
@@ -853,9 +868,9 @@ namespace PuntoDeVentaV2
             this.btnConfiguracionPeso.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnConfiguracionPeso.ForeColor = System.Drawing.Color.White;
             this.btnConfiguracionPeso.Image = global::PuntoDeVentaV2.Properties.Resources.cog1;
-            this.btnConfiguracionPeso.Location = new System.Drawing.Point(723, 5);
+            this.btnConfiguracionPeso.Location = new System.Drawing.Point(724, 6);
             this.btnConfiguracionPeso.Name = "btnConfiguracionPeso";
-            this.btnConfiguracionPeso.Size = new System.Drawing.Size(109, 71);
+            this.btnConfiguracionPeso.Size = new System.Drawing.Size(109, 75);
             this.btnConfiguracionPeso.TabIndex = 22;
             this.btnConfiguracionPeso.Text = "Peso Automatico";
             this.btnConfiguracionPeso.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -875,9 +890,9 @@ namespace PuntoDeVentaV2
             this.btnMensajeVenta.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMensajeVenta.ForeColor = System.Drawing.Color.White;
             this.btnMensajeVenta.Image = global::PuntoDeVentaV2.Properties.Resources.commenting_o1;
-            this.btnMensajeVenta.Location = new System.Drawing.Point(487, 4);
+            this.btnMensajeVenta.Location = new System.Drawing.Point(605, 5);
             this.btnMensajeVenta.Name = "btnMensajeVenta";
-            this.btnMensajeVenta.Size = new System.Drawing.Size(109, 73);
+            this.btnMensajeVenta.Size = new System.Drawing.Size(109, 75);
             this.btnMensajeVenta.TabIndex = 21;
             this.btnMensajeVenta.Text = "Mensaje Venta Y Mensaje Inventario";
             this.btnMensajeVenta.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -917,9 +932,9 @@ namespace PuntoDeVentaV2
             this.btnAgregarDescuento.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAgregarDescuento.ForeColor = System.Drawing.Color.White;
             this.btnAgregarDescuento.Image = global::PuntoDeVentaV2.Properties.Resources.tag_yellow;
-            this.btnAgregarDescuento.Location = new System.Drawing.Point(128, 4);
+            this.btnAgregarDescuento.Location = new System.Drawing.Point(129, 4);
             this.btnAgregarDescuento.Name = "btnAgregarDescuento";
-            this.btnAgregarDescuento.Size = new System.Drawing.Size(114, 73);
+            this.btnAgregarDescuento.Size = new System.Drawing.Size(109, 75);
             this.btnAgregarDescuento.TabIndex = 3;
             this.btnAgregarDescuento.Text = "Agregar descuento";
             this.btnAgregarDescuento.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -927,6 +942,28 @@ namespace PuntoDeVentaV2
             this.btnAgregarDescuento.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnAgregarDescuento.UseVisualStyleBackColor = false;
             this.btnAgregarDescuento.Click += new System.EventHandler(this.botonRedondo4_Click);
+            // 
+            // btnSubdetalle
+            // 
+            this.btnSubdetalle.BackColor = System.Drawing.Color.Orchid;
+            this.btnSubdetalle.BackGroundColor = System.Drawing.Color.Orchid;
+            this.btnSubdetalle.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnSubdetalle.BorderRadius = 20;
+            this.btnSubdetalle.BorderSize = 0;
+            this.btnSubdetalle.FlatAppearance.BorderSize = 0;
+            this.btnSubdetalle.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSubdetalle.ForeColor = System.Drawing.Color.White;
+            this.btnSubdetalle.Image = global::PuntoDeVentaV2.Properties.Resources.product_hunt1;
+            this.btnSubdetalle.Location = new System.Drawing.Point(367, 5);
+            this.btnSubdetalle.Name = "btnSubdetalle";
+            this.btnSubdetalle.Size = new System.Drawing.Size(109, 75);
+            this.btnSubdetalle.TabIndex = 1;
+            this.btnSubdetalle.Text = "Sub Detalle de producto";
+            this.btnSubdetalle.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnSubdetalle.TextColor = System.Drawing.Color.White;
+            this.btnSubdetalle.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSubdetalle.UseVisualStyleBackColor = false;
+            this.btnSubdetalle.Click += new System.EventHandler(this.btnSubdetalle_Click);
             // 
             // btnDetalleProducto
             // 
@@ -939,9 +976,9 @@ namespace PuntoDeVentaV2
             this.btnDetalleProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDetalleProducto.ForeColor = System.Drawing.Color.White;
             this.btnDetalleProducto.Image = global::PuntoDeVentaV2.Properties.Resources.product_hunt1;
-            this.btnDetalleProducto.Location = new System.Drawing.Point(251, 4);
+            this.btnDetalleProducto.Location = new System.Drawing.Point(248, 4);
             this.btnDetalleProducto.Name = "btnDetalleProducto";
-            this.btnDetalleProducto.Size = new System.Drawing.Size(109, 73);
+            this.btnDetalleProducto.Size = new System.Drawing.Size(109, 75);
             this.btnDetalleProducto.TabIndex = 1;
             this.btnDetalleProducto.Text = "Detalle de producto";
             this.btnDetalleProducto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -975,9 +1012,9 @@ namespace PuntoDeVentaV2
             this.btnDetalleFacturacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDetalleFacturacion.ForeColor = System.Drawing.Color.White;
             this.btnDetalleFacturacion.Image = global::PuntoDeVentaV2.Properties.Resources.bellColor;
-            this.btnDetalleFacturacion.Location = new System.Drawing.Point(369, 5);
+            this.btnDetalleFacturacion.Location = new System.Drawing.Point(486, 6);
             this.btnDetalleFacturacion.Name = "btnDetalleFacturacion";
-            this.btnDetalleFacturacion.Size = new System.Drawing.Size(109, 71);
+            this.btnDetalleFacturacion.Size = new System.Drawing.Size(109, 75);
             this.btnDetalleFacturacion.TabIndex = 2;
             this.btnDetalleFacturacion.Text = "Detalle facturación";
             this.btnDetalleFacturacion.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -997,9 +1034,9 @@ namespace PuntoDeVentaV2
             this.btnGuardarProducto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardarProducto.ForeColor = System.Drawing.Color.White;
             this.btnGuardarProducto.Image = global::PuntoDeVentaV2.Properties.Resources.disk;
-            this.btnGuardarProducto.Location = new System.Drawing.Point(605, 5);
+            this.btnGuardarProducto.Location = new System.Drawing.Point(843, 6);
             this.btnGuardarProducto.Name = "btnGuardarProducto";
-            this.btnGuardarProducto.Size = new System.Drawing.Size(109, 71);
+            this.btnGuardarProducto.Size = new System.Drawing.Size(109, 75);
             this.btnGuardarProducto.TabIndex = 4;
             this.btnGuardarProducto.Text = "Guardar producto";
             this.btnGuardarProducto.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
@@ -1026,7 +1063,7 @@ namespace PuntoDeVentaV2
             this.fLPType.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPType.Location = new System.Drawing.Point(0, 0);
             this.fLPType.Name = "fLPType";
-            this.fLPType.Size = new System.Drawing.Size(1284, 29);
+            this.fLPType.Size = new System.Drawing.Size(1280, 29);
             this.fLPType.TabIndex = 35;
             // 
             // fLPDetalleProducto
@@ -1036,7 +1073,7 @@ namespace PuntoDeVentaV2
             this.fLPDetalleProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetalleProducto.Location = new System.Drawing.Point(0, 29);
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
-            this.fLPDetalleProducto.Size = new System.Drawing.Size(1284, 66);
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(1280, 66);
             this.fLPDetalleProducto.TabIndex = 36;
             this.fLPDetalleProducto.Paint += new System.Windows.Forms.PaintEventHandler(this.fLPDetalleProducto_Paint);
             // 
@@ -1058,7 +1095,7 @@ namespace PuntoDeVentaV2
             this.fLPDetalle.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPDetalle.Location = new System.Drawing.Point(0, 95);
             this.fLPDetalle.Name = "fLPDetalle";
-            this.fLPDetalle.Size = new System.Drawing.Size(1284, 210);
+            this.fLPDetalle.Size = new System.Drawing.Size(1280, 210);
             this.fLPDetalle.TabIndex = 38;
             // 
             // fLPAccion
@@ -1078,7 +1115,7 @@ namespace PuntoDeVentaV2
             this.fLPDetallesProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 305);
             this.fLPDetallesProducto.Name = "fLPDetallesProducto";
-            this.fLPDetallesProducto.Size = new System.Drawing.Size(1284, 270);
+            this.fLPDetallesProducto.Size = new System.Drawing.Size(1280, 270);
             this.fLPDetallesProducto.TabIndex = 39;
             // 
             // groupBox2
@@ -1127,7 +1164,7 @@ namespace PuntoDeVentaV2
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1301, 680);
+            this.ClientSize = new System.Drawing.Size(1297, 680);
             this.Controls.Add(this.fLPContenidoProducto);
             this.Controls.Add(this.fLPDetallesProducto);
             this.Controls.Add(this.fLPAccion);
@@ -1250,6 +1287,8 @@ namespace PuntoDeVentaV2
         private BotonRedondo btnMensajeVenta;
         private System.Windows.Forms.Button btnBuscarSugerencias;
         private BotonRedondo btnConfiguracionPeso;
+        private System.Windows.Forms.Button btnConsultarProducto;
+        private BotonRedondo btnSubdetalle;
         private System.Windows.Forms.CheckBox checkRenta;
     }
 }

@@ -59,7 +59,8 @@ namespace PuntoDeVentaV2
                     "EviarRespaldoCerrarSesion",
                     "PermisoCorreoAnticipo",
                     "VentaClienteDescuento",
-                    "PermisoCorreoSaldoInicial"};
+                    "PermisoCorreoSaldoInicial",
+                    "PermisoEnvioDeCorreoAbono"};
 
                 var permisosConfiguracion = String.Join(", ", datos);
                 var permisos = mb.PermisosEmpleadoConfiguracion(permisosConfiguracion, FormPrincipal.id_empleado);
@@ -89,6 +90,8 @@ namespace PuntoDeVentaV2
 
                 GenerarCheckbox(250, 10, 205, "Enviar venta a cliente con descuento", permisos[14]);
                 GenerarCheckbox(250, 220, 220, "Enviar saldo inicial agregado", permisos[15]);
+
+                GenerarCheckbox(10, 220, 220, "Enviar Abono Recibido", permisos[16]);
             }
             if (tipoPermisos == "configuracionGeneral")
             {
@@ -110,7 +113,8 @@ namespace PuntoDeVentaV2
                     "MensajeInventario",
                     "PermisoStockConsultarPrecio",
                     "PermisoPreguntarTicketVenta",
-                    "PermisoTicketPDF"
+                    "PermisoTicketPDF",
+                    "PermisoMostrarIVA"
                 };
 
                 var permisosConfiguracion = String.Join(", ",datos);
@@ -138,6 +142,8 @@ namespace PuntoDeVentaV2
 
                 GenerarCheckbox(220, 10, 200, "Pregutar Imprimir Ticket Venta", permisos[12]);
                 GenerarCheckbox(220, 220, 200, "Seleccionar Ticket o PDF", permisos[13]);
+
+                GenerarCheckbox(250, 10, 200, "Mostrar IVA en ventas", permisos[14]);
             }
             if (tipoPermisos == "porcentageGanancia")
             {

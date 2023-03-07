@@ -56,7 +56,7 @@ namespace PuntoDeVentaV2
             {
                 queryVenta = cs.impresionTicketAnticipo(idAnticipoViz, idVentaViz);
             }
-           
+
 
             MySqlConnection conn = new MySqlConnection();
 
@@ -78,9 +78,74 @@ namespace PuntoDeVentaV2
             DataTable ventaDT = new DataTable();
 
             ventaDA.Fill(ventaDT);
-          
+            ReportParameterCollection reportParameters = new ReportParameterCollection();
+
+            decimal AnticipoUtilizadoold = 0;
+            if (!ventaDT.Rows[0]["AnticipoAplicado"].Equals("N/A"))
+            {
+                using (var otradt = cn.CargarDatos($"SELECT * FROM ventas WHERE IDAnticipo = {ventaDT.Rows[0]["IDAnticipo"].ToString()}"))
+                {
+                    if (otradt.Rows.Count > 1)
+                    {
+                        using (var dt = cn.CargarDatos($"SELECT SUM(Subtotal + IVA16 + IVA8) AS 'AnticipoAplicado' FROM ventas WHERE IDAnticipo = {ventaDT.Rows[0]["IDAnticipo"].ToString()} AND ID != {idVentaViz}"))
+                        {
+                            if (!dt.Rows.Count.Equals(0))
+                            {
+                                if (!string.IsNullOrWhiteSpace(dt.Rows[0][0].ToString()))
+                                {
+                                    AnticipoUtilizadoold = Convert.ToDecimal(dt.Rows[0][0]);
+                                }
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        AnticipoUtilizadoold = 0;
+                    }
+                }
+
+            }
+            decimal AnticipoUtilizadoEnLaVenta = 0;
+            if (!idVentaViz.Equals(0))
+            {
+                if (AnticipoUtilizadoold == 0)
+                {
+                    using (var dt = cn.CargarDatos($"SELECT SUM( vent.Subtotal + vent.IVA16 + vent.IVA8 ) AS 'Total', ant.ImporteOriginal FROM ventas as vent INNER JOIN anticipos AS ant ON (ant.ID = vent.IDAnticipo) WHERE vent.ID = {idVentaViz}"))
+                    {
+                        decimal total = Convert.ToDecimal(dt.Rows[0]["Total"]);
+                        decimal AnticipoOriginal = Convert.ToDecimal(dt.Rows[0]["ImporteOriginal"]);
+                        if (total >= AnticipoOriginal)
+                        {
+                            AnticipoUtilizadoEnLaVenta = AnticipoOriginal;
+                        }
+                        else
+                        {
+                            AnticipoUtilizadoEnLaVenta = total;
+                        }
+                    }
+                }
+                else
+                {
+                    using (var DT = cn.CargarDatos($"SELECT ImporteOriginal,AnticipoAplicado FROM anticipos WHERE ID ={idAnticipoViz}"))
+                    {
+                        decimal AnticipoUtilizadoNew = Convert.ToDecimal(DT.Rows[0]["AnticipoAplicado"]);
+                        AnticipoUtilizadoEnLaVenta = AnticipoUtilizadoNew - AnticipoUtilizadoold;
+
+                    }
+                }
+                reportParameters.Add(new ReportParameter("Actual", AnticipoUtilizadoEnLaVenta.ToString("0.00")));
+
+            }
+            else
+            {
+                reportParameters.Add(new ReportParameter("Actual", "N/A"));
+            }
+            reportParameters.Add(new ReportParameter("Anterior", AnticipoUtilizadoold.ToString("0.00")));
+           
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
+            this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Clear();
 
             #region Impresion Ticket de 80 mm
@@ -92,6 +157,7 @@ namespace PuntoDeVentaV2
 
             this.reportViewer1.LocalReport.DataSources.Add(rp);
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
+            this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.RefreshReport();
 
             //LocalReport rdlc = new LocalReport();
@@ -148,12 +214,69 @@ namespace PuntoDeVentaV2
             DataTable ventaDT = new DataTable();
 
             ventaDA.Fill(ventaDT);
-            decimal TotalRecibido = Convert.ToDecimal(ventaDT.Rows[0]["TotalRecibido"]);
-            decimal AnticipoAplicado = Convert.ToDecimal(ventaDT.Rows[0]["AnticipoAplicado"]);
-            if (TotalRecibido < AnticipoAplicado)
+            ReportParameterCollection reportParameters = new ReportParameterCollection();
+            decimal AnticipoUtilizadoold = 0;
+            if (!ventaDT.Rows[0]["AnticipoAplicado"].Equals("N/A"))
             {
-                ventaDT.Rows[0]["AnticipoAplicado"] = TotalRecibido.ToString();
+                using (var otradt = cn.CargarDatos($"SELECT * FROM ventas WHERE IDAnticipo = {ventaDT.Rows[0]["IDAnticipo"].ToString()}"))
+                {
+                    if (otradt.Rows.Count > 1)
+                    {
+                        using (var dt = cn.CargarDatos($"SELECT SUM(Subtotal + IVA16 + IVA8) AS 'AnticipoAplicado' FROM ventas WHERE IDAnticipo = {ventaDT.Rows[0]["IDAnticipo"].ToString()} AND ID != {idVentaViz}"))
+                        {
+                            if (!dt.Rows.Count.Equals(0))
+                            {
+                                if (!string.IsNullOrWhiteSpace(dt.Rows[0][0].ToString()))
+                                {
+                                    AnticipoUtilizadoold = Convert.ToDecimal(dt.Rows[0][0]);
+                                }
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        AnticipoUtilizadoold = 0;
+                    }
+                }
+
             }
+            decimal AnticipoUtilizadoEnLaVenta = 0;
+            if (!idVentaViz.Equals(0))
+            {
+                if (AnticipoUtilizadoold == 0)
+                {
+                    using (var dt = cn.CargarDatos($"SELECT SUM( vent.Subtotal + vent.IVA16 + vent.IVA8 ) AS 'Total', ant.ImporteOriginal FROM ventas as vent INNER JOIN anticipos AS ant ON (ant.ID = vent.IDAnticipo) WHERE vent.ID = {idVentaViz}"))
+                    {
+                        decimal total = Convert.ToDecimal(dt.Rows[0]["Total"]);
+                        decimal AnticipoOriginal = Convert.ToDecimal(dt.Rows[0]["ImporteOriginal"]);
+                        if (total >= AnticipoOriginal)
+                        {
+                            AnticipoUtilizadoEnLaVenta = AnticipoOriginal;
+                        }
+                        else
+                        {
+                            AnticipoUtilizadoEnLaVenta = total;
+                        }
+                    }
+                }
+                else
+                {
+                    using (var DT = cn.CargarDatos($"SELECT ImporteOriginal,AnticipoAplicado FROM anticipos WHERE ID ={idAnticipoViz}"))
+                    {
+                        decimal AnticipoUtilizadoNew = Convert.ToDecimal(DT.Rows[0]["AnticipoAplicado"]);
+                        AnticipoUtilizadoEnLaVenta = AnticipoUtilizadoNew - AnticipoUtilizadoold;
+
+                    }
+                }
+                reportParameters.Add(new ReportParameter("Actual", AnticipoUtilizadoEnLaVenta.ToString("0.00")));
+
+            }
+            else
+            {
+                reportParameters.Add(new ReportParameter("Actual", "N/A"));
+            }
+            reportParameters.Add(new ReportParameter("Anterior", AnticipoUtilizadoold.ToString("0.00")));
             //this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             //this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             //this.reportViewer1.LocalReport.DataSources.Clear();
@@ -173,6 +296,7 @@ namespace PuntoDeVentaV2
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\TicketAnticipo\ReporteTicketAnticipo.rdlc";
             rdlc.DataSources.Add(rp);
+            rdlc.SetParameters(reportParameters);
             #endregion
 
             EnviarImprimir imp = new EnviarImprimir();

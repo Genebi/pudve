@@ -118,7 +118,12 @@
             this.btnGuardarVenta = new PuntoDeVentaV2.BotonRedondo();
             this.btnVentasGuardadas = new PuntoDeVentaV2.BotonRedondo();
             this.btn_cancelar_venta = new PuntoDeVentaV2.BotonRedondo();
-            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
+            this.btnBascula = new System.Windows.Forms.Button();
+            this.lblPesoRecibido = new System.Windows.Forms.Label();
+            this.btnCSV = new System.Windows.Forms.Button();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.btnVentaFacil = new System.Windows.Forms.Button();
+            this.checkRenta = new System.Windows.Forms.CheckBox();
             this.checkOrden = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVentas)).BeginInit();
             this.panel1.SuspendLayout();
@@ -151,7 +156,7 @@
             this.btnEliminarAnticipos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEliminarAnticipos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminarAnticipos.ForeColor = System.Drawing.Color.White;
-            this.btnEliminarAnticipos.Location = new System.Drawing.Point(431, 356);
+            this.btnEliminarAnticipos.Location = new System.Drawing.Point(423, 352);
             this.btnEliminarAnticipos.Name = "btnEliminarAnticipos";
             this.btnEliminarAnticipos.Size = new System.Drawing.Size(122, 25);
             this.btnEliminarAnticipos.TabIndex = 10;
@@ -241,6 +246,7 @@
             this.DGVentas.Size = new System.Drawing.Size(877, 222);
             this.DGVentas.TabIndex = 6;
             this.DGVentas.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellClick);
+            this.DGVentas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellContentClick_1);
             this.DGVentas.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellEndEdit);
             this.DGVentas.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVentas_CellMouseEnter);
             this.DGVentas.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.DGVentas_CellStateChanged);
@@ -752,7 +758,7 @@
             this.lbMayoreo.ForeColor = System.Drawing.Color.DarkGreen;
             this.lbMayoreo.Image = global::PuntoDeVentaV2.Properties.Resources.check1;
             this.lbMayoreo.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lbMayoreo.Location = new System.Drawing.Point(11, 337);
+            this.lbMayoreo.Location = new System.Drawing.Point(7, 340);
             this.lbMayoreo.Name = "lbMayoreo";
             this.lbMayoreo.Size = new System.Drawing.Size(138, 16);
             this.lbMayoreo.TabIndex = 45;
@@ -1295,6 +1301,40 @@
             this.checkOrden.Text = "ES ORDEN";
             this.checkOrden.UseVisualStyleBackColor = true;
             // 
+            // btnVentaFacil
+            // 
+            this.btnVentaFacil.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnVentaFacil.Image = global::PuntoDeVentaV2.Properties.Resources.table1;
+            this.btnVentaFacil.Location = new System.Drawing.Point(383, 20);
+            this.btnVentaFacil.Name = "btnVentaFacil";
+            this.btnVentaFacil.Size = new System.Drawing.Size(105, 40);
+            this.btnVentaFacil.TabIndex = 50;
+            this.btnVentaFacil.Text = "Venta Fácil\r\nCtrl + V";
+            this.btnVentaFacil.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnVentaFacil.UseVisualStyleBackColor = true;
+            this.btnVentaFacil.Visible = false;
+            this.btnVentaFacil.Click += new System.EventHandler(this.btnVentaFacil_Click);
+            // 
+            // checkRenta
+            // 
+            this.checkRenta.AutoSize = true;
+            this.checkRenta.Location = new System.Drawing.Point(7, 314);
+            this.checkRenta.Name = "checkRenta";
+            this.checkRenta.Size = new System.Drawing.Size(184, 17);
+            this.checkRenta.TabIndex = 66;
+            this.checkRenta.Text = "ES RENTA (ARRENDAMIENTO)";
+            this.checkRenta.UseVisualStyleBackColor = true;
+            // 
+            // checkOrden
+            // 
+            this.checkOrden.AutoSize = true;
+            this.checkOrden.Location = new System.Drawing.Point(207, 314);
+            this.checkOrden.Name = "checkOrden";
+            this.checkOrden.Size = new System.Drawing.Size(82, 17);
+            this.checkOrden.TabIndex = 67;
+            this.checkOrden.Text = "ES ORDEN";
+            this.checkOrden.UseVisualStyleBackColor = true;
+            // 
             // Ventas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1302,6 +1342,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
             this.ClientSize = new System.Drawing.Size(1232, 608);
             this.Controls.Add(this.lblPesoRecibido);
+            this.Controls.Add(this.btnVentaFacil);
             this.Controls.Add(this.btnCSV);
             this.Controls.Add(this.btnBascula);
             this.Controls.Add(this.panel5);
@@ -1436,6 +1477,8 @@
         private System.Windows.Forms.CheckBox checkRenta;
         public BotonRedondo btnGanancia;
         public BotonRedondo botonRedondo1;
+        private System.Windows.Forms.Button btnVentaFacil;
         private System.Windows.Forms.CheckBox checkOrden;
+        private System.Windows.Forms.CheckBox checkRenta;
     }
 }

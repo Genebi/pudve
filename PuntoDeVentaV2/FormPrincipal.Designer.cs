@@ -33,6 +33,8 @@
             this.panelMaestro = new System.Windows.Forms.Panel();
             this.panelContenedor = new System.Windows.Forms.Panel();
             this.menuVertical = new System.Windows.Forms.Panel();
+            this.btnCad = new PuntoDeVentaV2.BotonRedondo();
+            this.btnAyuda = new PuntoDeVentaV2.BotonRedondo();
             this.BtnConsulta = new System.Windows.Forms.Button();
             this.btnImpresoras = new System.Windows.Forms.Button();
             this.btnEmpleados = new System.Windows.Forms.Button();
@@ -55,6 +57,9 @@
             this.webListener = new System.ComponentModel.BackgroundWorker();
             this.webAuto = new System.Windows.Forms.Timer(this.components);
             this.webSender = new System.ComponentModel.BackgroundWorker();
+            this.revisorCaducos = new System.Windows.Forms.Timer(this.components);
+            this.bgwCaducos = new System.ComponentModel.BackgroundWorker();
+            this.actualizarCaducidad = new System.Windows.Forms.Timer(this.components);
             this.bwOrdenes = new System.ComponentModel.BackgroundWorker();
             this.timerOrdenes = new System.Windows.Forms.Timer(this.components);
             this.panelMaestro.SuspendLayout();
@@ -68,7 +73,7 @@
             this.panelMaestro.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelMaestro.Location = new System.Drawing.Point(0, 0);
             this.panelMaestro.Name = "panelMaestro";
-            this.panelMaestro.Size = new System.Drawing.Size(856, 456);
+            this.panelMaestro.Size = new System.Drawing.Size(856, 685);
             this.panelMaestro.TabIndex = 0;
             // 
             // panelContenedor
@@ -76,13 +81,15 @@
             this.panelContenedor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelContenedor.Location = new System.Drawing.Point(230, 0);
             this.panelContenedor.Name = "panelContenedor";
-            this.panelContenedor.Size = new System.Drawing.Size(626, 456);
+            this.panelContenedor.Size = new System.Drawing.Size(626, 685);
             this.panelContenedor.TabIndex = 2;
             this.panelContenedor.Paint += new System.Windows.Forms.PaintEventHandler(this.panelContenedor_Paint);
             // 
             // menuVertical
             // 
             this.menuVertical.BackColor = System.Drawing.Color.Gold;
+            this.menuVertical.Controls.Add(this.btnCad);
+            this.menuVertical.Controls.Add(this.btnAyuda);
             this.menuVertical.Controls.Add(this.BtnConsulta);
             this.menuVertical.Controls.Add(this.btnImpresoras);
             this.menuVertical.Controls.Add(this.btnEmpleados);
@@ -102,9 +109,59 @@
             this.menuVertical.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuVertical.Location = new System.Drawing.Point(0, 0);
             this.menuVertical.Name = "menuVertical";
-            this.menuVertical.Size = new System.Drawing.Size(230, 456);
+            this.menuVertical.Size = new System.Drawing.Size(230, 685);
             this.menuVertical.TabIndex = 0;
             this.menuVertical.Paint += new System.Windows.Forms.PaintEventHandler(this.menuVertical_Paint);
+            // 
+            // btnCad
+            // 
+            this.btnCad.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnCad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnCad.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnCad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.btnCad.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnCad.BorderRadius = 40;
+            this.btnCad.BorderSize = 0;
+            this.btnCad.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCad.FlatAppearance.BorderSize = 0;
+            this.btnCad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCad.ForeColor = System.Drawing.Color.White;
+            this.btnCad.Image = ((System.Drawing.Image)(resources.GetObject("btnCad.Image")));
+            this.btnCad.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnCad.Location = new System.Drawing.Point(34, 544);
+            this.btnCad.Name = "btnCad";
+            this.btnCad.Size = new System.Drawing.Size(157, 67);
+            this.btnCad.TabIndex = 129;
+            this.btnCad.Text = "Advertencia de caducidad";
+            this.btnCad.TextColor = System.Drawing.Color.White;
+            this.btnCad.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnCad.UseVisualStyleBackColor = false;
+            this.btnCad.Visible = false;
+            this.btnCad.Click += new System.EventHandler(this.btnCad_Click);
+            // 
+            // btnAyuda
+            // 
+            this.btnAyuda.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnAyuda.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnAyuda.BackGroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnAyuda.BorderColor = System.Drawing.Color.PaleVioletRed;
+            this.btnAyuda.BorderRadius = 21;
+            this.btnAyuda.BorderSize = 0;
+            this.btnAyuda.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAyuda.FlatAppearance.BorderSize = 0;
+            this.btnAyuda.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAyuda.ForeColor = System.Drawing.Color.White;
+            this.btnAyuda.Image = ((System.Drawing.Image)(resources.GetObject("btnAyuda.Image")));
+            this.btnAyuda.Location = new System.Drawing.Point(63, 631);
+            this.btnAyuda.Name = "btnAyuda";
+            this.btnAyuda.Size = new System.Drawing.Size(99, 42);
+            this.btnAyuda.TabIndex = 137;
+            this.btnAyuda.Text = "Ayuda";
+            this.btnAyuda.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnAyuda.TextColor = System.Drawing.Color.White;
+            this.btnAyuda.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnAyuda.UseVisualStyleBackColor = false;
+            this.btnAyuda.Click += new System.EventHandler(this.btnAyuda_Click);
             // 
             // BtnConsulta
             // 
@@ -199,6 +256,7 @@
             this.btnSesion.TabIndex = 110;
             this.btnSesion.Text = "Cerrar  Sesión";
             this.btnSesion.UseVisualStyleBackColor = false;
+            this.btnSesion.Visible = false;
             this.btnSesion.Click += new System.EventHandler(this.btnSesion_Click);
             // 
             // btnEmpresas
@@ -429,7 +487,7 @@
             // 
             // actualizarCaja
             // 
-            this.actualizarCaja.Interval = 3000;
+            this.actualizarCaja.Interval = 5000;
             this.actualizarCaja.Tick += new System.EventHandler(this.actualizarCaja_Tick_1);
             // 
             // timerProductos
@@ -445,12 +503,21 @@
             // webAuto
             // 
             this.webAuto.Enabled = true;
-            this.webAuto.Interval = 7200000;
+            this.webAuto.Interval = 4500000;
             this.webAuto.Tick += new System.EventHandler(this.webAuto_Tick);
             // 
             // webSender
             // 
-            this.webSender.DoWork += new System.ComponentModel.DoWorkEventHandler(this.webSender_DoWork);
+            // 
+            // bgwCaducos
+            // 
+            this.bgwCaducos.WorkerSupportsCancellation = true;
+            this.bgwCaducos.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwCaducos_DoWork);
+            // 
+            // actualizarCaducidad
+            // 
+            this.actualizarCaducidad.Enabled = true;
+            this.actualizarCaducidad.Interval = 2000;
             // 
             // bwOrdenes
             // 
@@ -469,7 +536,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(856, 456);
+            this.ClientSize = new System.Drawing.Size(856, 685);
             this.Controls.Add(this.panelMaestro);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(857, 454);
@@ -513,6 +580,11 @@
         public System.Windows.Forms.Timer actualizarCaja;
         private System.Windows.Forms.Timer webAuto;
         private System.ComponentModel.BackgroundWorker webSender;
+        private System.Windows.Forms.Timer revisorCaducos;
+        private System.ComponentModel.BackgroundWorker bgwCaducos;
+        public BotonRedondo btnCad;
+        private System.Windows.Forms.Timer actualizarCaducidad;
+        private BotonRedondo btnAyuda;
         private System.ComponentModel.BackgroundWorker bwOrdenes;
         private System.Windows.Forms.Timer timerOrdenes;
     }

@@ -17,6 +17,7 @@ using System.Deployment.Application;
 using System.Security.Cryptography;
 using System.Globalization;
 using System.Threading;
+using System.Management;
 
 namespace PuntoDeVentaV2
 {
@@ -305,15 +306,6 @@ namespace PuntoDeVentaV2
 
                             var DateInicioSesion = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
 
-                            ConnectionHandler manejadorConexion = new ConnectionHandler();
-                            var siHayConexion = manejadorConexion.verificarInternet();
-
-                            if (siHayConexion)
-                            {
-                                cnx.actualizarConteo(usuario);//actualiza el conteo online
-                                cnx.registrarInicio(usuario, DateInicioSesion);
-                            }
-
                             cn.EjecutarConsulta(cs.registroSesiones(usuario, DateInicioSesion,correo));
                             
                             if (chkRecordarContraseña.Checked == true || checkBoxRecordarUsuarui.Checked == true)
@@ -329,20 +321,11 @@ namespace PuntoDeVentaV2
                             var DateInicioSesion = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
                             cn.EjecutarConsulta(cs.registroSesiones(usuario, DateInicioSesion, correo));
                             
-                            ConnectionHandler manejadorConexion = new ConnectionHandler();
-                            var siHayConexion = manejadorConexion.verificarInternet();
 
                             Id = Convert.ToInt32(cn.EjecutarSelect($"SELECT IDUsuario FROM Empleados WHERE usuario='{usuario}' AND contrasena='{password}'", 3));
                             // ID del empleado
                             id_emp = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Empleados WHERE usuario='{usuario}' AND contrasena='{password}'", 1));
                             cn.EjecutarConsulta(cs.aumentoContadorSesiones(Id));
-                            string [] newUsuario = usuario.Split('@');
-
-                            if (siHayConexion)
-                            {
-                                cnx.registrarInicio(usuario, DateInicioSesion);
-                                cnx.actualizarConteo(newUsuario[0].ToString());
-                            }
 
                             if (chkRecordarContraseña.Checked == true || checkBoxRecordarUsuarui.Checked == true)
                             {
@@ -375,6 +358,26 @@ namespace PuntoDeVentaV2
                         //}
 
                         this.Hide();
+
+
+                        if (Registro.ConectadoInternet())
+                        {
+                            var DateInicioSesion = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+
+                            if (tipo_us == 0)
+                            {
+                                cnx.actualizarConteo(usuario);//actualiza el conteo online
+                                cnx.registrarInicio(usuario, DateInicioSesion);
+                            }
+                            else
+                            {
+                                string[] newUsuario = usuario.Split('@');
+
+                                cnx.registrarInicio(usuario, DateInicioSesion);
+                                cnx.actualizarConteo(newUsuario[0].ToString());
+                            }
+                        }
+
 
                         fp.IdUsuario = Id;
                         fp.nickUsuario = usuario;
@@ -555,6 +558,32 @@ namespace PuntoDeVentaV2
 
             bool verificado = Convert.ToBoolean(Convert.ToInt32(datos[12]));
 
+            //Esto es para ver si se pueden recuperar los usuarios de la base que borro Andoni desde sus bases locales.
+            if (Registro.ConectadoInternet())
+            {
+                try
+                {
+                    ConexionAPPWEB con = new ConexionAPPWEB();
+
+                    using (DataTable dt = con.CargarDatos($"SELECT Usuario FROM usuarios WHERE usuario = '{usuario.Split('@')[0]}'"))
+                    {
+                        if (dt.Rows.Count.Equals(0))
+                        {
+                            using (DataTable dtt = cn.CargarDatos($"SELECT * FROM Usuarios WHERE ID = {datos[13]}"))
+                            {
+                                con.EjecutarConsulta($"INSERT INTO Usuarios ( usuario, PASSWORD, razonSocial, email, telefono, numeroSerie, idLocal, verificacionNS, licencia, estadoLicencia, timbres,FechaInicioLicencia,FechaFinLicencia)VALUES('{dtt.Rows[0]["usuario"].ToString()}','{dtt.Rows[0]["PASSWORD"].ToString()}','{dtt.Rows[0]["razonSocial"].ToString()}','{dtt.Rows[0]["email"].ToString()}','{dtt.Rows[0]["telefono"].ToString()}','{tarjetamadreID()}','{dtt.Rows[0]["id"].ToString()}','{dtt.Rows[0]["verificacionNS"].ToString()}','{dtt.Rows[0]["licencia"].ToString()}','{dtt.Rows[0]["estadoLicencia"].ToString()}','{dtt.Rows[0]["timbres"].ToString()}','{DateTime.Parse(dtt.Rows[0]["FechaInicioLicencia"].ToString()).ToString("yyyy-MM-dd")}','{DateTime.Parse(dtt.Rows[0]["FechaFinLicencia"].ToString()).ToString("yyyy-MM-dd")}')");
+
+                            }
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    //Error de conexion
+                }
+                
+            }
+
             if (!verificado)
             {
                 // Verificamos que haya conexion a internet
@@ -613,6 +642,24 @@ namespace PuntoDeVentaV2
             }
 
             return verificado;
+        }
+
+        public static string tarjetamadreID()
+        {
+            string mbInfo = string.Empty;
+            ManagementScope scope = new ManagementScope("\\\\" + Environment.MachineName + "\\root\\cimv2");
+            scope.Connect();
+            ManagementObject wmiClass = new ManagementObject(scope, new ManagementPath("Win32_BaseBoard.Tag=\"Base Board\""), new ObjectGetOptions());
+
+            foreach (PropertyData propData in wmiClass.Properties)
+            {
+                if (propData.Name == "SerialNumber")
+                {
+                    mbInfo = Convert.ToString(propData.Value);
+                }
+            }
+
+            return mbInfo;
         }
 
         private void txtPassword_KeyDown(object sender, KeyEventArgs e)
@@ -1040,14 +1087,21 @@ namespace PuntoDeVentaV2
                     $"{buscarArchivoBD.FileName}?\n",
                     "NOTA: Esta operación sobreescribirá el archivo",
                     "actual de tu base de datos en caso de que exista",
-                    "alguno."
+                    "alguno. Se realizará un respaldo automático."
                 );
 
                 var respuesta = MessageBox.Show(mensaje, "Mensaje de confirmación", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
 
                 // Si acepta el mensaje de confirmación realiza el siguiente procedimiento
-                if (respuesta == DialogResult.OK)
+                if (true)
                 {
+                    //DialogResult dialogResult = MessageBox.Show("¿Deseas realizar una copia de seguridad de tu base de datos actual antes de sobreescribir?, el proceso tardara un poco más.", "Copia de seguridad", MessageBoxButtons.YesNo);
+                    //if (dialogResult == DialogResult.Yes)
+                    //{
+                    MessageBoxTemporal.Show("Realizando respaldo", "Aviso del Sistema", 30, false);
+                    RespaldarBaseDatos();
+                    MessageBoxTemporal.Show("Importando datos", "Aviso del Sistema", 30, false);
+                    //}
                     // Se guarda la ruta completa junto con el nombre del archivo que se selecciono
                     var rutaArchivo = buscarArchivoBD.FileName;
 
@@ -1081,14 +1135,73 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        MessageBox.Show("Importación realizada con éxito", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //MessageBox.Show("Importación realizada con éxito", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //MessageBox.Show(ex.Message, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
+        }
+
+        private void RespaldarBaseDatos()
+        {
+            //DateTime fechaCreacion = DateTime.Now;
+            //SaveFileDialog saveFile = new SaveFileDialog();
+
+            //saveFile.FileName = $"{FormPrincipal.userNickName}";
+            //saveFile.Filter = "SQL (*.sql)|*.sql";
+            //saveFile.FilterIndex = 1;
+            //saveFile.RestoreDirectory = true;
+
+            if (true)
+            {
+                try
+                {
+                    var archivo = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}/Respaldo {DateTime.Now.ToString("yyyy-MM-dd HH.mm.ss")}.sql";
+                    var datoConexion = conexionRuta();
+
+                    using (MySqlConnection con = new MySqlConnection(datoConexion))
+                    {
+                        using (MySqlCommand cmd = new MySqlCommand())
+                        {
+                            using (MySqlBackup backup = new MySqlBackup(cmd))
+                            {
+                                cmd.Connection = con;
+                                con.Open();
+                                backup.ExportToFile(archivo);
+                                con.Close();
+                            }
+                        }
+                    }
+                    //MessageBox.Show("Información respaldada exitosamente, realizando importación", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    //MessageBox.Show(ex.ToString(), "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+            }
+        }
+
+        private string conexionRuta()
+        {
+            string conexion = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Hosting))
+            {
+                conexion = "datasource=" + Properties.Settings.Default.Hosting + ";port=6666;username=root;password=;database=pudve;";
+            }
+            else
+            {
+                conexion = "datasource=127.0.0.1;port=6666;username=root;password=;database=pudve;";
+            }
+
+            // Important Additional Connection Options
+            conexion += "charset=utf8;convertzerodatetime=true;";
+
+            return conexion;
         }
 
         private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)
@@ -1272,7 +1385,7 @@ namespace PuntoDeVentaV2
 
             if (string.IsNullOrWhiteSpace(usuario) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Para utilizar esta opción es necesario ingresar tu usuario y contraseña en la ventana de inicio de sesión.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Para utilizar esta opción es necesario ingresar tu usuario y contraseña en la ventana de inicio de sesión.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 

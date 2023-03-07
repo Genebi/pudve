@@ -73,6 +73,8 @@ namespace PuntoDeVentaV2
         public static bool recargarDatos = false;
         public static bool primeraVez = true;
 
+        public static int idProductoAgregarSubdetalle = 0;
+
         private bool checkBoxMasterUtilizado = false;
         // Este array es para guardar los productos seleccionados que seran tomados
 
@@ -396,52 +398,54 @@ namespace PuntoDeVentaV2
         private void txtMaximoPorPagina_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-            {
-                if (!txtMaximoPorPagina.Text.Equals(string.Empty))
                 {
-                    var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
+                btnActualizarMaximoProductos.PerformClick();
 
-                    if (cantidadAMostrar <= 0)
-                    {
-                        mensajeParaMostrar = "Catidad a mostrar debe ser mayor a 0";
-                        Utilidades.MensajeCuandoSeaCeroEnElListado(mensajeParaMostrar);
-                        txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
-                        return;
-                    }
+            //    if (!txtMaximoPorPagina.Text.Equals(string.Empty))
+            //    {
+            //        var cantidadAMostrar = Convert.ToInt32(txtMaximoPorPagina.Text);
 
-                    maximo_x_pagina = cantidadAMostrar;
-                    p.actualizarTope(maximo_x_pagina);
-                    CargarDatos();
-                    actualizar();
+                //        if (cantidadAMostrar <= 0)
+                //        {
+                //            mensajeParaMostrar = "Catidad a mostrar debe ser mayor a 0";
+                //            Utilidades.MensajeCuandoSeaCeroEnElListado(mensajeParaMostrar);
+                //            txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                //            return;
+                //        }
 
-                    //if (txtMaximoPorPagina.Text.Equals("0"))
-                    //{
-                    //    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
-                    //}
-                    //else
-                    //{
-                    //    maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
-                    //    p.actualizarTope(maximo_x_pagina);
-                    //    CargarDatos();
-                    //    actualizar();
-                    //}
-                }
-                else if (txtMaximoPorPagina.Text.Equals(string.Empty))
-                {
-                    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
-                }
-                if (cbMostrar.SelectedIndex.Equals(0))
-                {
-                    CargarDatos(1);
-                }
-                else if (cbMostrar.SelectedIndex.Equals(1))
-                {
-                    CargarDatos(0);
-                }
-                else
-                {
-                    CargarDatos();
-                }
+                //        maximo_x_pagina = cantidadAMostrar;
+                //        p.actualizarTope(maximo_x_pagina);
+                //        CargarDatos();
+                //        actualizar();
+
+                //        //if (txtMaximoPorPagina.Text.Equals("0"))
+                //        //{
+                //        //    txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                //        //}
+                //        //else
+                //        //{
+                //        //    maximo_x_pagina = Convert.ToInt32(txtMaximoPorPagina.Text);
+                //        //    p.actualizarTope(maximo_x_pagina);
+                //        //    CargarDatos();
+                //        //    actualizar();
+                //        //}
+                //    }
+                //    else if (txtMaximoPorPagina.Text.Equals(string.Empty))
+                //    {
+                //        txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+                //    }
+                //    if (cbMostrar.SelectedIndex.Equals(0))
+                //    {
+                //        CargarDatos(1);
+                //    }
+                //    else if (cbMostrar.SelectedIndex.Equals(1))
+                //    {
+                //        CargarDatos(0);
+                //    }
+                //    else
+                //    {
+                //        CargarDatos();
+                //    }
             }
         }
 
@@ -485,6 +489,7 @@ namespace PuntoDeVentaV2
                     var producto = cn.BuscarProducto(Convert.ToInt32(idProducto), FormPrincipal.userID);
 
                     string typeProduct = producto[5];
+                    
 
                     if (typeProduct == "S")
                     {
@@ -544,6 +549,7 @@ namespace PuntoDeVentaV2
 
                     string typeProduct = producto[5];
 
+                    codProductoEditarVenta = idProducto;
                     if (typeProduct == "S")
                     {
                         btnAgregarServicio.PerformClick();
@@ -558,6 +564,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
+            idprodDobleClick = 0;
         }
 
         // Unhighlight the currently highlighted row.
@@ -680,6 +687,7 @@ namespace PuntoDeVentaV2
 
                 HighlightedRowIndex = -1;
             }
+            dobleClickProducto = 0;
         }
 
         private void btnFilterSearch_Click(object sender, EventArgs e)
@@ -1086,6 +1094,7 @@ namespace PuntoDeVentaV2
 
                     codProductoEditarVenta = codProductoEditarInventario;
 
+                    idprodDobleClick = codProductoEditarInventario;
                     var producto = cn.BuscarProducto(Convert.ToInt32(idProductoEditar), Convert.ToInt32(id));
                     typeProduct = producto[5];
 
@@ -1149,28 +1158,28 @@ namespace PuntoDeVentaV2
                         return;
                     }
 
-                    using (var dbEsComboServicio = cn.CargarDatos(cs.SaberSiEsComboServicio(idProducto)))
-                    {
-                        if (!dbEsComboServicio.Rows.Count.Equals(0))
-                        {
-                            var mensajeSiEsComboServicioHistorial = string.Empty;
+                    //using (var dbEsComboServicio = cn.CargarDatos(cs.SaberSiEsComboServicio(idProducto)))
+                    //{
+                        //if (!dbEsComboServicio.Rows.Count.Equals(0))
+                        //{
+                            //var mensajeSiEsComboServicioHistorial = string.Empty;
 
-                            foreach (DataRow item in dbEsComboServicio.Rows)
-                            {
-                                if (item["Tipo"].Equals("PQ"))
-                                {
-                                    mensajeSiEsComboServicioHistorial = "Los Combos No Manejan Stock Físico";
-                                }
-                                else if (item["Tipo"].Equals("S"))
-                                {
-                                    mensajeSiEsComboServicioHistorial = "Los Servicios No Manejan Stock Físico";
-                                }
+                            //foreach (DataRow item in dbEsComboServicio.Rows)
+                            //{
+                            //    if (item["Tipo"].Equals("PQ"))
+                            //    {
+                            //        mensajeSiEsComboServicioHistorial = "Los Combos No Manejan Stock Físico";
+                            //    }
+                            //    else if (item["Tipo"].Equals("S"))
+                            //    {
+                            //        mensajeSiEsComboServicioHistorial = "Los Servicios No Manejan Stock Físico";
+                            //    }
 
-                                MessageBox.Show(mensajeSiEsComboServicioHistorial, "Aviso Historial Producto, Combo, Servicio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                return;
-                            }
-                        }
-                    }
+                            //    MessageBox.Show(mensajeSiEsComboServicioHistorial, "Aviso Historial Producto, Combo, Servicio", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            //    return;
+                            //}
+                        //}
+                    //}
                     HistorialVenta = true;
                     idProductoHistorialStock = idProducto;
                     using (var historial = new TipoHistorial(idProducto))
@@ -1404,6 +1413,8 @@ namespace PuntoDeVentaV2
                         obtenerDatosDGVProductos(numerofila);
                         var copiarMensajeVentas = cn.CargarDatos(cs.copiarMensajeVentas(idProducto));
                         var copiarMensajeInventario = cn.CargarDatos(cs.copiarMensajeInventario(idProducto));
+                        AgregarEditarProducto.SeCopioMensajeVenta = copiarMensajeVentas.Rows[0][2].ToString() + "," + copiarMensajeVentas.Rows[0][0].ToString();
+                        AgregarEditarProducto.SeCopioMensajeInventario = copiarMensajeInventario.Rows[0][0].ToString();
                         if (!copiarMensajeVentas.Rows.Count.Equals(0))
                         {
                             copMensajeVent[0] = copiarMensajeVentas.Rows[0]["ProductOfMessage"].ToString();
@@ -1781,6 +1792,7 @@ namespace PuntoDeVentaV2
         public void obtenerDatosDGVProductos(int fila, int idProducto = 0)
         {
             idProductoEditar = DGVProductos.Rows[fila].Cells["_IDProducto"].Value.ToString();
+            idProductoAgregarSubdetalle = Convert.ToInt32(idProductoEditar);
 
             if (idProducto > 0)
             {
@@ -2116,6 +2128,15 @@ namespace PuntoDeVentaV2
             }
 
             copiarMensajesProd = 0;
+
+            if (AgregarEditarProducto.desdeConsultar == 1)
+            {
+                groupBox1.Visible = false;
+            }
+            else
+            {
+                groupBox1.Visible = true;
+            }
         }
 
         private void validarConexionServidor()
@@ -2250,8 +2271,11 @@ namespace PuntoDeVentaV2
                 {
                     var idProducto = Convert.ToInt32(row.Cells["_IDProducto"].Value);
                     var tipoProducto = Convert.ToString(row.Cells["TipoProducto"].Value);
-
-                    lista.Add(idProducto, tipoProducto);
+                    if (!lista.ContainsKey(idProducto))
+                    {
+                        lista.Add(idProducto, tipoProducto);
+                    }
+                   
                 }
             }
 
@@ -3358,6 +3382,17 @@ namespace PuntoDeVentaV2
 
         private void btnCambiarTipo_Click(object sender, EventArgs e)
         {
+            using (DataTable dt = cn.CargarDatos($"SELECT opcion3 FROM empleadospermisos WHERE Seccion='productos' AND idUsuario = {FormPrincipal.userID} AND IDEmpleado = {FormPrincipal.id_empleado}"))
+            {
+                if (!dt.Rows.Count.Equals(0))
+                {
+                    if (dt.Rows[0][0].ToString().Equals("0") && !FormPrincipal.id_empleado.Equals(0))
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+                }
+            }
             ///Mostrar Mensaje ne la etiqueta de atajos
             timer1.Start();
             lAtajo.Visible = true;
@@ -5502,15 +5537,21 @@ namespace PuntoDeVentaV2
                 p.actualizarTope(maximo_x_pagina);
                 if (cbMostrar.SelectedIndex.Equals(0))
                 {
-                    CargarDatos(1);
+                    txtBusqueda.Focus();
+                    SendKeys.Send("{ENTER}");
+                    //CargarDatos(1);
                 }
                 else if (cbMostrar.SelectedIndex.Equals(1))
                 {
-                    CargarDatos(0);
+                    txtBusqueda.Focus();
+                    SendKeys.Send("{ENTER}");
+                    //CargarDatos(0);
                 }
                 else
                 {
-                    CargarDatos();
+                    txtBusqueda.Focus();
+                    SendKeys.Send("{ENTER}");
+                    //CargarDatos();
                 }
                 
                 //actualizarDatosDespuesDeAgregarProducto();

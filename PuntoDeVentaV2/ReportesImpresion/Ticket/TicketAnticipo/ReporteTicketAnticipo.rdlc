@@ -1,909 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
-  <Body>
-    <ReportItems>
-      <Textbox Name="Textbox17">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Ticket Anticipo</Value>
-                <Style>
-                  <FontSize>13pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox17</rd:DefaultName>
-        <Top>12.93495cm</Top>
-        <Left>0.03175cm</Left>
-        <Height>0.6cm</Height>
-        <Width>7.9cm</Width>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="RazonSocial">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!RazonSocial.Value, "TicketAnticipo")</Value>
-                <Style>
-                  <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>RazonSocial</rd:DefaultName>
-        <Top>0.28787cm</Top>
-        <Left>0.03175cm</Left>
-        <Height>0.6cm</Height>
-        <Width>7.9cm</Width>
-        <ZIndex>1</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!RazonSocial.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Domicilio">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Domicilio.Value, "TicketAnticipo")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Domicilio</rd:DefaultName>
-        <Top>1.06426cm</Top>
-        <Left>0.03175cm</Left>
-        <Height>0.6cm</Height>
-        <Width>7.9cm</Width>
-        <ZIndex>2</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!Domicilio.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="ColyCP">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!ColyCP.Value, "TicketAnticipo")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>ColyCP</rd:DefaultName>
-        <Top>1.84064cm</Top>
-        <Left>0.03175cm</Left>
-        <Height>0.6cm</Height>
-        <Width>7.9cm</Width>
-        <ZIndex>3</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!ColyCP.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="RFC">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!RFC.Value, "TicketAnticipo")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>RFC</rd:DefaultName>
-        <Top>2.61703cm</Top>
-        <Left>0.03175cm</Left>
-        <Height>0.6cm</Height>
-        <Width>7.9cm</Width>
-        <ZIndex>4</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!RFC.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Correo">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Correo.Value, "TicketAnticipo")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Correo</rd:DefaultName>
-        <Top>3.42517cm</Top>
-        <Left>0.03175cm</Left>
-        <Height>0.6cm</Height>
-        <Width>7.9cm</Width>
-        <ZIndex>5</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!Correo.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Telefono">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Telefono.Value, "TicketAnticipo")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Center</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Telefono</rd:DefaultName>
-        <Top>4.16981cm</Top>
-        <Left>0.03175cm</Left>
-        <Height>0.6cm</Height>
-        <Width>7.9cm</Width>
-        <ZIndex>6</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!Telefono.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="IDVenta">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!IDVenta.Value, "TicketAnticipo")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>IDVenta</rd:DefaultName>
-        <Top>5.06095cm</Top>
-        <Left>3.86821cm</Left>
-        <Height>0.6cm</Height>
-        <Width>4.06354cm</Width>
-        <ZIndex>7</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!IDVenta.Value, "TicketAnticipo").ToString() = "",TRUE, FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Empleado">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Empleado.Value, "TicketAnticipo")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Empleado</rd:DefaultName>
-        <Top>5.83734cm</Top>
-        <Left>3.86821cm</Left>
-        <Height>0.6cm</Height>
-        <Width>4.06354cm</Width>
-        <ZIndex>8</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!Empleado.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Concepto">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Concepto.Value, "TicketAnticipo")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Concepto</rd:DefaultName>
-        <Top>6.61373cm</Top>
-        <Left>3.86821cm</Left>
-        <Height>0.6cm</Height>
-        <Width>4.06354cm</Width>
-        <ZIndex>9</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!Concepto.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Cliente">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Cliente.Value, "TicketAnticipo")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Cliente</rd:DefaultName>
-        <Top>7.38306cm</Top>
-        <Left>3.83646cm</Left>
-        <Height>0.6cm</Height>
-        <Width>4.06354cm</Width>
-        <ZIndex>10</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!Cliente.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="TotalRecibido">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!TotalRecibido.Value, "TicketAnticipo")</Value>
-                <Style>
-                  <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>TotalRecibido</rd:DefaultName>
-        <Top>8.14209cm</Top>
-        <Left>3.66007cm</Left>
-        <Height>0.6cm</Height>
-        <Width>4.27168cm</Width>
-        <ZIndex>11</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!TotalRecibido.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="AnticipoAplicado">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!AnticipoAplicado.Value, "TicketAnticipo")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>AnticipoAplicado</rd:DefaultName>
-        <Top>8.91848cm</Top>
-        <Left>3.66007cm</Left>
-        <Height>0.6cm</Height>
-        <Width>4.27168cm</Width>
-        <ZIndex>12</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!AnticipoAplicado.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="SaldoRestante">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!SaldoRestante.Value, "TicketAnticipo")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>SaldoRestante</rd:DefaultName>
-        <Top>9.66312cm</Top>
-        <Left>3.66007cm</Left>
-        <Height>0.6cm</Height>
-        <Width>4.27168cm</Width>
-        <ZIndex>13</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!SaldoRestante.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="FechaOperacion">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!FechaOperacion.Value, "TicketAnticipo")</Value>
-                <Style>
-                  <FontSize>9.5pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style>
-              <TextAlign>Left</TextAlign>
-            </Style>
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>FechaOperacion</rd:DefaultName>
-        <Top>11.90001cm</Top>
-        <Left>3.66007cm</Left>
-        <Height>0.6cm</Height>
-        <Width>4.27168cm</Width>
-        <ZIndex>14</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!FechaOperacion.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox1">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Total de anticipo:</Value>
-                <Style>
-                  <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>8.14209cm</Top>
-        <Left>0.03175cm</Left>
-        <Height>0.6cm</Height>
-        <Width>3.62832cm</Width>
-        <ZIndex>15</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!TotalRecibido.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox2">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Anticipo aplicado:</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>8.91848cm</Top>
-        <Left>0.03175cm</Left>
-        <Height>0.6cm</Height>
-        <Width>3.62832cm</Width>
-        <ZIndex>16</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!AnticipoAplicado.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox3">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Saldo restante:</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>9.65959cm</Top>
-        <Left>0.03175cm</Left>
-        <Height>0.6cm</Height>
-        <Width>3.62832cm</Width>
-        <ZIndex>17</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!SaldoRestante.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox4">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Fecha de orperacion:</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>11.90001cm</Top>
-        <Left>0.03175cm</Left>
-        <Height>0.6cm</Height>
-        <Width>3.62832cm</Width>
-        <ZIndex>18</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!FechaOperacion.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox5">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>ID Venta:</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox5</rd:DefaultName>
-        <Top>5.06095cm</Top>
-        <Left>0.03175cm</Left>
-        <Height>0.6cm</Height>
-        <Width>3.62832cm</Width>
-        <ZIndex>19</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!IDVenta.Value, "TicketAnticipo").ToString() = "",TRUE, FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox6">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Realizado por:</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox5</rd:DefaultName>
-        <Top>5.83734cm</Top>
-        <Left>0.03175cm</Left>
-        <Height>0.6cm</Height>
-        <Width>3.62832cm</Width>
-        <ZIndex>20</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!Empleado.Value, "TicketAnticipo").toString() = "",TRUE, FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox7">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Concepto:</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox5</rd:DefaultName>
-        <Top>6.61373cm</Top>
-        <Left>0.03175cm</Left>
-        <Height>0.6cm</Height>
-        <Width>3.62832cm</Width>
-        <ZIndex>21</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!Concepto.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox8">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Cliente:</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox5</rd:DefaultName>
-        <Top>7.39012cm</Top>
-        <Left>0.03175cm</Left>
-        <Height>0.6cm</Height>
-        <Width>3.62832cm</Width>
-        <ZIndex>22</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!Cliente.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Rectangle Name="Rectangle1">
-        <ReportItems>
-          <Textbox Name="Textbox9">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>Comentarios:</Value>
-                    <Style />
-                  </TextRun>
-                </TextRuns>
-                <Style />
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Textbox5</rd:DefaultName>
-            <Top>0.05969cm</Top>
-            <Left>0cm</Left>
-            <Height>0.6cm</Height>
-            <Width>7.86825cm</Width>
-            <Visibility>
-              <Hidden>=iif(First(Fields!Comentarios.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-            </Visibility>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-          <Textbox Name="Comentarios">
-            <CanGrow>true</CanGrow>
-            <KeepTogether>true</KeepTogether>
-            <Paragraphs>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>=First(Fields!Comentarios.Value, "TicketAnticipo")</Value>
-                    <Style>
-                      <FontSize>7pt</FontSize>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <TextAlign>Left</TextAlign>
-                </Style>
-              </Paragraph>
-            </Paragraphs>
-            <rd:DefaultName>Comentarios</rd:DefaultName>
-            <Top>0.65264cm</Top>
-            <Left>0.00475cm</Left>
-            <Height>0.76172cm</Height>
-            <Width>7.86825cm</Width>
-            <ZIndex>1</ZIndex>
-            <Visibility>
-              <Hidden>=iif(First(Fields!Comentarios.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
-            </Visibility>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-              <PaddingLeft>2pt</PaddingLeft>
-              <PaddingRight>2pt</PaddingRight>
-              <PaddingTop>2pt</PaddingTop>
-              <PaddingBottom>2pt</PaddingBottom>
-            </Style>
-          </Textbox>
-        </ReportItems>
-        <KeepTogether>true</KeepTogether>
-        <Top>10.30926cm</Top>
-        <Left>0.03175cm</Left>
-        <Height>1.47489cm</Height>
-        <Width>7.96825cm</Width>
-        <ZIndex>23</ZIndex>
-        <Visibility>
-          <Hidden>=iif(First(Fields!Comentarios.Value, "TicketAnticipo").ToString() = "", TRUE, FALSE)</Hidden>
-        </Visibility>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-        </Style>
-      </Rectangle>
-    </ReportItems>
-    <Height>15.43995cm</Height>
-    <Style>
-      <Border>
-        <Style>None</Style>
-      </Border>
-    </Style>
-  </Body>
-  <Width>8cm</Width>
-  <Page>
-    <PageHeight>15cm</PageHeight>
-    <PageWidth>8cm</PageWidth>
-    <LeftMargin>0cm</LeftMargin>
-    <RightMargin>0cm</RightMargin>
-    <TopMargin>0cm</TopMargin>
-    <BottomMargin>0cm</BottomMargin>
-    <ColumnSpacing>1.27cm</ColumnSpacing>
-    <Style />
-  </Page>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="TicketAnticipo">
@@ -992,6 +88,1009 @@
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Textbox Name="Textbox17">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Ticket Anticipo</Value>
+                    <Style>
+                      <FontSize>13pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox17</rd:DefaultName>
+            <Top>14.0462cm</Top>
+            <Left>0.03175cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.9cm</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="RazonSocial">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!RazonSocial.Value, "TicketAnticipo")</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>RazonSocial</rd:DefaultName>
+            <Top>0.28787cm</Top>
+            <Left>0.03175cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.9cm</Width>
+            <ZIndex>1</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!RazonSocial.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Domicilio">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!Domicilio.Value, "TicketAnticipo")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Domicilio</rd:DefaultName>
+            <Top>1.06426cm</Top>
+            <Left>0.03175cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.9cm</Width>
+            <ZIndex>2</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!Domicilio.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="ColyCP">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!ColyCP.Value, "TicketAnticipo")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>ColyCP</rd:DefaultName>
+            <Top>1.84064cm</Top>
+            <Left>0.03175cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.9cm</Width>
+            <ZIndex>3</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!ColyCP.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="RFC">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!RFC.Value, "TicketAnticipo")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>RFC</rd:DefaultName>
+            <Top>2.61703cm</Top>
+            <Left>0.03175cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.9cm</Width>
+            <ZIndex>4</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!RFC.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Correo">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!Correo.Value, "TicketAnticipo")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Correo</rd:DefaultName>
+            <Top>3.42517cm</Top>
+            <Left>0.03175cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.9cm</Width>
+            <ZIndex>5</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!Correo.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Telefono">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!Telefono.Value, "TicketAnticipo")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Center</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Telefono</rd:DefaultName>
+            <Top>4.16981cm</Top>
+            <Left>0.03175cm</Left>
+            <Height>0.6cm</Height>
+            <Width>7.9cm</Width>
+            <ZIndex>6</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!Telefono.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="IDVenta">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!IDVenta.Value, "TicketAnticipo")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>IDVenta</rd:DefaultName>
+            <Top>5.06095cm</Top>
+            <Left>3.86821cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.06354cm</Width>
+            <ZIndex>7</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!IDVenta.Value, "TicketAnticipo").ToString() = "",TRUE, FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Empleado">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!Empleado.Value, "TicketAnticipo")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Empleado</rd:DefaultName>
+            <Top>5.83734cm</Top>
+            <Left>3.86821cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.06354cm</Width>
+            <ZIndex>8</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!Empleado.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Concepto">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!Concepto.Value, "TicketAnticipo")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Concepto</rd:DefaultName>
+            <Top>6.61373cm</Top>
+            <Left>3.86821cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.06354cm</Width>
+            <ZIndex>9</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!Concepto.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Cliente">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!Cliente.Value, "TicketAnticipo")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Cliente</rd:DefaultName>
+            <Top>7.38306cm</Top>
+            <Left>3.83646cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.06354cm</Width>
+            <ZIndex>10</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!Cliente.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="TotalRecibido">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!TotalRecibido.Value, "TicketAnticipo")</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>TotalRecibido</rd:DefaultName>
+            <Top>8.14209cm</Top>
+            <Left>3.66007cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.27168cm</Width>
+            <ZIndex>11</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!TotalRecibido.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="AnticipoAplicado">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!Actual.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>AnticipoAplicado</rd:DefaultName>
+            <Top>9.78102cm</Top>
+            <Left>3.66007cm</Left>
+            <Height>0.94396cm</Height>
+            <Width>4.27168cm</Width>
+            <ZIndex>12</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!AnticipoAplicado.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="SaldoRestante">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!SaldoRestante.Value, "TicketAnticipo")</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>SaldoRestante</rd:DefaultName>
+            <Top>10.77437cm</Top>
+            <Left>3.66007cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.27168cm</Width>
+            <ZIndex>13</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!SaldoRestante.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="FechaOperacion">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=First(Fields!FechaOperacion.Value, "TicketAnticipo")</Value>
+                    <Style>
+                      <FontSize>9.5pt</FontSize>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>FechaOperacion</rd:DefaultName>
+            <Top>13.01126cm</Top>
+            <Left>3.66007cm</Left>
+            <Height>0.6cm</Height>
+            <Width>4.27168cm</Width>
+            <ZIndex>14</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!FechaOperacion.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox1">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Total de anticipo:</Value>
+                    <Style>
+                      <FontWeight>Bold</FontWeight>
+                    </Style>
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Top>8.14209cm</Top>
+            <Left>0.0365cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.62832cm</Width>
+            <ZIndex>15</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!TotalRecibido.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox2">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Anticipo utilizado actualmente:</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Top>9.78102cm</Top>
+            <Left>0.03175cm</Left>
+            <Height>0.94396cm</Height>
+            <Width>3.62832cm</Width>
+            <ZIndex>16</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!AnticipoAplicado.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox3">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Saldo restante:</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Top>10.77084cm</Top>
+            <Left>0.03175cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.62832cm</Width>
+            <ZIndex>17</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!SaldoRestante.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox4">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Fecha de orperacion:</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Top>13.01126cm</Top>
+            <Left>0.03175cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.62832cm</Width>
+            <ZIndex>18</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!FechaOperacion.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox5">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>ID Venta:</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox5</rd:DefaultName>
+            <Top>5.06095cm</Top>
+            <Left>0.03175cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.62832cm</Width>
+            <ZIndex>19</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!IDVenta.Value, "TicketAnticipo").ToString() = "",TRUE, FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox6">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Realizado por:</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox5</rd:DefaultName>
+            <Top>5.83734cm</Top>
+            <Left>0.03175cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.62832cm</Width>
+            <ZIndex>20</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!Empleado.Value, "TicketAnticipo").toString() = "",TRUE, FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox7">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Concepto:</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox5</rd:DefaultName>
+            <Top>6.61373cm</Top>
+            <Left>0.03175cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.62832cm</Width>
+            <ZIndex>21</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!Concepto.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="Textbox8">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Cliente:</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox5</rd:DefaultName>
+            <Top>7.39012cm</Top>
+            <Left>0.03175cm</Left>
+            <Height>0.6cm</Height>
+            <Width>3.62832cm</Width>
+            <ZIndex>22</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!Cliente.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Rectangle Name="Rectangle1">
+            <ReportItems>
+              <Textbox Name="Textbox9">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>Comentarios:</Value>
+                        <Style />
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox5</rd:DefaultName>
+                <Top>0.05969cm</Top>
+                <Height>0.6cm</Height>
+                <Width>7.86825cm</Width>
+                <Visibility>
+                  <Hidden>=iif(First(Fields!Comentarios.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+                </Visibility>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Comentarios">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=First(Fields!Comentarios.Value, "TicketAnticipo")</Value>
+                        <Style>
+                          <FontSize>7pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Comentarios</rd:DefaultName>
+                <Top>0.65264cm</Top>
+                <Left>0.00475cm</Left>
+                <Height>0.76172cm</Height>
+                <Width>7.86825cm</Width>
+                <ZIndex>1</ZIndex>
+                <Visibility>
+                  <Hidden>=iif(First(Fields!Comentarios.Value, "TicketAnticipo").ToString()="",TRUE,FALSE)</Hidden>
+                </Visibility>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+            </ReportItems>
+            <KeepTogether>true</KeepTogether>
+            <Top>11.42051cm</Top>
+            <Left>0.03175cm</Left>
+            <Height>1.47489cm</Height>
+            <Width>7.96825cm</Width>
+            <ZIndex>23</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Fields!Comentarios.Value, "TicketAnticipo").ToString() = "", TRUE, FALSE)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>Solid</Style>
+              </Border>
+            </Style>
+          </Rectangle>
+          <Textbox Name="Textbox10">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Anticipo utilizado ateriormente:</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox1</rd:DefaultName>
+            <Top>8.77737cm</Top>
+            <Left>0.0365cm</Left>
+            <Height>0.94396cm</Height>
+            <Width>3.62832cm</Width>
+            <ZIndex>24</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Parameters!Anterior.Value, "TicketAnticipo").ToString = "0.00", True, False)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="AnticipoAplicado2">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>=Parameters!Anterior.Value</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style>
+                  <TextAlign>Left</TextAlign>
+                </Style>
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>AnticipoAplicado</rd:DefaultName>
+            <Top>8.77737cm</Top>
+            <Left>3.7001cm</Left>
+            <Height>0.94396cm</Height>
+            <Width>4.27168cm</Width>
+            <ZIndex>25</ZIndex>
+            <Visibility>
+              <Hidden>=iif(First(Parameters!Anterior.Value, "TicketAnticipo").ToString = "0.00", True, False)</Hidden>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+        </ReportItems>
+        <Height>14.80495cm</Height>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Body>
+      <Width>8cm</Width>
+      <Page>
+        <PageHeight>15cm</PageHeight>
+        <PageWidth>8cm</PageWidth>
+        <LeftMargin>0cm</LeftMargin>
+        <RightMargin>0cm</RightMargin>
+        <TopMargin>0cm</TopMargin>
+        <BottomMargin>0cm</BottomMargin>
+        <ColumnSpacing>1.27cm</ColumnSpacing>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="Anterior">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Actual">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Anterior</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Actual</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>c5ec39f2-e4a6-41d0-9252-b1c8e41b014f</rd:ReportID>
 </Report>

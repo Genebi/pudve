@@ -41,7 +41,7 @@ namespace PuntoDeVentaV2
                 }
                 
             }
-            if (cantidad > Total)
+            if (cantidad >= Total)
             {
                 txtCantidad.Text = (Total - 1).ToString();
                 txtCantidad.SelectAll();
@@ -205,14 +205,23 @@ namespace PuntoDeVentaV2
 
         private void txtPorcentaje_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyData == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
             }
+
         }
 
         private void txtCantidad_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyData == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();

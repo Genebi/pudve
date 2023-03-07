@@ -56,6 +56,8 @@
             this.tituloDetalle = new System.Windows.Forms.Label();
             this.txtCredito = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.dtpLaMeraFecha = new System.Windows.Forms.DateTimePicker();
+            this.lblFechaApertura = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbEliminarCliente
@@ -84,6 +86,7 @@
             this.lbTotalCambio.TabIndex = 120;
             this.lbTotalCambio.Text = "$0.00";
             this.lbTotalCambio.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbTotalCambio.TextChanged += new System.EventHandler(this.lbTotalCambio_TextChanged);
             // 
             // lbCambio
             // 
@@ -396,11 +399,32 @@
             this.label2.TabIndex = 123;
             this.label2.Text = "Crédito";
             // 
+            // dtpLaMeraFecha
+            // 
+            this.dtpLaMeraFecha.Location = new System.Drawing.Point(363, 214);
+            this.dtpLaMeraFecha.Name = "dtpLaMeraFecha";
+            this.dtpLaMeraFecha.Size = new System.Drawing.Size(200, 20);
+            this.dtpLaMeraFecha.TabIndex = 124;
+            this.dtpLaMeraFecha.Visible = false;
+            // 
+            // lblFechaApertura
+            // 
+            this.lblFechaApertura.AutoSize = true;
+            this.lblFechaApertura.Location = new System.Drawing.Point(211, 217);
+            this.lblFechaApertura.Name = "lblFechaApertura";
+            this.lblFechaApertura.Size = new System.Drawing.Size(149, 13);
+            this.lblFechaApertura.TabIndex = 125;
+            this.lblFechaApertura.Text = "Fecha de apertura del crédito:";
+            this.lblFechaApertura.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblFechaApertura.Visible = false;
+            // 
             // DetalleVenta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(575, 361);
+            this.Controls.Add(this.lblFechaApertura);
+            this.Controls.Add(this.dtpLaMeraFecha);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtCredito);
             this.Controls.Add(this.lbEliminarCliente);
@@ -473,5 +497,7 @@
         private System.Windows.Forms.Label tituloDetalle;
         private System.Windows.Forms.TextBox txtCredito;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker dtpLaMeraFecha;
+        private System.Windows.Forms.Label lblFechaApertura;
     }
 }

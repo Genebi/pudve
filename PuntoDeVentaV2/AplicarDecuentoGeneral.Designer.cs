@@ -209,7 +209,7 @@ namespace PuntoDeVentaV2
             this.lbProducto.Name = "lbProducto";
             this.lbProducto.Size = new System.Drawing.Size(350, 17);
             this.lbProducto.TabIndex = 38;
-            this.lbProducto.Text = "Descuanto General";
+            this.lbProducto.Text = "Descuento General";
             this.lbProducto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AplicarDecuentoGeneral

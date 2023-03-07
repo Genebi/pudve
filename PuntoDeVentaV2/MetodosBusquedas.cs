@@ -143,7 +143,7 @@ namespace PuntoDeVentaV2
         {
             float cantidad = 0f;
 
-            DatosConexion($"SELECT SUM(Total) AS Total FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {idUsuario}");
+            DatosConexion($"SELECT SUM(Total - intereses) AS Total FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {idUsuario}");
 
             MySqlDataReader dr = sql_cmd.ExecuteReader();
 
@@ -154,6 +154,8 @@ namespace PuntoDeVentaV2
 
             dr.Close();
             CerrarConexion();
+
+
 
             return cantidad;
         }
@@ -234,6 +236,7 @@ namespace PuntoDeVentaV2
                 lista.Add(dr[18].ToString()); //Forma de pago       15
                 lista.Add(dr[21].ToString()); //TipoCliente         16
                 lista.Add(dr[22].ToString()); //NumeroCliente       17
+                lista.Add(dr[23].ToString()); //Verificado          18
             }
 
             dr.Close();
@@ -2242,6 +2245,9 @@ namespace PuntoDeVentaV2
 
                 var Traspasos = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("traspasos")));
                 var EnvioSaldoInicial = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("EnvioCorreoSaldoIncial")));
+                var CorreoAbonos = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoAbonoRecibidos")));
+                var realizaRentas = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("RealizaRentas")));
+
                 config.Add(correoPrecio);                   // 0
                 config.Add(correoStock);                    // 1
                 config.Add(correoStockMinimo);              // 2
@@ -2273,7 +2279,8 @@ namespace PuntoDeVentaV2
                 config.Add(PermisoCorreoVentaClienteDescuento); ;//28
                 config.Add(Traspasos); //Hehehe ahi te lo dejo goofy 29
                 config.Add(EnvioSaldoInicial);//30
-                config.Add(realizaRentas); //31
+                config.Add(CorreoAbonos);
+                config.Add(realizaRentas);
             }
 
             dr.Close();
@@ -2635,6 +2642,8 @@ namespace PuntoDeVentaV2
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Agregar_Descuento"))));//45
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("Eliminar_Descuento"))));
                 lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("VentasACredito"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("ReporteDeudas"))));
+                lista.Add(Convert.ToInt16(dr.GetValue(dr.GetOrdinal("RegresarProducto"))));
 
                 using (DataTable dtPermisosDinamicos = cn.CargarDatos(cs.VerificarContenidoDinamico(FormPrincipal.userID)))
                 {

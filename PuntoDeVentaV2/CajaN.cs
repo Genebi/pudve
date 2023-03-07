@@ -154,7 +154,7 @@ namespace PuntoDeVentaV2
                 totalAbonoEfectivo = 0,
                 totalAbonoTarjeta = 0,
                 totalAbonoVales = 0,
-                totalAbonoCheque = 0, 
+                totalAbonoCheque = 0,
                 totalAbonoTransferencia = 0,
                 totalAbonoRealizado = 0,
                 totalAbonoRealizadoDeOtrosUsuarios = 0,
@@ -215,6 +215,8 @@ namespace PuntoDeVentaV2
                 cantidadTransferenciaRetirado = 0,
                 cantidadTotalDineroRetirado = 0;
 
+        public static bool CancelaVenta = false;
+
         private void botonRedondo3_Click(object sender, EventArgs e)
         {
             opcionComboBoxFiltroAdminEmp = ((KeyValuePair<string, string>)cbFiltroAdminEmpleado.SelectedItem).Key;
@@ -226,7 +228,7 @@ namespace PuntoDeVentaV2
             {
                 CargarDatosEmpleadoVentasProveedor();
             }
-            
+
         }
 
         private void CargarDatosEmpleadoVentasProveedor()
@@ -285,6 +287,21 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo1_Click(object sender, EventArgs e)
         {
+            using (DataTable dt = cn.CargarDatos($"SELECT Opcion2 FROM empleadospermisos WHERE IdEmpleado = {FormPrincipal.id_empleado} AND Seccion = 'caja'"))
+            {
+                if (FormPrincipal.userNickName.Contains("@"))
+                {
+                    if (!dt.Rows.Equals(0))
+                    {
+                        if (dt.Rows[0][0].ToString().Equals("0"))
+                        {
+                            Utilidades.MensajePermiso();
+                            return;
+                        }
+                    }
+                }
+            }
+
             string todos = string.Empty;
             detalleAbonoRetiro = "abono";
             if (!FormPrincipal.userNickName.Contains("@"))
@@ -292,7 +309,7 @@ namespace PuntoDeVentaV2
                 var datosall = cbFiltroAdminEmpleado.SelectedItem.ToString().Split(',');
                 todos = datosall[0].Replace("[", "");
             }
-            
+
             if (!FormPrincipal.userNickName.Contains("@"))
             {
                 if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) && !todos.Equals("All"))
@@ -308,11 +325,11 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    usuarioEmpleado = "usuario"; 
+                    usuarioEmpleado = "usuario";
                     FormPrincipal.id_empleado = 0;
                 }
             }
-           
+
             detallesIngresosRetirosDinero detalles = new detallesIngresosRetirosDinero();
             detalles.ShowDialog();
         }
@@ -332,13 +349,27 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo2_Click(object sender, EventArgs e)
         {
+            using (DataTable dt = cn.CargarDatos($"SELECT Opcion4 FROM empleadospermisos WHERE IdEmpleado = {FormPrincipal.id_empleado} AND Seccion = 'caja'"))
+            {
+                if (FormPrincipal.userNickName.Contains("@"))
+                {
+                    if (!dt.Rows.Equals(0))
+                    {
+                        if (dt.Rows[0][0].ToString().Equals("0"))
+                        {
+                            Utilidades.MensajePermiso();
+                            return;
+                        }
+                    }
+                }
+            }
             string todos = string.Empty;
             if (!FormPrincipal.userNickName.Contains("@"))
             {
                 var datosall = cbFiltroAdminEmpleado.SelectedItem.ToString().Split(',');
                 todos = datosall[0].Replace("[", "");
             }
-                
+
 
             if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) && !todos.Equals("All"))
             {
@@ -367,6 +398,10 @@ namespace PuntoDeVentaV2
 
         private void CajaN_Load(object sender, EventArgs e)
         {
+            if (CancelaVenta.Equals(true))
+            {
+                this.Opacity = 0;
+            }
             cbFiltroAdminEmpleado.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             recargarDatos = true;
             verificarSiExisteCorteDeCaja();
@@ -419,6 +454,11 @@ namespace PuntoDeVentaV2
                 };
 
                 retirar.ShowDialog();
+            }
+            if (CancelaVenta.Equals(true))
+            {
+                CancelaVenta = false;
+                this.Close();
             }
         }
 
@@ -511,6 +551,11 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta($"INSERT INTO historialcortesdecaja ( IDCorteDeCaja, IDUsuario, IDEmpleado, FechaOperacion, SaldoInicialEfectivo, SaldoInicialTarjeta, SaldoInicialVales, SaldoInicialCheque, SaldoInicialTransferencia, SaldoInicialCredito, SaldoInicialAnticipo, CantidadRetiradaDelCorte,PrimerCorte ) VALUES ( '{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}',0)");
                     }
                 }
+            }
+            if (CancelaVenta.Equals(true))
+            {
+                CancelaVenta = false;
+                this.Close();
             }
         }
 
@@ -612,7 +657,7 @@ namespace PuntoDeVentaV2
                         //}
 
                         using (DataTable dtAbonosDesdeOtrosUsuarios = cn.CargarDatos(cs.AbonosRealizadosDeOtrosUsuariosAMisVentasACredito(fechaFormateadaCorteParaAbonos)))
-                        {       
+                        {
                             if (!dtAbonosDesdeOtrosUsuarios.Rows.Count.Equals(0))
                             {
                                 foreach (DataRow item in dtAbonosDesdeOtrosUsuarios.Rows)
@@ -664,7 +709,7 @@ namespace PuntoDeVentaV2
                             foreach (DataRow item in dtCargarAbonosTodos.Rows)
                             {
                                 idEmpleado = item["IDEmpleado"].ToString();
-                                
+
                                 DateTime fechaUltimaCorte = Convert.ToDateTime(item["Fecha"].ToString());
                                 fechaUltimaDeCorteConFormatoUSA = fechaUltimaCorte.ToString("yyyy-MM-dd HH:mm:ss");
 
@@ -679,7 +724,7 @@ namespace PuntoDeVentaV2
                             }
 
                             var UnionQuerysTodosLosTotales = string.Join("UNION", QuerysDeTodosLosTotalesAbonos);
-                             
+
                             if (!string.IsNullOrWhiteSpace(UnionQuerysTodosLosTotales))
                             {
                                 using (DataTable dtUnionQuerysTodosLosTotales = cn.CargarDatos(UnionQuerysTodosLosTotales))
@@ -775,7 +820,7 @@ namespace PuntoDeVentaV2
                                     {
                                         totalAbonoRealizadoDeOtrosUsuarios += Convert.ToDecimal(item["Total"].ToString());
                                     }
-                                    
+
                                     lbTCreditoC.Text = (totalAbonoRealizado /*+ totalAbonoRealizadoDeOtrosUsuarios*/ + totalAbonoRealizadoOtrasVentas).ToString("C2");
                                 }
                             }
@@ -836,7 +881,7 @@ namespace PuntoDeVentaV2
             Dictionary<string, string> tipoUsuario = new Dictionary<string, string>();
             tipoUsuario.Add("Admin", $"{FormPrincipal.userNickName} (ADMIN)");
 
-            using (DataTable dtEmpleados = cn.CargarDatos(cs.obtenerEmpleados(FormPrincipal.userID)))
+            using (DataTable dtEmpleados = cn.CargarDatos(cs.obtenerEmpleadosB(FormPrincipal.userID)))
             {
                 if (!dtEmpleados.Rows.Count.Equals(0))
                 {
@@ -853,7 +898,6 @@ namespace PuntoDeVentaV2
             cbFiltroAdminEmpleado.DataSource = tipoUsuario.ToArray();
             cbFiltroAdminEmpleado.DisplayMember = "Value";
             cbFiltroAdminEmpleado.ValueMember = "Key";
-
             cbFiltroAdminEmpleado.SelectedIndex = 0;
         }
 
@@ -1083,11 +1127,12 @@ namespace PuntoDeVentaV2
             totalSaldoInicial = (decimal)saldoInicial;
 
             //tituloSeccion.Text = "SALDO INICIAL: \r\n" + moneda + cdc.CargarSaldoInicial().ToString("0.00");
-            //btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + totalSaldoInicial /*cdc.CargarSaldoInicial().ToString("0.00")*/;
+            //btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + totalSaldoInicial /cdc.CargarSaldoInicial().ToString("0.00")/;
             var datos = cn.CargarDatos($"SELECT FORMAT(IF(SUM(Efectivo)= '' OR SUM(Efectivo) IS NULL,'0',SUM(Efectivo)),2) AS 'Efectivo', FORMAT(IF(SUM(Tarjeta)= '' OR SUM(Tarjeta) IS NULL,'0',SUM(Tarjeta)),2) AS 'Tarjeta', FORMAT(IF(SUM(Vales)= '' OR SUM(Vales) IS NULL,'0',SUM(Vales)),2) AS 'Vales', FORMAT(IF(SUM(Cheque)= '' OR SUM(Cheque) IS NULL,'0',SUM(Cheque)),2) AS 'Cheque', FORMAT(IF(SUM(Transferencia)= '' OR SUM(Transferencia) IS NULL,'0',SUM(Transferencia)),2) AS 'Transferencia', FORMAT(IF(SUM(Efectivo)= '' OR SUM(Efectivo) IS NULL,'0',SUM(Efectivo)) + IF(SUM(Tarjeta)= '' OR SUM(Tarjeta) IS NULL,'0',SUM(Tarjeta)) + IF(SUM(Vales)= '' OR SUM(Vales) IS NULL,'0',SUM(Vales)) + IF(SUM(Cheque)= '' OR SUM(Cheque) IS NULL,'0',SUM(Cheque)) + IF(SUM(Transferencia)= '' OR SUM(Transferencia) IS NULL,'0',SUM(Transferencia)),2) AS 'Total' FROM `caja` WHERE FechaOperacion >= '{ultimoCorteDeCaja}' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' AND Concepto = 'Complemento de retiro desde saldo inicial' AND Operacion = 'retiro'");
             var datosSaldo = cn.CargarDatos($"SELECT Cantidad FROM `caja` WHERE IDUsuario = {FormPrincipal.userID} AND IdEmpleado = {FormPrincipal.id_empleado} AND Operacion = 'deposito' AND Concepto = 'Insert primer saldo inicial' AND FechaOperacion >= '{ultimoCorteDeCaja}'");
 
             var retiradoSaldoInicial = Convert.ToDecimal(datos.Rows[0]["Total"].ToString());
+
             if (datosSaldo.Rows.Count > 0)
             {
                 btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + datosSaldo.Rows[0]["Cantidad"].ToString();
@@ -1110,30 +1155,23 @@ namespace PuntoDeVentaV2
                 {
                     btnRedondoSaldoInicial.Text = "SALDO INICIAL: \r\n" + moneda + "0.00";
                 }
-                
-                
+
+
             }
 
-            if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) &&!FormPrincipal.userNickName.Contains('@'))
+            if (!cbFiltroAdminEmpleado.SelectedIndex.Equals(0) && !FormPrincipal.userNickName.Contains('@'))
             {
                 var datosCB = cbFiltroAdminEmpleado.SelectedItem.ToString();
                 var nombreID = datosCB.Split(',');
-                var idEmpleado = nombreID[0].ToString().Replace("[","");
+                var idEmpleado = nombreID[0].ToString().Replace("[", "");
 
                 if (!idEmpleado.Equals("All"))
                 {
                     FormPrincipal.id_empleado = Convert.ToInt32(idEmpleado);
                 }
-                        
+
             }
-            //var datos2 = cn.CargarDatos($"SELECT FORMAT( IF ( SUM( Efectivo ) = '' OR SUM( Efectivo ) IS NULL, '0', SUM( Efectivo ) ), 2 ) AS 'Efectivo', FORMAT( IF ( SUM( Tarjeta ) = '' OR SUM( Tarjeta ) IS NULL, '0', SUM( Tarjeta ) ), 2 ) AS 'Tarjeta', FORMAT( IF ( SUM( Vales ) = '' OR SUM( Vales ) IS NULL, '0', SUM( Vales ) ), 2 ) AS 'Vales', FORMAT( IF ( SUM( Cheque ) = '' OR SUM( Cheque ) IS NULL, '0', SUM( Cheque ) ), 2 ) AS 'Cheque', FORMAT( IF ( SUM( Transferencia ) = '' OR SUM( Transferencia ) IS NULL, '0', SUM( Transferencia ) ), 2 ) AS 'Transferencia', FORMAT( IF ( SUM( Efectivo ) = '' OR SUM( Efectivo ) IS NULL, '0', SUM( Efectivo ) ) + IF ( SUM( Tarjeta ) = '' OR SUM( Tarjeta ) IS NULL, '0', SUM( Tarjeta ) ) + IF ( SUM( Vales ) = '' OR SUM( Vales ) IS NULL, '0', SUM( Vales ) ) + IF ( SUM( Cheque ) = '' OR SUM( Cheque ) IS NULL, '0', SUM( Cheque ) ) + IF ( SUM( Transferencia ) = '' OR SUM( Transferencia ) IS NULL, '0', SUM( Transferencia ) ), 2 ) AS 'Total' FROM `caja` WHERE FechaOperacion >= '{ultimoCorteDeCaja}' AND IDUsuario = '{FormPrincipal.userID}' AND IdEmpleado = '{FormPrincipal.id_empleado}' AND Concepto = 'agregado a saldo inicial' AND Operacion = 'deposito'");
-
-            //var agregadoSaldoInicial = Convert.ToDecimal(datos2.Rows[0]["Total"].ToString());
-            
-
-            lblCantidadSaldoActual.Text =  $"{moneda} {(totalSaldoInicial - retiradoSaldoInicial) /*+ (agregadoSaldoInicial)*/}";
-
-
+            lblCantidadSaldoActual.Text = $"{moneda} {(totalSaldoInicial - retiradoSaldoInicial) /*+ (agregadoSaldoInicial)*/}";
         }
 
         private bool IsEmpty(List<int> iDEmpleados)
@@ -2072,6 +2110,8 @@ namespace PuntoDeVentaV2
 
             var cantidadAgregadaSaldoInicial = cn.CargarDatos(cs.dineroAgregadoSaldoInicial(FormPrincipal.userID, FormPrincipal.id_empleado, ultimoCorteDeCaja));
             lblTotalAgregado.Text = cantidadAgregadaSaldoInicial.Rows[0]["Total agregado"].ToString();
+
+
         }
 
         private void CajaN_Resize(object sender, EventArgs e)
@@ -3914,7 +3954,6 @@ namespace PuntoDeVentaV2
                     cantidad = Convert.ToDecimal(item["CantidadRetirada"].ToString());
                 }
             }
-
             return cantidad;
         }
 
@@ -5621,7 +5660,7 @@ namespace PuntoDeVentaV2
 
         private void CajaN_Activated(object sender, EventArgs e)
         {
-            
+
             //this.Refresh();
             //Application.DoEvents();
         }
@@ -5856,7 +5895,7 @@ namespace PuntoDeVentaV2
             var conceptoTransferenciDeVentas = lbTTrans.Text;
             var conceptoCreditoDeVentas = lbTCredito.Text;
             var conceptoAbonosDeVentas = lbTCreditoC.Text;
-            var conceptoAnticiposUtilizados = lbTCreditoC.Text;
+            var conceptoAnticiposUtilizados = lbTAnticipos.Text;
             #endregion
 
             #region sección Anticipos Recibidos
@@ -5893,8 +5932,13 @@ namespace PuntoDeVentaV2
             var conceptoSaldoInicialDeTotalCaja = lbTSaldoInicial.Text;
             #endregion
 
-            #region Sección Monto Antes del Corte
-            var conceptoCantidadEnCajaAntesDelCorte = Convert.ToString(Convert.ToDecimal(lbTTotalCaja.Text.ToString().Replace("$", string.Empty)));
+            var ListMoneda = FormPrincipal.Moneda.Split('(');
+            var moneda = ListMoneda[1].Replace(")", string.Empty);
+            #region Sección Monto Antes del Corte       
+            var datos1 = Convert.ToString(Convert.ToDecimal(lbTTotalCaja.Text.ToString().Replace("$", string.Empty)));
+            var datos2 = conceptoCreditoDeVentas.Replace(Convert.ToChar(moneda), ' ');
+            //var conceptoCantidadEnCajaAntesDelCorte = (Convert.ToDecimal(datos1) + Convert.ToDecimal(datos2)).ToString();
+            var conceptoCantidadEnCajaAntesDelCorte = Convert.ToDecimal(datos1).ToString();
             #endregion
 
             #region Sección Cantidad Retirada en el Corte
@@ -6004,87 +6048,193 @@ namespace PuntoDeVentaV2
             }
             #endregion
 
-            using (visualizadorCorteDeCaja verCorteDeCaja = new visualizadorCorteDeCaja())
+            using (var dt = cn.CargarDatos($"SELECT TicketCorteDeCaja,PreguntarTicketCorteDeCaja,AbrirCajaCorte FROM configuraciondetickets WHERE IDUSuario = {FormPrincipal.userID}"))
             {
-                #region Tabla de los totales de ventas
-                verCorteDeCaja.conceptoEfectivoDeVentas = conceptoEfectivoDeVentas;
-                verCorteDeCaja.conceptoTarjetaDeVentas = conceptoTarjetaDeVentas;
-                verCorteDeCaja.conceptoValeDeVentas = conceptoValeDeVentas;
-                verCorteDeCaja.conceptoChequeDeVentas = conceptoChequeDeVentas;
-                verCorteDeCaja.conceptoTransferenciDeVentas = conceptoTransferenciDeVentas;
-                verCorteDeCaja.conceptoCreditoDeVentas = conceptoCreditoDeVentas;
-                verCorteDeCaja.conceptoAbonosDeVentas = conceptoAbonosDeVentas;
-                verCorteDeCaja.conceptoAnticiposUtilizados = conceptoAnticiposUtilizados;
-                #endregion
-                #region Tabla de los totales de Anticipos
-                verCorteDeCaja.conceptoEfectivoDeAnticipos = conceptoEfectivoDeAnticipos;
-                verCorteDeCaja.conceptoTarjetaDeAnticipos = conceptoTarjetaDeAnticipos;
-                verCorteDeCaja.conceptoValeDeAnticipos = conceptoValeDeAnticipos;
-                verCorteDeCaja.conceptoChequeDeAnticipos = conceptoChequeDeAnticipos;
-                verCorteDeCaja.conceptoTransferenciaDeAnticipos = conceptoTransferenciaDeAnticipos;
-                #endregion
-                #region Tabla de los totales de Depositos
-                verCorteDeCaja.conceptoEfectivoDeDineroAgregado = conceptoEfectivoDeDineroAgregado;
-                verCorteDeCaja.conceptoTarjetaDeDineroAgregado = conceptoTarjetaDeDineroAgregado;
-                verCorteDeCaja.conceptoValeDeDineroAgregado = conceptoValeDeDineroAgregado;
-                verCorteDeCaja.conceptoChequeDeDineroAgregado = conceptoChequeDeDineroAgregado;
-                verCorteDeCaja.conceptoTransferenciaDeDineroAgregado = conceptoTransferenciaDeDineroAgregado;
-                #endregion
-                #region Tabla de los totales de Retiros
-                verCorteDeCaja.conceptoEfectivoDeDineroRetirado = conceptoEfectivoDeDineroRetirado;
-                verCorteDeCaja.conceptoTarjetaDeDineroRetirado = conceptoTarjetaDeDineroRetirado;
-                verCorteDeCaja.conceptoValeDeDineroRetirado = conceptoValeDeDineroRetirado;
-                verCorteDeCaja.conceptoChequeDeDineroRetirado = conceptoChequeDeDineroRetirado;
-                verCorteDeCaja.conceptoTransferenciaDeDineroRetirado = conceptoTransferenciaDeDineroRetirado;
-                verCorteDeCaja.conceptoDevolucionDeDineroRetirado = conceptoDevolucionDeDineroRetirado;
-                #endregion
-                #region Tabla de los totales de Caja
-                verCorteDeCaja.conceptoEfectivoDeTotalCaja = conceptoEfectivoDeTotalCaja;
-                verCorteDeCaja.conceptoTarjetaDeTotalCaja = conceptoTarjetaDeTotalCaja;
-                verCorteDeCaja.conceptoValeDeTotalCaja = conceptoValeDeTotalCaja;
-                verCorteDeCaja.conceptoChequeDeTotalCaja = conceptoChequeDeTotalCaja;
-                verCorteDeCaja.conceptoTransferenciaDeTotalCaja = conceptoTransferenciaDeTotalCaja;
-                verCorteDeCaja.conceptoSaldoInicialDeTotalCaja = conceptoSaldoInicialDeTotalCaja;
-                #endregion
-                #region Total monto antes del corte
-                verCorteDeCaja.conceptoCantidadEnCajaAntesDelCorte = conceptoCantidadEnCajaAntesDelCorte;
-                #endregion
-                #region Total monto cantidad retirada en el corte
-                verCorteDeCaja.conceptoCantidadRetiradaAlCorteDeCaja = conceptoCantidadRetiradaAlCorteDeCaja;
-                #endregion
-                #region Total de ventas
-                verCorteDeCaja.conceptoTotalVentas = conceptoTotalVentas;
-                #endregion
-                #region Total de anticipos
-                verCorteDeCaja.conceptoTotalAnticipos = conceptoTotalAnticipos;
-                #endregion
-                #region Total de depositos
-                verCorteDeCaja.conceptoTotalDineroAgregado = conceptoTotalDineroAgregado;
-                #endregion
-                #region Total de retiros
-                verCorteDeCaja.conceptoTotalDineroRetirado = conceptoTotalDineroRetirado;
-                #endregion
-                #region Restante al corte de caja
-                verCorteDeCaja.conceptoRestanteCorteCaja = conceptoRestanteCorteCaja;
-                #endregion
-                #region Nombre de usuario
-                verCorteDeCaja.nombreUsuario = nombreUsuario;
-                #endregion
-                #region Nombre de empleado
-                verCorteDeCaja.nombreEmpleado = nombreEmpleado;
-                #endregion
-                #region Número de folio
-                verCorteDeCaja.numFolio = numFolio.ToString();
-                #endregion
-                #region Fecha de corte de caja
-                verCorteDeCaja.fechaCorteCaja = fechaCorteCaja;
-                #endregion
-                #region 
-                verCorteDeCaja.idPenultimoCorteDeCaja = idPenultimoCorteDeCaja;
-                #endregion
+                if (dt.Rows[0][0].Equals(1))
+                {
+                    using (visualizadorCorteDeCaja verCorteDeCaja = new visualizadorCorteDeCaja())
+                    {
+                        #region Tabla de los totales de ventas
+                        verCorteDeCaja.conceptoEfectivoDeVentas = conceptoEfectivoDeVentas;
+                        verCorteDeCaja.conceptoTarjetaDeVentas = conceptoTarjetaDeVentas;
+                        verCorteDeCaja.conceptoValeDeVentas = conceptoValeDeVentas;
+                        verCorteDeCaja.conceptoChequeDeVentas = conceptoChequeDeVentas;
+                        verCorteDeCaja.conceptoTransferenciDeVentas = conceptoTransferenciDeVentas;
+                        verCorteDeCaja.conceptoCreditoDeVentas = conceptoCreditoDeVentas;
+                        verCorteDeCaja.conceptoAbonosDeVentas = conceptoAbonosDeVentas;
+                        verCorteDeCaja.conceptoAnticiposUtilizados = conceptoAnticiposUtilizados;
+                        #endregion
+                        #region Tabla de los totales de Anticipos
+                        verCorteDeCaja.conceptoEfectivoDeAnticipos = conceptoEfectivoDeAnticipos;
+                        verCorteDeCaja.conceptoTarjetaDeAnticipos = conceptoTarjetaDeAnticipos;
+                        verCorteDeCaja.conceptoValeDeAnticipos = conceptoValeDeAnticipos;
+                        verCorteDeCaja.conceptoChequeDeAnticipos = conceptoChequeDeAnticipos;
+                        verCorteDeCaja.conceptoTransferenciaDeAnticipos = conceptoTransferenciaDeAnticipos;
+                        #endregion
+                        #region Tabla de los totales de Depositos
+                        verCorteDeCaja.conceptoEfectivoDeDineroAgregado = conceptoEfectivoDeDineroAgregado;
+                        verCorteDeCaja.conceptoTarjetaDeDineroAgregado = conceptoTarjetaDeDineroAgregado;
+                        verCorteDeCaja.conceptoValeDeDineroAgregado = conceptoValeDeDineroAgregado;
+                        verCorteDeCaja.conceptoChequeDeDineroAgregado = conceptoChequeDeDineroAgregado;
+                        verCorteDeCaja.conceptoTransferenciaDeDineroAgregado = conceptoTransferenciaDeDineroAgregado;
+                        #endregion
+                        #region Tabla de los totales de Retiros
+                        verCorteDeCaja.conceptoEfectivoDeDineroRetirado = conceptoEfectivoDeDineroRetirado;
+                        verCorteDeCaja.conceptoTarjetaDeDineroRetirado = conceptoTarjetaDeDineroRetirado;
+                        verCorteDeCaja.conceptoValeDeDineroRetirado = conceptoValeDeDineroRetirado;
+                        verCorteDeCaja.conceptoChequeDeDineroRetirado = conceptoChequeDeDineroRetirado;
+                        verCorteDeCaja.conceptoTransferenciaDeDineroRetirado = conceptoTransferenciaDeDineroRetirado;
+                        verCorteDeCaja.conceptoDevolucionDeDineroRetirado = conceptoDevolucionDeDineroRetirado;
+                        #endregion
+                        #region Tabla de los totales de Caja
+                        verCorteDeCaja.conceptoEfectivoDeTotalCaja = conceptoEfectivoDeTotalCaja;
+                        verCorteDeCaja.conceptoTarjetaDeTotalCaja = conceptoTarjetaDeTotalCaja;
+                        verCorteDeCaja.conceptoValeDeTotalCaja = conceptoValeDeTotalCaja;
+                        verCorteDeCaja.conceptoChequeDeTotalCaja = conceptoChequeDeTotalCaja;
+                        verCorteDeCaja.conceptoTransferenciaDeTotalCaja = conceptoTransferenciaDeTotalCaja;
+                        verCorteDeCaja.conceptoSaldoInicialDeTotalCaja = conceptoSaldoInicialDeTotalCaja;
+                        #endregion
+                        #region Total monto antes del corte
+                        verCorteDeCaja.conceptoCantidadEnCajaAntesDelCorte = conceptoCantidadEnCajaAntesDelCorte;
+                        #endregion
+                        #region Total monto cantidad retirada en el corte
+                        verCorteDeCaja.conceptoCantidadRetiradaAlCorteDeCaja = conceptoCantidadRetiradaAlCorteDeCaja;
+                        #endregion
+                        #region Total de ventas
+                        verCorteDeCaja.conceptoTotalVentas = conceptoTotalVentas;
+                        #endregion
+                        #region Total de anticipos
+                        verCorteDeCaja.conceptoTotalAnticipos = conceptoTotalAnticipos;
+                        #endregion
+                        #region Total de depositos
+                        verCorteDeCaja.conceptoTotalDineroAgregado = conceptoTotalDineroAgregado;
+                        #endregion
+                        #region Total de retiros
+                        verCorteDeCaja.conceptoTotalDineroRetirado = conceptoTotalDineroRetirado;
+                        #endregion
+                        #region Restante al corte de caja
+                        verCorteDeCaja.conceptoRestanteCorteCaja = conceptoRestanteCorteCaja;
+                        #endregion
+                        #region Nombre de usuario
+                        verCorteDeCaja.nombreUsuario = nombreUsuario;
+                        #endregion
+                        #region Nombre de empleado
+                        verCorteDeCaja.nombreEmpleado = nombreEmpleado;
+                        #endregion
+                        #region Número de folio
+                        verCorteDeCaja.numFolio = numFolio.ToString();
+                        #endregion
+                        #region Fecha de corte de caja
+                        verCorteDeCaja.fechaCorteCaja = fechaCorteCaja;
+                        #endregion
+                        #region 
+                        verCorteDeCaja.idPenultimoCorteDeCaja = idPenultimoCorteDeCaja;
+                        #endregion
+                        visualizadorCorteDeCaja.fuePorCorteDeCAJA = true;
+                        verCorteDeCaja.ShowDialog();
+                    }
+                }
+                else if (dt.Rows[0][1].Equals(1))
+                {
+                    DialogResult result = MessageBox.Show("¿Desea imprimir el Ticket?", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                    if (result.Equals(DialogResult.Yes))
+                    {
+                        using (visualizadorCorteDeCaja verCorteDeCaja = new visualizadorCorteDeCaja())
+                        {
+                            #region Tabla de los totales de ventas
+                            verCorteDeCaja.conceptoEfectivoDeVentas = conceptoEfectivoDeVentas;
+                            verCorteDeCaja.conceptoTarjetaDeVentas = conceptoTarjetaDeVentas;
+                            verCorteDeCaja.conceptoValeDeVentas = conceptoValeDeVentas;
+                            verCorteDeCaja.conceptoChequeDeVentas = conceptoChequeDeVentas;
+                            verCorteDeCaja.conceptoTransferenciDeVentas = conceptoTransferenciDeVentas;
+                            verCorteDeCaja.conceptoCreditoDeVentas = conceptoCreditoDeVentas;
+                            verCorteDeCaja.conceptoAbonosDeVentas = conceptoAbonosDeVentas;
+                            verCorteDeCaja.conceptoAnticiposUtilizados = conceptoAnticiposUtilizados;
+                            #endregion
+                            #region Tabla de los totales de Anticipos
+                            verCorteDeCaja.conceptoEfectivoDeAnticipos = conceptoEfectivoDeAnticipos;
+                            verCorteDeCaja.conceptoTarjetaDeAnticipos = conceptoTarjetaDeAnticipos;
+                            verCorteDeCaja.conceptoValeDeAnticipos = conceptoValeDeAnticipos;
+                            verCorteDeCaja.conceptoChequeDeAnticipos = conceptoChequeDeAnticipos;
+                            verCorteDeCaja.conceptoTransferenciaDeAnticipos = conceptoTransferenciaDeAnticipos;
+                            #endregion
+                            #region Tabla de los totales de Depositos
+                            verCorteDeCaja.conceptoEfectivoDeDineroAgregado = conceptoEfectivoDeDineroAgregado;
+                            verCorteDeCaja.conceptoTarjetaDeDineroAgregado = conceptoTarjetaDeDineroAgregado;
+                            verCorteDeCaja.conceptoValeDeDineroAgregado = conceptoValeDeDineroAgregado;
+                            verCorteDeCaja.conceptoChequeDeDineroAgregado = conceptoChequeDeDineroAgregado;
+                            verCorteDeCaja.conceptoTransferenciaDeDineroAgregado = conceptoTransferenciaDeDineroAgregado;
+                            #endregion
+                            #region Tabla de los totales de Retiros
+                            verCorteDeCaja.conceptoEfectivoDeDineroRetirado = conceptoEfectivoDeDineroRetirado;
+                            verCorteDeCaja.conceptoTarjetaDeDineroRetirado = conceptoTarjetaDeDineroRetirado;
+                            verCorteDeCaja.conceptoValeDeDineroRetirado = conceptoValeDeDineroRetirado;
+                            verCorteDeCaja.conceptoChequeDeDineroRetirado = conceptoChequeDeDineroRetirado;
+                            verCorteDeCaja.conceptoTransferenciaDeDineroRetirado = conceptoTransferenciaDeDineroRetirado;
+                            verCorteDeCaja.conceptoDevolucionDeDineroRetirado = conceptoDevolucionDeDineroRetirado;
+                            #endregion
+                            #region Tabla de los totales de Caja
+                            verCorteDeCaja.conceptoEfectivoDeTotalCaja = conceptoEfectivoDeTotalCaja;
+                            verCorteDeCaja.conceptoTarjetaDeTotalCaja = conceptoTarjetaDeTotalCaja;
+                            verCorteDeCaja.conceptoValeDeTotalCaja = conceptoValeDeTotalCaja;
+                            verCorteDeCaja.conceptoChequeDeTotalCaja = conceptoChequeDeTotalCaja;
+                            verCorteDeCaja.conceptoTransferenciaDeTotalCaja = conceptoTransferenciaDeTotalCaja;
+                            verCorteDeCaja.conceptoSaldoInicialDeTotalCaja = conceptoSaldoInicialDeTotalCaja;
+                            #endregion
+                            #region Total monto antes del corte
+                            verCorteDeCaja.conceptoCantidadEnCajaAntesDelCorte = conceptoCantidadEnCajaAntesDelCorte;
+                            #endregion
+                            #region Total monto cantidad retirada en el corte
+                            verCorteDeCaja.conceptoCantidadRetiradaAlCorteDeCaja = conceptoCantidadRetiradaAlCorteDeCaja;
+                            #endregion
+                            #region Total de ventas
+                            verCorteDeCaja.conceptoTotalVentas = conceptoTotalVentas;
+                            #endregion
+                            #region Total de anticipos
+                            verCorteDeCaja.conceptoTotalAnticipos = conceptoTotalAnticipos;
+                            #endregion
+                            #region Total de depositos
+                            verCorteDeCaja.conceptoTotalDineroAgregado = conceptoTotalDineroAgregado;
+                            #endregion
+                            #region Total de retiros
+                            verCorteDeCaja.conceptoTotalDineroRetirado = conceptoTotalDineroRetirado;
+                            #endregion
+                            #region Restante al corte de caja
+                            verCorteDeCaja.conceptoRestanteCorteCaja = conceptoRestanteCorteCaja;
+                            #endregion
+                            #region Nombre de usuario
+                            verCorteDeCaja.nombreUsuario = nombreUsuario;
+                            #endregion
+                            #region Nombre de empleado
+                            verCorteDeCaja.nombreEmpleado = nombreEmpleado;
+                            #endregion
+                            #region Número de folio
+                            verCorteDeCaja.numFolio = numFolio.ToString();
+                            #endregion
+                            #region Fecha de corte de caja
+                            verCorteDeCaja.fechaCorteCaja = fechaCorteCaja;
+                            #endregion
+                            #region 
+                            verCorteDeCaja.idPenultimoCorteDeCaja = idPenultimoCorteDeCaja;
+                            #endregion
+                            visualizadorCorteDeCaja.fuePorCorteDeCAJA = true;
+                            verCorteDeCaja.ShowDialog();
+                        }
+                    }
+                    else if (dt.Rows[0]["AbrirCajaCorte"].Equals(1))
+                    {
+                        AbrirSinTicket abrir = new AbrirSinTicket();
+                        abrir.Show();
+                    }
+                }
+                else if (dt.Rows[0]["AbrirCajaCorte"].Equals(1))
+                {
+                    AbrirSinTicket abrir = new AbrirSinTicket();
+                    abrir.Show();
+                }
 
-                verCorteDeCaja.ShowDialog();
             }
+
         }
 
         private void btnRedondoAbrirCaja_Click(object sender, EventArgs e)
@@ -6539,6 +6689,8 @@ namespace PuntoDeVentaV2
 
         private void cbFiltroAdminEmpleado_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblCantidadRetirada.Visible = true;
+            label7.Visible = true;
             if (!FormPrincipal.userNickName.Contains("@"))
             {
                 limpiarVariablesParaTotales();
@@ -6551,9 +6703,31 @@ namespace PuntoDeVentaV2
                 {
                     botonRedondo1.Visible = false;
                     botonRedondo2.Visible = false;
+                    var ids = cn.CargarDatos($"SELECT GROUP_CONCAT(ID SEPARATOR ', ') AS IDs FROM empleados WHERE IDUsuario = {FormPrincipal.userID} AND estatus = 1");
+                    var datos = cn.CargarDatos($"SELECT SUM(Efectivo) + SUM(Tarjeta) + SUM(Vales) + SUM(Cheque) + SUM(Transferencia) AS Total FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString()}) AND FechaOperacion > ( SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString()}) AND Concepto = 'Complemento de retiro desde saldo inicial' GROUP BY IDEmpleado ORDER BY FechaOperacion DESC LIMIT 1 )");
+                    var saldoInicialTotal = cn.CargarDatos($"SELECT SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) AS Total FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString() + ",0"}) AND FechaOperacion IN ( SELECT MAX(FechaOperacion) FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString() + ",0"}) AND Operacion IN ('deposito', 'PrimerSaldo') AND Concepto IN ('Insert primer saldo inicial', 'Insert primer saldo inicial con corte') GROUP BY IDEmpleado )");
+                    btnRedondoSaldoInicial.Text = "SALDO INICIAL\n" + $"$ {saldoInicialTotal.Rows[0][0].ToString()}";
+                    if (!string.IsNullOrWhiteSpace(datos.Rows[0][0].ToString()))
+                    {
+                        lblCantidadSaldoActual.Text = "$" + "  " + Convert.ToString(Convert.ToDecimal(saldoInicialTotal.Rows[0][0].ToString()) - Convert.ToDecimal(datos.Rows[0][0].ToString()));
+                    }
+                    else
+                    {
+                        lblCantidadSaldoActual.Text = "$  0.00";
+                        btnRedondoSaldoInicial.Text = "SALDO INICIAL\n" + "$  0.00";
+                    }
+
+                    lblCantidadRetirada.Visible = false;
+                    label7.Visible = false;
                 }
                 else
                 {
+                    //var fechaCorte = cn.CargarDatos($"SELECT MAX(fechaOperacion) FROM historialcortesdecaja WHERE idusuario = {FormPrincipal.userID} AND idEmpleado = {FormPrincipal.id_empleado}");
+                    var SaldoInicial = cn.CargarDatos($"SELECT Cantidad FROM Caja WHERE idusuario = {FormPrincipal.userID} AND idempleado = {FormPrincipal.id_empleado} AND (Operacion = 'deposito' OR Operacion = 'PrimerSaldo') AND (Concepto = 'Insert primer saldo inicial' OR Concepto = 'Insert primer saldo inicial con corte') AND FechaOperacion >= (SELECT MAX(fechaOperacion) FROM historialcortesdecaja WHERE idusuario = {FormPrincipal.userID} AND idempleado = {FormPrincipal.id_empleado})");
+                    if (SaldoInicial.Rows.Count.Equals(1))
+                    {
+                        btnRedondoSaldoInicial.Text = "SALDO INICIAL\n" + $"$ {SaldoInicial.Rows[0][0].ToString()}";
+                    }
                     botonRedondo1.Visible = true;
                     botonRedondo2.Visible = true;
                 }
@@ -6632,14 +6806,14 @@ namespace PuntoDeVentaV2
             else
             {
                 ///////////////////////////////////////////////////////////TOTALES EN CAJA DE VENTAS, ABONOS, DINERO AGREGADO Y ANTICIPOS/////////////////////////////////////////////////
-                
-                cantidadTotalEfectivoEnCaja = ((totalEfectivoVentaEnCaja + totalEfectivoAnticiposEnCaja + totalEfectivoDepsitosEnCaja + totalAbonoEfectivo ) - totalEfectivoRetiroEnCaja);
+
+                cantidadTotalEfectivoEnCaja = ((totalEfectivoVentaEnCaja + totalEfectivoAnticiposEnCaja + totalEfectivoDepsitosEnCaja + totalAbonoEfectivo) - totalEfectivoRetiroEnCaja);
                 if (cantidadTotalEfectivoEnCaja <= 0)
                 {
                     cantidadTotalEfectivoEnCaja = 0;
                 }
 
-                cantidadTotalTarjetaEnCaja = ((totalTarjetaVentaEnCaja + totalTarjetaAnticiposEnCaja + totalTarjetaDepositosEnCaja + totalAbonoTarjeta ) - totalTarjetaRetiroEnCaja);
+                cantidadTotalTarjetaEnCaja = ((totalTarjetaVentaEnCaja + totalTarjetaAnticiposEnCaja + totalTarjetaDepositosEnCaja + totalAbonoTarjeta) - totalTarjetaRetiroEnCaja);
                 if (cantidadTotalTarjetaEnCaja <= 0)
                 {
                     cantidadTotalTarjetaEnCaja = 0;

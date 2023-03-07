@@ -51,7 +51,9 @@
             this.cInformacion = new System.Windows.Forms.DataGridViewImageColumn();
             this.retomarVenta = new System.Windows.Forms.DataGridViewImageColumn();
             this.ganancia = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Abonado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelBotones = new System.Windows.Forms.Panel();
+            this.cbTipoRentas = new System.Windows.Forms.ComboBox();
             this.cbFormasPago = new System.Windows.Forms.ComboBox();
             this.cbFiltroAdminEmpleado = new System.Windows.Forms.ComboBox();
             this.dpHoraFinal = new System.Windows.Forms.DateTimePicker();
@@ -67,6 +69,9 @@
             this.dpFechaFinal = new System.Windows.Forms.DateTimePicker();
             this.dpFechaInicial = new System.Windows.Forms.DateTimePicker();
             this.btnNuevaVenta = new System.Windows.Forms.Button();
+            this.btnPorVencer = new System.Windows.Forms.Button();
+            this.btnVencidas = new System.Windows.Forms.Button();
+            this.btnBuscarPorHuella = new System.Windows.Forms.Button();
             this.btnBuscarVentas = new System.Windows.Forms.Button();
             this.cbVentas = new System.Windows.Forms.ComboBox();
             this.cbTipoRentas = new System.Windows.Forms.ComboBox();
@@ -81,6 +86,8 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnPrimeraPagina = new System.Windows.Forms.Button();
             this.btnAnterior = new System.Windows.Forms.Button();
+            this.linkFirst = new System.Windows.Forms.LinkLabel();
+            this.linkLast = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaSiguiente = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaActual = new System.Windows.Forms.LinkLabel();
             this.linkLblPaginaAnterior = new System.Windows.Forms.LinkLabel();
@@ -138,7 +145,8 @@
             this.Timbrar,
             this.cInformacion,
             this.retomarVenta,
-            this.ganancia});
+            this.ganancia,
+            this.Abonado});
             this.DGVListadoVentas.Location = new System.Drawing.Point(13, 194);
             this.DGVListadoVentas.Name = "DGVListadoVentas";
             this.DGVListadoVentas.ReadOnly = true;
@@ -165,6 +173,7 @@
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
             this.ID.Visible = false;
+            this.ID.Width = 80;
             // 
             // Cliente
             // 
@@ -205,27 +214,28 @@
             this.Total.HeaderText = "Total";
             this.Total.Name = "Total";
             this.Total.ReadOnly = true;
+            this.Total.Width = 80;
             // 
             // Folio
             // 
             this.Folio.HeaderText = "Folio";
             this.Folio.Name = "Folio";
             this.Folio.ReadOnly = true;
-            this.Folio.Width = 50;
+            this.Folio.Width = 40;
             // 
             // Serie
             // 
             this.Serie.HeaderText = "Serie";
             this.Serie.Name = "Serie";
             this.Serie.ReadOnly = true;
-            this.Serie.Width = 50;
+            this.Serie.Width = 40;
             // 
             // Fecha
             // 
             this.Fecha.HeaderText = "Fecha";
             this.Fecha.Name = "Fecha";
             this.Fecha.ReadOnly = true;
-            this.Fecha.Width = 150;
+            this.Fecha.Width = 130;
             // 
             // Cancelar
             // 
@@ -283,11 +293,22 @@
             this.ganancia.Name = "ganancia";
             this.ganancia.ReadOnly = true;
             this.ganancia.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ganancia.Width = 60;
+            // 
+            // Abonado
+            // 
+            this.Abonado.DataPropertyName = "Abonado";
+            this.Abonado.HeaderText = "Abonado";
+            this.Abonado.Name = "Abonado";
+            this.Abonado.ReadOnly = true;
+            this.Abonado.Visible = false;
+            this.Abonado.Width = 80;
             // 
             // panelBotones
             // 
             this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBotones.Controls.Add(this.cbTipoRentas);
             this.panelBotones.Controls.Add(this.cbFormasPago);
             this.panelBotones.Controls.Add(this.cbFiltroAdminEmpleado);
             this.panelBotones.Controls.Add(this.dpHoraFinal);
@@ -303,6 +324,9 @@
             this.panelBotones.Controls.Add(this.dpFechaFinal);
             this.panelBotones.Controls.Add(this.dpFechaInicial);
             this.panelBotones.Controls.Add(this.btnNuevaVenta);
+            this.panelBotones.Controls.Add(this.btnPorVencer);
+            this.panelBotones.Controls.Add(this.btnVencidas);
+            this.panelBotones.Controls.Add(this.btnBuscarPorHuella);
             this.panelBotones.Controls.Add(this.btnBuscarVentas);
             this.panelBotones.Controls.Add(this.cbVentas);
             this.panelBotones.Controls.Add(this.cbTipoRentas);
@@ -311,6 +335,17 @@
             this.panelBotones.Name = "panelBotones";
             this.panelBotones.Size = new System.Drawing.Size(960, 110);
             this.panelBotones.TabIndex = 6;
+            // 
+            // cbTipoRentas
+            // 
+            this.cbTipoRentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipoRentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTipoRentas.FormattingEnabled = true;
+            this.cbTipoRentas.Location = new System.Drawing.Point(3, 30);
+            this.cbTipoRentas.Name = "cbTipoRentas";
+            this.cbTipoRentas.Size = new System.Drawing.Size(240, 21);
+            this.cbTipoRentas.TabIndex = 20;
+            this.cbTipoRentas.Visible = false;
             // 
             // cbFormasPago
             // 
@@ -508,6 +543,63 @@
             this.btnNuevaVenta.UseVisualStyleBackColor = false;
             this.btnNuevaVenta.Click += new System.EventHandler(this.btnNuevaVenta_Click);
             // 
+            // btnPorVencer
+            // 
+            this.btnPorVencer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnPorVencer.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPorVencer.FlatAppearance.BorderSize = 0;
+            this.btnPorVencer.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnPorVencer.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnPorVencer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPorVencer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPorVencer.ForeColor = System.Drawing.Color.White;
+            this.btnPorVencer.Location = new System.Drawing.Point(808, 81);
+            this.btnPorVencer.Name = "btnPorVencer";
+            this.btnPorVencer.Size = new System.Drawing.Size(147, 21);
+            this.btnPorVencer.TabIndex = 4;
+            this.btnPorVencer.Text = "POR VENCER";
+            this.btnPorVencer.UseVisualStyleBackColor = false;
+            this.btnPorVencer.Visible = false;
+            this.btnPorVencer.Click += new System.EventHandler(this.btnPorVencer_Click);
+            // 
+            // btnVencidas
+            // 
+            this.btnVencidas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnVencidas.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnVencidas.FlatAppearance.BorderSize = 0;
+            this.btnVencidas.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnVencidas.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnVencidas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnVencidas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVencidas.ForeColor = System.Drawing.Color.White;
+            this.btnVencidas.Location = new System.Drawing.Point(645, 81);
+            this.btnVencidas.Name = "btnVencidas";
+            this.btnVencidas.Size = new System.Drawing.Size(147, 21);
+            this.btnVencidas.TabIndex = 4;
+            this.btnVencidas.Text = "VENCIDAS";
+            this.btnVencidas.UseVisualStyleBackColor = false;
+            this.btnVencidas.Visible = false;
+            this.btnVencidas.Click += new System.EventHandler(this.btnVencidas_Click);
+            // 
+            // btnBuscarPorHuella
+            // 
+            this.btnBuscarPorHuella.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
+            this.btnBuscarPorHuella.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnBuscarPorHuella.FlatAppearance.BorderSize = 0;
+            this.btnBuscarPorHuella.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnBuscarPorHuella.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(83)))), ((int)(((byte)(79)))));
+            this.btnBuscarPorHuella.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBuscarPorHuella.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBuscarPorHuella.ForeColor = System.Drawing.Color.White;
+            this.btnBuscarPorHuella.Location = new System.Drawing.Point(482, 81);
+            this.btnBuscarPorHuella.Name = "btnBuscarPorHuella";
+            this.btnBuscarPorHuella.Size = new System.Drawing.Size(147, 21);
+            this.btnBuscarPorHuella.TabIndex = 4;
+            this.btnBuscarPorHuella.Text = "BUSCAR POR HUELLA";
+            this.btnBuscarPorHuella.UseVisualStyleBackColor = false;
+            this.btnBuscarPorHuella.Visible = false;
+            this.btnBuscarPorHuella.Click += new System.EventHandler(this.btnBuscarPorHuella_Click);
+            // 
             // btnBuscarVentas
             // 
             this.btnBuscarVentas.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(207)))), ((int)(((byte)(53)))), ((int)(((byte)(20)))));
@@ -520,7 +612,7 @@
             this.btnBuscarVentas.ForeColor = System.Drawing.Color.White;
             this.btnBuscarVentas.Location = new System.Drawing.Point(319, 81);
             this.btnBuscarVentas.Name = "btnBuscarVentas";
-            this.btnBuscarVentas.Size = new System.Drawing.Size(176, 21);
+            this.btnBuscarVentas.Size = new System.Drawing.Size(147, 21);
             this.btnBuscarVentas.TabIndex = 4;
             this.btnBuscarVentas.Text = "BUSCAR";
             this.btnBuscarVentas.UseVisualStyleBackColor = false;
@@ -578,6 +670,8 @@
             this.panel1.Controls.Add(this.txtMaximoPorPagina);
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.panel3);
+            this.panel1.Controls.Add(this.linkFirst);
+            this.panel1.Controls.Add(this.linkLast);
             this.panel1.Controls.Add(this.linkLblPaginaSiguiente);
             this.panel1.Controls.Add(this.linkLblPaginaActual);
             this.panel1.Controls.Add(this.linkLblPaginaAnterior);
@@ -624,7 +718,7 @@
             this.panel4.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel4.Controls.Add(this.btnSiguiente);
             this.panel4.Controls.Add(this.btnUltimaPagina);
-            this.panel4.Location = new System.Drawing.Point(540, 20);
+            this.panel4.Location = new System.Drawing.Point(574, 20);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(59, 32);
             this.panel4.TabIndex = 26;
@@ -666,7 +760,7 @@
             this.panel3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel3.Controls.Add(this.btnPrimeraPagina);
             this.panel3.Controls.Add(this.btnAnterior);
-            this.panel3.Location = new System.Drawing.Point(385, 20);
+            this.panel3.Location = new System.Drawing.Point(390, 20);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(56, 32);
             this.panel3.TabIndex = 25;
@@ -703,13 +797,43 @@
             this.btnAnterior.UseVisualStyleBackColor = false;
             this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
             // 
+            // linkFirst
+            // 
+            this.linkFirst.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linkFirst.AutoSize = true;
+            this.linkFirst.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linkFirst.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkFirst.Location = new System.Drawing.Point(451, 28);
+            this.linkFirst.Name = "linkFirst";
+            this.linkFirst.Size = new System.Drawing.Size(23, 16);
+            this.linkFirst.TabIndex = 24;
+            this.linkFirst.TabStop = true;
+            this.linkFirst.Text = "1...";
+            this.linkFirst.Visible = false;
+            this.linkFirst.Click += new System.EventHandler(this.btnPrimeraPagina_Click);
+            // 
+            // linkLast
+            // 
+            this.linkLast.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.linkLast.AutoSize = true;
+            this.linkLast.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.linkLast.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLast.Location = new System.Drawing.Point(545, 28);
+            this.linkLast.Name = "linkLast";
+            this.linkLast.Size = new System.Drawing.Size(23, 16);
+            this.linkLast.TabIndex = 24;
+            this.linkLast.TabStop = true;
+            this.linkLast.Text = "...4";
+            this.linkLast.Visible = false;
+            this.linkLast.Click += new System.EventHandler(this.btnUltimaPagina_Click);
+            // 
             // linkLblPaginaSiguiente
             // 
             this.linkLblPaginaSiguiente.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.linkLblPaginaSiguiente.AutoSize = true;
             this.linkLblPaginaSiguiente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(512, 28);
+            this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(526, 28);
             this.linkLblPaginaSiguiente.Name = "linkLblPaginaSiguiente";
             this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(14, 16);
             this.linkLblPaginaSiguiente.TabIndex = 24;
@@ -723,7 +847,7 @@
             this.linkLblPaginaActual.AutoSize = true;
             this.linkLblPaginaActual.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaActual.Location = new System.Drawing.Point(485, 28);
+            this.linkLblPaginaActual.Location = new System.Drawing.Point(502, 28);
             this.linkLblPaginaActual.Name = "linkLblPaginaActual";
             this.linkLblPaginaActual.Size = new System.Drawing.Size(14, 16);
             this.linkLblPaginaActual.TabIndex = 23;
@@ -737,7 +861,7 @@
             this.linkLblPaginaAnterior.AutoSize = true;
             this.linkLblPaginaAnterior.Cursor = System.Windows.Forms.Cursors.Hand;
             this.linkLblPaginaAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkLblPaginaAnterior.Location = new System.Drawing.Point(455, 28);
+            this.linkLblPaginaAnterior.Location = new System.Drawing.Point(478, 28);
             this.linkLblPaginaAnterior.Name = "linkLblPaginaAnterior";
             this.linkLblPaginaAnterior.Size = new System.Drawing.Size(14, 16);
             this.linkLblPaginaAnterior.TabIndex = 22;
@@ -825,7 +949,7 @@
             // 
             this.rbVentas.AutoSize = true;
             this.rbVentas.Checked = true;
-            this.rbVentas.Location = new System.Drawing.Point(15, 34);
+            this.rbVentas.Location = new System.Drawing.Point(12, 32);
             this.rbVentas.Name = "rbVentas";
             this.rbVentas.Size = new System.Drawing.Size(68, 17);
             this.rbVentas.TabIndex = 69;
@@ -837,7 +961,7 @@
             // rbRentas
             // 
             this.rbRentas.AutoSize = true;
-            this.rbRentas.Location = new System.Drawing.Point(91, 34);
+            this.rbRentas.Location = new System.Drawing.Point(87, 32);
             this.rbRentas.Name = "rbRentas";
             this.rbRentas.Size = new System.Drawing.Size(173, 17);
             this.rbRentas.TabIndex = 70;
@@ -942,6 +1066,12 @@
         private System.Windows.Forms.DataGridViewImageColumn cInformacion;
         private System.Windows.Forms.DataGridViewImageColumn retomarVenta;
         private System.Windows.Forms.DataGridViewImageColumn ganancia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Abonado;
+        private System.Windows.Forms.LinkLabel linkLast;
+        private System.Windows.Forms.LinkLabel linkFirst;
+        private System.Windows.Forms.Button btnBuscarPorHuella;
+        private System.Windows.Forms.Button btnPorVencer;
+        private System.Windows.Forms.Button btnVencidas;
         private System.Windows.Forms.RadioButton rbVentas;
         private System.Windows.Forms.RadioButton rbRentas;
         public System.Windows.Forms.ComboBox cbTipoRentas;

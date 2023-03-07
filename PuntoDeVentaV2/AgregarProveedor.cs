@@ -64,6 +64,13 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            if (!txtTelefono.Text.All(char.IsDigit) && !string.IsNullOrEmpty(txtTelefono.Text))
+            {
+                MessageBox.Show("El número de teléfono no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTelefono.Clear();
+                txtTelefono.Focus();
+                return;
+            }
             bool YaExiste = false;
             using (var ConsultaNombre = cn.CargarDatos($"SELECT Nombre FROM proveedores WHERE `Status` = 1 AND IDUsuario = {FormPrincipal.userID}"))
             {

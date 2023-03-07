@@ -15,6 +15,7 @@ namespace PuntoDeVentaV2
         public string TotalDescuento { get; set; }
         public int TipoDescuento { get; set; }
 
+        int calcu = 0;
         private int idProducto;
         private string nombreProducto;
         private double precioProducto;
@@ -30,7 +31,7 @@ namespace PuntoDeVentaV2
             this.cantidadProducto = Convert.ToDouble(datos[3]);
         }
 
-        private void AgregarDescuentoDirecto_Load(object sender, EventArgs e) 
+        private void AgregarDescuentoDirecto_Load(object sender, EventArgs e)
         {
             lbTotalFinal.Text = precioProducto.ToString("0.00");
             lbProducto.Text = nombreProducto;
@@ -62,12 +63,12 @@ namespace PuntoDeVentaV2
                     txtPorcentaje_KeyUp(sender, new KeyEventArgs(Keys.Up));
                 }
             }
-            
-            
+
+
             if (Ventas.SeCambioCantidad == true)
             {
                 btnAceptar.PerformClick();
-                Ventas.SeCambioCantidad = false; 
+                Ventas.SeCambioCantidad = false;
             }
         }
 
@@ -77,45 +78,55 @@ namespace PuntoDeVentaV2
 
             // Esto es para guardar cual campo es el que aplico el descuento y la cantidad
             // ya sea del porcentaje aplicado o un total en especifico
-            var tipo = 0;
-            var cantidad = txtCantidad.Text;
-            var porcentaje = txtPorcentaje.Text;
-            var cantidadElegida = 0f;
-
-            if (!string.IsNullOrWhiteSpace(cantidad))
+            if (txtCantidad.Text.Equals("") && txtPorcentaje.Text.Equals(""))
             {
-                tipo = 1;
-                cantidadElegida = float.Parse(cantidad);
-            }
-
-            if (!string.IsNullOrWhiteSpace(porcentaje))
-            {
-                tipo = 2;
-                cantidadElegida = float.Parse(porcentaje);
-                
-                
-                porcentaje = $" - {porcentaje}%";
-            }
-
-            // Guardamos los datos en el diccionario de Ventas para el momento en que se quiera editar
-            // el descuento de uno de los productos de la lista
-            if (Ventas.descuentosDirectos.ContainsKey(idProducto))
-            {
-                Ventas.descuentosDirectos[idProducto] = Tuple.Create(tipo, cantidadElegida); 
+                this.Close();
+                return;
             }
             else
             {
-                Ventas.descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipo, cantidadElegida));
-            }  
+                var tipo = 0;
+                var cantidad = txtCantidad.Text;
+                var porcentaje = txtPorcentaje.Text;
+                var cantidadElegida = 0f;
 
-            this.TotalDescuento = lbTotalDescuento.Text + porcentaje;
-            this.TipoDescuento = tipo;
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+                if (!string.IsNullOrWhiteSpace(cantidad))
+                {
+                    tipo = 1;
+                    cantidadElegida = float.Parse(cantidad);
+                }
+
+                if (!string.IsNullOrWhiteSpace(porcentaje))
+                {
+                    tipo = 2;
+                    cantidadElegida = float.Parse(porcentaje);
+
+
+                    porcentaje = $" - {porcentaje}%";
+                }
+
+                // Guardamos los datos en el diccionario de Ventas para el momento en que se quiera editar
+                // el descuento de uno de los productos de la lista
+                if (Ventas.descuentosDirectos.ContainsKey(idProducto))
+                {
+                    Ventas.descuentosDirectos[idProducto] = Tuple.Create(tipo, cantidadElegida);
+                }
+                else
+                {
+                    Ventas.descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipo, cantidadElegida));
+                }
+
+                this.TotalDescuento = lbTotalDescuento.Text + porcentaje;
+                this.TipoDescuento = tipo;
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            
         }
 
         private void txtCantidad_KeyUp(object sender, KeyEventArgs e)
         {
+
             if (!string.IsNullOrWhiteSpace(txtCantidad.Text))
             {
                 lbCantidadProducto.Visible = true;
@@ -161,6 +172,7 @@ namespace PuntoDeVentaV2
                 lbTotalFinal.Text = precioProducto.ToString("0.00");
                 lbCantidadProducto.Visible = false;
             }
+
         }
 
         private void txtPorcentaje_KeyUp(object sender, KeyEventArgs e)
@@ -256,6 +268,56 @@ namespace PuntoDeVentaV2
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
+            if (txtCantidad.Text.Equals("") && txtPorcentaje.Text.Equals("") )
+            {
+                this.Close();
+            }
+            else if (Ventas.descuentosDirectos.Count == 0)
+            {
+                    this.Close();
+            }
+            else
+            {
+                lbTotalDescuento.Text = "0.00";
+                Ventas.descuentosDirectos.Remove(idProducto);
+                var descuento = Convert.ToDouble(lbTotalDescuento.Text);
+
+                // Esto es para guardar cual campo es el que aplico el descuento y la cantidad
+                // ya sea del porcentaje aplicado o un total en especifico
+                var tipo = 0;
+                var cantidad = txtCantidad.Text;
+                var porcentaje = "0";
+                var cantidadElegida = 0f;
+
+                if (!string.IsNullOrWhiteSpace(cantidad))
+                {
+                    tipo = 1;
+                    cantidadElegida = float.Parse(cantidad);
+                }
+
+                if (!string.IsNullOrWhiteSpace(porcentaje))
+                {
+                    tipo = 2;
+                    cantidadElegida = float.Parse(porcentaje);
+                    porcentaje = $"";
+                }
+
+                // Guardamos los datos en el diccionario de Ventas para el momento en que se quiera editar
+                // el descuento de uno de los productos de la lista
+                if (Ventas.descuentosDirectos.ContainsKey(idProducto))
+                {
+                    Ventas.descuentosDirectos[idProducto] = Tuple.Create(tipo, cantidadElegida);
+                }
+                else
+                {
+                    Ventas.descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipo, cantidadElegida));
+                }
+
+                this.TotalDescuento = lbTotalDescuento.Text + porcentaje;
+                this.TipoDescuento = tipo;
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
             //if (Ventas.descuentosDirectos.ContainsKey(idProducto))
             //{
             //    Ventas.descuentosDirectos.Remove(idProducto);
@@ -268,45 +330,7 @@ namespace PuntoDeVentaV2
             //    lbTotalFinal.Text = "0.00";
             //}
 
-            lbTotalDescuento.Text = "0.00";
-            Ventas.descuentosDirectos.Remove(idProducto);
-            var descuento = Convert.ToDouble(lbTotalDescuento.Text);
-
-            // Esto es para guardar cual campo es el que aplico el descuento y la cantidad
-            // ya sea del porcentaje aplicado o un total en especifico
-            var tipo = 0;
-            var cantidad = txtCantidad.Text;
-            var porcentaje = "0";
-            var cantidadElegida = 0f;
-
-            if (!string.IsNullOrWhiteSpace(cantidad))
-            {
-                tipo = 1;
-                cantidadElegida = float.Parse(cantidad);
-            }
-
-            if (!string.IsNullOrWhiteSpace(porcentaje))
-            {
-                tipo = 2;
-                cantidadElegida = float.Parse(porcentaje);
-                porcentaje = $"";
-            }
-
-            // Guardamos los datos en el diccionario de Ventas para el momento en que se quiera editar
-            // el descuento de uno de los productos de la lista
-            if (Ventas.descuentosDirectos.ContainsKey(idProducto))
-            {
-                Ventas.descuentosDirectos[idProducto] = Tuple.Create(tipo, cantidadElegida);
-            }
-            else
-            {
-                Ventas.descuentosDirectos.Add(idProducto, new Tuple<int, float>(tipo, cantidadElegida));
-            }
-
-            this.TotalDescuento = lbTotalDescuento.Text + porcentaje;
-            this.TipoDescuento = tipo;
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            
         }
 
         private void txtCantidad_Leave(object sender, EventArgs e)
@@ -337,9 +361,74 @@ namespace PuntoDeVentaV2
 
         private void txtCantidad_KeyDown_1(object sender, KeyEventArgs e)
         {
+            if (e.KeyData == Keys.Enter)
+            {
+                btnAceptar.PerformClick();
+            }
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
+            }
+        }
+
+        private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtCantidad.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+                }
+            }
+        }
+
+        private void txtPorcentaje_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Space))
+            {
+                calcu++;
+
+                if (calcu == 1)
+                {
+                    calculadora calculadora = new calculadora();
+
+                    calculadora.FormClosed += delegate
+                    {
+                        if (calculadora.seEnvia.Equals(true))
+                        {
+                            txtPorcentaje.Text = calculadora.lCalculadora.Text;
+                        }
+                        calcu = 0;
+                    };
+                    if (!calculadora.Visible)
+                    {
+                        calculadora.Show();
+                    }
+                    else
+                    {
+                        calculadora.Show();
+                    }
+
+                }
             }
         }
     }

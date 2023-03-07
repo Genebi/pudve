@@ -44,6 +44,8 @@ namespace PuntoDeVentaV2
         public static bool EsGuardarVenta;
         decimal primeraCantidad;
         List<string> ListaProdutos;
+        List<string> ListaSubDetallesProdutos = new List<string>();
+        List<string> ListaUpdatesSubDetallesProdutos = new List<string>();
         // Almacena los ID de los productos a los que se aplica descuento general
         private Dictionary<int, bool> productosDescuentoG = new Dictionary<int, bool>();
         float porcentajeGeneral = 0;
@@ -104,7 +106,12 @@ namespace PuntoDeVentaV2
         public static string idCliente = string.Empty;
         public static string credito = string.Empty;
 
+        public static decimal totalAnticipoAplicado;
+
         public static string codBarras;
+        public static string consutlaCredito = string.Empty;
+
+
         // Para saber con que boton se cerro el form DetalleVenta.cs, en este caso saber si se cerro con el boton aceptar (terminar)
         public static bool botonAceptar = false;
 
@@ -248,6 +255,8 @@ namespace PuntoDeVentaV2
         public static string codBarProdVentaRapida;
 
         public static int IDAnticipo = 0;
+
+        bool QueLoLimipie = false;
         #region Proceso de Bascula
         // Constructores
         private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
@@ -327,6 +336,13 @@ namespace PuntoDeVentaV2
 
         private void Ventas_Load(object sender, EventArgs e)
         {
+            using (DataTable dt = cn.CargarDatos($"SELECT ventaFacil FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (dt.Rows[0][0].ToString().Equals("1"))
+                {
+                    btnVentaFacil.Visible = true;
+                }
+            }
             CBTipo.SelectedItem = "Todos";
             CBTipo.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
 
@@ -383,13 +399,13 @@ namespace PuntoDeVentaV2
                 correoDescuento = Convert.ToInt32(configCorreos[23]);
 
                 // Realiza rentas
-                if (configCorreos[31].Equals(1))
+                if (configCorreos[32].Equals(1))
                 {
                     checkRenta.Checked = Convert.ToBoolean(configCorreos[31]);
                     aceptaRenta = 1;
                 }
 
-                if (configCorreos[31].Equals(0))
+                if (configCorreos[32].Equals(0))
                 {
                     checkRenta.Enabled = false;
                 }
@@ -485,6 +501,7 @@ namespace PuntoDeVentaV2
 
         private void ocultarResultados()
         {
+            
             listaProductos.Visible = false;
         }
 
@@ -860,6 +877,7 @@ namespace PuntoDeVentaV2
                                 if (result.ToString().Contains('.'))
                                 {
                                     MessageBox.Show("Este producto se vende solo por unidades enteras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    txtBuscadorProducto.Clear();
                                     return existe;
                                 }
 
@@ -919,6 +937,7 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            
             return existe;
         }
 
@@ -1347,7 +1366,7 @@ namespace PuntoDeVentaV2
             DGVentas.ClearSelection();
             indiceColumna++;
 
-            var datos = cn.CargarDatos($"SELECT FormatoDeVenta FROM productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{datosProducto[7]}' AND Status = '1'");
+            var datos = cn.CargarDatos($"SELECT FormatoDeVenta FROM productos WHERE IDUsuario = '{FormPrincipal.userID}' AND CodigoBarras = '{datosProducto[7]}' ORDER BY ID DESC LIMIT 1");
             var pesoAutomatico = datos.Rows[0]["FormatoDeVenta"].ToString();
             if (pesoAutomatico == "2")
             {
@@ -1497,11 +1516,11 @@ namespace PuntoDeVentaV2
                         cantidad.ShowDialog();
                         //if (cantidadComprada.nuevaCantidad > cantidadAnterior)
                         //{
-                        
+
                         txtBuscadorProducto.Text = "+" + (cantidadComprada.nuevaCantidad - 1);
                         txtBuscadorProducto.Focus();
-                       SendKeys.Send("{ENTER}");
-                     listaProductos.Visible = false;
+                        SendKeys.Send("{ENTER}");
+                        listaProductos.Visible = false;
                         //}
                         //else
                         //{
@@ -1511,7 +1530,7 @@ namespace PuntoDeVentaV2
                         //    listaProductos.Visible = false;
                         //}
                     }
-                  SendKeys.Send("{BACKSPACE}");
+                    SendKeys.Send("{BACKSPACE}");
                     cambioCantidadProd = 0;
                     if (SeCambioCantidad == true)
                     {
@@ -1693,7 +1712,7 @@ namespace PuntoDeVentaV2
                             string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
                             if (!datosDescuento.Equals(null) && datosDescuento.Length > 0)
                             {
-                                CalcularDescuento(datosDescuento, tipoDescuento, (int)cantidad, celdaCellClick);
+                                CalcularDescuento(datosDescuento, tipoDescuento, cantidad, celdaCellClick);
                             }
                         }
                         reproducirProductoAgregado();
@@ -1837,7 +1856,7 @@ namespace PuntoDeVentaV2
                                 string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
                                 if (!datosDescuento.Equals(null) && datosDescuento.Length > 0)
                                 {
-                                    CalcularDescuento(datosDescuento, tipoDescuento, (int)nuevaCantidad, celdaCellClick);
+                                    CalcularDescuento(datosDescuento, tipoDescuento, nuevaCantidad, celdaCellClick);
                                 }
                             }
 
@@ -2373,10 +2392,10 @@ namespace PuntoDeVentaV2
         {
             int idProducto = Convert.ToInt32(DGVentas.Rows[indiceFila].Cells["IDProducto"].Value);
             int tipoDescuento = Convert.ToInt32(DGVentas.Rows[indiceFila].Cells["DescuentoTipo"].Value);
-            var precio = float.Parse(DGVentas.Rows[indiceFila].Cells["Precio"].Value.ToString());
-            int cantidad = Convert.ToInt32(DGVentas.Rows[indiceFila].Cells["Cantidad"].Value) + cantidadFila;
+            decimal precio = Convert.ToDecimal(DGVentas.Rows[indiceFila].Cells["Precio"].Value.ToString());
+            decimal cantidad = Convert.ToDecimal(DGVentas.Rows[indiceFila].Cells["Cantidad"].Value) + cantidadFila;
 
-            float importe = cantidad * precio;
+            decimal importe = cantidad * precio;
 
             // Verificar si tiene descuento directo
             if (descuentosDirectos.ContainsKey(idProducto))
@@ -2386,7 +2405,7 @@ namespace PuntoDeVentaV2
                 // Si el descuento directo es por descuento
                 if (tipoDescuentoDirecto == 2)
                 {
-                    var porcentaje = descuentosDirectos[idProducto].Item2;
+                    decimal porcentaje = Convert.ToDecimal(descuentosDirectos[idProducto].Item2);
 
                     var descuentoTmp = (precio * cantidad) * (porcentaje / 100);
                     var importeTmp = (precio * cantidad) - descuentoTmp;
@@ -2416,7 +2435,7 @@ namespace PuntoDeVentaV2
         {
             if (!datosDescuento.Equals(null) && datosDescuento.Length > 0)
             {
-                //Cliente
+                //Producto
                 if (tipo == 1)
                 {
                     var descuento = datosDescuento[0].Split('-');
@@ -3019,54 +3038,66 @@ namespace PuntoDeVentaV2
                         else
                         {
                             var diferencia = importeTmp - sumaImportes;
-
                             cAnticipoUtilizado.Text = diferencia.ToString("N");
                         }
                     }
                 }
             }
-            if (total_importe_cero_exe > 0)
+            using (var dt = cn.CargarDatos($"SELECT mostrarIVA FROM configuracion WHERE IDUsuario= {FormPrincipal.userID}"))
             {
-                lblIVA0Exento.Visible = true;
-                lblCIVA0Exento.Visible = true;
-            }
-            else
-            {
-                lblIVA0Exento.Visible = false;
-                lblCIVA0Exento.Visible = false;
-            }
-            if (totalIVA8 > 0)
-            {
-                lbIVA8.Visible = true;
-                cIVA8.Visible = true;
-                if (totalIVA16 > 0)
+                if (dt.Rows[0][0].Equals(1))
                 {
+                    if (total_importe_cero_exe > 0)
+                    {
+                        lblIVA0Exento.Visible = true;
+                        lblCIVA0Exento.Visible = true;
+                    }
+                    else
+                    {
+                        lblIVA0Exento.Visible = false;
+                        lblCIVA0Exento.Visible = false;
+                    }
+                    if (totalIVA8 > 0)
+                    {
+                        lbIVA8.Visible = true;
+                        cIVA8.Visible = true;
+                        if (totalIVA16 > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            lbIVA.Visible = false;
+                            cIVA.Visible = false;
+                        }
+
+                    }
+                    else
+                    {
+                        lbIVA8.Visible = false;
+                        cIVA8.Visible = false;
+                        lbIVA.Visible = true;
+                        cIVA.Visible = true;
+                    }
+
+                    if (totalIVA16 > 0)
+                    {
+                        lbIVA.Visible = true;
+                        cIVA.Visible = true;
+                    }
+                    else
+                    {
+                        lbIVA.Visible = false;
+                        cIVA.Visible = false;
+                    }
 
                 }
                 else
                 {
                     lbIVA.Visible = false;
+                    lbIVA8.Visible = false;
                     cIVA.Visible = false;
                 }
-
-            }
-            else
-            {
-                lbIVA8.Visible = false;
-                cIVA8.Visible = false;
-                lbIVA.Visible = true;
-                cIVA.Visible = true;
-            }
-
-            if (totalIVA16 > 0)
-            {
-                lbIVA.Visible = true;
-                cIVA.Visible = true;
-            }
-            else
-            {
-                lbIVA.Visible = false;
-                cIVA.Visible = false;
             }
 
 
@@ -3327,7 +3358,15 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-
+            ListaSubDetallesProdutos.Clear();
+            ListaUpdatesSubDetallesProdutos.Clear();
+            if (!verificarSubDetalles())
+            {
+                MessageBox.Show("Todos los productos con subdetalles deben tener especificada su categoría y la cantidad vendida.", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                ListaSubDetallesProdutos.Clear();
+                ListaUpdatesSubDetallesProdutos.Clear();
+                return;
+            }
             //if (ClienteConDescuento.Equals(true))
             //{
             //    if (!FormPrincipal.id_empleado.Equals(0))
@@ -3616,8 +3655,9 @@ namespace PuntoDeVentaV2
                                 DetalleVenta.cliente = string.Empty;
                                 AsignarCreditoVenta.idCliente = 0;
                                 AsignarCreditoVenta.cliente = string.Empty;
-                                ultimaVentaInformacion();
                                 cargarTicketAnticipo();
+                                ultimaVentaInformacion();
+
                                 panel1.Focus();
                             }
                             else
@@ -3705,6 +3745,39 @@ namespace PuntoDeVentaV2
             yasemando = false;
         }
 
+        private bool verificarSubDetalles()
+        {
+            bool registroCorrectoDeSubdetalles = true ;
+            foreach (DataGridViewRow producto in DGVentas.Rows)
+            {
+                if (!registroCorrectoDeSubdetalles)
+                {
+                    return registroCorrectoDeSubdetalles;
+                }
+                //0 es id, 5 es stock?
+                using (DataTable dtBuscarSubdetalles = cn.CargarDatos($"SELECT detallesubdetalle.ID FROM detallesubdetalle LEFT JOIN subdetallesdeproducto ON ( detallesubdetalle.IDSubDetalle = subdetallesdeproducto.ID AND detallesubdetalle.Estado = 1 ) INNER JOIN productos ON subdetallesdeproducto.IDProducto = productos.ID WHERE productos.id = {producto.Cells[0].Value.ToString()}"))
+                {
+                    if (!dtBuscarSubdetalles.Rows.Count.Equals(0))
+                    {
+                        subDetallesDeProducto detalles = new subDetallesDeProducto(producto.Cells[0].Value.ToString(), "Venta", Convert.ToDecimal(producto.Cells[5].Value.ToString()));
+                        detalles.FormClosed += delegate
+                        {
+                            if (!detalles.finalizado)
+                            {
+                                registroCorrectoDeSubdetalles = detalles.finalizado;
+                            }
+                            else
+                            {
+                                ListaSubDetallesProdutos.AddRange(detalles.subdetallesVenta);
+                                ListaUpdatesSubDetallesProdutos.AddRange(detalles.updates);
+                            }
+                        };
+                        detalles.ShowDialog();
+                    }
+                }
+            }
+            return registroCorrectoDeSubdetalles;
+        }
         private void cargarTicketAnticipo()
         {
             if (!IDAnticipo.Equals(0))
@@ -3780,7 +3853,51 @@ namespace PuntoDeVentaV2
                 cheque, transferencia, credito, referencia, idCliente, cliente
             };
 
-            cn.EjecutarConsulta(cs.GuardarDetallesVenta(info));
+            if (decimal.Parse(info[7]) > 0)
+            {
+                string efectivo = "0.00";
+                string tarjeta = "0.00";
+                string vales = "0.00";
+                string cheque = "0.00";
+                string transferencia = "0.00";
+                decimal total = 0;
+
+                if (decimal.Parse(info[2]) > 0)
+                {
+                    efectivo = info[2];
+                    total += decimal.Parse(efectivo);       
+                }
+                if (decimal.Parse(info[3]) > 0)
+                {
+                    tarjeta = info[3];
+                    total += decimal.Parse(tarjeta);
+                }
+                if (decimal.Parse(info[4]) > 0)
+                {
+                    vales = info[4];
+                    total += decimal.Parse(vales);
+                }
+                if (decimal.Parse(info[5]) > 0)
+                {
+                    cheque = info[5];
+                    total += decimal.Parse(cheque);
+                }
+                if (decimal.Parse(info[6]) > 0)
+                {
+                    transferencia = info[6];
+                    total += decimal.Parse(transferencia);
+                }
+                string[] todoCredito = new string[] {
+                IDVenta, FormPrincipal.userID.ToString(), "0",  "0",  "0",
+                 "0",  "0", (total+decimal.Parse(credito)).ToString(), referencia, idCliente, cliente
+            };      
+                cn.EjecutarConsulta(cs.GuardarDetallesVenta(todoCredito));
+            }       
+            else
+            {
+
+                cn.EjecutarConsulta(cs.GuardarDetallesVenta(info));
+            }
         }
 
         private void DetallesCliente(string idVenta)
@@ -3909,7 +4026,14 @@ namespace PuntoDeVentaV2
 
             if (formaDePagoDeVenta.Equals(string.Empty))
             {
-                formaDePagoDeVenta = "Presupuesto";
+                if (cAnticipoUtilizado.Visible.Equals(true))
+                {
+                    formaDePagoDeVenta = "Anticipos";
+                }
+                else
+                {
+                    formaDePagoDeVenta = "Presupuesto";
+                }
             }
 
             if (string.IsNullOrWhiteSpace(fechaEntrega))
@@ -4054,12 +4178,17 @@ namespace PuntoDeVentaV2
                         }
                     }
                     else
-                    {
+                    {       
                         mostrarVenta = 0;
-                        respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas, gananciaTotalPorVenta));
+                                respuesta = cn.EjecutarConsulta(cs.GuardarVenta(guardar, mostrarVenta, idAnticipoVentas, gananciaTotalPorVenta));
+                        if (!consutlaCredito.Equals(string.Empty))
+                        {
+                            cn.EjecutarConsulta(consutlaCredito);
+                            consutlaCredito = string.Empty;
+                        }
                         //Venta normal
                     }
-                }
+                }       
 
                 if (respuesta > 0)
                 {
@@ -4079,23 +4208,49 @@ namespace PuntoDeVentaV2
 
                     if (!statusVenta.Equals("2") && !statusVenta.Equals("7") && !statusVenta.Equals("11"))
                     {
-                        if (FormPrincipal.userNickName.Contains("@"))
+                        if (statusVenta.Equals("4"))
                         {
-                            string[] datos = new string[] {
+                            if (FormPrincipal.userNickName.Contains("@"))
+                            {
+                                decimal tota = decimal.Parse(efectivo) + decimal.Parse(tarjeta) + decimal.Parse(vales) + decimal.Parse(cheque) + decimal.Parse(transferencia) + decimal.Parse(credito);
+                                string[] datos = new string[] {
+                                "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
+                                 "0", "0", "0", "0", "0", tota.ToString(), Anticipo, FormPrincipal.id_empleado.ToString()
+                            };
+
+                                idOperacionCaja = cn.EjecutarConsulta(cs.OperacionCajaEmpleado(datos), regresarID: true);
+                            }
+                            else
+                            {
+                                decimal tota = decimal.Parse(efectivo) + decimal.Parse(tarjeta) + decimal.Parse(vales) + decimal.Parse(cheque) + decimal.Parse(transferencia) + decimal.Parse(credito);
+                                string[] datos = new string[] {
+                                "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
+                                "0", "0", "0", "0", "0", tota.ToString(), Anticipo, FormPrincipal.id_empleado.ToString()
+                            };
+
+                                idOperacionCaja = cn.EjecutarConsulta(cs.OperacionCaja(datos), regresarID: true);
+                            }
+                        }
+                        else
+                        {
+                            if (FormPrincipal.userNickName.Contains("@"))
+                            {
+                                string[] datos = new string[] {
                                 "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
                                  efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo, FormPrincipal.id_empleado.ToString()
                             };
 
-                            idOperacionCaja = cn.EjecutarConsulta(cs.OperacionCajaEmpleado(datos), regresarID: true);
-                        }
-                        else
-                        {
-                            string[] datos = new string[] {
+                                idOperacionCaja = cn.EjecutarConsulta(cs.OperacionCajaEmpleado(datos), regresarID: true);
+                            }
+                            else
+                            {
+                                string[] datos = new string[] {
                                 "venta", Total, "0", "", FechaOperacion, FormPrincipal.userID.ToString(),
                                 efectivo, tarjeta, vales, cheque, transferencia, credito, Anticipo, FormPrincipal.id_empleado.ToString()
                             };
 
-                            idOperacionCaja = cn.EjecutarConsulta(cs.OperacionCaja(datos), regresarID: true);
+                                idOperacionCaja = cn.EjecutarConsulta(cs.OperacionCaja(datos), regresarID: true);
+                            }
                         }
                     }
 
@@ -4203,6 +4358,7 @@ namespace PuntoDeVentaV2
                                         // faltaba esa validacion de si no tenia nada la consulta
                                         if (consulta.Rows.Count > 1) //Combo o Servicio con mas de 1 producto asignado
                                         {
+
                                             foreach (DataRow item in consulta.Rows)
                                             {
                                                 idprodCombo = item[3].ToString();
@@ -4225,16 +4381,27 @@ namespace PuntoDeVentaV2
                                                         tipoDeVentaComboServicio = "de servicio";
                                                     }
 
-                                                    var tipoMovimiento = "Venta Realizada";
+                                                    var tipoMovimientoInterno = "Venta Realizada";
 
                                                     if (checkRenta.Checked)
                                                     {
-                                                        tipoMovimiento = "Renta Realizada";
+                                                        tipoMovimientoInterno = "Renta Realizada";
                                                     }
 
-                                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','{tipoMovimiento} {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
+                                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','{tipoMovimientoInterno} {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
                                                 }
                                             }
+
+                                            var tipoMovimiento = "Venta Realizada";
+
+                                            if (checkRenta.Checked)
+                                            {
+                                                tipoMovimiento = "Renta Realizada";
+                                            }
+
+                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idComboServicio}','{tipoMovimiento} {tipoDeVentaComboServicio} Folio: {guardar[10]}','N/A','N/A','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])      }','{tipoDeVenta}',{idComboServicio})");
+
+
                                         }
                                         else if (!consulta.Rows.Count.Equals(0))//Combo o Servicio con 1 solo producto agregado
                                         {
@@ -4258,15 +4425,24 @@ namespace PuntoDeVentaV2
                                                     tipoDeVentaComboServicio = "de servicio";
                                                 }
 
-                                                var tipoMovimiento = "Venta Realizada";
+                                                var tipoMovimientoInterno = "Venta Realizada";
 
                                                 if (checkRenta.Checked)
                                                 {
-                                                    tipoMovimiento = "Renta Realizada";
+                                                    tipoMovimientoInterno = "Renta Realizada";
                                                 }
 
-                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','{tipoMovimiento} {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
+                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','{tipoMovimientoInterno} {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
                                             }
+
+                                            var tipoMovimiento = "Venta Realizada";
+
+                                            if (checkRenta.Checked)
+                                            {
+                                                tipoMovimiento = "Renta Realizada";
+                                            }
+
+                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idComboServicio}','{tipoMovimiento} {tipoDeVentaComboServicio} Folio: {guardar[10]}','N/A','N/A','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
                                         }
                                     }
                                     else
@@ -4653,6 +4829,7 @@ namespace PuntoDeVentaV2
                                 {
                                     DataRow drTipoVentaRealizada = dtTipoDeVentaRealizada.Rows[0];
                                     tipoDeVentaRealizada = Convert.ToInt32(drTipoVentaRealizada["Status"].ToString());
+
                                 }
                             }
 
@@ -4660,37 +4837,47 @@ namespace PuntoDeVentaV2
                             if (tipoDeVentaRealizada.Equals(1) || tipoDeVentaRealizada.Equals(6))
                             {
                                 int Permiso = 0;
-                                using (var DTpermiso = cn.CargarDatos($"SELECT HabilitarTicketVentas FROM `configuracion` WHERE IDUsuario = {FormPrincipal.userID}"))
+                                int TicketPDF = 0;
+                                using (var DTpermiso = cn.CargarDatos($"SELECT HabilitarTicketVentas,TicketOPDF FROM `configuracion` WHERE IDUsuario = {FormPrincipal.userID}"))
                                 {
                                     Permiso = Convert.ToInt32(DTpermiso.Rows[0]["HabilitarTicketVentas"]);
+                                    TicketPDF = Convert.ToInt32(DTpermiso.Rows[0]["TicketOPDF"]);
                                 }
                                 if (Permiso.Equals(1))
                                 {
-                                    using (imprimirTicket8cm imprimirTicketVenta = new imprimirTicket8cm())
+                                    if (TicketPDF.Equals(1))
                                     {
-                                        imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+                                        using (imprimirTicket8cm imprimirTicketVenta = new imprimirTicket8cm())
+                                        {
+                                            imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
 
-                                        imprimirTicketVenta.Logo = logo;
-                                        imprimirTicketVenta.Nombre = Usuario;
-                                        imprimirTicketVenta.NombreComercial = NombreComercial;
-                                        imprimirTicketVenta.DireccionCiudad = Direccion;
-                                        imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
-                                        imprimirTicketVenta.RFC = RFC;
-                                        imprimirTicketVenta.Correo = Correo;
-                                        imprimirTicketVenta.Telefono = Telefono;
-                                        imprimirTicketVenta.NombreCliente = NombreC;
-                                        imprimirTicketVenta.RFCCliente = RFCC;
-                                        imprimirTicketVenta.DomicilioCliente = DomicilioC;
-                                        imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
-                                        imprimirTicketVenta.CorreoCliente = CorreoC;
-                                        imprimirTicketVenta.TelefonoCliente = TelefonoC;
-                                        imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
-                                        imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
-                                        imprimirTicketVenta.Referencia = referencia;
-                                        imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
-                                        imprimirTicketVenta.ShowDialog();
+                                            imprimirTicketVenta.Logo = logo;
+                                            imprimirTicketVenta.Nombre = Usuario;
+                                            imprimirTicketVenta.NombreComercial = NombreComercial;
+                                            imprimirTicketVenta.DireccionCiudad = Direccion;
+                                            imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                            imprimirTicketVenta.RFC = RFC;
+                                            imprimirTicketVenta.Correo = Correo;
+                                            imprimirTicketVenta.Telefono = Telefono;
+                                            imprimirTicketVenta.NombreCliente = NombreC;
+                                            imprimirTicketVenta.RFCCliente = RFCC;
+                                            imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                            imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                            imprimirTicketVenta.CorreoCliente = CorreoC;
+                                            imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                            imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                            imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                            imprimirTicketVenta.Referencia = referencia;
+                                            imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
+                                            imprimirTicketVenta.ShowDialog();
+                                        }
                                     }
-
+                                    else if (TicketPDF.Equals(2))
+                                    {
+                                        FormNotaDeVenta form = new FormNotaDeVenta(Convert.ToInt32(idVenta));
+                                        FormNotaDeVenta.fuePorVenta = true;
+                                        form.ShowDialog();
+                                    }
                                 }
                                 else
                                 {
@@ -4698,11 +4885,293 @@ namespace PuntoDeVentaV2
                                     {
                                         if (DTpermiso.Rows[0][0].Equals(1))
                                         {
-                                            DialogResult RespuestaPregunta = MessageBox.Show("Desea imprimir el Ticket", "Aviso del Sistem",MessageBoxButtons.YesNo,MessageBoxIcon.Information);
-                                           
+                                            DialogResult RespuestaPregunta = MessageBox.Show("Desea imprimir el Ticket", "Aviso del Sistem", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
                                             if (RespuestaPregunta.Equals(DialogResult.Yes))
                                             {
-                                                using (imprimirTicket8cm imprimirTicketVenta = new imprimirTicket8cm())
+                                                if (TicketPDF.Equals(1))
+                                                {
+                                                    using (imprimirTicket8cm imprimirTicketVenta = new imprimirTicket8cm())
+                                                    {
+                                                        imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+
+                                                        imprimirTicketVenta.Logo = logo;
+                                                        imprimirTicketVenta.Nombre = Usuario;
+                                                        imprimirTicketVenta.NombreComercial = NombreComercial;
+                                                        imprimirTicketVenta.DireccionCiudad = Direccion;
+                                                        imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                                        imprimirTicketVenta.RFC = RFC;
+                                                        imprimirTicketVenta.Correo = Correo;
+                                                        imprimirTicketVenta.Telefono = Telefono;
+                                                        imprimirTicketVenta.NombreCliente = NombreC;
+                                                        imprimirTicketVenta.RFCCliente = RFCC;
+                                                        imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                                        imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                                        imprimirTicketVenta.CorreoCliente = CorreoC;
+                                                        imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                                        imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                                        imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                                        imprimirTicketVenta.Referencia = referencia;
+                                                        imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
+                                                        imprimirTicketVenta.ShowDialog();
+                                                    }
+                                                }
+                                                else if (TicketPDF.Equals(2))
+                                                {
+                                                    FormNotaDeVenta form = new FormNotaDeVenta(Convert.ToInt32(idVenta));
+                                                    FormNotaDeVenta.fuePorVenta = true;
+                                                    form.ShowDialog();
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                using (var dt = cn.CargarDatos($"SELECT AbrirCajaVentas FROM configuraciondetickets WHERE IDUsuario = {FormPrincipal.userID}"))
+                                                {
+                                                    if (dt.Rows[0][0].Equals(1))
+                                                    {
+                                                        AbrirSinTicket abrirSin1 = new AbrirSinTicket();
+                                                        abrirSin1.Show();
+                                                    }
+                                                }
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            using (var dt = cn.CargarDatos($"SELECT AbrirCajaVentas FROM configuraciondetickets WHERE IDUsuario = {FormPrincipal.userID}"))
+                                            {
+                                                if (dt.Rows[0][0].Equals(1))
+                                                {
+                                                    AbrirSinTicket abrirSin1 = new AbrirSinTicket();
+                                                    abrirSin1.Show();
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+
+                            // Imprimir Ticket Venta Guardada
+                            if (tipoDeVentaRealizada.Equals(2) || tipoDeVentaRealizada.Equals(7))
+                            {
+
+                                using (var dt = cn.CargarDatos($"SELECT TicketPresupuesto,PreguntarTicketPresupuesto,TicketOPDFPresupuesto,AbrirCajaGuardada FROM configuraciondetickets where IDUsuario = {FormPrincipal.userID}"))
+                                {
+                                    if (dt.Rows[0]["TicketPresupuesto"].Equals(1))
+                                    {
+                                        if (dt.Rows[0]["TicketOPDFPresupuesto"].Equals(1))
+                                        {
+                                            if (ticket6cm.Equals(1))
+                                            {
+
+                                                using (imprimirTicketPresupuesto8cm imprimirTicketVenta = new imprimirTicketPresupuesto8cm())
+                                                {
+                                                    imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+
+                                                    imprimirTicketVenta.Logo = logo;
+                                                    imprimirTicketVenta.Nombre = Usuario;
+                                                    imprimirTicketVenta.NombreComercial = NombreComercial;
+                                                    imprimirTicketVenta.DireccionCiudad = Direccion;
+                                                    imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                                    imprimirTicketVenta.RFC = RFC;
+                                                    imprimirTicketVenta.Correo = Correo;
+                                                    imprimirTicketVenta.Telefono = Telefono;
+                                                    imprimirTicketVenta.NombreCliente = NombreC;
+                                                    imprimirTicketVenta.RFCCliente = RFCC;
+                                                    imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                                    imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                                    imprimirTicketVenta.CorreoCliente = CorreoC;
+                                                    imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                                    imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                                    imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                                    imprimirTicketVenta.Referencia = referencia;
+
+                                                    imprimirTicketVenta.ShowDialog();
+                                                }
+                                            }
+                                            else if (ticket8cm.Equals(1))
+                                            {
+                                                using (imprimirTicketPresupuesto8cm imprimirTicketVenta = new imprimirTicketPresupuesto8cm())
+                                                {
+                                                    imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+
+                                                    imprimirTicketVenta.Logo = logo;
+                                                    imprimirTicketVenta.Nombre = Usuario;
+                                                    imprimirTicketVenta.NombreComercial = NombreComercial;
+                                                    imprimirTicketVenta.DireccionCiudad = Direccion;
+                                                    imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                                    imprimirTicketVenta.RFC = RFC;
+                                                    imprimirTicketVenta.Correo = Correo;
+                                                    imprimirTicketVenta.Telefono = Telefono;
+                                                    imprimirTicketVenta.NombreCliente = NombreC;
+                                                    imprimirTicketVenta.RFCCliente = RFCC;
+                                                    imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                                    imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                                    imprimirTicketVenta.CorreoCliente = CorreoC;
+                                                    imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                                    imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                                    imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                                    imprimirTicketVenta.Referencia = referencia;
+
+                                                    imprimirTicketVenta.ShowDialog();
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            FormNotaDeVenta formNota = new FormNotaDeVenta(Convert.ToInt32(idVenta));
+                                            FormNotaDeVenta.fuePorVenta = true;
+                                            formNota.ShowDialog();
+                                        }
+
+                                    }
+                                    else if (dt.Rows[0]["PreguntarTicketPresupuesto"].Equals(1))
+                                    {
+                                        DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket Del Presupuesto", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
+
+                                        if (respuestaImpresion.Equals(DialogResult.Yes))
+                                        {
+                                            if (dt.Rows[0]["TicketOPDFPresupuesto"].Equals(1))
+                                            {
+                                                if (ticket6cm.Equals(1))
+                                                {
+
+                                                    using (imprimirTicketPresupuesto8cm imprimirTicketVenta = new imprimirTicketPresupuesto8cm())
+                                                    {
+                                                        imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+
+                                                        imprimirTicketVenta.Logo = logo;
+                                                        imprimirTicketVenta.Nombre = Usuario;
+                                                        imprimirTicketVenta.NombreComercial = NombreComercial;
+                                                        imprimirTicketVenta.DireccionCiudad = Direccion;
+                                                        imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                                        imprimirTicketVenta.RFC = RFC;
+                                                        imprimirTicketVenta.Correo = Correo;
+                                                        imprimirTicketVenta.Telefono = Telefono;
+                                                        imprimirTicketVenta.NombreCliente = NombreC;
+                                                        imprimirTicketVenta.RFCCliente = RFCC;
+                                                        imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                                        imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                                        imprimirTicketVenta.CorreoCliente = CorreoC;
+                                                        imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                                        imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                                        imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                                        imprimirTicketVenta.Referencia = referencia;
+                                                        imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
+
+                                                        imprimirTicketVenta.ShowDialog();
+                                                    }
+                                                }
+                                                else if (ticket8cm.Equals(1))
+                                                {
+                                                    using (imprimirTicketPresupuesto8cm imprimirTicketVenta = new imprimirTicketPresupuesto8cm())
+                                                    {
+                                                        imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+
+                                                        imprimirTicketVenta.Logo = logo;
+                                                        imprimirTicketVenta.Nombre = Usuario;
+                                                        imprimirTicketVenta.NombreComercial = NombreComercial;
+                                                        imprimirTicketVenta.DireccionCiudad = Direccion;
+                                                        imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                                        imprimirTicketVenta.RFC = RFC;
+                                                        imprimirTicketVenta.Correo = Correo;
+                                                        imprimirTicketVenta.Telefono = Telefono;
+                                                        imprimirTicketVenta.NombreCliente = NombreC;
+                                                        imprimirTicketVenta.RFCCliente = RFCC;
+                                                        imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                                        imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                                        imprimirTicketVenta.CorreoCliente = CorreoC;
+                                                        imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                                        imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                                        imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                                        imprimirTicketVenta.Referencia = referencia;
+                                                        imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
+
+                                                        imprimirTicketVenta.ShowDialog();
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                FormNotaDeVenta formNota = new FormNotaDeVenta(Convert.ToInt32(idVenta));
+                                                FormNotaDeVenta.fuePorVenta = true;
+                                                formNota.ShowDialog();
+                                            }
+                                        }
+                                        else if (dt.Rows[0]["AbrirCajaGuardada"].Equals(1))
+                                        {
+                                            AbrirSinTicket abrirSin = new AbrirSinTicket();
+                                            abrirSin.Show();
+                                        }
+                                    }
+                                    else if (dt.Rows[0]["AbrirCajaGuardada"].Equals(1))
+                                    {
+                                        AbrirSinTicket abrirSin = new AbrirSinTicket();
+                                        abrirSin.Show();
+                                    }
+
+                                }
+
+                                txtBuscadorProducto.Focus();
+                            }
+                            // Imprimir Ticket Venta Cancelada
+                            if (tipoDeVentaRealizada.Equals(3))
+                            {
+                                txtBuscadorProducto.Focus();
+                            }
+                            // Imprimir Ticket Venta a Credito
+                            if (tipoDeVentaRealizada.Equals(4) || tipoDeVentaRealizada.Equals(9))
+                            {
+                                guardarPrimerAbono();
+                                using (var dt = cn.CargarDatos($"SELECT CreditoRealizado,PreguntarCreditoRealizado,TicketOPDFCreditoRealizado,AbrirCajaCredito FROM configuraciondetickets where IDUsuario = {FormPrincipal.userID}"))
+                                {
+                                    if (dt.Rows[0]["CreditoRealizado"].Equals(1))
+                                    {
+                                        if (dt.Rows[0]["TicketOPDFCreditoRealizado"].Equals(1))
+                                        {
+                                            using (ImprimirTicketCredito8cm imprimirTicketVenta = new ImprimirTicketCredito8cm())
+                                            {
+                                                imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
+
+                                                imprimirTicketVenta.Logo = logo;
+                                                imprimirTicketVenta.Nombre = Usuario;
+                                                imprimirTicketVenta.NombreComercial = NombreComercial;
+                                                imprimirTicketVenta.DireccionCiudad = Direccion;
+                                                imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
+                                                imprimirTicketVenta.RFC = RFC;
+                                                imprimirTicketVenta.Correo = Correo;
+                                                imprimirTicketVenta.Telefono = Telefono;
+                                                imprimirTicketVenta.NombreCliente = NombreC;
+                                                imprimirTicketVenta.RFCCliente = RFCC;
+                                                imprimirTicketVenta.DomicilioCliente = DomicilioC;
+                                                imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
+                                                imprimirTicketVenta.CorreoCliente = CorreoC;
+                                                imprimirTicketVenta.TelefonoCliente = TelefonoC;
+                                                imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
+                                                imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
+                                                imprimirTicketVenta.Referencia = referencia;
+                                                imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
+
+                                                imprimirTicketVenta.ShowDialog();
+                                            }
+                                        }
+                                        else
+                                        {
+                                            FormNotaDeVenta venta = new FormNotaDeVenta(Convert.ToInt32(idVenta));
+                                            FormNotaDeVenta.fuePorVenta = true;
+                                            venta.ShowDialog();
+                                        }
+                                    }
+                                    else if (dt.Rows[0]["PreguntarCreditoRealizado"].Equals(1))
+                                    {
+                                        DialogResult mensaje = MessageBox.Show("¿Desea imprimir el ticket?", "Aviso del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                                        if (mensaje.Equals(DialogResult.Yes))
+                                        {
+                                            if (dt.Rows[0]["TicketOPDFCreditoRealizado"].Equals(1))
+                                            {
+                                                using (ImprimirTicketCredito8cm imprimirTicketVenta = new ImprimirTicketCredito8cm())
                                                 {
                                                     imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
 
@@ -4724,148 +5193,42 @@ namespace PuntoDeVentaV2
                                                     imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                                     imprimirTicketVenta.Referencia = referencia;
                                                     imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
+
                                                     imprimirTicketVenta.ShowDialog();
                                                 }
                                             }
+                                            else
+                                            {
+                                                FormNotaDeVenta venta = new FormNotaDeVenta(Convert.ToInt32(idVenta));
+                                                FormNotaDeVenta.fuePorVenta = true;
+                                                venta.ShowDialog();
+                                            }
                                         }
-                                    }
-                                }
-                            }
-
-
-                            // Imprimir Ticket Venta Guardada
-                            if (tipoDeVentaRealizada.Equals(2) || tipoDeVentaRealizada.Equals(7))
-                            {
-                                DialogResult respuestaImpresion = MessageBox.Show("Desea Imprimir El Ticket Del Presupuesto", "Aviso", MessageBoxButtons.YesNo, MessageBoxIcon.Information, MessageBoxDefaultButton.Button2);
-
-                                if (respuestaImpresion.Equals(DialogResult.Yes))
-                                {
-                                    if (ticket6cm.Equals(1))
-                                    {
-                                        using (imprimirTicketPresupuesto8cm imprimirTicketVenta = new imprimirTicketPresupuesto8cm())
+                                        else if (dt.Rows[0]["AbrirCajaCredito"].Equals(1))
                                         {
-                                            imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
-
-                                            imprimirTicketVenta.Logo = logo;
-                                            imprimirTicketVenta.Nombre = Usuario;
-                                            imprimirTicketVenta.NombreComercial = NombreComercial;
-                                            imprimirTicketVenta.DireccionCiudad = Direccion;
-                                            imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
-                                            imprimirTicketVenta.RFC = RFC;
-                                            imprimirTicketVenta.Correo = Correo;
-                                            imprimirTicketVenta.Telefono = Telefono;
-                                            imprimirTicketVenta.NombreCliente = NombreC;
-                                            imprimirTicketVenta.RFCCliente = RFCC;
-                                            imprimirTicketVenta.DomicilioCliente = DomicilioC;
-                                            imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
-                                            imprimirTicketVenta.CorreoCliente = CorreoC;
-                                            imprimirTicketVenta.TelefonoCliente = TelefonoC;
-                                            imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
-                                            imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
-                                            imprimirTicketVenta.Referencia = referencia;
-                                            imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
-
-                                            imprimirTicketVenta.ShowDialog();
+                                            AbrirSinTicket abrirSin = new AbrirSinTicket();
+                                            abrirSin.Show();
                                         }
                                     }
-                                    else if (ticket8cm.Equals(1))
+                                    else if (dt.Rows[0]["AbrirCajaCredito"].Equals(1))
                                     {
-                                        using (imprimirTicketPresupuesto8cm imprimirTicketVenta = new imprimirTicketPresupuesto8cm())
-                                        {
-                                            imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
-
-                                            imprimirTicketVenta.Logo = logo;
-                                            imprimirTicketVenta.Nombre = Usuario;
-                                            imprimirTicketVenta.NombreComercial = NombreComercial;
-                                            imprimirTicketVenta.DireccionCiudad = Direccion;
-                                            imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
-                                            imprimirTicketVenta.RFC = RFC;
-                                            imprimirTicketVenta.Correo = Correo;
-                                            imprimirTicketVenta.Telefono = Telefono;
-                                            imprimirTicketVenta.NombreCliente = NombreC;
-                                            imprimirTicketVenta.RFCCliente = RFCC;
-                                            imprimirTicketVenta.DomicilioCliente = DomicilioC;
-                                            imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
-                                            imprimirTicketVenta.CorreoCliente = CorreoC;
-                                            imprimirTicketVenta.TelefonoCliente = TelefonoC;
-                                            imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
-                                            imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
-                                            imprimirTicketVenta.Referencia = referencia;
-                                            imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
-
-                                            imprimirTicketVenta.ShowDialog();
-                                        }
-                                    }
-                                }
-                                txtBuscadorProducto.Focus();
-                            }
-                            // Imprimir Ticket Venta Cancelada
-                            if (tipoDeVentaRealizada.Equals(3))
-                            {
-                                txtBuscadorProducto.Focus();
-                            }
-                            // Imprimir Ticket Venta a Credito
-                            if (tipoDeVentaRealizada.Equals(4) || tipoDeVentaRealizada.Equals(9))
-                            {
-                                if (ticket6cm.Equals(1))
-                                {
-                                    using (ImprimirTicketCredito8cm imprimirTicketVenta = new ImprimirTicketCredito8cm())
-                                    {
-                                        imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
-
-                                        imprimirTicketVenta.Logo = logo;
-                                        imprimirTicketVenta.Nombre = Usuario;
-                                        imprimirTicketVenta.NombreComercial = NombreComercial;
-                                        imprimirTicketVenta.DireccionCiudad = Direccion;
-                                        imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
-                                        imprimirTicketVenta.RFC = RFC;
-                                        imprimirTicketVenta.Correo = Correo;
-                                        imprimirTicketVenta.Telefono = Telefono;
-                                        imprimirTicketVenta.NombreCliente = NombreC;
-                                        imprimirTicketVenta.RFCCliente = RFCC;
-                                        imprimirTicketVenta.DomicilioCliente = DomicilioC;
-                                        imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
-                                        imprimirTicketVenta.CorreoCliente = CorreoC;
-                                        imprimirTicketVenta.TelefonoCliente = TelefonoC;
-                                        imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
-                                        imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
-                                        imprimirTicketVenta.Referencia = referencia;
-                                        imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
-
-                                        imprimirTicketVenta.ShowDialog();
-                                    }
-                                }
-                                else if (ticket8cm.Equals(1))
-                                {
-                                    using (ImprimirTicketCredito8cm imprimirTicketVenta = new ImprimirTicketCredito8cm())
-                                    {
-                                        imprimirTicketVenta.idVentaRealizada = Convert.ToInt32(idVenta);
-
-                                        imprimirTicketVenta.Logo = logo;
-                                        imprimirTicketVenta.Nombre = Usuario;
-                                        imprimirTicketVenta.NombreComercial = NombreComercial;
-                                        imprimirTicketVenta.DireccionCiudad = Direccion;
-                                        imprimirTicketVenta.ColoniaCodigoPostal = ColyCP;
-                                        imprimirTicketVenta.RFC = RFC;
-                                        imprimirTicketVenta.Correo = Correo;
-                                        imprimirTicketVenta.Telefono = Telefono;
-                                        imprimirTicketVenta.NombreCliente = NombreC;
-                                        imprimirTicketVenta.RFCCliente = RFCC;
-                                        imprimirTicketVenta.DomicilioCliente = DomicilioC;
-                                        imprimirTicketVenta.ColoniaCodigoPostalCliente = ColyCPC;
-                                        imprimirTicketVenta.CorreoCliente = CorreoC;
-                                        imprimirTicketVenta.TelefonoCliente = TelefonoC;
-                                        imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
-                                        imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
-                                        imprimirTicketVenta.Referencia = referencia;
-                                        imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
-
-                                        imprimirTicketVenta.ShowDialog();
+                                        AbrirSinTicket abrirSin = new AbrirSinTicket();
+                                        abrirSin.Show();
                                     }
                                 }
                                 txtBuscadorProducto.Focus();
                             }
                         }
+
+                        foreach (string subdetalle in ListaSubDetallesProdutos)
+                        {
+                            cn.EjecutarConsulta($"{subdetalle}{idVenta})");
+                        }
+                                foreach (string updateStockSubdetalle in ListaUpdatesSubDetallesProdutos)
+                        {
+                            cn.EjecutarConsulta(updateStockSubdetalle);
+                        }
+
                     }
 
                     //if (ventaGuardada)
@@ -4900,8 +5263,9 @@ namespace PuntoDeVentaV2
                     //    {
                     //        Utilidades.MensajeAdobeReader();
                     //    }
-                    //}
+                    //}                
                 }
+                
 
                 LimpiarVariables();
 
@@ -4911,6 +5275,75 @@ namespace PuntoDeVentaV2
 
                 this.Dispose();
                 txtBuscadorProducto.Focus();
+            }
+        }
+
+        private void guardarPrimerAbono()
+        {
+            string IDVenta = cn.EjecutarSelect("SELECT ID FROM Ventas ORDER BY ID DESC LIMIT 1", 1).ToString();
+            string[] info = new string[] {
+                IDVenta, FormPrincipal.userID.ToString(), efectivo, tarjeta, vales,
+                cheque, transferencia, credito, referencia, idCliente, cliente
+            };
+
+            if (decimal.Parse(info[7]) > 0)
+            {
+                bool haylana = false;
+                string efectivo = "0.00";
+                string tarjeta = "0.00";
+                string vales = "0.00";
+                string cheque = "0.00";
+                string transferencia = "0.00";
+                decimal total = 0;
+
+                if (decimal.Parse(info[2]) > 0)
+                {
+                    efectivo = info[2];
+                    total += decimal.Parse(efectivo);
+                    haylana = true;
+                }
+                if (decimal.Parse(info[3]) > 0)
+                {
+                    tarjeta = info[3];
+                    total += decimal.Parse(tarjeta);
+                    haylana = true;
+                }
+                if (decimal.Parse(info[4]) > 0)
+                {
+                    vales = info[4];
+                    total += decimal.Parse(vales);      
+                    haylana = true;
+                }
+                if (decimal.Parse(info[5]) > 0)
+                {
+                    cheque = info[5];
+                    total += decimal.Parse(cheque);
+                    haylana = true;
+                }
+                if (decimal.Parse(info[6]) > 0)
+                {
+                    transferencia = info[6];
+                    total += decimal.Parse(transferencia);
+                    haylana = true;
+                }
+                if (haylana)
+                {
+                    if (FormPrincipal.userNickName.Contains('@'))
+                    {
+                        string[] abono = new string[] {
+                IDVenta, FormPrincipal.userID.ToString(), total.ToString(), efectivo, tarjeta, vales,
+                cheque, transferencia,"Enganche",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),FormPrincipal.id_empleado.ToString(),"0","0","0","0"};
+                        cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(abono));
+                    }
+                    else
+                    {
+                        string[] abono = new string[] {
+                IDVenta, FormPrincipal.userID.ToString(), total.ToString(), efectivo, tarjeta, vales,
+                cheque, transferencia,"Enganche",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),"0","0","0","0"};
+                        cn.EjecutarConsulta(cs.GuardarAbonos(abono));
+                    }
+
+                }
             }
         }
 
@@ -4950,6 +5383,7 @@ namespace PuntoDeVentaV2
 
             idCliente = string.Empty;
             cliente = string.Empty;
+            ListaSubDetallesProdutos.Clear();
         }
 
         private void aumentoFolio()
@@ -5212,11 +5646,7 @@ namespace PuntoDeVentaV2
 
         private void btnVentasGuardadas_Click(object sender, EventArgs e)
         {
-            if (opcion13 == 0)
-            {
-                Utilidades.MensajePermiso();
-                return;
-            }
+
 
             if (Application.OpenForms.OfType<ListadoVentasGuardadas>().Count() == 1)
             {
@@ -5420,6 +5850,40 @@ namespace PuntoDeVentaV2
                     //AgregarProductoLista(datosProducto, cantidad, true);
                     AgregarProducto(datosProducto, cantidad);
                     nudCantidadPS.Value = 1;
+                }
+
+                foreach (DataGridViewRow fila in DGVentas.Rows)
+                {
+                    var idProdutoInactivo = fila.Cells["IDProducto"].Value.ToString();
+
+                    using (DataTable dtProductoInactivo = cn.CargarDatos(cs.productoInactivo(idProdutoInactivo)))
+                    {
+                        if (!dtProductoInactivo.Rows.Count.Equals(0))
+                        {
+                            foreach (DataRow item in dtProductoInactivo.Rows)
+                            {
+                                productoDeshabilitado.Add($"{item["ID"].ToString()}|{item["Nombre"].ToString()}");
+                            }
+                        }
+                    }
+                }
+                if (!productoDeshabilitado.Count.Equals(0))
+                {
+                    // Code to search the  alphanumneric Part Number (in Column1 header called "PART NUMBER") and highlihgt the row
+                    foreach (var item in productoDeshabilitado)
+                    {
+                        var palabraParaBuscar = item.Split('|');
+
+                        foreach (DataGridViewRow row in DGVentas.Rows)
+                        {
+                            var contenidoDeCelda = row.Cells["Descripcion"].Value.ToString();
+                            if (!string.IsNullOrWhiteSpace(contenidoDeCelda) && contenidoDeCelda.Equals(palabraParaBuscar[1].ToString()))
+                            {
+                                DGVentas.Rows[row.Index].DefaultCellStyle.BackColor = Color.DarkSlateGray;
+                            }
+                        }
+                    }
+                    productoDeshabilitado.Clear();
                 }
             }
 
@@ -6440,12 +6904,16 @@ namespace PuntoDeVentaV2
 
                 cadena = Regex.Replace(cadena, primerPatron, string.Empty);
             }
-            else if (segundaCoincidencia.Success)// AQUI ENTRA
+            else if (segundaCoincidencia.Success || txtBuscadorProducto.Text.Contains("-0.") || txtBuscadorProducto.Text.Contains("-.") || txtBuscadorProducto.Text.Contains("-"))// AQUI ENTRA
             {
                 bool checkFoundPlusAndDot = false;
 
                 checkFoundPlusAndDot = verifiedContainsPlusSymbol(cadena);
 
+                if (cadena.Contains('-'))
+                {
+                    cadena = cadena.Replace('+', ' ');
+                }
                 var estaDentroDelLimite = false;
                 decimal esNumeroLaBusqueda;
                 string vacia = string.Empty;
@@ -6460,23 +6928,33 @@ namespace PuntoDeVentaV2
 
                 if (sumarProducto)
                 {
-                    if (checkFoundPlusAndDot)           //AQUI SE BRINCA CUANDO TIENE +9.9
+                    if (checkFoundPlusAndDot || txtBuscadorProducto.Text.Contains("-0.") || txtBuscadorProducto.Text.Contains("-.") || txtBuscadorProducto.Text.Contains("-"))           //AQUI SE BRINCA CUANDO TIENE +9.9
                     {
-                        var infoTmp = cadena.Split('+');
                         float cantidadExtraDecimal = 0;
-
-                        if (!infoTmp[0].Equals(string.Empty))
+                        if (txtBuscadorProducto.Text.Contains("-0.") || txtBuscadorProducto.Text.Contains("-.") || txtBuscadorProducto.Text.Contains("-"))
                         {
-                            cantidadExtraDecimal = (float)Convert.ToDouble(infoTmp[0].ToString());
+                            cadena.Replace('-', ' ');
+                            cantidadExtraDecimal = (float)Convert.ToDecimal(cadena);
                         }
-
-                        if (!infoTmp[1].Equals(string.Empty))
+                        else
                         {
-                            cantidadExtraDecimal = (float)Convert.ToDouble(infoTmp[1].ToString());
+                            var infoTmp = cadena.Split('+');
+
+
+                            if (!infoTmp[0].Equals(string.Empty))
+                            {
+                                cantidadExtraDecimal = (float)Convert.ToDouble(infoTmp[0].ToString());
+                            }
+
+                            if (!infoTmp[1].Equals(string.Empty))
+                            {
+                                cantidadExtraDecimal = (float)Convert.ToDouble(infoTmp[1].ToString());
+                            }
+
+
                         }
 
                         cadena = Regex.Replace(cadena, segundoPatron, string.Empty);
-
                         //Verifica que exista algun producto o servicio en el datagridview
                         if (DGVentas.Rows.Count > 0)
                         {
@@ -6494,7 +6972,10 @@ namespace PuntoDeVentaV2
                                     decimal result = Convert.ToDecimal(cantidadExtraDecimal);
                                     if (result.ToString().Contains('.'))
                                     {
+
+                                        QueLoLimipie = true;
                                         MessageBox.Show("Este producto se vende solo por unidades enteras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        txtBuscadorProducto.Clear();
                                         return cadena;
                                     }
                                 }
@@ -6503,7 +6984,12 @@ namespace PuntoDeVentaV2
 
                                 // Se agrego esta opcion para calcular bien las cantidades cuando se aplica descuento
                                 float importe = cantidad * float.Parse(DGVentas.Rows[0].Cells["Precio"].Value.ToString());
-
+                                if (cantidad <= 0)
+                                {
+                                    MessageBox.Show("No puedes se puede vende un producto con cantidad 0","Aviso del Sistema", MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                                    QueLoLimipie = true;
+                                    return cadena;
+                                }
                                 DGVentas.Rows[0].Cells["Cantidad"].Value = cantidad;
                                 DGVentas.Rows[0].Cells["Importe"].Value = importe;
 
@@ -6516,7 +7002,7 @@ namespace PuntoDeVentaV2
                                     string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
                                     if (!datosDescuento.Equals(null) && datosDescuento.Length > 0)
                                     {
-                                        CalcularDescuento(datosDescuento, tipoDescuento, (int)cantidad, 0);
+                                        CalcularDescuento(datosDescuento, tipoDescuento, (decimal)cantidad, 0);
                                     }
                                 }
 
@@ -6530,8 +7016,11 @@ namespace PuntoDeVentaV2
                     else
                     {
                         var resultado = segundaCoincidencia.Value.Trim();
-
-                        if (resultado.Equals("+") || resultado.Equals("++"))
+                        if (cadena.Contains('-'))
+                        {
+                            cantidadExtra = Convert.ToDecimal(cadena);
+                        }
+                        else if (resultado.Equals("+") || resultado.Equals("++"))
                         {
                             cantidadExtra = 1;
                         }
@@ -6580,11 +7069,11 @@ namespace PuntoDeVentaV2
                                     if (tipoDescuento > 0)
                                     {
                                         var cantidadNueva = Decimal.Parse(cantidad.ToString(), NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint);
-                                        var cantidadInt = Convert.ToInt32(cantidadNueva);
+                                        decimal cantidaddec = cantidadNueva;
                                         string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
                                         if (!datosDescuento.Equals(null) && datosDescuento.Length > 0)
                                         {
-                                            CalcularDescuento(datosDescuento, tipoDescuento, cantidadInt, 0);
+                                            CalcularDescuento(datosDescuento, tipoDescuento, cantidaddec, 0);
                                         }
                                     }
 
@@ -6667,7 +7156,7 @@ namespace PuntoDeVentaV2
                                         string[] datosDescuento = cn.BuscarDescuento(tipoDescuento, idProducto);
                                         if (!datosDescuento.Equals(null) && datosDescuento.Length > 0)
                                         {
-                                            CalcularDescuento(datosDescuento, tipoDescuento, (int)cantidad, 0);
+                                            CalcularDescuento(datosDescuento, tipoDescuento, (decimal)cantidad, 0);
                                         }
                                     }
 
@@ -6862,11 +7351,11 @@ namespace PuntoDeVentaV2
 
         private bool verifiedContainsPlusSymbol(string cadena)
         {
-            Regex regex1 = new Regex(@"^(\+\.\d+)");        
-            Regex regex2 = new Regex(@"^(\.\d+\+)");        
-            Regex regex3 = new Regex(@"^(\+\d+\.\d+)");    
-            Regex regex4 = new Regex(@"^(\d+\.\d+\+)");    
-            Regex regex5 = new Regex(@"^(\d+\.\d+)");     
+            Regex regex1 = new Regex(@"^(\+\.\d+)");
+            Regex regex2 = new Regex(@"^(\.\d+\+)");
+            Regex regex3 = new Regex(@"^(\+\d+\.\d+)");
+            Regex regex4 = new Regex(@"^(\d+\.\d+\+)");
+            Regex regex5 = new Regex(@"^(\d+\.\d+)");
 
             Match match1 = regex1.Match(cadena);
             Match match2 = regex2.Match(cadena);
@@ -6985,11 +7474,21 @@ namespace PuntoDeVentaV2
             {
                 btnAplicarDescuento.PerformClick();
             }
+            else if (e.KeyCode == Keys.V && (e.Control))//Boton Venta facil
+            {
+                using (DataTable dt = cn.CargarDatos($"SELECT ventaFacil FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                {
+                    if (dt.Rows[0][0].ToString().Equals("1"))
+                    {
+                        btnVentaFacil.PerformClick();
+                    }
+                }
+                
+            }
 
         }
 
         private void OperacionBusqueda(int tipo = 0)
-
         {
             listaProductos.Items.Clear();
 
@@ -7003,8 +7502,9 @@ namespace PuntoDeVentaV2
 
             output = Regex.Replace(auxTxtBuscadorProducto, pattern, string.Empty);
 
-            if (output.Equals(string.Empty))
+            if (output.Equals(string.Empty) || QueLoLimipie.Equals(true))
             {
+                QueLoLimipie = false;
                 txtBuscadorProducto.Text = string.Empty;
             }
             else
@@ -7018,7 +7518,7 @@ namespace PuntoDeVentaV2
                 return;
             }
 
-            if (auxTxtBuscadorProducto.Contains("+."))
+            if (auxTxtBuscadorProducto.Contains("+.") || auxTxtBuscadorProducto.Contains("-"))
             {
                 return;
             }
@@ -7595,6 +8095,7 @@ namespace PuntoDeVentaV2
                 if (result.ToString().Contains('.'))
                 {
                     MessageBox.Show("Este producto se vende solo por unidades enteras", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtBuscadorProducto.Text = "";
                     return;
                 }
             }
@@ -7604,94 +8105,94 @@ namespace PuntoDeVentaV2
 
         private void CalculoMayoreo()
         {
-            float contadorMayoreo = 0;
-            // Si la casilla de mayoreo de config esta activa
-            if (mayoreoActivo)
-            {
-                // Si la cantidad minima es mayor a cero
-                if (cantidadMayoreo > 0)
-                {
-                    foreach (DataGridViewRow fila in DGVentas.Rows)
-                    {
-                        var mayoreo = float.Parse(fila.Cells["PrecioMayoreo"].Value.ToString());
-                        var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
+            //float contadorMayoreo = 0;
+            //// Si la casilla de mayoreo de config esta activa
+            //if (mayoreoActivo)
+            //{
+            //    // Si la cantidad minima es mayor a cero
+            //    if (cantidadMayoreo > 0)
+            //    {
+            //        foreach (DataGridViewRow fila in DGVentas.Rows)
+            //        {
+            //            var mayoreo = float.Parse(fila.Cells["PrecioMayoreo"].Value.ToString());
+            //            var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
 
-                        if (mayoreo > 0)
-                        {
-                            contadorMayoreo += cantidad;
-                        }
-                    }
+            //            if (mayoreo > 0)
+            //            {
+            //                contadorMayoreo += cantidad;
+            //            }
+            //        }
 
-                    if (contadorMayoreo >= cantidadMayoreo)
-                    {
-                        foreach (DataGridViewRow fila in DGVentas.Rows)
-                        {
-                            var precio = float.Parse(fila.Cells["PrecioMayoreo"].Value.ToString());
+            //        if (contadorMayoreo >= cantidadMayoreo)
+            //        {
+            //            foreach (DataGridViewRow fila in DGVentas.Rows)
+            //            {
+            //                var precio = float.Parse(fila.Cells["PrecioMayoreo"].Value.ToString());
 
-                            if (precio > 0)
-                            {
-                                var nombre = fila.Cells["Descripcion"].Value.ToString();
-                                var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
-                                var importe = cantidad * precio;
+            //                if (precio > 0)
+            //                {
+            //                    var nombre = fila.Cells["Descripcion"].Value.ToString();
+            //                    var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
+            //                    var importe = cantidad * precio;
 
-                                if (nombre.Length > 3)
-                                {
-                                    var caracteres = nombre.Substring(0, 3);
+            //                    if (nombre.Length > 3)
+            //                    {
+            //                        var caracteres = nombre.Substring(0, 3);
 
-                                    if (caracteres.Equals("***"))
-                                    {
-                                        nombre = nombre.Remove(0, 3);
-                                        nombre = "***" + nombre;
-                                    }
-                                    else
-                                    {
-                                        nombre = "***" + nombre;
-                                    }
-                                }
+            //                        if (caracteres.Equals("***"))
+            //                        {
+            //                            nombre = nombre.Remove(0, 3);
+            //                            nombre = "***" + nombre;
+            //                        }
+            //                        else
+            //                        {
+            //                            nombre = "***" + nombre;
+            //                        }
+            //                    }
 
-                                fila.Cells["Descripcion"].Value = nombre;
-                                fila.Cells["PrecioOriginal"].Value = precio;
-                                fila.Cells["Precio"].Value = precio;
-                                fila.Cells["Importe"].Value = importe;
-                            }
-                        }
+            //                    fila.Cells["Descripcion"].Value = nombre;
+            //                    fila.Cells["PrecioOriginal"].Value = precio;
+            //                    fila.Cells["Precio"].Value = precio;
+            //                    fila.Cells["Importe"].Value = importe;
+            //                }
+            //            }
 
-                        lbMayoreo.Visible = true;
-                    }
-                    else
-                    {
-                        foreach (DataGridViewRow fila in DGVentas.Rows)
-                        {
-                            var precio = float.Parse(fila.Cells["PrecioAuxiliar"].Value.ToString());
+            //            lbMayoreo.Visible = true;
+            //        }
+            //        else
+            //        {
+            //            foreach (DataGridViewRow fila in DGVentas.Rows)
+            //            {
+            //                var precio = float.Parse(fila.Cells["PrecioAuxiliar"].Value.ToString());
 
-                            if (precio > 0)
-                            {
-                                var nombre = fila.Cells["Descripcion"].Value.ToString();
-                                var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
-                                var importe = cantidad * precio;
+            //                if (precio > 0)
+            //                {
+            //                    var nombre = fila.Cells["Descripcion"].Value.ToString();
+            //                    var cantidad = float.Parse(fila.Cells["Cantidad"].Value.ToString());
+            //                    var importe = cantidad * precio;
 
-                                if (nombre.Length > 3)
-                                {
-                                    var caracteres = nombre.Substring(0, 3);
+            //                    if (nombre.Length > 3)
+            //                    {
+            //                        var caracteres = nombre.Substring(0, 3);
 
-                                    if (caracteres.Equals("***"))
-                                    {
-                                        nombre = nombre.Remove(0, 3);
+            //                        if (caracteres.Equals("***"))
+            //                        {
+            //                            nombre = nombre.Remove(0, 3);
 
-                                        fila.Cells["Descripcion"].Value = nombre;
-                                    }
-                                }
+            //                            fila.Cells["Descripcion"].Value = nombre;
+            //                        }
+            //                    }
 
-                                fila.Cells["PrecioOriginal"].Value = precio;
-                                fila.Cells["Precio"].Value = precio;
-                                fila.Cells["Importe"].Value = importe;
-                            }
-                        }
+            //                    fila.Cells["PrecioOriginal"].Value = precio;
+            //                    fila.Cells["Precio"].Value = precio;
+            //                    fila.Cells["Importe"].Value = importe;
+            //                }
+            //            }
 
-                        lbMayoreo.Visible = false;
-                    }
-                }
-            }
+            //            lbMayoreo.Visible = false;
+            //        }
+            //    }
+            //}
             //txtBuscadorProducto.Focus();
         }
 
@@ -7940,7 +8441,7 @@ namespace PuntoDeVentaV2
             lbDatosCliente.Text = string.Empty;
             lbDatosCliente.Visible = false;
             lbEliminarCliente.Visible = false;
-            btnEliminarDescuentos.PerformClick();
+            //btnEliminarDescuentos.PerformClick();
             idCliente = "";
             ClienteConDescuento = false;
         }
@@ -8028,6 +8529,19 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo3_Click(object sender, EventArgs e)
         {
+
+            using (DataTable dt = cn.CargarDatos($"SELECT opcion16 FROM empleadospermisos WHERE Seccion='ventas' AND idUsuario = {FormPrincipal.userID} AND IDEmpleado = {FormPrincipal.id_empleado}"))
+            {
+                if (!dt.Rows.Count.Equals(0))
+                {
+                    if (dt.Rows[0][0].ToString().Equals("0") && !FormPrincipal.id_empleado.Equals(0))
+                    {
+                        Utilidades.MensajePermiso();
+                        return;
+                    }
+                }
+            }
+
             EsGuardarVenta = false;
             //if (opcion16 == 0)
             //{
@@ -8876,6 +9390,7 @@ namespace PuntoDeVentaV2
 
         private void btnGanancia_Click(object sender, EventArgs e)
         {
+            totalAnticipoAplicado = Convert.ToDecimal(cAnticipoUtilizado.Text);
             if (!DGVentas.Rows.Count.Equals(0))
             {
                 Ganancia cantidadGanancia = new Ganancia();
@@ -8951,6 +9466,26 @@ namespace PuntoDeVentaV2
                 txtBuscadorProducto.Focus();
                 SendKeys.Send("{ENTER}");
             }
+        }
+
+        private void DGVentas_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnVentaFacil_Click(object sender, EventArgs e)
+        {
+            ConsultarProductosVentaFacil consul = new ConsultarProductosVentaFacil();
+            consul.FormClosed += delegate
+            {
+                foreach (DataRow dataRow in consul.ayylmao.Rows)
+                {
+                    string[] datosProducto = cn.BuscarProducto(Int32.Parse(dataRow[0].ToString()), FormPrincipal.userID);
+                    AgregarProducto(datosProducto,decimal.Parse(dataRow[1].ToString()));
+                }
+                
+            };
+            consul.ShowDialog();
         }
 
         private void txtBuscadorProducto_TextChanged(object sender, EventArgs e)
@@ -9515,6 +10050,7 @@ namespace PuntoDeVentaV2
 
                 CalculoMayoreo();
                 //CantidadesFinalesVenta();
+
                 CantidadesFinalesVenta();
                 if (CantidadAnteriorEdit != NuevaCantidadEdit)
                 {

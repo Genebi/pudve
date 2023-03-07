@@ -14,7 +14,7 @@ namespace PuntoDeVentaV2
     {
         MetodosBusquedas mb = new MetodosBusquedas();
         Conexion cn = new Conexion();
-
+        Consultas cs = new Consultas();
         public string concepto { get; set; }
         public string fechaInicial { get; set; }
         public string fechaFinal { get; set; }
@@ -70,71 +70,50 @@ namespace PuntoDeVentaV2
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            if (Productos.HistorialVenta.Equals(false))
+            var fechaInicio = primerDatePicker.Value.ToString("yyyy-MM-dd HH:mm:ss");
+            var fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd HH:mm:ss");
+
+            var tipoBusqurda = cbEmpleados.SelectedItem.ToString();
+
+            if (cbEmpleados.SelectedIndex.Equals(0))
             {
-                if (cbEmpleados.SelectedIndex.Equals(0))
-                {
-                    MessageBox.Show("Seleccione si es Empleado o Producto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    cbEmpleados.Focus();
-                }
-                else
-                {
-                    fechaInicial = primerDatePicker.Value.ToString("yyyy-MM-dd");
-                    fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd");
 
-                    var tipoBusqurda = cbEmpleados.SelectedItem.ToString();
 
-                    var existencia = verificarExistencia(tipoBusqurda);
+                //using (var dbEsComboServicio = cn.CargarDatos(cs.SaberSiEsComboServicio(Productos.idProductoHistorialStock)))
+                //{
+                //    if (!dbEsComboServicio.Rows.Count.Equals(0))
+                //    {
 
-                    if (existencia)
-                    {
-                        HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda, fechaInicial, fechaFinal);
+                //    }
+                //    else
+                //    {
+                        var datos = cn.CargarDatos($"SELECT SUBSTRING_INDEX(HS.TipoDeMovimiento, ':', -1) AS 'Folio', HS.Fecha, ven.FormaPago AS 'modopago', SUM( HS.Cantidad * (-1)) AS Cantidad, SUM( HS.Cantidad * (-pro.Precio) ) AS 'PrecioUnidad', HS.NombreUsuario AS 'Empleado', cli.RazonSocial AS 'Cliente' FROM historialstock AS HS LEFT JOIN productos AS pro ON ( pro.ID = HS.IDProducto ) LEFT JOIN ventas AS ven ON (HS.Fecha = ven.FechaOperacion) LEFT JOIN clientes AS cli ON(ven.IDCliente = cli.ID) WHERE IDProducto = '{Productos.idProductoHistorialStock}' AND TipoDeMovimiento LIKE '%Venta Ralizada%' AND DATE(Fecha) BETWEEN '{fechaInicio}' AND '{fechaFinal}' GROUP BY hs.ID");
 
-                        if (tipoBusqurda.Equals("Seleccionar Empleado/Producto") || tipoBusqurda.Equals("Reporte general"))
+                        if (datos.Rows.Count.Equals(0))
                         {
-                            terminarOperaciones();
+                    MessageBox.Show("no se encontraron ventas");
+                    return;
                         }
-                        else
-                        {
-                            hpBuscador.FormClosed += delegate
-                            {
-                                var idBusqueda = HistorialPrecioBuscador.idEmpleadoObtenido;
-                                if (!string.IsNullOrEmpty(idBusqueda))
-                                {
-                                    terminarOperaciones();
-                                }
-                            };
 
-                            hpBuscador.ShowDialog();
-                        }
-                    }
-                    else
+                using (DataTable dt = cn.CargarDatos($"SELECT Fecha FROM historialstock WHERE idComboServicio = {Productos.idProductoHistorialStock} AND Fecha < '2023-02-20'"))
+                {
+                    if (dt.Rows.Count > 0)
                     {
-                        MessageBox.Show($"No cuenta con ningun {tipoBusqurda}", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Solamete se podran ver las ventas a partir de la actualizacion de febrero del 2023", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
+
+                        FormReporteHistorialVentasProducto historial = new FormReporteHistorialVentasProducto(datos);
+                        historial.ShowDialog();
+                    //}
+                //}
+
             }
             else
             {
-                fechaInicial = primerDatePicker.Value.ToString("yyyy-MM-dd");
-                fechaFinal = segundoDatePicker.Value.ToString("yyyy-MM-dd");
-                var tipoBusqurda = cbEmpleados.SelectedItem.ToString();
-                if (cbEmpleados.SelectedIndex.Equals(1))
-                {
-                    HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda, fechaInicial, fechaFinal);
-                    hpBuscador.ShowDialog();
-                }
-                else
-                {
-                    var algo = Validacion(Productos.idProductoHistorialStock, "", fechaInicial, fechaFinal);
-                    if (algo.Equals(true))
-                    {
-                        FormReporteHistorialVentasProducto formReporte = new FormReporteHistorialVentasProducto(Productos.idProductoHistorialStock, "", fechaInicial, fechaFinal);
-                        formReporte.ShowDialog();
-                    }
-                }
+                HistorialPrecioBuscador hpBuscador = new HistorialPrecioBuscador(tipoBusqurda, fechaInicio, fechaFinal);
+                hpBuscador.ShowDialog();
             }
-
         }
         #region
         private bool Validacion(int IDProd, string IDSEmple, string FechaI, string FechaF)
@@ -242,7 +221,7 @@ namespace PuntoDeVentaV2
             {
                 DataTable ventas = new DataTable();
                 string IDsVentasporFechaYEmpleado = "";
-                using (var DTIDSVentaPorEmpleadoYFecha = cn.CargarDatos($"SELECT ID,Folio,IDEmpleado,FechaOperacion FROM ventas WHERE ID IN ({IDsVentas}) AND DATE(FechaOperacion) BETWEEN '{FechaI}' AND '{FechaF}' AND IDUsuario = {FormPrincipal.userID} AND `Status` = 1"))
+                using (var DTIDSVentaPorEmpleadoYFecha = cn.CargarDatos($"SELECT ID,Folio,IDEmpleado,FechaOperacion FROM ventas WHERE ID IN ({IDsVentas}) AND DATE(FechaOperacion) BETWEEN '{FechaI}' AND '{FechaF}' AND IDUsuario = {FormPrincipal.userID} AND  (`Status` = 1 OR `Status` = 4)"))
                 {
                     if (!DTIDSVentaPorEmpleadoYFecha.Rows.Count.Equals(0))
                     {
@@ -320,7 +299,7 @@ namespace PuntoDeVentaV2
                 }
                 TodoCorrecto = true;
             }
-            return TodoCorrecto;
+                    return TodoCorrecto;
         }
         #endregion
         private bool verificarExistencia(string empleadoProducto)

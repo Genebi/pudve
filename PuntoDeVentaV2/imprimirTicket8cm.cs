@@ -104,7 +104,7 @@ namespace PuntoDeVentaV2
             MySqlDataAdapter ventaDA = new MySqlDataAdapter(queryVenta, conn);
             DataTable ventaDT = new DataTable();
 
-            
+
 
             ventaDA.Fill(ventaDT);
 
@@ -236,6 +236,57 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("PathBarCode", pathBarCodeFull));
             //18 parametro string para mostrar / ocultar Codigo de Barras
             reportParameters.Add(new ReportParameter("Referencia", Referencia.ToString()));
+            // Anticipo
+
+            using (var dt = cn.CargarDatos($"SELECT SUM(Subtotal + IVA16+IVA8) AS 'Total' FROM `ventas` WHERE ID ={idVentaRealizada}"))
+            {
+                string Anticipo = string.Empty;
+                if (Convert.ToDecimal(dt.Rows[0][0]) > Convert.ToDecimal(ventaDT.Rows[0]["Anticipo"]))
+                {
+                    Anticipo = ventaDT.Rows[0]["Anticipo"].ToString();
+                    reportParameters.Add(new ReportParameter("Anticipo", Anticipo));
+                }
+                else
+                {
+                    Anticipo = dt.Rows[0][0].ToString();
+                    reportParameters.Add(new ReportParameter("Anticipo", Anticipo));
+                }
+            }
+
+            using (var dt = cn.CargarDatos($"SELECT mostrarIVA FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+            {
+                if (dt.Rows[0][0].Equals(1))
+                {
+                    string iva8 = "";
+                    string iva16 = "";
+                    using (var dt2 = cn.CargarDatos($"SELECT IVA8,IVA16 FROM ventas WHERE ID = {idVentaRealizada}"))
+                    {
+                        iva8 = dt2.Rows[0]["IVA8"].ToString();
+                        iva16 = dt2.Rows[0]["IVA16"].ToString();
+                    }
+
+                    if (!iva8.Equals("0.00"))
+                    {
+                        reportParameters.Add(new ReportParameter("IVA", iva8));
+                    }
+                    else if (!iva16.Equals("0.00"))
+                    {
+                        reportParameters.Add(new ReportParameter("IVA", iva16));
+                    }
+                    else
+                    {
+                        reportParameters.Add(new ReportParameter("IVA", "0"));
+                    }
+                }
+                else
+                {
+                    reportParameters.Add(new ReportParameter("IVA", "0"));
+                }
+            }
+
+            string SubTotal = ventaDT.Rows[0]["Subtotal"].ToString();
+            reportParameters.Add(new ReportParameter("SubTotal", SubTotal));
+
             string UsuarioRealizoVenta =  string.Empty;
 
             using (var DTUsuario = cn.CargarDatos($"SELECT VEN.IDEmpleado, EMP.usuario FROM VENTAS AS VEN INNER JOIN empleados AS EMP ON( EMP.ID = VEN.IDEmpleado) WHERE VEN.ID = {idVentaRealizada} AND VEN.IDUsuario = {FormPrincipal.userID}"))

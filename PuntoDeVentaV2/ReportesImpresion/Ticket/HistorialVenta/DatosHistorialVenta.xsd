@@ -12,7 +12,7 @@
   <xs:element name="DatosHistorialVenta" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DatosHistorialVenta" msprop:Generator_UserDSName="DatosHistorialVenta">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="DTHistorialVenta" msprop:Generator_TableClassName="DTHistorialVentaDataTable" msprop:Generator_TableVarName="tableDTHistorialVenta" msprop:Generator_TablePropName="DTHistorialVenta" msprop:Generator_RowDeletingName="DTHistorialVentaRowDeleting" msprop:Generator_RowChangingName="DTHistorialVentaRowChanging" msprop:Generator_RowEvHandlerName="DTHistorialVentaRowChangeEventHandler" msprop:Generator_RowDeletedName="DTHistorialVentaRowDeleted" msprop:Generator_UserTableName="DTHistorialVenta" msprop:Generator_RowChangedName="DTHistorialVentaRowChanged" msprop:Generator_RowEvArgName="DTHistorialVentaRowChangeEvent" msprop:Generator_RowClassName="DTHistorialVentaRow">
+        <xs:element name="DTHistorialVenta" msprop:Generator_TableClassName="DTHistorialVentaDataTable" msprop:Generator_TableVarName="tableDTHistorialVenta" msprop:Generator_RowChangedName="DTHistorialVentaRowChanged" msprop:Generator_TablePropName="DTHistorialVenta" msprop:Generator_RowDeletingName="DTHistorialVentaRowDeleting" msprop:Generator_RowChangingName="DTHistorialVentaRowChanging" msprop:Generator_RowEvHandlerName="DTHistorialVentaRowChangeEventHandler" msprop:Generator_RowDeletedName="DTHistorialVentaRowDeleted" msprop:Generator_RowClassName="DTHistorialVentaRow" msprop:Generator_UserTableName="DTHistorialVenta" msprop:Generator_RowEvArgName="DTHistorialVentaRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="Folio" msprop:Generator_ColumnVarNameInTable="columnFolio" msprop:Generator_ColumnPropNameInRow="Folio" msprop:Generator_ColumnPropNameInTable="FolioColumn" msprop:Generator_UserColumnName="Folio" type="xs:string" minOccurs="0" />
@@ -23,6 +23,7 @@
               <xs:element name="Total" msprop:Generator_ColumnVarNameInTable="columnTotal" msprop:Generator_ColumnPropNameInRow="Total" msprop:Generator_ColumnPropNameInTable="TotalColumn" msprop:Generator_UserColumnName="Total" type="xs:string" minOccurs="0" />
               <xs:element name="Empleado" msprop:Generator_ColumnVarNameInTable="columnEmpleado" msprop:Generator_ColumnPropNameInRow="Empleado" msprop:Generator_ColumnPropNameInTable="EmpleadoColumn" msprop:Generator_UserColumnName="Empleado" type="xs:string" minOccurs="0" />
               <xs:element name="Cliente" msprop:Generator_ColumnVarNameInTable="columnCliente" msprop:Generator_ColumnPropNameInRow="Cliente" msprop:Generator_ColumnPropNameInTable="ClienteColumn" msprop:Generator_UserColumnName="Cliente" type="xs:string" minOccurs="0" />
+              <xs:element name="modopago" msprop:Generator_ColumnVarNameInTable="columnmodopago" msprop:Generator_ColumnPropNameInRow="modopago" msprop:Generator_ColumnPropNameInTable="modopagoColumn" msprop:Generator_UserColumnName="modopago" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

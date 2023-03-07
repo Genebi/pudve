@@ -71,6 +71,8 @@ namespace PuntoDeVentaV2
         List<string> id = new List<string>();
         int contador = 1;
 
+        List<string> updatesSubdetalles = new List<string>();
+
         bool validarSiguienteTerminar = false;
         string mensajeNoHay = string.Empty;
         int terminarRev = 0;
@@ -78,6 +80,8 @@ namespace PuntoDeVentaV2
         public static int mensajeInventario = 0;
 
         public static int mostrar = 0;
+
+        string CantidadNueva = "";
 
         public RevisarInventario(string[] datos)
         {
@@ -1260,6 +1264,9 @@ namespace PuntoDeVentaV2
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
+
+            CantidadNueva = txtCantidadStock.Text;
+
             verificarCodigoFiltroProveedor();
 
             codBarras = txtBoxBuscarCodigoBarras.Text;
@@ -1279,6 +1286,8 @@ namespace PuntoDeVentaV2
                     if (botonOmitir == false)
                     {
                         var cantidadStock = double.Parse(txtCantidadStock.Text);
+
+
 
                         if (cantidadStock >= 1000)
                         {
@@ -1314,7 +1323,22 @@ namespace PuntoDeVentaV2
                             var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                             var diferencia = double.Parse(datosProducto[1]) - double.Parse(stockFisico);
 
-
+                            if (double.Parse(datosProducto[0]) > double.Parse(stockFisico))
+                            {
+                                if (!verificarSubDetalles(Convert.ToDecimal(-diferencia)))
+                                {
+                                    MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+                            }
+                            else
+                            {
+                                if (!verificarSubDetalles(Convert.ToDecimal(double.Parse(stockFisico) - double.Parse(datosProducto[0]))))
+                                {
+                                    MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+                            }
                             // Actualizar datos en RevisarInventario
                             cn.EjecutarConsulta($"UPDATE RevisarInventario SET StockAlmacen = '{info[4]}', StockFisico = '{stockFisico}', Fecha = '{fecha}', Diferencia = '{diferencia}' WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
 
@@ -1362,6 +1386,10 @@ namespace PuntoDeVentaV2
                             }
                            
                             cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                            foreach (string subdetalleUpdate in updatesSubdetalles)
+                            {
+                                cn.EjecutarConsulta(subdetalleUpdate);
+                            }
                             //Actualizar Proveedor del Producto 
                             using (var ConsultaIDProveedor = cn.CargarDatos(cs.ConsultaIDProveedor(cbProveedores.Text, FormPrincipal.userID)))
                             {
@@ -1380,7 +1408,9 @@ namespace PuntoDeVentaV2
 
                             LimpiarCampos();
                             //txtBoxBuscarCodigoBarras.Focus();
-
+                            
+                            Thread envio = new Thread(() => CuerpoEmails());
+                            envio.Start();
                             if (tipoFiltro == "Normal")
                             {
                                 txtBoxBuscarCodigoBarras.Focus();
@@ -1404,6 +1434,24 @@ namespace PuntoDeVentaV2
                                 if (info.Length > 0)
                                 {
                                     var diferencia = double.Parse(info[4]) - double.Parse(stockFisico);
+
+
+                                    if (double.Parse(info[4]) > double.Parse(stockFisico))
+                                    {
+                                        if (!verificarSubDetalles(Convert.ToDecimal(-diferencia)))
+                                        {
+                                            MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            return;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (!verificarSubDetalles(Convert.ToDecimal(double.Parse(stockFisico) - double.Parse(info[4]))))
+                                        {
+                                            MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            return;
+                                        }
+                                    }
 
                                     var datos = new string[]
                                     {
@@ -1473,8 +1521,16 @@ namespace PuntoDeVentaV2
                                         cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProducto}','Asignacion por Revision  ','{StockAnterior}','{stockFisico}','{fecha}','{FormPrincipal.userNickName}','0.0')");
                                     }
 
+                                    CantidadNueva = txtCantidadStock.Text;
+                                    Thread envio = new Thread(() => CuerpoEmails());
+                                    envio.Start();
+
                                     // Actualizar stock del producto
                                     cn.EjecutarConsulta($"UPDATE Productos SET Stock = '{stockFisico}' WHERE ID = {idProducto} AND IDUsuario = {FormPrincipal.userID}");
+                                    foreach (string subdetalleUpdate in updatesSubdetalles)
+                                    {
+                                        cn.EjecutarConsulta(subdetalleUpdate);
+                                    }
                                     //Actualizar Proveedor del Producto 
                                     using (var ConsultaIDProveedor = cn.CargarDatos(cs.ConsultaIDProveedor(cbProveedores.Text, FormPrincipal.userID)))
                                     {
@@ -1528,6 +1584,68 @@ namespace PuntoDeVentaV2
                 cbProveedores.Enabled = false;
                 cbProveedores.Text = "";
             }
+        }
+
+        private void CuerpoEmails()
+        {
+            using (var dt = cn.CargarDatos($"SELECT StockMinimo from productos WHERE ID = {idProducto}"))
+            {
+                string asunto1 = "";
+                string html1 = "";
+
+                var anterior = Convert.ToDecimal(dt.Rows[0][0]);
+                if (anterior >= Convert.ToDecimal(CantidadNueva))
+                {
+                    asunto1 = "¡AVISO! STOCK MINIMO ALCANZADO POR INVENTARIO.";
+
+                    html1 = @"
+                    <div style='margin-bottom: 50px;'>
+                        <h3 style='text-align: center;'>PRODUCTOS CON STOCK MINIMO</h3><hr>
+                        <ul style='color: black; font-size: 0.9em;'>";
+                    var nombre = "";
+                    using (var DoraCastrosa = cn.CargarDatos($"	SELECT Nombre, CodigoBarras,StockMinimo FROM productos WHERE ID = {idProducto}"))
+                    {
+                        nombre = $"{DoraCastrosa.Rows[0]["Nombre"].ToString()} --- CÓDIGO BARRAS: {DoraCastrosa.Rows[0]["CodigoBarras"].ToString()} --- STOCK MINIMO: {DoraCastrosa.Rows[0]["StockMinimo"].ToString()} --- STOCK ACTUAL: {CantidadNueva}";
+                    }
+                    html1 += $"<li>{nombre}</li>";
+                    
+
+                    var footerCorreo = string.Empty;
+
+                    html1 += $@"
+                        </ul><hr>
+                        {footerCorreo}
+                    </div>";
+                }
+                string Correo = "";
+                using (var DTcorreo = cn.CargarDatos($"SELECT Email FROM usuarios WHERE ID = {FormPrincipal.userID}"))
+                {
+                    Correo = DTcorreo.Rows[0][0].ToString();
+                }
+                Utilidades.EnviarEmail(html1, asunto1, Correo);
+            }
+        }
+
+        private bool verificarSubDetalles(decimal stock)
+        {
+            bool registroCorrectoDeSubdetalles = true;
+            updatesSubdetalles.Clear();
+
+                        subDetallesDeProducto detalles = new subDetallesDeProducto(idProducto.ToString(),"Inventario",cantidad:stock);
+                        detalles.FormClosed += delegate
+                        {
+                            if (!detalles.finalizado)
+                            {
+                                registroCorrectoDeSubdetalles = detalles.finalizado;
+                                updatesSubdetalles.Clear();
+                            }
+                            else
+                            {
+                                updatesSubdetalles.AddRange(detalles.updates);
+                            }
+                        };
+                        detalles.ShowDialog();
+            return registroCorrectoDeSubdetalles;
         }
 
         private void verificarCodigoFiltroProveedor()

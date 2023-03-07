@@ -40,6 +40,7 @@ namespace PuntoDeVentaV2
             CargarNotaDeVenta();
             if (fuePorVenta == true)
             {
+                fuePorVenta = false; 
                 btnImprimir.PerformClick();
                 this.Close();
             }
@@ -152,7 +153,12 @@ namespace PuntoDeVentaV2
                         StatusVenta += TipoVenta + ",";
                     }
                 }
-                if (StatusVenta.Equals(""))
+                DataTable dato = cn.CargarDatos($"SELECT  FormaPago FROM ventas where ID = {IDVenta}");
+                if (dato.Rows[0]["FormaPago"].ToString().Equals("Presupuesto"))
+                {
+                    StatusVenta = "Presupuesto";
+                }
+                else if (StatusVenta.Equals(""))
                 {
                     StatusVenta = "Anticipo";
                 }
@@ -199,14 +205,14 @@ namespace PuntoDeVentaV2
 
             reportParameters.Add(new ReportParameter("StatusVenta", StatusVenta));
 
-            LocalReport rdlc = new LocalReport();
+            LocalReport rdlc = new LocalReport(); 
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;
             rdlc.SetParameters(reportParameters);
 
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
-            this.reportViewer1.LocalReport.DataSources.Clear();
+            this.reportViewer1.LocalReport.DataSources.Clear(); 
 
             ReportDataSource NotasVENTAS = new ReportDataSource("DTNotaVenta", DTNotaDeVentas);
 
@@ -297,7 +303,7 @@ namespace PuntoDeVentaV2
             MySqlDataAdapter retiroDA = new MySqlDataAdapter(queryVentas, conn);
             DataTable DTNotaDeVentas = new DataTable();
             retiroDA.Fill(DTNotaDeVentas);
-
+            string formaPago = DTNotaDeVentas.Rows[0]["FormadePago"].ToString();
             Total = Convert.ToDecimal(DTNotaDeVentas.Rows[0]["total"]);
             resultado = oMoneda.Convertir(Total.ToString(), true, "PESOS");
 
@@ -312,7 +318,7 @@ namespace PuntoDeVentaV2
                 DireccionLogo = "";
                 reportParameters.Add(new ReportParameter("Logo", DireccionLogo));
             }
-            reportParameters.Add(new ReportParameter("StatusVenta", "Venta Pagada"));
+            reportParameters.Add(new ReportParameter("StatusVenta", formaPago));
 
             ReportDataSource NotasVENTAS = new ReportDataSource("DTNotaVenta", DTNotaDeVentas);
 
@@ -323,7 +329,7 @@ namespace PuntoDeVentaV2
             rdlc.SetParameters(reportParameters);
 
             FormatoCarta imp = new FormatoCarta();
-            imp.Imprime(rdlc);
+            imp.Imprime(rdlc); 
 
             this.Close();
         }

@@ -30,18 +30,19 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfiguracionGeneral));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkOrdenes = new System.Windows.Forms.CheckBox();
+            this.checkRentas = new System.Windows.Forms.CheckBox();
+            this.numDiasCad = new System.Windows.Forms.NumericUpDown();
+            this.cbkMostrarIVA = new System.Windows.Forms.CheckBox();
             this.cbWebReportesPeriodicos = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.linkLabel2 = new System.Windows.Forms.LinkLabel();
             this.chWebTotal = new System.Windows.Forms.CheckBox();
+            this.chbCaducidad = new System.Windows.Forms.CheckBox();
             this.pagWeb = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.RBTicket = new System.Windows.Forms.RadioButton();
-            this.RBpdf = new System.Windows.Forms.RadioButton();
-            this.chkPreguntar = new System.Windows.Forms.CheckBox();
-            this.chTicketVentas = new System.Windows.Forms.CheckBox();
             this.chWebCerrar = new System.Windows.Forms.CheckBox();
+            this.chbVentaFacil = new System.Windows.Forms.CheckBox();
             this.CHKMostrarStock = new System.Windows.Forms.CheckBox();
+            this.chbTraspasoManual = new System.Windows.Forms.CheckBox();
             this.chTraspasos = new System.Windows.Forms.CheckBox();
             this.chkCerrarSesionCorte = new System.Windows.Forms.CheckBox();
             this.checkCBVenta = new System.Windows.Forms.CheckBox();
@@ -61,7 +62,7 @@
             this.checkRentas = new System.Windows.Forms.CheckBox();
             this.checkOrdenes = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numDiasCad)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -69,14 +70,17 @@
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
             this.groupBox2.Controls.Add(this.checkOrdenes);
             this.groupBox2.Controls.Add(this.checkRentas);
+            this.groupBox2.Controls.Add(this.numDiasCad);
+            this.groupBox2.Controls.Add(this.cbkMostrarIVA);
             this.groupBox2.Controls.Add(this.cbWebReportesPeriodicos);
-            this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.linkLabel2);
             this.groupBox2.Controls.Add(this.chWebTotal);
+            this.groupBox2.Controls.Add(this.chbCaducidad);
             this.groupBox2.Controls.Add(this.pagWeb);
-            this.groupBox2.Controls.Add(this.groupBox1);
             this.groupBox2.Controls.Add(this.chWebCerrar);
+            this.groupBox2.Controls.Add(this.chbVentaFacil);
             this.groupBox2.Controls.Add(this.CHKMostrarStock);
+            this.groupBox2.Controls.Add(this.chbTraspasoManual);
             this.groupBox2.Controls.Add(this.chTraspasos);
             this.groupBox2.Controls.Add(this.chkCerrarSesionCorte);
             this.groupBox2.Controls.Add(this.checkCBVenta);
@@ -86,34 +90,72 @@
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(9, 18);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(895, 272);
+            this.groupBox2.Size = new System.Drawing.Size(648, 288);
             this.groupBox2.TabIndex = 130;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CONFIGURACION GENERAL";
+            // 
+            // checkOrdenes
+            // 
+            this.checkOrdenes.AutoSize = true;
+            this.checkOrdenes.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkOrdenes.Location = new System.Drawing.Point(308, 225);
+            this.checkOrdenes.Name = "checkOrdenes";
+            this.checkOrdenes.Size = new System.Drawing.Size(211, 21);
+            this.checkOrdenes.TabIndex = 137;
+            this.checkOrdenes.Text = "Este negocio realiza órdenes";
+            this.checkOrdenes.UseVisualStyleBackColor = true;
+            this.checkOrdenes.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkOrdenes_MouseClick);
+            // 
+            // checkRentas
+            // 
+            this.checkRentas.AutoSize = true;
+            this.checkRentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRentas.Location = new System.Drawing.Point(20, 225);
+            this.checkRentas.Name = "checkRentas";
+            this.checkRentas.Size = new System.Drawing.Size(199, 21);
+            this.checkRentas.TabIndex = 136;
+            this.checkRentas.Text = "Este negocio realiza rentas";
+            this.checkRentas.UseVisualStyleBackColor = true;
+            this.checkRentas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkRentas_MouseClick);
+            // 
+            // numDiasCad
+            // 
+            this.numDiasCad.Enabled = false;
+            this.numDiasCad.Location = new System.Drawing.Point(224, 259);
+            this.numDiasCad.Maximum = new decimal(new int[] {
+            365,
+            0,
+            0,
+            0});
+            this.numDiasCad.Name = "numDiasCad";
+            this.numDiasCad.Size = new System.Drawing.Size(76, 23);
+            this.numDiasCad.TabIndex = 135;
+            this.numDiasCad.Visible = false;
+            // 
+            // cbkMostrarIVA
+            // 
+            this.cbkMostrarIVA.AutoSize = true;
+            this.cbkMostrarIVA.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbkMostrarIVA.Location = new System.Drawing.Point(20, 84);
+            this.cbkMostrarIVA.Name = "cbkMostrarIVA";
+            this.cbkMostrarIVA.Size = new System.Drawing.Size(154, 21);
+            this.cbkMostrarIVA.TabIndex = 135;
+            this.cbkMostrarIVA.Text = "Mostra IVA en ventas";
+            this.cbkMostrarIVA.UseVisualStyleBackColor = true;
+            this.cbkMostrarIVA.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbkMostrarIVA_MouseClick);
             // 
             // cbWebReportesPeriodicos
             // 
             this.cbWebReportesPeriodicos.AutoSize = true;
             this.cbWebReportesPeriodicos.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbWebReportesPeriodicos.Location = new System.Drawing.Point(20, 226);
+            this.cbWebReportesPeriodicos.Location = new System.Drawing.Point(308, 168);
             this.cbWebReportesPeriodicos.Name = "cbWebReportesPeriodicos";
-            this.cbWebReportesPeriodicos.Size = new System.Drawing.Size(242, 21);
+            this.cbWebReportesPeriodicos.Size = new System.Drawing.Size(300, 21);
             this.cbWebReportesPeriodicos.TabIndex = 0;
-            this.cbWebReportesPeriodicos.Text = "Realizar reportes automáticamente ";
+            this.cbWebReportesPeriodicos.Text = "Realizar reportes a la nube automáticamente ";
             this.cbWebReportesPeriodicos.UseVisualStyleBackColor = true;
             this.cbWebReportesPeriodicos.MouseClick += new System.Windows.Forms.MouseEventHandler(this.cbWebReportesPeriodicos_MouseClick);
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.label4.Location = new System.Drawing.Point(17, 188);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(261, 35);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "(puede afectar el rendimiento en computadores de gama baja)";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // linkLabel2
             // 
@@ -131,13 +173,28 @@
             // 
             this.chWebTotal.AutoSize = true;
             this.chWebTotal.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chWebTotal.Location = new System.Drawing.Point(20, 164);
+            this.chWebTotal.Location = new System.Drawing.Point(308, 195);
             this.chWebTotal.Name = "chWebTotal";
             this.chWebTotal.Size = new System.Drawing.Size(262, 21);
             this.chWebTotal.TabIndex = 0;
             this.chWebTotal.Text = "Realizar respaldos totales (base entera)";
             this.chWebTotal.UseVisualStyleBackColor = true;
             this.chWebTotal.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chWebTotal_MouseClick);
+            // 
+            // chbCaducidad
+            // 
+            this.chbCaducidad.AutoSize = true;
+            this.chbCaducidad.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chbCaducidad.Location = new System.Drawing.Point(20, 260);
+            this.chbCaducidad.Name = "chbCaducidad";
+            this.chbCaducidad.Size = new System.Drawing.Size(593, 21);
+            this.chbCaducidad.TabIndex = 115;
+            this.chbCaducidad.Text = "Notificarme cuando falten                        días o menos para que caduque un" +
+    " producto";
+            this.chbCaducidad.UseVisualStyleBackColor = true;
+            this.chbCaducidad.Visible = false;
+            this.chbCaducidad.CheckedChanged += new System.EventHandler(this.chbCaducidad_CheckedChanged);
+            this.chbCaducidad.Click += new System.EventHandler(this.chbCaducidad_Click);
             // 
             // pagWeb
             // 
@@ -151,73 +208,29 @@
             this.pagWeb.UseVisualStyleBackColor = true;
             this.pagWeb.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pagWeb_MouseClick);
             // 
-            // groupBox1
+            // chWebCerrar
             // 
-            this.groupBox1.Controls.Add(this.RBTicket);
-            this.groupBox1.Controls.Add(this.RBpdf);
-            this.groupBox1.Controls.Add(this.chkPreguntar);
-            this.groupBox1.Controls.Add(this.chTicketVentas);
-            this.groupBox1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(615, 21);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(260, 100);
-            this.groupBox1.TabIndex = 133;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Ticket Venta";
+            this.chWebCerrar.AutoSize = true;
+            this.chWebCerrar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chWebCerrar.Location = new System.Drawing.Point(308, 110);
+            this.chWebCerrar.Name = "chWebCerrar";
+            this.chWebCerrar.Size = new System.Drawing.Size(231, 21);
+            this.chWebCerrar.TabIndex = 0;
+            this.chWebCerrar.Text = "Reportar a la nube antes de cerrar";
+            this.chWebCerrar.UseVisualStyleBackColor = true;
+            this.chWebCerrar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chWebCerrar_MouseClick);
             // 
-            // RBTicket
+            // chbVentaFacil
             // 
-            this.RBTicket.AutoSize = true;
-            this.RBTicket.Location = new System.Drawing.Point(4, 67);
-            this.RBTicket.Margin = new System.Windows.Forms.Padding(2);
-            this.RBTicket.Name = "RBTicket";
-            this.RBTicket.Size = new System.Drawing.Size(100, 19);
-            this.RBTicket.TabIndex = 137;
-            this.RBTicket.TabStop = true;
-            this.RBTicket.Text = "Imprimir Ticket";
-            this.RBTicket.UseVisualStyleBackColor = true;
-            this.RBTicket.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RBTicket_MouseClick_1);
-            // 
-            // RBpdf
-            // 
-            this.RBpdf.AutoSize = true;
-            this.RBpdf.Location = new System.Drawing.Point(108, 67);
-            this.RBpdf.Margin = new System.Windows.Forms.Padding(2);
-            this.RBpdf.Name = "RBpdf";
-            this.RBpdf.Size = new System.Drawing.Size(143, 19);
-            this.RBpdf.TabIndex = 136;
-            this.RBpdf.TabStop = true;
-            this.RBpdf.Text = "Imprimir nota de venta";
-            this.RBpdf.UseVisualStyleBackColor = true;
-            this.RBpdf.MouseClick += new System.Windows.Forms.MouseEventHandler(this.RBpdf_MouseClick_1);
-            // 
-            // chkPreguntar
-            // 
-            this.chkPreguntar.AutoSize = true;
-            this.chkPreguntar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkPreguntar.Location = new System.Drawing.Point(4, 42);
-            this.chkPreguntar.Margin = new System.Windows.Forms.Padding(2);
-            this.chkPreguntar.Name = "chkPreguntar";
-            this.chkPreguntar.Size = new System.Drawing.Size(233, 21);
-            this.chkPreguntar.TabIndex = 135;
-            this.chkPreguntar.Text = "Pregutar si desea imprimir ticket";
-            this.chkPreguntar.UseVisualStyleBackColor = true;
-            this.chkPreguntar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkPreguntar_MouseClick);
-            // 
-            // chTicketVentas
-            // 
-            this.chTicketVentas.AutoSize = true;
-            this.chTicketVentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chTicketVentas.Location = new System.Drawing.Point(4, 19);
-            this.chTicketVentas.Name = "chTicketVentas";
-            this.chTicketVentas.Size = new System.Drawing.Size(232, 21);
-            this.chTicketVentas.TabIndex = 128;
-            this.chTicketVentas.Text = "Generar ticket al realizar ventas";
-            this.chTicketVentas.UseVisualStyleBackColor = true;
-            this.chTicketVentas.CheckedChanged += new System.EventHandler(this.chTicketVentas_CheckedChanged);
-            this.chTicketVentas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chTicketVentas_MouseClick);
+            this.chbVentaFacil.AutoSize = true;
+            this.chbVentaFacil.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chbVentaFacil.Location = new System.Drawing.Point(20, 195);
+            this.chbVentaFacil.Name = "chbVentaFacil";
+            this.chbVentaFacil.Size = new System.Drawing.Size(287, 21);
+            this.chbVentaFacil.TabIndex = 133;
+            this.chbVentaFacil.Text = "Habilitar venta fácil en detalle de producto";
+            this.chbVentaFacil.UseVisualStyleBackColor = true;
+            this.chbVentaFacil.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chbVentaRapida_MouseClick);
             // 
             // chWebCerrar
             // 
@@ -235,7 +248,7 @@
             // 
             this.CHKMostrarStock.AutoSize = true;
             this.CHKMostrarStock.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CHKMostrarStock.Location = new System.Drawing.Point(20, 56);
+            this.CHKMostrarStock.Location = new System.Drawing.Point(20, 168);
             this.CHKMostrarStock.Name = "CHKMostrarStock";
             this.CHKMostrarStock.Size = new System.Drawing.Size(243, 21);
             this.CHKMostrarStock.TabIndex = 133;
@@ -243,11 +256,23 @@
             this.CHKMostrarStock.UseVisualStyleBackColor = true;
             this.CHKMostrarStock.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CHKMostrarStock_MouseClick);
             // 
+            // chbTraspasoManual
+            // 
+            this.chbTraspasoManual.AutoSize = true;
+            this.chbTraspasoManual.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chbTraspasoManual.Location = new System.Drawing.Point(20, 137);
+            this.chbTraspasoManual.Name = "chbTraspasoManual";
+            this.chbTraspasoManual.Size = new System.Drawing.Size(232, 21);
+            this.chbTraspasoManual.TabIndex = 130;
+            this.chbTraspasoManual.Text = "Revisar traspasos manualmente";
+            this.chbTraspasoManual.UseVisualStyleBackColor = true;
+            this.chbTraspasoManual.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chbTraspasoManual_MouseClick);
+            // 
             // chTraspasos
             // 
             this.chTraspasos.AutoSize = true;
             this.chTraspasos.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chTraspasos.Location = new System.Drawing.Point(308, 110);
+            this.chTraspasos.Location = new System.Drawing.Point(20, 110);
             this.chTraspasos.Name = "chTraspasos";
             this.chTraspasos.Size = new System.Drawing.Size(149, 21);
             this.chTraspasos.TabIndex = 130;
@@ -285,7 +310,7 @@
             // 
             this.cbMostrarCB.AutoSize = true;
             this.cbMostrarCB.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbMostrarCB.Location = new System.Drawing.Point(20, 83);
+            this.cbMostrarCB.Location = new System.Drawing.Point(20, 51);
             this.cbMostrarCB.Name = "cbMostrarCB";
             this.cbMostrarCB.Size = new System.Drawing.Size(283, 21);
             this.cbMostrarCB.TabIndex = 117;
@@ -357,7 +382,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(388, 296);
+            this.btnAceptar.Location = new System.Drawing.Point(274, 312);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(117, 29);
             this.btnAceptar.TabIndex = 132;
@@ -486,7 +511,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(910, 332);
+            this.ClientSize = new System.Drawing.Size(663, 347);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.checkMayoreo);
             this.Controls.Add(this.label1);
@@ -511,8 +536,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ConfiguracionGeneral_KeyDown);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numDiasCad)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -521,7 +545,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckBox chTicketVentas;
         private System.Windows.Forms.CheckBox checkCBVenta;
         private System.Windows.Forms.CheckBox pagWeb;
         private System.Windows.Forms.Label label3;
@@ -542,14 +565,14 @@
         private System.Windows.Forms.CheckBox CHKMostrarStock;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.LinkLabel linkLabel2;
-        private System.Windows.Forms.CheckBox chkPreguntar;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton RBTicket;
-        private System.Windows.Forms.RadioButton RBpdf;
         private System.Windows.Forms.CheckBox chWebTotal;
         private System.Windows.Forms.CheckBox chWebCerrar;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox cbWebReportesPeriodicos;
+        private System.Windows.Forms.NumericUpDown numDiasCad;
+        private System.Windows.Forms.CheckBox chbCaducidad;
+        private System.Windows.Forms.CheckBox chbTraspasoManual;
+        private System.Windows.Forms.CheckBox cbkMostrarIVA;
+        private System.Windows.Forms.CheckBox chbVentaFacil;
         private System.Windows.Forms.CheckBox checkOrdenes;
         private System.Windows.Forms.CheckBox checkRentas;
     }

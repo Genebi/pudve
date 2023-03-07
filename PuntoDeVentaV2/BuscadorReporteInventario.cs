@@ -69,6 +69,11 @@ namespace PuntoDeVentaV2
                 label3.Text = "Reportes Actualizar Inventario (Disminuir)";
                 TipoUser = "NameUse";
             }
+            else if (tipoDatoReporte.Equals("AIDevolucion"))
+            {
+                label3.Text = "Reportes Actualizar Inventario (Devoluciones)";
+                TipoUser = "NameUsr";
+            }
 
             cargarDatosDGV();
             DateTime date = DateTime.Now;
@@ -125,6 +130,10 @@ namespace PuntoDeVentaV2
             {
                 query = cs.consultaReporteGeneralDisminuirInventario();
             }
+            else if (tipoDatoReporte.Equals("AIDevolucion"))//Actualizar Inventario (Devoluciones)
+            {
+                query = cs.consultaReporteGeneralDevolucionInventario();
+            }
 
             filtroConSinFiltroAvanzado = query;
 
@@ -166,11 +175,11 @@ namespace PuntoDeVentaV2
                         rutaArchivo = $@"C:\Archivos PUDVE\Reportes\Historial\{usuario}\";
                     }
 
-                    if (tipoDatoReporte.Equals("RInventario"))
+                    if (tipoDatoReporte.Equals("RInventario") )
                     {
                         rutaArchivo += @"ActualizarInvetario\";
                     }
-                    else if (tipoDatoReporte.Equals("AIAumentar"))
+                    else if (tipoDatoReporte.Equals("AIAumentar") || tipoDatoReporte.Equals("AIDevolucion"))
                     {
                         rutaArchivo += @"AumentarInventario\";
                     }
@@ -1435,14 +1444,14 @@ namespace PuntoDeVentaV2
         #endregion
 
         #region Generar Reporte de actualizar Inventario. 
-        private void GenerarReporteActualizarInventario(int num, int numRev, string rutaArchivo)
+        private void GenerarReporteActualizarInventario     (int num, int numRev, string rutaArchivo)
         {
             // Datos del usuario
             var datos = FormPrincipal.datosUsuario;
             //var numFolio = obtenerFolio(num);
 
             var actualRevision = string.Empty;
-            if (tipoDatoReporte.Equals("AIAumentar"))
+            if (tipoDatoReporte.Equals("AIAumentar") || tipoDatoReporte.Equals("AIDevolucion"))
             {
                 actualRevision = "ACTUALIZAR INVENTARIO (Aumentar)";
             }
@@ -1453,7 +1462,7 @@ namespace PuntoDeVentaV2
 
             var tablaBuscar = string.Empty;
 
-            if (tipoDatoReporte.Equals("AIAumentar"))
+            if (tipoDatoReporte.Equals("AIAumentar") || tipoDatoReporte.Equals("AIDevolucion"))
             {
                 tablaBuscar = "dgvaumentarinventario";
             }
