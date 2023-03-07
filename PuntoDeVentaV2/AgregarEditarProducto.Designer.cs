@@ -135,7 +135,7 @@ namespace PuntoDeVentaV2
             this.lblTipoProdPaq.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTipoProdPaq.Location = new System.Drawing.Point(17, 15);
             this.lblTipoProdPaq.Name = "lblTipoProdPaq";
-            this.lblTipoProdPaq.Size = new System.Drawing.Size(135, 16);
+            this.lblTipoProdPaq.Size = new System.Drawing.Size(136, 16);
             this.lblTipoProdPaq.TabIndex = 0;
             this.lblTipoProdPaq.Text = "Nombre del Producto";
             // 
@@ -155,7 +155,7 @@ namespace PuntoDeVentaV2
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(3, 89);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 16);
+            this.label4.Size = new System.Drawing.Size(85, 16);
             this.label4.TabIndex = 4;
             this.label4.Text = "Precio Venta";
             this.label4.Visible = false;
@@ -166,7 +166,7 @@ namespace PuntoDeVentaV2
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(3, 171);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(85, 16);
+            this.label5.Size = new System.Drawing.Size(86, 16);
             this.label5.TabIndex = 8;
             this.label5.Text = "Clave Interna";
             this.label5.Visible = false;
@@ -177,7 +177,7 @@ namespace PuntoDeVentaV2
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(3, 8);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 16);
+            this.label6.Size = new System.Drawing.Size(42, 16);
             this.label6.TabIndex = 2;
             this.label6.Text = "Stock";
             this.label6.Visible = false;
@@ -285,7 +285,7 @@ namespace PuntoDeVentaV2
             this.label7.Location = new System.Drawing.Point(3, 47);
             this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(97, 16);
+            this.label7.Size = new System.Drawing.Size(98, 16);
             this.label7.TabIndex = 22;
             this.label7.Text = "Precio Compra";
             this.label7.Visible = false;
@@ -434,7 +434,7 @@ namespace PuntoDeVentaV2
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.label12.Location = new System.Drawing.Point(100, 51);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(94, 16);
+            this.label12.Size = new System.Drawing.Size(95, 16);
             this.label12.TabIndex = 32;
             this.label12.Text = "Stock Maximo:";
             this.label12.Visible = false;
@@ -445,7 +445,7 @@ namespace PuntoDeVentaV2
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
             this.label1.Location = new System.Drawing.Point(148, 196);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 16);
+            this.label1.Size = new System.Drawing.Size(91, 16);
             this.label1.TabIndex = 30;
             this.label1.Text = "Stock Minimo:";
             this.label1.Visible = false;
@@ -476,7 +476,7 @@ namespace PuntoDeVentaV2
             this.label10.Location = new System.Drawing.Point(16, 4);
             this.label10.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(35, 16);
+            this.label10.Size = new System.Drawing.Size(36, 16);
             this.label10.TabIndex = 28;
             this.label10.Text = "Tipo";
             // 
@@ -504,7 +504,7 @@ namespace PuntoDeVentaV2
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(3, 130);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(103, 16);
+            this.label3.Size = new System.Drawing.Size(104, 16);
             this.label3.TabIndex = 5;
             this.label3.Text = "Precio Mayoreo";
             this.label3.Visible = false;
@@ -1063,7 +1063,7 @@ namespace PuntoDeVentaV2
             this.fLPType.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPType.Location = new System.Drawing.Point(0, 0);
             this.fLPType.Name = "fLPType";
-            this.fLPType.Size = new System.Drawing.Size(1263, 29);
+            this.fLPType.Size = new System.Drawing.Size(1280, 29);
             this.fLPType.TabIndex = 35;
             // 
             // fLPDetalleProducto
@@ -1073,7 +1073,7 @@ namespace PuntoDeVentaV2
             this.fLPDetalleProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetalleProducto.Location = new System.Drawing.Point(0, 29);
             this.fLPDetalleProducto.Name = "fLPDetalleProducto";
-            this.fLPDetalleProducto.Size = new System.Drawing.Size(1263, 66);
+            this.fLPDetalleProducto.Size = new System.Drawing.Size(1280, 66);
             this.fLPDetalleProducto.TabIndex = 36;
             this.fLPDetalleProducto.Paint += new System.Windows.Forms.PaintEventHandler(this.fLPDetalleProducto_Paint);
             // 
@@ -1095,7 +1095,7 @@ namespace PuntoDeVentaV2
             this.fLPDetalle.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.fLPDetalle.Location = new System.Drawing.Point(0, 95);
             this.fLPDetalle.Name = "fLPDetalle";
-            this.fLPDetalle.Size = new System.Drawing.Size(1263, 210);
+            this.fLPDetalle.Size = new System.Drawing.Size(1280, 210);
             this.fLPDetalle.TabIndex = 38;
             // 
             // fLPAccion
@@ -1115,7 +1115,7 @@ namespace PuntoDeVentaV2
             this.fLPDetallesProducto.Dock = System.Windows.Forms.DockStyle.Top;
             this.fLPDetallesProducto.Location = new System.Drawing.Point(0, 305);
             this.fLPDetallesProducto.Name = "fLPDetallesProducto";
-            this.fLPDetallesProducto.Size = new System.Drawing.Size(1263, 270);
+            this.fLPDetallesProducto.Size = new System.Drawing.Size(1280, 270);
             this.fLPDetallesProducto.TabIndex = 39;
             // 
             // groupBox2
@@ -1164,7 +1164,7 @@ namespace PuntoDeVentaV2
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1280, 680);
+            this.ClientSize = new System.Drawing.Size(1297, 680);
             this.Controls.Add(this.fLPContenidoProducto);
             this.Controls.Add(this.fLPDetallesProducto);
             this.Controls.Add(this.fLPAccion);
