@@ -1783,6 +1783,10 @@ namespace PuntoDeVentaV2
                 }
 
                 formulario.BringToFront();
+                if (formulario.Name == "Inventario")
+                {
+                    formulario.Activate();
+                }
             }
         }
 
@@ -1877,7 +1881,8 @@ namespace PuntoDeVentaV2
             if (inventarios == 1)
             {
                 AbrirFormulario<Inventario>();
-
+                Inventario inv = new Inventario();
+                inv.btnActualizar.PerformClick();
                 //Inventario inventario = Application.OpenForms.OfType<Inventario>().FirstOrDefault();
 
                 //if (inventario != null)
@@ -1890,7 +1895,9 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+
             validarVentasVentanas();
+
         }
 
         private void btnEmpleados_Click(object sender, EventArgs e)
