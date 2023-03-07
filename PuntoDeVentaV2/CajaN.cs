@@ -6707,7 +6707,15 @@ namespace PuntoDeVentaV2
                     var datos = cn.CargarDatos($"SELECT SUM(Efectivo) + SUM(Tarjeta) + SUM(Vales) + SUM(Cheque) + SUM(Transferencia) AS Total FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString()}) AND FechaOperacion > ( SELECT FechaOperacion FROM historialcortesdecaja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString()}) AND Concepto = 'Complemento de retiro desde saldo inicial' GROUP BY IDEmpleado ORDER BY FechaOperacion DESC LIMIT 1 )");
                     var saldoInicialTotal = cn.CargarDatos($"SELECT SUM( Efectivo ) + SUM( Tarjeta ) + SUM( Vales ) + SUM( Cheque ) + SUM( Transferencia ) AS Total FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString() + ",0"}) AND FechaOperacion IN ( SELECT MAX(FechaOperacion) FROM Caja WHERE IDUsuario = {FormPrincipal.userID} AND IDEmpleado IN ({ids.Rows[0][0].ToString() + ",0"}) AND Operacion IN ('deposito', 'PrimerSaldo') AND Concepto IN ('Insert primer saldo inicial', 'Insert primer saldo inicial con corte') GROUP BY IDEmpleado )");
                     btnRedondoSaldoInicial.Text = "SALDO INICIAL\n" + $"$ {saldoInicialTotal.Rows[0][0].ToString()}";
-                    lblCantidadSaldoActual.Text = "$" + "  " + Convert.ToString(Convert.ToDecimal(saldoInicialTotal.Rows[0][0].ToString()) - Convert.ToDecimal(datos.Rows[0][0].ToString()));
+                    if (!string.IsNullOrWhiteSpace(datos.Rows[0][0].ToString()))
+                    {
+                        lblCantidadSaldoActual.Text = "$" + "  " + Convert.ToString(Convert.ToDecimal(saldoInicialTotal.Rows[0][0].ToString()) - Convert.ToDecimal(datos.Rows[0][0].ToString()));
+                    }
+                    else
+                    {
+                        lblCantidadSaldoActual.Text = "$  0.00";
+                        btnRedondoSaldoInicial.Text = "SALDO INICIAL\n" + "$  0.00";
+                    }
 
                     lblCantidadRetirada.Visible = false;
                     label7.Visible = false;
