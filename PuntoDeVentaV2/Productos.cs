@@ -1413,6 +1413,8 @@ namespace PuntoDeVentaV2
                         obtenerDatosDGVProductos(numerofila);
                         var copiarMensajeVentas = cn.CargarDatos(cs.copiarMensajeVentas(idProducto));
                         var copiarMensajeInventario = cn.CargarDatos(cs.copiarMensajeInventario(idProducto));
+                        AgregarEditarProducto.SeCopioMensajeVenta = copiarMensajeVentas.Rows[0][2].ToString() + "," + copiarMensajeVentas.Rows[0][0].ToString();
+                        AgregarEditarProducto.SeCopioMensajeInventario = copiarMensajeInventario.Rows[0][0].ToString();
                         if (!copiarMensajeVentas.Rows.Count.Equals(0))
                         {
                             copMensajeVent[0] = copiarMensajeVentas.Rows[0]["ProductOfMessage"].ToString();
