@@ -845,9 +845,9 @@ namespace PuntoDeVentaV2
                         }
                     }
                     if (desdeRegresarProdcuto == 1)
-                        {
-                            cargarDatos2();
-                        }
+                    {
+                       cargarDatos2();
+                    }
                     ap.ShowDialog();
                 }
                 else
