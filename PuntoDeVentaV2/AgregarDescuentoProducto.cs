@@ -346,6 +346,13 @@ namespace PuntoDeVentaV2
                         SeCierra = false;
                         return;
                     }
+                    else if (op4 <= 0)
+                    {
+                        MessageBox.Show("El precio nuevo no puede ser 0", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        AgregarEditarProducto.descuentos.Clear();
+                        SeCierra = false;
+                        return;
+                    }
                     else
                     {
                         SeCierra = true;
