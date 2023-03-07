@@ -2285,7 +2285,7 @@ ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS ventaFacil INT DEFAULT 0;
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS avisoCaducidad INT DEFAULT 1;
 
 --Configuracino envio de correo abono
-ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS CorreoAbonoRecibidos INT DEFAULT 1;
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS CorreoAbonoRecibidos INT DEFAULT 0;
 
 --Permiso Empleado envio de corre abono
 
