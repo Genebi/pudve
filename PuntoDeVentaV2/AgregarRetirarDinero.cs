@@ -64,6 +64,7 @@ namespace PuntoDeVentaV2
         public static string Comentario = "";
         string idParaComboBox = string.Empty;
 
+
         public AgregarRetirarDinero(int operacion = 0)
         {
             InitializeComponent();
@@ -526,6 +527,7 @@ namespace PuntoDeVentaV2
                         datos = new string[] {
                         tipoOperacion, cantidad.ToString("0.00"), "0", cbConceptoConBusqueda.Text, fechaOperacion.ToString(), FormPrincipal.userID.ToString(), efectivo.ToString("C2"), tarjeta.ToString("C2"), cheque.ToString("C2"), vales.ToString("C2"), trans.ToString("C2"), credito.ToString("C2"), "0", FormPrincipal.id_empleado.ToString(), numFolio, totalRetiradoCorte
                         };
+                        Comentario = txtComentario.Text;
                         Thread AgregarRetiroDineroSaldoInicial = new Thread(
                                    () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
                                );
@@ -1217,6 +1219,7 @@ namespace PuntoDeVentaV2
                 {
                     if (Convert.ToInt32(datosConfig[13]).Equals(1) && datos[0].ToString().Equals("deposito"))
                     {
+                        Comentario = txtComentario.Text;
                         Thread AgregarRetiroDinero = new Thread(
                             () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
                         );
@@ -1272,6 +1275,7 @@ namespace PuntoDeVentaV2
                                 datos[10] = txtTrans.Text;
                             }
                         }
+                        Comentario = txtComentario.Text;
                         Thread AgregarAgregarDinero = new Thread(
                             () => Utilidades.cajaBtnAgregarRetiroCorteDineroCajaEmail(datos)
                         );
