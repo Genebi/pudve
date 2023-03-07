@@ -1754,8 +1754,13 @@ namespace PuntoDeVentaV2
                                                 <span style='color: blue;'>{ConceptoDeOperacion}</span>
                                             </th>
                                         </tr>
-                                    </table>
-                                </div>";
+<tr>";
+            if (!string.IsNullOrWhiteSpace(AgregarRetirarDinero.Comentario) && !AgregarRetirarDinero.Comentario.Equals("COMENTARIOS"))
+            {
+                cuerpoHTML += $@"<tr><th style = 'text-align: center;' colspan = '3'> Comentario:</th></tr><tr><th style = 'text-align: center;' colspan = '3'> <span style='color: blue;'>{AgregarRetirarDinero.Comentario}</span></th></tr>";
+            }
+
+            cuerpoHTML += "</table></div>";
 
             if (Convert.ToInt32(datosEnvioCorreo[13]) != 0/*!string.IsNullOrWhiteSpace(datosEnvioCorreo[13])*/)//Valida cuando es empleado
             {
