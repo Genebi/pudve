@@ -107,7 +107,7 @@ namespace PuntoDeVentaV2
             }
 
             //Restamos los abonos mochos sin interes
-            using (DataTable dtSumadelosabonitosmochoshehe = cn.CargarDatos($"SELECT SUM(Total) AS abonitos FROM Abonos WHERE IDventa ={idVenta} AND intereses = 0"))
+            using (DataTable dtSumadelosabonitosmochoshehe = cn.CargarDatos($"SELECT SUM(Total) AS abonitos FROM Abonos WHERE IDventa ={idVenta} AND intereses = 0 AND NOT(referencia='Enganche')"))
             {
                 if (!String.IsNullOrEmpty(dtSumadelosabonitosmochoshehe.Rows[0]["abonitos"].ToString()))
                 {
@@ -169,11 +169,25 @@ namespace PuntoDeVentaV2
                     //    int fechasAtrasadas = 0;
                     //    if (dtAbonos.Rows.Count > 0)
                     //    {
+                    bool esasigue = true;
                     foreach (var fecha in dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString().Split('%'))
                     {
                         if (DateTime.Parse(fecha) >= lameraFecha && DateTime.Parse(fecha) < DateTime.Now)
                         {
                             abonoTotal = abonoTotal + decimal.Parse(dtReglasCreditoVenta.Rows[0]["creditoMinimoAbono"].ToString());
+                        }
+
+                        if (DateTime.Parse(fecha) > DateTime.Now)
+                        {
+                            if (esasigue)
+                            {
+                                lblSiguienteAbono.Text = "Siguiente abono: " + DateTime.Parse(fecha).ToString("yyyy/MM/dd");
+                                esasigue = false;
+                            }
+                        }
+                        else
+                        {
+                            lblSiguienteAbono.Text = "Abono final";
                         }
                     }
                     //    }
@@ -248,7 +262,7 @@ namespace PuntoDeVentaV2
             calculoIntereses = 0;
             using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
             {
-                using (DataTable dtAbonos = cn.CargarDatos($"SELECT FechaOperacion FROM abonos WHERE IDVenta = {idVenta} AND estado = 1 ORDER BY FechaOperacion DESC LIMIT 1 "))
+                using (DataTable dtAbonos = cn.CargarDatos($"SELECT FechaOperacion FROM abonos WHERE IDVenta = {idVenta} AND estado = 1 AND NOT(referencia = 'enganche') ORDER BY FechaOperacion DESC LIMIT 1 "))//Aqui se ignora el "abono" inicial que se hace cuando se pone algun otro modo de pago en venta.
                 {
                     if (dtAbonos.Rows.Count > 0)
                     {
@@ -1575,6 +1589,7 @@ namespace PuntoDeVentaV2
         }
         private void cbAdelanto_CheckedChanged(object sender, EventArgs e)
         {
+            chbAdelantoMes.Checked = false;
             validacionRestanteDeAbonos(sender, e);
         }
 
@@ -1640,6 +1655,12 @@ namespace PuntoDeVentaV2
         private void txtPerdonado_TextChanged(object sender, EventArgs e)
         {
             validacionRestanteDeAbonos(sender, e);
+        }
+
+        private void chbAdelantoMes_CheckedChanged(object sender, EventArgs e)
+        {
+            cbAdelanto.Checked = false;
+            MessageBox.Show("Aguantame tantito papi esto no jala aun");
         }
     }
 }
