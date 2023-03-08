@@ -76,6 +76,7 @@ namespace PuntoDeVentaV2
             0,
             0});
             this.numPeriodos.ValueChanged += new System.EventHandler(this.numPeriodos_ValueChanged);
+            this.numPeriodos.KeyDown += new System.Windows.Forms.KeyEventHandler(this.numPeriodos_KeyDown);
             // 
             // cbPeriodos
             // 

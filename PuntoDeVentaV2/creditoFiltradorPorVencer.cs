@@ -56,5 +56,10 @@ namespace PuntoDeVentaV2
         {
             this.Close();
         }
+
+        private void numPeriodos_KeyDown(object sender, KeyEventArgs e)
+        {
+            updateFecha();
+        }
     }
 }
