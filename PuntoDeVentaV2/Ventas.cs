@@ -409,6 +409,10 @@ namespace PuntoDeVentaV2
                 {
                     checkRenta.Enabled = false;
                 }
+
+                // Realiza ordenes
+                checkOrden.Checked = configCorreos[33].Equals(1) ? Convert.ToBoolean(configCorreos[33]) : Convert.ToBoolean(configCorreos[33]);
+                checkOrden.Enabled = configCorreos[33].Equals(0) ? false : true;
             }
 
             enviarStockMinimo = new Dictionary<int, string>();
