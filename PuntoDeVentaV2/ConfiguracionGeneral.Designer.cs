@@ -59,8 +59,6 @@
             this.checkMayoreo = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtMinimoMayoreo = new System.Windows.Forms.TextBox();
-            this.checkRentas = new System.Windows.Forms.CheckBox();
-            this.checkOrdenes = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDiasCad)).BeginInit();
             this.SuspendLayout();
@@ -231,18 +229,6 @@
             this.chbVentaFacil.Text = "Habilitar venta fácil en detalle de producto";
             this.chbVentaFacil.UseVisualStyleBackColor = true;
             this.chbVentaFacil.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chbVentaRapida_MouseClick);
-            // 
-            // chWebCerrar
-            // 
-            this.chWebCerrar.AutoSize = true;
-            this.chWebCerrar.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chWebCerrar.Location = new System.Drawing.Point(20, 137);
-            this.chWebCerrar.Name = "chWebCerrar";
-            this.chWebCerrar.Size = new System.Drawing.Size(258, 21);
-            this.chWebCerrar.TabIndex = 0;
-            this.chWebCerrar.Text = "Reportar al cerrar sesión o el programa";
-            this.chWebCerrar.UseVisualStyleBackColor = true;
-            this.chWebCerrar.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chWebCerrar_MouseClick);
             // 
             // CHKMostrarStock
             // 
@@ -481,30 +467,6 @@
             this.txtMinimoMayoreo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtMinimoMayoreo.Visible = false;
             this.txtMinimoMayoreo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtMinimoMayoreo_KeyUp);
-            // 
-            // checkRentas
-            // 
-            this.checkRentas.AutoSize = true;
-            this.checkRentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkRentas.Location = new System.Drawing.Point(308, 164);
-            this.checkRentas.Name = "checkRentas";
-            this.checkRentas.Size = new System.Drawing.Size(199, 21);
-            this.checkRentas.TabIndex = 135;
-            this.checkRentas.Text = "Este negocio realiza rentas";
-            this.checkRentas.UseVisualStyleBackColor = true;
-            this.checkRentas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkRentas_MouseClick);
-            // 
-            // checkOrdenes
-            // 
-            this.checkOrdenes.AutoSize = true;
-            this.checkOrdenes.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkOrdenes.Location = new System.Drawing.Point(308, 191);
-            this.checkOrdenes.Name = "checkOrdenes";
-            this.checkOrdenes.Size = new System.Drawing.Size(211, 21);
-            this.checkOrdenes.TabIndex = 136;
-            this.checkOrdenes.Text = "Este negocio realiza órdenes";
-            this.checkOrdenes.UseVisualStyleBackColor = true;
-            this.checkOrdenes.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkOrdenes_MouseClick);
             // 
             // ConfiguracionGeneral
             // 
