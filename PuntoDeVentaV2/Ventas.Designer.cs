@@ -117,10 +117,7 @@
             this.btnGuardarVenta = new PuntoDeVentaV2.BotonRedondo();
             this.btnVentasGuardadas = new PuntoDeVentaV2.BotonRedondo();
             this.btn_cancelar_venta = new PuntoDeVentaV2.BotonRedondo();
-            this.btnBascula = new System.Windows.Forms.Button();
-            this.lblPesoRecibido = new System.Windows.Forms.Label();
-            this.btnCSV = new System.Windows.Forms.Button();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.botonRedondo1 = new PuntoDeVentaV2.BotonRedondo();
             this.btnVentaFacil = new System.Windows.Forms.Button();
             this.checkRenta = new System.Windows.Forms.CheckBox();
             this.checkOrden = new System.Windows.Forms.CheckBox();
