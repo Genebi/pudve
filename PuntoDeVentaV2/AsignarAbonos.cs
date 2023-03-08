@@ -1075,11 +1075,6 @@ namespace PuntoDeVentaV2
                         lblPendiente.Text = "$0.00";
                         cambio = (float)restanteAbono * (-1);
                         lbTotalCambio.Text = cambio.ToString("C2");
-                        if (cbAdelanto.Enabled == true)
-                        {
-                            //lblfechainteres.Visible = true;
-                            //lblfechainteres.Text = $"Siguiente fecha de pago\nEl día {siguienteFechaAbono}";
-                        }
                     }
                     else
                     {
