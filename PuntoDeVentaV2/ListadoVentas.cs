@@ -3932,14 +3932,14 @@ namespace PuntoDeVentaV2
                 if (configuracion.Count > 0)
                 {
                     // Realiza rentas
-                    if (configuracion[31].Equals(1))
+                    if (configuracion[32].Equals(1))
                     {
                         rbVentas.Checked = false;
                         rbRentas.Enabled = true;
                         rbRentas.Checked = true;
                     }
 
-                    if (configuracion[31].Equals(0))
+                    if (configuracion[32].Equals(0))
                     {
                         rbRentas.Enabled = false;
                         rbRentas.Checked = false;
