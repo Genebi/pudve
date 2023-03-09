@@ -28,8 +28,10 @@ namespace PuntoDeVentaV2
         private void VisualizadorTicketAnticipo_Load(object sender, EventArgs e)
         {
             CargarDatosAnticipo();
-            if (Ventas.EsEnVentas.Equals(true))
+            if (Ventas.EsEnVentas.Equals(true) || Anticipos.SeCancelo.Equals(true))
             {
+                Ventas.EsEnVentas = false;
+                Anticipos.SeCancelo = false;
                 btnReImprimirTicket.PerformClick();
                 this.Close();
             }
