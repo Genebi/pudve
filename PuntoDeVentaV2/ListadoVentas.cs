@@ -565,9 +565,9 @@ namespace PuntoDeVentaV2
                     // Ventas globales
                     if (opcion == "VGG") { estado = 5; }
                     // Ventas a credito atrasadas
-                    if (opcion == "VCA") { estado = 6; }
+                    if (opcion == "VCA") { estado = 12; }
                     // Ventas a credito por vencer
-                    if (opcion == "VPV") { estado = 7; }
+                    if (opcion == "VPV") { estado = 13; }
 
                     if (cbTipoRentas.Visible)
                     {
@@ -701,7 +701,7 @@ namespace PuntoDeVentaV2
                                     consulta = cs.verVentasCreditoPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                             }
-                            else if (estado.Equals(6)) // Ventas a credito atrasadas
+                            else if (estado.Equals(12)) // Ventas a credito atrasadas
                             {
                                 //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal);
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
@@ -717,7 +717,7 @@ namespace PuntoDeVentaV2
                                     consulta = cs.verVentasCreditoAtrasadasPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                             }
-                            else if (estado.Equals(7)) // Ventas a credito por expirar
+                            else if (estado.Equals(13)) // Ventas a credito por expirar
                             {
                                 //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal);
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
@@ -932,7 +932,7 @@ namespace PuntoDeVentaV2
                             {
                                 consulta = cs.VerComoEmpleadoTodasLasVentasACreditoPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                             }
-                            else if (estado.Equals(6)) // Ventas a credito atrasadas
+                            else if (estado.Equals(12)) // Ventas a credito atrasadas
                             {
                                 consulta = cs.VerComoEmpleadoTodasLasVentasACreditoAtrasadasPorFechasYBusqueda(4, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                             }
@@ -1002,7 +1002,7 @@ namespace PuntoDeVentaV2
                                     consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                             }
-                            else if (estado.Equals(6)) // Ventas a credito atrasadas
+                            else if (estado.Equals(12)) // Ventas a credito atrasadas
                             {
                                 //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
@@ -1108,11 +1108,11 @@ namespace PuntoDeVentaV2
                         {
                             consulta = cs.VerComoEmpleadoTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
                         }
-                        else if (estado.Equals(6)) // Ventas a credito atrasada 
+                        else if (estado.Equals(12)) // Ventas a credito atrasada 
                         {
                             consulta = cs.VerComoEmpleadoTodasLasVentasACreditoAtrasadas(estado, fechaInicial, fechaFinal);
                         }
-                        else if (estado.Equals(7)) // Ventas a credito por atrasar
+                        else if (estado.Equals(13)) // Ventas a credito por atrasar
                         {
                             consulta = cs.VerComoEmpleadoTodasLasVentasACreditoPorVencer(fechonon.ToString("yyyy-MM-dd"));
                         }
@@ -1269,7 +1269,7 @@ namespace PuntoDeVentaV2
                                 consulta = cs.verVentasCreditoPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
                             }
                         }
-                        else if (estado.Equals(6)) // Ventas a credito atrasadas
+                        else if (estado.Equals(12)) // Ventas a credito atrasadas
                         {
                             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                             {
@@ -1286,7 +1286,7 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        else if (estado.Equals(7)) // Ventas a credito por vencer
+                        else if (estado.Equals(13)) // Ventas a credito por vencer
                         {
                             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                             {
@@ -1688,12 +1688,14 @@ namespace PuntoDeVentaV2
             if (opcion == "VG") { CargarDatos(2); } // Ventas guardadas
             if (opcion == "VC") { CargarDatos(3); } // Ventas canceladas
             if (opcion == "VCC") { CargarDatos(4); } // Ventas a credito
-            if (opcion == "VCA") { CargarDatos(6); }
 
             if (opcion == "RP") { CargarDatos(6); } // Rentas pagadas
             if (opcion == "RG") { CargarDatos(7); } // Rentas guardadas
             if (opcion == "RC") { CargarDatos(8); } // Rentas canceladas
             if (opcion == "RCC") { CargarDatos(9); } // Rentas a credito
+
+            if (opcion == "VCA") { CargarDatos(12); } // Rentas a credito atrasadas
+            if (opcion == "RCC") { CargarDatos(13); } // Rentas a credito por atrasar
         }
 
         private void AgregarTotalesGenerales(float ivaGral, float subtotalGral, float totalGral, float abonado)
@@ -1781,7 +1783,7 @@ namespace PuntoDeVentaV2
             if (opcion == "VC") { estado = 3; } //Ventas canceladas
             if (opcion == "VCC") { estado = 4; } //Ventas a credito
             if (opcion == "VGG") { estado = 5; } //Ventas globales
-            if (opcion == "VCA") { estado = 6; } // Ventas a credito atrasadas (un periodo de retraso)
+            if (opcion == "VCA") { estado = 12; } // Ventas a credito atrasadas (un periodo de retraso)
 
 
             if (opcion == "RP") { estado = 6; } //Rentas pagadas
@@ -1936,7 +1938,7 @@ namespace PuntoDeVentaV2
             //Ventas globales
             if (opcion == "VGG") { CargarDatos(5); }
             //Ventas a credito atrasadas
-            if (opcion == "VCA") { CargarDatos(6); }
+            if (opcion == "VCA") { CargarDatos(12); }
 
 
             var incremento = -1;
@@ -5992,7 +5994,7 @@ namespace PuntoDeVentaV2
             }
 
             //Ventas a credito atrasadas
-            if (opcion == "VCA") { CargarDatos(6); }
+            if (opcion == "VCA") { CargarDatos(12); }
         }
 
         private void btnPorVencer_Click(object sender, EventArgs e)
@@ -6019,7 +6021,7 @@ namespace PuntoDeVentaV2
             }
 
             //Ventas a credito por vencer
-            if (opcion == "VPV") { CargarDatos(7); }
+            if (opcion == "VPV") { CargarDatos(13); }
         }
 
         private void rbVentas_CheckedChanged(object sender, EventArgs e)

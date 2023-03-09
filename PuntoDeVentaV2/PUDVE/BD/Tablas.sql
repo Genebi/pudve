@@ -2337,3 +2337,6 @@ ALTER TABLE Ventas ADD COLUMN IF NOT EXISTS EstadoEntrega INT DEFAULT 0;
 
 -- modificacion para que pueda tener mas texto 
 ALTER TABLE dgvaumentarinventario MODIFY COLUMN NombreProducto VARCHAR(1000);
+
+-- Columna para guardar las fechas de pagos de abonos que aun no se pagan.
+ALTER TABLE reglasCreditoVenta ADD COLUMN IF NOT EXISTS FechasFaltantes TEXT ;
