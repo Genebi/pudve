@@ -38,6 +38,9 @@ namespace PuntoDeVentaV2
 
         // status 11 = Orden
 
+        // status 12 = Venta a credito atrasada
+        // status 13 = Venta a credito por atrasar
+
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
@@ -3628,44 +3631,43 @@ namespace PuntoDeVentaV2
                         if (opcion == "VCC" || opcion == "RCC" || opcion == "VCA")
                         {
                             var total = float.Parse(DGVListadoVentas.Rows[fila].Cells["Total"].Value.ToString());
-
-                            AsignarAbonos abono = new AsignarAbonos(idVenta, total, opcion);
-
-                            abono.FormClosed += delegate
+                            using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
                             {
-                                if (opcion.Equals("VCC"))
+                                if (dtReglasCreditoVenta.Rows.Count.Equals(0))
                                 {
-                                    CargarDatos(4);
+                                    asignarAbonosSinCredito abono = new asignarAbonosSinCredito(idVenta, total,opcion);
+                                    abono.FormClosed += delegate
+                                    {
+                                        if (opcion.Equals("VCC"))
+                                        {
+                                            CargarDatos(4);
+                                        }
+                                        else
+                                        {
+                                            CargarDatos(9);
+                                        }
+                                    };
+
+                                    abono.ShowDialog();
                                 }
                                 else
                                 {
-                                    CargarDatos(9);
+                                    AsignarAbonos abono = new AsignarAbonos(idVenta, total, opcion);
+                                    abono.FormClosed += delegate
+                                    {
+                                        if (opcion.Equals("VCC"))
+                                        {
+                                            CargarDatos(4);
+                                        }
+                                        else
+                                        {
+                                            CargarDatos(9);
+                                        }
+                                    };
+                                    abono.ShowDialog();
                                 }
-                            };
-
-                            //using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
-                            //{
-                            //    if (dtReglasCreditoVenta.Rows.Count.Equals(0))
-                            //    {
-                            //        asignarAbonosSinCredito abono = new asignarAbonosSinCredito(idVenta, total);
-                            //        abono.FormClosed += delegate
-                            //        {
-                            //            CargarDatos(4);
-                            //        };
-
-                            //        abono.ShowDialog();
-                            //    }
-                            //    else
-                            //    {
-                            //        AsignarAbonos abono = new AsignarAbonos(idVenta, total);
-                            //        abono.FormClosed += delegate
-                            //        {
-                            //            CargarDatos(4);
-                            //        };
-                            //    }
-                            //}
-
-                            abono.ShowDialog();
+                            }
+                            
                         }
                         else
                         {

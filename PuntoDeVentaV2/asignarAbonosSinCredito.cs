@@ -29,7 +29,7 @@ namespace PuntoDeVentaV2
 
         private string ticketGenerado = string.Empty;
         private string rutaTicketGenerado = string.Empty;
-
+        private string tipoCredito = string.Empty;
 
         //MIOOOOOOOOOOOOO
         float efectivo;
@@ -43,12 +43,13 @@ namespace PuntoDeVentaV2
 
         float restanteDePago = 0;
 
-        public asignarAbonosSinCredito(int idVenta, float totalOriginal)
+        public asignarAbonosSinCredito(int idVenta, float totalOriginal, string tipoCredito)
         {
             InitializeComponent();
 
             this.idVenta = idVenta;
             this.totalOriginal = totalOriginal;
+            this.tipoCredito = tipoCredito;
         }
 
         private void AsignarAbonos_Load(object sender, EventArgs e)
@@ -127,6 +128,13 @@ namespace PuntoDeVentaV2
                     {
                         total = efectiv;
                     }
+                }
+
+                if (restante <= 0)
+                {
+                    int status = tipoCredito.Equals("RCC") ? 6 : 1;
+
+                    cn.EjecutarConsulta(cs.estatusFinalizacionPagoCredito(idVenta, status));
                 }
 
                 //var totalAbonado = totalEfectivo + tarjeta + vales + cheque + transferencia; //=150
