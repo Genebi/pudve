@@ -103,6 +103,7 @@
             this.checkOrdenes.TabIndex = 137;
             this.checkOrdenes.Text = "Este negocio realiza órdenes";
             this.checkOrdenes.UseVisualStyleBackColor = true;
+            this.checkOrdenes.Visible = false;
             this.checkOrdenes.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkOrdenes_MouseClick);
             // 
             // checkRentas
