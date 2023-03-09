@@ -411,7 +411,7 @@ namespace PuntoDeVentaV2
                 }
 
                 // Realiza ordenes
-                checkOrden.Checked = configCorreos[33].Equals(1) ? Convert.ToBoolean(configCorreos[33]) : Convert.ToBoolean(configCorreos[33]);
+                checkOrden.Checked = configCorreos[33].Equals(1) ? true : false;
                 checkOrden.Enabled = configCorreos[33].Equals(0) ? false : true;
             }
 
