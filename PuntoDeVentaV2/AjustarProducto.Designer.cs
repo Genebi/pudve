@@ -33,7 +33,6 @@
             this.rbProducto = new System.Windows.Forms.RadioButton();
             this.rbAjustar = new System.Windows.Forms.RadioButton();
             this.panelComprado = new System.Windows.Forms.Panel();
-            this.btnActualiza = new System.Windows.Forms.Button();
             this.cantidadStockActual = new System.Windows.Forms.Label();
             this.lbCantidadCompra = new System.Windows.Forms.Label();
             this.lbPrecioCompra = new System.Windows.Forms.Label();
@@ -44,6 +43,7 @@
             this.dpFechaCompra = new System.Windows.Forms.DateTimePicker();
             this.txtCantidadCompra = new System.Windows.Forms.TextBox();
             this.txtPrecioCompra = new System.Windows.Forms.TextBox();
+            this.btnActualiza = new System.Windows.Forms.Button();
             this.panelAjustar = new System.Windows.Forms.Panel();
             this.lbConcepto = new System.Windows.Forms.Label();
             this.btnAgregarConcepto = new System.Windows.Forms.Button();
@@ -129,23 +129,6 @@
             this.panelComprado.Name = "panelComprado";
             this.panelComprado.Size = new System.Drawing.Size(610, 162);
             this.panelComprado.TabIndex = 3;
-            // 
-            // btnActualiza
-            // 
-            this.btnActualiza.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnActualiza.BackColor = System.Drawing.Color.DarkCyan;
-            this.btnActualiza.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnActualiza.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen;
-            this.btnActualiza.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnActualiza.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnActualiza.ForeColor = System.Drawing.Color.White;
-            this.btnActualiza.Location = new System.Drawing.Point(383, 43);
-            this.btnActualiza.Name = "btnActualiza";
-            this.btnActualiza.Size = new System.Drawing.Size(106, 28);
-            this.btnActualiza.TabIndex = 33;
-            this.btnActualiza.Text = "Actualizar";
-            this.btnActualiza.UseVisualStyleBackColor = false;
-            this.btnActualiza.Click += new System.EventHandler(this.btnActualiza_Click);
             // 
             // cantidadStockActual
             // 
@@ -256,6 +239,23 @@
             this.txtPrecioCompra.Enter += new System.EventHandler(this.txtPrecioCompra_Enter);
             this.txtPrecioCompra.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPrecioCompra_KeyDown);
             this.txtPrecioCompra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioCompra_KeyPress);
+            // 
+            // btnActualiza
+            // 
+            this.btnActualiza.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnActualiza.BackColor = System.Drawing.Color.DarkCyan;
+            this.btnActualiza.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnActualiza.FlatAppearance.MouseOverBackColor = System.Drawing.Color.LimeGreen;
+            this.btnActualiza.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnActualiza.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnActualiza.ForeColor = System.Drawing.Color.White;
+            this.btnActualiza.Location = new System.Drawing.Point(383, 43);
+            this.btnActualiza.Name = "btnActualiza";
+            this.btnActualiza.Size = new System.Drawing.Size(106, 28);
+            this.btnActualiza.TabIndex = 33;
+            this.btnActualiza.Text = "Actualizar";
+            this.btnActualiza.UseVisualStyleBackColor = false;
+            this.btnActualiza.Click += new System.EventHandler(this.btnActualiza_Click);
             // 
             // panelAjustar
             // 
@@ -556,6 +556,7 @@
             this.lbProducto.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lbProducto.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbProducto.Location = new System.Drawing.Point(13, 13);
+            this.lbProducto.MaxLength = 1000;
             this.lbProducto.Name = "lbProducto";
             this.lbProducto.ReadOnly = true;
             this.lbProducto.Size = new System.Drawing.Size(609, 22);

@@ -2334,3 +2334,6 @@ ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS RealizaOrdenes tinyint(1) DEF
 ALTER TABLE Ventas ADD COLUMN IF NOT EXISTS TiempoEntrega VARCHAR(50) DEFAULT NULL;
 ALTER TABLE Ventas ADD COLUMN IF NOT EXISTS FechaEntrega DATETIME DEFAULT '0001-01-01 00:00:00';
 ALTER TABLE Ventas ADD COLUMN IF NOT EXISTS EstadoEntrega INT DEFAULT 0;
+
+-- modificacion para que pueda tener mas texto 
+ALTER TABLE dgvaumentarinventario MODIFY COLUMN NombreProducto VARCHAR(1000);
