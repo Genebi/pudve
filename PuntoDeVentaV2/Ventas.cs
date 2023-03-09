@@ -401,7 +401,7 @@ namespace PuntoDeVentaV2
                 // Realiza rentas
                 if (configCorreos[32].Equals(1))
                 {
-                    checkRenta.Checked = Convert.ToBoolean(configCorreos[31]);
+                    checkRenta.Checked = Convert.ToBoolean(configCorreos[32]);
                     aceptaRenta = 1;
                 }
 
