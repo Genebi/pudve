@@ -433,6 +433,23 @@ namespace PuntoDeVentaV2
                 {
                     {
                         mocho = 1;
+                        string nuevasfechas = string.Empty;
+                        using (DataTable dt = cn.CargarDatos($"SELECT FechasFaltantes FROM reglascreditoventa WHERE IDVenta = {idVenta}"))
+                        {
+                            string[] fechas = dt.Rows[0][0].ToString().Split('%');
+                            foreach (string fecha in fechas)
+                            {
+                                if (DateTime.Parse(fecha) > DateTime.Now)
+                                {
+                                    nuevasfechas += fecha + "%";
+                                }
+                            }
+                        }
+                        nuevasfechas = nuevasfechas.TrimEnd('%'); // Remover cualquier % al final
+                        if (!string.IsNullOrEmpty(nuevasfechas))
+                        {
+                            cn.EjecutarConsulta($"UPDATE reglascreditoventa SET FechasFaltantes = '{nuevasfechas}' WHERE IDVenta = {idVenta}");
+                        }
                     }
                 }
 
