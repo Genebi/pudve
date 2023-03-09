@@ -561,6 +561,7 @@
             this.lbProducto.ReadOnly = true;
             this.lbProducto.Size = new System.Drawing.Size(609, 22);
             this.lbProducto.TabIndex = 36;
+            this.lbProducto.Text = " ";
             this.lbProducto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // AjustarProducto
