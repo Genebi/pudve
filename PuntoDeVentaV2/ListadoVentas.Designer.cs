@@ -53,7 +53,6 @@
             this.ganancia = new System.Windows.Forms.DataGridViewImageColumn();
             this.Abonado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelBotones = new System.Windows.Forms.Panel();
-            this.cbTipoRentas = new System.Windows.Forms.ComboBox();
             this.cbFormasPago = new System.Windows.Forms.ComboBox();
             this.cbFiltroAdminEmpleado = new System.Windows.Forms.ComboBox();
             this.dpHoraFinal = new System.Windows.Forms.DateTimePicker();
@@ -308,7 +307,6 @@
             // 
             this.panelBotones.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelBotones.Controls.Add(this.cbTipoRentas);
             this.panelBotones.Controls.Add(this.cbFormasPago);
             this.panelBotones.Controls.Add(this.cbFiltroAdminEmpleado);
             this.panelBotones.Controls.Add(this.dpHoraFinal);
@@ -335,17 +333,6 @@
             this.panelBotones.Name = "panelBotones";
             this.panelBotones.Size = new System.Drawing.Size(960, 110);
             this.panelBotones.TabIndex = 6;
-            // 
-            // cbTipoRentas
-            // 
-            this.cbTipoRentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbTipoRentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbTipoRentas.FormattingEnabled = true;
-            this.cbTipoRentas.Location = new System.Drawing.Point(3, 30);
-            this.cbTipoRentas.Name = "cbTipoRentas";
-            this.cbTipoRentas.Size = new System.Drawing.Size(240, 21);
-            this.cbTipoRentas.TabIndex = 20;
-            this.cbTipoRentas.Visible = false;
             // 
             // cbFormasPago
             // 
