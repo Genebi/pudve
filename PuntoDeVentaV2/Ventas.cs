@@ -4991,6 +4991,7 @@ namespace PuntoDeVentaV2
                                                     imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                                     imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                                     imprimirTicketVenta.Referencia = referencia;
+                                                    imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
 
                                                     imprimirTicketVenta.ShowDialog();
                                                 }
@@ -5018,6 +5019,7 @@ namespace PuntoDeVentaV2
                                                     imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                                     imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                                     imprimirTicketVenta.Referencia = referencia;
+                                                    imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
 
                                                     imprimirTicketVenta.ShowDialog();
                                                 }
