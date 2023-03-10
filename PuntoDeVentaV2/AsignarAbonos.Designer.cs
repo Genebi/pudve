@@ -540,7 +540,6 @@
             // 
             // chbAdelantoMes
             // 
-            this.chbAdelantoMes.Enabled = false;
             this.chbAdelantoMes.Location = new System.Drawing.Point(400, 162);
             this.chbAdelantoMes.Margin = new System.Windows.Forms.Padding(2);
             this.chbAdelantoMes.Name = "chbAdelantoMes";
