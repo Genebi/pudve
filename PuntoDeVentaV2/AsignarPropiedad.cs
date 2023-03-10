@@ -1387,12 +1387,44 @@ namespace PuntoDeVentaV2
                         notificacion.Start();
                     }
 
-                    using (var dt = cn.CargarDatos($"SELECT CorreoStockMinimo FROM configuracion WHERE IDUsuario ={FormPrincipal.userID}"))
+                    using (var dt1 = cn.CargarDatos($"SELECT CorreoStockMinimo FROM configuracion WHERE IDUsuario ={FormPrincipal.userID}"))
                     {
-                        if (dt.Rows[0][0].ToString().Equals("1"))
+                        if (dt1.Rows[0][0].ToString().Equals("1"))
                         {
-                            Thread envio = new Thread(() => CuerpoEmails(Convert.ToDecimal(stock)));
-                            envio.Start();
+                            List<int> ListaIDs = new List<int>();
+                            string asunto1 = "";
+                            string html1 = "";
+                            string Correo = "";
+                            asunto1 = "¡AVISO! STOCK MÍNIMO ALCANZADO POR ASIGNACIÓN MÚLTIPLE.";
+                            html1 = @"
+                    <div style='margin-bottom: 50px;'>
+                        <h3 style='text-align: center;'>PRODUCTOS CON STOCK MINIMO</h3><hr>
+                        <ul style='color: black; font-size: 0.9em;'>";
+                            foreach (var producto in productos)
+                            {
+                                using (var dt = cn.CargarDatos($"SELECT pro.StockMinimo, pro.Nombre, pro.CodigoBarras, usu.Email FROM productos AS pro INNER JOIN usuarios AS usu on (usu.ID = pro.IDUsuario) WHERE pro.ID = {producto.Key}"))
+                                {
+                                    Correo = dt.Rows[0]["Email"].ToString();
+                                    var anterior = Convert.ToDecimal(dt.Rows[0]["StockMinimo"]);
+                                    if (anterior >= Convert.ToDecimal(stock))
+                                    {
+                                        ListaIDs.Add(producto.Key);
+                                        var nombre = "";
+
+                                        nombre = $"{dt.Rows[0]["Nombre"].ToString()} --- CÓDIGO BARRAS: {dt.Rows[0]["CodigoBarras"].ToString()} --- STOCK MINIMO: {dt.Rows[0]["StockMinimo"].ToString()} --- STOCK ACTUAL: {stock}";
+
+                                        html1 += $"<li>{nombre}</li>";
+                                    }
+
+                                }
+                            }
+
+                            if (!ListaIDs.Count.Equals(0))
+                            {
+                                Thread envio = new Thread(() => Utilidades.EnviarEmail(html1, asunto1, Correo));
+                                envio.Start();
+                            }
+                           
                         }
                     }
 
@@ -2230,38 +2262,6 @@ namespace PuntoDeVentaV2
 
         private void CuerpoEmails(decimal CantidadNueva)
         {
-            List<int> ListaIDs = new List<int>();
-            string asunto1 = "";
-            string html1 = "";
-            string Correo = "";
-            asunto1 = "¡AVISO! STOCK MÍNIMO ALCANZADO POR ASIGNACIÓN MÚLTIPLE.";
-            html1 = @"
-                    <div style='margin-bottom: 50px;'>
-                        <h3 style='text-align: center;'>PRODUCTOS CON STOCK MINIMO</h3><hr>
-                        <ul style='color: black; font-size: 0.9em;'>";
-            foreach (var producto in productos)
-            {
-                using (var dt = cn.CargarDatos($"SELECT pro.StockMinimo, pro.Nombre, pro.CodigoBarras, usu.Email FROM productos AS pro INNER JOIN usuarios AS usu on (usu.ID = pro.IDUsuario) WHERE pro.ID = {producto.Key}"))
-                {
-                    Correo = dt.Rows[0]["Email"].ToString();
-                    var anterior = Convert.ToDecimal(dt.Rows[0]["StockMinimo"]);
-                    if (anterior >= Convert.ToDecimal(CantidadNueva))
-                    {
-                        ListaIDs.Add(producto.Key);
-                        var nombre = "";
-
-                        nombre = $"{dt.Rows[0]["Nombre"].ToString()} --- CÓDIGO BARRAS: {dt.Rows[0]["CodigoBarras"].ToString()} --- STOCK MINIMO: {dt.Rows[0]["StockMinimo"].ToString()} --- STOCK ACTUAL: {CantidadNueva}";
-
-                        html1 += $"<li>{nombre}</li>";
-                    }
-
-                }
-            }
-
-            if (!ListaIDs.Count.Equals(0))
-            {
-                Utilidades.EnviarEmail(html1, asunto1, Correo);
-            }
 
         }
     }
