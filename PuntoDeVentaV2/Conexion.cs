@@ -198,10 +198,23 @@ namespace PuntoDeVentaV2
             return respuesta;
         }
 
+        //public DataTable CargarDatos(string consulta)
+        //{
+        //    DataTable db = new DataTable();
+        //    Conectarse();
+        //    sql_con.Open();
+        //    MySqlCommand com = new MySqlCommand(consulta, sql_con);
+        //    MySqlDataAdapter adap = new MySqlDataAdapter(com);
+        //    adap.Fill(db);
+        //    sql_con.Close();
+        //    return db;
+        //}
+
         public DataTable CargarDatos(string consulta)
         {
             DataTable db = new DataTable();
             Conectarse();
+            sql_con.Close(); // close the connection before executing the query
             sql_con.Open();
             MySqlCommand com = new MySqlCommand(consulta, sql_con);
             MySqlDataAdapter adap = new MySqlDataAdapter(com);

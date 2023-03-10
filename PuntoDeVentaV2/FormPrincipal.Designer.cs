@@ -54,12 +54,7 @@
             this.temporizador_respaldo = new System.Windows.Forms.Timer(this.components);
             this.actualizarCaja = new System.Windows.Forms.Timer(this.components);
             this.timerProductos = new System.Windows.Forms.Timer(this.components);
-            this.webListener = new System.ComponentModel.BackgroundWorker();
             this.webAuto = new System.Windows.Forms.Timer(this.components);
-            this.webSender = new System.ComponentModel.BackgroundWorker();
-            this.revisorCaducos = new System.Windows.Forms.Timer(this.components);
-            this.bgwCaducos = new System.ComponentModel.BackgroundWorker();
-            this.actualizarCaducidad = new System.Windows.Forms.Timer(this.components);
             this.bwOrdenes = new System.ComponentModel.BackgroundWorker();
             this.timerOrdenes = new System.Windows.Forms.Timer(this.components);
             this.panelMaestro.SuspendLayout();
@@ -496,28 +491,11 @@
             this.timerProductos.Interval = 180000;
             this.timerProductos.Tick += new System.EventHandler(this.timerProductos_Tick);
             // 
-            // webListener
-            // 
-            this.webListener.DoWork += new System.ComponentModel.DoWorkEventHandler(this.webListener_DoWork);
-            // 
             // webAuto
             // 
             this.webAuto.Enabled = true;
             this.webAuto.Interval = 4500000;
             this.webAuto.Tick += new System.EventHandler(this.webAuto_Tick);
-            // 
-            // webSender
-            // 
-            // 
-            // bgwCaducos
-            // 
-            this.bgwCaducos.WorkerSupportsCancellation = true;
-            this.bgwCaducos.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwCaducos_DoWork);
-            // 
-            // actualizarCaducidad
-            // 
-            this.actualizarCaducidad.Enabled = true;
-            this.actualizarCaducidad.Interval = 2000;
             // 
             // bwOrdenes
             // 
@@ -576,14 +554,9 @@
         public System.Windows.Forms.Panel panelContenedor;
         private System.Windows.Forms.Button btnSesion;
         private System.Windows.Forms.Button BtnConsulta;
-        private System.ComponentModel.BackgroundWorker webListener;
         public System.Windows.Forms.Timer actualizarCaja;
         private System.Windows.Forms.Timer webAuto;
-        private System.ComponentModel.BackgroundWorker webSender;
-        private System.Windows.Forms.Timer revisorCaducos;
-        private System.ComponentModel.BackgroundWorker bgwCaducos;
         public BotonRedondo btnCad;
-        private System.Windows.Forms.Timer actualizarCaducidad;
         private BotonRedondo btnAyuda;
         private System.ComponentModel.BackgroundWorker bwOrdenes;
         private System.Windows.Forms.Timer timerOrdenes;

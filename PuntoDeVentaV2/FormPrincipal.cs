@@ -541,9 +541,13 @@ namespace PuntoDeVentaV2
             TempUserNickName = TempNickUsr;
             TempUserPass = TempPassUsr;
 
-            //Caducos caducos = new Caducos(userID, this, this.btnCad);
-            //caducos.ShowDialog();
-            bgwCaducos.RunWorkerAsync();
+
+
+            
+
+            Thread caducos = new Thread(() => buscarCaducos());
+            caducos.Start();
+
             ObtenerDatosUsuario(userID);
             var servidor = Properties.Settings.Default.Hosting;
 
@@ -697,6 +701,12 @@ namespace PuntoDeVentaV2
             timerOrdenes.Start();
 
             btnAyuda.Focus();
+        }
+
+        private void buscarCaducos()
+        {
+            Caducos caducos = new Caducos(userID, this, this.btnCad);
+            caducos.ShowDialog();
         }
 
         private void EnvioCorreoLicenciaActiva()
@@ -1167,27 +1177,20 @@ namespace PuntoDeVentaV2
                     
                 }            
             }
-        }
+        }        
 
-        
-
-        private void webListener_DoWork(object sender, DoWorkEventArgs e)
+        private void solicitudWEB()
         {
-            if (userNickName.Split('@')[0]=="HOUSEDEPOTAUTLAN")
+
+            if (userNickName.Split('@')[0] == "HOUSEDEPOTAUTLAN")
             {
                 string path = @"C:\Archivos PUDVE\Monosas.txt";
                 if (!System.IO.File.Exists(path))
                 {
                     return;
-                }                
+                }
             }
-            
-            solicitudWEB();
 
-        }
-
-        private void solicitudWEB()
-        {
             listenerIsRunning = true;
             try
             {
@@ -1513,8 +1516,7 @@ namespace PuntoDeVentaV2
 
         private void bgwCaducos_DoWork(object sender, DoWorkEventArgs e)
         {
-            Caducos caducos = new Caducos(userID, this, this.btnCad);
-            caducos.ShowDialog();
+            
         }
 
 
@@ -1647,6 +1649,11 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+        }
+
+        private void webSender_DoWork(object sender, DoWorkEventArgs e)
+        {
+
         }
 
         private void validarCerrarSesion()
