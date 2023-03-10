@@ -732,6 +732,7 @@ namespace PuntoDeVentaV2
                 tbAgregarDescuento.CharacterCasing = CharacterCasing.Upper;
                 tbAgregarDescuento.Font = fuente;
                 tbAgregarDescuento.Location = new Point(65, 50);
+                tbAgregarDescuento.KeyPress += new KeyPressEventHandler(SoloDecimales);
 
                 panelContenedor.Controls.Add(tbAgregarDescuento);
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarMensaje"));
