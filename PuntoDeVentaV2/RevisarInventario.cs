@@ -1408,9 +1408,49 @@ namespace PuntoDeVentaV2
 
                             LimpiarCampos();
                             //txtBoxBuscarCodigoBarras.Focus();
+
+                            using (var dt = cn.CargarDatos($"SELECT StockMinimo from productos WHERE ID = {idProducto}"))
+                            {
+                                string asunto1 = "";
+                                string html1 = "";
+
+                                var anterior = Convert.ToDecimal(dt.Rows[0][0]);
+                                if (anterior >= Convert.ToDecimal(CantidadNueva))
+                                {
+                                    asunto1 = "¡AVISO! STOCK MINIMO ALCANZADO POR INVENTARIO.";
+
+                                    html1 = @"
+                    <div style='margin-bottom: 50px;'>
+                        <h3 style='text-align: center;'>PRODUCTOS CON STOCK MINIMO</h3><hr>
+                        <ul style='color: black; font-size: 0.9em;'>";
+                                    var nombre = "";
+                                    using (var DoraCastrosa = cn.CargarDatos($"	SELECT Nombre, CodigoBarras,StockMinimo FROM productos WHERE ID = {idProducto}"))
+                                    {
+                                        nombre = $"{DoraCastrosa.Rows[0]["Nombre"].ToString()} --- CÓDIGO BARRAS: {DoraCastrosa.Rows[0]["CodigoBarras"].ToString()} --- STOCK MINIMO: {DoraCastrosa.Rows[0]["StockMinimo"].ToString()} --- STOCK ACTUAL: {CantidadNueva}";
+                                    }
+                                    html1 += $"<li>{nombre}</li>";
+
+
+                                    var footerCorreo = string.Empty;
+
+                                    html1 += $@"
+                        </ul><hr>
+                        {footerCorreo}
+                    </div>";
+
+                                    string Correo = "";
+                                    using (var DTcorreo = cn.CargarDatos($"SELECT Email FROM usuarios WHERE ID = {FormPrincipal.userID}"))
+                                    {
+                                        Correo = DTcorreo.Rows[0][0].ToString();
+                                    }
+                                    Thread envio = new Thread(() => Utilidades.EnviarEmail(html1, asunto1, Correo));
+                                    envio.Start();
+                                }
+                            }
+
+
                             
-                            Thread envio = new Thread(() => CuerpoEmails());
-                            envio.Start();
+
                             if (tipoFiltro == "Normal")
                             {
                                 txtBoxBuscarCodigoBarras.Focus();
@@ -1588,42 +1628,7 @@ namespace PuntoDeVentaV2
 
         private void CuerpoEmails()
         {
-            using (var dt = cn.CargarDatos($"SELECT StockMinimo from productos WHERE ID = {idProducto}"))
-            {
-                string asunto1 = "";
-                string html1 = "";
-
-                var anterior = Convert.ToDecimal(dt.Rows[0][0]);
-                if (anterior >= Convert.ToDecimal(CantidadNueva))
-                {
-                    asunto1 = "¡AVISO! STOCK MINIMO ALCANZADO POR INVENTARIO.";
-
-                    html1 = @"
-                    <div style='margin-bottom: 50px;'>
-                        <h3 style='text-align: center;'>PRODUCTOS CON STOCK MINIMO</h3><hr>
-                        <ul style='color: black; font-size: 0.9em;'>";
-                    var nombre = "";
-                    using (var DoraCastrosa = cn.CargarDatos($"	SELECT Nombre, CodigoBarras,StockMinimo FROM productos WHERE ID = {idProducto}"))
-                    {
-                        nombre = $"{DoraCastrosa.Rows[0]["Nombre"].ToString()} --- CÓDIGO BARRAS: {DoraCastrosa.Rows[0]["CodigoBarras"].ToString()} --- STOCK MINIMO: {DoraCastrosa.Rows[0]["StockMinimo"].ToString()} --- STOCK ACTUAL: {CantidadNueva}";
-                    }
-                    html1 += $"<li>{nombre}</li>";
-                    
-
-                    var footerCorreo = string.Empty;
-
-                    html1 += $@"
-                        </ul><hr>
-                        {footerCorreo}
-                    </div>";
-                }
-                string Correo = "";
-                using (var DTcorreo = cn.CargarDatos($"SELECT Email FROM usuarios WHERE ID = {FormPrincipal.userID}"))
-                {
-                    Correo = DTcorreo.Rows[0][0].ToString();
-                }
-                Utilidades.EnviarEmail(html1, asunto1, Correo);
-            }
+           
         }
 
         private bool verificarSubDetalles(decimal stock)

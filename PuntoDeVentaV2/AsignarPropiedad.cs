@@ -1349,14 +1349,8 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-                    using (var dt = cn.CargarDatos($"SELECT CorreoStockMinimo FROM configuracion WHERE IDUsuario ={FormPrincipal.userID}"))
-                    {
-                        if (dt.Rows[0][0].ToString().Equals("1"))
-                        {
-                            Thread envio = new Thread(() => CuerpoEmails(Convert.ToDecimal(stock)));
-                            envio.Start();
-                        }
-                    }
+
+                   
 
 
                     if (monosas.Count > 0)
@@ -1392,6 +1386,16 @@ namespace PuntoDeVentaV2
 
                         notificacion.Start();
                     }
+
+                    using (var dt = cn.CargarDatos($"SELECT CorreoStockMinimo FROM configuracion WHERE IDUsuario ={FormPrincipal.userID}"))
+                    {
+                        if (dt.Rows[0][0].ToString().Equals("1"))
+                        {
+                            Thread envio = new Thread(() => CuerpoEmails(Convert.ToDecimal(stock)));
+                            envio.Start();
+                        }
+                    }
+
                     MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
                 }
                 else
