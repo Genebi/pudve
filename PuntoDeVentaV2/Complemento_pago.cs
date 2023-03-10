@@ -18,10 +18,11 @@ namespace PuntoDeVentaV2
         int id_usuario = FormPrincipal.userID;
         int id_empleado = FormPrincipal.id_empleado;
         int tam_arr = Facturas.arr_id_facturas.Length;
-        decimal[][] arr_totales;
+        string[][] arr_totales;
 
         static public string clave_moneda = "";
         static public bool ban_moneda = false;
+        static public string[][][] arr_impuestos;
 
 
 
@@ -244,6 +245,8 @@ namespace PuntoDeVentaV2
                         nfila++;
                     }
                 }
+
+                arr_impuestos = new string[tam_arr][][];
             }
         }
 
@@ -264,8 +267,8 @@ namespace PuntoDeVentaV2
             // Si se tiene una conexión a internet procede a realizar el complemento.
             if (Conexion.ConectadoInternet())
             {
-                int t = 0, error = 0, error_monto_mayor = 0;
-                arr_totales = new decimal[tam_arr][];
+                int t = 0, error = 0, error_monto_mayor = 0, erro_mon_tcam = 0;
+                arr_totales = new string[tam_arr][];
 
 
                 // ...............................
@@ -276,13 +279,13 @@ namespace PuntoDeVentaV2
                 {
                     if (panel.Name.Contains("lb_total"))
                     {
-                        arr_totales[t] = new decimal[4];
+                        arr_totales[t] = new string[5];
 
-                        arr_totales[t][1] = Convert.ToDecimal(panel.Text);
+                        arr_totales[t][1] = panel.Text;
                     }
                     if (panel.Name.Contains("txt_total"))
                     {
-                        arr_totales[t][2] = Convert.ToDecimal(panel.Text);
+                        arr_totales[t][2] = panel.Text;
 
                         if (panel.Text.Trim() == "" | Convert.ToDecimal(panel.Text) == 0)
                         {
@@ -291,14 +294,14 @@ namespace PuntoDeVentaV2
 
                         // Valida que el abono no sea mayor a lo que debe
 
-                        decimal resta = arr_totales[t][1];
-                        decimal abono = arr_totales[t][2];
+                        decimal resta = Convert.ToDecimal(arr_totales[t][1]);
+                        decimal abono = Convert.ToDecimal(arr_totales[t][2]);
 
                         if (abono > 0)
                         {
                             if (resta >= abono)
                             {
-                                arr_totales[t][0] = Facturas.arr_id_facturas[t];
+                                arr_totales[t][0] = Facturas.arr_id_facturas[t].ToString();
                             }
                             else
                             {
@@ -312,6 +315,23 @@ namespace PuntoDeVentaV2
 
                         t++;
                     }
+                    if (panel.Name.Contains("txt_moneda_dr"))
+                    {
+                        if (string.IsNullOrEmpty(panel.Text)){
+                            erro_mon_tcam++;
+                        }
+
+                        arr_totales[t][3] = panel.Text;
+                    }
+                    if (panel.Name.Contains("txt_tcambio_dr"))
+                    {
+                        if (string.IsNullOrEmpty(panel.Text))
+                        {
+                            erro_mon_tcam++;
+                        }
+
+                        arr_totales[t][4] = panel.Text;
+                    }
                 }
 
                 if (error > 0)
@@ -322,6 +342,11 @@ namespace PuntoDeVentaV2
                 if (error_monto_mayor > 0)
                 {
                     MessageBox.Show("El abono en alguna factura es mayor al total restante.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (erro_mon_tcam > 0)
+                {
+                    MessageBox.Show("Se debe especificar una moneda y tipo de cambio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -404,9 +429,9 @@ namespace PuntoDeVentaV2
                     n_parcialidad = n_parcialidad + 1;
 
                     decimal saldo_insoluto = 0;
-                    saldo_insoluto = arr_totales[r][1] - arr_totales[r][2];
+                    saldo_insoluto = Convert.ToDecimal(arr_totales[r][1]) - Convert.ToDecimal(arr_totales[r][2]);
 
-                    monto_pago += arr_totales[r][2];
+                    monto_pago += Convert.ToDecimal(arr_totales[r][2]);
 
                     string[] datos_cp = new string[]
                     {
@@ -448,7 +473,7 @@ namespace PuntoDeVentaV2
                 // ...........................
 
 
-                Generar_XML xml_complemento = new Generar_XML();
+               /* Generar_XML xml_complemento = new Generar_XML();
                 string respuesta_xml = xml_complemento.obtener_datos_XML(id_factura_pago, 0, 1, arr_idf_principal_pago);
 
                 btn_aceptar.Enabled = true;
@@ -468,7 +493,7 @@ namespace PuntoDeVentaV2
                 else
                 {
                     MessageBox.Show(respuesta_xml, "Error", MessageBoxButtons.OK);
-                }
+                }*/
             }
             else
             {
@@ -735,11 +760,20 @@ namespace PuntoDeVentaV2
             Button boton = (Button)sender;
             var nombre_boton = boton.Name; 
             var num_dr = nombre_boton.Split('-');
-
+            
             Label lb_id = (Label)this.Controls.Find("lb_idf-" + num_dr[1], true).FirstOrDefault();
             int id_fct = Convert.ToInt32(lb_id.Text);
 
-            Complemento_pago_impuestos vnt_impuestos = new Complemento_pago_impuestos(Convert.ToInt32(num_dr[1]), id_fct);
+            TextBox txt_abono = (TextBox)this.Controls.Find("txt_total" + num_dr[1], true).FirstOrDefault();
+            var abono = txt_abono.Text;
+
+            if(string.IsNullOrEmpty(txt_abono.Text))
+            {
+                MessageBox.Show("Primero debe ingresar el abono.", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            Complemento_pago_impuestos vnt_impuestos = new Complemento_pago_impuestos(Convert.ToInt32(num_dr[1]), id_fct, Convert.ToDecimal(txt_abono.Text));
             vnt_impuestos.ShowDialog();
         }
     }

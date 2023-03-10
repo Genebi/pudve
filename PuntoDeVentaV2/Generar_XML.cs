@@ -1255,20 +1255,20 @@ namespace PuntoDeVentaV2
             // .    Timbrar CFDI    .
             // ......................
 
-            /*string usuario = "EWE1709045U0.Test";
+            string usuario = "EWE1709045U0.Test";
             string clave_u = "Prueba$1";
-            int id_servicio = 194876591;*/
-            string usuario = "NUSN900420SS5";
+            int id_servicio = 194876591;
+            /*string usuario = "NUSN900420SS5";
             string clave_u = "Acceso$1";
-            int id_servicio = 196789671;
+            int id_servicio = 196789671;*/
             byte[] XML40 = File.ReadAllBytes(rutaXML);
 
 
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
             //Convierte archivo en bytes
-            var servicio = new FH_CFDI40_produccion.WsEmisionTimbrado40();
-            //var servicio = new FH_CFDI40_test.WsEmisionTimbrado40();
+            //var servicio = new FH_CFDI40_produccion.WsEmisionTimbrado40();
+            var servicio = new FH_CFDI40_test.WsEmisionTimbrado40();
 
 
             try

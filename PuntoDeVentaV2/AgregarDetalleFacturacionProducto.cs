@@ -1335,7 +1335,7 @@ namespace PuntoDeVentaV2
 
                 nombre = nombre.Replace("cbLinea", "tbLinea");
 
-                if (porcentajeSeleccionado == "Definir %")
+                if (porcentajeSeleccionado == "Definir %" | porcentajeSeleccionado == "Definir") //if (porcentajeSeleccionado == "Definir %")
                 {
                     nombre += "1";
 
@@ -1821,10 +1821,10 @@ namespace PuntoDeVentaV2
                                     // Combobox: tasa/cuota
 
                                     ComboBox cb4 = (ComboBox)this.Controls.Find(nombre_cb + 4, true).FirstOrDefault();
-                                    cb4.SelectedItem = dato[3] + " %";
+                                    cb4.SelectedItem = dato[3];// + " %";
                                     int index4 = cb4.SelectedIndex;
 
-                                    AccederComboBox(nombre_cb, 5, index4, dato[3] + " %");
+                                    AccederComboBox(nombre_cb, 5, index4, dato[3]);// + " %"
 
 
                                     // Textbox: Definir impuesto

@@ -2874,7 +2874,7 @@ namespace PuntoDeVentaV2
                                     nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,
                                     tipoDescuento, FormPrincipal.userID.ToString(), logoTipo, ProdServPaq, baseProducto,
                                     ivaProducto, impuestoProducto, mg.RemoverCaracteres(nombre), mg.RemoverPreposiciones(nombre),
-                                    stockNecesario, "0", txtPrecioCompra.Text, precioMayoreo, incluye_impuestos, nombre_cterceros, rfc_cterceros, cp_cterceros, regimen_cterceros
+                                    stockNecesario, "0", txtPrecioCompra.Text, precioMayoreo, incluye_impuestos, nombre_cterceros, rfc_cterceros, cp_cterceros, regimen_cterceros, "0"
                                 };
 
                                 #region Inicio de guardado de los datos principales del Servicios o Combos
@@ -3129,7 +3129,7 @@ namespace PuntoDeVentaV2
                                             string Date = fechaCompleta.Substring(found + 1);
                                             string FechaRegistrada = Year + " " + Date;
                                             string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idHistorialCompraProducto}','{FechaRegistrada}')";
-                                            cn.EjecutarConsulta(queryRecordHistorialProd);
+                                            //cn.EjecutarConsulta(queryRecordHistorialProd);
 
                                             //if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
                                             //{
@@ -6684,7 +6684,7 @@ namespace PuntoDeVentaV2
                                             string DateServ = fechaCompletaServ.Substring(foundServicio + 1);
                                             string FechaRegistradaServ = YearServ + " " + DateServ;
                                             string queryRecordHistorialServ = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistradaServ}')";
-                                            cn.EjecutarConsulta(queryRecordHistorialServ);
+                                            //cn.EjecutarConsulta(queryRecordHistorialServ);
 
 
                                             int found = 10;
@@ -6694,7 +6694,7 @@ namespace PuntoDeVentaV2
                                             string Date = fechaCompleta.Substring(found + 1);
                                             string FechaRegistrada = Year + " " + Date;
                                             string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
-                                            cn.EjecutarConsulta(queryRecordHistorialProd);
+                                            //cn.EjecutarConsulta(queryRecordHistorialProd);
 
                                             /*if (flowLayoutPanel2.Controls.Count == 0)
                                             {
@@ -6855,7 +6855,7 @@ namespace PuntoDeVentaV2
                                             string Date = fechaCompleta.Substring(found + 1);
                                             string FechaRegistrada = Year + " " + Date;
                                             string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idHistorialCompraProducto}','{FechaRegistrada}')";
-                                            cn.EjecutarConsulta(queryRecordHistorialProd);
+                                            //cn.EjecutarConsulta(queryRecordHistorialProd);
 
                                             if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
                                             {
