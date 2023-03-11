@@ -1444,6 +1444,7 @@ namespace PuntoDeVentaV2
                 var stock = txtStock.Text;
                 var consulta = "INSERT IGNORE INTO Productos (ID, StockMinimo) VALUES";
                 var valores = string.Empty;
+                var mensaje = "Los siguientes productos no seran modificados porque excederían el stock máximo:\n";
 
                 if (!string.IsNullOrWhiteSpace(stock))
                 {
@@ -1451,18 +1452,25 @@ namespace PuntoDeVentaV2
                     {
                         if (producto.Value == "P")
                         {
-                            valores += $"({producto.Key}, {stock}),";
-                            using (var DTStockMaximo = cn.CargarDatos($"SELECT StockNecesario FROM productos WHERE ID = {producto.Key}"))
+                            using (var DTStockMaximo = cn.CargarDatos($"SELECT Nombre,StockNecesario FROM productos WHERE ID = {producto.Key}"))
                             {
                                 string StockMaximo = DTStockMaximo.Rows[0]["StockNecesario"].ToString();
                                 if (Convert.ToDecimal(stock) >= Convert.ToDecimal(StockMaximo))
                                 {
-                                    MessageBox.Show("El stock minimo no puede superar el Stock maximo", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    return;
+                                    mensaje +="-"+ DTStockMaximo.Rows[0]["Nombre"].ToString() + "\n";
+                                }
+                                else
+                                {
+                                    valores += $"({producto.Key}, {stock}),";
                                 }
                             }
                             //cn.EjecutarConsulta(consulta);
                         }
+                    }
+
+                    if (!mensaje.Equals("Los siguientes productos no seran modificados porque excederían el stock máximo:\n"))
+                    {
+                        MessageBox.Show(mensaje, "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
                     if (!string.IsNullOrWhiteSpace(valores))
@@ -1488,6 +1496,7 @@ namespace PuntoDeVentaV2
                 var stock = txtStock.Text;
                 var consulta = "INSERT IGNORE INTO Productos (ID, StockNecesario) VALUES";
                 var valores = string.Empty;
+                var mensaje = "Los siguientes productos no seran modificados porque excederían el stock máximo:\n";
 
                 if (!string.IsNullOrWhiteSpace(stock))
                 {
@@ -1495,10 +1504,25 @@ namespace PuntoDeVentaV2
                     {
                         if (producto.Value == "P")
                         {
-                            valores += $"({producto.Key}, {stock}),";
-
+                           
+                            using (var dt = cn.CargarDatos($"SELECT Nombre,StockMinimo FROM productos WHERE ID = {producto.Key}"))
+                            {
+                                if (Convert.ToDecimal(dt.Rows[0][1]) >Convert.ToDecimal(stock))
+                                {
+                                    mensaje += "-" + dt.Rows[0]["Nombre"].ToString() + "\n";
+                                }
+                                else
+                                {
+                                    valores += $"({producto.Key}, {stock}),";
+                                }
+                            }
                             //cn.EjecutarConsulta(consulta);
                         }
+                    }
+
+                    if (!mensaje.Equals("Los siguientes productos no seran modificados porque excederían el stock máximo:\n"))
+                    {
+                        MessageBox.Show(mensaje, "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
 
                     if (!string.IsNullOrWhiteSpace(valores))
