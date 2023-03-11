@@ -1558,6 +1558,7 @@ namespace PuntoDeVentaV2
                     var consulta = "INSERT IGNORE INTO Productos (ID, Precio) VALUES";
                     var valores = string.Empty;
                     var empleado = "0";
+                    var mensaje = "Los siguientes productos no seran modificados porque exeden el precio compra:\n";
 
                     if (FormPrincipal.userNickName.Contains('@'))
                     {
@@ -1582,43 +1583,57 @@ namespace PuntoDeVentaV2
 
                     foreach (var producto in productos)
                     {
-                        var datosConfig = mb.ComprobarConfiguracion();
-
-                        if (datosConfig.Count > 0)
+                        using (var dt = cn.CargarDatos($"SELECT Nombre, PrecioCompra FROM `productos` WHERE ID = {producto.Key}"))
                         {
-                            if (Convert.ToInt16(datosConfig[0]) == 1)
+                            if (Convert.ToDecimal(dt.Rows[0][1]) >= Convert.ToDecimal(precio))
                             {
-                                var configProducto = mb.ComprobarCorreoProducto(producto.Key);
+                                mensaje += dt.Rows[0][0].ToString() + "\n";
+                            }
+                            else
+                            {
+                                var datosConfig = mb.ComprobarConfiguracion();
 
-                                if (configProducto.Count > 0)
+                                if (datosConfig.Count > 0)
                                 {
-                                    if (configProducto[0] == 1)
+                                    if (Convert.ToInt16(datosConfig[0]) == 1)
                                     {
-                                        // Obtenemos los datos del producto para el email
-                                        var datosProducto = cn.BuscarProducto(producto.Key, FormPrincipal.userID);
+                                        var configProducto = mb.ComprobarCorreoProducto(producto.Key);
 
-                                        html += $@"<li>
+                                        if (configProducto.Count > 0)
+                                        {
+                                            if (configProducto[0] == 1)
+                                            {
+                                                // Obtenemos los datos del producto para el email
+                                                var datosProducto = cn.BuscarProducto(producto.Key, FormPrincipal.userID);
+
+                                                html += $@"<li>
                                                     <span style='color: black;'>{datosProducto[1]}</span> 
                                                     --- <b>PRECIO ANTERIOR:</b> 
                                                     <span style='color: black;'>${float.Parse(datosProducto[2]).ToString("N2")}</span> 
                                                     --- <b>PRECIO NUEVO:</b> 
                                                     <span style='color: black;'>${precio.ToString("N2")}</span>
                                                 </li>";
+                                            }
+                                        }
                                     }
                                 }
+
+                                // Actualizar el nuevo precio
+
+                                valores += $"({producto.Key}, {precio}),";
+
+                                // Eliminamos los descuentos del producto
+                                cn.EjecutarConsulta($"DELETE FROM DescuentoCliente WHERE IDProducto = {producto.Key}");
+                                cn.EjecutarConsulta($"DELETE FROM DescuentoMayoreo WHERE IDProducto = {producto.Key}");
+                                //cn.EjecutarConsulta(cs.SetUpPrecioProductos(producto.Key, precio, FormPrincipal.userID));
                             }
                         }
-
-                        // Actualizar el nuevo precio
-
-                        valores += $"({producto.Key}, {precio}),";
-
-                        // Eliminamos los descuentos del producto
-                        cn.EjecutarConsulta($"DELETE FROM DescuentoCliente WHERE IDProducto = {producto.Key}");
-                        cn.EjecutarConsulta($"DELETE FROM DescuentoMayoreo WHERE IDProducto = {producto.Key}");
-                        //cn.EjecutarConsulta(cs.SetUpPrecioProductos(producto.Key, precio, FormPrincipal.userID));
+                       
                     }
-
+                    if (!mensaje.Equals("Los siguientes productos no seran modificados porque exeden el precio compra:\n"))
+                    {
+                        MessageBox.Show(mensaje, "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                     if (!string.IsNullOrWhiteSpace(valores))
                     {
                         valores = valores.TrimEnd(',');
