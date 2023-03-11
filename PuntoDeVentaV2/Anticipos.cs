@@ -47,6 +47,7 @@ namespace PuntoDeVentaV2
         private Paginar p;
         int clickBoton = 0;
         string DataMemberDGV = "Anticipos";
+        public static bool SeCancelo = false;
                 
         IEnumerable<AgregarAnticipo> FormAnticipo = Application.OpenForms.OfType<AgregarAnticipo>();
 
@@ -403,7 +404,6 @@ namespace PuntoDeVentaV2
 
                         var datosHistorial = cn.CargarDatos($"SELECT vent.ID AS 'ID Venta', IF(vent.IDEmpleado!=0,'Empleado', 'Administrador') AS 'Empleado', ant.Concepto, ant.Cliente, ant.Comentarios, ant.ImporteOriginal AS 'Total Recibido', ((vent.Subtotal+vent.IVA16+vent.IVA8)) AS 'Anticipo Aplicado', vent.anticipo - (vent.Subtotal+vent.IVA16+vent.IVA8 - vent.Total) AS 'Saldo Restante', vent.FechaOperacion AS 'Fecha Operacion' FROM anticipos AS ant INNER JOIN ventas AS vent ON (Vent.IDAnticipo = ant.ID ) WHERE vent.IDAnticipo = '{idAnticipo}' ORDER BY vent.ID DESC");
 
-
                         HistorialAnticipos historialAnticipo = new HistorialAnticipos();
                         historialAnticipo.datosHistoria = datosHistorial;
                         historialAnticipo.ShowDialog();
@@ -529,6 +529,7 @@ namespace PuntoDeVentaV2
                                 cn.EjecutarConsulta(cs.CambiarStatusAnticipo(2, idAnticipo, FormPrincipal.userID));
                                 CajaDeshabilitar(formaPago, importe);
                                 CargarDatos(cbAnticipos.SelectedIndex + 1);
+
                             }
 
                         }
@@ -573,6 +574,12 @@ namespace PuntoDeVentaV2
                             };
 
                             da.ShowDialog();
+                        }
+                        if (SeCancelo.Equals(true))
+                        {
+                            idanticipoVer.idAnticipoViz = idAnticipo;
+                            idanticipoVer.anticipoSinHistorial = 1;
+                            idanticipoVer.Show();
                         }
                     }
                 }

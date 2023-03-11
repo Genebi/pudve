@@ -65,7 +65,7 @@ namespace PuntoDeVentaV2
 
             string rutaTicket = @"PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc";
 
-            if (tipoImpresion.Equals(5))
+            if (tipoImpresion.Equals(5) || tipoImpresion.Equals(10))
             {
                 rutaTicket = @"VentaGlobal\VentaGlobal.rdlc";
             }
@@ -110,7 +110,7 @@ namespace PuntoDeVentaV2
 
             var nombreXSD = "TicketPresupuesto";
 
-            if (tipoImpresion.Equals(5))
+            if (tipoImpresion.Equals(5) || tipoImpresion.Equals(10))
             {
                 nombreXSD = "DTTicketVentaGlobal";
             }
@@ -236,6 +236,13 @@ namespace PuntoDeVentaV2
             //19 parametro integer para mostrar / ocultar Referencia
             reportParameters.Add(new ReportParameter("Referencia", Referencia.ToString()));
 
+            if (tipoImpresion.Equals(5) || tipoImpresion.Equals(10))
+            {
+                //20 parametro para el tipo de ticket
+                reportParameters.Add(new ReportParameter("TipoTicket", tipoImpresion.ToString()));
+            }
+                
+
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Add(rp);
             this.reportViewer1.ZoomMode = ZoomMode.PageWidth;
@@ -278,7 +285,7 @@ namespace PuntoDeVentaV2
             string pathApplication = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string rutaTicket = @"PresupuestoRealizado\ReporteTicketPresupuesto80mm.rdlc";
 
-            if (tipoImpresion.Equals(5))
+            if (tipoImpresion.Equals(5) || tipoImpresion.Equals(10))
             {
                 rutaTicket = @"VentaGlobal\VentaGlobal.rdlc";
             }
@@ -317,7 +324,7 @@ namespace PuntoDeVentaV2
             #region Impresion Ticket de 8 cm (80 mm)
             var nombreXSD = "TicketPresupuesto";
 
-            if (tipoImpresion.Equals(5))
+            if (tipoImpresion.Equals(5) || tipoImpresion.Equals(10))
             {
                 nombreXSD = "DTTicketVentaGlobal";
             }
@@ -419,6 +426,14 @@ namespace PuntoDeVentaV2
             reportParameters.Add(new ReportParameter("PathBarCode", pathBarCodeFull));
             //19 parametro integer para mostrar / ocultar Referencia
             reportParameters.Add(new ReportParameter("Referencia", Referencia.ToString()));
+            //20 parametro para el usuario
+            reportParameters.Add(new ReportParameter("Usuario", FormPrincipal.userNickName.ToString()));
+
+            if (tipoImpresion.Equals(5) || tipoImpresion.Equals(10))
+            {
+                //21 parametro para el tipo de ticket
+                reportParameters.Add(new ReportParameter("TipoTicket", tipoImpresion.ToString()));
+            }
 
             string UsuarioRealizoVenta = string.Empty;
 

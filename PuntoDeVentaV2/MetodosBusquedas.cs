@@ -1414,13 +1414,20 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-        public Dictionary<int, string> BusquedaCoincidenciasVentas(string frase, string filtro, int mPrecio = 0, int mCB = 0)
+        public Dictionary<int, string> BusquedaCoincidenciasVentas(string frase, string filtro, int mPrecio = 0, int mCB = 0, int soloRenta = 0)
         {
             var lista = new Dictionary<int, string>();
 
-             var coincidencias = new Dictionary<int, Tuple<int, string>>();
+            var coincidencias = new Dictionary<int, Tuple<int, string>>();
 
             string[] palabras = frase.Split(' ');
+
+            var extraRenta = "AND SoloRenta = 0";
+
+            if (soloRenta == 1)
+            {
+                extraRenta = "AND (SoloRenta = 0 OR SoloRenta = 1)";
+            }
 
             if (palabras.Length > 0)
             {
@@ -1428,11 +1435,11 @@ namespace PuntoDeVentaV2
                 {
                     if (filtro.Equals("Todos"))
                     {
-                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna = '{palabra}' OR CodigoBarras = '{palabra}')");
+                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 {extraRenta} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna = '{palabra}' OR CodigoBarras = '{palabra}')");
                     }
                     else
                     {
-                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Tipo = '{filtro}' AND Status = 1 AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna = '{palabra}' OR CodigoBarras = '{palabra}')");
+                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Tipo = '{filtro}' AND Status = 1 {extraRenta} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna = '{palabra}' OR CodigoBarras = '{palabra}')");
                     }
                    
 
@@ -1486,7 +1493,7 @@ namespace PuntoDeVentaV2
             return lista;
         }
 
-        public Dictionary<int, string> BusquedaCoincidenciaExacta(string frase, string filtro, int mPrecio = 0, int mCB = 0)
+        public Dictionary<int, string> BusquedaCoincidenciaExacta(string frase, string filtro, int mPrecio = 0, int mCB = 0, int soloRenta = 0)
         {
             var lista = new Dictionary<int, string>();
 
@@ -1494,17 +1501,24 @@ namespace PuntoDeVentaV2
 
             string[] palabras = frase.Split(' ');
 
+            var extraRenta = "AND SoloRenta = 0";
+
+            if (soloRenta == 1)
+            {
+                extraRenta = "AND (SoloRenta = 0 OR SoloRenta = 1)";
+            }
+
             if (palabras.Length > 0)
             {
                 foreach (var palabra in palabras)
                 {
                     if (filtro.Equals("Todos"))
                     {
-                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 AND CodigoBarras = '{palabra}'");
+                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Status = 1 {extraRenta} AND CodigoBarras = '{palabra}'");
                     }
                     else
                     {
-                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Tipo = '{filtro}' AND Status = 1 AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna = '{palabra}' OR CodigoBarras = '{palabra}')");
+                        DatosConexion($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND Tipo = '{filtro}' AND Status = 1 {extraRenta} AND (Nombre LIKE '%{palabra}%' OR NombreAlterno1 LIKE '%{palabra}%' OR NombreAlterno2 LIKE '%{palabra}%' OR ClaveInterna = '{palabra}' OR CodigoBarras = '{palabra}')");
                     }
 
 
@@ -2227,8 +2241,12 @@ namespace PuntoDeVentaV2
                 var cerrarSesion = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CerrarSesionAuto")));
                 var PermisoCorreoAnticipo = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoAnticipo")));
                 var PermisoCorreoVentaClienteDescuento= Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoVentaClienteDescuento")));
+                var realizaRentas = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("RealizaRentas")));
                 var Traspasos = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("traspasos")));
                 var EnvioSaldoInicial = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("EnvioCorreoSaldoIncial")));
+                var CorreoAbonos = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("CorreoAbonoRecibidos")));
+                var realizaOrdenes = Convert.ToInt32(dr.GetValue(dr.GetOrdinal("RealizaOrdenes")));
+
                 config.Add(correoPrecio);                   // 0
                 config.Add(correoStock);                    // 1
                 config.Add(correoStockMinimo);              // 2
@@ -2260,6 +2278,9 @@ namespace PuntoDeVentaV2
                 config.Add(PermisoCorreoVentaClienteDescuento); ;//28
                 config.Add(Traspasos); //Hehehe ahi te lo dejo goofy 29
                 config.Add(EnvioSaldoInicial);//30
+                config.Add(CorreoAbonos);
+                config.Add(realizaRentas);
+                config.Add(realizaOrdenes);
             }
 
             dr.Close();

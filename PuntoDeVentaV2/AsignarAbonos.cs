@@ -30,6 +30,7 @@ namespace PuntoDeVentaV2
         private string ticketGenerado = string.Empty;
         private string rutaTicketGenerado = string.Empty;
         private string IDCliente = string.Empty;
+        private string tipoCredito = string.Empty;
 
         //MIOOOOOOOOOOOOO
         float efectivo;
@@ -55,12 +56,13 @@ namespace PuntoDeVentaV2
         decimal calculoIntereses = 0;
         string saldoAnterior = string.Empty;
 
-        public AsignarAbonos(int idVenta, float totalOriginal)
+        public AsignarAbonos(int idVenta, float totalOriginal, string tipoCredito)
         {
             InitializeComponent();
 
             this.idVenta = idVenta;
             this.totalOriginal = totalOriginal;
+            this.tipoCredito = tipoCredito;
         }
 
         private void AsignarAbonos_Load(object sender, EventArgs e)
@@ -107,7 +109,7 @@ namespace PuntoDeVentaV2
             }
 
             //Restamos los abonos mochos sin interes
-            using (DataTable dtSumadelosabonitosmochoshehe = cn.CargarDatos($"SELECT SUM(Total) AS abonitos FROM Abonos WHERE IDventa ={idVenta} AND intereses = 0"))
+            using (DataTable dtSumadelosabonitosmochoshehe = cn.CargarDatos($"SELECT SUM(Total) AS abonitos FROM Abonos WHERE IDventa ={idVenta} AND intereses = 0 AND NOT(referencia='Enganche')"))
             {
                 if (!String.IsNullOrEmpty(dtSumadelosabonitosmochoshehe.Rows[0]["abonitos"].ToString()))
                 {
@@ -169,11 +171,25 @@ namespace PuntoDeVentaV2
                     //    int fechasAtrasadas = 0;
                     //    if (dtAbonos.Rows.Count > 0)
                     //    {
+                    bool esasigue = true;
                     foreach (var fecha in dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString().Split('%'))
                     {
                         if (DateTime.Parse(fecha) >= lameraFecha && DateTime.Parse(fecha) < DateTime.Now)
                         {
                             abonoTotal = abonoTotal + decimal.Parse(dtReglasCreditoVenta.Rows[0]["creditoMinimoAbono"].ToString());
+                        }
+
+                        if (DateTime.Parse(fecha) > DateTime.Now)
+                        {
+                            if (esasigue)
+                            {
+                                lblSiguienteAbono.Text = "Siguiente abono: " + DateTime.Parse(fecha).ToString("yyyy/MM/dd");
+                                esasigue = false;
+                            }
+                        }
+                        else
+                        {
+                            lblSiguienteAbono.Text = "Abono final";
                         }
                     }
                     //    }
@@ -248,7 +264,7 @@ namespace PuntoDeVentaV2
             calculoIntereses = 0;
             using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
             {
-                using (DataTable dtAbonos = cn.CargarDatos($"SELECT FechaOperacion FROM abonos WHERE IDVenta = {idVenta} AND estado = 1 ORDER BY FechaOperacion DESC LIMIT 1 "))
+                using (DataTable dtAbonos = cn.CargarDatos($"SELECT FechaOperacion FROM abonos WHERE IDVenta = {idVenta} AND estado = 1 AND NOT(referencia = 'enganche') ORDER BY FechaOperacion DESC LIMIT 1 "))//Aqui se ignora el "abono" inicial que se hace cuando se pone algun otro modo de pago en venta.
                 {
                     if (dtAbonos.Rows.Count > 0)
                     {
@@ -394,24 +410,46 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                ////var totalAbonado = totalEfectivo + tarjeta + vales + cheque + transferencia; //=150
+                //var totalAbonado = totalEfectivo + tarjeta + vales + cheque + transferencia; //=150
                 //var totalAbonado = total;
 
-                ////Condicion para saber si se termino de pagar y cambiar el status de la venta
+                //Condicion para saber si se termino de pagar y cambiar el status de la venta
                 //if (totalAbonado >= totalPendiente)
                 //{
-                //    cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 1, FormPrincipal.userID));
+                //    int status = tipoCredito.Equals("RCC") ? 6 : 1;
+
+                //    cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, status, FormPrincipal.userID));
                 //}
 
-                //if (restante <= 0)
-                //{
-                //    cn.EjecutarConsulta(cs.estatusFinalizacionPagoCredito(idVenta));
-                //}
+                
+                if (restante <= 0)
+                {
+                    int status = tipoCredito.Equals("RCC") ? 6 : 1;
+
+                    cn.EjecutarConsulta(cs.estatusFinalizacionPagoCredito(idVenta, status));
+                }
 
                 if (lblPendiente.Text.Equals("$0.00"))
                 {
                     {
                         mocho = 1;
+                        string nuevasfechas = string.Empty;
+                        using (DataTable dt = cn.CargarDatos($"SELECT FechasFaltantes FROM reglascreditoventa WHERE IDVenta = {idVenta}"))
+                        {
+                            string[] fechas = dt.Rows[0][0].ToString().Split('%');
+                            foreach (string fecha in fechas)
+                            {
+                                if (DateTime.Parse(fecha) > DateTime.Now)
+                                {
+                                    nuevasfechas += fecha + "%";
+                                }
+                            }
+                        }
+                        nuevasfechas = nuevasfechas.TrimEnd('%'); // Remover cualquier % al final
+                        if (!string.IsNullOrEmpty(nuevasfechas))
+                        {
+                            cn.EjecutarConsulta($"UPDATE reglascreditoventa SET FechasFaltantes = '{nuevasfechas}' WHERE IDVenta = {idVenta}");
+                        }
                     }
                 }
 
@@ -438,6 +476,13 @@ namespace PuntoDeVentaV2
                 {
                     interesesPagados = decimal.Parse(intereses.ToString());
                 }
+
+                if (chbAdelantoMes.Checked)
+                {
+                    interesesPagados = 0;
+
+                }
+
                 total = total - (float)vuelto;
                 //var totalAbonado = totalEfectivo + tarjeta + vales + cheque + transferencia; //=150
                 var totalAbonado = total;
@@ -1054,11 +1099,6 @@ namespace PuntoDeVentaV2
                         lblPendiente.Text = "$0.00";
                         cambio = (float)restanteAbono * (-1);
                         lbTotalCambio.Text = cambio.ToString("C2");
-                        if (cbAdelanto.Enabled == true)
-                        {
-                            //lblfechainteres.Visible = true;
-                            //lblfechainteres.Text = $"Siguiente fecha de pago\nEl día {siguienteFechaAbono}";
-                        }
                     }
                     else
                     {
@@ -1068,7 +1108,7 @@ namespace PuntoDeVentaV2
                     }
 
                     //adelantos
-                    if (!cbAdelanto.Checked && lblPendiente.Text == "$0.00")
+                    if ( !cbAdelanto.Checked && lblPendiente.Text == "$0.00" && !chbAdelantoMes.Checked)
                     {
                         txtPendiente.Text = ((decimal)totalPendiente - (decimal)(abonado) - (decimal)(abonoTotal)).ToString("C2");
                     }
@@ -1141,7 +1181,7 @@ namespace PuntoDeVentaV2
                     }
 
                     //adelantos
-                    if (!cbAdelanto.Checked && lblPendiente.Text == "$0.00")
+                    if (!cbAdelanto.Checked && lblPendiente.Text == "$0.00" && !chbAdelantoMes.Checked)
                     {
                         txtPendiente.Text = (totalPendiente - (float)(abonoTotal)).ToString("C2");
                     }
@@ -1575,7 +1615,11 @@ namespace PuntoDeVentaV2
         }
         private void cbAdelanto_CheckedChanged(object sender, EventArgs e)
         {
-            validacionRestanteDeAbonos(sender, e);
+            if (cbAdelanto.Checked)
+            {
+                chbAdelantoMes.Checked = false;
+                validacionRestanteDeAbonos(sender, e);
+            }
         }
 
         private void txtIntereses_TextChanged(object sender, EventArgs e)
@@ -1640,6 +1684,17 @@ namespace PuntoDeVentaV2
         private void txtPerdonado_TextChanged(object sender, EventArgs e)
         {
             validacionRestanteDeAbonos(sender, e);
+        }
+
+        private void chbAdelantoMes_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chbAdelantoMes.Checked)
+            {
+
+                cbAdelanto.Checked = false;
+                validacionRestanteDeAbonos(sender, e);
+            }
+
         }
     }
 }

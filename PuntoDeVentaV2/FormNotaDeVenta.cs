@@ -188,7 +188,21 @@ namespace PuntoDeVentaV2
                 //{
                 //    StatusVenta = "Venta a Crédito";
                 //}
+                /*string Status = ConsultaEstatus.Rows[0]["Status"].ToString();
+
+                if (Status.Equals("1")) { StatusVenta = "Venta Pagada"; }
+                if (Status.Equals("2")) { StatusVenta = "Presupuesto"; }
+                if (Status.Equals("3")) { StatusVenta = "Venta Cancelada"; }
+                if (Status.Equals("4")) { StatusVenta = "Venta a Crédito"; }
+                if (Status.Equals("5")) { StatusVenta = "Venta Global"; }
+
+                if (Status.Equals("6")) { StatusVenta = "Renta Pagada"; }
+                if (Status.Equals("7")) { StatusVenta = "Presupuesto"; }
+                if (Status.Equals("8")) { StatusVenta = "Renta Cancelada"; }
+                if (Status.Equals("9")) { StatusVenta = "Renta a Crédito"; }
+                if (Status.Equals("10")) { StatusVenta = "Renta Global"; }*/
             }
+
             reportParameters.Add(new ReportParameter("StatusVenta", StatusVenta));
 
             LocalReport rdlc = new LocalReport(); 

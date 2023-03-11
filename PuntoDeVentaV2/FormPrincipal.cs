@@ -541,9 +541,13 @@ namespace PuntoDeVentaV2
             TempUserNickName = TempNickUsr;
             TempUserPass = TempPassUsr;
 
-            //Caducos caducos = new Caducos(userID, this, this.btnCad);
-            //caducos.ShowDialog();
-            bgwCaducos.RunWorkerAsync();
+
+
+            
+
+            Thread caducos = new Thread(() => buscarCaducos());
+            caducos.Start();
+
             ObtenerDatosUsuario(userID);
             var servidor = Properties.Settings.Default.Hosting;
 
@@ -693,7 +697,16 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            // Realiza Ordenes
+            timerOrdenes.Start();
+
             btnAyuda.Focus();
+        }
+
+        private void buscarCaducos()
+        {
+            Caducos caducos = new Caducos(userID, this, this.btnCad);
+            caducos.ShowDialog();
         }
 
         private void EnvioCorreoLicenciaActiva()
@@ -1164,27 +1177,20 @@ namespace PuntoDeVentaV2
                     
                 }            
             }
-        }
+        }        
 
-        
-
-        private void webListener_DoWork(object sender, DoWorkEventArgs e)
+        private void solicitudWEB()
         {
-            if (userNickName.Split('@')[0]=="HOUSEDEPOTAUTLAN")
+
+            if (userNickName.Split('@')[0] == "HOUSEDEPOTAUTLAN")
             {
                 string path = @"C:\Archivos PUDVE\Monosas.txt";
                 if (!System.IO.File.Exists(path))
                 {
                     return;
-                }                
+                }
             }
-            
-            solicitudWEB();
 
-        }
-
-        private void solicitudWEB()
-        {
             listenerIsRunning = true;
             try
             {
@@ -1510,8 +1516,7 @@ namespace PuntoDeVentaV2
 
         private void bgwCaducos_DoWork(object sender, DoWorkEventArgs e)
         {
-            Caducos caducos = new Caducos(userID, this, this.btnCad);
-            caducos.ShowDialog();
+            
         }
 
 
@@ -1644,6 +1649,11 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+        }
+
+        private void webSender_DoWork(object sender, DoWorkEventArgs e)
+        {
+
         }
 
         private void validarCerrarSesion()
@@ -1783,6 +1793,10 @@ namespace PuntoDeVentaV2
                 }
 
                 formulario.BringToFront();
+                if (formulario.Name == "Inventario")
+                {
+                    formulario.Activate();
+                }
             }
         }
 
@@ -1877,7 +1891,8 @@ namespace PuntoDeVentaV2
             if (inventarios == 1)
             {
                 AbrirFormulario<Inventario>();
-
+                Inventario inv = new Inventario();
+                inv.btnActualizar.PerformClick();
                 //Inventario inventario = Application.OpenForms.OfType<Inventario>().FirstOrDefault();
 
                 //if (inventario != null)
@@ -1890,7 +1905,9 @@ namespace PuntoDeVentaV2
             {
                 MessageBox.Show("No tiene permisos para acceder a este apartado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+
             validarVentasVentanas();
+
         }
 
         private void btnEmpleados_Click(object sender, EventArgs e)
@@ -2312,6 +2329,78 @@ namespace PuntoDeVentaV2
             }
 
             Utilidades.EnviarEmail(html, asunto, email);
+        }
+
+
+        private void timerOrdenes_Tick(object sender, EventArgs e)
+        {
+            // BackgroundWorker para Ordenes
+            if (!bwOrdenes.IsBusy)
+            {
+                bwOrdenes.RunWorkerAsync();
+            }
+        }
+
+        private void bwOrdenes_DoWork(object sender, DoWorkEventArgs e)
+        {
+            using (DataTable dtConfig = cn.CargarDatos($"SELECT RealizaOrdenes FROM Configuracion WHERE IDUsuario = {userID}"))
+            {
+                if (dtConfig.Rows.Count > 0)
+                {
+                    DataRow config = dtConfig.Rows[0];
+
+                    bool realizaOrdenes = Convert.ToBoolean(config["RealizaOrdenes"].ToString());
+
+                    if (realizaOrdenes)
+                    {
+                        using (DataTable dtVentas = cn.CargarDatos($"SELECT * FROM Ventas WHERE IDUsuario = {userID} AND Status = 11 AND EstadoEntrega = 0"))
+                        {
+                            if (dtVentas.Rows.Count > 0)
+                            {
+                                foreach (DataRow venta in dtVentas.Rows)
+                                {
+                                    var datosTiempoEntrega = venta["TiempoEntrega"].ToString().Split('|');
+
+                                    var dias = Convert.ToInt16(datosTiempoEntrega[0]);
+                                    var horas = Convert.ToInt16(datosTiempoEntrega[1]);
+                                    var minutos = Convert.ToInt16(datosTiempoEntrega[2]);
+
+
+                                    var fechaHoy = DateTime.Now;
+                                    fechaHoy = dias > 0 ? fechaHoy.AddDays(-dias) : fechaHoy;
+                                    fechaHoy = horas > 0 ? fechaHoy.AddHours(-horas) : fechaHoy;
+                                    fechaHoy = minutos > 0 ? fechaHoy.AddMinutes(-minutos) : fechaHoy;
+
+
+                                    // Comparamos la fecha de entrega con la fecha actual
+                                    // Si la fecha de hoy es mayor o igual a la fecha de entrega actualizar
+                                    var fechaEntrega = Convert.ToDateTime(venta["FechaEntrega"].ToString());
+
+                                    
+                                    if (fechaHoy >= fechaEntrega)
+                                    {
+                                        int id = Convert.ToInt32(venta["ID"]);
+
+                                        cn.EjecutarConsulta($"UPDATE Ventas SET EstadoEntrega = 1 WHERE ID = {id}");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void bwOrdenes_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                Console.WriteLine("El proceso se ha cancelado");
+            }
+            else
+            {
+                // Enviar notificacion por algun medio de las ordenes que cambiaron a procesando
+            }
         }
     }
 }

@@ -68,7 +68,7 @@ namespace PuntoDeVentaV2
 
         private void AjustarProducto_Load(object sender, EventArgs e)
         {
-            
+
             cbConceptos.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbProveedores.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             string[] datos = cn.BuscarProducto(IDProducto, FormPrincipal.userID);
@@ -126,7 +126,7 @@ namespace PuntoDeVentaV2
                 cbProveedores.DisplayMember = "Value";
                 cbProveedores.ValueMember = "Key";
             }
-            
+
 
             //Se carga la informacion por defecto del producto registrado
             lbProducto.Text = datos[1];
@@ -155,7 +155,7 @@ namespace PuntoDeVentaV2
                 {
                     txtPrecioCompra.Text = "0.00";
                 }
-                
+
             }
             txtPrecioCompra.Click += txtPrecioCompra_Click;
             txtPrecioCompra.KeyPress += new KeyPressEventHandler(SoloDecimales);
@@ -171,7 +171,7 @@ namespace PuntoDeVentaV2
                 pnlMensajeOperacionInventario.BringToFront();
 
                 //cantidadProductoCombo = cantidadPasadaProductoCombo;
-                
+
                 if (tipoOperacion.Equals(1))
                 {
                     rbProducto.Checked = true;
@@ -192,17 +192,17 @@ namespace PuntoDeVentaV2
 
                     txtAumentar.TabIndex = 1;
                     txtDisminuir.TabIndex = 0;
-                    
+
                     txtDisminuir.Focus();
                     txtDisminuir.Select();
-                    
+
                     lblOperacionInventario.Text = "Reducir Producto(s)";
 
                     txtDisminuir.Text = cantidadPasadaProductoCombo.ToString();
                 }
             }
             var mensajeInventario = cn.CargarDatos($"SELECT Mensaje FROM `mensajesinventario` WHERE IDProducto = {datos[0]}");
-            
+
             if (!mensajeInventario.Rows.Count.Equals(0))
             {
                 mensaje = mensajeInventario.Rows[0]["Mensaje"].ToString();
@@ -223,7 +223,7 @@ namespace PuntoDeVentaV2
                 {
                     btnAceptar.PerformClick();
                 }
-               
+
             }
         }
 
@@ -263,8 +263,8 @@ namespace PuntoDeVentaV2
 
         private void rbAjustar_CheckedChanged(object sender, EventArgs e)
         {
-            panelComprado.Visible = false; 
-            panelAjustar.Visible = true; 
+            panelComprado.Visible = false;
+            panelAjustar.Visible = true;
             RestaurarValores(2);
 
             txtPrecio.Enabled = false;
@@ -280,11 +280,25 @@ namespace PuntoDeVentaV2
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             decimal parser;
-            if (Convert.ToDecimal(txtPrecio.Text.Split('$')[1]).Equals(0))
+            if (txtPrecio.Text.Contains('$'))
             {
-                MessageBox.Show($"El precio de {lbProducto.Text} debe ser mayor a 0", "Aviso del Sistema" , MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                if (Convert.ToDecimal(txtPrecio.Text.Split('$')[1]).Equals(0))
+                {
+                    MessageBox.Show($"El precio de {lbProducto.Text} debe ser mayor a 0", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+
+                }
             }
+            else
+            {
+                if (Convert.ToDecimal(txtPrecio.Text).Equals(0))
+                {
+                    MessageBox.Show($"El precio de {lbProducto.Text} debe ser mayor a 0", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+
+                }
+            }
+
             if (Inventario.desdeRegresarProdcuto != 1)
             {
                 if (Inventario.AumentarDisminuir == 0)
@@ -304,9 +318,9 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            
 
-            if (!decimal.TryParse(txtCantidadCompra.Text,out parser) && !string.IsNullOrEmpty(txtCantidadCompra.Text))
+
+            if (!decimal.TryParse(txtCantidadCompra.Text, out parser) && !string.IsNullOrEmpty(txtCantidadCompra.Text))
             {
                 MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtCantidadCompra.Clear();
@@ -318,15 +332,15 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtPrecioCompra.Clear();
                 txtPrecioCompra.Focus();
-                return; 
+                return;
             }
             if (!decimal.TryParse(txtDisminuir.Text, out parser) && !string.IsNullOrEmpty(txtDisminuir.Text))
-                    {
-                        MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            {
+                MessageBox.Show("El campo no tiene un formato válido", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtDisminuir.Clear();
                 txtDisminuir.Focus();
-                        return;
-                    }
+                return;
+            }
             var datoUsuario = FormPrincipal.userNickName;
             var empleado = "0";
 
@@ -407,17 +421,17 @@ namespace PuntoDeVentaV2
 
                 // Actualizamos el precio de la tabla Productos
                 precioProducto = precioAux;
-               
+
 
                 cn.EjecutarConsulta($"UPDATE Productos SET Precio = '{precioProducto}' WHERE ID = {IDProducto} AND IDUsuario = {FormPrincipal.userID}");
-                
+
             }
 
             //Producto comprado
             if (rbProducto.Checked)
             {
                 var rfc = string.Empty;
-               
+
                 var fechaCompra = dpFechaCompra.Text;
                 var precioCompra = txtPrecioCompra.Text;
                 var cantidadCompra = txtCantidadCompra.Text;
@@ -526,6 +540,37 @@ namespace PuntoDeVentaV2
 
                     cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
 
+                    using (var dt1 = cn.CargarDatos($"SELECT CorreoStockMinimo FROM configuracion WHERE IDUsuario ={FormPrincipal.userID}"))
+                    {
+                        if (dt1.Rows[0][0].ToString().Equals("1"))
+                        {
+                            string asunto1 = "";
+                            string html1 = "";
+                            string Correo = "";
+                            asunto1 = "¡AVISO! STOCK MÍNIMO ALCANZADO POR ACTUALIZAR INVENTARIO";
+                            html1 = @"
+                    <div style='margin-bottom: 50px;'>
+                        <h3 style='text-align: center;'>PRODUCTOS CON STOCK MINIMO</h3><hr>
+                        <ul style='color: black; font-size: 0.9em;'>";
+
+                            using (var dt = cn.CargarDatos($"SELECT pro.StockMinimo, pro.Nombre, pro.CodigoBarras, usu.Email FROM productos AS pro INNER JOIN usuarios AS usu on (usu.ID = pro.IDUsuario) WHERE pro.ID = {IDProducto}"))
+                            {
+                                Correo = dt.Rows[0]["Email"].ToString();
+                                var anterior = Convert.ToDecimal(dt.Rows[0]["StockMinimo"]);
+                                if (anterior >= stockProducto)
+                                {
+                                    var nombre = "";
+                                    nombre = $"{dt.Rows[0]["Nombre"].ToString()} --- CÓDIGO BARRAS: {dt.Rows[0]["CodigoBarras"].ToString()} --- STOCK MINIMO: {dt.Rows[0]["StockMinimo"].ToString()} --- STOCK ACTUAL: {stockProducto.ToString()}";
+                                    html1 += $"<li>{nombre}</li>";
+                                }
+
+                            }
+                            Thread envio = new Thread(() => Utilidades.EnviarEmail(html1, asunto1, Correo));
+                            envio.Start();
+                        }
+                    }
+
+
                     foreach (string subdetalleUpdate in updatesSubdetalles)
                     {
                         cn.EjecutarConsulta(subdetalleUpdate);
@@ -553,8 +598,8 @@ namespace PuntoDeVentaV2
                             string mensajeInventario = mensaje.Rows[0]["Mensaje"].ToString();
                             //MessageBox.Show(mensajeInventario);
                         }
-                       
-                        
+
+
                         //MessageBox.Show("Precio de producto Actualizado del producto: " + IDProducto + " por el precio: " + precioCompra, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
@@ -579,7 +624,7 @@ namespace PuntoDeVentaV2
                             cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Aumentar): N° Revision: {numeroRevision}','{stockAnterior}','{stockNuevo.ToString()}','{fechaOperacion}','{FormPrincipal.userNickName}','+{cantidadCompra}')");
                         }
                     }
-                    
+
                     this.Close();
                 }
             }
@@ -616,7 +661,7 @@ namespace PuntoDeVentaV2
                                 {
                                     auxiliar = float.Parse(aumentar);
                                     stockAgregado = auxiliar;
-                                    stockProducto +=Convert.ToDecimal(auxiliar);
+                                    stockProducto += Convert.ToDecimal(auxiliar);
                                     operacion = "agregó";
                                 }
 
@@ -640,7 +685,7 @@ namespace PuntoDeVentaV2
                                 if (!verificarSubDetalles(Convert.ToDecimal(stockAgregado)))
                                 {
                                     MessageBox.Show("Este producto requiere un ajuste de subdetalles", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    
+
                                     return;
                                 }
 
@@ -698,6 +743,35 @@ namespace PuntoDeVentaV2
 
                                     cn.EjecutarConsulta(cs.ActualizarStockProductos(datos));
 
+                                    using (var dt1 = cn.CargarDatos($"SELECT CorreoStockMinimo FROM configuracion WHERE IDUsuario ={FormPrincipal.userID}"))
+                                    {
+                                        if (dt1.Rows[0][0].ToString().Equals("1"))
+                                        {
+                                            string asunto1 = "";
+                                            string html1 = "";
+                                            string Correo = "";
+                                            asunto1 = "¡AVISO! STOCK MÍNIMO ALCANZADO POR ACTUALIZAR INVENTARIO";
+                                            html1 = @"
+                    <div style='margin-bottom: 50px;'>
+                        <h3 style='text-align: center;'>PRODUCTOS CON STOCK MINIMO</h3><hr>
+                        <ul style='color: black; font-size: 0.9em;'>";
+
+                                            using (var dt = cn.CargarDatos($"SELECT pro.StockMinimo, pro.Nombre, pro.CodigoBarras, usu.Email FROM productos AS pro INNER JOIN usuarios AS usu on (usu.ID = pro.IDUsuario) WHERE pro.ID = {IDProducto}"))
+                                            {
+                                                Correo = dt.Rows[0]["Email"].ToString();
+                                                var anterior = Convert.ToDecimal(dt.Rows[0]["StockMinimo"]);
+                                                if (anterior >= stockProducto)
+                                                {
+                                                    var nombre = "";
+                                                    nombre = $"{dt.Rows[0]["Nombre"].ToString()} --- CÓDIGO BARRAS: {dt.Rows[0]["CodigoBarras"].ToString()} --- STOCK MINIMO: {dt.Rows[0]["StockMinimo"].ToString()} --- STOCK ACTUAL: {stockProducto.ToString()}";
+                                                    html1 += $"<li>{nombre}</li>";
+                                                }
+
+                                            }
+                                            Thread envio = new Thread(() => Utilidades.EnviarEmail(html1, asunto1, Correo));
+                                            envio.Start();
+                                        }
+                                    }
                                     // Envio de correo al agregar cantidad de producto
                                     var datosConfig = mb.ComprobarConfiguracion();
 
@@ -764,18 +838,18 @@ namespace PuntoDeVentaV2
                                                     }
 
                                                     // Hilo para envio de correos en segundo plano
-                                                    Thread envio = new Thread(() => CorreoStockMinimo());
-                                                    envio.Start();
+                                                    //Thread envio = new Thread(() => CorreoStockMinimo());
+                                                    //envio.Start();
                                                 }
                                             }
                                         }
-                                    } 
+                                    }
 
                                     decimal stockNuevo = Convert.ToInt32(stockActual);
-                                    decimal stockAnterior = Convert.ToDecimal( stockOriginal);
+                                    decimal stockAnterior = Convert.ToDecimal(stockOriginal);
                                     var numRevision = cn.CargarDatos($"SELECT * FROM NoRevisionDisminuirInventario WHERE IdUsuario = {FormPrincipal.userID}");
                                     var numeroRevision = numRevision.Rows[0]["NoRevisionDisminuirInventario"].ToString();
-                                    decimal cantidad = Convert.ToInt32( stockOriginal) - Convert.ToInt32(stockActual);
+                                    decimal cantidad = Convert.ToInt32(stockOriginal) - Convert.ToInt32(stockActual);
 
                                     cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{IDProducto}','Actualizar Stock (Disminuir): N° Revision: {numeroRevision}','{stockAnterior}','{stockNuevo}','{fechaOperacion}','{FormPrincipal.userNickName}','-{cantidad}')");
 
@@ -827,7 +901,7 @@ namespace PuntoDeVentaV2
                                         {
                                             stockProducto = 0;
                                         }
-                                        if (auxiliar==0)
+                                        if (auxiliar == 0)
                                         {
                                             MessageBox.Show("Ingrese una cantidad para aumentar y/o disminuir", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                                             return;
@@ -997,8 +1071,8 @@ namespace PuntoDeVentaV2
             var Consultaid = cn.CargarDatos($"SELECT ID FROM proveedores WHERE Nombre= '{proveedor}' AND IDUsuario = {FormPrincipal.userID}");
             if (!Consultaid.Rows.Count.Equals(0))
             {
-            string id = Consultaid.Rows[0]["ID"].ToString();
-            cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{proveedor}', IDProveedor = {id} WHERE IDProducto = {IDProducto}");
+                string id = Consultaid.Rows[0]["ID"].ToString();
+                cn.EjecutarConsulta($"UPDATE detallesproducto SET Proveedor = '{proveedor}', IDProveedor = {id} WHERE IDProducto = {IDProducto}");
             }
 
             var nombreProducto = lbProducto.Text;
@@ -1084,7 +1158,7 @@ namespace PuntoDeVentaV2
                     lb_disminuir_stock_total.Visible = false;
                 }
             }
-            
+
             suma_resta_stock(2);
         }
 
@@ -1143,7 +1217,7 @@ namespace PuntoDeVentaV2
                     e.Handled = true;
                 }
             }
-            
+
         }
         private void txtCantidadCompra_KeyDown(object sender, KeyEventArgs e)
         {
@@ -1185,7 +1259,7 @@ namespace PuntoDeVentaV2
 
             if (opc == 1)
             {
-                if(txtAumentar.Text != "")
+                if (txtAumentar.Text != "")
                 {
                     aumentar = float.Parse(txtAumentar.Text);
                     if (Invent != null)
@@ -1198,9 +1272,9 @@ namespace PuntoDeVentaV2
                 suma = float.Parse(txt_en_stock.Text) + aumentar;
                 lb_aumentar_stock_total.Text = suma.ToString();
             }
-            if(opc == 2)
+            if (opc == 2)
             {
-                if(txtDisminuir.Text != "")
+                if (txtDisminuir.Text != "")
                 {
                     disminuir = float.Parse(txtDisminuir.Text);
                     if (Invent != null)
@@ -1210,7 +1284,7 @@ namespace PuntoDeVentaV2
                     }
                 }
 
-                resta = float.Parse(txt_en_stock.Text) - disminuir; 
+                resta = float.Parse(txt_en_stock.Text) - disminuir;
                 lb_disminuir_stock_total.Text = resta.ToString();
             }
         }
@@ -1270,7 +1344,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-           
+
         }
 
         private void txtPrecio_KeyDown(object sender, KeyEventArgs e)
@@ -1290,7 +1364,7 @@ namespace PuntoDeVentaV2
                         txtCantidadCompra.Select(txtCantidadCompra.Text.Length, 0);
                         txtCantidadCompra.Focus();
                     }
-                    
+
                     if (rbAjustar.Checked)
                     {
                         txtAumentar.Select(txtAumentar.Text.Length, 0);
@@ -1429,9 +1503,9 @@ namespace PuntoDeVentaV2
         }
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            
+
         }
-        
+
         private void btnActualiza_Click(object sender, EventArgs e)
         {
             var obtenerTxt = string.Empty;
@@ -1466,7 +1540,7 @@ namespace PuntoDeVentaV2
                 var x = float.Parse(datoObtenido);
                 var operacion = (precio * (x / 100));
                 var precioFinal = operacion + precio;
-                txtPrecio.Text = "$ " + precioFinal.ToString(); 
+                txtPrecio.Text = "$ " + precioFinal.ToString();
             }
             else
             {
@@ -1538,12 +1612,12 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    MessageBox.Show("Favor de ingresar una cantidad valida","Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Favor de ingresar una cantidad valida", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     txtPrecio.SelectAll();
                     txtPrecio.Focus();
                     return;
                 }
-                
+
             }
         }
 
@@ -1656,8 +1730,8 @@ namespace PuntoDeVentaV2
                     MessageBox.Show(AjustarProducto.mensaje, "Aviso Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-            
-           
+
+
         }
 
         private void txtPrecioCompra_Click(object sender, EventArgs e)
@@ -1733,7 +1807,6 @@ namespace PuntoDeVentaV2
                 }
             }
         }
-
         private bool verificarSubDetalles(decimal stock)
         {
             bool registroCorrectoDeSubdetalles = true;

@@ -167,8 +167,8 @@ namespace PuntoDeVentaV2
             {
                 Traspaso.Checked = true;
             }
-            
 
+            tituloSeccion.Text = "Inventario";
         }
 
         private void populateDisminuirDGVInventario()
@@ -373,24 +373,25 @@ namespace PuntoDeVentaV2
 
         private void btnActualizar_Click(object sender, EventArgs e)
         {
-            if (opcion2 == 0)
-            {
-                Utilidades.MensajePermiso();
-                return;
-            }
+            
+            //if (opcion2 == 0)
+            //{
+            //    Utilidades.MensajePermiso();
+            //    return;
+            //}
 
-            if (!ExistenProductos("actualizar"))
-            {
-                return;
-            }
+            //if (!ExistenProductos("actualizar"))
+            //{
+            //    return;
+            //}
 
-            gBSeleccionActualizarInventario.Visible = true;
+            //gBSeleccionActualizarInventario.Visible = true;
 
-            tipoSeleccion = 0;
+            //tipoSeleccion = 0;
 
-            panelContenedor.Visible = true;
+            //panelContenedor.Visible = true;
 
-            txtBusqueda.Focus();
+            //txtBusqueda.Focus();
         }
 
         private void btnActualizarXML_Click(object sender, EventArgs e)
@@ -845,9 +846,9 @@ namespace PuntoDeVentaV2
                         }
                     }
                     if (desdeRegresarProdcuto == 1)
-                        {
-                            cargarDatos2();
-                        }
+                    {
+                       cargarDatos2();
+                    }
                     ap.ShowDialog();
                 }
                 else
@@ -4487,6 +4488,7 @@ namespace PuntoDeVentaV2
         {
             rbAumentarProducto.Checked = true;
             cargarDatos2();
+            tituloSeccion.Text = "Regresar Inventario";
         }
 
         public void cargarDatos2()
@@ -4554,6 +4556,7 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo1_Click(object sender, EventArgs e)
         {
+            tituloSeccion.Text = "Revisar Inventario";
             gBSeleccionActualizarInventario.Visible = false;
             panelContenedor.Visible = false;
 
@@ -4657,6 +4660,7 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo2_Click(object sender, EventArgs e)
         {
+            tituloSeccion.Text = "Actualizar Inventario";
             desdeRegresarProdcuto = 0;
             if (opcion2 == 0)
             {
@@ -4682,6 +4686,7 @@ namespace PuntoDeVentaV2
 
         private void botonRedondo3_Click(object sender, EventArgs e)
         {
+            tituloSeccion.Text = "Actualizar Inventario XML";
             if (opcion3 == 0)
             {
                 Utilidades.MensajePermiso();
@@ -4718,6 +4723,18 @@ namespace PuntoDeVentaV2
         private void rbDisminuirProducto_Click(object sender, EventArgs e)
         {
             AumentarDisminuir = 1;
+        }
+
+        private void Inventario_Activated(object sender, EventArgs e)
+        {
+            tituloSeccion.Text = "Inventario";
+        }
+
+        private void Inventario_Paint(object sender, PaintEventArgs e)
+        {
+            tituloSeccion.Text = "Inventario";
+            gBSeleccionActualizarInventario.Visible = false;
+            panelContenedor.Visible = false;
         }
     }
 }

@@ -59,7 +59,8 @@ namespace PuntoDeVentaV2
                     "EviarRespaldoCerrarSesion",
                     "PermisoCorreoAnticipo",
                     "VentaClienteDescuento",
-                    "PermisoCorreoSaldoInicial"};
+                    "PermisoCorreoSaldoInicial",
+                    "PermisoEnvioDeCorreoAbono"};
 
                 var permisosConfiguracion = String.Join(", ", datos);
                 var permisos = mb.PermisosEmpleadoConfiguracion(permisosConfiguracion, FormPrincipal.id_empleado);
@@ -89,6 +90,8 @@ namespace PuntoDeVentaV2
 
                 GenerarCheckbox(250, 10, 205, "Enviar venta a cliente con descuento", permisos[14]);
                 GenerarCheckbox(250, 220, 220, "Enviar saldo inicial agregado", permisos[15]);
+
+                GenerarCheckbox(10, 220, 220, "Enviar Abono Recibido", permisos[16]);
             }
             if (tipoPermisos == "configuracionGeneral")
             {

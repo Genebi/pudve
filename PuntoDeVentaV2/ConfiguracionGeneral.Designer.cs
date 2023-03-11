@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfiguracionGeneral));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkOrdenes = new System.Windows.Forms.CheckBox();
+            this.checkRentas = new System.Windows.Forms.CheckBox();
             this.numDiasCad = new System.Windows.Forms.NumericUpDown();
             this.cbkMostrarIVA = new System.Windows.Forms.CheckBox();
             this.cbWebReportesPeriodicos = new System.Windows.Forms.CheckBox();
@@ -64,6 +66,8 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(249)))));
+            this.groupBox2.Controls.Add(this.checkOrdenes);
+            this.groupBox2.Controls.Add(this.checkRentas);
             this.groupBox2.Controls.Add(this.numDiasCad);
             this.groupBox2.Controls.Add(this.cbkMostrarIVA);
             this.groupBox2.Controls.Add(this.cbWebReportesPeriodicos);
@@ -84,15 +88,40 @@
             this.groupBox2.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(9, 18);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(648, 259);
+            this.groupBox2.Size = new System.Drawing.Size(648, 288);
             this.groupBox2.TabIndex = 130;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CONFIGURACION GENERAL";
             // 
+            // checkOrdenes
+            // 
+            this.checkOrdenes.AutoSize = true;
+            this.checkOrdenes.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkOrdenes.Location = new System.Drawing.Point(308, 225);
+            this.checkOrdenes.Name = "checkOrdenes";
+            this.checkOrdenes.Size = new System.Drawing.Size(211, 21);
+            this.checkOrdenes.TabIndex = 137;
+            this.checkOrdenes.Text = "Este negocio realiza órdenes";
+            this.checkOrdenes.UseVisualStyleBackColor = true;
+            this.checkOrdenes.Visible = false;
+            this.checkOrdenes.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkOrdenes_MouseClick);
+            // 
+            // checkRentas
+            // 
+            this.checkRentas.AutoSize = true;
+            this.checkRentas.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkRentas.Location = new System.Drawing.Point(20, 225);
+            this.checkRentas.Name = "checkRentas";
+            this.checkRentas.Size = new System.Drawing.Size(199, 21);
+            this.checkRentas.TabIndex = 136;
+            this.checkRentas.Text = "Este negocio realiza rentas";
+            this.checkRentas.UseVisualStyleBackColor = true;
+            this.checkRentas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkRentas_MouseClick);
+            // 
             // numDiasCad
             // 
             this.numDiasCad.Enabled = false;
-            this.numDiasCad.Location = new System.Drawing.Point(227, 230);
+            this.numDiasCad.Location = new System.Drawing.Point(224, 259);
             this.numDiasCad.Maximum = new decimal(new int[] {
             365,
             0,
@@ -132,7 +161,7 @@
             this.linkLabel2.AutoSize = true;
             this.linkLabel2.Location = new System.Drawing.Point(540, 138);
             this.linkLabel2.Name = "linkLabel2";
-            this.linkLabel2.Size = new System.Drawing.Size(87, 16);
+            this.linkLabel2.Size = new System.Drawing.Size(86, 16);
             this.linkLabel2.TabIndex = 134;
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Text = "página web";
@@ -155,7 +184,7 @@
             // 
             this.chbCaducidad.AutoSize = true;
             this.chbCaducidad.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chbCaducidad.Location = new System.Drawing.Point(20, 232);
+            this.chbCaducidad.Location = new System.Drawing.Point(20, 260);
             this.chbCaducidad.Name = "chbCaducidad";
             this.chbCaducidad.Size = new System.Drawing.Size(593, 21);
             this.chbCaducidad.TabIndex = 115;
@@ -340,7 +369,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAceptar.ForeColor = System.Drawing.Color.White;
-            this.btnAceptar.Location = new System.Drawing.Point(274, 283);
+            this.btnAceptar.Location = new System.Drawing.Point(274, 312);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(117, 29);
             this.btnAceptar.TabIndex = 132;
@@ -445,7 +474,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.ClientSize = new System.Drawing.Size(663, 318);
+            this.ClientSize = new System.Drawing.Size(663, 347);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.checkMayoreo);
             this.Controls.Add(this.label1);
@@ -507,5 +536,7 @@
         private System.Windows.Forms.CheckBox chbTraspasoManual;
         private System.Windows.Forms.CheckBox cbkMostrarIVA;
         private System.Windows.Forms.CheckBox chbVentaFacil;
+        private System.Windows.Forms.CheckBox checkOrdenes;
+        private System.Windows.Forms.CheckBox checkRentas;
     }
 }

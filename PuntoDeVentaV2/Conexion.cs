@@ -198,10 +198,23 @@ namespace PuntoDeVentaV2
             return respuesta;
         }
 
+        //public DataTable CargarDatos(string consulta)
+        //{
+        //    DataTable db = new DataTable();
+        //    Conectarse();
+        //    sql_con.Open();
+        //    MySqlCommand com = new MySqlCommand(consulta, sql_con);
+        //    MySqlDataAdapter adap = new MySqlDataAdapter(com);
+        //    adap.Fill(db);
+        //    sql_con.Close();
+        //    return db;
+        //}
+
         public DataTable CargarDatos(string consulta)
         {
             DataTable db = new DataTable();
             Conectarse();
+            sql_con.Close(); // close the connection before executing the query
             sql_con.Open();
             MySqlCommand com = new MySqlCommand(consulta, sql_con);
             MySqlDataAdapter adap = new MySqlDataAdapter(com);
@@ -283,7 +296,7 @@ namespace PuntoDeVentaV2
             return lista.ToArray();
         }
 
-        public string[] BuscarProducto(int IDProducto, int IDUsuario)
+        public string[] BuscarProducto(int IDProducto, int IDUsuario, bool especial = false)
         {
             List<string> lista = new List<string>();
 
@@ -315,6 +328,11 @@ namespace PuntoDeVentaV2
                 lista.Add(dr["ProdImage"].ToString());          // Imagen de Producto   15
                 lista.Add(dr["ClaveProducto"].ToString());      // Clave de Producto    16
                 lista.Add(dr["UnidadMedida"].ToString());       // Unidad de Medida 17
+
+                if (especial)
+                {
+                    lista.Add(dr["SoloRenta"].ToString()); // Solo Renta 18
+                }
                 lista.Add(dr["incluye_impuestos"].ToString());  // 18
                 lista.Add(dr["nombre_ctercero"].ToString());    // 19
                 lista.Add(dr["rfc_ctercero"].ToString());       // 20

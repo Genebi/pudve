@@ -21,12 +21,19 @@ namespace PuntoDeVentaV2
 {
     public partial class Ventas : Form
     {
-        // Status 1 = Venta terminada
-        // Status 2 = Venta guardada
-        // Status 3 = Venta cancelada
-        // Status 4 = Venta a credito
-        // Status 5 = Facturas
-        // Status 6 = Presupuestos
+        // status 1 = Venta pagada
+        // status 2 = Venta guardada
+        // status 3 = Venta cancelada
+        // status 4 = Venta a credito
+        // status 5 = Venta global
+
+        // status 6 = Renta pagada
+        // status 7 = Renta guardada
+        // status 8 = Renta cancelada
+        // status 9 = Renta a credito
+        // status 10 = Renta global
+
+        // status 11 = Orden
 
         public static double pasarSumaImportes { get; set; }
         public static double pasarTotalAnticipos { get; set; }
@@ -148,6 +155,9 @@ namespace PuntoDeVentaV2
         private int mostrarCBProducto = 0;
         private int correoVenta = 0;
         private int correoDescuento = 0;
+        private int aceptaRenta = 0;
+
+        private string folioVentaGuardada = string.Empty;
         // Variables para la configuracion referente a los productos con mayoreo
         private bool mayoreoActivo = false;
         private int cantidadMayoreo = 0;
@@ -233,6 +243,10 @@ namespace PuntoDeVentaV2
         public static string AplicarCantidad;
         public static bool HizoUnaAccion = false;
         public static bool SeCambioCantidad = false;
+
+        // Variables para las Ordenes
+        public static string tiempoElaboracion { get; set; }
+        public static string fechaEntrega { get; set; }
 
         int calcu = 0;
 
@@ -383,6 +397,22 @@ namespace PuntoDeVentaV2
                 cantidadMayoreo = Convert.ToInt32(configCorreos[10]);
                 correoVenta = Convert.ToInt32(configCorreos[21]);
                 correoDescuento = Convert.ToInt32(configCorreos[23]);
+
+                // Realiza rentas
+                if (configCorreos[32].Equals(1))
+                {
+                    checkRenta.Checked = Convert.ToBoolean(configCorreos[32]);
+                    aceptaRenta = 1;
+                }
+
+                if (configCorreos[32].Equals(0))
+                {
+                    checkRenta.Enabled = false;
+                }
+
+                // Realiza ordenes
+                checkOrden.Checked = configCorreos[33].Equals(1) ? true : false;
+                checkOrden.Enabled = configCorreos[33].Equals(0) ? false : true;
             }
 
             enviarStockMinimo = new Dictionary<int, string>();
@@ -3931,6 +3961,8 @@ namespace PuntoDeVentaV2
             var idClienteTmp = idCliente;
             string id_empleado = Convert.ToString(FormPrincipal.id_empleado);
             var tipoDeVenta = "";
+            bool esRenta = checkRenta.Checked;
+            bool esOrden = checkOrden.Checked;
 
             // variable para saber si esta facturada la venta Guardada
             var estaTimbrada = false;
@@ -3942,6 +3974,22 @@ namespace PuntoDeVentaV2
                     statusVenta = "2";
                 }
 
+                if (esRenta)
+                {
+                    if (statusVenta.Equals("2"))
+                    {
+                        statusVenta = "7";
+                    }
+                }
+
+                if (esOrden)
+                {
+                    if (statusVenta.Equals("2") || statusVenta.Equals("7"))
+                    {
+                        statusVenta = "11";
+                    }
+                }
+
                 if (string.IsNullOrWhiteSpace(idClienteTmp))
                 {
                     idClienteTmp = "0";
@@ -3949,13 +3997,34 @@ namespace PuntoDeVentaV2
             }
             else
             {
+                if (esRenta)
+                {
+                    if (statusVenta.Equals("1"))
+                    {
+                        statusVenta = "6";
+                    }
+
+                    if (statusVenta.Equals("4"))
+                    {
+                        statusVenta = "9";
+                    }
+                }
+
                 if (idClienteTmp.Equals(""))
                 {
                     idClienteTmp = "0";
                 }
             }
 
-            aumentoFolio();
+            if (!string.IsNullOrWhiteSpace(folioVentaGuardada))
+            {
+                Contenido = folioVentaGuardada;
+            }
+            else
+            {
+                aumentoFolio();
+            }
+            
             Folio = Contenido;
             FolioVentaCorreo = Folio;
 
@@ -3971,11 +4040,16 @@ namespace PuntoDeVentaV2
                 }
             }
 
+            if (string.IsNullOrWhiteSpace(fechaEntrega))
+            {
+                fechaEntrega = "0001-01-01 00:00:00";
+            }
 
             var guardar = new string[] {
                 IdEmpresa, idClienteTmp, IdEmpresa, Subtotal, IVA16, Total, Descuento,
                 DescuentoGeneral, Anticipo, Folio, Serie, statusVenta, FechaOperacion,
-                idClienteDescuento.ToString(), id_empleado, formaDePagoDeVenta, tipoDeVenta
+                idClienteDescuento.ToString(), id_empleado, formaDePagoDeVenta, tipoDeVenta,
+                tiempoElaboracion, fechaEntrega
             };
 
 
@@ -4136,7 +4210,7 @@ namespace PuntoDeVentaV2
 
                     int idOperacionCaja = 0;
 
-                    if (!statusVenta.Equals("2"))
+                    if (!statusVenta.Equals("2") && !statusVenta.Equals("7") && !statusVenta.Equals("11"))
                     {
                         if (statusVenta.Equals("4"))
                         {
@@ -4202,7 +4276,7 @@ namespace PuntoDeVentaV2
                     {
                         foreach (var venta in ventasGuardadas)
                         {
-                            cn.EjecutarConsulta($"DELETE FROM Ventas WHERE ID = {venta} AND IDUsuario = {FormPrincipal.userID} AND Status = 2");
+                            cn.EjecutarConsulta($"DELETE FROM Ventas WHERE ID = {venta} AND IDUsuario = {FormPrincipal.userID} AND (Status = 2 OR Status = 7)");
                             cn.EjecutarConsulta(cs.EliminarProductosVenta(venta));
                         }
                     }
@@ -4261,7 +4335,7 @@ namespace PuntoDeVentaV2
                         // Si es un producto, paquete o servicio lo guarda en la tabla de productos de venta
                         if (Tipo == "P" || Tipo == "S" || Tipo == "PQ" || Tipo == "VR")
                         {
-                            if (!statusVenta.Equals("2"))
+                            if (!statusVenta.Equals("2") && !statusVenta.Equals("7"))
                             {
                                 using (DataTable dtProductosVenta = cn.CargarDatos(cs.checarProductosVenta(idVenta)))
                                 {
@@ -4310,10 +4384,26 @@ namespace PuntoDeVentaV2
                                                     {
                                                         tipoDeVentaComboServicio = "de servicio";
                                                     }
-                                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
+
+                                                    var tipoMovimientoInterno = "Venta Realizada";
+
+                                                    if (checkRenta.Checked)
+                                                    {
+                                                        tipoMovimientoInterno = "Renta Realizada";
+                                                    }
+
+                                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','{tipoMovimientoInterno} {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
                                                 }
                                             }
-                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idComboServicio}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','N/A','N/A','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])      }','{tipoDeVenta}',{idComboServicio})");
+
+                                            var tipoMovimiento = "Venta Realizada";
+
+                                            if (checkRenta.Checked)
+                                            {
+                                                tipoMovimiento = "Renta Realizada";
+                                            }
+
+                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idComboServicio}','{tipoMovimiento} {tipoDeVentaComboServicio} Folio: {guardar[10]}','N/A','N/A','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])      }','{tipoDeVenta}',{idComboServicio})");
 
 
                                         }
@@ -4339,9 +4429,24 @@ namespace PuntoDeVentaV2
                                                     tipoDeVentaComboServicio = "de servicio";
                                                 }
 
-                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
+                                                var tipoMovimientoInterno = "Venta Realizada";
+
+                                                if (checkRenta.Checked)
+                                                {
+                                                    tipoMovimientoInterno = "Renta Realizada";
+                                                }
+
+                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','{tipoMovimientoInterno} {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
                                             }
-                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idComboServicio}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','N/A','N/A','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
+
+                                            var tipoMovimiento = "Venta Realizada";
+
+                                            if (checkRenta.Checked)
+                                            {
+                                                tipoMovimiento = "Renta Realizada";
+                                            }
+
+                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idComboServicio}','{tipoMovimiento} {tipoDeVentaComboServicio} Folio: {guardar[10]}','N/A','N/A','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
                                         }
                                     }
                                     else
@@ -4355,7 +4460,14 @@ namespace PuntoDeVentaV2
                                             //decimal stockNuevo = stockActual - Convert.ToDecimal(guardar[3]);
                                             idComboServicio = 0;
 
-                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Decimal.Parse(guardar[3], NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint)}','{tipoDeVenta}','{idComboServicio}')");
+                                            var tipoMovimiento = "Venta Realizada";
+
+                                            if (checkRenta.Checked)
+                                            {
+                                                tipoMovimiento = "Renta Realizada";
+                                            }
+
+                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{guardar[1]}','{tipoMovimiento} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Decimal.Parse(guardar[3], NumberStyles.AllowExponent | NumberStyles.AllowDecimalPoint)}','{tipoDeVenta}','{idComboServicio}')");
                                         }
                                     }
                                 }
@@ -4402,7 +4514,14 @@ namespace PuntoDeVentaV2
                                                 tipoDeVentaComboServicio = "de servicio";
                                             }
 
-                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','Venta Ralizada {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
+                                            var tipoMovimiento = "Venta Realizada";
+
+                                            if (checkRenta.Checked)
+                                            {
+                                                tipoMovimiento = "Renta Realizada";
+                                            }
+
+                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{idprodCombo}','{tipoMovimiento} {tipoDeVentaComboServicio} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{cantidadCombo * Convert.ToDecimal(guardar[3])}','{tipoDeVenta}',{idComboServicio})");
                                         }
                                     }
                                 }
@@ -4416,7 +4535,14 @@ namespace PuntoDeVentaV2
                                         decimal stockNuevo = stockActual - Convert.ToDecimal(guardar[3]);
                                         idComboServicio = 0;
 
-                                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{guardar[1]}','Venta Ralizada Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}','{tipoDeVenta}','{idComboServicio}')");
+                                        var tipoMovimiento = "Venta Realizada";
+
+                                        if (checkRenta.Checked)
+                                        {
+                                            tipoMovimiento = "Renta Realizada";
+                                        }
+
+                                        cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad, tipoDeVenta,idComboServicio) VALUES ('{guardar[1]}','{tipoMovimiento} Folio: {guardar[10]}','{stockActual}','{stockNuevo}','{FechaOperacion}','{FormPrincipal.userNickName}','-{Convert.ToDecimal(guardar[3])}','{tipoDeVenta}','{idComboServicio}')");
                                     }
                                 }
                             }
@@ -4712,7 +4838,7 @@ namespace PuntoDeVentaV2
                             }
 
                             // Imprimir Ticket Venta Terminada
-                            if (tipoDeVentaRealizada.Equals(1))
+                            if (tipoDeVentaRealizada.Equals(1) || tipoDeVentaRealizada.Equals(6))
                             {
                                 int Permiso = 0;
                                 int TicketPDF = 0;
@@ -4746,6 +4872,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                             imprimirTicketVenta.Referencia = referencia;
+                                            imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
                                             imprimirTicketVenta.ShowDialog();
                                         }
                                     }
@@ -4789,6 +4916,7 @@ namespace PuntoDeVentaV2
                                                         imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                                         imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                                         imprimirTicketVenta.Referencia = referencia;
+                                                        imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
                                                         imprimirTicketVenta.ShowDialog();
                                                     }
                                                 }
@@ -4830,7 +4958,7 @@ namespace PuntoDeVentaV2
 
 
                             // Imprimir Ticket Venta Guardada
-                            if (tipoDeVentaRealizada.Equals(2))
+                            if (tipoDeVentaRealizada.Equals(2) || tipoDeVentaRealizada.Equals(7))
                             {
 
                                 using (var dt = cn.CargarDatos($"SELECT TicketPresupuesto,PreguntarTicketPresupuesto,TicketOPDFPresupuesto,AbrirCajaGuardada FROM configuraciondetickets where IDUsuario = {FormPrincipal.userID}"))
@@ -4863,6 +4991,7 @@ namespace PuntoDeVentaV2
                                                     imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                                     imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                                     imprimirTicketVenta.Referencia = referencia;
+                                                    imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
 
                                                     imprimirTicketVenta.ShowDialog();
                                                 }
@@ -4890,6 +5019,7 @@ namespace PuntoDeVentaV2
                                                     imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                                     imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                                     imprimirTicketVenta.Referencia = referencia;
+                                                    imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
 
                                                     imprimirTicketVenta.ShowDialog();
                                                 }
@@ -4935,6 +5065,7 @@ namespace PuntoDeVentaV2
                                                         imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                                         imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                                         imprimirTicketVenta.Referencia = referencia;
+                                                        imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
 
                                                         imprimirTicketVenta.ShowDialog();
                                                     }
@@ -4962,6 +5093,7 @@ namespace PuntoDeVentaV2
                                                         imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                                         imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                                         imprimirTicketVenta.Referencia = referencia;
+                                                        imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
 
                                                         imprimirTicketVenta.ShowDialog();
                                                     }
@@ -4996,7 +5128,7 @@ namespace PuntoDeVentaV2
                                 txtBuscadorProducto.Focus();
                             }
                             // Imprimir Ticket Venta a Credito
-                            if (tipoDeVentaRealizada.Equals(4))
+                            if (tipoDeVentaRealizada.Equals(4) || tipoDeVentaRealizada.Equals(9))
                             {
                                 guardarPrimerAbono();
                                 using (var dt = cn.CargarDatos($"SELECT CreditoRealizado,PreguntarCreditoRealizado,TicketOPDFCreditoRealizado,AbrirCajaCredito FROM configuraciondetickets where IDUsuario = {FormPrincipal.userID}"))
@@ -5026,6 +5158,7 @@ namespace PuntoDeVentaV2
                                                 imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                                 imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                                 imprimirTicketVenta.Referencia = referencia;
+                                                imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
 
                                                 imprimirTicketVenta.ShowDialog();
                                             }
@@ -5065,6 +5198,7 @@ namespace PuntoDeVentaV2
                                                     imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                                     imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                                     imprimirTicketVenta.Referencia = referencia;
+                                                    imprimirTicketVenta.tipoVenta = tipoDeVentaRealizada;
 
                                                     imprimirTicketVenta.ShowDialog();
                                                 }
@@ -5204,14 +5338,14 @@ namespace PuntoDeVentaV2
                     {
                         string[] abono = new string[] {
                 IDVenta, FormPrincipal.userID.ToString(), total.ToString(), efectivo, tarjeta, vales,
-                cheque, transferencia,"",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),FormPrincipal.id_empleado.ToString(),"0","0","0","0"};
+                cheque, transferencia,"Enganche",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),FormPrincipal.id_empleado.ToString(),"0","0","0","0"};
                         cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(abono));
                     }
                     else
                     {
                         string[] abono = new string[] {
                 IDVenta, FormPrincipal.userID.ToString(), total.ToString(), efectivo, tarjeta, vales,
-                cheque, transferencia,"",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),"0","0","0","0"};
+                cheque, transferencia,"Enganche",DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss"),"0","0","0","0"};
                         cn.EjecutarConsulta(cs.GuardarAbonos(abono));
                     }
 
@@ -5565,6 +5699,7 @@ namespace PuntoDeVentaV2
             cIVA.Text = datos[1];
             cTotal.Text = datos[2];
             cDescuento.Text = datos[3];
+            folioVentaGuardada = datos[5];
 
             string[] datosAnticipo = cn.BuscarAnticipo(mostrarVenta, FormPrincipal.userID);
 
@@ -7400,13 +7535,14 @@ namespace PuntoDeVentaV2
                 var resultados = new Dictionary<int, string>();
 
                 var coincidenciaExacta = cn.CargarDatos($"SELECT * FROM Productos WHERE IDUsuario = {FormPrincipal.userID} AND STATUS = 1 AND CodigoBarras = '{txtBuscadorProducto.Text.Trim()}'");
+
                 if (coincidenciaExacta.Rows.Count.Equals(0))
                 {
-                    resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text.Trim(), filtro, mostrarPrecioProducto, mostrarCBProducto);
+                    resultados = mb.BusquedaCoincidenciasVentas(txtBuscadorProducto.Text.Trim(), filtro, mostrarPrecioProducto, mostrarCBProducto, aceptaRenta);
                 }
                 else
                 {
-                    resultados = mb.BusquedaCoincidenciaExacta(txtBuscadorProducto.Text.Trim(), filtro, mostrarPrecioProducto, mostrarCBProducto);
+                    resultados = mb.BusquedaCoincidenciaExacta(txtBuscadorProducto.Text.Trim(), filtro, mostrarPrecioProducto, mostrarCBProducto, aceptaRenta);
                 }
 
                 int coincidencias = resultados.Count;
@@ -8492,12 +8628,20 @@ namespace PuntoDeVentaV2
                     return;
                 }
 
+
                 ListaClientes cliente = new ListaClientes();
 
                 cliente.FormClosed += delegate
                 {
                     if (ventaGuardada)
                     {
+                        if (checkOrden.Checked)
+                        {
+                            DatosOrden orden = new DatosOrden();
+
+                            orden.ShowDialog();
+                        }
+
                         DatosVenta();
                         liststock2.Clear();
                         idCliente = string.Empty;

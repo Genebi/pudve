@@ -66,6 +66,12 @@ namespace PuntoDeVentaV2
             DataTable ventaDT = new DataTable();
 
             ventaDA.Fill(ventaDT);
+
+            /*ventaDT.Rows[0]["CantidadRestante"] = ventaDT.Rows[0]["CantidadRestante"].ToString().Replace("$", "");
+
+            decimal cantidad = Convert.ToDecimal(ventaDT.Rows[0]["CantidadRestante"]);
+            if (cantidad > 0)*/
+
             var sinSigno = ventaDT.Rows[0]["CantidadRestante"].ToString().Split('$');
             decimal cantidad = Convert.ToDecimal(sinSigno[1]);
             if (cantidad < 0)

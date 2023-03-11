@@ -991,6 +991,16 @@ IF
 	CONSTRAINT Basculas_IdUsuario FOREIGN KEY ( idUsuario ) REFERENCES usuarios ( ID ) ON DELETE CASCADE ON UPDATE CASCADE 
 	);
 
+-- 54 Tabla de configuracion para Ordenes
+CREATE TABLE 
+IF 
+	NOT EXISTS ConfiguracionOrdenes (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+		IDUsuario INTEGER NOT NULL,
+		TiempoEntrega VARCHAR(50),
+		FechaOperacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+	);
+
 
 -- ------------------------------------------
 -- -- Final sección de Tablas del sistema --
@@ -1936,6 +1946,9 @@ IF
 	-- Agregar Columna de MostraMensaje a Editarticket
 ALTER TABLE editarticket ADD COLUMN IF NOT EXISTS mostrarMensaje INT DEFAULT 0 ;
 
+-- Agregar columna para guardar el si el negocio acepta rentas en configuracion general
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS RealizaRentas tinyint(1) DEFAULT 0;
+
 --Se crea la tabla de permisos Conceptos
 CREATE TABLE
 IF
@@ -1976,11 +1989,16 @@ ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS Agregar_Descuento INT DEF
 	-- Agregar Columna de Eliminar Descuento a empleadosPermisos
 ALTER TABLE empleadospermisos ADD COLUMN IF NOT EXISTS Eliminar_Descuento INT DEFAULT 1 ;
 
+
+-- Agregar Columna de la ganancia por venta para graficarlo 
+ALTER TABLE ventas ADD COLUMN IF NOT EXISTS Ganancia   VARCHAR (255) DEFAULT NULL ;
+
 ALTER TABLE dgvaumentarinventario MODIFY COLUMN DiferenciaUnidades VARCHAR(100);
 ALTER TABLE dgvaumentarinventario MODIFY COLUMN StockActual VARCHAR(100);
 ALTER TABLE dgvaumentarinventario MODIFY COLUMN NuevoStock VARCHAR(100);
 ALTER TABLE dgvdisminuirinventario MODIFY COLUMN DiferenciaUnidades VARCHAR(100);
 ALTER TABLE dgvdisminuirinventario MODIFY COLUMN StockActual VARCHAR(100);
+
 ALTER TABLE dgvdisminuirinventario MODIFY COLUMN NuevoStock VARCHAR(100);
 
 -- Columnas para configuracion de creditos
@@ -2084,23 +2102,27 @@ ALTER TABLE caja ADD COLUMN IF NOT EXISTS Comentarios TEXT DEFAULT NULL;
 
 ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS traspasos INTEGER(11) DEFAULT (0);
 
-   -- Se agrego la columna MostrarStockConsultaPrecio a la tabla de Configuracion
+-- Se agrego la columna MostrarStockConsultaPrecio a la tabla de Configuracion
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS MostrarStockConsultaPrecio INT DEFAULT 1;
 
-   -- Se agrego la columna MostrarStockConsultaPrecio a la tabla de Configuracion
-  ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoStockConsultarPrecio INT DEFAULT 1;
-
-   -- Se agrego la columna PrimerCorte a la tabla de historialCorteDeCaja
-  ALTER TABLE historialcortesdecaja ADD COLUMN IF NOT EXISTS PrimerCorte INT DEFAULT 1;
-
-   -- Se agrego la columna PermisoCorreoSaldoInicial a la tabla de permisosconfiguracion
-  ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoCorreoSaldoInicial INT DEFAULT 1;
-
-  -- Se agrego la columna EnvioCorreoSaldoIncial a la tabla de permisosconfiguracion
-  ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS EnvioCorreoSaldoIncial INT DEFAULT 1;
+-- Se agrego la columna MostrarStockConsultaPrecio a la tabla de Configuracion
 ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoStockConsultarPrecio INT DEFAULT 1;
 
-   -- Se agrego la columna PesoAutomatico en Productos para recibir el peso automaticamente. // 0 = Acepta todo tipo de forma venta //1 = Solo se puede vender por Enteros //2 = Toma el peso en automatico de la bascula
+-- Se agrego la columna PrimerCorte a la tabla de historialCorteDeCaja
+ALTER TABLE historialcortesdecaja ADD COLUMN IF NOT EXISTS PrimerCorte INT DEFAULT 1;
+
+-- Se agrego la columna PermisoCorreoSaldoInicial a la tabla de permisosconfiguracion
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoCorreoSaldoInicial INT DEFAULT 1;
+
+  
+
+-- Se agrego la columna PesoAutomatico en Productos para recibir el peso automaticamente. // 0 = Acepta todo tipo de forma venta //1 = Solo se puede vender por Enteros //2 = Toma el peso en automatico de la bascula
+ALTER TABLE productos ADD COLUMN IF NOT EXISTS FormatoDeVenta INT DEFAULT 0;
+-- Se agrego la columna EnvioCorreoSaldoIncial a la tabla de permisosconfiguracion
+ALTER TABLE configuracion ADD COLUMN IF NOT EXISTS EnvioCorreoSaldoIncial INT DEFAULT 1;
+ALTER TABLE permisosconfiguracion ADD COLUMN IF NOT EXISTS PermisoStockConsultarPrecio INT DEFAULT 1;
+
+-- Se agrego la columna PesoAutomatico en Productos para recibir el peso automaticamente. // 0 = Acepta todo tipo de forma venta //1 = Solo se puede vender por Enteros //2 = Toma el peso en automatico de la bascula
 ALTER TABLE productos ADD COLUMN IF NOT EXISTS FormatoDeVenta INT DEFAULT 0;
 
 ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS VentasACredito INT DEFAULT 1;
@@ -2282,3 +2304,39 @@ ALTER TABLE EmpleadosPermisos ADD COLUMN IF NOT EXISTS RegresarProducto INT DEFA
 -- Configuracion para ventas faciles
 ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS ventaFacil INT DEFAULT 0;
 
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS avisoCaducidad INT DEFAULT 1;
+
+--Configuracino envio de correo abono
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS CorreoAbonoRecibidos INT DEFAULT 0;
+
+--Permiso Empleado envio de corre abono
+
+ALTER TABLE permisosconfiguracion  ADD COLUMN IF NOT EXISTS PermisoEnvioDeCorreoAbono INT DEFAULT 1;
+
+
+-- Tabla de configuracion para Ordenes
+CREATE TABLE 
+IF 
+	NOT EXISTS ConfiguracionOrdenes (
+		ID INTEGER PRIMARY KEY AUTO_INCREMENT,
+		IDUsuario INTEGER NOT NULL,
+		TiempoEntrega VARCHAR(50),
+		FechaOperacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+	);
+
+-- Agregar columna para guardar el si el negocio acepta rentas en configuracion general
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS RealizaRentas tinyint(1) DEFAULT 0;
+-- Agregar columna para saber si el producto solo es para rentas
+ALTER TABLE Productos ADD COLUMN IF NOT EXISTS SoloRenta tinyint(1) DEFAULT 0;
+-- Agregar columna para guardar el si el negocio acepta ordenes en configuracion general
+ALTER TABLE Configuracion ADD COLUMN IF NOT EXISTS RealizaOrdenes tinyint(1) DEFAULT 0;
+-- Agregar columnas para guardar tiempo y fecha de entrega al crear odenes
+ALTER TABLE Ventas ADD COLUMN IF NOT EXISTS TiempoEntrega VARCHAR(50) DEFAULT NULL;
+ALTER TABLE Ventas ADD COLUMN IF NOT EXISTS FechaEntrega DATETIME DEFAULT '0001-01-01 00:00:00';
+ALTER TABLE Ventas ADD COLUMN IF NOT EXISTS EstadoEntrega INT DEFAULT 0;
+
+-- modificacion para que pueda tener mas texto 
+ALTER TABLE dgvaumentarinventario MODIFY COLUMN NombreProducto VARCHAR(1000);
+
+-- Columna para guardar las fechas de pagos de abonos que aun no se pagan.
+ALTER TABLE reglasCreditoVenta ADD COLUMN IF NOT EXISTS FechasFaltantes TEXT ;

@@ -73,6 +73,7 @@
             this.btnBuscarPorHuella = new System.Windows.Forms.Button();
             this.btnBuscarVentas = new System.Windows.Forms.Button();
             this.cbVentas = new System.Windows.Forms.ComboBox();
+            this.cbTipoRentas = new System.Windows.Forms.ComboBox();
             this.cbTipoVentas = new System.Windows.Forms.ComboBox();
             this.TTMensaje = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -96,25 +97,8 @@
             this.lb_txt_ruta_descargar = new System.Windows.Forms.Label();
             this.chTodos = new System.Windows.Forms.CheckBox();
             this.chkHDAutlan = new System.Windows.Forms.CheckBox();
-            //this.col_checkbox = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            //this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            //this.Cliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            //this.RFC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            //this.Vendedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            //this.Subtotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            //this.IVA = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            //this.Total = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            //this.Folio = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            //this.Serie = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            //this.Fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            //this.Cancelar = new System.Windows.Forms.DataGridViewImageColumn();
-            //this.Factura = new System.Windows.Forms.DataGridViewImageColumn();
-            //this.Ticket = new System.Windows.Forms.DataGridViewImageColumn();
-            //this.Abono = new System.Windows.Forms.DataGridViewImageColumn();
-            //this.Timbrar = new System.Windows.Forms.DataGridViewImageColumn();
-            //this.cInformacion = new System.Windows.Forms.DataGridViewImageColumn();
-            //this.retomarVenta = new System.Windows.Forms.DataGridViewImageColumn();
-            //this.ganancia = new System.Windows.Forms.DataGridViewImageColumn();
+            this.rbVentas = new System.Windows.Forms.RadioButton();
+            this.rbRentas = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.DGVListadoVentas)).BeginInit();
             this.panelBotones.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -125,11 +109,10 @@
             // tituloSeccion
             // 
             this.tituloSeccion.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.tituloSeccion.AutoSize = true;
             this.tituloSeccion.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tituloSeccion.Location = new System.Drawing.Point(446, 27);
+            this.tituloSeccion.Location = new System.Drawing.Point(260, 27);
             this.tituloSeccion.Name = "tituloSeccion";
-            this.tituloSeccion.Size = new System.Drawing.Size(102, 25);
+            this.tituloSeccion.Size = new System.Drawing.Size(478, 25);
             this.tituloSeccion.TabIndex = 4;
             this.tituloSeccion.Text = "VENTAS";
             this.tituloSeccion.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -344,6 +327,7 @@
             this.panelBotones.Controls.Add(this.btnBuscarPorHuella);
             this.panelBotones.Controls.Add(this.btnBuscarVentas);
             this.panelBotones.Controls.Add(this.cbVentas);
+            this.panelBotones.Controls.Add(this.cbTipoRentas);
             this.panelBotones.Controls.Add(this.cbTipoVentas);
             this.panelBotones.Location = new System.Drawing.Point(12, 55);
             this.panelBotones.Name = "panelBotones";
@@ -443,7 +427,7 @@
             this.btnCrearVentaGlobal.Size = new System.Drawing.Size(220, 26);
             this.btnCrearVentaGlobal.TabIndex = 10;
             this.btnCrearVentaGlobal.Text = "Crear venta global";
-            this.btnCrearVentaGlobal.UseVisualStyleBackColor = false; 
+            this.btnCrearVentaGlobal.UseVisualStyleBackColor = false;
             this.btnCrearVentaGlobal.Click += new System.EventHandler(this.btnCrearVentaGlobal_Click);
             // 
             // btnReportes
@@ -635,6 +619,19 @@
             this.cbVentas.TabIndex = 0;
             this.cbVentas.Visible = false;
             // 
+            // cbTipoRentas
+            // 
+            this.cbTipoRentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTipoRentas.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTipoRentas.FormattingEnabled = true;
+            this.cbTipoRentas.Location = new System.Drawing.Point(3, 30);
+            this.cbTipoRentas.Name = "cbTipoRentas";
+            this.cbTipoRentas.Size = new System.Drawing.Size(240, 21);
+            this.cbTipoRentas.TabIndex = 20;
+            this.cbTipoRentas.Visible = false;
+            this.cbTipoRentas.SelectedIndexChanged += new System.EventHandler(this.cbTipoRentas_SelectedIndexChanged);
+            this.cbTipoRentas.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbTipoRentas_KeyDown);
+            // 
             // cbTipoVentas
             // 
             this.cbTipoVentas.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -795,7 +792,7 @@
             this.linkFirst.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkFirst.Location = new System.Drawing.Point(451, 28);
             this.linkFirst.Name = "linkFirst";
-            this.linkFirst.Size = new System.Drawing.Size(24, 16);
+            this.linkFirst.Size = new System.Drawing.Size(23, 16);
             this.linkFirst.TabIndex = 24;
             this.linkFirst.TabStop = true;
             this.linkFirst.Text = "1...";
@@ -810,7 +807,7 @@
             this.linkLast.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLast.Location = new System.Drawing.Point(545, 28);
             this.linkLast.Name = "linkLast";
-            this.linkLast.Size = new System.Drawing.Size(24, 16);
+            this.linkLast.Size = new System.Drawing.Size(23, 16);
             this.linkLast.TabIndex = 24;
             this.linkLast.TabStop = true;
             this.linkLast.Text = "...4";
@@ -825,7 +822,7 @@
             this.linkLblPaginaSiguiente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaSiguiente.Location = new System.Drawing.Point(526, 28);
             this.linkLblPaginaSiguiente.Name = "linkLblPaginaSiguiente";
-            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(15, 16);
+            this.linkLblPaginaSiguiente.Size = new System.Drawing.Size(14, 16);
             this.linkLblPaginaSiguiente.TabIndex = 24;
             this.linkLblPaginaSiguiente.TabStop = true;
             this.linkLblPaginaSiguiente.Text = "3";
@@ -839,7 +836,7 @@
             this.linkLblPaginaActual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaActual.Location = new System.Drawing.Point(502, 28);
             this.linkLblPaginaActual.Name = "linkLblPaginaActual";
-            this.linkLblPaginaActual.Size = new System.Drawing.Size(15, 16);
+            this.linkLblPaginaActual.Size = new System.Drawing.Size(14, 16);
             this.linkLblPaginaActual.TabIndex = 23;
             this.linkLblPaginaActual.TabStop = true;
             this.linkLblPaginaActual.Text = "2";
@@ -853,7 +850,7 @@
             this.linkLblPaginaAnterior.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLblPaginaAnterior.Location = new System.Drawing.Point(478, 28);
             this.linkLblPaginaAnterior.Name = "linkLblPaginaAnterior";
-            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(15, 16);
+            this.linkLblPaginaAnterior.Size = new System.Drawing.Size(14, 16);
             this.linkLblPaginaAnterior.TabIndex = 22;
             this.linkLblPaginaAnterior.TabStop = true;
             this.linkLblPaginaAnterior.Text = "1";
@@ -935,11 +932,37 @@
             this.chkHDAutlan.CheckedChanged += new System.EventHandler(this.chkHDAutlan_CheckedChanged);
             this.chkHDAutlan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.chkHDAutlan_MouseClick);
             // 
+            // rbVentas
+            // 
+            this.rbVentas.AutoSize = true;
+            this.rbVentas.Checked = true;
+            this.rbVentas.Location = new System.Drawing.Point(12, 32);
+            this.rbVentas.Name = "rbVentas";
+            this.rbVentas.Size = new System.Drawing.Size(68, 17);
+            this.rbVentas.TabIndex = 69;
+            this.rbVentas.TabStop = true;
+            this.rbVentas.Text = "VENTAS";
+            this.rbVentas.UseVisualStyleBackColor = true;
+            this.rbVentas.CheckedChanged += new System.EventHandler(this.rbVentas_CheckedChanged);
+            // 
+            // rbRentas
+            // 
+            this.rbRentas.AutoSize = true;
+            this.rbRentas.Location = new System.Drawing.Point(87, 32);
+            this.rbRentas.Name = "rbRentas";
+            this.rbRentas.Size = new System.Drawing.Size(173, 17);
+            this.rbRentas.TabIndex = 70;
+            this.rbRentas.Text = "RENTAS (ARRENDAMIENTO)";
+            this.rbRentas.UseVisualStyleBackColor = true;
+            this.rbRentas.CheckedChanged += new System.EventHandler(this.rbRentas_CheckedChanged);
+            // 
             // ListadoVentas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 561);
+            this.Controls.Add(this.rbRentas);
+            this.Controls.Add(this.rbVentas);
             this.Controls.Add(this.chkHDAutlan);
             this.Controls.Add(this.chTodos);
             this.Controls.Add(this.lb_txt_ruta_descargar);
@@ -1036,5 +1059,8 @@
         private System.Windows.Forms.Button btnBuscarPorHuella;
         private System.Windows.Forms.Button btnPorVencer;
         private System.Windows.Forms.Button btnVencidas;
+        private System.Windows.Forms.RadioButton rbVentas;
+        private System.Windows.Forms.RadioButton rbRentas;
+        public System.Windows.Forms.ComboBox cbTipoRentas;
     }
 }

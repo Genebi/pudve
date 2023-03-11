@@ -95,7 +95,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="CustomControlPUDVE">
-      <HintPath>..\..\..\..\..\Downloads\CustomControlPUDVE.dll</HintPath>
+      <HintPath>..\..\..\..\Desktop\CustomControlPUDVE.dll</HintPath>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.16.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
       <HintPath>..\packages\DocumentFormat.OpenXml.2.16.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
@@ -579,6 +579,12 @@
     <Compile Include="calculadora.Designer.cs">
       <DependentUpon>calculadora.cs</DependentUpon>
     </Compile>
+    <Compile Include="CambiarEstadoEntrega.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CambiarEstadoEntrega.Designer.cs">
+      <DependentUpon>CambiarEstadoEntrega.cs</DependentUpon>
+    </Compile>
     <Compile Include="Cancelar_XML.cs" />
     <Compile Include="Cancelar_XML_mensajes.cs">
       <SubType>Form</SubType>
@@ -732,6 +738,12 @@
     <Compile Include="ConfiguracionMariaDB.Designer.cs">
       <DependentUpon>ConfiguracionMariaDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfiguracionOrdenes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfiguracionOrdenes.Designer.cs">
+      <DependentUpon>ConfiguracionOrdenes.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConfiguracionTickets.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -794,6 +806,12 @@
     </Compile>
     <Compile Include="datosExtraNvoProductos.Designer.cs">
       <DependentUpon>datosExtraNvoProductos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DatosOrden.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DatosOrden.Designer.cs">
+      <DependentUpon>DatosOrden.cs</DependentUpon>
     </Compile>
     <Compile Include="DatosTotalesReporte.cs" />
     <Compile Include="DBTables.cs" />
@@ -1497,6 +1515,9 @@
       <DependentUpon>TicketDineroRetirado.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <None Include="PUDVE\icon\black16\circle-yellow-48.png" />
+    <None Include="PUDVE\icon\black16\circle-green-48.png" />
+    <None Include="PUDVE\icon\black16\circle-red-48.png" />
     <Content Include="PUDVE\xslt\cadenaoriginal_4_0.xslt" />
     <Content Include="ReportesImpresion\Ticket\Inventario\DTInventario.cs">
       <DependentUpon>DTInventario.xsd</DependentUpon>
@@ -2122,6 +2143,9 @@
     <EmbeddedResource Include="calculadora.resx">
       <DependentUpon>calculadora.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CambiarEstadoEntrega.resx">
+      <DependentUpon>CambiarEstadoEntrega.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Cancelar_XML_mensajes.resx">
       <DependentUpon>Cancelar_XML_mensajes.cs</DependentUpon>
     </EmbeddedResource>
@@ -2188,6 +2212,9 @@
     <EmbeddedResource Include="ConfiguracionMariaDB.resx">
       <DependentUpon>ConfiguracionMariaDB.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ConfiguracionOrdenes.resx">
+      <DependentUpon>ConfiguracionOrdenes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ConfiguracionTickets.resx">
       <DependentUpon>ConfiguracionTickets.cs</DependentUpon>
     </EmbeddedResource>
@@ -2217,6 +2244,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="datosExtraNvoProductos.resx">
       <DependentUpon>datosExtraNvoProductos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DatosOrden.resx">
+      <DependentUpon>DatosOrden.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DetalleDescripcion.resx">
       <DependentUpon>DetalleDescripcion.cs</DependentUpon>

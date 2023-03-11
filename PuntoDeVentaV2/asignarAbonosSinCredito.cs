@@ -9,6 +9,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -28,7 +29,7 @@ namespace PuntoDeVentaV2
 
         private string ticketGenerado = string.Empty;
         private string rutaTicketGenerado = string.Empty;
-
+        private string tipoCredito = string.Empty;
 
         //MIOOOOOOOOOOOOO
         float efectivo;
@@ -42,12 +43,13 @@ namespace PuntoDeVentaV2
 
         float restanteDePago = 0;
 
-        public asignarAbonosSinCredito(int idVenta, float totalOriginal)
+        public asignarAbonosSinCredito(int idVenta, float totalOriginal, string tipoCredito)
         {
             InitializeComponent();
 
             this.idVenta = idVenta;
             this.totalOriginal = totalOriginal;
+            this.tipoCredito = tipoCredito;
         }
 
         private void AsignarAbonos_Load(object sender, EventArgs e)
@@ -128,6 +130,13 @@ namespace PuntoDeVentaV2
                     }
                 }
 
+                if (restante <= 0)
+                {
+                    int status = tipoCredito.Equals("RCC") ? 6 : 1;
+
+                    cn.EjecutarConsulta(cs.estatusFinalizacionPagoCredito(idVenta, status));
+                }
+
                 //var totalAbonado = totalEfectivo + tarjeta + vales + cheque + transferencia; //=150
                 var totalAbonado = total;
 
@@ -137,10 +146,10 @@ namespace PuntoDeVentaV2
                     cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 1, FormPrincipal.userID));
                 }
 
-                if (restante <= 0)
-                {
-                    cn.EjecutarConsulta(cs.estatusFinalizacionPagoCredito(idVenta));
-                }
+                //if (restante <= 0)
+                //{
+                //    cn.EjecutarConsulta(cs.estatusFinalizacionPagoCredito(idVenta));
+                //}
 
                 //var pagoPendiente = txtPendiente.Text;
                 //var cantidadPendiente = float.Parse(pagoPendiente);
@@ -212,7 +221,15 @@ namespace PuntoDeVentaV2
                                 abrir.Show();
                             }
                         }
-
+                        using (var dt = cn.CargarDatos($"SELECT CorreoAbonoRecibidos FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                        {
+                            if (dt.Rows[0][0].Equals(1))
+                            {
+                                Thread envio = new Thread(() => EnvioDeCorreo(totalAbonado));
+                                envio.Start();
+                            }
+                        }
+                        
                         //ImprimirTicket(idVenta.ToString(), idAbono);
                         //MostrarTicketAbonos(idVenta.ToString(), idAbono);
 
@@ -251,7 +268,16 @@ namespace PuntoDeVentaV2
                         impresionTicketAbono.ShowDialog();
                         //ImprimirTicket(idVenta.ToString(), idAbono);
                         //MostrarTicketAbonos(idVenta.ToString(), idAbono);
+                        using (var dt = cn.CargarDatos($"SELECT CorreoAbonoRecibidos FROM configuracion WHERE IDUsuario = {FormPrincipal.userID}"))
+                        {
+                            if (dt.Rows[0][0].Equals(1))
+                            {
+                                Thread envio = new Thread(() => EnvioDeCorreo(totalAbonado));
+                                envio.Start();
+                            }
+                        }
                         this.Dispose();
+                        
                     }
                 }
             }
@@ -260,6 +286,43 @@ namespace PuntoDeVentaV2
                 MessageBox.Show("Ingrese una cantidad para poder realizar el abono.", "Mensaje de sistema", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private void EnvioDeCorreo(float totalAbonado)
+        {
+            string Negocio = "", Gerente = "", Cliente = "", Folio = "", Fecha = DateTime.Now.ToString("dd-MM-yyyy HH:mm"), AdminOEmpleado = "",  correo = "";
+            
+            using (var dt = cn.CargarDatos($"SELECT usu.Usuario AS 'Tienda', usu.RazonSocial AS 'Patron',usu.Email, cli.RazonSocial AS 'Cliente', ven.Folio FROM ventas AS ven INNER JOIN usuarios AS usu ON ( usu.ID = ven.IDUsuario ) INNER JOIN clientes AS cli ON ( cli.ID = ven.IDCliente ) WHERE ven.ID = {idVenta}"))
+            {
+                if (!dt.Rows.Count.Equals(0))
+                {
+                    correo = dt.Rows[0]["Email"].ToString();
+                    Negocio = dt.Rows[0]["Tienda"].ToString();
+                    if (FormPrincipal.userNickName.Contains('@'))
+                    {
+                        var nombreEmpleado = FormPrincipal.userNickName.Split('@');
+                        Gerente = nombreEmpleado[1];
+                        AdminOEmpleado = "Recibido por el administrador:";
+                    }
+                    else
+                    {
+                        Gerente = dt.Rows[0]["Patron"].ToString();
+                        AdminOEmpleado = "Recibido por el empleado:";
+                    }
+                    
+                    Cliente = dt.Rows[0]["Cliente"].ToString();
+                    Folio = dt.Rows[0]["Folio"].ToString();
+                }
+                else
+                {
+                    return;
+                }
+            }
+            string html = @"<!DOCTYPE html><html><head><meta charset='UTF-8'><title>ABONO APLICADO</title><style>body {font-family: Arial, sans-serif; font-size: 16px; line-height: 1.5; background-color: #f7f7f7; color: #333; padding: 0; margin: 0;}.wrapper {width: 100%; padding: 20px 0; box-sizing: border-box;}.container {max-width: 600px; margin: 0 auto; background-color: #fff; box-shadow: 0px 2px 4px rgba(0,0,0,0.3); border-radius: 5px; padding: 20px; box-sizing: border-box; text-align: center;}.header {margin-top: 0; color: #333; font-size: 24px; font-weight: bold; margin-bottom: 20px;}.label {font-weight: bold; display: block; margin-bottom: 5px;}.value {color: #333; margin-bottom: 10px;}.footer {text-align: center; font-size: 14px; margin-top: 20px;}</style></head><body><div class='wrapper'><div class='container'><h1 class='header'>Información de venta</h1><p><span class='label'>NEGOCIO:</span><span class='value'>" + Negocio + "</span></p><p><span class='label'>" + AdminOEmpleado + "</span><span class='value'>" + Gerente + "</span></p><p><span class='label'>Cliente:</span><span class='value'>" + Cliente + "</span></p><p><span class='label'>Cantidad abonada:</span><span class='value'>$" + totalAbonado.ToString("0.00") + "</span></p><p><span class='label'>Folio de venta:</span><span class='value'>" + Folio + "</span></p><p><span class='label'>Fecha:</span><span class='value'>" + Fecha + "</span></p><div class='footer'><p>Este correo fue generado automáticamente. Por favor no responda a este mensaje.</p></div></div></div></body></html>";
+            string asunto = "!AVISO¡ ABONO APLICADO";
+
+             Utilidades.EnviarEmail(html, asunto, correo);
+        }
+
 
         private float sumarMetodosTemporal()
         {

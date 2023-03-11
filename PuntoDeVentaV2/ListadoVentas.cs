@@ -24,12 +24,22 @@ namespace PuntoDeVentaV2
 {
     public partial class ListadoVentas : Form
     {
-        //Status 1 = Venta terminada
-        //Status 2 = Venta guardada
-        //Status 3 = Venta cancelada
-        //Status 4 = Venta a credito
-        //Status 5 = Facturas
-        //Status 6 = Presupuestos
+        // status 1 = Venta pagada
+        // status 2 = Venta guardada
+        // status 3 = Venta cancelada
+        // status 4 = Venta a credito
+        // status 5 = Venta global
+
+        // status 6 = Renta pagada
+        // status 7 = Renta guardada
+        // status 8 = Renta cancelada
+        // status 9 = Renta a credito
+        // status 10 = Renta global
+
+        // status 11 = Orden
+
+        // status 12 = Venta a credito atrasada
+        // status 13 = Venta a credito por atrasar
 
         Conexion cn = new Conexion();
         Consultas cs = new Consultas();
@@ -142,8 +152,10 @@ namespace PuntoDeVentaV2
                 chkHDAutlan.Visible = false;
             }
             cbTipoVentas.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbTipoRentas.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbFiltroAdminEmpleado.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             cbVentas.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
+            cbTipoRentas.MouseWheel += new MouseEventHandler(Utilidades.ComboBox_Quitar_MouseWheel);
             recargarDatos = true;
             // Se crea el directorio para almacenar los tickets y otros archivos relacionados con ventas
             Directory.CreateDirectory(@"C:\Archivos PUDVE\Ventas\Tickets");
@@ -178,17 +190,29 @@ namespace PuntoDeVentaV2
             // Opciones para el combobox
             Dictionary<string, string> ventas = new Dictionary<string, string>();
             ventas.Add("VP", "VENTAS PAGADAS");
-            ventas.Add("VG", "VENTAS GUARDADAS (PRESUPUESTOS)");
+            ventas.Add("VG", "PRESUPUESTOS (ORDENES)");
             ventas.Add("VC", "VENTAS CANCELADAS");
             ventas.Add("VCC", "VENTAS A CRÉDITO");
             ventas.Add("VGG", "VENTAS GLOBALES");
+
+            Dictionary<string, string> rentas = new Dictionary<string, string>();
+            rentas.Add("RP", "RENTAS PAGADAS");
+            rentas.Add("RG", "RENTAS GUARDADAS (PRESUPUESTOS)");
+            rentas.Add("RC", "RENTAS DEVUELTAS");
+            rentas.Add("RCC", "RENTAS A CRÉDITO");
+            rentas.Add("RGG", "RENTAS GLOBALES");
 
             cbTipoVentas.DataSource = ventas.ToArray();
             cbTipoVentas.DisplayMember = "Value";
             cbTipoVentas.ValueMember = "Key";
 
+            cbTipoRentas.DataSource = rentas.ToArray();
+            cbTipoRentas.DisplayMember = "Value";
+            cbTipoRentas.ValueMember = "Key";
+
             cbVentas.SelectedIndex = 0;
             cbTipoVentas.SelectedIndex = 0;
+            cbTipoRentas.SelectedIndex = 0;
 
             // Combobox formas de pago
             Dictionary<string, string> formas = new Dictionary<string, string>();
@@ -251,6 +275,17 @@ namespace PuntoDeVentaV2
             //cn.EjecutarConsulta($"INSERT INTO Caja (Operacion, Cantidad, Saldo, Concepto, FechaOperacion, IDUsuario, Efectivo, Tarjeta, Vales, Cheque, Transferencia, Credito, Anticipo ) VALUES('retiro', '0.00', '0.00', '', '{fechaCreacion}', '{FormPrincipal.userID}', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00', '0.00' )");
 
             txtMaximoPorPagina.Text = maximo_x_pagina.ToString();
+
+            var configuracion = mb.ComprobarConfiguracion();
+
+            if (configuracion.Count > 0)
+            {
+                // Realiza rentas
+                if (configuracion[32].Equals(1))
+                {
+                    rbRentas.Checked = true;
+                }
+            }
         }
 
         private void verificarSiExisteCorteDeCaja()
@@ -530,9 +565,25 @@ namespace PuntoDeVentaV2
                     // Ventas globales
                     if (opcion == "VGG") { estado = 5; }
                     // Ventas a credito atrasadas
-                    if (opcion == "VCA") { estado = 6; }
+                    if (opcion == "VCA") { estado = 12; }
                     // Ventas a credito por vencer
-                    if (opcion == "VPV") { estado = 7; }
+                    if (opcion == "VPV") { estado = 13; }
+
+                    if (cbTipoRentas.Visible)
+                    {
+                        opcion = cbTipoRentas.SelectedValue.ToString();
+
+                        // Rentas pagadas
+                        if (opcion.Equals("RP")) { estado = 6; }
+                        // Rentas guardadas
+                        if (opcion.Equals("RG")) { estado = 7; }
+                        // Rentas canceladas
+                        if (opcion.Equals("RC")) { estado = 8; }
+                        // Rentas a credito
+                        if (opcion.Equals("RCC")) { estado = 9; }
+                        // Rentas globales
+                        if (opcion.Equals("RGG")) { estado = 10; }
+                    }
 
                     if (buscador.Equals("BUSCAR POR RFC, CLIENTE, EMPLEADO O FOLIO..."))
                     {
@@ -559,19 +610,19 @@ namespace PuntoDeVentaV2
                                 fechaInicial = fechaInicial2.Rows[0]["FechaOperacion"].ToString();
                             }
 
-                            if (estado.Equals(1)) // Ventas pagadas
+                            if (estado.Equals(1) || estado.Equals(6)) // Ventas pagadas
                             {
                                 consulta = cs.VerComoEpleadoTodasMisVentasPagadasPorFechas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, formaPagoFiltro);
                             }
-                            else if (estado.Equals(2) || estado.Equals(5)) // Ventas guardadas o ventas globales
+                            else if (estado.Equals(2) || estado.Equals(5) || estado.Equals(7) || estado.Equals(10)) // Ventas guardadas o ventas globales
                             {
                                 consulta = cs.VerComoEpleadoTodasLaVentasGuardadasPorFechas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
                             }
-                            else if (estado.Equals(3)) // Ventas canceladas
+                            else if (estado.Equals(3) || estado.Equals(8)) // Ventas canceladas
                             {
                                 consulta = cs.VerComoEpleadoTodasMisVentasCanceladasPorFechas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, formaPagoFiltro);
                             }
-                            else if (estado.Equals(4)) // Ventas a credito
+                            else if (estado.Equals(4) || estado.Equals(9)) // Ventas a credito
                             {
                                 consulta = cs.VerComoEpleadoTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal, formaPagoFiltro);
                             }
@@ -589,7 +640,7 @@ namespace PuntoDeVentaV2
                         else
                         {
                             //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' ORDER BY ID DESC";
-                            if (estado.Equals(1)) // Ventas pagadas
+                            if (estado.Equals(1) || estado.Equals(6)) // Ventas pagadas
                             {
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                 {
@@ -604,7 +655,7 @@ namespace PuntoDeVentaV2
                                     consulta = cs.filtroPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                             }
-                            else if (estado.Equals(2) || estado.Equals(5)) // Ventas guardadas o ventas globales
+                            else if (estado.Equals(2) || estado.Equals(5) || estado.Equals(7) || estado.Equals(10)) // Ventas guardadas o ventas globales
                             {
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                 {
@@ -619,7 +670,7 @@ namespace PuntoDeVentaV2
                                     consulta = cs.filtroPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
                                 }
                             }
-                            else if (estado.Equals(3)) // Ventas canceladas
+                            else if (estado.Equals(3) || estado.Equals(8)) // Ventas canceladas
                             {
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                 {
@@ -634,7 +685,7 @@ namespace PuntoDeVentaV2
                                     consulta = cs.VerComoEmpleadoTodasMisVentasCanceladas(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                             }
-                            else if (estado.Equals(4)) // Ventas a credito
+                            else if (estado.Equals(4) || estado.Equals(9)) // Ventas a credito
                             {
                                 //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal);
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
@@ -650,7 +701,7 @@ namespace PuntoDeVentaV2
                                     consulta = cs.verVentasCreditoPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                             }
-                            else if (estado.Equals(6)) // Ventas a credito atrasadas
+                            else if (estado.Equals(12)) // Ventas a credito atrasadas
                             {
                                 //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal);
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
@@ -666,7 +717,7 @@ namespace PuntoDeVentaV2
                                     consulta = cs.verVentasCreditoAtrasadasPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, formaPagoFiltro);
                                 }
                             }
-                            else if (estado.Equals(7)) // Ventas a credito por expirar
+                            else if (estado.Equals(13)) // Ventas a credito por expirar
                             {
                                 //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechas(estado, fechaInicial, fechaFinal);
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
@@ -766,21 +817,26 @@ namespace PuntoDeVentaV2
 
                             var opcionFiltrado = cbTipoVentas.SelectedValue.ToString();
 
+                            if (cbTipoRentas.Visible)
+                            {
+                                opcionFiltrado = cbTipoRentas.SelectedValue.ToString();
+                            }
+
                             if (FormPrincipal.userNickName.Contains("@"))
                             {
-                                if (opcionFiltrado == "VP") //Ventas pagadas
+                                if (opcionFiltrado == "VP" || opcionFiltrado.Equals("RP")) //Ventas pagadas
                                 {
                                     buscarSoloEmpleado(buscador, fechaInicial, fechaFinal);
                                 }
-                                else if (opcionFiltrado == "VG" || opcionFiltrado == "VGG") //Ventas guardadas o ventas globales
+                                else if (opcionFiltrado == "VG" || opcionFiltrado == "VGG" || opcionFiltrado.Equals("RG") || opcionFiltrado.Equals("RGG")) //Ventas guardadas o ventas globales
                                 {
                                     buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
                                 }
-                                else if (opcionFiltrado == "VC") //Ventas canceladas
+                                else if (opcionFiltrado == "VC" || opcionFiltrado.Equals("RC")) //Ventas canceladas
                                 {
                                     buscarSoloEmpleado(buscador, fechaInicial, fechaFinal);
                                 }
-                                else if (opcionFiltrado == "VCC") //Ventas a credito
+                                else if (opcionFiltrado == "VCC" || opcionFiltrado.Equals("RCC"))
                                 {
                                     buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
                                 }
@@ -793,7 +849,7 @@ namespace PuntoDeVentaV2
                             {
                                 clasificarTipoDeUsuario();
 
-                                if (opcionFiltrado == "VP") //Ventas pagadas
+                                if (opcionFiltrado == "VP" || opcionFiltrado.Equals("RP")) //Ventas pagadas
                                 {
                                     if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                     {
@@ -808,11 +864,11 @@ namespace PuntoDeVentaV2
                                         buscarSoloEmpleado(buscador, fechaInicial, fechaFinal);
                                     }
                                 }
-                                else if (opcionFiltrado == "VG" || opcionFiltrado == "VGG") //Ventas guardadas o ventas globales
+                                else if (opcionFiltrado == "VG" || opcionFiltrado == "VGG" || opcionFiltrado.Equals("RG") || opcionFiltrado.Equals("RGG")) //Ventas guardadas o ventas globales
                                 {
                                     buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
                                 }
-                                else if (opcionFiltrado == "VC") //Ventas canceladas
+                                else if (opcionFiltrado == "VC" || opcionFiltrado.Equals("RC")) //Ventas canceladas
                                 {
                                     //buscarSoloAdministrador(buscador, fechaInicial, fechaFinal);
                                     if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
@@ -828,7 +884,7 @@ namespace PuntoDeVentaV2
                                         buscarSoloEmpleado(buscador, fechaInicial, fechaFinal);
                                     }
                                 }
-                                else if (opcionFiltrado == "VCC") //Ventas a credito
+                                else if (opcionFiltrado == "VCC" || opcionFiltrado == "RCC")
                                 {
                                     buscarEmpleadoYAdministrador(buscador, fechaInicial, fechaFinal);
 
@@ -852,7 +908,7 @@ namespace PuntoDeVentaV2
                         if (FormPrincipal.userNickName.Contains("@"))
                         {
                             //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDEmpleado = {FormPrincipal.id_empleado} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' {extra} ORDER BY ID DESC";
-                            if (estado.Equals(1)) // Ventas pagadas
+                            if (estado.Equals(1) || estado.Equals(6)) // Ventas pagadas
                             {
                                 consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
 
@@ -864,19 +920,19 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                             }
-                            else if (estado.Equals(2) || estado.Equals(5)) // Ventas guardadas o ventas globales
+                            else if (estado.Equals(2) || estado.Equals(5) || estado.Equals(7) || estado.Equals(10)) // Ventas guardadas o ventas globales
                             {
                                 consulta = cs.VerComoEmpleadoTodasLasVentasGuardadasPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                             }
-                            else if (estado.Equals(3)) // Ventas canceladas
+                            else if (estado.Equals(3) || estado.Equals(8)) // Ventas canceladas
                             {
                                 consulta = cs.VerComoEmpleadoTodasMisVentasCanceladasPorFechasYBusqueda(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                             }
-                            else if (estado.Equals(4)) // Ventas a credito
+                            else if (estado.Equals(4) || estado.Equals(9)) // Ventas a credito
                             {
                                 consulta = cs.VerComoEmpleadoTodasLasVentasACreditoPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                             }
-                            else if (estado.Equals(6)) // Ventas a credito atrasadas
+                            else if (estado.Equals(12)) // Ventas a credito atrasadas
                             {
                                 consulta = cs.VerComoEmpleadoTodasLasVentasACreditoAtrasadasPorFechasYBusqueda(4, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                             }
@@ -885,7 +941,7 @@ namespace PuntoDeVentaV2
                         {
                             //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND DATE(FechaOperacion) BETWEEN '{fechaInicial}' AND '{fechaFinal}' {extra} ORDER BY ID DESC";
 
-                            if (estado.Equals(1)) // Ventas pagadas
+                            if (estado.Equals(1) || estado.Equals(6)) // Ventas pagadas
                             {
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                 {
@@ -900,7 +956,7 @@ namespace PuntoDeVentaV2
                                     consulta = cs.filtroPorEmpleadoDesdeAdministradorConParamettro(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                             }
-                            else if (estado.Equals(2) || estado.Equals(5)) // Ventas guardadas o ventas globales
+                            else if (estado.Equals(2) || estado.Equals(5) || estado.Equals(7) || estado.Equals(10)) // Ventas guardadas o ventas globales
                             {
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                 {
@@ -915,7 +971,7 @@ namespace PuntoDeVentaV2
                                     consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                             }
-                            else if (estado.Equals(3)) // Ventas canceladas
+                            else if (estado.Equals(3) || estado.Equals(8)) // Ventas canceladas
                             {
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                                 {
@@ -930,7 +986,7 @@ namespace PuntoDeVentaV2
                                     consulta = cs.VerComoEmpleadoTodasMisVentasCanceladasPorFechasYBusqueda(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                             }
-                            else if (estado.Equals(4)) // Ventas a credito
+                            else if (estado.Equals(4) || estado.Equals(9)) // Ventas a credito
                             {
                                 //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
@@ -946,7 +1002,7 @@ namespace PuntoDeVentaV2
                                     consulta = cs.VerComoEmpleadoTodasMisVentasPagadasPorFechasYBusqueda(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal, extra, formaPagoFiltro);
                                 }
                             }
-                            else if (estado.Equals(6)) // Ventas a credito atrasadas
+                            else if (estado.Equals(12)) // Ventas a credito atrasadas
                             {
                                 //consulta = cs.VerComoAdministradorTodasLaVentasACreditoPorFechasYBusqueda(estado, fechaInicial, fechaFinal, extra);
                                 if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
@@ -1036,27 +1092,27 @@ namespace PuntoDeVentaV2
 
                         }
 
-                        if (estado.Equals(1)) // Ventas pagadas
+                        if (estado.Equals(1) || estado.Equals(6)) // Ventas pagadas
                         {
                             consulta = cs.VerComoEmpleadoTodasMisVentasPagadas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal);
                         }
-                        else if (estado.Equals(2) || estado.Equals(5)) // Ventas guardadas o ventas globales
+                        else if (estado.Equals(2) || estado.Equals(5) || estado.Equals(7) || estado.Equals(10)) // Ventas guardadas o ventas globales
                         {
                             consulta = cs.VerComoEmpleadoTodasLasVentasGuardadas(estado, fechaInicial, fechaFinal);
                         }
-                        else if (estado.Equals(3)) // Ventas canceladas
+                        else if (estado.Equals(3) || estado.Equals(8)) // Ventas canceladas
                         {
                             consulta = cs.VerComoEmpleadoTodasMisVentasCanceladas(estado, FormPrincipal.id_empleado, fechaInicial, fechaFinal);
                         }
-                        else if (estado.Equals(4)) // Ventas a credito
+                        else if (estado.Equals(4) || estado.Equals(9)) // Ventas a credito y rentas
                         {
                             consulta = cs.VerComoEmpleadoTodasLasVentasACredito(estado, fechaInicial, fechaFinal);
                         }
-                        else if (estado.Equals(6)) // Ventas a credito atrasada 
+                        else if (estado.Equals(12)) // Ventas a credito atrasada 
                         {
                             consulta = cs.VerComoEmpleadoTodasLasVentasACreditoAtrasadas(estado, fechaInicial, fechaFinal);
                         }
-                        else if (estado.Equals(7)) // Ventas a credito por atrasar
+                        else if (estado.Equals(13)) // Ventas a credito por atrasar
                         {
                             consulta = cs.VerComoEmpleadoTodasLasVentasACreditoPorVencer(fechonon.ToString("yyyy-MM-dd"));
                         }
@@ -1066,7 +1122,7 @@ namespace PuntoDeVentaV2
                         //consulta = $"SELECT * FROM Ventas WHERE Status = {estado} AND IDUsuario = {FormPrincipal.userID} AND FechaOperacion > '{fechaUltimoCorte.ToString("yyyy-MM-dd HH:mm:ss")}' ORDER BY ID DESC";
                         clasificarTipoDeUsuario();
 
-                        if (estado.Equals(1)) // Ventas pagadas
+                        if (estado.Equals(1) || estado.Equals(6)) // Ventas pagadas
                         {
                             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                             {
@@ -1166,7 +1222,7 @@ namespace PuntoDeVentaV2
                                 consulta = cs.filtroPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
                             }
                         }
-                        else if (estado.Equals(2) || estado.Equals(5)) // Ventas guardadas o ventas globales
+                        else if (estado.Equals(2) || estado.Equals(5) || estado.Equals(7) || estado.Equals(10)) // Ventas guardadas o ventas globales
                         {
                             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                             {
@@ -1182,7 +1238,7 @@ namespace PuntoDeVentaV2
                                 consulta = cs.verComoAdministradorTodasVentasGuardadasPorEmpleado(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
                             }
                         }
-                        else if (estado.Equals(3)) // Ventas canceladas
+                        else if (estado.Equals(3) || estado.Equals(8)) // Ventas canceladas
                         {
                             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                             {
@@ -1197,7 +1253,7 @@ namespace PuntoDeVentaV2
                                 consulta = cs.verVentasCanceladasDelEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
                             }
                         }
-                        else if (estado.Equals(4)) // Ventas a credito
+                        else if (estado.Equals(4) || estado.Equals(9)) // Ventas a credito
                         {
                             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                             {
@@ -1213,7 +1269,7 @@ namespace PuntoDeVentaV2
                                 consulta = cs.verVentasCreditoPorEmpleadoDesdeAdministrador(estado, idAdministradorOrUsuario, fechaInicial, fechaFinal);
                             }
                         }
-                        else if (estado.Equals(6)) // Ventas a credito atrasadas
+                        else if (estado.Equals(12)) // Ventas a credito atrasadas
                         {
                             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                             {
@@ -1230,7 +1286,7 @@ namespace PuntoDeVentaV2
                             }
                         }
 
-                        else if (estado.Equals(7)) // Ventas a credito por vencer
+                        else if (estado.Equals(13)) // Ventas a credito por vencer
                         {
                             if (opcionComboBoxFiltroAdminEmp.Equals("Admin"))
                             {
@@ -1259,7 +1315,12 @@ namespace PuntoDeVentaV2
 
             var opcionOcultarColumnasEnCancelar = cbTipoVentas.SelectedValue.ToString();
 
-            if (estado.Equals(3) || opcionOcultarColumnasEnCancelar.Equals("VC"))
+            if (cbTipoRentas.Visible)
+            {
+                opcionOcultarColumnasEnCancelar = cbTipoRentas.SelectedValue.ToString();
+            }
+
+            if (estado.Equals(3) || estado.Equals(8) || opcionOcultarColumnasEnCancelar.Equals("VC") || opcionOcultarColumnasEnCancelar.Equals("RC"))
             {
                 DGVListadoVentas.Columns["Cancelar"].Visible = false;
                 DGVListadoVentas.Columns["Timbrar"].Visible = false;
@@ -1285,6 +1346,9 @@ namespace PuntoDeVentaV2
             Image informacion = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\info-circle.png");
             Image reusarVentas = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\repeat.png");
             Image ganancia = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\statistics.png");
+            Image circuloRojo = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\circle-red.png");
+            Image circuloAmarillo = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\circle-yellow.png");
+            Image circuloVerde = Image.FromFile(Properties.Settings.Default.rutaDirectorio + @"\PUDVE\icon\black16\circle-green.png");
 
 
             Bitmap sinImagen = new Bitmap(1, 1);
@@ -1300,8 +1364,8 @@ namespace PuntoDeVentaV2
                 foreach (DataRow filaDatos in dtDatos.Rows)
                 {
                     int idVenta = Convert.ToInt32(filaDatos["ID"].ToString());
-
                     int status = Convert.ToInt32(filaDatos["Status"].ToString());
+                    int estadoEntrega = Convert.ToInt16(filaDatos["EstadoEntrega"].ToString());
 
                     //string cliente = "Público General";
                     //string rfc = "XAXX010101000";
@@ -1324,7 +1388,7 @@ namespace PuntoDeVentaV2
                     }
 
                     // Obtener el cliente de la venta guardada
-                    if (estado == 2)
+                    if (estado == 2 || estado == 7)
                     {
                         var idCliente = Convert.ToInt32(filaDatos["IDCliente"]);
                         if (idCliente > 0)
@@ -1387,7 +1451,7 @@ namespace PuntoDeVentaV2
 
                     row.Cells["Timbrar"].Value = timbrar;
                     // Ventas canceladas
-                    if (estado == 3)
+                    if (estado == 3 || estado == 8)
                     {
                         row.Cells["Timbrar"].Value = sinImagen;
                     }
@@ -1395,14 +1459,20 @@ namespace PuntoDeVentaV2
                     row.Cells["cInformacion"].Value = informacion;
                     row.Cells["retomarVenta"].Value = reusarVentas;
 
+                    // Para rentas
+                    if (status > 5 && status < 11)
+                    {
+                        row.Cells["Cancelar"].Value = reusarVentas;
+                    }
+
                     // Ventas canceladas
-                    if (status == 3)
+                    if (status == 3 || estado == 8)
                     {
                         row.Cells["Cancelar"].Value = sinImagen;
                     }
 
                     // Ventas a credito
-                    if (status != 4)
+                    if (status != 4 && status != 9)
                     {
                         if (status != 6)
                         {
@@ -1410,8 +1480,22 @@ namespace PuntoDeVentaV2
                         }
                     }
 
+                    // Presupuestos
+                    if (status.Equals(2))
+                    {
+                        row.Cells["Abono"].Value = sinImagen;
+                    }
+
+                    // Ordenes
+                    if (status.Equals(11))
+                    {
+                        var circuloColor = estadoEntrega == 0 ? circuloRojo : estadoEntrega == 1 ? circuloAmarillo : circuloVerde;
+
+                        row.Cells["Abono"].Value = circuloColor;
+                    }
+
                     //Retomar Ventas Canceladas
-                    if (status == 1 || status == 4)
+                    if (status == 1 || status == 4 || status == 6 || status == 9)
                     {
                         row.Cells["retomarVenta"].Value = sinImagen;
                     }
@@ -1592,28 +1676,26 @@ namespace PuntoDeVentaV2
         private void restaurarBusqueda()
         {
             var opcion = cbTipoVentas.SelectedValue.ToString();
-            clickBoton = 0;
 
-            if (opcion == "VP") //Ventas pagadas
+            if (cbTipoRentas.Visible)
             {
-                CargarDatos(1);
+                opcion = cbTipoRentas.SelectedValue.ToString();
             }
-            else if (opcion == "VG") //Ventas guardadas
-            {
-                CargarDatos(2);
-            }
-            else if (opcion == "VC") //Ventas canceladas
-            {
-                CargarDatos(3);
-            }
-            else if (opcion == "VCC") //Ventas a credito
-            {
-                CargarDatos(4);
-            }
-            else if (opcion == "VCA") //Ventas a credito
-            {
-                CargarDatos(6);
-            }
+
+            
+
+            if (opcion == "VP") { CargarDatos(1); } // Ventas pagadas
+            if (opcion == "VG") { CargarDatos(2); } // Ventas guardadas
+            if (opcion == "VC") { CargarDatos(3); } // Ventas canceladas
+            if (opcion == "VCC") { CargarDatos(4); } // Ventas a credito
+
+            if (opcion == "RP") { CargarDatos(6); } // Rentas pagadas
+            if (opcion == "RG") { CargarDatos(7); } // Rentas guardadas
+            if (opcion == "RC") { CargarDatos(8); } // Rentas canceladas
+            if (opcion == "RCC") { CargarDatos(9); } // Rentas a credito
+
+            if (opcion == "VCA") { CargarDatos(12); } // Rentas a credito atrasadas
+            if (opcion == "RCC") { CargarDatos(13); } // Rentas a credito por atrasar
         }
 
         private void AgregarTotalesGenerales(float ivaGral, float subtotalGral, float totalGral, float abonado)
@@ -1687,32 +1769,28 @@ namespace PuntoDeVentaV2
             var estado = 1;
 
             var opcion = cbTipoVentas.SelectedValue.ToString();
+
+            if (cbTipoRentas.Visible)
+            {
+                opcion = cbTipoRentas.SelectedValue.ToString();
+            }
+
             clickBoton = 0;
 
-            if (opcion == "VP") //Ventas pagadas
-            {
-                estado = 1;
-            }
-            else if (opcion == "VG") //Ventas guardadas
-            {
-                estado = 2;
-            }
-            else if (opcion == "VC") //Ventas canceladas
-            {
-                estado = 3;
-            }
-            else if (opcion == "VCC") //Ventas a credito
-            {
-                estado = 4;
-            }
-            else if (opcion == "VGG") // Ventas globales
-            {
-                estado = 5;
-            }
-            else if (opcion == "VCA") // Ventas a credito atrasadas (un periodo de retraso)
-            {
-                estado = 6;
-            }
+            
+            if (opcion == "VP") { estado = 1; } //Ventas pagadas
+            if (opcion == "VG") { estado = 2; } //Ventas guardadas
+            if (opcion == "VC") { estado = 3; } //Ventas canceladas
+            if (opcion == "VCC") { estado = 4; } //Ventas a credito
+            if (opcion == "VGG") { estado = 5; } //Ventas globales
+            if (opcion == "VCA") { estado = 12; } // Ventas a credito atrasadas (un periodo de retraso)
+
+
+            if (opcion == "RP") { estado = 6; } //Rentas pagadas
+            if (opcion == "RG") { estado = 7; } //Rentas pagadas
+            if (opcion == "RC") { estado = 8; } //Rentas pagadas
+            if (opcion == "RCC") { estado = 9; } //Rentas pagadas
+            if (opcion == "RGG") { estado = 10; } //Rentas pagadas
 
             return estado;
         }
@@ -1860,7 +1938,7 @@ namespace PuntoDeVentaV2
             //Ventas globales
             if (opcion == "VGG") { CargarDatos(5); }
             //Ventas a credito atrasadas
-            if (opcion == "VCA") { CargarDatos(6); }
+            if (opcion == "VCA") { CargarDatos(12); }
 
 
             var incremento = -1;
@@ -1893,6 +1971,14 @@ namespace PuntoDeVentaV2
             if (e.RowIndex >= 0 && e.RowIndex != ultimaFila)
             {
                 var opcion = cbTipoVentas.SelectedValue.ToString();
+
+                if (cbTipoRentas.Visible)
+                {
+                    opcion = cbTipoRentas.SelectedValue.ToString();
+                }
+
+                var valoresRenta = new string[] { "RP", "RG", "RC", "RCC", "RGG" };
+
                 var permitir = true;
 
                 Rectangle cellRect = DGVListadoVentas.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, false);
@@ -1907,6 +1993,12 @@ namespace PuntoDeVentaV2
                     if (e.ColumnIndex == 11)
                     {
                         textoTT = "Cancelar";
+
+                        if (valoresRenta.Contains(opcion))
+                        {
+                            textoTT = "Regresar";
+                        }
+
                         coordenadaX = 60;
 
                         if (opcion == "VC") { permitir = false; }
@@ -1992,6 +2084,11 @@ namespace PuntoDeVentaV2
             if (e.RowIndex >= 0 && e.RowIndex != penultimaFila && e.RowIndex != ultimaFila)
             {
                 var opcion = cbTipoVentas.SelectedValue.ToString();
+
+                if (cbTipoRentas.Visible)
+                {
+                    opcion = cbTipoRentas.SelectedValue.ToString();
+                }
 
                 var fila = DGVListadoVentas.CurrentCell.RowIndex;
 
@@ -2326,7 +2423,10 @@ namespace PuntoDeVentaV2
                                 }
                                 else if (obtenerValorSiSeAbono.Rows.Count.Equals(0))
                                 {
-                                    if (cbTipoVentas.SelectedIndex == 0)
+                                    /*Se valida que el combobox de ventas este visible porque cuando es el de renta el que esta seleccionado
+                                    y se cancela una renta, el producto si se regresa al stock pero el dinero de caja no se regresa, esto es
+                                    solo para las rentas */
+                                    if (cbTipoVentas.SelectedIndex == 0 && cbTipoVentas.Visible)
                                     {
                                         saldoInicial = mb.SaldoInicialCaja(FormPrincipal.userID);
                                         var sEfectivo = (MetodosBusquedas.efectivoInicial + float.Parse(cantidadesAbono[1]));
@@ -2495,8 +2595,15 @@ namespace PuntoDeVentaV2
 
                                     datoResultado = statusObtenido.Rows[0]["Status"].ToString();
 
+                                    var statusCancelada = 3;
+
+                                    if (cbTipoRentas.Visible)
+                                    {
+                                        statusCancelada = 8;
+                                    }
+
                                     // Cancelar la venta
-                                    int resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, 3, FormPrincipal.userID));
+                                    int resultado = cn.EjecutarConsulta(cs.ActualizarVenta(idVenta, statusCancelada, FormPrincipal.userID));
 
 
                                     if (resultado > 0)
@@ -2568,14 +2675,28 @@ namespace PuntoDeVentaV2
                                                                 var multiplicacionComboServicio = Convert.ToDecimal(cantidad) * Convert.ToDecimal(cant);
                                                                 var cantidadNuevoStock = Convert.ToDecimal(stockAnterior2) + multiplicacionComboServicio;
 
-                                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{products[3]}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior2}','{cantidadNuevoStock}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{multiplicacionComboServicio.ToString("N")}')");
+                                                                var tipoMovimiento = "Venta Cancelada";
+
+                                                                if (rbRentas.Checked)
+                                                                {
+                                                                    tipoMovimiento = "Renta Devuelta";
+                                                                }
+
+                                                                cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{products[3]}','{tipoMovimiento} {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior2}','{cantidadNuevoStock}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{multiplicacionComboServicio.ToString("N")}')");
 
                                                                 cn.EjecutarConsulta($"UPDATE Productos SET Stock = {cantidadNuevoStock} WHERE ID = {products[3]} AND IDUsuario = {FormPrincipal.userID}");
                                                             }
                                                         }
                                                         else
                                                         {
-                                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProd}','Venta Cancelada {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidadR.ToString("N")}')");
+                                                            var tipoMovimiento = "Venta Cancelada";
+
+                                                            if (rbRentas.Checked)
+                                                            {
+                                                                tipoMovimiento = "Renta Devuelta";
+                                                            }
+
+                                                            cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idProd}','{tipoMovimiento} {paqueteServicio} folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidadR.ToString("N")}')");
 
                                                             cn.EjecutarConsulta($"UPDATE Productos SET Stock ={stockNuevo} WHERE ID = {idProd} AND IDUsuario = {FormPrincipal.userID}");
                                                         }
@@ -2597,7 +2718,14 @@ namespace PuntoDeVentaV2
 
                                                     var fechaDeOperacion = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-                                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idprod}','Venta Cancelada folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidad}')");
+                                                    var tipoMovimiento = "Venta Cancelada";
+
+                                                    if (rbRentas.Checked)
+                                                    {
+                                                        tipoMovimiento = "Renta Devuelta";
+                                                    }
+
+                                                    cn.EjecutarConsulta($"INSERT INTO historialstock(IDProducto, TipoDeMovimiento, StockAnterior, StockNuevo, Fecha, NombreUsuario, Cantidad) VALUES ('{idprod}','{tipoMovimiento} folio: {FolioDeCancelacion}','{stockAnterior}','{stockNuevo}','{fechaDeOperacion}','{FormPrincipal.userNickName}','+{cantidad}')");
 
                                                     cn.EjecutarConsulta($"UPDATE Productos SET Stock ={stockNuevo} WHERE ID = {idprod} AND IDUsuario = {FormPrincipal.userID}");
 
@@ -3134,7 +3262,7 @@ namespace PuntoDeVentaV2
                                 tipoDeBusqueda = verTipoDeBusqueda();
 
                                 // Ventas Realizadas
-                                if (tipoDeBusqueda.Equals(1))
+                                if (tipoDeBusqueda.Equals(1) || tipoDeBusqueda.Equals(6))
                                 {
                                     if (ticket6cm.Equals(1))
                                     {
@@ -3159,6 +3287,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                             imprimirTicketVenta.Referencia = referencia;
+                                            imprimirTicketVenta.tipoVenta = tipoDeBusqueda;
 
                                             imprimirTicketVenta.ShowDialog();
                                         }
@@ -3186,13 +3315,14 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                             imprimirTicketVenta.Referencia = referencia;
+                                            imprimirTicketVenta.tipoVenta = tipoDeBusqueda;
 
                                             imprimirTicketVenta.ShowDialog();
                                         }
                                     }
                                 }
                                 // Venta Guardada
-                                if (tipoDeBusqueda.Equals(2) || tipoDeBusqueda.Equals(5))
+                                if (tipoDeBusqueda.Equals(2) || tipoDeBusqueda.Equals(5) || tipoDeBusqueda.Equals(7) || tipoDeBusqueda.Equals(10))
                                 {
                                     if (ticket6cm.Equals(1))
                                     {
@@ -3252,7 +3382,7 @@ namespace PuntoDeVentaV2
                                     }
                                 }
                                 // Venta Cancelada
-                                if (tipoDeBusqueda.Equals(3))
+                                if (tipoDeBusqueda.Equals(3) || tipoDeBusqueda.Equals(8))
                                 {
                                     if (ticket6cm.Equals(1))
                                     {
@@ -3277,6 +3407,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                             imprimirTicketVenta.Referencia = referencia;
+                                            imprimirTicketVenta.tipoVenta = tipoDeBusqueda;
 
                                             imprimirTicketVenta.ShowDialog();
                                         }
@@ -3304,13 +3435,14 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                             imprimirTicketVenta.Referencia = referencia;
+                                            imprimirTicketVenta.tipoVenta = tipoDeBusqueda;
 
                                             imprimirTicketVenta.ShowDialog();
                                         }
                                     }
                                 }
                                 // Venta a Credito
-                                if (tipoDeBusqueda.Equals(4))
+                                if (tipoDeBusqueda.Equals(4) || tipoDeBusqueda.Equals(9))
                                 {
                                     if (ticket6cm.Equals(1))
                                     {
@@ -3335,6 +3467,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                             imprimirTicketVenta.Referencia = referencia;
+                                            imprimirTicketVenta.tipoVenta = tipoDeBusqueda;
 
                                             imprimirTicketVenta.ShowDialog();
                                         }
@@ -3362,6 +3495,7 @@ namespace PuntoDeVentaV2
                                             imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                             imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                             imprimirTicketVenta.Referencia = referencia;
+                                            imprimirTicketVenta.tipoVenta = tipoDeBusqueda;
 
                                             imprimirTicketVenta.ShowDialog();
                                         }
@@ -3463,50 +3597,95 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    //Verificamos si tiene seleccionada la opcion de ventas a credito
-                    if (opcion == "VCC" || opcion == "VCA")
+                    // Verificamos si es presupuesto u ordenes
+                    if (opcion.Equals("VG"))
                     {
-                        var total = float.Parse(DGVListadoVentas.Rows[fila].Cells["Total"].Value.ToString());
+                        var Status = string.Empty;
 
-                        using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
+                        using (DataTable dtVenta = cn.CargarDatos($"SELECT * FROM Ventas WHERE ID = {idVenta}"))
                         {
-                            if (dtReglasCreditoVenta.Rows.Count.Equals(0))
+                            if (dtVenta.Rows.Count > 0)
                             {
-                                asignarAbonosSinCredito abono = new asignarAbonosSinCredito(idVenta, total);
-                                abono.FormClosed += delegate
+                                DataRow infoVenta = dtVenta.Rows[0];
+
+                                if (infoVenta["Status"].ToString().Equals("11"))
                                 {
-                                    CargarDatos(4);
-                                };
+                                    int estadoEntrega = Convert.ToInt16(infoVenta["EstadoEntrega"].ToString());
 
-                                abono.ShowDialog();
+                                    using (CambiarEstadoEntrega cambiar = new CambiarEstadoEntrega())
+                                    {
+                                        if (cambiar.ShowDialog() == DialogResult.OK)
+                                        {
+                                            string icono = cambiar.estado == 0 ? "circle-red" : cambiar.estado == 1 ? "circle-yellow" : "circle-green";
+
+                                            Image circuloColor = Image.FromFile(Properties.Settings.Default.rutaDirectorio + $@"\PUDVE\icon\black16\{icono}.png");
+                                            DGVListadoVentas.Rows[fila].Cells["Abono"].Value = circuloColor;
+                                            cn.EjecutarConsulta($"UPDATE Ventas SET EstadoEntrega = {cambiar.estado} WHERE ID = {idVenta}");
+                                        }
+                                    }
+                                }
                             }
-                            else
-                            {
-                                AsignarAbonos abono = new AsignarAbonos(idVenta, total);
-                                abono.FormClosed += delegate
-                           {
-                               CargarDatos(4);
-                           };
-
-                                abono.ShowDialog();
-                            }
-
                         }
                     }
                     else
                     {
-                        //Comprobamos si tiene historial de abonos
-                        var existenAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
-
-                        if (existenAbonos)
+                        //Verificamos si tiene seleccionada la opcion de ventas a credito
+                        if (opcion == "VCC" || opcion == "RCC" || opcion == "VCA")
                         {
-                            ListaAbonosVenta abonos = new ListaAbonosVenta(idVenta);
+                            var total = float.Parse(DGVListadoVentas.Rows[fila].Cells["Total"].Value.ToString());
+                            using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
+                            {
+                                if (dtReglasCreditoVenta.Rows.Count.Equals(0))
+                                {
+                                    asignarAbonosSinCredito abono = new asignarAbonosSinCredito(idVenta, total,opcion);
+                                    abono.FormClosed += delegate
+                                    {
+                                        if (opcion.Equals("VCC"))
+                                        {
+                                            CargarDatos(4);
+                                        }
+                                        else
+                                        {
+                                            CargarDatos(9);
+                                        }
+                                    };
 
-                            abonos.ShowDialog();
+                                    abono.ShowDialog();
+                                }
+                                else
+                                {
+                                    AsignarAbonos abono = new AsignarAbonos(idVenta, total, opcion);
+                                    abono.FormClosed += delegate
+                                    {
+                                        if (opcion.Equals("VCC"))
+                                        {
+                                            CargarDatos(4);
+                                        }
+                                        else
+                                        {
+                                            CargarDatos(9);
+                                        }
+                                    };
+                                    abono.ShowDialog();
+                                }
+                            }
+                            
                         }
                         else
                         {
-                            MessageBox.Show("No hay información adicional sobre esta venta", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            //Comprobamos si tiene historial de abonos
+                            var existenAbonos = (bool)cn.EjecutarSelect($"SELECT * FROM Abonos WHERE IDVenta = {idVenta} AND IDUsuario = {FormPrincipal.userID}");
+
+                            if (existenAbonos)
+                            {
+                                ListaAbonosVenta abonos = new ListaAbonosVenta(idVenta);
+
+                                abonos.ShowDialog();
+                            }
+                            else
+                            {
+                                MessageBox.Show("No hay información adicional sobre esta venta", "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                         }
                     }
                 }
@@ -3591,7 +3770,7 @@ namespace PuntoDeVentaV2
                 {
                     retomarVentasCanceladas = 1;
 
-                    if (retomarVentasCanceladas == 1 && opcion == "VC")
+                    if (retomarVentasCanceladas == 1 && (opcion == "VC" || opcion == "RC"))
                     {
                         if (Application.OpenForms.OfType<Ventas>().Count() == 1)
                         {
@@ -3601,7 +3780,7 @@ namespace PuntoDeVentaV2
                         obtenerIdVenta = idVenta; // numeroDeFolio
                         btnNuevaVenta.PerformClick();
                     }
-                    else if (retomarVentasCanceladas == 1 && opcion == "VG")
+                    else if (retomarVentasCanceladas == 1 && (opcion == "VG" || opcion == "RG"))
                     {
                         MessageBox.Show("Para retomar la venta debe ir a la ventana \"Nueva Venta (F5)\" \nen el botón \"Ventas Guardadas (ctrol + M)\"", "Mensaje de Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
@@ -3619,22 +3798,24 @@ namespace PuntoDeVentaV2
 
             var opcion = cbTipoVentas.SelectedValue.ToString();
 
-            if (opcion == "VP") //Ventas pagadas
+            if (cbTipoRentas.Visible)
             {
-                preguntaDesdeDonde = "¿Estás seguro de cancelar la venta?";
+                opcion = cbTipoRentas.SelectedValue.ToString();
             }
-            else if (opcion == "VG") //Ventas guardadas
-            {
-                preguntaDesdeDonde = "¿Estás seguro de cancelar el presupuesto?";
-            }
-            else if (opcion == "VC") //Ventas canceladas
-            {
-                preguntaDesdeDonde = "¿Estás seguro de cancelar la venta cancelada?";
-            }
-            else if (opcion == "VCC" || opcion == "VCA") //Ventas a credito
-            {
-                preguntaDesdeDonde = "¿Estás seguro de cancelar el crédito?";
-            }
+
+            //Ventas pagadas
+            if (opcion == "VP") { preguntaDesdeDonde = "¿Estás seguro de cancelar la venta?"; }
+            //Ventas guardadas
+            if (opcion == "VG") { preguntaDesdeDonde = "¿Estás seguro de cancelar el presupuesto?"; }
+            //Ventas canceladas
+            if (opcion == "VC") { preguntaDesdeDonde = "¿Estás seguro de cancelar la venta cancelada?"; }
+            //Ventas a credito
+            if (opcion == "VCC" || opcion == "VCA") { preguntaDesdeDonde = "¿Estás seguro de cancelar el crédito?"; }
+
+            if (opcion == "RP") { preguntaDesdeDonde = "¿Estás seguro de regresar la renta?"; }
+            if (opcion == "RG") { preguntaDesdeDonde = "¿Estás seguro de cancelar el presupuesto?"; }
+            if (opcion == "RC") { preguntaDesdeDonde = "¿Estás seguro de cancelar la renta cancelada?"; }
+            if (opcion == "RCC") { preguntaDesdeDonde = "¿Estás seguro de cancelar el crédito?"; }
 
             return preguntaDesdeDonde;
         }
@@ -3645,22 +3826,20 @@ namespace PuntoDeVentaV2
 
             var opcion = cbTipoVentas.SelectedValue.ToString();
 
-            if (opcion == "VP") //Ventas pagadas
+            if (cbTipoRentas.Visible)
             {
-                cancelarDesdeDonde = "Venta (Pagada) cancelada exitosamente";
+                opcion = cbTipoRentas.SelectedValue.ToString();
             }
-            else if (opcion == "VG") //Ventas guardadas
-            {
-                cancelarDesdeDonde = "Presupuesto (Venta Guardada) cancelado exitosamente";
-            }
-            else if (opcion == "VC") //Ventas canceladas
-            {
-                cancelarDesdeDonde = "Venta (Cancelada) cancelada exitosamente";
-            }
-            else if (opcion == "VCC" || opcion == "VCA") //Ventas a credito
-            {
-                cancelarDesdeDonde = "Venta a credito cancelada exitosamente";
-            }
+
+            if (opcion == "VP") { cancelarDesdeDonde = "Venta (Pagada) cancelada exitosamente"; }
+            if (opcion == "VG") { cancelarDesdeDonde = "Presupuesto (Venta Guardada) cancelado exitosamente"; }
+            if (opcion == "VC") { cancelarDesdeDonde = "Venta (Cancelada) cancelada exitosamente"; }
+            if (opcion == "VCC" || opcion == "VCA") { cancelarDesdeDonde = "Venta a credito cancelada exitosamente"; }
+
+            if (opcion == "RP") { cancelarDesdeDonde = "Renta (Pagada) cancelada exitosamente"; }
+            if (opcion == "RG") { cancelarDesdeDonde = "Presupuesto (Renta Guardada) cancelado exitosamente"; }
+            if (opcion == "RC") { cancelarDesdeDonde = "Renta (Cancelada) cancelada exitosamente"; }
+            if (opcion == "RCC") { cancelarDesdeDonde = "Renta a crédito cancelada exitosamente"; }
 
             return cancelarDesdeDonde;
         }
@@ -3739,7 +3918,34 @@ namespace PuntoDeVentaV2
                 btnPrimeraPagina.PerformClick();
 
                 hay_productos_habilitados = mb.tiene_productos_habilitados();
+
                 cbTipoVentas.SelectedIndex = 0;
+
+                if (cbTipoRentas.Visible)
+                {
+                    cbTipoRentas.SelectedIndex = 0;
+                }
+
+
+                var configuracion = mb.ComprobarConfiguracion();
+
+                if (configuracion.Count > 0)
+                {
+                    // Realiza rentas
+                    if (configuracion[32].Equals(1))
+                    {
+                        rbVentas.Checked = false;
+                        rbRentas.Enabled = true;
+                        rbRentas.Checked = true;
+                    }
+
+                    if (configuracion[32].Equals(0))
+                    {
+                        rbRentas.Enabled = false;
+                        rbRentas.Checked = false;
+                        rbVentas.Checked = true;
+                    }
+                }
             }
 
             if (abrirNuevaVenta)
@@ -5627,12 +5833,17 @@ namespace PuntoDeVentaV2
 
                             var folio = mb.ObtenerMaximoFolio(FormPrincipal.userID);
                             var folioVenta = long.Parse(folio) + 1;
+                            var status = 5;
 
+                            if (cbTipoRentas.Visible)
+                            {
+                                status = 10;
+                            }
 
                             string consulta = string.Empty;
 
                             consulta = $@"INSERT INTO Ventas (IDUsuario, IDCliente, Subtotal, IVA16, Total, Descuento, Folio, Status, FechaOperacion, FormaPago, Cliente, RFC)
-                                        VALUES ('{FormPrincipal.userID}', '{clienteId}', '{subTotal}', '{iva}', '{total}', '{descuento}', '{folioVenta}', 5, '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 'Efectivo', 'PUBLICO GENERAL', 'XAXX010101000')";
+                                        VALUES ('{FormPrincipal.userID}', '{clienteId}', '{subTotal}', '{iva}', '{total}', '{descuento}', '{folioVenta}', '{status}', '{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}', 'Efectivo', 'PUBLICO GENERAL', 'XAXX010101000')";
 
                             int idVenta = cn.EjecutarConsulta(consulta, regresarID: true);
 
@@ -5804,7 +6015,7 @@ namespace PuntoDeVentaV2
             }
 
             //Ventas a credito atrasadas
-            if (opcion == "VCA") { CargarDatos(6); }
+            if (opcion == "VCA") { CargarDatos(12); }
         }
 
         private void btnPorVencer_Click(object sender, EventArgs e)
@@ -5831,7 +6042,72 @@ namespace PuntoDeVentaV2
             }
 
             //Ventas a credito por vencer
-            if (opcion == "VPV") { CargarDatos(7); }
+            if (opcion == "VPV") { CargarDatos(13); }
+        }
+
+        private void rbVentas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbVentas.Checked)
+            {
+                tituloSeccion.Text = "VENTAS";
+                btnNuevaVenta.Text = "Nueva venta";
+                cbTipoRentas.Visible = false;
+                cbTipoVentas.Visible = true;
+                cbTipoVentas.SelectedIndex = 0;
+
+                CargarDatos();
+            }
+        }
+
+        private void rbRentas_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rbRentas.Checked)
+            {
+                tituloSeccion.Text = "RENTAS (ARRENDAMIENTO)";
+                btnNuevaVenta.Text = "Nueva renta";
+                cbTipoVentas.Visible = false;
+                cbTipoRentas.Visible = true;
+                cbTipoRentas.SelectedIndex = 0;
+
+                CargarDatos(6);
+            }
+        }
+
+        private void cbTipoRentas_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tipoVenta = cbTipoVentas.SelectedIndex;
+            var opcion = cbTipoRentas.SelectedValue.ToString();
+            clickBoton = 0;
+
+            // Desactivar checkbox al cambios tipos de ventas
+            chTodos.Checked = false;
+            chkHDAutlan.Checked = false;
+
+            if (DGVListadoVentas.Controls.Find("checkBoxMaster", true).Length > 0)
+            {
+                CheckBox headerBox = (CheckBox)DGVListadoVentas.Controls.Find("checkBoxMaster", true)[0];
+                headerBox.Checked = false;
+            }
+
+
+            //Rentas pagadas
+            if (opcion == "RP") { CargarDatos(6); }
+            //Rentas guardadas
+            if (opcion == "RG") { CargarDatos(7); }
+            //Rentas canceladas
+            if (opcion == "RC") { CargarDatos(8); }
+            //Rentas a credito
+            if (opcion == "RCC") { CargarDatos(9); }
+            //Rentas globales
+            if (opcion == "RGG") { CargarDatos(10); }
+        }
+
+        private void cbTipoRentas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                btnNuevaVenta.PerformClick();
+            }
         }
     }
 }

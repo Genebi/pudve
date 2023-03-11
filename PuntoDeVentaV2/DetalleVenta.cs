@@ -749,6 +749,8 @@ namespace PuntoDeVentaV2
                                 consulta += $"'{dtpLaMeraFecha.Value.ToString("yyyy-MM-dd")}', ";
                                 consulta += $"'{proximoPago.AddDays(1).ToString("yyyy-MM-dd")}',        ";
                                 consulta += $"'{dtBuscarConfiguracion.Rows[0]["creditoMovil"].ToString()}')";
+                                consulta += "; "; //Agrega un punto y coma para separar las consultas
+                                consulta += "UPDATE reglasCreditoVenta SET FechasFaltantes = FechaInteres WHERE ID = (SELECT MAX(ID) FROM reglasCreditoVenta);";
                                 Ventas.consutlaCredito = consulta;
                                 consulta = string.Empty;
                             }

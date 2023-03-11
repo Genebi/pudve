@@ -333,6 +333,7 @@ namespace PuntoDeVentaV2
                 datos[50] = datos[50] == null ? "0" : datos[50];
 
                 efectivo1 = float.Parse(datos[50]);
+                Anticipos.SeCancelo = true;
             }
 
             // Habilitar anticipo
@@ -490,6 +491,7 @@ namespace PuntoDeVentaV2
 
                             cn.EjecutarConsulta(cs.OperacionCaja(datos));
                             realizado = true;
+                            
                             this.Dispose();
                         }
                         else if (cancelarVenta == 2)

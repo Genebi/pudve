@@ -24,7 +24,7 @@ namespace PuntoDeVentaV2
         Dictionary<int, string> productos;
         Dictionary<string, string> clavesUnidades;
         Dictionary<int, float> datosHistPrecio;
-         
+
         public static Dictionary<int, string> modificarPrecio = new Dictionary<int, string>();
         //public static Dictionary<int, string> disminuirPrecio = new Dictionary<int, string>();
 
@@ -77,11 +77,11 @@ namespace PuntoDeVentaV2
             {
                 dato = "MENSAJE INVENTARIO";
             }
-            else 
+            else
             {
 
             }
-            nombreAsignar = SplitCamelCase(propiedad.Replace("_"," "));
+            nombreAsignar = SplitCamelCase(propiedad.Replace("_", " "));
             lbNombrePropiedad.Text = $"ASIGNAR {nombreAsignar.ToUpper()}";
             //lbNombrePropiedad.Text = $"ASIGNAR {SplitCamelCase(propiedad.ToUpper())}";
 
@@ -125,7 +125,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            
+
 
             CargarPropiedad();
 
@@ -183,7 +183,7 @@ namespace PuntoDeVentaV2
 
                 if (cantidadDatos == 1)
                 {
-                    foreach (KeyValuePair<int,string> item in datos)
+                    foreach (KeyValuePair<int, string> item in datos)
                     {
                         var id = item.Key;
                         var dato = cn.CargarDatos($"SELECT CantidadMinimaDeCompra FROM productmessage WHERE IDProducto = {id}");
@@ -194,7 +194,7 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-               
+
                 RadioButton chkMostrarOcultarMensaje = new RadioButton();
                 chkMostrarOcultarMensaje.Name = "chkMostrarMensaje";
                 chkMostrarOcultarMensaje.Checked = stateChkMostrarMensaje;
@@ -202,7 +202,7 @@ namespace PuntoDeVentaV2
                 chkMostrarOcultarMensaje.CheckedChanged += new EventHandler(chkMostrarOcultarMensaje_CheckedChanged);
                 chkMostrarOcultarMensaje.Height = 15;
                 chkMostrarOcultarMensaje.Width = 15;
-                chkMostrarOcultarMensaje.Location = new Point(100,62);
+                chkMostrarOcultarMensaje.Location = new Point(100, 62);
 
                 RadioButton chkOcultarMensaje = new RadioButton();
                 chkOcultarMensaje.Name = "chkOcultarMensaje";
@@ -250,7 +250,7 @@ namespace PuntoDeVentaV2
                             if (!consulta.Rows.Count.Equals(0))
                             {
                                 string mensaje = consulta.Rows[0]["ProductOfMessage"].ToString();
-                        
+
                                 if (mensajeAComparar.Equals(mensaje))
                                 {
                                     mensajesRepetidos++;
@@ -269,7 +269,7 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-                    
+
 
                 if (cantidadDatos == 1)
                 {
@@ -474,7 +474,7 @@ namespace PuntoDeVentaV2
             else if (propiedad == "Precio")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
                 DialogResult respuesta = MessageBox.Show("Al modificar el precio de los productos/servicios/combos todos aquellos que tengan descuentos agregados estos mismos descuentos serán eliminados y será necesario agregarlos nuevamente, ¿Está de acuerdo con esta operación?", "Mensaje del sistema", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                
+
                 if (respuesta == DialogResult.Yes)
                 {
                     TextBox tbPrecio = new TextBox();
@@ -577,7 +577,7 @@ namespace PuntoDeVentaV2
             }
             else if (propiedad == "ClaveProducto")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
-                TextBox tbClaveProducto = new TextBox();               
+                TextBox tbClaveProducto = new TextBox();
                 tbClaveProducto.Name = "tb" + propiedad;
                 tbClaveProducto.Width = 200;
                 tbClaveProducto.Height = 40;
@@ -588,8 +588,8 @@ namespace PuntoDeVentaV2
                 tbClaveProducto.MaxLength = 8;
                 tbClaveProducto.TextChanged += new EventHandler(CambioDeColor);
 
-                                    
-                          
+
+
                 panelContenedor.Controls.Add(tbClaveProducto);
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarClaveProducto"));
                 panelContenedor.Controls.Add(GenerarBoton(1, "aceptarClaveProducto"));
@@ -678,7 +678,7 @@ namespace PuntoDeVentaV2
                         }
                     }
                 }
-                    
+
 
 
                 var checkboxes = new CheckBox[] { cuartoCB };
@@ -758,6 +758,7 @@ namespace PuntoDeVentaV2
                 tbAgregarDescuento.CharacterCasing = CharacterCasing.Upper;
                 tbAgregarDescuento.Font = fuente;
                 tbAgregarDescuento.Location = new Point(65, 50);
+                tbAgregarDescuento.KeyPress += new KeyPressEventHandler(SoloDecimales);
 
                 panelContenedor.Controls.Add(tbAgregarDescuento);
                 panelContenedor.Controls.Add(GenerarBoton(0, "cancelarMensaje"));
@@ -786,7 +787,7 @@ namespace PuntoDeVentaV2
                 {
                     // Aqui van todos los que son dinamicos agregados en detalle de producto
                     ComboBox cbPropiedad = new ComboBox();
-                    cbPropiedad.Name = "cb" + propiedad.Replace("_"," ");
+                    cbPropiedad.Name = "cb" + propiedad.Replace("_", " ");
                     cbPropiedad.Width = 300;
                     cbPropiedad.Height = 20;
                     cbPropiedad.Font = fuente;
@@ -808,13 +809,13 @@ namespace PuntoDeVentaV2
                     Dispose();
                 }
             }
-          
+
 
         }
 
         private void CambioDeColor(object sender, EventArgs e)
         {
-            
+
             if (!(sender as TextBox).Text.Length.Equals(8))
             {
                 (sender as TextBox).ForeColor = Color.Red;
@@ -881,7 +882,7 @@ namespace PuntoDeVentaV2
             {
                 cantidadCompra = Convert.ToDecimal(textoCompra.Text).ToString();
             }
-            
+
         }
 
         private void chkMostrarOcultarMensajeInventario_CheckedChanged(object sender, EventArgs e)
@@ -928,14 +929,14 @@ namespace PuntoDeVentaV2
                 btnCancelar.Width = 95;
                 btnCancelar.Height = 25;
                 btnCancelar.Click += new EventHandler(botonCancelar_Click);
-                btnCancelar.Location = new Point(65, ejeY+10);
+                btnCancelar.Location = new Point(65, ejeY + 10);
 
                 boton = btnCancelar;
             }
 
             if (tipo == 1)
             {
-                
+
                 btnAceptar.Text = "Aceptar";
                 btnAceptar.Name = nombre;
                 btnAceptar.BackColor = Color.Green;
@@ -946,7 +947,7 @@ namespace PuntoDeVentaV2
                 btnAceptar.Width = 95;
                 btnAceptar.Height = 25;
                 btnAceptar.Click += new EventHandler(botonAceptar_Click);
-                btnAceptar.Location = new Point(170, ejeY+10);
+                btnAceptar.Location = new Point(170, ejeY + 10);
 
                 boton = btnAceptar;
             }
@@ -1090,13 +1091,13 @@ namespace PuntoDeVentaV2
             //porFavorEspere.propiedadCambiar = propiedad;
             //porFavorEspere.ShowDialog();
             //Thread.Sleep(500);
-            
-                this.Close();
+
+            this.Close();
 
         }
 
         private void OperacionBoton()
-       {
+        {
 
             string[] datos;
 
@@ -1184,7 +1185,7 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema",3,true);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
                 }
                 else if (stateChkEliminarMensajes.Equals(false) && stateChkMostrarMensaje.Equals(false) && stateChkOcultarMensajes.Equals(true))
                 {
@@ -1217,10 +1218,10 @@ namespace PuntoDeVentaV2
                 {
                     if (stateChkEliminarMensajes == false)
                     {
-                        MessageBox.Show("Favor de rellenar los 2 campos contengan informacion.","Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBox.Show("Favor de rellenar los 2 campos contengan informacion.", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                 }
-                
+
             }
             else if (propiedad == "MensajeInventario")//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             {
@@ -1303,9 +1304,9 @@ namespace PuntoDeVentaV2
                             }
                         }
                     }
-                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
                 }
-                
+
             }
             else if (propiedad == "Stock")//////////////////////////////////////////////////////////////////////////////////////////////////////
             {
@@ -1376,7 +1377,10 @@ namespace PuntoDeVentaV2
                         }
                     }
 
-                    if (monosas.Count>0)
+                   
+
+
+                    if (monosas.Count > 0)
                     {
                         string mensaje = "Los siguientes productos se ignoraron por contar con sub detalles, para actualizar su stock  utilice las ventanas de inventario o edite los sub detalles.";
                         foreach (string productoConSubdetalle in monosas)
@@ -1409,7 +1413,49 @@ namespace PuntoDeVentaV2
 
                         notificacion.Start();
                     }
-                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema",3,true);
+
+                    using (var dt1 = cn.CargarDatos($"SELECT CorreoStockMinimo FROM configuracion WHERE IDUsuario ={FormPrincipal.userID}"))
+                    {
+                        if (dt1.Rows[0][0].ToString().Equals("1"))
+                        {
+                            List<int> ListaIDs = new List<int>();
+                            string asunto1 = "";
+                            string html1 = "";
+                            string Correo = "";
+                            asunto1 = "¡AVISO! STOCK MÍNIMO ALCANZADO POR ASIGNACIÓN MÚLTIPLE.";
+                            html1 = @"
+                    <div style='margin-bottom: 50px;'>
+                        <h3 style='text-align: center;'>PRODUCTOS CON STOCK MINIMO</h3><hr>
+                        <ul style='color: black; font-size: 0.9em;'>";
+                            foreach (var producto in productos)
+                            {
+                                using (var dt = cn.CargarDatos($"SELECT pro.StockMinimo, pro.Nombre, pro.CodigoBarras, usu.Email FROM productos AS pro INNER JOIN usuarios AS usu on (usu.ID = pro.IDUsuario) WHERE pro.ID = {producto.Key}"))
+                                {
+                                    Correo = dt.Rows[0]["Email"].ToString();
+                                    var anterior = Convert.ToDecimal(dt.Rows[0]["StockMinimo"]);
+                                    if (anterior >= Convert.ToDecimal(stock))
+                                    {
+                                        ListaIDs.Add(producto.Key);
+                                        var nombre = "";
+
+                                        nombre = $"{dt.Rows[0]["Nombre"].ToString()} --- CÓDIGO BARRAS: {dt.Rows[0]["CodigoBarras"].ToString()} --- STOCK MINIMO: {dt.Rows[0]["StockMinimo"].ToString()} --- STOCK ACTUAL: {stock}";
+
+                                        html1 += $"<li>{nombre}</li>";
+                                    }
+
+                                }
+                            }
+
+                            if (!ListaIDs.Count.Equals(0))
+                            {
+                                Thread envio = new Thread(() => Utilidades.EnviarEmail(html1, asunto1, Correo));
+                                envio.Start();
+                            }
+                           
+                        }
+                    }
+
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
                 }
                 else
                 {
@@ -1432,12 +1478,12 @@ namespace PuntoDeVentaV2
                         if (producto.Value == "P")
                         {
                             valores += $"({producto.Key}, {stock}),";
-                            using (var DTStockMaximo =  cn.CargarDatos($"SELECT StockNecesario FROM productos WHERE ID = {producto.Key}"))
+                            using (var DTStockMaximo = cn.CargarDatos($"SELECT StockNecesario FROM productos WHERE ID = {producto.Key}"))
                             {
                                 string StockMaximo = DTStockMaximo.Rows[0]["StockNecesario"].ToString();
-                                if (Convert.ToDecimal(stock)>= Convert.ToDecimal(StockMaximo))
+                                if (Convert.ToDecimal(stock) >= Convert.ToDecimal(StockMaximo))
                                 {
-                                    MessageBox.Show("El stock minimo no puede superar el Stock maximo","Aviso del Sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                                    MessageBox.Show("El stock minimo no puede superar el Stock maximo", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     return;
                                 }
                             }
@@ -1453,7 +1499,7 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(consulta);
                     }
-                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema",3,true);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
                 }
                 else
                 {
@@ -1489,7 +1535,7 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(consulta);
                     }
-                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema",3,true);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
                 }
                 else
                 {
@@ -1535,7 +1581,7 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(cs.GuardarHistorialPrecios(info));
                     }
-                
+
                     foreach (var producto in productos)
                     {
                         var datosConfig = mb.ComprobarConfiguracion();
@@ -1595,7 +1641,7 @@ namespace PuntoDeVentaV2
 
                         notificacion.Start();
                     }
-                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema",3,true);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
                 }
                 else
                 {
@@ -1642,7 +1688,7 @@ namespace PuntoDeVentaV2
                 }
                 else
                 {
-                    MessageBox.Show("Ingrese la cantidad maxima de productos\n  para tener un descuento", "Aviso del sistema",MessageBoxButtons.OK,MessageBoxIcon.Information);
+                    MessageBox.Show("Ingrese la cantidad maxima de productos\n  para tener un descuento", "Aviso del sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 datosHistPrecio.Clear();
@@ -1672,7 +1718,7 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(consulta);
                     }
-                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
                 }
                 else
                 {
@@ -1714,7 +1760,7 @@ namespace PuntoDeVentaV2
                     consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), Impuesto = VALUES(Impuesto), incluye_impuestos = VALUES(incluye_impuestos);";
 
                     cn.EjecutarConsulta(consulta);
-                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
                 }
             }
             else if (propiedad == "ClaveProducto")/////////////////////////////////////////////////////////////////
@@ -1728,35 +1774,35 @@ namespace PuntoDeVentaV2
                 //if (!txtClave.Text.Length.Equals(8))
                 //{
                 //  MessageBox.Show("Ingrese una clave con el formato Correcto", "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    
-                   
+
+
                 //}
-                
-                    if (!string.IsNullOrWhiteSpace(clave))
+
+                if (!string.IsNullOrWhiteSpace(clave))
+                {
+                    foreach (var producto in productos)
                     {
-                        foreach (var producto in productos)
-                        {
-                            valores += $"({producto.Key}, '{clave}'),";
-                            //cn.EjecutarConsulta($"UPDATE Productos SET ClaveProducto = '{clave}' WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
-                        }
-
-                        if (!string.IsNullOrWhiteSpace(valores))
-                        {
-                            valores = valores.TrimEnd(',');
-
-                            consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), ClaveProducto = VALUES(ClaveProducto);";
-
-                            cn.EjecutarConsulta(consulta);
-                        }
-                        MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
+                        valores += $"({producto.Key}, '{clave}'),";
+                        //cn.EjecutarConsulta($"UPDATE Productos SET ClaveProducto = '{clave}' WHERE ID = {producto.Key} AND IDUsuario = {FormPrincipal.userID}");
                     }
-                    else
+
+                    if (!string.IsNullOrWhiteSpace(valores))
                     {
-                        MessageBox.Show("Ingrese la clave de producto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
+                        valores = valores.TrimEnd(',');
+
+                        consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), ClaveProducto = VALUES(ClaveProducto);";
+
+                        cn.EjecutarConsulta(consulta);
                     }
-                
-               
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
+                }
+                else
+                {
+                    MessageBox.Show("Ingrese la clave de producto", "Mensaje del sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+
             }
             else if (propiedad == "ClaveUnidad")/////////////////////////////////////////////////////////////////
             {
@@ -1785,7 +1831,7 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(consulta);
                     }
-                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
                 }
                 else
                 {
@@ -1812,8 +1858,8 @@ namespace PuntoDeVentaV2
                 {
                     // Comprobar si existe registro en la tabla de correos
                     var id = Convert.ToInt32(cn.EjecutarSelect($"SELECT * FROM CorreosProducto WHERE IDProducto = {producto.Key}", 1));
-                    
-                       
+
+
 
                     if (id > 0)
                     {
@@ -1832,7 +1878,7 @@ namespace PuntoDeVentaV2
                     consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDUsuario = VALUES(IDUsuario), IDProducto = VALUES(IDProducto), CorreoVentaProducto = VALUES(CorreoVentaProducto);";
 
                     cn.EjecutarConsulta(consulta);
-                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
                 }
             }
             else if (propiedad == "Proveedor")/////////////////////////////////////////////////////////////////
@@ -1870,7 +1916,7 @@ namespace PuntoDeVentaV2
 
                         cn.EjecutarConsulta(consulta);
                     }
-                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
                 }
                 else
                 {
@@ -1912,14 +1958,14 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta($"UPDATE productos SET TieneDescuentoCliente = 1 , TieneDescuentoMayoreo = 0 WHERE ID = {idprod}");
                         cn.EjecutarConsulta($"UPDATE productos SET TipoDescuento = 1 WHERE ID = {idprod}");
                     }
-                    
+
                     MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
                 }
                 else if (dialogResult == DialogResult.No)
                 {
                     return;
                 }
-               
+
             }
             else if (propiedad == "Eliminar_Descuento")/////////////////////////////////////////////////////////////////ELIMINAR DESCUENTO
             {
@@ -1932,7 +1978,7 @@ namespace PuntoDeVentaV2
                         cn.EjecutarConsulta($"UPDATE productos SET TipoDescuento = 0 WHERE ID = {idprod}");
                         cn.EjecutarConsulta($"DELETE FROM descuentocliente WHERE IDProducto = {idprod}");
                         cn.EjecutarConsulta($"DELETE FROM descuentomayoreo WHERE IDProducto = {idprod}");
-                    } 
+                    }
                 }
                 else if (dialogResult == DialogResult.No)
                 {
@@ -1941,7 +1987,7 @@ namespace PuntoDeVentaV2
             }
             else
             {
-                ComboBox combo = (ComboBox)this.Controls.Find("cb" + propiedad.Replace("_"," "), true)[0];
+                ComboBox combo = (ComboBox)this.Controls.Find("cb" + propiedad.Replace("_", " "), true)[0];
 
                 var idPropiedad = combo.SelectedValue.ToString();
                 var nombreOpcion = combo.Text;
@@ -1983,7 +2029,7 @@ namespace PuntoDeVentaV2
                     consulta += valores + " ON DUPLICATE KEY UPDATE ID = VALUES(ID), IDProducto = VALUES(IDProducto), IDUsuario = VALUES(IDUsuario), IDDetalleGral = VALUES(IDDetalleGral), StatusDetalleGral = VALUES(StatusDetalleGral), panelContenido = VALUES(panelContenido);";
 
                     cn.EjecutarConsulta(consulta);
-                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3,true);
+                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
                 }
             }
         }
@@ -2077,7 +2123,7 @@ namespace PuntoDeVentaV2
             {
                 var idProd = dato.Key;
                 var tipoProducto = dato.Value;
-                
+
                 separarDiccionario(idProd, nuevoPrecio, tipoProducto, float.Parse(precioTmp));
             }
 
@@ -2100,7 +2146,7 @@ namespace PuntoDeVentaV2
                 cadenaCompleta = cadenaCompleta.Remove(cadenaCompleta.Length - 1);
 
                 var separarId = cadenaCompleta.Split(',');
-                
+
                 foreach (var item in separarId)
                 {
                     var fechaActual = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -2151,7 +2197,7 @@ namespace PuntoDeVentaV2
             //    cadenaCompleta = cadenaCompleta.Remove(cadenaCompleta.Length - 1);
 
             //    var separarId = cadenaCompleta.Split(',');
-                
+
             //    foreach (var item in separarId)
             //    {
             //        var fechaActual = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
@@ -2198,7 +2244,7 @@ namespace PuntoDeVentaV2
             {
                 var precio = float.Parse(query.Rows[0]["Precio"].ToString());
 
-                modificarPrecio.Add(id,tipoProducto);
+                modificarPrecio.Add(id, tipoProducto);
 
                 //if (precio < precioActual)
                 //{
@@ -2242,7 +2288,7 @@ namespace PuntoDeVentaV2
 
         private void AsignarPropiedad_FormClosed(object sender, FormClosedEventArgs e)
         {
-            
+
         }
 
         private void AsignarPropiedad_KeyDown(object sender, KeyEventArgs e)
@@ -2251,6 +2297,11 @@ namespace PuntoDeVentaV2
             {
                 this.Close();
             }
+        }
+
+        private void CuerpoEmails(decimal CantidadNueva)
+        {
+
         }
 
         private void sel_incluye_impuestos(object sender, EventArgs e)

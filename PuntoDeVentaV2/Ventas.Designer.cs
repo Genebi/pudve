@@ -74,6 +74,8 @@
             this.lbIVA8 = new System.Windows.Forms.Label();
             this.cIVA8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkOrden = new System.Windows.Forms.CheckBox();
+            this.checkRenta = new System.Windows.Forms.CheckBox();
             this.CBTipo = new System.Windows.Forms.ComboBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -150,7 +152,7 @@
             this.btnEliminarAnticipos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEliminarAnticipos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEliminarAnticipos.ForeColor = System.Drawing.Color.White;
-            this.btnEliminarAnticipos.Location = new System.Drawing.Point(289, 316);
+            this.btnEliminarAnticipos.Location = new System.Drawing.Point(423, 352);
             this.btnEliminarAnticipos.Name = "btnEliminarAnticipos";
             this.btnEliminarAnticipos.Size = new System.Drawing.Size(122, 25);
             this.btnEliminarAnticipos.TabIndex = 10;
@@ -599,6 +601,8 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
+            this.panel1.Controls.Add(this.checkOrden);
+            this.panel1.Controls.Add(this.checkRenta);
             this.panel1.Controls.Add(this.CBTipo);
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.panel3);
@@ -617,6 +621,27 @@
             this.panel1.Size = new System.Drawing.Size(890, 389);
             this.panel1.TabIndex = 34;
             this.panel1.Click += new System.EventHandler(this.panel1_Click);
+            // 
+            // checkOrden
+            // 
+            this.checkOrden.AutoSize = true;
+            this.checkOrden.Location = new System.Drawing.Point(207, 314);
+            this.checkOrden.Name = "checkOrden";
+            this.checkOrden.Size = new System.Drawing.Size(82, 17);
+            this.checkOrden.TabIndex = 67;
+            this.checkOrden.Text = "ES ORDEN";
+            this.checkOrden.UseVisualStyleBackColor = true;
+            this.checkOrden.Visible = false;
+            // 
+            // checkRenta
+            // 
+            this.checkRenta.AutoSize = true;
+            this.checkRenta.Location = new System.Drawing.Point(7, 314);
+            this.checkRenta.Name = "checkRenta";
+            this.checkRenta.Size = new System.Drawing.Size(184, 17);
+            this.checkRenta.TabIndex = 66;
+            this.checkRenta.Text = "ES RENTA (ARRENDAMIENTO)";
+            this.checkRenta.UseVisualStyleBackColor = true;
             // 
             // CBTipo
             // 
@@ -712,7 +737,7 @@
             this.lbEliminarCliente.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lbEliminarCliente.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbEliminarCliente.ForeColor = System.Drawing.Color.Black;
-            this.lbEliminarCliente.Location = new System.Drawing.Point(25, 358);
+            this.lbEliminarCliente.Location = new System.Drawing.Point(11, 358);
             this.lbEliminarCliente.Name = "lbEliminarCliente";
             this.lbEliminarCliente.Size = new System.Drawing.Size(12, 23);
             this.lbEliminarCliente.TabIndex = 57;
@@ -739,7 +764,7 @@
             this.lbMayoreo.ForeColor = System.Drawing.Color.DarkGreen;
             this.lbMayoreo.Image = global::PuntoDeVentaV2.Properties.Resources.check1;
             this.lbMayoreo.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lbMayoreo.Location = new System.Drawing.Point(13, 309);
+            this.lbMayoreo.Location = new System.Drawing.Point(7, 340);
             this.lbMayoreo.Name = "lbMayoreo";
             this.lbMayoreo.Size = new System.Drawing.Size(138, 16);
             this.lbMayoreo.TabIndex = 45;
@@ -1427,5 +1452,7 @@
         public BotonRedondo btnGanancia;
         public BotonRedondo botonRedondo1;
         private System.Windows.Forms.Button btnVentaFacil;
+        private System.Windows.Forms.CheckBox checkOrden;
+        private System.Windows.Forms.CheckBox checkRenta;
     }
 }
