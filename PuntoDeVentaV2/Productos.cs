@@ -718,7 +718,7 @@ namespace PuntoDeVentaV2
             filtroBusqueda.FormClosed += delegate
             {
                 creacionEtiquetasDinamicas();
-                CargarDatos(1, txtBusqueda.Text.Trim());
+                CargarDatos(cbMostrar.SelectedIndex + 1, txtBusqueda.Text.Trim());
                 MarcarCheckBoxes(filtroConSinFiltroAvanzado);
                 //CargarDatos(1, txtBusqueda.Text.Trim());
             };
@@ -2027,7 +2027,7 @@ namespace PuntoDeVentaV2
 
             //actualizarBtnFiltro();
 
-            CargarDatos();
+            CargarDatos(cbMostrar.SelectedIndex+1);
 
             verificarBotonLimpiarTags();
         }
