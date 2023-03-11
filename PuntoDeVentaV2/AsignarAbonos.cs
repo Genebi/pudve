@@ -476,6 +476,13 @@ namespace PuntoDeVentaV2
                 {
                     interesesPagados = decimal.Parse(intereses.ToString());
                 }
+
+                if (chbAdelantoMes.Checked)
+                {
+                    interesesPagados = 0;
+
+                }
+
                 total = total - (float)vuelto;
                 //var totalAbonado = totalEfectivo + tarjeta + vales + cheque + transferencia; //=150
                 var totalAbonado = total;
@@ -1101,7 +1108,7 @@ namespace PuntoDeVentaV2
                     }
 
                     //adelantos
-                    if (!cbAdelanto.Checked && lblPendiente.Text == "$0.00")
+                    if ( !cbAdelanto.Checked && lblPendiente.Text == "$0.00" && !chbAdelantoMes.Checked)
                     {
                         txtPendiente.Text = ((decimal)totalPendiente - (decimal)(abonado) - (decimal)(abonoTotal)).ToString("C2");
                     }
@@ -1174,7 +1181,7 @@ namespace PuntoDeVentaV2
                     }
 
                     //adelantos
-                    if (!cbAdelanto.Checked && lblPendiente.Text == "$0.00")
+                    if (!cbAdelanto.Checked && lblPendiente.Text == "$0.00" && !chbAdelantoMes.Checked)
                     {
                         txtPendiente.Text = (totalPendiente - (float)(abonoTotal)).ToString("C2");
                     }
@@ -1608,8 +1615,11 @@ namespace PuntoDeVentaV2
         }
         private void cbAdelanto_CheckedChanged(object sender, EventArgs e)
         {
-            chbAdelantoMes.Checked = false;
-            validacionRestanteDeAbonos(sender, e);
+            if (cbAdelanto.Checked)
+            {
+                chbAdelantoMes.Checked = false;
+                validacionRestanteDeAbonos(sender, e);
+            }
         }
 
         private void txtIntereses_TextChanged(object sender, EventArgs e)
@@ -1678,8 +1688,13 @@ namespace PuntoDeVentaV2
 
         private void chbAdelantoMes_CheckedChanged(object sender, EventArgs e)
         {
-            cbAdelanto.Checked = false;
-            MessageBox.Show("Aguantame tantito papi esto no jala aun");
+            if (chbAdelantoMes.Checked)
+            {
+
+                cbAdelanto.Checked = false;
+                validacionRestanteDeAbonos(sender, e);
+            }
+
         }
     }
 }
