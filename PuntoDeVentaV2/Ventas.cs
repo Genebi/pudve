@@ -2870,6 +2870,8 @@ namespace PuntoDeVentaV2
                     var cantidadProducto = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
                     var descuentoTipo = Convert.ToInt16(fila.Cells["DescuentoTipo"].Value);
 
+                    fila.Cells["Descuento"].Value = string.Empty;
+
                     double cantidadDescuento = 0;
 
                     if (esDescuentoDirecto || descuentoTipo > 0)
