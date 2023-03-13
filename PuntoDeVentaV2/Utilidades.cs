@@ -2044,6 +2044,7 @@ namespace PuntoDeVentaV2
             EnviarEmailConArchivoPDF(html, asunto, correo, ruta);
         }
 
+
         public static bool BuscarDataGridView(string TextoABuscar1, string Columna1, DataGridView grid, string TextoABuscar2, string Columna2)
         {
             bool encontrado = false;
@@ -2134,6 +2135,118 @@ namespace PuntoDeVentaV2
 
             return encontrado;
         }
+
+        public static bool BuscarDataGridView2(string TextoABuscar1, string Columna1, DataGridView grid, string TextoABuscar2, string Columna2, string IDProducto, string Columna3)
+        {
+            bool encontrado = false;
+            bool textoBuscarUnoEncontrado = false;
+            bool textoBuscarDosEncontrado = false;
+            bool IDEncontrado = false;
+
+            if (TextoABuscar1 == string.Empty ||
+                TextoABuscar2 == string.Empty)
+            {
+                return false;
+            }
+
+            if (grid.RowCount == 0)
+            {
+                return false;
+            }
+
+            if (TextoABuscar2.Equals("P"))
+            {
+                TextoABuscar2 = "PRODUCTO";
+            }
+            else if (TextoABuscar2.Equals("S"))
+            {
+                TextoABuscar2 = "SERVICIO";
+            }
+            else if (TextoABuscar2.Equals("PQ"))
+            {
+                TextoABuscar2 = "COMBO";
+            }
+
+            grid.ClearSelection();
+
+            if (Columna1 == string.Empty || Columna2 == string.Empty)
+            {
+                foreach (DataGridViewRow row in grid.Rows)
+                {
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        if (cell.Value.ToString() == TextoABuscar1)
+                        {
+                            //row.Selected = true;
+                            textoBuscarUnoEncontrado = true;
+                            //return true;
+                        }
+                    }
+                }
+                foreach (DataGridViewRow row in grid.Rows)
+                {
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        if (cell.Value.ToString() == TextoABuscar2)
+                        {
+                            //row.Selected = true;
+                            textoBuscarDosEncontrado = true;
+                            //return true;
+                        }
+                    }
+                }
+                foreach (DataGridViewRow row in grid.Rows)
+                {
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        if (cell.Value.ToString() == IDProducto)
+                        {
+                            //row.Selected = true;
+                            textoBuscarDosEncontrado = true;
+                            //return true;
+                        }
+                    }
+                }
+                if (textoBuscarUnoEncontrado.Equals(true) &&
+                    textoBuscarDosEncontrado.Equals(true) && IDEncontrado.Equals(true))
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                foreach (DataGridViewRow row in grid.Rows)
+                {
+                    if (row.Cells[Columna1].Value.ToString() == TextoABuscar1)
+                    {
+                        //row.Selected = true;
+                        textoBuscarUnoEncontrado = true;
+                        //return true;
+                    }
+                    if (row.Cells[Columna2].Value.ToString() == TextoABuscar2)
+                    {
+                        //row.Selected = true;
+                        textoBuscarDosEncontrado = true;
+                        //return true;
+                    }
+                    if (row.Cells[Columna3].Value.ToString() == IDProducto)
+                    {
+                        //row.Selected = true;
+                        IDEncontrado = true;
+                        //return true;
+                    }
+                }
+
+                if (textoBuscarUnoEncontrado.Equals(true) &&
+                    textoBuscarDosEncontrado.Equals(true) && IDEncontrado.Equals(true))
+                {
+                    return true;
+                }
+            }
+
+            return encontrado;
+        }
+
 
         public static void GenerarReporteVentas(string opcionVentas, DataTable tablaResult)
         {
