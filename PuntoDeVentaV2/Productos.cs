@@ -1413,18 +1413,18 @@ namespace PuntoDeVentaV2
                         obtenerDatosDGVProductos(numerofila);
                         var copiarMensajeVentas = cn.CargarDatos(cs.copiarMensajeVentas(idProducto));
                         var copiarMensajeInventario = cn.CargarDatos(cs.copiarMensajeInventario(idProducto));
-                        AgregarEditarProducto.SeCopioMensajeVenta = copiarMensajeVentas.Rows[0][2].ToString() + "," + copiarMensajeVentas.Rows[0][0].ToString();
-                        AgregarEditarProducto.SeCopioMensajeInventario = copiarMensajeInventario.Rows[0][0].ToString();
                         if (!copiarMensajeVentas.Rows.Count.Equals(0))
                         {
                             copMensajeVent[0] = copiarMensajeVentas.Rows[0]["ProductOfMessage"].ToString();
                             copMensajeVent[1] = copiarMensajeVentas.Rows[0]["ProductMessageActivated"].ToString();
                             copMensajeVent[2] = copiarMensajeVentas.Rows[0]["CantidadMinimaDeCompra"].ToString();
+                            AgregarEditarProducto.SeCopioMensajeVenta = copiarMensajeVentas.Rows[0][2].ToString() + "," + copiarMensajeVentas.Rows[0][0].ToString();
                         }
                         if (!copiarMensajeInventario.Rows.Count.Equals(0))
                         {
                             copMensajeInv[0] = copiarMensajeInventario.Rows[0]["Mensaje"].ToString();
                             copMensajeInv[1] = copiarMensajeInventario.Rows[0]["Activo"].ToString();
+                            AgregarEditarProducto.SeCopioMensajeInventario = copiarMensajeInventario.Rows[0][0].ToString();
                         }
 
                         copiarDatos = 1;
