@@ -2870,8 +2870,6 @@ namespace PuntoDeVentaV2
                     var cantidadProducto = Convert.ToDecimal(fila.Cells["Cantidad"].Value);
                     var descuentoTipo = Convert.ToInt16(fila.Cells["DescuentoTipo"].Value);
 
-                    fila.Cells["Descuento"].Value = string.Empty;
-
                     double cantidadDescuento = 0;
 
                     if (esDescuentoDirecto || descuentoTipo > 0)
@@ -8445,6 +8443,12 @@ namespace PuntoDeVentaV2
         private void lbEliminarCliente_Click(object sender, EventArgs e)
         {
             descuentoCliente = 0;
+
+            foreach(DataGridViewRow fila in DGVentas.Rows)
+            {
+                fila.Cells["Descuento"].Value = string.Empty;
+            }
+
             CantidadesFinalesVenta();
             lbDatosCliente.Text = string.Empty;
             lbDatosCliente.Visible = false;
