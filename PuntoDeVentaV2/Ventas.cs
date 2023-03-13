@@ -2449,7 +2449,7 @@ namespace PuntoDeVentaV2
                     var descuentoFinal = precioAux * (porcentajeAux / 100);
 
                     DGVentas.Rows[fila].Cells["Descuento"].Value = descuentoFinal;
-                    DGVentas.Rows[fila].Cells["Importe"].Value = precioAux;
+                    DGVentas.Rows[fila].Cells["Importe"].Value = descuentoFinal > 0 ? precioAux - descuentoFinal : precioAux;
                 }
 
                 //Mayoreo
@@ -2877,9 +2877,10 @@ namespace PuntoDeVentaV2
                         cantidadDescuento = Convert.ToDouble(descuentoIndividual[0]);
                     }
                     double importeProducto;
+
                     if (cantidadProducto > 0 && cantidadProducto < 1)
                     {
-                        importeProducto = (precioOriginal * Convert.ToDouble(cantidadProducto));
+                        importeProducto = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
                     }
                     else
                     {
