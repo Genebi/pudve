@@ -2411,29 +2411,31 @@ namespace PuntoDeVentaV2
                                     {
                                         impuestoProducto += "%";
                                     }
+                            }
+
+
+                                // Miri
+                                // Si se esta agregando por XML entonces verifica si hay datos en nodo "A cuenta terceros".
+                                // Solo para el caso de que no se halla abierto la ventana de detalles facturación y por ende no se guardo desde el botón aceptar.
+
+                                if (DatosSourceFinal == 3 & AgregarDetalleFacturacionProducto.editado == false)
+                                {
+                                    incluye_impuestos = AgregarStockXML.incluye_impuestos_delxml;
+
+                                    if (AgregarStockXML.razon_social_cnt_3ro_delxml != "")
+                                    {
+                                        nombre_cterceros = AgregarStockXML.razon_social_cnt_3ro_delxml;
+                                        rfc_cterceros = AgregarStockXML.rfc_cnt_3ro_delxml;
+                                        cp_cterceros = AgregarStockXML.cp_cnt_3ro_delxml;
+                                        regimen_cterceros = AgregarStockXML.regimen_cnt_3ro_delxml;
+                                    }
                                 }
 
-                                    // Miri
-                                    // Si se esta agregando por XML entonces verifica si hay datos en nodo "A cuenta terceros".
-                                    // Solo para el caso de que no se halla abierto la ventana de detalles facturación y por ende no se guardo desde el botón aceptar.
 
-                                    if(DatosSourceFinal == 3 & AgregarDetalleFacturacionProducto.editado == false)
-                                    {
-                                        incluye_impuestos = AgregarStockXML.incluye_impuestos_delxml;
+                                tmp_clave_interna = claveIn;
+                                tmp_codigo_barras = codigoB;
 
-                                        if (AgregarStockXML.razon_social_cnt_3ro_delxml != "")
-                                        {
-                                            nombre_cterceros = AgregarStockXML.razon_social_cnt_3ro_delxml;
-                                            rfc_cterceros = AgregarStockXML.rfc_cnt_3ro_delxml;
-                                            cp_cterceros = AgregarStockXML.cp_cnt_3ro_delxml;
-                                            regimen_cterceros = AgregarStockXML.regimen_cnt_3ro_delxml;
-                                        }                                        
-                                    }
-
-
-                                    tmp_clave_interna = claveIn;
-                                    tmp_codigo_barras = codigoB;
-                                    
+                                var esRenta = checkRenta.Visible ? checkRenta.Checked ? "1" : "0" : "0";
 
                                 guardar = new string[] {
                                     nombre, stock, precio, categoria, claveIn, codigoB, claveProducto, claveUnidadMedida,
@@ -3130,7 +3132,7 @@ namespace PuntoDeVentaV2
                                             string Date = fechaCompleta.Substring(found + 1);
                                             string FechaRegistrada = Year + " " + Date;
                                             string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idHistorialCompraProducto}','{FechaRegistrada}')";
-                                            //cn.EjecutarConsulta(queryRecordHistorialProd);
+                                            cn.EjecutarConsulta(queryRecordHistorialProd);
 
                                             //if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
                                             //{
@@ -6692,7 +6694,7 @@ namespace PuntoDeVentaV2
                                             string DateServ = fechaCompletaServ.Substring(foundServicio + 1);
                                             string FechaRegistradaServ = YearServ + " " + DateServ;
                                             string queryRecordHistorialServ = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistradaServ}')";
-                                            //cn.EjecutarConsulta(queryRecordHistorialServ);
+                                            cn.EjecutarConsulta(queryRecordHistorialServ);
 
 
                                             int found = 10;
@@ -6702,7 +6704,7 @@ namespace PuntoDeVentaV2
                                             string Date = fechaCompleta.Substring(found + 1);
                                             string FechaRegistrada = Year + " " + Date;
                                             string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
-                                            //cn.EjecutarConsulta(queryRecordHistorialProd);
+                                            cn.EjecutarConsulta(queryRecordHistorialProd);
 
                                             /*if (flowLayoutPanel2.Controls.Count == 0)
                                             {
@@ -6863,7 +6865,7 @@ namespace PuntoDeVentaV2
                                             string Date = fechaCompleta.Substring(found + 1);
                                             string FechaRegistrada = Year + " " + Date;
                                             string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idHistorialCompraProducto}','{FechaRegistrada}')";
-                                            //cn.EjecutarConsulta(queryRecordHistorialProd);
+                                            cn.EjecutarConsulta(queryRecordHistorialProd);
 
                                             if (ProductosDeServicios.Count >= 1 || ProductosDeServicios.Count == 0)
                                             {
@@ -8014,7 +8016,7 @@ namespace PuntoDeVentaV2
             string queryRecordHistorialProd = $"INSERT INTO HistorialModificacionRecordProduct(IDUsuario,IDRecordProd,FechaEditRecord) VALUES('{FormPrincipal.userID}','{idProducto}','{FechaRegistrada}')";
             try
             {
-                //MR cn.EjecutarConsulta(queryRecordHistorialProd);
+                cn.EjecutarConsulta(queryRecordHistorialProd);
             }
             catch (Exception ex)
             {
