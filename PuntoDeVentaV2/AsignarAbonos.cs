@@ -1635,16 +1635,19 @@ namespace PuntoDeVentaV2
 
         private void lblpagos_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
-            {
-                string mensaje = "Fechas de los abonos";
-                foreach (var fecha in dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString().Split('%'))
-                {
-                    mensaje += $"\n{fecha}";
-                }
-                mensaje += $"\nSe cobran intereses desde el día: {DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaApertura"].ToString()).AddDays(double.Parse(dtReglasCreditoVenta.Rows[0]["creditodiassincobro"].ToString())).ToString("yyyy-MM-dd")}";
-                MessageBox.Show(mensaje, "Fechas relevantes", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            //using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
+            //{
+            //    string mensaje = "Fechas de los abonos";
+            //    foreach (var fecha in dtReglasCreditoVenta.Rows[0]["FechaInteres"].ToString().Split('%'))
+            //    {
+            //        mensaje += $"\n{fecha}";
+            //    }
+            //    mensaje += $"\nSe cobran intereses desde el día: {DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaApertura"].ToString()).AddDays(double.Parse(dtReglasCreditoVenta.Rows[0]["creditodiassincobro"].ToString())).ToString("yyyy-MM-dd")}";
+            //    MessageBox.Show(mensaje, "Fechas relevantes", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //}
+
+            vizualisarAmortizacion vizAm= new vizualisarAmortizacion(idVenta,(decimal)totalOriginal);
+            vizAm.ShowDialog();
 
         }
 
