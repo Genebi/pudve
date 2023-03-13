@@ -53,6 +53,7 @@ namespace PuntoDeVentaV2
         decimal diasTrascurridos = 0;
         decimal interesPorDia;
         DateTime lameraFecha;
+        DateTime interesesDesde;
         decimal calculoIntereses = 0;
         string saldoAnterior = string.Empty;
 
@@ -122,15 +123,16 @@ namespace PuntoDeVentaV2
                 txtPendiente.Text = totalPendiente.ToString("C2");
                 restanteDePago = totalPendiente;
                 intereses = calcularIntereses(restanteDePago);
-                if ((intereses - restadodeinteres) < 0)
-                {
-                    abonoTotal = (abonoTotal + intereses) - restadodeinteres;
-                    intereses = 0;
-                }
-                else
-                {
-                    intereses -= restadodeinteres;
-                }
+                abonoTotal = (abonoTotal + intereses);
+                //if ((intereses - restadodeinteres) < 0)
+                //{
+                //    abonoTotal = (abonoTotal + intereses) - restadodeinteres;
+                //    intereses = 0;
+                //}
+                //else
+                //{
+                //    intereses -= restadodeinteres;
+                //}
                 restanteDePago += (float)intereses;
                 txtPendiente.Text = restanteDePago.ToString("C2");
 
@@ -140,15 +142,16 @@ namespace PuntoDeVentaV2
                 var abonado = mb.ObtenerTotalAbonado(idVenta, FormPrincipal.userID);
                 restanteDePago = totalPendiente - abonado;
                 intereses = calcularIntereses(restanteDePago);
-                if ((intereses - restadodeinteres) < 0)
-                {
-                    abonoTotal = (abonoTotal + intereses) - restadodeinteres;
-                    intereses = 0;
-                }
-                else
-                {
-                    intereses -= restadodeinteres;
-                }
+                abonoTotal = (abonoTotal + intereses);
+                //if ((intereses - restadodeinteres) < 0)
+                //{
+                //    abonoTotal = (abonoTotal + intereses) - restadodeinteres;
+                //    intereses = 0;
+                //}
+                //else
+                //{
+                //    intereses -= restadodeinteres;
+                //}
                 abonoTotal -= restadodeabonos;
                 restanteDePago += (float)intereses;
                 txtPendiente.Text = restanteDePago.ToString("C2");
@@ -165,7 +168,6 @@ namespace PuntoDeVentaV2
 
                 if (Decimal.Parse(dtReglasCreditoVenta.Rows[0]["creditoMinimoAbono"].ToString()) <= (decimal)restanteDePago)
                 {
-
                     //using (DataTable dtAbonos = cn.CargarDatos($"SELECT FechaOperacion FROM abonos WHERE IDVenta = {idVenta} AND estado = 1 ORDER BY FechaOperacion DESC LIMIT 1 "))
                     //{
                     //    int fechasAtrasadas = 0;
@@ -183,7 +185,7 @@ namespace PuntoDeVentaV2
                         {
                             if (esasigue)
                             {
-                                lblSiguienteAbono.Text = "Siguiente abono: " + DateTime.Parse(fecha).ToString("yyyy/MM/dd");
+                                lblSiguienteAbono.Text = "Siguiente abono: " + DateTime.Parse(fecha).ToString("yyyy/MM/dd") + " por: " + decimal.Parse(dtReglasCreditoVenta.Rows[0]["creditoMinimoAbono"].ToString()).ToString("C2"); 
                                 esasigue = false;
                             }
                         }
@@ -242,8 +244,8 @@ namespace PuntoDeVentaV2
             txtIntereses.Text = intereses.ToString("C2");
             if (intereses > 0)
             {
-                lblFechaAnterior.Text = $"({(Int32)diasTrascurridos} días\n";
-                lblFechaAnterior.Text += $"desde: {lameraFecha.ToString("yyyy-MM-dd")}";
+                //lblFechaAnterior.Text = $"({(Int32)diasTrascurridos} días\n";
+                lblFechaAnterior.Text += $"(desde: {interesesDesde.ToString("yyyy-MM-dd")}";
                 lblFechaAnterior.Visible = true;
             }
             if (ultimopago)
@@ -260,21 +262,38 @@ namespace PuntoDeVentaV2
         private decimal calcularIntereses(float restante)
         {
             saldo = (decimal)restante;
+            decimal restanteInteres = 0;
             Conexion cn = new Conexion();
             calculoIntereses = 0;
             using (DataTable dtReglasCreditoVenta = cn.CargarDatos($"SELECT * FROM reglasCreditoVenta WHERE IDVenta = {idVenta}"))
             {
-                using (DataTable dtAbonos = cn.CargarDatos($"SELECT FechaOperacion FROM abonos WHERE IDVenta = {idVenta} AND estado = 1 AND NOT(referencia = 'enganche') ORDER BY FechaOperacion DESC LIMIT 1 "))//Aqui se ignora el "abono" inicial que se hace cuando se pone algun otro modo de pago en venta.
+                using (DataTable dtAbonos = cn.CargarDatos($"SELECT FechaOperacion,restanteInteres FROM abonos WHERE IDVenta = {idVenta} AND NOT(referencia = 'enganche') ORDER BY FechaOperacion DESC LIMIT 1 "))//Aqui se ignora el "abono" inicial que se hace cuando se pone algun otro modo de pago en venta.
                 {
                     if (dtAbonos.Rows.Count > 0)
                     {
                         lameraFecha = DateTime.Parse(dtAbonos.Rows[0]["FechaOperacion"].ToString());
+                        restanteInteres = decimal.Parse(dtAbonos.Rows[0]["restanteInteres"].ToString());
                     }
                     else
                     {
                         lameraFecha = DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaApertura"].ToString());
                     }
                 }
+
+
+                //Fecha del ultimo abono para que el cliente no se surre
+                using (DataTable dtAbonos = cn.CargarDatos($"SELECT FechaOperacion,restanteInteres FROM abonos WHERE IDVenta = {idVenta} AND estado = '1' AND NOT(referencia = 'enganche') ORDER BY FechaOperacion DESC LIMIT 1 "))//Aqui se ignora el "abono" inicial que se hace cuando se pone algun otro modo de pago en venta.
+                {
+                    if (dtAbonos.Rows.Count > 0)
+                    {
+                        interesesDesde = DateTime.Parse(dtAbonos.Rows[0]["FechaOperacion"].ToString());
+                    }
+                    else
+                    {
+                        interesesDesde = DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaApertura"].ToString());
+                    }
+                }
+
                 //Ya se cobra interes
                 int test = Int32.Parse(dtReglasCreditoVenta.Rows[0]["creditodiassincobro"].ToString());
                 if (DateTime.Now.Date > DateTime.Parse(dtReglasCreditoVenta.Rows[0]["FechaApertura"].ToString()).AddDays(test))
@@ -333,7 +352,7 @@ namespace PuntoDeVentaV2
                     }
                 }
             }
-            return calculoIntereses;
+            return calculoIntereses+restanteInteres;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
@@ -500,7 +519,7 @@ namespace PuntoDeVentaV2
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion,interesesPagados.ToString(), vuelto.ToString(), mocho.ToString(),perdonado.ToString()
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion,interesesPagados.ToString(), vuelto.ToString(), mocho.ToString(),perdonado.ToString(),(intereses-interesesPagados).ToString()
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
@@ -509,7 +528,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),interesesPagados.ToString(),vuelto.ToString(), mocho.ToString(),perdonado.ToString()
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),interesesPagados.ToString(),vuelto.ToString(), mocho.ToString(),perdonado.ToString(),(intereses-interesesPagados).ToString()
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));
@@ -573,7 +592,7 @@ namespace PuntoDeVentaV2
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, interesesPagados.ToString(),vuelto.ToString(), mocho.ToString(),perdonado.ToString()
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, interesesPagados.ToString(),vuelto.ToString(), mocho.ToString(),perdonado.ToString(),(intereses-interesesPagados).ToString()
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
@@ -581,7 +600,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),interesesPagados.ToString(),vuelto.ToString(), mocho.ToString(),perdonado.ToString()
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),interesesPagados.ToString(),vuelto.ToString(), mocho.ToString(),perdonado.ToString(),(intereses-interesesPagados).ToString()
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));

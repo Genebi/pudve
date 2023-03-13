@@ -2070,7 +2070,7 @@ IF
 	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS cambio DECIMAl ( 16, 2 ) DEFAULT 0;
 	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS estado INTEGER DEFAULT 0;
 	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS perdonado DECIMAl ( 16, 2 ) DEFAULT 0;
-
+	ALTER TABLE abonos ADD COLUMN IF NOT EXISTS restanteInteres DECIMAl ( 16, 2 ) DEFAULT 0;
 
 --Tabla para guardar las reglas de credito especificas de cada cliente 
 CREATE TABLE
