@@ -8443,6 +8443,12 @@ namespace PuntoDeVentaV2
         private void lbEliminarCliente_Click(object sender, EventArgs e)
         {
             descuentoCliente = 0;
+
+            foreach(DataGridViewRow fila in DGVentas.Rows)
+            {
+                fila.Cells["Descuento"].Value = string.Empty;
+            }
+
             CantidadesFinalesVenta();
             lbDatosCliente.Text = string.Empty;
             lbDatosCliente.Visible = false;
