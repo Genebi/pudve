@@ -39,9 +39,9 @@ namespace PuntoDeVentaV2
             this.txt_base0_7 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rb_exento = new System.Windows.Forms.RadioButton();
-            this.rb_16 = new System.Windows.Forms.RadioButton();
-            this.rb_0 = new System.Windows.Forms.RadioButton();
-            this.rb_8 = new System.Windows.Forms.RadioButton();
+            this.rb_dieciseis = new System.Windows.Forms.RadioButton();
+            this.rb_cero = new System.Windows.Forms.RadioButton();
+            this.rb_ocho = new System.Windows.Forms.RadioButton();
             this.txt_importe0_6 = new System.Windows.Forms.TextBox();
             this.btn_aceptar = new System.Windows.Forms.Button();
             this.btn_agregar = new System.Windows.Forms.Button();
@@ -128,9 +128,9 @@ namespace PuntoDeVentaV2
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.rb_exento);
-            this.groupBox1.Controls.Add(this.rb_16);
-            this.groupBox1.Controls.Add(this.rb_0);
-            this.groupBox1.Controls.Add(this.rb_8);
+            this.groupBox1.Controls.Add(this.rb_dieciseis);
+            this.groupBox1.Controls.Add(this.rb_cero);
+            this.groupBox1.Controls.Add(this.rb_ocho);
             this.groupBox1.Location = new System.Drawing.Point(132, 60);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(427, 54);
@@ -149,38 +149,38 @@ namespace PuntoDeVentaV2
             this.rb_exento.UseVisualStyleBackColor = true;
             this.rb_exento.CheckedChanged += new System.EventHandler(this.radio_impuest_exento);
             // 
-            // rb_16
+            // rb_dieciseis
             // 
-            this.rb_16.AutoSize = true;
-            this.rb_16.Location = new System.Drawing.Point(218, 23);
-            this.rb_16.Name = "rb_16";
-            this.rb_16.Size = new System.Drawing.Size(73, 21);
-            this.rb_16.TabIndex = 14;
-            this.rb_16.Text = "IVA 16%";
-            this.rb_16.UseVisualStyleBackColor = true;
-            this.rb_16.CheckedChanged += new System.EventHandler(this.radio_impuest_16);
+            this.rb_dieciseis.AutoSize = true;
+            this.rb_dieciseis.Location = new System.Drawing.Point(218, 23);
+            this.rb_dieciseis.Name = "rb_dieciseis";
+            this.rb_dieciseis.Size = new System.Drawing.Size(73, 21);
+            this.rb_dieciseis.TabIndex = 14;
+            this.rb_dieciseis.Text = "IVA 16%";
+            this.rb_dieciseis.UseVisualStyleBackColor = true;
+            this.rb_dieciseis.CheckedChanged += new System.EventHandler(this.radio_impuest_16);
             // 
-            // rb_0
+            // rb_cero
             // 
-            this.rb_0.AutoSize = true;
-            this.rb_0.Location = new System.Drawing.Point(26, 23);
-            this.rb_0.Name = "rb_0";
-            this.rb_0.Size = new System.Drawing.Size(66, 21);
-            this.rb_0.TabIndex = 13;
-            this.rb_0.Text = "IVA 0%";
-            this.rb_0.UseVisualStyleBackColor = true;
-            this.rb_0.CheckedChanged += new System.EventHandler(this.radio_impuest_0);
+            this.rb_cero.AutoSize = true;
+            this.rb_cero.Location = new System.Drawing.Point(26, 23);
+            this.rb_cero.Name = "rb_cero";
+            this.rb_cero.Size = new System.Drawing.Size(66, 21);
+            this.rb_cero.TabIndex = 13;
+            this.rb_cero.Text = "IVA 0%";
+            this.rb_cero.UseVisualStyleBackColor = true;
+            this.rb_cero.CheckedChanged += new System.EventHandler(this.radio_impuest_0);
             // 
-            // rb_8
+            // rb_ocho
             // 
-            this.rb_8.AutoSize = true;
-            this.rb_8.Location = new System.Drawing.Point(121, 23);
-            this.rb_8.Name = "rb_8";
-            this.rb_8.Size = new System.Drawing.Size(66, 21);
-            this.rb_8.TabIndex = 13;
-            this.rb_8.Text = "IVA 8%";
-            this.rb_8.UseVisualStyleBackColor = true;
-            this.rb_8.CheckedChanged += new System.EventHandler(this.radio_impuest_8);
+            this.rb_ocho.AutoSize = true;
+            this.rb_ocho.Location = new System.Drawing.Point(121, 23);
+            this.rb_ocho.Name = "rb_ocho";
+            this.rb_ocho.Size = new System.Drawing.Size(66, 21);
+            this.rb_ocho.TabIndex = 13;
+            this.rb_ocho.Text = "IVA 8%";
+            this.rb_ocho.UseVisualStyleBackColor = true;
+            this.rb_ocho.CheckedChanged += new System.EventHandler(this.radio_impuest_8);
             // 
             // txt_importe0_6
             // 
@@ -286,9 +286,9 @@ namespace PuntoDeVentaV2
         private System.Windows.Forms.TextBox txt_importe0_6;
         private System.Windows.Forms.Button btn_aceptar;
         private System.Windows.Forms.Button btn_agregar;
-        private System.Windows.Forms.RadioButton rb_0;
-        private System.Windows.Forms.RadioButton rb_8;
-        private System.Windows.Forms.RadioButton rb_16;
+        private System.Windows.Forms.RadioButton rb_cero;
+        private System.Windows.Forms.RadioButton rb_ocho;
+        private System.Windows.Forms.RadioButton rb_dieciseis;
         private System.Windows.Forms.RadioButton rb_exento;
         private System.Windows.Forms.FlowLayoutPanel pnl_impuestos;
         private System.Windows.Forms.Label label9;

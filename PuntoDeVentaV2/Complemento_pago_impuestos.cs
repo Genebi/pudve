@@ -492,7 +492,7 @@ namespace PuntoDeVentaV2
 
         private void radio_impuest_8(object sender, EventArgs e)
         {
-            if(rb_8.Checked == true)
+            if(rb_ocho.Checked == true)
             {
                 calcular_importe_ximpuesto(0, "d8");
             }            
@@ -500,7 +500,7 @@ namespace PuntoDeVentaV2
 
         private void radio_impuest_16(object sender, EventArgs e)
         {
-            if (rb_16.Checked == true)
+            if (rb_dieciseis.Checked == true)
             {
                 calcular_importe_ximpuesto(0, "d16");
             }
@@ -516,7 +516,7 @@ namespace PuntoDeVentaV2
 
         private void radio_impuest_0(object sender, EventArgs e)
         {
-            if (rb_0.Checked == true)
+            if (rb_cero.Checked == true)
             {
                 calcular_importe_ximpuesto(0, "d0");
             }
@@ -694,21 +694,22 @@ namespace PuntoDeVentaV2
             bool rad_imp = false;
             string tipo_imp = "";
             string tasa_cuota = "Tasa";
-            Complemento_pago.arr_impuestos[fila_dr] = new string[cant_filas][];
+            int fila_dr_tmp = fila_dr - 1;
+            Complemento_pago.arr_impuestos[fila_dr_tmp] = new string[cant_filas][];
 
             // Impuesto de los radio
 
-            if (rb_0.Checked)
+            if (rb_cero.Checked)
             {
                 tipo_imp = "0.000000";
                 rad_imp = true;
             }
-            if (rb_8.Checked)
+            if (rb_ocho.Checked)
             {
                 tipo_imp = "0.080000";
                 rad_imp = true;
             }
-            if (rb_16.Checked)
+            if (rb_dieciseis.Checked)
             {
                 tipo_imp = "0.160000";
                 rad_imp = true;
@@ -731,16 +732,16 @@ namespace PuntoDeVentaV2
 
             if(rad_imp == true)
             {
-                Complemento_pago.arr_impuestos[fila_dr][i] = new string[8];
+                Complemento_pago.arr_impuestos[fila_dr_tmp][i] = new string[8];
 
-                Complemento_pago.arr_impuestos[fila_dr][i][0] = id_factura.ToString();
-                Complemento_pago.arr_impuestos[fila_dr][i][1] = txt_base0_7.Text;
-                Complemento_pago.arr_impuestos[fila_dr][i][2] = "Traslado";
-                Complemento_pago.arr_impuestos[fila_dr][i][3] = "002";
-                Complemento_pago.arr_impuestos[fila_dr][i][4] = tasa_cuota;
-                Complemento_pago.arr_impuestos[fila_dr][i][5] = tipo_imp;
-                Complemento_pago.arr_impuestos[fila_dr][i][6] = "";
-                Complemento_pago.arr_impuestos[fila_dr][i][7] = txt_importe0_6.Text;
+                Complemento_pago.arr_impuestos[fila_dr_tmp][i][0] = id_factura.ToString();
+                Complemento_pago.arr_impuestos[fila_dr_tmp][i][1] = txt_base0_7.Text;
+                Complemento_pago.arr_impuestos[fila_dr_tmp][i][2] = "Traslado";
+                Complemento_pago.arr_impuestos[fila_dr_tmp][i][3] = "002";
+                Complemento_pago.arr_impuestos[fila_dr_tmp][i][4] = tasa_cuota;
+                Complemento_pago.arr_impuestos[fila_dr_tmp][i][5] = tipo_imp;
+                Complemento_pago.arr_impuestos[fila_dr_tmp][i][6] = "";
+                Complemento_pago.arr_impuestos[fila_dr_tmp][i][7] = txt_importe0_6.Text;
 
                 i++;
             }
@@ -765,43 +766,43 @@ namespace PuntoDeVentaV2
 
                                 for (int j = 0; j < i; j++) 
                                 {
-                                    if(Complemento_pago.arr_impuestos[fila_dr][j][0] == id_factura.ToString())
+                                    if(Complemento_pago.arr_impuestos[fila_dr_tmp][j][0] == id_factura.ToString())
                                     {
-                                        Complemento_pago.arr_impuestos[fila_dr][j][0] = "";
+                                        Complemento_pago.arr_impuestos[fila_dr_tmp][j][0] = "";
                                     }
                                 }
 
                                 return;
                             }
 
-                            Complemento_pago.arr_impuestos[fila_dr][i] = new string[8];
+                            Complemento_pago.arr_impuestos[fila_dr_tmp][i] = new string[8];
 
-                            Complemento_pago.arr_impuestos[fila_dr][i][0] = id_factura.ToString();
-                            Complemento_pago.arr_impuestos[fila_dr][i][1] = panel_ximp.Text;
+                            Complemento_pago.arr_impuestos[fila_dr_tmp][i][0] = id_factura.ToString();
+                            Complemento_pago.arr_impuestos[fila_dr_tmp][i][1] = panel_ximp.Text;
                         }
                         if (panel_ximp.Name.Contains("cmb_bx_es"))
                         {
-                            Complemento_pago.arr_impuestos[fila_dr][i][2] = panel_ximp.Text;
+                            Complemento_pago.arr_impuestos[fila_dr_tmp][i][2] = panel_ximp.Text;
                         }
                         if (panel_ximp.Name.Contains("cmb_bx_impuesto"))
                         {
-                            Complemento_pago.arr_impuestos[fila_dr][i][3] = panel_ximp.Text;
+                            Complemento_pago.arr_impuestos[fila_dr_tmp][i][3] = panel_ximp.Text;
                         }
                         if (panel_ximp.Name.Contains("cmb_bx_tfactor"))
                         {
-                            Complemento_pago.arr_impuestos[fila_dr][i][4] = panel_ximp.Text;
+                            Complemento_pago.arr_impuestos[fila_dr_tmp][i][4] = panel_ximp.Text;
                         }
                         if (panel_ximp.Name.Contains("cmb_bx_tc"))
                         {
-                            Complemento_pago.arr_impuestos[fila_dr][i][5] = panel_ximp.Text;
+                            Complemento_pago.arr_impuestos[fila_dr_tmp][i][5] = panel_ximp.Text;
                         }
                         if (panel_ximp.Name.Contains("txt_definir"))
                         {
-                            Complemento_pago.arr_impuestos[fila_dr][i][6] = panel_ximp.Text;
+                            Complemento_pago.arr_impuestos[fila_dr_tmp][i][6] = panel_ximp.Text;
                         }
                         if (panel_ximp.Name.Contains("txt_importe"))
                         {
-                            Complemento_pago.arr_impuestos[fila_dr][i][7] = panel_ximp.Text;
+                            Complemento_pago.arr_impuestos[fila_dr_tmp][i][7] = panel_ximp.Text;
 
                             i++;
                         }
@@ -818,9 +819,9 @@ namespace PuntoDeVentaV2
         private void limpiar_vnt()
         {
             pnl_impuestos.Controls.Clear();
-            rb_0.Checked = false;
-            rb_8.Checked = false;
-            rb_16.Checked = false;
+            rb_cero.Checked = false;
+            rb_ocho.Checked = false;
+            rb_dieciseis.Checked = false;
             rb_exento.Checked = false;
             txt_base0_7.Text = string.Empty;
             txt_importe0_6.Text = string.Empty;
