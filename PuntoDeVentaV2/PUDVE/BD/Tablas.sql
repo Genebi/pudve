@@ -2340,3 +2340,23 @@ ALTER TABLE dgvaumentarinventario MODIFY COLUMN NombreProducto VARCHAR(1000);
 
 -- Columna para guardar las fechas de pagos de abonos que aun no se pagan.
 ALTER TABLE reglasCreditoVenta ADD COLUMN IF NOT EXISTS FechasFaltantes TEXT ;
+
+-- Columnas Miriam
+ALTER TABLE Productos ADD COLUMN IF NOT EXISTS incluye_impuestos VARCHAR(255);
+ALTER TABLE Productos ADD COLUMN IF NOT EXISTS nombre_ctercero VARCHAR(255);
+ALTER TABLE Productos ADD COLUMN IF NOT EXISTS rfc_ctercero VARCHAR(255);
+ALTER TABLE Productos ADD COLUMN IF NOT EXISTS cp_ctercero VARCHAR(255);
+ALTER TABLE Productos ADD COLUMN IF NOT EXISTS regimen_ctercero VARCHAR(255);
+
+ALTER TABLE Facturas ADD COLUMN IF NOT EXISTS cfdi_40 INT(1) DEFAULT 0;
+ALTER TABLE Facturas ADD COLUMN IF NOT EXISTS r_regimen  VARCHAR(255);
+ALTER TABLE Facturas ADD COLUMN IF NOT EXISTS exportacion VARCHAR(255);
+ALTER TABLE Facturas ADD COLUMN IF NOT EXISTS r_periodicidad_infog VARCHAR(255);
+ALTER TABLE Facturas ADD COLUMN IF NOT EXISTS r_meses_infog VARCHAR(255);
+ALTER TABLE Facturas ADD COLUMN IF NOT EXISTS r_anio_infog VARCHAR(255);
+
+ALTER TABLE Facturas_productos ADD COLUMN IF NOT EXISTS incluye_impuestos  VARCHAR(255);
+ALTER TABLE Facturas_productos ADD COLUMN IF NOT EXISTS nombre_ctercero VARCHAR(255);
+ALTER TABLE Facturas_productos ADD COLUMN IF NOT EXISTS rfc_ctercero VARCHAR(255);
+ALTER TABLE Facturas_productos ADD COLUMN IF NOT EXISTS cp_ctercero   VARCHAR(255);
+ALTER TABLE Facturas_productos ADD COLUMN IF NOT EXISTS regimen_ctercero VARCHAR(255);
