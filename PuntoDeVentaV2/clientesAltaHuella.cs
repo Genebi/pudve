@@ -54,6 +54,9 @@ namespace PuntoDeVentaV2
                     Capturer.EventHandler = this;					// Subscribe for capturing events.
                 else
                     SetPrompt("No se pudo iniciar la operación de captura");
+
+                Enroller = new DPFP.Processing.Enrollment();            // Create an enrollment.
+                UpdateStatus();
             }
             catch
             {
@@ -61,8 +64,7 @@ namespace PuntoDeVentaV2
                 this.Close();
             }
 
-            Enroller = new DPFP.Processing.Enrollment();            // Create an enrollment.
-            UpdateStatus();
+            
         }
 
         protected void SetPrompt(string prompt)
