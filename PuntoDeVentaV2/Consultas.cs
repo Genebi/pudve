@@ -1118,8 +1118,15 @@ namespace PuntoDeVentaV2
         public string InsertaDatoDinamico(string claveAgregar, int claveValor, int idUsuario)
         {
             string claveAgregarNormalized = claveAgregar.Normalize(NormalizationForm.FormD);
-            string claveAgregarCleaned = Regex.Replace(claveAgregarNormalized, @"[^a-zA-Z0-9\s]", "").ToLowerInvariant();
-
+            string claveAgregarCleaned = string.Empty;
+            if (claveAgregar.Equals("Proveedor"))
+            {
+                claveAgregarCleaned = claveAgregar;
+            }
+            else
+            {
+                claveAgregarCleaned = Regex.Replace(claveAgregarNormalized, @"[^a-zA-Z0-9\s]", "").ToLowerInvariant();
+            }
             var consulta = "INSERT INTO appSettings (concepto, checkBoxConcepto, textComboBoxConcepto, checkBoxComboBoxConcepto, IDUsuario)";
             consulta += $"VALUES ('{claveAgregarCleaned}', '{claveValor}', 'chk{claveAgregarCleaned}', '{claveValor}', '{idUsuario}')";
 
