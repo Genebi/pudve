@@ -1472,6 +1472,12 @@
       <DependentUpon>TicketAbrirCaja.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Content Include="ReportesImpresion\Ticket\Amortizacion\amortizacion1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>amortizacion1.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="ReportesImpresion\Ticket\Caducidad\productosCaducidad.cs">
       <DependentUpon>productosCaducidad.xsd</DependentUpon>
     </Compile>
@@ -1973,6 +1979,12 @@
     </Compile>
     <Compile Include="Visualizar_notaventa.Designer.cs">
       <DependentUpon>Visualizar_notaventa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="vizualisarAmortizacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="vizualisarAmortizacion.Designer.cs">
+      <DependentUpon>vizualisarAmortizacion.cs</DependentUpon>
     </Compile>
     <Compile Include="Web References\FH_CFDI40_produccion\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -2653,6 +2665,9 @@
     <Content Include="ReportesImpresion\Ticket\VentaRealizada\ReporteTicket80mm3.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReportesImpresion\Ticket\Amortizacion\amortizacion.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="ReportesImpresion\Ticket\Caducidad\ReporteCaducidad.rdlc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -2824,6 +2839,9 @@
     <EmbeddedResource Include="Visualizar_notaventa.resx">
       <DependentUpon>Visualizar_notaventa.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="vizualisarAmortizacion.resx">
+      <DependentUpon>vizualisarAmortizacion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WEBCaja.resx">
       <DependentUpon>WEBCaja.cs</DependentUpon>
     </EmbeddedResource>
@@ -2896,6 +2914,20 @@
       <DependentUpon>TicketAbrirCaja.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="ReportesImpresion\Ticket\Amortizacion\amortizacion1.xsc">
+      <DependentUpon>amortizacion1.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\Amortizacion\amortizacion1.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>amortizacion1.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ReportesImpresion\Ticket\Amortizacion\amortizacion1.xss">
+      <DependentUpon>amortizacion1.xsd</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="ReportesImpresion\Ticket\Caducidad\productosCaducidad.xsc">
       <DependentUpon>productosCaducidad.xsd</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
