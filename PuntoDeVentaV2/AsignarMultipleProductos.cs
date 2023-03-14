@@ -218,13 +218,13 @@ namespace PuntoDeVentaV2
             AgregarOpcion("Agregar_Descuento", "Agregar Descuento", 395);
             //PANEL ELIMINAR DESCUENTO POR PORCENTAJE
             AgregarOpcion("Eliminar_Descuento", "Elimnar Descuento", 430);
+            int alturaEjeY = 465;
             if (FormPrincipal.userNickName.Contains("HOUSEDEPOTAUTLAN"))
             {
+
                 AgregarOpcion("CantidadMayoreo", "Cantidad Mayoreo", 465);
+                alturaEjeY += 35;
             }
-
-            int alturaEjeY = 500;
-
             var conceptos = mb.ConceptosAppSettings();
 
             foreach (var concepto in conceptos)
