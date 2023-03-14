@@ -25,15 +25,15 @@ namespace PuntoDeVentaV2
             InitializeComponent();
 
             // Obtiene el número de fila del documento relacionado
-            fila_dr = num_dr; //Console.WriteLine("fila_dr=" + fila_dr+"="+ id_fct);
+            fila_dr = num_dr; 
             id_factura = id_fct;
             abono = abonof;
         }
 
         private void Complemento_pago_impuestos_Load(object sender, EventArgs e)
         {
-            id_factura = 333;
-            abono = 5850;
+            //id_factura = 333;
+            //abono = 5850;
 
             var servidor = Properties.Settings.Default.Hosting;
             string rutaXML = @"C:\Archivos PUDVE\Facturas\XML_INGRESOS_" + id_factura + ".xml";

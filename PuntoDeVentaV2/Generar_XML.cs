@@ -142,7 +142,7 @@ namespace PuntoDeVentaV2
                     periodicidad_ct = r_facturas["r_periodicidad_infog"].ToString();
                     meses_ct = r_facturas["r_meses_infog"].ToString();
                     anio_ct = r_facturas["r_anio_infog"].ToString();
-;                }
+;               }
 
                 // Solo cuando es un complemento de pago
 
@@ -232,15 +232,6 @@ namespace PuntoDeVentaV2
             Comprobante comprobante = new Comprobante();
 
 
-            // NODO INFORMACIÓN GLOBAL
-            //------------------------
-
-            ComprobanteInformacionGlobal infog = new ComprobanteInformacionGlobal();
-            infog.Periodicidad = periodicidad_ct;
-            infog.Meses = meses_ct;
-            infog.Año = anio_ct;
-
-
             // NODO EMISOR
             //------------
 
@@ -261,7 +252,21 @@ namespace PuntoDeVentaV2
             receptor.UsoCFDI = uso_cfdi;
 
 
-            comprobante.InformacionGlobal = infog;
+            // NODO INFORMACIÓN GLOBAL
+            //------------------------
+
+            if (rfc_r == "XAXX010101000" & nombre_r == "PUBLICO EN GENERAL")
+            {
+                ComprobanteInformacionGlobal infog = new ComprobanteInformacionGlobal();
+
+                infog.Periodicidad = periodicidad_ct;
+                infog.Meses = meses_ct;
+                infog.Año = anio_ct;
+
+                comprobante.InformacionGlobal = infog;
+            }
+
+            
             comprobante.Emisor = emisor;
             comprobante.Receptor = receptor;
 

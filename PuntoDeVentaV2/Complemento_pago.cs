@@ -312,8 +312,6 @@ namespace PuntoDeVentaV2
                         {
                             error_monto_mayor++;
                         }
-
-                        t++;
                     }
                     if (panel.Name.Contains("txt_moneda_dr"))
                     {
@@ -331,6 +329,8 @@ namespace PuntoDeVentaV2
                         }
 
                         arr_totales[t][4] = panel.Text;
+
+                        t++;
                     }
                 }
 
@@ -374,18 +374,20 @@ namespace PuntoDeVentaV2
                 string fecha_hora_pago = datetime_fecha_pago.Value.ToString("yyy-MM-dd") + " " + datetime_hora_pago.Value.ToString("hh:mm:ss");
 
                 // Buscamos los datos del receptor
+
                 DataTable d_receptor = cn.CargarDatos(cs.obtener_datos_para_gcpago(1, id_f_receptor));
                 DataRow r_recetor = d_receptor.Rows[0];
 
                 string folio = r_recetor["folio"].ToString();
                 string serie = r_recetor["serie"].ToString();
-                //string id_venta = r_recetor["id_venta"].ToString();
 
                 // Datos del emisor
+
                 DataTable d_emisor = cn.CargarDatos(cs.cargar_datos_venta_xml(2, 0, id_usuario));
                 DataRow r_emisor = d_emisor.Rows[0];
 
                 // Se obtiene la cantidad de complementos generados para continuar con el consecutivo
+
                 int cant_complementos = Convert.ToInt32(cn.EjecutarSelect($"SELECT COUNT(ID) AS ID FROM Facturas_complemento_pago WHERE id_factura_principal='{id_f_receptor}'", 1));
                 cant_complementos = cant_complementos + 1;
                 serie = serie + "-" + cant_complementos;
