@@ -4996,6 +4996,21 @@ namespace PuntoDeVentaV2
         //El estatus del Producto: 1 = Activo, 0 = Inactivo, 2 = Tdodos
         public void CargarDatos(int status = 1, string busquedaEnProductos = "")
         {
+            int opc = 0;
+
+            if (cbMostrar.Text.Equals("Habilitados"))
+            {
+                opc = 1;
+            }
+            else if (cbMostrar.Text.Equals("Deshabilitados"))
+            {
+                opc = 0;
+            }
+            else if (cbMostrar.Text.Equals("Todos"))
+            {
+                opc = 2;
+            }
+            status = opc;
             string auxiliarConsulta = string.Empty;
 
             if (clickBoton == 1)
