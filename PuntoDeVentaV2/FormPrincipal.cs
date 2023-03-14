@@ -37,6 +37,7 @@ namespace PuntoDeVentaV2
         Cargando cargando = new Cargando();
         bool listenerIsRunning = false;
         bool senderIsRunning = false;
+        private Thread caducosThread;
 
         //checarVersion vs = new checarVersion();
 
@@ -95,6 +96,7 @@ namespace PuntoDeVentaV2
 
         ///Variables de SetUp
         public static int pasar = 0;
+        public static int caducidad = 0;
         public static int checkNoVendidos = 0;
         public static int diasNoVendidos = 0;
 
@@ -541,13 +543,6 @@ namespace PuntoDeVentaV2
             TempUserNickName = TempNickUsr;
             TempUserPass = TempPassUsr;
 
-
-
-            
-
-            Thread caducos = new Thread(() => buscarCaducos());
-            caducos.Start();
-
             ObtenerDatosUsuario(userID);
             var servidor = Properties.Settings.Default.Hosting;
 
@@ -585,6 +580,7 @@ namespace PuntoDeVentaV2
             if (datosConfig.Count > 0)
             {
                 pasar = Convert.ToInt16(datosConfig[5]);
+                caducidad = Convert.ToInt16(datosConfig[5]);
                 checkNoVendidos = Convert.ToInt16(datosConfig[11]);
                 diasNoVendidos = Convert.ToInt32(datosConfig[12]);
 
@@ -701,6 +697,13 @@ namespace PuntoDeVentaV2
             timerOrdenes.Start();
 
             btnAyuda.Focus();
+
+            //Revision caducidad
+            if (caducidad == 1) // apocosi bien pinche monosas
+            {
+                caducosThread = new Thread(() => buscarCaducos());
+                caducosThread.Start();
+            }
         }
 
         private void buscarCaducos()
@@ -1111,6 +1114,10 @@ namespace PuntoDeVentaV2
 
         private void FormPrincipal_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (caducosThread != null && caducosThread.IsAlive) // check if the thread is running
+            {
+                caducosThread.Abort(); // stop the thread
+            }
 
             mg.EliminarFiltros();
 
