@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Amortizacion" targetNamespace="http://tempuri.org/Amortizacion.xsd" xmlns:mstns="http://tempuri.org/Amortizacion.xsd" xmlns="http://tempuri.org/Amortizacion.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="Amortizacion" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="Amortizacion" msprop:Generator_UserDSName="Amortizacion">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="amortizacion1" msprop:Generator_TableClassName="amortizacion1DataTable" msprop:Generator_TableVarName="tableamortizacion1" msprop:Generator_TablePropName="amortizacion1" msprop:Generator_RowDeletingName="amortizacion1RowDeleting" msprop:Generator_RowChangingName="amortizacion1RowChanging" msprop:Generator_RowEvHandlerName="amortizacion1RowChangeEventHandler" msprop:Generator_RowDeletedName="amortizacion1RowDeleted" msprop:Generator_UserTableName="amortizacion1" msprop:Generator_RowChangedName="amortizacion1RowChanged" msprop:Generator_RowEvArgName="amortizacion1RowChangeEvent" msprop:Generator_RowClassName="amortizacion1Row">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="FECHAS" msprop:Generator_ColumnVarNameInTable="columnFECHAS" msprop:Generator_ColumnPropNameInRow="FECHAS" msprop:Generator_ColumnPropNameInTable="FECHASColumn" msprop:Generator_UserColumnName="FECHAS" type="xs:string" minOccurs="0" />
+              <xs:element name="ABONO" msprop:Generator_ColumnVarNameInTable="columnABONO" msprop:Generator_ColumnPropNameInRow="ABONO" msprop:Generator_ColumnPropNameInTable="ABONOColumn" msprop:Generator_UserColumnName="ABONO" type="xs:string" minOccurs="0" />
+              <xs:element name="INTERES" msprop:Generator_ColumnVarNameInTable="columnINTERES" msprop:Generator_ColumnPropNameInRow="INTERES" msprop:Generator_ColumnPropNameInTable="INTERESColumn" msprop:Generator_UserColumnName="INTERES" type="xs:string" minOccurs="0" />
+              <xs:element name="PAGADO" msprop:Generator_ColumnVarNameInTable="columnPAGADO" msprop:Generator_ColumnPropNameInRow="PAGADO" msprop:Generator_ColumnPropNameInTable="PAGADOColumn" msprop:Generator_UserColumnName="PAGADO" type="xs:string" minOccurs="0" />
+              <xs:element name="DIAS" msprop:Generator_ColumnVarNameInTable="columnDIAS" msprop:Generator_ColumnPropNameInRow="DIAS" msprop:Generator_ColumnPropNameInTable="DIASColumn" msprop:Generator_UserColumnName="DIAS" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

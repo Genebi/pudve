@@ -170,7 +170,7 @@ namespace PuntoDeVentaV2
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion,"0","0","0","0"
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion,"0","0","0","0","0"
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
@@ -178,7 +178,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),"0","0","0","0"
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),"0","0","0","0","0"
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));
@@ -241,7 +241,7 @@ namespace PuntoDeVentaV2
                     if (!FormPrincipal.userNickName.Contains("@"))
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion,"0","0","0","0"
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), totalPendiente.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion,"0","0","0","0","0"
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonos(datos));
@@ -249,7 +249,7 @@ namespace PuntoDeVentaV2
                     else
                     {
                         datos = new string[] {
-                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),"0","0","0","0"
+                            idVenta.ToString(), FormPrincipal.userID.ToString(), total.ToString(), efectiv.ToString(), tarjeta.ToString(), vales.ToString(), cheque.ToString(), transferencia.ToString(), referencia, fechaOperacion, FormPrincipal.id_empleado.ToString(),"0","0","0","0","0"
                         };
 
                         resultado = cn.EjecutarConsulta(cs.GuardarAbonosEmpleados(datos));
