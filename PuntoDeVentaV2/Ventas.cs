@@ -257,6 +257,7 @@ namespace PuntoDeVentaV2
         public static int IDAnticipo = 0;
 
         bool QueLoLimipie = false;
+        public static bool SeHizoAbonoInicial = false;
         #region Proceso de Bascula
         // Constructores
         private SerialPort BasculaCom = new SerialPort();       // Puerto conectado a la báscula
@@ -2449,7 +2450,7 @@ namespace PuntoDeVentaV2
                     var descuentoFinal = precioAux * (porcentajeAux / 100);
 
                     DGVentas.Rows[fila].Cells["Descuento"].Value = descuentoFinal;
-                    DGVentas.Rows[fila].Cells["Importe"].Value = precioAux;
+                    DGVentas.Rows[fila].Cells["Importe"].Value = descuentoFinal > 0 ? precioAux - descuentoFinal : precioAux;
                 }
 
                 //Mayoreo
@@ -2877,9 +2878,10 @@ namespace PuntoDeVentaV2
                         cantidadDescuento = Convert.ToDouble(descuentoIndividual[0]);
                     }
                     double importeProducto;
+
                     if (cantidadProducto > 0 && cantidadProducto < 1)
                     {
-                        importeProducto = (precioOriginal * Convert.ToDouble(cantidadProducto));
+                        importeProducto = (precioOriginal * Convert.ToDouble(cantidadProducto)) - cantidadDescuento;
                     }
                     else
                     {
@@ -3661,7 +3663,11 @@ namespace PuntoDeVentaV2
                                 AsignarCreditoVenta.cliente = string.Empty;
                                 cargarTicketAnticipo();
                                 ultimaVentaInformacion();
-
+                                if (SeHizoAbonoInicial.Equals(true))
+                                {
+                                    SeHizoAbonoInicial = false;
+                                    ImprimirTicketAbono();
+                                }
                                 panel1.Focus();
                             }
                             else
@@ -3747,6 +3753,16 @@ namespace PuntoDeVentaV2
             }
             txtBuscadorProducto.Focus();
             yasemando = false;
+        }
+
+        private void ImprimirTicketAbono()
+        {
+            using (var dt = cn.CargarDatos($"SELECT ID from ventas ORDER BY ID DESC LIMIT 1"))
+            {
+                ImprimirTicketAbono impresionTicketAbono = new ImprimirTicketAbono();
+                impresionTicketAbono.idAbono = Convert.ToInt32(dt.Rows[0][0]);
+                impresionTicketAbono.ShowDialog();
+            }
         }
 
         private bool verificarSubDetalles()

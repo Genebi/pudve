@@ -1584,7 +1584,7 @@ namespace PuntoDeVentaV2
                     var consulta = "INSERT IGNORE INTO Productos (ID, Precio) VALUES";
                     var valores = string.Empty;
                     var empleado = "0";
-                    var mensaje = "Los siguientes productos no seran modificados porque exeden el precio compra:\n";
+                    var mensaje = "Los siguientes productos no seran modificados porque el precio venta es menor al precio compra:\n";
 
                     if (FormPrincipal.userNickName.Contains('@'))
                     {
@@ -1656,7 +1656,7 @@ namespace PuntoDeVentaV2
                         }
                        
                     }
-                    if (!mensaje.Equals("Los siguientes productos no seran modificados porque exeden el precio compra:\n"))
+                    if (!mensaje.Equals("Los siguientes productos no seran modificados porque el precio venta es menor al precio compra:\n"))
                     {
                         MessageBox.Show(mensaje, "Aviso del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
