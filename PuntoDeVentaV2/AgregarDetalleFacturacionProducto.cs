@@ -599,7 +599,7 @@ namespace PuntoDeVentaV2
 
             //TextBox para el porcentaje
             TextBox tb1 = new TextBox();
-            tb1.Name = etiqueta2 + id + "_1";
+            tb1.Name = etiqueta2 + id + "_1"; 
             tb1.Width = 100;
             tb1.Height = 20;
             tb1.Margin = new Padding(20, 0, 0, 0);
@@ -1520,6 +1520,8 @@ namespace PuntoDeVentaV2
                     
             var cantidad = tb.Text;
 
+            var tipo_txt = tb.Name.Split('_');
+
             int numero_fila_actual = 0;
             string txt_timpuest= nombre.Substring(0, 7);
             string txt_timpuestLoc = nombre.Substring(0, 8);
@@ -1644,7 +1646,7 @@ namespace PuntoDeVentaV2
             //float porcentaje = CantidadPorcentaje(cantidad);
             double porcentaje = convertir_porcentaje(Convert.ToDouble(cantidad), cmb_impuesto_actual);
 
-            if (porcentaje < lim_porc_minimo || porcentaje > lim_porc_maximo)
+            if (porcentaje < lim_porc_minimo || porcentaje > lim_porc_maximo & tipo_txt[1] == "1")
             {
                 MessageBox.Show("El porcentaje debe ser entre " + txt_lim_maxmin, "Mensaje del Sistema", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -2181,7 +2183,11 @@ namespace PuntoDeVentaV2
 
                         ComboBox cb4 = (ComboBox)this.Controls.Find(nombre_cb + 4, true).FirstOrDefault();
 
-                        string tasaCuotaAux = "...";
+                        string tasaCuotaAux = r_impuestos_ext["tasacuota"].ToString(); // "...";
+                        // Modificado. Miri,
+                        // Linea anterior puesta en comentarios debido a que no puede haber registro de un impuesto donde no se halla especificado una tasa cuota.
+                        // Se asigna por default lo que trae guardado porque las siguientes condicionales fallan cuando en el registro se encuentra agregado en signo de "%",
+                        // no se selecciona la opción.
 
                         if (r_impuestos_ext["tasacuota"].ToString().Equals("0.00")) { tasaCuotaAux = "0 %"; }
                         if (r_impuestos_ext["tasacuota"].ToString().Equals("26.50")) { tasaCuotaAux = "26.5 %"; }
