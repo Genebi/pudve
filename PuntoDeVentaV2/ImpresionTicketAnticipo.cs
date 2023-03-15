@@ -138,6 +138,13 @@ namespace PuntoDeVentaV2
             }
             reportParameters.Add(new ReportParameter("Anterior", AnticipoUtilizadoold.ToString("0.00")));
 
+            string mensaje = "Ticket Anticipo";
+            if (ventaDT.Rows[0]["Status"].ToString().Equals("4"))
+            {
+                mensaje = "Ticket Anticipo Devuelto";
+            }
+            reportParameters.Add(new ReportParameter("Mensaje", mensaje));
+
             this.reportViewer1.ProcessingMode = ProcessingMode.Local;
             this.reportViewer1.LocalReport.ReportPath = FullReportPath;
             this.reportViewer1.LocalReport.SetParameters(reportParameters);

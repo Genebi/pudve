@@ -40,6 +40,7 @@ namespace PuntoDeVentaV2
         #endregion
 
         public int idVentaRealizada { get; set; }
+        public int tipoVenta { get; set; }
 
         public ImprimirTicketCancelado8cm()
         {
@@ -55,7 +56,7 @@ namespace PuntoDeVentaV2
         {
             var servidor = Properties.Settings.Default.Hosting;
             string cadenaConn = string.Empty;
-            string queryCancelacionRealizada = cs.imprimirTicketCancelado(idVentaRealizada);
+            string queryCancelacionRealizada = cs.imprimirTicketCancelado(idVentaRealizada, tipoVenta);
             MySqlConnection conn = new MySqlConnection();
             string pathApplication = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             string FullReportPath = $@"{pathApplication}\ReportesImpresion\Ticket\VentaCancelada\ReporteTicketCancelado80mm.rdlc";

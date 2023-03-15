@@ -3672,7 +3672,7 @@ namespace PuntoDeVentaV2
                             }
                             else
                             {
-                                idCliente = string.Empty;
+                                //idCliente = string.Empty;
                                 DetalleVenta.idCliente = 0;
                                 DetalleVenta.cliente = string.Empty;
                                 AsignarCreditoVenta.idCliente = 0;
@@ -8593,7 +8593,7 @@ namespace PuntoDeVentaV2
                     var datos = clientes.datosCliente;
                     string cliente = string.Empty;
 
-                    idCliente = datos[18];
+                    idCliente = datos[19];
 
                     var auxPrimero = string.IsNullOrWhiteSpace(datos[0]);
                     var auxSegundo = string.IsNullOrWhiteSpace(datos[1]);
