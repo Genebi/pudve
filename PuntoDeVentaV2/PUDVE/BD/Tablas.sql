@@ -2360,3 +2360,6 @@ ALTER TABLE Facturas_productos ADD COLUMN IF NOT EXISTS nombre_ctercero VARCHAR(
 ALTER TABLE Facturas_productos ADD COLUMN IF NOT EXISTS rfc_ctercero VARCHAR(255);
 ALTER TABLE Facturas_productos ADD COLUMN IF NOT EXISTS cp_ctercero   VARCHAR(255);
 ALTER TABLE Facturas_productos ADD COLUMN IF NOT EXISTS regimen_ctercero VARCHAR(255);
+
+
+ALTER TABLE Abonos ADD COLUMN IF NOT EXISTS restanteIntereses DECIMAL (16,2) DEFAULT 0;

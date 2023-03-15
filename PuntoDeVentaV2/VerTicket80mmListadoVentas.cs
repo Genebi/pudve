@@ -70,7 +70,7 @@ namespace PuntoDeVentaV2
 
             string queryVenta = cs.imprimirTicketRealizada(idVentaRealizada, tipoVenta);
 
-            MySqlConnection conn = new MySqlConnection();
+             MySqlConnection conn = new MySqlConnection();
 
             conn.ConnectionString = cadenaConn;
 
@@ -308,6 +308,10 @@ namespace PuntoDeVentaV2
 
             string SubTotal = ventaDT.Rows[0]["Subtotal"].ToString();
             reportParameters.Add(new ReportParameter("SubTotal", SubTotal));
+            if (tipoVenta.Equals(6))
+            {
+                ventaDT.Rows[0]["FormaDePago"] = ventaDT.Rows[0]["FormaDePago"].ToString() + "(RENTA)";
+            }
 
             this.reportViewer1.LocalReport.SetParameters(reportParameters);
             this.reportViewer1.LocalReport.DataSources.Add(rp);
