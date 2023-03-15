@@ -18,6 +18,7 @@ namespace PuntoDeVentaV2
         ConexionAPPWEB con = new ConexionAPPWEB();
         Consultas cs = new Consultas();
         MetodosBusquedas mb = new MetodosBusquedas();
+        bool requiereAjuste = false;
 
         // Variables iniciales
         string fechaInventario = string.Empty;
@@ -72,6 +73,7 @@ namespace PuntoDeVentaV2
 
         List<string> id = new List<string>();
         int contador = 1;
+        List<string> updatesSubdetalles = new List<string>();
 
         bool validarSiguienteTerminar = false;
         string mensajeNoHay = string.Empty;
@@ -615,6 +617,48 @@ namespace PuntoDeVentaV2
                             }
 
                             con.EjecutarConsulta($"INSERT INTO datosProducto(CodigoBarras, Nombre, Proveedores, Precio, StockMin, StockMax, Stock, Usuario, Empleado,Exito, Revision) VALUES('{txtCodigoBarras.Text}', '{txtNombreProducto.Text}', 'TEST', '{lblPrecioProducto.Text}', '{lblStockMinimo.Text}', '{lblStockMaximo.Text}', '{txtCantidadStock.Text}', '{FormPrincipal.userNickName.Split('@')[0]}', '{idEmpleado}',1,{lblNoRevision.Text})");
+
+                            using (DataTable datosCategoria = cn.CargarDatos($@"SELECT
+                                p.CodigoBarras AS IDLocal,
+                                subdetallesdeproducto.Categoria AS Detalle,
+                                CASE
+                                    subdetallesdeproducto.TipoDato 
+                                    WHEN 0 THEN detallesubdetalle.Fecha 
+                                    WHEN 1 THEN detallesubdetalle.Valor 
+                                    WHEN 2 THEN detallesubdetalle.Nombre 
+                                END AS Subdetalle,
+                                subdetallesdeproducto.TipoDato AS Tipo,
+                                detallesubdetalle.Stock 
+                            FROM
+                                subdetallesdeproducto
+                                INNER JOIN detallesubdetalle ON subdetallesdeproducto.ID = detallesubdetalle.IDSubDetalle 
+                                INNER JOIN Productos p ON subdetallesdeproducto.IDProducto = p.ID
+                            WHERE
+                                subdetallesdeproducto.IDUsuario = '{FormPrincipal.userID}'
+                                AND subdetallesdeproducto.Activo = 1
+                                AND p.ID = '{idProducto}';
+                        "))
+                            {
+                                if (!datosCategoria.Rows.Count.Equals(0))
+                                {
+                                    try
+                                    {
+                                        con.EjecutarConsulta($"DELETE FROM websubdetalles WHERE IDCliente = '{FormPrincipal.userNickName.Split('@')[0]}' AND IDLocal = {datosCategoria.Rows[0][0].ToString()}");
+                                        foreach (DataRow item in datosCategoria.Rows)
+                                        {
+                                            string consulta = "INSERT INTO websubdetalles (IDLocal, IDCliente, Detalle, SubDetalle, Tipo, Stock)";
+                                            consulta += $"VALUES ('{item["IDLocal"].ToString()}', '{FormPrincipal.userNickName.Split('@')[0]}', '{item["Detalle"].ToString()}', '{item["SubDetalle"].ToString()}', '{item["Tipo"].ToString()}', {item["Stock"].ToString()})";
+                                            con.EjecutarConsulta(consulta);
+                                        }
+                                    }
+                                    catch (Exception)
+                                    {
+                                        //Se perdio la conexion a internet
+                                        Thread.Sleep(6000);
+                                        this.Close();
+                                    }
+                                }
+                            }
 
                         }
                         else
@@ -1227,6 +1271,45 @@ namespace PuntoDeVentaV2
 
         private void btnSiguiente_Click(object sender, EventArgs e)
         {
+
+            using (DataTable datosCategoria = cn.CargarDatos($@"SELECT 
+                            subdetallesdeproducto.ID AS IDLocal,
+                            Categoria AS Detalle,
+                            CASE subdetallesdeproducto.TipoDato
+                                WHEN 0 THEN detallesubdetalle.Fecha
+                                WHEN 1 THEN detallesubdetalle.Valor
+                                WHEN 2 THEN detallesubdetalle.Nombre
+                            END AS Subdetalle,
+                            subdetallesdeproducto.TipoDato AS Tipo,
+		                        detallesubdetalle.Stock
+                        FROM 
+                            subdetallesdeproducto 
+                            INNER JOIN detallesubdetalle ON subdetallesdeproducto.ID = detallesubdetalle.IDSubDetalle 
+                        WHERE 
+                            IDProducto = '{idProducto}' AND IDUsuario = '{FormPrincipal.userID}' AND Activo = 1;
+                        "))
+            {
+                if (!datosCategoria.Rows.Count.Equals(0))
+                {
+                    try
+                    {
+                        con.EjecutarConsulta($"DELETE FROM websubdetalles WHERE IDCliente = '{FormPrincipal.userNickName}' AND IDLocal = {idProducto}");
+                        foreach (DataRow item in datosCategoria.Rows)
+                        {
+                            string consulta = "INSERT INTO websubdetalles (IDLocal, IDCliente, Detalle, SubDetalle, Tipo, Stock)";
+                            consulta += $"VALUES ('{item["IDLocal"].ToString()}', '{FormPrincipal.userNickName}', '{item["Detalle"].ToString()}', '{item["SubDetalle"].ToString()}', '{item["Tipo"].ToString()}', {item["Stock"].ToString()})";
+                            con.EjecutarConsulta(consulta);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        //Se perdio la conexion a internet
+                        Thread.Sleep(6000);
+                        this.Close();
+                    }
+                }
+            }
+
             verificarCodigoFiltroProveedor();
 
             codBarras = txtBoxBuscarCodigoBarras.Text;
@@ -1269,7 +1352,8 @@ namespace PuntoDeVentaV2
                             var stockFisico = txtCantidadStock.Text;
                             var fecha = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                             var diferencia = double.Parse(datosProducto[1]) - double.Parse(stockFisico);
-
+                            
+                            
 
                             // Actualizar datos en RevisarInventario
                             cn.EjecutarConsulta($"UPDATE RevisarInventario SET StockAlmacen = '{info[4]}', StockFisico = '{stockFisico}', Fecha = '{fecha}', Diferencia = '{diferencia}' WHERE IDAlmacen = '{idProducto}' AND IDUsuario = {FormPrincipal.userID} AND IDComputadora = '{nombrePC}'");
@@ -1486,6 +1570,13 @@ namespace PuntoDeVentaV2
             }
         }
 
+        private bool verificarsubdetallesweb()
+        {
+
+
+            return true;
+        }
+
         private void verificarCodigoFiltroProveedor()
         {
             if (operadorFiltro.Equals("chkProveedor"))
@@ -1600,6 +1691,11 @@ namespace PuntoDeVentaV2
 
         private void btnTerminar_Click(object sender, EventArgs e)
         {
+
+            //Aqui reviso los subdetallones pa trucha pinche aaron a ver como le vas a hacer pa implementar tu cagadero en web eh, para que se ponga al brinco
+
+            
+
             if (true)
             {
                 if (tipoFiltro== "Normal")
@@ -2328,5 +2424,6 @@ namespace PuntoDeVentaV2
                 }
             }
         }
+
     }
 }
