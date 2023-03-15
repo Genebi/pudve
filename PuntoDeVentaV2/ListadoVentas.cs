@@ -1787,10 +1787,10 @@ namespace PuntoDeVentaV2
 
 
             if (opcion == "RP") { estado = 6; } //Rentas pagadas
-            if (opcion == "RG") { estado = 7; } //Rentas pagadas
-            if (opcion == "RC") { estado = 8; } //Rentas pagadas
-            if (opcion == "RCC") { estado = 9; } //Rentas pagadas
-            if (opcion == "RGG") { estado = 10; } //Rentas pagadas
+            if (opcion == "RG") { estado = 7; } //Rentas guardadas
+            if (opcion == "RC") { estado = 8; } //Rentas canceladas (devueltas)
+            if (opcion == "RCC") { estado = 9; } //Rentas a credito
+            if (opcion == "RGG") { estado = 10; } //Rentas globales
 
             return estado;
         }
@@ -2848,6 +2848,7 @@ namespace PuntoDeVentaV2
                                                         imprimirTicketVenta.FormaDePagoCliente = FormaPagoC;
                                                         imprimirTicketVenta.CodigoBarra = codigoBarraTicket;
                                                         imprimirTicketVenta.Referencia = referencia;
+                                                        imprimirTicketVenta.tipoVenta = cbTipoRentas.Visible ? 8 : 3;
 
                                                         imprimirTicketVenta.ShowDialog();
                                                     }
