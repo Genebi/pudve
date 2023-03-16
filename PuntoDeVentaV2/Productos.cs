@@ -265,7 +265,7 @@ namespace PuntoDeVentaV2
         //Este evento sirve para seleccionar mas de un checkbox al mismo tiempo sin que se desmarquen los demas
         private void DGVProductos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-                    if (e.ColumnIndex == 0)
+            if (e.ColumnIndex == 0)
             {
                 validarTodosDesmarcados = true;
 

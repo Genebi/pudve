@@ -434,6 +434,7 @@ namespace PuntoDeVentaV2
                     else if (impuestoSeleccionado == "16%")
                     {
                         rb16porCiento.Checked = true;
+                        checarRadioButtons();
                     }
                     else if (impuestoSeleccionado == "8%")
                     {
