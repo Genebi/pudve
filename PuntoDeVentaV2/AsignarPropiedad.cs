@@ -1680,7 +1680,15 @@ namespace PuntoDeVentaV2
 
                         notificacion.Start();
                     }
-                    MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
+                    if (string.IsNullOrWhiteSpace(valores))
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        MessageBoxTemporal.Show("ASIGNACION MULTIPLE REALIZADA CON EXITO", "Mensajes del sistema", 3, true);
+                    }
+                   
                 }
                 else
                 {

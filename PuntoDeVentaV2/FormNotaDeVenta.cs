@@ -202,9 +202,12 @@ namespace PuntoDeVentaV2
                 if (Status.Equals("9")) { StatusVenta = "Renta a Crédito"; }
                 if (Status.Equals("10")) { StatusVenta = "Renta Global"; }*/
             }
-
+            if (DTNotaDeVentas.Rows[0]["Status"].ToString().Equals("6"))
+            {
+                StatusVenta += " (RENTA)";
+            }
             reportParameters.Add(new ReportParameter("StatusVenta", StatusVenta));
-
+          
             LocalReport rdlc = new LocalReport(); 
             rdlc.EnableExternalImages = true;
             rdlc.ReportPath = FullReportPath;

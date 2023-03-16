@@ -60,6 +60,7 @@ namespace PuntoDeVentaV2
             }
 
 
+
             MySqlConnection conn = new MySqlConnection();
 
             conn.ConnectionString = cadenaConn;
