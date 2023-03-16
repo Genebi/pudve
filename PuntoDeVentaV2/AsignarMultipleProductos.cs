@@ -203,7 +203,7 @@ namespace PuntoDeVentaV2
             // PANEL STOCK MAXIMO
             AgregarOpcion("StockMaximo", "Stock Maximo", 150);
             // PANEL PRECIO
-            AgregarOpcion("Precio", "Precio", 185);
+            AgregarOpcion("Precio", "Precio de Venta", 185);
             // PANEL NUMERO DE REVISION
             AgregarOpcion("NumeroRevision", "Número Revisión", 220);
             // PANEL TIPO DE IVA
