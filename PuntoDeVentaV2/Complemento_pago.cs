@@ -370,8 +370,7 @@ namespace PuntoDeVentaV2
 
                 // ID de la factura donde se obtendran los datos del receptor
                 int id_f_receptor = Convert.ToInt32(arr_totales[0][0]);
-                // Fecha y hora en que se hizo el pago
-                string fecha_hora_pago = datetime_fecha_pago.Value.ToString("yyy-MM-dd") + " " + datetime_hora_pago.Value.ToString("hh:mm:ss");
+                
 
                 // Buscamos los datos del receptor
 
@@ -394,13 +393,12 @@ namespace PuntoDeVentaV2
 
                 string[] datos_f = new string[]
                 {
-                id_usuario.ToString(), id_empleado.ToString(), cmb_bx_forma_pago.SelectedValue.ToString(), folio, serie, fecha_hora_pago,
+                id_usuario.ToString(), id_empleado.ToString(), folio, serie,// fecha_hora_pago,
                 r_recetor["r_rfc"].ToString(), r_recetor["r_razon_social"].ToString(), r_recetor["r_nombre_comercial"].ToString(), r_recetor["r_correo"].ToString(), r_recetor["r_telefono"].ToString(), r_recetor["r_pais"].ToString(), r_recetor["r_estado"].ToString(),
                 r_recetor["r_municipio"].ToString(), r_recetor["r_localidad"].ToString(), r_recetor["r_cp"].ToString(), r_recetor["r_colonia"].ToString(), r_recetor["r_calle"].ToString(), r_recetor["r_num_ext"].ToString(), r_recetor["r_num_int"].ToString(),
                 r_emisor["RFC"].ToString(), r_emisor["RazonSocial"].ToString(), r_emisor["Regimen"].ToString(), r_emisor["Email"].ToString(), r_emisor["Telefono"].ToString(), r_emisor["CodigoPostal"].ToString(),
-                r_emisor["Estado"].ToString(), r_emisor["Municipio"].ToString(), r_emisor["Colonia"].ToString(), r_emisor["Calle"].ToString(), r_emisor["NoExterior"].ToString(), r_emisor["NoInterior"].ToString(),
-                txt_cuenta.Text
-                };
+                r_emisor["Estado"].ToString(), r_emisor["Municipio"].ToString(), r_emisor["Colonia"].ToString(), r_emisor["Calle"].ToString(), r_emisor["NoExterior"].ToString(), r_emisor["NoInterior"].ToString()
+                }; // cmb_bx_forma_pago.SelectedValue.ToString(), txt_cuenta.Text
 
                 cn.EjecutarConsulta(cs.crear_complemento_pago(1, datos_f));
 
@@ -415,24 +413,55 @@ namespace PuntoDeVentaV2
                 cn.EjecutarConsulta(cs.crear_complemento_pago(2, datos_fp));
 
 
+
+
                 // Se agrega registro con los datos del complemento de pago
 
                 decimal monto_pago = 0;
                 decimal[][] arr_idf_principal_pago = new decimal[arr_totales.Length][];
                 int x = 0;
+                string fecha_pago = datetime_fecha_pago.Value.ToString("yyy-MM-dd");
+                string hora_pago = datetime_hora_pago.Value.ToString("hh:mm:ss");
+
+
+                // Agrega primer registro donde se almacenarán datos para el nodo pago
+
+                string[] datos_nd_pago = new string[]
+                {
+                    id_factura_pago.ToString(), fecha_pago, hora_pago, txt_moneda_pago.Text, txt_tipo_cambio_pago.Text, cmb_bx_forma_pago.SelectedValue.ToString(), txt_cuenta.Text, txt_rfc_ordenante.Text, txt_banco.Text, txt_cuenta_beneficiario.Text, txt_rfc_beneficiario.Text
+                };
+
+                cn.EjecutarConsulta(cs.crear_complemento_pago(7, datos_nd_pago));
+
+                // Consulta id del registro recién agregado con datos del nodo pago
+                int id_pago = Convert.ToInt32(cn.EjecutarSelect($"SELECT ID FROM Facturas_complemento_pago WHERE id_factura='{id_factura_pago}' ORDER BY ID DESC LIMIT 1", 1));
+
+
+                // Agrega registro con información del documento relacionado
 
                 for (int r = 0; r < arr_totales.Length; r++)
                 {
                     // Obtiene el folio fiscal de la factura que se esta abonando/pagando
+
                     string uuid = Convert.ToString(cn.EjecutarSelect($"SELECT uuid FROM Facturas WHERE ID='{arr_totales[r][0]}'", 10));
 
                     // Obtiene el número de la parcialidad anterior
+
                     int n_parcialidad = Convert.ToInt32(cn.EjecutarSelect($"SELECT COUNT(ID) AS ID FROM Facturas_complemento_pago WHERE id_factura_principal='{arr_totales[r][0]}'", 1));
                     n_parcialidad = n_parcialidad + 1;
 
-                    decimal saldo_insoluto = 0;
-                    saldo_insoluto = Convert.ToDecimal(arr_totales[r][1]) - Convert.ToDecimal(arr_totales[r][2]);
+                    decimal saldo_insoluto = Convert.ToDecimal(arr_totales[r][1]) - Convert.ToDecimal(arr_totales[r][2]);
 
+
+                    string[] datos_nd_drelac = new string[]
+                    {
+                        id_pago.ToString(), arr_totales[r][0].ToString(), uuid, arr_totales[r][3], arr_totales[r][4], n_parcialidad.ToString(), arr_totales[r][1], arr_totales[r][2], saldo_insoluto.ToString()
+                    };
+
+                    cn.EjecutarConsulta(cs.crear_complemento_pago(3, datos_nd_drelac));
+
+
+                    /*
                     monto_pago += Convert.ToDecimal(arr_totales[r][2]);
 
                     string[] datos_cp = new string[]
@@ -448,7 +477,7 @@ namespace PuntoDeVentaV2
                     arr_idf_principal_pago[x] = new decimal[2];
                     arr_idf_principal_pago[x][0] = Convert.ToDecimal(arr_totales[r][0]);
                     arr_idf_principal_pago[x][1] = Convert.ToDecimal(saldo_insoluto);
-                    x++;
+                    x++;*/
 
                     // Cambia variable a 1 para indicar que la factura principal tienen complementos de pago
 

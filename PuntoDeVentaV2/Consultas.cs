@@ -1406,23 +1406,25 @@ namespace PuntoDeVentaV2
             // Crea registro en tabla facturas
             if (opc == 1)
             {
-                crea = "INSERT INTO Facturas (id_usuario, id_empleado, forma_pago, num_cuenta, moneda, tipo_cambio, folio, serie, tipo_comprobante, uso_cfdi, fecha_hora_cpago,";
+                crea = "INSERT INTO Facturas (id_usuario, id_empleado, moneda, folio, serie, tipo_comprobante, uso_cfdi, exportacion,"; //forma_pago, num_cuenta, moneda, tipo_cambio, fecha_hora_cpago
                 crea += "r_rfc, r_razon_social, r_nombre_comercial, r_correo, r_telefono, r_pais, r_estado, r_municipio, r_localidad, r_cp, r_colonia, r_calle, r_num_ext, r_num_int,";
                 crea += "e_rfc, e_razon_social, e_regimen, e_correo, e_telefono, e_cp, e_estado, e_municipio, e_colonia, e_calle, e_num_ext, e_num_int)";
-                crea += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[32]}', 'MXN', '1.000000', '{datos[3]}','{datos[4]}', 'P', 'P01', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}', '{datos[26]}', '{datos[27]}', '{datos[28]}', '{datos[29]}', '{datos[30]}', '{datos[31]}')";
+                crea += $"VALUES ('{datos[0]}', '{datos[1]}', 'XXX', '{datos[3]}','{datos[4]}', 'P', 'P01', '01', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}', '{datos[11]}', '{datos[12]}', '{datos[13]}', '{datos[14]}', '{datos[15]}', '{datos[16]}', '{datos[17]}', '{datos[18]}', '{datos[19]}', '{datos[20]}', '{datos[21]}', '{datos[22]}', '{datos[23]}', '{datos[24]}', '{datos[25]}', '{datos[26]}', '{datos[27]}', '{datos[28]}', '{datos[29]}', '{datos[30]}', '{datos[31]}')"; //'{datos[2]}', '{datos[32]}', '1.000000',  '{datos[5]}',
             }
 
             // Crea registro en Facturas_productos
             if (opc == 2)
 
             {
-                crea = $"INSERT INTO Facturas_productos (id_factura, clave_unidad, clave_producto, descripcion, cantidad, precio_u) VALUES ('{datos[0]}', 'ACT', '84111506', 'Pago', '1', '0')";
+                crea = $"INSERT INTO Facturas_productos (id_factura, clave_unidad, clave_producto, descripcion, cantidad, precio_u, incluye_impuestos) VALUES ('{datos[0]}', 'ACT', '84111506', 'Pago', '1', '0', '01')";
             }
 
             // Crea registro en tabla complemento de pago
             if (opc == 3)
             {
-                crea = $"INSERT INTO Facturas_complemento_pago (id_factura, id_factura_principal, uuid, moneda, metodo_pago, num_parcialidad, saldo_anterior, importe_pagado, saldo_insoluto) VALUES ('{datos[0]}', '{datos[1]}', '{datos[6]}', 'MXN', 'PPD', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}')";
+                //crea = $"INSERT INTO Facturas_complemento_pago (id_factura, id_factura_principal, uuid, moneda, metodo_pago, num_parcialidad, saldo_anterior, importe_pagado, saldo_insoluto) VALUES ('{datos[0]}', '{datos[1]}', '{datos[6]}', 'MXN', 'PPD', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}')";
+                crea = $"INSERT INTO Facturas_complemento_pago (id_doc_relac, id_factura_principal, uuid, moneda, tipo_cambio, num_parcialidad, saldo_anterior, importe_pagado, saldo_insoluto)";
+                crea += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}', '{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}')";
             }
 
             // Cambia variable a 1 para indicar que la factura principal tienen complementos de pago
@@ -1439,6 +1441,13 @@ namespace PuntoDeVentaV2
             if (opc == 6)
             {
                 crea = $"UPDATE Facturas SET monto_cpago='{datos[1]}' WHERE ID='{datos[0]}'";
+            }
+
+            // Agrega registro principal del nodo pago del complemento
+            if(opc == 7)
+            {
+                crea = $"INSERT INTO Facturas_complemento_pago (id_factura, fecha, hora, moneda, tipo_cambio, forma_pago, cta_ordenante, rfc_ordenante, banco, cta_beneficiario, rfc_beneficiario)";
+                crea += $"VALUES ('{datos[0]}', '{datos[1]}', '{datos[2]}', '{datos[3]}','{datos[4]}', '{datos[5]}', '{datos[6]}', '{datos[7]}', '{datos[8]}', '{datos[9]}', '{datos[10]}')";
             }
 
 

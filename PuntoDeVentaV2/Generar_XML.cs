@@ -593,8 +593,15 @@ namespace PuntoDeVentaV2
                                         else
                                         {
                                             string porcentaje = r_concepto_impuesto_td["tasa_cuota"].ToString();
-                                            //porcentaje = porcentaje.Substring(0, -2);  
-                                            tasacuota = Convert.ToDecimal(porcentaje);
+
+                                            var exi_porc= porcentaje.IndexOf('%');
+
+                                            if(exi_porc >= 0)
+                                            {
+                                                porcentaje = porcentaje.Substring(0, (3 - 1));
+                                            }
+                                                                                        
+                                            tasacuota = Convert.ToDecimal(porcentaje);                                            
 
                                             if (tasacuota > 1)
                                             {

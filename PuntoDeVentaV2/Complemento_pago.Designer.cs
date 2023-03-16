@@ -33,6 +33,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.datetime_fecha_pago = new System.Windows.Forms.DateTimePicker();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -57,8 +58,7 @@
             this.txt_cuenta_beneficiario = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.txt_rfc_beneficiario = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
+            this.txt_moneda_pago = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -116,6 +116,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(902, 30);
             this.panel1.TabIndex = 5;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(817, 6);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(67, 16);
+            this.label17.TabIndex = 13;
+            this.label17.Text = "Impuestos";
             // 
             // label16
             // 
@@ -353,30 +362,21 @@
             this.txt_rfc_beneficiario.TabIndex = 23;
             this.txt_rfc_beneficiario.Text = "(Opcional) RFC.";
             // 
-            // textBox1
+            // txt_moneda_pago
             // 
-            this.textBox1.Location = new System.Drawing.Point(507, 54);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(123, 22);
-            this.textBox1.TabIndex = 24;
-            this.textBox1.Click += new System.EventHandler(this.abrir_vnt_moneda);
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(817, 6);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(67, 16);
-            this.label17.TabIndex = 13;
-            this.label17.Text = "Impuestos";
+            this.txt_moneda_pago.Location = new System.Drawing.Point(507, 54);
+            this.txt_moneda_pago.Name = "txt_moneda_pago";
+            this.txt_moneda_pago.ReadOnly = true;
+            this.txt_moneda_pago.Size = new System.Drawing.Size(123, 22);
+            this.txt_moneda_pago.TabIndex = 24;
+            this.txt_moneda_pago.Click += new System.EventHandler(this.abrir_vnt_moneda);
             // 
             // Complemento_pago
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(926, 456);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txt_moneda_pago);
             this.Controls.Add(this.txt_rfc_beneficiario);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.txt_cuenta_beneficiario);
@@ -448,7 +448,7 @@
         private System.Windows.Forms.TextBox txt_rfc_beneficiario;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txt_moneda_pago;
         private System.Windows.Forms.Label label17;
     }
 }
