@@ -9618,6 +9618,7 @@ namespace PuntoDeVentaV2
 
         private void btnEliminarAnticipos_Click(object sender, EventArgs e)
         {
+            IDAnticipo = 0;
             listaAnticipos = string.Empty;
             importeAnticipo = 0f;
             cAnticipo.Text = "0.00";
