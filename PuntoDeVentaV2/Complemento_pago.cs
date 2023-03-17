@@ -212,7 +212,7 @@ namespace PuntoDeVentaV2
                         cmb_bx_c_inc_impuestos.SelectedValueChanged += new EventHandler(sel_inc_impuestos);
 
                         Button btn_agregar_impuestos = new Button();
-                        btn_agregar_impuestos.Name = "btn_agregar_impuestos-" + nfila;
+                        btn_agregar_impuestos.Name = "btn_agregar_6q2cd25  impuestos-" + nfila;
                         btn_agregar_impuestos.Location = new Point(815, location_y);
                         btn_agregar_impuestos.Size = new Size(70, 28);
                         btn_agregar_impuestos.Text = "Agregar";

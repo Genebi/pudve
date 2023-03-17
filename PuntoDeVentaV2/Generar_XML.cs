@@ -871,7 +871,7 @@ namespace PuntoDeVentaV2
 
                 if (tam_list_imp_t > 0)
                 {
-                    if (indice_bs >= 0) // Existe el impuesto exento
+                   /* if (indice_bs >= 0) // Existe el impuesto exento
                     {
                         if (tam_list_imp_t > 1)
                         {
@@ -883,9 +883,9 @@ namespace PuntoDeVentaV2
                         }
                     }
                     else
-                    {
+                    {*/
                         agregar_nodo_impuestos = 1;
-                    }
+                   // }
                 }
                 else
                 {
@@ -919,20 +919,22 @@ namespace PuntoDeVentaV2
                             string t_factor = dato_it[1];
                             decimal t_cuota = Convert.ToDecimal(dato_it[2]);
 
+
+                            ComprobanteImpuestosTraslado impuestos_traslado = new ComprobanteImpuestosTraslado();
+
+                            impuestos_traslado.Base = dos_decimales(Convert.ToDecimal(list_porprod_impuestos_trasladados[c_impt + 2]));
+                            impuestos_traslado.Impuesto = dato_it[0];
+                            impuestos_traslado.TipoFactor = t_factor;
+
                             if (t_factor != "Exento")
                             {
-                                ComprobanteImpuestosTraslado impuestos_traslado = new ComprobanteImpuestosTraslado();
-
-                                impuestos_traslado.Base= dos_decimales(Convert.ToDecimal(list_porprod_impuestos_trasladados[c_impt + 2]));
-                                impuestos_traslado.Impuesto = dato_it[0];
-                                impuestos_traslado.TipoFactor = t_factor;
                                 impuestos_traslado.TasaOCuota = seis_decimales(t_cuota);
                                 impuestos_traslado.Importe = dos_decimales(Convert.ToDecimal(list_porprod_impuestos_trasladados[c_impt + 1]));
-
-                                list_impuestos_traslado.Add(impuestos_traslado);
-
-                                suma_impuesto_traslado += seis_decimales(Convert.ToDecimal(list_porprod_impuestos_trasladados[c_impt + 1]));
                             }
+
+                            list_impuestos_traslado.Add(impuestos_traslado);
+
+                            suma_impuesto_traslado += seis_decimales(Convert.ToDecimal(list_porprod_impuestos_trasladados[c_impt + 1]));
 
                             c_impt += 3;
                         }
